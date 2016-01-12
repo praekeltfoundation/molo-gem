@@ -3,7 +3,7 @@ from gem.settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'ndohyep_test.db',
+        'NAME': 'gem_test.db',
     }
 }
 
