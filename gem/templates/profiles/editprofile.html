@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="profile-style clearfix">
+	<form method="post" id="frmProfileEdit" action="" class="profile">
+	{% csrf_token %}
+	  {% trans "Edit your Profile" %}
+	  <table border="0">
+	            {{ form.as_table }}
+	  </table>
+	  <input type="submit" value='{% trans "Update profile" %}' class="btn btn-wide">
+	</form>
+</div>
+
+{% endblock %}
