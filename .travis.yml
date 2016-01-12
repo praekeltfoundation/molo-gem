@@ -14,7 +14,7 @@ install:
   - pip install -e . --cache-dir $HOME/.pip-cache/
 script:
   - flake8 gem
-  - py.test --ds=project.settings --verbose --cov gem gem
+  - py.test --ds=gem.settings --verbose --cov gem gem
 after_success:
   - coveralls
 deploy:
