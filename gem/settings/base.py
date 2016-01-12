@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'molo.core',
     'gem',
     'molo.profiles',
+    'mptt',
     'django_comments',
     'django.contrib.sites',
     'molo.commenting',
@@ -74,6 +75,8 @@ INSTALLED_APPS = (
 )
 
 COMMENTS_APP = 'molo.commenting'
+COMMENTS_FLAG_THRESHHOLD = 3
+COMMENTS_HIDE_REMOVED = False
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = (
