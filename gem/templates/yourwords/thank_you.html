@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
+
+{% block content %}
+
+<div class="title {{competition.thank_you_page.get_parent_page.get_effective_extra_style_hints}}">
+  <div class="icon">
+    {% if competition.thank_you_page.get_parent_page.get_effective_image %}
+      {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 as tmp_photo %}
+      <img src="{{ tmp_photo.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}"/>
+    {% endif %}
+  </div>
+  </div>
+
+<div class="block {{competition.thank_you_page.get_parent_page.get_effective_extra_style_hints}}">
+    {% if competition.thank_you_page %}
+      <h3>{{competition.thank_you_page.title}}</h3>
+      {% if competition.thank_you_page.subtitle %}
+        <p>{{competition.thank_you_page.subtitle}}</p>
+      {% else %}
+        <p>{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
+      {% endif %}
+    {% else %}
+    <h3>{% trans 'Thank you!' %}</h3>
+    <p>{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
+    {% endif %}
+
+  <a href="{{request.site.root_page.url}}" class="button inverted">{% trans "HOME" %}</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<p><b>{% trans "Thank you for joining" %}</b><br/></p>
+
+<div class="form-wrap">
+    <form method="post" action="{% url 'molo.profiles:registration_done' %}">
+        <label class="label-wide">{% trans "Date of Birth:" %}
+          {{ form.date_of_birth }}
+        <input type="submit" value='{% trans "Update" %}' />
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="profile-style clearfix">
+  <h4>{{ username }}</h4>
+  <label class="label-wide">{% trans "Display Name:" %}
+    {{ alias }}
+  </label>
+  <label class="label-wide">{% trans "Date of Birth:" %}
+    {{ date_of_birth | date:"M d, Y" }}
+  </label>
+  <p>
+    <a href="{% url 'molo.profiles:edit_my_profile' %}" class="btn btn-wide"><input type="button" value='{% trans "Edit My Profile" %}' class="btn btn-wide" /></a>
+  </p>
+  <p>
+    <a href="{% url 'molo.profiles:profile_password_change' %}" class="btn btn-wide"><input type="button" value='{% trans "Change My Password" %}' class="btn btn-wide" /></a>
+  </p>
+</div>
+
+{% endblock %}

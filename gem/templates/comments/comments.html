@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
+
+{% block content %}
+
+<div id="comments-list">
+      {% for node in comments %}
+        {% include "comments/comment.html" %}
+      {% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if comments.has_previous %}
+            <a href="?p={{ comments.previous_page_number }}">&larr;</a>
+        {% endif %}
+        <span class="current">
+            Page {{ comments.number }} of {{ comments.paginator.num_pages }}
+        </span>
+        {% if comments.has_next %}
+            <a href="?p={{ comments.next_page_number }}">&rarr;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
