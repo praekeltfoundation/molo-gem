@@ -64,15 +64,23 @@
         {% wagtailuserbar %}
 
         {% if languages %}
-        <ul>
+        <ul class="language-container">
             {% for language in languages %}
             <li><a href="{% url 'locale_set' language.code %}">{{language.title}}</a></li>
             {% endfor %}
+            <div class="clear-fix"></div>
         </ul>
         {% endif %}
 
 
-        {% breadcrumbs %}
+        <div id="gem-header">
+            <div id="logo"></div>
+            <div id="menu">
+                <a href="#feature-menu">Menu</a>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+        <!-- /feature-menu -->
 
         {% block content %}{% endblock %}
 
@@ -80,6 +88,20 @@
         {% endblock %}
 
         {% block footer %}
+        <div id="feature-menu">
+            <ul>
+              <li><a href="/">Home</a></li>
+              {% for section in language_page.sections %}
+                <li class="{{section.get_effective_extra_style_hints}}">
+                  <a href="{% pageurl section %}">{{section.title}}</a>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
+        <a name="feature-menu"></a>
+        <!-- /feature-menu -->
+
+
         {% if language_page.footers %}
           <ul>
           {% for page in language_page.footers %}
