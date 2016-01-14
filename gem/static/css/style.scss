@@ -24,7 +24,7 @@ a {
 body,
 input,
 textarea {
-  font-family: "Exo 2", sans-serif;
+  font-family: $font-family-sans-serif;
   color: $anotherShadeOfGrey;
 }
 
@@ -68,4 +68,83 @@ textarea {
 p {
   margin: 0;
   padding-bottom: 1em;
+}
+
+
+// GEM feature styling
+
+#gem-header {
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+  #logo {
+    float: left;
+    background-image: url('/static/img/GE-Logo.png');
+    width: 155px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  #menu {
+    float: right;
+    padding: 7px 0;
+    a {
+      font-family: $font-family-sans-serif;
+      font-size: 12pt;
+      color: #999999;
+    }
+  }
+}
+
+.clear-fix {
+  clear: both;
+}
+
+ul.language-container {
+  background: black;
+  padding: 5px 10px;
+  margin: 0;
+  li {
+    list-style: none;
+    float: left;
+    margin-right: 8px;
+    a {
+      color: white;
+      font-size: 10pt;
+    }
+  }
+}
+
+h3.sub-title {
+  padding: 0.1em;
+  a {
+    font-family: $font-family-sans-serif;
+    font-size: 10pt;
+    color: #33CCCC;
+    font-weight: bold;
+    :visited {
+      color: #33CCCC;
+    }
+  }
+}
+
+p.featured-title {
+  font-family: $font-family-sans-serif-bold;
+  font-size: 16pt;
+  color: #141414;
+  padding: 0 0.7em;
+}
+
+.read-more a {
+  color: #FF0099;
+  font-family: $font-family-sans-serif;
+  font-size: 10pt;
+  padding: 8px 0;
+  text-decoration: underline;
+}
+
+.list-header span {
+  font-family: $font-family-sans-serif;
+  font-size: 13pt;
+  color: #141414;
+  font-weight: normal;
 }
