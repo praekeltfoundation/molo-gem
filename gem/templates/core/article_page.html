@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags static i18n %}
 
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -8,11 +9,13 @@
 
 {% block content %}
 <div class="articles nav {{self.get_parent_section.get_effective_extra_style_hints}}">
-  <h3 class="article-title">{{self.title}}</h3>
-  <p>{{self.subtitle}}</p>
   {% if self.image %}
-  <div class="banner">{% image self.image width-240 %}</div>
+    <div class="banner">{% image self.image width-240 %}</div>
   {% endif %}
+
+  <h3 class="article-sub-title"><a href="{% pageurl page %}">{{self.subtitle}}</a></h3>
+  <p class="featured-title">{{self.title}}</p>
+
 
 <article>
   {% for block in self.body %}
@@ -34,6 +37,39 @@
       {% endif %}
       {% endif %}
   {% endfor %}
+    {% if self.is_commenting_enabled %}
+<div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
+    {% if self.allow_commenting %}
+      {% get_comment_count for self as comment_count %}
+      {% if comment_count > 0 %}
+        <h5><div class="comments-count align-left">{% trans "Comment" %}<a href="#" class="pull-right">{{comment_count}} <span>{% trans "comment" %}{{comment_count|pluralize}}</span></a></div></h5>
+      {% endif %}
+      <div class="post-comment {{self.get_parent_section.get_effective_extra_style_hints}}">
+      {% if request.user.is_authenticated %}
+        {% render_comment_form for self %}
+      {% else %}
+        <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
+        <hr>
+      {% endif %}
+    {% else %}
+      <p>{% trans "Commenting on this article is currently disabled" %}</p>
+    {% endif %}
+		</div>
+
+</div>
+<div id="comments-list">
+  {% get_comment_count for self as comment_count %}
+    {% get_molo_comments for self as comment_list %}
+      {% for node in comment_list %}
+        {% include "comments/comment.html" %}
+      {% endfor %}
+  {% if comment_count > 5 %}
+    <div class="pagination">
+      <a href="{% url 'more-comments' self.pk %}">{% trans "view more comments" %}</a>
+    </div>
+  {% endif %}
+</div>
+{% endif %}
 </article>
 </div>
 {% endblock %}
