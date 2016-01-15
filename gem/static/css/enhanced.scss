@@ -52,21 +52,37 @@
       color: #33CCCC;
       float: right;
     }
+
     .list-header {
       border-bottom: 1px solid #ECECEC;
       background-color: #F5F5F5;
       clear: both;
     }
     .list-block {
-      //TODO: Category articles floating next to each other separated by borders
+      ////TODO: Category articles floating next to each other separated by borders
       //float: left;
       //width: 50%;
       li {
         border-bottom: 1px solid #ECECEC;
+        img {
+          width: 92px;
+          float: right;
+        }
       }
     }
     .see-more-container {
       display: none;
+    }
+  }
+
+  .section-list {
+    border-bottom: 1px solid #ECECEC;
+    .list-block:nth-child(n+3) {
+      width: 50%;
+      float: left;
+      li {
+        border: none;
+      }
     }
   }
 }
