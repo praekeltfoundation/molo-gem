@@ -3,7 +3,7 @@
 
 {% if sections %}
 {% for section in sections %}
-<div class="articles nav {{section.get_effective_extra_style_hints}}">
+<div class="articles nav home-section">
   <h2 class="list-header">
     {% if section.image %}
       <a href="{% pageurl section %}">
@@ -12,23 +12,25 @@
       </a>
     {% endif %}
     <span>{{section.title}}</span>
+    <a href="{% pageurl section %}" class="enhanced">See More</a>
   </h2>
   {% for page in section.featured_articles_in_homepage %}
   <ul class="list-block">
-    <li>
-      {% if page.image %}
-      <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
-      {% endif %}
-      <h3 class="sub-title"><a href="{% pageurl page %}">{{page.subtitle}}</a></h3>
-      <p class="featured-title">{{page.title}}</p>
-              {{ page.body|truncatewords:10 }}
-      <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
-    </li>
+      <li>
+        {% if page.image %}
+        <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
+        {% endif %}
+        <h3 class="sub-title"><a href="{% pageurl page %}">{{page.subtitle}}</a></h3>
+        <p class="featured-title">{{page.title}}</p>
+                {{ page.body|truncatewords:10 }}
+        <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
+      </li>
   </ul>
   {% endfor %}
   <div class="see-more-container">
     <a href="{% pageurl section %}" class="see-more">See all {{section.title}}</a>
   </div>
+  <div class="clear-fix"></div>
 </div>
 {% endfor%}
 {% endif %}

@@ -71,11 +71,18 @@ p {
 }
 
 
-// GEM styling
+// GEM featured styling
+
+.enhanced {
+  display: none;
+}
+
+.list-block > li {
+  border-color: #ECECEC;
+}
 
 #gem-header {
-  border-bottom: 1px solid lightgray;
-  padding: 10px;
+  border-bottom: 1px solid #ECECEC;
   #logo {
     float: left;
     background-image: url('/static/img/GE-Logo.png');
@@ -83,14 +90,25 @@ p {
     height: 35px;
     background-repeat: no-repeat;
     background-size: contain;
+    margin: 8px 0 0 10px;
   }
   #menu {
     float: right;
-    padding: 7px 0;
-    a {
-      font-family: $font-family-sans-serif;
-      font-size: 12pt;
-      color: #999999;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        float: left;
+        list-style: none;
+        border-left: 1px solid #ECECEC;
+        height: 46px;
+        padding: 13px;
+        a {
+          font-family: $font-family-sans-serif;
+          font-size: 12pt;
+          color: #999999;
+        }
+      }
     }
   }
 }
@@ -266,7 +284,7 @@ p.featured-title {
     margin: 0 auto;
   }
   hr {
-    border-top-color: #A3A3A3;
+    border-top-color: #3d3d3d;
     width: 95%;
     display: block;
     margin: 5px auto 10px;;

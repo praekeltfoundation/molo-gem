@@ -11,6 +11,64 @@
   body {
     background-color: #fff;
   }
+
+  .enhanced {
+    display: block;
+  }
+
+  .black {
+    h6 {
+      a {
+        position: relative;
+      }
+      a:after {
+        position: absolute;
+        content: '';
+        border-bottom: 1px solid #3d3d3d;
+        top: 0;
+        right: 0;
+        bottom: -8px;
+        left:0;
+        margin: 0 auto;
+        width: 80%;
+      }
+    }
+    a.button {
+      font-weight: bold;
+      background: none;
+      border: 2px solid #FF0099;
+      padding: 10px;
+      color: #FF0099;
+      display: table;
+      width: 80%;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+
+  .home-section {
+    .enhanced {
+      font-size: 10pt;
+      color: #33CCCC;
+      float: right;
+    }
+    .list-header {
+      border-bottom: 1px solid #ECECEC;
+      background-color: #F5F5F5;
+      clear: both;
+    }
+    .list-block {
+      //TODO: Category articles floating next to each other separated by borders
+      //float: left;
+      //width: 50%;
+      li {
+        border-bottom: 1px solid #ECECEC;
+      }
+    }
+    .see-more-container {
+      display: none;
+    }
+  }
 }
 
 @import "mixins";
