@@ -2,12 +2,11 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 
 {% block content %}
-
 <div class="title {{competition.get_effective_extra_style_hints}} {% if self.image %}feature-image{% endif %}">
   <div class="icon">
-    {% if competition.thank_you_page.get_parent_page.get_effective_image %}
-      {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 as tmp_photo %}
-      <img src="{{ tmp_photo.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}"/>
+    {% if competition.image %}
+      {% image competition.image width-30 as tmp_photo %}
+      <img class="share-image" src="{{ tmp_photo.url }}" alt="{{ self.image.title }}"/>
     {% endif %}
   </div>
   <h6><a href=""> {% trans "Share your story" %}</a></h6>
@@ -53,14 +52,14 @@
           <p class="alert-error">* {{form.story_name.errors|join:' '}}</p>
         {% endif %}
         <br>
-        <label>{% trans "Title of your story (max 60 characters)" %}</label>
-        {{ form.story_name }}
+        <label>{% trans "Title of your story" %}</label><br/>
+        <p>{{ form.story_name }}</p>
 
         {% if form.story_text.errors %}
           <p class="alert-error" >* {{form.story_text.errors|join:' '}}</p>
         {% endif %}
         <label>{% trans "Tell us your story here" %}</label>
-        {{ form.story_text }}
+        <p>{{ form.story_text }}</p>
 
         <div>
           {% if form.terms_or_conditions_approved.errors %}
@@ -78,6 +77,5 @@
         <input type="submit" value="Submit Your Story" />
     </form>
   </div>
-    <a href="{{request.site.root_page.url}}" class="button inverted">{% trans "Home" %}</a>
 </div>
 {% endblock %}
