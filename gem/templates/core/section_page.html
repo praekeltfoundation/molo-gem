@@ -26,20 +26,23 @@
         </li>
       </ul>
       {% endfor %}
-      {% for page in self.articles %}
-      <ul class="list-block">
-        <li>
-          {% if page.image %}
+    {% for page in self.articles %}
+    {% cycle 'col' '' as col silent %}
+    {% if col %}<ul class="list-block">{% endif %}
+      <li class="col">
+        {% if page.image %}
           <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
-          {% endif %}
+        {% endif %}
           <h3 class="sub-title"><a href="{% pageurl page %}">{{page.subtitle}}</a></h3>
           <p class="featured-title">{{page.title}}</p>
-                  {{ page.body|truncatewords:10 }}
+          {{ page.body|truncatewords:10 }}
           <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
-        </li>
-      </ul>
-      {% endfor %}
-      <div class="clear-fix"></div>
+      </li>
+    {% if not col %}</ul>{% endif %}
+    {% endfor %}
+
     </div>
+         <div class="clear-fix"></div>
+
 {% endblock %}
 
