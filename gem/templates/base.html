@@ -13,6 +13,7 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
         {% compress css %}
 
@@ -83,32 +84,49 @@
         <!-- /feature-menu -->
 
         {% block content %}{% endblock %}
+        <a class="back-to-top" href="#gem-header">back to top</a>
 
         {% block extra_js %}
         {% endblock %}
 
         {% block footer %}
-        <div id="feature-menu">
-            <ul>
-              <li><a href="/">Home</a></li>
+          {% load wagtailcore_tags wagtailimages_tags %}
+          <div id="gem-footer">
+            <span class="title">Menu</span>
+            <ul class="sections">
               {% for section in language_page.sections %}
                 <li class="{{section.get_effective_extra_style_hints}}">
+                  {%image section.banner %}
+                  {% if section.image %}
+                  {% image section.image width-30 as tmp_photo %}
+                    <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
+                  {% endif %}
                   <a href="{% pageurl section %}">{{section.title}}</a>
                 </li>
               {% endfor %}
             </ul>
-        </div>
-        <a name="feature-menu"></a>
-        <!-- /feature-menu -->
+            {% if language_page.footers %}
+            {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
+              <ul class="menu">
+                <li><a href="/">{% trans "Home" %}</a></li>
+                {% for page in language_page.footers %}
+                  <li><a href="{% pageurl page %}">{{page.title}}</a></li>
+                {% endfor %}
+                {% if not user.is_authenticated %}
+                  <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
+                {% else %}
+                  <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            <a name="feature-menu"></a>
+            <div id="footer-bar">
+                <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
+            </div>
 
+          </div>
+          <!-- /feature-menu -->
 
-        {% if language_page.footers %}
-          <ul>
-          {% for page in language_page.footers %}
-          <li><a href="{% pageurl page %}">{{page.title}}</a></li>
-          {% endfor %}
-          </ul>
-        {% endif %}
         {% endblock %}
     </body>
 </html>
