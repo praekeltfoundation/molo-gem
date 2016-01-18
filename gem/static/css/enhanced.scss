@@ -97,10 +97,32 @@
   //GEM Enhanced styling
 
   .articles-list-view {
-    ul.list-block {
-      li {
+    .enhanced {
+      font-size: 16pt;
+      color: #33CCCC;
+      float: right;
+      font-weight: normal;
+      padding-top: 3px;
+    }
 
+    .list-header {
+      padding: 1em 0;
+      border-bottom: 1px solid #ECECEC;
+      background-color: #F5F5F5;
+      clear: both;
+    }
+    .list-block {
+      li {
+        border-bottom: 1px solid #ECECEC;
+        img {
+          width: 92px;
+          float: right;
+          margin: 0 0 10px 10px;
+        }
       }
+    }
+    .see-more-container {
+      display: none;
     }
   }
 
@@ -151,6 +173,11 @@
       font-size: 16pt;
       font-family: "TisaOT", ArialMT, Arial, sans-serif;
     }
+    .your-words-body {
+       input[type=submit] {
+         font-size: 16pt;
+       }
+    }
   }
 
   .home-section {
@@ -169,14 +196,12 @@
       clear: both;
     }
     .list-block {
-      ////TODO: Category articles floating next to each other separated by borders
-      //float: left;
-      //width: 50%;
       li {
         border-bottom: 1px solid #ECECEC;
         img {
           width: 92px;
           float: right;
+          margin: 0 0 10px 10px;
         }
       }
     }
@@ -204,6 +229,37 @@
       border-left: 1px solid #ECECEC;
     }
   }
+
+  #search-form {
+    form {
+      input[type=text] {
+        font-family: "TisaOT", ArialMT, Arial, sans-serif;
+        font-size: 14pt;
+        font-weight: normal;
+        border: 1px solid #ECECEC;
+        float: left;
+        width: 60%;
+        margin: 0;
+      }
+      input[type=submit] {
+        float: left;
+        padding: 13px;
+      }
+      label {
+        display: none;
+      }
+    }
+
+  }
+
+  .title.search {
+    padding: 1em 1em 0 1em;
+  }
+
+  .search-copy {
+    margin-bottom: 1em;
+  }
+
 }
 
 @import "mixins";

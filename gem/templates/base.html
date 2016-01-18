@@ -127,12 +127,9 @@
                 {% endif %}
               </ul>
             {% endif %}
-            <div class="search-form">
-              <form action="{% url 'search' %}">
-                <input placeholder="{% trans "Looking for something?" %}" name="q" type="text" value="{{search_query}}">
-                <input type="submit" value="{% trans "Search"%}">
-              </form>
-            </div>
+            {% block search %}
+              {% include "search/search_block.html" %}
+            {% endblock %}
             <a name="feature-menu"></a>
             <div id="footer-bar">
                 <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>

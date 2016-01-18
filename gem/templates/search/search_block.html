@@ -2,7 +2,9 @@
 
 <div id="search-form">
   <form action="{% url 'search' %}">
-    <input placeholder="{% trans "Looking for something?" %}" name="q" type="text" value="{{search_query}}">
-    <input type="submit" value="{% trans "SEARCH"%}">
+    <label>{% trans "looking for something?" %}</label>
+    <input placeholder="Search" name="q" type="text" value="{{search_query}}">
+    <input type="submit" value="{% trans "SUBMIT"%}">
+    <div class="clear-fix"></div>
   </form>
 </div>

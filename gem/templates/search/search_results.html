@@ -5,35 +5,14 @@
 {% block content %}
 {% if search_results %}
   <div class="title search">
-    <h3>{{search_query}}</h3>
+    <h3>Keyword: {{search_query}}</h3>
   </div>
   {% for page in search_results %}
     {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
-    {% if ancestor.sectionpage.image %}
-      <a href="{% pageurl page %}" class="search-result {{page.get_parent_section.get_effective_extra_style_hints}}">
-        <div class="icon">
-          {% image ancestor.sectionpage.image width-98 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
+        <div class="copy search-copy">
+          <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}} - {{parent_section.title}}</a></h3>
+          <p class="sub-title">{{page.subtitle}}</p>
         </div>
-        <div class="copy">
-          <h6>{{ancestor.title}}</h6>
-          <h3>{{page.title}}</h3>
-          <p>{{page.subtitle}}</p>
-        </div>
-      </a>
-    {% else %}
-      <a href="{% pageurl page %}" class="search-result {{page.get_parent_section.get_effective_extra_style_hints}}">
-        <div class="icon">
-          {% image parent_section.sectionpage.image width-98 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
-        </div>
-        <div class="copy">
-          <h6>{{parent_section.title}}</h6>
-          <h3>{{page.title}}</h3>
-          <p>{{page.subtitle}}</p>
-        </div>
-      </a>
-    {% endif %}
     {% endwith %}
   {% endfor %}
 
