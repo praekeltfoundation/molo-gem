@@ -1,11 +1,11 @@
 {% load i18n molo_commenting_tags %}
-<hr>
 <div class="comment {{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
   <p class="by"><strong>{{node.user_name}}</strong> <span class="date">{{node.submit_date|date:"j F Y"}}</span></p>
   {% if node.is_removed %}
     <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
   {% else %}
     <p>{{node.comment}}</p>
-    <p><a href="{% url 'molo-comments-report' node.pk %}" class="report">{% trans "Report" %}</a></p>
+    <p><a href="{% url 'molo-comments-report' node.pk %}?next={% url 'report_response' node.pk %}" class="report">{% trans "Report" %}</a></p>
   {% endif %}
 </div>
+<hr>

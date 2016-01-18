@@ -28,3 +28,10 @@ def search(request, results_per_page=10):
         'search_results': search_results,
         'results': results,
     })
+
+def report_response(request, comment_pk):
+    comment = MoloComment.objects.get(pk=comment_pk)
+
+    return render(request, 'comments/report_response.html', {
+        'article': comment.content_object,
+    })

@@ -1,0 +1,19 @@
+{% extends "core/article_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
+
+{% block content %}
+
+<div class="title {{article.get_parent_section.get_effective_extra_style_hints}}">
+
+</div>
+
+  <h4 class="left">{% trans "Thanks!" %}</h4>
+
+<div class="block {{article.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="article-copy">
+    <p><strong>{% trans "This comment has been reported." %}</strong></p>
+    <p>{% trans "It will be reviewed by the Tune Me team and may be removed if it breaks our Platform rules" %}</p>
+  </div>
+  <a href="{% pageurl article %}" class="button">{% trans "Back to article" %}</a>
+</div>
+{% endblock %}
