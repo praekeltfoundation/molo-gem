@@ -91,7 +91,7 @@
         <!-- /feature-menu -->
 
         {% block content %}{% endblock %}
-        <a class="back-to-top" href="#gem-header">back to top</a>
+        <a class="back-to-top featured" href="#gem-header">back to top</a>
 
         {% block extra_js %}
         {% endblock %}
@@ -99,7 +99,7 @@
         {% block footer %}
           {% load wagtailcore_tags wagtailimages_tags %}
           <div id="gem-footer">
-            <span class="title">Menu</span>
+            <span class="title">{% trans "MENU" %}</span>
             <ul class="sections">
               {% for section in language_page.sections %}
                 <li class="{{section.get_effective_extra_style_hints}}">
@@ -127,19 +127,18 @@
                 {% endif %}
               </ul>
             {% endif %}
-{#            <div class="search-form">#}
-{#              <form action="{% url 'search' %}">#}
-{#                <input placeholder="{% trans "Looking for something?" %}" name="q" type="text" value="{{search_query}}">#}
-{#                <input type="submit" value="{% trans "Search"%}">#}
-{#              </form>#}
-{#            </div>#}
+            <div class="search-form">
+              <form action="{% url 'search' %}">
+                <input placeholder="{% trans "Looking for something?" %}" name="q" type="text" value="{{search_query}}">
+                <input type="submit" value="{% trans "Search"%}">
+              </form>
+            </div>
             <a name="feature-menu"></a>
             <div id="footer-bar">
                 <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
             </div>
 
           </div>
-          <!-- /feature-menu -->
 
         {% endblock %}
     </body>
