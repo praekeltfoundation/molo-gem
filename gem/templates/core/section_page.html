@@ -7,7 +7,7 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="articles nav section-list">
+    <div class="articles articles-list-view nav">
 
       <h2 class="list-header">
         {% if page.image %}
@@ -27,9 +27,8 @@
       </ul>
       {% endfor %}
     {% for page in self.articles %}
-    {% cycle 'col' '' as col silent %}
-    {% if col %}<ul class="list-block">{% endif %}
-      <li class="col">
+    <ul class="list-block">
+      <li>
         {% if page.image %}
           <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
         {% endif %}
@@ -37,7 +36,7 @@
           <p class="sub-title">{{page.subtitle}}</p>
           <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
       </li>
-    {% if not col %}</ul>{% endif %}
+    </ul>
     {% endfor %}
 
     </div>
