@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="title {{self.get_effective_extra_style_hints}}">
+<div class="title your-words {{self.get_effective_extra_style_hints}}">
   <div class="icon">
     {% if self.image %}
       {% image self.image width-30 as tmp_photo %}
@@ -13,7 +13,7 @@
 
   <h6><a href="{% url 'molo.yourwords:competition_entry' self.slug %}"> {% trans "Share your story" %}</a></h6>
 </div>
-<div class="block {{self.get_effective_extra_style_hints}}">
+<div class="block your-words {{self.get_effective_extra_style_hints}}">
   <h3>{{self.title}}</h3>
   <p>{{self.description}}</p>
   {% if request.user.is_authenticated %}
