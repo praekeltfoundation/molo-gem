@@ -1,7 +1,9 @@
 {% load comments i18n wagtailcore_tags wagtailimages_tags %}
 
 
-<form action="{% url 'molo-comments-post' %}#comments-list" method="post">
+<h3 class="comment-header">Got something to say?</h3>
+
+<form class="comment-form" action="{% url 'molo-comments-post' %}#comments-list" method="post">
     {% csrf_token %}
     {% if form.errors %}
       <h1>{% blocktrans count counter=form.errors|length %}Please correct the error below{% plural %}Please correct the
@@ -10,8 +12,8 @@
 
     {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
     <p>{{ form.comment }}</p>
-    <input type="submit" name="submit" value="Comment">
-    <input type="submit" name="submit_anonymously" value="Add anonymously">
+    <input class="comment-submit" type="submit" name="submit" value="Submit">
+    <input class="submit-anonymous" type="submit" name="submit_anonymously" value="Comment Anonymously">
     {{ form.object_pk }}
 
     {{ form.content_type }}
