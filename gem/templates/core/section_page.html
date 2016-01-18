@@ -33,9 +33,8 @@
         {% if page.image %}
           <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
         {% endif %}
-          <h3 class="sub-title"><a href="{% pageurl page %}">{{page.subtitle}}</a></h3>
-          <p class="featured-title">{{page.title}}</p>
-          {{ page.body|truncatewords:10 }}
+          <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
+          <p class="sub-title">{{page.subtitle}}</p>
           <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
       </li>
     {% if not col %}</ul>{% endif %}

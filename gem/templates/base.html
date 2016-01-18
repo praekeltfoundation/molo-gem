@@ -104,11 +104,13 @@
               {% for section in language_page.sections %}
                 <li class="{{section.get_effective_extra_style_hints}}">
                   {%image section.banner %}
-                  {% if section.image %}
-                  {% image section.image width-30 as tmp_photo %}
-                    <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
-                  {% endif %}
-                  <a href="{% pageurl section %}">{{section.title}}</a>
+                  <a href="{% pageurl section %}">
+                      {% if section.image %}
+                      {% image section.image width-60 as tmp_photo %}
+                        <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
+                      {% endif %}
+                      {{section.title}}
+                  </a>
                 </li>
               {% endfor %}
             </ul>
@@ -125,6 +127,12 @@
                 {% endif %}
               </ul>
             {% endif %}
+{#            <div class="search-form">#}
+{#              <form action="{% url 'search' %}">#}
+{#                <input placeholder="{% trans "Looking for something?" %}" name="q" type="text" value="{{search_query}}">#}
+{#                <input type="submit" value="{% trans "Search"%}">#}
+{#              </form>#}
+{#            </div>#}
             <a name="feature-menu"></a>
             <div id="footer-bar">
                 <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>

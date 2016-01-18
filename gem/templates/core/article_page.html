@@ -13,9 +13,10 @@
     <div class="banner">{% image self.image width-240 %}</div>
   {% endif %}
 
-  <h3 class="article-sub-title"><a href="{% pageurl page %}">{{self.subtitle}}</a></h3>
-  <p class="featured-title">{{self.title}}</p>
+  <h3 class="article-title">{{self.title}}</h3>
+  <p class="article-sub-title">{{ self.subtitle }}</p>
 
+  <hr class="article-hr"/>
 
 <article>
   {% for block in self.body %}
