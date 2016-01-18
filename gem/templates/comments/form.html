@@ -1,8 +1,6 @@
 {% load comments i18n wagtailcore_tags wagtailimages_tags %}
 
 
-<h3 class="comment-header">Got something to say?</h3>
-
 <form class="comment-form" action="{% url 'molo-comments-post' %}#comments-list" method="post">
     {% csrf_token %}
     {% if form.errors %}
