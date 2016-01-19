@@ -30,11 +30,13 @@
     <ul class="list-block">
       <li>
         {% if page.image %}
-          <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
+          <a class="listing-homepage-img" href="{% pageurl page %}">{% image page.image width-320 %}</a>
         {% endif %}
+          <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
           <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
           <p class="sub-title">{{page.subtitle}}</p>
           <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
+          <div class="clear-fix"></div>
       </li>
     </ul>
     {% endfor %}
