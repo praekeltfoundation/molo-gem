@@ -30,6 +30,7 @@ ADD docker/supervisord.conf /etc/supervisord.conf
 ADD docker/docker-start.sh /deploy/
 RUN chmod a+x /deploy/docker-start.sh
 
+ADD docker/settings.py /deploy/gem/settings/docker.py
 
 EXPOSE 80
 
