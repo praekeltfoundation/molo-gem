@@ -7,8 +7,8 @@ from .base import *
 
 # Disable debug mode
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
 
 SECRET_KEY = environ.get('SECRET_KEY') or 'please-change-me'
 PROJECT_ROOT = (

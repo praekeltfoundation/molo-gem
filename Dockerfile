@@ -25,6 +25,7 @@ RUN rm /etc/nginx/sites-enabled/default
 
 ADD docker/nginx.conf /etc/nginx/sites-enabled/molo.conf
 ADD docker/supervisor.conf /etc/supervisor/conf.d/molo.conf
+ADD docker/supervisord.conf /etc/supervisord.conf
 
 ADD docker/docker-start.sh /deploy/
 RUN chmod a+x /deploy/docker-start.sh
