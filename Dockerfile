@@ -17,6 +17,8 @@ ADD setup.py /deploy/
 ADD README.rst /deploy/
 ADD VERSION /deploy/
 
+RUN pip install -e .
+
 RUN mkdir -p /etc/supervisor/conf.d/
 RUN mkdir -p /var/log/supervisor
 RUN rm /etc/nginx/sites-enabled/default
@@ -27,7 +29,6 @@ ADD docker/supervisor.conf /etc/supervisor/conf.d/molo.conf
 ADD docker/docker-start.sh /deploy/
 RUN chmod a+x /deploy/docker-start.sh
 
-RUN pip install -e .
 
 EXPOSE 80
 
