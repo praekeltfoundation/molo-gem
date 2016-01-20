@@ -8,7 +8,9 @@
 {% block content %}
     {% homepages %}
     {% latest_listing_homepage %}
-    {% your_words_competition page=language_page %}
+    {% if language_page %}
+      {% your_words_competition page=language_page %}
+    {% endif %}
     {% section_listing_homepage %}
 {% endblock %}
 
