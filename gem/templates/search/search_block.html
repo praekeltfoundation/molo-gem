@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<div id="search-form">
+  <form action="{% url 'search' %}">
+    <label>{% trans "looking for something?" %}</label>
+    <input placeholder="Search" name="q" type="text" value="{{search_query}}">
+    <button type="submit"><span class="featured-only">{% trans "SUBMIT"%}</span><span class="enhanced-search"></span></button>
+    <div class="clear-fix"></div>
+  </form>
+</div>

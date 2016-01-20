@@ -1,5 +1,5 @@
 
-{% load wagtailcore_tags compress static wagtailuserbar core_tags %}
+{% load wagtailcore_tags wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -13,6 +13,7 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
         {% compress css %}
 
@@ -64,29 +65,78 @@
         {% wagtailuserbar %}
 
         {% if languages %}
-        <ul>
+        <ul class="language-container">
             {% for language in languages %}
             <li><a href="{% url 'locale_set' language.code %}">{{language.title}}</a></li>
             {% endfor %}
+            <div class="clear-fix"></div>
         </ul>
         {% endif %}
 
 
-        {% breadcrumbs %}
+        <div id="gem-header">
+            <div id="logo"></div>
+            <div id="menu">
+                <ul>
+                  <li><a href="#feature-menu">{% trans "Menu" %}</a></li>
+                  {% if not user.is_authenticated %}
+                    <li class="enhanced"><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
+                  {% else %}
+                    <li class="enhanced"><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+                  {% endif %}
+                </ul>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+        <!-- /feature-menu -->
 
         {% block content %}{% endblock %}
+        <a class="back-to-top featured" href="#gem-header">{% trans "back to top" %}</a>
 
         {% block extra_js %}
         {% endblock %}
 
         {% block footer %}
-        {% if language_page.footers %}
-          <ul>
-          {% for page in language_page.footers %}
-          <li><a href="{% pageurl page %}">{{page.title}}</a></li>
-          {% endfor %}
-          </ul>
-        {% endif %}
+          {% load wagtailcore_tags wagtailimages_tags %}
+          <div id="gem-footer">
+            <span class="title">{% trans "MENU" %}</span>
+            <ul class="sections">
+              {% for section in language_page.sections %}
+                <li class="{{section.get_effective_extra_style_hints}}">
+                  {%image section.banner %}
+                  <a href="{% pageurl section %}">
+                      {% if section.image %}
+                      {% image section.image width-60 as tmp_photo %}
+                        <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
+                      {% endif %}
+                      {{section.title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+            {% if language_page.footers %}
+              <ul class="menu">
+                <li><a href="/">{% trans "Home" %}</a></li>
+                {% for page in language_page.footers %}
+                  <li><a href="{% pageurl page %}">{{page.title}}</a></li>
+                {% endfor %}
+                {% if not user.is_authenticated %}
+                  <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
+                {% else %}
+                  <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            {% block search %}
+              {% include "search/search_block.html" %}
+            {% endblock %}
+            <a name="feature-menu"></a>
+            <div id="footer-bar">
+                <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
+            </div>
+
+          </div>
+
         {% endblock %}
     </body>
 </html>

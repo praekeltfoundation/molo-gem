@@ -1,13 +1,14 @@
 
 {% extends "base.html" %}
 
-{% load static core_tags %}
+{% load static core_tags competition_tag %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
     {% homepages %}
     {% latest_listing_homepage %}
+    {% your_words_competition page=language_page %}
     {% section_listing_homepage %}
 {% endblock %}
 

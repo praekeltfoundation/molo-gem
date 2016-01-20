@@ -2,21 +2,61 @@
 {% load i18n %}
 
 {% block content %}
-
-<div class="profile-style clearfix">
-  <h4>{{ username }}</h4>
-  <label class="label-wide">{% trans "Display Name:" %}
-    {{ alias }}
-  </label>
-  <label class="label-wide">{% trans "Date of Birth:" %}
-    {{ date_of_birth | date:"M d, Y" }}
-  </label>
-  <p>
-    <a href="{% url 'molo.profiles:edit_my_profile' %}" class="btn btn-wide"><input type="button" value='{% trans "Edit My Profile" %}' class="btn btn-wide" /></a>
-  </p>
-  <p>
-    <a href="{% url 'molo.profiles:profile_password_change' %}" class="btn btn-wide"><input type="button" value='{% trans "Change My Password" %}' class="btn btn-wide" /></a>
-  </p>
-</div>
-
+  <div class="title profile">
+    <h3>{% trans "Hello " %}{{ username }}</h3>
+  </div>
+  <div class="block">
+    <a href="{% url 'molo.profiles:auth_logout' %}" class="button inverted logout-link">{% trans "log out" %}</a>
+  </div>
+  <hr>
+  <div class="signin-form">
+    <div class="block">
+  		<form method="post" id="frmProfileEdit" action="{% url 'molo.profiles:edit_my_profile' %}">{% csrf_token %}
+        <h5>{% trans "Change your name" %}</h5>
+        <p>{% trans "When you type comments your name will appear as:" %}</p>
+        <h5>{{ alias }}</h5>
+        <p>{% trans "Type new display name:" %}</p>
+        {{ edit_profile_form.alias }}
+  		  <input type="submit" value='{% trans "Update profile" %}'>
+  		</form>
+    </div>
+  </div>
+  <hr>
+  <div class="signin-form">
+    <div class="block">
+      <h5>{% trans "Change Your Password" %}</h5>
+      <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile">{% csrf_token %}
+        {% if form.errors or form.non_field_errors %}
+          {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="errorlist">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+        {% if messages %}
+          <ul class="errorlist">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+        <div>
+          <p>{% trans "Old Password:" %}</p>
+          {{password_change_form.old_password}}
+          <span>{{password_change_form.old_password.errors}}</span>
+        </div>
+        <div>
+          <p>{% trans "New Password:" %}</p>
+          {{password_change_form.new_password}}
+          <span>{{form.new_password.errors}}</span>
+        </div>
+        <div>
+          <p>{% trans "Confirm Password:" %}</p>
+          {{password_change_form.confirm_password}}
+          <span>{{form.confirm_password.errors}}</span>
+        </div>
+        <input type="submit" value='{% trans "Change" %}'>
+      </form>
+    </div>
+  </div>
 {% endblock %}

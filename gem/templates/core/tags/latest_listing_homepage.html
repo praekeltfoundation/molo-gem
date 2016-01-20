@@ -2,16 +2,17 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% if articles %}
-<div class="articles nav">
-  <h2 class="list-header">{% trans "Latest" %}</h2>
+<div class="articles latest-articles nav">
   {% for page in articles %}
   <ul class="list-block">
     <li>
       {% if page.image %}
-      <a href="{% pageurl page %}">{% image page.image width-60 %}</a>
+      <a href="{% pageurl page %}">{% image page.image width-320 %}</a>
       {% endif %}
-      <h3><a href="{% pageurl page %}">{{page.title}}</a></h3>
-      <p>{{page.subtitle}}</p>
+      <p class="home-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
+      <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
+      <p class="sub-title">{{page.subtitle}}</p>
+      <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
     </li>
   </ul>
   {% endfor %}
