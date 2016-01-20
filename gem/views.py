@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
+from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
 from wagtail.wagtailsearch.models import Query
 
@@ -28,6 +29,7 @@ def search(request, results_per_page=10):
         'search_results': search_results,
         'results': results,
     })
+
 
 def report_response(request, comment_pk):
     comment = MoloComment.objects.get(pk=comment_pk)
