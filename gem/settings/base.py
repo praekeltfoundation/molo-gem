@@ -13,8 +13,6 @@ from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 
-import dj_database_url
-
 # Absolute filesystem path to the Django project directory:
 PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
