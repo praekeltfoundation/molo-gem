@@ -114,19 +114,20 @@
                 </li>
               {% endfor %}
             </ul>
-            {% if language_page.footers %}
+
               <ul class="menu">
                 <li><a href="/">{% trans "Home" %}</a></li>
-                {% for page in language_page.footers %}
-                  <li><a href="{% pageurl page %}">{{page.title}}</a></li>
-                {% endfor %}
-                {% if not user.is_authenticated %}
-                  <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
-                {% else %}
-                  <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+                {% if language_page.footers %}
+                  {% for page in language_page.footers %}
+                    <li><a href="{% pageurl page %}">{{page.title}}</a></li>
+                  {% endfor %}
+                  {% if not user.is_authenticated %}
+                    <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
+                  {% else %}
+                    <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+                  {% endif %}
                 {% endif %}
               </ul>
-            {% endif %}
             {% block search %}
               {% include "search/search_block.html" %}
             {% endblock %}
