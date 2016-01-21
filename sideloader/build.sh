@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cp -a $REPO ./build/$NAME
+cd $REPO
 
-${PIP} install -r $REPO/gem/requirements.txt
+docker build -t gem-molo .
 
+docker push qa-mesos-persistence:5000/gem-molo
