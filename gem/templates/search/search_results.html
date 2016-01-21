@@ -38,28 +38,25 @@
   {% endfor %}
 
   <div class="search-result pagination">
-  <div class="step-links">
-    {% if search_results.has_previous %}
-        <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}">&larr;</a>
-    {% endif %}
-
-
-    <span class="current">
-        Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
-    </span>
-
-    {% if search_results.has_next %}
-        <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}">&rarr;</a>
-    {% endif %}
-  </div>
+    <div class="step-links">
+     {% if search_results.has_previous %}
+         <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}">&larr;</a>
+     {% endif %}
+         <span class="current">
+         Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
+     </span>
+       {% if search_results.has_next %}
+         <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}">&rarr;</a>
+     {% endif %}
+    </div>
   </div>
 
   {% else %}
     <div class="title search">
         <h3>{% trans "Search" %}</h3>
     </div>
-    <div class="block turq">
-        <p>{% trans "No search results for " %}{{search_query}}.</p>
+    <div class="block">
+        <p class="no-search-results">{% trans "No search results for " %}{{search_query}}.</p>
         <div class="signin-form">
             <form action="{% url 'search' %}">
               <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
