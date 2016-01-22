@@ -30,5 +30,3 @@ STATIC_ROOT = join(PROJECT_ROOT, 'static')
 LOCALE_PATHS = (
     join(PROJECT_ROOT, "locale"),
 )
-
-

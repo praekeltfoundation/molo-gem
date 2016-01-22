@@ -15,6 +15,12 @@
   <p class="section-url"><a href="{% pageurl self.get_parent_section %}">{{ self.get_parent_section }}</a></p>
   <h3 class="article-title">{{self.title}}</h3>
   <p class="article-sub-title">{{ self.subtitle }}</p>
+    <ul class="article-tags">
+      {% for tag in self.tags.all %}
+        <li> {{ tag.name }} </li>
+      {% endfor %}
+    </ul>
+    <div class="clear-fix"></div>
 
   <hr class="article-hr"/>
 
