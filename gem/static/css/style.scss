@@ -17,7 +17,7 @@ $anotherShadeOfGrey: #67666b;
 a {
   text-decoration: none;
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -724,4 +724,103 @@ p.articles-section-url {
 p.no-search-results {
   text-align: center;
   padding: 1em;
+}
+
+.sd-heading {
+  font-family: $font-family-sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #141414;
+  padding: 1em 1.5em 0;
+  margin: 0;
+}
+
+.sd-heading.service-keywords, .sd-heading.service-tradinghours, .sd-heading.org-name,
+.sd-heading.org-contact, .sd-heading.org-address {
+  padding: 0 1.3em;
+}
+
+.sd-search-form {
+  padding: 0.5em 1.5em;
+  input[type=text] {
+    width: 100%;
+  }
+  input[type=submit] {
+    font-family: $font-family-sans-serif;
+    font-weight: bold;
+    background: #141414;
+    padding: 10px;
+    color: #fff;
+    border: 0;
+    font-size: 14px;
+    margin: 0.5em 0;
+  }
+}
+
+.sd-search-form ~ ul {
+  padding: 0;
+  li:first-child {
+    border-top: 1px solid #ECECEC;
+  }
+  li {
+    list-style: none;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ECECEC;
+  }
+  a {
+    font-family: $font-family-sans-serif;
+    color: #31C4C4;
+    display: inline-block;
+    padding: 0 1.5em;
+    font-size: 14px;
+  }
+
+}
+
+.sd-location {
+  padding: 0 1.5em;
+  display: inline-block;
+  font-size: 14px;
+  color: #141414;
+  a {
+    font-family: $font-family-sans-serif;
+    color: #31C4C4;
+    display: block;
+    padding: 0.5em 0;
+  }
+}
+
+.sd-num-results {
+  font-family: $font-family-sans-serif;
+  color: #141414;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 1.5em;
+}
+
+
+.sd-service-categories, .sd-org-contact, .sd-service-location, .sd-service-keywords, .sd-service-tradinghours,
+.sd-org-address {
+  font-family: $font-family-sans-serif;
+  color: #141414;
+  font-size: 14px;
+  padding: 0 1.5em;
+}
+
+.sd-heading.org-name {
+  margin-top: 10px;
+}
+
+a {
+  .sd-heading.org-name {
+    color: #33CCCC;
+    font-weight: normal;
+  }
+  .sd-heading.org-name:hover {
+    text-transform: none;
+  }
+}
+
+hr {
+  border-top-color: #ECECEC;
 }
