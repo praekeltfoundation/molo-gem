@@ -4,23 +4,6 @@
 {% block content %}
 {% get_comments_content_object for form as self %}
 
-<div class="title {{self.get_parent_section.get_effective_extra_style_hints}}">
-
-  {% with parent_section=self.get_parent_section ancestor=self.get_parent_section.get_ancestors.last %}
-    <div class="icon">
-      {% if self.image %}
-        {% image self.image width-98 %}
-      {% elif parent_section.image %}
-        {% image parent_section.image width-98 %}
-      {% else %}
-        {% image ancestor.sectionpage.image width-98 %}
-      {% endif %}
-    </div>
-    <h6>{{ancestor.sectionpage.title}}</h6>
-    <h6>{{parent_section.title}}</h6>
-  {% endwith %}
-</div>
-
 <div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
   {% if messages %}
   <ul class="messages">
