@@ -14,6 +14,8 @@ SECRET_KEY = environ.get('SECRET_KEY') or 'please-change-me'
 PROJECT_ROOT = (
     environ.get('PROJECT_ROOT') or dirname(dirname(abspath(__file__))))
 
+LANGUAGE_CODE = environ.get('LANGUAGE_CODE', 'en')
+
 RAVEN_DSN = environ.get('RAVEN_DSN')
 RAVEN_CONFIG = {'dsn': RAVEN_DSN} if RAVEN_DSN else {}
 
