@@ -11,6 +11,7 @@ ENV DJANGO_SETTINGS_MODULE gem.settings.docker
 WORKDIR /deploy/
 
 COPY gem /deploy/gem
+COPY locale /deploy/locale
 ADD manage.py /deploy/
 ADD requirements.txt /deploy/
 ADD setup.py /deploy/
