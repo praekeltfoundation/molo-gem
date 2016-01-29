@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 from os.path import abspath, dirname, join
 from django.conf import global_settings
-from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 
 # Absolute filesystem path to the Django project directory:
@@ -129,20 +128,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Native South African languages are currently not included in the default
-# list of languges in django
-# https://github.com/django/django/blob/master/django/conf/global_settings.py#L50
-LANGUAGES = global_settings.LANGUAGES + (
-    ('zu', _('Zulu')),
-    ('xh', _('Xhosa')),
-    ('st', _('Sotho')),
-    ('ve', _('Venda')),
-    ('tn', _('Tswana')),
-    ('ts', _('Tsonga')),
-    ('ss', _('Swati')),
-    ('nr', _('Ndebele')),
-)
-
 LOCALE_PATHS = (
     join(PROJECT_ROOT, "locale"),
 )
@@ -185,7 +170,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
-WAGTAIL_SITE_NAME = "base"
+WAGTAIL_SITE_NAME = "GEM"
 
 # Use Elasticsearch as the search backend for extra performance and better
 # search results:
