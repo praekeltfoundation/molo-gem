@@ -123,7 +123,7 @@ DATABASES = {'default': dj_database_url.config(
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'id'
+LANGUAGE_CODE = 'en-gb'
 TIME_ZONE = 'Africa/Johannesburg'
 USE_I18N = True
 USE_L10N = True
