@@ -41,8 +41,18 @@ COMPRESS_OFFLINE = True
 #     }
 # }
 
+# service-directory settings
+# NB: You should also have a secrets.py file that contains the settings
+# SERVICE_DIRECTORY_API_LOGIN & GOOGLE_PLACES_API_SERVER_KEY
+SERVICE_DIRECTORY_API_BASE_URL = 'http://gem-sd.qa.praekelt.com/api/'
+
 
 try:
     from .local import *
+except ImportError:
+    pass
+
+try:
+    from secrets import *
 except ImportError:
     pass
