@@ -39,6 +39,8 @@ urlpatterns = patterns(
                 namespace='molo.yourwords',
                 app_name='molo.yourwords')),
 
+    url(r'^servicedirectory/', include('molo.servicedirectory.urls')),
+
     url(r'search/$', search, name='search'),
 
 

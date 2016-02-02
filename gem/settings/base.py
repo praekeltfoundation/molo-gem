@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'molo.commenting',
     'molo.yourwords',
+    'molo.servicedirectory',
 
     'raven.contrib.django.raven_compat',
 )
