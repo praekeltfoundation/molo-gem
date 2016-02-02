@@ -1,3 +1,5 @@
+import os
+
 from .base import *
 
 
@@ -45,6 +47,12 @@ COMPRESS_OFFLINE = True
 # NB: You should also have a secrets.py file that contains the settings
 # SERVICE_DIRECTORY_API_LOGIN & GOOGLE_PLACES_API_SERVER_KEY
 SERVICE_DIRECTORY_API_BASE_URL = 'http://gem-sd.qa.praekelt.com/api/'
+SERVICE_DIRECTORY_API_LOGIN = os.environ.get(
+    'SERVICE_DIRECTORY_API_LOGIN', None
+)
+GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
+    'GOOGLE_PLACES_API_SERVER_KEY', None
+)
 
 
 try:
