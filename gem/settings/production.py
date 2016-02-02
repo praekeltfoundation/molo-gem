@@ -45,11 +45,18 @@ COMPRESS_OFFLINE = True
 
 # service-directory settings
 # NB: You should also have a secrets.py file that contains the settings
-# SERVICE_DIRECTORY_API_LOGIN & GOOGLE_PLACES_API_SERVER_KEY
+# SERVICE_DIRECTORY_API_USERNAME & SERVICE_DIRECTORY_API_PASSWORD &
+# GOOGLE_PLACES_API_SERVER_KEY
 SERVICE_DIRECTORY_API_BASE_URL = 'http://gem-sd.qa.praekelt.com/api/'
-SERVICE_DIRECTORY_API_LOGIN = os.environ.get(
-    'SERVICE_DIRECTORY_API_LOGIN', None
+
+# try to fetch settings from environment variables
+SERVICE_DIRECTORY_API_USERNAME = os.environ.get(
+    'SERVICE_DIRECTORY_API_USERNAME', None
 )
+SERVICE_DIRECTORY_API_PASSWORD = os.environ.get(
+    'SERVICE_DIRECTORY_API_PASSWORD', None
+)
+
 GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
     'GOOGLE_PLACES_API_SERVER_KEY', None
 )
