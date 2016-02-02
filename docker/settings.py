@@ -1,3 +1,5 @@
+"""Django settings for use within the docker container."""
+
 from os import environ
 
 import dj_database_url
@@ -15,6 +17,17 @@ PROJECT_ROOT = (
     environ.get('PROJECT_ROOT') or dirname(dirname(abspath(__file__))))
 
 LANGUAGE_CODE = environ.get('LANGUAGE_CODE', 'en')
+
+SERVICE_DIRECTORY_API_BASE_URL = environ.get(
+    'SERVICE_DIRECTORY_API_BASE_URL', '')
+SERVICE_DIRECTORY_API_USERNAME = environ.get(
+    'SERVICE_DIRECTORY_API_USERNAME', '')
+SERVICE_DIRECTORY_API_PASSWORD = environ.get(
+    'SERVICE_DIRECTORY_API_PASSWORD', '')
+
+SERVICE_DIRECTORY_API_LOGIN = {
+    'username': SERVICE_DIRECTORY_API_LOGIN_USERNAME,
+    'password': SERVICE_DIRECTORY_API_LOGIN_PASSWORD}
 
 RAVEN_DSN = environ.get('RAVEN_DSN')
 RAVEN_CONFIG = {'dsn': RAVEN_DSN} if RAVEN_DSN else {}
