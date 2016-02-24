@@ -1,0 +1,22 @@
+{% load i18n static poll_votings %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
+  {% csrf_token %}
+  {% if request.user.is_authenticated %}
+    {% can_vote question as user_can_vote %}
+    {% if user_can_vote %}
+      {% if question.freetextquestion.numerical %}
+        <input type="number" name="answer" id="id_answer" value="" />
+      {% else %}
+        <input type="text" name="answer" id="id_answer" value="" />
+      {% endif%}
+      <br>
+      <input type="submit" value="{% trans "Submit" %}" />
+    {% else %}
+      <p>{% trans "Thank you! Your repsonse has already been submitted." %}<p>
+    {% endif %}
+  {% else %}
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}">{% trans "Log in to vote" %}</a>
+  {% endif %}
+</form>

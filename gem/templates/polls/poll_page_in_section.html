@@ -1,0 +1,16 @@
+{% load i18n static poll_votings %}
+
+{% block content %}
+	{% if questions %}
+		{% for question in questions %}
+			<div class="list-inline">
+				<h3>{{ question.title }}</h3>
+				{% if question.freetextquestion %}
+					{% include 'polls/includes/poll_free_text_form.html'%}
+				{% else %}
+					{% include 'polls/includes/poll_question_form.html'%}
+				{% endif %}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

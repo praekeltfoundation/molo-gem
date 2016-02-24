@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static core_tags i18n %}
+
+{% block content %}
+	<div class="list-inline">
+		{% if form.choice.errors %}<p><strong>{{form.choice.errors|join:", " }}</strong></p>{% endif %}
+		<h3>{{ question.title }}</h3>
+		<form action="{% url 'molo.polls:vote' question.id %}" method="post">
+			{% csrf_token %}
+			{% for choice in question.choices %}
+				{% if question.allow_multiple_choice%}
+					<input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+					<label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+					<br>
+				{% else %}
+					<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+					<label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+					<br>
+				{% endif %}
+			{% endfor %}
+			<div>
+				<input type="submit" value="{% trans "Vote" %}"/>
+				<br>
+				<a href="{{request.site.root_page.url}}">{% trans "Home" %}</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

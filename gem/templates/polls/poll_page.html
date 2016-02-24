@@ -1,0 +1,21 @@
+{% load i18n static poll_votings %}
+
+{% block content %}
+	{% if questions %}
+		{% for question in questions %}
+			{% if forloop.first%}
+				<h2 class="list-header">{% trans "What's your opinion?" %}</h2>
+			{% endif %}
+			<div class="list-inline">
+				<h3>{{ question.title }}</h3>
+				{% if question.freetextquestion %}
+					{% include 'polls/includes/poll_free_text_form.html'%}
+					<hr>
+				{% else %}
+					{% include 'polls/includes/poll_question_form.html'%}
+					<hr>
+				{% endif %}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
