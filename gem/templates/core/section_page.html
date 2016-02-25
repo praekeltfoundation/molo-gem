@@ -2,11 +2,23 @@
 {% extends "base.html" %}
 
 {% load static core_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags poll_votings %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
+    {% has_questions self as questions %}
+    {% if questions %}
+    <div class="block {{self.get_effective_extra_style_hints|default:"orange"}}">
+      <div class="title">
+        <div class="icon"><a href=""><img src="{% static 'img/polls.png' %}" alt="Have Your Say"></a></div>
+      </div>
+      {% poll_page_in_section page=self %}
+      <hr>
+    </div>
+    {% endif %}
+
+
     <div class="articles articles-list-view nav">
 
       <h2 class="list-header">
