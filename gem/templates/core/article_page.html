@@ -9,10 +9,15 @@
 
 {% block content %}
 <div class="articles nav {{self.get_parent_section.get_effective_extra_style_hints}}">
+  <h2 class="list-header {{ self.get_parent_section.get_effective_extra_style_hints }}">
+      {% if self.get_parent_section.image %}
+        <a href="{% pageurl self.get_parent_section %}">{% image self.get_parent_section.image width-120 %}</a>
+      {% endif %}
+      <span>{{self.get_parent_section}}</span>
+  </h2>
   {% if self.image %}
     <div class="banner">{% image self.image width-240 %}</div>
   {% endif %}
-  <p class="section-url"><a href="{% pageurl self.get_parent_section %}">{{ self.get_parent_section }}</a></p>
   <h3 class="article-title">{{self.title}}</h3>
   <p class="article-sub-title">{{ self.subtitle }}</p>
     <ul class="article-tags">
@@ -44,6 +49,7 @@
       {% endif %}
       {% endif %}
   {% endfor %}
+    <div class="featured-article-ribbon"></div>
     {% if self.is_commenting_enabled %}
 <div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
     {% if self.allow_commenting %}
