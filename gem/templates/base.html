@@ -91,6 +91,7 @@
 
         {% block content %}{% endblock %}
         <a class="back-to-top featured" href="#gem-header">{% trans "back to top" %}</a>
+        <div class="teal-ribbon"></div>
 
         {% block extra_js %}
         {% endblock %}
@@ -98,35 +99,21 @@
         {% block footer %}
           {% load wagtailcore_tags wagtailimages_tags %}
           <div id="gem-footer">
-            <span class="title">{% trans "MENU" %}</span>
             <ul class="sections">
+              <li><a href="/">{% trans "Home" %}</a></li>
               {% for section in language_page.sections %}
                 <li class="{{section.get_effective_extra_style_hints}}">
-                  {%image section.banner %}
                   <a href="{% pageurl section %}">
-                      {% if section.image %}
-                      {% image section.image width-60 as tmp_photo %}
-                        <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
-                      {% endif %}
                       {{section.title}}
                   </a>
                 </li>
               {% endfor %}
+              {% if language_page.footers %}
+                {% for page in language_page.footers %}
+                  <li><a href="{% pageurl page %}">{{page.title}}</a></li>
+                {% endfor %}
+              {% endif %}
             </ul>
-
-              <ul class="menu">
-                <li><a href="/">{% trans "Home" %}</a></li>
-                {% if language_page.footers %}
-                  {% for page in language_page.footers %}
-                    <li><a href="{% pageurl page %}">{{page.title}}</a></li>
-                  {% endfor %}
-                  {% if not user.is_authenticated %}
-                    <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
-                  {% else %}
-                    <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
-                  {% endif %}
-                {% endif %}
-              </ul>
             {% block search %}
               {% include "search/search_block.html" %}
             {% endblock %}
