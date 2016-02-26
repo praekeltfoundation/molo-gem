@@ -9,7 +9,7 @@
 {% block content %}
     <div class="articles articles-list-view nav">
 
-      <h2 class="list-header">
+      <h2 class="list-header {{ self.get_effective_extra_style_hints }}">
         {% if page.image %}
           <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
         {% endif %}
@@ -32,13 +32,13 @@
         {% if page.image %}
           <a class="listing-homepage-img" href="{% pageurl page %}">{% image page.image width-320 %}</a>
         {% endif %}
-          <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
           <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
           <p class="sub-title">{{page.subtitle}}</p>
           <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
           <div class="clear-fix"></div>
       </li>
     </ul>
+    <div class="featured-article-ribbon"></div>
     {% endfor %}
 
     </div>
