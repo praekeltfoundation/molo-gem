@@ -237,7 +237,7 @@ h3.featured-title {
   font-family: $font-family-TwCentBold;
   a {
     font-size: 18px;
-    color: #625f67;
+    color: #000;
     padding: 0 0.4em;
   }
 }
@@ -258,12 +258,11 @@ h3.featured-title {
 }
 
 .see-more-container {
-  padding:15px 8px;
   a {
-    background-color: #141414;
-    font-family: $font-family-TwCentBold;
-    font-size: 12px;
-    color: #FFFFFF;
+    font-family: $font-family-sans-serif;
+    font-size: 14px;
+    color: #00b8ae;
+    text-decoration: underline;
   }
 }
 
@@ -323,7 +322,7 @@ h3.featured-title {
 
 .your-words {
   h6 {
-    margin: 0 0 0 16px;
+    margin: 0;
     display: flex;
     a {
       background: #00b8ae;
@@ -333,6 +332,8 @@ h3.featured-title {
       font-weight: normal;
       padding:0.5em;
       text-transform: uppercase;
+      width: 100%;
+      text-align: center;
     }
   }
   h3 {
@@ -738,16 +739,11 @@ p.section-url {
 p.home-section-url {
   padding: 0;
   text-transform: uppercase;
-  position: relative;
   a {
-    background: #FF0099;
-    color: #FFF;
-    font-family: $font-family-sans-serif;
+    color: #ee028d;
+    font-family: $font-family-TwCentBold;
     font-size: 16px;
-    padding: 10px;
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
+    padding: 10px 0 0 15px;
   }
 }
 
@@ -925,9 +921,9 @@ a.home-article-img {
 .default-icon-styling {
   padding: 0.3em;
   position: absolute;
-  width: 25%;
+  width: 13%;
   bottom: 8px;
-  right: 16px;
+  left: 16px;
 }
 
 .featured-article-ribbon {
@@ -941,11 +937,13 @@ a.home-article-img {
 
 .home-section {
   .list-block {
-    width:50%;
-    float: left;
+    width:100%;
   }
   li {
     a {
+      img {
+        max-width: 50%;
+      }
       img.icon-pink {
         background: #ed008c;
         @extend .default-icon-styling;
@@ -970,6 +968,7 @@ a.home-article-img {
 }
 
 .gem-polls {
+  background: #cadb2a;
   h2.list-header {
     background: #ae016d;
     color: #fff;
@@ -978,7 +977,6 @@ a.home-article-img {
     font-size: 14pt;
   }
   .list-inline {
-    background: #cadb2a;
     padding: 1em 0;
     h3 {
       color: #000;
@@ -1013,6 +1011,7 @@ a.home-article-img {
         border:0;
         background: #ed008c;
         display: block;
+        font-family: $font-family-TwCentBold;
         color: #fff;
         margin: 1em auto 0.2em;
         font-size: 14pt;

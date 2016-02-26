@@ -20,12 +20,12 @@
         <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title | truncatechars:45}}</a></h3>
         <p class="sub-title">{{page.subtitle}}</p>
         <div class="clear-fix"></div>
+        <div class="see-more-container">
+          <a href="{% pageurl page %}" class="see-more">Read More</a>
+        </div>
       </li>
   </ul>
   {% endfor %}
-  <div class="see-more-container">
-    <a href="{% pageurl section %}" class="see-more">See all {{section.title}}</a>
-  </div>
 {% endfor%}
 </div>
 <div class="clear-fix"></div>

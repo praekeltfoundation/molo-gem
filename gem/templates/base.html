@@ -113,6 +113,11 @@
                   <li><a href="{% pageurl page %}">{{page.title}}</a></li>
                 {% endfor %}
               {% endif %}
+              {% if not user.is_authenticated %}
+                <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
+              {% else %}
+                <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
+              {% endif %}
             </ul>
             {% block search %}
               {% include "search/search_block.html" %}
