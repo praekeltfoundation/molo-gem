@@ -64,16 +64,6 @@
 
         {% wagtailuserbar %}
 
-        {% if languages %}
-        <ul class="language-container">
-            {% for language in languages %}
-            <li><a href="{% url 'locale_set' language.code %}">{{language.title}}</a></li>
-            {% endfor %}
-            <div class="clear-fix"></div>
-        </ul>
-        {% endif %}
-
-
         <div id="gem-header">
             <a id="logo" href="/"></a>
             <div id="menu">
@@ -89,6 +79,15 @@
             <div class="clear-fix"></div>
         </div>
         <!-- /feature-menu -->
+
+        {% if languages %}
+        <ul class="language-container">
+            {% for language in languages %}
+            <li><a href="{% url 'locale_set' language.code %}">{{language.title}}</a></li>
+            {% endfor %}
+            <div class="clear-fix"></div>
+        </ul>
+        {% endif %}
 
         {% block content %}{% endblock %}
         <a class="back-to-top featured" href="#gem-header">{% trans "back to top" %}</a>
