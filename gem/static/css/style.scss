@@ -13,6 +13,10 @@ $anotherShadeOfGrey: #67666b;
 
 @include links($colorFirst);
 
+.container-padding {
+  padding: 0.8em 0.8em 0;
+}
+
 
 a {
   text-decoration: none;
@@ -67,7 +71,6 @@ textarea {
 
 p {
   margin: 0;
-  padding-bottom: 1em;
 }
 
 
@@ -75,6 +78,13 @@ p {
 
 .enhanced {
   display: none;
+}
+
+.latest-listing-container {
+  @extend .container-padding;
+  a, p, h3 {
+    padding: 0.2em 0;
+  }
 }
 
 article {
@@ -129,8 +139,20 @@ article {
   }
 }
 
-.list-block > li {
-  border:none;
+.list-block.latest-section {
+  @extend .container-padding;
+  a,p,h3,div {
+    padding: 0.2em 0;
+    clear: both;
+  }
+  p {
+    a {
+      padding-top: 0.8em;
+    }
+  }
+  li {
+    border:none;
+  }
 }
 
 
@@ -158,7 +180,7 @@ article {
         height: 46px;
         padding: 13px;
         a {
-          font-family: $font-family-sans-serif;
+          font-family: $font-family-avenir-ot;
           font-size: 14px;
           text-transform: uppercase;
           color: #fff;
@@ -182,22 +204,24 @@ ul.language-container {
     margin-right: 8px;
     a {
       color: #7A7A7A;
-      font-size: 13px;
+      font-size: 12px;
+      font-family: $font-family-avenir-ot;
+      text-transform: uppercase;
     }
   }
 }
 
 p.sub-title {
   font-family: $font-family-avenir-ot;
-  font-size: 18px;
-  color: #7A7A7A;
+  font-size: 14px;
+  color: #5c5c5c;
   font-weight: normal;
-  padding: 0 1em;
 }
 
 h3.article-title {
   margin: 0;
-  font-family: $font-family-TwCentBold;
+  font-family: $font-family-sans-serif;
+  font-weight: normal;
   font-size: 16px;
   color: #141414;
   padding: 0.8em 0.9em;
@@ -236,11 +260,11 @@ p.article-sub-title {
 }
 
 h3.featured-title {
-  font-family: $font-family-avenirBold;
+  font-family: $font-family-sans-serif;
+  font-weight: normal;
   a {
-    font-size: 18px;
+    font-size: 16px;
     color: #000;
-    padding: 0 0.4em;
   }
 }
 
@@ -274,7 +298,7 @@ h3.featured-title {
 .see-more-container {
   a {
     font-family: $font-family-sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     color: #00b8ae;
     text-decoration: underline;
   }
@@ -282,7 +306,7 @@ h3.featured-title {
 
 #gem-footer {
   background: #ececec;
-  padding: 0.3em 0 0 0;
+  @extend .container-padding;
   .title {
     color: #fff;
     font-size: 15px;
@@ -296,12 +320,12 @@ h3.featured-title {
     li {
       width: 100%;
       list-style-type: none;
-      padding: 0.1em 0.5em;
+      padding: 0.1em 0;
 
       a {
         color: #686868;
-        margin-left: 6px;
-        font-size: 15pt;
+        font-family: $font-family-avenir-ot;
+        font-size: 15px;
       }
     }
   }
@@ -309,11 +333,9 @@ h3.featured-title {
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 10px;
     li {
       width: 100%;
       list-style-type: none;
-      padding: 0.3em 1em;
       a {
         color: #FFF;
       }
@@ -322,7 +344,6 @@ h3.featured-title {
   #footer-bar {
     font-size: 11pt;
     color: #7A7A7A;
-    padding: 10px 0 0 1em;
   }
 }
 
@@ -332,6 +353,10 @@ h3.featured-title {
 
 .purple {
   background: #ae016d;
+}
+
+.block.your-words.purple {
+  padding: 0 0.8em 0.6em;
 }
 
 .your-words {
@@ -344,26 +369,25 @@ h3.featured-title {
       font-size: 16px;
       color: #fff;
       font-weight: normal;
-      padding:0.5em;
       text-transform: uppercase;
       width: 100%;
       text-align: center;
+      padding: 0.5em 0;
     }
   }
   h3 {
-    font-family: $font-family-sans-serif;
+    font-family: $font-family-avenirBold;
     color: #fff;
     font-size: 18px;
     margin: 0;
-    padding: 15px 10px 5px 10px;
     text-align: center;
+    padding: 0.7em;
   }
   p {
     font-family: $font-family-avenir-ot;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
-    padding: 10px 10px 20px 10px;
     text-align: center;
   }
   a.button {
@@ -372,40 +396,47 @@ h3.featured-title {
     padding: 10px;
     color: #FF0099;
     display: table;
-    margin: 0 auto;
+    margin: 5em auto 0;
+    font-size: 16px;
+    position: relative;
+    &:before {
+      position: absolute;
+      content: "";
+      background: url("/static/img/Pencil.png");
+      height: 25px;
+      width: 160px;
+      background-size: 100%;
+      bottom: 70px;
+      left: -20px;
+    }
   }
   hr {
-    border-top-color: #3d3d3d;
-    width: 95%;
+    width: 90%;
+    margin: 13px auto;
     display: block;
-    margin: 5px auto 10px;
+    border-color: #FF0099;
   }
 
   .your-words-body {
     form {
-      width: 90%;
       margin: 0 auto;
       label {
         font-family: $font-family-sans-serif;
         color: #fff;
         font-size: 14px;
-        margin-bottom: 0.5em;
-        padding-left: 0.1em;
       }
       input[type=text] {
         width: 100%;
       }
       input[type=submit]{
-        font-family: $font-family-sans-serif;
-        font-weight: normal;
-        background: none;
-        border: 2px solid #FF0099;
+        font-family: "TwCenMT-Bold", Arial-BoldMT, Arial, sans-serif;
+        background: #fff;
         padding: 10px;
         color: #FF0099;
-        width: 100%;
-        text-align: center;
-        margin: 15px 0;
-        font-size: 14px;
+        display: table;
+        margin: 1em auto;
+        border: 0;
+        font-size: 16px;
       }
       p {
         margin: 0;
@@ -418,7 +449,7 @@ h3.featured-title {
 a.back-to-top {
   text-align: left;
   display: block;
-  font-size: 12pt;
+  font-size: 12px;
   padding: 10px;
   color: #141414;
   text-decoration: underline;
@@ -433,7 +464,7 @@ a.back-to-top {
 #search-form {
   form {
     text-align: left;
-    padding: 1em;
+    padding: 0.8em 0;
     input[type=text] {
       width: 100%;
       margin: 0.8em 0;
@@ -755,19 +786,17 @@ p.home-section-url {
   a {
     color: #ee028d;
     font-family: $font-family-avenirBold;
-    font-size: 16px;
-    padding: 10px 0 0 15px;
+    font-size: 12px;
   }
 }
 
 p.articles-section-url {
-  padding-left: 0.9em;
   padding-bottom: 0;
   text-transform: uppercase;
   a {
     color: #ed008c;
     font-family: $font-family-avenirBold;
-    font-size: 18px;
+    font-size: 12px;
     padding: 0;
   }
 }
@@ -935,8 +964,8 @@ a.home-article-img {
   padding: 0.3em;
   position: absolute;
   width: 13%;
-  bottom: 8px;
-  left: 16px;
+  bottom: 3px;
+  left: 0;
 }
 
 .featured-article-ribbon {
@@ -980,22 +1009,56 @@ a.home-article-img {
   padding: 1em 0 0 0;
 }
 
+.list-inline {
+  h4 {
+    color: #000;
+    text-align: left;
+    font-family: $font-family-avenirBold;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: $font-family-avenir-ot;
+    padding: 0.5em 0;
+    color: #000;
+  }
+
+  span {
+    font-size: 14px;
+    font-family: $font-family-serif;
+    padding: 0.5em 0;
+    color: #000;
+  }
+  a {
+    color: #31C4C4;
+    font-family: $font-family-sans-serif;
+    font-size: 16px;
+  }
+}
+
 .gem-polls {
   background: #cadb2a;
   h2.list-header {
     background: #ae016d;
+    font-family: "TwCenMT-Regular", ArialMT, Arial, sans-serif;
+    font-size: 16px;
     color: #fff;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: 100%;
     text-align: center;
-    font-family: $font-family-sans-serif;
-    font-size: 14pt;
+    padding: 0.5em;
   }
   .list-inline {
     padding: 1em 0;
     h3 {
       color: #000;
       text-align: left;
-      font-family: $font-family-TwCentBold;
-      font-size: 14pt;
+      font-family: $font-family-avenirBold;
+      font-size: 18px;
       font-weight: normal;
       padding: 0 1em;
     }
@@ -1037,7 +1100,7 @@ a.home-article-img {
         color: #fff;
         padding: 0.5em;
         margin: 1em auto 0.2em;
-        font-size: 14pt;
+        font-size: 16px;
       }
     }
     form+hr {

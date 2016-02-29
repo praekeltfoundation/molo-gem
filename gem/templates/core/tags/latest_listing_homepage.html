@@ -9,11 +9,13 @@
       {% if page.image %}
       <a href="{% pageurl page %}" class="home-article-img">{% image page.image width-320 %}</a>
       {% endif %}
-      <p class="home-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
-      <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
-      <p class="sub-title">{{page.subtitle}}</p>
-      <div class="see-more-container featured-only">
-        <a href="{% pageurl page %}" class="see-more">Read More</a>
+      <div class="latest-listing-container">
+          <p class="home-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
+          <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
+          <p class="sub-title">{{page.subtitle}}</p>
+          <div class="see-more-container featured-only">
+            <a href="{% pageurl page %}" class="see-more">Read More</a>
+          </div>
       </div>
     </li>
   </ul>

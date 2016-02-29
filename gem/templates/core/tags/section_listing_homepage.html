@@ -5,7 +5,7 @@
 <div class="articles nav home-section">
 {% for section in sections %}
   {% for page in section.featured_articles_in_homepage %}
-  <ul class="list-block">
+  <ul class="list-block latest-section">
       <li>
         {% if page.image %}
         <a class="listing-homepage-img" href="{% pageurl page %}">
@@ -17,7 +17,7 @@
         </a>
         {% endif %}
         <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section  }}</a></p>
-        <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title | truncatechars:45}}</a></h3>
+        <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
         <p class="sub-title">{{page.subtitle}}</p>
         <div class="clear-fix"></div>
         <div class="see-more-container">
