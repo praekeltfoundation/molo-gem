@@ -40,6 +40,10 @@ textarea {
   }
 }
 
+.list-block > li {
+  border-bottom: 0;
+}
+
 // dark grey
 .highlight-secondary {
   color: $anotherShadeOfGrey;
@@ -87,13 +91,31 @@ p {
   }
 }
 
+.featured-section-container {
+  @extend .container-padding;
+  h3,span,p {
+    padding: 0.2em 0;
+  }
+}
+
+.article-container {
+  @extend .container-padding;
+  h3,span,p {
+    padding: 0.2em 0;
+  }
+}
+
+#comments-list {
+  @extend .container-padding;
+}
+
 article {
 
   h1 {
     font-family: $font-family-avenirBold;
     font-size: 18px;
-    padding:0 1em;
     color: #4f4c54;
+    padding: 0.2em 0;
   }
   p {
     font-family: $font-family-avenir-ot;
@@ -107,7 +129,6 @@ article {
 
   ol {
     margin: 0;
-    padding: 0 2em;
     li {
       padding: 0.5em 0;
       font-family: $font-family-avenir-ot;
@@ -118,7 +139,7 @@ article {
 
   ul {
     margin: 0;
-    padding: 0 1em;
+    padding: 0;
     list-style: none;
     li {
       padding: 0.5em 0;
@@ -132,7 +153,6 @@ article {
     color: #31C4C4;
     font-family: $font-family-avenir-ot;
     font-size: 14px;
-    margin: 0.3em 0.6em;
     &:visited {
       color: #31C4C4;
     }
@@ -224,7 +244,6 @@ h3.article-title {
   font-weight: normal;
   font-size: 16px;
   color: #141414;
-  padding: 0.8em 0.9em;
 }
 
 p.article-sub-title {
@@ -232,7 +251,6 @@ p.article-sub-title {
   font-size: 18px;
   color: #7A7A7A;
   font-weight: normal;
-  padding: 0 1em;
 }
 
 .articles {
@@ -273,7 +291,7 @@ h3.featured-title {
     color: #01b9af;
     font-family: $font-family-sans-serif;
     font-size: 11pt;
-    margin: 0.5em 1em;
+    margin: 0.5em 0em;
     text-decoration: underline;
 }
 }
@@ -344,6 +362,7 @@ h3.featured-title {
   #footer-bar {
     font-size: 11pt;
     color: #7A7A7A;
+    padding: 1em 0;
   }
 }
 
@@ -558,7 +577,6 @@ h3.comment-header {
   font-size: 18px;
   color: #141414;
   margin: 0;
-  padding-left: 0.8em ;
 }
 
 .comment-form {
@@ -617,11 +635,13 @@ ul.errorlist ~ p {
     color: #fff;
     font-family: $font-family-sans-serif;
     font-size: 18px;
+    &:visited {
+      color: #fff;
+    }
   }
 }
 
 .comments-count {
-  padding-left: 1em;
   font-family: $font-family-TwCentBold;
   font-size: 18px;
   color: #141414;
@@ -1028,7 +1048,7 @@ a.home-article-img {
 
   span {
     font-size: 14px;
-    font-family: $font-family-serif;
+    font-family: $font-family-sans-serif;
     padding: 0.5em 0;
     color: #000;
   }
@@ -1131,9 +1151,6 @@ a.home-article-img {
       a {
         padding: 0;
       }
-      h3 {
-        padding: 0.5em 1em;
-      }
     }
   }
 }
@@ -1153,5 +1170,22 @@ a.home-article-img {
   }
   p.article-sub-title {
     font-size: 17px;
+  }
+}
+
+.title {
+  h6 {
+    font-size: 20px;
+    font-family: $font-family-avenirBold;
+    color: #000;
+    @extend .container-padding;
+    margin: 0;
+  }
+}
+
+.pagination {
+  @extend .container-padding;
+  a {
+    color: #00b8ae;
   }
 }
