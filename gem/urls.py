@@ -44,7 +44,8 @@ urlpatterns = patterns(
     url(r'search/$', search, name='search'),
 
     url(r'^polls/', include('molo.polls.urls',
-                            namespace='molo.polls')),
+                            namespace='molo.polls',
+                            app_name='molo.polls')),
 
     url(r'', include('molo.core.urls')),
     url(r'', include(wagtail_urls)),
