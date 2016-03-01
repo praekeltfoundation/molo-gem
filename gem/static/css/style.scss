@@ -150,11 +150,11 @@ article {
   }
 
   a {
-    color: #31C4C4;
+    color: #ed008c;
     font-family: $font-family-avenir-ot;
     font-size: 14px;
     &:visited {
-      color: #31C4C4;
+      color: #ed008c;
     }
   }
 }
@@ -264,7 +264,7 @@ p.article-sub-title {
 }
 
 .article-tags {
-  padding-left: 0.5em;
+  padding: 0;
   li {
     font-family: $font-family-TwCentBold;
     font-size: 12px;
@@ -376,6 +376,10 @@ h3.featured-title {
 
 .block.your-words.purple {
   padding: 0 0.8em 0.6em;
+}
+
+.latest-articles + .block.your-words.purple {
+  padding: 0;
 }
 
 .your-words {
@@ -666,8 +670,8 @@ p.comment-body {
 }
 
 a.report {
-  color: #31C4C4;
-  font-family: $font-family-sans-serif;
+  color: #ed008c;
+  font-family: $font-family-avenir-ot;
   font-size: 16px;
 }
 
@@ -704,7 +708,7 @@ a.comment-login-button:hover {
   font-size: 14px;
   color: #141414;
   a {
-    color: #31C4C4;
+    color: #ed008c;
   }
 }
 
@@ -837,7 +841,7 @@ p.no-search-results {
 }
 
 .sd-heading {
-  font-family: $font-family-TwCentBold;
+  font-family: $font-family-avenirBold;
   font-size: 16px;
   color: #141414;
   padding: 1em 1.5em 0;
@@ -856,7 +860,7 @@ p.no-search-results {
   }
   input[type=submit] {
     font-family: $font-family-TwCentBold;
-    background: #141414;
+    background: #ed008c;
     padding: 10px;
     color: #fff;
     border: 0;
@@ -876,8 +880,8 @@ p.no-search-results {
     border-bottom: 1px solid #ECECEC;
   }
   a {
-    font-family: $font-family-sans-serif;
-    color: #31C4C4;
+    font-family: $font-family-avenirBold;
+    color: #ed008c;
     display: inline-block;
     padding: 0 1.5em;
     font-size: 14px;
@@ -891,15 +895,15 @@ p.no-search-results {
   font-size: 14px;
   color: #141414;
   a {
-    font-family: $font-family-sans-serif;
-    color: #31C4C4;
+    font-family: $font-family-avenirBold;
+    color: #ed008c;
     display: block;
     padding: 0.5em 0;
   }
 }
 
 .sd-num-results {
-  font-family: $font-family-TwCentBold;
+  font-family: $font-family-avenirBold;
   color: #141414;
   font-size: 14px;
   padding: 0 1.5em;
@@ -908,7 +912,7 @@ p.no-search-results {
 
 .sd-service-categories, .sd-org-contact, .sd-service-location, .sd-service-keywords, .sd-service-tradinghours,
 .sd-org-address {
-  font-family: $font-family-sans-serif;
+  font-family: $font-family-avenir-ot;
   color: #141414;
   font-size: 14px;
   padding: 0 1.5em;
@@ -920,7 +924,7 @@ p.no-search-results {
 
 a {
   .sd-heading.org-name {
-    color: #33CCCC;
+    color: #ed008c;
     font-weight: normal;
   }
   .sd-heading.org-name:hover {
@@ -1063,7 +1067,7 @@ a.home-article-img {
   background: #cadb2a;
   h2.list-header {
     background: #ae016d;
-    font-family: "TwCenMT-Regular", ArialMT, Arial, sans-serif;
+    font-family: $font-family-sans-serif;
     font-size: 16px;
     color: #fff;
     font-weight: normal;
@@ -1178,7 +1182,6 @@ a.home-article-img {
     font-size: 20px;
     font-family: $font-family-avenirBold;
     color: #000;
-    @extend .container-padding;
     margin: 0;
   }
 }
@@ -1188,4 +1191,80 @@ a.home-article-img {
   a {
     color: #00b8ae;
   }
+}
+
+h1.sd-heading.category-grouping {
+ padding: 0 1.5em 0;
+ a {
+   color: #ed008c;
+ }
+}
+
+.sd-category-keywords {
+ padding: 0 1.5em 0;
+ a {
+   color: #ed008c;
+ }
+}
+
+.sd-heading.service-rating {
+  text-align: center;
+  margin-bottom: 1em;
+  padding-top: 0;
+  font-size: 16px;
+  font-family: $font-family-avenirBold;
+}
+
+.service-rating + form {
+  display: table;
+  margin:0 auto;
+  button {
+    margin: 0 0.5em;
+  }
+}
+
+.sd-msg {
+  margin: 1em;
+  padding: 0.8em!important;
+  color: #000;
+  font-family: $font-family-avenir-ot;
+  font-size: 16px;
+}
+
+.sd-heading.report-info {
+    text-align: center;
+    padding: 0.8em;
+}
+
+.service-rating + form + hr + a {
+  color: #ed008c;
+  font-size: 16px;
+  font-family: $font-family-avenirBold;
+  padding-left: 0.6em;
+}
+
+.report-info + form {
+  padding: 0 0.8em 0;
+  .sd-option {
+    padding: 0.2em 0;
+    color: #000;
+    font-size: 14px;
+    font-family: $font-family-avenir-ot;
+  }
+  button[type='submit']{
+    font-family: $font-family-avenirBold;
+    background: #ed008c;
+    padding: 10px;
+    color: #fff;
+    border: 0;
+    font-size: 14px;
+  }
+}
+
+.sd-option + label {
+  color: #000;
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 14px;
+  font-family: $font-family-avenir-ot;
 }
