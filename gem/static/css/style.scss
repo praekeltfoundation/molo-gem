@@ -17,6 +17,9 @@ $anotherShadeOfGrey: #67666b;
   padding: 0.8em 0.8em 0;
 }
 
+.text-padding {
+  padding: 0.2em 0;
+}
 
 a {
   text-decoration: none;
@@ -87,21 +90,28 @@ p {
 .latest-listing-container {
   @extend .container-padding;
   a, p, h3 {
-    padding: 0.2em 0;
+    @extend .text-padding;
+  }
+}
+
+.profile-container {
+  @extend .container-padding;
+  p, a, h3, h5 {
+    @extend .text-padding;
   }
 }
 
 .featured-section-container {
   @extend .container-padding;
   h3,span,p {
-    padding: 0.2em 0;
+    @extend .text-padding;
   }
 }
 
 .article-container {
   @extend .container-padding;
   h3,span,p {
-    padding: 0.2em 0;
+    @extend .text-padding;
   }
 }
 
@@ -139,7 +149,7 @@ article {
     font-family: $font-family-avenirBold;
     font-size: 18px;
     color: #4f4c54;
-    padding: 0.2em 0;
+    @extend .text-padding;
   }
   p {
     font-family: $font-family-avenir-ot;
@@ -186,7 +196,7 @@ article {
 .list-block.latest-section {
   @extend .container-padding;
   a,p,h3,div {
-    padding: 0.2em 0;
+    @extend .text-padding;
     clear: both;
   }
   p {
@@ -746,7 +756,6 @@ a.comment-login-button:hover {
     font-size: 16px;
     color: #141414;
     margin: 0;
-    padding: 0.3em 0.8em;
   }
 }
 
@@ -755,7 +764,6 @@ a.comment-login-button:hover {
     font-family: $font-family-avenir-ot;
     font-size: 14px;
     color: #141414;
-    padding: 0 0.8em;
   }
 
   h5 {
@@ -763,7 +771,6 @@ a.comment-login-button:hover {
     font-size: 16px;
     color: #141414;
     margin: 0;
-    padding: 0.3em 0.8em
   }
 
   form {
@@ -772,12 +779,11 @@ a.comment-login-button:hover {
       font-size: 16px;
       color: #141414;
       margin: 0;
-      padding: 0.3em 0.8em;
     }
     input {
       margin: 0.5em auto;
       display: block;
-      width: 90%;
+      width: 100%;
     }
     input[type=submit]{
       display: block;
@@ -797,7 +803,6 @@ a.comment-login-button:hover {
       font-size: 14px;
       border: 0;
       margin-top: 0.8em;
-      padding-right: 1.2em;
       display: block;
     }
   }
@@ -810,7 +815,6 @@ a.logout-link {
   font-family: $font-family-sans-serif;
   font-size: 14px;
   border: 0;
-  padding-left: 1.2em;
   display: block;
 }
 
@@ -1271,7 +1275,7 @@ h1.sd-heading.category-grouping {
 .report-info + form {
   padding: 0 0.8em 0;
   .sd-option {
-    padding: 0.2em 0;
+    @extend .text-padding;
     color: #000;
     font-size: 14px;
     font-family: $font-family-avenir-ot;

@@ -3,28 +3,30 @@
 
 
 {% block content %}
-<div class="title profile">
-    <h3>{% trans "Join" %}</h3>
-</div>
-<div class="block turq">
-  <div class="signin-form">
-    <p>{% trans "Not a member yet - Join us by signing up below." %}</p>
-    {% if messages %}
-      <ul class="messages">
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-      </ul>
-    {% endif %}
-    <form method="post" action="{% url 'molo.profiles:user_register' %}">{% csrf_token %}
-        <p><strong>{% trans "Choose a username" %}</strong></p>
-        {{ registration_form.username }}
-        <p><strong>{% trans "Choose a 4-digit pin" %}</strong></p>
-        {{ registration_form.password }}
-        <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
-        <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
-        <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
-    </form>
-  </div>
+<div class="profile-container">
+    <div class="title profile">
+        <h3>{% trans "Join" %}</h3>
+    </div>
+    <div class="block turq">
+      <div class="signin-form">
+        <p>{% trans "Not a member yet - Join us by signing up below." %}</p>
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+        <form method="post" action="{% url 'molo.profiles:user_register' %}">{% csrf_token %}
+            <p><strong>{% trans "Choose a username" %}</strong></p>
+            {{ registration_form.username }}
+            <p><strong>{% trans "Choose a 4-digit pin" %}</strong></p>
+            {{ registration_form.password }}
+            <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
+            <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
+            <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
+        </form>
+      </div>
+    </div>
 </div>
 {% endblock %}
