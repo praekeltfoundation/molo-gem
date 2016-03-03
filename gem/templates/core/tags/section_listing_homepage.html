@@ -2,37 +2,33 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% if sections %}
-{% for section in sections %}
 <div class="articles nav home-section">
-  <h2 class="list-header">
-    {% if section.image %}
-      <a href="{% pageurl section %}">
-        {% image section.image width-30 as tmp_photo %}
-        <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}"/>
-      </a>
-    {% endif %}
-    <span>{{section.title}}</span>
-    <a href="{% pageurl section %}" class="enhanced">See More</a>
-  </h2>
+{% for section in sections %}
   {% for page in section.featured_articles_in_homepage %}
-  <ul class="list-block">
+  <ul class="list-block latest-section">
       <li>
         {% if page.image %}
-        <a class="listing-homepage-img" href="{% pageurl page %}">{% image page.image width-320 %}</a>
+        <a class="listing-homepage-img" href="{% pageurl page %}">
+            {% image page.image width-320 %}
+        {% if section.image %}
+            {% image section.image width-30 as tmp_photo %}
+            <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}" class="icon-{{section.get_effective_extra_style_hints }}"/>
         {% endif %}
-        <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section }}</a></p>
+        </a>
+        {% endif %}
+        <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section  }}</a></p>
         <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
         <p class="sub-title">{{page.subtitle}}</p>
-        <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
         <div class="clear-fix"></div>
+        <div class="see-more-container">
+          <a href="{% pageurl page %}" class="see-more">Read More</a>
+        </div>
       </li>
   </ul>
   {% endfor %}
-  <div class="see-more-container">
-    <a href="{% pageurl section %}" class="see-more">See all {{section.title}}</a>
-  </div>
-  <div class="clear-fix"></div>
-</div>
 {% endfor%}
+</div>
+<div class="clear-fix"></div>
+<div class="featured-article-ribbon"></div>
 {% endif %}
 
