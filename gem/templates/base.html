@@ -65,20 +65,19 @@
         {% wagtailuserbar %}
 
         <div id="gem-header">
-            <a id="logo" href="/"></a>
-            <div id="menu">
-                <ul>
-                  <li><a href="#feature-menu">{% trans "Menu" %}</a></li>
-                  {% if not user.is_authenticated %}
-                    <li class="enhanced"><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
-                  {% else %}
-                    <li class="enhanced"><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
-                  {% endif %}
-                </ul>
-            </div>
-            <div class="clear-fix"></div>
+            <a id="logo" href="/">
+              <img src="{% static 'img/logo.png' %}" width="120" height="27" alt="Girl Effect" />
+            </a>
+            <a href="#feature-menu">{% trans "Menu" %}</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a>
+            {% else %}
+            <a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a>
+            {% endif %}
+            <a href="{% url 'search' %}">
+              <img src="{% static 'img/search_white.png' %}" width="16" height="16" alt="Search" />
+            </a>
         </div>
-        <!-- /feature-menu -->
 
         {% if languages %}
         <ul class="language-container">
@@ -132,4 +131,3 @@
         {% endblock %}
     </body>
 </html>
-
