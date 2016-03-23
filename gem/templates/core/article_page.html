@@ -20,11 +20,6 @@
         <div class="article-container">
             <h3 class="article-title">{{ self.title }}</h3>
             <p class="article-sub-title">{{ self.subtitle }}</p>
-            <ul class="article-tags">
-                {% for tag in self.tags.all %}
-                    <li> {{ tag.name }} </li>
-                {% endfor %}
-            </ul>
             <div class="clear-fix"></div>
 
             <hr class="article-hr"/>
@@ -51,6 +46,13 @@
                     {% endif %}
                 {% endfor %}
                 <div class="featured-article-ribbon"></div>
+
+                <ul class="article-tags">
+                    {% for tag in self.tags.all %}
+                        <li> {{ tag.name }} </li>
+                    {% endfor %}
+                </ul>
+
                 {% if self.is_commenting_enabled %}
                     <div class="block {{ self.get_parent_section.get_effective_extra_style_hints }}">
                         {% if self.allow_commenting %}
@@ -96,4 +98,3 @@
         </div>
     </div>
 {% endblock %}
-
