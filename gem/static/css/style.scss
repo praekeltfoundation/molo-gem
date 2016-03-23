@@ -104,6 +104,7 @@ textarea {
 }
 
 a, a:hover {
+  color: #7A7A7A;
   text-decoration: none;
 }
 
@@ -201,6 +202,8 @@ the variation and naming conventions are so different.
 
 // Containers
 
+  // Are wrapped in list elements, we therefore need to remove the extra
+  // padding, margins, and list-styles.
 .list-block {
   margin: 0;
   padding: 0;
@@ -212,19 +215,22 @@ the variation and naming conventions are so different.
   }
 }
 
+  // But we still don't want them "hugged" to the sides, so we include a
+  // 8px margin in each container, but leaving the image flush against
+  // the display in most cases.
 .latest-listing-container {
   margin: 0 8px;
 }
-
 .home-section {
   li {
     margin: 24px 8px 0 8px;
   }
 }
-
-.article-container {
+.article-container,
+.featured-section-container {
   margin: 8px;
 }
+
 
 .featured-article-ribbon {
   background: url('/static/img/featured_bar.png') repeat-x bottom;
@@ -235,9 +241,17 @@ the variation and naming conventions are so different.
 }
 
 
+.articles-list-view  .featured-article-ribbon:nth-of-type(n+2) {
+  display: none;
+}
+
+
 // Images:
-  // v1, v3, v4 - 100% width
-  // v2 - 33% width.
+  // home latest, article detail - 100% width
+  // home featured - 33% width.
+  // section article list:
+    // - 1st image 100% width
+    // - subsequent images 33% width.
 
 .latest-articles .home-article-img,
 .articles-list-view .listing-homepage-img,
@@ -249,7 +263,8 @@ the variation and naming conventions are so different.
   }
 }
 
-// Icons are provided by the html, but are hidden on feature phones.
+  // Icons are provided in the html, but are hidden on feature phones, we'll
+  // add them back in the enhanced stylesheet.
 .home-section .listing-homepage-img {
   padding: 0;
   img {
@@ -277,8 +292,8 @@ the variation and naming conventions are so different.
 }
 
 // Sections
-  // v1, v2 - small and pink text
-  // v3, v4 - banner
+  // home latest, home featured - small and pink text
+  // section article list, article detail - banner
 
 .home-section-url, .articles-section-url {
   line-height: 10px;
@@ -293,6 +308,7 @@ the variation and naming conventions are so different.
 
 .list-header {
   margin: 0;
+  padding: 0 8px;
 
   &.teal { background: #00b8ae; }
   &.pink { background: #ed008c; }
@@ -310,7 +326,7 @@ the variation and naming conventions are so different.
 }
 
 // Title
-  // v1, v2, v3, v4 - identical
+  // all identical
 .featured-title, .article-title {
   font-weight: bold;
   font-size: 15px;
@@ -321,14 +337,14 @@ the variation and naming conventions are so different.
 }
 
 // Subtitle
-  // v1, v2, v3, v4 - identical
+  // all identical
 .sub-title, .article-sub-title {
   font-size: 14px;
   color: #7A7A7A;
 }
 
 // Read More
-  // v1, v2, v3 - identical
+  // identical where displayed.
 .see-more-container, .read-more {
   margin-top: 8px;
   font-size: 11px;
@@ -341,6 +357,53 @@ the variation and naming conventions are so different.
   a:visited {
     color: purple;
   }
+}
+
+
+// Articles Itself
+
+article {
+
+  font-size: 14px;
+  color: #141414;
+
+  a, a:hover {
+    color: #7A7A7A;
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-weight: bold;
+    font-size: 13px;
+    color: #4F4C54;
+  }
+}
+
+
+
+.articles {
+  hr {
+    border-top: 1px solid #ECECEC;
+  }
+}
+
+.article-tags:first-child {
+  margin-left: 5px;
+}
+
+.article-tags {
+  li {
+    font-family: $font-family-TwCentBold;
+    font-size: 12px;
+    color: #FFFFFF;
+    padding: 10px;
+    background-color: #FF0099;
+    float: left;
+    margin: 5px;
+    list-style: none;
+  }
+
+  @include clearfix;
 }
 
 
@@ -373,79 +436,15 @@ the variation and naming conventions are so different.
   }
 }
 
-article {
 
-  h1 {
-    font-size: 18px;
-    color: #4f4c54;
-    padding: 4px 0;
-  }
-  p {
-    font-size: 17px;
-    color: #3a3a3a;
-  }
+a.back-to-top, a.back-to-top:visited {
 
-  p:first-child {
-    padding-top: 0;
-  }
-
-  ol {
-    margin: 0;
-    li {
-      padding: 0.5em 0;
-      font-size: 17px;
-      color: #3a3a3a;
-    }
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    li {
-      padding: 0.5em 0;
-      font-size: 17px;
-      color: #3a3a3a;
-    }
-  }
-
-  a {
-    color: #ed008c;
-    font-size: 14px;
-    &:visited {
-      color: #ed008c;
-    }
-  }
+    display: block;
+    margin: 16px 8px;
+    color: #141414;
+    font-size: 11px;
+    text-decoration: underline;
 }
-
-
-
-.articles {
-  hr {
-    border-top: 1px solid #ECECEC;
-  }
-}
-
-.article-tags:first-child {
-  margin-left: 5px;
-}
-
-.article-tags {
-  li {
-    font-family: $font-family-TwCentBold;
-    font-size: 12px;
-    color: #FFFFFF;
-    padding: 10px;
-    background-color: #FF0099;
-    float: left;
-    margin: 5px;
-    list-style: none;
-  }
-
-  @include clearfix;
-}
-
-
 
 #gem-footer {
   background: #ececec;
@@ -589,14 +588,6 @@ article {
   }
 }
 
-a.back-to-top {
-  text-align: left;
-  display: block;
-  font-size: 14px;
-  padding: 10px;
-  color: #141414;
-  text-decoration: underline;
-}
 
 .share-image {
   display: block;
