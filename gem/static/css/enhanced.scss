@@ -23,13 +23,37 @@ textarea {
 
 // re-order using flex: search, links, copywrite.
 #gem-footer {
-
   display: flex;
   flex-direction: column;
-
   #search-form {
     order: 1;
     -webkit-order: 1;
+
+    text-align: center;
+    label, div {
+      display: none;
+    }
+
+    input[type=text], button {
+      flex: 1;
+      line-height: 48px;
+      height: 48px;
+    }
+
+    input[type=text] {
+      border: 0;
+      width: 80%;
+      color: #A9A9A9;
+    }
+
+    button {
+      width: 48px;
+      color: transparent;
+      background-image: url('/static/img/search_white.png');
+      background-repeat: no-repeat;
+      background-position: 50%;
+      background-size: 30px;
+    }
   }
 
   ul.sections {
