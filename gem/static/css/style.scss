@@ -109,9 +109,89 @@ a, a:hover {
   }
 }
 
+/*
+
+  Home:
+  { #gem-header }
+  { .language-container }
+  { .articles, .latest-articles }
+    - 3x articles
+  { .your-words, .block }
+    - title
+  { .your-words, .block }
+    - share your story
+  { .articles, .home-section }
+    - 4x articles
+  { .featured-article-ribbon }
+  { .gem-polls }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+
+  Section Article List:
+  { #gem-header }
+  { .language-container }
+  { .articles, .articles-list-view }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+
+  Article Itself:
+  { #gem-header }
+  { .language-container }
+  { .articles }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+*/
+
 // articles
 
 /*
+
+  Variation # 1 { .articles, .latest-articles }
+  ul.list-block
+    li
+      a.home-article-img
+      div.latest-listing-container
+        p.home-section-url
+        h3.featured-title
+        p.sub-title
+        div.see-more-container
+  .featured-article-ribbon
+
+  # Vartion # 2 { .articles, .home-section }
+  ul.list-block
+    li
+      a.listing-homepage-img
+      p.articles-section-url
+      h3.featured-title
+      p.sub-title
+      div.see-more-container
+
+
+  # Variation #3 { .articles, .articles-list-view }
+  h2.list-header.pink
+  ul.list-block
+    li
+      a.listing-homepage-img
+      div.featured-section-container
+      h3.featured-title
+      p.sub-title
+      span.read-more
+
+  # Vartion # 4 {.article}
+  h2.list-header.pink
+  div.banner
+    img
+  div.article-container
+    h3.article-title
+    p.article-sub-title
+    hr.article-hr
+  div.article-container
+    <article>
+        
+
   { image }
   { category }
   { title }
@@ -119,13 +199,61 @@ a, a:hover {
   [ Read More ]
 */
 
-a.home-article-img {
+// Note: The first image on the is always 100%, but the subsequent images
+// are only 33%.
+
+a.home-article-img, a.listing-homepage-img {
   padding: 0;
   img {
     width: 100%;
     height: auto;
   }
 }
+
+.section-url, .home-section-url, .articles-section-url {
+  line-height: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 10px;
+
+  a, a:visited {
+    color: #ED008C;
+  }
+}
+
+// p.section-url {
+//   padding-left: 0.5em;
+//   margin-top: 0.8em;
+//   padding-bottom: 0;
+//   text-transform: uppercase;
+//   a {
+//     color: #31C4C4;
+//     font-family: $font-family-TwCentBold;
+//     font-size: 16px;
+//   }
+// }
+
+// p.home-section-url {
+//   padding: 0;
+//   text-transform: uppercase;
+//   a {
+//     color: #ee028d;
+//     font-family: $font-family-avenirBold;
+//     font-size: 12px;
+//   }
+// }
+//
+// p.articles-section-url {
+//   padding-bottom: 0;
+//   text-transform: uppercase;
+//   a {
+//     color: #ed008c;
+//     font-family: $font-family-avenirBold;
+//     font-size: 12px;
+//     padding: 0;
+//   }
+// }
+
 
 .featured-title, .article-title {
   font-weight: bold;
@@ -845,38 +973,6 @@ a.logout-link {
   display: block;
 }
 
-p.section-url {
-  padding-left: 0.5em;
-  margin-top: 0.8em;
-  padding-bottom: 0;
-  text-transform: uppercase;
-  a {
-    color: #31C4C4;
-    font-family: $font-family-TwCentBold;
-    font-size: 16px;
-  }
-}
-
-p.home-section-url {
-  padding: 0;
-  text-transform: uppercase;
-  a {
-    color: #ee028d;
-    font-family: $font-family-avenirBold;
-    font-size: 12px;
-  }
-}
-
-p.articles-section-url {
-  padding-bottom: 0;
-  text-transform: uppercase;
-  a {
-    color: #ed008c;
-    font-family: $font-family-avenirBold;
-    font-size: 12px;
-    padding: 0;
-  }
-}
 
 .search-icon {
   background-image: url('/static/img/search.png');
@@ -1067,11 +1163,6 @@ h4.report {
       }
     }
   }
-}
-
-.listing-homepage-img {
-  position: relative;
-  padding: 1em 0 0 0;
 }
 
 .list-inline {
