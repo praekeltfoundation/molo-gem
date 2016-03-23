@@ -1,3 +1,10 @@
+@import "mixins";
+@import "variables";
+@import "base";
+//@import "h5bp";
+//@import "modules";
+//@import "icons";
+
 // Basic uses: Arial, Arial Bold.
 // Smart uses: Tw Cent MT/ Bold, Avenir Next Condensed/ Bold/ Italic.
 
@@ -77,13 +84,6 @@
   font-weight: bold;
 }
 
-@import "mixins";
-@import "variables";
-@import "h5bp";
-@import "base";
-@import "modules";
-@import "icons";
-
 $colorFirst: #e52d47; // red
 $colorSecond: #27262b; // dark grey
 $colorThird: #1473ad; // blue
@@ -92,14 +92,6 @@ $anotherShadeOfGrey: #67666b;
 
 @include links($colorFirst);
 
-.container-padding {
-
-  padding: 0.8em 0.8em 0;
-}
-
-.text-padding {
-  padding: 0.2em 0;
-}
 
 body,
 input,
@@ -150,10 +142,12 @@ a, a:hover {
 
 // ARTICLES
 
+
+
 /*
 
 I've attempted to map out the variations in markup and class-names that
-are associated to articles in this application.
+are associated to article lists and articles.
 
   Home:
   Variation # 1 { .articles, .latest-articles }
@@ -202,9 +196,43 @@ are associated to articles in this application.
 
 
 It's remarkable that they're essentially displaying the exact same content yet
-the variation and naming conventions differ wildly.
-
+the variation and naming conventions are so different.
 */
+
+// Containers
+
+.list-block {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.latest-listing-container {
+  margin: 0 8px;
+}
+
+.home-section {
+  li {
+    margin: 24px 8px 0 8px;
+  }
+}
+
+.article-container {
+  margin: 8px;
+}
+
+.featured-article-ribbon {
+  background: url('/static/img/featured_bar.png') repeat-x bottom;
+  background-size: 80%;
+  width: 100%;
+  margin: 12px 0;
+  height: 20px;
+}
 
 
 // Images:
@@ -221,11 +249,30 @@ the variation and naming conventions differ wildly.
   }
 }
 
+// Icons are provided by the html, but are hidden on feature phones.
 .home-section .listing-homepage-img {
   padding: 0;
   img {
     width: 33%;
     height: auto;
+  }
+  img.icon-pink, img.icon-teal, img.icon-lime {
+    display:none;
+
+      // img.icon-pink, img.icon-tea {
+      //   background: #ed008c;
+      //   @extend .default-icon-styling;
+      // }
+      //
+      // img.icon-teal {
+      //   background: #00b8ae;
+      //   @extend .default-icon-styling;
+      // }
+      //
+      // img.icon-lime {
+      //   background: #cadb2a;
+      //   @extend .default-icon-styling;
+      // }
   }
 }
 
@@ -245,6 +292,8 @@ the variation and naming conventions differ wildly.
 }
 
 .list-header {
+  margin: 0;
+
   &.teal { background: #00b8ae; }
   &.pink { background: #ed008c; }
   &.lime { background: #cadb2a; }
@@ -262,7 +311,6 @@ the variation and naming conventions differ wildly.
 
 // Title
   // v1, v2, v3, v4 - identical
-
 .featured-title, .article-title {
   font-weight: bold;
   font-size: 15px;
@@ -274,7 +322,6 @@ the variation and naming conventions differ wildly.
 
 // Subtitle
   // v1, v2, v3, v4 - identical
-
 .sub-title, .article-sub-title {
   font-size: 14px;
   color: #7A7A7A;
@@ -298,83 +345,12 @@ the variation and naming conventions differ wildly.
 
 
 
-// dark grey
-.highlight-primary {
-  color: $colorSecond;
-  p {
-    color: $anotherShadeOfGrey;
-  }
-}
-
-.list-block > li {
-  border-bottom: 0;
-}
-
-// dark grey
-.highlight-secondary {
-  color: $anotherShadeOfGrey;
-  li {
-    border: none;
-  }
-  a {
-    text-transform: uppercase;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-// blue
-.highlight-tertiary {
-  color: $colorThird;
-}
-
-// light grey
-.highlight-quaternary {
-  color: $colorFourth;
-}
-
-// GEM featured styling
-
-.enhanced {
-  display: none;
-}
-
-.latest-listing-container {
-  @extend .container-padding;
-  a, p, h3 {
-    @extend .text-padding;
-  }
-}
-
-.profile-container {
-  @extend .container-padding;
-  p, a, h3, h5 {
-    @extend .text-padding;
-  }
-}
-
-.featured-section-container {
-  @extend .container-padding;
-  h3,span,p {
-    @extend .text-padding;
-  }
-}
-
-.article-container {
-  @extend .container-padding;
-  h3,span,p {
-    @extend .text-padding;
-  }
-}
-
 #comments-list {
-  @extend .container-padding;
+  padding: 0;
 }
 
 .yourwords-container {
-  @extend .container-padding;
+  padding: 0;
   h3 {
     font-family: $font-family-avenirBold;
     font-size: 18px;
@@ -400,13 +376,11 @@ the variation and naming conventions differ wildly.
 article {
 
   h1 {
-    font-family: $font-family-avenirBold;
     font-size: 18px;
     color: #4f4c54;
-    @extend .text-padding;
+    padding: 4px 0;
   }
   p {
-    font-family: $font-family-avenir-ot;
     font-size: 17px;
     color: #3a3a3a;
   }
@@ -419,7 +393,6 @@ article {
     margin: 0;
     li {
       padding: 0.5em 0;
-      font-family: $font-family-avenir-ot;
       font-size: 17px;
       color: #3a3a3a;
     }
@@ -431,7 +404,6 @@ article {
     list-style: none;
     li {
       padding: 0.5em 0;
-      font-family: $font-family-avenir-ot;
       font-size: 17px;
       color: #3a3a3a;
     }
@@ -439,7 +411,6 @@ article {
 
   a {
     color: #ed008c;
-    font-family: $font-family-avenir-ot;
     font-size: 14px;
     &:visited {
       color: #ed008c;
@@ -447,29 +418,6 @@ article {
   }
 }
 
-.list-block.latest-section {
-  @extend .container-padding;
-  a,p,h3,div {
-    @extend .text-padding;
-    clear: both;
-  }
-  p {
-    a {
-      padding-top: 0.8em;
-    }
-  }
-  li {
-    border:none;
-  }
-}
-
-
-
-
-
-.clear-fix {
-  clear: both;
-}
 
 
 .articles {
@@ -501,7 +449,7 @@ article {
 
 #gem-footer {
   background: #ececec;
-  @extend .container-padding;
+  padding: 0;
   .title {
     color: #fff;
     font-size: 15px;
@@ -543,21 +491,11 @@ article {
   }
 }
 
-.black {
-  background: #141414;
-}
-
-.purple {
-  background: #ae016d;
-}
-
 .block.your-words.purple {
+  background: #AE016D;
   padding: 0 0.8em 0.6em;
 }
 
-.latest-articles + .block.your-words.purple {
-  padding: 0;
-}
 
 .your-words {
   h6 {
@@ -1105,58 +1043,10 @@ h4.report {
     padding: 1em;
 }
 
-.articles.latest-articles.nav {
-  ul {
-    li {
-      border-bottom: 0;
-    }
-  }
-}
 
-.default-icon-styling {
-  padding: 0.3em;
-  position: absolute;
-  width: 13%;
-  bottom: 3px;
-  left: 0;
-  display: none;
-}
 
-.featured-article-ribbon {
-  background-image: url('/static/img/featured_bar.png');
-  width:100%;
-  margin: 1em 0;
-  background-size: 80%;
-  height: 21px;
-  background-repeat: repeat-x;
-}
 
-.home-section {
-  .list-block {
-    width:100%;
-  }
-  li {
-    a {
-      img {
-        max-width: 50%;
-      }
-      img.icon-pink {
-        background: #ed008c;
-        @extend .default-icon-styling;
-      }
 
-      img.icon-teal {
-        background: #00b8ae;
-        @extend .default-icon-styling;
-      }
-
-      img.icon-lime {
-        background: #cadb2a;
-        @extend .default-icon-styling;
-      }
-    }
-  }
-}
 
 .list-inline {
   h4 {
@@ -1277,7 +1167,7 @@ h4.report {
 }
 
 .pagination {
-  @extend .container-padding;
+  padding: 0;
   a {
     color: #00b8ae;
   }
@@ -1333,7 +1223,7 @@ h1.sd-heading.category-grouping {
 .report-info + form {
   padding: 0 0.8em 0;
   .sd-option {
-    @extend .text-padding;
+    padding: 4px 0;
     color: #000;
     font-size: 14px;
     font-family: $font-family-avenir-ot;
@@ -1367,7 +1257,7 @@ h1.sd-heading.category-grouping {
 }
 
 .sd-container {
-  @extend .container-padding;
+  padding: 0;
 }
 
 .sd-help-text {
