@@ -5,6 +5,7 @@
 //@import "modules";
 //@import "icons";
 
+
 // Basic uses: Arial, Arial Bold.
 // Smart uses: Tw Cent MT/ Bold, Avenir Next Condensed/ Bold/ Italic.
 
@@ -106,7 +107,6 @@ textarea {
 label {
   font-size: 13px;
   color: #141414;
-  display: block;
 }
 input, textarea {
   margin: 8px 0;
@@ -116,7 +116,7 @@ input, textarea {
 input[type=text] {
   height: 30px;
 }
-button, .button {
+button, .button, input[type="submit"] {
   height: 30px;
   padding: 0 8px;
   background: #ed008c;
@@ -152,6 +152,25 @@ a, a:hover {
   }
 }
 
+.language-container {
+  padding: 0 8px;
+  line-height: 20px;
+  background: #F3F4F1;
+
+  a, a:visited {
+    font-size: 11px;
+    color: #7A7A7A;
+  }
+}
+
+a.back-to-top, a.back-to-top:visited {
+  display: block;
+  margin: 16px 8px;
+  color: #141414;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
 #gem-footer {
   background: #ECECEC;
   padding: 12px 8px;;
@@ -174,280 +193,13 @@ a, a:hover {
   }
 }
 
-.language-container {
-  padding: 0 8px;
-  line-height: 20px;
-  background: #F3F4F1;
-
-  a, a:visited {
-    font-size: 11px;
-    color: #7A7A7A;
-  }
-}
-
-
-// ARTICLES
+@import "style.article";
+@import "style.article-tags";
+@import "style.polls";
+@import "style.your-words";
 
 
 
-/*
-
-I've attempted to map out the variations in markup and class-names that
-are associated to article lists and articles.
-
-  Home:
-  Variation # 1 { .articles, .latest-articles }
-  ul.list-block
-    li
-      a.home-article-img
-      div.latest-listing-container
-        p.home-section-url
-        h3.featured-title
-        p.sub-title
-        div.see-more-container
-  .featured-article-ribbon
-
-  # Vartion # 2 { .articles, .home-section }
-  ul.list-block
-    li
-      a.listing-homepage-img
-      p.articles-section-url
-      h3.featured-title
-      p.sub-title
-      div.see-more-container
-
-
-  Section Article List:
-  # Variation #3 { .articles, .articles-list-view }
-  h2.list-header
-  ul.list-block
-    li
-      a.listing-homepage-img
-      div.featured-section-container
-      h3.featured-title
-      p.sub-title
-      span.read-more
-
-  Article Itself:
-  # Vartion # 4 {.article}
-  h2.list-header
-  div.banner
-    img
-  div.article-container
-    h3.article-title
-    p.article-sub-title
-    hr.article-hr
-  div.article-container
-    <article>
-
-
-It's remarkable that they're essentially displaying the exact same content yet
-the variation and naming conventions are so different.
-*/
-
-// Containers
-
-  // Are wrapped in list elements, we therefore need to remove the extra
-  // padding, margins, and list-styles.
-.list-block {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    margin: 0;
-    padding: 0;
-  }
-}
-
-  // But we still don't want them "hugged" to the sides, so we include a
-  // 8px margin in each container, but leaving the image flush against
-  // the display in most cases.
-.latest-listing-container {
-  margin: 0 8px;
-}
-.home-section {
-  li {
-    margin: 24px 8px 0 8px;
-  }
-}
-.article-container,
-.featured-section-container {
-  margin: 8px;
-}
-
-
-.featured-article-ribbon {
-  background: url('/static/img/featured_bar.png') repeat-x bottom;
-  background-size: 80%;
-  width: 100%;
-  margin: 12px 0;
-  height: 20px;
-}
-
-
-.articles-list-view  .featured-article-ribbon:nth-of-type(n+2) {
-  display: none;
-}
-
-
-// Images:
-  // home latest, article detail - 100% width
-  // home featured - 33% width.
-  // section article list:
-    // - 1st image 100% width
-    // - subsequent images 33% width.
-
-.latest-articles .home-article-img,
-.articles-list-view .listing-homepage-img,
-.article .banner {
-  padding: 0;
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-  // Icons are provided in the html, but are hidden on feature phones, we'll
-  // add them back in the enhanced stylesheet.
-.home-section .listing-homepage-img {
-  padding: 0;
-  img {
-    width: 33%;
-    height: auto;
-  }
-  img.icon-pink, img.icon-teal, img.icon-lime {
-    display:none;
-
-      // img.icon-pink, img.icon-tea {
-      //   background: #ed008c;
-      //   @extend .default-icon-styling;
-      // }
-      //
-      // img.icon-teal {
-      //   background: #00b8ae;
-      //   @extend .default-icon-styling;
-      // }
-      //
-      // img.icon-lime {
-      //   background: #cadb2a;
-      //   @extend .default-icon-styling;
-      // }
-  }
-}
-
-// Sections
-  // home latest, home featured - small and pink text
-  // section article list, article detail - banner
-
-.home-section-url, .articles-section-url {
-  line-height: 10px;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 10px;
-
-  a, a:visited {
-    color: #ED008C;
-  }
-}
-
-.list-header {
-  margin: 0;
-  padding: 0 8px;
-
-  &.teal { background: #00b8ae; }
-  &.pink { background: #ed008c; }
-  &.lime { background: #cadb2a; }
-
-  line-height: 48px;
-  font-size: 14px;
-  color: #18151D;
-  text-transform: uppercase;
-
-  a img {
-    height: 40px;
-    width: auto;
-  }
-}
-
-// Title
-  // all identical
-.featured-title, .article-title {
-  font-weight: bold;
-  font-size: 15px;
-  color: #141414;
-  a, a:visited {
-    color: #141414;
-  }
-}
-
-// Subtitle
-  // all identical
-.sub-title, .article-sub-title {
-  font-size: 14px;
-  color: #7A7A7A;
-}
-
-// Read More
-  // identical where displayed.
-.see-more-container, .read-more {
-  margin-top: 8px;
-  font-size: 11px;
-  line-height: 12px;
-
-  a {
-    color: #00B8AE;
-    text-decoration: underline;
-  }
-  a:visited {
-    color: purple;
-  }
-}
-
-
-// Articles Itself
-
-article {
-
-  font-size: 14px;
-  color: #141414;
-
-  a, a:hover {
-    color: #7A7A7A;
-    text-decoration: underline;
-  }
-
-  h1 {
-    font-weight: bold;
-    font-size: 13px;
-    color: #4F4C54;
-  }
-}
-
-.articles {
-  hr {
-    border-top: 1px solid #ECECEC;
-  }
-}
-
-.article-tags:first-child {
-  margin-left: 5px;
-}
-
-.article-tags {
-  li {
-    font-family: $font-family-TwCentBold;
-    font-size: 12px;
-    color: #FFFFFF;
-    padding: 10px;
-    background-color: #FF0099;
-    float: left;
-    margin: 5px;
-    list-style: none;
-  }
-
-  @include clearfix;
-}
 
 
 // Other Components
@@ -458,95 +210,11 @@ article {
   padding: 0;
 }
 
-.yourwords-container {
-  padding: 0;
-  h3 {
-    font-family: $font-family-avenirBold;
-    font-size: 18px;
-    color: #4f4c54;
-  }
-  p {
-    font-family: $font-family-avenir-ot;
-    font-size: 17px;
-    color: #3a3a3a;
-  }
-  a {
-    color: #ed008c;
-    font-family: $font-family-avenir-ot;
-    font-size: 14px;
-    padding-top: 10px;
-    display: block;
-    &:visited {
-      color: #ed008c;
-    }
-  }
-}
-
-a.back-to-top, a.back-to-top:visited {
-  display: block;
-  margin: 16px 8px;
-  color: #141414;
-  font-size: 11px;
-  text-decoration: underline;
-}
-
-.your-words {
-  background: #AE016D;
-  text-align: center;
-
-  .title h6 {
-    background: #00B8AE;
-    line-height: 30px;
-    text-transform: uppercase;
-    font-weight: normal;
-    font-size: 12px;
-
-    a, a:visited {
-      color: #fff;
-    }
-  }
-
-  h3, p {
-    color: #fff;
-    font-size: 14px;
-    padding: 4px 8px;
-  }
-
-  h3 {
-    padding: 23px 8px 4px 8px;
-  }
-
-  .button {
-    &:before {
-      position: absolute;
-      content: "";
-      background: transparent url("/static/img/Pencil.png") no-repeat;
-      height: 25px;
-      width: 160px;
-      background-size: 100%;
-      background-position: 50%;
-      bottom: 55px;
-      left: 50%;
-      margin-left: -80px;
-    }
-
-    position: relative;
-    line-height: 30px;
-    display: inline-block;
-    background: #fff;
-    color: #ED008C;
-    width: 50%;
-    margin: 60px auto 23px 0;
-  }
-}
-
 .share-image {
   display: block;
   padding: 18px 0 5px 0;
   margin: 0 auto;
 }
-
-
 
 #search-form {
   margin: 19px 0;
@@ -994,77 +662,7 @@ h4.report {
   }
 }
 
-.gem-polls {
-  background: #CADB2A;
 
-  h2.list-header {
-    background: #ae016d;
-    font-family: $font-family-sans-serif;
-    font-size: 16px;
-    color: #fff;
-    font-weight: normal;
-    text-transform: uppercase;
-    width: 100%;
-    text-align: center;
-    padding: 0.5em;
-  }
-  .list-inline {
-    padding: 1em 0;
-    h3 {
-      color: #000;
-      text-align: left;
-      font-family: $font-family-avenirBold;
-      font-size: 18px;
-      font-weight: normal;
-      padding: 0 1em;
-      text-transform: uppercase;
-    }
-    form {
-      div {
-        div {
-          border-top: 2px solid #b5c524;
-          padding: 1em;
-          color: #000;
-          input {
-            float: left;
-          }
-
-          label {
-            margin-left: 30px;
-            font-size: 14pt;
-            font-family: $font-family-sans-serif;
-            display: block;
-          }
-        }
-        div:last-child {
-          border-bottom: 2px solid #b5c524;
-        }
-      }
-      input[type="submit"] {
-        border:0;
-        background: #ed008c;
-        display: block;
-        font-family: $font-family-TwCentBold;
-        color: #fff;
-        margin: 1em auto 0.2em;
-        font-size: 14pt;
-      }
-      a {
-        border:0;
-        background: #ed008c;
-        display: table;
-        font-family: $font-family-TwCentBold;
-        color: #fff;
-        padding: 0.5em;
-        margin: 1em auto 0.2em;
-        font-size: 16px;
-      }
-    }
-    form+hr {
-      display: none;
-    }
-  }
-}
 
 .teal-ribbon {
   background: url('/static/img/dec_strip_teal.png');
