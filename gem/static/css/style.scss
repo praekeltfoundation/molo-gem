@@ -29,6 +29,9 @@ a {
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
   margin-bottom: 205px;
 }
 
@@ -38,6 +41,27 @@ textarea {
   font-family: $font-family-sans-serif;
   color: $anotherShadeOfGrey;
 }
+
+#gem-header {
+  padding: 0 8px;
+  line-height: 42px;
+  text-align: right;
+  background: #00b8ae;
+
+  a, a:visited {
+    padding: 5px;
+    vertical-align: middle;
+    font-size: 15px;
+    text-transform: uppercase;;
+    color: #fff;
+  }
+
+  a#logo {
+    padding: 0;
+    float: left;
+  }
+}
+
 
 // dark grey
 .highlight-primary {
@@ -215,39 +239,7 @@ article {
 
 
 
-#gem-header {
-  border-bottom: 1px solid #ECECEC;
-  background: #00b8ae;
-  #logo {
-    float: left;
-    background-image: url('/static/img/GE-Logo.png');
-    width: 155px;
-    height: 35px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin: 5px 0 0 10px;
-  }
-  #menu {
-    float: right;
-    ul {
-      margin: 0;
-      padding: 0;
-      li {
-        float: left;
-        list-style: none;
-        height: 46px;
-        padding: 13px;
-        padding-left: 0;
-        a {
-          font-family: $font-family-avenir-ot;
-          font-size: 14px;
-          text-transform: uppercase;
-          color: #fff;
-        }
-      }
-    }
-  }
-}
+
 
 .clear-fix {
   clear: both;
@@ -403,7 +395,7 @@ h3.featured-title {
   }
   #footer-bar {
     font-size: 11pt;
-    color: #7A7A7A;
+    color: #A3A3A3;
     padding: 1em 0;
   }
 }
@@ -429,15 +421,17 @@ h3.featured-title {
     margin: 0;
     display: flex;
     a {
-      background: #00b8ae;
-      font-family: $font-family-sans-serif;
-      font-size: 16px;
-      color: #fff;
-      font-weight: normal;
-      text-transform: uppercase;
       width: 100%;
-      text-align: center;
       padding: 0.5em 0;
+
+      font-family: $font-family-sans-serif;
+      font-weight: normal;
+      font-size: 16px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+
+      background: #00b8ae;
     }
   }
   h3 {
@@ -446,7 +440,7 @@ h3.featured-title {
     font-size: 18px;
     margin: 0;
     text-align: center;
-    padding: 0.7em;
+    padding: 1.5em 0.7em;
   }
   p {
     font-family: $font-family-avenir-ot;
@@ -458,21 +452,24 @@ h3.featured-title {
   a.button {
     font-family: $font-family-TwCentBold;
     background: #fff;
-    padding: 10px;
+    padding: 8px 13px;
     color: #FF0099;
     display: table;
     margin: 5em auto 0;
     font-size: 16px;
     position: relative;
+
     &:before {
       position: absolute;
       content: "";
-      background: url("/static/img/Pencil.png");
+      background: transparent url("/static/img/Pencil.png") no-repeat;
       height: 25px;
       width: 160px;
       background-size: 100%;
+      background-position: 50%;
       bottom: 70px;
-      left: -20px;
+      left: 50%;
+      margin-left: -80px;
     }
   }
   hr {
@@ -1015,6 +1012,7 @@ a.home-article-img {
   width: 13%;
   bottom: 3px;
   left: 0;
+  display: none;
 }
 
 .featured-article-ribbon {
@@ -1024,6 +1022,9 @@ a.home-article-img {
   background-size: 80%;
   height: 21px;
   background-repeat: repeat-x;
+}
+.featured-title {
+  text-transform: uppercase;
 }
 
 .home-section {
@@ -1110,6 +1111,7 @@ a.home-article-img {
       font-size: 18px;
       font-weight: normal;
       padding: 0 1em;
+      text-transform: uppercase;
     }
     form {
       div {
