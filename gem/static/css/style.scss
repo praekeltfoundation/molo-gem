@@ -1,6 +1,44 @@
 // Basic uses: Arial, Arial Bold.
 // Smart uses: Tw Cent MT/ Bold, Avenir Next Condensed/ Bold/ Italic.
 
+/*
+  Here is the overall structure of the application
+
+  Home:
+  { #gem-header }
+  { .language-container }
+  { .articles, .latest-articles }
+    - 3x articles
+  { .your-words, .block }
+    - title
+  { .your-words, .block }
+    - share your story
+  { .articles, .home-section }
+    - 4x articles
+  { .featured-article-ribbon }
+  { .gem-polls }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+
+  Section Article List:
+  { #gem-header }
+  { .language-container }
+  { .articles, .articles-list-view }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+
+  Article Itself:
+  { #gem-header }
+  { .language-container }
+  { .articles }
+  { .back-to-top }
+  { .teal-ribbon }
+  { #gem-footer }
+*/
+
+
 @font-face {
   font-family: 'AvenirNextCondensed';
   src: url('/static/fonts/AvenirNextCondensed-Regular.woff2') format('woff2'),
@@ -109,46 +147,15 @@ a, a:hover {
   }
 }
 
+
+// ARTICLES
+
 /*
+
+I've attempted to map out the variations in markup and class-names that
+are associated to articles in this application.
 
   Home:
-  { #gem-header }
-  { .language-container }
-  { .articles, .latest-articles }
-    - 3x articles
-  { .your-words, .block }
-    - title
-  { .your-words, .block }
-    - share your story
-  { .articles, .home-section }
-    - 4x articles
-  { .featured-article-ribbon }
-  { .gem-polls }
-  { .back-to-top }
-  { .teal-ribbon }
-  { #gem-footer }
-
-  Section Article List:
-  { #gem-header }
-  { .language-container }
-  { .articles, .articles-list-view }
-  { .back-to-top }
-  { .teal-ribbon }
-  { #gem-footer }
-
-  Article Itself:
-  { #gem-header }
-  { .language-container }
-  { .articles }
-  { .back-to-top }
-  { .teal-ribbon }
-  { #gem-footer }
-*/
-
-// articles
-
-/*
-
   Variation # 1 { .articles, .latest-articles }
   ul.list-block
     li
@@ -170,8 +177,9 @@ a, a:hover {
       div.see-more-container
 
 
+  Section Article List:
   # Variation #3 { .articles, .articles-list-view }
-  h2.list-header.pink
+  h2.list-header
   ul.list-block
     li
       a.listing-homepage-img
@@ -180,8 +188,9 @@ a, a:hover {
       p.sub-title
       span.read-more
 
+  Article Itself:
   # Vartion # 4 {.article}
-  h2.list-header.pink
+  h2.list-header
   div.banner
     img
   div.article-container
@@ -190,19 +199,21 @@ a, a:hover {
     hr.article-hr
   div.article-container
     <article>
-        
 
-  { image }
-  { category }
-  { title }
-  { subtitle }
-  [ Read More ]
+
+It's remarkable that they're essentially displaying the exact same content yet
+the variation and naming conventions differ wildly.
+
 */
 
-// Note: The first image on the is always 100%, but the subsequent images
-// are only 33%.
 
-a.home-article-img, a.listing-homepage-img {
+// Images:
+  // v1, v3, v4 - 100% width
+  // v2 - 33% width.
+
+.latest-articles .home-article-img,
+.articles-list-view .listing-homepage-img,
+.article .banner {
   padding: 0;
   img {
     width: 100%;
@@ -210,7 +221,19 @@ a.home-article-img, a.listing-homepage-img {
   }
 }
 
-.section-url, .home-section-url, .articles-section-url {
+.home-section .listing-homepage-img {
+  padding: 0;
+  img {
+    width: 33%;
+    height: auto;
+  }
+}
+
+// Sections
+  // v1, v2 - small and pink text
+  // v3, v4 - banner
+
+.home-section-url, .articles-section-url {
   line-height: 10px;
   text-transform: uppercase;
   font-weight: bold;
@@ -221,38 +244,28 @@ a.home-article-img, a.listing-homepage-img {
   }
 }
 
-// p.section-url {
-//   padding-left: 0.5em;
-//   margin-top: 0.8em;
-//   padding-bottom: 0;
-//   text-transform: uppercase;
-//   a {
-//     color: #31C4C4;
-//     font-family: $font-family-TwCentBold;
-//     font-size: 16px;
-//   }
-// }
+.list-header {
+  &.teal { background: #00b8ae; }
+  &.pink { background: #ed008c; }
+  &.lime { background: #cadb2a; }
 
-// p.home-section-url {
-//   padding: 0;
-//   text-transform: uppercase;
-//   a {
-//     color: #ee028d;
-//     font-family: $font-family-avenirBold;
-//     font-size: 12px;
-//   }
-// }
-//
-// p.articles-section-url {
-//   padding-bottom: 0;
-//   text-transform: uppercase;
-//   a {
-//     color: #ed008c;
-//     font-family: $font-family-avenirBold;
-//     font-size: 12px;
-//     padding: 0;
-//   }
-// }
+  line-height: 48px;
+  font-size: 14px;
+  color: #18151D;
+  text-transform: uppercase;
+
+  a img {
+    height: 40px;
+    width: auto;
+  }
+}
+
+
+
+
+
+
+
 
 
 .featured-title, .article-title {
@@ -478,23 +491,6 @@ article {
     margin: 0.5em 0em;
     text-decoration: underline;
   }
-}
-
-.list-header {
-  span {
-    font-family: $font-family-sans-serif;
-    font-size: 16pt;
-    text-transform: uppercase;
-    color: #141414;
-    font-weight: normal;
-    line-height: 55px;
-  }
-   a {
-     float: left;
-     img {
-       width: 40px;
-     }
-   }
 }
 
 .see-more-container {
@@ -1273,36 +1269,6 @@ h4.report {
   height: 24px;
 }
 
-.articles-list-view {
-  h2.lime {
-    background: #cadb2a;
-  }
-  h2.teal {
-    background: #00b8ae;
-  }
-  h2.pink {
-    background: #ed008c;
-  }
-  .list-block {
-    li {
-      a {
-        padding: 0;
-      }
-    }
-  }
-}
-
-.articles {
-  h2.lime {
-    background: #cadb2a;
-  }
-  h2.teal {
-    background: #00b8ae;
-  }
-  h2.pink {
-    background: #ed008c;
-  }
-}
 
 .title {
   h6 {
