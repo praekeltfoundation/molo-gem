@@ -55,6 +55,7 @@ $anotherShadeOfGrey: #67666b;
 @include links($colorFirst);
 
 .container-padding {
+
   padding: 0.8em 0.8em 0;
 }
 
@@ -108,14 +109,36 @@ a, a:hover {
   }
 }
 
-h3.featured-title, h3.article-title {
+// articles
+
+/*
+  { image }
+  { category }
+  { title }
+  { subtitle }
+  [ Read More ]
+*/
+
+a.home-article-img {
+  padding: 0;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.featured-title, .article-title {
   font-weight: bold;
   font-size: 15px;
   color: #141414;
-
   a, a:visited {
     color: #141414;
   }
+}
+
+.sub-title, .article-sub-title {
+  font-size: 14px;
+  color: #7A7A7A;
 }
 
 
@@ -156,15 +179,6 @@ h3.featured-title, h3.article-title {
 .highlight-quaternary {
   color: $colorFourth;
 }
-
-
-
-// typography
-
-p {
-  margin: 0;
-}
-
 
 // GEM featured styling
 
@@ -302,21 +316,6 @@ article {
   clear: both;
 }
 
-
-p.sub-title {
-  font-family: $font-family-avenir-ot;
-  font-size: 14px;
-  color: #5c5c5c;
-  font-weight: normal;
-}
-
-
-p.article-sub-title {
-  font-family: $font-family-avenir-ot;
-  font-size: 18px;
-  color: #7A7A7A;
-  font-weight: normal;
-}
 
 .articles {
   hr {
@@ -1017,10 +1016,6 @@ h4.report {
     padding: 1em;
 }
 
-a.home-article-img {
-  padding: 0;
-}
-
 .articles.latest-articles.nav {
   ul {
     li {
@@ -1215,9 +1210,6 @@ a.home-article-img {
   }
   h2.pink {
     background: #ed008c;
-  }
-  p.article-sub-title {
-    font-size: 17px;
   }
 }
 
