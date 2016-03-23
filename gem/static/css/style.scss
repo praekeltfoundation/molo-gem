@@ -260,13 +260,8 @@ the variation and naming conventions differ wildly.
   }
 }
 
-
-
-
-
-
-
-
+// Title
+  // v1, v2, v3, v4 - identical
 
 .featured-title, .article-title {
   font-weight: bold;
@@ -277,9 +272,28 @@ the variation and naming conventions differ wildly.
   }
 }
 
+// Subtitle
+  // v1, v2, v3, v4 - identical
+
 .sub-title, .article-sub-title {
   font-size: 14px;
   color: #7A7A7A;
+}
+
+// Read More
+  // v1, v2, v3 - identical
+.see-more-container, .read-more {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 12px;
+
+  a {
+    color: #00B8AE;
+    text-decoration: underline;
+  }
+  a:visited {
+    color: purple;
+  }
 }
 
 
@@ -483,24 +497,7 @@ article {
   @include clearfix;
 }
 
-.read-more {
-  a {
-    color: #01b9af;
-    font-family: $font-family-sans-serif;
-    font-size: 11pt;
-    margin: 0.5em 0em;
-    text-decoration: underline;
-  }
-}
 
-.see-more-container {
-  a {
-    font-family: $font-family-sans-serif;
-    font-size: 13px;
-    color: #00b8ae;
-    text-decoration: underline;
-  }
-}
 
 #gem-footer {
   background: #ececec;
