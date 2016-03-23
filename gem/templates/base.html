@@ -80,12 +80,11 @@
         </div>
 
         {% if languages %}
-        <ul class="language-container">
-            {% for language in languages %}
-            <li><a href="{% url 'locale_set' language.code %}">{{language.title}}</a></li>
-            {% endfor %}
-            <div class="clear-fix"></div>
-        </ul>
+        <div class="language-container">
+          {% for language in languages %}
+          <a href="{% url 'locale_set' language.code %}">{{language.title}}</a>
+          {% endfor %}
+        </div>
         {% endif %}
 
         {% block content %}{% endblock %}
