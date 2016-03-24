@@ -4,7 +4,7 @@
 {% block content %}
     <div class="profile-container">
         <div class="title profile">
-            <h3>{% trans "Hello " %}{{ user }}</h3>
+            <h3>{% trans "Hello" %} {{ user }}</h3>
         </div>
         <div class="block">
             <a href="{% url 'molo.profiles:auth_logout' %}"
@@ -14,7 +14,8 @@
         <div class="signin-form">
             <div class="block">
                 <form method="post" id="frmProfileEdit"
-                      action="{% url 'molo.profiles:edit_my_profile' %}">{% csrf_token %}
+                      action="{% url 'molo.profiles:edit_my_profile' %}">
+                    {% csrf_token %}
                     <h5>{% trans "Change your name" %}</h5>
                     <p>{% trans "When you type comments your name will appear as:" %}</p>
                     <h5>{{ alias }}</h5>
