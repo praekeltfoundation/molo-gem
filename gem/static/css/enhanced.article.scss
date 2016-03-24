@@ -7,6 +7,45 @@
 }
 
 
+// 2nd set of articles on the homepage are displayed
+// in a 2x2 grid.
+.home-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 24px 4px 0 4px;
+
+  .latest-section {
+    width: 50%;
+    padding: 0 4px;
+  }
+}
+
+// Images
+
+.home-section .listing-homepage-img {
+  position: relative;
+  display: block;
+
+  img {
+    width: 100%;
+  }
+
+  img.icon-pink, img.icon-teal, img.icon-lime {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 4px;
+    height: 40px;
+    width: 40px;
+    display: block;
+  }
+  img.icon-pink { background: #ed008c; }
+  img.icon-teal { background: #00b8ae; }
+  img.icon-lime { background: #cadb2a; }
+}
+
+
 // Sections
 
 .latest-listing-container {
@@ -30,6 +69,14 @@
   }
 }
 
+.home-section {
+  .articles-section-url a {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}
+
+
 
 // Title
 
@@ -45,6 +92,13 @@
   }
 }
 
+.home-section {
+  .featured-title a {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
 
 // Subtitle
 
@@ -52,6 +106,11 @@
   font-size: 18px;
   line-height: 24px;
   color: #5C5C5C;
+}
+
+.home-section .sub-title {
+  color: #5C5C5C;
+  font-size: 16px;
 }
 
 
