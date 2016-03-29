@@ -1,28 +1,23 @@
 {% extends "base.html" %}
-
-{% load static core_tags %}
-{% load wagtailcore_tags wagtailimages_tags poll_votings %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-  <h2 class="list-header {{ self.get_effective_extra_style_hints }}">
-    {% if page.image %}
-      <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
-    {% endif %}
-    <span>{{self.title}}</span>
-  </h2>
+<h2 class="list-header {{ self.get_effective_extra_style_hints }}">
+  {% if page.image %}
+    <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
+  {% endif %}
+  <span>{{self.title}}</span>
+</h2>
 
-  {# I know this can be done with `nth-child` selectors in CSS, but I felt that
-    this simplifies the code and make our intent more explicit.  #}
+<div class="article-latest-list" id="article-hero">
+  {% with self.articles|first as article %}
+  {% include "core/article_preview.html" with article=article %}
+  {% endwith %}
+</div>
 
-  <div class="article-latest-list" id="article-hero">
-    {% with self.articles|first as article %}
-    {% include "core/article_preview.html" with article=article %}
-    {% endwith %}
-  </div>
-
-  <div class="section-article-list">
-    {% for article in self.articles|slice:"1" %}
-    {% include "core/article_preview.html" with article=article %}
-    {% endfor %}
-  </div>
+<div class="section-article-list">
+  {% for article in self.articles|slice:"1" %}
+  {% include "core/article_preview.html" with article=article %}
+  {% endfor %}
+</div>
 {% endblock %}
