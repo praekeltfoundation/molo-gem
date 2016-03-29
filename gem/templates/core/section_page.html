@@ -2,17 +2,17 @@
 
 {% block content %}
 <div class="section_page">
-  {% include "core/section_header.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
+  {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
 
-  {% with self.articles|first as article %}
   <div id="article-hero">
-    {% include "core/article_preview.html" with article=article %}
-  </div>
+  {% with self.articles|first as article %}
+      {% include "core/article_partial.html" with article=article %}
   {% endwith %}
+  </div>
 
   <div class="article-list">
     {% for article in self.articles|slice:"1:" %}
-      {% include "core/article_preview.html" with article=article %}
+      {% include "core/article_partial.html" with article=article %}
     {% endfor %}
   </div>
 </div>

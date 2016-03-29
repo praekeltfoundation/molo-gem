@@ -59,6 +59,7 @@
 
 .section_page .section-title { display: none; }
 
+// not used, but extended into other classes below.
 .zig-zag-bar {
   height: 24px;
   width: 100%;
@@ -67,7 +68,6 @@
   background: url(/static/img/featured_bar.png);
   margin: 0 0 24px 0;
 }
-
 
 // The section title has to be offset on-top of the image on the homepage.
 .template-main {
@@ -92,6 +92,12 @@
       p { font-size: 1.125em; }
     }
   }
+
+  .article-list {
+    &:after {
+      @extend .zig-zag-bar;
+    }
+  }
 }
 
 #article-hero {
@@ -101,5 +107,6 @@
   }
 
   &:after {
+    @extend .zig-zag-bar;
   }
 }
