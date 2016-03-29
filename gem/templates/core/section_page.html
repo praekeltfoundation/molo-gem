@@ -1,20 +1,13 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
-
 {% block content %}
-<h2 class="list-header {{ self.get_effective_extra_style_hints }}">
-  {% if page.image %}
-    <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
-  {% endif %}
-  <span>{{self.title}}</span>
-</h2>
+
+{% include "core/section_header.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
 
 <div class="article-latest-list" id="article-hero">
   {% with self.articles|first as article %}
   {% include "core/article_preview.html" with article=article %}
   {% endwith %}
 </div>
-
 <div class="section-article-list">
   {% for article in self.articles|slice:"1" %}
   {% include "core/article_preview.html" with article=article %}

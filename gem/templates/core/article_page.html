@@ -7,15 +7,10 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="articles nav {{ self.get_parent_section.get_effective_extra_style_hints }}">
-        <h2 class="list-header {{ self.get_parent_section.get_effective_extra_style_hints }}">
-            {% if self.get_parent_section.image %}
-                <a href="{% pageurl self.get_parent_section %}">{% image self.get_parent_section.image width-120 %}</a>
-            {% endif %}
-            <span>{{ self.get_parent_section }}</span>
-        </h2>
+<div class="articles nav {{ self.get_parent_section.get_effective_extra_style_hints }}">
 
-          {% include "core/article_preview.html" with article=page %}
+  {% include "core/section_header.html" with url=self.get_parent_section image=self.get_parent_section.image title=self.get_parent_section extra_classes=self.get_parent_section.get_effective_extra_style_hints %}
+  {% include "core/article_preview.html" with article=page %}
 
         <div class="article-container">
             <article>
