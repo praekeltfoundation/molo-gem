@@ -1,8 +1,4 @@
-
-body {
-  font-size: 16px;
-  line-height: 1.5;
-}
+// TODO: Add medium font.
 
 @font-face {
   font-family: 'AvenirNextCondensed';
@@ -10,6 +6,13 @@ body {
        url('/static/fonts/AvenirNextCondensed-Regular.woff') format('woff'),
        url('/static/fonts/AvenirNextCondensed-Regular.ttf') format('truetype');
   font-weight: normal;
+}
+@font-face {
+  font-family: 'AvenirNextCondensed-Medium';
+  src: url('/static/fonts/AvenirNextCondensed-Medium.woff2') format('woff2'),
+       url('/static/fonts/AvenirNextCondensed-Medium.woff') format('woff'),
+       url('/static/fonts/AvenirNextCondensed-Medium.ttf') format('truetype');
+  font-weight: 300;
 }
 @font-face {
   font-family: 'AvenirNextCondensed';
@@ -49,28 +52,6 @@ textarea {
   font-family: 'AvenirNextCondensed', Arial, sans-serif;
 }
 
-#gem-header {
-  line-height: 48px;
-  height: 48px;
-  a {
-    font-size: 16px;
-    padding: 10px;
-  }
-}
-
-.language-container {
-  line-height: 24px;
-  height: 24px;
-  a, a:visited {
-    font-size: 12px;
-    text-transform: uppercase;
-  }
-}
-
-.back-to-top {
-  display: none !important;
-}
-
 input[type=text] {
   height: 48px;
   font-size: 18px;
@@ -89,7 +70,30 @@ button, input[type=submit], .button, .gem-polls a {
   text-transform: uppercase;
 }
 
-// re-order using flex: search, links, copywrite.
+
+#gem-header {
+  line-height: 48px;
+  height: 48px;
+  a {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+
+.language-container {
+  line-height: 24px;
+  height: 24px;
+  text-transform: uppercase;
+
+  a {
+    font-size: 12px;
+  }
+}
+
+.back-to-top {
+  display: none !important;
+}
+
 #gem-footer {
   display: flex;
   flex-direction: column;
@@ -113,7 +117,6 @@ button, input[type=submit], .button, .gem-polls a {
       }
       input {
         flex: 1;
-        font-size: 18px;
       }
       button {
         width: 48px;
@@ -156,7 +159,6 @@ button, input[type=submit], .button, .gem-polls a {
 }
 
 @import "enhanced.article-preview";
-
 @import "enhanced.article";
 @import "enhanced.your-words";
 @import "enhanced.polls";

@@ -1,35 +1,32 @@
 
 .article-preview {
   img {
+    max-height: 216px;
     margin: 0 0 16px 0;
     width: 100%;
-    background: yellow;
-    border: 1px solid blue;
-  }
 
+    border: 1px solid red;
+  }
   .text {
     text-transform: uppercase;
-    margin: 0 1em;
+    margin: 0 16px;
 
-    .section, h3, p {
+    .section-title, h3, p {
       margin: 0 0 16px 0;
     }
 
-    .section {
-      font-size: 0.75em;
-      font-weight: bold;
-      a {
-        color: #ed008c;
-      }
+    .section-title {
+      font-family: 'AvenirNextCondensed-Medium';
+      font-size: 12px;
+      a { color: #ed008c; }
     }
 
     h3 {
       font-family: 'TwCenMT';
-      font-size: 1.25em;
+      font-size: 20px;
       font-weight: normal;
-      a {
-        color: #4f4c54;
-      }
+
+      a { color: #4f4c54; }
     }
 
     p {
@@ -39,9 +36,70 @@
   }
 }
 
-#article-hero {
+.article-list {
+  display: flex;
+  flex-wrap: wrap;
 
-  .text h3 {
-    font-size: 1.625em;
+  .article-preview {
+    width: 50%;
+    padding: 0 8px;
+    margin: 0 0 24px 0;
+
+    img { height: 112px; }
+
+    .text {
+      margin: 0 8px;
+      p {
+        // rather set the margin-bottom on .article-preview
+        margin: 0;
+      }
+    }
+  }
+}
+
+.section_page .section-title { display: none; }
+
+.zig-zag-bar {
+  height: 24px;
+  width: 100%;
+  display: block;
+  content: " ";
+  background: url(/static/img/featured_bar.png);
+  margin: 0 0 24px 0;
+}
+
+
+// The section title has to be offset on-top of the image on the homepage.
+.template-main {
+  #article-hero {
+    .text {
+      position: relative;
+
+      .section-title {
+        position: absolute;
+        top: -40-16px;
+        left: -16px;
+        height: 40px;
+        line-height: 40px;
+        background: #ed008c;
+        font-size: 1em;
+        font-weight: normal;
+        padding: 0 16px;
+
+        a { color: #fff; }
+      }
+
+      p { font-size: 1.125em; }
+    }
+  }
+}
+
+#article-hero {
+  h3 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  &:after {
   }
 }
