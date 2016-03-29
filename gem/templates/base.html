@@ -25,16 +25,16 @@
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
-            <a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a>
+            <a href="{% url 'molo.profiles:user_register' %}">{% trans "Log in" %}</a>
             {% else %}
-            <a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a>
+            <a href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
             {% endif %}
             <a href="{% url 'search' %}">
               <img src="{% static 'img/search_white.png' %}" width="16" height="16" alt="Search" />
             </a>
         </div>
 
-        {% if languages %}
+        {% if languages|length > 1 %}
         <div class="language-container">
           {% for language in languages %}
           <a href="{% url 'locale_set' language.code %}">{{language.title}}</a>
@@ -44,6 +44,7 @@
 
         {% block content %}
         {% endblock %}
+
         <a class="back-to-top featured" href="#gem-header">
           {% trans "back to top" %}
         </a>
