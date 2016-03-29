@@ -1,34 +1,9 @@
-
-{% load wagtailcore_tags wagtailimages_tags %}
-
 {% if sections %}
-<div class="articles nav home-section">
-{% for section in sections %}
-  {% for page in section.featured_articles_in_homepage %}
-  <ul class="list-block latest-section">
-      <li>
-        {% if page.image %}
-        <a class="listing-homepage-img" href="{% pageurl page %}">
-            {% image page.image width-320 %}
-        {% if section.image %}
-            {% image section.image width-30 as tmp_photo %}
-            <img src="{{ tmp_photo.url }}" alt="{{ section.image.title }}" class="icon-{{section.get_effective_extra_style_hints }}"/>
-        {% endif %}
-        </a>
-        {% endif %}
-        <p class="articles-section-url"><a href="{% pageurl page.get_parent_section %}">{{ page.get_parent_section  }}</a></p>
-        <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
-        <p class="sub-title">{{page.subtitle}}</p>
-        <div class="clear-fix"></div>
-        <div class="see-more-container">
-          <a href="{% pageurl page %}" class="see-more">Read More</a>
-        </div>
-      </li>
-  </ul>
-  {% endfor %}
-{% endfor%}
+<div class="article-section-list">
+    {% for section in sections %}
+      {% for article in section.featured_articles_in_homepage %}
+      {% include "core/article_preview.html" with article=article %}
+      {% endfor %}
+    {% endfor %}
 </div>
-<div class="clear-fix"></div>
-<div class="featured-article-ribbon"></div>
 {% endif %}
-
