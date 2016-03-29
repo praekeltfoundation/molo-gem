@@ -9,12 +9,8 @@
 {% block content %}
     <div class="articles articles-list-view nav">
 
-      <h2 class="list-header {{ self.get_effective_extra_style_hints }}">
-        {% if page.image %}
-          <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
-        {% endif %}
-        <span>{{self.title}}</span>
-      </h2>
+      {% include "core/section_header.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
+
       {% for page in self.sections %}
       <ul class="list-block">
         <li>
@@ -47,4 +43,3 @@
      <div class="clear-fix"></div>
 
 {% endblock %}
-
