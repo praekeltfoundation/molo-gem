@@ -1,50 +1,28 @@
-
 {% extends "base.html" %}
 
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags poll_votings %}
 
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
-
 {% block content %}
-    <div class="articles articles-list-view nav">
+  <h2 class="list-header {{ self.get_effective_extra_style_hints }}">
+    {% if page.image %}
+      <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
+    {% endif %}
+    <span>{{self.title}}</span>
+  </h2>
 
-      <h2 class="list-header {{ self.get_effective_extra_style_hints }}">
-        {% if page.image %}
-          <a href="{% pageurl page %}">{% image page.image width-120 %}</a>
-        {% endif %}
-        <span>{{self.title}}</span>
-      </h2>
-      {% for page in self.sections %}
-      <ul class="list-block">
-        <li>
-          {% if page.image %}
-          <a href="{% pageurl page %}">{% image page.image width-60 %}</a>
-          {% endif %}
-          <h3><a href="{% pageurl page %}">{{page.title}}</a></h3>
-          {% if page.description %}<p>{{page.description}}</p>{% endif %}
-        </li>
-      </ul>
-      {% endfor %}
-    {% for page in self.articles %}
-    <ul class="list-block">
-      <li>
-        {% if page.image %}
-          <a class="listing-homepage-img" href="{% pageurl page %}">{% image page.image width-320 %}</a>
-        {% endif %}
-          <div class="featured-section-container">
-              <h3 class="featured-title"><a href="{% pageurl page %}">{{page.title}}</a></h3>
-              <p class="sub-title">{{page.subtitle}}</p>
-              <span class="read-more"><a href="{% pageurl page %}">Read More</a></span>
-              <div class="clear-fix"></div>
-          </div>
-      </li>
-    </ul>
-    <div class="featured-article-ribbon"></div>
+  {# I know this can be done with `nth-child` selectors in CSS, but I felt that
+    this simplifies the code and make our intent more explicit.  #}
+
+  <div class="article-latest-list" id="article-hero">
+    {% with self.articles|first as article %}
+    {% include "core/article_preview.html" with article=article %}
+    {% endwith %}
+  </div>
+
+  <div class="section-article-list">
+    {% for article in self.articles|slice:"1" %}
+    {% include "core/article_preview.html" with article=article %}
     {% endfor %}
-
-    </div>
-     <div class="clear-fix"></div>
-
+  </div>
 {% endblock %}
-

@@ -7,7 +7,11 @@
   {% endif %}
 
   <div class="article-text">
-    <div class="section-title">{{ article.get_parent_section }}</div>
+    <div class="section-title">
+      <a href="{% pageurl article.get_parent_section %}">
+        {{ article.get_parent_section }}
+      </a>
+      </div>
     <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>
     <p>{{ article.subtitle }}</p>
 

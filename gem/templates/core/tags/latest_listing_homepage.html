@@ -1,8 +1,8 @@
 {# Only the latest article is displayed as `hero` content #}
 {% if articles %}
-  <div class="article-latest-list" id="article-hero">
+<div class="article-latest-list" id="article-hero">
   {% with articles|first as article %}
   {% include "core/article_preview.html" with article=article %}
   {% endwith %}
-  </div>
+</div>
 {% endif %}
