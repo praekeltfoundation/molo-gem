@@ -14,16 +14,9 @@
             {% endif %}
             <span>{{ self.get_parent_section }}</span>
         </h2>
-        {% if self.image %}
-            <div class="banner">{% image self.image width-240 %}</div>
-        {% endif %}
-        <div class="article-container">
-            <h3 class="article-title">{{ self.title }}</h3>
-            <p class="article-sub-title">{{ self.subtitle }}</p>
-            <div class="clear-fix"></div>
 
-            <hr class="article-hr"/>
-        </div>
+          {% include "core/article_preview.html" with article=page %}
+
         <div class="article-container">
             <article>
                 {% for block in self.body %}
