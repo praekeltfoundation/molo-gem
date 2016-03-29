@@ -1,0 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags i18n %}
+<div class="article-preview">
+  {% if article.image %}
+  <a href="{% pageurl article %}">
+    {% image article.image width-320 %}
+  </a>
+  {% endif %}
+
+  <div class="article-text">
+    <div class="section-title">{{ article.get_parent_section }}</div>
+    <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>
+    <p>{{ article.subtitle }}</p>
+
+    <div class="read-more">
+      <a href="{% pageurl article %}">{% trans "Read more" %}</a>
+    </div>
+  </div>
+</div>
