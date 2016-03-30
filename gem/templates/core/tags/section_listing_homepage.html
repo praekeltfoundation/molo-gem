@@ -1,9 +1,7 @@
 {% if sections %}
-<div class="section-article-list">
   {% for section in sections %}
     {% for article in section.featured_articles_in_homepage %}
-    {% include "core/article_preview.html" with article=article %}
+    {% include "core/article_intro_partial.html" with article=article %}
     {% endfor %}
   {% endfor %}
-</div>
 {% endif %}

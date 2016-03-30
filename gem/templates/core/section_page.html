@@ -1,16 +1,19 @@
 {% extends "base.html" %}
+
 {% block content %}
+<div class="section_page">
+  {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
 
-{% include "core/section_header.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
-
-<div class="article-latest-list" id="article-hero">
+  <div id="article-hero">
   {% with self.articles|first as article %}
-  {% include "core/article_preview.html" with article=article %}
+      {% include "core/article_intro_partial.html" with article=article %}
   {% endwith %}
-</div>
-<div class="section-article-list">
-  {% for article in self.articles|slice:"1" %}
-  {% include "core/article_preview.html" with article=article %}
-  {% endfor %}
+  </div>
+
+  <div class="article-list">
+    {% for article in self.articles|slice:"1:" %}
+      {% include "core/article_intro_partial.html" with article=article %}
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

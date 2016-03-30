@@ -18,7 +18,7 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+
         <div id="gem-header">
             <a id="logo" href="/">
               <img src="{% static 'img/logo.png' %}" width="120" height="27" alt="Girl Effect" />
@@ -45,14 +45,13 @@
         {% block content %}
         {% endblock %}
 
-        <div class="back-to-top" href="">
+        <div class="back-to-top">
           <a href="#gem-header">{% trans "Back to Top" %}</a>
         </div>
 
-        <div class="teal-ribbon"></div>
 
         {% block footer %}
-          {% load wagtailcore_tags wagtailimages_tags %}
+          <div class="teal-ribbon"></div>
           <div id="gem-footer">
             <ul class="sections">
               <li><a href="/">{% trans "Home" %}</a></li>
@@ -84,5 +83,6 @@
             </div>
           </div>
         {% endblock %}
+        {% wagtailuserbar %}
     </body>
 </html>
