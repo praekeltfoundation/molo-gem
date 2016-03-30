@@ -4,7 +4,10 @@
   {% if competitions %}
   <div class="your-words {{ competition.get_effective_extra_style_hints }}">
     {% with competition=competitions|first %}
-      <div class="your-words-title">{% trans "Share your story" %}</div>
+      <div class="section-title">
+        <h2>{% trans "Share your story" %}</h2>
+      </div>
+
       <h3>{{ competition.title }}</h3>
       <p>{{ competition.description }}</p>
 
