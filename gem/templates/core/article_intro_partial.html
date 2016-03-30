@@ -3,7 +3,11 @@
 
   {% if article.image %}
   <a href="{% pageurl article %}">
-    {% image article.image width-320 %}
+    {% if square_image %}
+      {% image article.image fill-160x160 %}
+    {% else %}
+      {% image article.image fill-320x180 %}
+    {% endif %}
   </a>
   {% endif %}
 

@@ -193,3 +193,4 @@ WAGTAIL_SITE_NAME = "GEM"
 # Whether to use face/feature detection to improve image
 # cropping - requires OpenCV
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
+IMAGE_COMPRESSION_QUALITY = 85
