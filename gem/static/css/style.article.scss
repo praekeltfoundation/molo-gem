@@ -1,24 +1,46 @@
-// Articles Itself
+.section-header {
 
-article {
+  a {
+    height: 48px;
+    line-height: 48px;
 
-  font-size: 14px;
-  color: #141414;
+    font-size: 14px;
+    color: #18151d;
+    text-transform: uppercase;
 
-  a, a:hover {
-    color: #7A7A7A;
-    text-decoration: underline;
+    img {
+        margin: 0 8px;
+    }
   }
 
-  h1 {
-    font-weight: bold;
-    font-size: 13px;
-    color: #4F4C54;
-  }
+  &.teal { background: #00b8ae; }
+  &.pink { background: #ed008c; }
+  &.lime { background: #cadb2a; }
 }
 
-.articles {
-  hr {
-    border-top: 1px solid #ECECEC;
+.article {
+
+  color: #141414;
+
+  .article-preview {
+    .text { margin: 0 8px; }
+    img { margin-bottom: 16px; }
+    .read-more { display: none !important; }
+    p { color: #141414; }
+  }
+
+  .article-content {
+    margin: 0 8px;
+    a, a:hover {
+      color: #7A7A7A;
+      text-decoration: underline;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: bold;
+      font-size: 13px;
+      color: #4F4C54;
+    }
+
   }
 }

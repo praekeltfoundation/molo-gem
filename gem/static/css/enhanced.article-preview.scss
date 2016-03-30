@@ -1,3 +1,12 @@
+// not used, but extended into other classes below.
+.zig-zag-bar {
+  height: 24px;
+  width: 100%;
+  display: block;
+  content: " ";
+  background: url(/static/img/featured_bar.png);
+  margin: 0 0 24px 0;
+}
 
 .article-preview {
   .text {
@@ -25,36 +34,26 @@
   flex-wrap: wrap;
 
   .article-preview {
-    width: 50%;
     padding: 0 8px;
     margin: 0 0 16px 0;
-
+    width: 50%;
     img {
       width: 100%;
-    }
-
-    .text {
-      margin: 0 8px;
     }
   }
 }
 
-.section_page .section-title { display: none; }
-
-// not used, but extended into other classes below.
-.zig-zag-bar {
-  height: 24px;
-  width: 100%;
-  display: block;
-  content: " ";
-  background: url(/static/img/featured_bar.png);
-  margin: 0 0 24px 0;
-}
 
 // The section title has to be offset on-top of the image on the homepage.
 .template-main {
   #article-hero {
+
+    .section-title, img, h3, p, .read-more {
+      margin-bottom: 16px;
+    }
+
     .text {
+      margin: 0 16px;
       position: relative;
 
       .section-title {

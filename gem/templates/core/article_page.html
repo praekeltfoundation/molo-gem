@@ -7,39 +7,38 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-<div class="articles nav {{ self.get_parent_section.get_effective_extra_style_hints }}">
+<div class="article {{ self.get_parent_section.get_effective_extra_style_hints }}">
 
   {% include "core/section_header_partial.html" with url=self.get_parent_section image=self.get_parent_section.image title=self.get_parent_section extra_classes=self.get_parent_section.get_effective_extra_style_hints %}
   {% include "core/article_intro_partial.html" with article=page %}
 
-        <div class="article-container">
-            <article>
-                {% for block in self.body %}
-                    {% if block.block_type == 'heading' %}
-                        <h1>{{ block.value }}</h1>
-                    {% else %}
-                        {% if block.block_type == 'image' %}
-                            {% image block.value width-240 %}
-                        {% else %}
-                            {% if block.block_type == 'numbered_list' %}
-                                <ol>
-                                    {% for item in block.value %}
-                                        <li>{{ item }}</li>
-                                    {% endfor %}
-                                </ol>
-                            {% else %}
-                                {{ block }}
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-                <div class="featured-article-ribbon"></div>
+  <article class="article-content">
+    {% for block in self.body %}
+        {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+        {% else %}
+            {% if block.block_type == 'image' %}
+                {% image block.value width-240 %}
+            {% else %}
+                {% if block.block_type == 'numbered_list' %}
+                    <ol>
+                        {% for item in block.value %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    {{ block }}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+  </article>
 
-\                <ul class="article-tags">
-                    {% for tag in self.tags.all %}
-                        <li> {{ tag.name }} </li>
-                    {% endfor %}
-                </ul>
+  <ul class="article-tags">
+      {% for tag in self.tags.all %}
+          <li> {{ tag.name }} </li>
+      {% endfor %}
+  </ul>
 
                 {% if self.is_commenting_enabled %}
                     <div class="block {{ self.get_parent_section.get_effective_extra_style_hints }}">
