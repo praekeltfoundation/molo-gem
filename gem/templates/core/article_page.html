@@ -9,8 +9,8 @@
 {% block content %}
 <div class="articles nav {{ self.get_parent_section.get_effective_extra_style_hints }}">
 
-  {% include "core/section_header.html" with url=self.get_parent_section image=self.get_parent_section.image title=self.get_parent_section extra_classes=self.get_parent_section.get_effective_extra_style_hints %}
-  {% include "core/article_preview.html" with article=page %}
+  {% include "core/section_header_partial.html" with url=self.get_parent_section image=self.get_parent_section.image title=self.get_parent_section extra_classes=self.get_parent_section.get_effective_extra_style_hints %}
+  {% include "core/article_intro_partial.html" with article=page %}
 
         <div class="article-container">
             <article>
@@ -35,7 +35,7 @@
                 {% endfor %}
                 <div class="featured-article-ribbon"></div>
 
-                <ul class="article-tags">
+\                <ul class="article-tags">
                     {% for tag in self.tags.all %}
                         <li> {{ tag.name }} </li>
                     {% endfor %}
