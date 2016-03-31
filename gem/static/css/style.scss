@@ -1,6 +1,7 @@
 @import "mixins";
 @import "variables";
 @import "base";
+@import "modules.css";
 
 /*
 
@@ -45,7 +46,9 @@ input, textarea {
   border: 1px #D6D6D6 solid;
   padding: 0 8px;
 }
-input[type=text] {
+input[type="text"],
+input[type="password"],
+input[type="search"] {
   height: 30px;
 }
 
@@ -69,6 +72,7 @@ a, a:hover {
 #gem-header {
   padding: 0 8px;
   line-height: 42px;
+  height: 42px;
   text-align: right;
   background: #00b8ae;
 
@@ -80,9 +84,9 @@ a, a:hover {
     color: #fff;
   }
 
-  a#logo {
-    padding: 0;
+  #logo {
     float: left;
+    padding: 0;
   }
 }
 
@@ -113,6 +117,7 @@ a, a:hover {
   background-repeat: repeat-x;
   background-size: 100%;
   height: 24px;
+  margin-top: 16px;
 }
 
 #gem-footer {
@@ -142,3 +147,60 @@ a, a:hover {
 @import "style.your-words";
 @import "style.polls";
 @import "style.search";
+
+
+.articles {
+  margin: 8px;
+}
+
+
+.profile-container,
+.default-container,
+{
+
+
+
+  .title {
+    text-align: center;
+    margin: 8px;
+  }
+
+  .block, article {
+    margin: 8px;
+    text-align: center;
+  }
+
+  form {
+    padding: 16px 8px ;
+    background: #ececec;
+
+    label, p {
+      text-align: left;
+      margin: 0 0 8px 0;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="search"] {
+      width: 100%;
+      margin: 0 0 16px 0;
+    }
+
+    input[type="submit"] {
+      width: 80%;
+      text-align: center;
+    }
+
+    .inverted {
+      width: 100%;
+      text-align: left;
+      display: block;
+      color: #00b8ae;
+      font-weight: normal;
+      font-size: 11px;
+      background: none;
+      text-decoration: underline;
+    }
+
+  }
+}
