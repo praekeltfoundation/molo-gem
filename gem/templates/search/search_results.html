@@ -2,6 +2,8 @@
 {% load wagtailcore_tags wagtailimages_tags comments i18n%}
 
 
+{% block body_class %}default-container{% endblock %}
+
 {% block content %}
 {% if search_results %}
   <div class="title search">
@@ -59,7 +61,7 @@
         <h3>{% trans "Search" %}</h3>
     </div>
     <div class="block">
-        <p class="no-search-results">{% trans "No search results for " %}{{search_query}}.</p>
+        <p class="no-search-results">{% trans "No search results for " %} <br/> `{{ search_query }}`</p>
         <div id="search-form">
             <form action="{% url 'search' %}">
               <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
