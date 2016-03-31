@@ -1,6 +1,7 @@
 @import "mixins";
 @import "variables";
 @import "base";
+@import "module.css";
 
 /*
 
@@ -45,7 +46,8 @@ input, textarea {
   border: 1px #D6D6D6 solid;
   padding: 0 8px;
 }
-input[type=text] {
+input[type="text"],
+input[type="password"] {
   height: 30px;
 }
 
@@ -144,3 +146,44 @@ a, a:hover {
 @import "style.your-words";
 @import "style.polls";
 @import "style.search";
+
+
+
+.profile-container {
+  margin: 8px;
+  text-align: center;
+
+  form {
+    padding: 16px 8px ;
+    background: #ececec;
+
+    label, p {
+      text-align: left;
+      margin: 0 0 8px 0;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      margin: 0 0 16px 0;
+    }
+
+    input[type="submit"] {
+      width: 80%;
+      text-align: center;
+    }
+
+    .inverted {
+      width: 100%;
+      text-align: left;
+      display: block;
+      color: #00b8ae;
+      font-weight: normal;
+      font-size: 11px;
+      background: none;
+      text-decoration: underline;
+    }
+
+  }
+
+}
