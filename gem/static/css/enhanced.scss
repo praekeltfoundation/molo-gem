@@ -1,3 +1,10 @@
+@media screen and (min-width: 600px) {
+    body {
+      max-width: 320px;
+    }
+}
+
+
 @font-face {
   font-family: 'AvenirNextCondensed';
   src: url('/static/fonts/AvenirNextCondensed-Regular.woff2') format('woff2'),
@@ -60,7 +67,7 @@ textarea {
   font-family: 'AvenirNextCondensed', Arial, sans-serif;
 }
 
-input[type="text"], input[type="password"] {
+input {
   height: 48px;
   font-size: 18px;
 }
@@ -167,11 +174,19 @@ button, input[type="submit"], .button, .gem-polls a {
 .profile-container,
 .default-container {
 
+  hr { display: none; }
+
   .title {
     font-size: 24px;
+    line-height: 32px;
     text-align: center;
-    margin: 24px 16px;
+    margin: 24px 16px 18px 24px;
+
+    h3 {
+      margin: 0;
+    }
   }
+
 
   .block {
     margin: 24px 16px;
@@ -181,20 +196,33 @@ button, input[type="submit"], .button, .gem-polls a {
   form {
     padding: 24px 16px;
 
+    h5 {
+      text-align: left;
+      margin: 0 0 18px 0;
+      font-size: 24px;
+    }
+
+
+
     label, p {
       font-family: 'AvenirNextCondensed-DemiBold';
       font-size: 16px;
+      margin: 0 0 16px 0;
+      padding: 0;
       color: #4F4C54;
     }
 
-    input[type="text"],
-    input[type="password"] {
+    input {
       width: 100%;
-      margin: 0 0 16px 0;
+      margin: 0 0 24px 0;
+    }
+
+    input + input[type="submit"] {
+      margin-top: 8px; // 32 gap.
     }
 
     input[type="submit"] {
-      margin-top: 32px;
+      margin: 32px 0 8px 0;
       width: 80%;
       text-align: center;
     }
@@ -211,5 +239,12 @@ button, input[type="submit"], .button, .gem-polls a {
       text-decoration: underline;
     }
 
+  }
+}
+
+.profile-container {
+  input + h5 + p {
+    font-family: 'AvenirNextCondensed';
+    font-weight: normal;;
   }
 }

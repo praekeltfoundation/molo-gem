@@ -10,17 +10,18 @@
 		{% if question.show_results and not question.freetextquestion%}
 			<h3>{{ question.title }}</h3>
 			<p>{% trans "Your answers:" %}</p>
+      <div class="choices">
 				{% for choice in choices %}
-					<span>{{ choice.title }}</span>
+					<p>{{ choice.title }}
 						{% if question.result_as_percentage %}
-							{{ choice.percentage }}%
-							<br>
+							<span>{{ choice.percentage }}%</span>
+
 						{% else %}
-							{{ choice.votes }} vote{{ choice.votes|pluralize }}
-							<br>
+							<span>{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
 						{% endif %}
-		      </span>
+		      </p>
 				{% endfor %}
+      </div>
 		{% else %}
 			<h4>{% trans "Thank you for voting!" %}</h4>
 		{% endif %}

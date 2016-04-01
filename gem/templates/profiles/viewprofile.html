@@ -11,7 +11,7 @@
                class="button inverted logout-link">{% trans "log out" %}</a>
         </div>
         <hr>
-        <div class="signin-form">
+        <div class="nickname-form">
             <div class="block">
                 <form method="post" id="frmProfileEdit"
                       action="{% url 'molo.profiles:edit_my_profile' %}">
@@ -26,11 +26,12 @@
             </div>
         </div>
         <hr>
-        <div class="signin-form">
+        <div class="password-form">
             <div class="block">
-                <h5>{% trans "Change Your Password" %}</h5>
+
                 <form method="post" id="frmProfilePasswordChange"
                       action="{% url 'molo.profiles:profile_password_change' %}" class="profile">{% csrf_token %}
+                    <h5>{% trans "Change Your Password" %}</h5>
                     {% if form.errors or form.non_field_errors %}
                         {% if form.non_field_errors %}
                             {% for error in form.non_field_errors %}
