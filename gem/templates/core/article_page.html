@@ -39,48 +39,7 @@
         <li>{{ tag.name }}</li>
       {% endfor %}
     </ul>
-
-    {% if self.is_commenting_enabled %}
-        <div class="block {{ self.get_parent_section.get_effective_extra_style_hints }}">
-            {% if self.allow_commenting %}
-                {% get_comment_count for self as comment_count %}
-                <div class="post-comment {{ self.get_parent_section.get_effective_extra_style_hints }}">
-                    <h3 class="comment-header">{% trans "Got something to say?" %}</h3>
-                    {% if request.user.is_authenticated %}
-                        {% render_comment_form for self %}
-                    {% else %}
-                        <p class="comment-login">{% trans "Login to leave a comment." %}</p>
-                        <a href="{% url 'molo.profiles:auth_login' %}?next={{ request.path }}"
-                           class="comment-login-button">
-                            <button>{% trans "Log In" %}</button>
-                        </a>
-                        <p class="comment-sign-up">
-                          <a href="{% url 'molo.profiles:user_register' %}?next={{ request.path }}">{% trans "Sign Up" %}</a>
-                        </p>
-                        <hr>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
-        <div id="comments-list">
-            {% get_comment_count for self as comment_count %}
-            {% get_molo_comments for self as comment_list %}
-            {% if comment_count > 0 %}
-                <h5>
-                    <div class="comments-count align-left">{{ comment_count }}
-                        <span>{% trans "comment" %}{{ comment_count|pluralize }}</span></div>
-                </h5>
-            {% endif %}
-            {% for node in comment_list %}
-                {% include "comments/comment.html" %}
-            {% endfor %}
-            {% if comment_count > 5 %}
-                <div class="view-more-comments pagination">
-                    <a href="{% url 'more-comments' self.pk %}">{% trans "View more Comments" %}</a>
-                </div>
-            {% endif %}
-        </div>
-    {% endif %}
+    {% include "comments/comment_block.html" %}
 
 
   </article>
