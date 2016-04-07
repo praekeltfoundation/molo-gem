@@ -20,6 +20,12 @@
     <div class="section-title">
       <a href="{% pageurl article.get_parent_section %}">{{ article.get_parent_section }}</a>
     </div>
+
+    {% if article %}
+        {% image article.get_parent_section.image width-40 as section_image %}
+        <img src="{{ section_image.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }}" />
+    {% endif %}
+
     <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>
     <p>{{ article.subtitle }}</p>
     <a class="read-more" href="{% pageurl article %}">{% trans "Read more" %}</a>

@@ -1,0 +1,37 @@
+{% load comments mptt_tags molo_commenting_tags i18n %}
+
+{% if self.is_commenting_enabled %}
+<div class="block">
+  {% if self.allow_commenting %}
+    {% get_comment_count for self as comment_count %}
+    {% if comment_count > 0 %}
+      <h5>{% trans "Comment" %}<a href="#" class="pull-right">{{comment_count}} <span>{% trans "comment" %}{{comment_count|pluralize}}</span></a></h5>
+    {% endif %}
+    <div class="post-comment">
+    {% if request.user.is_authenticated %}
+      {% render_comment_form for self %}
+    {% else %}
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
+    {% endif %}
+  {% else %}
+    <p>{% trans "Commenting on this article is currently disabled" %}</p>
+  {% endif %}
+	</div>
+</div>
+
+<div id="comments-list">
+  {% get_comment_count for self as comment_count %}
+    {% get_molo_comments for self as comment_list %}
+      {% for node in comment_list %}
+        {% recursetree node %}
+            {% include "comments/comment.html" %}
+            {{ children }}
+        {% endrecursetree %}
+      {% endfor %}
+  {% if comment_count > 5 %}
+    <div class="pagination">
+      <a href="{% url 'more-comments' self.pk %}">{% trans "view more comments" %}</a>
+    </div>
+  {% endif %}
+</div>
+{% endif %}
