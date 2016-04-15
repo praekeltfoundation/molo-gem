@@ -19,6 +19,10 @@
             <p><strong>{% trans "Choose a 4-digit pin" %}</strong></p>
             {{ form.password.errors}}
             {{ form.password }}
+
+            <p><strong>{% trans "What gender are you" %}</strong></p>
+            {{ form.gender.errors}}
+            {{ form.gender }}
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
