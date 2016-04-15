@@ -5,6 +5,13 @@ from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
 from wagtail.wagtailsearch.models import Query
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+
+from molo.profiles.views import RegistrationView
+from forms import RegistrationForm
+
 
 def search(request, results_per_page=10):
     search_query = request.GET.get('q', None)
@@ -37,3 +44,19 @@ def report_response(request, comment_pk):
     return render(request, 'comments/report_response.html', {
         'article': comment.content_object,
     })
+
+
+class GemRegistrationView(RegistrationView):
+    form_class = RegistrationForm
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        gender = form.cleaned_data['gender']
+        user = User.objects.create_user(username=username, password=password)
+        user.gem_profile.gender = gender
+        user.gem_profile.save()
+
+        authed_user = authenticate(username=username, password=password)
+        login(self.request, authed_user)
+        return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
