@@ -65,11 +65,13 @@
                 </form>
             </div>
         </div>
-        <hr>
-        <div class="gender-form">
-            <div class="block">
-                    <h5>{% trans "Your gender is:" %}{{user.gem_profile.gender}}</h5>
-            </div>
-        </div>
+        {% if user.gem_profile %}
+          <hr>
+          <div class="gender-form">
+              <div class="block">
+                      <h5>{% trans "Your gender is:" %}{{user.gem_profile.gender}}</h5>
+              </div>
+          </div>
+        {% endif %}
     </div>
 {% endblock %}
