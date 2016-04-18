@@ -26,7 +26,7 @@ class RegisterTestCase(TestCase):
 
     def test_register_password_incorrect(self):
         form_data = {
-            'username': 'Jeyabal#',
+            'username': 'Jeyabal@-1',
             'password': '12345',
             'gender': 'f',
         }
