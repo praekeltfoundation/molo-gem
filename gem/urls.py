@@ -9,7 +9,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from gem.views import search, report_response
+from gem.views import search, report_response, GemRegistrationView
 
 urlpatterns = patterns(
     '',
@@ -17,7 +17,8 @@ urlpatterns = patterns(
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-
+    url(r'^profiles/register/$',
+        GemRegistrationView.as_view(), name='user_register'),
 
     url(r'^profiles/',
         include('molo.profiles.urls',
