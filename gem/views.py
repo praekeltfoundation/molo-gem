@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
 from molo.profiles.views import RegistrationView
-from forms import RegistrationForm
+from forms import GemRegistrationForm
 
 
 def search(request, results_per_page=10):
@@ -47,7 +47,7 @@ def report_response(request, comment_pk):
 
 
 class GemRegistrationView(RegistrationView):
-    form_class = RegistrationForm
+    form_class = GemRegistrationForm
 
     def form_valid(self, form):
         username = form.cleaned_data['username']

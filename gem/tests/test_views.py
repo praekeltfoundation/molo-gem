@@ -1,17 +1,18 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 
-from gem.forms import RegistrationForm
+from gem.forms import GemRegistrationForm
 
 
-class RegistrationViewTest(TestCase):
+class GemRegistrationViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
-        self.assertTrue(isinstance(response.context['form'], RegistrationForm))
+        self.assertTrue(isinstance(response.context['form'],
+                        GemRegistrationForm))
 
     def test_register_view_invalid_form(self):
         # NOTE: empty form submission
