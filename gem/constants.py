@@ -1,3 +1,4 @@
 MALE = "m"
 FEMALE = "f"
-GENDERS = {(MALE, "male"), (FEMALE, "female")}
+TRANS = "t"
+GENDERS = {(MALE, "male"), (FEMALE, "female"), (TRANS, "trans")}
