@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 from os.path import abspath, dirname, join
 from django.conf import global_settings
+from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 
 # Absolute filesystem path to the Django project directory:
@@ -194,3 +195,11 @@ WAGTAIL_SITE_NAME = "GEM"
 # cropping - requires OpenCV
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 IMAGE_COMPRESSION_QUALITY = 85
+
+
+# Additional strings that need translations from other modules
+# molo.polls
+_("Log in to vote")
+_("Username already exists.")
+_("Vote")
+_("Show Results")
