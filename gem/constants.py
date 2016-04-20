@@ -1,4 +1,4 @@
 MALE = "m"
 FEMALE = "f"
-TRANS = "t"
-GENDERS = {(MALE, "male"), (FEMALE, "female"), (TRANS, "trans")}
+UNSPECIFIED = "-"
+GENDERS = {(MALE, "male"), (FEMALE, "female"), (UNSPECIFIED, "Don't want to Answer")}
