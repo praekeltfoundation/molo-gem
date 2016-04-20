@@ -1,4 +1,6 @@
+from django.utils.translation import ugettext_lazy as _
+
 MALE = "m"
 FEMALE = "f"
 UNSPECIFIED = "-"
-GENDERS = {(MALE, "male"), (FEMALE, "female"), (UNSPECIFIED, "don't want to answer")}
+GENDERS = {(MALE, _("male")), (FEMALE, _("female")), (UNSPECIFIED, _("don't want to answer"))}
