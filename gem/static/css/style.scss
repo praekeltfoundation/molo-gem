@@ -30,7 +30,8 @@ body {
 
 body,
 input,
-textarea {
+textarea,
+select {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -42,13 +43,13 @@ label {
   font-size: 13px;
   color: #141414;
 }
-input, textarea {
+input, textarea, select {
   margin: 8px 0;
   border: 1px #D6D6D6 solid;
   padding: 0 8px;
 }
 
-input {
+input, select {
   height: 30px;
 }
 
@@ -187,7 +188,7 @@ a, a:hover {
       margin: 0 0 8px 0;
     }
 
-    input {
+    input, select {
       width: 100%;
       margin: 0 0 16px 0;
     }
@@ -209,6 +210,16 @@ a, a:hover {
     }
 
   }
+}
+
+.signin-form #id_gender {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.sigin-form__input-hint {
+  text-align: center !important;
+  color: #555 !important;
 }
 
 .section_page {

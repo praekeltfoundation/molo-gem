@@ -20,9 +20,10 @@
             {{ form.password.errors}}
             {{ form.password }}
 
-            <p><strong>{% trans "I identify my gender as (only you will see this)" %}</strong></p>
+            <p><strong>{% trans "I identify my gender as" %}</strong></p>
             {{ form.gender.errors}}
             {{ form.gender }}
+            <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
