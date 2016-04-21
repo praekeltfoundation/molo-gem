@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 from os.path import abspath, dirname, join
+from os import environ
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
@@ -203,3 +204,11 @@ _("Log in to vote")
 _("Username already exists.")
 _("Vote")
 _("Show Results")
+
+
+# The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
+# via a templatetag, so that we can use this for different regions:
+# Indonesia vs. Rwanda.
+# - the site logo
+# - style.css
+SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
