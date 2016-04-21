@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n gem_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -12,8 +12,8 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
-          <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style_rwanda.scss' %}">
-          <link rel="stylesheet" type="text/x-scss" media="screen and (min-width: 320px)" href="{% static 'css/enhanced.scss' %}">
+          <link rel="stylesheet" type="text/x-scss" href="{% static '' %}css/style{% get_site_static_prefix %}.scss">
+          <link rel="stylesheet" type="text/x-scss" media="screen and (min-width: 320px)" href="{% static '' %}css/enhanced{% get_site_static_prefix %}.scss">
         {% endcompress %}
     </head>
 
@@ -21,7 +21,7 @@
 
         <div id="gem-header">
             <a id="logo" href="/">
-              <img src="{% static 'img/logo-rwanda.png' %}" width="119" height="28" alt="Girl Effect" />
+              <img src="{% static '' %}img/logo{% get_site_static_prefix %}.png" width="119" height="28" alt="Girl Effect" />
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
