@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from os.path import abspath, dirname, join
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
+from os import environ
 import dj_database_url
 
 # Absolute filesystem path to the Django project directory:
@@ -80,7 +81,7 @@ INSTALLED_APPS = (
 COMMENTS_APP = 'molo.commenting'
 COMMENTS_FLAG_THRESHHOLD = 3
 COMMENTS_HIDE_REMOVED = False
-SITE_ID = 1
+SITE_ID = environ.get('SITE_ID', 1)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
