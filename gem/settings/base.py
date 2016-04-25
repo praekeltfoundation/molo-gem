@@ -100,6 +100,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'gem.urls'
 WSGI_APPLICATION = 'gem.wsgi.application'
 
+SESSION_COOKIE_AGE = 60 * 10  # 10 minutes
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
