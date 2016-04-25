@@ -3,11 +3,13 @@ from django.shortcuts import render
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
+from molo.profiles.forms import DateOfBirthForm
 from wagtail.wagtailsearch.models import Query
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import FormView
 
 from molo.profiles.views import RegistrationView
 from forms import GemRegistrationForm
@@ -59,4 +61,15 @@ class GemRegistrationView(RegistrationView):
 
         authed_user = authenticate(username=username, password=password)
         login(self.request, authed_user)
+        return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
+
+
+class GemRegistrationDone(FormView):
+    form_class = DateOfBirthForm
+    template_name = 'profiles/done.html'
+
+    def form_valid(self, form):
+        gem_profile = self.request.user.gem_profile
+        gem_profile.date_of_birth = form.cleaned_data['date_of_birth']
+        gem_profile.save()
         return HttpResponseRedirect(form.cleaned_data.get('next', '/'))

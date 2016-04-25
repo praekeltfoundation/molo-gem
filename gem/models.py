@@ -12,6 +12,8 @@ class GemUserProfile(models.Model):
     gender = models.CharField(
         max_length=1, choices=GENDERS, blank=True, null=True)
 
+    date_of_birth = models.DateField(blank=True, null=True)
+
 
 @receiver(post_save, sender=User)
 def gem_user_profile_handler(sender, instance, created, **kwargs):
