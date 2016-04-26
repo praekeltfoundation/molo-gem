@@ -1,3 +1,4 @@
+from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
@@ -60,3 +61,18 @@ class GemRegistrationView(RegistrationView):
         authed_user = authenticate(username=username, password=password)
         login(self.request, authed_user)
         return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
+
+
+class GemRssFeed(Feed):
+    title = "GEM RSS Feed"
+    link = "/gem-rss-feed/"
+    description = "GEM RSS Feed"
+
+    def items(self):
+        return ArticlePage.objects.filter(featured_in_homepage=True)
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.subtitle

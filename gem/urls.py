@@ -9,7 +9,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from gem.views import search, report_response, GemRegistrationView
+from gem.views import search, report_response, GemRegistrationView, GemRssFeed
 
 urlpatterns = patterns(
     '',
@@ -39,6 +39,8 @@ urlpatterns = patterns(
         include('molo.yourwords.urls',
                 namespace='molo.yourwords',
                 app_name='molo.yourwords')),
+
+    url(r'blog-feed/$', GemRssFeed()),
 
     url(r'^servicedirectory/', include('molo.servicedirectory.urls')),
 
