@@ -1,6 +1,7 @@
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.utils.feedgenerator import Atom1Feed
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
@@ -64,15 +65,25 @@ class GemRegistrationView(RegistrationView):
 
 
 class GemRssFeed(Feed):
-    title = "GEM RSS Feed"
-    link = "/gem-rss-feed/"
-    description = "GEM RSS Feed"
+    title = 'GEM Feed'
+    link = '/feed/'
+    description = 'GEM Feed'
+    description_template = 'feed_description.html'
 
     def items(self):
-        return ArticlePage.objects.filter(featured_in_homepage=True)
+        return ArticlePage.objects.filter(
+            live=True
+        ).order_by(
+            '-first_published_at'
+        )[:20]
 
-    def item_title(self, item):
-        return item.title
+    def item_title(self, article_page):
+        return article_page.title
 
-    def item_description(self, item):
-        return item.subtitle
+    def item_description(self, article_page):
+        return article_page.subtitle
+
+
+class GemAtomFeed(GemRssFeed):
+    feed_type = Atom1Feed
+    subtitle = GemRssFeed.description
