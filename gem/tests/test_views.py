@@ -44,6 +44,7 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, self.article_page.title)
         self.assertContains(response, self.article_page.subtitle)
         self.assertContains(response, '<language>tl</language>')
+        self.assertNotContains(response, 'example.com')
 
     def test_atom_feed_view(self):
         response = self.client.get(reverse('feed_atom'))
@@ -51,3 +52,4 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, self.article_page.title)
         self.assertContains(response, self.article_page.subtitle)
         self.assertContains(response, 'xml:lang="tl"')
+        self.assertNotContains(response, 'example.com')

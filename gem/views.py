@@ -66,15 +66,30 @@ class GemRegistrationView(RegistrationView):
 
 class GemRssFeed(Feed):
     title = 'GEM Feed'
-    link = '/feed/'
     description = 'GEM Feed'
     description_template = 'feed_description.html'
+
+    def __call__(self, request, *args, **kwargs):
+        self.base_url = '{0}://{1}'.format(request.scheme, request.get_host())
+        return super(GemRssFeed, self).__call__(request, *args, **kwargs)
 
     def get_feed(self, obj, request):
         feed = super(GemRssFeed, self).get_feed(obj, request)
         # set language to Tagalog instead of settings.LANGUAGE_CODE
         feed.feed['language'] = 'tl'
+        # override the automatically discovered feed_url
+        # TODO: consider overriding django.contrib.sites.get_current_site to
+        # work with Wagtail sites - could remove the need for all the URL
+        # overrides
+        feed.feed['feed_url'] = self.base_url + request.path
         return feed
+
+    def link(self):
+        """
+        Returns the URL of the HTML version of the feed as a normal Python
+        string.
+        """
+        return self.base_url
 
     def items(self):
         return ArticlePage.objects.live().order_by(
@@ -83,6 +98,15 @@ class GemRssFeed(Feed):
 
     def item_title(self, article_page):
         return article_page.title
+
+    def item_link(self, article_page):
+        return self.base_url + article_page.url
+
+    def item_pubdate(self, article_page):
+        return article_page.first_published_at
+
+    def item_updateddate(self, article_page):
+        return article_page.latest_revision_created_at
 
 
 class GemAtomFeed(GemRssFeed):
