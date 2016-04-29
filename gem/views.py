@@ -75,8 +75,6 @@ class GemRssFeed(Feed):
 
     def get_feed(self, obj, request):
         feed = super(GemRssFeed, self).get_feed(obj, request)
-        # set language to Tagalog instead of settings.LANGUAGE_CODE
-        feed.feed['language'] = 'tl'
         # override the automatically discovered feed_url
         # TODO: consider overriding django.contrib.sites.get_current_site to
         # work with Wagtail sites - could remove the need for all the URL
