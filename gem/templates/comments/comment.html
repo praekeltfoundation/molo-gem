@@ -1,6 +1,18 @@
 {% load i18n molo_commenting_tags %}
 <div class="comment {{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
-  <p class="by"><strong>{{node.user_name}}</strong></p>
+  <p class="by">
+    <strong>
+    {% if node.user_name.lower == 'anonymous' %}
+      {{node.user_name}}
+    {% else %}
+      {% if not node.user.profile.alias %}
+        Anonymous
+      {% else %}
+        {{node.user.profile.alias}}
+      {% endif %}
+    {% endif %}
+    </strong>
+  </p>
   {% if node.is_removed %}
     <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
   {% else %}

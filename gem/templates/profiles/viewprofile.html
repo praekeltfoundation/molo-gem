@@ -65,11 +65,18 @@
                 </form>
             </div>
         </div>
+        <hr>
+        {% if user.profile %}
+          <div class="dob-form">
+              <div class="block">
+                  <h5>{% trans "Your date of birth is:" %} {{ user.profile.date_of_birth }}</h5>
+              </div>
+          </div>
+        {% endif %}
         {% if user.gem_profile %}
-          <hr>
           <div class="gender-form">
               <div class="block">
-                      <h5>{% trans "Your gender is:" %} {{user.gem_profile.get_gender_display}}</h5>
+                  <h5>{% trans "Your gender is:" %} {{user.gem_profile.get_gender_display}}</h5>
               </div>
           </div>
         {% endif %}
