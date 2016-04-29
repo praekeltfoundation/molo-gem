@@ -70,6 +70,12 @@ class GemRssFeed(Feed):
     description = 'GEM Feed'
     description_template = 'feed_description.html'
 
+    def get_feed(self, obj, request):
+        feed = super(GemRssFeed, self).get_feed(obj, request)
+        # set language to Tagalog instead of settings.LANGUAGE_CODE
+        feed.feed['language'] = 'tl'
+        return feed
+
     def items(self):
         return ArticlePage.objects.live().order_by(
             '-first_published_at'

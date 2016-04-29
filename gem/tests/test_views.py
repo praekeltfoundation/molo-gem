@@ -43,9 +43,11 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
 
         self.assertContains(response, self.article_page.title)
         self.assertContains(response, self.article_page.subtitle)
+        self.assertContains(response, '<language>tl</language>')
 
     def test_atom_feed_view(self):
         response = self.client.get(reverse('feed_atom'))
 
         self.assertContains(response, self.article_page.title)
         self.assertContains(response, self.article_page.subtitle)
+        self.assertContains(response, 'xml:lang="tl"')
