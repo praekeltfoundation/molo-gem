@@ -87,7 +87,7 @@ class GemRssFeed(Feed):
         Returns the URL of the HTML version of the feed as a normal Python
         string.
         """
-        return self.base_url
+        return self.base_url + '/'
 
     def items(self):
         return ArticlePage.objects.live().order_by(
@@ -105,6 +105,10 @@ class GemRssFeed(Feed):
 
     def item_updateddate(self, article_page):
         return article_page.latest_revision_created_at
+
+    def item_author_name(self, article_page):
+        return article_page.owner.first_name if \
+            article_page.owner and article_page.owner.first_name else 'Staff'
 
 
 class GemAtomFeed(GemRssFeed):
