@@ -41,8 +41,8 @@ urlpatterns = patterns(
                 namespace='molo.yourwords',
                 app_name='molo.yourwords')),
 
-    url(r'^feed/rss/$', GemRssFeed()),
-    url(r'^feed/atom/$', GemAtomFeed()),
+    url(r'^feed/rss/$', GemRssFeed(), name='feed_rss'),
+    url(r'^feed/atom/$', GemAtomFeed(), name='feed_atom'),
 
     url(r'^servicedirectory/', include('molo.servicedirectory.urls')),
 

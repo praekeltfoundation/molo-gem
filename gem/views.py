@@ -71,17 +71,12 @@ class GemRssFeed(Feed):
     description_template = 'feed_description.html'
 
     def items(self):
-        return ArticlePage.objects.filter(
-            live=True
-        ).order_by(
+        return ArticlePage.objects.live().order_by(
             '-first_published_at'
         )[:20]
 
     def item_title(self, article_page):
         return article_page.title
-
-    def item_description(self, article_page):
-        return article_page.subtitle
 
 
 class GemAtomFeed(GemRssFeed):
