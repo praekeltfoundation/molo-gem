@@ -13,7 +13,6 @@ from gem.forms import GemRegistrationForm
 
 
 class GemRegistrationViewTest(TestCase):
-
     def setUp(self):
         self.client = Client()
 
@@ -73,3 +72,30 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         response = self.client.get('/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
+
+
+class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.client = Client()
+
+        self.mk_main()
+
+        section_page = self.mk_section(self.english, title='Test Section')
+
+        self.article_page = self.mk_article(
+            section_page, title='Test Article',
+            subtitle='This should appear in the feed')
+
+    def test_rss_feed_view(self):
+        response = self.client.get(reverse('feed_rss'))
+
+        self.assertContains(response, self.article_page.title)
+        self.assertContains(response, self.article_page.subtitle)
+        self.assertNotContains(response, 'example.com')
+
+    def test_atom_feed_view(self):
+        response = self.client.get(reverse('feed_atom'))
+
+        self.assertContains(response, self.article_page.title)
+        self.assertContains(response, self.article_page.subtitle)
+        self.assertNotContains(response, 'example.com')
