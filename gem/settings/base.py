@@ -100,7 +100,11 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'gem.urls'
 WSGI_APPLICATION = 'gem.wsgi.application'
 
+# GEM-195
+# Automatically log users out after 10 mins of inactivity
+# Closing the browser window/tab will NOT end the session
 SESSION_COOKIE_AGE = 60 * 10  # 10 minutes
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
