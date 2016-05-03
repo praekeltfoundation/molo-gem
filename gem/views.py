@@ -1,15 +1,15 @@
+from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.utils.feedgenerator import Atom1Feed
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
-from molo.profiles.forms import DateOfBirthForm
 from wagtail.wagtailsearch.models import Query
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import FormView
 
 from molo.profiles.views import RegistrationView
 from forms import GemRegistrationForm
@@ -64,12 +64,53 @@ class GemRegistrationView(RegistrationView):
         return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
 
 
-class GemRegistrationDone(FormView):
-    form_class = DateOfBirthForm
-    template_name = 'profiles/done.html'
+class GemRssFeed(Feed):
+    title = 'GEM Feed'
+    description = 'GEM Feed'
+    description_template = 'feed_description.html'
 
-    def form_valid(self, form):
-        gem_profile = self.request.user.gem_profile
-        gem_profile.date_of_birth = form.cleaned_data['date_of_birth']
-        gem_profile.save()
-        return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
+    def __call__(self, request, *args, **kwargs):
+        self.base_url = '{0}://{1}'.format(request.scheme, request.get_host())
+        return super(GemRssFeed, self).__call__(request, *args, **kwargs)
+
+    def get_feed(self, obj, request):
+        feed = super(GemRssFeed, self).get_feed(obj, request)
+        # override the automatically discovered feed_url
+        # TODO: consider overriding django.contrib.sites.get_current_site to
+        # work with Wagtail sites - could remove the need for all the URL
+        # overrides
+        feed.feed['feed_url'] = self.base_url + request.path
+        return feed
+
+    def link(self):
+        """
+        Returns the URL of the HTML version of the feed as a normal Python
+        string.
+        """
+        return self.base_url + '/'
+
+    def items(self):
+        return ArticlePage.objects.live().order_by(
+            '-first_published_at'
+        )[:20]
+
+    def item_title(self, article_page):
+        return article_page.title
+
+    def item_link(self, article_page):
+        return self.base_url + article_page.url
+
+    def item_pubdate(self, article_page):
+        return article_page.first_published_at
+
+    def item_updateddate(self, article_page):
+        return article_page.latest_revision_created_at
+
+    def item_author_name(self, article_page):
+        return article_page.owner.first_name if \
+            article_page.owner and article_page.owner.first_name else 'Staff'
+
+
+class GemAtomFeed(GemRssFeed):
+    feed_type = Atom1Feed
+    subtitle = GemRssFeed.description

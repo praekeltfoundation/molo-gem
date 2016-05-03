@@ -10,15 +10,15 @@
     {% latest_listing_homepage %}
   </div>
 
-  {% if language_page %}
-    {% your_words_competition page=language_page %}
-  {% endif %}
+  <div class="gem-polls">
+      {% poll_page page=language_page %}
+  </div>
 
   <div class="article-list">
     {% section_listing_homepage %}
   </div>
 
-  <div class="gem-polls">
-      {% poll_page page=language_page %}
-  </div>
+  {% if language_page %}
+    {% your_words_competition page=language_page %}
+  {% endif %}
 {% endblock %}
