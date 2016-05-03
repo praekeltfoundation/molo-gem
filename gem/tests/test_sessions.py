@@ -55,3 +55,13 @@ class GemAutomaticLogoutTest(TestCase):
 
         self.assertContains(response, 'Hello tester')
         self.assertContains(response, 'log out')
+
+        # check that the previous request reset the timeout
+        time.sleep(0.6)
+        # more than SESSION_COOKIE_AGE seconds have passed since the first
+        # request
+
+        response = self.client.get('/profiles/view/myprofile/')
+
+        self.assertContains(response, 'Hello tester')
+        self.assertContains(response, 'log out')
