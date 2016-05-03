@@ -170,6 +170,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'molo.core.context_processors.locale',
     'gem.context_processors.default_forms',
+    'gem.context_processors.add_tag_manager_account',
 )
 
 
@@ -215,3 +216,4 @@ _("Show Results")
 # - the site logo
 # - style.css
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
+GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
