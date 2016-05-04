@@ -34,7 +34,7 @@ class GemUserProfile(models.Model):
             self.save(update_fields=["security_question_1_answer"])
 
         return check_password(
-            raw_answer, self.security_question_1_answer, setter
+            raw_answer.strip().lower(), self.security_question_1_answer, setter
         )
 
     def check_security_question_2_answer(self, raw_answer):
@@ -43,7 +43,7 @@ class GemUserProfile(models.Model):
             self.save(update_fields=["security_question_2_answer"])
 
         return check_password(
-            raw_answer, self.security_question_2_answer, setter
+            raw_answer.strip().lower(), self.security_question_2_answer, setter
         )
 
 
