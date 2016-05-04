@@ -217,3 +217,8 @@ _("Show Results")
 # - style.css
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
 GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
+
+
+# Password reset - security questions
+SECURITY_QUESTION_1 = 'Dummy security question 1?'
+SECURITY_QUESTION_2 = 'Dummy security question 2?'
