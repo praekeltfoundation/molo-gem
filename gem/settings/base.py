@@ -100,6 +100,11 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'gem.urls'
 WSGI_APPLICATION = 'gem.wsgi.application'
 
+# GEM-195
+# Automatically log users out after 10 mins of inactivity
+# Closing the browser window/tab will NOT end the session
+SESSION_COOKIE_AGE = 60 * 10  # 10 minutes
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -170,6 +175,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'molo.core.context_processors.locale',
     'gem.context_processors.default_forms',
+    'gem.context_processors.add_tag_manager_account',
 )
 
 
@@ -215,3 +221,4 @@ _("Show Results")
 # - the site logo
 # - style.css
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
+GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
