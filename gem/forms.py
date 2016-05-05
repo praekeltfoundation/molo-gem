@@ -10,3 +10,23 @@ class GemRegistrationForm(RegistrationForm):
         choices=GENDERS,
         required=True
     )
+
+    security_question_1_answer = forms.CharField(
+        label=_("Answer to Security Question 1"),
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=128,
+            )
+        ),
+    )
+
+    security_question_2_answer = forms.CharField(
+        label=_("Answer to Security Question 2"),
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=128,
+            )
+        ),
+    )

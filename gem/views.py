@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
@@ -55,13 +56,34 @@ class GemRegistrationView(RegistrationView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         gender = form.cleaned_data['gender']
+        security_question_1_answer = form.cleaned_data[
+            'security_question_1_answer'
+        ]
+        security_question_2_answer = form.cleaned_data[
+            'security_question_2_answer'
+        ]
         user = User.objects.create_user(username=username, password=password)
         user.gem_profile.gender = gender
+        user.gem_profile.set_security_question_1_answer(
+            security_question_1_answer
+        )
+        user.gem_profile.set_security_question_2_answer(
+            security_question_2_answer
+        )
         user.gem_profile.save()
 
         authed_user = authenticate(username=username, password=password)
         login(self.request, authed_user)
         return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
+
+    def render_to_response(self, context, **response_kwargs):
+        context.update({
+            'security_question_1': settings.SECURITY_QUESTION_1,
+            'security_question_2': settings.SECURITY_QUESTION_2
+        })
+        return super(GemRegistrationView, self).render_to_response(
+            context, **response_kwargs
+        )
 
 
 class GemRssFeed(Feed):

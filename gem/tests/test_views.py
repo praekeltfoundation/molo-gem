@@ -31,6 +31,14 @@ class GemRegistrationViewTest(TestCase):
             response, 'form', 'password', ['This field is required.'])
         self.assertFormError(
             response, 'form', 'gender', ['This field is required.'])
+        self.assertFormError(
+            response, 'form', 'security_question_1_answer',
+            ['This field is required.']
+        )
+        self.assertFormError(
+            response, 'form', 'security_question_2_answer',
+            ['This field is required.']
+        )
 
 
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
