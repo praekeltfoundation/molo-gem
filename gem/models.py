@@ -13,8 +13,8 @@ class GemUserProfile(models.Model):
     gender = models.CharField(
         max_length=1, choices=GENDERS, blank=True, null=True)
 
-    security_question_1_answer = models.CharField(max_length=128)
-    security_question_2_answer = models.CharField(max_length=128)
+    security_question_1_answer = models.CharField(max_length=128, null=True)
+    security_question_2_answer = models.CharField(max_length=128, null=True)
 
     # based on django.contrib.auth.models.AbstractBaseUser set_password &
     # check_password functions
