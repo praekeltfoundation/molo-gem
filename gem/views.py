@@ -144,8 +144,11 @@ class GemForgotPasswordView(FormView):
                            'Please try again.')
             return self.render_to_response({'form': form})
 
-        # NB: NOT safe if cookie-based sessions are used
-        # TODO: explain, add url to docs
+        # NB: NOT safe if cookie-based sessions are used (with cookie-based
+        # sessions the session data is stored in the cookie itself and is
+        # NOT encrypted!)
+        # See https://docs.djangoproject.com/en/1.9/topics/http/sessions/
+        # #configuring-the-session-engine
         # TODO: consider generating a reset token for the user and redirecting
         # them to the reset page with the token as a query param
         self.request.session['password_reset_authorized_for'] = username
