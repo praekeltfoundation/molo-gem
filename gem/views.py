@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
+from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from molo.commenting.models import MoloComment
@@ -199,8 +200,11 @@ class GemResetPasswordView(FormView):
         user.save()
         self.request.session.flush()
 
-        # TODO: show success page with button to return to login
-        return HttpResponseRedirect(reverse('molo.profiles:auth_login'))
+        return HttpResponseRedirect(reverse('reset_password_success'))
+
+
+class GemResetPasswordSuccessView(TemplateView):
+    template_name = 'reset_password_success.html'
 
 
 class GemRssFeed(Feed):
