@@ -103,6 +103,24 @@ class GemForgotPasswordView(FormView):
     ]
 
     def form_valid(self, form):
+        if 'random_security_question_idx' not in self.request.session:
+            # the session expired between the time that the form was loaded
+            # and submitted, restart the process
+            return HttpResponseRedirect(reverse('forgot_password'))
+
+        if 'forgot_password_attempts' not in self.request.session:
+            self.request.session['forgot_password_attempts'] = 0
+
+        if self.request.session['forgot_password_attempts'] >= 5:
+            # GEM-195 implemented a 10 min session timeout, so effectively
+            # the user can only try again once their anonymous session expires.
+            # If they make another request within the 10 min time window the
+            # expiration will be reset to 10 mins in the future.
+            # This is obviously not bulletproof as an attacker could simply
+            # not send the session cookie to circumvent this.
+            form.add_error(None, 'Too many attempts. Please try again later.')
+            return self.render_to_response({'form': form})
+
         username = form.cleaned_data['username']
         random_security_question_idx = self.request.session[
             'random_security_question_idx'
@@ -112,9 +130,11 @@ class GemForgotPasswordView(FormView):
         ]
 
         # TODO: consider moving these checks to GemForgotPasswordForm.clean()
+        # see django.contrib.auth.forms.AuthenticationForm for reference
         try:
             user = User.objects.get_by_natural_key(username)
         except User.DoesNotExist:
+            self.request.session['forgot_password_attempts'] += 1
             form.add_error(
                 'username', 'The username that you entered appears to be '
                             'invalid. Please try again.')
@@ -139,6 +159,7 @@ class GemForgotPasswordView(FormView):
             logging.warn('Unhandled security question index')
 
         if not is_answer_correct:
+            self.request.session['forgot_password_attempts'] += 1
             form.add_error('random_security_question_answer',
                            'Your answer to the security question was invalid. '
                            'Please try again.')
