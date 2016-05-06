@@ -1,18 +1,25 @@
-from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django_comments.forms import CommentDetailsForm
+from gem.models import SiteSettings
+from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from django.utils.feedgenerator import Atom1Feed
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
+from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.syndication.views import Feed
 from django.http import HttpResponseRedirect
 
 from molo.profiles.views import RegistrationView
 from forms import GemRegistrationForm
+from django import forms
+
+import re
 
 
 def search(request, results_per_page=10):
@@ -114,3 +121,34 @@ class GemRssFeed(Feed):
 class GemAtomFeed(GemRssFeed):
     feed_type = Atom1Feed
     subtitle = GemRssFeed.description
+
+
+# https://github.com/praekelt/yal-merge/blob/develop/yal/views.py#L711-L751
+def clean_comment(self):
+    """
+    Check for email addresses and telephone numbers
+    """
+    comment = self.cleaned_data['comment']
+
+    site = Site.objects.get(is_default_site=True)
+    settings = SiteSettings.for_site(site)
+
+    banned_list = [REGEX_EMAIL, REGEX_PHONE]
+
+    banned_keywords_and_patterns = settings.banned_keywords_and_patterns.split('\n') \
+        if settings.banned_keywords_and_patterns else []
+
+    banned_list += banned_keywords_and_patterns
+
+    for keyword in banned_list:
+        keyword = keyword.replace('\r', '')
+        match = re.search(keyword.lower(), comment.lower())
+        if match:
+            raise forms.ValidationError("Please remove the following "
+                                        "before posting your message: (%s). "
+                                        % match.group())
+
+    return comment
+
+
+CommentDetailsForm.clean_comment = clean_comment
