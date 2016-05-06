@@ -1,15 +1,16 @@
+import time
 from datetime import datetime
 
-from django.core.urlresolvers import reverse
-from django.test import TestCase, Client
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
-
-from molo.core.tests.base import MoloTestCaseMixin
-from molo.commenting.models import MoloComment
-
+from django.core.urlresolvers import reverse
+from django.test import TestCase, Client
+from django.test.utils import override_settings
 from gem.forms import GemRegistrationForm
+from molo.commenting.models import MoloComment
+from molo.core.tests.base import MoloTestCaseMixin
 
 
 class GemRegistrationViewTest(TestCase):
@@ -39,6 +40,153 @@ class GemRegistrationViewTest(TestCase):
             response, 'form', 'security_question_2_answer',
             ['This field is required.']
         )
+
+
+class GemResetPasswordTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
+
+        self.user.gem_profile.set_security_question_1_answer('dog')
+        self.user.gem_profile.set_security_question_2_answer('cat')
+        self.user.gem_profile.save()
+
+        # to get the session set up
+        response = self.client.get(reverse('forgot_password'))
+
+        self.question_being_asked = settings.SECURITY_QUESTION_1 if \
+            settings.SECURITY_QUESTION_1 in response.content else \
+            settings.SECURITY_QUESTION_2
+
+    def post_invalid_username(self):
+        return self.client.post(reverse('forgot_password'), {
+            'username': 'invalid',
+            'random_security_question_answer': 'something'
+        })
+
+    def test_invalid_username(self):
+        response = self.post_invalid_username()
+
+        self.assertContains(response, 'The username that you entered appears '
+                                      'to be invalid. Please try again.')
+
+    def test_inactive_user(self):
+        self.user.is_active = False
+        self.user.save()
+
+        response = self.client.post(reverse('forgot_password'), {
+            'username': 'tester',
+            'random_security_question_answer': 'something'
+        })
+
+        self.assertContains(response, 'This account is inactive.')
+
+    def post_invalid_answer(self):
+        return self.client.post(reverse('forgot_password'), {
+            'username': 'tester',
+            'random_security_question_answer': 'invalid'
+        })
+
+    def test_invalid_answer_to_security_question(self):
+        response = self.post_invalid_answer()
+
+        self.assertContains(response, 'Your answer to the security question '
+                                      'was invalid. Please try again.')
+
+    def test_unsuccessful_username_attempts(self):
+        response = None
+        for x in range(6):
+            response = self.post_invalid_username()
+
+        # on the 6th attempt
+        self.assertContains(response, 'Too many attempts. Please try again '
+                                      'later.')
+
+    def test_unsuccessful_answer_attempts(self):
+        response = None
+        for x in range(6):
+            response = self.post_invalid_answer()
+
+        # on the 6th attempt
+        self.assertContains(response, 'Too many attempts. Please try again '
+                                      'later.')
+
+    def test_pin_mismatch(self):
+        if self.question_being_asked == settings.SECURITY_QUESTION_1:
+            answer = 'dog'
+        else:
+            answer = 'cat'
+
+        response = self.client.post(reverse('forgot_password'), {
+            'username': 'tester',
+            'random_security_question_answer': answer
+        })
+
+        self.assertRedirects(response, reverse('reset_password'))
+
+        response = self.client.post(reverse('reset_password'), {
+            'password': '1234',
+            'confirm_password': '4321'
+        })
+
+        self.assertContains(response, 'The two PINs that you entered do not '
+                                      'match. Please try again.')
+
+    def test_happy_path(self):
+        if self.question_being_asked == settings.SECURITY_QUESTION_1:
+            answer = 'dog'
+        else:
+            answer = 'cat'
+
+        response = self.client.post(reverse('forgot_password'), {
+            'username': 'tester',
+            'random_security_question_answer': answer
+        })
+
+        self.assertRedirects(response, reverse('reset_password'))
+
+        response = self.client.post(reverse('reset_password'), {
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+
+        self.assertRedirects(response, reverse('reset_password_success'))
+
+        self.assertTrue(
+            self.client.login(username='tester', password='1234')
+        )
+
+    @override_settings(SESSION_COOKIE_AGE=1)
+    def test_session_expiration_allows_subsequent_attempts(self):
+        self.test_unsuccessful_username_attempts()
+
+        time.sleep(1)
+
+        response = self.client.post(reverse('forgot_password'), {
+            'username': 'invalid',
+            'random_security_question_answer': 'something'
+        })
+
+        # the view should redirect back to itself to set up a new session
+        self.assertRedirects(response, reverse('forgot_password'))
+
+        # follow the redirect
+        self.client.get(reverse('forgot_password'))
+
+        # now another attempt should be possible
+        self.test_invalid_username()
+
+    def test_cant_post_straight_to_reset_password_view(self):
+        response = self.client.post(reverse('reset_password'), {
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+
+        self.assertEqual(403, response.status_code)
 
 
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
