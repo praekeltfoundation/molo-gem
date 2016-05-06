@@ -6,6 +6,14 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
+  {% if 'cewekeren.com' in request.get_host %}
+  <div class="message-notification">
+    Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
+    Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank">Internet.org</a>
+    hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+  </div>
+  {% endif %}
+
   <div id="article-hero">
     {% latest_listing_homepage %}
   </div>
