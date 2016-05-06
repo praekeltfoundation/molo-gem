@@ -135,7 +135,8 @@ def clean_comment(self):
 
     banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
-    banned_keywords_and_patterns = settings.banned_keywords_and_patterns.split('\n') \
+    banned_keywords_and_patterns = \
+        settings.banned_keywords_and_patterns.split('\n') \
         if settings.banned_keywords_and_patterns else []
 
     banned_list += banned_keywords_and_patterns
