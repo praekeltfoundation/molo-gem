@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
 from molo.profiles.forms import RegistrationForm
@@ -29,4 +30,67 @@ class GemRegistrationForm(RegistrationForm):
                 max_length=128,
             )
         ),
+    )
+
+
+class GemForgotPasswordForm(Form):
+    username = forms.RegexField(
+        regex=r'^[\w.@+-]+$',
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=30,
+            )
+        ),
+        label=_("Username"),
+        error_messages={
+            'invalid': _("This value must contain only letters, "
+                         "numbers and underscores."),
+        }
+    )
+
+    random_security_question_answer = forms.CharField(
+        label=_("Answer to Security Question"),
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=128,
+            )
+        ),
+    )
+
+
+class GemResetPasswordForm(Form):
+    password = forms.RegexField(
+        regex=r'^\d{4}$',
+        widget=forms.PasswordInput(
+            attrs=dict(
+                required=True,
+                render_value=False,
+                type='password',
+            )
+        ),
+        max_length=4,
+        min_length=4,
+        error_messages={
+            'invalid': _("This value must contain only numbers."),
+        },
+        label=_("PIN")
+    )
+
+    confirm_password = forms.RegexField(
+        regex=r'^\d{4}$',
+        widget=forms.PasswordInput(
+            attrs=dict(
+                required=True,
+                render_value=False,
+                type='password',
+            )
+        ),
+        max_length=4,
+        min_length=4,
+        error_messages={
+            'invalid': _("This value must contain only numbers."),
+        },
+        label=_("Confirm PIN")
     )

@@ -1,8 +1,14 @@
+import logging
+import random
+
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
+from django.views.generic.edit import FormView
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage
@@ -13,7 +19,8 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
 from molo.profiles.views import RegistrationView
-from forms import GemRegistrationForm
+from forms import GemRegistrationForm, GemForgotPasswordForm, \
+    GemResetPasswordForm
 
 
 def search(request, results_per_page=10):
@@ -84,6 +91,105 @@ class GemRegistrationView(RegistrationView):
         return super(GemRegistrationView, self).render_to_response(
             context, **response_kwargs
         )
+
+
+class GemForgotPasswordView(FormView):
+    form_class = GemForgotPasswordForm
+    template_name = 'forgot_password.html'
+
+    security_questions = [
+        settings.SECURITY_QUESTION_1, settings.SECURITY_QUESTION_2
+    ]
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        random_security_question_idx = self.request.session[
+            'random_security_question_idx'
+        ]
+        random_security_question_answer = form.cleaned_data[
+            'random_security_question_answer'
+        ]
+
+        user = User.objects.get_by_natural_key(username)
+
+        if not user or not user.is_active:
+            # TODO: handle invalid/inactive user
+            return
+
+        is_answer_correct = False
+        if random_security_question_idx == 0:
+            is_answer_correct = \
+                user.gem_profile.check_security_question_1_answer(
+                    random_security_question_answer
+                )
+        elif random_security_question_idx == 1:
+            is_answer_correct = \
+                user.gem_profile.check_security_question_2_answer(
+                    random_security_question_answer
+                )
+        else:
+            logging.warn('Unhandled security question index')
+
+        if not is_answer_correct:
+            # TODO: handle wrong answer, retries
+            return
+
+        # NB: NOT safe if cookie-based sessions are used
+        # TODO: explain, add url to docs
+        # TODO: consider generating a reset token for the user and redirecting
+        # them to the reset page with the token as a query param
+        self.request.session['password_reset_authorized_for'] = username
+
+        return HttpResponseRedirect(reverse('reset_password'))
+
+    def render_to_response(self, context, **response_kwargs):
+        random_security_question_idx = random.randint(
+            0, len(self.security_questions)-1
+        )
+        random_security_question = self.security_questions[
+            random_security_question_idx
+        ]
+
+        context.update({
+            'random_security_question': random_security_question
+        })
+
+        self.request.session['random_security_question_idx'] = \
+            random_security_question_idx
+
+        return super(GemForgotPasswordView, self).render_to_response(
+            context, **response_kwargs
+        )
+
+
+class GemResetPasswordView(FormView):
+    form_class = GemResetPasswordForm
+    template_name = 'reset_password.html'
+
+    def form_valid(self, form):
+        password = form.cleaned_data['password']
+        confirm_password = form.cleaned_data['confirm_password']
+
+        if password != confirm_password:
+            # TODO: handle password mismatch
+            pass
+
+        if 'password_reset_authorized_for' not in self.request.session:
+            return HttpResponseForbidden()
+
+        user = User.objects.get_by_natural_key(
+            self.request.session['password_reset_authorized_for']
+        )
+
+        if not user or not user.is_active:
+            return HttpResponseForbidden()
+        
+        user.set_password(password)
+        user.save()
+        self.request.session.flush()
+
+        # TODO: show success page with button to return to login
+        return HttpResponseRedirect(reverse('molo.profiles:auth_login'))
 
 
 class GemRssFeed(Feed):
