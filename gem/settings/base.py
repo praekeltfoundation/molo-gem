@@ -140,7 +140,7 @@ USE_TZ = True
 
 LANGUAGES = global_settings.LANGUAGES + (
     ('tl', _('Tagalog')),
-    ('kin', _('Kinyarwanda')),
+    ('rw', _('Kinyarwanda')),
 )
 LOCALE_PATHS = (
     join(PROJECT_ROOT, "locale"),
