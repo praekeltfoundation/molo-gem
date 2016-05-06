@@ -201,15 +201,6 @@ class GemResetPasswordView(FormView):
     template_name = 'reset_password.html'
 
     def form_valid(self, form):
-        password = form.cleaned_data['password']
-        confirm_password = form.cleaned_data['confirm_password']
-
-        if password != confirm_password:
-            form.add_error('password',
-                           'The two PINs that you entered do not match. '
-                           'Please try again.')
-            return self.render_to_response({'form': form})
-
         if 'password_reset_authorized_for' not in self.request.session:
             return HttpResponseForbidden()
 
@@ -219,6 +210,15 @@ class GemResetPasswordView(FormView):
 
         if not user.is_active:
             return HttpResponseForbidden()
+
+        password = form.cleaned_data['password']
+        confirm_password = form.cleaned_data['confirm_password']
+
+        if password != confirm_password:
+            form.add_error('password',
+                           'The two PINs that you entered do not match. '
+                           'Please try again.')
+            return self.render_to_response({'form': form})
 
         user.set_password(password)
         user.save()
