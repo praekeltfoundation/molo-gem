@@ -110,11 +110,18 @@ class GemForgotPasswordView(FormView):
             'random_security_question_answer'
         ]
 
-        user = User.objects.get_by_natural_key(username)
+        # TODO: consider moving these checks to GemForgotPasswordForm.clean()
+        try:
+            user = User.objects.get_by_natural_key(username)
+        except User.DoesNotExist:
+            form.add_error(
+                'username', 'The username that you entered appears to be '
+                            'invalid. Please try again.')
+            return self.render_to_response({'form': form})
 
-        if not user or not user.is_active:
-            # TODO: handle invalid/inactive user
-            return
+        if not user.is_active:
+            form.add_error('username', 'This account is inactive.')
+            return self.render_to_response({'form': form})
 
         is_answer_correct = False
         if random_security_question_idx == 0:
@@ -131,8 +138,10 @@ class GemForgotPasswordView(FormView):
             logging.warn('Unhandled security question index')
 
         if not is_answer_correct:
-            # TODO: handle wrong answer, retries
-            return
+            form.add_error('random_security_question_answer',
+                           'Your answer to the security question was invalid. '
+                           'Please try again.')
+            return self.render_to_response({'form': form})
 
         # NB: NOT safe if cookie-based sessions are used
         # TODO: explain, add url to docs
@@ -144,7 +153,7 @@ class GemForgotPasswordView(FormView):
 
     def render_to_response(self, context, **response_kwargs):
         random_security_question_idx = random.randint(
-            0, len(self.security_questions)-1
+            0, len(self.security_questions) - 1
         )
         random_security_question = self.security_questions[
             random_security_question_idx
@@ -171,8 +180,10 @@ class GemResetPasswordView(FormView):
         confirm_password = form.cleaned_data['confirm_password']
 
         if password != confirm_password:
-            # TODO: handle password mismatch
-            pass
+            form.add_error('password',
+                           'The two PINs that you entered do not match. '
+                           'Please try again.')
+            return self.render_to_response({'form': form})
 
         if 'password_reset_authorized_for' not in self.request.session:
             return HttpResponseForbidden()
@@ -181,9 +192,9 @@ class GemResetPasswordView(FormView):
             self.request.session['password_reset_authorized_for']
         )
 
-        if not user or not user.is_active:
+        if not user.is_active:
             return HttpResponseForbidden()
-        
+
         user.set_password(password)
         user.save()
         self.request.session.flush()
