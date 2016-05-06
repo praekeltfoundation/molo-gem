@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 
-{% load core_tags competition_tag poll_votings %}
+{% load core_tags competition_tag poll_votings i18n %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
@@ -11,6 +11,13 @@
     Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
     Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank">Internet.org</a>
     hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+  </div>
+  {% endif %}
+
+  {% if 'ninyampinga.com' in request.get_host %}
+  <div class="message-notification">
+  {% trans "If you are an Airtel subcriber, you can access this site for free! Go to " %}
+      <a href="http://www.freebasics.com" target="_blank">freebasics.com</a>
   </div>
   {% endif %}
 
