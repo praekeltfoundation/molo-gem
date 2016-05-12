@@ -5,7 +5,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
-from gem.models import SiteSettings
+from gem.models import GemSettings
 from molo.commenting import MoloCommentForm
 
 from molo.core.tests.base import MoloTestCaseMixin
@@ -92,8 +92,8 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         site = Site.objects.get(id=1)
         site.name = 'GEM'
         site.save()
-        SiteSettings.objects.create(site_id=site.id,
-                                    banned_keywords_and_patterns='naughty')
+        GemSettings.objects.create(site_id=site.id,
+                                   banned_keywords_and_patterns='naughty')
 
         form_data = self.getValidData(self.article)
 
