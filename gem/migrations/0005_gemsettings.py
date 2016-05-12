@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0023_alter_page_revision_on_delete_behaviour'),
-        ('gem', '0003_remove_gemuserprofile_date_of_birth'),
+        ('gem', '0004_auto_20160505_1427'),
     ]
 
     operations = [
