@@ -10,7 +10,8 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
 from gem.views import search, report_response, GemRegistrationView, \
-    GemRssFeed, GemAtomFeed
+    GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
+    GemResetPasswordSuccessView
 
 urlpatterns = patterns(
     '',
@@ -18,8 +19,15 @@ urlpatterns = patterns(
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
+
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
+    url(r'^profiles/forgot_password/$',
+        GemForgotPasswordView.as_view(), name='forgot_password'),
+    url(r'^profiles/reset_password/$',
+        GemResetPasswordView.as_view(), name='reset_password'),
+    url(r'^profiles/reset_password_success/$',
+        GemResetPasswordSuccessView.as_view(), name='reset_password_success'),
 
     url(r'^profiles/',
         include('molo.profiles.urls',

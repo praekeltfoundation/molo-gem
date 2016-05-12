@@ -22,6 +22,7 @@
                         <input type="submit" value="{% trans 'Sign in' %}">
                         <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
                         <a href="{% url 'molo.profiles:user_register' %}" class="button inverted">{% trans "Not a member yet" %}</a>
+                        <a href="{% url 'forgot_password' %}" class="button inverted">{% trans "Forgot PIN" %}</a>
             </form>
             </div>
         </div>

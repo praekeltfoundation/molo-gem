@@ -141,7 +141,7 @@ USE_TZ = True
 
 LANGUAGES = global_settings.LANGUAGES + (
     ('tl', _('Tagalog')),
-    ('kin', _('Kinyarwanda')),
+    ('rw', _('Kinyarwanda')),
 )
 LOCALE_PATHS = (
     join(PROJECT_ROOT, "locale"),
@@ -215,6 +215,7 @@ _("Log in to vote")
 _("Username already exists.")
 _("Vote")
 _("Show Results")
+_("You voted: ")
 
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
@@ -224,6 +225,11 @@ _("Show Results")
 # - style.css
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
 GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
+
+
+# Password reset - security questions
+SECURITY_QUESTION_1 = 'Dummy security question 1?'
+SECURITY_QUESTION_2 = 'Dummy security question 2?'
 
 
 # Comment Filtering Regexes
