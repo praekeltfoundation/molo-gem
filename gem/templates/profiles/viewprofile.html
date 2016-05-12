@@ -18,9 +18,13 @@
                     {% csrf_token %}
                     <h5>{% trans "Change your name" %}</h5>
                     <p>{% trans "When you type comments your name will appear as:" %}
-                      <span>{{ alias }}</span></p>
+                    <span>{{ user.profile.alias }}</span></p>
+
+                    <p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
+
                     <p>{% trans "Type new display name:" %}</p>
                     {{ edit_profile_form.alias }}
+
                     <input type="submit" value='{% trans "Update profile" %}'>
                 </form>
             </div>
@@ -67,11 +71,13 @@
         </div>
         <hr>
         {% if user.profile %}
+          {% if user.profile.date_of_birth %}
           <div class="dob-form">
               <div class="block">
                   <h5>{% trans "Your date of birth is:" %} {{ user.profile.date_of_birth }}</h5>
               </div>
           </div>
+          {% endif %}
         {% endif %}
         {% if user.gem_profile %}
           <div class="gender-form">

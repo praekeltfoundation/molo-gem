@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-06 09:37+0200\n"
+"POT-Creation-Date: 2016-05-12 12:59+0200\n"
 "PO-Revision-Date: 2016-04-26 10:12+0000\n"
 "Last-Translator: Indrani <indrani@praekelt.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,29 +30,33 @@ msgstr "Tidak ingin menjawab"
 msgid "Gender"
 msgstr "Jenis Kelamin"
 
-#: gem/settings/base.py:137
+#: gem/settings/base.py:142
 msgid "Tagalog"
 msgstr ""
 
-#: gem/settings/base.py:138
+#: gem/settings/base.py:143
 msgid "Kinyarwanda"
 msgstr ""
 
-#: gem/settings/base.py:208
+#: gem/settings/base.py:213
 msgid "Log in to vote"
 msgstr "Log in untuk menjawab"
 
-#: gem/settings/base.py:209
+#: gem/settings/base.py:214
 msgid "Username already exists."
 msgstr "Nama akun sudah terdaftar."
 
-#: gem/settings/base.py:210
+#: gem/settings/base.py:215
 msgid "Vote"
 msgstr "Pilih"
 
-#: gem/settings/base.py:211
+#: gem/settings/base.py:216
 msgid "Show Results"
 msgstr "Tampilkan hasil"
+
+#: gem/settings/base.py:217
+msgid "You voted: "
+msgstr ""
 
 #: gem/templates/404.html:8
 msgid "Page not found"
@@ -87,7 +91,7 @@ msgid "Back to Top"
 msgstr "Kembali ke atas"
 
 #: gem/templates/base.html:67 gem/templates/core/tags/breadcrumbs.html:6
-#: gem/templates/polls/results.html:29
+#: gem/templates/polls/results.html:28
 msgid "Home"
 msgstr "Home"
 
@@ -109,19 +113,22 @@ msgstr "Komentar ini telah dihapus. Silahkan baca aturan platform kami."
 msgid "Report"
 msgstr "Laporan"
 
-#: gem/templates/comments/comment_block.html:8
-msgid "comment"
-msgstr "komentar"
+#: gem/templates/comments/comment_block.html:9
+#, python-format
+msgid "%(comment_count)s comment"
+msgid_plural "%(comment_count)s comments"
+msgstr[0] "%(comment_count)s komentar"
+msgstr[1] "%(comment_count)s komentar"
 
-#: gem/templates/comments/comment_block.html:14
+#: gem/templates/comments/comment_block.html:16
 msgid "Log in to comment"
 msgstr "Masuk untuk meninggalkan komentar"
 
-#: gem/templates/comments/comment_block.html:17
+#: gem/templates/comments/comment_block.html:19
 msgid "Commenting on this article is currently disabled"
 msgstr "Mengomentari artikel ini saat ini dinonaktifkan"
 
-#: gem/templates/comments/comment_block.html:33
+#: gem/templates/comments/comment_block.html:35
 msgid "view more comments"
 msgstr "Tampilkan Komentar"
 
@@ -179,25 +186,26 @@ msgstr ""
 msgid "Read more"
 msgstr "Baca selengkapnya"
 
+#: gem/templates/core/main.html:19
+msgid ""
+"If you are an Airtel subcriber, you can access this site for free! Go to "
+msgstr ""
+
 #: gem/templates/polls/results.html:7
 msgid "What's your opinion?"
 msgstr "Apa pendapatmu?"
 
-#: gem/templates/polls/results.html:12
-msgid "Your answers:"
-msgstr "Jawaban anda"
-
-#: gem/templates/polls/results.html:26
+#: gem/templates/polls/results.html:25
 msgid "Thank you for voting!"
 msgstr "Terima kasih telah mendaftar!"
 
 #: gem/templates/profiles/change_password.html:25
-#: gem/templates/profiles/viewprofile.html:50
+#: gem/templates/profiles/viewprofile.html:54
 msgid "Old Password:"
 msgstr "Kata sandi lama"
 
 #: gem/templates/profiles/change_password.html:30
-#: gem/templates/profiles/viewprofile.html:55
+#: gem/templates/profiles/viewprofile.html:59
 msgid "New Password:"
 msgstr "Kata sandi baru"
 
@@ -232,7 +240,7 @@ msgid "Edit your Profile"
 msgstr "Menyunting Profil"
 
 #: gem/templates/profiles/editprofile.html:14
-#: gem/templates/profiles/viewprofile.html:24
+#: gem/templates/profiles/viewprofile.html:28
 msgid "Update profile"
 msgstr "Menyimpan profil"
 
@@ -286,29 +294,35 @@ msgstr "Ubah Namamu"
 msgid "When you type comments your name will appear as:"
 msgstr "Saat mengetik komentar namamu akan muncul sebagai:"
 
-#: gem/templates/profiles/viewprofile.html:22
+#: gem/templates/profiles/viewprofile.html:23
+msgid ""
+"Please do not use your real name, phone number or email address as it's "
+"unsafe."
+msgstr ""
+
+#: gem/templates/profiles/viewprofile.html:25
 msgid "Type new display name:"
 msgstr "Ketik nama tampilan baru:"
 
-#: gem/templates/profiles/viewprofile.html:34
+#: gem/templates/profiles/viewprofile.html:38
 msgid "Change Your Password"
 msgstr "Ganti kata sandi"
 
-#: gem/templates/profiles/viewprofile.html:60
+#: gem/templates/profiles/viewprofile.html:64
 msgid "Confirm Password:"
 msgstr "Konfirmasi Sandi"
 
-#: gem/templates/profiles/viewprofile.html:64
+#: gem/templates/profiles/viewprofile.html:68
 msgid "Change"
 msgstr "Ubah "
 
-#: gem/templates/profiles/viewprofile.html:72
+#: gem/templates/profiles/viewprofile.html:77
 #, fuzzy
 #| msgid "Date of birth:"
 msgid "Your date of birth is:"
 msgstr "Tanggal lahir"
 
-#: gem/templates/profiles/viewprofile.html:79
+#: gem/templates/profiles/viewprofile.html:85
 msgid "Your gender is:"
 msgstr "Jenis kelaminmu adalah:"
 
@@ -415,6 +429,12 @@ msgstr "Tulis Kisahmu"
 #: gem/templates/yourwords/your_words_competition_tag.html:22
 msgid "Log in to Enter"
 msgstr "Log in untuk mengirim"
+
+#~ msgid "comment"
+#~ msgstr "komentar"
+
+#~ msgid "Your answers:"
+#~ msgstr "Jawaban anda"
 
 #~ msgid "back to top"
 #~ msgstr "Kembali ke atas"

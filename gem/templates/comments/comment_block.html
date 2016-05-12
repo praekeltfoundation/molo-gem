@@ -5,7 +5,9 @@
   {% if self.allow_commenting %}
     {% get_comment_count for self as comment_count %}
     {% if comment_count > 0 %}
-      <h5>{{comment_count}} {% trans "comment" %}{{comment_count|pluralize}}</h5>
+      <h5>
+        {% blocktrans count comment_count=comment_count %}{{comment_count}} comment{% plural %}{{comment_count}} comments{% endblocktrans %}
+      </h5>
     {% endif %}
     <div class="post-comment">
     {% if request.user.is_authenticated %}

@@ -214,6 +214,7 @@ _("Log in to vote")
 _("Username already exists.")
 _("Vote")
 _("Show Results")
+_("You voted: ")
 
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
