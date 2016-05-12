@@ -24,6 +24,18 @@
             {{ form.gender.errors}}
             {{ form.gender }}
             <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
+
+            <p><strong>{% trans "Security questions" %}</strong></p>
+            <p>{% trans "Please answer the following security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
+
+            <p><strong>{% trans security_question_1 %}</strong></p>
+            {{ form.security_question_1_answer.errors }}
+            {{ form.security_question_1_answer }}
+
+            <p><strong>{% trans security_question_2 %}</strong></p>
+            {{ form.security_question_2_answer.errors }}
+            {{ form.security_question_2_answer }}
+
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
