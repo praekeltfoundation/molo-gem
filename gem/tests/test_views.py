@@ -64,19 +64,19 @@ class GemResetPasswordTest(TestCase):
             settings.SECURITY_QUESTION_1 in response.content else \
             settings.SECURITY_QUESTION_2
 
-    def post_invalid_username(self):
+    def post_invalid_username_to_forgot_password_view(self):
         return self.client.post(reverse('forgot_password'), {
             'username': 'invalid',
             'random_security_question_answer': 'something'
         })
 
-    def test_invalid_username(self):
-        response = self.post_invalid_username()
+    def test_forgot_password_view_invalid_username(self):
+        response = self.post_invalid_username_to_forgot_password_view()
 
         self.assertContains(response, 'The username that you entered appears '
                                       'to be invalid. Please try again.')
 
-    def test_inactive_user(self):
+    def test_forgot_password_view_inactive_user(self):
         self.user.is_active = False
         self.user.save()
 
@@ -87,14 +87,14 @@ class GemResetPasswordTest(TestCase):
 
         self.assertContains(response, 'This account is inactive.')
 
-    def post_invalid_answer(self):
+    def post_invalid_answer_to_forgot_password_view(self):
         return self.client.post(reverse('forgot_password'), {
             'username': self.user.username,
             'random_security_question_answer': 'invalid'
         })
 
-    def test_invalid_answer_to_security_question(self):
-        response = self.post_invalid_answer()
+    def test_forgot_password_view_invalid_answer(self):
+        response = self.post_invalid_answer_to_forgot_password_view()
 
         self.assertContains(response, 'Your answer to the security question '
                                       'was invalid. Please try again.')
@@ -102,7 +102,7 @@ class GemResetPasswordTest(TestCase):
     def test_unsuccessful_username_attempts(self):
         response = None
         for x in range(6):
-            response = self.post_invalid_username()
+            response = self.post_invalid_username_to_forgot_password_view()
 
         # on the 6th attempt
         self.assertContains(response, 'Too many attempts. Please try again '
@@ -111,7 +111,7 @@ class GemResetPasswordTest(TestCase):
     def test_unsuccessful_answer_attempts(self):
         response = None
         for x in range(6):
-            response = self.post_invalid_answer()
+            response = self.post_invalid_answer_to_forgot_password_view()
 
         # on the 6th attempt
         self.assertContains(response, 'Too many attempts. Please try again '
@@ -145,7 +145,7 @@ class GemResetPasswordTest(TestCase):
 
         return expected_token, expected_redirect_url
 
-    def test_pin_mismatch(self):
+    def test_reset_password_view_pin_mismatch(self):
         expected_token, expected_redirect_url = \
             self.proceed_to_reset_password_page()
 
@@ -158,6 +158,52 @@ class GemResetPasswordTest(TestCase):
 
         self.assertContains(response, 'The two PINs that you entered do not '
                                       'match. Please try again.')
+
+    def test_reset_password_view_requires_query_params(self):
+        response = self.client.get(reverse('reset_password'))
+        self.assertEqual(403, response.status_code)
+
+    def test_reset_password_view_invalid_username(self):
+        expected_token, expected_redirect_url = \
+            self.proceed_to_reset_password_page()
+
+        response = self.client.post(expected_redirect_url, {
+            'username': 'invalid',
+            'token': expected_token,
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+
+        self.assertEqual(403, response.status_code)
+
+    def test_reset_password_view_inactive_user(self):
+        expected_token, expected_redirect_url = \
+            self.proceed_to_reset_password_page()
+
+        self.user.is_active = False
+        self.user.save()
+
+        response = self.client.post(expected_redirect_url, {
+            'username': self.user.username,
+            'token': expected_token,
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+
+        self.assertEqual(403, response.status_code)
+
+    def test_reset_password_view_invalid_token(self):
+        expected_token, expected_redirect_url = \
+            self.proceed_to_reset_password_page()
+
+        response = self.client.post(expected_redirect_url, {
+            'username': self.user.username,
+            'token': 'invalid',
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+
+        self.assertEqual(403, response.status_code)
 
     def test_happy_path(self):
         expected_token, expected_redirect_url = \
@@ -194,15 +240,7 @@ class GemResetPasswordTest(TestCase):
         self.client.get(reverse('forgot_password'))
 
         # now another attempt should be possible
-        self.test_invalid_username()
-
-    def test_cant_post_straight_to_reset_password_view(self):
-        response = self.client.post(reverse('reset_password'), {
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
+        self.test_forgot_password_view_invalid_username()
 
 
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
