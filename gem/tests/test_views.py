@@ -127,7 +127,7 @@ class GemResetPasswordTest(TestCase):
         )
         return expected_token, expected_redirect_url
 
-    def test_pin_mismatch(self):
+    def proceed_to_reset_password_page(self):
         if self.question_being_asked == settings.SECURITY_QUESTION_1:
             answer = 'dog'
         else:
@@ -142,6 +142,12 @@ class GemResetPasswordTest(TestCase):
             self.get_expected_token_and_redirect_url()
 
         self.assertRedirects(response, expected_redirect_url)
+
+        return expected_token, expected_redirect_url
+
+    def test_pin_mismatch(self):
+        expected_token, expected_redirect_url = \
+            self.proceed_to_reset_password_page()
 
         response = self.client.post(expected_redirect_url, {
             'username': self.user.username,
@@ -154,20 +160,8 @@ class GemResetPasswordTest(TestCase):
                                       'match. Please try again.')
 
     def test_happy_path(self):
-        if self.question_being_asked == settings.SECURITY_QUESTION_1:
-            answer = 'dog'
-        else:
-            answer = 'cat'
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': answer
-        })
-
         expected_token, expected_redirect_url = \
-            self.get_expected_token_and_redirect_url()
-
-        self.assertRedirects(response, expected_redirect_url)
+            self.proceed_to_reset_password_page()
 
         response = self.client.post(expected_redirect_url, {
             'username': self.user.username,
