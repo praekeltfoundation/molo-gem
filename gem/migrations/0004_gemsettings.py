@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -14,11 +13,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='SiteSettings',
+            name='GemSettings',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('banned_keywords_and_patterns', models.TextField(help_text=b'Comments containing these words will not be allowed to be posted. separate words with a space.', null=True, verbose_name=b'Banned Keywords', blank=True)),
-                ('comment_filters', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='wagtailcore.Page', null=True)),
+                ('banned_keywords_and_patterns', models.TextField(help_text=b'Banned keywords and patterns for comments, separated by a line a break.', null=True, verbose_name=b'Banned Keywords and Patterns', blank=True)),
                 ('site', models.OneToOneField(editable=False, to='wagtailcore.Site')),
             ],
             options={
