@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.utils.translation import ugettext as _
 from django_comments.forms import CommentDetailsForm
-from gem.models import SiteSettings
+from gem.models import GemSettings
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from django.utils.feedgenerator import Atom1Feed
 
@@ -131,7 +132,7 @@ def clean_comment(self):
     comment = self.cleaned_data['comment']
 
     site = Site.objects.get(is_default_site=True)
-    settings = SiteSettings.for_site(site)
+    settings = GemSettings.for_site(site)
 
     banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
@@ -145,9 +146,12 @@ def clean_comment(self):
         keyword = keyword.replace('\r', '')
         match = re.search(keyword.lower(), comment.lower())
         if match:
-            raise forms.ValidationError("Please remove the following "
-                                        "before posting your message: (%s). "
-                                        % match.group())
+            raise forms.ValidationError(
+                _(
+                    'This comment has been removed as it contains profanity, '
+                    'contact information or other inappropriate content. '
+                )
+            )
 
     return comment
 
