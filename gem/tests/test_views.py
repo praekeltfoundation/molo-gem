@@ -3,9 +3,11 @@ from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from gem.forms import GemRegistrationForm
@@ -79,7 +81,7 @@ class GemResetPasswordTest(TestCase):
         self.user.save()
 
         response = self.client.post(reverse('forgot_password'), {
-            'username': 'tester',
+            'username': self.user.username,
             'random_security_question_answer': 'something'
         })
 
@@ -87,7 +89,7 @@ class GemResetPasswordTest(TestCase):
 
     def post_invalid_answer(self):
         return self.client.post(reverse('forgot_password'), {
-            'username': 'tester',
+            'username': self.user.username,
             'random_security_question_answer': 'invalid'
         })
 
@@ -115,6 +117,16 @@ class GemResetPasswordTest(TestCase):
         self.assertContains(response, 'Too many attempts. Please try again '
                                       'later.')
 
+    def get_expected_token_and_redirect_url(self):
+        expected_token = default_token_generator.make_token(self.user)
+        expected_query_params = QueryDict(mutable=True)
+        expected_query_params['user'] = self.user.username
+        expected_query_params['token'] = expected_token
+        expected_redirect_url = '{0}?{1}'.format(
+            reverse('reset_password'), expected_query_params.urlencode()
+        )
+        return expected_token, expected_redirect_url
+
     def test_pin_mismatch(self):
         if self.question_being_asked == settings.SECURITY_QUESTION_1:
             answer = 'dog'
@@ -122,13 +134,18 @@ class GemResetPasswordTest(TestCase):
             answer = 'cat'
 
         response = self.client.post(reverse('forgot_password'), {
-            'username': 'tester',
+            'username': self.user.username,
             'random_security_question_answer': answer
         })
 
-        self.assertRedirects(response, reverse('reset_password'))
+        expected_token, expected_redirect_url = \
+            self.get_expected_token_and_redirect_url()
 
-        response = self.client.post(reverse('reset_password'), {
+        self.assertRedirects(response, expected_redirect_url)
+
+        response = self.client.post(expected_redirect_url, {
+            'username': self.user.username,
+            'token': expected_token,
             'password': '1234',
             'confirm_password': '4321'
         })
@@ -143,13 +160,18 @@ class GemResetPasswordTest(TestCase):
             answer = 'cat'
 
         response = self.client.post(reverse('forgot_password'), {
-            'username': 'tester',
+            'username': self.user.username,
             'random_security_question_answer': answer
         })
 
-        self.assertRedirects(response, reverse('reset_password'))
+        expected_token, expected_redirect_url = \
+            self.get_expected_token_and_redirect_url()
 
-        response = self.client.post(reverse('reset_password'), {
+        self.assertRedirects(response, expected_redirect_url)
+
+        response = self.client.post(expected_redirect_url, {
+            'username': self.user.username,
+            'token': expected_token,
             'password': '1234',
             'confirm_password': '1234'
         })

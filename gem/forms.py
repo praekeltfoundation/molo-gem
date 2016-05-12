@@ -61,6 +61,14 @@ class GemForgotPasswordForm(Form):
 
 
 class GemResetPasswordForm(Form):
+    username = forms.CharField(
+        widget=forms.HiddenInput()
+    )
+
+    token = forms.CharField(
+        widget=forms.HiddenInput()
+    )
+
     password = forms.RegexField(
         regex=r'^\d{4}$',
         widget=forms.PasswordInput(

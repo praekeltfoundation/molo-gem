@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.http.request import QueryDict
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
@@ -17,6 +18,7 @@ from molo.core.models import ArticlePage
 from wagtail.wagtailsearch.models import Query
 
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
@@ -167,16 +169,15 @@ class GemForgotPasswordView(FormView):
                              'invalid. Please try again.'))
             return self.render_to_response({'form': form})
 
-        # NB: NOT safe if cookie-based sessions are used (with cookie-based
-        # sessions the session data is stored in the cookie itself and is
-        # NOT encrypted!)
-        # See https://docs.djangoproject.com/en/1.9/topics/http/sessions/
-        # #configuring-the-session-engine
-        # TODO: consider generating a reset token for the user and redirecting
-        # them to the reset page with the token as a query param
-        self.request.session['password_reset_authorized_for'] = username
+        token = default_token_generator.make_token(user)
+        q = QueryDict(mutable=True)
+        q['user'] = username
+        q['token'] = token
+        reset_password_url = '{0}?{1}'.format(
+            reverse('reset_password'), q.urlencode()
+        )
 
-        return HttpResponseRedirect(reverse('reset_password'))
+        return HttpResponseRedirect(reset_password_url)
 
     def render_to_response(self, context, **response_kwargs):
         random_security_question_idx = random.randint(
@@ -203,14 +204,18 @@ class GemResetPasswordView(FormView):
     template_name = 'reset_password.html'
 
     def form_valid(self, form):
-        if 'password_reset_authorized_for' not in self.request.session:
+        username = form.cleaned_data['username']
+        token = form.cleaned_data['token']
+
+        try:
+            user = User.objects.get_by_natural_key(username)
+        except User.DoesNotExist:
             return HttpResponseForbidden()
 
-        user = User.objects.get_by_natural_key(
-            self.request.session['password_reset_authorized_for']
-        )
-
         if not user.is_active:
+            return HttpResponseForbidden()
+
+        if not default_token_generator.check_token(user, token):
             return HttpResponseForbidden()
 
         password = form.cleaned_data['password']
@@ -227,6 +232,22 @@ class GemResetPasswordView(FormView):
         self.request.session.flush()
 
         return HttpResponseRedirect(reverse('reset_password_success'))
+
+    def render_to_response(self, context, **response_kwargs):
+        username = self.request.GET.get('user')
+        token = self.request.GET.get('token')
+
+        if not username or not token:
+            return HttpResponseForbidden()
+
+        context['form'].initial.update({
+            'username': username,
+            'token': token
+        })
+
+        return super(GemResetPasswordView, self).render_to_response(
+            context, **response_kwargs
+        )
 
 
 class GemResetPasswordSuccessView(TemplateView):
