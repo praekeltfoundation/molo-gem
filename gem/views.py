@@ -1,40 +1,39 @@
 import logging
 import random
+import re
 
+from django import forms
 from django.conf import settings
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.http.request import QueryDict
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
-from django_comments.forms import CommentDetailsForm
-from gem.models import GemSettings
-from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from django.utils.feedgenerator import Atom1Feed
+from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from molo.commenting.models import MoloComment
-from molo.core.models import ArticlePage
-from wagtail.wagtailcore.models import Site
-from wagtail.wagtailsearch.models import Query
+from django_comments.forms import CommentDetailsForm
 
-from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth import authenticate, login
-from django.contrib.syndication.views import Feed
-from django.http import HttpResponseRedirect
-
-from molo.profiles.views import RegistrationView
-from forms import GemRegistrationForm
-from django import forms
-
-import re
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
     GemResetPasswordForm
+
+from gem.models import GemSettings
+from gem.settings import REGEX_PHONE, REGEX_EMAIL
+
+from molo.commenting.models import MoloComment
+from molo.core.models import ArticlePage
+from molo.profiles.views import RegistrationView
+
+from wagtail.wagtailcore.models import Site
+from wagtail.wagtailsearch.models import Query
 
 
 def search(request, results_per_page=10):

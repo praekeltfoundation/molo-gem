@@ -6,6 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
+from django.http import QueryDict
+from django.test import TestCase, Client
+from django.test.utils import override_settings
 
 from gem.forms import GemRegistrationForm
 from gem.models import GemSettings
@@ -13,11 +17,6 @@ from gem.models import GemSettings
 from molo.commenting import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
-
-from django.core.urlresolvers import reverse
-from django.http import QueryDict
-from django.test import TestCase, Client
-from django.test.utils import override_settings
 
 
 class GemRegistrationViewTest(TestCase):
