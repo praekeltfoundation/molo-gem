@@ -18,7 +18,7 @@
                     {% csrf_token %}
                     <h5>{% trans "Change your name" %}</h5>
                     <p>{% trans "When you type comments your name will appear as:" %}
-                      <span>{{ alias }}</span></p>
+                      <span>{{ user.profile.alias }}</span></p>
                     <p>{% trans "Type new display name:" %}</p>
                     {{ edit_profile_form.alias }}
                     <input type="submit" value='{% trans "Update profile" %}'>
