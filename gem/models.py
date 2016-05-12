@@ -24,10 +24,7 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
 
 
 @register_setting
-class SiteSettings(BaseSetting):
-    comment_filters = models.ForeignKey(
-        'wagtailcore.Page', null=True, on_delete=models.SET_NULL)
-
+class GemSettings(BaseSetting):
     banned_keywords_and_patterns = models.TextField(
         verbose_name='Banned Keywords and Patterns',
         null=True,
