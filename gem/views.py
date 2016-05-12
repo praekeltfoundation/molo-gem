@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -118,7 +119,8 @@ class GemForgotPasswordView(FormView):
             # expiration will be reset to 10 mins in the future.
             # This is obviously not bulletproof as an attacker could simply
             # not send the session cookie to circumvent this.
-            form.add_error(None, 'Too many attempts. Please try again later.')
+            form.add_error(None,
+                           _('Too many attempts. Please try again later.'))
             return self.render_to_response({'form': form})
 
         username = form.cleaned_data['username']
@@ -135,9 +137,9 @@ class GemForgotPasswordView(FormView):
             user = User.objects.get_by_natural_key(username)
         except User.DoesNotExist:
             self.request.session['forgot_password_attempts'] += 1
-            form.add_error(
-                'username', 'The username that you entered appears to be '
-                            'invalid. Please try again.')
+            form.add_error('username',
+                           _('The username that you entered appears to be '
+                             'invalid. Please try again.'))
             return self.render_to_response({'form': form})
 
         if not user.is_active:
@@ -161,8 +163,8 @@ class GemForgotPasswordView(FormView):
         if not is_answer_correct:
             self.request.session['forgot_password_attempts'] += 1
             form.add_error('random_security_question_answer',
-                           'Your answer to the security question was invalid. '
-                           'Please try again.')
+                           _('Your answer to the security question was '
+                             'invalid. Please try again.'))
             return self.render_to_response({'form': form})
 
         # NB: NOT safe if cookie-based sessions are used (with cookie-based
@@ -216,8 +218,8 @@ class GemResetPasswordView(FormView):
 
         if password != confirm_password:
             form.add_error('password',
-                           'The two PINs that you entered do not match. '
-                           'Please try again.')
+                           _('The two PINs that you entered do not match. '
+                             'Please try again.'))
             return self.render_to_response({'form': form})
 
         user.set_password(password)
