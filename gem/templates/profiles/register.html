@@ -13,6 +13,7 @@
 
         <form method="post" action="{% url 'molo.profiles:user_register' %}">{% csrf_token %}
             <p><strong>{% trans "Choose a username" %}</strong></p>
+            <p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
             {{ form.username.errors}}
             {{ form.username }}
 
