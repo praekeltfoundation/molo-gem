@@ -317,7 +317,8 @@ class GemAtomFeed(GemRssFeed):
 # https://github.com/praekelt/yal-merge/blob/develop/yal/views.py#L711-L751
 def clean_comment(self):
     """
-    Check for email addresses and telephone numbers
+    Check for email addresses, telephone numbers and any other keywords or
+    patterns defined through GemSettings.
     """
     comment = self.cleaned_data['comment']
 
