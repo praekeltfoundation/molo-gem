@@ -229,3 +229,8 @@ GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
 # Password reset - security questions
 SECURITY_QUESTION_1 = 'Dummy security question 1?'
 SECURITY_QUESTION_2 = 'Dummy security question 2?'
+
+
+# Common Filtering Regexes
+REGEX_PHONE = r'.*?(\(?\d{3})? ?[\.-]? ?\d{3} ?[\.-]? ?\d{4}.*?'
+REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'

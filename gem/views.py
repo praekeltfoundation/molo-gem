@@ -22,9 +22,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
-from molo.profiles.views import RegistrationView
-from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm
+from molo.profiles.views import RegistrationView, MyProfileEdit
+from forms import GemRegistrationForm, GemEditProfileForm, \
+    GemForgotPasswordForm, GemResetPasswordForm
 
 
 def search(request, results_per_page=10):
@@ -95,6 +95,9 @@ class GemRegistrationView(RegistrationView):
         return super(GemRegistrationView, self).render_to_response(
             context, **response_kwargs
         )
+
+class GemEditProfileView(MyProfileEdit):
+    form_class = GemEditProfileForm
 
 
 class GemForgotPasswordView(FormView):
