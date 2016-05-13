@@ -335,7 +335,7 @@ def clean_comment(self):
 
     for keyword in banned_list:
         keyword = keyword.replace('\r', '')
-        match = re.search(keyword.lower(), comment.lower())
+        match = re.search(keyword, comment.lower())
         if match:
             raise forms.ValidationError(
                 _(

@@ -63,8 +63,8 @@ class GemSettings(BaseSetting):
         verbose_name='Banned Keywords and Patterns',
         null=True,
         blank=True,
-        help_text="Banned keywords and patterns for comments, "
-                  "separated by a line a break."
+        help_text="Banned keywords and patterns for comments, separated by a"
+                  " line a break. Use only lowercase letters for keywords."
     )
 
     panels = [
