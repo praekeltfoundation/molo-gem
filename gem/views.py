@@ -96,6 +96,7 @@ class GemRegistrationView(RegistrationView):
             context, **response_kwargs
         )
 
+
 class GemEditProfileView(MyProfileEdit):
     form_class = GemEditProfileForm
 
