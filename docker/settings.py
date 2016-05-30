@@ -4,7 +4,7 @@ from os import environ
 
 import dj_database_url
 
-from .base import *
+from .production import *
 
 
 # Disable debug mode
@@ -15,8 +15,6 @@ TEMPLATE_DEBUG = False
 SECRET_KEY = environ.get('SECRET_KEY') or 'please-change-me'
 PROJECT_ROOT = (
     environ.get('PROJECT_ROOT') or dirname(dirname(abspath(__file__))))
-
-LANGUAGE_CODE = environ.get('LANGUAGE_CODE', 'en')
 
 SERVICE_DIRECTORY_API_BASE_URL = environ.get(
     'SERVICE_DIRECTORY_API_BASE_URL', '')
