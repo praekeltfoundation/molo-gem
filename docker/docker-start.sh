@@ -5,9 +5,6 @@ set -e
 # ensure we create the locales first so that Django doesn't complain
 LANGUAGE_CODE=en ./manage.py compilemessages
 
-# SiteSettings model was added to both Molo 2.x and Molo 3
-# So you end up with a duplicate migration
-./manage.py migrate core 0031 --fake
 ./manage.py migrate --noinput
 ./manage.py collectstatic --noinput
 ./manage.py compress
