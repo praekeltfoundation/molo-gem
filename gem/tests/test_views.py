@@ -14,14 +14,16 @@ from django.test.utils import override_settings
 from gem.forms import GemRegistrationForm
 from gem.models import GemSettings
 
-from molo.commenting import MoloCommentForm
+from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import SiteLanguage
 
 
-class GemRegistrationViewTest(TestCase):
+class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
+        self.mk_main()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -48,9 +50,10 @@ class GemRegistrationViewTest(TestCase):
         )
 
 
-class GemResetPasswordTest(TestCase):
+class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
+        self.mk_main()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -254,10 +257,12 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             username='tester',
             email='tester@example.com',
             password='tester')
+
+        self.english = SiteLanguage.objects.create(locale='en')
         self.mk_main()
 
         self.yourmind = self.mk_section(
-            self.main, title='Your mind')
+            self.section_index, title='Your mind')
         self.article = self.mk_article(self.yourmind,
                                        title='article 1',
                                        subtitle='article 1 subtitle',
@@ -283,14 +288,14 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
     def test_comment_shows_user_display_name(self):
         # check when user doesn't have an alias
         self.create_comment(self.article, 'test comment1 text')
-        response = self.client.get('/your-mind/article-1/')
+        response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "Anonymous")
 
         # check when user have an alias
         self.user.profile.alias = 'this is my alias'
         self.user.profile.save()
         self.create_comment(self.article, 'test comment2 text')
-        response = self.client.get('/your-mind/article-1/')
+        response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
 
@@ -334,13 +339,12 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
-
         self.mk_main()
 
-        section_page = self.mk_section(self.english, title='Test Section')
+        section = self.mk_section(self.section_index, title='Test Section')
 
         self.article_page = self.mk_article(
-            section_page, title='Test Article',
+            section, title='Test Article',
             subtitle='This should appear in the feed')
 
     def test_rss_feed_view(self):

@@ -1,4 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n gem_tags %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,9 +8,20 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width initial-scale=1">
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
+        <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        {% image self.social_media_image width-300 as tmp_photo %}
+        <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+        <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        {% image self.social_media_image width-300 as tmp_photo %}
+        <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+        <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
           <link rel="stylesheet" type="text/x-scss" href="{% static '' %}css/style{% get_site_static_prefix %}.scss">
@@ -18,7 +30,7 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-    {% if GOOGLE_TAG_MANAGER_ACCOUNT %}
+        {% if GOOGLE_TAG_MANAGER_ACCOUNT %}
         <!-- Google Tag Manager -->
          <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{GOOGLE_TAG_MANAGER_ACCOUNT}}"
          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -28,7 +40,7 @@
          '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
          })(window,document,'script','dataLayer','{{GOOGLE_TAG_MANAGER_ACCOUNT}}');</script>
         <!-- End Google Tag Manager -->
-    {% endif %}
+        {% endif %}
 
         <div id="gem-header">
             <a id="logo" href="/">
@@ -48,7 +60,7 @@
         {% if languages|length > 1 %}
         <div class="language-container">
           {% for language in languages %}
-          <a href="{% url 'locale_set' language.code %}">{{language.title}}</a>
+            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}">{{language.locale|language_name_local}}</a>
           {% endfor %}
         </div>
         {% endif %}
@@ -66,18 +78,15 @@
             <ul class="sections">
               <li><a href="/">{% trans "Home" %}</a></li>
               <li><b>{% trans "Categories" %}</b></li>
-              {% for section in language_page.sections %}
+              {% load_sections as sections %}
+              {% for section in sections %}
                 <li class="{{section.get_effective_extra_style_hints}} sub-menu">
                   <a href="{% pageurl section %}">
                       {{section.title}}
                   </a>
                 </li>
               {% endfor %}
-              {% if language_page.footers %}
-                {% for page in language_page.footers %}
-                  <li><a href="{% pageurl page %}">{{page.title}}</a></li>
-                {% endfor %}
-              {% endif %}
+              {% footer_page %}
               {% if not user.is_authenticated %}
                 <li><a href="{% url 'molo.profiles:user_register' %}"><span >{% trans "Log in" %}</span ></a></li>
               {% else %}
