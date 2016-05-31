@@ -13,8 +13,8 @@ def default_forms(request):
 
 
 def add_tag_manager_account(request):
-    GTM = SiteSettings.for_site(request.site)
+    site_settings = SiteSettings.for_site(request.site)
     return {
-        'GOOGLE_TAG_MANAGER_ACCOUNT': (settings.GOOGLE_TAG_MANAGER_ACCOUNT or
-                                       GTM.ga_tag_manager)
+        'GOOGLE_TAG_MANAGER_ACCOUNT': (site_settings.ga_tag_manager or
+                                       settings.GOOGLE_TAG_MANAGER_ACCOUNT)
     }
