@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load i18n static core_tags %}
-
+{% load i18n static core_tags wagtailsettings_tags %}
+{% get_settings %}
 
 {% block content %}
 <div class="profile-container">
@@ -20,6 +20,13 @@
             {{ form.password.errors}}
             {{ form.password }}
 
+            {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+            <p><strong>{% trans "Enter your mobile number" %}</strong></p>
+            {{ from.errors}}
+            {{ form.mobile_number }}
+            <br>
+            {% endif %}
+
             <p><strong>{% trans "I identify my gender as" %}</strong></p>
             {{ form.gender.errors}}
             {{ form.gender }}
@@ -36,6 +43,12 @@
             {{ form.security_question_2_answer.errors }}
             {{ form.security_question_2_answer }}
 
+            <br>
+            {% if form.terms_and_conditions.errors %}
+              <p>{% trans "Please accept the T&Cs in order to complete the registration" %}</p>
+            {% endif %}
+            {{ form.terms_and_conditions }}
+            <span>{% trans "I accept the Terms and Conditions" %}</span>
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
