@@ -81,7 +81,7 @@ class GemRegistrationView(RegistrationView):
         password = form.cleaned_data['password']
         gender = form.cleaned_data['gender']
         mobile_number = form.cleaned_data['mobile_number']
-        
+
         security_question_1_answer = form.cleaned_data[
             'security_question_1_answer'
         ]
