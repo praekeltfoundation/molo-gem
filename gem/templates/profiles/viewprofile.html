@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n wagtailsettings_tags %}
+{% get_settings %}
 
 {% block content %}
     <div class="profile-container">
@@ -24,6 +25,13 @@
 
                     <p>{% trans "Type new display name:" %}</p>
                     {{ edit_profile_form.alias }}
+
+                    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+                      <p>{% trans "Update your mobile number:" %}</p>
+                        {{ edit_profile_form.mobile_number.errors }}
+                        {{ edit_profile_form.mobile_number }}
+                    {% endif %}
+
 
                     <input type="submit" value='{% trans "Update profile" %}'>
                 </form>
@@ -75,6 +83,15 @@
           <div class="dob-form">
               <div class="block">
                   <h5>{% trans "Your date of birth is:" %} {{ user.profile.date_of_birth }}</h5>
+              </div>
+          </div>
+          {% endif %}
+        {% endif %}
+        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+          {% if user.profile.mobile_number %}
+          <div class="dob-form">
+              <div class="block">
+                  <h5>{% trans "Mobile Number: " %} {{ user.profile.mobile_number }} </h5>
               </div>
           </div>
           {% endif %}

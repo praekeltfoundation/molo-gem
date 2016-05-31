@@ -72,7 +72,6 @@ urlpatterns = patterns(
                             app_name='molo.polls')),
 
     url(r'', include('molo.core.urls')),
-    url('^', include('django.contrib.auth.urls')),
     url(r'', include(wagtail_urls)),
 )
 

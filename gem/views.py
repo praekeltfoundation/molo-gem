@@ -80,6 +80,8 @@ class GemRegistrationView(RegistrationView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         gender = form.cleaned_data['gender']
+        mobile_number = form.cleaned_data['mobile_number']
+
         security_question_1_answer = form.cleaned_data[
             'security_question_1_answer'
         ]
@@ -87,6 +89,10 @@ class GemRegistrationView(RegistrationView):
             'security_question_2_answer'
         ]
         user = User.objects.create_user(username=username, password=password)
+
+        user.profile.mobile_number = mobile_number
+        user.profile.save()
+
         user.gem_profile.gender = gender
         user.gem_profile.set_security_question_1_answer(
             security_question_1_answer
