@@ -6,12 +6,11 @@ from django.db import migrations
 
 def move_banners_to_index_page(apps, schema_editor):
     from molo.core.models import (
-        LanguagePage, BannerPage, SiteLanguage, BannerIndexPage, Main)
+        LanguagePage, BannerPage, BannerIndexPage, Main)
     main = Main.objects.all().first()
-    main_language = SiteLanguage.objects.filter(is_main_language=True).first()
     current_language = LanguagePage.objects.live().first()
 
-    if main and main_language:
+    if main and current_language:
         # Move existing banners
         index_page = BannerIndexPage.objects.live().first()
         for page in BannerPage.objects.all().child_of(current_language):
@@ -19,13 +18,13 @@ def move_banners_to_index_page(apps, schema_editor):
 
 
 def move_footers_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, FooterPage, SiteLanguage,
+    from molo.core.models import (LanguagePage, FooterPage,
                                   FooterIndexPage, Main)
+
     main = Main.objects.all().first()
-    main_language = SiteLanguage.objects.filter(is_main_language=True).first()
     current_language = LanguagePage.objects.live().first()
 
-    if main and main_language:
+    if main and current_language:
         # Move existing footers
         index_page = FooterIndexPage.objects.live().first()
         for page in FooterPage.objects.all().child_of(current_language):
@@ -33,13 +32,12 @@ def move_footers_to_index_page(apps, schema_editor):
 
 
 def move_sections_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, SectionPage, SiteLanguage,
+    from molo.core.models import (LanguagePage, SectionPage,
                                   SectionIndexPage, Main)
     main = Main.objects.all().first()
-    main_language = SiteLanguage.objects.filter(is_main_language=True).first()
     current_language = LanguagePage.objects.live().first()
 
-    if main and main_language:
+    if main and current_language:
         # Move existing sections
         index_page = SectionIndexPage.objects.live().first()
         for page in SectionPage.objects.all().child_of(current_language):
@@ -47,13 +45,12 @@ def move_sections_to_index_page(apps, schema_editor):
 
 
 def move_polls_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, SiteLanguage, Main)
+    from molo.core.models import (LanguagePage, Main)
     from molo.polls.models import (Question, FreeTextQuestion, PollsIndexPage)
     main = Main.objects.all().first()
-    main_language = SiteLanguage.objects.filter(is_main_language=True).first()
     current_language = LanguagePage.objects.live().first()
 
-    if main and main_language:
+    if main and current_language:
         # Move existing questions
         index_page = PollsIndexPage.objects.live().first()
         for page in Question.objects.all().child_of(current_language):
@@ -64,14 +61,13 @@ def move_polls_to_index_page(apps, schema_editor):
 
 
 def move_yourwords_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, SiteLanguage, Main)
+    from molo.core.models import (LanguagePage, Main)
     from molo.yourwords.models import (
         YourWordsCompetition, YourWordsCompetitionIndexPage)
     main = Main.objects.all().first()
-    main_language = SiteLanguage.objects.filter(is_main_language=True).first()
     current_language = LanguagePage.objects.live().first()
 
-    if main and main_language:
+    if main and current_language:
         # Move existing your words competition
         index_page = YourWordsCompetitionIndexPage.objects.live().first()
         for p in YourWordsCompetition.objects.all().child_of(current_language):
