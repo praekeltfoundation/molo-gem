@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 from os.path import abspath, dirname, join
 from os import environ
+import django.conf.locale
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
@@ -190,6 +191,26 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('tl', _('Tagalog')),
     ('rw', _('Kinyarwanda')),
 ]
+
+EXTRA_LANG_INFO = {
+    'tl': {
+        'bidi': False,
+        'code': 'tl',
+        'name': 'Tagalog',
+        'name_local': 'Tagalog'
+    },
+    'rw': {
+        'bidi': False,
+        'code': 'rw',
+        'name': 'Kinyarwanda',
+        'name_local': 'Kinyarwanda'
+    },
+}
+
+LANG_INFO = (
+    dict(django.conf.locale.LANG_INFO.items() + EXTRA_LANG_INFO.items()))
+django.conf.locale.LANG_INFO = LANG_INFO
+
 LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),
 ]
