@@ -272,6 +272,7 @@ ENABLE_SSO = False
 # molo.polls
 _("Log in to vote")
 _("Username already exists.")
+_("The old password is incorrect.")
 _("Vote")
 _("Show Results")
 _("You voted: ")
