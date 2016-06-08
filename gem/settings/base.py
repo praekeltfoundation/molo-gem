@@ -272,9 +272,12 @@ ENABLE_SSO = False
 # molo.polls
 _("Log in to vote")
 _("Username already exists.")
+_("The old password is incorrect.")
 _("Vote")
 _("Show Results")
 _("You voted: ")
+_("Name ofthe city you were born in")
+_("Name of your primary school")
 
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
@@ -288,9 +291,9 @@ GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
 
 # Password reset - security questions
 SECURITY_QUESTION_1 = environ.get(
-    'SECURITY_QUESTION_1', 'Security question 1?')
+    'SECURITY_QUESTION_1', 'Name ofthe city you were born in')
 SECURITY_QUESTION_2 = environ.get(
-    'SECURITY_QUESTION_2', 'Security question 2?')
+    'SECURITY_QUESTION_2', 'Name of your primary school')
 
 
 # Comment Filtering Regexes

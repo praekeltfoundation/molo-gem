@@ -1,17 +1,20 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% block content %}
 <div class="section_page">
   {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
 
   <div id="article-hero">
-  {% with self.articles|first as article %}
+  {% load_child_articles_for_section self as articles %}
+  {% with articles|first as article %}
       {% include "core/article_intro_partial.html" with article=article %}
   {% endwith %}
   </div>
 
   <div class="article-list">
-    {% for article in self.articles|slice:"1:" %}
+    {% load_child_articles_for_section self as articles %}
+    {% for article in articles|slice:"1:" %}
       {% include "core/article_intro_partial.html" with article=article square_image=True %}
     {% endfor %}
   </div>
