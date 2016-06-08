@@ -276,7 +276,7 @@ _("The old password is incorrect.")
 _("Vote")
 _("Show Results")
 _("You voted: ")
-_("Name ofthe city you were born in")
+_("Name of the city you were born in")
 _("Name of your primary school")
 
 
@@ -291,7 +291,7 @@ GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
 
 # Password reset - security questions
 SECURITY_QUESTION_1 = environ.get(
-    'SECURITY_QUESTION_1', 'Name ofthe city you were born in')
+    'SECURITY_QUESTION_1', 'Name of the city you were born in')
 SECURITY_QUESTION_2 = environ.get(
     'SECURITY_QUESTION_2', 'Name of your primary school')
 
