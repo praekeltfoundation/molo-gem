@@ -9,8 +9,8 @@
 
         <div class="block turq">
             <div class="signin-form">
-                <p>{% trans "LOGIN TO YOUR ACCOUNT!" %}</p>
-                <p>{% trans "We’re excited to have you..." %}</p>
+                <p><a href="{% url 'molo.profiles:user_register' %}">{% trans "Not a member yet" %}?</a></p>
+
             <form method="post" action=".">{% csrf_token %}
                 {% if form.errors %}
                     <p class="error errorlist">{% trans "Your username and password does not match. Please try again." %}</p>
@@ -21,7 +21,7 @@
                         {{form.password}}
                         <input type="submit" value="{% trans 'Sign in' %}">
                         <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
-                        <a href="{% url 'molo.profiles:user_register' %}" class="button inverted">{% trans "Not a member yet" %}</a>
+
                         <a href="{% url 'forgot_password' %}" class="button inverted">{% trans "Forgot PIN" %}</a>
             </form>
             </div>
