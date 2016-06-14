@@ -36,16 +36,42 @@
   }
 }
 
-.article-list {
+.article-list .article-preview  {
+  img {
+    width: 100%;
+  }
+  h3 {
+    margin: 0 0 9px 0;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.flexbox .article-list  {
   display: flex;
   flex-wrap: wrap;
+  .article-preview  {
+    padding: 0;
+    margin: 0 0 40px 0;
+    width: 50%;
+  }
+}
 
-
+.no-flexbox  .article-list  {
+  box-sizing: border-box;
+  overflow: hidden;
 
   .article-preview {
     padding: 0;
     margin: 0 0 40px 0;
     width: 50%;
+    margin-left: 4.5%;
+    width: 45%;
+    float: left;
+    position: relative;
+    max-height: 355px;
+    min-height: 355px;
 
     .text {
       padding: 0 8px;
@@ -61,10 +87,6 @@
         margin: 0;
       }
     }
-    img {
-      width: 100%;
-    }
-
   }
 }
 
