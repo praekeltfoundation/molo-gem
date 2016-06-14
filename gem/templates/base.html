@@ -59,9 +59,10 @@
 
         {% if languages|length > 1 %}
         <div class="language-container">
-          {% for language in languages %}
-            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}">{{language.locale|language_name_local}}</a>
-          {% endfor %}
+           {% get_current_language as LANGUAGE_LOCALE %}
+            {% for language in languages %}
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
+            {% endfor %}
         </div>
         {% endif %}
 
