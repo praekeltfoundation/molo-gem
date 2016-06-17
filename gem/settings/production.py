@@ -1,6 +1,6 @@
 import os
 
-from .base import *
+from .base import *  # noqa
 
 
 # Disable debug mode
@@ -63,11 +63,11 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 
 
 try:
-    from .local import *
+    from .local import *  # noqa
 except ImportError:
     pass
 
 try:
-    from secrets import *
+    from secrets import *  # noqa
 except ImportError:
     pass
