@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load core_tags %}
+{% load core_tags molo_survey_tags %}
+
 
 {% block content %}
 <div class="section_page">
@@ -19,4 +20,7 @@
     {% endfor %}
   </div>
 </div>
+
+{% surveys_list_for_pages page=self %}
+
 {% endblock %}
