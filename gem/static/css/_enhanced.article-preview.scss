@@ -36,16 +36,30 @@
   }
 }
 
-.article-list {
-  display: flex;
-  flex-wrap: wrap;
+.article-list .article-preview  {
+  img {
+    width: 100%;
+  }
+  h3 {
+    margin: 0 0 9px 0;
+  }
+  p {
+    margin: 0;
+  }
+}
 
-
-
+.article-list  {
+  overflow: hidden;
+  .article-preview:nth-child(odd){
+      clear:both;
+  }
   .article-preview {
     padding: 0;
-    margin: 0 0 40px 0;
     width: 50%;
+    float: left;
+    position: relative;
+    height: 100%;
+    margin-bottom: 10px;
 
     .text {
       padding: 0 8px;
@@ -61,10 +75,6 @@
         margin: 0;
       }
     }
-    img {
-      width: 100%;
-    }
-
   }
 }
 

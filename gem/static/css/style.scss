@@ -55,14 +55,18 @@ input, select {
 
 button, input[type=submit], .button, .gem-polls a {
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 8px;
   background: #ed008c;
   color: #fff;
   border: 0;
   font-size: 12px;
   font-weight: bold;
+
+  height: auto;
+  line-height: 1.3333;
+  padding: 8px 10px;
+  @media screen and (min-width:480px) {
+    padding: 10px 24px;
+  }
 }
 
 a, a:hover {
@@ -105,7 +109,6 @@ a, a:hover {
 }
 
 .back-to-top {
-
   margin: 16px 8px;
   font-size: 11px;
 
@@ -196,8 +199,9 @@ a, a:hover {
     }
 
     input[type="submit"] {
-      width: 80%;
+      width: auto;
       text-align: center;
+      white-space: normal;
     }
 
     .inverted {
