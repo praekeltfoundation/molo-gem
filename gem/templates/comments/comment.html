@@ -2,7 +2,9 @@
 <div class="comment {{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
   <p class="by">
     <strong>
-    {% if node.user_name.lower == 'anonymous' %}
+    {% if node.user.is_staff %}
+        {% trans "Big Sister" %}
+    {% elif node.user_name.lower == 'anonymous' %}
       {{node.user_name}}
     {% else %}
       {% if not node.user.profile.alias %}
