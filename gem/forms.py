@@ -2,7 +2,7 @@ from django import forms
 from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
-from molo.profiles.forms import RegistrationForm
+from molo.profiles.forms import RegistrationForm, EditProfileForm
 
 
 class GemRegistrationForm(RegistrationForm):
@@ -30,6 +30,35 @@ class GemRegistrationForm(RegistrationForm):
                 max_length=128,
             )
         ),
+    )
+
+    username = forms.RegexField(
+        regex=r'^[a-zA-Z][a-zA-Z]+$',
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=30,
+            )
+        ),
+        label=_("Username"),
+        error_messages={
+            'invalid': _("This value must contain only letters"),
+        }
+    )
+
+
+class GemEditProfileForm(EditProfileForm):
+    alias = forms.RegexField(
+        regex=r'^[a-zA-Z][a-zA-Z]+$',
+        widget=forms.TextInput(
+            attrs=dict(
+                required=False
+            )
+        ),
+        label=_("Display Name"),
+        error_messages={
+            'invalid': _("This value must contain only letters"),
+        }
     )
 
 
