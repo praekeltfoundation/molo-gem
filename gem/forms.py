@@ -2,7 +2,8 @@ from django import forms
 from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
-from molo.profiles.forms import RegistrationForm
+from molo.profiles.forms import RegistrationForm, EditProfileForm
+from molo.profiles.models import UserProfile
 
 
 class GemRegistrationForm(RegistrationForm):
@@ -102,3 +103,23 @@ class GemResetPasswordForm(Form):
         },
         label=_("Confirm PIN")
     )
+
+
+class GemEditProfileForm(EditProfileForm):
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=GENDERS,
+        required=False
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
+
+    def clean(self):
+        super(GemEditProfileForm, self).clean()
+        gender = self.cleaned_data.get('gender', None)
+        if (gender):
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError(_('Please enter a new value.'))
