@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -11,7 +12,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from gem.views import search, report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
-    GemResetPasswordSuccessView
+    GemResetPasswordSuccessView, GemEditProfileView
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -39,7 +40,9 @@ urlpatterns = patterns(
         GemResetPasswordView.as_view(), name='reset_password'),
     url(r'^profiles/reset_password_success/$',
         GemResetPasswordSuccessView.as_view(), name='reset_password_success'),
-
+    url(r'^profiles/edit/myprofile/$',
+        login_required(GemEditProfileView.as_view()),
+        name='edit_my_profile'),
     url(r'^profiles/',
         include('molo.profiles.urls',
                 namespace='molo.profiles',
