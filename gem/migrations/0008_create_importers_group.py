@@ -10,7 +10,7 @@ def create_import_group(apps, schema_editor):
 
     if main:
         Group = apps.get_model('auth.Group')
-        Group.objects.create(name='Universal Core Importers')
+        Group.objects.get_or_create(name='Universal Core Importers')
 
 
 class Migration(migrations.Migration):
