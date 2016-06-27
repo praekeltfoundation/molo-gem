@@ -14,27 +14,23 @@
         <hr>
         <div class="nickname-form">
             <div class="block">
-                <form method="post" id="frmProfileEdit"
-                      action="{% url 'molo.profiles:edit_my_profile' %}">
-                    {% csrf_token %}
-                    <h5>{% trans "Change your name" %}</h5>
+
+                    <h3>{% trans "Your Profile" %}</h3>
+
+
                     <p>{% trans "When you type comments your name will appear as:" %}
                     <span>{{ user.profile.alias }}</span></p>
-
-                    <p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
-
-                    <p>{% trans "Type new display name:" %}</p>
-                    {{ edit_profile_form.alias }}
-
+                    <p>{% trans "Your date of birth is:" %}
+                    <span>{{ user.profile.date_of_birth }}</span></p>
+                    <p>{% trans "You identify your gender as:" %}
+                    <span>{{ user.gem_profile.get_gender_display }}</span></p>
                     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-                      <p>{% trans "Update your mobile number:" %}</p>
-                        {{ edit_profile_form.mobile_number.errors }}
-                        {{ edit_profile_form.mobile_number }}
+                      <p>{% trans "Your mobile number is:" %}
+                      <span>{{ user.profile.mobile_number }}</span></p>
                     {% endif %}
 
-
-                    <input type="submit" value='{% trans "Update profile" %}'>
-                </form>
+                    <a href="{% url 'edit_my_profile' %}"
+                       class="button inverted logout-link">{% trans "Update Profile" %}</a>
             </div>
         </div>
         <hr>
@@ -78,30 +74,5 @@
             </div>
         </div>
         <hr>
-        {% if user.profile %}
-          {% if user.profile.date_of_birth %}
-          <div class="dob-form">
-              <div class="block">
-                  <h5>{% trans "Your date of birth is:" %} {{ user.profile.date_of_birth }}</h5>
-              </div>
-          </div>
-          {% endif %}
-        {% endif %}
-        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-          {% if user.profile.mobile_number %}
-          <div class="dob-form">
-              <div class="block">
-                  <h5>{% trans "Mobile Number: " %} {{ user.profile.mobile_number }} </h5>
-              </div>
-          </div>
-          {% endif %}
-        {% endif %}
-        {% if user.gem_profile %}
-          <div class="gender-form">
-              <div class="block">
-                  <h5>{% trans "Your gender is:" %} {{user.gem_profile.get_gender_display}}</h5>
-              </div>
-          </div>
-        {% endif %}
     </div>
 {% endblock %}
