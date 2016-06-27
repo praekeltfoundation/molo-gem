@@ -23,7 +23,7 @@ from django.views.generic.edit import FormView
 from django_comments.forms import CommentDetailsForm
 
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm
+    GemResetPasswordForm, GemEditProfileForm
 
 from gem.models import GemSettings
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
@@ -32,7 +32,7 @@ from molo.commenting.models import MoloComment
 
 from molo.core.utils import get_locale_code
 from molo.core.models import ArticlePage
-from molo.profiles.views import RegistrationView
+from molo.profiles.views import RegistrationView, MyProfileEdit
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
@@ -271,6 +271,19 @@ class GemResetPasswordView(FormView):
 
 class GemResetPasswordSuccessView(TemplateView):
     template_name = 'reset_password_success.html'
+
+
+class GemEditProfileView(MyProfileEdit):
+    form_class = GemEditProfileForm
+
+    def form_valid(self, form):
+        super(MyProfileEdit, self).form_valid(form)
+        gender = form.cleaned_data['gender']
+
+        self.request.user.gem_profile.gender = gender
+        self.request.user.gem_profile.save()
+        return HttpResponseRedirect(
+            reverse('molo.profiles:view_my_profile'))
 
 
 class GemRssFeed(Feed):
