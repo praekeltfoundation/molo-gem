@@ -32,7 +32,7 @@
     <body class="{% block body_class %}{% endblock %}">
         {% if GOOGLE_TAG_MANAGER_ACCOUNT %}
         <!-- Google Tag Manager -->
-         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{GOOGLE_TAG_MANAGER_ACCOUNT}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
+         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{GOOGLE_TAG_MANAGER_ACCOUNT}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
