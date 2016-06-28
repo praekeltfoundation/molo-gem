@@ -153,4 +153,4 @@ class GemEditProfileForm(EditProfileForm):
                 )
             )
 
-            return alias
+        return alias

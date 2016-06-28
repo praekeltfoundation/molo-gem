@@ -276,6 +276,11 @@ class GemResetPasswordSuccessView(TemplateView):
 class GemEditProfileView(MyProfileEdit):
     form_class = GemEditProfileForm
 
+    def get_initial(self):
+        initial = super(GemEditProfileView, self).get_initial()
+        initial.update({'gender': self.request.user.gem_profile.gender})
+        return initial
+
     def form_valid(self, form):
         super(MyProfileEdit, self).form_valid(form)
         gender = form.cleaned_data['gender']
