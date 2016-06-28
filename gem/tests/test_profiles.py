@@ -14,11 +14,14 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='tester',
             email='tester@example.com',
             password='tester')
-        self.user.profile.gender = 'female'
-        self.user.profile.alias = 'useralias'
-        self.user.profile.save()
         self.client.login(username='tester', password='tester')
         response = self.client.get(reverse('edit_my_profile'))
-        print response
+        self.assertNotContains(response, 'useralias')
+        self.assertContains(response, '<option value="f">female</option>')
+        self.user.gem_profile.gender = 'f'
+        self.user.profile.alias = 'useralias'
+        self.user.gem_profile.save()
+        self.user.profile.save()
+        response = self.client.get(reverse('edit_my_profile'))
         self.assertContains(response, 'useralias')
         self.assertNotContains(response, '<option value="f">female</option>')
