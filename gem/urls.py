@@ -11,7 +11,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from gem.views import search, report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
-    GemResetPasswordSuccessView
+    GemResetPasswordSuccessView, GemEditProfileView
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -39,6 +39,8 @@ urlpatterns = patterns(
         GemResetPasswordView.as_view(), name='reset_password'),
     url(r'^profiles/reset_password_success/$',
         GemResetPasswordSuccessView.as_view(), name='reset_password_success'),
+    url(r'^profiles/edit/myprofile/$',
+        GemEditProfileView.as_view(), name='edit_my_profile'),
 
     url(r'^profiles/',
         include('molo.profiles.urls',

@@ -326,3 +326,8 @@ EMAIL_HOST = environ.get('EMAIL_HOST', 'localhost')
 EMAIL_PORT = environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+
+
+# Common Filtering Regexes
+REGEX_PHONE = r'.*?(\(?\d{3})? ?[\.-]? ?\d{3} ?[\.-]? ?\d{4}.*?'
+REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'
