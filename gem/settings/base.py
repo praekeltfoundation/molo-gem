@@ -195,6 +195,7 @@ USE_TZ = True
 LANGUAGES = global_settings.LANGUAGES + [
     ('tl', _('Tagalog')),
     ('rw', _('Kinyarwanda')),
+    ('ha', _('Hausa')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -209,6 +210,12 @@ EXTRA_LANG_INFO = {
         'code': 'rw',
         'name': 'Kinyarwanda',
         'name_local': 'Kinyarwanda'
+    },
+    'ha': {
+        'bidi': False,
+        'code': 'ha',
+        'name': 'Hausa',
+        'name_local': 'Hausa'
     },
 }
 
