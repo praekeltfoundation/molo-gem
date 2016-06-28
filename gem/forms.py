@@ -118,8 +118,8 @@ class GemEditProfileForm(EditProfileForm):
 
     def clean(self):
         super(GemEditProfileForm, self).clean()
-        gender = self.cleaned_data.get('gender', None)
-        if (gender):
+        gender = self.cleaned_data.get('gender')
+        if gender:
             return self.cleaned_data
         else:
             raise forms.ValidationError(_('Please enter a new value.'))
