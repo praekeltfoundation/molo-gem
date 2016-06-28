@@ -59,22 +59,6 @@ class GemRegistrationForm(RegistrationForm):
         return username
 
 
-class GemEditProfileForm(EditProfileForm):
-    def clean_alias(self):
-        alias = self.cleaned_data['alias']
-
-        if not validate_no_email_or_phone(alias):
-            raise forms.ValidationError(
-                _(
-                    "Sorry, but that is an invalid display name. Please don't"
-                    " use your email address or phone number in your display"
-                    " name."
-                )
-            )
-
-        return alias
-
-
 class GemForgotPasswordForm(Form):
     username = forms.RegexField(
         regex=r'^[\w.@+-]+$',
@@ -156,3 +140,17 @@ class GemEditProfileForm(EditProfileForm):
     class Meta:
         model = UserProfile
         fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
+
+    def clean_alias(self):
+        alias = self.cleaned_data['alias']
+
+        if not validate_no_email_or_phone(alias):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid display name. Please don't"
+                    " use your email address or phone number in your display"
+                    " name."
+                )
+            )
+
+            return alias

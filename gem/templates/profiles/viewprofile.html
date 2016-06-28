@@ -24,18 +24,16 @@
                     {% else %}
                       <p>{% trans "You haven't set a nickname, so your comments will appear as 'anonymous'" %}</p>
                     {% endif %}
+                    <p>{% trans "Date of birth:" %}
                     {% if user.profile.date_of_birth %}
-                      <p>{% trans "Date of birth:" %}
                       <span>{{ user.profile.date_of_birth }}</span></p>
                     {% else %}
-                      <p>{% trans "Date of birth:" %}
                       <span>Not set.</span></p>
                     {% endif %}
+                    <p>{% trans "Gender:" %}
                     {% if user.gem_profile.get_gender_display %}
-                      <p>{% trans "Gender:" %}
                         <span>{{ user.gem_profile.get_gender_display }}</span></p>
                     {% else %}
-                    <p>{% trans "Gender:" %}
                       <span>Not set.</span></p>
                     {% endif %}
                     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
