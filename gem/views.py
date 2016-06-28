@@ -23,9 +23,9 @@ from django.views.generic.edit import FormView
 from django_comments.forms import CommentDetailsForm
 
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm
+    GemResetPasswordForm, ReportCommentForm
 
-from gem.models import GemSettings
+from gem.models import GemSettings, GemReportComment
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -359,3 +359,39 @@ def clean_comment(self):
 
 
 CommentDetailsForm.clean_comment = clean_comment
+
+
+class ReportCommentView(FormView):
+    template_name = 'comments/report_comment.html'
+    form_class = ReportCommentForm
+
+    def render_to_response(self, context, **response_kwargs):
+        comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+
+        context.update({
+            'article': comment.content_object,
+        })
+
+        return super(ReportCommentView, self).render_to_response(
+            context, **response_kwargs
+        )
+
+    def form_valid(self, form):
+        try:
+            comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+        except MoloComment.DoesNotExist:
+            return HttpResponseForbidden()
+
+        gem_comment = GemReportComment()
+        gem_comment.comment = comment
+        gem_comment.reported_reason = form.cleaned_data['report_reason']
+        gem_comment.save()
+
+        return HttpResponseRedirect(
+            "{0}?next={1}".format(
+              reverse('molo-comments-report',
+                      args=(self.kwargs['comment_pk'],)
+                      ), reverse('report_response',
+                                 args=(self.kwargs['comment_pk'],))
+            )
+        )
