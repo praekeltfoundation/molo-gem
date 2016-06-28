@@ -11,7 +11,7 @@ from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 
-from gem.forms import GemRegistrationForm
+from gem.forms import GemRegistrationForm, ReportCommentForm
 from gem.models import GemSettings
 
 from molo.commenting.forms import MoloCommentForm
@@ -375,3 +375,53 @@ class TagManagerAccountTestCase(TestCase, MoloTestCaseMixin):
         with self.settings(GOOGLE_TAG_MANAGER_ACCOUNT='GTM-XXXXXX'):
             response = self.client.get('/')
             self.assertContains(response, 'GTM-XXXXXX')
+
+
+class GemReportViewTest(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
+
+        self.content_type = ContentType.objects.get_for_model(self.user)
+
+        self.mk_main()
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        self.article = self.mk_article(self.yourmind,
+                                       title='article 1',
+                                       subtitle='article 1 subtitle',
+                                       slug='article-1')
+
+    def create_comment(self, article, comment, parent=None):
+        return MoloComment.objects.create(
+            content_type=ContentType.objects.get_for_model(article),
+            object_pk=article.pk,
+            content_object=article,
+            site=Site.objects.get_current(),
+            user=self.user,
+            comment=comment,
+            parent=parent,
+            submit_date=datetime.now())
+
+    def getValidData(self, obj):
+
+        form = ReportCommentForm(obj)
+        form_data = self.getData()
+        form_data.update(form.initial)
+        return form_data
+
+    def test_report_view(self):
+        comment = self.create_comment(self.article, 'report me')
+        response = self.client.get(
+            reverse('report_comment', args=(comment.pk,)))
+
+        self.assertContains(response, 'Please let us know why you are '
+                                      'reporting this comment?')
+
+    def test_report_form_post(self):
+        form_data = {'report_reason': 'Spam'}
+        report_form = ReportCommentForm(data=form_data)
+        self.assertTrue(report_form.is_valid())
