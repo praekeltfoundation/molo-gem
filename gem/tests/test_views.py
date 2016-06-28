@@ -76,9 +76,10 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, expected_validation_message)
 
 
-class GemEditProfileViewTest(TestCase):
+class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
+        self.mk_main()
 
         self.user = User.objects.create_user(
             username='tester',
