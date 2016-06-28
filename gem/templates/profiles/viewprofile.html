@@ -18,14 +18,27 @@
                     <h3>{% trans "Your Profile" %}</h3>
 
 
-                    <p>{% trans "When you type comments your name will appear as:" %}
-                    <span>{{ user.profile.alias }}</span></p>
-                    <p>{% trans "Your date of birth is:" %}
-                    <span>{{ user.profile.date_of_birth }}</span></p>
-                    <p>{% trans "You identify your gender as:" %}
-                    <span>{{ user.gem_profile.get_gender_display }}</span></p>
+                    {% if user.profile.alias %}
+                      <p>{% trans "When you type comments your name will appear as:" %}
+                      <span>{{ user.profile.alias }}</span></p>
+                    {% else %}
+                      <p>{% trans "You haven't set a nickname, so your comments will appear as 'anonymous'" %}</p>
+                    {% endif %}
+                    {% if user.profile.date_of_birth %}
+                      <p>{% trans "Date of birth:" %}
+                      <span>{{ user.profile.date_of_birth }}</span></p>
+                    {% else %}
+                      <p>{% trans "Date of birth:" %}
+                      <span>Not set.</span></p>
+                    {% endif %}
+                    {% if user.gem_profile.get_gender_display %}
+                      <p>{% trans "Gender:" %}
+                        <span>{{ user.gem_profile.get_gender_display }}</span></p>
+                    {% else %}
+                    <p>{% trans "Gender:" %}
+                      <span>Not set.</span></p>
                     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-                      <p>{% trans "Your mobile number is:" %}
+                      <p>{% trans "Mobile number:" %}
                       <span>{{ user.profile.mobile_number }}</span></p>
                     {% endif %}
 

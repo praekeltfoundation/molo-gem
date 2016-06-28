@@ -8,24 +8,24 @@
 	</div>
 	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">{% csrf_token %}
 	{{form.non_field_errors}}
-			<p>{% trans "Type new display name:" %}</p>
+			<p>{% trans "Nickname:" %}</p>
 			<p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
 			{{ form.alias }}
 
-      <p>{% trans "Update your date of birth:" %}</p>
+      <p>{% trans "Date of birth:" %}</p>
 	      {{ form.date_of_birth }}
 
-      <p>{% trans "Update your gender:" %}</p>
+      <p>{% trans "Gender:" %}</p>
 			{{ form.gender.errors}}
 			{{ form.gender }}
 
 			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-	      <p>{% trans "Update your mobile number:" %}</p>
+	      <p>{% trans "Mobile number:" %}</p>
 		      {{ form.mobile_number.errors }}
 		      {{ form.mobile_number }}
 			{% endif %}
 			{% if settings.profiles.UserProfilesSettings.show_email_field %}
-	      <p>{% trans "Update your email address:" %}</p>
+	      <p>{% trans "Email address:" %}</p>
 		      {{ form.email.errors }}
 		      {{ form.email}}
 			{% endif %}
