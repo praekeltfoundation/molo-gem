@@ -3,8 +3,9 @@ from django import forms
 from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
-from gem.settings import REGEX_EMAIL, REGEX_PHONE
 from molo.profiles.forms import RegistrationForm, EditProfileForm
+from molo.profiles.models import UserProfile
+from gem.settings import REGEX_EMAIL, REGEX_PHONE
 
 
 def validate_no_email_or_phone(input):
@@ -56,22 +57,6 @@ class GemRegistrationForm(RegistrationForm):
             )
 
         return username
-
-
-class GemEditProfileForm(EditProfileForm):
-    def clean_alias(self):
-        alias = self.cleaned_data['alias']
-
-        if not validate_no_email_or_phone(alias):
-            raise forms.ValidationError(
-                _(
-                    "Sorry, but that is an invalid display name. Please don't"
-                    " use your email address or phone number in your display"
-                    " name."
-                )
-            )
-
-        return alias
 
 
 class GemForgotPasswordForm(Form):
@@ -143,3 +128,29 @@ class GemResetPasswordForm(Form):
         },
         label=_("Confirm PIN")
     )
+
+
+class GemEditProfileForm(EditProfileForm):
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=GENDERS,
+        required=False
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
+
+    def clean_alias(self):
+        alias = self.cleaned_data['alias']
+
+        if not validate_no_email_or_phone(alias):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid display name. Please don't"
+                    " use your email address or phone number in your display"
+                    " name."
+                )
+            )
+
+        return alias

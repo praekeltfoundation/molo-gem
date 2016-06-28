@@ -116,10 +116,6 @@ class GemRegistrationView(RegistrationView):
         )
 
 
-class GemEditProfileView(MyProfileEdit):
-    form_class = GemEditProfileForm
-
-
 class GemForgotPasswordView(FormView):
     form_class = GemForgotPasswordForm
     template_name = 'forgot_password.html'
@@ -275,6 +271,24 @@ class GemResetPasswordView(FormView):
 
 class GemResetPasswordSuccessView(TemplateView):
     template_name = 'reset_password_success.html'
+
+
+class GemEditProfileView(MyProfileEdit):
+    form_class = GemEditProfileForm
+
+    def get_initial(self):
+        initial = super(GemEditProfileView, self).get_initial()
+        initial.update({'gender': self.request.user.gem_profile.gender})
+        return initial
+
+    def form_valid(self, form):
+        super(MyProfileEdit, self).form_valid(form)
+        gender = form.cleaned_data['gender']
+
+        self.request.user.gem_profile.gender = gender
+        self.request.user.gem_profile.save()
+        return HttpResponseRedirect(
+            reverse('molo.profiles:view_my_profile'))
 
 
 class GemRssFeed(Feed):

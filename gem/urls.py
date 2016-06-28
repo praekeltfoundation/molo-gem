@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -40,8 +41,8 @@ urlpatterns = patterns(
     url(r'^profiles/reset_password_success/$',
         GemResetPasswordSuccessView.as_view(), name='reset_password_success'),
     url(r'^profiles/edit/myprofile/$',
-        GemEditProfileView.as_view(), name='edit_my_profile'),
-
+        login_required(GemEditProfileView.as_view()),
+        name='edit_my_profile'),
     url(r'^profiles/',
         include('molo.profiles.urls',
                 namespace='molo.profiles',

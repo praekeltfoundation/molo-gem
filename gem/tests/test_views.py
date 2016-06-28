@@ -102,7 +102,6 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
                                       " name. Please don&#39;t use your" \
                                       " email address or phone number in" \
                                       " your display name."
-
         self.assertContains(response, expected_validation_message)
 
         response = self.client.post(reverse('edit_my_profile'), {
