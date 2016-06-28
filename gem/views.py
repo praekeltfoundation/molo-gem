@@ -1,38 +1,51 @@
 import logging
 import random
+import re
 
+from django import forms
 from django.conf import settings
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.http.request import QueryDict
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
+from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
+from django_comments.forms import CommentDetailsForm
+
+from forms import GemRegistrationForm, GemForgotPasswordForm, \
+    GemResetPasswordForm
+
+from gem.models import GemSettings
+from gem.settings import REGEX_PHONE, REGEX_EMAIL
+
 from molo.commenting.models import MoloComment
+
+from molo.core.utils import get_locale_code
 from molo.core.models import ArticlePage
+from molo.profiles.views import RegistrationView
+
+from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
-
-from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
-
-from molo.profiles.views import RegistrationView, MyProfileEdit
-from forms import GemRegistrationForm, GemEditProfileForm, \
-    GemForgotPasswordForm, GemResetPasswordForm
 
 
 def search(request, results_per_page=10):
     search_query = request.GET.get('q', None)
     page = request.GET.get('p', 1)
+    locale = get_locale_code(get_language_from_request(request))
 
     if search_query:
-        results = ArticlePage.objects.live().search(search_query)
+        results = ArticlePage.objects.filter(
+            languages__language__locale=locale).live().search(search_query)
         Query.get(search_query).add_hit()
     else:
         results = ArticlePage.objects.none()
@@ -67,6 +80,8 @@ class GemRegistrationView(RegistrationView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         gender = form.cleaned_data['gender']
+        mobile_number = form.cleaned_data['mobile_number']
+
         security_question_1_answer = form.cleaned_data[
             'security_question_1_answer'
         ]
@@ -74,6 +89,10 @@ class GemRegistrationView(RegistrationView):
             'security_question_2_answer'
         ]
         user = User.objects.create_user(username=username, password=password)
+
+        user.profile.mobile_number = mobile_number
+        user.profile.save()
+
         user.gem_profile.gender = gender
         user.gem_profile.set_security_question_1_answer(
             security_question_1_answer
@@ -308,3 +327,39 @@ class GemRssFeed(Feed):
 class GemAtomFeed(GemRssFeed):
     feed_type = Atom1Feed
     subtitle = GemRssFeed.description
+
+
+# https://github.com/praekelt/yal-merge/blob/develop/yal/views.py#L711-L751
+def clean_comment(self):
+    """
+    Check for email addresses, telephone numbers and any other keywords or
+    patterns defined through GemSettings.
+    """
+    comment = self.cleaned_data['comment']
+
+    site = Site.objects.get(is_default_site=True)
+    settings = GemSettings.for_site(site)
+
+    banned_list = [REGEX_EMAIL, REGEX_PHONE]
+
+    banned_keywords_and_patterns = \
+        settings.banned_keywords_and_patterns.split('\n') \
+        if settings.banned_keywords_and_patterns else []
+
+    banned_list += banned_keywords_and_patterns
+
+    for keyword in banned_list:
+        keyword = keyword.replace('\r', '')
+        match = re.search(keyword, comment.lower())
+        if match:
+            raise forms.ValidationError(
+                _(
+                    'This comment has been removed as it contains profanity, '
+                    'contact information or other inappropriate content. '
+                )
+            )
+
+    return comment
+
+
+CommentDetailsForm.clean_comment = clean_comment

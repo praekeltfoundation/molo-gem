@@ -5,7 +5,7 @@ set -e
 # ensure we create the locales first so that Django doesn't complain
 LANGUAGE_CODE=en ./manage.py compilemessages
 
-./manage.py migrate
+./manage.py migrate --noinput
 ./manage.py collectstatic --noinput
 ./manage.py compress
 

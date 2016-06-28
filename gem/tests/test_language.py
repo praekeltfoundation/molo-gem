@@ -1,5 +1,5 @@
 from django.test import TestCase
-from molo.core.models import LanguagePage
+from molo.core.models import SiteLanguage
 from molo.core.tests.base import MoloTestCaseMixin
 
 
@@ -7,19 +7,20 @@ class TestLanguageCodeSetting(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
         self.mk_main()
-
-        self.bahasa = LanguagePage(
-            title='Bahasa',
-            code='id',
-            slug='bahasa')
-        self.main.add_child(instance=self.bahasa)
-        self.bahasa.save_revision().publish()
+        # Creates Main language
+        self.english = SiteLanguage.objects.create(
+            locale='en',
+        )
+        # Creates translation Language
+        self.bahasa = SiteLanguage.objects.create(
+            locale='id',
+        )
 
     def test_language_code_setting(self):
-        self.mk_section(
-            self.english, title='English Section')
-        self.mk_section(
-            self.bahasa, title='Bahasa Section')
+        eng_section = self.mk_section(
+            self.section_index, title='English Section')
+        self.mk_section_translation(
+            eng_section, self.bahasa, title='Bahasa Section')
 
         # First check for the default behavior
         response = self.client.get('/')

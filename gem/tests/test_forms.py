@@ -1,9 +1,13 @@
 from django.test import TestCase
 
 from gem.forms import GemRegistrationForm
+from molo.core.tests.base import MoloTestCaseMixin
 
 
-class GemRegisterTestCase(TestCase):
+class GemRegisterTestCase(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+
     def test_register_gender_required(self):
         form_data = {
             'username': 'Jeyabal@-1',

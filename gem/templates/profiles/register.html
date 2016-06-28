@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load i18n static core_tags %}
-
+{% load i18n static core_tags wagtailsettings_tags %}
+{% get_settings %}
 
 {% block content %}
 <div class="profile-container">
@@ -19,7 +19,17 @@
 
             <p><strong>{% trans "Choose a 4-digit pin" %}</strong></p>
             {{ form.password.errors}}
-            {{ form.password }}
+            <input id="id_password" maxlength="4" name="password" type="password" required="" pattern="[0-9]*" inputmode="numeric">
+
+            <p class="sigin-form__input-hint">({% trans "E.g.: 2086" %})</p>
+
+            {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+            <p><strong>{% trans "Enter your mobile number" %}</strong></p>
+            {{ from.errors}}
+
+            {{ form.mobile_number }}
+            <br>
+            {% endif %}
 
             <p><strong>{% trans "I identify my gender as" %}</strong></p>
             {{ form.gender.errors}}
@@ -37,6 +47,14 @@
             {{ form.security_question_2_answer.errors }}
             {{ form.security_question_2_answer }}
 
+            <br>
+            {% if form.terms_and_conditions.errors %}
+              <p class="alert-error">{% trans "Please accept the T&amp;Cs in order to complete the registration" %}</p>
+            {% endif %}
+            <div class="terms-and-conditions">
+              {{ form.terms_and_conditions }}
+              <label for="id_terms_and_conditions">{% trans "I accept the Terms and Conditions" %}</label>
+            </div>
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />

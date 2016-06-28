@@ -1,12 +1,11 @@
 import os
 
-from .base import *
+from .base import *  # noqa
 
 
 # Disable debug mode
 
 DEBUG = False
-TEMPLATE_DEBUG = False
 
 
 # Compress static files offline
@@ -43,6 +42,7 @@ COMPRESS_OFFLINE = True
 #     }
 # }
 
+
 # service-directory settings
 # NB: You should also have a secrets.py file that contains the settings
 # SERVICE_DIRECTORY_API_USERNAME & SERVICE_DIRECTORY_API_PASSWORD &
@@ -63,11 +63,11 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 
 
 try:
-    from .local import *
+    from .local import *  # noqa
 except ImportError:
     pass
 
 try:
-    from secrets import *
+    from secrets import *  # noqa
 except ImportError:
     pass

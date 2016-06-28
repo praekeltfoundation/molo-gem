@@ -13,6 +13,17 @@ from gem.views import search, report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, GemEditProfileView
 
+# implement CAS URLs in a production setting
+if settings.ENABLE_SSO:
+    urlpatterns = patterns(
+        '',
+        url(r'^admin/login/', 'django_cas_ng.views.login'),
+        url(r'^admin/logout/', 'django_cas_ng.views.logout'),
+        url(r'^admin/callback/', 'django_cas_ng.views.callback'),
+    )
+else:
+    urlpatterns = patterns('', )
+
 urlpatterns = patterns(
     '',
     url(r'^django-admin/', include(admin.site.urls)),

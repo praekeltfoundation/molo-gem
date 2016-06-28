@@ -10,9 +10,13 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 from os.path import abspath, dirname, join
 from os import environ
+import django.conf.locale
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
+import djcelery
+from celery.schedules import crontab
+djcelery.setup_loader()
 
 # Absolute filesystem path to the Django project directory:
 PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
@@ -27,8 +31,6 @@ SECRET_KEY = "dqji)!xte^trgai!3c)_4)ftaoevwvbog-i&nl$#ef9xb+y*ab"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -40,17 +42,21 @@ BASE_URL = 'http://example.com'
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 
-    'compressor',
+
     'taggit',
     'modelcluster',
+
+    'molo.core',
+    'gem',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -63,27 +69,36 @@ INSTALLED_APPS = (
     'wagtail.wagtailsearch',
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
+    'wagtailmodeladmin',
+    'wagtailmedia',
+    'wagtail.contrib.settings',
+    'wagtailsurveys',
 
-    'molo.core',
-    'gem',
-    'molo.profiles',
     'mptt',
+    'molo.profiles',
     'django_comments',
     'django.contrib.sites',
     'molo.commenting',
     'molo.yourwords',
     'molo.servicedirectory',
     'molo.polls',
+    'molo.surveys',
+
 
     'raven.contrib.django.raven_compat',
-)
+    'djcelery',
+    'django_cas_ng',
+    'compressor',
+
+]
 
 COMMENTS_APP = 'molo.commenting'
 COMMENTS_FLAG_THRESHHOLD = 3
 COMMENTS_HIDE_REMOVED = False
+
 SITE_ID = 1
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'gem.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -95,7 +110,33 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-)
+    'wagtailmodeladmin.middleware.ModelAdminMiddleware',
+
+    'molo.core.middleware.AdminLocaleMiddleware',
+    'molo.core.middleware.NoScriptGASessionMiddleware',
+]
+
+# Template configuration
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'molo.core.context_processors.locale',
+                'wagtail.contrib.settings.context_processors.settings',
+                'gem.context_processors.default_forms',
+                'gem.context_processors.add_tag_manager_account',
+            ],
+        },
+    },
+]
 
 ROOT_URLCONF = 'gem.urls'
 WSGI_APPLICATION = 'gem.wsgi.application'
@@ -128,23 +169,56 @@ DATABASES = {'default': dj_database_url.config(
 #     }
 # }
 
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_IMPORTS = ('molo.core.tasks')
+BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = environ.get(
+    'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+CELERYBEAT_SCHEDULE = {
+    'rotate_content': {
+        'task': 'molo.core.tasks.rotate_content',
+        'schedule': crontab(minute=0),
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = environ.get('LANGUAGE_CODE', 'en-gb')
 TIME_ZONE = 'Africa/Johannesburg'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LANGUAGES = global_settings.LANGUAGES + (
+LANGUAGES = global_settings.LANGUAGES + [
     ('tl', _('Tagalog')),
     ('rw', _('Kinyarwanda')),
-)
-LOCALE_PATHS = (
+]
+
+EXTRA_LANG_INFO = {
+    'tl': {
+        'bidi': False,
+        'code': 'tl',
+        'name': 'Tagalog',
+        'name_local': 'Tagalog'
+    },
+    'rw': {
+        'bidi': False,
+        'code': 'rw',
+        'name': 'Kinyarwanda',
+        'name_local': 'Kinyarwanda'
+    },
+}
+
+LANG_INFO = (
+    dict(django.conf.locale.LANG_INFO.items() + EXTRA_LANG_INFO.items()))
+django.conf.locale.LANG_INFO = LANG_INFO
+
+LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),
-)
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -152,11 +226,11 @@ LOCALE_PATHS = (
 STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-)
+]
 
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
@@ -165,27 +239,17 @@ MEDIA_URL = '/media/'
 # Django compressor settings
 # http://django-compressor.readthedocs.org/en/latest/settings/
 
-COMPRESS_PRECOMPILERS = (
+COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-
-# Template configuration
-
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django.core.context_processors.request',
-    'molo.core.context_processors.locale',
-    'gem.context_processors.default_forms',
-    'gem.context_processors.add_tag_manager_account',
-)
-
+]
 
 # Wagtail settings
 
 LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
-WAGTAIL_SITE_NAME = "GEM"
+SITE_NAME = environ.get('SITE_NAME', "GEM")
+WAGTAIL_SITE_NAME = SITE_NAME
 
 # Use Elasticsearch as the search backend for extra performance and better
 # search results:
@@ -207,14 +271,18 @@ WAGTAIL_SITE_NAME = "GEM"
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 IMAGE_COMPRESSION_QUALITY = 85
 
+ENABLE_SSO = False
 
 # Additional strings that need translations from other modules
 # molo.polls
 _("Log in to vote")
 _("Username already exists.")
+_("The old password is incorrect.")
 _("Vote")
 _("Show Results")
 _("You voted: ")
+_("Name of the city you were born in")
+_("Name of your primary school")
 
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
@@ -223,12 +291,34 @@ _("You voted: ")
 # - the site logo
 # - style.css
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
+
 GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
 
-
 # Password reset - security questions
-SECURITY_QUESTION_1 = 'Dummy security question 1?'
-SECURITY_QUESTION_2 = 'Dummy security question 2?'
+SECURITY_QUESTION_1 = environ.get(
+    'SECURITY_QUESTION_1', 'Name of the city you were born in')
+SECURITY_QUESTION_2 = environ.get(
+    'SECURITY_QUESTION_2', 'Name of your primary school')
+
+
+# Comment Filtering Regexes
+REGEX_PHONE = r'.*?(\(?\d{3})? ?[\.-]? ?\d{3} ?[\.-]? ?\d{4}.*?'
+REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'
+
+
+ADMIN_LANGUAGE_CODE = environ.get('ADMIN_LANGUAGE_CODE', "en")
+
+UNICORE_DISTRIBUTE_API = environ.get(
+    'UNICORE_DISTRIBUTE_API', 'http://localhost:6543')
+FROM_EMAIL = environ.get('FROM_EMAIL', "support@moloproject.org")
+CONTENT_IMPORT_SUBJECT = environ.get(
+    'CONTENT_IMPORT_SUBJECT', 'Molo Content Import')
+
+# SMTP Settings
+EMAIL_HOST = environ.get('EMAIL_HOST', 'localhost')
+EMAIL_PORT = environ.get('EMAIL_PORT', 25)
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
 
 
 # Common Filtering Regexes

@@ -1,0 +1,25 @@
+{% extends "core/_article_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
+
+{% block content %}
+{% get_comments_content_object for form as self %}
+
+<div class="block {{self.articlepage.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="comment">
+    <p class="by">{{comment.user_name}} <span class="date">{{comment.submit_date}}</span></p>
+    <p>{{comment.comment}}</p>
+  </div>
+</div><!-- /title -->
+
+<div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="article-copy">
+    <div class="post-comment">
+      {% if request.user.is_authenticated %}
+        {% include "comments/form.html" with node=comment %}
+      {% else %}
+        <p>{% trans "Please " %}<a href="{% url 'molo.profiles:auth_login' %}">{% trans "log in" %}</a>{% trans " to leave a comment." %}</p>
+      {% endif %}
+		</div>
+  </div>
+</div>
+{% endblock %}

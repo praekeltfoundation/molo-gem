@@ -10,14 +10,20 @@ from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
+
 from gem.forms import GemRegistrationForm, GemEditProfileForm
+from gem.models import GemSettings
+
+from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import SiteLanguage
 
 
-class GemRegistrationViewTest(TestCase):
+class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
+        self.mk_main()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -105,9 +111,10 @@ class GemEditProfileViewTest(TestCase):
         self.assertContains(response, expected_validation_message)
 
 
-class GemResetPasswordTest(TestCase):
+class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
+        self.mk_main()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -311,7 +318,16 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             username='tester',
             email='tester@example.com',
             password='tester')
+
+        self.english = SiteLanguage.objects.create(locale='en')
         self.mk_main()
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        self.article = self.mk_article(self.yourmind,
+                                       title='article 1',
+                                       subtitle='article 1 subtitle',
+                                       slug='article-1')
 
     def create_comment(self, article, comment, parent=None):
         return MoloComment.objects.create(
@@ -324,37 +340,72 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             parent=parent,
             submit_date=datetime.now())
 
-    def test_comment_shows_user_display_name(self):
-        self.yourmind = self.mk_section(
-            self.main, title='Your mind')
-        article = self.mk_article(self.yourmind, title='article 1',
-                                  subtitle='article 1 subtitle',
-                                  slug='article-1')
+    def getData(self):
+        return {
+            'name': self.user.username,
+            'email': self.user.email
+        }
 
+    def test_comment_shows_user_display_name(self):
         # check when user doesn't have an alias
-        self.create_comment(article, 'test comment1 text')
-        response = self.client.get('/your-mind/article-1/')
+        self.create_comment(self.article, 'test comment1 text')
+        response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "Anonymous")
 
         # check when user have an alias
         self.user.profile.alias = 'this is my alias'
         self.user.profile.save()
-        self.create_comment(article, 'test comment2 text')
-        response = self.client.get('/your-mind/article-1/')
+        self.create_comment(self.article, 'test comment2 text')
+        response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
+
+    def getValidData(self, obj):
+        form = MoloCommentForm(obj)
+        form_data = self.getData()
+        form_data.update(form.initial)
+        return form_data
+
+    def test_comment_filters(self):
+        site = Site.objects.get(id=1)
+        site.name = 'GEM'
+        site.save()
+        GemSettings.objects.create(site_id=site.id,
+                                   banned_keywords_and_patterns='naughty')
+
+        form_data = self.getValidData(self.article)
+
+        # check if user has typed in a number
+        comment_form = MoloCommentForm(
+            self.article, data=dict(form_data, comment="0821111111")
+        )
+
+        self.assertFalse(comment_form.is_valid())
+
+        # check if user has typed in an email address
+        comment_form = MoloCommentForm(
+            self.article, data=dict(form_data, comment="test@test.com")
+        )
+
+        self.assertFalse(comment_form.is_valid())
+
+        # check if user has used a banned keyword
+        comment_form = MoloCommentForm(
+            self.article, data=dict(form_data, comment="naughty")
+        )
+
+        self.assertFalse(comment_form.is_valid())
 
 
 class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
-
         self.mk_main()
 
-        section_page = self.mk_section(self.english, title='Test Section')
+        section = self.mk_section(self.section_index, title='Test Section')
 
         self.article_page = self.mk_article(
-            section_page, title='Test Article',
+            section, title='Test Article',
             subtitle='This should appear in the feed')
 
     def test_rss_feed_view(self):

@@ -55,18 +55,22 @@ input, select {
 
 button, input[type=submit], .button, .gem-polls a {
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 8px;
   background: #ed008c;
   color: #fff;
   border: 0;
   font-size: 12px;
   font-weight: bold;
+
+  height: auto;
+  line-height: 1.3333;
+  padding: 8px 10px;
+  @media screen and (min-width:480px) {
+    padding: 10px 24px;
+  }
 }
 
 a, a:hover {
-  color: #7A7A7A;
+  color: #00b8ae;
   text-decoration: none;
 }
 
@@ -99,10 +103,12 @@ a, a:hover {
     font-size: 11px;
     color: #7A7A7A;
   }
+  a.active {
+    color: #00b8ae;
+  }
 }
 
 .back-to-top {
-
   margin: 16px 8px;
   font-size: 11px;
 
@@ -113,12 +119,11 @@ a, a:hover {
 }
 
 .teal-ribbon {
-  background: url('/static/img/featured_bar.jpg');
-  background-position: -20px 0;
+  background: url('/static/img/pattern_edited.png');
+  background-position: center center;
   background-repeat: repeat-x;
-  background-color: #ECECEC;
-  background-size: 100%;
-  height: 22px;
+  background-size: 100% auto;
+  height: 21px;
   margin-top: 16px;
 }
 
@@ -194,8 +199,9 @@ a, a:hover {
     }
 
     input[type="submit"] {
-      width: 80%;
+      width: auto;
       text-align: center;
+      white-space: normal;
     }
 
     .inverted {
@@ -212,6 +218,20 @@ a, a:hover {
   }
 }
 
+
+.signin-form input[type="checkbox"] {
+  padding: 5px;
+}
+
+.terms-and-conditions label {
+  color: #ed008c !important;
+  text-decoration: underline;
+}
+
+.signin-form #id_password {
+  margin: 0;
+}
+
 .signin-form #id_gender {
   text-transform: capitalize;
   margin: 0;
@@ -219,7 +239,7 @@ a, a:hover {
 
 .sigin-form__input-hint {
   text-align: center !important;
-  color: #555 !important;
+  color: #777 !important;
 }
 
 .section_page {
@@ -236,5 +256,35 @@ a, a:hover {
     color: #fff;
     text-decoration: underline;
     font-style: italic;
+  }
+}
+
+.comment-preview {
+  margin: 0 16px;
+}
+
+.versions{
+  color: black;
+  a {
+    color: #cd3238;
+  }
+  table, th, td {
+      border: 1px solid black;
+  }
+  th, td {
+      padding: 5px;
+      font-size: 14px;
+  }
+  th {
+      text-align: left;
+  }
+  .latest{
+    color: #20C320;
+  }
+  .plugin{
+    font-weight: bold;
+  }
+  .not-installed{
+    color: orange;
   }
 }

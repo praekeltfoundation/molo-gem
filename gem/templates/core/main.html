@@ -1,7 +1,8 @@
 
 {% extends "base.html" %}
 
-{% load core_tags competition_tag poll_votings i18n %}
+{% load core_tags competition_tag poll_votings i18n molo_survey_tags %}
+
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
@@ -26,14 +27,15 @@
   </div>
 
   <div class="gem-polls">
-      {% poll_page page=language_page %}
+      {% poll_page %}
   </div>
 
   <div class="article-list">
     {% section_listing_homepage %}
   </div>
 
-  {% if language_page %}
-    {% your_words_competition page=language_page %}
-  {% endif %}
+  {% your_words_competition %}
+
+  {% surveys_list %}
+
 {% endblock %}
