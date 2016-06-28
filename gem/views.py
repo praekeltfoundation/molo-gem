@@ -116,6 +116,10 @@ class GemRegistrationView(RegistrationView):
         )
 
 
+class GemEditProfileView(MyProfileEdit):
+    form_class = GemEditProfileForm
+
+
 class GemForgotPasswordView(FormView):
     form_class = GemForgotPasswordForm
     template_name = 'forgot_password.html'

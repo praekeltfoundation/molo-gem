@@ -195,6 +195,7 @@ USE_TZ = True
 LANGUAGES = global_settings.LANGUAGES + [
     ('tl', _('Tagalog')),
     ('rw', _('Kinyarwanda')),
+    ('ha', _('Hausa')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -209,6 +210,12 @@ EXTRA_LANG_INFO = {
         'code': 'rw',
         'name': 'Kinyarwanda',
         'name_local': 'Kinyarwanda'
+    },
+    'ha': {
+        'bidi': False,
+        'code': 'ha',
+        'name': 'Hausa',
+        'name_local': 'Hausa'
     },
 }
 
@@ -319,3 +326,8 @@ EMAIL_HOST = environ.get('EMAIL_HOST', 'localhost')
 EMAIL_PORT = environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+
+
+# Common Filtering Regexes
+REGEX_PHONE = r'.*?(\(?\d{3})? ?[\.-]? ?\d{3} ?[\.-]? ?\d{4}.*?'
+REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'
