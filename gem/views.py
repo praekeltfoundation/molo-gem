@@ -23,7 +23,7 @@ from django.views.generic.edit import FormView
 from django_comments.forms import CommentDetailsForm
 
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm
+    GemResetPasswordForm, GemEditProfileForm
 
 from gem.models import GemSettings
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
@@ -32,7 +32,7 @@ from molo.commenting.models import MoloComment
 
 from molo.core.utils import get_locale_code
 from molo.core.models import ArticlePage
-from molo.profiles.views import RegistrationView
+from molo.profiles.views import RegistrationView, MyProfileEdit
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
