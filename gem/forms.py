@@ -115,11 +115,3 @@ class GemEditProfileForm(EditProfileForm):
     class Meta:
         model = UserProfile
         fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
-
-    def clean(self):
-        super(GemEditProfileForm, self).clean()
-        gender = self.cleaned_data.get('gender')
-        if gender:
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError(_('Please enter a new value.'))
