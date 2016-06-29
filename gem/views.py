@@ -407,9 +407,10 @@ class ReportCommentView(FormView):
 
         return HttpResponseRedirect(
             "{0}?next={1}".format(
-              reverse('molo-comments-report',
-                      args=(self.kwargs['comment_pk'],)
-                      ), reverse('report_response',
-                                 args=(self.kwargs['comment_pk'],))
+                reverse(
+                    'molo-comments-report', args=(self.kwargs['comment_pk'],)
+                ),
+                reverse(
+                    'report_response', args=(self.kwargs['comment_pk'],))
             )
         )
