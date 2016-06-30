@@ -4,8 +4,6 @@ from gem.models import GemUserProfile, GemReportComment
 from molo.commenting.admin import MoloCommentAdmin
 from molo.commenting.models import MoloComment
 from molo.profiles.admin import ProfileUserAdmin
-from gem.models import GemUserProfile
-from molo.profiles.admin import ProfileUserAdmin
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
