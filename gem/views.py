@@ -386,6 +386,14 @@ class ReportCommentView(FormView):
     def render_to_response(self, context, **response_kwargs):
         comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
 
+        for report in comment.gem_comment.all():
+            if self.request.user.id == report.user_id:
+                return HttpResponseRedirect(
+                    reverse('already_reported',
+                            args=(self.kwargs['comment_pk'],)
+                            )
+                )
+
         context.update({
             'article': comment.content_object,
         })
@@ -400,10 +408,11 @@ class ReportCommentView(FormView):
         except MoloComment.DoesNotExist:
             return HttpResponseForbidden()
 
-        gem_comment = GemReportComment()
-        gem_comment.comment = comment
-        gem_comment.reported_reason = form.cleaned_data['report_reason']
-        gem_comment.save()
+        GemReportComment.objects.create(
+            comment=comment,
+            user=self.request.user,
+            reported_reason=form.cleaned_data['report_reason']
+        )
 
         return HttpResponseRedirect(
             "{0}?next={1}".format(
@@ -414,3 +423,14 @@ class ReportCommentView(FormView):
                     'report_response', args=(self.kwargs['comment_pk'],))
             )
         )
+
+
+class AlreadyReportCommentView(TemplateView):
+    template_name = 'comments/user_has_already_reported.html'
+
+    def get(self, request, comment_pk):
+        comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+
+        return self.render_to_response({
+            'article': comment.content_object
+        })

@@ -11,9 +11,8 @@ from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 
-from gem.forms import GemRegistrationForm, ReportCommentForm, \
-    GemEditProfileForm
-from gem.models import GemSettings
+from gem.forms import GemRegistrationForm, GemEditProfileForm
+from gem.models import GemSettings, GemReportComment
 
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
@@ -446,6 +445,8 @@ class GemReportViewTest(TestCase, MoloTestCaseMixin):
             email='tester@example.com',
             password='tester')
 
+        self.client.login(username='tester', password='tester')
+
         self.content_type = ContentType.objects.get_for_model(self.user)
 
         self.mk_main()
@@ -468,22 +469,29 @@ class GemReportViewTest(TestCase, MoloTestCaseMixin):
             parent=parent,
             submit_date=datetime.now())
 
-    def getValidData(self, obj):
-
-        form = ReportCommentForm(obj)
-        form_data = self.getData()
-        form_data.update(form.initial)
-        return form_data
+    def create_reported_comment(self, comment, report_reason):
+        return GemReportComment.objects.create(
+            comment=comment,
+            user=self.user,
+            reported_reason=report_reason
+        )
 
     def test_report_view(self):
         comment = self.create_comment(self.article, 'report me')
         response = self.client.get(
-            reverse('report_comment', args=(comment.pk,)))
+            reverse('report_comment', args=(comment.pk,))
+        )
 
         self.assertContains(response, 'Please let us know why you are '
                                       'reporting this comment?')
 
-    def test_report_form_post(self):
-        form_data = {'report_reason': 'Spam'}
-        report_form = ReportCommentForm(data=form_data)
-        self.assertTrue(report_form.is_valid())
+    def test_user_has_already_reported_comment(self):
+        comment = self.create_comment(self.article, 'report me')
+
+        self.create_reported_comment(comment, 'Spam')
+
+        response = self.client.get(
+            reverse('report_comment', args=(comment.pk,)), follow=True
+        )
+
+        self.assertContains(response, 'You have already reported this comment')

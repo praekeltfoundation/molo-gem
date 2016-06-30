@@ -74,8 +74,9 @@ class GemSettings(BaseSetting):
 
 
 class GemReportComment(models.Model):
-    comment = models.OneToOneField(
-        MoloComment, related_name="gem_comment", primary_key=True)
+    user = models.ForeignKey(User)
+
+    comment = models.ForeignKey(MoloComment, related_name="gem_comment")
 
     reported_reason = models.CharField(
-        max_length=128, blank=True, null=True)
+        max_length=128, blank=False)
