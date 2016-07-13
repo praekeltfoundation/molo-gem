@@ -7,8 +7,8 @@
   {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
 
   <div id="article-hero">
-    {% load_descendant_articles_for_section self featured_in_section=True count=1 as featured_articles %}
-    {% with featured_articles|first as article %}
+    {% load_child_articles_for_section self as articles %}
+    {% with articles|first as article %}
     {% if article %}
       {% include "core/article_intro_partial.html" with article=article %}
     {% endif %}
@@ -17,10 +17,8 @@
 
   <div class="article-list">
     {% load_child_articles_for_section self as articles %}
-    {% for article in articles %}
-      {% if not featured_articles|first = article %}
+    {% for article in articles|slice:"1:" %}
         {% include "core/article_intro_partial.html" with article=article square_image=True %}
-      {% endif %}
     {% endfor %}
   </div>
 </div>
