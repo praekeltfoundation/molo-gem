@@ -11,7 +11,7 @@ from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 
-from gem.forms import GemRegistrationForm
+from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings
 
 from molo.commenting.forms import MoloCommentForm
@@ -48,6 +48,67 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             response, 'form', 'security_question_2_answer',
             ['This field is required.']
         )
+
+    def test_email_or_phone_not_allowed_in_username(self):
+        response = self.client.post(reverse('user_register'), {
+            'username': 'tester@test.com',
+            'password': '1234',
+            'gender': 'm',
+            'security_question_1_answer': 'cat',
+            'security_question_2_answer': 'dog'
+        })
+
+        expected_validation_message = "Sorry, but that is an invalid" \
+                                      " username. Please don&#39;t use your" \
+                                      " email address or phone number in" \
+                                      " your username."
+
+        self.assertContains(response, expected_validation_message)
+
+        response = self.client.post(reverse('user_register'), {
+            'username': '0821231234',
+            'password': '1234',
+            'gender': 'm',
+            'security_question_1_answer': 'cat',
+            'security_question_2_answer': 'dog'
+        })
+
+        self.assertContains(response, expected_validation_message)
+
+
+class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.client = Client()
+        self.mk_main()
+
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
+
+        self.client.login(username='tester', password='tester')
+
+    def test_edit_profile_view_uses_correct_form(self):
+        response = self.client.get(reverse('edit_my_profile'))
+        self.assertTrue(isinstance(response.context['form'],
+                                   GemEditProfileForm))
+
+    def test_email_or_phone_not_allowed_in_display_name(self):
+        response = self.client.post(reverse('edit_my_profile'), {
+            'alias': 'tester@test.com'
+        })
+
+        expected_validation_message = "Sorry, but that is an invalid display" \
+                                      " name. Please don&#39;t use your" \
+                                      " email address or phone number in" \
+                                      " your display name."
+        self.assertContains(response, expected_validation_message)
+
+        response = self.client.post(reverse('edit_my_profile'), {
+            'alias': '0821231234'
+        })
+
+        self.assertContains(response, expected_validation_message)
 
 
 class GemResetPasswordTest(TestCase, MoloTestCaseMixin):

@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from gem.models import GemUserProfile
+from molo.profiles.admin import ProfileUserAdmin
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -9,9 +9,9 @@ class GemUserProfileInlineModelAdmin(admin.StackedInline):
     can_delete = False
 
 
-class GemUserAdmin(UserAdmin):
+class GemUserAdmin(ProfileUserAdmin):
     inlines = (GemUserProfileInlineModelAdmin, )
-    list_display = UserAdmin.list_display + ('gender',)
+    list_display = ProfileUserAdmin.list_display + ('gender',)
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()

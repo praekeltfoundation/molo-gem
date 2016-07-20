@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
 <div class="article-preview">
 
   {% if article.image %}
@@ -18,7 +18,8 @@
 
   <div class="text">
     <div class="section-title">
-      <a href="{% pageurl article.get_parent_section %}">{{ section.title }}</a>
+      {% get_translation article.get_parent_section as section %}
+      <a href="{% pageurl section %}">{{ section }}</a>
     </div>
 
     {% if article %}

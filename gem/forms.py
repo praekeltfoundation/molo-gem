@@ -1,8 +1,21 @@
+import re
 from django import forms
 from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
-from molo.profiles.forms import RegistrationForm
+from molo.profiles.forms import RegistrationForm, EditProfileForm
+from molo.profiles.models import UserProfile
+from gem.settings import REGEX_EMAIL, REGEX_PHONE
+
+
+def validate_no_email_or_phone(input):
+    regexes = [REGEX_EMAIL, REGEX_PHONE]
+    for regex in regexes:
+        match = re.search(regex, input)
+        if match:
+            return False
+
+    return True
 
 
 class GemRegistrationForm(RegistrationForm):
@@ -31,6 +44,19 @@ class GemRegistrationForm(RegistrationForm):
             )
         ),
     )
+
+    def clean_username(self):
+        username = super(GemRegistrationForm, self).clean_username()
+
+        if not validate_no_email_or_phone(username):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid username. Please don't use"
+                    " your email address or phone number in your username."
+                )
+            )
+
+        return username
 
 
 class GemForgotPasswordForm(Form):
@@ -102,3 +128,29 @@ class GemResetPasswordForm(Form):
         },
         label=_("Confirm PIN")
     )
+
+
+class GemEditProfileForm(EditProfileForm):
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=GENDERS,
+        required=False
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
+
+    def clean_alias(self):
+        alias = self.cleaned_data['alias']
+
+        if not validate_no_email_or_phone(alias):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid display name. Please don't"
+                    " use your email address or phone number in your display"
+                    " name."
+                )
+            )
+
+        return alias
