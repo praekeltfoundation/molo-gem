@@ -12,7 +12,7 @@ from django.test import TestCase, Client
 from django.test.utils import override_settings
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
-from gem.models import GemSettings, GemReportComment
+from gem.models import GemSettings, GemCommentReport
 
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
@@ -438,7 +438,7 @@ class TagManagerAccountTestCase(TestCase, MoloTestCaseMixin):
             self.assertContains(response, 'GTM-XXXXXX')
 
 
-class GemReportViewTest(TestCase, MoloTestCaseMixin):
+class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.user = User.objects.create_user(
             username='tester',
@@ -470,7 +470,7 @@ class GemReportViewTest(TestCase, MoloTestCaseMixin):
             submit_date=datetime.now())
 
     def create_reported_comment(self, comment, report_reason):
-        return GemReportComment.objects.create(
+        return GemCommentReport.objects.create(
             comment=comment,
             user=self.user,
             reported_reason=report_reason

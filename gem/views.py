@@ -25,7 +25,7 @@ from django_comments.forms import CommentDetailsForm
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
     GemResetPasswordForm, ReportCommentForm, GemEditProfileForm
 
-from gem.models import GemSettings, GemReportComment
+from gem.models import GemSettings, GemCommentReport
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -386,13 +386,12 @@ class ReportCommentView(FormView):
     def render_to_response(self, context, **response_kwargs):
         comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
 
-        for report in comment.gem_comment.all():
-            if self.request.user.id == report.user_id:
-                return HttpResponseRedirect(
-                    reverse('already_reported',
-                            args=(self.kwargs['comment_pk'],)
-                            )
-                )
+        if comment.gemcommentreport_set.filter(
+                user_id=self.request.user.id):
+            return HttpResponseRedirect(
+                reverse('already_reported',
+                        args=(self.kwargs['comment_pk'],)
+                        ))
 
         context.update({
             'article': comment.content_object,
@@ -408,7 +407,7 @@ class ReportCommentView(FormView):
         except MoloComment.DoesNotExist:
             return HttpResponseForbidden()
 
-        GemReportComment.objects.create(
+        GemCommentReport.objects.create(
             comment=comment,
             user=self.request.user,
             reported_reason=form.cleaned_data['report_reason']
@@ -425,7 +424,7 @@ class ReportCommentView(FormView):
         )
 
 
-class AlreadyReportCommentView(TemplateView):
+class AlreadyReportedCommentView(TemplateView):
     template_name = 'comments/user_has_already_reported.html'
 
     def get(self, request, comment_pk):

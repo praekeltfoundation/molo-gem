@@ -73,10 +73,10 @@ class GemSettings(BaseSetting):
     ]
 
 
-class GemReportComment(models.Model):
+class GemCommentReport(models.Model):
     user = models.ForeignKey(User)
 
-    comment = models.ForeignKey(MoloComment, related_name="gem_comment")
+    comment = models.ForeignKey(MoloComment)
 
     reported_reason = models.CharField(
         max_length=128, blank=False)
