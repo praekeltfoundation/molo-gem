@@ -258,8 +258,15 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             email='tester@example.com',
             password='tester')
 
+        self.superuser = User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
+            password='admin')
+
         self.english = SiteLanguage.objects.create(locale='en')
         self.mk_main()
+
+        self.client = Client()
 
         self.yourmind = self.mk_section(
             self.section_index, title='Your mind')
@@ -268,13 +275,13 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
 
-    def create_comment(self, article, comment, parent=None):
+    def create_comment(self, article, comment, user, parent=None):
         return MoloComment.objects.create(
             content_type=ContentType.objects.get_for_model(article),
             object_pk=article.pk,
             content_object=article,
             site=Site.objects.get_current(),
-            user=self.user,
+            user=user,
             comment=comment,
             parent=parent,
             submit_date=datetime.now())
@@ -287,17 +294,24 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def test_comment_shows_user_display_name(self):
         # check when user doesn't have an alias
-        self.create_comment(self.article, 'test comment1 text')
+        self.create_comment(self.article, 'test comment1 text', self.user)
         response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "Anonymous")
 
         # check when user have an alias
         self.user.profile.alias = 'this is my alias'
         self.user.profile.save()
-        self.create_comment(self.article, 'test comment2 text')
+        self.create_comment(self.article, 'test comment2 text', self.user)
         response = self.client.get('/sections/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
+
+    def test_comment_distinguishes_moderator_user(self):
+        self.client.login(username='admin', password='admin')
+        self.create_comment(self.article, 'test comment1 text', self.superuser)
+        response = self.client.get('/sections/your-mind/article-1/')
+
+        self.assertContains(response, "Big Sister")
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
