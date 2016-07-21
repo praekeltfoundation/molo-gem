@@ -23,9 +23,9 @@ from django.views.generic.edit import FormView
 from django_comments.forms import CommentDetailsForm
 
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm, GemEditProfileForm
+    GemResetPasswordForm, ReportCommentForm, GemEditProfileForm
 
-from gem.models import GemSettings
+from gem.models import GemSettings, GemCommentReport
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -377,3 +377,59 @@ def clean_comment(self):
 
 
 CommentDetailsForm.clean_comment = clean_comment
+
+
+class ReportCommentView(FormView):
+    template_name = 'comments/report_comment.html'
+    form_class = ReportCommentForm
+
+    def render_to_response(self, context, **response_kwargs):
+        comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+
+        if comment.gemcommentreport_set.filter(
+                user_id=self.request.user.id):
+            return HttpResponseRedirect(
+                reverse('already_reported',
+                        args=(self.kwargs['comment_pk'],)
+                        ))
+
+        context.update({
+            'article': comment.content_object,
+        })
+
+        return super(ReportCommentView, self).render_to_response(
+            context, **response_kwargs
+        )
+
+    def form_valid(self, form):
+        try:
+            comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+        except MoloComment.DoesNotExist:
+            return HttpResponseForbidden()
+
+        GemCommentReport.objects.create(
+            comment=comment,
+            user=self.request.user,
+            reported_reason=form.cleaned_data['report_reason']
+        )
+
+        return HttpResponseRedirect(
+            "{0}?next={1}".format(
+                reverse(
+                    'molo-comments-report', args=(self.kwargs['comment_pk'],)
+                ),
+                reverse(
+                    'report_response', args=(self.kwargs['comment_pk'],))
+            )
+        )
+
+
+class AlreadyReportedCommentView(TemplateView):
+    template_name = 'comments/user_has_already_reported.html'
+
+    def get(self, request, comment_pk):
+        comment = MoloComment.objects.get(pk=self.kwargs['comment_pk'])
+
+        return self.render_to_response({
+            'article': comment.content_object
+        })

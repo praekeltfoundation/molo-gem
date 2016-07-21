@@ -12,7 +12,7 @@ from django.test import TestCase, Client
 from django.test.utils import override_settings
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
-from gem.models import GemSettings
+from gem.models import GemSettings, GemCommentReport
 
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
@@ -450,3 +450,62 @@ class TagManagerAccountTestCase(TestCase, MoloTestCaseMixin):
         with self.settings(GOOGLE_TAG_MANAGER_ACCOUNT='GTM-XXXXXX'):
             response = self.client.get('/')
             self.assertContains(response, 'GTM-XXXXXX')
+
+
+class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
+
+        self.client.login(username='tester', password='tester')
+
+        self.content_type = ContentType.objects.get_for_model(self.user)
+
+        self.mk_main()
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        self.article = self.mk_article(self.yourmind,
+                                       title='article 1',
+                                       subtitle='article 1 subtitle',
+                                       slug='article-1')
+
+    def create_comment(self, article, comment, parent=None):
+        return MoloComment.objects.create(
+            content_type=ContentType.objects.get_for_model(article),
+            object_pk=article.pk,
+            content_object=article,
+            site=Site.objects.get_current(),
+            user=self.user,
+            comment=comment,
+            parent=parent,
+            submit_date=datetime.now())
+
+    def create_reported_comment(self, comment, report_reason):
+        return GemCommentReport.objects.create(
+            comment=comment,
+            user=self.user,
+            reported_reason=report_reason
+        )
+
+    def test_report_view(self):
+        comment = self.create_comment(self.article, 'report me')
+        response = self.client.get(
+            reverse('report_comment', args=(comment.pk,))
+        )
+
+        self.assertContains(response, 'Please let us know why you are '
+                                      'reporting this comment?')
+
+    def test_user_has_already_reported_comment(self):
+        comment = self.create_comment(self.article, 'report me')
+
+        self.create_reported_comment(comment, 'Spam')
+
+        response = self.client.get(
+            reverse('report_comment', args=(comment.pk,)), follow=True
+        )
+
+        self.assertContains(response, 'You have already reported this comment')

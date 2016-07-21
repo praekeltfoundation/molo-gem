@@ -154,3 +154,17 @@ class GemEditProfileForm(EditProfileForm):
             )
 
         return alias
+
+
+class ReportCommentForm(Form):
+    CHOICES = (
+        ('Spam', _('Spam')),
+        ('Offensive Language', _('Offensive Language')),
+        ('Bullying', _('Bullying')),
+        ('Other', _('Other'))
+    )
+
+    report_reason = forms.ChoiceField(
+        widget=forms.RadioSelect,
+        choices=CHOICES
+    )

@@ -12,7 +12,8 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from gem.views import search, report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
-    GemResetPasswordSuccessView, GemEditProfileView
+    GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
+    AlreadyReportedCommentView
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -57,6 +58,13 @@ urlpatterns = patterns(
 
     url(r'^comments/reported/(?P<comment_pk>\d+)/$',
         report_response, name='report_response'),
+
+    url(r'^comments/report_comment/(?P<comment_pk>\d+)/$',
+        login_required(ReportCommentView.as_view()), name='report_comment'),
+
+    url(r'^comments/already_reported/(?P<comment_pk>\d+)/$',
+        login_required(AlreadyReportedCommentView.as_view()),
+        name='already_reported'),
 
     url(r'^yourwords/',
         include('molo.yourwords.urls',

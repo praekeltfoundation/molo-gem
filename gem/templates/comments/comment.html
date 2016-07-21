@@ -22,7 +22,7 @@
     {% if node.parent == None %}
         <p>
           <span class="date">{{node.submit_date|timesince}} {% trans "ago" %}</span>
-          <a href="{% url 'molo-comments-report' node.pk %}?next={% url 'report_response' node.pk %}" class="report">{% trans "Report" %}</a>
+        <a href="{% url 'report_comment' node.pk %}" class="report">{% trans "Report" %}</a>
         </p>
         {% if request.user|is_in_group:'Expert' and not node.user|is_in_group:'Expert' %}
             <p><a href="{% url 'molo-comments-reply' node.pk %}" class="report">{% trans "Reply"%}</a></p>

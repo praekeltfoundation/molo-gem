@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from gem.constants import GENDERS
+from molo.commenting.models import MoloComment
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -70,3 +71,12 @@ class GemSettings(BaseSetting):
     panels = [
         FieldPanel('banned_keywords_and_patterns'),
     ]
+
+
+class GemCommentReport(models.Model):
+    user = models.ForeignKey(User)
+
+    comment = models.ForeignKey(MoloComment)
+
+    reported_reason = models.CharField(
+        max_length=128, blank=False)
