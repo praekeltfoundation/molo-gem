@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commenting', '0004_auto_20160720_1138'),
+        ('commenting', '0004_auto_20160722_1041'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('gem', '0008_create_importers_group'),
     ]

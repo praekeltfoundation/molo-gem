@@ -437,21 +437,6 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
         self.assertNotContains(response, 'example.com')
 
 
-class TagManagerAccountTestCase(TestCase, MoloTestCaseMixin):
-
-    def setUp(self):
-        self.mk_main()
-        self.client = Client()
-
-    def test_gtm_account(self):
-        response = self.client.get('/')
-        self.assertNotContains(response, 'GTM-XXXXXX')
-
-        with self.settings(GOOGLE_TAG_MANAGER_ACCOUNT='GTM-XXXXXX'):
-            response = self.client.get('/')
-            self.assertContains(response, 'GTM-XXXXXX')
-
-
 class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.user = User.objects.create_user(

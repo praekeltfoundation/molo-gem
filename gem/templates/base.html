@@ -1,5 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n gem_tags %}
-
+{% load google_analytics_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -30,15 +32,15 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-        {% if GOOGLE_TAG_MANAGER_ACCOUNT %}
+        {% if settings.core.SiteSettings.ga_tag_manager %}
         <!-- Google Tag Manager -->
-         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{GOOGLE_TAG_MANAGER_ACCOUNT}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
+         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-         })(window,document,'script','dataLayer','{{GOOGLE_TAG_MANAGER_ACCOUNT}}');</script>
+         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
         <!-- End Google Tag Manager -->
         {% endif %}
 
@@ -52,6 +54,21 @@
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.global_ga_tag_manager}}');</script>
         <!-- End Global Google Tag Manager -->
+        {% endif %}
+
+
+        {% if settings.core.SiteSettings.global_ga_tracking_code %}
+        <div style="display:none">
+            <img src="{% google_analytics settings.core.SiteSettings.global_ga_tracking_code %}" width="0" height="0" />
+        </div>
+        <!-- Global End Google Tracking Code -->
+        {% endif %}
+
+        {% if settings.core.SiteSettings.local_ga_tracking_code %}
+        <div style="display:none">
+            <img src="{% google_analytics settings.core.SiteSettings.local_ga_tracking_code %}" width="0" height="0" />
+        </div>
+        <!-- Local End Google Tracking Code -->
         {% endif %}
 
         <div id="gem-header">

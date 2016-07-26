@@ -83,7 +83,7 @@ INSTALLED_APPS = [
     'molo.servicedirectory',
     'molo.polls',
     'molo.surveys',
-
+    'google_analytics',
 
     'raven.contrib.django.raven_compat',
     'djcelery',
@@ -132,7 +132,6 @@ TEMPLATES = [
                 'molo.core.context_processors.locale',
                 'wagtail.contrib.settings.context_processors.settings',
                 'gem.context_processors.default_forms',
-                'gem.context_processors.add_tag_manager_account',
             ],
         },
     },
