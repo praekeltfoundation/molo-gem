@@ -17,7 +17,7 @@ from gem.models import GemSettings, GemCommentReport
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguage
+from molo.core.models import SiteLanguage, SiteSettings
 
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
@@ -435,21 +435,6 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, self.article_page.title)
         self.assertContains(response, self.article_page.subtitle)
         self.assertNotContains(response, 'example.com')
-
-
-class TagManagerAccountTestCase(TestCase, MoloTestCaseMixin):
-
-    def setUp(self):
-        self.mk_main()
-        self.client = Client()
-
-    def test_gtm_account(self):
-        response = self.client.get('/')
-        self.assertNotContains(response, 'GTM-XXXXXX')
-
-        with self.settings(GOOGLE_TAG_MANAGER_ACCOUNT='GTM-XXXXXX'):
-            response = self.client.get('/')
-            self.assertContains(response, 'GTM-XXXXXX')
 
 
 class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):

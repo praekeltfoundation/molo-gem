@@ -1,4 +1,3 @@
-from django.conf import settings
 from molo.profiles.forms import RegistrationForm
 from molo.profiles.forms import EditProfileForm, ProfilePasswordChangeForm
 
