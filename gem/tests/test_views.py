@@ -17,7 +17,7 @@ from gem.models import GemSettings, GemCommentReport
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguage, SiteSettings
+from molo.core.models import SiteLanguage
 
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
