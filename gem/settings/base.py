@@ -114,6 +114,7 @@ MIDDLEWARE_CLASSES = [
 
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
+    'gem.middleware.LogHeaderInformationMiddleware',
 ]
 
 # Template configuration
