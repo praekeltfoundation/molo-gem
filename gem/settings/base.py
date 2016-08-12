@@ -300,6 +300,7 @@ _("Name of your primary school")
 SITE_STATIC_PREFIX = environ.get('SITE_STATIC_PREFIX', '').lower()
 
 GOOGLE_TAG_MANAGER_ACCOUNT = environ.get('GOOGLE_TAG_MANAGER_ACCOUNT')
+CUSTOM_UIP_HEADER = 'HTTP_X_IORG_FBS_UIP'
 
 # Password reset - security questions
 SECURITY_QUESTION_1 = environ.get(
