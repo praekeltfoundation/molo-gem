@@ -74,7 +74,8 @@ urlpatterns = patterns(
     url(r'^feed/rss/$', GemRssFeed(), name='feed_rss'),
     url(r'^feed/atom/$', GemAtomFeed(), name='feed_atom'),
 
-    url(r'^servicedirectory/', include('molo.servicedirectory.urls')),
+    url(r'^servicedirectory/', include('molo.servicedirectory.urls',
+        namespace='molo.servicedirectory')),
 
     url(r'search/$', search, name='search'),
 
