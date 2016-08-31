@@ -26,16 +26,8 @@
                             <li>{{ item }}</li>
                         {% endfor %}
                     </ol>
-            {% else %}
-                {% if block.block_type == 'media' %}
-                    <ol>
-                        {% for item in block.value %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ol>
                 {% else %}
                     {{ block }}
-                {% endif %}
                 {% endif %}
             {% endif %}
         {% endif %}
