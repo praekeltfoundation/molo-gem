@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
+  <h1 class="surveys__title">{{ page.title }}</h1>
+  <h4 class="surveys__intro">{{ page.intro }}</h4>
+  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+    {% if form %}
+      <form class="surveys__form" action="{% pageurl self %}{% if self.multi_step %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <fieldset>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <span class="surveys__helptext">{{ field.help_text }}</span>
+            {{ field }}
+            {% if field.errors %}
+              <ul class="error error--surveys">
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </fieldset>
+        {% endfor %}
+        <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" />
+      </form>
+    {% else %}
+      <p class="error error--surveys">{% trans 'You have already completed this survey.' %}</p>
+      <div class="call-to-action call-to-action--surveys">
+        <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item call-to-action__nav-item--back-home">
+        {% trans "Back to Home page" %}</a>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="call-to-action call-to-action--surveys">
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Please log in to take this survey' %}</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
