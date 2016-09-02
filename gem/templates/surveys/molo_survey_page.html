@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags gem_tags %}
 
 {% block content %}
 <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
@@ -15,7 +15,27 @@
           <fieldset>
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             <span class="surveys__helptext">{{ field.help_text }}</span>
-            {{ field }}
+            {% if field|fieldtype == 'RadioSelect' %}
+              {% for choice in field.field.choices %}
+              <ul>
+                <li>
+                  <input id="inputid" type="radio">
+                  <label for="inputid">{{choice.0}}</label>
+                </li>
+              </ul>
+              {% endfor %}
+            {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
+              {% for choice in field.field.choices %}
+              <ul>
+                <li>
+                  <input id="inputid" type="checkbox">
+                  <label for="inputid">{{choice.0}}</label>
+                </li>
+              </ul>
+              {% endfor %}
+            {% else %}
+                {{ field }}
+            {% endif %}
             {% if field.errors %}
               <ul class="error error--surveys">
               {% for error in field.errors %}
