@@ -16,23 +16,23 @@
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             <span class="surveys__helptext">{{ field.help_text }}</span>
             {% if field|fieldtype == 'RadioSelect' %}
-              {% for choice in field.field.choices %}
-              <ul>
-                <li>
-                  <input id="inputid" type="radio">
-                  <label for="inputid">{{choice.0}}</label>
-                </li>
-              </ul>
-              {% endfor %}
+                <ul>
+                  {% for choice in field.field.choices %}
+                    <li>
+                      <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}" type="radio">
+                      <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}">{{choice.0}}</label>
+                    </li>
+                  {% endfor %}
+                </ul>
             {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
+            <ul>
               {% for choice in field.field.choices %}
-              <ul>
                 <li>
-                  <input id="inputid" type="checkbox">
-                  <label for="inputid">{{choice.0}}</label>
+                  <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}" type="checkbox">
+                  <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}">{{choice.0}}</label>
                 </li>
-              </ul>
               {% endfor %}
+            </ul>
             {% else %}
                 {{ field }}
             {% endif %}

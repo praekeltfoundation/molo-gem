@@ -99,10 +99,16 @@
     & + label {
         &:before {
             display: inline-block;
-            width: 30px;
-            height: 30px;
+            width: 16px;
+            width: 1rem;
+            height: 16px;
+            height: 1rem;
             margin-right: 16px;
-            background-color: red;
+            margin-right: 1rem;
+            padding: 4px;
+            padding: 0.25rem;
+            background-color: #ffffff;
+            border: 1px solid #666666;
             vertical-align: middle;
             content: "";
         }
@@ -110,7 +116,15 @@
 
     &:checked + label {
         &:before {
-            background-color: blue;
+            content: "";
+            background-clip: content-box;
+            background-color: $colorSecond;
+        }
+    }
+
+    &[type="radio"] + label {
+        &:before {
+            border-radius: 50%;
         }
     }
 }
