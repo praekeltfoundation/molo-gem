@@ -42,6 +42,11 @@
             padding: 16px 8px;
             padding: 1rem .5rem;
         }
+
+        [type="checkbox"],
+        [type="radio"] {
+            @extend %surveys__checkbox;
+        }
     }
 }
 
@@ -65,17 +70,26 @@
 
         li {
             display: block;
+        }
 
-            & + & {
-                margin-top: 8px;
-                margin-top: .5rem;
-            }
+        li + li {
+            margin-top: 8px;
+            margin-top: .5rem;
         }
     }
 }
 
 %surveys__input {
     width: 100%;
+}
+
+%surveys__checkbox {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin: 0 16px 0 0;
+    margin: 0 1rem 0 0;
+    vertical-align: middle;
 }
 
 %surveys__label {
