@@ -16,13 +16,11 @@
     &__helptext {
         display: block;
         font-size: 16px;
-        font-size: 1rem;
     }
 
     &__form {
         padding: 24px 16px;
-        padding: 1.5rem 1rem;
-        background-color: #ececec;
+        background-color: $colorWhiteSmoke;
 
         fieldset {
             @extend %surveys__field;
@@ -40,7 +38,6 @@
 
         textarea {
             padding: 16px 8px;
-            padding: 1rem .5rem;
         }
 
         [type="checkbox"],
@@ -50,7 +47,7 @@
     }
 }
 
-// These placeholder extends exist to make refactoring these elements into proper BEM easier. Currently they will target the element selector directly.
+// These placeholder extends exist to make refactoring these elements into proper BEM easier. Currently the styles they are applied on target the element selector directly.
 %surveys__field {
     display: block;
     border: 0;
@@ -59,7 +56,6 @@
 
     & + & {
         margin-top: 24px;
-        margin-top: 1.5rem;
     }
 
     // Checkbox/Radio Groups
@@ -74,7 +70,6 @@
 
         li + li {
             margin-top: 8px;
-            margin-top: .5rem;
         }
     }
 }
@@ -84,12 +79,6 @@
 }
 
 %surveys__checkbox {
-    // display: inline-block;
-    // width: auto;
-    // height: auto;
-    // margin: 0 16px 0 0;
-    // margin: 0 1rem 0 0;
-    // vertical-align: middle;
     position: absolute;
     width: 0;
     height: 0;
@@ -102,13 +91,10 @@
             width: 16px;
             width: 1rem;
             height: 16px;
-            height: 1rem;
             margin-right: 16px;
-            margin-right: 1rem;
             padding: 4px;
-            padding: 0.25rem;
-            background-color: #ffffff;
-            border: 1px solid #666666;
+            background-color: $colorWhite;
+            border: 1px solid $colorGrey;
             vertical-align: middle;
             content: "";
         }
@@ -132,6 +118,5 @@
 %surveys__label {
     display: block;
     font-size: 18px;
-    font-size: 1.125rem;
     color: $colorFirst;
 }
