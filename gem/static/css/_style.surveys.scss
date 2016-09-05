@@ -1,0 +1,122 @@
+// Chris Sergienko - Praekelt Consulting (2016/09/30)
+
+.surveys {
+    $block: unquote("#{&}"); // Node LibSass workaround for @at-root bug. This stores the value of `&` as a variable.
+    padding: 24px;
+
+    &__title {
+        line-height: 1.15;
+        font-family: $font-family-avenirBold;
+    }
+
+    &__intro {
+        font-family: $font-family-avenir-ot;
+    }
+
+    &__helptext {
+        display: block;
+        font-size: 16px;
+    }
+
+    &__form {
+        padding: 24px 16px;
+        background-color: $colorWhiteSmoke;
+
+        fieldset {
+            @extend %surveys__field;
+        }
+
+        label {
+            @extend %surveys__label;
+        }
+
+        input,
+        textarea,
+        select {
+            @extend %surveys__input;
+        }
+
+        textarea {
+            padding: 16px 8px;
+        }
+
+        [type="checkbox"],
+        [type="radio"] {
+            @extend %surveys__checkbox;
+        }
+    }
+}
+
+// These placeholder extends exist to make refactoring these elements into proper BEM easier. Currently the styles they are applied on target the element selector directly.
+%surveys__field {
+    display: block;
+    border: 0;
+    padding: 0;
+    margin: 0;
+
+    & + & {
+        margin-top: 24px;
+    }
+
+    // Checkbox/Radio Groups
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: block;
+        }
+
+        li + li {
+            margin-top: 8px;
+        }
+    }
+}
+
+%surveys__input {
+    width: 100%;
+}
+
+%surveys__checkbox {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: -100;
+
+    & + label {
+        &:before {
+            display: inline-block;
+            width: 16px;
+            width: 1rem;
+            height: 16px;
+            margin-right: 16px;
+            padding: 4px;
+            background-color: $colorWhite;
+            border: 1px solid $colorGrey;
+            vertical-align: middle;
+            content: "";
+        }
+    }
+
+    &:checked + label {
+        &:before {
+            content: "";
+            background-clip: content-box;
+            background-color: $colorSecond;
+        }
+    }
+
+    &[type="radio"] + label {
+        &:before {
+            border-radius: 50%;
+        }
+    }
+}
+
+%surveys__label {
+    display: block;
+    font-size: 18px;
+    color: $colorFirst;
+}
