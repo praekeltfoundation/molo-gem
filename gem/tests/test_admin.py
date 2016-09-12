@@ -37,3 +37,16 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
             'ster,tester@example.com,,,False,' + date + ',The Alias,+277'
             '84667723,,f\r\n')
         self.assertEquals(str(response), expected_output)
+
+    def test_download_csv_no_gem_profile(self):
+        gem_profile = self.user.gem_profile
+        gem_profile.delete()
+        response = download_as_csv_gem(GemUserAdmin(UserProfile, self.site),
+                                       None,
+                                       User.objects.all())
+        expected_output = (
+            'Content-Type: text/csv\r\nContent-Disposition: attachment;file'
+            'name=export.csv\r\n\r\n"(\'username\', \'email\', \'first_nam'
+            'e\', \'last_name\', \'is_staff\', \'date_joined\')","(\'ali'
+            'as\', \'mobile_number\', \'date_of_birth\')","(\'gender\',)"\r\n')
+        self.assertEquals(str(response), expected_output)

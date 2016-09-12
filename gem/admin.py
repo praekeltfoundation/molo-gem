@@ -19,14 +19,16 @@ def download_as_csv_gem(GemUserAdmin, request, queryset):
     gem_profile_fields = ('gender',)
     writer.writerow([user_model_fields, profile_fields, gem_profile_fields])
     for obj in queryset:
-        if obj.profile.alias:
-            obj.profile.alias = obj.profile.alias.encode('utf-8')
-        obj.username = obj.username.encode('utf-8')
-        obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
-        writer.writerow(
-            [getattr(obj, field) for field in user_model_fields] +
-            [getattr(obj.profile, field) for field in profile_fields] +
-            [getattr(obj.gem_profile, field) for field in gem_profile_fields])
+        if not obj.is_staff and hasattr(obj, 'gem_profile'):
+            if obj.profile.alias:
+                obj.profile.alias = obj.profile.alias.encode('utf-8')
+            obj.username = obj.username.encode('utf-8')
+            obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
+            writer.writerow(
+                [getattr(obj, field) for field in user_model_fields] +
+                [getattr(obj.profile, field) for field in profile_fields] +
+                [getattr(
+                    obj.gem_profile, field) for field in gem_profile_fields])
     return response
 download_as_csv_gem.short_description = "Download selected as csv gem"
 
