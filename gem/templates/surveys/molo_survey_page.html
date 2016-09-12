@@ -19,8 +19,8 @@
                 <ul>
                   {% for choice in field.field.choices %}
                     <li>
-                      <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}" type="radio">
-                      <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}">{{choice.0}}</label>
+                      <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="radio" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked="checked"{% endif %}>
+                      <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
                     </li>
                   {% endfor %}
                 </ul>
@@ -28,8 +28,8 @@
             <ul>
               {% for choice in field.field.choices %}
                 <li>
-                  <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}" type="checkbox">
-                  <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="choice-{{ field.id_for_label }}">{{choice.0}}</label>
+                  <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ choice.0 }}" {% if field.value.0 == choice.0 %}checked="checked"{% endif %}>
+                  <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
                 </li>
               {% endfor %}
             </ul>
