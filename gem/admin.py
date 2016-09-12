@@ -17,16 +17,19 @@ def download_as_csv_gem(GemUserAdmin, request, queryset):
         'last_name', 'is_staff', 'date_joined')
     profile_fields = ('alias', 'mobile_number', 'date_of_birth')
     gem_profile_fields = ('gender',)
-    writer.writerow([user_model_fields, profile_fields, gem_profile_fields])
+    field_names = user_model_fields + profile_fields + gem_profile_fields
+    writer.writerow(field_names)
     for obj in queryset:
-        if obj.profile.alias:
-            obj.profile.alias = obj.profile.alias.encode('utf-8')
-        obj.username = obj.username.encode('utf-8')
-        obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
-        writer.writerow(
-            [getattr(obj, field) for field in user_model_fields] +
-            [getattr(obj.profile, field) for field in profile_fields] +
-            [getattr(obj.gem_profile, field) for field in gem_profile_fields])
+        if hasattr(obj, 'gem_profile'):
+            if obj.profile.alias:
+                obj.profile.alias = obj.profile.alias.encode('utf-8')
+            obj.username = obj.username.encode('utf-8')
+            obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
+            writer.writerow(
+                [getattr(obj, field) for field in user_model_fields] +
+                [getattr(obj.profile, field) for field in profile_fields] +
+                [getattr(
+                    obj.gem_profile, field) for field in gem_profile_fields])
     return response
 download_as_csv_gem.short_description = "Download selected as csv gem"
 
