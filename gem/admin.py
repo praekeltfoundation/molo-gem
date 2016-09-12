@@ -17,7 +17,8 @@ def download_as_csv_gem(GemUserAdmin, request, queryset):
         'last_name', 'is_staff', 'date_joined')
     profile_fields = ('alias', 'mobile_number', 'date_of_birth')
     gem_profile_fields = ('gender',)
-    writer.writerow([user_model_fields, profile_fields, gem_profile_fields])
+    field_names = user_model_fields + profile_fields + gem_profile_fields
+    writer.writerow(field_names)
     for obj in queryset:
         if hasattr(obj, 'gem_profile'):
             if obj.profile.alias:

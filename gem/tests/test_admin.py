@@ -30,10 +30,9 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
                                        None,
                                        User.objects.all())
         expected_output = (
-            'Content-Type: text/csv\r\nContent-Disposition: attachment;filena'
-            'me=export.csv\r\n\r\n"(\'username\', \'email\', \'first_nam'
-            'e\', \'last_name\', \'is_staff\', \'date_joined\')","(\'alia'
-            's\', \'mobile_number\', \'date_of_birth\')","(\'gender\',)"\r\nte'
+            'Content-Type: text/csv\r\nContent-Disposition: attachment;filen'
+            'ame=export.csv\r\n\r\nusername,email,first_name,last_name,is_sta'
+            'ff,date_joined,alias,mobile_number,date_of_birth,gender\r\nte'
             'ster,tester@example.com,,,False,' + date + ',The Alias,+277'
             '84667723,,f\r\n')
         self.assertEquals(str(response), expected_output)
@@ -46,7 +45,6 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
                                        User.objects.all())
         expected_output = (
             'Content-Type: text/csv\r\nContent-Disposition: attachment;file'
-            'name=export.csv\r\n\r\n"(\'username\', \'email\', \'first_nam'
-            'e\', \'last_name\', \'is_staff\', \'date_joined\')","(\'ali'
-            'as\', \'mobile_number\', \'date_of_birth\')","(\'gender\',)"\r\n')
+            'name=export.csv\r\n\r\nusername,email,first_name,last_name,is_st'
+            'aff,date_joined,alias,mobile_number,date_of_birth,gender\r\n')
         self.assertEquals(str(response), expected_output)
