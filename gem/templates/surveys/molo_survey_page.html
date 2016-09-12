@@ -50,13 +50,13 @@
     {% else %}
       <p class="error error--surveys">{% trans 'You have already completed this survey.' %}</p>
       <div class="call-to-action call-to-action--surveys">
-        <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item call-to-action__nav-item--back-home">
+        <a href="{{request.site.root_page.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
         {% trans "Back to Home page" %}</a>
       </div>
     {% endif %}
   {% else %}
     <div class="call-to-action call-to-action--surveys">
-      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Please log in to take this survey' %}</a>
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
     </div>
   {% endif %}
 </div>
