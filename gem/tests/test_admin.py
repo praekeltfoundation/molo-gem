@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from molo.core.tests.base import MoloTestCaseMixin
 
 from molo.profiles.models import UserProfile
-from gem.admin import GemUserAdmin, download_as_csv
+from gem.admin import GemUserAdmin, download_as_csv_gem
 
 
 class ModelsTestCase(TestCase, MoloTestCaseMixin):
@@ -26,9 +26,9 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
         gem_profile.gender = 'f'
         gem_profile.date_of_birth = date
         gem_profile.save()
-        response = download_as_csv(GemUserAdmin(UserProfile, self.site),
-                                   None,
-                                   User.objects.all())
+        response = download_as_csv_gem(GemUserAdmin(UserProfile, self.site),
+                                       None,
+                                       User.objects.all())
         expected_output = (
             'Content-Type: text/csv\r\nContent-Disposition: attachment;filena'
             'me=export.csv\r\n\r\n"(\'username\', \'email\', \'first_nam'

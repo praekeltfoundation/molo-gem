@@ -8,7 +8,7 @@ from django.http import HttpResponse
 import csv
 
 
-def download_as_csv(GemUserAdmin, request, queryset):
+def download_as_csv_gem(GemUserAdmin, request, queryset):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment;filename=export.csv'
     writer = csv.writer(response)
@@ -28,7 +28,7 @@ def download_as_csv(GemUserAdmin, request, queryset):
             [getattr(obj.profile, field) for field in profile_fields] +
             [getattr(obj.gem_profile, field) for field in gem_profile_fields])
     return response
-download_as_csv.short_description = "Download selected as csv"
+download_as_csv_gem.short_description = "Download selected as csv gem"
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -47,7 +47,7 @@ class GemCommentReportModelAdmin(admin.StackedInline):
 class GemUserAdmin(ProfileUserAdmin):
     inlines = (GemUserProfileInlineModelAdmin, )
     list_display = ProfileUserAdmin.list_display + ('gender',)
-    actions = [download_as_csv]
+    actions = ProfileUserAdmin.actions + [download_as_csv_gem]
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
