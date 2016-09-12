@@ -20,7 +20,7 @@ def download_as_csv(GemUserAdmin, request, queryset):
     writer.writerow([user_model_fields, profile_fields, gem_profile_fields])
     for obj in queryset:
         if obj.profile.alias:
-            obj.profile.gem.alias = obj.profile.alias.encode('utf-8')
+            obj.profile.alias = obj.profile.alias.encode('utf-8')
         obj.username = obj.username.encode('utf-8')
         obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
         writer.writerow(

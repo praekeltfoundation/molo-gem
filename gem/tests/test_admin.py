@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 from molo.core.tests.base import MoloTestCaseMixin
 
-from molo.profiles.admin import ProfileUserAdmin, download_as_csv
 from molo.profiles.models import UserProfile
+from gem.admin import GemUserAdmin, download_as_csv
 
 
 class ModelsTestCase(TestCase, MoloTestCaseMixin):
@@ -21,14 +21,19 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
         profile.alias = 'The Alias'
         profile.mobile_number = '+27784667723'
         profile.save()
-
-        response = download_as_csv(ProfileUserAdmin(UserProfile, self.site),
+        date = str(self.user.date_joined.strftime("%Y-%m-%d %H:%M"))
+        gem_profile = self.user.gem_profile
+        gem_profile.gender = 'f'
+        gem_profile.date_of_birth = date
+        gem_profile.save()
+        response = download_as_csv(GemUserAdmin(UserProfile, self.site),
                                    None,
                                    User.objects.all())
-        date = str(self.user.date_joined.strftime("%Y-%m-%d %H:%M"))
-        expected_output = ('Content-Type: text/csv\r\nContent-Disposition: '
-                           'attachment;filename=export.csv\r\n\r\nusername,'
-                           'email,first_name,last_name,is_staff,date_joined,'
-                           'alias,mobile_number\r\ntester,tester@example.com,'
-                           ',,False,' + date + ',The Alias,+27784667723\r\n')
+        expected_output = (
+            'Content-Type: text/csv\r\nContent-Disposition: attachment;filena'
+            'me=export.csv\r\n\r\n"(\'username\', \'email\', \'first_nam'
+            'e\', \'last_name\', \'is_staff\', \'date_joined\')","(\'alia'
+            's\', \'mobile_number\', \'date_of_birth\')","(\'gender\',)"\r\nte'
+            'ster,tester@example.com,,,False,' + date + ',The Alias,+277'
+            '84667723,,f\r\n')
         self.assertEquals(str(response), expected_output)
