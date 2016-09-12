@@ -19,7 +19,7 @@ def download_as_csv_gem(GemUserAdmin, request, queryset):
     gem_profile_fields = ('gender',)
     writer.writerow([user_model_fields, profile_fields, gem_profile_fields])
     for obj in queryset:
-        if not obj.is_staff and hasattr(obj, 'gem_profile'):
+        if hasattr(obj, 'gem_profile'):
             if obj.profile.alias:
                 obj.profile.alias = obj.profile.alias.encode('utf-8')
             obj.username = obj.username.encode('utf-8')
