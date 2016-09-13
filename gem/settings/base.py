@@ -330,6 +330,7 @@ EMAIL_PORT = environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
 
+GOOGLE_ANALYTICS = {}
 GOOGLE_ANALYTICS_IGNORE_PATH = [
     # health check used by marathon
     '/health/',
