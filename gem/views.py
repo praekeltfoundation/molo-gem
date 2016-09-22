@@ -38,6 +38,10 @@ from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
 
 
+def csrf_failure(request, reason=""):
+    return render(request, '403_csrf.html')
+
+
 def search(request, results_per_page=10):
     search_query = request.GET.get('q', None)
     page = request.GET.get('p', 1)
