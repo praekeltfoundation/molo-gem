@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for base gem.
 
@@ -198,6 +199,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('tl', _('Tagalog')),
     ('rw', _('Kinyarwanda')),
     ('ha', _('Hausa')),
+    ('bn', _('Bengali')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -218,6 +220,12 @@ EXTRA_LANG_INFO = {
         'code': 'ha',
         'name': 'Hausa',
         'name_local': 'Hausa'
+    },
+    'bn': {
+        'bidi': False,
+        'code': 'bn',
+        'name': 'Bengali',
+        'name_local': 'বাংলা'
     },
 }
 
