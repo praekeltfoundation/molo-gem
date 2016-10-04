@@ -207,7 +207,7 @@ EXTRA_LANG_INFO = {
         'bidi': False,
         'code': 'tl',
         'name': 'Tagalog',
-        'name_local': 'Tagalog'
+        'name_local': 'philippines'
     },
     'rw': {
         'bidi': False,
