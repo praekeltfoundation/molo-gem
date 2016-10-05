@@ -97,11 +97,10 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
         response = self.client.post(reverse('edit_my_profile'), {
             'alias': 'tester@test.com'
         })
-
-        expected_validation_message = "Sorry, but that is an invalid display" \
-                                      " name. Please don&#39;t use your" \
-                                      " email address or phone number in" \
-                                      " your display name."
+        expected_validation_message = "This name has been removed" \
+                                      " as it contains profanity," \
+                                      " contact information or other" \
+                                      " inappropriate content."
         self.assertContains(response, expected_validation_message)
 
         response = self.client.post(reverse('edit_my_profile'), {
