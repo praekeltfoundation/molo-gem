@@ -23,17 +23,17 @@
         background-color: $colorWhiteSmoke;
 
         fieldset {
-            @extend %surveys__field;
+            @extend %gem__field;
         }
 
         label {
-            @extend %surveys__label;
+            @extend %gem__label;
         }
 
         input,
         textarea,
         select {
-            @extend %surveys__input;
+            @extend %gem__input;
         }
 
         textarea {
@@ -42,7 +42,7 @@
 
         [type="checkbox"],
         [type="radio"] {
-            @extend %surveys__checkbox;
+            @extend %gem__checkbox;
         }
     }
 
@@ -127,7 +127,7 @@
 }
 
 // These placeholder extends exist to make refactoring these elements into proper BEM easier. Currently the styles they are applied on target the element selector directly.
-%surveys__field {
+%gem__field {
     display: block;
     border: 0;
     padding: 0;
@@ -153,11 +153,11 @@
     }
 }
 
-%surveys__input {
+%gem__input {
     width: 100%;
 }
 
-%surveys__checkbox {
+%gem__checkbox {
     position: absolute;
     width: 0;
     height: 0;
@@ -194,7 +194,7 @@
     }
 }
 
-%surveys__label {
+%gem__label {
     display: block;
     font-size: 18px;
     color: $colorFirst;

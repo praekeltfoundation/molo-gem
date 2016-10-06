@@ -223,11 +223,20 @@ a, a:hover {
   padding: 5px;
 }
 
-.terms-and-conditions label {
-  color: #ed008c !important;
-  text-decoration: underline;
-}
+.terms-and-conditions {
+    &__field {
+        @extend %gem__field;
+    }
 
+    input {
+        @extend %gem__checkbox;
+    }
+
+    label {
+      color: #ed008c !important;
+      text-decoration: underline;
+    }
+}
 .signin-form #id_password {
   margin: 0;
 }
