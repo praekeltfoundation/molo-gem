@@ -68,8 +68,17 @@ class GemSettings(BaseSetting):
                   " line a break. Use only lowercase letters for keywords."
     )
 
+    banned_names_with_offensive_language = models.TextField(
+        verbose_name='Banned Names With Offensive Language',
+        null=True,
+        blank=True,
+        help_text="Banned names with offensive language, separated by a"
+                  " line a break. Use only lowercase letters for keywords."
+    )
+
     panels = [
         FieldPanel('banned_keywords_and_patterns'),
+        FieldPanel('banned_names_with_offensive_language'),
     ]
 
 

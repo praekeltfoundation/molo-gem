@@ -97,7 +97,6 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
         response = self.client.post(reverse('edit_my_profile'), {
             'alias': 'tester@test.com'
         })
-
         expected_validation_message = "Sorry, but that is an invalid display" \
                                       " name. Please don&#39;t use your" \
                                       " email address or phone number in" \
@@ -108,6 +107,21 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
             'alias': '0821231234'
         })
 
+        self.assertContains(response, expected_validation_message)
+
+    def test_offensive_language_not_allowed_in_display_name(self):
+        site = Site.objects.get(id=1)
+        site.name = 'GEM'
+        site.save()
+        GemSettings.objects.create(
+            site_id=site.id,
+            banned_names_with_offensive_language='naughty')
+        response = self.client.post(reverse('edit_my_profile'), {
+            'alias': 'naughty'
+        })
+        expected_validation_message = "Sorry, the name you have used is not " \
+                                      "allowed. Please, use a different name "\
+                                      "for your display name."
         self.assertContains(response, expected_validation_message)
 
 
