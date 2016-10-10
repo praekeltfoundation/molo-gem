@@ -151,6 +151,14 @@ class GemEditProfileForm(EditProfileForm):
         """
         alias = self.cleaned_data['alias']
 
+        if not validate_no_email_or_phone(alias):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid display name. Please don't"
+                    " use your email address or phone number in your display"
+                    " name.")
+            )
+
         site = Site.objects.get(is_default_site=True)
         settings = GemSettings.for_site(site)
 
@@ -168,8 +176,8 @@ class GemEditProfileForm(EditProfileForm):
             if match:
                 raise forms.ValidationError(
                     _(
-                        'This name has been removed as it contains profanity, '
-                        'contact information or other inappropriate content. '
+                        'Sorry, the name you have used is not allowed. '
+                        'Please, use a different name for your display name.'
                     )
                 )
 
