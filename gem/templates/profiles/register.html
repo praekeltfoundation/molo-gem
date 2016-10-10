@@ -52,8 +52,10 @@
               <p class="alert-error">{% trans "Please accept the T&amp;Cs in order to complete the registration" %}</p>
             {% endif %}
             <div class="terms-and-conditions">
-              {{ form.terms_and_conditions }}
-              <label for="id_terms_and_conditions">{% trans "I accept the Terms and Conditions" %}</label>
+              <div class="terms-and-conditions__field">
+                  {{ form.terms_and_conditions }}
+                  <label for="id_terms_and_conditions">{% trans "I accept the Terms and Conditions" %}</label>
+              </div>
             </div>
             <br>
             <input type="submit" class="registerSubmit" value='{% trans "JOIN" %}' />
