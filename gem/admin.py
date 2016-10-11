@@ -4,7 +4,11 @@ from gem.models import GemUserProfile, GemCommentReport
 from molo.commenting.admin import MoloCommentAdmin
 from molo.commenting.models import MoloComment
 from molo.profiles.admin import ProfileUserAdmin
+from molo.profiles.admin import FrontendUsersModelAdmin
+from molo.profiles.admin_import_export import FrontendUsersResource
 from django.http import HttpResponse
+from import_export.fields import Field
+from wagtailmodeladmin.views import IndexView
 import csv
 
 
@@ -52,6 +56,58 @@ class GemUserAdmin(ProfileUserAdmin):
     list_display = ProfileUserAdmin.list_display + ('gender',)
     actions = ProfileUserAdmin.actions + [download_as_csv_gem]
     list_filter = ('gem_profile__gender',)
+
+    def gender(self, obj):
+        return obj.gem_profile.get_gender_display()
+
+
+class GemFrontendUsersResource(FrontendUsersResource):
+        gender = Field()
+
+        class Meta:
+            export_order = FrontendUsersResource.Meta.export_order + (
+                'gender',)
+
+        def dehydrate_gender(self, user):
+            if hasattr(user, 'gem_profile'):
+                return user.gem_profile.get_gender_display()
+            return None
+
+
+class GemFrontendUsersAdminView(IndexView):
+    def post(self, request, *args, **kwargs):
+        drf__date_joined__gte = request.GET.get('drf__date_joined__gte')
+        drf__date_joined__lte = request.GET.get('drf__date_joined__lte')
+        is_active_exact = request.GET.get('is_active__exact')
+
+        filter_list = {
+            'date_joined__range': (drf__date_joined__gte,
+                                   drf__date_joined__lte) if
+            drf__date_joined__gte and drf__date_joined__lte else None,
+            'is_active': is_active_exact
+        }
+
+        arguments = {}
+
+        for key, value in filter_list.items():
+            if value:
+                arguments[key] = value
+
+        dataset = GemFrontendUsersResource().export(
+            User.objects.filter(is_staff=False, **arguments))
+
+        response = HttpResponse(dataset.csv, content_type="text/csv")
+        response['Content-Disposition'] = \
+            'attachment;filename=frontend_users.csv'
+        return response
+
+    def get_template_names(self):
+        return 'admin/frontend_users_admin_view.html'
+
+
+class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
+    list_display = FrontendUsersModelAdmin.list_display + ('gender',)
+    index_view_class = GemFrontendUsersAdminView
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
