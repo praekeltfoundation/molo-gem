@@ -51,6 +51,7 @@ class GemUserAdmin(ProfileUserAdmin):
     inlines = (GemUserProfileInlineModelAdmin, )
     list_display = ProfileUserAdmin.list_display + ('gender',)
     actions = ProfileUserAdmin.actions + [download_as_csv_gem]
+    list_filter = ('gem_profile__gender',)
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
