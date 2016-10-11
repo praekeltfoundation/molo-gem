@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date, datetime
+from datetime import date
 
 from django.test import TestCase
 from django.contrib.auth.models import User
