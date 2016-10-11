@@ -6,7 +6,6 @@ from molo.commenting.models import MoloComment
 from molo.profiles.admin import ProfileUserAdmin
 from molo.profiles.admin import FrontendUsersModelAdmin
 from molo.profiles.admin_import_export import FrontendUsersResource
-from molo.profiles.admin_views import FrontendUsersAdminView
 from django.http import HttpResponse
 from import_export.fields import Field
 from wagtailmodeladmin.views import IndexView
