@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
+from gem.views import TagsListView
+from . import views 
 
 from gem.views import search, report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
@@ -78,6 +80,8 @@ urlpatterns = patterns(
         namespace='molo.servicedirectory')),
 
     url(r'search/$', search, name='search'),
+
+    url(r'^example/$', views.TagsListView.as_view(), name='tags_list_view'),
 
     url(r'^polls/', include('molo.polls.urls',
                             namespace='molo.polls',

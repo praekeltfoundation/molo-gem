@@ -19,6 +19,7 @@ from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.views.generic import ListView
 
 from django_comments.forms import CommentDetailsForm
 
@@ -38,8 +39,18 @@ from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsearch.models import Query
 
 
+
+class TagsListView( ListView ):
+    template_name="gem/tags_list_view.html"
+
+    def get_queryset(self):
+        return ArticlePage.objects.filter(tags__name__in=["Python"])
+
+
+
 def csrf_failure(request, reason=""):
     return render(request, '403_csrf.html')
+
 
 
 def search(request, results_per_page=10):

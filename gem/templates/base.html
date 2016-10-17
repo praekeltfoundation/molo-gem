@@ -107,6 +107,15 @@
               {% else %}
                 <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
               {% endif %}
+              {% if languages|length > 1 %}
+              <div class="language-container">
+                 {% get_current_language as LANGUAGE_LOCALE %}
+                  {% for language in languages %}
+                    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
+                  {% endfor %}
+              </div>
+              {% endif %}
+
             </ul>
             {% block search %}
               {% include "search/search_block.html" %}
