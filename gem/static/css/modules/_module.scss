@@ -1,26 +1,26 @@
 
-@import "modules/_m-article-preview";
-@import "modules/_m-article";
-@import "modules/_m-button";
-@import "modules/_m-comments";
-@import "modules/_m-form";
-@import "modules/_m-images";
-@import "modules/_m-language";
-@import "modules/_m-polls";
-@import "modules/_m-profile";
-@import "modules/_m-rwanda";
-@import "modules/_m-search";
-@import "modules/_m-section";
-@import "modules/_m-service-directory";
-@import "modules/_m-surveys";
-@import "modules/_m-your-words";
+@import "_m-article-preview";
+@import "_m-article";
+@import "_m-button";
+@import "_m-comments";
+@import "_m-form";
+@import "_m-images";
+@import "_m-language";
+@import "_m-polls";
+@import "_m-profile";
+@import "_m-rwanda";
+@import "_m-search";
+@import "_m-section";
+@import "_m-service-directory";
+@import "_m-surveys";
+@import "_m-your-words";
 
 .list-inline {
-	@include no-bull;
-	@include no-m;
+	list-style: none;
+  margin: 0;
 	padding: 0.5em 1em;
 	> li {
-		@include l-ib;
+		display: inline;
 		border-top: none;
 		border-right: none;
 		border-bottom: none;
@@ -32,16 +32,15 @@
 }
 
 .list-plain {
-	@include no-bull;
+	display: block;
 	* {
-		@include no-bull;
+		display: block;
 	}
 }
 
 .list-block {
-	@include no-mp;
 	> li {
-		@include l-db;
+		display: block;
 		border-top: none;
 		border-right: none;
 		border-bottom: 1px solid #ddd;
@@ -50,19 +49,15 @@
 	}
 	a {
 		padding: 0.5em 1em;
-		@include l-db;
+	  display: block;
 	}
 	h2, h3 {
-		@include no-m;
 		font-size: 1em;
-	}
-	p {
-		@include no-m;
 	}
 }
 
 .list-header {
-	@include no-m;
+	 margin: 0;
 	padding: 0.5em;
 	font-size: 1em;
 	line-height: 1;
@@ -72,7 +67,7 @@
 }
 
 .header-centered {
-	@include l-tac;
+	text-align: center;
 }
 
 // text over img
@@ -109,7 +104,6 @@ a.over-text {
 }
 
 // comments
-
 .link-comments {
 	line-height: 3;
 }
