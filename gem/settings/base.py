@@ -31,6 +31,7 @@ SECRET_KEY = "dqji)!xte^trgai!3c)_4)ftaoevwvbog-i&nl$#ef9xb+y*ab"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENV = 'dev'
 
 ALLOWED_HOSTS = ['*']
 
@@ -136,6 +137,7 @@ TEMPLATES = [
                 'molo.core.context_processors.locale',
                 'wagtail.contrib.settings.context_processors.settings',
                 'gem.context_processors.default_forms',
+                'gem.processors.compress_settings',
             ],
         },
     },

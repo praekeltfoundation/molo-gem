@@ -23,11 +23,13 @@
         {% image self.social_media_image width-300 as tmp_photo %}
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Base Bemplate style
+        Type = needs to be x-scss to be compiled
+        -->
         {% compress css %}
-          <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style.scss' %}">
-          <link rel="stylesheet" type="text/x-scss" href="{% static 'css/style-rwanda.scss' %}">
+          <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}css/{{ ENV }}/style.css">
+          <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}css/{{ ENV }}/style-rwanda.css">
         {% endcompress %}
     </head>
 
