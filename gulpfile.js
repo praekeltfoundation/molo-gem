@@ -11,15 +11,15 @@ var gulp              =   require('gulp'),
     livereload        =   require('gulp-livereload');
 
 var sassPaths = [
-    'gem/styles/style-rwanda.scss',
-    'gem/styles/style.scss',
+    'gem/client/css/style-rwanda.scss',
+    'gem/client/css/style.scss',
+    'gem/client/css/versions.scss',
 ];
 
 var sassDest = {
      prd: 'gem/static/css/prd',
      dev: 'gem/static/css/dev'
 };
-
 
 function styles(env) {
   var s = gulp.src(sassPaths);
@@ -48,7 +48,7 @@ gulp.task('styles:dev', function() {
 
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch('gem/styles/*.scss', ['styles']);
+    gulp.watch('gem/client/css/*.scss', ['styles']);
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd']);
