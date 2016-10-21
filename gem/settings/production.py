@@ -1,5 +1,4 @@
-import os # noqa
-
+import os
 from .base import *  # noqa
 
 
@@ -7,7 +6,6 @@ from .base import *  # noqa
 
 DEBUG = False
 ENV = 'prd'
-
 
 # Compress static files offline
 # http://django-compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
