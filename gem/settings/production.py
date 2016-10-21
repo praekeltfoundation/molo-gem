@@ -60,9 +60,9 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
     'GOOGLE_PLACES_API_SERVER_KEY', None
 )
 
-COMPRESS_OFFLINE_CONTEXT = {
-    'STATIC_URL': STATIC_URL,
-    'ENV': ENV,
+COMPRESS_OFFLINE_CONTEXT = {  # noqa
+    'STATIC_URL': STATIC_URL,  # noqa
+    'ENV': ENV,  # noqa
 } # noqa
 
 try:
