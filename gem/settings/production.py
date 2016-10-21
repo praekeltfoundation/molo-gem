@@ -63,7 +63,7 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 COMPRESS_OFFLINE_CONTEXT = {
     'STATIC_URL': STATIC_URL,
     'ENV': ENV,
-}
+} # noqa
 
 try:
     from .local import *  # noqa
