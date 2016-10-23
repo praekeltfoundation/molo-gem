@@ -359,4 +359,7 @@ if CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH:
     GOOGLE_ANALYTICS_IGNORE_PATH += [
         d.strip() for d in CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH.split(',')]
 
-CSRF_FAILURE_VIEW = 'gem.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'molo.core.views.csrf_failure'
+
+FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
+    'FREE_BASICS_URL_FOR_CSRF_MESSAGE', '')
