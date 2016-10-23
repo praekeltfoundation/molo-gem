@@ -77,8 +77,6 @@ urlpatterns = patterns(
     url(r'^servicedirectory/', include('molo.servicedirectory.urls',
         namespace='molo.servicedirectory')),
 
-    url(r'search/$', search, name='search'),
-
     url(r'^polls/', include('molo.polls.urls',
                             namespace='molo.polls',
                             app_name='molo.polls')),
