@@ -23,12 +23,11 @@
         {% image self.social_media_image width-300 as tmp_photo %}
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
-          <link rel="stylesheet" type="text/x-scss" href="{% static '' %}css/style{% get_site_static_prefix %}.scss">
-          <link rel="stylesheet" type="text/x-scss" media="screen and (min-width: 320px)" href="{% static '' %}css/enhanced{% get_site_static_prefix %}.scss">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style.css">
         {% endcompress %}
+        
     </head>
 
     <body class="{% block body_class %}{% endblock %}">

@@ -31,6 +31,7 @@ SECRET_KEY = "dqji)!xte^trgai!3c)_4)ftaoevwvbog-i&nl$#ef9xb+y*ab"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENV = 'dev'
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,7 +126,7 @@ MIDDLEWARE_CLASSES = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['gem/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,6 +137,7 @@ TEMPLATES = [
                 'molo.core.context_processors.locale',
                 'wagtail.contrib.settings.context_processors.settings',
                 'gem.context_processors.default_forms',
+                'gem.processors.compress_settings',
             ],
         },
     },
@@ -242,6 +244,7 @@ LOCALE_PATHS = [
 
 STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
+COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -251,14 +254,6 @@ STATICFILES_FINDERS = [
 
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
-
-
-# Django compressor settings
-# http://django-compressor.readthedocs.org/en/latest/settings/
-
-COMPRESS_PRECOMPILERS = [
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-]
 
 # Wagtail settings
 
