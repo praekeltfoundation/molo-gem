@@ -357,4 +357,4 @@ if CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH:
 CSRF_FAILURE_VIEW = 'molo.core.views.csrf_failure'
 
 FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
-    'FREE_BASICS_URL_FOR_CSRF_MESSAGE', '')
+    'FREE_BASICS_URL_FOR_CSRF_MESSAGE', 'http://0.freebasics.com/girleffect')
