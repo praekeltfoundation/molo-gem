@@ -11,7 +11,6 @@ var gulp              =   require('gulp'),
     livereload        =   require('gulp-livereload');
 
 var sassPaths = [
-    'gem/client/css/style-rwanda.scss',
     'gem/client/css/style.scss',
     'gem/client/css/versions.scss',
 ];
