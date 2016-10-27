@@ -7,7 +7,7 @@ HTML
 SMACSS Structure
 https://smacss.com/book/
 
-PATH: iogt/clients/css/
+PATH: /client/css/
   /layout
     _l-header.scss
     _l-footer.scss

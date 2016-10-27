@@ -78,7 +78,12 @@
             {% endfor %}
         </div>
         {% endif %}
-        {% bannerpages %}
+
+        {% if 'ninyampinga.com' in request.get_host %}
+          <div class="banner__birthday">
+            <img class="banner" src="{% static 'img/turamurika_compressed.png' %}" alt="GEM" />
+          </div>
+        {% endif %}
 
         {% block content %}
         {% endblock %}
