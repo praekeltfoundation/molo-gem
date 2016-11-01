@@ -11,7 +11,7 @@
   <h3 class="article-title">{{self.title}}</h3>
   <p>{{self.subtitle}}</p>
   {% if self.image %}
-  <div class="banner">{% image self.image width-240 %}</div>
+  <div class="banner">{% image self.image width-320 %}</div>
   {% endif %}
 
 <article>
@@ -20,7 +20,7 @@
           <h1>{{ block.value }}</h1>
       {% else %}
       {% if block.block_type == 'image' %}
-        {% image block.value width-240 %}
+        {% image block.value width-320 %}
       {% else %}
       {% if block.block_type == 'numbered_list' %}
         <ol>
