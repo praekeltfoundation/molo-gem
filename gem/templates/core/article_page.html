@@ -35,7 +35,11 @@
     {% include "comments/comment_block.html" %}
   </article>
 </div>
-
+{% if settings.core.SiteSettings.enable_clickable_tags %}
+    {% for tag in self.tags_list %}
+        <a href="{% url 'tags_list' tag %}">{{tag}}</a>
+    {% endfor %}
+{% endif %}
 {% surveys_list_for_pages page=self %}
 
 {% endblock %}
