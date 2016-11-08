@@ -83,7 +83,7 @@ CAS_VERSION = '3'
 COMPRESS_OFFLINE_CONTEXT = {  # noqa
     'STATIC_URL': STATIC_URL,  # noqa
     'ENV': ENV,  # noqa
-} # noqa
+}  # noqa
 
 try:
     from .local import *  # noqa
