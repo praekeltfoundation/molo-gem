@@ -36,7 +36,7 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         # note that due to the value of the LOGIN_URL setting, users will be
         # redirected to the wagtail login page
         self.assertRedirects(response,
-                             '/admin/login/?next=/profiles/view/myprofile/')
+                             '/profiles/login/?next=/profiles/view/myprofile/')
         self.assertNotContains(response, 'Hello tester')
         self.assertNotContains(response, 'log out')
 
