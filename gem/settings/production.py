@@ -60,10 +60,30 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
     'GOOGLE_PLACES_API_SERVER_KEY', None
 )
 
+# Setup for CAS
+ENABLE_SSO = True
+
+MIDDLEWARE_CLASSES += [
+    'molo.core.middleware.MoloCASMiddleware',
+    'molo.core.middleware.Custom403Middleware',
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'molo.core.backends.MoloCASBackend',
+]
+
+CAS_SERVER_URL = ''
+CAS_ADMIN_PREFIX = '/admin/'
+LOGIN_URL = 'molo.profiles:auth_login'
+CAS_VERSION = '3'
+
+
 COMPRESS_OFFLINE_CONTEXT = {  # noqa
     'STATIC_URL': STATIC_URL,  # noqa
     'ENV': ENV,  # noqa
-} # noqa
+}  # noqa
 
 try:
     from .local import *  # noqa
