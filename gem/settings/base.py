@@ -202,6 +202,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('rw', _('Kinyarwanda')),
     ('ha', _('Hausa')),
     ('bn', _('Bengali')),
+    ('my', _('Burmese')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -228,6 +229,12 @@ EXTRA_LANG_INFO = {
         'code': 'bn',
         'name': 'Bengali',
         'name_local': 'বাংলা'
+    },
+    'my': {
+        'bidi': False,
+        'code': 'bur_MM',
+        'name': 'Burmese',
+        'name_local': 'Burmese'
     },
 }
 
