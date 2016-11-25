@@ -26,7 +26,7 @@ if settings.ENABLE_SSO:
 else:
     urlpatterns = patterns('', )
 
-urlpatterns = patterns(
+urlpatterns += patterns(
     '',
     url(r'^django-admin/', include(admin.site.urls)),
 
