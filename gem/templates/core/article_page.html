@@ -13,6 +13,7 @@
   {% include "core/article_intro_partial.html" with article=page %}
 
   <article class="article-content">
+  {% social_media_article %}
     {% for block in self.body %}
         {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
