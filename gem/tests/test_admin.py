@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
 from django.test.client import Client
 from molo.core.tests.base import MoloTestCaseMixin
 
 from molo.profiles.models import UserProfile
 from gem.admin import GemUserAdmin, download_as_csv_gem
+from gem.models import GemUserProfile
+from molo.profiles.task import send_export_email
+from django.conf import settings
+from django.core import mail
+from gem.tasks import send_export_email_gem
 
 
 class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
@@ -47,14 +52,30 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         gem_profile.save()
 
         response = self.client.post('/admin/modeladmin/auth/user/')
-        expected_output = (
-            'username,alias,first_name,last_name,date_of_birth,'
-            'email,mobile_number,is_active,date_joined,last_login,gender\r\n'
-            'tester,The Alias,,,1985-01-01,tester@example.com,+27784667723'
-        )
+        self.assertEquals(response.status_code, 302)
 
-        self.assertContains(response, expected_output)
-        self.assertContains(response, 'female')
+    def test_send_export_email(self):
+        send_export_email_gem(self.user.email, {})
+        message = list(mail.outbox)[0]
+        self.assertEquals(message.to, [self.user.email])
+        self.assertEquals(
+            message.subject, 'Molo export: ' + settings.SITE_NAME)
+        self.assertEquals(
+            message.attachments[0],
+            ('Molo_export_GEM.csv',
+             'username,alias,first_name,last_name,date_of_birth,email,mobile_'
+             'number,is_active,date_joined,last_login,gender\r\ntester,,,,,t'
+             'ester@example.com,,1,' + str(
+                 self.user.date_joined.strftime("%Y-%m-%d %H:%M:%S")) +
+             ',,\r\n',
+             'text/csv'))
+
+    def test_export_csv_no_gem_profile(self):
+        GemUserProfile.objects.all().delete()
+        self.assertEquals(GemUserProfile.objects.all().count(), 0)
+
+        response = self.client.post('/admin/modeladmin/auth/user/')
+        self.assertEquals(response.status_code, 302)
 
 
 class ModelsTestCase(TestCase, MoloTestCaseMixin):
@@ -65,6 +86,7 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
             password='tester')
         self.mk_main()
 
+    @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv(self):
         profile = self.user.profile
         profile.alias = 'The Alias'
@@ -86,6 +108,7 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
             '84667723,,f\r\n')
         self.assertEquals(str(response), expected_output)
 
+    @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv_no_gem_profile(self):
         gem_profile = self.user.gem_profile
         gem_profile.delete()
