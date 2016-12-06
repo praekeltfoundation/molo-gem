@@ -9,7 +9,9 @@ from molo.profiles.admin_import_export import FrontendUsersResource
 from django.http import HttpResponse
 from import_export.fields import Field
 from wagtailmodeladmin.views import IndexView
+from molo.profiles.admin_views import FrontendUsersAdminView
 import csv
+from tasks import send_export_email_gem
 
 
 def download_as_csv_gem(GemUserAdmin, request, queryset):
@@ -70,39 +72,14 @@ class GemFrontendUsersResource(FrontendUsersResource):
 
         def dehydrate_gender(self, user):
             if hasattr(user, 'gem_profile'):
-                return user.gem_profile.get_gender_display()
+                return user.gem_profile.get_gender_display() if hasattr(
+                    user, 'gem_profile') else ''
             return None
 
 
-class GemFrontendUsersAdminView(IndexView):
-    def post(self, request, *args, **kwargs):
-        drf__date_joined__gte = request.GET.get('drf__date_joined__gte')
-        drf__date_joined__lte = request.GET.get('drf__date_joined__lte')
-        is_active_exact = request.GET.get('is_active__exact')
-
-        filter_list = {
-            'date_joined__range': (drf__date_joined__gte,
-                                   drf__date_joined__lte) if
-            drf__date_joined__gte and drf__date_joined__lte else None,
-            'is_active': is_active_exact
-        }
-
-        arguments = {}
-
-        for key, value in filter_list.items():
-            if value:
-                arguments[key] = value
-
-        dataset = GemFrontendUsersResource().export(
-            User.objects.filter(is_staff=False, **arguments))
-
-        response = HttpResponse(dataset.csv, content_type="text/csv")
-        response['Content-Disposition'] = \
-            'attachment;filename=frontend_users.csv'
-        return response
-
-    def get_template_names(self):
-        return 'admin/frontend_users_admin_view.html'
+class GemFrontendUsersAdminView(FrontendUsersAdminView):
+    def send_export_email_to_celery(self, email, arguments):
+        send_export_email_gem.delay(email, arguments)
 
 
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
