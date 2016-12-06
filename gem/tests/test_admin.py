@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
 from django.test.client import Client
 from molo.core.tests.base import MoloTestCaseMixin
@@ -86,6 +86,7 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
             password='tester')
         self.mk_main()
 
+    @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv(self):
         profile = self.user.profile
         profile.alias = 'The Alias'
@@ -107,6 +108,7 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
             '84667723,,f\r\n')
         self.assertEquals(str(response), expected_output)
 
+    @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv_no_gem_profile(self):
         gem_profile = self.user.gem_profile
         gem_profile.delete()
