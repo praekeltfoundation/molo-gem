@@ -11,7 +11,7 @@ from import_export.fields import Field
 from wagtailmodeladmin.views import IndexView
 from molo.profiles.admin_views import FrontendUsersAdminView
 import csv
-from tasks import send_export_email_gem
+from gem.tasks import send_export_email_gem
 
 
 def download_as_csv_gem(GemUserAdmin, request, queryset):
