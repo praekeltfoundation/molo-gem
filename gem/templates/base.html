@@ -91,10 +91,13 @@
         <div class="back-to-top">
           <a href="#gem-header">{% trans "Back to Top" %}</a>
         </div>
-
+        <div class="teal-ribbon"></div>
+        <div id="gem-footer">
         {% block footer %}
-          <div class="teal-ribbon"></div>
-          <div id="gem-footer">
+
+          {% block search %}
+            {% include "search/search_block.html" %}
+          {% endblock %}
             <ul class="sections">
               <li><a href="/">{% trans "Home" %}</a></li>
               <li><b>{% trans "Categories" %}</b></li>
@@ -113,16 +116,16 @@
                 <li><a href="{% url 'molo.profiles:view_my_profile' %}"><span >{% trans "Profile" %}</span ></a></li>
               {% endif %}
             </ul>
-            {% block search %}
-              {% include "search/search_block.html" %}
-            {% endblock %}
-            <a name="feature-menu"></a>
 
-            <div id="footer-bar">
-                <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
-            </div>
+            <a name="feature-menu"></a>
+          {% endblock %}
+
+          {% include "core/language_block.html" %}
+          <div id="footer-bar">
+              <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
           </div>
-        {% endblock %}
+        </div>
+
         {% wagtailuserbar %}
     </body>
 </html>
