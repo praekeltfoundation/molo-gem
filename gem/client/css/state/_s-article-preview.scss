@@ -51,12 +51,21 @@
 .article-list  {
   overflow: hidden;
   .article-preview:nth-child(odd){
-      clear:both;
+    clear: right;
+    float: right;
+  }
+  .article-preview:nth-child(even){
+    clear: left;
+    float: left;
+  }
+  .article-preview:first-child {
+    clear: none;
+    float: none;
+    display: inline-block;
   }
   .article-preview {
     padding: 0;
     width: 50%;
-    float: left;
     position: relative;
     height: 100%;
     margin-bottom: 10px;
