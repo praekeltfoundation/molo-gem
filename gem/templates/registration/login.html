@@ -4,13 +4,14 @@
 {% block content %}
     <div class="profile-container">
         <div class="title profile">
-            <h3>{% trans "Sign in" %}</h3>
+            <h3>{% trans "Log in" %}</h3>
         </div>
 
         <div class="block turq">
             <div class="signin-form">
-                <p><a href="{% url 'molo.profiles:user_register' %}">{% trans "Not a member yet" %}?</a></p>
-
+              <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__item-text">
+                {% trans "Not a member yet" %}?
+              </a>
             <form method="post" action=".">{% csrf_token %}
                 {% if form.errors %}
                     <p class="error errorlist">{% trans "Your username and password does not match. Please try again." %}</p>
@@ -19,7 +20,7 @@
                         {{form.username}}
                         <p><strong>{% trans "4-digit pin" %}</strong></p>
                         {{form.password}}
-                        <input type="submit" value="{% trans 'Sign in' %}">
+                        <input type="submit" value="{% trans 'Log in' %}">
                         <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
 
                         <a href="{% url 'forgot_password' %}" class="button inverted">{% trans "Forgot PIN" %}</a>

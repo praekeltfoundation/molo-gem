@@ -61,7 +61,7 @@
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
-            <a href="{% url 'molo.profiles:user_register' %}">{% trans "Log in" %}</a>
+              <a href="{% url 'molo.profiles:user_register' %}">{% trans "Sign up" %}</a>
             {% else %}
             <a href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
             {% endif %}
@@ -112,15 +112,28 @@
               {% if not user.is_authenticated %}
                 <li class="footer-menu-list__item">
                   <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
-                    <span>{% trans "Log in" %}</span>
+                    {% trans "Sign Up" %}
                   </a>
                 </li>
-              {% else %}
+
                 <li class="footer-menu-list__item">
-                  <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
-                    <span>{% trans "Profile" %}</span>
+                  <a href="{% url 'molo.profiles:auth_login' %}" class="footer-menu-list__anchor">
+                    {% trans "Log in" %}
                   </a>
                 </li>
+
+              {% else %}
+              <li class="footer-menu-list__item">
+                <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
+                  {% trans "Profile" %}
+                </a>
+              </li>
+
+              <li class="footer-menu-list__item">
+                <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
+                  {% trans "Log out" %}
+                </a>
+              </li>
               {% endif %}
             </ul>
           {% endblock %}
