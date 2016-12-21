@@ -43,3 +43,21 @@ STATIC_ROOT = join(PROJECT_ROOT, 'static')
 LOCALE_PATHS = (
     join(PROJECT_ROOT, "locale"),
 )
+
+ES_HOST = environ.get('ES_HOST')
+ES_INDEX = environ.get('ES_INDEX')
+ES_VERSION = int(environ.get('ES_VERSION', 2))
+
+ES_BACKEND_V1 = 'molo.core.wagtailsearch.backends.elasticsearch'
+ES_BACKEND_V2 = 'molo.core.wagtailsearch.backends.elasticsearch2'
+
+if ES_HOST:
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND':
+                ES_BACKEND_V2 if ES_VERSION == 2 else ES_BACKEND_V1,
+            'URLS': [ES_HOST],
+            'INDEX':
+                ES_INDEX or environ.get('MARATHON_APP_ID') or 'gem',
+        },
+    }
