@@ -14,10 +14,10 @@
       {% include "search/search_block.html" %}
     </div>
     <div class="search-results article-list">
+      {% get_translation page.get_parent_section as parent_section %}
       {% for page in search_results %}
-      {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
         {% if page.image %}
-        <a href="{% pageurl page %}" class="article-preview search-result {{page.get_parent_section.get_effective_extra_style_hints}}">
+        <a href="{% pageurl page %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
           <div class="search-image">
               {% image page.image fill-200x200 %}
               {% image parent_section.image width-40 as section_image %}
@@ -32,7 +32,7 @@
           </div>
         </a>
         {% else %}
-          <a href="{% pageurl page %}" class="article-preview search-result {{page.get_parent_section.get_effective_extra_style_hints}}">
+          <a href="{% pageurl page %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
             <div class="text">
               <div class="section-title">
                 {{ parent_section.title }}

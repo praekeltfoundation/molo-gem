@@ -7,9 +7,9 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-<div class="article {{ self.get_parent_section.get_effective_extra_style_hints }}">
-
-  {% include "core/section_header_partial.html" with url=self.get_parent_section image=self.get_parent_section.image title=self.get_parent_section extra_classes=self.get_parent_section.get_effective_extra_style_hints %}
+{% get_translation self.get_parent_section as parent_section %}
+<div class="article {{ parent_section.get_effective_extra_style_hints }}">
+  {% include "core/section_header_partial.html" with url=parent_section image=parent_section.image title=parent_section extra_classes=parent_section.get_effective_extra_style_hints %}
   {% include "core/article_intro_partial.html" with article=page %}
 
   <article class="article-content">
