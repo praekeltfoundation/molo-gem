@@ -13,6 +13,7 @@ var gulp              =   require('gulp'),
 var sassPaths = [
     'gem/client/css/style-rwanda.scss',
     'gem/client/css/style.scss',
+    'gem/client/css/style-rtl.scss',
     'gem/client/css/versions.scss',
 ];
 

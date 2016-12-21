@@ -27,10 +27,16 @@
         {% compress css %}
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style.css">
         {% endcompress %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE|language_bidi == True %}
+          {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style-rtl.css">
+          {% endcompress %}
+        {% endif %}
 
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
         {% if settings.core.SiteSettings.ga_tag_manager %}
         <!-- Google Tag Manager -->
          <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
