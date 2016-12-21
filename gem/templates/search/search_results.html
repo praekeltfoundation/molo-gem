@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags comments i18n %}
+{% load wagtailcore_tags wagtailimages_tags comments i18n core_tags %}
 
 
 {% block body_class %}default-container{% endblock %}
@@ -14,8 +14,8 @@
       {% include "search/search_block.html" %}
     </div>
     <div class="search-results article-list">
-      {% get_translation page.get_parent_section as parent_section %}
       {% for page in search_results %}
+      {% get_translation page.get_parent_section as parent_section %}
         {% if page.image %}
         <a href="{% pageurl page %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
           <div class="search-image">
@@ -42,7 +42,6 @@
             </div>
           </a>
         {% endif %}
-      {% endwith %}
       {% endfor %}
     </div>
     <div class="search-result pagination">
