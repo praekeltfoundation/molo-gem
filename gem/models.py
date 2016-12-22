@@ -7,7 +7,7 @@ from gem.constants import GENDERS
 from molo.commenting.models import MoloComment
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 
 
 class GemUserProfile(models.Model):
@@ -76,7 +76,29 @@ class GemSettings(BaseSetting):
                   " line a break. Use only lowercase letters for keywords."
     )
 
+    show_partner_credit = models.BooleanField(
+        default=False,
+        help_text='When true, this will show the partner credit on the '
+        'homepage.')
+
+    partner_credit_description = models.TextField(
+        null=True, blank=True,
+        help_text='The text that will be shown for the partner credit '
+        ' e.g. "Translated by Sajan"')
+    partner_credit_link = models.TextField(
+        null=True, blank=True,
+        help_text=' The link that the partner credit will redirect to e.g'
+        '. https://www.google.co.za/')
+
     panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('show_partner_credit'),
+                FieldPanel('partner_credit_description'),
+                FieldPanel('partner_credit_link'),
+            ],
+            heading="Partner Credit",
+        ),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
     ]
