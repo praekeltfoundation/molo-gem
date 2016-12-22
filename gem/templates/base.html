@@ -147,6 +147,9 @@
           {% include "core/language_block.html" %}
           <div id="footer-bar">
               <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
+              {% if settings.gem.GemSettings.show_partner_credit %}
+                <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
+              {% endif %}
           </div>
         </div>
 
