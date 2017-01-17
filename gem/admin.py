@@ -8,7 +8,7 @@ from molo.profiles.admin import FrontendUsersModelAdmin
 from molo.profiles.admin_import_export import FrontendUsersResource
 from django.http import HttpResponse
 from import_export.fields import Field
-from wagtailmodeladmin.views import IndexView
+from wagtail.contrib.modeladmin.views import IndexView
 from molo.profiles.admin_views import FrontendUsersAdminView
 import csv
 from gem.tasks import send_export_email_gem
