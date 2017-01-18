@@ -25,7 +25,7 @@
         <a href="{% url 'report_comment' node.pk %}" class="report">{% trans "Report" %}</a>
         </p>
         {% if request.user|is_in_group:'Expert' and not node.user|is_in_group:'Expert' %}
-            <p><a href="{% url 'molo-comments-reply' node.pk %}" class="report">{% trans "Reply"%}</a></p>
+            <p><a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}" class="report">{% trans "Reply"%}</a></p>
         {% endif %}
     {% endif %}
   {% endif %}
