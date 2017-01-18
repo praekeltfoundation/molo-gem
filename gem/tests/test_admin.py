@@ -35,7 +35,7 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
 
     def test_staff_users_are_not_shown(self):
         response = self.client.get(
-            '/admin/auth/user/'
+            '/admin/auth/user/?usertype=frontend'
         )
 
         self.assertContains(response, self.user.username)
