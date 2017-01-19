@@ -49,8 +49,6 @@ urlpatterns += patterns(
                 namespace='molo.profiles',
                 app_name='molo.profiles')),
 
-    url(r'^comments/', include('molo.commenting.urls')),
-
     url(r'^commenting/',
         include('molo.commenting.urls',
                 namespace='molo.commenting',
@@ -65,6 +63,8 @@ urlpatterns += patterns(
     url(r'^comments/already_reported/(?P<comment_pk>\d+)/$',
         login_required(AlreadyReportedCommentView.as_view()),
         name='already_reported'),
+
+    url(r'', include('django_comments.urls')),
 
     url(r'^yourwords/',
         include('molo.yourwords.urls',

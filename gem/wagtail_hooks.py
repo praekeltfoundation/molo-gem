@@ -1,5 +1,5 @@
 from gem.admin import GemFrontendUsersModelAdmin
-from wagtailmodeladmin.options import wagtailmodeladmin_register
+from wagtail.contrib.modeladmin.options import modeladmin_register
 
 
-wagtailmodeladmin_register(GemFrontendUsersModelAdmin)
+modeladmin_register(GemFrontendUsersModelAdmin)

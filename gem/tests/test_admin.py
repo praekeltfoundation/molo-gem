@@ -35,7 +35,7 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
 
     def test_staff_users_are_not_shown(self):
         response = self.client.get(
-            '/admin/modeladmin/auth/user/'
+            '/admin/auth/user/?usertype=frontend'
         )
 
         self.assertContains(response, self.user.username)
@@ -51,7 +51,7 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         gem_profile.gender = 'f'
         gem_profile.save()
 
-        response = self.client.post('/admin/modeladmin/auth/user/')
+        response = self.client.post('/admin/auth/user/')
         self.assertEquals(response.status_code, 302)
 
     def test_send_export_email(self):
@@ -74,7 +74,7 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         GemUserProfile.objects.all().delete()
         self.assertEquals(GemUserProfile.objects.all().count(), 0)
 
-        response = self.client.post('/admin/modeladmin/auth/user/')
+        response = self.client.post('/admin/auth/user/')
         self.assertEquals(response.status_code, 302)
 
 
