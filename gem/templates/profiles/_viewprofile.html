@@ -32,6 +32,15 @@
   	</fieldset>
   	{% endif %}
 
+    <fieldset>
+      <label>{% trans "Gender:" %}</label>
+      {% if user.gem_profile.get_gender_display %}
+        <p class="helptext">{{ user.gem_profile.get_gender_display }}</p>
+      {% else %}
+        <p class="helptext">Not set.</p>
+      {% endif %}
+    </fieldset>
+
   <fieldset>
     {% if settings.profiles.UserProfilesSettings.show_email_field %}
       <label>{% trans "Email Address:" %}</label>
