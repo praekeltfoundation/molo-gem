@@ -6,7 +6,7 @@
 		<div class="title profile">
 			<h3>{% trans "Edit your Profile" %}</h3>
 	</div>
-  <form method="post" action="{% url "molo.profiles:edit_my_profile" %}" class="profiles__form">
+  <form method="post" action="{% url 'molo.profiles:edit_my_profile' %}" class="profiles__form">
   {% csrf_token %}
 	{{form.non_field_errors}}
   	<fieldset>

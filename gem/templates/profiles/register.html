@@ -15,7 +15,7 @@
           {% trans "now if you've already joined" %}
         </p>
 
-        <form method="post" action="{% url "molo.profiles:user_register" %}" class="profiles__form">
+        <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
         {% csrf_token %}
         <fieldset>
           <label>{% trans "Choose a username" %}</label>
@@ -31,15 +31,24 @@
           <span class="input-hint">{% trans "Numbers only eg. 5656" %}</span>
         </fieldset>
 
+        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+        <fieldset>
+          <label for="mobile_number">{% trans "Enter your mobile number" %}</label>
+          {{ form.mobile_number.errors}}
+          {{ form.mobile_number }}
+          <span class="input-hint">{% trans "(e.g. 0900000013)" %}</span>
+        </fieldset>
+        {% endif %}
 
-          {% if settings.profiles.UserProfilesSettings.show_email_field %}
-          <fieldset>
-            <label for="id_email">{% trans "Enter your email address" %}</label>
-            {{ form.email.errors}}
-            {{ form.email }}
-            <span class="input-hint">{% trans "(e.g. example@foo.com)" %}</span>
-          </fieldset>
-          {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.show_email_field %}
+        <fieldset>
+          <label for="id_email">{% trans "Enter your email address" %}</label>
+          {{ form.email.errors}}
+          {{ form.email }}
+          <span class="input-hint">{% trans "(e.g. example@foo.com)" %}</span>
+        </fieldset>
+        {% endif %}
 
           <fieldset>
             <label>{% trans "I identify my gender as" %}</label>
@@ -81,7 +90,7 @@
           </fieldset>
 
           <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
-          <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}"/>
+          <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}"/>
           <div class="call-to-action call-to-action--profile">
             <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
           </div>
