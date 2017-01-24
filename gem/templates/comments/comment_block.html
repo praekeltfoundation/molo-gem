@@ -1,7 +1,7 @@
 {% load comments mptt_tags molo_commenting_tags i18n %}
 
 {% if self.is_commenting_enabled %}
-<div class="block">
+<div class="block comments__form">
   {% if self.allow_commenting %}
     {% get_comment_count for self as comment_count %}
     {% if comment_count > 0 %}
@@ -21,16 +21,18 @@
 	</div>
 </div>
 
-<div id="comments-list">
+<div id="comments-list" class="comments__list">
   {% get_comment_count for self as comment_count %}
     {% get_molo_comments for self as comment_list %}
+    {{comment_list}}
       {% for node in comment_list %}
         {% recursetree node %}
             {% include "comments/comment.html" %}
             {{ children }}
         {% endrecursetree %}
       {% endfor %}
-  {% if comment_count > 5 %}
+
+  {% if comment_count > 2 %}
     <div class="pagination">
       <a href="{% url 'molo.commenting:more-comments' self.pk %}">{% trans "view more comments" %}</a>
     </div>
