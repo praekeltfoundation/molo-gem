@@ -7,6 +7,7 @@
     &__title {
         line-height: 1.15;
         font-family: $font-family-avenirBold;
+        padding: 25px 0 15px;
     }
 
     &__intro {
@@ -23,17 +24,17 @@
         background-color: $colorWhiteSmoke;
 
         fieldset {
-            @extend %gem__field;
+          @extend %gem__field;
         }
 
         label {
-            @extend %gem__label;
+          @extend %gem__label;
         }
 
         input,
         textarea,
         select {
-            @extend %gem__input;
+          @extend %gem__input;
         }
 
         textarea {
@@ -130,7 +131,7 @@
 %gem__field {
     display: block;
     border: 0;
-    padding: 0;
+    padding: 10px 0;
     margin: 0;
 
     & + & {
@@ -154,7 +155,7 @@
 }
 
 %gem__input {
-    width: 100%;
+  width: 95%;
 }
 
 %gem__checkbox {
@@ -198,4 +199,15 @@
     display: block;
     font-size: 18px;
     color: $colorFirst;
+}
+.surveys__results {
+  overflow: auto;
+  padding: 10px 0 0;
+}
+.surveys__answer {
+  span {
+    display: block;
+    padding: 10px 0;
+    word-wrap: break-word;
+  }
 }
