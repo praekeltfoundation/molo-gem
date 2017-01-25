@@ -1,15 +1,21 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
 
+
 {% with section=self.get_parent_section %}
   <div class="related-articles">
+    <h3 class="heading heading--large">Next Up in {{section.title}}</h3>
     {% if self.body %}
+    <ul class="related-article-list">
       {% for block in self.body %}
         {% if block.block_type == 'page'  %}
+        <li class="related-article-list__item">
           <a href="{% pageurl block.value %}" class="call-to-action__item--text">
             {{block.value }}
           </a>
+        </li>
         {% endif %}
       {% endfor %}
+    </ul>
     {% endif %}
   </div>
 {% endwith %}
