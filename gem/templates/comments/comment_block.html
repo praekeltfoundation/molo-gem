@@ -24,7 +24,7 @@
 <div id="comments-list" class="comments__list">
   {% get_comment_count for self as comment_count %}
     {% get_molo_comments for self as comment_list %}
-      {% for node in comment_list %}
+      {% for node in comment_list|slice:":2" %}
           {% recursetree node %}
               {% include "comments/comment.html" %}
               {{ children }}
