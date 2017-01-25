@@ -15,7 +15,7 @@
           {% trans "now if you've already joined" %}
         </p>
 
-        <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
+        <form method="post"  action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
         {% csrf_token %}
             <fieldset>
               <label>{% trans "Choose a username" %}</label>
@@ -52,9 +52,8 @@
                 <p class="helptext">
                   {% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username her" %}
                 </p>
-              {{ form.gender.errors}}
-              {{ form.gender }}
-              <span class="sigin-form__input-hint">({% trans "Only you will see this" %})</span>
+              {{form.alias.errors}}
+        			{{ form.alias }}
             </fieldset>
 
 

@@ -6,7 +6,8 @@
 		<div class="title profile">
 			<h3>{% trans "Edit your Profile" %}</h3>
 	</div>
-	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">{% csrf_token %}
+	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
+  {% csrf_token %}
 	{{form.non_field_errors}}
 			<p>{% trans "Nickname:" %}</p>
 			<p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>

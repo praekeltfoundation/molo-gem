@@ -28,6 +28,12 @@ class GemRegistrationForm(RegistrationForm):
         required=True
     )
 
+    displa_name = forms.ChoiceField(
+        label=_("Display Name"),
+        choices=GENDERS,
+        required=True
+    )
+
     security_question_1_answer = forms.CharField(
         label=_("Answer to Security Question 1"),
         widget=forms.TextInput(
