@@ -3,6 +3,8 @@ RUN apt-get-install.sh git libjpeg-dev zlib1g-dev libffi-dev gettext libtiff-dev
 
 ENV PROJECT_ROOT /app/
 ENV DJANGO_SETTINGS_MODULE gem.settings.docker
+ENV APP_MODULE "gem.wsgi:application"
+
 ENV CELERY_APP gem
 ENV CELERY_BEAT 1
 
