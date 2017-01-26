@@ -56,7 +56,6 @@
         			{{ form.alias }}
             </fieldset>
 
-
             <fieldset>
               <label>{% trans "Security questions" %}</label>
               <p class="helptext">
@@ -74,7 +73,7 @@
 
             <fieldset>
               {% if form.terms_and_conditions.errors %}
-                <span class="error">
+                <span class="error alert-error">
                   {% trans "Please accept the T&amp;Cs in order to complete the registration" %}
                 </span>
               {% endif %}
@@ -85,6 +84,7 @@
                 </div>
               </div>
             </fieldset>
+
             <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
             <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
             <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "Already a member?" %}</a>

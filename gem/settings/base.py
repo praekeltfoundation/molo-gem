@@ -306,7 +306,7 @@ ENABLE_SSO = False
 # Additional strings that need translations from other modules
 # molo.polls
 _("Log in to vote")
-_("Username already exists.")
+_("That username already exits. Please try another one.")
 _("The old password is incorrect.")
 _("Vote")
 _("Show Results")
