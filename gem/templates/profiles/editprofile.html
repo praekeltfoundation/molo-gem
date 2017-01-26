@@ -2,36 +2,40 @@
 {% load i18n %}
 
 {% block content %}
-<div class="profile-container">
+<div class="profiles profile-container">
 		<div class="title profile">
 			<h3>{% trans "Edit your Profile" %}</h3>
 	</div>
 	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
   {% csrf_token %}
 	{{form.non_field_errors}}
-			<p>{% trans "Nickname:" %}</p>
-			<p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
+    <fieldset>
+			<label>{% trans "Nickname:" %}</label>
+			<label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
 			{{form.alias.errors}}
 			{{ form.alias }}
-
-
-      <p>{% trans "Date of birth:" %}</p>
+    </fieldset>
+    <fieldset>
+      <label>{% trans "Date of birth:" %}</label>
 	      {{ form.date_of_birth }}
-
-      <p>{% trans "Gender:" %}</p>
+    </fieldset>
+    <fieldset>
+      <label>{% trans "Gender:" %}</label>
 			{{ form.gender.errors}}
 			{{ form.gender }}
-
+    </fieldset>
+    <fieldset>
 			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-	      <p>{% trans "Mobile number:" %}</p>
+	      <label>{% trans "Mobile number:" %}</label>
 		      {{ form.mobile_number.errors }}
 		      {{ form.mobile_number }}
 			{% endif %}
 			{% if settings.profiles.UserProfilesSettings.show_email_field %}
-	      <p>{% trans "Email address:" %}</p>
+	      <label>{% trans "Email address:" %}</label>
 		      {{ form.email.errors }}
 		      {{ form.email}}
 			{% endif %}
+    </fieldset>
 				<br>
 				<br>
 			<input type="submit" value='{% trans "Update profile" %}' class="btn">
