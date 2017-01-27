@@ -10,14 +10,14 @@
         <div class="block turq">
             <div class="signin-form">
               <p class="call-to-action__nav-item--challenge-heading">
+                <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__link">
                 {% trans "Are you not a member yet" %}?
-                <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__link">Signup</a>
+                </a>
               <p>
             <form method="post" action=".">{% csrf_token %}
                 {% if form.errors %}
                     <p class="error errorlist">{% trans "Your username and password do not match. Please try again." %}</p>
                 {% endif %}
-
                 <fieldset>
                   <label>{% trans "Username" %}</label>
                   {{form.username}}
