@@ -235,4 +235,3 @@ class ReportCommentForm(Form):
         widget=forms.RadioSelect,
         choices=CHOICES
     )
-
