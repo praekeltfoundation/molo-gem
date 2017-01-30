@@ -8,11 +8,11 @@
 	</div>
 	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
   {% csrf_token %}
-	{{form.non_field_errors}}
+	{{ form.non_field_errors }}
     <fieldset>
 			<label>{% trans "Nickname:" %}</label>
 			<label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
-			{{form.alias.errors}}
+			{{ form.alias.errors }}
 			{{ form.alias }}
     </fieldset>
     <fieldset>
@@ -21,7 +21,7 @@
     </fieldset>
     <fieldset>
       <label>{% trans "Gender:" %}</label>
-			{{ form.gender.errors}}
+			{{ form.gender.errors }}
 			{{ form.gender }}
     </fieldset>
     <fieldset>
@@ -33,7 +33,7 @@
 			{% if settings.profiles.UserProfilesSettings.show_email_field %}
 	      <label>{% trans "Email address:" %}</label>
 		      {{ form.email.errors }}
-		      {{ form.email}}
+		      {{ form.email }}
 			{% endif %}
     </fieldset>
 				<br>
