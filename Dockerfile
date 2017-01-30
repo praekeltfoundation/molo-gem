@@ -1,37 +1,18 @@
-FROM ubuntu:14.04
-MAINTAINER Colin Alston <colin@praekelt.com>
-RUN apt-get update && apt-get -y --force-yes install libjpeg-dev zlib1g-dev libxslt1-dev libpq-dev nginx redis-server supervisor python-dev python-pip
-RUN apt-get -y install libffi-dev gettext
+FROM praekeltfoundation/django-bootstrap
 
-RUN pip install --upgrade pip
+RUN apt-get-install.sh gettext
 
-ENV PROJECT_ROOT /deploy/
-ENV DJANGO_SETTINGS_MODULE gem.settings.docker
+ENV PROJECT_ROOT=/app/ \
+    DJANGO_SETTINGS_MODULE=gem.settings.docker \
+    APP_MODULE="gem.wsgi:application"
 
-WORKDIR /deploy/
+ENV CELERY_APP gem
+ENV CELERY_BEAT 1
 
-COPY gem /deploy/gem
-COPY locale /deploy/locale
-ADD manage.py /deploy/
-ADD requirements.txt /deploy/
-ADD setup.py /deploy/
-ADD README.rst /deploy/
-ADD VERSION /deploy/
+COPY . /app
 
 RUN pip install -e .
 
-RUN mkdir -p /etc/supervisor/conf.d/
-RUN mkdir -p /var/log/supervisor
-RUN rm /etc/nginx/sites-enabled/default
-
-ADD docker/nginx.conf /etc/nginx/sites-enabled/molo.conf
-ADD docker/supervisor.conf /etc/supervisor/conf.d/molo.conf
-ADD docker/supervisord.conf /etc/supervisord.conf
-ADD docker/docker-start.sh /deploy/
-ADD docker/settings.py /deploy/gem/settings/docker.py
-
-RUN chmod a+x /deploy/docker-start.sh
-
-EXPOSE 80
-
-ENTRYPOINT ["/deploy/docker-start.sh"]
+RUN LANGUAGE_CODE=en django-admin compilemessages && \
+    django-admin compress && \
+    django-admin collectstatic --noinput
