@@ -21,17 +21,68 @@ def validate_no_email_or_phone(input):
     return True
 
 
-class GemRegistrationForm(RegistrationForm):
+class GemAliasMixin(object):
+
+    def _clean_alias(self):
+        """
+        Check for email addresses, telephone numbers and any other keywords or
+        patterns defined through GemSettings.
+        """
+        alias = self.cleaned_data['alias']
+
+        if not validate_no_email_or_phone(alias):
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but that is an invalid display name. Please don't"
+                    " use your email address or phone number in your display"
+                    " name.")
+            )
+
+        site = Site.objects.get(is_default_site=True)
+        settings = GemSettings.for_site(site)
+
+        banned_list = [REGEX_EMAIL, REGEX_PHONE]
+
+        banned_names_with_offensive_language = \
+            settings.banned_names_with_offensive_language.split('\n') \
+            if settings.banned_names_with_offensive_language else []
+
+        banned_list += banned_names_with_offensive_language
+
+        for keyword in banned_list:
+            keyword = keyword.replace('\r', '')
+            match = re.search(keyword, alias.lower())
+            if match:
+                raise forms.ValidationError(
+                    _(
+                        'Sorry, the name you have used is not allowed. '
+                        'Please, use a different name for your display name.'
+                    )
+                )
+
+        return alias
+
+
+class GemRegistrationForm(GemAliasMixin, RegistrationForm):
     gender = forms.ChoiceField(
         label=_("Gender"),
         choices=GENDERS,
         required=True
     )
 
-    displa_name = forms.ChoiceField(
+    alias = forms.RegexField(
+        regex=r'^[\w.@+-]+$',
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=30,
+            )
+        ),
         label=_("Display Name"),
-        choices=GENDERS,
-        required=True
+        error_messages={
+            'invalid': _("This value must contain only letters, "
+                         "numbers and underscores."),
+        }
     )
 
     security_question_1_answer = forms.CharField(
@@ -66,6 +117,9 @@ class GemRegistrationForm(RegistrationForm):
             )
 
         return username
+
+    def clean_alias(self):
+        return self._clean_alias()
 
 
 class GemForgotPasswordForm(Form):
@@ -139,55 +193,34 @@ class GemResetPasswordForm(Form):
     )
 
 
-class GemEditProfileForm(EditProfileForm):
+class GemEditProfileForm(GemAliasMixin, EditProfileForm):
+    alias = forms.RegexField(
+        regex=r'^[\w.@+-]+$',
+        widget=forms.TextInput(
+            attrs=dict(
+                required=True,
+                max_length=30,
+            )
+        ),
+        label=_("Display Name"),
+        error_messages={
+            'invalid': _("This value must contain only letters, "
+                         "numbers and underscores."),
+        }
+    )
+
     gender = forms.ChoiceField(
         label=_("Gender"),
         choices=GENDERS,
         required=False
     )
 
+    def clean_alias(self):
+        return self._clean_alias()
+
     class Meta:
         model = UserProfile
         fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
-
-    def clean_alias(self):
-        """
-        Check for email addresses, telephone numbers and any other keywords or
-        patterns defined through GemSettings.
-        """
-        alias = self.cleaned_data['alias']
-
-        if not validate_no_email_or_phone(alias):
-            raise forms.ValidationError(
-                _(
-                    "Sorry, but that is an invalid display name. Please don't"
-                    " use your email address or phone number in your display"
-                    " name.")
-            )
-
-        site = Site.objects.get(is_default_site=True)
-        settings = GemSettings.for_site(site)
-
-        banned_list = [REGEX_EMAIL, REGEX_PHONE]
-
-        banned_names_with_offensive_language = \
-            settings.banned_names_with_offensive_language.split('\n') \
-            if settings.banned_names_with_offensive_language else []
-
-        banned_list += banned_names_with_offensive_language
-
-        for keyword in banned_list:
-            keyword = keyword.replace('\r', '')
-            match = re.search(keyword, alias.lower())
-            if match:
-                raise forms.ValidationError(
-                    _(
-                        'Sorry, the name you have used is not allowed. '
-                        'Please, use a different name for your display name.'
-                    )
-                )
-
-        return alias
 
 
 class ReportCommentForm(Form):
@@ -202,3 +235,4 @@ class ReportCommentForm(Form):
         widget=forms.RadioSelect,
         choices=CHOICES
     )
+
