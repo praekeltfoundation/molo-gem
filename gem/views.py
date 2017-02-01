@@ -48,6 +48,7 @@ class GemRegistrationView(RegistrationView):
     def form_valid(self, form):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
+        alias = form.cleaned_data['alias']
         gender = form.cleaned_data['gender']
         mobile_number = form.cleaned_data['mobile_number']
 
@@ -59,6 +60,7 @@ class GemRegistrationView(RegistrationView):
         ]
         user = User.objects.create_user(username=username, password=password)
 
+        user.profile.alias = alias
         user.profile.mobile_number = mobile_number
         user.profile.save()
 
@@ -253,7 +255,9 @@ class GemEditProfileView(MyProfileEdit):
     def form_valid(self, form):
         super(MyProfileEdit, self).form_valid(form)
         gender = form.cleaned_data['gender']
+        alias = form.cleaned_data['alias']
 
+        self.request.user.gem_profile.alias = alias
         self.request.user.gem_profile.gender = gender
         self.request.user.gem_profile.save()
         return HttpResponseRedirect(

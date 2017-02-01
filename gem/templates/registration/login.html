@@ -9,21 +9,29 @@
 
         <div class="block turq">
             <div class="signin-form">
-              <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__item-text">
-                {% trans "Not a member yet" %}?
-              </a>
+              <p class="call-to-action__nav-item--challenge-heading">
+                <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__link">
+                {% trans "Are you not a member yet" %}?
+                </a>
+              <p>
             <form method="post" action=".">{% csrf_token %}
                 {% if form.errors %}
                     <p class="error errorlist">{% trans "Your username and password do not match. Please try again." %}</p>
                 {% endif %}
-                        <p><strong>{% trans "Username" %}</strong></p>
-                        {{form.username}}
-                        <p><strong>{% trans "4-digit pin" %}</strong></p>
-                        {{form.password}}
-                        <input type="submit" value="{% trans 'Log in' %}">
-                        <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
+                <fieldset>
+                  <label>{% trans "Username" %}</label>
+                  {{form.username}}
+                </fieldset>
 
-                        <a href="{% url 'forgot_password' %}" class="button inverted">{% trans "Forgot PIN" %}</a>
+                <fieldset>
+                  <label>{% trans "4-digit pin" %}</label>
+                  {{form.password}}
+                </fieldset>
+
+                <input type="submit" value="{% trans 'Log in' %}">
+                <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
+
+                <a href="{% url 'forgot_password' %}" class="button inverted">{% trans "Forgot PIN" %}</a>
             </form>
             </div>
         </div>
