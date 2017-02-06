@@ -3,65 +3,87 @@
 {% get_settings %}
 
 {% block content %}
-<div class="profile-container">
+<div class="profiles profile-container">
     <div class="title profile">
         <h3>{% trans "Sign up" %}</h3>
     </div>
     <div class="block">
       <div class="signin-form">
-        <p>{% trans "Not a member yet? Join us by signing up below." %}</p>
+        <p class="call-to-action__nav-item--challenge-heading">
+          {% trans "Not a member yet? Join us by signing up below." %}
+        </p>
+        <form method="post" action="{% url 'molo.profiles:user_register' %}">
+        {% csrf_token %}
 
-        <form method="post" action="{% url 'molo.profiles:user_register' %}">{% csrf_token %}
-            <p><strong>{% trans "Choose a username" %}</strong></p>
-            <p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
-            {{ form.username.errors}}
-            {{ form.username }}
+        <fieldset>
+          <label>{% trans "Choose a username" %}</label>
+          <p class="helptext">
+            {% trans "Please do not use your real name, phone number or email address as it's unsafe." %}
+          </p>
+          {{ form.username.errors }}
+          {{ form.username }}
+        </fieldset>
 
-            <p><strong>{% trans "Choose a 4-digit pin" %}</strong></p>
-            {{ form.password.errors}}
-            <input id="id_password" maxlength="4" name="password" placeholder="eg. 2086" type="password" required="" pattern="[0-9]*" inputmode="numeric">
+        <fieldset>
+          <label>{% trans "Display name" %}</label>
+            <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
+            {{ form.alias.errors }}
+            {{ form.alias }}
+        </fieldset>
 
+        <fieldset>
+          <label>{% trans "Choose a 4-digit pin" %}</label>
+          {{ form.password.errors }}
+          <input id="id_password" maxlength="4" name="password" placeholder="eg. 2086" type="password" required="" pattern="[0-9]*" inputmode="numeric">
+        </fieldset>
 
-            {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
-            <p><strong>{% trans "Enter your mobile number" %}</strong></p>
-            {{ from.errors}}
-
+        <fieldset>
+          {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+            <label>{% trans "Enter your mobile number" %}</label>
+            {{ from.errors }}
             {{ form.mobile_number }}
-            <br>
-            {% endif %}
-            <br>
-            <br>
-            <p><strong>{% trans "I identify my gender as" %}</strong></p>
-            {{ form.gender.errors}}
-            {{ form.gender }}
-            <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
+          {% endif %}
+        </fieldset>
 
-            <p><strong>{% trans "Security questions" %}</strong></p>
-            <p>{% trans "Please answer the following security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
+        <fieldset>
+          <label>{% trans "I identify my gender as" %}</label>
+          {{ form.gender.errors }}
+          {{ form.gender }}
+          <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
+        </fieldset>
 
-            <p><strong>{% trans security_question_1 %}</strong></p>
-            {{ form.security_question_1_answer.errors }}
-            {{ form.security_question_1_answer }}
+        <fieldset>
+          <label>{% trans "Security questions" %}</label>
+          <p class="helptext">{% trans "Please answer the following security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
 
-            <p><strong>{% trans security_question_2 %}</strong></p>
-            {{ form.security_question_2_answer.errors }}
-            {{ form.security_question_2_answer }}
+          <label>{% trans security_question_1 %}</label>
+          {{ form.security_question_1_answer.errors }}
+          {{ form.security_question_1_answer }}
 
-            <br>
-            {% if form.terms_and_conditions.errors %}
-              <p class="alert-error">{% trans "Please accept the T&amp;Cs in order to complete the registration" %}</p>
-            {% endif %}
-            <div class="terms-and-conditions">
-              <div class="terms-and-conditions__field">
-                  {{ form.terms_and_conditions }}
-                  <label for="id_terms_and_conditions">{% trans "I accept the Terms and Conditions" %}</label>
-              </div>
+          <label>{% trans security_question_2 %}</label>
+          {{ form.security_question_2_answer.errors }}
+          {{ form.security_question_2_answer }}
+        </fieldset>
+
+        <fieldset>
+          {% if form.terms_and_conditions.errors %}
+            <p class="alert-error">
+              {% trans "Please accept the terms and conditions in order to complete registration" %}
+            </p>
+          {% endif %}
+
+          <div class="terms-and-conditions">
+            <div class="terms-and-conditions__field">
+              {{ form.terms_and_conditions }}
+              <label for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</label>
             </div>
-            <br>
-            <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
-            <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
-            <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
+          </div>
+        </fieldset>
+        <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
+        <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
+        <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
         </form>
+
       </div>
     </div>
 </div>
