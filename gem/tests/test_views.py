@@ -386,7 +386,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.create_comment(self.article, 'test comment1 text', self.superuser)
         response = self.client.get('/sections/your-mind/article-1/')
 
-        self.assertContains(response, "Big Sister")
+        self.assertContains(response, "Gabi")
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
