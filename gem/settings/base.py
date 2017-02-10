@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtailsurveys',
+    'wagtail.contrib.wagtailsitemaps',
 
     'mptt',
     'molo.profiles',
