@@ -14,7 +14,7 @@ install:
 script:
   - flake8 gem
   # Ensure plural expressions are not allowed in PO files
-  - grep -R "plural=EXPRESSION" --include \*.po locale/
+  - grep -Rq "plural=EXPRESSION" --include \*.po locale/
   - py.test
 after_success:
   - coveralls
