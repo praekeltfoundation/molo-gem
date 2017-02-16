@@ -13,6 +13,9 @@ install:
   - pip install -e . --cache-dir $HOME/.pip-cache/
 script:
   - flake8 gem
+  # Ensure plural expressions are not allowed in PO files
+  # Disabled: need to find a better way of doing this
+  #- grep -Rq "plural=EXPRESSION" --include \*.po locale/
   - py.test
 after_success:
   - coveralls
