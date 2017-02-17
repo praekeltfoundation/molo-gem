@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static core_tags wagtailsettings_tags %}
+{% load i18n static core_tags wagtailsettings_tags wagtailcore_tags %}
 {% get_settings %}
 
 {% block content %}
@@ -75,7 +75,11 @@
           <div class="terms-and-conditions">
             <div class="terms-and-conditions__field">
               {{ form.terms_and_conditions }}
+              {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+              <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</a>
+              {% else %}
               <label for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</label>
+              {% endif %}
             </div>
           </div>
         </fieldset>
