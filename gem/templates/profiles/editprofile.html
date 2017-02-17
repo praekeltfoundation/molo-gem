@@ -25,7 +25,7 @@
 			{{ form.gender }}
     </fieldset>
     <fieldset>
-			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
 	      <label>{% trans "Mobile number:" %}</label>
 		      {{ form.mobile_number.errors }}
 		      {{ form.mobile_number }}
