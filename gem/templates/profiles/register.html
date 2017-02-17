@@ -38,7 +38,7 @@
         </fieldset>
 
         <fieldset>
-          {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+          {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
             <label>{% trans "Enter your mobile number" %}</label>
             {{ from.errors }}
             {{ form.mobile_number }}
