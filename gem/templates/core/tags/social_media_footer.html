@@ -2,8 +2,9 @@
 
 {% if social_media %}
     {% for site in social_media %}
-        <a href="https://{{ site.value.link }}">
-            {% image site.value.image width-50 %}
+        <a href="https://{{ site.value.link }}" class="call-to-action__item-share call-to-action__item-share--footer {% if site.value.image %} call-to-action__item-share-with-image {% endif %}" target="_blank">
+            {% image site.value.image width-30 class="call-to-action__item-share-img" %}
+              <span class="call-to-action__item-share-title">{{ site.value.title }}</span>
         </a>
     {% endfor %}
 {% endif %}
