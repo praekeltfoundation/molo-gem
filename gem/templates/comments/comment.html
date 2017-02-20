@@ -1,5 +1,5 @@
 {% load i18n molo_commenting_tags %}
-<div class="comment {{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
+<div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
   <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
     <strong>
     {% if node.user.is_staff %}
