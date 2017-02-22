@@ -27,6 +27,7 @@
 
 {% if self.get_parent_section.enable_recommended_section %}
 {% get_recommended_articles self as recommended_articles %}
+{% if recommended_articles %}
   <h3 class="heading heading--small related-articles__recommended">{% trans "Recommended" %}</h3>
   <div class="related-articles-recommended">
     <ul class="related-articles-recommended-list">
@@ -66,4 +67,5 @@
       {% endfor %}
     </ul>
   </div>
+{% endif %}
 {% endif %}
