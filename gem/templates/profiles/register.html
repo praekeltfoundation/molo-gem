@@ -76,7 +76,11 @@
             <div class="terms-and-conditions__field">
               {{ form.terms_and_conditions }}
               {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-              <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</a>
+              <label for="id_terms_and_conditions">
+                <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
+                  {% trans "I accept the terms and conditions" %}
+                </a>
+              </label>
               {% else %}
               <label for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</label>
               {% endif %}
