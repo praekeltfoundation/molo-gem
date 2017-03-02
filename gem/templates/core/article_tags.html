@@ -1,8 +1,13 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content %}
   {% for each_article in object_list %}
-    <a href="{% pageurl each_article %}">{{each_article.title}}</a><br>
+    <a href="{% pageurl each_article %}">
+    {% image each_article.image width-80 %}
+    {{each_article.title}}</a>
+    {{each_article.subtitle}}
+    <br>
   {% endfor %}
+  <a href="{{request.GET.next}}" class="tag__item-anchor">{% trans "Back to article" %}</a>
 {% endblock %}
