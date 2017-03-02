@@ -2,6 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content %}
+  {% trans "this is the tag name:" %}{{request.GET.tag}}
   {% for each_article in object_list %}
     <a href="{% pageurl each_article %}">
     {% image each_article.image width-80 %}
