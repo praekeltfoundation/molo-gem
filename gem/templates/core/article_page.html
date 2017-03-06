@@ -54,7 +54,7 @@
       <ul class="tags-list">
         {% for tag in self.tags_list %}
           <li class="tag-list__item">
-            <a href="{% url 'tags_list' tag %}}" class="tag__item-anchor">{{tag}}</a>
+            <a href="{% url 'tags_list' tag %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
           </li>
         {% endfor %}
       </ul>
