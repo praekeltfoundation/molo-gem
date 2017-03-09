@@ -382,11 +382,16 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.assertNotContains(response, "tester")
 
     def test_comment_distinguishes_moderator_user(self):
+        self.user = User.objects.create_user(
+            username='foo',
+            email='foo@example.com',
+            password='foo')
         self.client.login(username='admin', password='admin')
         self.create_comment(self.article, 'test comment1 text', self.superuser)
         response = self.client.get('/sections/your-mind/article-1/')
+        print response
 
-        self.assertContains(response, "Gabi")
+        self.assertContains(response, "foo")
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
