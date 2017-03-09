@@ -461,7 +461,8 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
-            password='tester')
+            password='tester',
+            is_staff=True)
 
         self.client.login(username='tester', password='tester')
 
