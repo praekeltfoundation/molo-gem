@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags i18n gem_tags molo_commenting_tags %}
 {% load google_analytics_tags %}
 {% load wagtailsettings_tags %}
 {% get_settings %}
@@ -95,6 +95,8 @@
             <img class="banner" src="{% static 'img/turamurika_compressed.png' %}" alt="GEM" />
           </div>
         {% endif %}
+
+        {% display_unread_notifications %}
 
         {% block content %}
         {% endblock %}

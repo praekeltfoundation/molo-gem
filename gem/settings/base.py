@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'djcelery',
     'django_cas_ng',
     'compressor',
+    'notifications'
 
 ]
 
