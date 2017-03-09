@@ -2,8 +2,8 @@
 <div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
   <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
     <strong>
-    {% if node.user.is_staff %}
-        {{node.user_name}}
+    {% if settings.gem.GemSettings.moderator_name %}
+        {{settings.gem.GemSettings.moderator_name}}
     {% elif node.user_name.lower == 'anonymous' %}
       {{node.user_name}}
     {% else %}
