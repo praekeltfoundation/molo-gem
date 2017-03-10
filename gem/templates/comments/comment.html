@@ -1,0 +1,33 @@
+{% load i18n molo_commenting_tags %}
+<div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
+  <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
+    <strong>
+    {% if node.user.is_staff %}
+        {% trans "Gabi" %}
+    {% elif node.user_name.lower == 'anonymous' %}
+      {{node.user_name}}
+    {% else %}
+      {% if not node.user.profile.alias %}
+        {% trans "Anonymous" %}
+      {% else %}
+        {{node.user.profile.alias}}
+      {% endif %}
+    {% endif %}
+    </strong>
+  </p>
+  {% if node.is_removed %}
+    <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
+  {% else %}
+    <p class="comment-body">{{node.comment}}</p>
+    {% if node.parent == None %}
+        <p>
+          <span class="date">{{node.submit_date|timesince}} {% trans "ago" %}</span>
+        <a href="{% url 'report_comment' node.pk %}" class="report">{% trans "Report" %}</a>
+        </p>
+        {% if request.user|is_in_group:'Expert' and not node.user|is_in_group:'Expert' %}
+            <p><a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}" class="report">{% trans "Reply"%}</a></p>
+        {% endif %}
+    {% endif %}
+  {% endif %}
+</div>
+<hr>
