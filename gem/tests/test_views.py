@@ -11,6 +11,8 @@ from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 
+from wagtail.wagtailcore.models import Site as WagtailSite
+
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport
 
@@ -328,6 +330,7 @@ class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
+        self.mk_main()
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
@@ -339,7 +342,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             password='admin')
 
         self.english = SiteLanguage.objects.create(locale='en')
-        self.mk_main()
 
         self.client = Client()
 
@@ -383,10 +385,29 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     '''
     def test_comment_distinguishes_moderator_user(self):
+        self.user = User.objects.create_user(
+            username='foo',
+            email='foo@example.com',
+            password='foo',
+            is_staff=True)
+
         self.client.login(username='admin', password='admin')
+
+        response = self.client.get('/sections/your-mind/article-1/')
+        self.assertNotContains(response, "Big Sister")
+        self.assertNotContains(response, "Gabi")
+
         self.create_comment(self.article, 'test comment1 text', self.superuser)
         response = self.client.get('/sections/your-mind/article-1/')
+        self.assertContains(response, "Big Sister")
+        self.assertNotContains(response, "Gabi")
 
+        default_site = WagtailSite.objects.get(is_default_site=True)
+        setting = GemSettings.objects.get(site=default_site)
+        setting.moderator_name = 'Gabi'
+        setting.save()
+        response = self.client.get('/sections/your-mind/article-1/')
+        self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
     '''
 
