@@ -385,7 +385,9 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.user = User.objects.create_user(
             username='foo',
             email='foo@example.com',
-            password='foo')
+            password='foo',
+            is_staff=True)
+
         self.client.login(username='admin', password='admin')
         self.create_comment(self.article, 'test comment1 text', self.superuser)
         response = self.client.get('/sections/your-mind/article-1/')
@@ -459,8 +461,7 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
-            password='tester',
-            is_staff=True)
+            password='tester')
 
         self.client.login(username='tester', password='tester')
 
