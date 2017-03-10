@@ -383,7 +383,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
 
-    '''
     def test_comment_distinguishes_moderator_user(self):
         self.user = User.objects.create_user(
             username='foo',
@@ -409,7 +408,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         response = self.client.get('/sections/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
-    '''
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
