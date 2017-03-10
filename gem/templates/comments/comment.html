@@ -2,7 +2,7 @@
 <div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}">
   <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
     <strong>
-    {% if settings.gem.GemSettings.moderator_name %}
+    {% if node.user.is_staff %}
         {{settings.gem.GemSettings.moderator_name}}
     {% elif node.user_name.lower == 'anonymous' %}
       {{node.user_name}}
