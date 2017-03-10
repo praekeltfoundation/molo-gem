@@ -23,12 +23,12 @@
 
 <div id="comments-list" class="comments__list">
   {% get_comment_count for self as comment_count %}
-    {% get_molo_comments for self as comment_list %}
-      {% for node in comment_list|slice:":2" %}
-          {% recursetree node %}
-              {% include "comments/comment.html" %}
-              {{ children }}
-          {% endrecursetree %}
+    {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
+      {% for node in comment_list %}
+        {% recursetree node %}
+             {% include "comments/comment.html" with truncate_comment=True %}
+            {{ children }}
+        {% endrecursetree %}
       {% endfor %}
       {% if comment_count > 2 %}
         <div class="pagination">
