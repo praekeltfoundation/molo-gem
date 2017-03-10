@@ -72,7 +72,8 @@ class GemSettings(BaseSetting):
         verbose_name='Moderator Name',
         null=True,
         blank=True,
-        help_text="Moderator name"
+        help_text="This is the name that will appear on the front end"
+                  " when a moderator responds to a user"
     )
 
     banned_names_with_offensive_language = models.TextField(
