@@ -3,7 +3,11 @@
   <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
     <strong>
     {% if node.user.is_staff %}
-        {{settings.gem.GemSettings.moderator_name}}
+        {% if settings.gem.GemSettings.moderator_name %}
+          {{settings.gem.GemSettings.moderator_name}}
+        {% else %}
+          {% trans "Big Sister" %}
+        {% endif %}
     {% elif node.user_name.lower == 'anonymous' %}
       {{node.user_name}}
     {% else %}
