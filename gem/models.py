@@ -68,6 +68,14 @@ class GemSettings(BaseSetting):
                   " line a break. Use only lowercase letters for keywords."
     )
 
+    moderator_name = models.TextField(
+        verbose_name='Moderator Name',
+        null=True,
+        blank=True,
+        help_text="This is the name that will appear on the front end"
+                  " when a moderator responds to a user"
+    )
+
     banned_names_with_offensive_language = models.TextField(
         verbose_name='Banned Names With Offensive Language',
         null=True,
@@ -99,6 +107,7 @@ class GemSettings(BaseSetting):
             ],
             heading="Partner Credit",
         ),
+        FieldPanel('moderator_name'),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
     ]
