@@ -35,9 +35,11 @@
     {% endif %}
 
     {% if node.parent == None %}
-        {% if request.user.is_authenticated %}
-          <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="report">{% trans "Reply"%}</a>
-        {% endif %}
+      {% if request.user.is_authenticated and request.user|is_in_admin_group %}
+        <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="report">
+          {% trans "Reply"%}
+        </a>
+      {% endif %}
     {% endif %}
 
   {% endif %}
