@@ -123,10 +123,14 @@ MIDDLEWARE_CLASSES = [
 
 # Template configuration
 
+# We have multiple layouts: use `base` or `malawi` to switch between them.
+SITE_LAYOUT = environ.get('SITE_LAYOUT', '')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['gem/templates/'],
+        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT),
+                 join(PROJECT_ROOT, 'gem', 'templates', 'base'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
