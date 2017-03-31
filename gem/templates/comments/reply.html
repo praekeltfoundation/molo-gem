@@ -1,9 +1,7 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
-
 {% block content %}
 {% get_comments_content_object for form as self %}
-
 <a href="{% pageurl self %}" class="call-to-action__nav-item call-to-action__nav-item--back">
     {% trans "Back to article" %}</a>
 
@@ -12,7 +10,6 @@
     {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
   </div>
 </div><!-- /title -->
-
 {% if page == 1 %}
   <p class="comments__reply-title">{% trans "Recent replies" %}</p>
 {% else %}
@@ -23,7 +20,6 @@
     {% include "comments/comment.html" %}
   {% endfor %}
   </div>
-
 <div class="pagination">
   {% if replies.has_previous %}
       <a href="?p={{ replies.previous_page_number }}" class="pagination__item pagination__item--prev">&larr;</a>
@@ -35,7 +31,6 @@
       <a href="?p={{ replies.next_page_number }}" class="pagination__item pagination__item--next">&rarr;</a>
   {% endif %}
 </div>
-
 <div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
   <div class="article-copy">
     <div class="post-comment">
