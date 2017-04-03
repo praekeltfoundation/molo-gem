@@ -43,7 +43,7 @@
             {% trans "Reply"%}
           </a>
           {% if do_not_link_replies or node.get_children.count == 0 %}
-            <p>
+            <p class="comment__reply-meta-link comment__reply-meta-replies-list-disabled">
               {{ node.get_children.count }} {% if node.get_children.count == 1 %}{% trans "Reply"%}{% else %}{% trans "Replies"%}{% endif %}
             </p>
           {% else %}
