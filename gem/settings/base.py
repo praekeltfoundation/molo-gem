@@ -361,7 +361,7 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     # but including them here just incase
     '/media/', '/static/',
     # metrics URL used by promethius monitoring system
-    '/metrics/',
+    '/metrics',
 ]
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
