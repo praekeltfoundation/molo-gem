@@ -42,9 +42,15 @@
           <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="comment__reply-meta-link">
             {% trans "Reply"%}
           </a>
-          <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="comment__reply-meta-link comment__reply-meta-replies-list">
-            {% trans "Replies"%}
-          </a>
+          {% if do_not_link_replies or node.get_children.count == 0 %}
+            <p>
+              {{ node.get_children.count }} {% if node.get_children.count == 1 %}{% trans "Reply"%}{% else %}{% trans "Replies"%}{% endif %}
+            </p>
+          {% else %}
+            <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="comment__reply-meta-link comment__reply-meta-replies-list">
+              {{ node.get_children.count }} {% if node.get_children.count == 1 %}{% trans "Reply"%}{% else %}{% trans "Replies"%}{% endif %}
+            </a>
+          {% endif %}
         </div>
       {% endif %}
     {% endif %}
