@@ -123,7 +123,8 @@ MIDDLEWARE_CLASSES = [
 
 # Template configuration
 
-# We have multiple layouts: use `base` or `malawi` to switch between them.
+# We have multiple layouts: use `base`, `malawi` or `springster`
+# to switch between them.
 SITE_LAYOUT = environ.get('SITE_LAYOUT', '')
 
 TEMPLATES = [
