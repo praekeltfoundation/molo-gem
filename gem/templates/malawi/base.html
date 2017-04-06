@@ -1,0 +1,164 @@
+{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags i18n gem_tags %}
+{% load google_analytics_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
+        <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        {% image self.social_media_image width-300 as tmp_photo %}
+        {% if self.image %}
+          {% image self.image width-300 as article_photo %}
+        {% endif %}
+        <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}
+        {% endif %}"/>
+        <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+
+        <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
+        <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% compress css %}
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/malawi.css">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/versions.css">
+        {% endcompress %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE|language_bidi == True %}
+          {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style-rtl.css">
+          {% endcompress %}
+        {% endif %}
+
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+        {% if settings.core.SiteSettings.ga_tag_manager %}
+        <!-- Google Tag Manager -->
+         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
+         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
+        <!-- End Google Tag Manager -->
+        {% endif %}
+
+        {% if settings.core.SiteSettings.global_ga_tag_manager %}
+        <!--Global Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.global_ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{settings.core.SiteSettings.global_ga_tag_manager}}');</script>
+        <!-- End Global Google Tag Manager -->
+        {% endif %}
+
+        {% if languages|length > 1 %}
+        <div class="language-container">
+           {% get_current_language as LANGUAGE_LOCALE %}
+            {% for language in languages %}
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div id="gem-header">
+            <a id="logo" href="/">
+              <img src="{% static '' %}img/zathu.png" width="60%" alt="Zathu" />
+            </a>
+            <a href="#feature-menu">{% trans "Menu" %}</a>
+            {% if not user.is_authenticated %}
+              <a href="{% url 'molo.profiles:user_register' %}">{% trans "Sign up" %}</a>
+            {% else %}
+            <a href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
+            {% endif %}
+            <a class="search-icon" href="#search-form">
+              <img src="{% static 'img/search_purple.png' %}" width="30" height="30" alt="Search" />
+            </a>
+        </div>
+
+        {% if 'ninyampinga.com' in request.get_host %}
+          <div class="banner__birthday">
+            <img class="banner" src="{% static 'img/turamurika_compressed.png' %}" alt="GEM" />
+          </div>
+        {% endif %}
+
+        {% display_unread_notifications %}
+        {% block content %}
+        {% endblock %}
+
+        <div class="back-to-top">
+          <a href="#gem-header">{% trans "Back to Top" %}</a>
+        </div>
+        <div class="teal-ribbon"></div>
+        <div id="gem-footer">
+        {% block footer %}
+          {% block search %}
+            {% include "search/search_block.html" %}
+          {% endblock %}
+            <ul class="sections footer-menu-list">
+              <li class="footer-menu-list__item"><a href="/" class="footer-menu-list__anchor">{% trans "Home" %}</a></li>
+              <li class="footer-menu-list__item"><b class="footer-menu-list__label">{% trans "Categories" %}</b></li>
+              {% load_sections as sections %}
+                {% for section in sections %}
+                  <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__sub-menu">
+                    <a href="{% pageurl section %}" class="footer-menu-list__sub-anchor">
+                        {{section.title}}
+                    </a>
+                  </li>
+                {% endfor %}
+              {% footer_page %}
+              {% if not user.is_authenticated %}
+                <li class="footer-menu-list__item">
+                  <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+                    {% trans "Sign Up" %}
+                  </a>
+                </li>
+
+                <li class="footer-menu-list__item">
+                  <a href="{% url 'molo.profiles:auth_login' %}" class="footer-menu-list__anchor">
+                    {% trans "Log in" %}
+                  </a>
+                </li>
+
+              {% else %}
+              <li class="footer-menu-list__item">
+                <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
+                  {% trans "Profile" %}
+                </a>
+              </li>
+
+              <li class="footer-menu-list__item">
+                <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
+                  {% trans "Log out" %}
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          {% endblock %}
+
+          {% include "core/language_block.html" %}
+          <div id="footer-bar">
+              <p>&copy;{% now "Y" %} Zathu. {% trans "All Rights Reserved." %}</p>
+              {% if settings.gem.GemSettings.show_partner_credit %}
+                <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
+              {% endif %}
+          </div>
+        </div>
+
+        {% wagtailuserbar %}
+    </body>
+</html>
