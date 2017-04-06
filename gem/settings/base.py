@@ -134,7 +134,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
                  join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

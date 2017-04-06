@@ -1,0 +1,9 @@
+{% load core_tags %}
+{% if sections %}
+  {% for section in sections %}
+  {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
+  {% for article in featured_articles %}
+    {% include "core/article_intro_partial.html" with article=article square_image=True show_section_image=True %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
