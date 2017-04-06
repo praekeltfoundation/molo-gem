@@ -4,25 +4,28 @@ from __future__ import unicode_literals
 from django.db import migrations
 
 
-def create_recomended_article(article, block):
+def create_recomended_articles(main_article, article_list):
+    '''
+    Creates recommended article objects from article_list
+    and _prepends_ to existing recommended articles.
+    '''
     from molo.core.models import ArticlePage, ArticlePageRecommendedSections
-    # get the article page
-    hyperlinked_article = ArticlePage.objects.get(
-        id=block['value'])
 
-    # check if recomended article exists already
+    existing_recommended_articles = [ra.recommended_article
+                                     for ra in main_article.recommended_articles.all()]
+    ArticlePageRecommendedSections.objects.filter(page=main_article).delete()
 
-    rec_articles = [ra.recommended_article for ra in article.recommended_articles.all()]
-
-    if hyperlinked_article not in rec_articles:
-        # create recomended section
+    for hyperlinked_article in article_list:
         ArticlePageRecommendedSections(
-            page=article,
+            page=main_article,
             recommended_article=hyperlinked_article).save()
 
-        #  enable parent section
-        (article.get_parent()
-            .specific.enable_recommended_section) = True
+    # re-create existing recommended articles
+    for article in existing_recommended_articles:
+        if article not in article_list:
+            ArticlePageRecommendedSections(
+                page=main_article,
+                recommended_article=article).save()
 
 
 def convert_articles(apps, schema_editor):
@@ -36,12 +39,18 @@ def convert_articles(apps, schema_editor):
 
     for article in articles:
         stream_data = []
+        linked_articles = []
         for block in article.body.stream_data:
             if block['type'] == 'page':
-                create_recomended_article(article, block)
+                linked_articles.append(ArticlePage.objects.get(
+                                id=block['value'])
             else:
                 # add block to new stream_data
                 stream_data.append(block)
+
+        if linked_articles:
+            create_recomended_articles(article, linked_articles)
+            article.get_parent().specific.enable_recommended_section) = True
 
         stream_block = article.body.stream_block
         article.body = StreamValue(stream_block, stream_data, is_lazy=True)
