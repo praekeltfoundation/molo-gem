@@ -50,7 +50,7 @@ def convert_articles(apps, schema_editor):
 
         if linked_articles:
             create_recomended_articles(article, linked_articles)
-            article.get_parent().specific.enable_recommended_section) = True
+            article.get_parent().specific.enable_recommended_section = True
 
         stream_block = article.body.stream_block
         article.body = StreamValue(stream_block, stream_data, is_lazy=True)
