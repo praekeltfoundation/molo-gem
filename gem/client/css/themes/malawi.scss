@@ -41,6 +41,11 @@ a:hover {
   color: $colorBlack;
 }
 
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 #gem-header {
   background: $colorYellow;
   display: inline-block;
@@ -64,6 +69,15 @@ a:hover {
     }
   }
   
+  .profile-menu-item {
+    @media screen and (max-width: 420px) {
+      left: 40%;
+      margin-left: -10px;
+      position: absolute;
+    }
+  }
+  
+  
   .search-icon {
     float: right;
   }
@@ -86,9 +100,9 @@ a:hover {
   }
 }
 
-.footer-menu-list__sub-anchor {
+.footer-menu-list__anchor, .footer-menu-list__sub-anchor {
   color: $colorPurple;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .languages__item--active {
@@ -118,13 +132,23 @@ a:hover {
 .template-main {
   #article-hero {
     .text {
+      margin: 0 16px;
+      position: relative;
+      
       .section-title {
-        background: $colorYellow;
+        background-color: transparent;
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 20px;
+        line-height: 20px;
+        font-weight: normal;
+        padding: 0;
 
         a {
-          font-family: $font-family-zathu;
-          font-weight: normal;
-          color: $colorPurple;
+          font-family: $font-family-default;
+          font-weight: bold;
+          color: $colorOrange;
           font-size: $font-large;
         }
       }
@@ -138,6 +162,7 @@ a:hover {
       font-family: $font-family-zathu;
       font-size: 12px;
       font-weight: normal;
+      text-transform: capitalize;
       
       a {
         font-family: $font-family-default;
