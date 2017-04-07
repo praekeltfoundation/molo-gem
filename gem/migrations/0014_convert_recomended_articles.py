@@ -11,7 +11,7 @@ def create_recomended_articles(main_article, article_list):
     '''
     from molo.core.models import ArticlePage, ArticlePageRecommendedSections
 
-    existing_recommended_articles = [ra.recommended_article
+    existing_recommended_articles = [ra.recommended_article.specific
                                      for ra in main_article.recommended_articles.all()]
     ArticlePageRecommendedSections.objects.filter(page=main_article).delete()
 
