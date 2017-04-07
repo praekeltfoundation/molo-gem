@@ -63,8 +63,9 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
-    return format_html('<link rel="stylesheet" href="{}">',
-            static('css/wagtail-admin.css'))
+    return format_html(
+        '<link rel="stylesheet" href="{}">',
+        static('css/wagtail-admin.css'))
 
 
 @register_setting
