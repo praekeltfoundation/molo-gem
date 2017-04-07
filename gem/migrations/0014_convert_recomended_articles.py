@@ -9,10 +9,11 @@ def create_recomended_articles(main_article, article_list):
     Creates recommended article objects from article_list
     and _prepends_ to existing recommended articles.
     '''
-    from molo.core.models import ArticlePage, ArticlePageRecommendedSections
+    from molo.core.models import ArticlePageRecommendedSections
 
-    existing_recommended_articles = [ra.recommended_article.specific
-                                     for ra in main_article.recommended_articles.all()]
+    existing_recommended_articles = [
+        ra.recommended_article.specific
+        for ra in main_article.recommended_articles.all()]
     ArticlePageRecommendedSections.objects.filter(page=main_article).delete()
 
     for hyperlinked_article in article_list:
