@@ -212,6 +212,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('ha', _('Hausa')),
     ('bn', _('Bengali')),
     ('my', _('Burmese')),
+    ('ny', _('Chichewa')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -244,6 +245,12 @@ EXTRA_LANG_INFO = {
         'code': 'bur_MM',
         'name': 'Burmese',
         'name_local': 'Burmese'
+    },
+    'ny': {
+        'bidi': False,
+        'code': 'ny',
+        'name': 'Chichewa',
+        'name_local': 'Chichewa',
     },
 }
 
