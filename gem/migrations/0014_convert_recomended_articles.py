@@ -43,7 +43,7 @@ def convert_articles(apps, schema_editor):
         for block in article.body.stream_data:
             if block['type'] == 'page':
                 linked_articles.append(ArticlePage.objects.get(
-                                id=block['value'])
+                                id=block['value']))
             else:
                 # add block to new stream_data
                 stream_data.append(block)
