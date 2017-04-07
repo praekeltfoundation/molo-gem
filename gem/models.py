@@ -128,4 +128,4 @@ class GemCommentReport(models.Model):
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     return format_html('<link rel="stylesheet" href="{}">',
-    static('css/wagtail-admin.css'))
+        static('css/wagtail-admin.css'))
