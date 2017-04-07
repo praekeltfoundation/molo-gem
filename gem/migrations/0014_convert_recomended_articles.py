@@ -42,8 +42,14 @@ def convert_articles(apps, schema_editor):
         linked_articles = []
         for block in article.body.stream_data:
             if block['type'] == 'page':
-                linked_articles.append(ArticlePage.objects.get(
-                                id=block['value']))
+                try:
+                    linked_articles.append(ArticlePage.objects.get(
+                                    id=block['value']))
+                except:
+                    print(("[ERROR]: ArticlePage {} with id {} has "
+                           "link to deleted article")
+                          .format(str(article.title),
+                                  str(article.id)))
             else:
                 # add block to new stream_data
                 stream_data.append(block)
