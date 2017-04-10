@@ -5,12 +5,14 @@ from django.db import migrations
 import logging
 
 
-def create_recomended_articles(main_article, article_list):
+def create_recomended_articles(apps, main_article, article_list):
     '''
     Creates recommended article objects from article_list
     and _prepends_ to existing recommended articles.
     '''
-    from molo.core.models import ArticlePageRecommendedSections
+    ArticlePageRecommendedSections = apps.get_model(
+        "core",
+        "ArticlePageRecommendedSections")
 
     existing_recommended_articles = [
         ra.recommended_article.specific
@@ -34,9 +36,9 @@ def convert_articles(apps, schema_editor):
     '''
     Derived from https://github.com/wagtail/wagtail/issues/2110
     '''
-    from molo.core.models import ArticlePage
-    from wagtail.wagtailcore.blocks import StreamValue
 
+    ArticlePage = apps.get_model("core", "ArticlePage")
+    StreamValue = apps.get_model("wagtailcore.blocks", "StreamValue")
     articles = ArticlePage.objects.all()
 
     for article in articles:
@@ -58,7 +60,7 @@ def convert_articles(apps, schema_editor):
                 stream_data.append(block)
 
         if linked_articles:
-            create_recomended_articles(article, linked_articles)
+            create_recomended_articles(apps, article, linked_articles)
             parent = article.get_parent().specific
             parent.enable_recommended_section = True
             parent.save()
