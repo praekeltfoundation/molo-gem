@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
+import logging
 
 
 def create_recomended_articles(main_article, article_list):
@@ -47,10 +48,11 @@ def convert_articles(apps, schema_editor):
                     linked_articles.append(ArticlePage.objects.get(
                                     id=block['value']))
                 except:
-                    print(("[ERROR]: ArticlePage {} with id {} has "
-                           "link to deleted article")
-                          .format(str(article.title),
-                                  str(article.id)))
+                    logging.error(
+                        ("[ERROR]: ArticlePage {0} with id {1} has "
+                         "link to deleted article").format(
+                         str(article.title),
+                         str(article.id)))
             else:
                 # add block to new stream_data
                 stream_data.append(block)
