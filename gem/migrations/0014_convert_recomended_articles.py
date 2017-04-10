@@ -39,6 +39,10 @@ def convert_articles(apps, schema_editor):
 
     ArticlePage = apps.get_model("core", "ArticlePage")
     StreamValue = apps.get_model("wagtailcore.blocks", "StreamValue")
+    ObjectDoesNotExist = apps.get_model(
+        "django.core.exceptions",
+        "ObjectDoesNotExist")
+
     articles = ArticlePage.objects.all()
 
     for article in articles:
@@ -49,7 +53,7 @@ def convert_articles(apps, schema_editor):
                 try:
                     linked_articles.append(ArticlePage.objects.get(
                                     id=block['value']))
-                except:
+                except ObjectDoesNotExist:
                     logging.error(
                         ("[ERROR]: ArticlePage {0} with id {1} has "
                          "link to deleted article").format(
