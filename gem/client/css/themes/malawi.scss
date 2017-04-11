@@ -48,38 +48,37 @@ input {
 
 #gem-header {
   background: $colorYellow;
-  display: inline-block;
-  text-align: left;
-  
+    
   #logo {
-    margin-top: 1em;
+    margin: 0.2em;
     text-align: center;
   }
   
   a, a:visited {
-    font-family: $font-family-zathu;
-    font-size: 1.4em;
+    font-family: $font-family-default;
+    font-weight: bold;
+    font-size: 0.8em;
     color: $colorPurple;
     display: inline-block;
-    padding-right: 10px;
-    margin-bottom: 10px;
+    padding-right: 3px;
     
     @media screen and (min-width: 320px) {
-      font-size: 1.8em;
+      font-family: $font-family-zathu;
+      font-weight: normal;
+      font-size: 1em;
+    }
+    @media screen and (min-width: 400px) {
+      padding-right: 10px;
+      font-size: 1.3em;
+    }
+    @media screen and (min-width: 600px) {
+      padding-right: 3px;
+      font-size: 1em;
     }
   }
-  
-  .profile-menu-item {
-    @media screen and (max-width: 420px) {
-      left: 40%;
-      margin-left: -10px;
-      position: absolute;
-    }
-  }
-  
   
   .search-icon {
-    float: right;
+    width: 1em;
   }
 }
 
