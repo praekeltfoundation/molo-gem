@@ -6,7 +6,7 @@
     {% if square_image %}
       {% image article.image fill-200x200 %}
     {% else %}
-      {% image article.image fill-320x320 %}
+      {% image article.image fill-400x300 %}
     {% endif %}
 
     {% if show_section_image and section.image %}
@@ -25,7 +25,6 @@
     {% if article %}
           {% image article.get_parent_section.image width-200 as tmp_photo_small %}
           {% image article.get_parent_section.image width-400 as tmp_photo_large %}
-        <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }}" />
     {% endif %}
 
     <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>
