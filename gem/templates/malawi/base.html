@@ -110,11 +110,12 @@
             {% include "search/search_block.html" %}
           {% endblock %}
             <ul id="feature-menu" class="sections footer-menu-list">
-              <li class="footer-menu-list__item"><a href="/" class="footer-menu-list__anchor">{% trans "Home" %}</a></li>
+              <li class="footer-menu-list__item"><a href="/" class="footer-menu-list__anchor
+                footer-menu-list__anchor--main">{% trans "Home" %}</a></li>
               {% load_sections as sections %}
                 {% for section in sections %}
                   <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__item">
-                    <a href="{% pageurl section %}" class="footer-menu-list__sub-anchor">
+                    <a href="{% pageurl section %}" class="footer-menu-list__sub-anchor footer-menu-list__anchor--main">
                         {{section.title}}
                     </a>
                   </li>
