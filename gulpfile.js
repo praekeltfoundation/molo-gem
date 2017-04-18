@@ -15,6 +15,7 @@ var sassPaths = [
     'gem/client/css/style-rtl.scss',
     'gem/client/css/versions.scss',
     'gem/client/css/themes/malawi.scss',
+    'gem/styles/springster.scss',
 ];
 
 var sassDest = {
@@ -49,7 +50,7 @@ gulp.task('styles:dev', function() {
 
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch('gem/client/css/**/*.scss', ['styles']);
+    gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss'], ['styles']);
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd']);
