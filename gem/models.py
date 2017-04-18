@@ -1,5 +1,8 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
+from django.utils.html import format_html
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from wagtail.wagtailcore import hooks
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -56,6 +59,13 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
     if created:
         profile = GemUserProfile(user=instance)
         profile.save()
+
+
+@hooks.register('insert_global_admin_css')
+def global_admin_css():
+    return format_html(
+        '<link rel="stylesheet" href="{}">',
+        static('css/wagtail-admin.css'))
 
 
 @register_setting

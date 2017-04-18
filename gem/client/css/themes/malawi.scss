@@ -32,36 +32,53 @@ h2, h3, h4 {
   font-weight: normal;
 }
 
-a, a:hover {
+a {
   color: $colorPurple;
   text-decoration: none;
 }
 
+a:hover {
+  color: $colorBlack;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 #gem-header {
   background: $colorYellow;
-  display: inline-block;
-  text-align: left;
-  
+    
   #logo {
-    margin-top: 1em;
+    margin: 0.2em;
     text-align: center;
   }
   
   a, a:visited {
-    font-family: $font-family-zathu;
-    font-size: 1.4em;
+    font-family: $font-family-default;
+    font-weight: bold;
+    font-size: 0.8em;
     color: $colorPurple;
     display: inline-block;
-    padding-right: 10px;
-    margin-bottom: 10px;
+    padding-right: 3px;
     
     @media screen and (min-width: 320px) {
-      font-size: 1.8em;
+      font-family: $font-family-zathu;
+      font-weight: normal;
+      font-size: 1em;
+    }
+    @media screen and (min-width: 400px) {
+      padding-right: 10px;
+      font-size: 1.3em;
+    }
+    @media screen and (min-width: 600px) {
+      padding-right: 3px;
+      font-size: 1em;
     }
   }
   
   .search-icon {
-    float: right;
+    width: 1em;
   }
 }
 
@@ -82,9 +99,22 @@ a, a:hover {
   }
 }
 
-.footer-menu-list__sub-anchor {
-  color: $colorPurple;
-  font-weight: bold;
+.footer-menu-list {
+  &__anchor {
+    color: darken($colorGrey,40%);
+    font-weight: normal;
+    
+    &--main {
+      color: $colorPurple;
+      font-weight: bold;
+    }
+  }
+}
+
+.footer-languages {
+  color: darken($colorGrey,40%);
+  font-size: $font-x-medium;
+  padding: 10px 0 0 9px;
 }
 
 .languages__item--active {
@@ -114,13 +144,23 @@ a, a:hover {
 .template-main {
   #article-hero {
     .text {
+      margin: 0 16px;
+      position: relative;
+      
       .section-title {
-        background: $colorYellow;
+        background-color: transparent;
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 20px;
+        line-height: 20px;
+        font-weight: normal;
+        padding: 0;
 
         a {
-          font-family: $font-family-zathu;
-          font-weight: normal;
-          color: $colorPurple;
+          font-family: $font-family-default;
+          font-weight: bold;
+          color: $colorOrange;
           font-size: $font-large;
         }
       }
@@ -134,6 +174,7 @@ a, a:hover {
       font-family: $font-family-zathu;
       font-size: 12px;
       font-weight: normal;
+      text-transform: capitalize;
       
       a {
         font-family: $font-family-default;
@@ -192,6 +233,16 @@ a, a:hover {
   &__form {
       padding: 24px 16px;
       background-color: $colorWhiteSmoke;
+      
+      label {
+        color: $colorPurple;
+      }
+      
+      fieldset {
+        ul {
+          margin: 15px 0;
+        }
+      }
   }
   
   &__tout {
@@ -337,21 +388,6 @@ button, input[type=submit],
 }
 
 .your-words {
-  .section-title {
-    h2 {
-      height: 40px;
-      line-height: 40px;
-      font-size: 16px;
-      font-family: $font-family-zathu;
-      padding: 0 16px;
-      margin: 0 0 56px 0;
-      background: #00b8ae;
-      display: inline-block;
-    }
-  }
-}
-
-.your-words {
   background-color: $colorOrange;
   color: $colorPurple;
 
@@ -377,6 +413,34 @@ button, input[type=submit],
     background: $colorPurple;
     color: $colorYellow;
     font-size: $font-large;
+  }
+  
+  form {
+    label {
+      color: $colorPurple;
+      font-size: $font-x-medium!important;
+    }
+    
+    input {
+      &[type=text]{
+        padding: 10px 0;
+      }
+      
+      &[type=checkbox] {
+        float: left;
+        padding: 0 10px;
+        
+        +label {
+          line-height: 23px;
+          display: block;
+          margin-left: 25px;
+        }
+        
+        &:checked {
+          background: $colorWhite url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABCFBMVEUAAAD///+AgP9VVaqAQL9mM5lVK6pJSZJgQJ9VOY5GLotVK5VLLYdKK4pEK4hGLoNELYdCLINFMIpGLYZBL4hBK4hCLoVBLYdDK4dCK4RGLoZELoRFK4ZFLYZCLYVDK4VDKoNCKoNDKoVBLIVCK4RCLIVBK4VCLINCK4RDLINCK4RCK4NCKoRBK4RCK4NCK4NCLIVBK4RBLIVCK4RDKoRCK4RDK4NBLIRCK4RBK4RCK4NCK4NCKoNBKoRCK4NCK4NCKoRCK4RCK4RCK4RCKoNCK4RCK4RCK4RBK4RCKoRBK4NBKoRCK4RBK4RBKoNCKoRCK4NBK4RBK4NCKoNBK4NCK4NCK4RBKoNsNtJmAAAAV3RSTlMAAQIDBAUGBwgJCwwRGB4hIiMlKCsvMjM1Njc4Oz9JWGdtc3V4e32Ag4aHiIuNjpCSlZianZ+hpKaoq62vsLGztrq9vsLF1d3e4OPm6Orr7O3u7/Hz9fx25g1EAAAA+klEQVR42u3Tx1ICURSE4WbAAQMGBHPOOWMkmFBMiKD2+7+JOlxPUWzmznFl1f32/64bjuM4/9JY/nonDb35T5KvQ9BaYKAIpSW21KGzQqMKlTX+WofGpvSVJBS2pb/thcKe9Dc9CDc5N+OjTexA+qtuhEoVSN5lIbwj6S9TCLfBH7Wc9MfSl3xYqJq5jCIQP5X+ogs23tjSmMC3xLn0ZwlYKdJoTgF+QfqTOOwMNmm8TyfL0uc92Bpv0PioSH8Yg72ROjvtS28lV+vodxFR9pntthDZ8BOF7r+ZR+lXoTLwYPplKPXfB/0i1NIl8mUWf9GX8eA4juNE8QWsw2lFWfvXxQAAAABJRU5ErkJggg==) no-repeat 50%/90%;
+        }
+      }
+    }
   }
 }
 
@@ -463,6 +527,7 @@ button, input[type=submit],
     color: $colorYellow;
     font-family: $font-family-zathu;
     font-weight: normal;
+    margin-top: 15px;
   }
   .submit-anonymous {
     font-family: $font-family-zathu;
@@ -470,3 +535,74 @@ button, input[type=submit],
   }
 }
 
+.title {
+  h6 {
+    font-family: $font-family-default;
+  }
+}
+
+h3.comment-header {
+  font-family: $font-family-default;
+  color: #141414;
+}
+
+.view-more-comments {
+  a {
+    background: $colorGrey;
+    font-family: $font-family-default;
+  }
+}
+
+.comments-count {
+  font-family: $font-family-default;
+}
+.comment.staff {
+  .by {
+    color: $colorPurple;
+  }
+}
+.comment__alias, a.report, p.comment-body, .date,.comment-login, .comments__reply-title {
+  font-family: $font-family-default;
+}
+
+.comment__reply-meta-link {
+  font-family: $font-family-default;
+  color: $colorPurple;
+}
+
+.comment__admin-reply {
+  background: #ececec;
+}
+
+a.comment-login-button {
+  button {
+    font-family: $font-family-default;
+  }
+}
+
+.comment-sign-up {
+  font-family: $font-family-default;
+  a {
+    color: $colorPurple;
+  }
+}
+
+.pagination {
+  a {
+    color: $colorPurple;
+  }
+}
+
+.comments__reply-title--unread {
+  color: $colorPurple;
+  font-weight: normal;
+}
+
+.comments__reply-heading {
+  font-family: $font-family-zathu;
+  padding: 15px 15px 0;
+}
+
+.comment__reply-thread-content {
+  padding: 0 15px 10px;
+}
