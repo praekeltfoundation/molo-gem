@@ -11,7 +11,14 @@ var gulp              =   require('gulp'),
     livereload        =   require('gulp-livereload');
 
 var sassPaths = [
-    'styles/versions.scss',
+    'gem/styles/gem/base_style.scss',
+    'gem/styles/gem/base_style-rtl.scss',
+    'gem/styles/gem-malawi/malawi.scss',
+    'gem/styles/gem-springster/springster.scss',
+    'gem/styles/mote/mote.scss',
+
+    'gem/styles/versions.scss',
+    'gem/styles/wagtail-admin.scss',
 ];
 
 var sassDest = {
