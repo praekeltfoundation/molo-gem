@@ -23,6 +23,7 @@
     <script src="{% static "mote/js/mote.js" %}"></script>
     <script src="{% static "js/main.js" %}"></script>
 </head>
+
 <body data-library="{{ library }}">
     {% block header %}
     <header role="banner" class="header">
@@ -34,12 +35,14 @@
         </div>
     </header>
     {% endblock %}
+
     <section class="hero {{ pattern.id }}">
       <div class="wrapper">
           {% block hero %}
           {% endblock %}
       </div>
     </section>
+
     <main role="main" class="main_wrapper">
       <div class="wrapper">
             <aside role="sidebar" class="sidebar">
