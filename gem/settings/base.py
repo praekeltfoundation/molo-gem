@@ -277,6 +277,10 @@ STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
 
+STATICFILES_DIRS = [
+    'molo.core/static/'
+]
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
