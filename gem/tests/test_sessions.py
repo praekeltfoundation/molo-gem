@@ -12,8 +12,8 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
     Note that SESSION_SAVE_EVERY_REQUEST must = True for this to work
     """
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         self.user = User.objects.create_user(
             username='tester',

@@ -24,8 +24,8 @@ from molo.core.models import SiteLanguageRelation, Main, Languages
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -80,8 +80,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
 
 class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -129,8 +129,8 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
 
 class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -330,8 +330,8 @@ class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
-        self.client = ()
         self.mk_main()
+        self.client = ()
         self.main = Main.objects.all().first()
         self.language_setting = Languages.objects.create(
             site_id=self.main.get_site().pk)
@@ -455,8 +455,8 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
 class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         section = self.mk_section(self.section_index, title='Test Section')
 
@@ -481,6 +481,7 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
 
 class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
+        self.mk_main()
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
@@ -489,8 +490,6 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         self.content_type = ContentType.objects.get_for_model(self.user)
-
-        self.mk_main()
 
         self.yourmind = self.mk_section(
             self.section_index, title='Your mind')

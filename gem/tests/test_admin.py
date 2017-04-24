@@ -23,7 +23,6 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
             email='tester@example.com',
             password='0000',
             is_staff=False)
-
         self.superuser = User.objects.create_superuser(
             username='superuser',
             email='admin@example.com',
@@ -37,7 +36,6 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         response = self.client.get(
             '/admin/auth/user/?usertype=frontend'
         )
-
         self.assertContains(response, self.user.username)
         self.assertNotContains(response, self.superuser.email)
 
@@ -80,11 +78,11 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
 
 class ModelsTestCase(TestCase, MoloTestCaseMixin):
     def setUp(self):
+        self.mk_main()
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
             password='tester')
-        self.mk_main()
 
     @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv(self):
