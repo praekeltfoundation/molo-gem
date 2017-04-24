@@ -120,6 +120,7 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
 # Template configuration

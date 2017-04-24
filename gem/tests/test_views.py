@@ -19,13 +19,13 @@ from gem.models import GemSettings, GemCommentReport
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguage
+from molo.core.models import SiteLanguageRelation, Main, Languages
 
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -80,8 +80,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
 
 class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -129,8 +129,8 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
 
 class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         self.user = User.objects.create_user(
             username='tester',
@@ -331,6 +331,15 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
         self.mk_main()
+        self.client = ()
+        self.main = Main.objects.all().first()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
@@ -340,8 +349,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             username='admin',
             email='admin@example.com',
             password='admin')
-
-        self.english = SiteLanguage.objects.create(locale='en')
 
         self.client = Client()
 
@@ -372,14 +379,14 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
     def test_comment_shows_user_display_name(self):
         # check when user doesn't have an alias
         self.create_comment(self.article, 'test comment1 text', self.user)
-        response = self.client.get('/sections/your-mind/article-1/')
+        response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertContains(response, "Anonymous")
 
         # check when user have an alias
         self.user.profile.alias = 'this is my alias'
         self.user.profile.save()
         self.create_comment(self.article, 'test comment2 text', self.user)
-        response = self.client.get('/sections/your-mind/article-1/')
+        response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
 
@@ -392,12 +399,12 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
         self.client.login(username='admin', password='admin')
 
-        response = self.client.get('/sections/your-mind/article-1/')
+        response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertNotContains(response, "Gabi")
 
         self.create_comment(self.article, 'test comment1 text', self.superuser)
-        response = self.client.get('/sections/your-mind/article-1/')
+        response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertContains(response, "Big Sister")
         self.assertNotContains(response, "Gabi")
 
@@ -405,7 +412,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         setting = GemSettings.objects.get(site=default_site)
         setting.moderator_name = 'Gabi'
         setting.save()
-        response = self.client.get('/sections/your-mind/article-1/')
+        response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
 
@@ -448,8 +455,8 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
 class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
         section = self.mk_section(self.section_index, title='Test Section')
 
@@ -474,6 +481,7 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
 
 class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
+        self.mk_main()
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
@@ -482,8 +490,6 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         self.content_type = ContentType.objects.get_for_model(self.user)
-
-        self.mk_main()
 
         self.yourmind = self.mk_section(
             self.section_index, title='Your mind')
