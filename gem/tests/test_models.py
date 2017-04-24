@@ -4,7 +4,7 @@ from django.test import TestCase, RequestFactory
 
 from wagtail.wagtailcore.models import Site
 
-from molo.core.models import SiteLanguage
+from molo.core.models import SiteLanguageRelation, Main, Languages
 from molo.core.tests.base import MoloTestCaseMixin
 
 from gem.models import GemSettings
@@ -15,9 +15,18 @@ class TestModels(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
         self.mk_main()
-        self.factory = RequestFactory()
-        self.english = SiteLanguage.objects.create(locale='en')
-        self.french = SiteLanguage.objects.create(locale='fr')
+        self.main = Main.objects.all().first()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='fr',
+            is_active=True)
+
         self.yourmind = self.mk_section(
             self.section_index, title='Your mind')
         self.yourmind_sub = self.mk_section(
