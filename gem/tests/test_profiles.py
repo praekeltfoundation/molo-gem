@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
-        self.client = Client()
         self.mk_main()
+        self.client = Client()
 
     def test_user_info_displaying_after_registration(self):
         self.user = User.objects.create_user(

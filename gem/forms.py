@@ -121,6 +121,10 @@ class GemRegistrationForm(GemAliasMixin, RegistrationForm):
     def clean_alias(self):
         return self._clean_alias()
 
+    def __init__(self, *args, **kwargs):
+        super(GemRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['gender'].required = True
+
 
 class GemForgotPasswordForm(Form):
     username = forms.RegexField(
