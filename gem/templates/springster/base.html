@@ -79,6 +79,10 @@
 
     {% block copyright %}
       {% include "patterns/components/copyright/copyright-pipe.html" %}
+      {% if settings.gem.GemSettings.show_partner_credit %}
+        <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
+      {% endif %}
+
     {% endblock %}
 
 
