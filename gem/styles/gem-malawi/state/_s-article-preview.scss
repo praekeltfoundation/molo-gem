@@ -1,0 +1,167 @@
+.article-preview {
+
+  .image {
+    display: block;
+    position: relative;
+
+    // this is an icon that's displayed on the section list in the
+    // homepage.
+    .section-image {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 40px;
+      width: 40px;
+      display: block;
+    }
+  }
+
+  .text {
+    .section-title {
+      font-family: 'AvenirNextCondensed-Medium';
+      font-size: 12px;
+    }
+
+    h3 {
+      font-family: 'TwCenMT';
+      font-size: 20px;
+      font-weight: normal;
+      text-transform: uppercase;
+      a { color: #4f4c54; }
+    }
+    p {
+      margin-top: 0;
+      color: #5c5c5c;
+    }
+  }
+}
+
+.article-list .article-preview  {
+  img {
+    width: 100%;
+  }
+  h3 {
+    margin: 0 0 9px 0;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.article-list  {
+  overflow: hidden;
+  @media screen and (min-width: 320px) {
+    .article-preview:nth-child(odd){
+        clear: right;
+        float: right;
+    }
+    .article-preview:nth-child(even){
+      clear: left;
+      float: left;
+    }
+    .article-preview:first-child {
+      clear: none;
+      float: none;
+      display: inline-block;
+    }
+  }
+
+  .article-preview {
+    padding: 0;
+    position: relative;
+    height: 100%;
+    margin-bottom: 10px;
+    color: #000;
+    @media screen and (min-width: 320px) {
+      width: 50%;
+      color: #00b8ae;
+    }
+
+    .text {
+      padding: 0 8px;
+      .section-title {
+        margin: 0 0 6px 0;
+        font-family: 'AvenirNextCondensed-DemiBold';
+      }
+
+      h3 {
+        margin: 0 0 9px 0;
+      }
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+
+// Homepage.
+.template-main {
+  #article-hero {
+    .text {
+      margin: 0 16px;
+      position: relative;
+
+      .section-title {
+        position: absolute;
+        top: -40-15px;
+        left: -16px;
+        height: 40px;
+        line-height: 40px;
+        background: #ed008c;
+        font-size: 1em;
+        font-weight: normal;
+        padding: 0 16px;
+
+        a { color: #fff; }
+      }
+
+      p { font-size: 1.125em; }
+    }
+  }
+
+
+}
+
+.article .article-preview,
+#article-hero {
+  .image {
+    img {
+      margin: 0 0 15px 0;
+    }
+  }
+
+  .text {
+
+    .section-title a {
+      font-size: 16px;
+    }
+
+    h3 {
+      font-size: 26px;
+      line-height: 32px;
+      margin: 0 0 12px 0;
+    }
+
+    p {
+      margin: 0 0 19px 0;
+    }
+
+  }
+}
+
+.template-main .article-list,
+#article-hero {
+  &:after {
+    clear: both;
+    height: 30px;
+    width: 100%;
+    display: block;
+    content: " ";
+    background: url(/static/img/featured_bar_rwanda.png);
+    margin: 0 0 21px 0;
+    background-repeat: repeat-x;
+    background-position: center center;
+    overflow: visible;
+  }
+}
