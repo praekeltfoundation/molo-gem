@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'djcelery',
     'django_cas_ng',
     'compressor',
+    'notifications'
 
 ]
 
@@ -118,14 +119,19 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
 # Template configuration
 
+# We have multiple layouts: use `base` or `malawi` to switch between them.
+SITE_LAYOUT = environ.get('SITE_LAYOUT', '')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['gem/templates/'],
+        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT),
+                 join(PROJECT_ROOT, 'gem', 'templates', 'base'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -186,16 +192,8 @@ CELERYBEAT_SCHEDULE = {
         'task': 'molo.core.tasks.rotate_content',
         'schedule': crontab(minute=0),
     },
-    'demote_articles': {
-        'task': 'molo.core.tasks.demote_articles',
-        'schedule': crontab(minute="*"),
-    },
-    'promote_articles': {
-        'task': 'molo.core.tasks.promote_articles',
-        'schedule': crontab(minute="*"),
-    },
-    'publish_pages': {
-        'task': 'molo.core.tasks.publish_scheduled_pages',
+    'molo_consolidated_minute_task': {
+        'task': 'molo.core.tasks.molo_consolidated_minute_task',
         'schedule': crontab(minute='*'),
     },
 }
@@ -215,6 +213,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('ha', _('Hausa')),
     ('bn', _('Bengali')),
     ('my', _('Burmese')),
+    ('ny', _('Chichewa')),
 ]
 
 EXTRA_LANG_INFO = {
@@ -247,6 +246,12 @@ EXTRA_LANG_INFO = {
         'code': 'bur_MM',
         'name': 'Burmese',
         'name_local': 'Burmese'
+    },
+    'ny': {
+        'bidi': False,
+        'code': 'ny',
+        'name': 'Chichewa',
+        'name_local': 'Chichewa',
     },
 }
 
@@ -367,6 +372,8 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     # when using nginx, we handle statics and media
     # but including them here just incase
     '/media/', '/static/',
+    # metrics URL used by promethius monitoring system
+    '/metrics',
 ]
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(

@@ -1,9 +1,7 @@
-.comments__form {
-  padding: 0 15px;
-}
-
+.comment__form,
 .comment__body {
   padding: 0 15px;
+  border-bottom: 1px solid #ececec;
 }
 .comment-preview {
   margin: 0 16px;
@@ -11,7 +9,7 @@
 
 .pagination {
   text-align: center;
-  padding: 0;
+  padding: 10px 0;
   a {
     color: #00b8ae;
   }
@@ -44,7 +42,6 @@ ul#id_report_reason{
      margin-bottom: 15px;
    }
 }
-
 button.report-btn {
   margin-bottom: 0;
 }
@@ -61,13 +58,9 @@ button.report-btn {
     margin: 0;
   }
 }
-
-
 hr {
   border-top-color: #ECECEC;
 }
-
-
 h3.comment-header {
   font-family: $font-family-avenirBold;
   font-size: 18px;
@@ -77,7 +70,6 @@ h3.comment-header {
 
 .comment-form {
   text-align: center;
-  border-bottom: 1px solid #ECECEC;
   padding-bottom: 0.6em;
   margin-bottom: 1em;
   h1 {
@@ -114,13 +106,18 @@ h3.comment-header {
     padding: 10px 15px;
   }
 }
-
+.post-comment {
+  padding: 0 15px;
+  a {
+    color: #FFF;
+    text-decoration: none;
+  }
+}
 ul.errorlist ~ p {
     width: 88%;
     display: block;
     margin: 0 auto;
 }
-
 .view-more-comments {
   a {
     background: #ed008c;
@@ -150,6 +147,9 @@ ul.errorlist ~ p {
   font-family: $font-family-TwCentBold;
   color: #141414;
   font-size: 18px;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 20px 0 0;
 }
 
 p.comment-body {
@@ -157,26 +157,47 @@ p.comment-body {
   font-size: 17px;
   color: #141414;
 }
-
 .date {
   font-family: $font-family-sans-serif;
   font-size: 16px;
   color: #A3A3A3;
+  display: inline-block;
+  padding: 0 0 15px;
 }
-
 a.report {
-  color: #ed008c;
+  color: #A3A3A3;
   font-family: $font-family-avenir-ot;
   font-size: 16px;
+  padding: 0 10px 10px 0;
+  display: inline-block;
+  text-decoration: underline;
 }
-
+.comment__reply-meta {
+  padding: 10px 0;
+  border-top: 1px solid #ececec;
+}
+.comment__reply-meta-link {
+  font-family: $font-family-avenir-ot;
+  color: #ed008c;
+  display: inline-block;
+  text-decoration: underline;
+  padding-right: 5px;
+}
+.comment__reply-meta-replies-list {
+  text-align: right;
+  color: #A3A3A3;
+}
+.comment__reply-meta-replies-list-disabled {
+  margin: 0;
+  color: #A3A3A3;
+  text-decoration: none;
+}
 .comment-login {
   font-family: $font-family-sans-serif;
   font-size: 14px;
   color: #A3A3A3;
   padding: 0;
 }
-
 a.comment-login-button {
   button {
     background: #141414;
