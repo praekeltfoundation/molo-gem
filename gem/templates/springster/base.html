@@ -2,8 +2,6 @@
 {% load compress static core_tags i18n %}
 {% load google_analytics_tags %}
 {% get_settings %}
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -28,11 +26,9 @@
     <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
     <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     {% compress css %}
-        <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
     {% endcompress %}
-
     <script type="text/javascript">
       // cut the mustard
       if('querySelector' in document && 'localStorage' in window && 'addEventListener' in window) {
