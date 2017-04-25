@@ -6,39 +6,44 @@
 		<div class="title profile">
 			<h3>{% trans "Edit your Profile" %}</h3>
 	</div>
-	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
+  <form method="post" action="{% url 'molo.profiles:edit_my_profile' %}" class="profiles__form">
   {% csrf_token %}
-	{{ form.non_field_errors }}
-    <fieldset>
-			<label>{% trans "Nickname:" %}</label>
-			<label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
-			{{ form.alias.errors }}
+	{{form.non_field_errors}}
+  	<fieldset>
+			<label for="id_alias">{% trans "Nickname:" %}</label>
+			<p>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
+			{{form.alias.errors}}
 			{{ form.alias }}
     </fieldset>
+
     <fieldset>
-      <label>{% trans "Date of birth:" %}</label>
+      <label for="id_date_of_birth_year">{% trans "Date of birth:" %}</label>
 	      {{ form.date_of_birth }}
     </fieldset>
+
     <fieldset>
-      <label>{% trans "Gender:" %}</label>
-			{{ form.gender.errors }}
+      <label for="">{% trans "Gender:" %}</label>
+			{{ form.gender.errors}}
 			{{ form.gender }}
     </fieldset>
+
+
+		{% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
     <fieldset>
-			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-	      <label>{% trans "Mobile number:" %}</label>
-		      {{ form.mobile_number.errors }}
-		      {{ form.mobile_number }}
-			{% endif %}
-			{% if settings.profiles.UserProfilesSettings.show_email_field %}
-	      <label>{% trans "Email address:" %}</label>
-		      {{ form.email.errors }}
-		      {{ form.email }}
-			{% endif %}
+	      <label for="id_mobile_number">{% trans "Mobile number:" %}</label>
+	      {{ form.mobile_number.errors }}
+	      {{ form.mobile_number }}
     </fieldset>
-				<br>
-				<br>
-			<input type="submit" value='{% trans "Update profile" %}' class="btn">
+		{% endif %}
+
+		{% if settings.profiles.UserProfilesSettings.show_email_field %}
+    <fieldset>
+      <label for="id_email">{% trans "Email address:" %}</label>
+      {{ form.email.errors }}
+      {{ form.email}}
+    </fieldset>
+		{% endif %}
+		<input type="submit" value='{% trans "Update profile" %}' class="btn">
 		</form>
 </div>
 
