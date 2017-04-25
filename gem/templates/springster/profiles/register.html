@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load i18n static core_tags wagtailsettings_tags wagtailcore_tags %}
+{% get_settings %}
+
+{% block content %}
+<div class="profiles profile-container">
+    <div class="title profile">
+        <h3>{% trans "Sign up" %}</h3>
+    </div>
+    <div class="block">
+      <div class="signin-form">
+        <p class="call-to-action__nav-item--challenge-heading">
+          {% trans "Not a member yet? Join us by signing up below." %}
+        </p>
+        <form method="post" action="{% url 'molo.profiles:user_register' %}">
+        {% csrf_token %}
+
+        <fieldset>
+          <label>{% trans "Choose a username" %}</label>
+          <p class="helptext">
+            {% trans "Please do not use your real name, phone number or email address as it's unsafe." %}
+          </p>
+          {{ form.username.errors }}
+          {{ form.username }}
+        </fieldset>
+
+        <fieldset>
+          <label>{% trans "Display name" %}</label>
+            <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
+            {{ form.alias.errors }}
+            {{ form.alias }}
+        </fieldset>
+
+        <fieldset>
+          <label>{% trans "Choose a 4-digit pin" %}</label>
+          {{ form.password.errors }}
+          <input id="id_password" maxlength="4" name="password" placeholder="eg. 2086" type="password" required="" pattern="[0-9]*" inputmode="numeric">
+        </fieldset>
+
+        <fieldset>
+          {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+            <label>{% trans "Enter your mobile number" %}</label>
+            {{ from.errors }}
+            {{ form.mobile_number }}
+          {% endif %}
+        </fieldset>
+
+        <fieldset>
+          <label>{% trans "I identify my gender as" %}</label>
+          {{ form.gender.errors }}
+          {{ form.gender }}
+          <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
+        </fieldset>
+
+        <fieldset>
+          <label>{% trans "Security questions" %}</label>
+          <p class="helptext">{% trans "Please answer the following security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
+
+          <label>{% trans security_question_1 %}</label>
+          {{ form.security_question_1_answer.errors }}
+          {{ form.security_question_1_answer }}
+
+          <label>{% trans security_question_2 %}</label>
+          {{ form.security_question_2_answer.errors }}
+          {{ form.security_question_2_answer }}
+        </fieldset>
+
+        <fieldset>
+          {% if form.terms_and_conditions.errors %}
+            <p class="alert-error">
+              {% trans "Please accept the terms and conditions in order to complete registration" %}
+            </p>
+          {% endif %}
+
+          <div class="terms-and-conditions">
+            <div class="terms-and-conditions__field">
+              {{ form.terms_and_conditions }}
+              {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+              <label for="id_terms_and_conditions">
+                <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
+                  {% trans "I accept the terms and conditions" %}
+                </a>
+              </label>
+              {% else %}
+              <label for="id_terms_and_conditions">{% trans "I accept the terms and conditions" %}</label>
+              {% endif %}
+            </div>
+          </div>
+        </fieldset>
+        <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
+        <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
+        <a href="{% url 'molo.profiles:auth_login' %}" class="button inverted">{% trans "already joined?" %}</a>
+        </form>
+
+      </div>
+    </div>
+</div>
+{% endblock %}

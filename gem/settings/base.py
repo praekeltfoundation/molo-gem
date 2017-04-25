@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     'molo.core',
     'gem',
+    'mote',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -124,15 +125,17 @@ MIDDLEWARE_CLASSES = [
 
 # Template configuration
 
-# We have multiple layouts: use `base` or `malawi` to switch between them.
-SITE_LAYOUT = environ.get('SITE_LAYOUT', '')
+# We have multiple layouts: use `base`, `malawi` or `springster`
+# to switch between them.
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
+SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT),
-                 join(PROJECT_ROOT, 'gem', 'templates', 'base'), ],
-        'APP_DIRS': True,
+        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
+                 join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -144,6 +147,11 @@ TEMPLATES = [
                 'gem.context_processors.default_forms',
                 'gem.processors.compress_settings',
             ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "mote.loaders.app_directories.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ]
         },
     },
 ]
@@ -269,6 +277,10 @@ LOCALE_PATHS = [
 STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
+
+STATICFILES_DIRS = (
+    'molo.core/static/',
+)
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="profiles profile-container">
+		<div class="title profile">
+			<h3>{% trans "Edit your Profile" %}</h3>
+	</div>
+	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
+  {% csrf_token %}
+	{{ form.non_field_errors }}
+    <fieldset>
+			<label>{% trans "Nickname:" %}</label>
+			<label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
+			{{ form.alias.errors }}
+			{{ form.alias }}
+    </fieldset>
+    <fieldset>
+      <label>{% trans "Date of birth:" %}</label>
+	      {{ form.date_of_birth }}
+    </fieldset>
+    <fieldset>
+      <label>{% trans "Gender:" %}</label>
+			{{ form.gender.errors }}
+			{{ form.gender }}
+    </fieldset>
+    <fieldset>
+			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+	      <label>{% trans "Mobile number:" %}</label>
+		      {{ form.mobile_number.errors }}
+		      {{ form.mobile_number }}
+			{% endif %}
+			{% if settings.profiles.UserProfilesSettings.show_email_field %}
+	      <label>{% trans "Email address:" %}</label>
+		      {{ form.email.errors }}
+		      {{ form.email }}
+			{% endif %}
+    </fieldset>
+				<br>
+				<br>
+			<input type="submit" value='{% trans "Update profile" %}' class="btn">
+		</form>
+</div>
+
+{% endblock %}
