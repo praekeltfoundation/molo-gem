@@ -127,7 +127,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 TEMPLATES = [
@@ -278,9 +278,6 @@ STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
 
-STATICFILES_DIRS = (
-    'molo.core/static/',
-)
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
