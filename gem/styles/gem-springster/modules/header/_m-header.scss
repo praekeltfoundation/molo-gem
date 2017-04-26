@@ -1,12 +1,39 @@
+
 .header {
+  background-color: $springster-purple;
   .menu-list--center {
     @media screen and (min-width: 240px) {
       margin-left: 20%;
     }
   }
-
-  .logo--center {
-    text-align: center;
-    display: block;
+  
+  &__menu {
+    line-height: 25px;
+    height: 30px;
+    text-align: right;
+    background: $springster-purple;
   }
+  
+  &__search {
+    .header__search-input, .header__search-input + * {
+      display: none;
+    }
+  
+    .header__search-input:checked + * {
+      display: block;
+     }
+     
+    .header__search-bar {
+       position: relative;
+     }
+  }
+  
+  &__search-bar {
+    input[type="text"] {
+      width: 93%;
+      border: 2px solid $springster-purple;
+      margin: 5px 0;
+    }
+  }
+
 }

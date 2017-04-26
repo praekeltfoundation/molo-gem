@@ -5,28 +5,69 @@ Separate smart styles to states folder
 .article-teaser {
   overflow: auto;
 }
+
+.base-teaser {  
+  &__thumbnail-link {
+    cursor: pointer;
+    outline: none;
+    
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    
+    img {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-size: $font-x-large;
+    a { 
+      color: $charcoal-grey; 
+    }
+  }
+  &__title-link {
+    color: gray;
+  }
+  &__subtitle {
+    color: $slate-grey;
+    font-size: $font-x-small;
+    text-transform: none;
+  }
+}
 .teaser-stacklist {
-  display: block;
-}
-.teaser-stacklist__item {
-  list-style-type: none;
+  padding: 8px;
+  margin: 0;
+  
+  &__item {
+    display: block;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    margin-bottom: 10px;
+    color: #000;
+    border-bottom: 4px solid #edf0f2;
+    
+    .comment-counter {
+      position: absolute;
+      right: 10px;
+      bottom: 3px;
+      display: inline-block;
+      height: 25px;
+      
+      &__numeral {
+        color: $slate-grey;
+        font-size: $font-xx-small;
+        vertical-align: top;
+      }
+    }
+  }
+  &__item--content {
+    display: inline-block;
+    width: 60%;
+    margin: 0;
+    vertical-align: top;
+  }
 }
 
-.article-teaser__thumbnail {
-  float: left;
-}
-.article-teaser__thumbnail-link {
-  cursor: pointer;
-  outline: none;
-}
 
-
-.article-teaser__title {
-  text-align: right;
-}
-.article-teaser__title-link {
-  color: gray;
-}
-.article-teaser__subtitle {
-  text-align: right;
-}
