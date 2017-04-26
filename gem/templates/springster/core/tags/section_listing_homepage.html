@@ -1,7 +1,22 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
+{% load wagtailcore_tags wagtailimages_tags core_tags static i18n comments molo_commenting_tags %}
 
 {% block homepage_section %}
 {% for section in sections %}
-  {% include "patterns/components/article-teasers/sp_variations/grid-teaser-listing.html" %}
+  <div class="article-teaser">
+  {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
+  {% if featured_articles %}
+    <ul class="teaser-stacklist">
+      {% for article in featured_articles %}
+      <li class="teaser-stacklist__item">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html" with layouttype="base" %}
+        <div class="teaser-stacklist__item--content">
+          {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="base" %}
+          {% include "patterns/basics/comment-counter/sp_comment-counter.html"%}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  </div>
 {% endfor%}
 {% endblock %}
