@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% compress css %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/styles.css">
     {% endcompress %}
     <script type="text/javascript">
       // cut the mustard
@@ -68,7 +69,7 @@
     {% block navigation %}
       {% include "patterns/components/navigation/navigation.html" %}
     {% endblock %}
-
+    {% include "patterns/basics/buttons/sp_variations/back-to-top_with-bg.html" with arrow_dir="up_arrow" %}
     {% block footer %}
       {% footer_page %}
     {% endblock %}
@@ -78,10 +79,6 @@
       {% if settings.gem.GemSettings.show_partner_credit %}
         <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
       {% endif %}
-
     {% endblock %}
-
-
-
   </body>
 </html>
