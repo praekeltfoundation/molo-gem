@@ -47,9 +47,11 @@
     <!-- {% get_current_language as LANGUAGE_CODE %} -->
     {% block header %}
       
-      {% if languages|length > 1 %}
-        {% include "patterns/basics/languages/language-list-center.html" %}
-      {% endif %}
+      <div class="language-header">
+        {% if languages|length > 1 %}
+          {% include "patterns/basics/languages/language-list-center.html" %}
+        {% endif %}
+      </div>
         <div class="header">
           <div class="header__menu">
             <a href="/" class="logo logo--center">
