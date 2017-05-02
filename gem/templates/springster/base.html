@@ -56,83 +56,23 @@
     {% block content %}
     {% endblock %}
 
-    <div id="gem-footer">
-    {% block footer_section_menu %}
-    <div class="footer-search-bar">
-      {% block search %}
-        {% include "patterns/basics/search/search-button-icon.html" with radius="none" %}
-      {% endblock %}
-    </div>
-    <div class="group">
-        <ul class="sections footer-menu-list left">
-          <li class="footer-menu-list__item">
-            <a href="/" class="footer-menu-list__anchor">{% trans "Home" %}</a></li>
-          {% load_sections as sections %}
-            {% for section in sections %}
-              <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__item">
-                <a href="{% pageurl section %}" class="footer-menu-list__anchor">
-                    {{section.title}}
-                </a>
-              </li>
-            {% endfor %}
-        </ul>
+    {% block footer_menu %}
+      {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
+    {% endblock %}
 
-        <ul class="sections footer-menu-list right">
-          <li class="footer-menu-list__item">
-            <a href="/" class="footer-menu-list__anchor">{% trans "About Springster" %}</a></li>
-            <li class="footer-menu-list__item">
-              <a href="#" class="footer-menu-list__anchor">{% trans "FAQs" %}</a></li>
-            <li class="footer-menu-list__item">
-              <a href="#" class="footer-menu-list__anchor">{% trans "Tips for use" %}</a></li>
-          {% if not user.is_authenticated %}
-            <li class="footer-menu-list__item">
-              <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
-                {% trans "Join us" %}
-              </a>
-            </li>
+    {% block footer %}
+      {% include "patterns/components/footer/sp_variations/footer.html" %}
+    {% endblock %}
 
-            <li class="footer-menu-list__item">
-              <a href="{% url 'molo.profiles:auth_login' %}" class="footer-menu-list__anchor">
-                {% trans "Log in" %}
-              </a>
-            </li>
-
-          {% else %}
-          <li class="footer-menu-list__item">
-            <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
-              {% trans "Profile" %}
-            </a>
-          </li>
-
-          <li class="footer-menu-list__item">
-            <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
-              {% trans "Log out" %}
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-  </div>
-  {% endblock %}
-  {% block footer %}
-    <div id="footer-bar">
-      {% if languages|length > 1 %}
-        {% include "patterns/basics/languages/language-list-label.html" %}
-      {% endif %}
-        <a id="logo" class="footer-logo" href="/">
-          <img src="{% static '' %}img/springster-logo-purple.svg" width="200" height="59" alt="Springster" />
+    {% block copyright %}
+    <div class="copyright">
+      <p class="copyright__footer-copy" >&copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %} <a href="#">{% trans "Terms &amp; Conditions" %}</a></p>
+      {% if settings.gem.GemSettings.show_partner_credit %}
+        <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+          {{settings.gem.GemSettings.partner_credit_description}}
         </a>
-        {% include "patterns/basics/buttons/back-to-top.html" %}
-
-  </div>
-  {% endblock %}
-  {% block copyright %}
-  <div class="copyright">
-    <p class="copyright__footer-copy" >&copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %} <a href="#">{% trans "Terms &amp; Conditions" %}</a></p>
-    {% if settings.gem.GemSettings.show_partner_credit %}
-      <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
-    {% endif %}
-  </div>
-  {% endblock %}
+      {% endif %}
+    </div>
+    {% endblock %}
   </body>
 </html>
