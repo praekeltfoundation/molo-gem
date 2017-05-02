@@ -59,6 +59,13 @@ INSTALLED_APPS = [
 
     'molo.core',
     'gem',
+    'molo.profiles',
+    'molo.surveys',
+    'django_comments',
+    'molo.commenting',
+    'molo.yourwords',
+    'molo.servicedirectory',
+    'molo.polls',
     'mote',
 
     'wagtail.wagtailcore',
@@ -79,14 +86,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailsitemaps',
 
     'mptt',
-    'molo.profiles',
-    'django_comments',
     'django.contrib.sites',
-    'molo.commenting',
-    'molo.yourwords',
-    'molo.servicedirectory',
-    'molo.polls',
-    'molo.surveys',
     'google_analytics',
 
     'raven.contrib.django.raven_compat',
