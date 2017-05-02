@@ -62,6 +62,7 @@ class GemRegistrationView(RegistrationView):
 
         user.profile.alias = alias
         user.profile.mobile_number = mobile_number
+        user.profile.site = self.request.site
         user.profile.save()
 
         user.gem_profile.gender = gender
