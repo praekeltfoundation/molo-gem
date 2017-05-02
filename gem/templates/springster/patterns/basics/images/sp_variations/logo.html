@@ -1,0 +1,9 @@
+{% load wagtailimages_tags static %}
+<a href="/" class="logo logo--center">
+{% if settings.core.SiteSettings.logo %}
+{% image settings.core.SiteSettings.logo width-97 height-24 jpegquality-70 as logo_image %}
+  <img src="{{logo_image}}" alt="Springster" />
+{% else %}
+  <img src="{% static '' %}img/springster-logo.svg" width="97" height="24" alt="Springster" />
+{% endif %}
+</a>
