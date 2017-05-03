@@ -41,31 +41,37 @@
       {% include "patterns/components/ga_tag_manager.html" %}
     {% endblock %}
     {% wagtailuserbar %}
-    {% block navigation %}
-      {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
-    {% endblock %}
+    
+    <div class="header-wrapper">
+      {% block navigation %}
+        {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
+      {% endblock %}
 
-    {% block header %}
-      {% include "patterns/components/header/sp_variations/header-center.html" %}
-    {% endblock %}
+      {% block header %}
+        {% include "patterns/components/header/sp_variations/header-center.html" %}
+      {% endblock %}
+    </div>
+    
+    <div class="content-wrapper">
+      {% block breadcrumbs %}
+        {% breadcrumbs %}
+      {% endblock %}
 
-    {% block breadcrumbs %}
-      {% breadcrumbs %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
 
-    {% block content %}
-    {% endblock %}
+      {% block footer_menu %}
+        {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
+      {% endblock %}
 
-    {% block footer_menu %}
-      {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
-    {% endblock %}
+      {% block footer %}
+        {% include "patterns/components/footer/sp_variations/footer.html" %}
+      {% endblock %}
 
-    {% block footer %}
-      {% include "patterns/components/footer/sp_variations/footer.html" %}
-    {% endblock %}
+      {% block copyright %}
+        {% include "patterns/basics/copyright/copyright-terms.html" %}
+      {% endblock %}
+    </div>
 
-    {% block copyright %}
-      {% include "patterns/basics/copyright/copyright-terms.html" %}
-    {% endblock %}
   </body>
 </html>
