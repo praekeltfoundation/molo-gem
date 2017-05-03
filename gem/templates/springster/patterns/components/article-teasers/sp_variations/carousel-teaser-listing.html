@@ -1,8 +1,8 @@
 {% load wagtailcore_tags core_tags i18n %}
+{% block load_tags_for_homepage %}
 {% if tag %}
-<div class="carousel-teaser-wrapper">
-<h1>{{tag.title}}</h1>
   <div class="carousel-teaser">
+    <h1>{{tag.title}}</h1>
     <ul class="carousel-teaser-list">
       {% for article in tag_articles %}
       <li class="carousel-teaser-list__item">
@@ -13,5 +13,5 @@
     </ul>
     {% include "patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html" with direction="right" %}
   </div>
-</div>
 {% endif %}
+{% endblock %}

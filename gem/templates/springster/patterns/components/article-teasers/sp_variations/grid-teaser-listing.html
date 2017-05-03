@@ -1,9 +1,8 @@
 {% load wagtailcore_tags core_tags i18n %}
-<div class="grid-teaser-wrapper">
-  {% if tag %}
-  <h1>{{ tag }}</h1>
+{% block load_tags_for_homepage %}
+{% if tag %}
   <div class="grid-teaser">
-    {% if articles %}
+    <h1>{{ tag }}</h1>
       <ul class="grid-teaser-list">
       {% for article in tag_articles %}
         <li class="grid-teaser-list__item">
@@ -13,7 +12,6 @@
       {% endfor %}
       </ul>
       {% include "patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html" with direction="right" %}
-    {% endif %}
   </div>
-  {% endif %}
-</div>
+{% endif %}
+{% endblock %}
