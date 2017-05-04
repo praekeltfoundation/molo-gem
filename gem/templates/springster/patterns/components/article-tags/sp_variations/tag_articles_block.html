@@ -11,11 +11,13 @@
         {% include "patterns/basics/article-teasers/sp_variations/carousel-teaser-image.html" %}
         {% include "patterns/basics/article-teasers/sp_variations/carousel-teaser-title.html" %}
         {% load_tags_for_article article as tags %}
-        {% for tag in tags %}
-          <a href="{% pageurl tag %}" class="article-teaser__tag-anchor">
-            {{tag.title}}
-          </a>
-        {% endfor %}
+        <ul class="teaser-stacklist-tags">
+          {% for tag in tags %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% pageurl tag %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
       </li>
     {% endfor %}
   </ul>
