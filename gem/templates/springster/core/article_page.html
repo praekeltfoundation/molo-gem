@@ -2,7 +2,12 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags %}
 {% block content %}
   {% include "patterns/components/article-page/sp_variations/main-article-page.html" %}
-  {% include "patterns/components/article-tags/sp_variations/tag_articles_block.html" %}
-
+  {% include "patterns/basics/article-tags/sp_article-page-tag.html" %}
   {% include "comments/comment_block.html" %}
+  {% block breadcrumbs %}
+    {% breadcrumbs %}
+  {% endblock %}
+  {% if settings.core.SiteSettings.enable_tag_navigation %}
+    {% tag_menu_homepage %}
+  {% endif %}
 {% endblock %}
