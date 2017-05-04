@@ -45,19 +45,36 @@
     display: inline-block;
     padding: 2px 5px;
   }
+}
 
-  &__anchor {
-    font-family: $baton-medium;
-    text-transform: lowercase;
-    text-decoration: none;
-    font-size: $font-large;
-    color: $springster-purple;
-    &:hover {
-      color: $black;
-    }
-    &:before {
-      content: "#";
-      margin-right: -3px;
-    }
+//Some of the classes should be independent of the contianer div for elemnts reuse
+.tag__item-anchor {
+  font-family: $baton-medium;
+  text-transform: lowercase;
+  text-decoration: none;
+  font-size: $font-large;
+  color: $springster-purple;
+  &:hover {
+    color: $black;
   }
+  &:before {
+    content: "#";
+    margin-right: -3px;
+  }
+}
+
+//Tag Cloud for Article Page
+.article-page-tag-cloud {
+  text-align: center;
+}
+.article-page-tag-cloud__title {
+  text-transform: uppercase;
+}
+.teaser-stacklist-tags {
+  margin: 0;
+  padding: 0;
+}
+.teaser-stacklist-tags__item {
+  display: inline-block;
+  padding: 2px 5px;
 }
