@@ -8,6 +8,16 @@
       <div class="teaser-stacklist__item--content">
         {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="base" %}
         {% include "patterns/basics/comment-counter/sp_comment-counter.html" with layouttype="base" %}
+        {% load_tags_for_article article as tags %}
+        {% if tags %}
+        <ul class="teaser-stacklist-tags">
+          {% for tag in tags %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% pageurl tag %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
     </li>
     {% endfor %}
