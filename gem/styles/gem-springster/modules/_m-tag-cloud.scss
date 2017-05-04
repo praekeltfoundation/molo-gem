@@ -2,14 +2,14 @@
   display: inline-block;
   width: 100%;
   margin-top: 20px;
-  
+
   &__container {
     @include divider-combo-1;
     background-color: $sunny-yellow;
     padding: 60px 1em 0 1em;
     margin-top: 40px;
   }
-    
+
   &__block {
     width: 100%;
     text-align: center;
@@ -18,7 +18,7 @@
     padding: 0 0 20px;
     list-style-type: none;
   }
-  
+
   &__icon {
     background: url('/static/img/tag-cloud-love-hands.svg') no-repeat 0 0/contain;
     padding: 2px 5px;
@@ -28,11 +28,11 @@
     left: 50%;
     margin-left: -50px;
   }
-  
+
   &__heading {
     @include zig-zag-underline;
     text-align: center;
-    
+
     h4 {
       font-family: $baton-medium;
       font-size: $font-x-large;
@@ -40,27 +40,34 @@
       color: $gunmetal;
     }
   }
-  
+
   &__item {
     display: inline-block;
     padding: 2px 5px;
   }
-  
+
   &__anchor {
-    font-family: $baton-medium;
-    text-transform: lowercase;
-    text-decoration: none;
-    font-size: $font-large;
-    color: $springster-purple;
     &:hover {
       color: $black;
     }
-    &:before {
-      content: "#";
-      margin-right: -3px;
-    }
+
   }
 }
-  
 
-
+//This shares styles with -> article-teaser__tag-anchor
+.tag-cloud__anchor,
+.article-teaser__tag-anchor {
+  font-family: $baton-medium;
+  text-transform: lowercase;
+  text-decoration: none;
+  font-size: $font-large;
+  color: $springster-purple;
+  &:before {
+    content: "#";
+    margin-right: -3px;
+  }
+}
+.article-teaser__tag-anchor {
+  display: inline-block;
+  padding: 5px 3px;
+}
