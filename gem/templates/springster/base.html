@@ -1,7 +1,9 @@
-{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags wagtailuserbar %}
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
 {% load compress static core_tags i18n %}
 {% load google_analytics_tags %}
 {% get_settings %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -34,14 +36,13 @@
       if('querySelector' in document && 'localStorage' in window && 'addEventListener' in window) {
         loadJS( "{% static 'js/main.js' %}" );}
     </script>
-    {% get_current_language as LANGUAGE_CODE %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
     {% block google_analytics %}
       {% include "patterns/components/ga_tag_manager.html" %}
     {% endblock %}
     {% wagtailuserbar %}
-    
+
     <div class="header-wrapper">
       {% block navigation %}
         {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
@@ -51,7 +52,7 @@
         {% include "patterns/components/header/sp_variations/header-center.html" %}
       {% endblock %}
     </div>
-    
+
     <div class="content-wrapper">
       {% block breadcrumbs %}
         {% breadcrumbs %}
