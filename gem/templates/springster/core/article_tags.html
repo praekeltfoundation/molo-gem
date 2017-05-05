@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 {% block content %}
+<!-- Add back to home -->
+  <!--Back to previous viewing page rather than only home -->
   <div class="article-teaser">
-  <h1 class="article-teaser__heading">{{ tag }}</h1>
+  <h1 class="article-teaser__heading">{{request.GET.tag}}</h1>
     <ul class="teaser-stacklist">
     {% for article in object_list %}
     <li class="teaser-stacklist__item">
