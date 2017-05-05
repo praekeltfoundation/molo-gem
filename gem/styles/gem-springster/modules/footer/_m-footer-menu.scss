@@ -4,7 +4,7 @@
   @include divider-combo-1;
   background-color: #A4EED2;
   padding: 12px 8px;
-  
+
   a {
     text-decoration: none;
   }
@@ -33,7 +33,7 @@
   }
   .footer-search-bar {
     position: relative;
-    margin: 0 10px;
+    margin: 0 8px;
     input[type="text"] {
       width: 100%;
       border: 2px solid $springster-purple;
@@ -43,22 +43,22 @@
       }
     }
   }
-  
+
 }
 
 .footer-menu-list {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  
+
   &__item {
     margin: 0 8px;
     line-height: 2.0;
   }
-  
-  
+
+
   &__anchor {
-    font-family: 'BatonRegular', Helvetica, Arial, sans-serif;
+    font-family: $baton-regular;
     font-size: 20px;
     color: $springster-purple;
   }
@@ -68,31 +68,32 @@
 #footer-bar {
   padding-top: 8px;
   text-align: center;
-  
+
   .footer-logo {
+    background: url('/static/img/springster-logo-purple.svg') no-repeat 0 50%/contain;
+    width: 200px;
+    height: 60px;
+    max-width: 100%;
+    margin: 18px auto;
     display: block;
-    padding: 19px 8px 18px;
-    
-    img{
-      display: block;
-      margin: 0 auto
-    }
+
+  }
+}
+
+.copyright {
+  p {
+    color: $cool-grey;
   }
 
-  .copyright {
-    p {
-      color: $cool-grey;
-    }
-    
-    a {
-      text-decoration: underline;
-      color: $gunmetal;
-    }
-    
-    &__footer-copy {
-      font-size: 12px;
-      padding: 15px 15px 10px;
-      margin: 0;
-    }
+  a {
+    text-decoration: underline;
+    color: $gunmetal;
+  }
+
+  &__footer-copy {
+    font-size: 12px;
+    padding: 15px 15px 10px;
+    margin: 0;
+    text-align: center;
   }
 }

@@ -23,6 +23,7 @@
   clear: $value;
 }
 
+// Dividers
 @mixin divider-top-1 {
   background: url('/static/img/top-div-1@2x.png') no-repeat 0 0/contain;
   margin-top: 5px; 
@@ -37,4 +38,46 @@
 @mixin divider-combo-1 {
   background: url('/static/img/bottom-div-1@2x.png') no-repeat 0 100%/contain, url('/static/img/top-div-2@2x.png') no-repeat 0 0/contain;
   margin-top: 5px; 
+}
+
+@mixin divider-combo-2 {
+  background: url('/static/img/bottom-div-1@2x.png') no-repeat 0 100%/contain, url('/static/img/top-div-1@2x.png') no-repeat 0 0/contain;
+  margin-top: 5px; 
+}
+
+@mixin zig-zag-underline {
+	background: url('/static/img/zig-zag-underline.png') no-repeat 50% 100%/145px;
+  padding-bottom: 10px
+}
+
+
+// Grid Container Mixin
+@mixin grid($width: $container) {
+  
+  $container: $width;
+  
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  flex: 0 1 auto;
+  
+  max-width: $container;
+  margin: 0 auto;
+  
+}
+
+// Grid Column Mixin
+@mixin column($span: $columns) {
+  
+  $columns: $span;
+  
+  box-sizing: border-box;
+  flex: $columns $columns auto;
+  flex-basis: $columns;
+  max-width: $columns;
+  
+  padding-right: $grid-gutter;
+  padding-left: $grid-gutter;
+  padding-bottom: $grid-gutter*2;
+    
 }

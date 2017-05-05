@@ -3,38 +3,19 @@
 {% block homepage_section %}
 {% for section in sections %}
   <div class="article-teaser">
-    
-  <!-- patterns/components/article-teasers/sp_variations/base-teaser-listing.html -->
   {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
   {% if featured_articles %}
-  <ul class="teaser-stacklist">
-    {% for article in featured_articles %}
-    <li class="teaser-stacklist__item">
-      
-      <!-- // from patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html -->
-      {% if article.image %}
-      <a href="{% pageurl article %}" class="{{layouttype}}-teaser__thumbnail-link">
-        {% image article.image fill-96x96 as teaser_thumbnail %}
-        <img src="{{ teaser_thumbnail.url }}" class="{{layouttype}}-teaser__thumbnail" />
-      </a>
-      {% endif %}
-      
-      <div class="teaser-stacklist__item--content">
-        {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="base" %}
-        
-        <!-- // patterns/basics/comment-counter/sides-aligned-comment-counter.html -->
-        {% get_comment_count for article as comment_count %}
-        {% if comment_count > 0 %}
-          <a href="/" class="comment-counter">
-            <img alt="Comments" src="{% static 'img/comment.svg' %}" class="comment-counter__icon">
-            <span class="comment-counter__numeral">{{comment_count}}</span>
-          </a>
-        {% endif %}
-        
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
+    <ul class="teaser-stacklist">
+      {% for article in featured_articles %}
+      <li class="teaser-stacklist__item">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html" with layouttype="base" %}
+        <div class="teaser-stacklist__item--content">
+          {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="base" %}
+          {% include "patterns/basics/comment-counter/sp_comment-counter.html"%}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
   {% endif %}
   </div>
 {% endfor%}

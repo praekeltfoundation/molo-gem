@@ -10,9 +10,7 @@ Separate smart styles to states folder
   &__thumbnail-link {
     cursor: pointer;
     outline: none;
-    
     display: inline-block;
-    width: 30%;
     vertical-align: top;
     
     img {
@@ -21,7 +19,10 @@ Separate smart styles to states folder
   }
 
   &__title {
-    font-size: $font-x-large;
+    font-size: $font-x-small;
+    font-family: $baton-medium;
+    font-weight: normal;
+    margin-top: 4px;
     a { 
       color: $charcoal-grey; 
     }
@@ -31,22 +32,22 @@ Separate smart styles to states folder
   }
   &__subtitle {
     color: $slate-grey;
-    font-size: $font-x-small;
+    font-size: $font-xxx-small;
     text-transform: none;
   }
 }
 .teaser-stacklist {
-  padding: 8px;
+  padding: 0;
   margin: 0;
   
   &__item {
     display: block;
-    padding: 0;
+    padding: 8px;
     position: relative;
     height: 100%;
-    margin-bottom: 10px;
     color: #000;
     border-bottom: 4px solid #edf0f2;
+    font-size: 0;
     
     .comment-counter {
       position: absolute;
@@ -54,20 +55,45 @@ Separate smart styles to states folder
       bottom: 3px;
       display: inline-block;
       height: 25px;
-      
-      &__numeral {
-        color: $slate-grey;
-        font-size: $font-xx-small;
-        vertical-align: top;
-      }
+      margin: 0;
     }
   }
+  
   &__item--content {
     display: inline-block;
     width: 60%;
-    margin: 0;
+    margin-left: 10px;
     vertical-align: top;
   }
 }
+  
+.teaser-stacklist-tags {
+  display: inline-block;
+  padding: 0;
+  
+  &__item {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 8px;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  &__anchor {
+    font-family: $baton-medium;
+    text-transform: lowercase;
+    text-decoration: none;
+    font-size: $font-xxx-small;
+    color: $springster-purple;
 
+    &:hover {
+      color: $black;
+    }
+    &:before {
+      content: "#";
+    }
+  }
+}
 

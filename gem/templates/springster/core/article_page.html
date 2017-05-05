@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static core_tags %}
 {% block content %}
-  {% social_media_article %}
-  {% include "patterns/components/articles/article-page_with_recommend-related.html" %}
-  {% include "patterns/components/articles/article-tag-block.html" %}
+  {% include "patterns/components/article-page/sp_variations/main-article-page.html" %}
+  {% include "patterns/basics/article-tags/sp_article-page-tag.html" %}
+  <!-- Space for Reaction Question Here-->
   {% include "comments/comment_block.html" %}
+  {% block breadcrumbs %}
+    {% breadcrumbs %}
+  {% endblock %}
+  {% if settings.core.SiteSettings.enable_tag_navigation %}
+    {% tag_menu_homepage %}
+  {% endif %}
 {% endblock %}
