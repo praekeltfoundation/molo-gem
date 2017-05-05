@@ -3,7 +3,7 @@
 
 {% block content %}
   <div class="comments comments{{self.get_parent_section.get_effective_extra_style_hints}}">
-      <h1 class="heading comments__reply-heading">{% trans "Comments" %}</h1>
+    <h1 class="heading comments__reply-heading">{% trans "Comments" %}</h1>
     <div id="comment__list" class="comments__list">
       {% for node in comments %}
         {% recursetree node %}
