@@ -10,24 +10,24 @@
     <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__nav-item">
       {% trans "Log in here?" %}</a>
 
-    <h3 class="heading heading--title">
+    <h3 class="heading heading--subtitle">
       {% trans "Please complete this form to join: " %}
     </h3>
     <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
     {% csrf_token %}
     <fieldset>
       <label>{% trans "Username" %}</label>
-      <p class="helptext">
-        {% trans "Please do not use your real name, phone number or email address as it's unsafe." %}
-      </p>
-      {{ form.username.errors }}
-      {{ form.username }}
+        {{ form.username }}
+        {{ form.username.errors }}
+        <p class="helptext">
+          {% trans "Please do not use your real name, phone number or email address as it's unsafe." %}
+        </p>
     </fieldset>
     <fieldset>
       <label>{% trans "Display name" %}</label>
-        <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
-        {{ form.alias.errors }}
       {{ form.alias }}
+      {{ form.alias.errors }}
+      <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
     </fieldset>
     <fieldset>
       <label>{% trans "Choose a 4-digit pin" %}</label>
@@ -38,8 +38,8 @@
     <fieldset>
       {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
       <label>{% trans "Enter your mobile number" %}</label>
-      {{ from.errors }}
       {{ form.mobile_number }}
+      {{ from.errors }}
     {% endif %}
     </fieldset>
     <fieldset>
@@ -62,11 +62,6 @@
         <p class="helptext">{% trans "Please answer the above security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
     </fieldset>
     <fieldset>
-      {% if form.terms_and_conditions.errors %}
-        <p class="errors">
-          {% trans "Please accept the terms and conditions in order to complete registration" %}
-        </p>
-      {% endif %}
       <div class="terms-and-conditions">
         {{ form.terms_and_conditions }}
         {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
@@ -80,6 +75,11 @@
           {% trans "I accept the terms and conditions" %}</label>
         {% endif %}
       </div>
+      {% if form.terms_and_conditions.errors %}
+        <p class="errors">
+          {% trans "Please accept the terms and conditions in order to complete registration" %}
+        </p>
+      {% endif %}
     </fieldset>
     <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
     <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
