@@ -3,14 +3,14 @@
 {% block body_class %}default-container{% endblock %}
 
 {% block content %}
-<div class="search">
+<div class="search search-results">
   {% trans "Search" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h1" title=headingtext %}
-  <div class="heading heading__subheading">
-    <h6>{% trans "Results for " %}&quot;{{search_query}}&quot;.</h6>
-  </div>
 {% if search_results %}
-  <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+  <div class="heading heading__subheading">
+    <h6>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</h6>
+  </div>
+  <p></p>
   <div class="article-teaser search__results">
     <ul class="teaser-stacklist">
     {% for page in search_results %}
@@ -31,6 +31,7 @@
   {% trans "Search" as placeholdertext %}
   {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
 {% endif %}
+{% tag_menu_homepage %}
 </div>
 {% endblock %}
 
