@@ -1,8 +1,7 @@
 .breadcrumbs {
-  font-family: 'Quicksand', sans-serif;
-  border-buttom: 1px #e7e7e7 solid;
+  font-family: $baton-regular;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: $font-x-small;
 }
 .breadcrumbs-list {
   margin: 0;
@@ -13,9 +12,8 @@
   display: inline-block;
   &:after {
     content: " > ";
-    color: #777;
+    color: $steel;
     margin: 0 2px 0 5px;
-    font-weight: 700;
   }
   &:last-child:after {
     content: " ";
@@ -25,13 +23,17 @@
 .breadcrumbs-list__item--pipe {
   &:after {
     content: " / ";
+    color: $steel;
   }
 }
 .breadcrumbs-list__anchor {
-  color: #777;
-  font-weight: 700;
-  text-transform: uppercase;
+  color: $springster-purple;
+  font-weight: normal;
+  text-transform: capitalize;
   @media screen and (min-width: 320px) {
     text-decoration: none;
   }
+}
+.breadcrumbs-list__anchor--is-active {
+  color: $steel;
 }

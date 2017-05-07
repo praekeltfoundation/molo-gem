@@ -1,26 +1,24 @@
+
 .call-to-action--wide-back {
   padding: 0;
-  background: #F1E5FF;
+  background-color: $springster-purple-light;
 }
 
 .call-to-action__nav-item-text {
-  padding: 10px 60px;
   font-family: $baton-medium;
   font-size: 16px;
   text-transform: uppercase;
   text-decoration: underline;
   color: $springster-purple;
+  position: relative;
   display: block;
   text-align: center;
-  text-decoration: underline;
-  text-transform: uppercase;
 }
 
 //For text and non text [call-to-action__nav-item]
 .call-to-action__nav-item-text--right,
 .call-to-action__nav-item-text--left {
   &:after {
-    display: block;
     background-size:auto;
     position: absolute;
   }
@@ -28,15 +26,22 @@
 .call-to-action__nav-item-text--right {
   &:after {
     content: url("/static/img/icons/next.svg");
-    top: 40%;
-    right: 25%;
+    height: 14px;
+    width: 16px;
+    position: absolute;
+    top: 0;
+    margin-left: 10px;
   }
 }
 .call-to-action__nav-item-text--left {
   text-align: left;
   &:after {
     content: url("/static/img/icons/back.svg");
-    top: 30%;
-    left: 10%;
+    height: 14px;
+    width: 16px;
+    position: absolute;
+    top: 0;
+    margin-left: 10px;
   }
 }
+

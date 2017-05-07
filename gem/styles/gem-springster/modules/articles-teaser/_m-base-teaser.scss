@@ -2,6 +2,7 @@
 Take Note:
 Separate smart styles to states folder
 */
+
 .article-teaser {
   overflow: auto;
 }
@@ -12,6 +13,7 @@ Separate smart styles to states folder
     outline: none;
     display: inline-block;
     vertical-align: top;
+    width: 30%;
     
     img {
       width: 100%;
@@ -23,19 +25,29 @@ Separate smart styles to states folder
     font-family: $baton-medium;
     font-weight: normal;
     margin-top: 4px;
-    a { 
-      color: $charcoal-grey; 
-    }
   }
+  
   &__title-link {
-    color: gray;
+    color: $charcoal-grey;
   }
+  
   &__subtitle {
+    $line-height: 1.4;
+    $lines-to-show: 2;
     color: $slate-grey;
     font-size: $font-xxx-small;
     text-transform: none;
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+    height: $font-xxx-small*$line-height*$lines-to-show; /* Fallback for non-webkit */
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
+
 .teaser-stacklist {
   padding: 0;
   margin: 0;
@@ -91,6 +103,7 @@ Separate smart styles to states folder
     &:hover {
       color: $black;
     }
+    
     &:before {
       content: "#";
     }
