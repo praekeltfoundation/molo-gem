@@ -1,20 +1,22 @@
 
 fieldset {
-  font-family: 'Quicksand', sans-serif;
+  font-family: $baton-regular;
   border: none;
-  padding: 10px 0;
+  padding: 0 8px 0;
   margin: 0;
+  display: block;
   @media screen and (min-width: 320px) {
-    padding: 10px 15px 0;
+    padding: 8px 8px 0;
   }
 }
 
 label, .checkbox__legend {
-  font-size: 16px;
+  font-size: $font-medium;
   padding: 10px 0 0;
-  color: #000;
-  text-transform: uppercase;
+  color: $gunmetal;
+  text-transform: capitalize;
   display: block;
+  text-align: center;
 }
 .checkbox__label {
   display: block;
@@ -73,15 +75,16 @@ input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
 textarea {
-  border: 1px solid #B0B9BB;
+  border: 2px solid $springster-purple;
+  box-sizing: border-box;
   display: block;
   font-size: 14px;
   margin: 10px 0;
   padding: 10px;
-  width: 80%; //Smaller screen resolution
-  @media screen and (min-width: 320px) {
-    border-radius: 5px;
-    width: 90%;
+  width: 100%;
+  
+  &:focus {
+    outline: 0;
   }
 }
 

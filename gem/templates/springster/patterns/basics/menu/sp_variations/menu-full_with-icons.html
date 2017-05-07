@@ -19,8 +19,7 @@
 <div class="header__search">
   <input class="header__search-input"type="checkbox" id="search-toggle">
   <div class="header__search-bar">
-    {% block search_button %}
-      {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" %}
-    {% endblock %}
+    {% trans "Search" as placeholdertext %}
+    {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
   </div>
 </div>

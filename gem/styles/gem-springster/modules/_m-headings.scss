@@ -1,14 +1,59 @@
 
-.component-heading {
-  @include zig-zag-underline;
-  text-align: center;
-  margin: 0 8px 28px;
-  padding-top: 30px;
+.heading {
+  &__component {
+    @include zig-zag-underline;
+    text-align: center;
+    margin: 0 8px 28px;
+    padding-top: 30px;
 
-  h4 {
-    font-family: $baton-medium;
-    font-size: $font-x-large;
-    text-transform: uppercase;
-    color: $gunmetal;
+    h1, h2, h3, h4, h5, h6 {
+      font-family: $baton-medium;
+      font-size: $font-x-large;
+      font-weight: normal;
+      text-transform: uppercase;
+      color: $gunmetal;
+    }
+    
+    &__component--hash {
+      h2:before {
+        content: "#";
+      }
+    }
+  }
+  
+  &__subheading {
+    text-align: center;
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: $baton-regular;
+      font-size: $font-x-large;
+      font-weight: normal;
+      color: $gunmetal;
+    }
+  }
+  
+  &__section {
+    display: inline-flex;
+    align-items: flex-end;
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: $baton-medium;
+      font-size: $font-x-large;
+      font-weight: normal;
+      line-height: $font-x-large;
+      color: $white;
+      margin-bottom: 4px;
+    }
+  }
+  
+  &__article {
+    text-align: center;
+    margin: 24px 8px 8px;
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: $baton-medium;
+      font-size: $font-xx-large;
+      color: $charcoal-grey;
+    }
   }
 }
