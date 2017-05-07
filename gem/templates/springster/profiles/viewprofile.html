@@ -42,8 +42,8 @@
     {% trans "Update Profile" %}
   </a>
 
-  
-  <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile__form">
+
+  <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form">
   {% csrf_token %}
   <label>{% trans "Change Your Password" %}</label>
     {% if form.errors or form.non_field_errors %}

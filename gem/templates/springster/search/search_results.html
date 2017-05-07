@@ -1,65 +1,37 @@
-
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags i18n%}
+{% load wagtailcore_tags wagtailimages_tags comments i18n core_tags %}
+{% block body_class %}default-container{% endblock %}
 
 {% block content %}
-{% if search_results %}
+<div class="search">
   {% trans "Search" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h1" title=headingtext %}
   <div class="heading heading__subheading">
     <h6>{% trans "Results for " %}&quot;{{search_query}}&quot;.</h6>
   </div>
-  {% for page in search_results %}
-    {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
-      <a href="{% pageurl page %}">
-          {% if ancestor.sectionpage.image %}
-              <h6>{{ancestor.title}}</h6>
-          {% else %}
-              <h6>{{parent_section.title}}</h6>
-          {% endif %}
-          {% if page.title_highlight %}
-              <h3>{{page.title_highlight|safe}}</h3>
-          {% else %}
-              <h3>{{page.title}}</h3>
-          {% endif %}
-          {% if page.subtitle_highlight or page.body_highlight %}
-              {% if page.subtitle_highlight %}
-                  <p>{{page.subtitle_highlight|safe}}</p>
-              {% elif page.body_highlight %}
-                  <p>{{page.body_highlight|safe}}</p>
-              {% endif %}
-          {% else %}
-              <p>{{page.subtitle}}</p>
-          {% endif %}
-      </a>
-    {% endwith %}
-  {% endfor %}
-
-  <div class="step-links">
-    {% if search_results.has_previous %}
-        <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}">&larr;</a>
-    {% endif %}
-    <span class="current">
-        Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
-    </span>
-    {% if search_results.has_next %}
-        <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}">&rarr;</a>
-    {% endif %}
-  </div>
-
-  {% else %}
-    <div class="search search--{{class}} search-results">
-      {% trans "Search" as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h1" title=headingtext %}
-      <div class="heading heading__subheading">
-        <h6>{% trans "No search results for " %}&quot;{{search_query}}&quot;.</h6>
+{% if search_results %}
+  <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+  <div class="article-teaser search__results">
+    <ul class="teaser-stacklist">
+    {% for page in search_results %}
+    {% get_translation page.get_parent_section as parent_section %}
+      <li class="teaser-stacklist__item">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail_page.html" with layouttype="base" %}
+      <div class="teaser-stacklist__item--content">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-title_page.html" with layouttype="base" %}
       </div>
-
-      {% trans "Search" as placeholdertext %}
-      {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
-    </div>
-  {% endif %}
-  {% tag_menu_homepage %}
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <div class="heading heading__subheading">
+    <h6>{% trans "No search results for " %}&quot;{{search_query}}&quot;.</h6>
+  </div>
+  {% trans "Search" as placeholdertext %}
+  {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
+{% endif %}
+</div>
 {% endblock %}
 
 {% block search %}
@@ -67,5 +39,3 @@
       {% include "search/search_block.html" %}
   {% endif %}
 {% endblock %}
-
-

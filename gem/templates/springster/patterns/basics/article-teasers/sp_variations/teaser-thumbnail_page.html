@@ -1,0 +1,7 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if page.image %}
+<a href="{% pageurl page %}" class="{{layouttype}}-teaser__thumbnail-link">
+  {% image page.image fill-96x96 as teaser_thumbnail_page %}
+  <img src="{{ teaser_thumbnail_page.url }}" class="{{layouttype}}-teaser__thumbnail" />
+</a>
+{% endif %}
