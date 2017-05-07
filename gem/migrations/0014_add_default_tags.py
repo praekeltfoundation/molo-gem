@@ -1,29 +1,38 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import csv
 from django.db import migrations
 from molo.core.models import (
-    SiteLanguage, Tag, TagIndexPage, Main, PageTranslation)
+    SiteLanguage, Tag, TagIndexPage, PageTranslation)
 
 
-def add_default_tags(apps, schema_editor):
+def default_tags(apps, schema_editor):
     main_lang = SiteLanguage.objects.filter(
         is_active=True, is_main_language=True).first()
     tag_index = TagIndexPage.objects.first()
-    tags_list = [
-        [{'title': 'health', 'locale': 'en'}, {'title': 'الصحة', 'locale': 'ar'}, {'title': 'স্বাস্থ্য', 'locale': 'bn'}],
-        [{'title': 'periods', 'locale': 'en'}, {'title': 'الدورة', 'locale': 'ar'}, {'title': 'পিরিয়ড', 'locale': 'bn'}]
-    ]
-    for tag in tags_list:
-        for t in tag:
-            if main_lang.locale == t['locale']:
-                main_tag = create_tag(t['title'], tag_index)
-        for t in tag:
-            child_lang = SiteLanguage.objects.filter(
-                locale=t['locale'], is_main_language=False).first()
-            if child_lang:
+    reader = csv.DictReader(open('tags.csv'))
+    child_languages = SiteLanguage.objects.filter(
+        is_main_language=False).all()
+    tags = {}
+
+    if main_lang:
+        for row in reader:
+            key = row.pop('Tags')
+            tags[key] = row
+        add_tags(main_lang, child_languages, tag_index, tags)
+
+
+def add_tags(main_lang, child_languages, tag_index, tags):
+    for tag in tags:
+        if tags.get(tag).get(main_lang.locale):
+            main_tag = create_tag(
+                tags.get(tag).get(main_lang.locale), tag_index)
+
+        for child_lang in child_languages:
+            if tags.get(tag).get(child_lang.locale):
                 create_tag_translation(
-                    main_tag, child_lang, t['title'], tag_index)
+                    main_tag, child_lang, tags.get(tag).get(child_lang.locale),
+                    tag_index)
 
 
 def create_tag(title, tag_index):
@@ -54,5 +63,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_default_tags),
+        migrations.RunPython(default_tags),
     ]
