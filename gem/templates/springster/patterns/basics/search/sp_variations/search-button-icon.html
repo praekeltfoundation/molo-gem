@@ -1,20 +1,10 @@
 {% load i18n %}
 {% block search_button %}
-<div class="footer-search-bar">
-  <form action="{% url 'search' %}">
-    <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{search_query}}" id="input__{{radius}}">
-    <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
+<!--Get a better name for the search to accommodate [Page 7 Footer Variations] -->
+<div class="search__bar">
+  <form action="{% url 'search' %}" class="search__form">
+    <input placeholder="{% trans "I am looking for..." %}" name="q" type="text" value="{% if not search_query %}{% trans "I am looking for..." %}{% else %}{{ search_query }}{% endif %}" id="input__{{radius}}">
+    <input type="submit" value="{% trans "Search"%}" class="call-to-action__nav-item call-to-action__nav-item--with-icon call-to-action__nav-item--search-icon">
   </form>
 </div>
 {% endblock %}
-
-<!-- <div id="search-form">
-  <form action="{% url 'search' %}">
-    <label>{% trans "looking for something?" %}</label>
-    <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{ search_query }}">
-    <button type="submit" class="search__submit">
-      {% trans "Submit" %}
-    </button>
-    <div class="clear-fix"></div>
-  </form>
-</div> -->

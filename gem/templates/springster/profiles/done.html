@@ -5,7 +5,7 @@
   <h2 class="heading heading--title">{% trans "Thank you for joining!" %}</h2>
   <h3 class="heading heading--subtitle">
     {% trans "Let us know your birthday to get access to exclusive content." %}</h3>
-  <form method="post" action="{% url 'molo.profiles:registration_done' %}">
+  <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
   {% csrf_token %}
     <fieldset>
       {{ form.date_of_birth }}

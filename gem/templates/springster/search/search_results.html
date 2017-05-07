@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments i18n core_tags %}
+{% block body_class %}default-container{% endblock %}
+
+{% block content %}
+<div class="search">
+  <div class="component-heading">
+    <h2 class="heading heading--title">{% trans "Search" %}</h2>
+  </div>
+{% if search_results %}
+  <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+  <div class="article-teaser search__results">
+    <ul class="teaser-stacklist">
+    {% for page in search_results %}
+    {% get_translation page.get_parent_section as parent_section %}
+      <li class="teaser-stacklist__item">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail_page.html" with layouttype="base" %}
+      <div class="teaser-stacklist__item--content">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-title_page.html" with layouttype="base" %}
+      </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <h3 class="heading heading--subtitle">{% trans "No search results for " %} `{{ search_query }}`</h3>
+  {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" %}
+{% endif %}
+</div>
+{% endblock %}
+
+{% block search %}
+  {% if search_results %}
+      {% include "search/search_block.html" %}
+  {% endif %}
+{% endblock %}
