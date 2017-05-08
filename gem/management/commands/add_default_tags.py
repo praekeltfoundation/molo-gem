@@ -50,12 +50,13 @@ def create_tag(title, tag_index):
         return tag
 
 
-def create_tag_translation(main_tag, language, translated_title, tag_index):
-    translated_tag = create_tag(translated_title, tag_index)
-    if translated_tag:
-        language_relation = translated_tag.languages.first()
-        language_relation.language = language
-        language_relation.save()
-        translated_tag.save_revision().publish()
-        PageTranslation.objects.get_or_create(
-            page=main_tag, translated_page=translated_tag)
+def create_tag_translation(main_tag, language, trans_title, tag_index):
+    if not Tag.objects.filter(title=trans_title).child_of(tag_index).exists():
+        translated_tag = create_tag(trans_title, tag_index)
+        if translated_tag:
+            language_relation = translated_tag.languages.first()
+            language_relation.language = language
+            language_relation.save()
+            translated_tag.save_revision().publish()
+            PageTranslation.objects.get_or_create(
+                page=main_tag, translated_page=translated_tag)
