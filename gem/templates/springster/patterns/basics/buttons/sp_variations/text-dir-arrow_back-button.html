@@ -1,7 +1,6 @@
-{% load wagtailcore_tags i18n %}
+{% load core_tags wagtailcore_tags i18n %}
 <div class="call-to-action call-to-action--wide-back">
-  <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--{{direction}}">
-    {% trans "Back to" %} {{ article }} <!-- Note text must accomodate back to home -->
-
+  <a href="{{hyperlink}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--{{direction}}">
+    {% trans "Back to" %} {{ page_name }} <!-- Note text must accomodate back to Home, Article, Section and etc. -->
   </a>
 </div>
