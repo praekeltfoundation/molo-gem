@@ -3,44 +3,47 @@
 
 {% block content %}
 {% get_comments_content_object for form as self %}
-  {% url 'self' as page_link %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=page_link page_name="article" direction="left" %}
-
-<div class="block {{self.articlepage.get_parent_section.get_effective_extra_style_hints}}">
-  <div class="comment">
-    {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
-  </div>
-</div><!-- /title -->
-{% if page == 1 %}
-  <p class="comments__reply-title">{% trans "Recent replies" %}</p>
-{% else %}
-  <p class="comments__reply-title">{% trans "Earlier replies" %}</p>
-{% endif %}
-  <div class="comment__reply-content">
-  {% for node in replies reversed %}
-    {% include "comments/comment.html" %}
-  {% endfor %}
-  </div>
-<div class="pagination">
-  {% if replies.has_previous %}
-      <a href="?p={{ replies.previous_page_number }}" class="pagination__item pagination__item--prev">&larr;</a>
-  {% endif %}
-  <span class="pagination__item pagination__item--current">
-      {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
-  </span>
-  {% if replies.has_next %}
-      <a href="?p={{ replies.next_page_number }}" class="pagination__item pagination__item--next">&rarr;</a>
-  {% endif %}
-</div>
-<div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
-  <div class="article-copy">
-    <div class="post-comment">
-      {% if request.user.is_authenticated %}
-        {% include "comments/form.html" with node=comment %}
+  {% pageurl self as the_url %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+<div class="comments">
+  {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
+  <div class="comments-list__item comments-list__item--reply">
+    <h6 class="comments__body-title">
+    {% if page == 1 %}
+      <!--This should display| if there's replies only -->
+      {% trans "Recent replies" %}
       {% else %}
-        <p>{% trans "Please " %}<a href="{% url 'molo.profiles:auth_login' %}">{% trans "log in" %}</a>{% trans " to leave a comment." %}</p>
-      {% endif %}
-		</div>
+      {% trans "Earlier replies" %}
+    {% endif %}
+    </h6>
+    {% for node in replies reversed %}
+      {% include "comments/comment.html" %}
+    {% endfor %}
   </div>
+  <div class="pagination">
+    {% if replies.has_previous %}
+        <a href="?p={{ replies.previous_page_number }}" class="pagination__nav-item pagination__nav-item--prev">&larr;</a>
+    {% endif %}
+    <span class="pagination__nav-item pagination__nav-item--current">
+        {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
+    </span>
+    {% if replies.has_next %}
+        <a href="?p={{ replies.next_page_number }}" class="pagination__nav-item pagination__nav-item--next">&rarr;</a>
+    {% endif %}
+  </div>
+
+  <!--The  hyperlink variable works for {#{% url something %}#} and not for  {#{% pageurl something %}#} Fix implemented -->
+  {% trans "Add your reply" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext  %}
+  {% if request.user.is_authenticated %}
+    {% include "comments/form.html" with node=comment %}
+  {% else %}
+  <!--We need to do the heading + link fix done on Profiles?-->
+  <h6 class="comments__description">
+    {% trans "Please " %}<a href="{% url 'molo.profiles:auth_login' %}">{% trans "log in" %}</a>
+    {% trans "" %}</h6>
+  {% endif %}
+
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
 </div>
 {% endblock %}
