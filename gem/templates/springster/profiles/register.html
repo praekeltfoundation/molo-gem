@@ -4,7 +4,8 @@
 
 {% block content %}
 <div class="profiles">
-    {% include "patterns/basics/headings/sp_variations/profile-landing_heading.html" %}
+  {% trans "Join Srpingster" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="square" heading="h1" title=headingtext %}
     <p class="call-to-action__nav-item--title">
       {% trans "Already joined" %}</p>
     <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__nav-item">
