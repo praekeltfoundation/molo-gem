@@ -2,24 +2,6 @@
 
 {% if self.is_commenting_enabled %}
 <div class="comments">
-  {% trans "Your thoughts" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h2" title=headingtext %}
-  <div id="comments-list" class="comments__list">
-    {% get_comment_count for self as comment_count %}
-    {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
-      {% for node in comment_list %}
-        {% recursetree node %}
-          {% include "comments/comment.html" with truncate_comment=True %}
-          {{ children }}
-        {% endrecursetree %}
-      {% endfor %}
-      {% if comment_count > 2 %}
-      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item">
-        {% trans "View more comments" %}
-      </a>
-      {% endif %}
-  </div>
-
   {% trans "Share your thoughts" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h2" title=headingtext %}
   {% if self.allow_commenting %}
@@ -35,5 +17,23 @@
       {% trans "Commenting on this article is currently disabled" %}
     </h4>
   {% endif %}
+
+  {% trans "Your thoughts" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h2" title=headingtext %}
+  <div id="comments-list" class="comments-list">
+    {% get_comment_count for self as comment_count %}
+    {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
+      {% for node in comment_list %}
+        {% recursetree node %}
+          {% include "comments/comment.html" with truncate_comment=True %}
+          {{ children }}
+        {% endrecursetree %}
+      {% endfor %}
+      {% if comment_count > 2 %}
+      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item">
+        {% trans "View more comments" %}
+      </a>
+      {% endif %}
+  </div>
 </div>
 {% endif %}
