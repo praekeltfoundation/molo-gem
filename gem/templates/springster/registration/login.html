@@ -3,11 +3,11 @@
 {% block content %}
 <div class="profiles">
   {% trans "Log in" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h1" title=headingtext %}
-  <p class="call-to-action__nav-item--title">
-    {% trans "Not a member yet? Join us by " %}<p>
-  <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__nav-item">
-    {% trans "signing up" %}</a>
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+  {% trans "Not a member yet?" as headingtext %}
+  {% trans "Sign up here" as linktext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:user_register" linktitle=linktext %}
+
   <form method="post" action="." class="profiles__form">
   {% csrf_token %}
     {% if form.errors %}

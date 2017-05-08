@@ -1,7 +1,7 @@
 {% load wagtailcore_tags core_tags i18n %}
 {% if featured_articles %}
 <div class="grid-teaser-wrapper">
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" heading="h2" title=section.title %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=section.title %}
   <ul class="grid-teaser-list">
   {% for article in featured_articles %}
   {% get_translation article.get_parent_section as origin_section %}
