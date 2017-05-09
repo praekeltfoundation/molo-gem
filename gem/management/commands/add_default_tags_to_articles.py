@@ -41,7 +41,8 @@ class Command(BaseCommand):
                                     else:
                                         self.stdout.write(self.style.WARNING(
                                             'Tag "%s" has been already asigned'
-                                            ' to "%s"' % (tag, article)))
+                                            ' to "%s" in "%s"'
+                                            % (tag, article, main)))
                                 else:
                                     self.stdout.write(self.style.NOTICE(
                                         'Tag "%s" does not exist in "%s"'

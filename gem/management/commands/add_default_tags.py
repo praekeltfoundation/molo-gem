@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
 import csv
@@ -35,9 +36,6 @@ def add_tags(self, main_lang, child_languages, tag_index, tags):
         if tags.get(tag).get(main_lang.locale):
             main_tag = create_tag(
                 tags.get(tag).get(main_lang.locale), tag_index)
-        else:
-            self.stdout.write(self.style.NOTICE(
-                'Tag %s does not exist for %s in the CSV' % (tag, main_lang)))
 
             for child_lang in child_languages:
                 if tags.get(tag).get(child_lang.locale):
@@ -48,6 +46,9 @@ def add_tags(self, main_lang, child_languages, tag_index, tags):
                     self.stdout.write(self.style.NOTICE(
                         'Tag %s does not exist for %s in the CSV'
                         % (tag, child_lang)))
+        else:
+            self.stdout.write(self.style.NOTICE(
+                'Tag %s does not exist for %s in the CSV' % (tag, main_lang)))
 
 
 def create_tag(title, tag_index):
