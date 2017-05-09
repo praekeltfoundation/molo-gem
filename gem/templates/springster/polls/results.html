@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n static core_tags %}
+{% block content %}
+<div class="polls polls--results">
+	{% if question.show_results and not question.freetextquestion%}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=question.title %}
+  <ul class="results-list">
+		<h3 class="heading heading--subtitle">{% trans "Your answers:" %}</h3>
+			{% for choice in choices %}
+      <li class="results-list__item">
+				<label>{{ choice.title }}</label>
+        {% if question.result_as_percentage %}
+					<h5 class="results-list__percent">
+            <span class="results-list__percent-bar" style="width:{{ choice.percentage }}%"></span>
+            {{ choice.percentage }}%
+          </h5>
+				{% else %}
+				<h5 class="results-list__votes">
+          {{ choice.votes }} vote{{ choice.votes|pluralize }}
+        </h5>
+			  {% endif %}
+      </li>
+			{% endfor %}
+  </ul>
+	{% else %}
+	<h3 class="heading heading--subtitle">{% trans "Thank you for voting!" %}</h3>
+	{% endif %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Home" direction="left" %}
+</div>
+{% endblock %}

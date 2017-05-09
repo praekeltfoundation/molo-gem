@@ -1,0 +1,15 @@
+{% load i18n static poll_votings %}
+{% block content %}
+{% if questions %}
+<div class="polls">
+{% for question in questions %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=question.title %}
+	{% if question.freetextquestion %}
+		{% include 'polls/includes/poll_free_text_form.html'%}
+	{% else %}
+		{% include 'polls/includes/poll_question_form.html'%}
+	{% endif %}
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}
