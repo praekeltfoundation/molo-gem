@@ -7,8 +7,11 @@
 
     &__subtitle {
       font-size: $font-xx-small;
-      margin-bottom: 2px;
+      height: $font-xx-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
+      line-height: $elip-line-height;
+      -webkit-line-clamp: $elip-lines-to-show;
     }
+    
   }
     
   .teaser-stacklist-tags {
@@ -26,7 +29,13 @@
 
     &__subtitle {
       font-size: $font-x-small;
-      margin-bottom: 4px;
+      height: $font-x-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
+      line-height: $elip-line-height;
+      -webkit-line-clamp: $elip-lines-to-show;
+    }
+    
+    &__thumbnail-link {
+      width: inherit;
     }
   }
     

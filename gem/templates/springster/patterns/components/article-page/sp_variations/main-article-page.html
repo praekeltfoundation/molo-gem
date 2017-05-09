@@ -1,9 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
 {% get_translation self.get_parent_section as section %}
 
-  {% include "patterns/basics/article-page/sp_variations/article-page_headings.html" %}
-  {% social_media_article %}
-  {% include "patterns/basics/images/article-page_variations/article-image.html" %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=self.title %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=self.subtitle %}
+  {% include "patterns/basics/images/sp_variations/article-image.html" %}
   {% include "patterns/basics/articles/article-page_variations/article-body.html" %}
+  {% social_media_article %}
   {% include "patterns/basics/article-page/sp_variations/related-article-teasers_up-next.html" %}
   {% include "patterns/basics/article-page/sp_variations/related-article-teasers_might-like.html" %}

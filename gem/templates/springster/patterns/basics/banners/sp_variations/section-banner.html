@@ -1,7 +1,7 @@
 {% load core_tags wagtailcore_tags wagtailimages_tags %}
-<div class="banner">
+<div class="section-banner">
   {% if self.image %}
-    {% image self.image width-320 as section_photo %}
+    {% image self.image fill-172x128 as section_photo %}
       <img src="{{ section_photo.url }}" alt="{{ self.title }}"/>
   {% endif %}
 </div>

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments i18n core_tags %}
+{% block body_class %}default-container{% endblock %}
+
+{% block content %}
+<div class="search search-results">
+  {% trans "Search" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+{% if search_results %}
+  <div class="heading heading__subheading">
+    <h6>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</h6>
+  </div>
+  <p></p>
+  <div class="article-teaser search__results">
+    <ul class="teaser-stacklist">
+    {% for page in search_results %}
+    {% get_translation page.get_parent_section as parent_section %}
+      <li class="teaser-stacklist__item">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail_page.html" with layouttype="base" %}
+      <div class="teaser-stacklist__item--content">
+        {% include "patterns/basics/article-teasers/sp_variations/teaser-title_page.html" with layouttype="base" %}
+      </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% include "patterns/basics/pagination/page-numbers_search.html" %}
+{% else %}
+  <div class="heading heading__subheading">
+    <h6>{% trans "No search results for " %}&quot;{{search_query}}&quot;.</h6>
+  </div>
+  {% trans "Search" as placeholdertext %}
+  {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
+{% endif %}
+{% tag_menu_homepage %}
+</div>
+{% endblock %}
+
+{% block search %}
+  {% if search_results %}
+      {% include "search/search_block.html" %}
+  {% endif %}
+{% endblock %}

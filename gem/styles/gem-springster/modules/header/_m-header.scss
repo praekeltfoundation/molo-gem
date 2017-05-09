@@ -1,6 +1,8 @@
 
 .header {
   background-color: $springster-purple;
+  position: relative;
+  
   .menu-list--center {
     @media screen and (min-width: 240px) {
       margin-left: 20%;
@@ -25,15 +27,24 @@
      
     .header__search-bar {
        position: relative;
+       
+      //  Needs rework
+       &:after {
+         content: "";
+         background: $springster-purple url("/static/img/icons/dismiss.svg") 50%/70% no-repeat;;
+         height: 24px;
+         width: 24px;
+         position: absolute;
+         margin-top: -124px; 
+         right: 0;
+         pointer-events: none;
+         
+         @media screen and (min-width: 240px) {
+           margin-top: -88px;
+         }
+       }
      }
+     
+     
   }
-  
-  &__search-bar {
-    input[type="text"] {
-      width: 93%;
-      border: 2px solid $springster-purple;
-      margin: 5px 0;
-    }
-  }
-
 }

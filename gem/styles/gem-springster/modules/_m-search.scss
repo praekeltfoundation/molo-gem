@@ -6,7 +6,6 @@
         padding: 0 15px;
     }
   }
-
 }
 .search__form {
   position: relative;
@@ -21,7 +20,6 @@
   }
 }
 
-
 #search-toggle__button  {
   visibility: hidden;
   position: absolute;
@@ -35,4 +33,28 @@
 }
 #search-toggle__button:checked ~ .search {
     display: block;
+}
+
+.search-bar { 
+  position: relative;
+  margin: 0;
+  input[type="text"] {
+    font-family: $baton-regular;
+    color: $springster-purple;
+    font-size: 20px;
+    padding: 5px 10px;
+    width: 100%;
+    border: 2px solid $springster-purple;
+    box-sizing: border-box;
+    &:focus {
+      border: 2px solid $gunmetal;
+      outline: 0;
+    }
+  }
+}
+
+.search-results {
+  .search-bar {
+    margin: 30px 16px;
+  }
 }
