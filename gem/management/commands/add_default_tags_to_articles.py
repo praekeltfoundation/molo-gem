@@ -30,8 +30,8 @@ class Command(BaseCommand):
                             section_index).filter(slug=article_slug).first()
                         if article:
                             for tag_title in articles.get(article_slug):
-                                tag = Tag.objects.child_of(
-                                    tag_index).filter(title=tag_title).first()
+                                tag = Tag.objects.child_of(tag_index).filter(
+                                    title=tag_title.strip()).first()
                                 if tag:
                                     if not article.nav_tags.filter(
                                             tag__title=tag):
