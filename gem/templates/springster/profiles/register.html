@@ -6,6 +6,7 @@
 <div class="profiles">
   {% trans "Join Springster" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="square" htmltag="h1" title=headingtext %}
+  
   {% trans "Already joined?" as headingtext %}
   {% trans "Log in here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}
@@ -81,13 +82,13 @@
       </p>
     {% endif %}
   </fieldset>
-  <input type="submit" class="registerSubmit" value='{% trans "Sign up" %}' />
+  {% trans "Sign up" as buttontext %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
 
-  <p class="call-to-action__nav-item--title">
-    {% trans "Already joined" %}</p>
-  <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__nav-item">
-    {% trans "Log in here?" %}</a>
+  {% trans "Already joined?" as headingtext %}
+  {% trans "Log in here" as linktext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}
   </form>
 </div>
 {% endblock %}

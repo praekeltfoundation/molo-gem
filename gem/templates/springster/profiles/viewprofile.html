@@ -38,9 +38,9 @@
       <span class="input-feedback">{{ user.profile.mobile_number }}</span></p>
     {% endif %}
   </fieldset>
-  <a href="{% url 'edit_my_profile' %}" class="call-to-action__nav-item">
-    {% trans "Update Profile" %}
-  </a>
+  {% url "edit_my_profile" as link %}
+  {% trans "Update Profile" as buttontext %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
 
 
   <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form">

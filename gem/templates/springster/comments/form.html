@@ -5,9 +5,11 @@
     <h1>{% blocktrans count counter=form.errors|length %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
     {% endif %}
     {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
-      {{ form.comment }}
-    <input type="submit" name="submit" value="{% trans "Submit" %}">
-    <input type="submit" name="submit_anonymously" value="{% trans "Comment Anonymously" %}">
+    {{ form.comment }}
+    {% trans "Submit" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    {% trans "Comment Anonymously" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" text=buttontext %}
     {{ form.object_pk }}
     {{ form.content_type }}
     {{ form.timestamp }}

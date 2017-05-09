@@ -36,7 +36,8 @@
 	      {{ form.email }}
 			{% endif %}
     </fieldset>
-		<input type="submit" value='{% trans "Update profile" %}'>
+		{% trans "Update profile" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
 		</form>
 </div>
 

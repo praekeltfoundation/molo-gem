@@ -4,6 +4,7 @@
 <div class="profiles">
   {% trans "Log in" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+  
   {% trans "Not a member yet?" as headingtext %}
   {% trans "Sign up here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:user_register" linktitle=linktext %}
@@ -24,10 +25,15 @@
       <label>{% trans "4-digit pin" %}</label>
       {{form.password}}
     </fieldset>
-    <input type="submit" value="{% trans 'Log in' %}">
+
+    {% trans "Log in" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
     <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
-    <a href="{% url 'forgot_password' %}" class="call-to-action__nav-item">
-      {% trans "Forgot PIN" %}</a>
+    
+    {% url "forgot_password" as link %}
+    {% trans "Forgot PIN" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" hyperlink=link text=buttontext %}
+    
   </form>
 </div>
 {% endblock %}
