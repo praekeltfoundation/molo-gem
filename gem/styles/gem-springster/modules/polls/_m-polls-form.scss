@@ -1,25 +1,91 @@
-.polls {}
+.polls {
+  background: url('/static/img/bottom-div-1@2x.png') no-repeat 0 100%/contain,url('/static/img/top-div-2@2x.png') no-repeat 0 0/contain;
+}
 .polls--call-to-action {
   background-color: $mint-green-light;
-  padding: 0 15px;
-  //Find a better way for extre modiffier classes
+  padding: 55px 15px 0;
+  margin: 50px 0;
+  position: relative;
+  //Find a better way for extra modiffier classes
   .heading__micro {
     margin: 0;
     text-align: center;
   }
-  .heading__subheading {
+  .heading__subheading,
+  .heading__subheading:first-child {
     color: $charcoal-grey;
     padding: 0 15px;
     text-align: center;
     h3 {
       color: $charcoal-grey;
+      line-height: 1.0;
     }
   }
 }
+.polls__bubble-icon {
+  background: url('/static/img/icons/poll@2x.png') no-repeat 0 0;
+  background-size: contain;
+  display: block;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  margin: 0 auto;
+  right: 0;
+  width: 75px;
+  height: 75px;
+  top: -30px;
+}
 
-.polls__form,
-.results-list {
-  label {
-    text-align: left;
+
+.choice-group {
+  padding: 8px;
+}
+.choice {
+  background: #fff;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  padding: 8px;
+  input[type="radio"]  {
+    margin: 0 15px 0 5px;
+    opacity: 0;
+    z-index: -1;
   }
+}
+.choice__indicator {
+  background: #fff url('/static/img/icons/up@2x.png') 0 0 no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 10px;
+  left: 7px;
+  width: 20px;
+  height: 20px;
+  .choice--radio & {
+    border-radius: 50%;
+  }
+  .choice:hover input[type="radio"] ~ &,
+  .choice input[type="radio"]:focus ~ & {
+    opacity: 1;
+  }
+  .choice input[type="radio"]:checked ~ & {
+    background: #7300FF;
+  }
+}
+
+.choice__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.choice input:checked ~ .choice__indicator:after {
+  display: block;
+}
+.choice--radio .choice__indicator:after {
+  left: 7px;
+  top: 7px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #FFFC80;
 }
