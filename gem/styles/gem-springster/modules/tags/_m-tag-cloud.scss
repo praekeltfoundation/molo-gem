@@ -13,7 +13,6 @@
   &__block {
     width: 100%;
     text-align: center;
-    font-size: 13px;
     margin: 20px 0 0;
     padding: 0 0 20px;
     list-style-type: none;
@@ -30,7 +29,7 @@
   }
 
   &__heading {
-    @include zig-zag-underline;
+    @include underline(zig-zag, 10px);
     text-align: center;
 
     h4 {
@@ -59,22 +58,13 @@
   }
   &:before {
     content: "#";
-    margin-right: -3px;
   }
 }
 
-// //Tag Cloud for Article Page, dont see the need of this?
-  .article-page-tag-cloud {
-   text-align: center;
- }
- .article-page-tag-cloud__title {
-   text-transform: uppercase;
- }
- .teaser-stacklist-tags {
-   margin: 0;
-   padding: 0;
- }
-  .teaser-stacklist-tags__item {
-   display: inline-block;
-   padding: 2px 5px;
- }
+.article-page-tag-cloud {
+  @include divider-line(4px, $pale-grey-three);
+  
+  .heading {
+    margin-bottom: 10px;
+  }
+}

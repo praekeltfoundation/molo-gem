@@ -24,12 +24,21 @@
 
 //General Article
 article {
-  h1,h2,h3,h4,h5,h6 {
-    padding: 15px;
-    margin: 0 0 10px 0;
-  }
+  @include underline(sharpie, 10px);;
+  margin-bottom: 18px;
+  padding: 0 8px 20px;
+  
   h1,h2,h3,h4,h5,h6,p {
-    padding: 0 15px;
+    margin: 8px 0;
+  }
+  
+  p {
+    margin-bottom: 20px;
+  }
+  
+  img {
+    display: block;
+    margin: 0 auto;
   }
 }
 
@@ -60,7 +69,7 @@ article {
   padding: 10px 15px;
 }
 .article__desc {
-  padding: 10px 15px;
+  padding: 10px 8px;
   margin: 0;
 }
 .article__image--link {
@@ -93,3 +102,4 @@ article {
 .article-page__publish-date {
   padding: 0 15px;
 }
+
