@@ -23,22 +23,45 @@ class Command(BaseCommand):
             tag_index = TagIndexPage.objects.child_of(main).first()
             main_lang = Languages.for_site(main.get_site()).languages.filter(
                 is_active=True, is_main_language=True).first()
-            if main_lang.locale == "en":
-                for article_slug in articles:
-                    article = ArticlePage.objects.descendant_of(
-                        section_index).filter(slug=article_slug).first()
-                    if article:
-                        for tag_title in articles.get(article_slug):
-                            tag = Tag.objects.child_of(
-                                tag_index).filter(title=tag_title).first()
-                            if tag and not article.nav_tags.filter(
-                                    tag__title=tag):
-                                article_page_ag = ArticlePageTags(
-                                    page=article, tag=tag)
-                                article_page_ag.save()
-                    else:
-                        print "Article ", article_slug,\
-                            "does not exist in", main.get_site()
+            if section_index and tag_index and main_lang:
+                if main_lang.locale == "en":
+                    for article_slug in articles:
+                        article = ArticlePage.objects.descendant_of(
+                            section_index).filter(slug=article_slug).first()
+                        if article:
+                            for tag_title in articles.get(article_slug):
+                                tag = Tag.objects.child_of(
+                                    tag_index).filter(title=tag_title).first()
+                                if tag:
+                                    if not article.nav_tags.filter(
+                                            tag__title=tag):
+                                        article_page_tag = ArticlePageTags(
+                                            page=article, tag=tag)
+                                        article_page_tag.save()
+                                    else:
+                                        self.stdout.write(self.style.WARNING(
+                                            'Tag "%s" has been already asigned'
+                                            ' to "%s"' % (tag, article)))
+                                else:
+                                    self.stdout.write(self.style.NOTICE(
+                                        'Tag "%s" does not exist in "%s"'
+                                        % (tag_title, main)))
+                        else:
+                            self.stdout.write(self.style.ERROR(
+                                'Article "%s" does not exist in "%s"'
+                                % (article_slug, main.get_site())))
+                else:
+                    self.stdout.write(self.style.NOTICE(
+                        'Main language of "%s" is not English.'
+                        ' The main language is "%s"'
+                        % (main.get_site(), main_lang)))
             else:
-                print "Main language of ", main.get_site(),\
-                    "is not English, it is ", main_lang
+                if not section_index:
+                    self.stdout.write(self.style.NOTICE(
+                        'Section Index Page does not exist in "%s"' % main))
+                if not tag_index:
+                    self.stdout.write(self.style.NOTICE(
+                        'Tag Index Page does not exist in "%s"' % main))
+                if not main_lang:
+                    self.stdout.write(self.style.NOTICE(
+                        'Main language does not exist in "%s"' % main))
