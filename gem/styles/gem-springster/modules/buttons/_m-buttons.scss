@@ -127,23 +127,23 @@
 
 // TODO: create mixin for buttons
 .call-to-action__button {
-  background-image: url('/static/img/buttons/button-sprite.png');
   text-align: center;
-  margin: 16px auto;
 }
 
 // Scales 2x sprite for Retina/HDPI displays
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
-	.call-to-action__button {
+	.call-to-action__button--primary, .call-to-action__button--secondary  {
 		 background-image: url('/static/img/buttons/button-sprite.png');
      background-size: 1870px 334px;
 	}
 }
 
-.call-to-action__button--primary{
+.call-to-action__button--primary {
+  margin: 16px auto;
   width: 140px;
 	height: 40px;
 	background-position: -792px -123px;
+  
   @media only screen and (min-width: 240px) {
     width: 185px;
   	height: 41px;
@@ -161,7 +161,8 @@
   }
 }
 
-.call-to-action__button--secondary{
+.call-to-action__button--secondary {
+  margin: 16px auto;
   width: 142px;
 	height: 42px;
 	background-position: -1728px -292px;
@@ -205,4 +206,11 @@
 
 .call-to-action__button-text--disabled {
   color: $cool-grey;
+}
+
+.call-to-action__button-text--hyperlink {
+  font-size: $font-x-small;
+  color: $springster-purple;
+  text-transform: uppercase;
+  text-decoration: underline;
 }
