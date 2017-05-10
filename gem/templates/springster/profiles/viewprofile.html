@@ -3,11 +3,15 @@
 {% get_settings %}
 {% block content %}
 <div class="profiles">
-  <div class="landing-page-heading">
-    <h1 class="heading heading--landing">{% trans "Hello" %} {{ user }}</h1>
-  </div>
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html" with direction="left" %}
-  <h2 class="heading heading--title">{% trans "Your Profile" %}</h2>
+  {% with user|stringformat:"s" as username %}
+    {% trans "Hello" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:username %}
+  {% endwith %}
+  {% url "molo.profiles:auth_logout" as link %}
+  {% trans "Log out" as buttontext %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
+  {% trans "Your Profile" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
   <fieldset>
     {% if user.profile.alias %}
       <label>{% trans "When you type comments your name will appear as:" %}
@@ -43,9 +47,10 @@
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
 
 
-  <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form">
+  <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block">
   {% csrf_token %}
-  <label>{% trans "Change Your Password" %}</label>
+  {% trans "Change Your Password" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
     {% if form.errors or form.non_field_errors %}
       {% if form.non_field_errors %}
       {% for error in form.non_field_errors %}
@@ -75,7 +80,9 @@
       {{ password_change_form.confirm_password }}
       {{ form.confirm_password.errors }}
     </fieldset>
-    <input type="submit" value='{% trans "Change" %}'>
+    {% trans "Change" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   </form>
+  
 </div>
 {% endblock %}
