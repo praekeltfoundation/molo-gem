@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags i18n %}
+{% block content %}
+<div class="surveys">
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
+
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
+
+{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+  {% if form %}
+    <form action="{% pageurl self %}{% if self.multi_step %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
+    {% csrf_token %}
+      {% for field in form %}
+      <fieldset>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <p class="helptext">{{ field.help_text }}</p>
+        {{ field }}
+        {% if field.errors %}
+          <ul class="error-list">
+          {% for error in field.errors %}
+            <li class="error-list__item">{{ error }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </fieldset>
+      {% endfor %}
+      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" />
+    </form>
+  {% else %}
+    <p class="errors">{% trans 'You have already completed this survey.' %}</p>
+    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back Home" direction="left" %}
+  {% endif %}
+{% else %}
+  {% trans "Log in to take Survey" as buttontext %}
+  {% url "molo.profiles:auth_login" as link %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+{% endif %}
+</div>
+{% endblock %}
