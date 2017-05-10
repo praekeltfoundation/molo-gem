@@ -10,7 +10,6 @@
   .heading__micro {
     margin: 0px 0 8px 0;
   }
-
 }
 .polls__bubble-icon {
   background: url('/static/img/icons/poll@2x.png') no-repeat 0 0/contain;
@@ -32,53 +31,29 @@
     padding-bottom: 0;
   }
 }
+
 .choice {
-  background: #fff;
-  display: block;
   position: relative;
-  cursor: pointer;
-  text-align: left;
-  padding: 8px;
-  font-size: $font-x-small;
-  input[type="radio"]  {
-    margin: 0 15px 0 5px;
-    opacity: 0;
-    z-index: -1;
+  
+  input[type=radio], input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
   }
-}
-//Struggling with Label hover when child input[type="radio"] is checked
-.choice__indicator {
-  background: #fff url('/static/img/icons/up@2x.png') 0 0/100% no-repeat;
-  position: absolute;
-  top: 10px;
-  left: 7px;
-  width: 20px;
-  height: 20px;
-  .choice--radio & {
-    border-radius: 50%;
+  
+  label {
+    display: block;
+    padding: 16px 16px 16px 54px;
+    text-align: left;
   }
-  .choice:hover input[type="radio"] ~ &,
-  .choice input[type="radio"]:focus ~ & {
+  
+  input[type=radio] + label, input[type=checkbox] + label {
+    background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
+    opacity: 0.8;
+  }
+  
+  input[type=radio]:checked + label, input[type=checkbox]:checked + label {
+    background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
-  }
-  .choice input[type="radio"]:checked ~ & {
-    background: #7300FF;
   }
 }
 
-.choice__indicator:after {
-  content: '';
-  position: absolute;
-  display: none;
-}
-.choice input:checked ~ .choice__indicator:after {
-  display: block;
-}
-.choice--radio .choice__indicator:after {
-  left: 7px;
-  top: 7px;
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background: #FFFC80;
-}
