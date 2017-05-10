@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static core_tags wagtailcore_tags molo_survey_tags poll_votings i18n %}
+{% load static core_tags wagtailcore_tags molo_survey_tags poll_votings el_pagination_tags i18n %}
 
 {% block content %}
     {% bannerpages %}
@@ -8,7 +8,7 @@
       {% latest_listing_homepage num_count=6 %}
       {% section_listing_homepage %}
     {% else %}
-    {% get_tag_articles latest_articles_count=12 tag_count=4 as tag_nav_data %}
+    {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=tag_nav_data.latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=tag_nav_data.latest_articles|slice:"3:6" %}
@@ -16,6 +16,21 @@
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=tag_nav_data.latest_articles|slice:"6:9" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
+    <ul id="articles-more"></ul>
+    <a class="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}" href="{% url 'home_more' %}?page={{pages.next.number}}">More...</a>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+    $('#articles-more, .article-teasers-container').on('click', '.more-link:visible', function(event){
+      event.preventDefault();
+      var more_url = $(this).attr('data-next');
+      $("#articles-more").append($('<span/>').load(more_url));
+      $(this).hide();
+    });
+    </script>
     {% tag_menu_homepage %}
     {% endif %}
 {% endblock %}
+
+{% block js %}
+
+ {% endblock %}
