@@ -1,0 +1,24 @@
+{% load i18n static poll_votings %}
+{% if error_message %}
+  <p class="errors">{{ error_message }}</p>
+{% endif %}
+<form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" >
+{% csrf_token %}
+  {% if request.user.is_authenticated %}
+    {% can_vote question as user_can_vote %}
+    {% if user_can_vote %}
+      {% if question.freetextquestion.get_main_language_page.numerical %}
+        <input type="number" name="answer" id="id_answer" value="" />
+      {% else %}
+        <input type="text" name="answer" id="id_answer" value="" />
+      {% endif%}
+      <input class="poll-choice__submit" type="submit" value="{% trans "Submit" %}" />
+    {% else %}
+      <p>{% trans "Thank you! Your response has already been submitted." %}<p>
+    {% endif %}
+  {% else %}
+  	{% trans "Log in to vote" as buttontext %}
+    {% url "molo.profiles:auth_login' %}?next={{request.path}}" as link %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+  {% endif %}
+</form>
