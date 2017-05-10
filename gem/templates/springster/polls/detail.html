@@ -3,6 +3,8 @@
 {% block content %}
 <div class="polls polls--call-to-action">
   <div class="polls__bubble-icon"></div>
+  {% trans "Take a vote!" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
 	{% if form.choice.errors %}
     <p class="errors">{{form.choice.errors|join:", " }}</p>
   {% endif %}
