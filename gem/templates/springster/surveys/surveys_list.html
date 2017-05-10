@@ -1,0 +1,22 @@
+{% load wagtailcore_tags i18n %}
+{% block content %}
+<div class="surveys">
+{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+		{% for survey in surveys %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
+
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=survey.intro %}
+    {% trans "Take Survey" as buttontext %}
+    {% pageurl survey as the_url %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=buttontext %}
+		{% endfor %}
+{% else %}
+  {% trans "Share your opinions and stories, take polls, win fun prizes." as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+
+  {% trans "Join" as buttontext %}
+  {% url "molo.profiles:auth_login" as link %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+{% endif %}
+</div>
+{% endblock %}
