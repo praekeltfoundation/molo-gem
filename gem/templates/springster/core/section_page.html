@@ -2,11 +2,8 @@
 {% load core_tags %}
 {% block content %}
     {% load_child_sections_for_section self as sections %}
-    {% if not settings.core.SiteSettings.enable_tag_navigation %}
-      {% include "patterns/components/section-page/sp_variations/base-section_teaser-listing.html" %}
-    {% else %}
-      {% include "patterns/components/sectionpage/sectionpage-standard_with-tags.html"%}
-    {% endif %}
+    {% include "patterns/components/section-page/sp_variations/base-section_teaser-listing.html" %}
+    {% include "patterns/basics/pagination/pagination-pageof.html" %}
     {% block breadcrumbs %}
       {% breadcrumbs %}
     {% endblock %}
