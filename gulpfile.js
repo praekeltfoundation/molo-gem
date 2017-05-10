@@ -18,7 +18,6 @@ var sassPaths = [
     'gem/styles/mote/mote.scss',
 
     'gem/styles/versions.scss',
-    'gem/styles/wagtail-admin.scss',
 ];
 
 var sassDest = {
@@ -29,10 +28,8 @@ var sassDest = {
 function styles(env) {
   var s = gulp.src(sassPaths);
   var isDev = env === 'dev';
-
   if (isDev) s = s
     .pipe(sourcemaps.init());
-
     s = s
     .pipe(sass().on('error', sass.logError))
     .pipe(cleanCSSMinify())
@@ -51,10 +48,19 @@ gulp.task('styles:dev', function() {
   return styles('dev');
 });
 
+//Wagtail Admin CSS override - must be on root static
+gulp.task('stylesAdmin', function() {
+  gulp.src('gem/styles/wagtail-admin.scss')
+      .pipe(sass().on('error', sass.logError))
+      .pipe(cleanCSSMinify())
+      .pipe(gulp.dest('gem/static/css/'))
+      .pipe(notify({ message: 'Styles task complete: Wagtail Admin' }));
+});
+
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd']);
+gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
 gulp.task('default', ['styles','watch']);
