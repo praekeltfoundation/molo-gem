@@ -8,16 +8,16 @@
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
-      <fieldset class="choice-group">
+      <fieldset id="choice-group-{{ question.id }}" class="choice-group">
         {% if question.get_main_language_page.allow_multiple_choice %}
-        <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-          <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+        <label class="choice choice--radio">
+          <input type="checkbox" name="choice-group-{{ question.id }}" value="{{ choice.get_main_language_page.id }}" />
           {{ choice.title }}
           <div class="choice__indicator"></div>
         </label>
         {% else %}
-        <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-          <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+        <label class="choice choice--radio">
+          <input type="radio" name="choice-group-{{ question.id }}" value="{{ choice.get_main_language_page.id }}" />
           {{ choice.title }}
           <div class="choice__indicator"></div>
         </label>
@@ -33,16 +33,16 @@
     {% can_vote question as user_can_vote %}
     {% if user_can_vote %}
       {% for choice in choices %}
-        <fieldset class="choice-group">
+        <fieldset id="choice-group-{{ question.id }}" class="choice-group">
           {% if question.get_main_language_page.allow_multiple_choice %}
           <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-            <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+            <input type="checkbox" name="choice-group-{{ question.id }}" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
             {{ choice.title }}
             <div class="choice__indicator"></div>
           </label>
           {% else %}
           <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.get_main_language_page.id}}" />
+            <input type="radio" name="choice-group-{{ question.id }}" id="choice{{ forloop.counter }}" value="{{choice.get_main_language_page.id}}" />
             {{ choice.title }}
             <div class="choice__indicator"></div>
           </label>
