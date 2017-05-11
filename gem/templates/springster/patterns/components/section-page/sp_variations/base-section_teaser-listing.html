@@ -1,11 +1,34 @@
 {% load core_tags wagtailcore_tags %}
 <div class="section-teaser-listing section-teaser-listing--base">
-  <div class="section-teaser-listing-header section-teaser-listing-header--{{self.get_effective_extra_style_hints}}"> 
+  <div class="section-teaser-listing-header section-teaser-listing-header--{{self.get_effective_extra_style_hints}}">
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="section" htmltag="h1" title=self.title %}
     {% include "patterns/basics/banners/sp_variations/section-banner.html" %}
   </div>
   {% load_child_articles_for_section self as articles %}
   {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
   {% include "patterns/basics/pagination/pagination-pageof.html" %}
-</div>
 
+  {% get_tags_for_section self as tags %}
+
+  {% for tag, tag_articles in tags %}
+  <div class="navigation">
+    <a href="{% pageurl tag %}" class="nav-list__anchor nav-list__anchor--column">
+      {{tag.title}}
+    </a>
+    <ul class="nav-list nav-list--column">
+      {% for article in tag_articles %}
+        <li class="nav-list__item nav-list__item--column">
+          <a href="{% pageurl article %}" class="nav-list__anchor nav-list__anchor--column">
+            {{article.title}}
+          </a>
+          {% load_tags_for_article article as tags %}
+          {% for tag in tags %}
+            <a href="{% pageurl tag %}" class="nav-list__anchor nav-list__anchor--column">
+              {{tag.title}}
+            </a>
+          {% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
