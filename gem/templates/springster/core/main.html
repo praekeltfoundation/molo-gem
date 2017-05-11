@@ -22,18 +22,19 @@
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
     {% get_pages %}
-    <ul id="articles-more">
-      <a class="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}" href="{% url 'home_more' %}?page={{pages.next.number}}">More...</a>
-    </ul>
+    
+    <!-- TODO rework -->
+    <div id="articles-more">
+      {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" %}
+    </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-    $('#articles-more').on('click', '.more-link:visible', function(event){
+    $('#articles-more').on('click', '.call-to-action__button:visible, .more-link:visible', function(event){
       event.preventDefault();
       var more_url = $(this).attr('data-next');
       $("#articles-more").append($('<span/>').load(more_url));
       $(this).hide();
     });
     </script>
-    {% tag_menu_homepage %}
     {% endif %}
 {% endblock %}
