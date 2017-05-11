@@ -70,6 +70,11 @@ urlpatterns += patterns(
         name='already_reported'),
 
     url(r'', include('django_comments.urls')),
+    url(r'^surveys/',
+        include('molo.surveys.urls',
+                namespace='molo.surveys',
+                app_name='molo.surveys')),
+    
 
     url(r'^yourwords/',
         include('molo.yourwords.urls',
@@ -85,8 +90,8 @@ urlpatterns += patterns(
     url(r'^polls/', include('molo.polls.urls',
                             namespace='molo.polls',
                             app_name='molo.polls')),
-    url(r"^mote/", include("mote.urls", namespace="mote")),
 
+    url(r"^mote/", include("mote.urls", namespace="mote")),
     url(r'', include('molo.core.urls')),
     url(
         r'^home-index/$',
