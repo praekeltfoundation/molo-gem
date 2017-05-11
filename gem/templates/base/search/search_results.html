@@ -15,7 +15,9 @@
     </div>
     <div class="search-results article-list">
       {% for page in search_results %}
-      {% get_translation page.get_parent_section as parent_section %}
+        {% if page.get_parent_section %}
+           {% get_translation page.get_parent_section as parent_section %}
+        {% endif %}
         {% if page.image %}
         <a href="{% pageurl page %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
           <div class="search-image">
