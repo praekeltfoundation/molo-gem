@@ -88,6 +88,16 @@ urlpatterns += patterns(
     url(r"^mote/", include("mote.urls", namespace="mote")),
 
     url(r'', include('molo.core.urls')),
+    url(
+        r'^home-index/$',
+        'molo.core.views.home_index',
+        name='home_index'
+    ),
+    url(
+        r'^home-more/$',
+        'molo.core.views.home_more',
+        name='home_more'
+    ),
     url(r'', include(wagtail_urls)),
 )
 
