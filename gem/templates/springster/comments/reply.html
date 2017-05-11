@@ -4,7 +4,7 @@
 {% block content %}
 {% get_comments_content_object for form as self %}
   {% pageurl self as the_url %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+  <!-- TODO correct back button to be added -->
 <div class="comments">
   {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
   <div class="comments-list__item comments-list__item--reply">
@@ -44,6 +44,6 @@
     {% trans "" %}</h6>
   {% endif %}
 
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+<!-- TODO correct back button to be added -->
 </div>
 {% endblock %}
