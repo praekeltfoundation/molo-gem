@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
 {% block content %}
 {% pageurl article as the_url %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+<!-- TODO correct back button to be added -->
 <div class="comments">
   <h6 class="comments__description">{% trans "Please let us know why you are reporting this comment?" %}</h6>
   <form method="post" class="comments__form">
@@ -13,5 +13,5 @@
     <input type="submit" value="{% trans "Report Comment" %}">
   </form>
 </div>
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+<!-- TODO correct back button to be added -->
 {% endblock %}
