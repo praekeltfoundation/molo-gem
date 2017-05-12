@@ -88,12 +88,10 @@ BUTTON VARIANTS
     {% url "molo.profiles:auth_login" as link1 %}
     {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}}```
+
+  Input Button and button text with primary style
+    ``{% trans "Submit Your Story" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}``
     
-    {% with user|stringformat:"s" as username %}
-      {% trans "Hello" as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:username %}
-    {% endwith %}
-    
-    {% trans "Submit Your Story" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+HEADING TO BE ADDED
 
