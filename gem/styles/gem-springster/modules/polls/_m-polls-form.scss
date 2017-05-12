@@ -14,17 +14,20 @@
 .polls__bubble-icon {
   background: url('/static/img/icons/poll@2x.png') no-repeat 0 0/contain;
   display: block;
+  //Modify RTL
   text-align: center;
-  position: absolute;
-  left: 0;
-  margin: 0 auto;
-  right: 0;
-  width: 75px;
-  height: 75px;
-  top: -30px;
+  @media screen and (min-width: 320px) {
+    position: absolute;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    width: 75px;
+    height: 75px;
+    top: -30px;
+  }
 }
 
-.choice-group { 
+.choice-group {
   padding: 0 0 8px 0;
   margin: 0;
   &:last-of-type {
@@ -34,26 +37,25 @@
 
 .choice {
   position: relative;
-  
+
   input[type=radio], input[type=checkbox] {
     position: absolute;
     visibility: hidden;
   }
-  
+
   label {
     display: block;
     padding: 16px 16px 16px 54px;
     text-align: left;
   }
-  
+
   input[type=radio] + label, input[type=checkbox] + label {
     background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
     opacity: 0.8;
   }
-  
+
   input[type=radio]:checked + label, input[type=checkbox]:checked + label {
     background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
   }
 }
-
