@@ -9,12 +9,6 @@
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
 
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=competition.description %}
-
-    {% if competition.thank_you_page.get_parent_page.get_effective_image %}
-    {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 format-jpeg jpegquality-70 as tmp_photo_small %}
-    {% image competition.thank_you_page.get_parent_page.get_effective_image width-320 format-jpeg jpegquality-70 as tmp_photo_large %}
-     <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ competition.get_parent_page.get_effective_image.title }}"/>
-    {% endif %}
   {% endif %}
 
   {% if request.user.is_authenticated %}
