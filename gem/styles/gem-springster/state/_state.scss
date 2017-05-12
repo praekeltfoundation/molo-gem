@@ -1,11 +1,19 @@
 @media only screen and (min-width: 1024px) {
   html {
-    background: $cool-grey;
     -webkit-overflow-scrolling : touch;
     -webkit-tap-highlight-color : lighten(#333, 75%);
   }
-  html,body {
+  body {
+    background: $cool-grey;
+  }
+  .header-wrapper, .content {
     max-width: 360px;
+    margin: 0 auto;
+  }
+  
+  .content-wrapper {
+    overflow-y: overlay!important; //need to be forced desktop unfortunately
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 
   @-webkit-viewport {
