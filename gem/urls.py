@@ -75,7 +75,6 @@ urlpatterns += patterns(
                 namespace='molo.surveys',
                 app_name='molo.surveys')),
     
-
     url(r'^yourwords/',
         include('molo.yourwords.urls',
                 namespace='molo.yourwords',
