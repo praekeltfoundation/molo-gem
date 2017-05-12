@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags i18n competition_tag %}
+{% block content %}
+<div class="yourwords">
+  <div class="heading-container {% if self.image %}feature-image{% endif %}">
+    {% if competition.thank_you_page.get_parent_page.get_effective_image %}
+      {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 format-jpeg jpegquality-70 as tmp_photo_small %}
+      {% image competition.thank_you_page.get_parent_page.get_effective_image width-320 format-jpeg jpegquality-70 as tmp_photo_large %}
+       <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}"/>
+    {% endif %}
+  </div>
+  {% load_thank_you_page_for_competition competition as thank_you_pages %}
+    {% if thank_you_pages %}
+    {% for page in thank_you_pages %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
+
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=page.subtitle %}
+    {% endif %}
+    <div class="body-content">
+    {% if page.body %}
+      {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+            <h1 class="heading heading--yourwords">
+              {{ block.value }}
+            </h1>
+        {% else %}
+        {% if block.block_type == 'image' %}
+          {% image block.value width-240 %}
+        {% else %}
+        {% if block.block_type == 'numbered_list' %}
+          <ol>
+          {% for item in block.value %}
+            <li>{{ item|handle_markdown }}</li>
+          {% endfor %}
+          </ol>
+        {% else %}
+          {{ block }}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% endfor %}
+    </div>
+    {% else %}
+      {% trans "Thank you for sharing your words!" as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+    {% endif %}
+    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+</div>
+{% endblock %}
