@@ -1,28 +1,32 @@
 .polls {
-  @include divider-combo-1;
+  &__container {
+    @include divider-combo-1;
+    background-color: $mint-green-light;
+    padding: 60px 0 8px;
+    margin-top: 40px;
+  }
+  &__bubble-icon {
+    background: url('/static/img/icons/poll@2x.png') no-repeat 0 0/contain;
+    padding: 2px 5px;
+    height: 88px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px
+  }
 }
 .polls--call-to-action {
-  background-color: $mint-green-light;
-  padding: 55px 8px 8px;
-  margin-top: 50px;
   position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-top: 20px;
+  
   // Heading mixin to be added
   .heading__micro {
     margin: 0px 0 8px 0;
   }
 }
-.polls__bubble-icon {
-  background: url('/static/img/icons/poll@2x.png') no-repeat 0 0/contain;
-  display: block;
-  text-align: center;
-  position: absolute;
-  left: 0;
-  margin: 0 auto;
-  right: 0;
-  width: 75px;
-  height: 75px;
-  top: -30px;
-}
+
 
 .choice-group { 
   padding: 0 0 8px 0;
