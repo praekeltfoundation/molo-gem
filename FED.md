@@ -76,3 +76,22 @@ IMAGES
   Image formats:
   SVG, PNG, Sprites icons
   Image compression
+  
+BUTTON VARIANTS
+  Single link and button text with primary style
+  ```{% url "forgot_password" as link %}
+    {% trans "Forgot PIN" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" hyperlink=link text=buttontext %}```
+
+  Multiple links, button text and extra string with secondary style
+  ```{% trans "Log in to Enter" as buttontext %}
+    {% url "molo.profiles:auth_login" as link1 %}
+    {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}}```
+
+  Input Button and button text with primary style
+    ``{% trans "Submit Your Story" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}``
+    
+HEADING TO BE ADDED
+

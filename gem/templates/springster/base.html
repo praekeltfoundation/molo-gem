@@ -53,25 +53,27 @@
     </div>
 
     <div class="content-wrapper">
-      {% block content %}
-      {% endblock %}
+      <div class="content">
+        {% block content %}
+        {% endblock %}
 
-      {% block breadcrumbs %}
-        {% breadcrumbs %}
-      {% endblock %}
-      {% tag_menu_homepage %}
+        {% block breadcrumbs %}
+          {% breadcrumbs %}
+        {% endblock %}
+        {% tag_menu_homepage %}
 
-      {% block footer_menu %}
-        {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
-      {% endblock %}
+        {% block footer_menu %}
+          {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
+        {% endblock %}
 
-      {% block footer %}
-        {% include "patterns/components/footer/sp_variations/footer.html" %}
-      {% endblock %}
+        {% block footer %}
+          {% include "patterns/components/footer/sp_variations/footer.html" %}
+        {% endblock %}
 
-      {% block copyright %}
-        {% include "patterns/basics/copyright/copyright-terms.html" %}
-      {% endblock %}
+        {% block copyright %}
+          {% include "patterns/basics/copyright/copyright-terms.html" %}
+        {% endblock %}
+      </div>
     </div>
 
   </body>

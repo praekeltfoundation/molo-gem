@@ -65,7 +65,8 @@
       {{ form.hide_real_name }}
       <label>{% trans "Share my story anonymously" %}</label>
     </fieldset>
-    <input type="submit" value="Submit Your Story" />
+    {% trans "Submit Your Story" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   </form>
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
 </div>

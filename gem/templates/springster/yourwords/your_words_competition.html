@@ -14,8 +14,10 @@
   </a>
 
   {% else %}
-  <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}"class="call-to-action__nav-item call-to-action__nav-item--login">
-    {% trans "Log in to Enter" %}
+
+    {% url "molo.yourwords:competition_entry" competition.slug as link %}
+    {% trans "Log in to EnteAAr" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
   </a>
   {% endif %}
 </div>
