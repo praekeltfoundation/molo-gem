@@ -13,20 +13,13 @@
 	{% csrf_token %}
 		{% load_choices_for_poll_page question as choices %}
 		{% for choice in choices %}
-    <fieldset class="choice choice--radio">
-		{% if question.allow_multiple_choice%}
-      <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-				<input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
-				{{ choice.title }}
-        <div class="choice__indicator"></div>
-      </label>
-		{% else %}
-      <label for="choice{{ forloop.counter }}" class="choice choice--radio">
-				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
-				{{ choice.title }}
-        <div class="choice__indicator"></div>
-      </label>
-		{% endif %}
+    <fieldset class="choice choice-group">
+      {% if question.get_main_language_page.allow_multiple_choice %}
+        <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+      {% else %}
+        <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+      {% endif %}
+      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
     </fieldset>
 		{% endfor %}
     {% trans "Vote" as buttontext %}
