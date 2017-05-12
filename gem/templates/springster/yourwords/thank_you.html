@@ -8,44 +8,23 @@
       {% image competition.thank_you_page.get_parent_page.get_effective_image width-320 format-jpeg jpegquality-70 as tmp_photo_large %}
        <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}"/>
     {% endif %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=competition.description %}
   </div>
   {% load_thank_you_page_for_competition competition as thank_you_pages %}
-    {% if thank_you_pages %}
+  {% if thank_you_pages %}
     {% for page in thank_you_pages %}
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
-
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=page.subtitle %}
-    {% endif %}
-    <div class="body-content">
-    {% if page.body %}
-      {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-            <h1 class="heading heading--yourwords">
-              {{ block.value }}
-            </h1>
-        {% else %}
-        {% if block.block_type == 'image' %}
-          {% image block.value width-240 %}
-        {% else %}
-        {% if block.block_type == 'numbered_list' %}
-          <ol>
-          {% for item in block.value %}
-            <li>{{ item|handle_markdown }}</li>
-          {% endfor %}
-          </ol>
-        {% else %}
-          {{ block }}
-        {% endif %}
-        {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
+      <div class="body-content">
+        <!--This must be body - content then -->
+        {% include "patterns/basics/articles/article-page_variations/article-body.html" %}
+      </div>
     {% endfor %}
-    </div>
-    {% else %}
-      {% trans "Thank you for sharing your words!" as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
-    {% endif %}
-    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+{% else %}
+  {% trans "Thank you for sharing your words!" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+{% endif %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
 </div>
 {% endblock %}
