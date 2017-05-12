@@ -1,3 +1,14 @@
+FED
+
+PAGE HEADING IMAGE
+{plugin}--call-to-action
+  identity-image
+  identity-image--{modifier}
+
+
+
+
+
 FED Ways of Working
 GOAL: Maintenance, Performance, and Readability.
 
