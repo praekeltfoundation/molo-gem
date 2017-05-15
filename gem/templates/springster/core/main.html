@@ -32,11 +32,13 @@
     </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-    $('#articles-more').on('click', '.call-to-action__button:visible, .more-link:visible', function(event){
+    $('#articles-more').on('click', '.more-link', function(event){
+      $(".more-link").addClass('loading').html("<img src='/static/img/loading.gif' alt='Loading...' />");
       event.preventDefault();
       var more_url = $(this).attr('data-next');
-      $("#articles-more").append($('<span/>').load(more_url));
-      $(this).hide();
+      $("#articles-more").append($('<div/>').load(more_url, function(){
+        $('.loading').parent().remove();
+      }));
     });
     </script>
     {% endif %}
