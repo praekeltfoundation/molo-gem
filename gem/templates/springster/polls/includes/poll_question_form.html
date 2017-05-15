@@ -39,11 +39,9 @@
       {% trans "Vote" as buttontext %}
       {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
     {% elif question.get_main_language_page.show_results %}
-      <!--This doesn't work from HOMEPAGE -->
       {% trans "Show Results" as buttontext %}
-      {% url "molo.polls:results question.id" as link %}
+      {% url "molo.polls:results" question.id as link %}
       {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
-
     {% elif not question.get_main_language_page.show_results %}
       {% user_choice question as user_choice %}
       <h5>{% trans "You voted: " %}{{user_choice}}</h5>
