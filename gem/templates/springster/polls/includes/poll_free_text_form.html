@@ -1,20 +1,24 @@
 {% load i18n static poll_votings %}
-{% if error_message %}
-  <p class="errors">{{ error_message }}</p>
-{% endif %}
+  {% if error_message %}
+    <p class="errors">{{ error_message }}</p>
+  {% endif %}
 <form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" >
 {% csrf_token %}
   {% if request.user.is_authenticated %}
     {% can_vote question as user_can_vote %}
+    <fieldset>
     {% if user_can_vote %}
       {% if question.freetextquestion.get_main_language_page.numerical %}
-        <input type="number" name="answer" id="id_answer" value="" />
+        <input type="number" name="answer" id="id_answer"/>
       {% else %}
-        <input type="text" name="answer" id="id_answer" value="" />
+        <input type="text" name="answer" id="id_answer"/>
       {% endif%}
-      <input class="poll-choice__submit" type="submit" value="{% trans "Submit" %}" />
+    </fieldset>
+      {% trans "Submit" as buttontext %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
     {% else %}
-      <p>{% trans "Thank you! Your response has already been submitted." %}<p>
+      {% trans "Thank you! Your response has already been submitted." as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
     {% endif %}
   {% else %}
   	{% trans "Log in to vote" as buttontext %}
