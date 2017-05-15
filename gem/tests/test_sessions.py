@@ -26,7 +26,7 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         response = self.client.get('/profiles/view/myprofile/')
 
         self.assertContains(response, 'Hello tester')
-        self.assertContains(response, 'log out')
+        self.assertContains(response, 'Log out')
 
         # wait for the session to expire
         time.sleep(1)
@@ -38,7 +38,7 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         self.assertRedirects(response,
                              '/profiles/login/?next=/profiles/view/myprofile/')
         self.assertNotContains(response, 'Hello tester')
-        self.assertNotContains(response, 'log out')
+        self.assertNotContains(response, 'Log out')
 
     def test_session_does_not_expire_if_activity_within_session_cookie_age(
             self
@@ -48,7 +48,7 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         response = self.client.get('/profiles/view/myprofile/')
 
         self.assertContains(response, 'Hello tester')
-        self.assertContains(response, 'log out')
+        self.assertContains(response, 'Log out')
 
         # wait for less time than it takes for the session to expire
         time.sleep(0.5)
@@ -56,7 +56,7 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         response = self.client.get('/profiles/view/myprofile/')
 
         self.assertContains(response, 'Hello tester')
-        self.assertContains(response, 'log out')
+        self.assertContains(response, 'Log out')
 
         # check that the previous request reset the timeout
         time.sleep(0.6)
@@ -66,4 +66,4 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         response = self.client.get('/profiles/view/myprofile/')
 
         self.assertContains(response, 'Hello tester')
-        self.assertContains(response, 'log out')
+        self.assertContains(response, 'Log out')
