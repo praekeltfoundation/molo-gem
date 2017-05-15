@@ -1,5 +1,15 @@
-
-fieldset, textarea {
+fieldset {
+  border: none;
+  font-family: $baton-regular;
+  padding: 0 8px 8px;
+  margin: 0;
+  display: block;
+  position: relative;
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+}
+textarea {
   font-family: $baton-regular;
   border: none;
   padding: 0 8px 0;
@@ -96,6 +106,25 @@ input[type="radio"]  {
   display: inline-block;
   margin-left: 10px;
 }
+//Originally for Polls, Should be generic
+fieldset, ul {
+  input[type=radio] + label,
+  ul li input[type=radio] + label,
+  input[type=checkbox] + label,
+  ul li input[type=checkbox] + label {
+    background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
+    opacity: 0.8;
+  }
+
+  input[type=radio]:checked + label,
+  ul li input[type=radio]:checked + label,
+  input[type=checkbox]:checked + label,
+  ul li input[type=checkbox]:checked + label {
+    background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
+    opacity: 1;
+  }
+}
+
 
 // select {
 //   border-radius: 0;
