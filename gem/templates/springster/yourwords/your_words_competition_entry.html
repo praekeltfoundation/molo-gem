@@ -1,44 +1,22 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 {% block content %}
-<div class="yourwords">
-  <h3>{% trans "Share your story" %}</h3>
+<div class="yourwords yourwords--call-to-action">
   <div class="identity-image identity-image--yourwords"></div>
+
+  {% trans "Share your story" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
 
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="h3" title=competition.description %}
-  <div class="body-content">
-    {% for block in competition.content %}
-    {% if block.block_type == 'heading' %}
-    <h1 class="heading heading--yourwords">
-      {{ block.value }}
-    </h1>
-    {% else %}
-    {% if block.block_type == 'image' %}
-      {% image block.value width-240 %}
-    {% else %}
-    {% if block.block_type == 'numbered_list' %}
-      <ol>
-      {% for item in block.value %}
-        <li>{{ item|handle_markdown }}</li>
-      {% endfor %}
-      </ol>
-    {% else %}
-    {% if block.block_type == 'list' %}
-      <ul>
-      {% for item in block.value %}
-        <li>{{ item|handle_markdown }}</li>
-      {% endfor %}
-    </ul>
-    {% else %}
-        {{ block }}
-    {% endif %}
-    {% endif %}
-    {% endif %}
-    {% endif %}
-    {% endfor %}
-  </div>
-  <form method="post" class="yourwords-form">
+
+  {% for block in competition.content %}
+    {% include "patterns/basics/articles/article-page_variations/generic-article-body.html" %}
+  {% endfor %}
+
+  <div class="yourwords__container">
+  <form method="post" class="yourwords__form">
   {% csrf_token %}
     <fieldset>
       <label>{% trans "Title of your story (max 60 characters)" %}</label>
@@ -54,20 +32,22 @@
         <p class="alert-error" >* {{form.story_text.errors|join:' '}}</p>
       {% endif %}
     </fieldset>
-    <fieldset>
+    <fieldset class="choice">
        {{ form.terms_or_conditions_approved }}
        <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
        {% if form.terms_or_conditions_approved.errors %}
       <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
       {% endif %}
     </fieldset>
-    <fieldset>
+    <fieldset class="choice">
       {{ form.hide_real_name }}
-      <label>{% trans "Share my story anonymously" %}</label>
+      <label for="id_hide_real_name">{% trans "Share my story anonymously" %}</label>
     </fieldset>
     {% trans "Submit Your Story" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   </form>
+  </div>
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+
 </div>
 {% endblock %}

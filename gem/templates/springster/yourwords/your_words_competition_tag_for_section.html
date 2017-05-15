@@ -1,27 +1,30 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 {% block content %}
-<div class="yourwords">
 {% if competitions %}
-{% for competition in competitions %}
-  {% if forloop.first %}
+<div class="yourwords">
+  {% for competition in competitions %}
+  <div class="identity-image identity-image--yourwords"></div>
+  <div class="yourwords__container">
+  {% trans "Share your story" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
     <div class="identity-image identity-image--yourwords"></div>
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
 
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=competition.description %}
-  {% endif %}
 
-  {% if request.user.is_authenticated %}
-    {% trans "Enter" as buttontext %}
-    {% url "molo.yourwords:competition_entry" competition.slug as link %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
-  {% else %}
-    {% trans "Log in to Enter" as buttontext %}
-    {% url "molo.profiles:auth_login" as link1 %}
-    {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}
-  {% endif %}
-  {% if not forloop.last %}<hr>{% endif %}
-{% endfor %}
-{% endif %}
+    {% if request.user.is_authenticated %}
+      {% trans "Enter" as buttontext %}
+      {% url "molo.yourwords:competition_entry" competition.slug as link %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+    {% else %}
+      {% trans "Log in to Enter" as buttontext %}
+      {% url "molo.profiles:auth_login" as link1 %}
+      {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}
+    {% endif %}
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  </div>
 </div>
+{% endif %}
 {% endblock %}

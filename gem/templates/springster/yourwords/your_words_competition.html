@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 {% block content %}
-<div class="yourwords">
+<div class="yourwords yourwords--call-to-action">
+  <div class="identity-image identity-image--yourwords"></div>
+  <div class="yourwords__container">
+  {% trans "Share your story" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+
   {% trans "Hello" as headingtext %}
   <a href="{% url 'molo.yourwords:competition_entry' self.slug %}">
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}</a>
@@ -20,5 +25,6 @@
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
   </a>
   {% endif %}
+  </div>
 </div>
 {% endblock %}
