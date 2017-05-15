@@ -30,7 +30,7 @@
   {% block js %}
       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script>
-      $('#articles-more, .article-teasers-container').on('click', '.more-link:visible', function(event){
+      $('#articles-more').on('click', '.call-to-action__button:visible, .more-link:visible', function(event){
         event.preventDefault();
         var more_url = $(this).attr('data-next');
         $("#articles-more").append($('<span/>').load(more_url));
