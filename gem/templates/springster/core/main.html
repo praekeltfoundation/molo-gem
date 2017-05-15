@@ -33,7 +33,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
     $('#articles-more').on('click', '.more-link', function(event){
-      $(".more-link").addClass('loading').html("<img src='/static/img/loading.gif' alt='Loading...' />");
+      $(".more-link").children().addClass('loading').html("<img src='/static/img/loading.gif' alt='Loading...' />");
       event.preventDefault();
       var more_url = $(this).attr('data-next');
       $("#articles-more").append($('<div/>').load(more_url, function(){
