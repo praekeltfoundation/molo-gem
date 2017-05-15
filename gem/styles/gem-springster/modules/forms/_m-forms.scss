@@ -113,11 +113,17 @@ fieldset {
     background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
     opacity: 0.8;
   }
-
   input[type=radio]:checked + label,
   input[type=checkbox]:checked + label {
     background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
+  }
+  .terms-and-conditions {
+      input[type=checkbox] + label[for="id_terms_and_conditions"],
+      input[type=radio] + label[for="id_terms_and_conditions"] {
+        background-color: #fff;
+        background-image: none;
+      }
   }
 
   ul {
