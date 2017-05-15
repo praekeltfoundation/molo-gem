@@ -1,5 +1,15 @@
-
-fieldset, textarea {
+fieldset {
+  border: none;
+  font-family: $baton-regular;
+  padding: 0 8px 8px;
+  margin: 0;
+  display: block;
+  position: relative;
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+}
+textarea {
   font-family: $baton-regular;
   border: none;
   padding: 0 8px 0;
@@ -85,7 +95,7 @@ textarea, select {
   border-radius: 0;
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
-  
+
   &:focus {
     outline: 0;
   }
@@ -96,6 +106,46 @@ input[type="radio"]  {
   display: inline-block;
   margin-left: 10px;
 }
+//Originally for Polls, Should be generic
+fieldset {
+  input[type=radio] + label,
+  input[type=checkbox] + label {
+    background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
+    opacity: 0.8;
+  }
+  input[type=radio]:checked + label,
+  input[type=checkbox]:checked + label {
+    background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
+    opacity: 1;
+  }
+  .terms-and-conditions {
+      input[type=checkbox] + label[for="id_terms_and_conditions"],
+      input[type=radio] + label[for="id_terms_and_conditions"] {
+        background-color: #fff;
+        background-image: none;
+      }
+  }
+
+  ul {
+    li {
+      label {
+        background: #fff;
+        opacity: 0.8;
+        padding: 10px 10px 13px 10px;
+        margin: 0 0 10px;
+        input[type=radio],
+        input[type=checkbox] {
+          margin: 0 15px 0 12px;
+        }
+      }
+
+
+
+    }
+  }
+}
+
+
 
 .select-group {
   display: inline-block;
@@ -104,4 +154,3 @@ input[type="radio"]  {
 .sub_label {
   display: block;
 }
-
