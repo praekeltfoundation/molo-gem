@@ -8,7 +8,7 @@
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:username %}
   {% endwith %}
   {% url "molo.profiles:auth_logout" as link %}
-  {% trans "Log out" as buttontext %}
+  {% trans "log out" as buttontext %}
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
   {% trans "Your Profile" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
@@ -83,6 +83,6 @@
     {% trans "Change" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   </form>
-  
+
 </div>
 {% endblock %}
