@@ -1,5 +1,5 @@
 {% load wagtailcore_tags compress static wagtailuserbar core_tags static i18n %}
-{% load wagtailsettings_tags wagtailimages_tags molo_survey_tags competition_tag poll_votings %}
+{% load wagtailsettings_tags wagtailimages_tags molo_survey_tags competition_tag molo_commenting_tags poll_votings %}
 {% load google_analytics_tags %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -62,7 +62,8 @@
     </div>
 
     <div class="content-wrapper">
-      <div class="content">
+      <div id="top" class="content">
+        {% display_unread_notifications %}
         {% block content %}
         {% endblock %}
 
