@@ -3,6 +3,10 @@
 {% block content %}
 <div class="yourwords">
   <div class="identity-image identity-image--yourwords"></div>
+  <div class="yourwords__container">
+  {% trans "Share your story" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=competition.description %}
 
@@ -20,6 +24,7 @@
   {% trans "Thank you for sharing your words!" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
 {% endif %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="article" direction="left" %}
+  </div>
 </div>
 {% endblock %}

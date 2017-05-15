@@ -118,14 +118,6 @@ fieldset {
     background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
   }
-  .terms-and-conditions {
-      input[type=checkbox] + label[for="id_terms_and_conditions"],
-      input[type=radio] + label[for="id_terms_and_conditions"] {
-        background-color: #fff;
-        background-image: none;
-      }
-  }
-
   ul {
     li {
       label {
@@ -138,13 +130,39 @@ fieldset {
           margin: 0 15px 0 12px;
         }
       }
-
-
-
     }
   }
 }
 
+.profiles__form,
+.comments__form,
+.surveys__form,
+.yourwords__form {
+  .choice input[type="checkbox"],
+  .choice input[type="radio"] {
+    position: inherit;
+    visibility: unset;
+  }
+  input[type=checkbox] + label,
+  input[type=radio] + label,
+  input[type=radio]:checked + label,
+  input[type=checkbox]:checked + label {
+    background-color: #fff;
+    background-image: none;
+    display: inline-block;
+  }
+}
+
+.yourwords__form {
+  .choice {
+    background-color: #fff;
+    margin: 0 0 10px;
+    opacity: 0.8;
+     label {
+       padding: 16px 16px 16px 16px;
+     }
+  }
+}
 
 
 .select-group {
