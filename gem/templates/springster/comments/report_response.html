@@ -4,7 +4,8 @@
 <div class="comments">
   {% trans "Thanks!" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
-  <h6 class="comments__description">{% trans "This comment has been reported." %}</h6>
+  {% trans "This comment has been reported." as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
   <p class="comments__body-small">
     {% trans "It will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
   </p>
