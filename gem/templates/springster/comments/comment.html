@@ -1,6 +1,5 @@
 {% load i18n molo_commenting_tags %}
 <div class="comments-list__item{% if node.user.is_staff %} comments-list__item--staff{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
-  <h5 class="comments__alias comments__alias-author">
     {% if node.user.is_staff %}
         {% if settings.gem.GemSettings.moderator_name %}
           {{settings.gem.GemSettings.moderator_name}}
@@ -18,46 +17,45 @@
     {% endif %}
   </h5>
 {% if node.is_removed %}
-    <h6 class="comments__description">
-      {% trans "This comment has been removed by the community. Please read our platform rules." %}
-    </h6>
+  <h6 class="comments__description">
+    {% trans "This comment has been removed by the community. Please read our platform rules." %}
+  </h6>
 {% else %}
-    {% if truncate_comment %}
-      <p class="comments__body-small">{{ node.comment|truncatechars:60 }}</p>
-    {% else %}
-      <p class="comments__body-small">{{ node.comment }}</p>
-    {% endif %}
-      <span class="comments__publish-date">
-        {{node.submit_date|timesince}} {% trans "ago" %}
-      </span>
-    {% if not node.user|is_in_admin_group %}
-      <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">{% trans "Report" %}</a>
-    {% endif %}
+  {% if truncate_comment %}
+    <p class="comments__body-small">{{ node.comment|truncatechars:60 }}</p>
+  {% else %}
+    <p class="comments__body-small">{{ node.comment }}</p>
+  {% endif %}
+    <span class="comments__publish-date">
+      {{node.submit_date|timesince}} {% trans "ago" %}
+    </span>
+  {% if not node.user|is_in_admin_group %}
+    <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">{% trans "Report" %}</a>
+  {% endif %}
 
-    {% if node.parent == None %}
+  {% if node.parent == None %}
     <div class="comments__reply-meta">
-      <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
-      {% trans "Reply"%}</a>
-        {% if do_not_link_replies or node.get_children.count == 0 %}
-          <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
-            {{ node.get_children.count }}
-            {% if node.get_children.count == 1 %}
-              {% trans "Reply"%}
-            {% else %}
-              {% trans "Replies"%}
-            {% endif %}
-          </p>
-        {% else %}
-          <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
-            {{ node.get_children.count }}
-            {% if node.get_children.count == 1 %}
-              {% trans "Reply"%}{% else %}
+    <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
+    {% trans "Reply"%}</a>
+      {% if do_not_link_replies or node.get_children.count == 0 %}
+        <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+          {{ node.get_children.count }}
+          {% if node.get_children.count == 1 %}
+            {% trans "Reply"%}
+          {% else %}
             {% trans "Replies"%}
-            {% endif %}
-          </a>
-        {% endif %}
-    </div>
-    {% endif %}
-
+          {% endif %}
+        </p>
+      {% else %}
+        <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+          {{ node.get_children.count }}
+          {% if node.get_children.count == 1 %}
+            {% trans "Reply"%}{% else %}
+          {% trans "Replies"%}
+          {% endif %}
+        </a>
+      {% endif %}
+  </div>
+  {% endif %}
 {% endif %}
 </div>
