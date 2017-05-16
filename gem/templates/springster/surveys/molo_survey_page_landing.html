@@ -4,7 +4,7 @@
 {% block content %}
 <div class="surveys surveys--call-to-action">
   <div class="identity-image identity-image--survey"></div>
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %} <!--self.title -->
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=self.intro %}
 
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
@@ -13,18 +13,20 @@
   <div class="surveys--results">
     {% trans "Survey Results" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-
     {% trans "Your survey has been completed successfully. Please see your submission results below." as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="h4" title=headingtext %}
-    <!-- This uses the same styles as - Polls Results -->
-
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
   	{% for question, answers in results.items %}
-  		<h3 class="surveys__question">{{ question }}</h3>
+    <fieldset>
+  		<label class="surveys__question">{{ question }}</label>
   		{% for answer, count in answers.items %}
-  		  <div class="surveys__answer">
-  			<span>{{ answer }}</span> {{ count }}
-  		  </div>
+      <div class="surveys__answers-counter-bar">
+  		  <h4 class="surveys__answers">
+  			  {{ answer }}
+  		  </h4>
+        <span class="surveys__answers-counter">{{ count }}</span>
+      </div>
   		{% endfor %}
+    </fieldset>
   	{% endfor %}
   	</div>
 	{% endif %}
