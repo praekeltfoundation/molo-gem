@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import csv
+from babel import Locale
 from django.core.management.base import BaseCommand
 from molo.core.models import (
     Languages, Tag, ArticlePage, ArticlePageTags, Main, SectionIndexPage,
@@ -8,10 +9,16 @@ from molo.core.models import (
 
 
 class Command(BaseCommand):
-    def handle(self, **options):
+    def add_arguments(self, parser):
+        parser.add_argument('csv_name', type=str)
+        parser.add_argument('locale', type=str)
+
+    def handle(self, *args, **options):
+        csv_name = options.get('csv_name', None)
+        locale = options.get('locale', None)
         mains = Main.objects.all()
         articles = {}
-        with open('articles_tags.csv') as articles_tags:
+        with open(csv_name) as articles_tags:
             reader = csv.reader(articles_tags)
             if mains:
                 for row in reader:
@@ -24,7 +31,7 @@ class Command(BaseCommand):
             main_lang = Languages.for_site(main.get_site()).languages.filter(
                 is_active=True, is_main_language=True).first()
             if section_index and tag_index and main_lang:
-                if main_lang.locale == "en":
+                if main_lang.locale == locale:
                     for article_slug in articles:
                         article = ArticlePage.objects.descendant_of(
                             section_index).filter(slug=article_slug).first()
@@ -53,9 +60,10 @@ class Command(BaseCommand):
                                 % (article_slug, main.get_site())))
                 else:
                     self.stdout.write(self.style.NOTICE(
-                        'Main language of "%s" is not English.'
+                        'Main language of "%s" is not "%s".'
                         ' The main language is "%s"'
-                        % (main.get_site(), main_lang)))
+                        % (main.get_site(), Locale(locale).english_name,
+                            main_lang)))
             else:
                 if not section_index:
                     self.stdout.write(self.style.NOTICE(
