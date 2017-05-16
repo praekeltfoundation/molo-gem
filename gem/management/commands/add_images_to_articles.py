@@ -4,9 +4,7 @@ import csv
 from babel import Locale
 from django.core.management.base import BaseCommand
 from wagtail.wagtailimages.tests.utils import Image
-from molo.core.models import (
-    Languages, Tag, ArticlePage, ArticlePageTags, Main, SectionIndexPage,
-    TagIndexPage)
+from molo.core.models import Languages, ArticlePage, Main, SectionIndexPage
 
 
 class Command(BaseCommand):
