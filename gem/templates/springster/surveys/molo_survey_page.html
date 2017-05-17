@@ -11,9 +11,11 @@
   <form action="{% pageurl self %}{% if self.multi_step %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
   {% csrf_token %}
     {% for field in form %}
-    <h4 class="surveys__question-title">
-      Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
-    </h4>
+      {% if fields_step %}
+        <h4 class="surveys__question-title">
+          Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
+        </h4>
+      {% endif %}
     <fieldset>
       <label for="{{ field.id_for_label }}">{{ field.label }}</label>
       <p class="helptext">{{ field.help_text }}</p>
@@ -27,7 +29,7 @@
       {% endif %}
     </fieldset>
     {% endfor %}
-    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" />
+    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
   </form>
   {% else %}
   <div class="surveys">

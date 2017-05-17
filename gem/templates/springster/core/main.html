@@ -13,10 +13,9 @@
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
     {% bannerpages position=1 %}
     {% poll_page %}
-    {% include 'core/tags/latest_listing_homepage.html' with articles=tag_nav_data.latest_articles|slice:"3:6" %}
+    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
     {% bannerpages position=2 %}
     {% surveys_list %}
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
@@ -33,11 +32,13 @@
     </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-    $('#articles-more').on('click', '.call-to-action__button:visible, .more-link:visible', function(event){
+    $('#articles-more').on('click', '.more-link', function(event){
+      $(".more-link").children().addClass('loading').html("<img src='/static/img/loading.gif' alt='Loading...' />");
       event.preventDefault();
       var more_url = $(this).attr('data-next');
-      $("#articles-more").append($('<span/>').load(more_url));
-      $(this).hide();
+      $("#articles-more").append($('<div/>').load(more_url, function(){
+        $('.loading').parent().remove();
+      }));
     });
     </script>
     {% endif %}

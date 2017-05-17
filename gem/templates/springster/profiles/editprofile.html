@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="profiles">
-	<h2 class="heading heading--title">{% trans "Edit your Profile" %}</h2>
+  {% trans "Edit your Profile" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
 	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}" class="profiles__form">
   {% csrf_token %}
 	{{ form.non_field_errors }}

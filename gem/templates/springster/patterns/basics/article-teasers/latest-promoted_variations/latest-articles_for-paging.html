@@ -27,14 +27,3 @@
   {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" %}
   {% endif %}
 
-  {% block js %}
-      <script src="http://code.jquery.com/jquery-latest.js"></script>
-      <script>
-      $('#articles-more, .article-teasers-container').on('click', '.more-link:visible', function(event){
-        event.preventDefault();
-        var more_url = $(this).attr('data-next');
-        $("#articles-more").append($('<span/>').load(more_url));
-        $(this).hide();
-      });
-      </script>
-  {% endblock %}
