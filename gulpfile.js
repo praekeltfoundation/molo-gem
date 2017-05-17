@@ -15,18 +15,18 @@ var sassPaths = [
     'gem/styles/gem/base_style.scss',
     'gem/styles/gem/base_style-rtl.scss',
     'gem/styles/gem-malawi/malawi.scss',
-    'gem/styles/gem-springster/springster.scss',
-    'gem/styles/gem-springster/style-rtl.scss',
+
     'gem/styles/mote/mote.scss',
-
     'gem/styles/versions.scss',
-];
 
+    'gem/styles/gem-springster/springster.scss',
+    'gem/styles/gem-springster/springster-rtl.scss',
+    'gem/styles/gem-springster/state/state.scss',
+];
 var sassDest = {
      prd: 'gem/static/css/prd',
      dev: 'gem/static/css/dev'
 };
-
 function styles(env) {
   var s = gulp.src(sassPaths);
   var isDev = env === 'dev';
@@ -45,7 +45,6 @@ function styles(env) {
 gulp.task('styles:prd', function() {
   return styles('prd');
 });
-
 gulp.task('styles:dev', function() {
   return styles('dev');
 });

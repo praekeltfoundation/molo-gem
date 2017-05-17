@@ -2,11 +2,11 @@
 {% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
 {% block content %}
 <div class="comments">
-    {% trans "You have already reported this comment" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
-    <p class="comments__body-small">
-      {% trans "The comment will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
-    </p>
+  {% trans "You have already reported this comment" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
+  <p class="comments__body-small">
+    {% trans "The comment will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
+  </p>
 </div>
   {% pageurl article as the_url %}
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}

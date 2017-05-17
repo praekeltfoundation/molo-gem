@@ -36,20 +36,19 @@
     {% endcompress %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style-rtl.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster-rtl.css">
       {% endcompress %}
     {% endif %}
-    <script type="text/javascript">
-      var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
-      var largeScreen = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 240);
-      
-       if(cutsTheMustard === true) {
-          js = document.createElement('script');
-          js.src = '{{ STATIC_URL }}js/src/springster.js';
-          js.async = true;
-          document.querySelector('script').parentNode.appendChild(js);
-       }
-      </script>
+  <script type="text/javascript">
+  var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
+  var largeScreen = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 240);
+  var smartStyles = '{% spaceless %}{% compress css %}
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/state.css">
+      {% endcompress %}{% endspaceless %}';
+    if(cutsTheMustard === true) {
+      if(largeScreen) {document.write(smartStyles);}
+    }
+  </script>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% block google_analytics %}
