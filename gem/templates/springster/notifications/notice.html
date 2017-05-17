@@ -12,20 +12,18 @@
       {{comment.user.profile.alias}}
     {% endif %}
   {% endif %}
-
   {% trans "replied to your comment on: " %}
   <a href="{% pageurl article %}">{{ article.title }}</a>
  </h5>
   <span class="comments__publish-date">{{ notice.timesince }} {% trans "ago" %}</span>
   {% endwith %}
 {% endwith %}
-
 <ul class="comments-replies-list">
-  <li class="comments-replies-list__item comments-replies-list__item--parent">
+  <li class="comments-replies-list__item">
     <h3 class="comment__replies-title">Your comment:</h3>
     <p class="comments__body-small">{{ notice.action_object.parent.comment }}</p>
   </li>
-  <li class="comments-replies-list__item comments-replies-list__item--parent">
+  <li class="comments-replies-list__item">
     <h3 class="comment__replies-title">Reply:</h3>
     <p class="comments__body-small">{{ notice.action_object.comment }}</p>
   </li>

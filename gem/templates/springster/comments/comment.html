@@ -1,20 +1,21 @@
 {% load i18n molo_commenting_tags %}
 <div class="comments-list__item{% if node.user.is_staff %} comments-list__item--staff{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
-    {% if node.user.is_staff %}
-        {% if settings.gem.GemSettings.moderator_name %}
-          {{settings.gem.GemSettings.moderator_name}}
-        {% else %}
-          {% trans "Big Sister" %}
-        {% endif %}
-    {% elif node.user_name.lower == 'anonymous' %}
-      {{node.user_name}}
-    {% else %}
-      {% if not node.user.profile.alias %}
-        {% trans "Anonymous" %}
+  <h5 class="comments__alias comments__alias-author">
+  {% if node.user.is_staff %}
+      {% if settings.gem.GemSettings.moderator_name %}
+        {{settings.gem.GemSettings.moderator_name}}
       {% else %}
-        {{node.user.profile.alias}}
+        {% trans "Big Sister" %}
       {% endif %}
+  {% elif node.user_name.lower == 'anonymous' %}
+    {{node.user_name}}
+  {% else %}
+    {% if not node.user.profile.alias %}
+      {% trans "Anonymous" %}
+    {% else %}
+      {{node.user.profile.alias}}
     {% endif %}
+  {% endif %}
   </h5>
 {% if node.is_removed %}
   <h6 class="comments__description">
@@ -34,27 +35,27 @@
   {% endif %}
 
   {% if node.parent == None %}
-    <div class="comments__reply-meta">
+  <div class="comments__reply-meta">
     <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
     {% trans "Reply"%}</a>
-      {% if do_not_link_replies or node.get_children.count == 0 %}
-        <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
-          {{ node.get_children.count }}
-          {% if node.get_children.count == 1 %}
-            {% trans "Reply"%}
-          {% else %}
-            {% trans "Replies"%}
-          {% endif %}
-        </p>
-      {% else %}
-        <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
-          {{ node.get_children.count }}
-          {% if node.get_children.count == 1 %}
-            {% trans "Reply"%}{% else %}
+    {% if do_not_link_replies or node.get_children.count == 0 %}
+      <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+        {{ node.get_children.count }}
+        {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+          {% trans "Reply"%}
+        {% else %}
           {% trans "Replies"%}
-          {% endif %}
-        </a>
-      {% endif %}
+        {% endif %}
+      </p>
+    {% else %}
+      <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+        {{ node.get_children.count }}
+        {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+          {% trans "Reply"%}{% else %}
+        {% trans "Replies"%}
+        {% endif %}
+      </a>
+    {% endif %}
   </div>
   {% endif %}
 {% endif %}

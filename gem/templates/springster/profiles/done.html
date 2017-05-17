@@ -2,16 +2,18 @@
 {% load i18n %}
 {% block content %}
 <div class="profiles">
-  <h2 class="heading heading--title">{% trans "Thank you for joining!" %}</h2>
-  <h3 class="heading heading--subtitle">
-    {% trans "Let us know your birthday to get access to exclusive content." %}</h3>
+  {% trans "Thank you for joining!" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+
+  {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
   <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
   {% csrf_token %}
     <fieldset>
       {{ form.date_of_birth }}
     </fieldset>
-    <input type="submit" value='{% trans "Update" %}' />
-      <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
+    <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
+    <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
   </form>
 </div>
 {% endblock %}
