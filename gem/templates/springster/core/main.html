@@ -26,20 +26,8 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
     {% get_pages %}
 
-    <!-- TODO rework -->
     <div id="articles-more">
       {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" %}
     </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script>
-    $('#articles-more').on('click', '.more-link', function(event){
-      $(".more-link").children().addClass('loading').html("<img src='/static/img/loading.gif' alt='Loading...' />");
-      event.preventDefault();
-      var more_url = $(this).attr('data-next');
-      $("#articles-more").append($('<div/>').load(more_url, function(){
-        $('.loading').parent().remove();
-      }));
-    });
-    </script>
     {% endif %}
 {% endblock %}
