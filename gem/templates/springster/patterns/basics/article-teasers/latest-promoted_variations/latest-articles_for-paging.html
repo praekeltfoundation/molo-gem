@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags i18n el_pagination_tags %}
   {% get_tag_articles tag_count=4 as tag_nav_data %}
 
-  {% paginate 1 tag_nav_data.latest_articles as articles%}
+  {% paginate 12 tag_nav_data.latest_articles as articles%}
   <div class="article-teaser">
   {% if articles %}
     <ul class="teaser-stacklist">
