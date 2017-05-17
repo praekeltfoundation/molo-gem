@@ -6,14 +6,14 @@
         {% trans "Home" %}
       </a>
     </li>
-    {% load_sections as sections %}
-      {% for section in sections %}
-      {% pageurl section as section_path %}
-        <li class="section-nav-list__item section-nav-list__item{{section.get_effective_extra_style_hints}}">
-          <a href="{% pageurl section %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
-            {{section.title}}
-          </a>
-        </li>
-      {% endfor %}
+  {% load_sections as sections %}
+  {% for section in sections %}
+  {% pageurl section as section_path %}
+    <li class="section-nav-list__item section-nav-list__item{{section.get_effective_extra_style_hints}}">
+      <a href="{% pageurl section %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
+        {{section.title}}
+      </a>
+    </li>
+  {% endfor %}
   </ul>
 </div>
