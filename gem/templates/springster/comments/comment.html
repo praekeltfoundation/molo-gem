@@ -41,7 +41,11 @@
     {% if do_not_link_replies or node.get_children.count == 0 %}
       <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
         {{ node.get_children.count }}
+<<<<<<< Updated upstream
         {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+=======
+        {% if node.get_children.count == 1 %}
+>>>>>>> Stashed changes
           {% trans "Reply"%}
         {% else %}
           {% trans "Replies"%}
@@ -50,7 +54,11 @@
     {% else %}
       <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
         {{ node.get_children.count }}
+<<<<<<< Updated upstream
         {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+=======
+        {% if node.get_children.count == 1 %}
+>>>>>>> Stashed changes
           {% trans "Reply"%}{% else %}
         {% trans "Replies"%}
         {% endif %}

@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 {% load i18n static core_tags wagtailsettings_tags wagtailcore_tags %}
 {% get_settings %}
-
 {% block content %}
 <div class="profiles">
   {% trans "Join Springster" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="square" htmltag="h1" title=headingtext %}
-  
   {% trans "Already joined?" as headingtext %}
   {% trans "Log in here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}
-
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title="Please complete this form to join:" %}
   <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
   {% csrf_token %}
@@ -48,13 +45,11 @@
     <p class="helptext">
       ({% trans "Only you will see this, but it's not mandatory to tell us" %})</p>
   </fieldset>
-
   <fieldset>
     <legend>{% trans "Security questions" %}</legend>
     <label>{% trans security_question_1 %}</label>
     {{ form.security_question_1_answer }}
     {{ form.security_question_1_answer.errors }}
-
     <label>{% trans security_question_2 %}</label>
     {{ form.security_question_2_answer }}
     {{ form.security_question_2_answer.errors }}
@@ -83,7 +78,6 @@
   {% trans "Sign up" as buttontext %}
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
   <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
-
   {% trans "Already joined?" as headingtext %}
   {% trans "Log in here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}

@@ -7,9 +7,7 @@
   {% load_child_articles_for_section self as articles %}
   {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
   {% include "patterns/basics/pagination/pagination-pageof.html" %}
-
   {% get_tags_for_section self as tags %}
-
   {% for tag, tag_articles in tags %}
   {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" %}
   {% endfor %}

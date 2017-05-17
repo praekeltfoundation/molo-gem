@@ -4,7 +4,6 @@
   <div class="profiles-join-banner__content">
     {% trans "Share your opinions and stories, take polls, win fun prizes." as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=headingtext %}
-    
     {% trans "Join" as buttontext %}
     {% url "molo.profiles:auth_login" as link %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=link|add:"?next="|add:request.path text=buttontext %}

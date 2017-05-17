@@ -8,12 +8,19 @@
   {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
   <div class="comments-list__item {% if node.user.is_staff %} comments-list__item--staff{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
     <h6 class="comments__body-title">
+<<<<<<< Updated upstream
     {% if do_not_link_replies or node.get_children.count == 0 %}
       {% if page == 1 %}
         {% trans "Recent replies" %}
         {% else %}
         {% trans "Earlier replies" %}
       {% endif %}
+=======
+    {% if page == 1 %}
+      {% trans "Recent replies" %}
+      {% else %}
+      {% trans "Earlier replies" %}
+>>>>>>> Stashed changes
     {% endif %}
     </h6>
     {% for node in replies reversed %}
