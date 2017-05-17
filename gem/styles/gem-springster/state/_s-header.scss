@@ -3,7 +3,12 @@
   body {
     height: 100%;
   }
-
+  body {
+    overflow: auto;
+  }
+  .header-wrapper {
+    flex: none;
+  }
   .header-fixed {
     position: fixed;
     top: 0;
@@ -12,18 +17,10 @@
     transition-property: all;
     transition-duration: .5s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    -webkit-transition-delay: .5s; 
+    -webkit-transition-delay: .5s;
     transition-delay: .5s;
   }
-
-
   .content-wrapper {
     position: relative;
-  }
-}
-
-@media only screen and (min-width: 1024px){
-  .header, .languages {
-    width: 360px;
   }
 }
