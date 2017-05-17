@@ -46,7 +46,11 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/state.css">
       {% endcompress %}{% endspaceless %}';
     if(cutsTheMustard === true) {
-      if(largeScreen) {document.write(smartStyles);}
+      if(largeScreen) {document.write(smartStyles);};
+      js = document.createElement('script');
+      js.src = '{{ STATIC_URL }}js/springster-min.js';
+      js.async = true;
+      document.querySelector('script').parentNode.appendChild(js);
     }
   </script>
   </head>

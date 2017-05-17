@@ -60,10 +60,9 @@ gulp.task('stylesAdmin', function() {
 
 // Minify JS
 gulp.task('compress', function() {
-  gulp.src('gem/static/js/src/*.js')
+  gulp.src('gem/static/js/*.js')
     .pipe(minify({
         ext:{
-            src:'-debug.js',
             min:'-min.js'
         },
         ignoreFiles: ['-min.js']
