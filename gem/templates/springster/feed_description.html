@@ -2,7 +2,7 @@
 <div class="server-error">
   {% if obj.image %}
       {% image obj.image width-40 as article_image %}
-      <img src="http://{{ request.get_host }}{{ article_image.url }}" />
+      <img src="http://{{ request.get_host }}{{ article_image.url }}" alt="Server error" />
   {% endif %}
   <h1 class="heading heading--title">{{ obj.subtitle }}</h1>
 </div>
