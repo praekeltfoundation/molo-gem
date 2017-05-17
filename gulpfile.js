@@ -60,12 +60,11 @@ gulp.task('stylesAdmin', function() {
 
 // Minify JS
 gulp.task('compress', function() {
-  gulp.src('gem/static/js/*.js')
+  gulp.src('gem/static/js/springster.js')
     .pipe(minify({
         ext:{
             min:'-min.js'
         },
-        ignoreFiles: ['-min.js']
     }))
     .pipe(gulp.dest('gem/static/js/'))
 });
