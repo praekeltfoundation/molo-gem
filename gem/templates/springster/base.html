@@ -36,7 +36,7 @@
     {% endcompress %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/style-rtl.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster-rtl.css">
       {% endcompress %}
     {% endif %}
   <script type="text/javascript">
@@ -46,7 +46,11 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/state.css">
       {% endcompress %}{% endspaceless %}';
     if(cutsTheMustard === true) {
-      if(largeScreen) {document.write(smartStyles);}
+      if(largeScreen) {document.write(smartStyles);};
+      js = document.createElement('script');
+      js.src = '{{ STATIC_URL }}js/springster-min.js';
+      js.async = true;
+      document.querySelector('script').parentNode.appendChild(js);
     }
   </script>
   </head>
@@ -57,16 +61,18 @@
     {% wagtailuserbar %}
 
     <div class="header-wrapper">
-      {% block navigation %}
-        {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
-      {% endblock %}
+      <div id="language-bar">
+        {% block navigation %}
+          {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
+        {% endblock %}
+      </div>
 
       {% block header %}
         {% include "patterns/components/header/sp_variations/header-center.html" %}
       {% endblock %}
     </div>
 
-    <div class="content-wrapper">
+    <div id="content-wrapper" class="content-wrapper">
       <div id="top" class="content">
         {% display_unread_notifications %}
         {% block content %}
