@@ -8,7 +8,8 @@ var gulp              =   require('gulp'),
     gzip              =   require('gulp-gzip'),
     notify            =   require('gulp-notify'),
     sourcemaps        =   require('gulp-sourcemaps'),
-    livereload        =   require('gulp-livereload');
+    livereload        =   require('gulp-livereload'),
+    minify            =   require('gulp-minify');
 
 var sassPaths = [
     'gem/styles/gem/base_style.scss',
@@ -58,10 +59,23 @@ gulp.task('stylesAdmin', function() {
       .pipe(notify({ message: 'Styles task complete: Wagtail Admin' }));
 });
 
+// Minify JS
+gulp.task('compress', function() {
+  gulp.src('gem/static/js/src/*.js')
+    .pipe(minify({
+        ext:{
+            src:'-debug.js',
+            min:'-min.js'
+        },
+        ignoreFiles: ['-min.js']
+    }))
+    .pipe(gulp.dest('gem/static/js/'))
+});
+
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss'], ['styles']);
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
-gulp.task('default', ['styles','watch']);
+gulp.task('default', ['styles', 'compress', 'watch']);
