@@ -2,7 +2,7 @@
 <form action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" >
 {% csrf_token %}
   {% if form.errors %}
-  <h1>{% blocktrans count counter=form.errors|length %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
+  <h1>{% trans "Please correct the error below" %}</h1>
   {% endif %}
   {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
   {{ form.comment }}

@@ -217,12 +217,12 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = global_settings.LANGUAGES + [
-    ('tl', _('Tagalog')),
-    ('rw', _('Kinyarwanda')),
-    ('ha', _('Hausa')),
-    ('bn', _('Bengali')),
-    ('my', _('Burmese')),
-    ('ny', _('Chichewa')),
+    ('tl', 'Tagalog'),
+    ('rw', 'Kinyarwanda'),
+    ('ha', 'Hausa'),
+    ('bn', 'Bengali'),
+    ('my', 'Burmese'),
+    ('ny', 'Chichewa'),
 ]
 
 EXTRA_LANG_INFO = {
