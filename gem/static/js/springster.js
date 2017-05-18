@@ -14,7 +14,6 @@ var stickyHeader = function() {
   window.addEventListener('scroll', function(){ 
     var scrollAmount = this.y - window.pageYOffset;
     var scrollPos = window.scrollY;
-    console.log(scrollAmount);
     
     if( scrollAmount > 0 && scrollPos > langHeight ){ 
       header.style.top = 0;
@@ -51,8 +50,27 @@ var loadMore = function() {
   });
 };
 
+var scrollTo = function(element, to, duration) {
+  if (duration < 0) return;
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 2;
+
+setTimeout(function() {
+  element.scrollTop = element.scrollTop + perTick;
+  scrollTo(element, to, duration - 2);
+}, 10);
+};
+
+var backTop = function() {
+  document.getElementById("back-to-top").onclick = function (event) {
+    event.preventDefault();
+    scrollTo(document.body, 0, 100);
+  }
+};
+
 domReady(function() {
   stickyHeader();
   loadMore();
+  backTop();
 });
 
