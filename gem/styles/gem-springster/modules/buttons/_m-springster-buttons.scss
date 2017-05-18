@@ -17,32 +17,29 @@
   display: block;
   text-align: center;
 }
-.call-to-action__nav-item-text--right,
-.call-to-action__nav-item-text--left {
-  &:after {
-    background-size:auto;
-    position: absolute;
-  }
-}
 .call-to-action__nav-item-text--right {
   &:after {
-    content: url("/static/img/icons/next.svg");
-    height: 14px;
-    width: 16px;
+    background-image: url(/static/img/icons/next.svg),url(/static/img/icons/next@2x.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    content:"";
+    margin: 5px 0 0 10px;
+    width: 18px;
+    height: 18px;
     position: absolute;
-    top: 0;
-    margin-left: 10px;
   }
 }
 .call-to-action__nav-item-text--left {
   text-align: left;
   padding-left: 8px;
   &:before {
-    content: url("/static/img/icons/back.svg");
-    height: 14px;
-    width: 16px;
-    top: 0;
-    margin-right: 10px;
+    background-image: url(/static/img/icons/back.svg),url(/static/img/icons/back@2x.png);
+    content: "";
+    margin: 5px 0 0 10px;
+    width: 18px;
+    height: 18px;
+    position: absolute;
   }
 }
 
