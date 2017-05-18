@@ -43,11 +43,9 @@
       {{ form.hide_real_name }}
       <label for="id_hide_real_name">{% trans "Share my story anonymously" %}</label>
     </fieldset>
-    {% trans "Submit Your Story" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Submit your story" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
   </div>
-
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
   </div>
 </div>

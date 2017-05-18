@@ -78,8 +78,7 @@
       {{ password_change_form.confirm_password }}
       {{ form.confirm_password.errors }}
     </fieldset>
-    {% trans "Change" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Change" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
 </div>
 {% endblock %}
