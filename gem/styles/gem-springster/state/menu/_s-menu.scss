@@ -1,0 +1,110 @@
+.header__menu {
+  line-height: 25px;
+  height: 30px;
+}
+.menu-list {
+  width: 100%;
+  display: inline-block;
+}
+.header__search-bar:after {
+  content: "";
+  background: $springster-purple url("/static/img/icons/dismiss.svg") 50%/70% no-repeat;
+  float: right;
+  height: 24px;
+  width: 24px;
+  pointer-events: none;
+  margin-top: -89px;
+}
+
+.menu-list__anchor,
+.menu-list__anchor label {
+  padding: 5px;
+}
+
+#profile,
+#search {
+  .menu-list__anchor--section-nav {
+    width: 25px;
+    height: 21px;
+    text-indent: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+    .menu-list__anchor label {
+      text-indent: 100%;
+    }
+  }
+}
+#profile {
+  float: left;
+  .menu-list__anchor--section-nav {
+    background:  url('/static/img/icons/avatar@2x.png') no-repeat 0 0 / auto 80%;
+  }
+}
+#search {
+  float: right;
+  .menu-list__anchor--section-nav {
+    background:  url('/static/img/icons/search-mint@2x.png') no-repeat 100% 0 / auto 80%;
+  }
+}
+
+
+
+
+//SECTION NAVIGATION
+.section-nav-list {
+  &__item {
+    padding: 5px 15px 2px 0;
+    &:last-child {
+      padding-right: 0;
+    }
+    &:nth-child(5n+1) {
+      .section-nav-list__anchor {
+        color: $pale-lilac;
+        &:hover, &.selected {
+          border-color: $pale-lilac;
+        }
+      }
+    }
+    &:nth-child(5n+2) {
+      .section-nav-list__anchor {
+        color: $light-gold;
+        &:hover, &.selected {
+          border-color: $light-gold
+        }
+      }
+    }
+    &:nth-child(5n+3) {
+      .section-nav-list__anchor {
+        color: $tiffany-blue;
+        &:hover, &.selected {
+          border-color: $tiffany-blue;
+        }
+      }
+    }
+    &:nth-child(5n+4) {
+      .section-nav-list__anchor {
+        color: $peach-two;
+        &:hover, &.selected {
+          border-color: $peach-two;
+        }
+      }
+    }
+    &:nth-child(5n+5) {
+      .section-nav-list__anchor {
+        color: $carnation;
+        &:hover, &.selected {
+          border-color: $carnation;
+        }
+      }
+    }
+  }
+  &__anchor {
+    border-bottom: 2px solid $springster-purple;
+    text-decoration: none;
+    padding: 0;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
