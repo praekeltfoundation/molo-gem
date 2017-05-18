@@ -45,8 +45,6 @@
   {% url "edit_my_profile" as link %}
   {% trans "Update Profile" as buttontext %}
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
-
-
   <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block">
   {% csrf_token %}
   {% trans "Change Your Password" as headingtext %}
@@ -80,9 +78,7 @@
       {{ password_change_form.confirm_password }}
       {{ form.confirm_password.errors }}
     </fieldset>
-    {% trans "Change" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Change" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
-
 </div>
 {% endblock %}

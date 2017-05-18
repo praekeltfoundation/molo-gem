@@ -8,36 +8,32 @@
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
+    <fieldset class="choice choice-group">
+      {% if question.get_main_language_page.allow_multiple_choice %}
+        <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+      {% else %}
+        <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+      {% endif %}
+      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
+    </fieldset>
+    {% endfor %}
+    {% trans "Log in to vote" as buttontext %}
+    {% url "molo.profiles:auth_login" as link %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+  {% else %}
+    {% can_vote question as user_can_vote %}
+    {% if user_can_vote %}
+    {% for choice in choices %}
       <fieldset class="choice choice-group">
         {% if question.get_main_language_page.allow_multiple_choice %}
           <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
         {% else %}
           <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
         {% endif %}
-        <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
+        <label for="{{ question.id }}-{{ forloop.counter }}">{{ choice.title }}</label>
       </fieldset>
     {% endfor %}
-
-      {% trans "Log in to vote" as buttontext %}
-      {% url "molo.profiles:auth_login" as link %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
-
-  {% else %}
-    {% can_vote question as user_can_vote %}
-    {% if user_can_vote %}
-      {% for choice in choices %}
-        <fieldset class="choice choice-group">
-          {% if question.get_main_language_page.allow_multiple_choice %}
-            <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
-          {% else %}
-            <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
-          {% endif %}
-          <label for="{{ question.id }}-{{ forloop.counter }}">{{ choice.title }}</label>
-        </fieldset>
-      {% endfor %}
-
-      {% trans "Vote" as buttontext %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
     {% elif question.get_main_language_page.show_results %}
       {% trans "Show Results" as buttontext %}
       {% url "molo.polls:results" question.id as link %}

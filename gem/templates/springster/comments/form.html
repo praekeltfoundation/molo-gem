@@ -6,10 +6,8 @@
   {% endif %}
   {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
   {{ form.comment }}
-  {% trans "Submit" as buttontext %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
-  {% trans "Comment Anonymously" as buttontext %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="secondary" text=buttontext %}
+  <input type="submit" value="{% trans "Comment" %}" class="call-to-action__button call-to-action__button--primary">
+  <input type="submit" value="{% trans "Comment Anonymously" %}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
   {{ form.object_pk }}
   {{ form.content_type }}
   {{ form.timestamp }}

@@ -4,25 +4,24 @@
   {% endif %}
 <form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" >
 {% csrf_token %}
-  {% if request.user.is_authenticated %}
-    {% can_vote question as user_can_vote %}
-    <fieldset>
-    {% if user_can_vote %}
-      {% if question.freetextquestion.get_main_language_page.numerical %}
-        <input type="number" name="answer" id="id_answer"/>
-      {% else %}
-        <input type="text" name="answer" id="id_answer"/>
-      {% endif%}
-    </fieldset>
-      {% trans "Submit" as buttontext %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+{% if request.user.is_authenticated %}
+  {% can_vote question as user_can_vote %}
+  <fieldset>
+  {% if user_can_vote %}
+    {% if question.freetextquestion.get_main_language_page.numerical %}
+      <input type="number" name="answer" id="id_answer"/>
     {% else %}
-      {% trans "Thank you! Your response has already been submitted." as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-    {% endif %}
+      <input type="text" name="answer" id="id_answer"/>
+    {% endif%}
+  </fieldset>
+  <input type="submit" value="{% trans "Submit" %}" class="call-to-action__button call-to-action__button--primary">
   {% else %}
-  	{% trans "Log in to vote" as buttontext %}
-    {% url "molo.profiles:auth_login" as link %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+    {% trans "Thank you! Your response has already been submitted." as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
   {% endif %}
+{% else %}
+	{% trans "Log in to vote" as buttontext %}
+  {% url "molo.profiles:auth_login" as link %}
+  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+{% endif %}
 </form>

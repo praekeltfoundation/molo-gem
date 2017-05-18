@@ -4,15 +4,14 @@
     <li class="footer-menu-list__item">
       <a href="/" class="footer-menu-list__anchor">{% trans "Home" %}</a></li>
     {% load_sections as sections %}
-      {% for section in sections %}
-        <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__item">
-          <a href="{% pageurl section %}" class="footer-menu-list__anchor">
-              {{section.title}}
-          </a>
-        </li>
-      {% endfor %}
+    {% for section in sections %}
+      <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__item">
+        <a href="{% pageurl section %}" class="footer-menu-list__anchor">
+            {{section.title}}
+        </a>
+      </li>
+    {% endfor %}
   </ul>
-
   <ul class="sections footer-menu-list right">
     {% footer_page %}
     {% if not user.is_authenticated %}

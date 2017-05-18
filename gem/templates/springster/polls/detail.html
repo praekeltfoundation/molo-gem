@@ -23,10 +23,8 @@
       <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
     </fieldset>
 		{% endfor %}
-    {% trans "Vote" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
 	</form>
 </div>
-<!-- Unique URL -->
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Home" direction="left" extraclass="margin-top" %}
 {% endblock %}

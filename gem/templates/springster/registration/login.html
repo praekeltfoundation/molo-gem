@@ -4,18 +4,15 @@
 <div class="profiles">
   {% trans "Log in" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-  
   {% trans "Not a member yet?" as headingtext %}
   {% trans "Sign up here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:user_register" linktitle=linktext %}
-
   <form method="post" action="." class="profiles__form">
   {% csrf_token %}
     {% if form.errors %}
-      <!-- Might need to correct this -->
-      <p class="errors">
-        {% trans "Your username and password do not match. Please try again." %}
-      </p>
+    <p class="errors">
+      {% trans "Your username and password do not match. Please try again." %}
+    </p>
     {% endif %}
     <fieldset>
       <label>{% trans "Username" %}</label>
@@ -25,16 +22,11 @@
       <label>{% trans "4-digit pin" %}</label>
       {{form.password}}
     </fieldset>
-
-    {% trans "Log in" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+    <input type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">
     <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
-    
     {% url "forgot_password" as link %}
     {% trans "Forgot PIN" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
-    
   </form>
 </div>
-
 {% endblock %}
