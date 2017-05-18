@@ -2,7 +2,12 @@
 <div class="copyright">
   <p class="copyright__footer-copy" >&copy;
     {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
-    <a href="#">{% trans "Terms &amp; Conditions" %}</a></p>
+    {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+    <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
+      {% trans "Terms &amp; Conditions" %}
+    </a>
+    {% endif %}
+  </p>
   {% if settings.gem.GemSettings.show_partner_credit %}
     <a href="{{settings.gem.GemSettings.partner_credit_link}}">
       {{settings.gem.GemSettings.partner_credit_description}}
