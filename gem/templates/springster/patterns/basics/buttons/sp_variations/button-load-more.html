@@ -1,3 +1,8 @@
-<a href="{{page}}?page={{pages.next.number}}" data-next="{{data}}?page={{pages.next.number}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
-  <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
-</a>
+{% if sectiondata %}
+  <a id="more-link" href="#" data-next="{{sectiondata}}?page={{pages.next.number}}&section={{section.pk}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+{% else %}
+  <a id="more-link" href="{{page}}?page={{pages.next.number}}" data-next="{{data}}?page={{pages.next.number}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+{% endif %}
+    <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
+  </a>
+
