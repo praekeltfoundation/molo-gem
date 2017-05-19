@@ -1,55 +1,6 @@
-@import "../utilities/utilities";
-@import "_s-typography";
-@media only screen and (min-width: 1024px) {
-  html {
-    -webkit-overflow-scrolling : touch;
-    -webkit-tap-highlight-color : lighten(#333, 75%);
-    body {
-      background: $cool-grey;
-      .header-wrapper, .header, .content {
-        max-width: 360px;
-        margin: 0 auto;
-      }
-    }
-  }
-  @-webkit-viewport {
-    width : device-width;
-  }
-  @-moz-viewport {
-    width : device-width;
-  }
-  @-ms-viewport {
-    width : device-width;
-  }
-  @-o-viewport {
-    width : device-width;
-  }
-  @viewport {
-    width : device-width;
-  }
-  ::-moz-selection {
-    background-color: $springster-purple-light;
-    color: $springster-purple;
-    text-shadow: none;
-  }
-  ::selection {
-    background-color: $springster-purple-light;
-    color: $springster-purple;
-    text-shadow: none;
-  }
-  .overflow-container { overflow-y: scroll; }
-  :not(a):focus {
-    outline: none;
+//Force media query 
+@media screen and (max-width: 300px) {
+  .heading__section h1 {
+    font-size: $font-x-large !important;
   }
 }
-@import "_s-profile";
-@import "section/_s-section";
-@import "header/_s-header";
-@import "header/_s-logo";
-@import "menu/_s-menu";
-@import "article-teaser/_s-base-teaser";
-@import "article-teaser/_s-grid-teaser";
-@import "section/_s-section-teaser-listing";
-@import "comments/_s-comment-counter";
-@import "buttons/_s-buttons";
-@import "buttons/_s-springster-buttons";
