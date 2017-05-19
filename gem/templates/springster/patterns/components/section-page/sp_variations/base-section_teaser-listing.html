@@ -5,7 +5,8 @@
     {% include "patterns/basics/banners/sp_variations/section-banner.html" %}
   </div>
   {% load_child_articles_for_section self as articles %}
-  {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
+  {% include "patterns/basics/sections/sectionpage-article-list-standard_for-paging.html" with section=self %}
+
   {% include "patterns/basics/pagination/pagination-pageof.html" %}
   {% get_tags_for_section self as tags %}
   {% for tag, tag_articles in tags %}

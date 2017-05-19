@@ -102,6 +102,12 @@ urlpatterns += patterns(
         'molo.core.views.home_more',
         name='home_more'
     ),
+    url(
+        r'^section-index/$',
+        'molo.core.views.section_index',
+        name='section_index'
+    ),
+
     url(r'', include(wagtail_urls)),
 )
 
