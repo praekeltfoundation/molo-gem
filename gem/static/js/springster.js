@@ -37,7 +37,6 @@ var stickyHeader = function() {
 
 var loadMore = function() {
   var moreLink = document.getElementById('more-link');
-  console.log("hey");
   if (moreLink) {
     var articlesMore = document.getElementById('articles-more');
     
@@ -66,26 +65,6 @@ var loadMore = function() {
     });
   }
 };
-// var loadMore = function() {
-//   var articlesMore = document.getElementById('articles-more');
-//   
-//   if (articlesMore) {
-//     articlesMore.addEventListener("click", function(event){
-//       var element = event.target;
-//       if (element.tagName == 'A' && element.classList.contains("more-link")) {
-//         event.preventDefault();
-//         element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
-//         fetch(element.getAttribute('data-next'))
-//          .then(function(response) {
-//            return response.text();
-//          }).then(function(text) { 
-//            articlesMore.insertAdjacentHTML('beforeend', text);
-//            articlesMore.removeChild(element);
-//          });
-//        }
-//     });
-//   }
-// };
 
 var scrollTo = function(element, to, duration) {
   if (duration < 0) return;
