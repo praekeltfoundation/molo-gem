@@ -1,17 +1,31 @@
 .section-teaser-listing-header {
-  .heading__section {
-    @media screen and (min-width: 240px) {
-      h1 {
-        font-size: $font-xx-large;
-        line-height: $font-xx-large;
-      }
-    }
-    @media screen and (min-width: 300px) {
-      h1 {
-        font-size: 40px;
-        line-height: 40px;
-        margin: 12px 0 8px 8px;
-      }
-    }
+  @include grid(100%);
+  margin: 8px 8px 0;
+  padding: 30px 0;
+  max-height: 128px;
+  .heading__section h1 {
+    font-size: 40px;
+    margin: 12px 0 8px 8px;
   }
+  .heading__section {
+    @include column($grid-six);
+  }
+  .section-banner {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+.section-teaser-listing-header--my-body {
+  background-color: $my-body;
+}
+.section-teaser-listing-header--my-life {
+  background-color: $my-life;
+}
+.section-teaser-listing-header--my-future {
+  background-color: $my-future;
+}
+.section-teaser-listing-header--girl-stories {
+  background-color: $girl-stories;
 }
