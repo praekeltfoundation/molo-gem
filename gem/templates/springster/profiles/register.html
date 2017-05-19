@@ -75,8 +75,7 @@
       </p>
     {% endif %}
   </fieldset>
-  {% trans "Sign up" as buttontext %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
+  <input type="submit" value='{% trans "Sign up" %}' class="call-to-action__button call-to-action__button--primary">
   <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
   {% trans "Already joined?" as headingtext %}
   {% trans "Log in here" as linktext %}
