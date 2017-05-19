@@ -71,7 +71,7 @@ gulp.task('compress', function() {
 
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss'], ['styles']);
+    gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);

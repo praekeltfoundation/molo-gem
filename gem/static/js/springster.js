@@ -14,7 +14,6 @@ var stickyHeader = function() {
   window.addEventListener('scroll', function(){ 
     var scrollAmount = this.y - window.pageYOffset;
     var scrollPos = window.scrollY;
-    console.log(scrollAmount);
     
     if( scrollAmount > 0 && scrollPos > langHeight ){ 
       header.style.top = 0;
@@ -35,24 +34,45 @@ var stickyHeader = function() {
 var loadMore = function() {
   var articlesMore = document.getElementById('articles-more');
   
-  articlesMore.addEventListener("click", function(event){
+  if (articlesMore) {
+    articlesMore.addEventListener("click", function(event){
+      var element = event.target;
+      if (element.tagName == 'A' && element.classList.contains("more-link")) {
+        event.preventDefault();
+        element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
+        fetch(element.getAttribute('data-next'))
+         .then(function(response) {
+           return response.text();
+         }).then(function(text) { 
+           articlesMore.insertAdjacentHTML('beforeend', text);
+           articlesMore.removeChild(element);
+         });
+       }
+    });
+  }
+};
+
+var scrollTo = function(element, to, duration) {
+  if (duration < 0) return;
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 2;
+
+setTimeout(function() {
+  element.scrollTop = element.scrollTop + perTick;
+  scrollTo(element, to, duration - 2);
+}, 10);
+};
+
+var backTop = function() {
+  document.getElementById("back-to-top").onclick = function (event) {
     event.preventDefault();
-    var element = event.target;
-    if (element.tagName == 'A' && element.classList.contains("more-link")) {
-      element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
-      fetch(element.getAttribute('data-next'))
-       .then(function(response) {
-         return response.text();
-       }).then(function(text) { 
-         articlesMore.insertAdjacentHTML('beforeend', text);
-         articlesMore.removeChild(element);
-       });
-     }
-  });
+    scrollTo(document.body, 0, 100);
+  }
 };
 
 domReady(function() {
   stickyHeader();
   loadMore();
+  backTop();
 });
 
