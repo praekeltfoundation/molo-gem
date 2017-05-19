@@ -2,7 +2,8 @@
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: underline;
-  color: #000;
+  color: $springster-purple;
+  font-size: $font-x-small;
   font-weight: bold;
   position: relative;
   display: block;
@@ -45,6 +46,8 @@
   cursor: pointer;
   text-align: center;
   display: block;
+  width: 95%;
+  border-radius: 5px;
 }
 .call-to-action__button--primary,
 .call-to-action__button--secondary  {
@@ -55,11 +58,10 @@
   background-color: $springster-purple;
   background-position: -792px -123px; //What should be doen with these
   border: none;
-  color: #000;
+  color: #fff;
   font-size: $font-small;
   font-weight: bold;
   margin: 16px auto;
-  width: 100%;
   height: 40px;
 }
 .call-to-action__button--secondary {
@@ -67,24 +69,16 @@
   background-position: -1728px -292px;
   color: $springster-purple;
   margin: 16px auto;
-  width: 100%;
   height: 42px;
-}
-.call-to-action__button--yellow {
-  background-image: url('/static/img/buttons/button-yellow.png');
-  background-repeat: no-repeat;
-  background-size: 50%;
-  background-position: contain;
-  margin: 8px;
-  width: 100%;
 }
 
 .call-to-action__button-text {
   cursor: pointer;
   font-size: $font-small;
-  color: #000;
+  color: #fff;
   padding: 8px 0 0;
-  display: inline-block;
+  display: block;
+  border-radius: 5px;
 }
 input.call-to-action__button-text {
   border: 0;
@@ -106,7 +100,17 @@ input.call-to-action__button-text {
   text-transform: uppercase;
   text-decoration: underline;
 }
+
+.call-to-action__button--yellow {
+  background: url('/static/img/buttons/button-yellow.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center 50%;
+  margin: 8px;
+  width: 95%;
+}
 .call-to-action__button-text--yellow {
   color: $springster-purple;
   background-color: $sunny-yellow;
+  padding: 8px 0;
 }
