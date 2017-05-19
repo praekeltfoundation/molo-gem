@@ -1,8 +1,8 @@
 fieldset {
   border: none;
   font-family: $baton-regular;
-  padding: 0 8px 8px;
   margin: 0;
+  padding: 0 5%;;
   display: block;
   position: relative;
   &:last-of-type {
@@ -12,12 +12,9 @@ fieldset {
 textarea {
   font-family: $baton-regular;
   border: none;
-  padding: 0 8px 0;
+  padding: 8px 8px 0;
   margin: 0 8px;
   display: block;
-  @media screen and (min-width: 320px) {
-    padding: 8px 8px 0;
-  }
 }
 
 label, .checkbox__legend {
@@ -25,7 +22,7 @@ label, .checkbox__legend {
   padding: 10px 0 0;
   color: $gunmetal;
   text-transform: capitalize;
-  display: block;
+  display: initial;
   text-align: center;
 }
 .checkbox__label {
@@ -107,13 +104,12 @@ textarea, select {
   box-sizing: border-box;
   display: block;
   font-size: 16px;
-  margin: 10px 0;
-  padding: 10px;
-  width: 100%;
+  margin: 10px auto;
+  padding: 10px 0 10px 5px;
+  width: 98%;
   border-radius: 0;
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
-
   &:focus {
     outline: 0;
   }
@@ -124,60 +120,13 @@ input[type="radio"]  {
   display: inline-block;
   margin-left: 10px;
 }
-//Originally for Polls, Should be generic
-fieldset {
-  input[type=radio] + label,
-  input[type=checkbox] + label {
-    background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
-    opacity: 0.8;
-  }
-  input[type=radio]:checked + label,
-  input[type=checkbox]:checked + label {
-    background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
-    opacity: 1;
-  }
-  ul {
-    li {
-      label {
-        background: #fff;
-        opacity: 0.8;
-        padding: 10px 10px 13px 10px;
-        margin: 0 0 10px;
-        input[type=radio],
-        input[type=checkbox] {
-          margin: 0 15px 0 12px;
-        }
-      }
-    }
-  }
-}
-
-.profiles__form,
-.comments__form,
-.surveys__form,
-.yourwords__form {
-  .choice input[type="checkbox"],
-  .choice input[type="radio"] {
-    position: inherit;
-    visibility: unset;
-  }
-  input[type=checkbox] + label,
-  input[type=radio] + label,
-  input[type=radio]:checked + label,
-  input[type=checkbox]:checked + label {
-    background-color: #fff;
-    background-image: none;
-    display: inline-block;
-  }
-}
-.yourwords__form {
-  .choice {
-    background-color: #fff;
-    margin: 0 0 10px;
-    opacity: 0.8;
-     label {
-       padding: 16px 16px 16px 16px;
-     }
+.choice,
+.choice-group {
+  margin: 0 0 10px;
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: initial;
+    visibility: initial;
   }
 }
 .select-group {
