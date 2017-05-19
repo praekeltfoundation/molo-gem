@@ -1,18 +1,10 @@
-.call-to-action--margin-top {
-  margin-top: 16px;
-}
-.call-to-action--wide-back {
-  padding: 12px 8px 9px;
-  background-color: $springster-purple-light;
-  font-size: $font-x-small;
-}
 .call-to-action__nav-item-text {
   cursor: pointer;
-  font-family: $baton-medium;
-  font-size: 16px;
   text-transform: uppercase;
   text-decoration: underline;
   color: $springster-purple;
+  font-size: $font-x-small;
+  font-weight: bold;
   position: relative;
   display: block;
   text-align: center;
@@ -24,103 +16,104 @@
     background-repeat: no-repeat;
     background-size: 100%;
     content:"";
-    margin: 5px 0 0 10px;
-    width: 18px;
-    height: 18px;
     position: absolute;
+    margin: 0 0 0 10px;
+    width: 24px;
+    height: 25px;
   }
 }
 .call-to-action__nav-item-text--left {
-  text-align: left;
-  padding-left: 8px;
   &:before {
     background-image: url(/static/img/icons/back.svg),url(/static/img/icons/back@2x.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
     content: "";
-    margin: 5px 0 0 10px;
-    width: 18px;
-    height: 18px;
     position: absolute;
+    left: 0;
+    margin: 0 0 0 10px;
+    width: 24px;
+    height: 24px;
   }
 }
-
+.call-to-action--wide-back {
+  padding: 10px;
+  background-color: $springster-purple-light;
+  font-size: $font-x-small;
+}
 
 .call-to-action__button {
   cursor: pointer;
   text-align: center;
   display: block;
+  width: 95%;
+  border-radius: 5px;
 }
-.call-to-action__button--primary, .call-to-action__button--secondary  {
+.call-to-action__button {
+  white-space: normal;
+}
+.call-to-action__button--primary,
+.call-to-action__button--secondary  {
   background-image: url('/static/img/buttons/button-sprite.png');
   background-size: 1870px 334px;
 }
-//The buttons must have a default color with no image loading for featurephones <=240px
 .call-to-action__button--primary {
-  background-color: transparent;
+  background-color: $springster-purple;
+  background-position: -792px -123px; //What should be doen with these
   border: none;
-  color: $white;
-  font-family: $baton-medium;
+  color: #fff;
   font-size: $font-small;
+  font-weight: bold;
   margin: 16px auto;
-  width: 100%;
-  max-width: 140px;
   height: 40px;
-  background-position: -792px -123px;
-  @media only screen and (min-width: 240px) {
-    max-width: 185px;
-    max-height: 41px;
-    background-position: -607px -82px;
-  }
 }
 .call-to-action__button--secondary {
+  background-color: #D7DBDD;
+  background-position: -1728px -260px;
   color: $springster-purple;
   margin: 16px auto;
-  width: 100%;
-  max-width: 142px;
   height: 42px;
-  background-position: -1728px -292px;
-  @media only screen and (min-width: 240px) {
-    max-width: 186px;
-    max-height: 43px;
-    background-position: -1542px -249px;
-  }
-}
-.call-to-action__button--yellow {
-  background: url('/static/img/buttons/button-yellow.png') no-repeat 50%/contain;
-  margin: 8px;
-  max-width: 119px
 }
 
 .call-to-action__button-text {
   cursor: pointer;
-  font-family: $baton-medium;
   font-size: $font-small;
-  color: $white;
-  padding: 10px;
-  display: inline-block;
-  pointer-events: none;
+  color: #fff;
+  padding: 8px 0 0;
+  display: block;
+  border-radius: 5px;
 }
-// default user agent style overides for input
-input.call-to-action__button-text{
-  -webkit-appearance: none;
-  background-color: transparent;
+input.call-to-action__button-text {
   border: 0;
   display: block;
 }
-.call-to-action__button-text--primary {
-  color: $white;
-}
-.call-to-action__button-text--secondary {
-  color: $springster-purple;
+.call-to-action__button-text--primary,
+.call-to-action__button-text--secondary,
+.call-to-action__button-text--hyperlink {
+  color: #fff;
+  background-color: $springster-purple;
 }
 .call-to-action__button-text--disabled {
   color: $cool-grey;
 }
 .call-to-action__button-text--hyperlink {
+  background: transparent;
   font-size: $font-x-small;
   color: $springster-purple;
   text-transform: uppercase;
   text-decoration: underline;
 }
+
+.call-to-action__button--yellow {
+  background: url('/static/img/buttons/button-yellow.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center 50%;
+  margin: 8px;
+  width: 95%;
+}
 .call-to-action__button-text--yellow {
   color: $springster-purple;
+  background-color: $sunny-yellow;
+  padding: 8px 0;
 }

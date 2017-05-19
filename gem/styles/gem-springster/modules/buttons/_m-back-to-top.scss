@@ -2,20 +2,25 @@
 .call-to-action--backToTop {
   background-color: $pale-grey-two;
 }
+.call-to-action__nav-item-text--backToTop,
+.call-to-action__nav-item-text--backToTop-up_arrow {
+  &:after {
+    content: "";
+    background: url(/static/img/icons/up-arrow.svg)  no-repeat -5px -3px / auto 165%, url(/static/img/icons/up-arrow.png)  no-repeat 0 0 / auto 100%;
+    position: absolute;
+    height: 12px;
+    width: 14px;
+  }
+}
 .call-to-action__nav-item-text--backToTop {
-  font-family: $baton-medium;
   font-size: 16px;
   text-transform: uppercase;
   text-decoration: underline;
   color: $springster-purple;
   position: relative;
+  font-weight: bold;
   &:after {
-    content: "";
-    background: url('/static/img/icons/back.svg') no-repeat 0 0 / auto 100%;
-    height: 14px;
-    width: 16px;
-    position: absolute;
-    top: 0;
+    top: 5px;
     margin-left: 10px;
   }
   &:hover {
@@ -28,9 +33,7 @@
 }
 .call-to-action__nav-item-text--backToTop-up_arrow {
   &:after {
-    content: url("/static/img/icons/up-arrow.svg");
     right: 20%;
     top: 30%;
-    position: absolute;
   }
 }
