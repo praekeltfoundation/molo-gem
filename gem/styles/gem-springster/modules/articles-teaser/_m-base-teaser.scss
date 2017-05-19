@@ -9,17 +9,16 @@ Separate smart styles to states folder
   &__thumbnail-link {
     cursor: pointer;
     outline: none;
-    display: inline-block;
     vertical-align: top;
-    width: 30%;
     img {
-      width: 100%;
+      width: auto;
+      display: block;
+      margin: 0 auto;
     }
   }
   &__title {
     font-size: $font-x-small;
-    font-family: $baton-medium;
-    font-weight: normal;
+    font-weight: bold;
     margin-top: 4px;
   }
   &__title-link {
@@ -27,14 +26,9 @@ Separate smart styles to states folder
   }
   &__subtitle {
     color: $slate-grey;
-    font-size: $font-xxx-small;
+    font-size: $font-xx-small;
     text-transform: none;
-    display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
-    height: $font-xxx-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
-    line-height: $elip-line-height;
-    -webkit-line-clamp: $elip-lines-to-show;
-    -webkit-box-orient: vertical;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -54,15 +48,13 @@ Separate smart styles to states folder
   }
   &__item--content {
     display: inline-block;
-    width: 60%;
-    margin-left: 10px;
+    padding: 0 10px;
     vertical-align: top;
   }
 }
-
 .teaser-stacklist-tags {
   display: inline-block;
-  padding: 8px 0 0;
+  padding: 8px 0 0 0;
   &__item {
     display: inline-block;
     list-style-type: none;
@@ -72,10 +64,9 @@ Separate smart styles to states folder
     }
   }
   &__anchor {
-    font-family: $baton-medium;
     text-transform: lowercase;
     text-decoration: none;
-    font-size: $font-xxx-small;
+    font-size: $font-xx-small;
     color: $springster-purple;
     &:hover {
       color: $black;
