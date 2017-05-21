@@ -107,7 +107,6 @@ urlpatterns += patterns(
         'molo.core.views.section_index',
         name='section_index'
     ),
-
     url(r'', include(wagtail_urls)),
 )
 
