@@ -1,60 +1,45 @@
 
 .carousel-teaser {
-  @include divider-combo-2;
   background-color: $sunny-yellow;
-  
   &__thumbnail-link {
     font-size: 0;
-    display: inline-block;
     margin: 0;
   }
-  
   &__title-link {
     font-family: $baton-medium;
     color: $charcoal-grey;
     font-size: $font-large;
-    
     &:hover {
       color: $springster-purple;
       text-decoration: none;
     }
   }
-  
   &__title {
-    margin: 8px;
+    margin: 8px 0;
   }
-  
   &__subtitle {
     color: $slate-grey;
     font-size: $font-x-small;
-    padding: 0 8px 16px;
+    padding: 0 0 16px;
   }
-  
   h2:before {
-      content: "#";
-    }
+    content: "#";
+  }
+  &__thumbnail {
+    width: 100%;
+  }
 }
 
 .carousel-teaser-list {
-  display: flex;
-  flex-wrap: nowrap;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  
   &__item {
-    @include column($grid-twelve)
-    flex: 0 0 auto;
     text-align: center;
+    padding: 10px 20px 10px;
   }
-  
   &__item--container {
     background-color: $white;
-    margin-left: 8px;
-    width: 168px;
-    min-height: 240px;
   }
 }

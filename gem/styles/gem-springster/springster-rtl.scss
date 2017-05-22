@@ -7,11 +7,15 @@
   text-align: left;
 }
 #profile {
-  float: right;
+  @media screen and (min-width: 360px) {
+    float: right;
+  }
 }
 .header__search .header__search-bar:after {
-  right: inherit;
-  left: 3px;
+  @media screen and (min-width: 360px) {
+    right: inherit;
+    left: 3px;
+  }
 }
 .section-nav .section-nav-list__item {
   padding: 5px 10px 2px 10px;
@@ -24,6 +28,15 @@
 .teaser-stacklist-tags__item {
   margin-left: 8px;
   margin-right: 0;
+}
+
+.base-teaser__thumbnail-link img {
+  display: inline;
+  padding: 0 20px 0 0;
+  @media screen and (min-width: 360px) {
+    display: block;
+    padding: 0;
+  }
 }
 
 //ARTICLE HEADING
@@ -39,13 +52,18 @@
 //FORM
 .choice label {
   text-align: left;
-  padding: 16px 54px 16px 10px;
+  padding: 0;
+  @media screen and (min-width: 500px) {
+    padding: 16px 54px 16px 10px;
+  }
 }
 .choice input[type=checkbox]+label,
 .choice input[type=radio]+label,
 .choice input[type=checkbox]:checked+label,
 .choice input[type=radio]:checked+label {
-  background-position-x: 95%;
+  @media screen and (min-width: 500px) {
+    background-position-x: 95%;
+  }
 }
 
 .profiles fieldset {
@@ -55,8 +73,10 @@
 //BUTTONS
 .call-to-action__item--with-icon,
 .call-to-action__nav-item--with-icon {
-  right: inherit;
-  left: 5px;
+  @media screen and (min-width: 360px) {
+    right: inherit;
+    left: 5px;
+  }
 }
 
 
