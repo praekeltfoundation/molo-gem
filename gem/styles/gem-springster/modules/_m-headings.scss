@@ -1,17 +1,14 @@
-
 .heading {
   &__component {
-    @include underline(zig-zag, 10px);
     text-align: center;
-    margin: 0 8px 28px;
-    padding-top: 30px;
+    margin: 0 10px;
+    padding-top: 15px;
     *:first-child {
       font-family: $baton-medium;
       font-size: $font-x-large;
       text-transform: uppercase;
       color: $gunmetal;
     }
-    // TODO hash variant component heading
     &__component--hash {
       h2:before {
         content: "#";
@@ -93,7 +90,8 @@
 .heading--large {
   font-size: $font-xx-large;
 }
-//TODO create tag heading vartiant
-.article-tag-page .heading__component h1:before {
-  content: "#";
+.article-tag-page {
+  .heading__component h1:before {
+    content: "#";
+  }
 }
