@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     'molo.core',
     'gem',
+    'gem.personalise',
     'molo.profiles',
     'molo.surveys',
     'django_comments',
@@ -84,6 +85,8 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
     'wagtailsurveys',
     'wagtail.contrib.wagtailsitemaps',
+
+    'personalisation',
 
     'mptt',
     'django.contrib.sites',
