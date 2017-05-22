@@ -1,7 +1,10 @@
+{% if hyperlink %}
+<div class="heading heading__{{type}} heading__{{type}}-hyperlink">
+  <{{htmltag}}>{{title}}</{{htmltag}}>
+  <a href="{% url hyperlink %}" class="call-to-action__hyperlink">
+      {{linktitle}}</a>
+{% else %}
 <div class="heading heading__{{type}}">
   <{{htmltag}}>{{title}}</{{htmltag}}>
-  {% if hyperlink %}
-    <a href="{% url hyperlink %}" class="call-to-action__hyperlink">
-      {{linktitle}}</a>
-  {% endif %}
+{% endif %}
 </div>

@@ -53,7 +53,7 @@ var loadMore = function() {
 };
 
 var scrollTo = function(element, to, duration) {
-  if (duration < 0) return;
+  if (duration < 0 || element.scrollTop == to) return;
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 2;
 
@@ -70,9 +70,51 @@ var backTop = function() {
   }
 };
 
+var formUI = function() {
+  var replaceValidationUI = function(form) {
+      form.addEventListener("invalid", function(event) {
+        event.preventDefault();
+      }, true);
+      form.addEventListener("submit", function(event) {
+        if (!this.checkValidity() ) {
+            event.preventDefault();
+        }
+      });
+
+      var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
+      submitButton.addEventListener("click", function(event) {
+        var invalidFields = form.querySelectorAll(":invalid"),
+          errorMessages = form.querySelectorAll(".error-message"),
+          parent;
+
+        for (var i = 0; i < errorMessages.length; i++) {
+          errorMessages[i].parentNode.removeChild( errorMessages[i]);
+        }
+
+        for (var i = 0; i < invalidFields.length; i++) {
+          parent = invalidFields[i].parentNode;
+          parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" + 
+            invalidFields[i].validationMessage +
+            "</div>" );
+          parent.classList.add("input-error");
+        }
+
+        if (invalidFields.length > 0) {
+          scrollTo(document.body, invalidFields[0].offsetTop, 100);
+        }
+      });
+  }
+
+  var forms = document.querySelectorAll("form");
+  for (var i = 0; i < forms.length; i++) {
+    replaceValidationUI(forms[i]);
+  }
+};
+
 domReady(function() {
   stickyHeader();
   loadMore();
   backTop();
+  formUI();
 });
 

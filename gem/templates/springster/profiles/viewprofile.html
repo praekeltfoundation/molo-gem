@@ -64,19 +64,26 @@
     </ul>
     {% endif %}
     <fieldset>
-      <label>{% trans "Old Password:" %}</label>
-      {{ password_change_form.old_password }}
-      {{ password_change_form.old_password.errors }}
+      <div class="input-group">
+        <label>{% trans "Old Password:" %}</label>
+        {{ password_change_form.old_password }}
+        {{ password_change_form.old_password.errors }}
+      </div>
+      
     </fieldset>
     <fieldset>
-      <label>{% trans "New Password:" %}</label>
-      {{ password_change_form.new_password }}
-      {{ form.new_password.errors }}
+      <div class="input-group">
+        <label>{% trans "New Password:" %}</label>
+        {{ password_change_form.new_password }}
+        {{ form.new_password.errors }}
+      </div>
     </fieldset>
     <fieldset>
-      <label>{% trans "Confirm Password:" %}</label>
-      {{ password_change_form.confirm_password }}
-      {{ form.confirm_password.errors }}
+      <div class="input-group">
+        <label>{% trans "Confirm Password:" %}</label>
+        {{ password_change_form.confirm_password }}
+        {{ form.confirm_password.errors }}
+      </div>
     </fieldset>
     <input type="submit" value="{% trans "Change" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
