@@ -28,11 +28,9 @@
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
     {% get_pages %}
-    <div id="articles-more">
-      {% trans "Load more" as buttontext %}
-      {% url 'home_more' as pagelink %}
-      {% url 'home_index' as datalink %}
-      {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext page=pagelink data=datalink %}
-    </div>
-    {% endif %}
+    {% trans "Load more" as buttontext %}
+    {% url 'home_more' as pagelink %}
+    {% url 'home_index' as datalink %}
+    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext page=pagelink data=datalink %}
+  {% endif %}
 {% endblock %}
