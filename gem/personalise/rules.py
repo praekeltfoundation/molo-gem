@@ -220,6 +220,17 @@ class ProfileDataRule(AbstractBaseRule):
         python_value = self.get_python_value()
         related_field_value = self.get_related_field_value(user=request.user)
 
+        # If values date, make sure they are timezone aware
+        # since it is not possible to compare naive and aware dates.
+        if isinstance(python_value, datetime.date) \
+                and timezone.is_naive(python_value):
+            python_value = timezone.make_aware(python_value)
+
+        if isinstance(related_field_value, datetime.date) \
+                and timezone.is_naive(related_field_value):
+            related_field_value = timezone.make_aware(related_field_value)
+
+
 
         # Handle null (None) values in the related field
         if related_field_value is None:
