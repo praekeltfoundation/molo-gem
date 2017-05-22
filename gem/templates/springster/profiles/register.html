@@ -8,7 +8,7 @@
   {% trans "Already joined?" as headingtext %}
   {% trans "Log in here" as linktext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title="Please complete this form to join:" %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title="Please complete this form to join" %}
   <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
   {% csrf_token %}
   <fieldset>
