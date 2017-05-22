@@ -1,7 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags static i18n el_pagination_tags %}
-{% load_child_articles_for_section section count=0 as articles %}
-{% paginate 12 articles %}
-
+{% load wagtailcore_tags wagtailimages_tags core_tags static %}
 <div class="article-teaser">
 {% if articles %}
   <ul class="teaser-stacklist">
@@ -21,11 +18,3 @@
   </ul>
 {% endif %}
 </div>
-
-{% get_pages %}
-{% if pages.next %}
-  {% trans "Load more" as buttontext %}
-  {% url 'section_index' as datalink %}
-  {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext sectiondata=datalink %}
-{% endif %}
-
