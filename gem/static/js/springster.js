@@ -48,9 +48,7 @@ var loadMore = function() {
     };
     
     wrapper.addEventListener("click", function(event){
-      
       var element = event.target;
-      console.log(element);
       if (element.tagName == 'A' && element.classList.contains("more-link")) {
         event.preventDefault();
         element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"

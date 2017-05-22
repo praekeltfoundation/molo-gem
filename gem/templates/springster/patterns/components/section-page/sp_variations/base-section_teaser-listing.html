@@ -8,11 +8,11 @@
   {% paginate 12 articles %}
   {% get_tags_for_section self as tags %}
 
-  {% include "patterns/basics/sections/sectionpage-article-list-standard_for-paging.html" with section=self articles=articles|slice:"0:4"%}
+  {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"0:4"%}
   {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tags.0.0 tag_articles=tags.0.1%}
-  {% include "patterns/basics/sections/sectionpage-article-list-standard_for-paging.html" with section=self articles=articles|slice:"4:8"%}
+  {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"4:8"%}
   {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tags.1.0 tag_articles=tags.1.1%}
-  {% include "patterns/basics/sections/sectionpage-article-list-standard_for-paging.html" with section=self articles=articles|slice:"8:12"%}
+  {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"8:12"%}
 
 
   {% get_pages %}
