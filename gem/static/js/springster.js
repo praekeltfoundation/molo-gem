@@ -1,4 +1,3 @@
-
 "use strict";
 
 var domReady = function(callback) {
@@ -14,12 +13,12 @@ var stickyHeader = function() {
   var content = document.getElementById("content-wrapper")
   var headerHeight = document.getElementById('header').clientHeight;
   var langHeight = document.getElementById('language-bar').clientHeight;
-  
-  window.addEventListener('scroll', function(){ 
+
+  window.addEventListener('scroll', function(){
     var scrollAmount = this.y - window.pageYOffset;
     var scrollPos = window.scrollY;
-    
-    if( scrollAmount > 0 && scrollPos > langHeight ){ 
+
+    if( scrollAmount > 0 && scrollPos > langHeight ){
       header.style.top = 0;
       content.style.top =  headerHeight + "px";
       header.classList.add("header-fixed");
@@ -28,10 +27,10 @@ var stickyHeader = function() {
     } else if (scrollAmount < 0 || scrollPos < headerHeight){
       content.style.top = "0";
       header.classList.remove("header-fixed");
-    } 
-    
+    }
+
     this.y = window.pageYOffset;
-    
+
   });
 };
 
@@ -39,14 +38,14 @@ var loadMore = function() {
   var moreLink = document.getElementById('more-link');
   if (moreLink) {
     var articlesMore = document.getElementById('articles-more');
-    
+
     if (articlesMore === null) {
       var wrapper = document.createElement('div');
       moreLink.parentNode.insertBefore(wrapper, moreLink);
       wrapper.appendChild(moreLink);
       wrapper.setAttribute("id", "articles-more");
     };
-    
+
     wrapper.addEventListener("click", function(event){
       var element = event.target;
       if (element.tagName == 'A' && element.classList.contains("more-link")) {
@@ -92,7 +91,7 @@ var formUI = function() {
             event.preventDefault();
         }
       });
-      var errorList = form.querySelectorAll('.errorlist'); 
+      var errorList = form.querySelectorAll('.errorlist');
       if (errorList.length > 0) {
         for (var i = 0; i < errorList.length; i++) {
           parent = errorList[i].parentNode;
@@ -112,7 +111,7 @@ var formUI = function() {
 
         for (var i = 0; i < invalidFields.length; i++) {
           parent = invalidFields[i].parentNode;
-          parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" + 
+          parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" +
             invalidFields[i].validationMessage +
             "</div>" );
           parent.classList.add("input-error");
@@ -137,4 +136,3 @@ domReady(function() {
   backTop();
   formUI();
 });
-
