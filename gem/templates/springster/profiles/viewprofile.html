@@ -3,10 +3,16 @@
 {% get_settings %}
 {% block content %}
 <div class="profiles">
-  {% with user|stringformat:"s" as username %}
-    {% trans "Hello" as headingtext %}
+  {% trans "Hello" as headingtext %}
+  {% if user.profile.alias %}
+    {% with user.profile.alias as alias %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
+    {% endwith %}
+  {% else %}
+    {% with user|stringformat:"s" as username %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:username %}
-  {% endwith %}
+    {% endwith %}
+  {% endif %}  
   {% url "molo.profiles:auth_logout" as link %}
   {% trans "log out" as buttontext %}
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
