@@ -8,32 +8,42 @@
   {% csrf_token %}
 	{{ form.non_field_errors }}
     <fieldset>
-			<label>{% trans "Nickname:" %}</label>
-      {{ form.alias }}
-			{{ form.alias.errors }}
+      <div class="input-group">
+        <label>{% trans "Nickname:" %}</label>
+        {{ form.alias }}
+  			{{ form.alias.errors }}
+      </div>
       <p class="helptext">{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</p>
     </fieldset>
     <fieldset>
-      <label>{% trans "Date of birth:" %}</label>
-	    {{ form.date_of_birth }}
+      <div class="input-group">
+        <label>{% trans "Date of birth:" %}</label>
+  	    {{ form.date_of_birth }}
+      </div>
     </fieldset>
     <fieldset>
-      <label>{% trans "Gender:" %}</label>
-			{{ form.gender }}
-      {{ form.gender.errors }}
+      <div class="">
+        <label>{% trans "Gender:" %}</label>
+        {{ form.gender }}
+        {{ form.gender.errors }}
+      </div>
     </fieldset>
     <fieldset>
 			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-	      <label>{% trans "Mobile number:" %}</label>
+      <div class="input-group">
+        <label>{% trans "Mobile number:" %}</label>
 	      {{ form.mobile_number.errors }}
 	      {{ form.mobile_number }}
+      </div>
 			{% endif %}
     </fieldset>
     <fieldset>
 			{% if settings.profiles.UserProfilesSettings.show_email_field %}
-	     <label>{% trans "Email address:" %}</label>
-	      {{ form.email.errors }}
-	      {{ form.email }}
+      <div class="input-group">
+        <label>{% trans "Email address:" %}</label>
+ 	      {{ form.email.errors }}
+ 	      {{ form.email }}
+      </div>
 			{% endif %}
     </fieldset>
 		{% trans "Update profile" as buttontext %}

@@ -17,16 +17,19 @@
         </h4>
       {% endif %}
     <fieldset>
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-      <p class="helptext">{{ field.help_text }}</p>
-      {{ field }}
-      {% if field.errors %}
-        <ul class="error-list">
-        {% for error in field.errors %}
-          <li class="error-list__item">{{ error }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
+      <div class="input-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <p class="helptext">{{ field.help_text }}</p>
+        {{ field }}
+        {% if field.errors %}
+          <ul class="error-list errorlist">
+          {% for error in field.errors %}
+            <li class="error-list__item">{{ error }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      
     </fieldset>
     {% endfor %}
     <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
