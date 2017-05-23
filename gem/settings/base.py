@@ -329,7 +329,7 @@ _("Show Results")
 _("You voted: ")
 _("Name of the city you were born in")
 _("Name of your primary school")
-
+_("Please complete this form to join")
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
 # via a templatetag, so that we can use this for different regions:
