@@ -5,10 +5,6 @@ var domReady = function(callback) {
   document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
 
-var hidePagination = function() {
-  document.body.classList.add('toggle-hide');
-}
-
 var stickyHeader = function() {
   var header = document.getElementById("header");
   var content = document.getElementById("content-wrapper")
@@ -36,18 +32,10 @@ var stickyHeader = function() {
 };
 
 var loadMore = function() {
-  var moreLink = document.getElementById('more-link');
-  if (moreLink) {
-    var articlesMore = document.getElementById('articles-more');
-    
-    if (articlesMore === null) {
-      var wrapper = document.createElement('div');
-      moreLink.parentNode.insertBefore(wrapper, moreLink);
-      wrapper.appendChild(moreLink);
-      wrapper.setAttribute("id", "articles-more");
-    };
-    
-    wrapper.addEventListener("click", function(event){
+  var articlesMore = document.getElementById('articles-more');
+  
+  if (articlesMore) {
+    articlesMore.addEventListener("click", function(event){
       var element = event.target;
       if (element.tagName == 'A' && element.classList.contains("more-link")) {
         event.preventDefault();
@@ -55,10 +43,10 @@ var loadMore = function() {
         fetch(element.getAttribute('data-next'))
          .then(function(response) {
            return response.text();
-         }).then(function(text) {
-           element.parentNode.insertAdjacentHTML('beforeend', text);
-           element.parentNode.removeChild(element);
-        });
+         }).then(function(text) { 
+           articlesMore.insertAdjacentHTML('beforeend', text);
+           articlesMore.removeChild(element);
+         });
        }
     });
   }
@@ -95,15 +83,10 @@ var formUI = function() {
       var errorList = form.querySelectorAll('.errorlist'); 
       if (errorList.length > 0) {
         for (var i = 0; i < errorList.length; i++) {
-          console.log("yo");
           parent = errorList[i].parentNode;
           parent.classList.add("input-error");
         }
-        
       }
-      
-      
-      
 
       var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
       submitButton.addEventListener("click", function(event) {
@@ -138,7 +121,6 @@ var formUI = function() {
 domReady(function() {
   stickyHeader();
   loadMore();
-  hidePagination();
   backTop();
   formUI();
 });
