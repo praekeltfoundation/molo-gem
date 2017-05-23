@@ -54,6 +54,11 @@ label, .checkbox__legend {
   color: #909497;
 }
 
+.helptext {
+  font-family: $baton-turbo;
+  color: $slate-grey;
+  font-size: $font-x-small;
+}
 
 .error-list,
 .errorlist {
@@ -61,17 +66,19 @@ label, .checkbox__legend {
   padding: 0;
   li {
     display: block;
-    color: $red;
+    color: $bright-orange;
+    text-align: center;
   }
 }
 .errors, .error-list__item {
-  color: $red;
+  color: $bright-orange;
   padding: 10px 15px 0;
+  text-align: center;
 }
 label.error {
   .required-asterisk,
   .required-info {
-    color: $red;
+    color: $bright-orange;
   }
 input[type="submit"] {
   border: none;
@@ -136,3 +143,16 @@ input[type="radio"]  {
 .sub_label {
   display: block;
 }
+
+.input-group {
+  &.input-error{
+    input, textarea {
+      border-color: $bright-orange;
+    }
+  }
+  
+  .error-message {
+    color: $bright-orange;
+  }
+}
+
