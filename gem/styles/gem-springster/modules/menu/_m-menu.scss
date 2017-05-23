@@ -20,7 +20,7 @@
   font-weight: bold;
   font-size: $font-xx-small;
   cursor: pointer;
-  padding: 10px 5px;
+  padding: 5px 3px;
 }
 .menu-list__anchor label {
   display: block;
@@ -40,12 +40,65 @@
   list-style-type: none;
   &__item {
     display: inline-block;
-    padding: 5px;
+    padding: 0 5px 5px;
   }
   &__anchor {
-    padding: 10px 8px;
+    padding: 0;
     color: #fff;
     text-decoration: none;
     font-size: $font-small;
+  }
+}
+
+.section-nav-list__item:nth-child(5n+1) {
+  .section-nav-list__anchor {
+    color: $pale-lilac;
+    &:hover, &.selected {
+      border-color: $pale-lilac;
+    }
+  }
+}
+.section-nav-list__item:nth-child(5n+2) {
+  .section-nav-list__anchor {
+    color: $light-gold;
+    &:hover, &.selected {
+      border-color: $light-gold
+    }
+  }
+}
+.section-nav-list__item:nth-child(5n+3) {
+  .section-nav-list__anchor {
+    color: $tiffany-blue;
+    &:hover, &.selected {
+      border-color: $tiffany-blue;
+    }
+  }
+}
+.section-nav-list__item:nth-child(5n+4) {
+  .section-nav-list__anchor {
+    color: $peach-two;
+    &:hover, &.selected {
+      border-color: $peach-two;
+    }
+  }
+}
+.section-nav-list__item:nth-child(5n+5) {
+  .section-nav-list__anchor {
+    color: $carnation;
+    &:hover, &.selected {
+      border-color: $carnation;
+    }
+  }
+}
+
+
+@each $name, $color in $color_scheme {
+  .section-nav-list__item--#{$name} {
+    .section-nav-list__anchor {
+      color: $color;
+      &:hover, &.selected {
+        border-color: $color;
+      }
+    }
   }
 }
