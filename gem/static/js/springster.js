@@ -80,6 +80,18 @@ var formUI = function() {
             event.preventDefault();
         }
       });
+      var errorList = form.querySelectorAll('.errorlist'); 
+      if (errorList.length > 0) {
+        for (var i = 0; i < errorList.length; i++) {
+          console.log("yo");
+          parent = errorList[i].parentNode;
+          parent.classList.add("input-error");
+        }
+        
+      }
+      
+      
+      
 
       var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
       submitButton.addEventListener("click", function(event) {
