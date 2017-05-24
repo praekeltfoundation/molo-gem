@@ -20,8 +20,8 @@
     <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
     <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
     {% image self.social_media_image width-300 as tmp_photo %}
-    {% if self.image %}
-      {% image self.image width-300 as article_photo %}
+    {% if self.get_effective_image %}
+      {% image self.get_effective_image width-300 as article_photo %}
     {% endif %}
     <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}
     {% endif %}"/>
