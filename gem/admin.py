@@ -93,11 +93,6 @@ class TzDateTimeWidget(DateTimeWidget):
             value = localtime(value)
         return super(TzDateTimeWidget, self).render(value, obj)
 
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
-
 
 class GemMergedCMSUserResource(ModelResource):
     date_of_birth = Field(
@@ -131,17 +126,6 @@ class GemMergedCMSUserResource(ModelResource):
     def dehydrate_migrated_username(self, user):
         return user.username
 
-    # def skip_row(self, instance, original):
-    #     if original:
-    #         return True
-
-    #     return super(GemMergedCMSUserResource, self).skip_row(
-    #         instance, original)
-
-    # def before_import_row(self, row, **kwargs):
-    #     if User.objects.filter(username=row.get('username')).exists():
-    #         raise Exception
-
     def get_prefixed_username(self, data):
         return '%s_%s' % (
             data['site'], data['username']
@@ -156,11 +140,6 @@ class GemMergedCMSUserResource(ModelResource):
 
         row_result = self.get_row_result_class()()
         row_result.import_type = RowResult.IMPORT_TYPE_SKIP
-        from collections import namedtuple
-        row['date_joined'] = None
-        row['date_of_birth'] = None
-        d_named = namedtuple('Struct', row.keys())(*row.values())
-        row_result.diff = Diff(self, d_named, d_named).as_html()
         return row_result
 
     def import_obj(self, obj, data, dry_run):
