@@ -10,7 +10,7 @@ from wagtailsurveys.models import AbstractFormField
 
 from molo.surveys.models import MoloSurveyPage, SurveysIndexPage
 
-from .rules import ProfileDataRule
+from .rules import ProfileDataRule, SurveySubmissionDataRule
 
 
 # Force current index page to display our personalised survey
