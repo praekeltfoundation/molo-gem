@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'molo.servicedirectory',
     'molo.polls',
     'mote',
+    'gem.csv_group_creation',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
