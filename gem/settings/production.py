@@ -70,6 +70,7 @@ MIDDLEWARE_CLASSES += [
 
 
 AUTHENTICATION_BACKENDS = [
+    'gem.backends.GemModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'molo.core.backends.MoloCASBackend',
 ]
