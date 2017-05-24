@@ -1,15 +1,13 @@
 .tag-cloud {
   display: inline-block;
   width: 100%;
-  margin-top: 20px;
-
+  margin-top: 45px;
+  position: relative;
   &__container {
-    @include divider-combo-1;
     background-color: $sunny-yellow;
     padding: 60px 1em 0 1em;
     margin-top: 40px;
   }
-
   &__block {
     width: 100%;
     text-align: center;
@@ -17,21 +15,21 @@
     padding: 0 0 20px;
     list-style-type: none;
   }
-
   &__icon {
-    background: url('/static/img/tag-cloud-love-hands.svg') no-repeat 0 0/contain;
+    background: url(/static/img/tag-cloud-love-hands.svg), url(/static/img/tag-cloud-love-hands.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
     padding: 2px 5px;
     height: 88px;
     width: 100px;
     position: absolute;
-    left: 50%;
-    margin-left: -50px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
   }
-
   &__heading {
-    @include underline(zig-zag, 10px);
     text-align: center;
-
     h4 {
       font-family: $baton-medium;
       font-size: $font-x-large;
@@ -39,14 +37,12 @@
       color: $gunmetal;
     }
   }
-
   &__item {
     display: inline-block;
     padding: 2px 5px;
   }
 }
 
-//TODO Some of the classes should be independent of the container div for elemnts reuse
 .tag-cloud__anchor {
   font-family: $baton-medium;
   text-transform: lowercase;
@@ -62,8 +58,6 @@
 }
 
 .article-page-tag-cloud {
-  @include divider-line(4px, $pale-grey-three);
-  
   .heading {
     margin-bottom: 10px;
   }
