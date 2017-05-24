@@ -1,7 +1,12 @@
-{% if sectiondata %}
-  <a id="more-link" href="#" data-next="{{sectiondata}}?page={{pages.next.number}}&section={{section.pk}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
-{% else %}
-  <a id="more-link" href="{{page}}?page={{pages.next.number}}" data-next="{{data}}?page={{pages.next.number}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+{% if pages.next %}
+{% include "patterns/basics/pagination/sp-pagination-pageof.html" %}
+<p>page: {{pagelink}}</p>
+<p>data: {{datalink}}</p>
+  {% if section %}
+    <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&section={{section.pk}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+  {% else %}
+    <a id="more-link" data-next="{{datalink}}?page={{pages.next.number}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+  {% endif %}
+      <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
+    </a>
 {% endif %}
-    <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
-  </a>

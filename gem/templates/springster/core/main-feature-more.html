@@ -1,7 +1,12 @@
 {% extends "base.html" %}
- {% load static core_tags el_pagination_tags %}
- {% block content %}
-  {% bannerpages %}
-  {% get_tag_articles tag_count=4 as tag_nav_data %}
-  {% include "patterns/components/article-teasers/latest-promoted_variations/article_for_feature.html" with articles=tag_nav_data.latest_articles%}
- {% endblock %}
+{% load wagtailcore_tags wagtailimages_tags core_tags i18n el_pagination_tags %}
+{% block content %}
+{% get_tag_articles tag_count=4 as tag_nav_data %}
+{% paginate 1 tag_nav_data.latest_articles as articles %}
+{% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
+{% get_pages %}
+{% trans "Load more" as buttontext %}
+{% url 'home_more' as pagelink %}
+{% url 'home_index' as datalink %}
+{% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
+{% endblock %}

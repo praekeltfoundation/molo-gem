@@ -21,9 +21,7 @@
 {% endif %}
 </div>
 {% get_pages %}
-{% if pages.next %}
-  {% trans "Load more" as buttontext %}
-  {% url 'home_more' as pagelink %}
-  {% url 'home_index' as datalink %}
-  {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext page=pagelink data=datalink %}
-{% endif %}
+{% trans "Load more" as buttontext %}
+{% url 'home_more' as pagelink %}
+{% url 'home_index' as datalink %}
+{% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
