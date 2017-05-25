@@ -2,7 +2,7 @@ import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.test import TestCase, RequestFactory
 from django.test.client import Client
 
@@ -11,7 +11,8 @@ from molo.surveys.models import SurveysIndexPage
 from personalisation.models import Segment
 
 from ..models import PersonalisableSurveyFormField, PersonalisableSurvey
-from ..rules import ProfileDataRule, SurveySubmissionDataRule
+from ..rules import ProfileDataRule, SurveySubmissionDataRule, \
+                    GroupMembershipRule
 
 @pytest.mark.django_db
 class TestProfileDataRuleSegmentation(TestCase):
@@ -318,4 +319,37 @@ class TestProfileDataRuleSegmentation(TestCase):
 
         # Fails for logged-out user
         self.request.user = AnonymousUser()
+        self.assertFalse(rule.test_user(self.request))
+
+
+class TestGroupMembershipRuleSegmentation(TestCase):
+    def setUp(self):
+        # Fabricate a request with a logged-in user
+        # so we can use it to test the segment rule
+        self.request_factory = RequestFactory()
+        self.request = self.request_factory.get('/')
+        self.request.user = get_user_model().objects \
+                                            .create_user(username='tester',
+                                                         email='tester@example.com',
+                                                         password='tester')
+
+        self.group = Group.objects.create(name='Super Test Group!')
+
+        self.request.user.groups.add(self.group)
+
+    def test_user_membership_rule_when_they_are_member(self):
+        rule = GroupMembershipRule(group=self.group)
+
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_user_membership_rule_when_they_are_not_member(self):
+        group = Group.objects.create(name='Wagtail-like creatures')
+        rule = GroupMembershipRule(group=group)
+
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_user_membership_rule_on_not_logged_in_user(self):
+        self.request.user = AnonymousUser()
+        rule = GroupMembershipRule(group=self.group)
+
         self.assertFalse(rule.test_user(self.request))
