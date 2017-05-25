@@ -6,7 +6,7 @@
   </div>
 </div>
   {% load_child_articles_for_section self count=0 as articles %}
-  {% paginate 1 articles %}
+  {% paginate 12 articles %}
   {% get_tags_for_section self as tags %}
 
   {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"0:4"%}
