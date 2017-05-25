@@ -1,4 +1,15 @@
 .heading {
+  &__square {
+    background-color: $springster-purple;
+    text-align: center;
+    padding: 15px 8px 35px;
+    *:first-child {
+      font-family: $baton-medium;
+      font-size: $font-xx-large;
+      text-transform: uppercase;
+      color: $white;
+    }
+  }
   &__component {
     text-align: center;
     margin: 0 10px;
@@ -8,11 +19,6 @@
       font-size: $font-x-large;
       text-transform: uppercase;
       color: $gunmetal;
-    }
-    &__component--hash {
-      h2:before {
-        content: "#";
-      }
     }
   }
   &__subheading {
@@ -25,12 +31,25 @@
       color: $gunmetal;
     }
   }
-  &__subheading-alt {
-    margin: 8px;
-    *:first-child {
+  &__micro {
+    margin: 20px 0;
+    text-align: center;
+    *:first-child  {
+      display: inline-block;
       font-family: $baton-medium;
-      font-size: $font-large;
-      color: $white;
+      font-size: $font-small;
+      text-transform: uppercase;
+      color: $dark-grey;
+    }
+  }
+  &__basic {
+    text-align: center;
+    margin: 24px 8px 8px;
+    *:first-child  {
+      font-family: $baton-medium;
+      font-size: $font-small;
+      text-transform: uppercase;
+      color: $dark-grey;
     }
   }
   &__section {
@@ -54,51 +73,31 @@
       text-transform: capitalize;
     }
   }
-  &__square {
-    @include divider-bottom-1;
-    background-color: $springster-purple;
-    text-align: center;
-    padding: 15px 8px 35px;
-    *:first-child {
-      @include underline(skewed, 10px);
-      font-family: $baton-medium;
-      font-size: $font-xx-large;
-      text-transform: uppercase;
-      color: $white;
-    }
-  }
-  &__micro {
-    margin: 20px 0;
-    text-align: center;
-    *:first-child  {
-      display: inline-block;
-      font-family: $baton-medium;
-      font-size: $font-small;
-      text-transform: uppercase;
-      color: $dark-grey;
-    }
-  }
+
+  //Links
   &__micro-hyperlink {
     *:first-child  {
       color: $slate-grey;
     }
   }
-  &__basic {
-    text-align: center;
-    margin: 24px 8px 8px;
-    *:first-child  {
+  &__subheading-alt {
+    margin: 8px;
+    *:first-child {
       font-family: $baton-medium;
-      font-size: $font-small;
-      text-transform: uppercase;
-      color: $dark-grey;
+      font-size: $font-large;
+      color: $white;
+    }
+  }
+  &__component--hash {
+    h2:before {
+      content: "#";
     }
   }
 }
+
 .heading--large {
   font-size: $font-xx-large;
 }
-.article-tag-page {
-  .heading__component h1:before {
-    content: "#";
-  }
+.article-tag-page .heading__component h1:before {
+  content: "#";
 }
