@@ -19,6 +19,16 @@
     }
   }
 }
+@media only screen and (min-width: 360px) {
+  .base-teaser {
+    &__subtitle {
+      font-size: $font-x-small;
+      height: $font-x-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
+      line-height: $elip-line-height;
+      -webkit-line-clamp: $elip-lines-to-show;
+    }
+  }
+}
 @media screen and (min-width: 500px) {
   @import "_s-forms";
   .profiles-join-banner {
