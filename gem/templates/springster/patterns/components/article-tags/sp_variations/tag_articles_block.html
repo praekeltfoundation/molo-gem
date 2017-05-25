@@ -3,7 +3,7 @@
 {% if tag %}
 <div class="carousel-teaser">
   <h1 class="carousel-teaser__heading">
-    <a href="{% pageurl tag %}" class="carousel-teaser__heading-link">{{tag.title}}</a>
+    <a href="{% url 'tags_list' tag.slug %}" class="carousel-teaser__heading-link">{{tag.title}}</a>
   </h1>
   <ul class="carousel-teaser-list">
     {% for article in tag_articles %}
