@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 
 from modelcluster.fields import ParentalKey
@@ -23,7 +24,9 @@ def get_personalisable_survey_content_panels():
     Replace panel for "survey_form_fields" with
     panel pointing to the custom form field model.
     """
-    panels = []
+    panels = [
+        FieldPanel('segment')
+    ]
 
     for panel in MoloSurveyPage.content_panels:
         if isinstance(panel, InlinePanel) and \
@@ -40,6 +43,10 @@ class PersonalisableSurvey(MoloSurveyPage):
     Survey page that enables form fields to be segmented with
     wagtail-personalisation.
     """
+    segment = models.ForeignKey('personalisation.Segment',
+                                on_delete=models.PROTECT, blank=True, null=True,
+                                help_text=_('Leave it empty to show this survey'
+                                            'to every user.'))
     content_panels = get_personalisable_survey_content_panels()
     template = MoloSurveyPage.template
 
@@ -88,6 +95,11 @@ class PersonalisableSurvey(MoloSurveyPage):
         # segmentation.
         #TODO(tmkn): This is quite hacky, need to come up with better solution.
         self.request = request
+
+        # Check whether it is segmented and raise 404 if segments do not match
+        if self.segment_id and self.segment_id not in [
+                int(s.get('id')) for s in request.session['segments']]:
+            raise Http404("Survey does not match your segments.")
 
         return super(PersonalisableSurvey, self).serve(request, *args, **kwargs)
 
