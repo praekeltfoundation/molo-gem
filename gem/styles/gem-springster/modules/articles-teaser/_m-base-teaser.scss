@@ -52,21 +52,27 @@
 .teaser-stacklist-tags {
   display: inline-block;
   padding: 8px 0 0 0;
-}
-.teaser-stacklist-tags__item {
-  display: inline-block;
-  list-style-type: none;
-  margin-right: 8px;
-}
-.teaser-stacklist-tags__anchor {
-  text-transform: lowercase;
-  text-decoration: none;
-  font-size: $font-xx-small;
-  color: $springster-purple;
-  &:hover {
-    color: $black;
+  //Minimize loaded tags
+  max-width: 155px;
+  list-style-position: inside;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &__item {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 8px;
   }
-  &:before {
-    content: "#";
+  &__anchor {
+    text-transform: lowercase;
+    text-decoration: none;
+    font-size: $font-xx-small;
+    color: $springster-purple;
+    &:hover {
+      color: $black;
+    }
+    &:before {
+      content: "#";
+    }
   }
 }
