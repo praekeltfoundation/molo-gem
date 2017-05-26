@@ -6,6 +6,7 @@
 
 @media screen and (min-width: 340px) {
   @import "article-teaser/_s-carousel-teaser";
+  @import "article-teaser/_s-grid-teaser";
   @import "_s-headings";
   .call-to-action__nav-item-text--backToTop,
   .call-to-action__nav-item-text--backToTop-up_arrow {
@@ -15,6 +16,16 @@
       width: 24px;
       top: 0;
       margin-left: 10px;
+    }
+  }
+}
+@media only screen and (min-width: 360px) {
+  .base-teaser {
+    &__subtitle {
+      font-size: $font-x-small;
+      height: $font-x-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
+      line-height: $elip-line-height;
+      -webkit-line-clamp: $elip-lines-to-show;
     }
   }
 }
