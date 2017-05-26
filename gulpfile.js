@@ -66,6 +66,7 @@ gulp.task('compress', function() {
         ext:{
             min:'-min.js'
         },
+        noSource:[],
     }))
     .pipe(gulp.dest('gem/static/js/'))
 });

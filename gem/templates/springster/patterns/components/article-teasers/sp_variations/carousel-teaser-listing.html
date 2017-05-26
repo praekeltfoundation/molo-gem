@@ -9,8 +9,12 @@
       <li class="carousel-teaser-list__item">
         <div class="carousel-teaser-list__item--container">
           {% include "patterns/basics/article-teasers/sp_variations/carousel-teaser-image.html" %}
-          {% include "patterns/basics/article-teasers/sp_variations/carousel-teaser-title.html" %}
-          {% include "patterns/basics/comment-counter/sp_comment-counter.html" with layouttype="base" %}
+          <div class="carousel-teaser__wrapper">
+            <div class="carousel-teaser__content">
+              {% include "patterns/basics/article-teasers/sp_variations/carousel-teaser-title.html" %}
+              {% include "patterns/basics/comment-counter/sp_comment-counter.html" with layouttype="base" %}
+            </div>
+          </div>
         </div>
       </li>
       {% endfor %}
