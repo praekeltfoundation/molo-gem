@@ -28,7 +28,7 @@ var stickyHeader = function() {
   };
 
   window.onresize = onResizing;
-  window.onload = onResizing;
+  content.style.paddingTop =  headerHeight + "px";
 
   window.addEventListener('scroll', function(){
     var scrollAmount = this.y - window.pageYOffset;
