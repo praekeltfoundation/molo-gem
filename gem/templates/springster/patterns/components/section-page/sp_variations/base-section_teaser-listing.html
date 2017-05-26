@@ -4,6 +4,7 @@
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="section" htmltag="h1" title=self.title %}
     {% include "patterns/basics/banners/sp_variations/section-banner.html" %}
   </div>
+</div>
   {% load_child_articles_for_section self count=0 as articles %}
   {% paginate 12 articles %}
   {% get_tags_for_section self as tags %}
@@ -13,11 +14,10 @@
   {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"4:8"%}
   {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tags.1.0 tag_articles=tags.1.1%}
   {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"8:12"%}
-
-
+  
   {% get_pages %}
   {% if pages.next %}
     {% trans "Load more" as buttontext %}
     {% url 'section_index' as datalink %}
-    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext sectiondata=datalink section=self %}
+    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext datalink=datalink section=self %}
   {% endif %}
