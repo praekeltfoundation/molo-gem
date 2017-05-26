@@ -25,37 +25,29 @@
 .teaser-stacklist-tags {
   padding: 8px 0 0 0;
   vertical-align: bottom;
-}
-.teaser-stacklist-tags__anchor  {
-  font-family: $baton-medium;
-  font-size: $font-xxx-small;
-}
-@media only screen and (min-width: 240px) {
-  .base-teaser__title {
-    font-size: $font-small;
+  &__anchor  {
+    font-family: $baton-medium;
+    font-size: $font-xxx-small;
   }
-  .base-teaser__subtitle {
+}
+.base-teaser {
+  &__title {
+    font-size: $font-x-large;
+  }
+  &__subtitle {
     height: $font-xx-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
     line-height: $elip-line-height;
     -webkit-line-clamp: $elip-lines-to-show;
   }
-
-  .teaser-stacklist-tags__anchor {
-    font-size: $font-xx-small;
-  }
 }
 
-@media only screen and (min-width: 360px) {
-  .base-teaser__title {
-    font-size: $font-x-large;
-  }
-  .base-teaser__subtitle {
-    font-size: $font-x-small;
-    height: $font-x-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
-    line-height: $elip-line-height;
-    -webkit-line-clamp: $elip-lines-to-show;
-  }
-  .teaser-stacklist-tags__anchor {
+.teaser-stacklist-tags {
+  width: 80%;
+  list-style-position: inside;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &__anchor {
     font-size: $font-x-small;
   }
 }
