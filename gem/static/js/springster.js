@@ -29,22 +29,6 @@ var stickyHeader = function() {
 
   window.onresize = onResizing;
   window.onload = onResizing;
-  
-  content.style.paddingTop =  headerHeight + "px";
-    
-  window.addEventListener("resize", function(){
-    if(this.innerWidth < 1024 ){
-      content.style.backgroundColor =  "#7300ff";
-    } else {
-      content.style.backgroundColor =  "transparent";
-    }
-    
-    if(this.innerWidth < 320 ){
-      content.style.paddingTop =  "0px";
-    } else {
-      content.style.paddingTop =  headerHeight + "px";
-    }
-  });
 
   window.addEventListener('scroll', function(){
     var scrollAmount = this.y - window.pageYOffset;
