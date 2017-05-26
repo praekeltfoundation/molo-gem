@@ -11,6 +11,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
+from molo.core.views import ReactionQuestionChoiceView
 
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
@@ -107,6 +108,10 @@ urlpatterns += patterns(
         'molo.core.views.section_index',
         name='section_index'
     ),
+    url(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
+        '(?P<question_id>\d+)/vote/$',
+        ReactionQuestionChoiceView.as_view(),
+        name='reaction-vote'),
     url(r'', include(wagtail_urls)),
 )
 
