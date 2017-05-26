@@ -1,29 +1,17 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags core_tags static i18n el_pagination_tags %}
 {% block content %}
-<!--This should be back to parent page i.e. Homepage or Section[Not implemented yet] -->
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back Home" direction="left" %}
-  <div class="article-tag-page">
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=tag.title %}
-    <div class="article-teaser">
-      <ul class="teaser-stacklist">
-      {% for article in object_list %}
-      <li class="teaser-stacklist__item">
-        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html" with layouttype="base" %}
-        <div class="teaser-stacklist__item--content">
-          {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="base" %}
-          {% include "patterns/basics/comment-counter/sp_comment-counter.html" with layouttype="base" %}
-          {% load_tags_for_article article as tags %}
-          {% if tags %}
-          {% include "patterns/basics/article-tags/article-tag_teaser.html" %}
-          {% endif %}
-        </div>
-      </li>
-      {% endfor %}
-      </ul>
-      {% get_next_tag tag as next_tag %}
-      {% get_articles_for_tag next_tag as articles %}
-      {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=next_tag tag_articles=articles %}
-    </div>
-  </div>
+{# This should be back to parent page i.e. Homepage or Section[Not implemented yet]#}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back Home" direction="left" %}
+{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" extraclass="hash-tag" htmltag="h1" title=tag.title %}
+{% paginate 10 object_list as articles %}
+{% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
+{% get_pages %}
+{% trans "Load more" as buttontext %}
+{% url 'tag_index' as datalink %}
+{% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext datalink=datalink %}
+{% get_next_tag tag as next_tag %}
+{% get_articles_for_tag next_tag as articles %}
+{% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=next_tag tag_articles=articles %}
 {% endblock %}
+

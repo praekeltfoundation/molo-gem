@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags comments i18n core_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n el_pagination_tags core_tags %}
 {% block body_class %}default-container{% endblock %}
 
 {% block content %}
@@ -10,20 +10,12 @@
   <div class="heading heading__subheading">
     <h6>{{ results|length }} {% trans "results found for" %} "{{search_query}}".</h6>
   </div>
-  <p></p>
-  <div class="article-teaser search__results">
-    <ul class="teaser-stacklist">
-    {% for page in search_results %}
-      <li class="teaser-stacklist__item">
-        {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail_page.html" with layouttype="base" %}
-      <div class="teaser-stacklist__item--content">
-        {% include "patterns/basics/article-teasers/sp_variations/teaser-title_page.html" with layouttype="base" %}
-      </div>
-      </li>
-    {% endfor %}
-    </ul>
-  </div>
-  {% include "patterns/basics/pagination/page-numbers_search.html" %}
+{% paginate 10 results as articles %}
+{% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
+{% get_pages %}
+{% trans "Load more" as buttontext %}
+{% url 'search_index' as datalink %}
+{% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
 {% else %}
   <div class="heading heading__subheading">
     <h6>{% trans "No search results for " %}&quot;{{search_query}}&quot;.</h6>
