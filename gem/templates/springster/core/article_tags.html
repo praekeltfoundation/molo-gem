@@ -21,6 +21,9 @@
       </li>
       {% endfor %}
       </ul>
+      {% get_next_tag tag as next_tag %}
+      {% get_articles_for_tag next_tag as articles %}
+      {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=next_tag tag_articles=articles %}
     </div>
   </div>
 {% endblock %}
