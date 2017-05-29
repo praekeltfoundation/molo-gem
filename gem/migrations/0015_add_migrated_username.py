@@ -9,7 +9,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gem', '0013_gemsettings_moderator_name'),
+        ('gem', '0014_convert_recomended_articles'),
     ]
 
     operations = [
