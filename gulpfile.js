@@ -66,6 +66,7 @@ gulp.task('compress', function() {
         ext:{
             min:'-min.js'
         },
+        noSource:[],
     }))
     .pipe(gulp.dest('gem/static/js/'))
 });
@@ -75,5 +76,5 @@ gulp.task('watch', function() {
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin', 'compress']);
+gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
 gulp.task('default', ['styles', 'watch']);

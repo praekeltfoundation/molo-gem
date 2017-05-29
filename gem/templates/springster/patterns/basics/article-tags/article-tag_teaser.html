@@ -3,7 +3,7 @@
 <ul class="teaser-stacklist-tags">
   {% for tag in tags %}
   <li class="teaser-stacklist-tags__item">
-    <a href="{% pageurl tag %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+    <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
   </li>
   {% endfor %}
 </ul>

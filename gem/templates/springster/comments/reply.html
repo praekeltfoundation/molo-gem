@@ -7,15 +7,15 @@
 <div class="comments">
   {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
   <div class="comments-list__item {% if node.user.is_staff %} comments-list__item--staff{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
-    <h6 class="comments__body-title">
     {% if do_not_link_replies or node.get_children.count == 0 %}
+    <h6 class="comments__body-title">
       {% if page == 1 %}
         {% trans "Recent replies" %}
         {% else %}
         {% trans "Earlier replies" %}
       {% endif %}
-    {% endif %}
     </h6>
+    {% endif %}
     {% for node in replies reversed %}
       {% include "comments/comment.html" %}
     {% endfor %}
@@ -26,10 +26,13 @@
   {% if request.user.is_authenticated %}
     {% include "comments/form.html" with node=comment %}
   {% else %}
+    {% url 'molo.profiles:auth_login' as link %}
     {% trans "Please" as headingtext %}
     {% trans "log in" as linktext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink="molo.profiles:auth_login" linktitle=linktext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link|add:"?next="|add:request.path linktitle=linktext %}
   {% endif %}
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
 </div>
 {% endblock %}
+
+{#{% url 'molo.commenting:reply_list' %}#}

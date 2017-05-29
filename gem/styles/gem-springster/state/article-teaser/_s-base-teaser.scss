@@ -1,72 +1,42 @@
 .base-teaser__title-link {
   font-weight: normal;
 }
-.base-teaser {
-  &__thumbnail-link  {
-    display: inline-block;
-    width: 30%;
-    img {
-      width: 100%;
-    }
-  }
-  &__title {
-    font-family: $baton-medium;
-  }
-  &__subtitle {
-    display: -webkit-box;
-    height: $font-xxx-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
-    line-height: $elip-line-height;
-    -webkit-line-clamp: $elip-lines-to-show;
-    -webkit-box-orient: vertical;
+.base-teaser__thumbnail-link  {
+  display: inline-block;
+  width: 30%;
+  img {
+    width: 100%;
   }
 }
-.teaser-stacklist {
-  &__item--content {
-    width: 60%;
-  }
+.base-teaser__title {
+  font-family: $baton-medium;
+}
+
+.teaser-stacklist__item--content {
+  width: 60%;
 }
 
 .teaser-stacklist-tags {
-  padding: 8px 10px 0 0;
+  padding: 0;
   vertical-align: bottom;
   &__anchor  {
     font-family: $baton-medium;
     font-size: $font-xxx-small;
   }
 }
-@media only screen and (min-width: 240px) {
-  .base-teaser {
-    &__title {
-      font-size: $font-small;
-    }
-    &__subtitle {
-      height: $font-xx-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
-      line-height: $elip-line-height;
-      -webkit-line-clamp: $elip-lines-to-show;
-    }
-  }
-  .teaser-stacklist-tags {
-    &__anchor {
-      font-size: $font-xx-small;
-    }
+.base-teaser {
+  &__title {
+    font-size: $font-x-large;
   }
 }
 
-@media only screen and (min-width: 360px) {
-  .base-teaser {
-    &__title {
-      font-size: $font-x-large;
-    }
-    &__subtitle {
-      font-size: $font-x-small;
-      height: $font-x-small*$elip-line-height*$elip-lines-to-show; /* Fallback for non-webkit */
-      line-height: $elip-line-height;
-      -webkit-line-clamp: $elip-lines-to-show;
-    }
-  }
-  .teaser-stacklist-tags {
-    &__anchor {
-      font-size: $font-x-small;
-    }
+.teaser-stacklist-tags {
+  width: 80%;
+  list-style-position: inside;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &__anchor {
+    font-size: $font-x-small;
   }
 }
