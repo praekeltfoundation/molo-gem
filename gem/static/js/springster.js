@@ -12,15 +12,10 @@ var hidePagination = function() {
 var stickyHeader = function() {
   var header = document.getElementById("header-wrapper");
   var content = document.getElementById("content-wrapper");
-  var headerHeight = document.getElementById('header-wrapper').clientHeight;
-  var langHeight = document.getElementById('language-bar').clientHeight;
-  var frameWidth = window.innerWidth;
-  
+
   var onResizing = function(event) {
     if (window.innerWidth < 1024 ){
       content.style.backgroundColor =  "#7300ff";
-    } else if (window.innerWidth < 320 ){
-      content.style.paddingTop =  "0px";
     } else {
       content.style.paddingTop =  headerHeight + "px";
       content.style.backgroundColor =  "transparent";
@@ -28,13 +23,21 @@ var stickyHeader = function() {
   };
 
   window.onresize = onResizing;
-  content.style.paddingTop =  headerHeight + "px";
+  window.onload = onResizing;
+  content.style.paddingTop =  "0px";
 
   window.addEventListener('scroll', function(){
     var scrollAmount = this.y - window.pageYOffset;
     var scrollPos = window.scrollY;
+    var headerHeight = document.getElementById('header-wrapper').clientHeight;
+    var langHeight = document.getElementById('language-bar').clientHeight;
 
-    if(scrollAmount > 0 && scrollPos > headerHeight && frameWidth > 320 ){
+    if (scrollPos > 0 && window.innerWidth > 320 ) {
+     header.classList.add("header-fixed");
+     content.style.paddingTop =  headerHeight + "px";
+   }
+
+    if(scrollAmount > 0 && scrollPos > headerHeight && window.innerWidth > 320 ){
       header.style.transform = "translate3d(0px, "+ -langHeight + "px, 0px)";
       content.style.paddingTop =  headerHeight + "px";
     } else if (scrollPos > headerHeight ) {
