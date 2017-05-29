@@ -95,7 +95,7 @@ INSTALLED_APPS = [
     'compressor',
     'notifications',
     'el_pagination',
-
+    'import_export',
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -396,3 +396,10 @@ CSRF_FAILURE_VIEW = 'molo.core.views.csrf_failure'
 
 FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
     'FREE_BASICS_URL_FOR_CSRF_MESSAGE', 'http://0.freebasics.com/girleffect')
+
+
+AUTHENTICATION_BACKENDS = [
+    'gem.backends.GemModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'molo.core.backends.MoloCASBackend',
+]
