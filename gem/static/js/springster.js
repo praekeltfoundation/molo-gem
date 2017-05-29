@@ -78,13 +78,10 @@
           if (element.tagName == 'A' && element.classList.contains("more-link")) {
             event.preventDefault();
             element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />";
-            var meh = element.getAttribute('data-next');
             getAjax(element.getAttribute('data-next'), function(data){
-              console.log(data);
               element.parentNode.insertAdjacentHTML('beforeend', data);
               element.parentNode.removeChild(element);
               });
-            
            }
         });
       }
