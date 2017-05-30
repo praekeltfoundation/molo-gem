@@ -1,7 +1,7 @@
 {% load mote_tags %}
 {% mask element.json.data.List as "list" %}
 <ol class="ordered-list">
-  {% for item in language_list.list %}
-    <li class="ordered-list__item">{{ list.text }}</li>
+  {% for item in list %}
+    <li class="ordered-list__item">{{ item.text }}</li>
   {% endfor %}
 </ol>

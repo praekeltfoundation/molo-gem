@@ -1,7 +1,7 @@
 {% load mote_tags %}
 {% mask element.json.data.List as "bulletlist" %}
 <ul class="unordered-list">
-  {% for item in language_list.bulletlist %}
-    <li class="unordered-list__item">{{ bulletlist.text }}</li>
+  {% for item in bulletlist %}
+    <li class="unordered-list__item">{{ item.text }}</li>
   {% endfor %}
 </ul>
