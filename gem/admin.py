@@ -123,6 +123,12 @@ class GemMergedCMSUserResource(ModelResource):
         import_id_fields = ['username']
         skip_unchanged = True
 
+    def export(self, queryset=None, *args, **kwargs):
+        qs = self._meta.model.objects.exclude(
+            Q(is_staff=True) | Q(is_superuser=True))
+        return super(GemMergedCMSUserResource, self).export(
+            qs, *args, **kwargs)
+
     def dehydrate_migrated_username(self, user):
         return user.username
 
@@ -168,10 +174,6 @@ class GemUserAdmin(ImportExportModelAdmin, ProfileUserAdmin):
 
     def gem_gender(self, obj):
         return obj.gem_profile.get_gender_display()
-
-    def get_import_resource_kwargs(self, request, *args, **kwargs):
-        return super(GemUserAdmin, self).get_import_resource_kwargs(
-            request, *args, **kwargs)
 
 
 class GemFrontendUsersAdminView(FrontendUsersAdminView):
