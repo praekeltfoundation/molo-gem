@@ -30,12 +30,19 @@
   var stickyHeader = function() {
     var header = document.getElementById("header-wrapper");
     var content = document.getElementById("content-wrapper");
+    var menuList = document.getElementById("nav-list");
 
     var onResizing = function(event) {
-      if (window.innerWidth < 1024 ){
+      if (window.innerWidth < 1024){
         content.style.backgroundColor =  "#7300ff";
       } else {
         content.style.backgroundColor =  "transparent";
+      }
+      
+      if (menuList.offsetHeight > 50) {
+        menuList.classList.add("section-nav-list-wrap");
+      } else {
+        menuList.classList.remove("section-nav-list-wrap");
       }
     };
 
@@ -131,32 +138,36 @@
 
         var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
         var headerHeight = document.getElementById('header-wrapper').clientHeight;
-        submitButton.addEventListener("click", function(event) {
-          var invalidFields = form.querySelectorAll(":invalid"),
-            errorMessages = form.querySelectorAll(".error-message"),
-            parent;
+        if (submitButton) {
+          submitButton.addEventListener("click", function(event) {
+            var invalidFields = form.querySelectorAll(":invalid"),
+              errorMessages = form.querySelectorAll(".error-message"),
+              parent;
 
-          for (var i = 0; i < errorMessages.length; i++) {
-            errorMessages[i].parentNode.removeChild( errorMessages[i]);
-          }
+            for (var i = 0; i < errorMessages.length; i++) {
+              errorMessages[i].parentNode.removeChild( errorMessages[i]);
+            }
 
-          for (var j = 0; j < invalidFields.length; j++) {
-            parent = invalidFields[j].parentNode;
-            parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" +
-              invalidFields[j].validationMessage +
-              "</div>" );
-            parent.classList.add("input-error");
-          }
+            for (var j = 0; j < invalidFields.length; j++) {
+              parent = invalidFields[j].parentNode;
+              parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" +
+                invalidFields[j].validationMessage +
+                "</div>" );
+              parent.classList.add("input-error");
+            }
 
-          if (invalidFields.length > 0) {
-            scrollToX(document.body, invalidFields[0].offsetTop - headerHeight, 100);
-          }
-        });
+            if (invalidFields.length > 0) {
+              scrollToX(document.body, invalidFields[0].offsetTop - headerHeight, 100);
+            }
+          });
+        }
     };
 
     var forms = document.querySelectorAll("form");
-    for (var i = 0; i < forms.length; i++) {
-      replaceValidationUI(forms[i]);
+    if (forms) {
+      for (var i = 0; i < forms.length; i++) {
+        replaceValidationUI(forms[i]);
+      }
     }
   };
 
