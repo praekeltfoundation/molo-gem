@@ -10,9 +10,9 @@
     {% endwith %}
   {% else %}
     {% with user|stringformat:"s" as username %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|user.gem_profile.migrated_username|default:username %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.gem_profile.migrated_username|default:username %}
     {% endwith %}
-  {% endif %}  
+  {% endif %}
   {% url "molo.profiles:auth_logout" as link %}
   {% trans "log out" as buttontext %}
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
@@ -75,7 +75,7 @@
         {{ password_change_form.old_password }}
         {{ password_change_form.old_password.errors }}
       </div>
-      
+
     </fieldset>
     <fieldset>
       <div class="input-group">
