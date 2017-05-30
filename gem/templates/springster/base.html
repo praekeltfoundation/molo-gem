@@ -50,10 +50,14 @@
     var smartDeviceOnly = '{% spaceless %}{% compress css %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/state_smart.css">
         {% endcompress %}{% endspaceless %}';
+    var smartPhoneOnly = '{% spaceless %}{% compress css %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/state.css">
+        {% endcompress %}{% endspaceless %}';
       if(cutsTheMustard === true) {
         document.write(smartDeviceOnly);
         if(largeScreen) {document.write(smartStyles);};
         if(smartPhone && largeScreen) {
+          document.write(smartPhoneOnly);
           js = document.createElement('script');
           js.src = '{{ STATIC_URL }}js/springster-min.js';
           js.async = true;
