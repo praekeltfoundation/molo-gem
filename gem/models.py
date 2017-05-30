@@ -31,7 +31,6 @@ class GemUserProfile(models.Model):
     migrated_username = models.CharField(
         _('migrated_username'),
         max_length=30,
-        unique=True,
         validators=[
             validators.RegexValidator(
                 r'^[\w.@+-]+$',
@@ -39,9 +38,6 @@ class GemUserProfile(models.Model):
                   'letters, numbers ' 'and @/./+/-/_ characters.')
             ),
         ],
-        error_messages={
-            'unique': _("A user with that username already exists."),
-        },
         null=True, blank=True
     )
 
