@@ -7,6 +7,11 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
 
+  var remNoJS = function() {
+    var root = document.documentElement;
+    root.className = '';
+  };
+
   var hidePagination = function() {
     document.body.classList.add('toggle-hide');
   };
@@ -156,9 +161,10 @@
   };
 
   domReady(function() {
+    remNoJS();
+    hidePagination();
     stickyHeader();
     loadMore();
-    hidePagination();
     backTop();
     formUI();
   });
