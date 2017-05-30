@@ -1,7 +1,10 @@
 {% load mote_tags %}
-{% mask element.json.data.List as "bulletlist" %}
-<ul class="unordered-list">
+{% mask element.json.data.ListType as "bulletlist" %}
   {% for item in bulletlist %}
-    <li class="unordered-list__item">{{ item.text }}</li>
+  <h2>{{ item.text }}</h2>
+  <ul class="unordered-list">
+    {% for listItem in item.listContent %}
+      <li class="unordered-list__item">{{ listItem.list }}</li>
+    {% endfor %}
+  </ul>
   {% endfor %}
-</ul>
