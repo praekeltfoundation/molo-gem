@@ -75,7 +75,12 @@
   }
 }
 
-.section-nav-list__item:nth-child(5n+1) {
+.section-nav-list-wrap {
+  display: inline-block;
+  padding: 0;
+}
+
+.section-nav-list__item {
   .section-nav-list__anchor {
     color: $pale-lilac;
     &:hover, &.selected {
@@ -83,40 +88,8 @@
     }
   }
 }
-.section-nav-list__item:nth-child(5n+2) {
-  .section-nav-list__anchor {
-    color: $light-gold;
-    &:hover, &.selected {
-      border-color: $light-gold
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+3) {
-  .section-nav-list__anchor {
-    color: $tiffany-blue;
-    &:hover, &.selected {
-      border-color: $tiffany-blue;
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+4) {
-  .section-nav-list__anchor {
-    color: $peach-two;
-    &:hover, &.selected {
-      border-color: $peach-two;
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+5) {
-  .section-nav-list__anchor {
-    color: $carnation;
-    &:hover, &.selected {
-      border-color: $carnation;
-    }
-  }
-}
 
-@each $name, $color in $color_scheme {
+@each $name, $color in $menu_color_scheme {
   .section-nav-list__item--#{$name} {
     .section-nav-list__anchor {
       color: $color;
