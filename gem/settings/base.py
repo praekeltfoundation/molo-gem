@@ -128,7 +128,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 TEMPLATES = [
@@ -170,23 +170,23 @@ SESSION_SAVE_EVERY_REQUEST = True
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 # SQLite (simplest install)
-DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
+# DATABASES = {'default': dj_database_url.config(
+#     default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'base',
-#         'USER': 'postgres',
-#         'PASSWORD': '',
-#         'HOST': '',  # Set to empty string for localhost.
-#         'PORT': '',  # Set to empty string for default.
-#         # number of seconds database connections should persist for
-#         'CONN_MAX_AGE': 600,
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gemspringsterqa',
+        'USER': 'gemspringsterqa',
+        'PASSWORD': 'gemspringsterqa',
+        'HOST': '',  # Set to empty string for localhost.
+        'PORT': '',  # Set to empty string for default.
+        # number of seconds database connections should persist for
+        'CONN_MAX_AGE': 600,
+    }
+}
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'

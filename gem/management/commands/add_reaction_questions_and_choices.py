@@ -147,7 +147,6 @@ def create_reaction_choice_translation(
             question).exists():
         translated_reaction_choice = create_reaction_choice(
             trans_title, question, language)
-        # print u'trans choice: ', translated_reaction_choice
         if translated_reaction_choice:
             language_relation = translated_reaction_choice.languages.first()
             language_relation.language = language
