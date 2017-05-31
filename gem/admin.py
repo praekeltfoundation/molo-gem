@@ -137,6 +137,9 @@ class GemMergedCMSUserResource(ModelResource):
             data['site'], data['username']
         ) if data.get('site') else data['username']
 
+    def before_import_row(self, row, **kwargs):
+        row['username'] = self.get_prefixed_username(row)
+
     def import_row(self, row, instance_loader, *args, **kwargs):
         # Disable updating - we don't want to mistakenly override existing data
         if not User.objects.filter(
@@ -149,7 +152,6 @@ class GemMergedCMSUserResource(ModelResource):
         return row_result
 
     def import_obj(self, obj, data, dry_run):
-        data['username'] = self.get_prefixed_username(data)
         self.import_field(self.fields['username'], obj, data)
         obj.save()
 
