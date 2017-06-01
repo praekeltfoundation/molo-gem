@@ -178,9 +178,9 @@ DATABASES = {'default': dj_database_url.config(
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'gemspringsterqa',
-#         'USER': 'gemspringsterqa',
-#         'PASSWORD': 'gemspringsterqa',
+#         'NAME': 'base',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
 #         'HOST': '',  # Set to empty string for localhost.
 #         'PORT': '',  # Set to empty string for default.
 #         # number of seconds database connections should persist for
