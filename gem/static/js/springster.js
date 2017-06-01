@@ -38,12 +38,6 @@
       } else {
         content.style.backgroundColor =  "transparent";
       }
-      
-      if (menuList.offsetHeight > 50) {
-        menuList.classList.add("section-nav-list-wrap");
-      } else {
-        menuList.classList.remove("section-nav-list-wrap");
-      }
     };
 
     window.onresize = onResizing;
