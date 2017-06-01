@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 is_active=True, is_main_language=False).all()
             if main_lang:
                 self.add_reaction_questions(
-                    self, main_lang, child_languages, question_index,
+                    main_lang, child_languages, question_index,
                     reaction_questions, question_choices)
             else:
                 self.stdout.write(self.style.NOTICE(
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                         reaction_question).get(main_lang.locale),
                     question_index)
                 self.add_reaction_choices(
-                    self, main_lang, child_languages,
+                    main_lang, child_languages,
                     main_reaction_question, question_choices)
 
                 for child_lang in child_languages:
@@ -75,10 +75,10 @@ class Command(BaseCommand):
                         reaction_question, main_lang)))
 
     def create_reaction_question(self, title, question_index):
-        if ReactionQuestion.objects.filter(
-                title=title).child_of(question_index).exists():
-            return ReactionQuestion.objects.filter(
-                title=title).child_of(question_index).first()
+        reaction_question = ReactionQuestion.objects.filter(
+            title=title).child_of(question_index).first()
+        if reaction_question:
+            return reaction_question
         else:
             reaction_question = ReactionQuestion(title=title)
             question_index.add_child(instance=reaction_question)
@@ -131,7 +131,8 @@ class Command(BaseCommand):
     def create_reaction_choice(self, title, question, language):
         reaction_choice = ReactionQuestionChoice.objects.filter(
             title=title,
-            languages__language__locale=language).child_of(question).first()
+            languages__language__locale=language).child_of(
+            question).first()
         if reaction_choice:
             return reaction_choice
         else:
@@ -144,7 +145,7 @@ class Command(BaseCommand):
             self, main_reaction_choice, language, trans_title, question):
         if not ReactionQuestionChoice.objects.filter(
                 title=trans_title,
-                languages__language__locale=language).child_of(
+                languages__language__locale=language.locale).child_of(
                 question).exists():
             translated_reaction_choice = self.create_reaction_choice(
                 trans_title, question, language)
