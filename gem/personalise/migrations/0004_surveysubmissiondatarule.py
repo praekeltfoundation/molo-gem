@@ -10,7 +10,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
         ('personalise', '0003_personalisablesurvey_personalisablesurveyformfield'),
     ]
 
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('field_name', models.CharField(max_length=255, verbose_name='field name')),
                 ('expected_response', models.CharField(help_text='Multiple choice values must be separated with commas.', max_length=255, verbose_name='expected response')),
                 ('operator', models.CharField(choices=[(b'eq', 'equals'), (b'in', 'contains')], default=b'in', max_length=3, verbose_name='operator')),
-                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_surveysubmissiondatarule_related', related_query_name='%(app_label)s_%(class)ss', to='personalisation.Segment')),
+                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_surveysubmissiondatarule_related', related_query_name='%(app_label)s_%(class)ss', to='wagtail_personalisation.Segment')),
                 ('survey', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='personalise.PersonalisableSurvey', verbose_name='survey')),
             ],
             options={

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0007_alter_validators_add_error_messages'),
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
         ('personalise', '0004_surveysubmissiondatarule'),
     ]
 
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('group', models.ForeignKey(help_text='User must be part of this group to activate the rule.', on_delete=django.db.models.deletion.PROTECT, to='auth.Group')),
-                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_groupmembershiprule_related', related_query_name='%(app_label)s_%(class)ss', to='personalisation.Segment')),
+                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_groupmembershiprule_related', related_query_name='%(app_label)s_%(class)ss', to='wagtail_personalisation.Segment')),
             ],
             options={
                 'verbose_name': 'Group membership rule',

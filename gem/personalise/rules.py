@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, PageChooserPanel
 
 from molo.surveys.models import MoloSurveySubmission
-from personalisation.rules import AbstractBaseRule
+from wagtail_personalisation.rules import AbstractBaseRule
 
 PERSONALISATION_PROFILE_DATA_FIELDS = [
     '{}__date_joined'.format(settings.AUTH_USER_MODEL),
