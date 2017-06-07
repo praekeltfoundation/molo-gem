@@ -96,3 +96,12 @@
   padding-bottom: $grid-gutter*2;
     
 }
+
+// background contain mixin for older IE and nokias
+@mixin background-cover($image-path) {
+  background-size: contain;
+  background-image: url(#{$image-path});
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop');
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop')";
+}
+
