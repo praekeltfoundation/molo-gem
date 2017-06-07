@@ -1,12 +1,14 @@
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags i18n personalise_extras %}
 
 {% block content %}
-{% if surveys %}
+
+{% filter_surveys_by_segments surveys request as filtered_surveys %}
+{% if filtered_surveys %}
 	<div class="surveys surveys__tout surveys{{self.get_effective_extra_style_hints}}">
 		<div class="section-title">
 			<h2>Take the Survey</h2>
 		</div>
-		{% for survey in surveys %}
+		{% for survey in filtered_surveys %}
 			<div class="surveys__item">
 				<h3>{{ survey.title }}</h3>
 				<p>{{ survey.intro }}</p>
