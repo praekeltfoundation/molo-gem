@@ -45,6 +45,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         self.assertEqual(choices.count(), 3)
         self.assertEqual(
             str(choices.first().image), str(choices.first()) + ".png")
+        self.assertTrue(choices.first().success_message)
 
         SiteLanguageRelation.objects.create(
             language_setting=self.language_setting,
@@ -58,6 +59,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 6)
+        self.assertTrue(choices.first().success_message)
 
         SiteLanguageRelation.objects.create(
             language_setting=self.language_setting,
@@ -226,3 +228,40 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 45)
+
+    def test_add_images_to_articles(self):
+        out = StringIO()
+        call_command('add_images_to_articles', 'data/articles_image.csv',
+                     'en', stdout=out)
+        self.assertIn('Main language does not exist in "Main"', out.getvalue())
+
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        out = StringIO()
+        call_command('add_images_to_articles', 'data/articles_image.csv',
+                     'en', stdout=out)
+        self.assertIn('Article "it-gets-better" does not exist in'
+                      ' "main-1.localhost [default]"', out.getvalue())
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        article = self.mk_article(
+            self.yourmind, title='it gets better', slug='it-gets-better')
+        out = StringIO()
+        call_command('add_images_to_articles', 'data/articles_image.csv',
+                     'en', stdout=out)
+        self.assertIn('Image "01_happygirl_feature_It gets better"'
+                      ' does not exist in "Main"', out.getvalue())
+
+        Image.objects.create(
+            title="01_happygirl_feature_It gets better.jpg",
+            file=get_test_image_file(),
+        )
+        call_command('add_images_to_articles', 'data/articles_image.csv',
+                     'en', stdout=out)
+        article.refresh_from_db()
+        self.assertEqual(str(article.image),
+                         "01_happygirl_feature_It gets better.jpg")
