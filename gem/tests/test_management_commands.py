@@ -231,7 +231,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
 
     def test_add_images_to_articles(self):
         out = StringIO()
-        call_command('add_images_to_articles', 'articles_image.csv',
+        call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Main language does not exist in "Main"', out.getvalue())
 
@@ -241,7 +241,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             is_active=True)
 
         out = StringIO()
-        call_command('add_images_to_articles', 'articles_image.csv',
+        call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Article "it-gets-better" does not exist in'
                       ' "main-1.localhost [default]"', out.getvalue())
@@ -251,7 +251,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
         out = StringIO()
-        call_command('add_images_to_articles', 'articles_image.csv',
+        call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Image "01_happygirl_feature_It gets better"'
                       ' does not exist in "Main"', out.getvalue())
@@ -260,9 +260,8 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             title="01_happygirl_feature_It gets better.jpg",
             file=get_test_image_file(),
         )
-        call_command('add_images_to_articles', 'articles_image.csv',
+        call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         article.refresh_from_db()
         self.assertEqual(str(article.image),
                          "01_happygirl_feature_It gets better.jpg")
-
