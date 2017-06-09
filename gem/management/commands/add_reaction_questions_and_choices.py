@@ -13,7 +13,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         mains = Main.objects.all()
         reaction_questions = {}
-        with open('reaction_questions.csv') as reaction_questions_csv:
+        with open('data/reaction_questions.csv') as reaction_questions_csv:
             reader = csv.DictReader(reaction_questions_csv)
             if mains:
                 for row in reader:
@@ -21,12 +21,21 @@ class Command(BaseCommand):
                     reaction_questions[key] = row
 
         question_choices = {}
-        with open('reaction_question_choices.csv') as question_choices_csv:
+        with open(
+                'data/reaction_question_choices.csv') as question_choices_csv:
             reader = csv.DictReader(question_choices_csv)
             if mains:
                 for row in reader:
                     key = row.pop('Choices')
                     question_choices[key] = row
+
+        choice_messeges = {}
+        with open('data/question_choice_messeges.csv') as choice_messeges_csv:
+            reader = csv.DictReader(choice_messeges_csv)
+            if mains:
+                for row in reader:
+                    key = row.pop('Choices')
+                    choice_messeges[key] = row
 
         for main in mains:
             question_index = ReactionQuestionIndexPage.objects.child_of(
@@ -39,14 +48,14 @@ class Command(BaseCommand):
             if main_lang:
                 self.add_reaction_questions(
                     main_lang, child_languages, question_index,
-                    reaction_questions, question_choices)
+                    reaction_questions, question_choices, choice_messeges)
             else:
                 self.stdout.write(self.style.NOTICE(
                     'Main language does not exist in "%s"' % main))
 
     def add_reaction_questions(
         self, main_lang, child_languages, question_index,
-            reaction_questions, question_choices):
+            reaction_questions, question_choices, messages):
         for reaction_question in reaction_questions:
             if reaction_questions.get(reaction_question).get(main_lang.locale):
                 main_reaction_question = self.create_reaction_question(
@@ -55,7 +64,7 @@ class Command(BaseCommand):
                     question_index)
                 self.add_reaction_choices(
                     main_lang, child_languages,
-                    main_reaction_question, question_choices)
+                    main_reaction_question, question_choices, messages)
 
                 for child_lang in child_languages:
                     if reaction_questions.get(
@@ -102,14 +111,18 @@ class Command(BaseCommand):
                     translated_page=translated_reaction_question)
 
     def add_reaction_choices(
-            self, main_lang, child_languages, question, reaction_choices):
+            self, main_lang, child_languages, question,
+            reaction_choices, messages):
         for reaction_choice in reaction_choices:
             if reaction_choices.get(reaction_choice).get(main_lang.locale):
                 main_reaction_choice = self.create_reaction_choice(
                     reaction_choices.get(reaction_choice).get(
                         main_lang.locale),
-                    question, main_lang.locale)
-                self.create_reaction_choice_image(main_reaction_choice)
+                    question, main_lang.locale, messages.get(
+                        reaction_choice).get(main_lang.locale))
+                self.create_reaction_choice_image(
+                    main_reaction_choice, messages.get(
+                        reaction_choice).get(main_lang.locale))
 
                 for child_lang in child_languages:
                     if reaction_choices.get(
@@ -117,7 +130,8 @@ class Command(BaseCommand):
                         self.create_reaction_choice_translation(
                             main_reaction_choice, child_lang,
                             reaction_choices.get(reaction_choice).get(
-                                child_lang.locale), question)
+                                child_lang.locale), question, messages.get(
+                                    reaction_choice).get(child_lang.locale))
                     else:
                         self.stdout.write(self.style.NOTICE(
                             'Reaction choice %s does not exist '
@@ -128,7 +142,7 @@ class Command(BaseCommand):
                     'Reaction choice %s does not exist for %s in the CSV' % (
                         reaction_choice, main_lang)))
 
-    def create_reaction_choice(self, title, question, language):
+    def create_reaction_choice(self, title, question, language, message):
         reaction_choice = ReactionQuestionChoice.objects.filter(
             title=title,
             languages__language__locale=language).child_of(
@@ -136,19 +150,21 @@ class Command(BaseCommand):
         if reaction_choice:
             return reaction_choice
         else:
-            reaction_choice = ReactionQuestionChoice(title=title)
+            reaction_choice = ReactionQuestionChoice(
+                title=title, success_message=message)
             question.add_child(instance=reaction_choice)
             reaction_choice.save_revision().publish()
             return reaction_choice
 
     def create_reaction_choice_translation(
-            self, main_reaction_choice, language, trans_title, question):
+            self, main_reaction_choice, language, trans_title,
+            question, message):
         if not ReactionQuestionChoice.objects.filter(
                 title=trans_title,
                 languages__language__locale=language.locale).child_of(
                 question).exists():
             translated_reaction_choice = self.create_reaction_choice(
-                trans_title, question, language)
+                trans_title, question, language, message)
             if translated_reaction_choice:
                 lang_relation = translated_reaction_choice.languages.first()
                 lang_relation.language = language
@@ -158,9 +174,12 @@ class Command(BaseCommand):
                     page=main_reaction_choice,
                     translated_page=translated_reaction_choice)
 
-    def create_reaction_choice_image(self, main_reaction_choice):
-            image = Image.objects.filter(
+    def create_reaction_choice_image(self, main_reaction_choice, message):
+            choice_image = Image.objects.filter(
                 title=str(main_reaction_choice) + ".png").first()
-            if image:
-                main_reaction_choice.image = image
+            success_image = Image.objects.filter(
+                title=str(message) + ".jpg").first()
+            if choice_image:
+                main_reaction_choice.image = choice_image
+                main_reaction_choice.success_image = success_image
                 main_reaction_choice.save_revision().publish()

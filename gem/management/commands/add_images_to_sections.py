@@ -4,7 +4,7 @@ import csv
 from babel import Locale
 from django.core.management.base import BaseCommand
 from wagtail.wagtailimages.tests.utils import Image
-from molo.core.models import Languages, ArticlePage, Main, SectionIndexPage
+from molo.core.models import Languages, SectionPage, Main, SectionIndexPage
 
 
 class Command(BaseCommand):
@@ -16,37 +16,38 @@ class Command(BaseCommand):
         csv_name = options.get('csv_name', None)
         locale_code = options.get('locale', None)
         mains = Main.objects.all()
-        articles = {}
-        with open(csv_name) as articles_images:
-            reader = csv.reader(articles_images)
+        sections = {}
+        with open(csv_name) as sections_images:
+            reader = csv.reader(sections_images)
             if mains:
                 for row in reader:
                     key = row[0]
-                    articles[key] = row[1:]
+                    sections[key] = row[1:]
 
         for main in mains:
             section_index = SectionIndexPage.objects.child_of(main).first()
             main_lang = Languages.for_site(main.get_site()).languages.filter(
                 is_active=True, is_main_language=True).first()
-            translated_articles = ArticlePage.objects.descendant_of(
+            translated_sections = SectionPage.objects.descendant_of(
                 section_index).filter(
                 languages__language__is_main_language=False).live()
-            for translated_article in translated_articles:
-                translated_article.image = None
-                translated_article.save_revision().publish()
+            for translated_section in translated_sections:
+                translated_section.image = None
+                translated_section.save_revision().publish()
 
             if section_index and main_lang:
                 if main_lang.locale == locale_code:
-                    for article_slug in articles:
-                        article = ArticlePage.objects.descendant_of(
-                            section_index).filter(slug=article_slug).first()
-                        if article:
-                            for image_title in articles.get(article_slug):
+                    for section_slug in sections:
+                        section = SectionPage.objects.descendant_of(
+                            section_index).filter(slug=section_slug).first()
+                        if section:
+                            for image_title in sections.get(section_slug):
                                 image = Image.objects.filter(
                                     title=image_title + ".jpg").first()
                                 if image:
-                                    article.image = image
-                                    article.save_revision().publish()
+                                    section.image = image
+                                    section.extra_style_hints = section.slug
+                                    section.save_revision().publish()
 
                                 else:
                                     self.stdout.write(self.style.NOTICE(
@@ -54,8 +55,8 @@ class Command(BaseCommand):
                                         % (image_title, main)))
                         else:
                             self.stdout.write(self.style.ERROR(
-                                'Article "%s" does not exist in "%s"'
-                                % (article_slug, main.get_site())))
+                                'section "%s" does not exist in "%s"'
+                                % (section_slug, main.get_site())))
                 else:
                     self.stdout.write(self.style.NOTICE(
                         'Main language of "%s" is not "%s".'
