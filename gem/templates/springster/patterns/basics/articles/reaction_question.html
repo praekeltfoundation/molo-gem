@@ -3,11 +3,8 @@
 {% if question %}
 <div class="reaction-questions__block">
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=question.title %}
-  <div class="errors">
-    {{ form.errors }}
     {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
       {% if user_can_vote %}
-        </div>
         <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post">
           {% csrf_token %}
           <div class="reaction-questions__list">
@@ -27,8 +24,12 @@
               {% endfor %}
           </div>
         </form>
-      </div>
+      
       {% else %}
+      <div class="errors">
+        {{ form.errors }}
         {% trans "You have already submitted a response for this article." %}
+      </div>  
       {% endif %}
+  </div>
 {% endif %}
