@@ -16,7 +16,6 @@ var sassPaths = [
     'gem/styles/gem/base_style-rtl.scss',
     'gem/styles/gem-malawi/malawi.scss',
 
-    'gem/styles/mote/mote.scss',
     'gem/styles/versions.scss',
 
     'gem/styles/gem-springster/springster.scss',
