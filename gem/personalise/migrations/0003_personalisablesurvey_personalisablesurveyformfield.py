@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('surveys', '0005_add_surveys_permissions_to_groups'),
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
         ('personalise', '0002_auto_20170517_1545'),
     ]
 
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('default_value', models.CharField(blank=True, help_text='Default value. Comma separated values supported for checkboxes.', max_length=255, verbose_name='default value')),
                 ('help_text', models.CharField(blank=True, max_length=255, verbose_name='help text')),
                 ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.PROTECT, related_name='personalisable_survey_form_fields', to='personalise.PersonalisableSurvey')),
-                ('segment', models.ForeignKey(blank=True, help_text='Leave it empty to show this field to every user.', null=True, on_delete=django.db.models.deletion.PROTECT, to='personalisation.Segment')),
+                ('segment', models.ForeignKey(blank=True, help_text='Leave it empty to show this field to every user.', null=True, on_delete=django.db.models.deletion.PROTECT, to='wagtail_personalisation.Segment')),
             ],
             options={
                 'verbose_name': 'personalisable form field',

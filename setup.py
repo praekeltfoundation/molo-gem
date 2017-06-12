@@ -27,9 +27,6 @@ setup(name='gem',
       license='BSD',
       packages=find_packages(),
       include_package_data=True,
-      dependency_links=[
-          'git+ssh://git@github.com/tm-kn/wagtail-personalisation.git@compatibility-with-gem#egg=wagtail_personalisation-0.1.0'
-      ],
       zip_safe=False,
       install_requires=requires,
       tests_require=requires,

@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
         ('personalise', '0006_commentdatarule'),
     ]
 
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='personalisablesurvey',
             name='segment',
-            field=models.ForeignKey(blank=True, help_text='Leave it empty to show this surveyto every user.', null=True, on_delete=django.db.models.deletion.PROTECT, to='personalisation.Segment'),
+            field=models.ForeignKey(blank=True, help_text='Leave it empty to show this surveyto every user.', null=True, on_delete=django.db.models.deletion.PROTECT, to='wagtail_personalisation.Segment'),
         ),
     ]

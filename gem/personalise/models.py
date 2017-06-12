@@ -43,7 +43,7 @@ class PersonalisableSurvey(MoloSurveyPage):
     Survey page that enables form fields to be segmented with
     wagtail-personalisation.
     """
-    segment = models.ForeignKey('personalisation.Segment',
+    segment = models.ForeignKey('wagtail_personalisation.Segment',
                                 on_delete=models.PROTECT, blank=True, null=True,
                                 help_text=_('Leave it empty to show this survey'
                                             'to every user.'))
@@ -110,7 +110,7 @@ class PersonalisableSurveyFormField(AbstractFormField):
     """
     page = ParentalKey(PersonalisableSurvey, on_delete=models.PROTECT,
                        related_name='personalisable_survey_form_fields')
-    segment = models.ForeignKey('personalisation.Segment',
+    segment = models.ForeignKey('wagtail_personalisation.Segment',
                                 on_delete=models.PROTECT, blank=True, null=True,
                                 help_text=_('Leave it empty to show this field '
                                             'to every user.'))

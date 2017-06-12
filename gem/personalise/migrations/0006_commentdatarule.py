@@ -10,7 +10,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
         ('personalise', '0005_groupmembershiprule'),
     ]
 
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('expected_content', models.TextField(verbose_name='expected content')),
                 ('operator', models.CharField(choices=[(b'eq', 'equals'), (b'in', 'contains')], default=b'in', max_length=3, verbose_name='operator')),
-                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_commentdatarule_related', related_query_name='%(app_label)s_%(class)ss', to='personalisation.Segment')),
+                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_commentdatarule_related', related_query_name='%(app_label)s_%(class)ss', to='wagtail_personalisation.Segment')),
             ],
             options={
                 'verbose_name': 'comment data rule',

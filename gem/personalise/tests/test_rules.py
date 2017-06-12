@@ -15,7 +15,7 @@ from molo.core.models import SectionIndexPage
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.surveys.models import SurveysIndexPage
 
-from personalisation.models import Segment
+from wagtail_personalisation.models import Segment
 
 from ..models import PersonalisableSurveyFormField, PersonalisableSurvey
 from ..rules import ProfileDataRule, SurveySubmissionDataRule, \

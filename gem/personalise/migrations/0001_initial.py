@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('personalisation', '0008_devicerule'),
+        ('wagtail_personalisation', '0008_devicerule'),
     ]
 
     operations = [
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('field', models.CharField(max_length=255)),
                 ('operator', models.CharField(choices=[(b'lt', 'Less than'), (b'lte', 'Less than or equal'), (b'gt', 'Greater than'), (b'gte', 'Greater than or equal'), (b'eq', 'Equal'), (b'neq', 'Not equal'), (b'ol', 'Older than'), (b'ole', 'Older than or equal'), (b'yg', 'Younger than'), (b'yge', 'Younger than or equal'), (b'eqa', 'Of age'), (b'reg', 'Regex')], default=b'eq', max_length=3)),
                 ('value', models.CharField(max_length=255)),
-                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_profiledatarule_related', related_query_name='%(app_label)s_%(class)ss', to='personalisation.Segment')),
+                ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalise_profiledatarule_related', related_query_name='%(app_label)s_%(class)ss', to='wagtail_personalisation.Segment')),
             ],
             options={
                 'abstract': False,
