@@ -84,8 +84,24 @@ class ProfileDataRule(AbstractBaseRule):
 
     field = models.CharField(max_length=255)
     operator = models.CharField(max_length=3, choices=OPERATOR_CHOICES,
-                                default=EQUAL)
-    value = models.CharField(max_length=255)
+                                default=EQUAL,
+                                help_text=_('Age operators work only on dates, '
+                                            'please input the age you want to '
+                                            'compare in "value".'
+                                            'When using greater/less than on'
+                                            'text, it would compare it by '
+                                            'alphabetical order, where dates.'))
+    value = models.CharField(max_length=255,
+                             help_text=_('If the selected field is a text field'
+                                         ' you can just input text. In '
+                                         'case of dates, please use format '
+                                         '"YYYY-MM-DD" and "YYYY-MM-DD HH:MM'
+                                         '" for date-times. For regex please '
+                                         'refer to the usage docs. If it is a '
+                                         'choice field, please input anything, '
+                                         'save and the error message displayed '
+                                         'below this field should guide '
+                                         'you with possible values.'))
 
     panels = [
         FieldPanel('field'),
@@ -218,7 +234,6 @@ class ProfileDataRule(AbstractBaseRule):
         if not request.user.is_authenticated():
             return False
 
-
         # Handy variables for comparisons.
         python_value = self.get_python_value()
         related_field_value = self.get_related_field_value(user=request.user)
@@ -316,12 +331,28 @@ class SurveySubmissionDataRule(AbstractBaseRule):
     survey = models.ForeignKey('PersonalisableSurvey',
                                verbose_name=_('survey'),
                                on_delete=models.CASCADE)
-    field_name = models.CharField(_('field name'), max_length=255)
+    field_name = models.CharField(_('field name'), max_length=255,
+                                  help_text=_('Field\'s label in a lower-case '
+                                              'format with spaces replaced by '
+                                              'dashes. For possible choices '
+                                              'please input any text and save, '
+                                              'so it will be displayed in the '
+                                              'error messages below the '
+                                              'field.'))
     expected_response = models.CharField(
         _('expected response'), max_length=255,
-        help_text=_('Multiple choice values must be separated with commas.'))
+        help_text=_('When comparing text values, please input text. Comparison '
+                    'on text is always case-insensitive. Multiple choice '
+                    'values must be separated with commas.'))
     operator = models.CharField(_('operator'), max_length=3,
-                                choices=OPERATOR_CHOICES, default=CONTAINS)
+                                choices=OPERATOR_CHOICES, default=CONTAINS,
+                                help_text=_('When using the "contains" operator'
+                                            ', "expected response" can '
+                                            'contain a small part of user\'s '
+                                            'response and it will be matched.'
+                                            '"Exact" would match responses '
+                                            'that are exactly the same as the '
+                                            '"expected response".'))
 
     panels = [
         PageChooserPanel('survey'),
@@ -511,9 +542,16 @@ class CommentDataRule(AbstractBaseRule):
         (EQUALS, _('equals')),
         (CONTAINS, _('contains')),
     )
-    expected_content = models.TextField(_('expected content'))
+    expected_content = models.TextField(_('expected content'),
+                                        help_text=_('Content that we want to '
+                                                    'match in user\'s comment '
+                                                    'data.'))
     operator = models.CharField(_('operator'), max_length=3,
-                                choices=OPERATOR_CHOICES, default=CONTAINS)
+                                choices=OPERATOR_CHOICES, default=CONTAINS,
+                                help_text=_('"Equals" operator will match only '
+                                            'the exact content. "Contains" '
+                                            'operator matches a part of a '
+                                            'comment.'))
 
     panels = [
         FieldPanel('operator'),

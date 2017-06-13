@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailsitemaps',
 
     'wagtail_personalisation',
+    'wagtailfontawesome',
 
     'mptt',
     'django.contrib.sites',
