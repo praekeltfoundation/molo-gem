@@ -3,7 +3,10 @@ from __future__ import absolute_import
 import os
 
 from celery import Celery
+from celery.signals import celeryd_init
+
 from django.conf import settings
+from django.core.management import call_command
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
@@ -15,3 +18,21 @@ app = Celery('proj')
 # pickle the object when using Windows.
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+
+@celeryd_init.connect
+def ensure_search_index_updated(sender, instance, **kwargs):
+    '''
+    Run update_index when celery starts
+    '''
+    try:
+        from wagtail.wagtailsearch.backends.db import DBSearch
+        backend = DBSearch
+    except ImportError:
+        from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
+        backend = DatabaseSearchBackend
+
+    from wagtail.wagtailsearch.backends import get_search_backend
+
+    if not isinstance(get_search_backend(), backend):
+        call_command('update_index')
