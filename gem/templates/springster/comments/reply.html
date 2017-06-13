@@ -1,12 +1,11 @@
 {% extends "core/article_page.html" %}
-{% load core_tags wagtailcore_tags mptt_tags wagtailimages_tags comments  molo_commenting_tags i18n %}
+{% load core_tags wagtailcore_tags mptt_tags wagtailimages_tags comments molo_commenting_tags i18n %}
 {% block content %}
 {% get_comments_content_object for form as self %}
   {% pageurl self as the_url %}
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
 <div class="comments">
   {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
-  <div class="comments-list__item {% if node.user.is_staff %} comments-list__item--staff{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
     {% if do_not_link_replies or node.get_children.count == 0 %}
     <h6 class="comments__body-title">
       {% if page == 1 %}
@@ -19,7 +18,6 @@
     {% for node in replies reversed %}
       {% include "comments/comment.html" %}
     {% endfor %}
-  </div>
   {% include "patterns/basics/pagination/pagination-comments.html"%}
   {% trans "Add your reply" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext  %}
@@ -34,5 +32,3 @@
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
 </div>
 {% endblock %}
-
-{#{% url 'molo.commenting:reply_list' %}#}
