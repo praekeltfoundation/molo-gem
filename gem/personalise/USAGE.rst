@@ -33,7 +33,7 @@ Surveys
 *******
 If you want to personalise existing survey, it has to be of type *Personalisable survey*. If it is not, it won't be possible and you must add a new survey of that type.
 
-#. To add a personalised survey go to a *Explorer* → *Site* → *Surveys*.
+#. To add a personalised survey go to a *Explorer* (or *Pages*) → *Site* → *Surveys*.
 #. When you get to the *Surveys*, click on *Add Child Page*.
 
    .. image:: https://i.imgur.com/3Bp5nnX.png

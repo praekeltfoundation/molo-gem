@@ -49,7 +49,7 @@ ProfileDataRule
         'gem.GemUserProfile__gender'
     ]
 
-The field must be on the user model or model related to it directly by a singular relation such as one-to-one so it can be accessed directly on the model as a property.
+The field must be on the user model or model related to the user model directly by a singular relation such as one-to-one so it can be accessed directly on the model as a property. Please note that referencing models that span further does not work.
 
 Please use format ``app.model__field`` when adding a new field to the list.
 
@@ -71,7 +71,7 @@ Creating new rules is covered in detail wagtail-personalisation documentation in
 The main steps to create our own custom personalisation rules are as follows.
 
 #. Extend ``wagtail_personalisation.models.AbstractBaseRule``. It is a Django model so we will need to create migrations for it.
-#. Rule's name is returned from ``__str__``.
+#. Rule's name is returned from ``Meta.verbose_name``.
 #. Since it is a Django model, you need to define normal Django fields on it, e.g. data entered by user in the admin to define rule's settings.
 #. Rules are used based on client's request in ``test_user(request)`` method that should be defined on the rule's class.
 #. To modify how the form is displayed in the admin site please set ``panels`` as for any other model displayed in Wagtail admin.
