@@ -14,8 +14,8 @@
     <meta charset="utf-8" />
     <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}" />
+        <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% endif %}" />
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
     <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
