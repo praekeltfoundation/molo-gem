@@ -7,6 +7,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailadmin.edit_handlers import InlinePanel, FieldPanel
 from wagtail.wagtailcore.fields import StreamField
 
+from wagtail_personalisation.adapters import get_segment_adapter
 from wagtailsurveys.models import AbstractFormField
 
 from molo.surveys.models import MoloSurveyPage, SurveysIndexPage
@@ -58,11 +59,11 @@ class PersonalisableSurvey(MoloSurveyPage):
         # Get only segmented form fields if serve() has been called
         # (because the page is being seen by user on the front-end)
         if hasattr(self, 'request'):
-            user_segments_pks = [x.get('id') for x in self.request \
-                                                          .session['segments']]
+            user_segments_ids = [s.id for s in get_segment_adapter(
+                self.request).get_segments()]
 
             return self.personalisable_survey_form_fields.filter(
-                Q(segment=None) | Q(segment__id__in=user_segments_pks)
+                Q(segment=None) | Q(segment_id__in=user_segments_ids)
             )
 
         # Return all form fields if there's no request passed
@@ -97,8 +98,8 @@ class PersonalisableSurvey(MoloSurveyPage):
         self.request = request
 
         # Check whether it is segmented and raise 404 if segments do not match
-        if self.segment_id and self.segment_id not in [
-                int(s.get('id')) for s in request.session['segments']]:
+        if get_segment_adapter(request).get_segment_by_id(
+                self.segment_id) is None:
             raise Http404("Survey does not match your segments.")
 
         return super(PersonalisableSurvey, self).serve(request, *args, **kwargs)

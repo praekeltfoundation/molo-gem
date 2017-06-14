@@ -87,10 +87,13 @@ class ProfileDataRule(AbstractBaseRule):
                                 default=EQUAL,
                                 help_text=_('Age operators work only on dates, '
                                             'please input the age you want to '
-                                            'compare in "value".'
-                                            'When using greater/less than on'
-                                            'text, it would compare it by '
-                                            'alphabetical order, where dates.'))
+                                            'compare in "value". '
+                                            'When using greater/less than on '
+                                            'text field, it would compare it by'
+                                            ' alphabetical order, where '
+                                            'dates are '
+                                            'compared to the specified date '
+                                            'by chronological order.'))
     value = models.CharField(max_length=255,
                              help_text=_('If the selected field is a text field'
                                          ' you can just input text. In '
@@ -349,7 +352,7 @@ class SurveySubmissionDataRule(AbstractBaseRule):
                                 help_text=_('When using the "contains" operator'
                                             ', "expected response" can '
                                             'contain a small part of user\'s '
-                                            'response and it will be matched.'
+                                            'response and it will be matched. '
                                             '"Exact" would match responses '
                                             'that are exactly the same as the '
                                             '"expected response".'))

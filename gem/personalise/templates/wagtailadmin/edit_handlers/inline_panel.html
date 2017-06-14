@@ -22,8 +22,8 @@
     {% if self.formset.prefix == 'wagtail_personalisation_dayrule_related' %}
         <p>
             {% blocktrans %}
-                This rule is very similar to the time rule, however it
-                involves weekdays.
+                This rule is based on the weekday of the visit of the users.
+                If they visit on the weekday selected, they will be segmented.
             {% endblocktrans %}
         </p>
     {% endif %}
@@ -42,7 +42,7 @@
         <p>
             {% blocktrans %}
                This rule allows you to segment a visitor based on
-               the amount of visits per page. Use the operator to to set a
+               the amount of visits per page. Use the operator to set a
                maximum, minimum or equal amount of visits.
             {% endblocktrans %}
         </p>
@@ -51,7 +51,7 @@
     {% if self.formset.prefix == 'wagtail_personalisation_queryrule_related' %}
         <p>
             {% blocktrans %}
-               This rule lets you to set a paremeter in a URL that would
+               This rule allows you to set a paremeter in a URL that would
                activate the segment. You could give that link to a particular
                group of people and if they accessed it, they would be segmented,
                e.g. "http://example.com/?some_parameter=abc"
@@ -74,8 +74,8 @@
     {% if self.formset.prefix == 'wagtail_personalisation_userisloggedinrule_related' %}
         <p>
             {% blocktrans %}
-              This rule lets to segment content based on whether user is logged
-              in.
+              This rule lets to segment content based on whether a user is
+              logged in.
             {% endblocktrans %}
         </p>
     {% endif %}
@@ -91,7 +91,7 @@
     {% if self.formset.prefix == 'personalise_surveysubmissiondatarule_related' %}
         <p>
             {% blocktrans %}
-                Tis rule allows you to segment content to users based
+                This rule allows you to segment content to users based
                 on their previous answers to surveys.
             {% endblocktrans %}
         </p>
@@ -100,7 +100,7 @@
     {% if self.formset.prefix == 'personalise_groupmembershiprule_related' %}
         <p>
             {% blocktrans %}
-                Tis rule allows you to segment content to users based
+                This rule allows you to segment content to users based
                 on their group membership.
             {% endblocktrans %}
         </p>
@@ -109,7 +109,7 @@
     {% if self.formset.prefix == 'personalise_commentdatarule_related' %}
         <p>
             {% blocktrans %}
-                Tis rule allows you to segment content to users based
+                This rule allows you to segment content to users based
                 on the comments they have submitted on the front-end.
             {% endblocktrans %}
         </p>
