@@ -45,7 +45,8 @@ class PersonalisableSurvey(MoloSurveyPage):
     wagtail-personalisation.
     """
     segment = models.ForeignKey('wagtail_personalisation.Segment',
-                                on_delete=models.PROTECT, blank=True, null=True,
+                                on_delete=models.SET_NULL, blank=True,
+                                null=True,
                                 help_text=_('Leave it empty to show this survey'
                                             'to every user.'))
     content_panels = get_personalisable_survey_content_panels()
@@ -98,7 +99,7 @@ class PersonalisableSurvey(MoloSurveyPage):
         self.request = request
 
         # Check whether it is segmented and raise 404 if segments do not match
-        if get_segment_adapter(request).get_segment_by_id(
+        if self.segment_id and get_segment_adapter(request).get_segment_by_id(
                 self.segment_id) is None:
             raise Http404("Survey does not match your segments.")
 
@@ -119,6 +120,10 @@ class PersonalisableSurveyFormField(AbstractFormField):
     panels = [
         FieldPanel('segment')
     ] + AbstractFormField.panels
+
+
+    def __str__(self):
+        return '%s - %s' % (self.page, self.label)
 
     class Meta:
         verbose_name = _('personalisable form field')
