@@ -110,7 +110,7 @@ class PersonalisableSurveyFormField(AbstractFormField):
     """
     Form field that has a segment assigned.
     """
-    page = ParentalKey(PersonalisableSurvey, on_delete=models.PROTECT,
+    page = ParentalKey(PersonalisableSurvey, on_delete=models.CASCADE,
                        related_name='personalisable_survey_form_fields')
     segment = models.ForeignKey('wagtail_personalisation.Segment',
                                 on_delete=models.PROTECT, blank=True, null=True,
