@@ -12,6 +12,12 @@ ENV = 'prd'
 
 COMPRESS_OFFLINE = True
 
+# Use ManifestStaticFilesStorage for hashed static files. This shouldn't be
+# used during tests as it requires a collectstatic step to work.
+# https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#manifeststaticfilesstorage
+STATICFILES_STORAGE = (
+    'django.contrib.staticfiles.storage.ManifestStaticFilesStorage')
+
 
 # Send notification emails as a background task using Celery,
 # to prevent this from blocking web server threads
