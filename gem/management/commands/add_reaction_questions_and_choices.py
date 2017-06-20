@@ -178,7 +178,7 @@ class Command(BaseCommand):
             choice_image = Image.objects.filter(
                 title=str(main_reaction_choice) + ".png").first()
             success_image = Image.objects.filter(
-                title=str(message) + ".jpg").first()
+                title=str(message) + ".png").first()
             if choice_image:
                 main_reaction_choice.image = choice_image
                 main_reaction_choice.success_image = success_image
