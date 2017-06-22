@@ -29,7 +29,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         )
 
     def test_convert_title_to_sentence_case(self):
-        self.english = SiteLanguageRelation.objects.create(
+        SiteLanguageRelation.objects.create(
             language_setting=self.language_setting,
             locale='en',
             is_active=True)
