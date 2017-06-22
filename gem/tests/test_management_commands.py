@@ -1,10 +1,12 @@
+# -*- coding: UTF-8 -*-
 from django.core.management import call_command
 from django.test import TestCase
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
-                              ReactionQuestion, ReactionQuestionChoice)
+                              ReactionQuestion, ReactionQuestionChoice,
+                              ArticlePage)
 
 
 class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
@@ -25,6 +27,35 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             title="Maybe.png",
             file=get_test_image_file(),
         )
+
+    def test_convert_title_to_sentence_case(self):
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        spanish_capitals_spaced_article = self.mk_article(
+            parent=self.yourmind, title=' ¿QUE TAL?')
+        spaced_article = self.mk_article(
+            parent=self.yourmind, title='  spaced article title')
+        spaced_article.unpublish()
+        self.assertFalse(spaced_article.live)
+        russian_capitals_article = self.mk_article(
+            parent=self.yourmind, title='Ё Ф')
+        out = StringIO()
+        call_command('format_titles_sentence_case', stdout=out)
+        new_spanish_article = ArticlePage.objects.get(
+            pk=spanish_capitals_spaced_article.pk)
+        new_spaced_article = ArticlePage.objects.get(
+            pk=spaced_article.pk)
+        new_russian_article = ArticlePage.objects.get(
+            pk=russian_capitals_article.pk)
+        self.assertEquals(new_spanish_article.title, u'¿Que tal?')
+        self.assertEquals(new_spaced_article.title, u'spaced article title')
+        self.assertFalse(spaced_article.live)
+        self.assertEquals(new_russian_article.title, u'Ё ф')
 
     def test_add_reaction_questions_and_choices_command(self):
         out = StringIO()

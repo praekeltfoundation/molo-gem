@@ -14,7 +14,6 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.client = Client()
-
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
@@ -24,7 +23,6 @@ class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         response = self.client.get('/profiles/view/myprofile/')
-
         self.assertContains(response, 'Hello tester')
         self.assertContains(response, 'Log out')
 
