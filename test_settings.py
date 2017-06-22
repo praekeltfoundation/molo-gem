@@ -9,3 +9,5 @@ DATABASES = {
 
 DEBUG = True
 CELERY_ALWAYS_EAGER = True
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
