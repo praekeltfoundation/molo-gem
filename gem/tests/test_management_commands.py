@@ -15,14 +15,6 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         self.main = Main.objects.all().first()
         self.language_setting = Languages.objects.create(
             site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
-        self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
-
         Image.objects.create(
             title="Yes.png",
             file=get_test_image_file(),
@@ -37,6 +29,13 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         )
 
     def test_convert_title_to_sentence_case(self):
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
         spanish_capitals_spaced_article = self.mk_article(
             parent=self.yourmind, title=' ¿QUE TAL?')
         spaced_article = self.mk_article(
