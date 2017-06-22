@@ -16,18 +16,19 @@
     {% poll_page %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
-    {% bannerpages position=2 %}
 
+    {% bannerpages position=2 %}
     {% surveys_list %}
 
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
+    {% bannerpages position=3 %}
     {% your_words_competition %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
-    
+
     {% get_pages %}
     {% trans "Load more" as buttontext %}
     {% url 'home_more' as pagelink %}
