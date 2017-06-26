@@ -6,13 +6,15 @@ from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
-                              ArticlePage)
+                              ArticlePage, BannerPage)
 
 
 class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.main = Main.objects.all().first()
+        self.mk_main2()
+        self.main2 = Main.objects.last()
         self.language_setting = Languages.objects.create(
             site_id=self.main.get_site().pk)
         Image.objects.create(
@@ -27,6 +29,39 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             title="Maybe.png",
             file=get_test_image_file(),
         )
+
+    def test_create_new_banner_relations(self):
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        self.yourmind2 = self.mk_section(
+            self.section_index2, title='Your mind')
+        first_main_article = self.mk_article(
+            parent=self.yourmind, title='first_main_article')
+        first_main_banner = BannerPage(
+            title='first_main_banner', slug='firstmainbanner',
+            banner_link_page=first_main_article)
+        self.banner_index.add_child(instance=first_main_banner)
+        first_main_banner.save_revision().publish()
+        second_main_article = self.mk_article(
+            parent=self.yourmind2, title='first_main_article')
+        second_main_article.slug = first_main_article.slug
+        second_main_article.save_revision().publish()
+        second_main_banner = BannerPage(
+            title='second_main_banner', slug='secondmainbanner',
+            banner_link_page=first_main_article)
+        self.banner_index2.add_child(instance=second_main_banner)
+        second_main_banner.save_revision().publish()
+
+        out = StringIO()
+        call_command('create_new_banner_link_page_relations', stdout=out)
+        second_main_banner = BannerPage.objects.get(pk=second_main_banner.pk)
+        self.assertEquals(
+            second_main_banner.banner_link_page.pk, second_main_article.pk)
 
     def test_convert_title_to_sentence_case(self):
         SiteLanguageRelation.objects.create(
