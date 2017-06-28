@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     'taggit',
     'modelcluster',
 
-    'molo.core',
     'gem',
+    'molo.core',
     'molo.profiles',
     'molo.surveys',
     'django_comments',
