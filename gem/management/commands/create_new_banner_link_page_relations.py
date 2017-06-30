@@ -11,7 +11,6 @@ class Command(BaseCommand):
                         pk=banner.banner_link_page.pk).slug
                     new_article = ArticlePage.objects.descendant_of(
                         main).filter(slug=old_article_slug).first()
-                    print new_article.slug
                     if new_article:
                         banner.banner_link_page = new_article
                     else:
