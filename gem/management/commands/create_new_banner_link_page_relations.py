@@ -6,12 +6,20 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for main in Main.objects.all():
             for banner in BannerPage.objects.descendant_of(main):
-                old_article_slug = ArticlePage.objects.get(
-                    pk=banner.banner_link_page).slug
-                new_article = ArticlePage.objects.descendant_of(
-                    main).get(slug=old_article_slug)
-                banner.banner_link_page = new_article
-                if banner.live:
-                    banner.save_revision().publish()
-                else:
-                    banner.save_revision()
+                if banner.banner_link_page:
+                    old_article_slug = ArticlePage.objects.get(
+                        pk=banner.banner_link_page.pk).slug
+                    new_article = ArticlePage.objects.descendant_of(
+                        main).filter(slug=old_article_slug).first()
+                    print new_article.slug
+                    if new_article:
+                        banner.banner_link_page = new_article
+                    else:
+                        self.stdout.write(self.style.ERROR(
+                            'Article "%s" does not exist in "%s"'
+                            % (old_article_slug, main.get_site())))
+                        banner.banner_link_page = None
+                    if banner.live:
+                        banner.save_revision().publish()
+                    else:
+                        banner.save_revision()
