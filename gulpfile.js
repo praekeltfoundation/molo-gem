@@ -23,6 +23,7 @@ var sassPaths = [
     'gem/styles/gem-springster/state/state_320.scss',
     'gem/styles/gem-springster/state/state_smart.scss',
     'gem/styles/gem-springster/state/state.scss',
+    'gem/styles/gem-springster/state/no-script-state.scss',
 ];
 var sassDest = {
      prd: 'gem/static/css/prd',
