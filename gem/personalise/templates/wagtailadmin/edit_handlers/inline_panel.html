@@ -74,8 +74,7 @@
     {% if self.formset.prefix == 'wagtail_personalisation_userisloggedinrule_related' %}
         <p>
             {% blocktrans %}
-              This rule lets to segment content based on whether a user is
-              logged in.
+              This rule allows you to segment content based on whether a user is logged in
             {% endblocktrans %}
         </p>
     {% endif %}
@@ -86,6 +85,14 @@
                 Segment users based on the data filled in the profile.
             {% endblocktrans %}
         </p>
+        <dl>
+            <dt>{% trans 'Gender' %}</ht>
+            <dd>
+                {% blocktrans %}
+                    Please use "f" for female and "m" for male.
+                {% endblocktrans %}
+            </dd>
+        </dl>
     {% endif %}
 
     {% if self.formset.prefix == 'personalise_surveysubmissiondatarule_related' %}
