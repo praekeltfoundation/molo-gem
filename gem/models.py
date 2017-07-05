@@ -112,11 +112,15 @@ class GemSettings(BaseSetting):
                   " line a break. Use only lowercase letters for keywords."
     )
 
+    show_join_banner = models.BooleanField(
+        default=False,
+        help_text='When true, this will show the join banner on the '
+        'homepage.')
+
     show_partner_credit = models.BooleanField(
         default=False,
         help_text='When true, this will show the partner credit on the '
         'homepage.')
-
     partner_credit_description = models.TextField(
         null=True, blank=True,
         help_text='The text that will be shown for the partner credit '
