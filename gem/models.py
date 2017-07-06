@@ -139,6 +139,7 @@ class GemSettings(BaseSetting):
             ],
             heading="Partner Credit",
         ),
+        FieldPanel('show_join_banner'),
         FieldPanel('moderator_name'),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
