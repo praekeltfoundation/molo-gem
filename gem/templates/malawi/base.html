@@ -28,6 +28,7 @@
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="{% static 'img/zathu-favicon.ico' %}" />
         {% compress css %}
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/malawi.css">
@@ -78,7 +79,7 @@
 
         <div id="gem-header">
             <a id="logo" href="/">
-              <img src="{% static '' %}img/zathu.png" width="120" alt="Zathu" />
+              <img src="{% static 'img/zathu.png' %}" width="120" alt="Zathu" />
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
