@@ -30,6 +30,7 @@ from molo.commenting.models import MoloComment
 
 from molo.core.models import ArticlePage
 from molo.profiles.views import RegistrationView, MyProfileEdit
+from molo.profiles.models import UserProfile
 
 from wagtail.wagtailcore.models import Site
 
@@ -127,13 +128,20 @@ class GemForgotPasswordView(FormView):
         # TODO: consider moving these checks to GemForgotPasswordForm.clean()
         # see django.contrib.auth.forms.AuthenticationForm for reference
         try:
-            user = User.objects.get_by_natural_key(username)
+            user = User.objects.get(
+                gem_profile__migrated_username=username,
+                profile__site=self.request.site)
+            username = user.username
         except User.DoesNotExist:
-            self.request.session['forgot_password_attempts'] += 1
-            form.add_error('username',
-                           _('The username that you entered appears to be '
-                             'invalid. Please try again.'))
-            return self.render_to_response({'form': form})
+            try:
+                user = User.objects.get(
+                    username=username, profile__site=self.request.site)
+            except User.DoesNotExist:
+                self.request.session['forgot_password_attempts'] += 1
+                form.add_error('username',
+                               _('The username that you entered appears to be '
+                                 'invalid. Please try again.'))
+                return self.render_to_response({'form': form})
 
         if not user.is_active:
             form.add_error('username', 'This account is inactive.')

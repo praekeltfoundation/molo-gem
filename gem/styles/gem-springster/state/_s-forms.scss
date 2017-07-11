@@ -2,6 +2,7 @@ label, .checkbox__legend {
   display: block;
 }
 fieldset {
+  padding: 0 10px;
   input[type=radio] + label,
   input[type=checkbox] + label {
     background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
@@ -34,7 +35,7 @@ fieldset {
   .choice input[type="checkbox"],
   .choice input[type="radio"] {
     position: inherit;
-    visibility: unset;
+    visibility: initial;
   }
   input[type=checkbox] + label,
   input[type=radio] + label,
@@ -67,3 +68,9 @@ fieldset {
      }
   }
 }
+.choice-group {
+  label {
+    font-size: $font-x-small;
+    line-height: get-line-height($font-x-small, 16px);
+  }
+};

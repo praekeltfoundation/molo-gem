@@ -2,7 +2,7 @@ fieldset {
   border: none;
   font-family: $baton-regular;
   margin: 0;
-  padding: 0 5%;;
+  padding: 0 5%;
   display: block;
   position: relative;
   &:last-of-type {
@@ -16,7 +16,6 @@ textarea {
   margin: 0 8px;
   display: block;
 }
-
 label, .checkbox__legend {
   font-size: $font-medium;
   padding: 10px 0 0;
@@ -29,7 +28,6 @@ label, .checkbox__legend {
   display: block;
   text-transform: capitalize;;
 }
-
 .required-asterisk {
   color: #909497;
   font-size: 13px;
@@ -54,6 +52,12 @@ label, .checkbox__legend {
   color: #909497;
 }
 
+.helptext {
+  font-family: $baton-turbo;
+  color: $slate-grey;
+  font-size: $font-x-small;
+  line-height: get-line-height($font-x-small, 20px);
+}
 
 .error-list,
 .errorlist {
@@ -61,17 +65,19 @@ label, .checkbox__legend {
   padding: 0;
   li {
     display: block;
-    color: $red;
+    color: $bright-orange;
+    text-align: center;
   }
 }
 .errors, .error-list__item {
-  color: $red;
+  color: $bright-orange;
   padding: 10px 15px 0;
+  text-align: center;
 }
 label.error {
   .required-asterisk,
   .required-info {
-    color: $red;
+    color: $bright-orange;
   }
 input[type="submit"] {
   border: none;
@@ -86,7 +92,6 @@ input[type="submit"] {
     border: 1px solid red;
   }
 }
-
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -114,7 +119,6 @@ textarea, select {
     outline: 0;
   }
 }
-
 input[type="checkbox"],
 input[type="radio"]  {
   display: inline-block;
@@ -135,4 +139,14 @@ input[type="radio"]  {
 }
 .sub_label {
   display: block;
+}
+.input-group {
+  &.input-error{
+    input, textarea {
+      border-color: $bright-orange;
+    }
+  }
+  .error-message {
+    color: $bright-orange;
+  }
 }

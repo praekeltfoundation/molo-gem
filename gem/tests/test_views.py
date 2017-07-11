@@ -26,6 +26,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.client = Client()
+        self.mk_main2()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -76,6 +77,79 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         })
 
         self.assertContains(response, expected_validation_message)
+
+    def test_successful_login_for_migrated_users(self):
+        user = User.objects.create_user(
+            username='1_newuser',
+            email='newuser@example.com',
+            password='newuser')
+        user.gem_profile.migrated_username = 'newuser'
+        user.gem_profile.save()
+
+        response = self.client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser',
+        })
+        self.assertRedirects(response, '/')
+
+        client = Client(HTTP_HOST=self.site2.hostname)
+
+        response = client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser',
+        })
+        self.assertContains(
+            response,
+            'Your username and password do not match. Please try again.')
+
+    def test_successful_login_for_migrated_users_in_site_2(self):
+        user = User.objects.create_user(
+            username='2_newuser',
+            email='newuser@example.com',
+            password='newuser2')
+        user.gem_profile.migrated_username = 'newuser'
+        user.gem_profile.save()
+        user.profile.site = self.site2
+        user.profile.save()
+
+        user3 = User.objects.create_user(
+            username='1_newuser',
+            email='newuser@example.com',
+            password='newuser1')
+        user3.gem_profile.migrated_username = 'newuser'
+        user3.gem_profile.save()
+        user3.profile.site = self.site
+        user3.profile.save()
+
+        response = self.client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser2',
+        })
+        self.assertContains(
+            response,
+            'Your username and password do not match. Please try again.')
+
+        response = self.client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser1',
+        })
+        self.assertRedirects(response, '/')
+
+        client = Client(HTTP_HOST=self.site2.hostname)
+
+        response = client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser2',
+        })
+        self.assertRedirects(response, '/')
+        response = client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser1',
+        })
+
+        self.assertContains(
+            response,
+            'Your username and password do not match. Please try again.')
 
 
 class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):

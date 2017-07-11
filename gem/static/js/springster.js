@@ -1,91 +1,178 @@
 
-"use strict";
-
-var domReady = function(callback) {
-  document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
-};
-
-var hidePagination = function() {
-  document.body.classList.add('toggle-hide');
-}
-
-var stickyHeader = function() {
-  var header = document.getElementById("header");
-  var content = document.getElementById("content-wrapper")
-  var headerHeight = document.getElementById('header').clientHeight;
-  var langHeight = document.getElementById('language-bar').clientHeight;
+(function() {
   
-  window.addEventListener('scroll', function(){ 
-    var scrollAmount = this.y - window.pageYOffset;
-    var scrollPos = window.scrollY;
-    
-    if( scrollAmount > 0 && scrollPos > langHeight ){ 
-      header.style.top = 0;
-      content.style.top =  headerHeight + "px";
-      header.classList.add("header-fixed");
-    } else if (scrollPos > headerHeight + langHeight ) {
-      header.style.top = -headerHeight + "px";
-    } else if (scrollAmount < 0 || scrollPos < headerHeight){
-      content.style.top = "0";
-      header.classList.remove("header-fixed");
-    } 
-    
-    this.y = window.pageYOffset;
-    
-  });
-};
+  'use strict';
 
-var loadMore = function() {
-  var moreLink = document.getElementById('more-link');
-  if (moreLink) {
-    var articlesMore = document.getElementById('articles-more');
-    
-    if (articlesMore === null) {
-      var wrapper = document.createElement('div');
-      moreLink.parentNode.insertBefore(wrapper, moreLink);
-      wrapper.appendChild(moreLink);
-      wrapper.setAttribute("id", "articles-more");
+  var domReady = function(callback) {
+      document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+  };
+
+  var remNoJS = function() {
+    var root = document.documentElement;
+    root.className = '';
+  };
+
+  var hidePagination = function() {
+    document.body.classList.add('toggle-hide');
+  };
+  
+  function getAjax(url, success) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState>3 && xhr.status==200) success(xhr.responseText);
     };
-    
-    wrapper.addEventListener("click", function(event){
-      var element = event.target;
-      if (element.tagName == 'A' && element.classList.contains("more-link")) {
-        event.preventDefault();
-        element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
-        fetch(element.getAttribute('data-next'))
-         .then(function(response) {
-           return response.text();
-         }).then(function(text) {
-           element.parentNode.insertAdjacentHTML('beforeend', text);
-           element.parentNode.removeChild(element);
-        });
-       }
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.send();
+    return xhr;
+  }
+
+  var stickyHeader = function() {
+    var header = document.getElementById("header-wrapper");
+    var content = document.getElementById("content-wrapper");
+    var menuList = document.getElementById("nav-list");
+
+    var onResizing = function(event) {
+      if (window.innerWidth < 1024){
+        content.style.backgroundColor =  "#7300ff";
+      } else {
+        content.style.backgroundColor =  "transparent";
+      }
+    };
+
+    window.onresize = onResizing;
+    window.onload = onResizing;
+
+    window.addEventListener('scroll', function(){
+      var scrollAmount = this.y - window.pageYOffset;
+      var scrollPos = window.scrollY;
+      var headerHeight = document.getElementById('header-wrapper').clientHeight;
+      var langHeight = document.getElementById('language-bar').clientHeight;
+
+      if (scrollPos > 0 && window.innerWidth > 320 ) {
+       header.classList.add("header-fixed");
+       content.style.paddingTop =  headerHeight + "px";
+     }
+
+      if(scrollAmount > 0 && scrollPos > headerHeight && window.innerWidth > 320 ){
+        header.style.transform = "translate3d(0px, "+ -langHeight + "px, 0px)";
+        content.style.paddingTop =  headerHeight + "px";
+      } else if (scrollPos > headerHeight ) {
+        header.style.transform = "translate3d(0px, "+ -headerHeight + "px, 0px)";
+      } else if (scrollAmount < 0 || scrollPos < headerHeight){
+        header.style.transform = "translate3d(0px, 0px, 0px)";
+      }
+
+      this.y = window.pageYOffset;
+
     });
-  }
-};
+  };
 
-var scrollTo = function(element, to, duration) {
-  if (duration < 0) return;
-  var difference = to - element.scrollTop;
-  var perTick = difference / duration * 2;
+  var loadMore = function() {
+    var moreLink = document.getElementById('more-link');
+    if (moreLink) {
+      var articlesMore = document.getElementById('articles-more');
 
-setTimeout(function() {
-  element.scrollTop = element.scrollTop + perTick;
-  scrollTo(element, to, duration - 2);
-}, 10);
-};
+      if (articlesMore === null) {
+        var wrapper = document.createElement('div');
+        moreLink.parentNode.insertBefore(wrapper, moreLink);
+        wrapper.appendChild(moreLink);
+        wrapper.setAttribute("id", "articles-more");
+        
+        wrapper.addEventListener("click", function(event){
+          var element = event.target;
+          if (element.tagName == 'A' && element.classList.contains("more-link")) {
+            event.preventDefault();
+            element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />";
+            getAjax(element.getAttribute('data-next'), function(data){
+              element.parentNode.insertAdjacentHTML('beforeend', data);
+              element.parentNode.removeChild(element);
+              });
+           }
+        });
+      }
+    }
+  };
 
-var backTop = function() {
-  document.getElementById("back-to-top").onclick = function (event) {
-    event.preventDefault();
-    scrollTo(document.body, 0, 100);
-  }
-};
+  var scrollToX = function(element, to, duration) {
+    if (duration < 0 || element.scrollTop == to) return;
+    var difference = to - element.scrollTop;
+    var perTick = difference / duration * 2;
 
-domReady(function() {
-  stickyHeader();
-  loadMore();
-  hidePagination();
-  backTop();
-});
+    setTimeout(function() {
+      element.scrollTop = element.scrollTop + perTick;
+      scrollToX(element, to, duration - 2);
+    }, 10);
+  };
+
+  var backTop = function() {
+    document.getElementById("back-to-top").onclick = function (event) {
+      event.preventDefault();
+      scrollToX(document.body, 0, 100);
+    };
+  };
+
+  var formUI = function() {
+    var replaceValidationUI = function(form) {
+        form.addEventListener("invalid", function(event) {
+          event.preventDefault();
+        }, true);
+        form.addEventListener("submit", function(event) {
+          if (!this.checkValidity() ) {
+              event.preventDefault();
+          }
+        });
+        var errorList = form.querySelectorAll('.errorlist');
+        if (errorList.length > 0) {
+          for (var i = 0; i < errorList.length; i++) {
+            parent = errorList[i].parentNode;
+            parent.classList.add("input-error");
+          }
+        }
+
+        var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
+        var headerHeight = document.getElementById('header-wrapper').clientHeight;
+        if (submitButton) {
+          submitButton.addEventListener("click", function(event) {
+            var invalidFields = form.querySelectorAll(":invalid"),
+              errorMessages = form.querySelectorAll(".error-message"),
+              parent;
+
+            for (var i = 0; i < errorMessages.length; i++) {
+              errorMessages[i].parentNode.removeChild( errorMessages[i]);
+            }
+
+            for (var j = 0; j < invalidFields.length; j++) {
+              parent = invalidFields[j].parentNode;
+              parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" +
+                invalidFields[j].validationMessage +
+                "</div>" );
+              parent.classList.add("input-error");
+            }
+
+            if (invalidFields.length > 0) {
+              scrollToX(document.body, invalidFields[0].offsetTop - headerHeight, 100);
+            }
+          });
+        }
+    };
+
+    var forms = document.querySelectorAll("form");
+    if (forms) {
+      for (var i = 0; i < forms.length; i++) {
+        replaceValidationUI(forms[i]);
+      }
+    }
+  };
+
+  domReady(function() {
+    remNoJS();
+    hidePagination();
+    stickyHeader();
+    loadMore();
+    backTop();
+    formUI();
+  });
+
+})();
 

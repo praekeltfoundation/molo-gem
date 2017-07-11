@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags staticfiles core_tags i18n %}
 {% block content %}
 <div class="yourwords">
   <div class="identity-image identity-image--yourwords"></div>
@@ -19,25 +19,31 @@
   <form method="post" class="yourwords__form">
   {% csrf_token %}
     <fieldset>
-      <label>{% trans "Title of your story (max 60 characters)" %}</label>
-      {{ form.story_name }}
-       {% if form.story_name.errors %}
-        <p class="alert-error">* {{form.story_name.errors|join:' '}}</p>
-      {% endif %}
+      <div class="input-group">
+        <label>{% trans "Title of your story (max 60 characters)" %}</label>
+        {{ form.story_name }}
+         {% if form.story_name.errors %}
+          <p class="errors errorlist">* {{form.story_name.errors|join:' '}}</p>
+        {% endif %}
+      </div>
     </fieldset>
     <fieldset>
-      <label>{% trans "Tell us your story here" %}</label>
-      {{ form.story_text }}
-      {% if form.story_text.errors %}
-        <p class="alert-error" >* {{form.story_text.errors|join:' '}}</p>
-      {% endif %}
+      <div class="input-group">
+        <label>{% trans "Tell us your story here" %}</label>
+        {{ form.story_text }}
+        {% if form.story_text.errors %}
+          <p class="errors errorlist" >* {{form.story_text.errors|join:' '}}</p>
+        {% endif %}
+      </div>
     </fieldset>
     <fieldset class="choice">
-       {{ form.terms_or_conditions_approved }}
-       <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
-       {% if form.terms_or_conditions_approved.errors %}
-      <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
-      {% endif %}
+      <div class="input-group">
+        {{ form.terms_or_conditions_approved }}
+        <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
+        {% if form.terms_or_conditions_approved.errors %}
+       <p class="errors errorlist">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
+       {% endif %}
+      </div>
     </fieldset>
     <fieldset class="choice">
       {{ form.hide_real_name }}
@@ -46,7 +52,7 @@
     <input type="submit" value="{% trans "Submit your story" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
   </div>
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="article" direction="left" %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
   </div>
 </div>
 {% endblock %}

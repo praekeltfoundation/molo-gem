@@ -16,12 +16,14 @@ var sassPaths = [
     'gem/styles/gem/base_style-rtl.scss',
     'gem/styles/gem-malawi/malawi.scss',
 
-    'gem/styles/mote/mote.scss',
     'gem/styles/versions.scss',
 
     'gem/styles/gem-springster/springster.scss',
     'gem/styles/gem-springster/springster-rtl.scss',
     'gem/styles/gem-springster/state/state_320.scss',
+    'gem/styles/gem-springster/state/state_smart.scss',
+    'gem/styles/gem-springster/state/state.scss',
+    'gem/styles/gem-springster/state/no-script-state.scss',
 ];
 var sassDest = {
      prd: 'gem/static/css/prd',
@@ -65,6 +67,7 @@ gulp.task('compress', function() {
         ext:{
             min:'-min.js'
         },
+        noSource:[],
     }))
     .pipe(gulp.dest('gem/static/js/'))
 });
@@ -74,5 +77,5 @@ gulp.task('watch', function() {
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin', 'compress']);
+gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
 gulp.task('default', ['styles', 'watch']);

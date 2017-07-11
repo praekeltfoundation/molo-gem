@@ -57,9 +57,9 @@ INSTALLED_APPS = [
     'taggit',
     'modelcluster',
 
-    'molo.core',
     'gem',
     'gem.personalise',
+    'molo.core',
     'molo.profiles',
     'molo.surveys',
     'django_comments',
@@ -100,7 +100,8 @@ INSTALLED_APPS = [
     'compressor',
     'notifications',
     'el_pagination',
-
+    'import_export',
+    'storages',
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -284,6 +285,8 @@ STATIC_ROOT = join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
 
+STATICFILES_STORAGE = (
+    'django.contrib.staticfiles.storage.ManifestStaticFilesStorage')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -302,19 +305,31 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 SITE_NAME = environ.get('SITE_NAME', "GEM")
 WAGTAIL_SITE_NAME = SITE_NAME
 
-# Use Elasticsearch as the search backend for extra performance and better
-# search results:
-# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
-# http://wagtail.readthedocs.org/en/latest/core_components/
-#     search/backends.html#elasticsearch-backend
-#
-# WAGTAILSEARCH_BACKENDS = {
-#     'default': {
-#         'BACKEND': ('wagtail.wagtailsearch.backends.'
-#                     'elasticsearch.ElasticSearch'),
-#         'INDEX': 'base',
-#     },
-# }
+ES_HOST = environ.get('ES_HOST')
+ES_INDEX = environ.get('ES_INDEX')
+ES_VERSION = int(environ.get('ES_VERSION', 5))
+
+ES_BACKEND_V1 = 'wagtail.wagtailsearch.backends.elasticsearch'
+ES_BACKEND_V2 = 'wagtail.wagtailsearch.backends.elasticsearch2'
+ES_BACKEND_V5 = 'wagtail.wagtailsearch.backends.elasticsearch5'
+
+if ES_VERSION == 5:
+    SELECTED_ES_BACKEND = ES_BACKEND_V5
+elif ES_VERSION == 2:
+    SELECTED_ES_BACKEND = ES_BACKEND_V2
+else:
+    SELECTED_ES_BACKEND = ES_BACKEND_V1
+
+ES_SELECTED_INDEX = ES_INDEX or environ.get('MARATHON_APP_ID', '')
+
+if ES_HOST and ES_SELECTED_INDEX:
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': SELECTED_ES_BACKEND,
+            'URLS': [ES_HOST],
+            'INDEX': ES_SELECTED_INDEX.replace('/', '')
+        },
+    }
 
 
 # Whether to use face/feature detection to improve image
@@ -334,7 +349,7 @@ _("Show Results")
 _("You voted: ")
 _("Name of the city you were born in")
 _("Name of your primary school")
-
+_("Please complete this form to join")
 
 # The `SITE_STATIC_PREFIX` is appended to certain static files in base.html,
 # via a templatetag, so that we can use this for different regions:
@@ -401,3 +416,25 @@ CSRF_FAILURE_VIEW = 'molo.core.views.csrf_failure'
 
 FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
     'FREE_BASICS_URL_FOR_CSRF_MESSAGE', 'http://0.freebasics.com/girleffect')
+
+
+AUTHENTICATION_BACKENDS = [
+    'gem.backends.GemModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'molo.core.backends.MoloCASBackend',
+]
+
+AWS_HEADERS = {
+    # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
+
+AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME', '')
+AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+    MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         mains = Main.objects.all()
         tags = {}
-        with open('tags.csv') as tags_csv:
+        with open('data/tags.csv') as tags_csv:
             reader = csv.DictReader(tags_csv)
             if mains:
                 for row in reader:

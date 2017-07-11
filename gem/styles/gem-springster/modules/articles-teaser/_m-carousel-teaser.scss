@@ -9,24 +9,32 @@
     font-family: $baton-medium;
     color: $charcoal-grey;
     font-size: $font-large;
+    line-height: get-line-height($font-large, 23px);
+    padding: 0 8px;
     &:hover {
       color: $springster-purple;
       text-decoration: none;
     }
   }
   &__title {
-    padding: 10px 0;
+    padding: 8px 0;
   }
   &__subtitle {
     color: $slate-grey;
     font-size: $font-x-small;
-    padding: 0 0 16px;
+    line-height: get-line-height($font-x-small, 16px);
+    padding: 0 8px;
   }
   h2:before {
     content: "#";
   }
   &__thumbnail {
     width: 100%;
+    max-width: 320px;
+  }
+  .comment-counter {
+    position: relative;
+    margin: 10px;
   }
 }
 

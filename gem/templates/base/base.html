@@ -11,8 +11,8 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
+        <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}" />
+        <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% endif %}" />
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
         <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
@@ -88,12 +88,6 @@
               <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
             {% endfor %}
         </div>
-        {% endif %}
-
-        {% if 'ninyampinga.com' in request.get_host %}
-          <div class="banner__birthday">
-            <img class="banner" src="{% static 'img/turamurika_compressed.png' %}" alt="GEM" />
-          </div>
         {% endif %}
 
         {% display_unread_notifications %}

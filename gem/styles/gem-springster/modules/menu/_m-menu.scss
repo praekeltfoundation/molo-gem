@@ -1,6 +1,4 @@
-.header__menu {
-  background: $springster-purple;
-}
+.header__menu {background: $springster-purple;}
 .menu-list {
   margin: 0;
   padding: 0;
@@ -11,6 +9,7 @@
 .menu-list__item  {
   display: inline-block;
   border: none;
+  padding: 5px 0 0;
 }
 .menu-list__anchor,
 .menu-list__anchor label {
@@ -24,9 +23,32 @@
 }
 .menu-list__anchor label {
   display: block;
-  margin: -10px 0;
+  margin: -6px 0 0;
+  width: 100%;
 }
-
+#profile {
+  .menu-list__anchor--section-nav {
+    background-image: url(/static/img/icons/avatar.svg), url(/static/img/icons/avatar@2x.png);
+    background-position: 10px 3px;
+  }
+}
+#search {
+  .menu-list__anchor--section-nav {
+    background-image: url(/static/img/icons/nav_search.svg), url(/static/img/icons/search-mint@2x.png);
+    background-position: 15px 3px;
+  }
+}
+#profile,
+#search {
+  .menu-list__anchor--section-nav {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    display: block;
+    height: 21px;
+    padding-top: 40px;
+    margin: 0 auto;
+  }
+}
 
 //SECTION NAVIGATION
 .section-nav {
@@ -49,8 +71,11 @@
     font-size: $font-small;
   }
 }
-
-.section-nav-list__item:nth-child(5n+1) {
+.section-nav-list-wrap {
+  display: inline-block;
+  padding: 0;
+}
+.section-nav-list__item {
   .section-nav-list__anchor {
     color: $pale-lilac;
     &:hover, &.selected {
@@ -58,41 +83,7 @@
     }
   }
 }
-.section-nav-list__item:nth-child(5n+2) {
-  .section-nav-list__anchor {
-    color: $light-gold;
-    &:hover, &.selected {
-      border-color: $light-gold
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+3) {
-  .section-nav-list__anchor {
-    color: $tiffany-blue;
-    &:hover, &.selected {
-      border-color: $tiffany-blue;
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+4) {
-  .section-nav-list__anchor {
-    color: $peach-two;
-    &:hover, &.selected {
-      border-color: $peach-two;
-    }
-  }
-}
-.section-nav-list__item:nth-child(5n+5) {
-  .section-nav-list__anchor {
-    color: $carnation;
-    &:hover, &.selected {
-      border-color: $carnation;
-    }
-  }
-}
-
-
-@each $name, $color in $color_scheme {
+@each $name, $color in $menu_color_scheme {
   .section-nav-list__item--#{$name} {
     .section-nav-list__anchor {
       color: $color;
