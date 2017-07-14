@@ -2,8 +2,9 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags el_pagination_tags i18n %}
 {% block content %}
 {% pageurl article as the_url %}
+{% trans "Back to article" as back %}
 <div class="reaction-questions-success__block">
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left"  %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left"  %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=choice.success_message %}
   <div class="reaction-questions-success__image">
     {% image choice.specific.success_image height-240 %}
