@@ -3,6 +3,7 @@
 {% load google_analytics_tags %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
+{% load pwa %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -31,6 +32,7 @@
     <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
     <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% progressive_web_app_meta %}
     {% compress css %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/versions.css">
