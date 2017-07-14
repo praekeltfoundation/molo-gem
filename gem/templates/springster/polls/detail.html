@@ -26,5 +26,6 @@
     <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
 	</form>
 </div>
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back Home" direction="left" extraclass="margin-top" %}
+{% trans "Back home" as back %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" extraclass="margin-top" %}
 {% endblock %}
