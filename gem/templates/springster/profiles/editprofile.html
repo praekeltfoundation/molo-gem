@@ -4,11 +4,11 @@
 <div class="profiles">
   {% trans "Edit your Profile" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}" class="profiles__form">
+	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}" class="profiles__form" novalidate>
   {% csrf_token %}
 	{{ form.non_field_errors }}
     <fieldset>
-      <div class="input-group">
+      <div class="input-group{% if form.alias.errors %} input-error{% endif %}">
         <label>{% trans "Display name:" %}</label>
         {{ form.alias }}
   			{{ form.alias.errors }}
@@ -22,7 +22,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <div class="">
+      <div class="input-group{% if form.gender.errors %} input-error{% endif %}">
         <label>{% trans "Gender:" %}</label>
         {{ form.gender }}
         {{ form.gender.errors }}
@@ -30,19 +30,19 @@
     </fieldset>
     <fieldset>
 			{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-      <div class="input-group">
+      <div class="input-group{% if form.mobile_number.errors %} input-error{% endif %}">
         <label>{% trans "Mobile number:" %}</label>
-	      {{ form.mobile_number.errors }}
 	      {{ form.mobile_number }}
+        {{ form.mobile_number.errors }}
       </div>
 			{% endif %}
     </fieldset>
     <fieldset>
 			{% if settings.profiles.UserProfilesSettings.show_email_field %}
-      <div class="input-group">
+      <div class="input-group{% if form.email.errors %} input-error{% endif %}">
         <label>{% trans "Email address:" %}</label>
- 	      {{ form.email.errors }}
  	      {{ form.email }}
+        {{ form.email.errors }}
       </div>
 			{% endif %}
     </fieldset>
