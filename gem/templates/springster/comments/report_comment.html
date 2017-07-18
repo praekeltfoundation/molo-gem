@@ -2,7 +2,8 @@
 {% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
 {% block content %}
 {% pageurl article as the_url %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
+{% trans "Back to article" as back %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 <div class="comments">
   {% trans "Please let us know why you are reporting this comment?" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
@@ -14,5 +15,5 @@
     <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
 </div>
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 {% endblock %}

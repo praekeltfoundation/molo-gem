@@ -24,7 +24,8 @@
   {% trans "Thank you for sharing your words!" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
 {% endif %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back to Article" direction="left" %}
+  {% trans "Back to article" as back %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
   </div>
 </div>
 {% endblock %}
