@@ -13,7 +13,7 @@ from wagtailsurveys.models import AbstractFormField
 from molo.surveys.models import MoloSurveyPage, SurveysIndexPage
 
 from .rules import ProfileDataRule, SurveySubmissionDataRule, \
-                   GroupMembershipRule, CommentDataRule
+    GroupMembershipRule, CommentDataRule
 
 
 # Force current index page to display our personalised survey
@@ -47,8 +47,9 @@ class PersonalisableSurvey(MoloSurveyPage):
     segment = models.ForeignKey('wagtail_personalisation.Segment',
                                 on_delete=models.SET_NULL, blank=True,
                                 null=True,
-                                help_text=_('Leave it empty to show this survey'
-                                            'to every user.'))
+                                help_text=_(
+                                    'Leave it empty to show this survey'
+                                    'to every user.'))
     content_panels = get_personalisable_survey_content_panels()
     template = MoloSurveyPage.template
 
@@ -86,7 +87,7 @@ class PersonalisableSurvey(MoloSurveyPage):
             label = field.label
 
             if field.segment:
-                label = '%s (%s)' %(label, field.segment.name)
+                label = '%s (%s)' % (label, field.segment.name)
 
             data_fields.append((field.clean_name, label))
 
@@ -95,7 +96,7 @@ class PersonalisableSurvey(MoloSurveyPage):
     def serve(self, request, *args, **kwargs):
         # We need request data in self.get_form_fields() to perform
         # segmentation.
-        #TODO(tmkn): This is quite hacky, need to come up with better solution.
+        # TODO(tmkn): This is quite hacky, need to come up with better solution
         self.request = request
 
         # Check whether it is segmented and raise 404 if segments do not match
@@ -103,7 +104,8 @@ class PersonalisableSurvey(MoloSurveyPage):
                 self.segment_id) is None:
             raise Http404("Survey does not match your segments.")
 
-        return super(PersonalisableSurvey, self).serve(request, *args, **kwargs)
+        return super(PersonalisableSurvey, self).serve(
+            request, *args, **kwargs)
 
 
 class PersonalisableSurveyFormField(AbstractFormField):
@@ -112,19 +114,17 @@ class PersonalisableSurveyFormField(AbstractFormField):
     """
     page = ParentalKey(PersonalisableSurvey, on_delete=models.CASCADE,
                        related_name='personalisable_survey_form_fields')
-    segment = models.ForeignKey('wagtail_personalisation.Segment',
-                                on_delete=models.PROTECT, blank=True, null=True,
-                                help_text=_('Leave it empty to show this field '
-                                            'to every user.'))
+    segment = models.ForeignKey(
+        'wagtail_personalisation.Segment',
+        on_delete=models.PROTECT, blank=True, null=True,
+        help_text=_('Leave it empty to show this field to every user.'))
 
     panels = [
         FieldPanel('segment')
     ] + AbstractFormField.panels
-
 
     def __str__(self):
         return '%s - %s' % (self.page, self.label)
 
     class Meta:
         verbose_name = _('personalisable form field')
-

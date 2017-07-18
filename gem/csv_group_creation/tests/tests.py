@@ -13,10 +13,10 @@ class TestCSVGroupCreation(TestCase):
         self.client = Client()
 
         # Create admin user
-        self.user = get_user_model().objects \
-                                    .create_superuser(username='tester',
-                                                      email='tester@example.com',
-                                                      password='tester')
+        self.user = get_user_model().objects.create_superuser(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
 
         self.client = Client()
         self.client.login(username=self.user.username, password='tester')
@@ -24,10 +24,10 @@ class TestCSVGroupCreation(TestCase):
         self.users = []
         # Add a few users
         for n in range(10):
-            self.users.append(get_user_model().objects \
-                                              .create_user(username='tester%d' % n,
-                                                           email='tester%d@example.com' % n,
-                                                           password='tester'))
+            self.users.append(get_user_model().objects.create_user(
+                username='tester%d' % n,
+                email='tester%d@example.com' % n,
+                password='tester'))
 
     def test_url_works(self):
         response = self.client.get('/admin/csv-group-creation/')
@@ -42,7 +42,7 @@ class TestCSVGroupCreation(TestCase):
             csv_file += '%s,\n' % user.username
 
         # Submit the form
-        response = self.client.post('/admin/csv-group-creation/', {
+        self.client.post('/admin/csv-group-creation/', {
             'name': 'test group',
             'csv_file': ContentFile(csv_file, 'users.csv')
         })
@@ -54,8 +54,6 @@ class TestCSVGroupCreation(TestCase):
             self.fail('Group has not been created.')
 
         # Make sure users from CSV file has been added to the created group
-        self.assertEqual(group.user_set \
-                              .filter(id__in=[u.id for u in self.users]) \
-                              .count(),
-                         len(self.users))
-
+        self.assertEqual(
+            group.user_set.filter(id__in=[u.id for u in self.users]).count(),
+            len(self.users))

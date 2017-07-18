@@ -33,21 +33,24 @@ def get_field_choices_for_profile_data_personalisation(fields):
     """
     choices = []
 
-    for model in set([apps.get_model(f.split(LOOKUP_SEP, 1)[0]) for f in fields]):
+    for model in set(
+            [apps.get_model(f.split(LOOKUP_SEP, 1)[0]) for f in fields]):
         model_verbose = capfirst(model._meta.verbose_name)
         base_accessor = model._meta.label + LOOKUP_SEP
         for field in model._meta.get_fields():
             accessor = base_accessor + field.name
             if accessor in fields:
-                choices.append((accessor, '%s - %s' % (model_verbose,
-                                                       capfirst(field.verbose_name))))
+                choices.append((
+                    accessor, '%s - %s' % (
+                        model_verbose, capfirst(field.verbose_name))))
 
     return choices
 
+
 class ProfileDataRule(AbstractBaseRule):
     """
-    Segmentation rule for wagtail-personalisation that evaluates data associated
-    with user profile and related models.
+    Segmentation rule for wagtail-personalisation that evaluates data
+    associated with user profile and related models.
     """
     LESS_THAN = 'lt'
     LESS_THAN_OR_EQUAL = 'lte'
@@ -83,28 +86,30 @@ class ProfileDataRule(AbstractBaseRule):
     )
 
     field = models.CharField(max_length=255)
-    operator = models.CharField(max_length=3, choices=OPERATOR_CHOICES,
-                                default=EQUAL,
-                                help_text=_('Age operators work only on dates, '
-                                            'please input the age you want to '
-                                            'compare in "value". '
-                                            'When using greater/less than on '
-                                            'text field, it would compare it by'
-                                            ' alphabetical order, where '
-                                            'dates are '
-                                            'compared to the specified date '
-                                            'by chronological order.'))
-    value = models.CharField(max_length=255,
-                             help_text=_('If the selected field is a text field'
-                                         ' you can just input text. In '
-                                         'case of dates, please use format '
-                                         '"YYYY-MM-DD" and "YYYY-MM-DD HH:MM'
-                                         '" for date-times. For regex please '
-                                         'refer to the usage docs. If it is a '
-                                         'choice field, please input anything, '
-                                         'save and the error message displayed '
-                                         'below this field should guide '
-                                         'you with possible values.'))
+    operator = models.CharField(
+        max_length=3, choices=OPERATOR_CHOICES,
+        default=EQUAL,
+        help_text=_('Age operators work only on dates, '
+                    'please input the age you want to '
+                    'compare in "value". '
+                    'When using greater/less than on '
+                    'text field, it would compare it by'
+                    ' alphabetical order, where '
+                    'dates are '
+                    'compared to the specified date '
+                    'by chronological order.'))
+    value = models.CharField(
+        max_length=255,
+        help_text=_('If the selected field is a text field'
+                    ' you can just input text. In '
+                    'case of dates, please use format '
+                    '"YYYY-MM-DD" and "YYYY-MM-DD HH:MM'
+                    '" for date-times. For regex please '
+                    'refer to the usage docs. If it is a '
+                    'choice field, please input anything, '
+                    'save and the error message displayed '
+                    'below this field should guide '
+                    'you with possible values.'))
 
     panels = [
         FieldPanel('field'),
@@ -135,7 +140,6 @@ class ProfileDataRule(AbstractBaseRule):
                     'value': _('Regular expression error: %s') % (error,)
                 })
 
-
         # Deal with age opeartors.
         elif self.operator in self.AGE_OPERATORS:
             # Works only on DateField.
@@ -158,7 +162,6 @@ class ProfileDataRule(AbstractBaseRule):
                         'value': _('Value has to be non-negative since it '
                                    'represents age.')
                     })
-
 
         # Deal with normal operators.
         else:
@@ -212,7 +215,6 @@ class ProfileDataRule(AbstractBaseRule):
         if user._meta.model is self.get_related_model():
             return getattr(user, self.get_related_field_name())
 
-
         # Obtain user model's field name with relation to the related model
         # we need to access, e.g. GemUserProfile would be 'gem_profile'.
         for f in user._meta.get_fields():
@@ -251,26 +253,22 @@ class ProfileDataRule(AbstractBaseRule):
                 and timezone.is_naive(related_field_value):
             related_field_value = timezone.make_aware(related_field_value)
 
-
-
         # Handle null (None) values in the related field
         if related_field_value is None:
             # If that value is None, we should fail it unless "not equals"
             # operator is set
             return self.operator == self.NOT_EQUAL
 
-
         # Deal with regex operator.
         if self.operator == self.REGEX:
             return python_value.match(str(related_field_value)) is not None
 
-
         # Deal with age operators.
         if self.operator in self.AGE_OPERATORS:
             # Convert datetime to date if it is a datetime.
-            dob = related_field_value.date() if isinstance(related_field_value,
-                                                           datetime.datetime) \
-                                             else related_field_value
+            dob = related_field_value.date() \
+                if isinstance(related_field_value, datetime.datetime) \
+                else related_field_value
 
             # Field has to be a date.
             if not isinstance(dob, datetime.date):
@@ -296,7 +294,6 @@ class ProfileDataRule(AbstractBaseRule):
             if self.operator == self.OLDER_THAN_OR_EQUAL:
                 return age >= python_value
 
-
         # Deal with comparison operators.
         if self.operator == self.LESS_THAN:
             return related_field_value < python_value
@@ -316,7 +313,6 @@ class ProfileDataRule(AbstractBaseRule):
         if self.operator == self.NOT_EQUAL:
             return related_field_value != python_value
 
-
         raise NotImplementedError('Operator "{}" not implemented on {}.'
                                   'test_user.'.format(self.operator,
                                                       type(self).__name__))
@@ -334,28 +330,30 @@ class SurveySubmissionDataRule(AbstractBaseRule):
     survey = models.ForeignKey('PersonalisableSurvey',
                                verbose_name=_('survey'),
                                on_delete=models.CASCADE)
-    field_name = models.CharField(_('field name'), max_length=255,
-                                  help_text=_('Field\'s label in a lower-case '
-                                              'format with spaces replaced by '
-                                              'dashes. For possible choices '
-                                              'please input any text and save, '
-                                              'so it will be displayed in the '
-                                              'error messages below the '
-                                              'field.'))
+    field_name = models.CharField(
+        _('field name'), max_length=255,
+        help_text=_('Field\'s label in a lower-case '
+                    'format with spaces replaced by '
+                    'dashes. For possible choices '
+                    'please input any text and save, '
+                    'so it will be displayed in the '
+                    'error messages below the '
+                    'field.'))
     expected_response = models.CharField(
         _('expected response'), max_length=255,
-        help_text=_('When comparing text values, please input text. Comparison '
-                    'on text is always case-insensitive. Multiple choice '
+        help_text=_('When comparing text values, please input text. Comparison'
+                    ' on text is always case-insensitive. Multiple choice '
                     'values must be separated with commas.'))
-    operator = models.CharField(_('operator'), max_length=3,
-                                choices=OPERATOR_CHOICES, default=CONTAINS,
-                                help_text=_('When using the "contains" operator'
-                                            ', "expected response" can '
-                                            'contain a small part of user\'s '
-                                            'response and it will be matched. '
-                                            '"Exact" would match responses '
-                                            'that are exactly the same as the '
-                                            '"expected response".'))
+    operator = models.CharField(
+        _('operator'), max_length=3,
+        choices=OPERATOR_CHOICES, default=CONTAINS,
+        help_text=_('When using the "contains" operator'
+                    ', "expected response" can '
+                    'contain a small part of user\'s '
+                    'response and it will be matched. '
+                    '"Exact" would match responses '
+                    'that are exactly the same as the '
+                    '"expected response".'))
 
     panels = [
         PageChooserPanel('survey'),
@@ -388,7 +386,8 @@ class SurveySubmissionDataRule(AbstractBaseRule):
             python_value = self.expected_response
 
             if isinstance(field, forms.MultipleChoiceField):
-                # Eliminate duplicates, strip whitespaces, eliminate empty values
+                # Eliminate duplicates, strip whitespaces,
+                # eliminate empty values
                 python_value = [v for v in {v.strip() for v in
                                             self.expected_response.split(',')}
                                 if v]
@@ -412,7 +411,8 @@ class SurveySubmissionDataRule(AbstractBaseRule):
                 raise
 
     def get_survey_submission_of_user(self, user):
-        return self.survey_submission_model.objects.get(user=user, page_id=self.survey_id)
+        return self.survey_submission_model.objects.get(
+            user=user, page_id=self.survey_id)
 
     def clean(self):
         # Do not call clean() if we have no survey set.
@@ -446,7 +446,8 @@ class SurveySubmissionDataRule(AbstractBaseRule):
             return False
 
         try:
-            survey_submission = self.get_survey_submission_of_user(request.user)
+            survey_submission = self.get_survey_submission_of_user(
+                request.user)
         except self.survey_submission_model.DoesNotExist:
             # No survey found so return false
             return False
@@ -549,12 +550,13 @@ class CommentDataRule(AbstractBaseRule):
                                         help_text=_('Content that we want to '
                                                     'match in user\'s comment '
                                                     'data.'))
-    operator = models.CharField(_('operator'), max_length=3,
-                                choices=OPERATOR_CHOICES, default=CONTAINS,
-                                help_text=_('"Equals" operator will match only '
-                                            'the exact content. "Contains" '
-                                            'operator matches a part of a '
-                                            'comment.'))
+    operator = models.CharField(
+        _('operator'), max_length=3,
+        choices=OPERATOR_CHOICES, default=CONTAINS,
+        help_text=_('"Equals" operator will match only '
+                    'the exact content. "Contains" '
+                    'operator matches a part of a '
+                    'comment.'))
 
     panels = [
         FieldPanel('operator'),
@@ -573,8 +575,9 @@ class CommentDataRule(AbstractBaseRule):
         comments = request.user.comment_comments
 
         return comments.filter(
-            **{'comment__i' + ('exact' if self.operator == self.EQUALS
-                               else 'contains'): self.expected_content}).exists()
+            **{'comment__i' + (
+                'exact' if self.operator == self.EQUALS
+                else 'contains'): self.expected_content}).exists()
 
     def description(self):
         return {

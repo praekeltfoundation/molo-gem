@@ -4,7 +4,6 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
-from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, RequestFactory
 from django.test.client import Client
@@ -19,7 +18,8 @@ from wagtail_personalisation.models import Segment
 
 from ..models import PersonalisableSurveyFormField, PersonalisableSurvey
 from ..rules import ProfileDataRule, SurveySubmissionDataRule, \
-                    GroupMembershipRule, CommentDataRule
+    GroupMembershipRule, CommentDataRule
+
 
 @pytest.mark.django_db
 class TestProfileDataRuleSegmentation(TestCase):
@@ -50,8 +50,8 @@ class TestProfileDataRuleSegmentation(TestCase):
 
     def test_unspecified_passes_unspecified_rule(self):
         self.set_user_to_unspecified()
-        unspecified_rule = ProfileDataRule(field='profiles.userprofile__gender',
-                                           value='-')
+        unspecified_rule = ProfileDataRule(
+            field='profiles.userprofile__gender', value='-')
 
         self.assertTrue(unspecified_rule.test_user(self.request))
 
@@ -78,15 +78,15 @@ class TestProfileDataRuleSegmentation(TestCase):
 
     def test_female_fails_unspecified_rule(self):
         self.set_user_to_female()
-        unspecified_rule = ProfileDataRule(field='profiles.userprofile__gender',
-                                           value='-')
+        unspecified_rule = ProfileDataRule(
+            field='profiles.userprofile__gender', value='-')
 
         self.assertFalse(unspecified_rule.test_user(self.request))
 
     def test_male_fails_unspecified_rule(self):
         self.set_user_to_male()
-        unspecified_rule = ProfileDataRule(field='profiles.userprofile__gender',
-                                           value='-')
+        unspecified_rule = ProfileDataRule(
+            field='profiles.userprofile__gender', value='-')
 
         self.assertFalse(unspecified_rule.test_user(self.request))
 
@@ -95,7 +95,6 @@ class TestProfileDataRuleSegmentation(TestCase):
                                value='l')
         with self.assertRaises(FieldDoesNotExist):
             rule.test_user(self.request)
-
 
     def test_not_implemented_model_raises_exception(self):
         rule = ProfileDataRule(field='lel.not_existing_model__date_joined',
@@ -178,17 +177,15 @@ class TestProfileDataRuleValidation(TestCase):
 
 
 @pytest.mark.django_db
-class TestProfileDataRuleSegmentation(TestCase):
+class TestSurveyDataRuleSegmentation(TestCase):
     def setUp(self):
         # Fabricate a request with a logged-in user
         # so we can use it to test the segment rule
 
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
-        self.request.user = get_user_model().objects \
-                                            .create_user(username='tester',
-                                                         email='tester@example.com',
-                                                         password='tester')
+        self.request.user = get_user_model().objects.create_user(
+            username='tester', email='tester@example.com', password='tester')
 
         # Create survey
         self.survey = PersonalisableSurvey(title='Test Survey')
@@ -212,9 +209,11 @@ class TestProfileDataRuleSegmentation(TestCase):
             self.checkbox.clean_name: True,
             self.number.clean_name: 5
         }
-        form = self.survey.get_form(data, page=self.survey, user=self.request.user)
+        form = self.survey.get_form(
+            data, page=self.survey, user=self.request.user)
 
-        assert form.is_valid(), 'Could not validate submission form. %s' % repr(form.errors)
+        assert form.is_valid(), \
+            'Could not validate submission form. %s' % repr(form.errors)
 
         self.survey.process_form_submission(form)
 
@@ -319,7 +318,8 @@ class TestProfileDataRuleSegmentation(TestCase):
     def test_not_logged_in_user_fails(self):
         rule = SurveySubmissionDataRule(
             survey=self.survey, operator=SurveySubmissionDataRule.CONTAINS,
-            expected_response='er ra', field_name=self.singleline_text.clean_name)
+            expected_response='er ra',
+            field_name=self.singleline_text.clean_name)
 
         # Passes for logged-in user
         self.assertTrue(rule.test_user(self.request))
@@ -343,10 +343,8 @@ class TestCommentDataRuleSegmentation(TestCase, MoloTestCaseMixin):
         # so we can use it to test the segment rule
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
-        self.request.user = get_user_model().objects \
-                                            .create_user(username='tester',
-                                                         email='tester@example.com',
-                                                         password='tester')
+        self.request.user = get_user_model().objects.create_user(
+            username='tester', email='tester@example.com', password='tester')
 
     def _create_comment(self, comment, parent=None):
         return MoloComment.objects.create(
@@ -394,10 +392,8 @@ class TestGroupMembershipRuleSegmentation(TestCase):
         # so we can use it to test the segment rule
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
-        self.request.user = get_user_model().objects \
-                                            .create_user(username='tester',
-                                                         email='tester@example.com',
-                                                         password='tester')
+        self.request.user = get_user_model().objects.create_user(
+            username='tester', email='tester@example.com', password='tester')
 
         self.group = Group.objects.create(name='Super Test Group!')
 

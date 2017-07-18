@@ -12,8 +12,8 @@ class CSVGroupCreationForm(forms.ModelForm):
     """Create group with initial users supplied via CSV file."""
     csv_file = forms.FileField(
         label=_('CSV file'),
-        help_text=_('Please attach a CSV file with the first column containing '
-                    'usernames of users that you want to be added to '
+        help_text=_('Please attach a CSV file with the first column containing'
+                    ' usernames of users that you want to be added to '
                     'this group.'))
 
     class Meta:
@@ -28,8 +28,8 @@ class CSVGroupCreationForm(forms.ModelForm):
         try:
             dialect = csv.Sniffer().sniff(csv_file.read(1024))
         except csv.Error:
-            raise forms.ValidationError(_('Uploaded file does not appear to be '
-                                          'in CSV format.'))
+            raise forms.ValidationError(_('Uploaded file does not appear to be'
+                                          ' in CSV format.'))
 
         csv_file.seek(0)
 
@@ -39,11 +39,10 @@ class CSVGroupCreationForm(forms.ModelForm):
         # Check whether file has a header
         try:
             if csv.Sniffer().has_header(csv_file.read(1024)):
-                next(csv_file_reader) # Skip the header
+                next(csv_file_reader)  # Skip the header
         except csv.Error:
-            raise forms.ValidationError(_('Uploaded file does not appear to be '
-                                          'in CSV format.'))
-
+            raise forms.ValidationError(_('Uploaded file does not appear to be'
+                                          ' in CSV format.'))
 
         # Gather all usernames from the CSV file.
         usernames = set()
@@ -66,8 +65,8 @@ class CSVGroupCreationForm(forms.ModelForm):
         difference = usernames - set(queryset.values_list('username',
                                                           flat=True))
         if difference:
-            raise forms.ValidationError(_('Please make sure your file contains '
-                                          'valid data. '
+            raise forms.ValidationError(_('Please make sure your file contains'
+                                          ' valid data. '
                                           'Those usernames do not exist: '
                                           '"%s".') % '", "'.join(difference))
 
