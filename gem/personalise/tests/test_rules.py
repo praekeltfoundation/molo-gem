@@ -22,8 +22,9 @@ from ..rules import ProfileDataRule, SurveySubmissionDataRule, \
 
 
 @pytest.mark.django_db
-class TestProfileDataRuleSegmentation(TestCase):
+class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
     def setUp(self):
+        self.mk_main()
         self.request_factory = RequestFactory()
 
         # Fabricate a request with a logged-in user
@@ -177,11 +178,11 @@ class TestProfileDataRuleValidation(TestCase):
 
 
 @pytest.mark.django_db
-class TestSurveyDataRuleSegmentation(TestCase):
+class TestSurveyDataRuleSegmentation(TestCase, MoloTestCaseMixin):
     def setUp(self):
         # Fabricate a request with a logged-in user
         # so we can use it to test the segment rule
-
+        self.mk_main()
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
         self.request.user = get_user_model().objects.create_user(
@@ -332,6 +333,7 @@ class TestSurveyDataRuleSegmentation(TestCase):
 class TestCommentDataRuleSegmentation(TestCase, MoloTestCaseMixin):
     def setUp(self):
         # Create an article
+        self.mk_main()
         self.section = SectionIndexPage.objects.first()
 
         self.article = self.mk_article(self.section, title='article 1',
@@ -386,10 +388,11 @@ class TestCommentDataRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.assertFalse(rule.test_user(self.request))
 
 
-class TestGroupMembershipRuleSegmentation(TestCase):
+class TestGroupMembershipRuleSegmentation(TestCase, MoloTestCaseMixin):
     def setUp(self):
         # Fabricate a request with a logged-in user
         # so we can use it to test the segment rule
+        self.mk_main()
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
         self.request.user = get_user_model().objects.create_user(
