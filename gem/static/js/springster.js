@@ -112,66 +112,12 @@
     };
   };
 
-  var formUI = function() {
-    var replaceValidationUI = function(form) {
-        form.addEventListener("invalid", function(event) {
-          event.preventDefault();
-        }, true);
-        form.addEventListener("submit", function(event) {
-          if (!this.checkValidity() ) {
-              event.preventDefault();
-          }
-        });
-        var errorList = form.querySelectorAll('.errorlist');
-        if (errorList.length > 0) {
-          for (var i = 0; i < errorList.length; i++) {
-            parent = errorList[i].parentNode;
-            parent.classList.add("input-error");
-          }
-        }
-
-        var submitButton = form.querySelector("button:not([type=button]), input[type=submit]");
-        var headerHeight = document.getElementById('header-wrapper').clientHeight;
-        if (submitButton) {
-          submitButton.addEventListener("click", function(event) {
-            var invalidFields = form.querySelectorAll(":invalid"),
-              errorMessages = form.querySelectorAll(".error-message"),
-              parent;
-
-            for (var i = 0; i < errorMessages.length; i++) {
-              errorMessages[i].parentNode.removeChild( errorMessages[i]);
-            }
-
-            for (var j = 0; j < invalidFields.length; j++) {
-              parent = invalidFields[j].parentNode;
-              parent.insertAdjacentHTML("beforeend", "<div class='error-message'>" +
-                invalidFields[j].validationMessage +
-                "</div>" );
-              parent.classList.add("input-error");
-            }
-
-            if (invalidFields.length > 0) {
-              scrollToX(document.body, invalidFields[0].offsetTop - headerHeight, 100);
-            }
-          });
-        }
-    };
-
-    var forms = document.querySelectorAll("form");
-    if (forms) {
-      for (var i = 0; i < forms.length; i++) {
-        replaceValidationUI(forms[i]);
-      }
-    }
-  };
-
   domReady(function() {
     remNoJS();
     hidePagination();
     stickyHeader();
     loadMore();
     backTop();
-    formUI();
   });
 
 })();
