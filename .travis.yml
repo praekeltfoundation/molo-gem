@@ -20,3 +20,40 @@ script:
   - \[ "$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)" = "$(sed -nE 's/^FROM .*:(.*)-onbuild$/\1/p' Dockerfile)" \]
 after_success:
   - coveralls
+
+
+jobs:
+  include:
+    - stage: test
+    - stage: docker
+      python: "2.7"
+      sudo: required
+      dist: trusty
+      services: [docker]
+      env:
+        - IMAGE_NAME=praekeltfoundation/molo-gem
+        - REGISTRY_USER=praekeltorgdeploy
+        - secure: ""
+
+      # Update docker-engine: we need at least 17.03.1 for `--cache-from`
+      install:
+        - sudo apt-get update
+        - sudo apt-get install -y -o Dpkg::Options::="--force-confold" docker-ce
+
+      before_script:
+        - docker pull "$IMAGE_NAME" || true
+      script:
+        - docker build --tag "$IMAGE_NAME" --cache-from "$IMAGE_NAME" .
+
+      before_deploy:
+        - pip install docker-ci-deploy==0.3.0
+        - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+      deploy:
+        provider: script
+        script: dcd --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
+        on:
+          branch: develop
+
+      # Built steps inherited from the default stage that we don't want
+      before_install: ignore
+      after_success: []
