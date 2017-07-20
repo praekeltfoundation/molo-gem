@@ -11,20 +11,26 @@
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
   {% trans "Please complete this form to join" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=headingtext %}
-  <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form">
+  <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form" novalidate>
   {% csrf_token %}
+  {% if form.errors %}
+    <p class="errors">
+      {% trans "Please correct the indicated errors." %}
+    </p>
+  {% endif %}
   <fieldset>
-    <div class="input-group">
+    <div class="input-group{% if form.username.errors %} input-error{% endif %}">
       <label>{% trans "Username" %}</label>
         {{ form.username }}
         {{ form.username.errors }}
+        
     </div>
       <p class="helptext">
         {% trans "Please do not use your real name, phone number or email address as it's unsafe." %}
       </p>
   </fieldset>
   <fieldset>
-    <div class="input-group">
+    <div class="input-group{% if form.alias.errors %} input-error{% endif %}">
       <label>{% trans "Display name" %}</label>
       {{ form.alias }}
       {{ form.alias.errors }}
@@ -32,7 +38,7 @@
     <p class="helptext">{% trans "Springster values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
   </fieldset>
   <fieldset>
-    <div class="input-group">
+    <div class="input-group{% if form.password.errors %} input-error{% endif %}">
       <label>{% trans "Choose a 4-digit pin" %}</label>
       <input id="id_password" maxlength="4" name="password" placeholder="eg. 2086" type="password" required="" pattern="[0-9]*" inputmode="numeric">
       {{ form.password.errors }}
@@ -41,15 +47,15 @@
   </fieldset>
   <fieldset>
     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-    <div class="input-group">
+    <div class="input-group{% if form.mobile_number.errors %} input-error{% endif %}">
       <label>{% trans "Enter your mobile number" %}</label>
       {{ form.mobile_number }}
-      {{ from.errors }}
+      {{ from.mobile_number.errors }}
     </div>
   {% endif %}
   </fieldset>
   <fieldset>
-    <div class="input-group">
+    <div class="input-group{% if form.gender.errors %} input-error{% endif %}">
       <label>{% trans "I identify as" %}</label>
       {{ form.gender }}
       {{ form.gender.errors }}
@@ -60,12 +66,12 @@
   <fieldset>
     {% trans "Security questions" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="h3" title=headingtext %}
-    <div class="input-group">
+    <div class="input-group{% if form.security_question_1_answer.errors %} input-error{% endif %}">
       <label>{% trans security_question_1 %}</label>
       {{ form.security_question_1_answer }}
       {{ form.security_question_1_answer.errors }}
     </div>
-    <div class="input-group">
+    <div class="input-group{% if form.security_question_1_answer.errors %} input-error{% endif %}">
       <label>{% trans security_question_2 %}</label>
       {{ form.security_question_2_answer }}
       {{ form.security_question_2_answer.errors }}

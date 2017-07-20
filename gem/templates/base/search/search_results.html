@@ -27,8 +27,22 @@
             <div class="section-title">
               {{ parent_section.title }}
             </div>
-            <h3>{{ page.title }}</h3>
-            <p>{{ page.subtitle }}</p>
+            {% if page.title_highlight %}
+              <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
+            {% else %}
+              <h1 class="search--results__title">{{page.title}}</h1>
+            {% endif %}
+            {% if page.subtitle_highlight or page.body_highlight %}
+              <p class="search--results__subtitle highlight-description">
+                {% if page.subtitle_highlight %}
+                  {{page.subtitle_highlight|safe}}
+                {% elif page.body_highlight %}
+                  {{page.body_highlight|safe}}
+                {% endif %}
+              </p>
+            {% else %}
+              <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
+            {% endif %}
           </div>
         </a>
         {% else %}
@@ -37,8 +51,22 @@
               <div class="section-title">
                 {{ parent_section.title }}
               </div>
-              <h3>{{ page.title }}</h3>
-              <p>{{ page.subtitle }}</p>
+              {% if page.title_highlight %}
+                <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
+              {% else %}
+                <h1 class="search--results__title">{{page.title}}</h1>
+              {% endif %}
+              {% if page.subtitle_highlight or page.body_highlight %}
+                <p class="search--results__subtitle highlight-description">
+                  {% if page.subtitle_highlight %}
+                    {{page.subtitle_highlight|safe}}
+                  {% elif page.body_highlight %}
+                    {{page.body_highlight|safe}}
+                  {% endif %}
+                </p>
+              {% else %}
+                <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
+              {% endif %}
             </div>
           </a>
         {% endif %}
@@ -57,9 +85,7 @@
         {% endif %}
       </div>
     </div>
-
   {% else %}
-
     <div class="title search">
         <h3>{% trans "Search" %}</h3>
     </div>

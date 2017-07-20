@@ -37,7 +37,8 @@
   {% else %}
   <div class="surveys">
     <p class="errors">{% trans 'You have already completed this survey.' %}</p>
-    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name="Back Home" direction="left" %}
+    {% trans "Back home" as back %}
+    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
   </div>
   {% endif %}
 {% else %}

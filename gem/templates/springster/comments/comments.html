@@ -3,7 +3,8 @@
 section.get_effective_extra_style_hints
 {% block content %}
 {% pageurl self as the_url %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
+{% trans "Back to article" as back %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 <div class="comments">
   <div id="comments-list" class="comments__list">
   {% for node in comments %}
@@ -14,6 +15,6 @@ section.get_effective_extra_style_hints
   {% endfor %}
   </div>
   {% include "patterns/basics/pagination/page-numbers.html" %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 </div>
 {% endblock %}

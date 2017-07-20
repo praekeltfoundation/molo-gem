@@ -1,4 +1,4 @@
-FROM praekeltfoundation/molo-bootstrap:5.5.1-onbuild
+FROM praekeltfoundation/molo-bootstrap:5.5.2-onbuild
 
 ENV DJANGO_SETTINGS_MODULE=gem.settings.docker \
     CELERY_APP=gem

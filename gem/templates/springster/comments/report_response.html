@@ -11,5 +11,6 @@
   </p>
 </div>
   {% pageurl article as the_url %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name="Back to Article" direction="left" %}
+  {% trans "Back to article" as back %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 {% endblock %}
