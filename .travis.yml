@@ -54,7 +54,7 @@ jobs:
           on:
             branch: develop
         - provider: script
-          script: dcd --tag "$TRAVIS_TAG" --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
+          script: dcd --tag "$TRAVIS_TAG" "$IMAGE_NAME"
           on:
             tags: true
 
