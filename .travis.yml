@@ -49,10 +49,14 @@ jobs:
         - pip install docker-ci-deploy==0.3.0
         - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
       deploy:
-        provider: script
-        script: dcd --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
-        on:
-          branch: develop
+        - provider: script
+          script: dcd --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
+          on:
+            branch: develop
+        - provider: script
+          script: dcd --tag "$TRAVIS_TAG" --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
+          on:
+            tags: true
 
       # Built steps inherited from the default stage that we don't want
       before_install: ignore
