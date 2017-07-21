@@ -1,4 +1,4 @@
-{% load i18n molo_commenting_tags gem_tags %}
+{% load i18n molo_commenting_tags %}
 <div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}
   {% if node.parent %}
     comment__admin-reply
@@ -28,7 +28,7 @@
     <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
   {% else %}
     {% if truncate_comment %}
-      <p>{{ node.comment|smarttruncatechars:60 }}</p>
+      <p>{{ node.comment|truncatechars:60 }}</p>
     {% else %}
       <p>{{ node.comment }}</p>
     {% endif %}
