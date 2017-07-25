@@ -1,8 +1,10 @@
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags i18n personalise_extra %}
 {% block content %}
+{% filter_surveys_by_segments surveys request as filtered_surveys %}
+{% if filtered_surveys %}
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
 	<div class="surveys surveys--call-to-action">
-			{% for survey in surveys %}
+			{% for survey in filtered_surveys %}
 	    <div class="identity-image identity-image--survey"></div>
 	    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
 
@@ -14,5 +16,6 @@
 	</div>
 {% else %}
   {% include "patterns/components/banners/join-banner.html" %}
+{% endif %}
 {% endif %}
 {% endblock %}
