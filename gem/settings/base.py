@@ -439,27 +439,3 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-# Progressive Web App
-PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
-PWA_APP_NAME = 'Springster'
-PWA_APP_DESCRIPTION = 'Springster'
-PWA_APP_THEME_COLOR = '#7300FF'
-PWA_APP_ICONS = [
-    {
-        "src": "/static/img/appicons/springster_icon_96.png",
-        "sizes": "96x96",
-        "type": "image/png"
-    },
-    {
-        "src": "/static/img/appicons/springster_icon_144.png",
-        "sizes": "144x144",
-        "type": "image/png"
-    },
-    {
-        "src": "/static/img/appicons/springster_icon_192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-    }
-]

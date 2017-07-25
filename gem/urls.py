@@ -113,7 +113,11 @@ urlpatterns += patterns(
         ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-    url(r'', include('pwa.urls')),
+    url(r'^manifest\.json$', TemplateView.as_view(
+        template_name='manifest.json', content_type='application/json')),
+    url(r'^springster-sw\.js$', TemplateView.as_view(
+        template_name='springster-sw.js',
+        content_type='application/x-javascript')),
 )
 
 
