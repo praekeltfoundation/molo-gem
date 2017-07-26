@@ -102,7 +102,6 @@ INSTALLED_APPS = [
     'el_pagination',
     'import_export',
     'storages',
-    'pwa',
 ]
 
 COMMENTS_APP = 'molo.commenting'
