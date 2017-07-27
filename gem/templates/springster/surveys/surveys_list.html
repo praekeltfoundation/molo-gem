@@ -1,18 +1,19 @@
 {% load wagtailcore_tags i18n %}
 {% block content %}
-{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-	<div class="surveys surveys--call-to-action">
-			{% for survey in surveys %}
-	    <div class="identity-image identity-image--survey"></div>
-	    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-
-	    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=survey.intro %}
-	    {% trans "Take Survey" as buttontext %}
-	    {% pageurl survey as the_url %}
-	    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=buttontext %}
-			{% endfor %}
-	</div>
-{% else %}
-  {% include "patterns/components/banners/join-banner.html" %}
+{% if surveys %}
+	{% for survey in surveys %}
+		{% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+		<div class="surveys surveys--call-to-action">
+			<div class="identity-image identity-image--survey"></div>
+			{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
+			{% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=survey.intro %}
+			{% trans "Take Survey" as buttontext %}
+			{% pageurl survey as the_url %}
+			{% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=buttontext %}
+		</div>
+		{% else %}
+			{% include "patterns/components/banners/join-banner.html" %}
+		{% endif %}
+    {% endfor %}
 {% endif %}
 {% endblock %}
