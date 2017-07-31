@@ -32,7 +32,8 @@
 
     </fieldset>
     {% endfor %}
-    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Submit Survey' %}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+    {% trans "Submit Survey" as text %}
+    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
   </form>
   {% else %}
   <div class="surveys">
