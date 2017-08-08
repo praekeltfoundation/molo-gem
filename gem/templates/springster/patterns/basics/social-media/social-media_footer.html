@@ -1,11 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 <div class="social-media-footer-list">
-  {% for site in social_media %}
-  <div class="social-media-footer-list__item">
-    <a href="https://{{ site.value.link }}" class="social-media-footer__anchor">
-      {% image site.value.image width-24 %}
-      <span class="social-media-footer__label">{{ site.value.title }}</span>
-    </a>
-  </div>
-  {% endfor %}
+  {% if 'bbm.' in request.get_host %}
+    <div class="social-media-footer-list__item">
+      <a href="bbmi:///api/share">BBM</a>
+      <a href="bbmi:///api/share?message=<MSG>&userCustomMessage=<USER_MSG>">BBM</a>
+      <a href="bbmi:///api/share?message=hello&userCustomMessage=world">BBM</a>
+    </div>
+  {% else %}
+    {% for site in social_media %}
+    <div class="social-media-footer-list__item">
+      <a href="https://{{ site.value.link }}" class="social-media-footer__anchor">
+        {% image site.value.image width-24 %}
+        <span class="social-media-footer__label">{{ site.value.title }}</span>
+      </a>
+    </div>
+    {% endfor %}
+  {% endif %}
 </div>
