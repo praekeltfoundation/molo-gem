@@ -5,6 +5,8 @@ from google_analytics.tasks import send_ga_tracking
 
 from molo.core.models import SiteSettings
 
+from gem.models import GemSettings
+
 
 class ForceDefaultLanguageMiddleware(object):
     """
@@ -30,7 +32,7 @@ class LogHeaderInformationMiddleware(object):
         print request.META.items()
 
 
-class MoloGoogleAnalyticsMiddleware(object):
+class GemMoloGoogleAnalyticsMiddleware(object):
     """Uses GA IDs stored in Wagtail to track pageviews using celery"""
     def submit_tracking(self, account, request, response):
         try:
@@ -60,8 +62,14 @@ class MoloGoogleAnalyticsMiddleware(object):
             return response
 
         site_settings = SiteSettings.for_site(request.site)
-        local_ga_account = site_settings.local_ga_tracking_code or \
-            settings.GOOGLE_ANALYTICS.get('google_analytics_id')
+        gem_site_settings = GemSettings.for_site(request.site)
+
+        if (request.get_host().split(".")[0] == 'bbm' and
+            gem_site_settings.bbm_ga_account):
+            local_ga_account = gem_site_settings.bbm_ga_account
+        else:
+            local_ga_account = site_settings.local_ga_tracking_code or \
+                settings.GOOGLE_ANALYTICS.get('google_analytics_id')
 
         if local_ga_account:
             response = self.submit_tracking(
