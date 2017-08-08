@@ -129,6 +129,9 @@ class GemSettings(BaseSetting):
         null=True, blank=True,
         help_text=' The link that the partner credit will redirect to e.g'
         '. https://www.google.co.za/')
+    bbm_ga_account = models.TextField(
+        null=True, blank=True,
+        help_text='Google Analytics for BBM')
 
     panels = [
         MultiFieldPanel(
@@ -148,6 +151,7 @@ class GemSettings(BaseSetting):
         FieldPanel('moderator_name'),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
+        FieldPanel('bbm_ga_account'),
     ]
 
 
