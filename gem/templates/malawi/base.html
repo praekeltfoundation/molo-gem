@@ -24,8 +24,7 @@
         {% endif %}"/>
         <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
         <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-
-        <meta property="og:image" content="{% if request.path == '/' %}{% static 'img/zathu-fb-share.png' %}{% elif self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% else %}{{request.site.root_url}}{{ article_photo.url }}{% endif %}"/>
+        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share.png' %}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="{% static 'img/zathu-favicon.ico' %}" />
         {% compress css %}
