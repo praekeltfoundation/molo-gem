@@ -65,7 +65,7 @@ class GemMoloGoogleAnalyticsMiddleware(object):
         gem_site_settings = GemSettings.for_site(request.site)
 
         if (request.get_host().split(".")[0] == 'bbm' and
-            gem_site_settings.bbm_ga_account):
+                gem_site_settings.bbm_ga_account):
             local_ga_account = gem_site_settings.bbm_ga_account
         else:
             local_ga_account = site_settings.local_ga_tracking_code or \
