@@ -76,7 +76,9 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             return response
 
         site_settings = SiteSettings.for_site(request.site)
-        response = self.submit_to_local_account(request, response, site_settings)
-        response = self.submit_to_global_account(request, response, site_settings)
+        response = self.submit_to_local_account(
+            request, response, site_settings)
+        response = self.submit_to_global_account(
+            request, response, site_settings)
 
         return response
