@@ -129,9 +129,13 @@ class GemSettings(BaseSetting):
         null=True, blank=True,
         help_text=' The link that the partner credit will redirect to e.g'
         '. https://www.google.co.za/')
-    bbm_ga_account = models.TextField(
+    extra_ga_account = models.TextField(
         null=True, blank=True,
-        help_text='Google Analytics for BBM')
+        help_text='Additional Google Analytics account')
+    extra_ga_account_subdomain = models.TextField(
+        default='bbm',
+        help_text=('Subdomain prefix to seperate traffics data for Google '
+                   'Analytics. Defaults to "bbm"'))
 
     panels = [
         MultiFieldPanel(
@@ -151,7 +155,13 @@ class GemSettings(BaseSetting):
         FieldPanel('moderator_name'),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
-        FieldPanel('bbm_ga_account'),
+        MultiFieldPanel(
+            [
+                FieldPanel('extra_ga_account'),
+                FieldPanel('extra_ga_account_subdomain'),
+            ],
+            heading="Additional Google Analytics Account",
+        ),
     ]
 
 
