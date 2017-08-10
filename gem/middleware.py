@@ -4,6 +4,7 @@ from google_analytics.utils import build_ga_params, set_cookie
 from google_analytics.tasks import send_ga_tracking
 
 from molo.core.models import SiteSettings
+from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 
 from gem.models import GemSettings
 
@@ -32,22 +33,35 @@ class LogHeaderInformationMiddleware(object):
         print request.META.items()
 
 
-class GemMoloGoogleAnalyticsMiddleware(object):
-    """Uses GA IDs stored in Wagtail to track pageviews using celery"""
-    def submit_tracking(self, account, request, response):
-        try:
-            title = BeautifulSoup(
-                response.content, "html.parser"
-            ).html.head.title.text.encode('utf-8')
-        except:
-            title = None
+class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
+    '''
+    Submits GA tracking data to a local account or the additional account
+    depending on the subdomain in the request.
 
-        path = request.get_full_path()
-        referer = request.META.get('HTTP_REFERER', '')
-        params = build_ga_params(
-            request, account, path=path, referer=referer, title=title)
-        response = set_cookie(params, response)
-        send_ga_tracking.delay(params)
+    TODO: Pull the submit_to_local_account and submit_to_global_account
+    into the MoloGoogleAnalyticsMiddleware class and override
+    submit_to_local_account
+    '''
+    def submit_to_local_account(self, request, response, site_settings):
+        gem_site_settings = GemSettings.for_site(request.site)
+        subdomain = request.get_host().split(".")[0]
+        print(gem_site_settings)
+        if (subdomain == gem_site_settings.extra_ga_account_subdomain and
+                gem_site_settings.extra_ga_account):
+                return self.submit_tracking(
+                    gem_site_settings.extra_ga_account, request, response)
+        else:
+            local_ga_account = site_settings.local_ga_tracking_code or \
+                settings.GOOGLE_ANALYTICS.get('google_analytics_id')
+            if local_ga_account:
+                return self.submit_tracking(
+                    local_ga_account, request, response)
+        return response
+
+    def submit_to_global_account(self, request, response, site_settings):
+        if site_settings.global_ga_tracking_code:
+            return self.submit_tracking(
+                site_settings.global_ga_tracking_code, request, response)
         return response
 
     def process_response(self, request, response):
@@ -62,21 +76,7 @@ class GemMoloGoogleAnalyticsMiddleware(object):
             return response
 
         site_settings = SiteSettings.for_site(request.site)
-        gem_site_settings = GemSettings.for_site(request.site)
-
-        if (request.get_host().split(".")[0] == gem_site_settings.extra_ga_account_subdomain and
-                gem_site_settings.extra_ga_account):
-            local_ga_account = gem_site_settings.extra_ga_account
-        else:
-            local_ga_account = site_settings.local_ga_tracking_code or \
-                settings.GOOGLE_ANALYTICS.get('google_analytics_id')
-
-        if local_ga_account:
-            response = self.submit_tracking(
-                local_ga_account, request, response)
-
-        if site_settings.global_ga_tracking_code:
-            response = self.submit_tracking(
-                site_settings.global_ga_tracking_code, request, response)
+        response = self.submit_to_local_account(request, response, site_settings)
+        response = self.submit_to_global_account(request, response, site_settings)
 
         return response
