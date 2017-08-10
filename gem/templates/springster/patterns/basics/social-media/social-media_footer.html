@@ -2,7 +2,9 @@
 <div class="social-media-footer-list">
   {% if 'bbm.' in request.get_host %}
     <div class="social-media-footer-list__item">
-      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}">BBM</a>
+      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" class="social-media-footer__anchor call-to-action__nav-item-share--bbm">
+        <span class="social-media-footer__label">BBM</span>
+      </a>
     </div>
   {% else %}
     {% for site in social_media %}

@@ -8,7 +8,8 @@
   </a></li>-->
   {% if 'bbm.' in request.get_host %}
     <li class="social-media-list__item">
-      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}">BBM</a>
+      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}"class="call-to-action__item-share call-to-action__nav-item-share--bbm">
+      </a>
     </li>
   {% else %}
     <li class="social-media-list__item">
