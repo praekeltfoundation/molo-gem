@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='gemsettings',
-            name='extra_ga_account',
+            name='bbm_ga_account',
             field=models.TextField(blank=True, help_text=b'Additional Google Analytics account', null=True),
         ),
         migrations.AddField(
             model_name='gemsettings',
-            name='extra_ga_account_subdomain',
+            name='bbm_ga_account_subdomain',
             field=models.TextField(default=b'bbm', help_text=b'Subdomain prefix to seperate traffics data for Google Analytics. Defaults to "bbm"'),
         ),
         migrations.AlterField(
