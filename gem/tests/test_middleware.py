@@ -1,15 +1,15 @@
-import responses
 import mock
 from django.test import TestCase
 from django.test.client import Client
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.core.urlresolvers import reverse
 
-from google_analytics.templatetags.google_analytics_tags import google_analytics  # noqa
 from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
-from molo.core.models import Main, Languages, SiteLanguageRelation, SiteSettings  # noqa
+from molo.core.models import (
+    Main,
+    Languages,
+    SiteLanguageRelation,
+    SiteSettings
+)
 from molo.core.tests.base import MoloTestCaseMixin
 
 
