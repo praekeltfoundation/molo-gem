@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from google_analytics.templatetags.google_analytics_tags import google_analytics  # noqa
 from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
-from molo.core.models import Main, Languages, SiteLanguageRelation, SiteSettings
+from molo.core.models import Main, Languages, SiteLanguageRelation, SiteSettings  # noqa
 from molo.core.tests.base import MoloTestCaseMixin
 
 
@@ -43,7 +43,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
     @mock.patch("gem.middleware.GemMoloGoogleAnalyticsMiddleware.submit_tracking")  # noqa
     @mock.patch("gem.models.GemSettings.for_site")
     def test_submit_to_additional_ga_account(self, mock_get_gem_settings,
-                                     mock_submit_tracking):
+                                             mock_submit_tracking):
         '''
         Given that extra_ga_account_subdomain and extra_ga_account
         are set in Gem Settings, and the URL contains the
@@ -71,7 +71,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
     @mock.patch("gem.middleware.GemMoloGoogleAnalyticsMiddleware.submit_tracking")  # noqa
     @mock.patch("gem.models.GemSettings.for_site")
     def test_submit_to_local_ga_account(self, mock_get_gem_settings,
-                                     mock_submit_tracking):
+                                        mock_submit_tracking):
         '''
         Given that extra_ga_account_subdomain and extra_ga_account
         are set in Gem Settings, and the URL does not contain the
