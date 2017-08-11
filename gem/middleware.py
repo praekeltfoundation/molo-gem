@@ -45,7 +45,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     def submit_to_local_account(self, request, response, site_settings):
         gem_site_settings = GemSettings.for_site(request.site)
         subdomain = request.get_host().split(".")[0]
-        print(gem_site_settings)
         if (subdomain == gem_site_settings.extra_ga_account_subdomain and
                 gem_site_settings.extra_ga_account):
                 return self.submit_tracking(
