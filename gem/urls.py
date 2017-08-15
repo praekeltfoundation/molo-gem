@@ -124,8 +124,8 @@ urlpatterns += patterns(
     url(r'', include(wagtail_urls)),
     url(r'^manifest\.json$', TemplateView.as_view(
         template_name='manifest.json', content_type='application/json')),
-    url(r'^springster-sw\.js$', TemplateView.as_view(
-        template_name='springster-sw.js',
+    url(r'^serviceworker\.js$', TemplateView.as_view(
+        template_name='serviceworker.js',
         content_type='application/x-javascript')),
     url(r'^', include(router.urls)),
 )

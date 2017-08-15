@@ -56,7 +56,7 @@
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/springster-sw.js').then(function (registration) {
+                navigator.serviceWorker.register('/serviceworker.js').then(function (registration) {
                     console.log('ServiceWorker registration successful', registration.scope);
                 }).catch(function (err) {
                     console.log('ServiceWorker registration failed: ', err);
@@ -146,7 +146,7 @@
   </script>
   <script type="text/javascript">
   const messaging = firebase.messaging();
-  navigator.serviceWorker.register('springster-sw.js')
+  navigator.serviceWorker.register('serviceworker.js')
     .then((registration) => {
       console.log(registration);
       messaging.useServiceWorker(registration);
