@@ -101,6 +101,17 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAyjFAypc:APA91bHC5q3n92Prkn3ogqBKetdUVZHJF5cdTLB8MFhe33OaEttMjRw8fSn-WVSZRP8jtZbHECU1A8_6mrWoSTtvMiX_M3YyJxK6OtZyRKzRnLEhuUVrH3__YVDLNCLxi13VfGk9DJWf",
+         # true if you want to have only one active device per registered user at a time
+         # default: False
+        "ONE_DEVICE_PER_USER": False,
+         # devices to which notifications cannot be sent,
+         # are deleted upon receiving error response from FCM
+         # default: False
+        "DELETE_INACTIVE_DEVICES": False,
+}
+
 COMMENTS_APP = 'molo.commenting'
 COMMENTS_FLAG_THRESHHOLD = 3
 COMMENTS_HIDE_REMOVED = False
@@ -112,7 +123,6 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

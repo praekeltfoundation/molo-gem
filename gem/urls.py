@@ -17,12 +17,11 @@ from fcm_django.api.rest_framework import FCMDeviceViewSet, \
     FCMDeviceAuthorizedViewSet
 
 from rest_framework.routers import DefaultRouter
-from rest_framework.documentation import include_docs_urls
 
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
-    AlreadyReportedCommentView
+    AlreadyReportedCommentView, RegistrationTokenView
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -69,6 +68,7 @@ urlpatterns += patterns(
                 namespace='molo.commenting',
                 app_name='molo.commenting')),
 
+    url(r'^our-devices/$', RegistrationTokenView.as_view(), name='registration-token-view'),
     url(r'^comments/reported/(?P<comment_pk>\d+)/$',
         report_response, name='report_response'),
 
