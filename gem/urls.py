@@ -13,6 +13,12 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from molo.core.views import ReactionQuestionChoiceView
 
+from fcm_django.api.rest_framework import FCMDeviceViewSet, \
+    FCMDeviceAuthorizedViewSet
+
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
+
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
@@ -28,6 +34,9 @@ if settings.ENABLE_SSO:
     )
 else:
     urlpatterns = patterns('', )
+
+router = DefaultRouter()
+router.register(r'devices', FCMDeviceViewSet)
 
 urlpatterns += patterns(
     '',
@@ -118,6 +127,7 @@ urlpatterns += patterns(
     url(r'^springster-sw\.js$', TemplateView.as_view(
         template_name='springster-sw.js',
         content_type='application/x-javascript')),
+    url(r'^', include(router.urls)),
 )
 
 
