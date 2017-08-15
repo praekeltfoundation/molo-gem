@@ -102,7 +102,7 @@ INSTALLED_APPS = [
 ]
 
 FCM_DJANGO_SETTINGS = {
-        "FCM_SERVER_KEY": "AAAAyjFAypc:APA91bHC5q3n92Prkn3ogqBKetdUVZHJF5cdTLB8MFhe33OaEttMjRw8fSn-WVSZRP8jtZbHECU1A8_6mrWoSTtvMiX_M3YyJxK6OtZyRKzRnLEhuUVrH3__YVDLNCLxi13VfGk9DJWf",
+        "FCM_SERVER_KEY": "AAAAJQN6OCM:APA91bFnGtnFFnKcuRZFimMgNCcNzes5QCBvNKVLR8NphCN5BhyyVcGxlqNff3ot1mlD-LX_FU2f70Wj6Z-GeHJuJ0QKH2F-JMpxsnKb9ljrPqfceJX8eRZujrCVVNFVvp0Gsjyg930o",
          # true if you want to have only one active device per registered user at a time
          # default: False
         "ONE_DEVICE_PER_USER": False,

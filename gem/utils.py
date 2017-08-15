@@ -12,8 +12,8 @@ def send_notification_to_fcm(
         return False
     device, created = FCMDevice.objects.get_or_create(
         registration_id=reg_id, defaults={
-            'user': user,
-            'name': user.alias, 'type': 'web'})
+            'user': user.user,
+            'name': user.user.username, 'type': 'web'})
     data = {'type': title, 'payload': {
         'object_id': object_id, 'content': content}}
 

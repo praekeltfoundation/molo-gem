@@ -42,10 +42,12 @@ from django.http import HttpResponse
 class RegistrationTokenView(View):
 
     def post(self, request, *args, **kwargs):
+        import json
         print 'in hereeeeee'
         if hasattr(request.user, 'gem_profile'):
+            data = json.loads(request.body)
             profile = request.user.gem_profile
-            profile.registration_token = self.POST.get('registration_id')
+            profile.registration_token = data['registration_id']
             profile.save()
             return HttpResponse('token updated')
         return HttpResponse('user not registered')
