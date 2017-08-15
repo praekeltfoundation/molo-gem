@@ -1,0 +1,24 @@
+{% load mote_tags %}
+{% mask element.json.data.Menu as "menu" %}
+{% render_element element.aspect.basics.logo %}
+<div id="header" class="header">
+  <div class="header__menu">
+    <ul class="menu-list menu-list--{{menu.modifiers}}">
+      {% for item in menu.menu_list %}
+        <li id="{{item.id}}" class="menu-list__item menu-list__item--{{menu.modifiers}}">
+          <a href="{{item.href}}" class="menu-list__anchor menu-list__anchor--{{menu.modifiers}}">
+            {{item.name}}
+          </a>
+        </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="header__search">
+    <input class="header__search-input" type="checkbox" id="search-toggle">
+    <div class="header__search-bar">
+      <div class="heading heading__{{menu.heading_texts.modifiers}} {{menu.heading_texts.extraClass}}">
+        <{{menu.heading_texts.htmltag}}>{{menu.heading_texts.text}}</{{menu.heading_texts.htmltag}}>
+      </div>
+    </div>
+  </div>
+</div>
