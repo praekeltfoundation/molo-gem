@@ -23,7 +23,7 @@
   		  <h4 class="surveys__answers">
   			  {{ answer }}
   		  </h4>
-        <span class="surveys__answers-counter">{{ count }}</span>
+        <span class="surveys__answers-counter">{% if self.show_results_as_percentage%}{{ count }}%{% else %}{{count}}{% endif %}</span>
       </div>
   		{% endfor %}
     </fieldset>

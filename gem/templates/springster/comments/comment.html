@@ -1,4 +1,4 @@
-{% load i18n molo_commenting_tags %}
+{% load i18n molo_commenting_tags gem_tags %}
 <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
   <h5 class="comments__alias comments__alias-author">
   {% if node.user.is_staff %}
@@ -7,6 +7,9 @@
       {% else %}
         {% trans "Big Sister" %}
       {% endif %}
+      <span class="comments__staff">
+        - {% trans "Moderator" %}
+      </span>
   {% elif node.user_name.lower == 'anonymous' %}
     {{node.user_name}}
   {% else %}
@@ -23,7 +26,7 @@
   </h6>
 {% else %}
   {% if truncate_comment %}
-    <p class="comments__body-small">{{ node.comment|truncatechars:60 }}</p>
+    <p class="comments__body-small">{{ node.comment|smarttruncatechars:60 }}</p>
   {% else %}
     <p class="comments__body-small">{{ node.comment }}</p>
   {% endif %}
