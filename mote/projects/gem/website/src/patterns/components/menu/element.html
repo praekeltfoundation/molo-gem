@@ -1,0 +1,17 @@
+{% load mote_tags i18n %}
+{% mask element.json.data.Menu as "menu" %}
+
+<div id="header" class="header">
+  <div class="header__menu">
+    {% render_element element.aspect.basics.logo %}
+    {% render_element element.aspect.basics.menu %}
+  </div>
+  <div class="header__search">
+    <input class="header__search-input" type="checkbox" id="search-toggle">
+    <div class="header__search-bar">
+      <div class="heading heading__{{menu.heading_texts.modifiers}} {{menu.heading_texts.extraClass}}">
+        {% render_element element.aspect.basics.search.sp-search %}
+      </div>
+    </div>
+  </div>
+</div>
