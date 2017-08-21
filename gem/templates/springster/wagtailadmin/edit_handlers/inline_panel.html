@@ -1,0 +1,154 @@
+{% load i18n %}
+{% load wagtailadmin_tags  %}
+
+{{ self.formset.management_form }}
+
+{% if 'wagtail_personalisation_' in self.formset.prefix or 'surveys_' in self.formset.prefix or 'commenting_' in self.formset.prefix or 'gem_' in self.formset.prefix %}
+    {% blocktrans with heading=self.heading|lower %}
+        <h2>{{ heading }}</h2>
+    {% endblocktrans %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_timerule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule is based on the time of the visit of the users.
+                If they visit in between the provided period, they will be
+                segmented. If the "Persistent" option is not selected, the rule
+                will be only valid between the specified times.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_dayrule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule is based on the weekday of the visit of the users.
+                If they visit on the weekday selected, they will be segmented.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_referralrule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule allows you to match visitors based on the website
+                they were referred from in form of a regex string, e.g.
+                "example\.com|secondexample\.com|.*subdomain\.com".
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_visitcountrule_related' %}
+        <p>
+            {% blocktrans %}
+               This rule allows you to segment a visitor based on
+               the amount of visits per page. Use the operator to set a
+               maximum, minimum or equal amount of visits.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_queryrule_related' %}
+        <p>
+            {% blocktrans %}
+               This rule allows you to set a paremeter in a URL that would
+               activate the segment. You could give that link to a particular
+               group of people and if they accessed it, they would be segmented,
+               e.g. "http://example.com/?some_parameter=abc"
+               where "some_parameter" would be the parameter and "abc" would be
+               the value.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_devicerule_related' %}
+        <p>
+            {% blocktrans %}
+              This rule allows to serve different content to users of different
+              device types. Please remember that the detection is not always
+              100% accurate.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'wagtail_personalisation_userisloggedinrule_related' %}
+        <p>
+            {% blocktrans %}
+              This rule allows you to segment content based on whether a user is logged in
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'gem_profiledatarule_related' %}
+        <p>
+            {% blocktrans %}
+                Segment users based on the data filled in the profile.
+            {% endblocktrans %}
+        </p>
+        <dl>
+            <dt>{% trans 'Gender' %}</ht>
+            <dd>
+                {% blocktrans %}
+                    Please use "f" for female and "m" for male.
+                {% endblocktrans %}
+            </dd>
+        </dl>
+    {% endif %}
+
+    {% if self.formset.prefix == 'surveys_surveysubmissiondatarule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule allows you to segment content to users based
+                on their previous answers to surveys.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'surveys_groupmembershiprule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule allows you to segment content to users based
+                on their group membership.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'commenting_commentdatarule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule allows you to segment content to users based
+                on the comments they have submitted on the front-end.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+{% endif %}
+
+<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+    {% if self.formset.non_form_errors %}
+        <li class="error-message">
+            {% for error in self.formset.non_form_errors %}
+                <span>{{ error|escape }}</span>
+            {% endfor %}
+        </li>
+    {% endif %}
+
+    {% for child in self.children %}
+        {% include "wagtailadmin/edit_handlers/inline_panel_child.html" %}
+    {% endfor %}
+</ul>
+
+<script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
+{% escapescript %}
+{% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% endescapescript %}
+</script>
+
+<p class="add">
+    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD">
+        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}
+    </a>
+</p>
+
+{% if 'wagtail_personalisation_' in self.formset.prefix or 'surveys_' in self.formset.prefix or 'commenting_' in self.formset.prefix or 'gem_' in self.formset.prefix %}
+    <hr>
+{% endif %}
