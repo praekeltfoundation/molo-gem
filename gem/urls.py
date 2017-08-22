@@ -113,6 +113,7 @@ urlpatterns += patterns(
         ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
+    url(r'', include('molo.pwa.urls')),
 )
 
 

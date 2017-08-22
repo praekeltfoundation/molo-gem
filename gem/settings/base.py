@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     'molo.yourwords',
     'molo.servicedirectory',
     'molo.polls',
+    'molo.pwa',
+    'fcm_django',
     'mote',
 
     'wagtail.wagtailcore',
@@ -129,7 +131,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 TEMPLATES = [
@@ -433,3 +435,36 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# PWA Settings
+PWA_SERVICE_WORKER_PATH = join(
+    PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+PWA_NAME = 'Springster'
+PWA_DESCRIPTION = "Springster"
+PWA_THEME_COLOR = '#7300FF'
+PWA_DISPLAY = 'standalone'
+PWA_START_URL = '/'
+PWA_ICONS = [
+    {
+        "src": "/static/img/appicons/springster_icon_96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }
+]
+PWA_FCM_API_KEY = 'AIzaSyCLtnDpYhzCabuUopYGDLZ4Z-OXRTxdfvg'
+PWA_FCM_MSGSENDER_ID = '158972131363'
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAJQN6OCM:APA91bFnGtnFFnKcuRZFimMgNCcNzes5QCBvNKVLR8NphCN5BhyyVcGxlqNff3ot1mlD-LX_FU2f70Wj6Z-GeHJuJ0QKH2F-JMpxsnKb9ljrPqfceJX8eRZujrCVVNFVvp0Gsjyg930o",
+        "ONE_DEVICE_PER_USER": True,
+        "DELETE_INACTIVE_DEVICES": False,
+}
