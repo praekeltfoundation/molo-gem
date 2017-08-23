@@ -1,0 +1,10 @@
+{% load i18n wagtailsettings_tags wagtailembeds_tags %}
+  <div class="video-player">
+    <div class="video-player__content">
+      <div class="video-player__embed-object">
+        {% embed block.value.youtube_link %}
+      </div>  
+      {% trans "Download" as buttontext %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext %}
+    </div>
+  </div>

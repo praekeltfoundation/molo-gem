@@ -1,10 +1,17 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags  %}
+{% load wagtailcore_tags wagtailimages_tags core_tags %}
 <article class="{{articletype}}">
   {% for block in self.body %}
     {% if block.block_type == 'heading' %}
       <h3 class="heading heading--large">{{ block.value }}</h3>
     {% elif block.block_type == 'image' %}
       {% image block.value width-320 %}
+    {% elif block.value.youtube_link %}
+      {% include "patterns/basics/media/video-player.html" %}
+    {% elif block.value.type == 'video'%}
+      <video width="320" height="240" controls>
+          <source src={{block.value.file.url}} type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
     {% elif block.block_type == 'numbered_list' %}
       <ol class="ordered-list">
       {% for item in block.value %}
