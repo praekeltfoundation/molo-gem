@@ -136,9 +136,6 @@ class GemSettings(BaseSetting):
         default='bbm',
         help_text=('Subdomain prefix to seperate traffics data for Google '
                    'Analytics. Defaults to "bbm"'))
-    bbm_app_id = models.TextField(
-        null=True, blank=True,
-        help_text=('Application ID for BBM'))
 
     panels = [
         MultiFieldPanel(
@@ -162,7 +159,6 @@ class GemSettings(BaseSetting):
             [
                 FieldPanel('bbm_ga_account'),
                 FieldPanel('bbm_ga_account_subdomain'),
-                FieldPanel('bbm_app_id'),
             ],
             heading="BBM",
         ),
