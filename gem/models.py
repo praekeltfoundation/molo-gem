@@ -129,9 +129,10 @@ class GemSettings(BaseSetting):
         null=True, blank=True,
         help_text=' The link that the partner credit will redirect to e.g'
         '. https://www.google.co.za/')
-    bbm_ga_account = models.TextField(
+    bbm_ga_tracking_code = models.TextField(
         null=True, blank=True,
-        help_text='Additional Google Analytics account')
+        help_text='Tracking code for additional Google Analytics account '
+                  'to divert traffic that matches a specific subdomain.')
     bbm_ga_account_subdomain = models.TextField(
         default='bbm',
         help_text=('Subdomain prefix to seperate traffics data for Google '
@@ -157,7 +158,7 @@ class GemSettings(BaseSetting):
         FieldPanel('banned_names_with_offensive_language'),
         MultiFieldPanel(
             [
-                FieldPanel('bbm_ga_account'),
+                FieldPanel('bbm_ga_tracking_code'),
                 FieldPanel('bbm_ga_account_subdomain'),
             ],
             heading="BBM",
