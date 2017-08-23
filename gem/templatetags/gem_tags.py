@@ -1,19 +1,12 @@
 from django.template import Library
 from django.conf import settings
 
-from gem.models import GemSettings
-
 register = Library()
 
 
 @register.simple_tag()
 def get_site_static_prefix():
     return settings.SITE_STATIC_PREFIX
-
-
-@register.filter()
-def get_bbm_app_id(request):
-    return GemSettings.for_site(request.site).bbm_app_id
 
 
 @register.filter('fieldtype')
