@@ -39,6 +39,7 @@ urlpatterns += patterns(
     url(r'^sitemap\.xml$', 'wagtail.contrib.wagtailsitemaps.views.sitemap'),
     url(r'^documents/', include(wagtaildocs_urls)),
 
+    url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
     url(r'^profiles/forgot_password/$',
@@ -113,7 +114,7 @@ urlpatterns += patterns(
         ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-    url(r'', include('molo.pwa.urls')),
+    
 )
 
 
