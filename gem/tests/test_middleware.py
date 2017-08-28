@@ -35,7 +35,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
         # fake the gem settings
         self.gem_settings = mock.Mock()
         self.gem_settings.bbm_ga_account_subdomain = 'bbm'
-        self.gem_settings.bbm_ga_account = "bbm_tracking_code"
+        self.gem_settings.bbm_ga_tracking_code = "bbm_tracking_code"
 
         self.request = mock.Mock()
         self.request.site = self.site
@@ -45,7 +45,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
     def test_submit_to_additional_ga_account(self, mock_get_gem_settings,
                                              mock_submit_tracking):
         '''
-        Given that bbm_ga_account_subdomain and bbm_ga_account
+        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
         are set in Gem Settings, and the URL contains the
         bbm_ga_account_subdomain, info should be sent to
         the additional GA account.
@@ -65,7 +65,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
             request, response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            self.gem_settings.bbm_ga_account,
+            self.gem_settings.bbm_ga_tracking_code,
             request, response)
 
     @mock.patch("gem.middleware.GemMoloGoogleAnalyticsMiddleware.submit_tracking")  # noqa
@@ -73,7 +73,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
     def test_submit_to_local_ga_account(self, mock_get_gem_settings,
                                         mock_submit_tracking):
         '''
-        Given that bbm_ga_account_subdomain and bbm_ga_account
+        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
         are set in Gem Settings, and the URL does not contain the
         bbm_ga_account_subdomain, info should be sent to
         the local GA account, not the additional GA account.
