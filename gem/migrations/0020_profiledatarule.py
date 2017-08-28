@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtail_personalisation', '0013_auto_20170803_1654'),
-        ('gem', '0019_auto_20170815_1639'),
+        ('gem', '0019_change_setting_bbm_ga_account_to_bbm_ga_tracking_code'),
     ]
 
     operations = [
