@@ -10,7 +10,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtail_personalisation', '0013_auto_20170803_1654'),
+        ('wagtail_personalisation', '0012_remove_personalisablepagemetadata_is_segmented'),
         ('gem', '0019_change_setting_bbm_ga_account_to_bbm_ga_tracking_code'),
     ]
 
