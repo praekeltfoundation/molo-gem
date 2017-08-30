@@ -112,7 +112,7 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -436,7 +436,6 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-# PWA Settings
 PWA_SERVICE_WORKER_PATH = join(
     PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
 PWA_NAME = 'Springster'
@@ -468,3 +467,5 @@ FCM_DJANGO_SETTINGS = {
         "ONE_DEVICE_PER_USER": True,
         "DELETE_INACTIVE_DEVICES": False,
 }
+
+WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
