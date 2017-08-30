@@ -23,7 +23,7 @@ from django_comments.forms import CommentDetailsForm
 from forms import GemRegistrationForm, GemForgotPasswordForm, \
     GemResetPasswordForm, ReportCommentForm, GemEditProfileForm
 
-from gem.models import GemSettings, GemCommentReport
+from gem.models import GemSettings, GemCommentReport, GemUserProfile
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -33,6 +33,24 @@ from molo.profiles.views import RegistrationView, MyProfileEdit
 from molo.profiles.models import UserProfile
 
 from wagtail.wagtailcore.models import Site
+
+from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+
+
+class RegistrationTokenView(View):
+
+    def post(self, request, *args, **kwargs):
+        import json
+        print 'in hereeeeee'
+        if hasattr(request.user, 'gem_profile'):
+            data = json.loads(request.body)
+            profile = request.user.gem_profile
+            profile.registration_token = data['registration_id']
+            profile.save()
+            return HttpResponse('token updated')
+        return HttpResponse('user not registered')
 
 
 def report_response(request, comment_pk):

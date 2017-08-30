@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
 
 from molo.commenting.models import MoloComment
-
+from gem.utils import send_notification_to_fcm
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
@@ -27,7 +27,7 @@ class GemUserProfile(models.Model):
 
     security_question_1_answer = models.CharField(max_length=128, null=True)
     security_question_2_answer = models.CharField(max_length=128, null=True)
-
+    registration_token = models.CharField(max_length=256, null=True)
     migrated_username = models.CharField(
         _('migrated_username'),
         max_length=30,
@@ -77,6 +77,12 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
     if created:
         profile = GemUserProfile(user=instance)
         profile.save()
+
+
+@receiver(post_save, sender=GemUserProfile)
+def send_notification(sender, instance, created, **kwargs):
+    send_notification_to_fcm(
+        instance, 'yo this is a title', 'a user was created', instance.pk)
 
 
 @hooks.register('insert_global_admin_css')

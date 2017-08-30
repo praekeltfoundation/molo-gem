@@ -13,10 +13,15 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from molo.core.views import ReactionQuestionChoiceView
 
+from fcm_django.api.rest_framework import FCMDeviceViewSet, \
+    FCMDeviceAuthorizedViewSet
+
+from rest_framework.routers import DefaultRouter
+
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
-    AlreadyReportedCommentView
+    AlreadyReportedCommentView, RegistrationTokenView
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -28,6 +33,9 @@ if settings.ENABLE_SSO:
     )
 else:
     urlpatterns = patterns('', )
+
+router = DefaultRouter()
+router.register(r'devices', FCMDeviceViewSet)
 
 urlpatterns += patterns(
     '',
@@ -60,6 +68,7 @@ urlpatterns += patterns(
                 namespace='molo.commenting',
                 app_name='molo.commenting')),
 
+    url(r'^our-devices/$', RegistrationTokenView.as_view(), name='registration-token-view'),
     url(r'^comments/reported/(?P<comment_pk>\d+)/$',
         report_response, name='report_response'),
 
@@ -113,6 +122,12 @@ urlpatterns += patterns(
         ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
+    url(r'^manifest\.json$', TemplateView.as_view(
+        template_name='manifest.json', content_type='application/json')),
+    url(r'^serviceworker\.js$', TemplateView.as_view(
+        template_name='serviceworker.js',
+        content_type='application/x-javascript')),
+    url(r'^', include(router.urls)),
 )
 
 

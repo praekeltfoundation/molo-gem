@@ -97,7 +97,20 @@ INSTALLED_APPS = [
     'el_pagination',
     'import_export',
     'storages',
+    'fcm_django',
+    'rest_framework',
 ]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAJQN6OCM:APA91bFnGtnFFnKcuRZFimMgNCcNzes5QCBvNKVLR8NphCN5BhyyVcGxlqNff3ot1mlD-LX_FU2f70Wj6Z-GeHJuJ0QKH2F-JMpxsnKb9ljrPqfceJX8eRZujrCVVNFVvp0Gsjyg930o",
+         # true if you want to have only one active device per registered user at a time
+         # default: False
+        "ONE_DEVICE_PER_USER": False,
+         # devices to which notifications cannot be sent,
+         # are deleted upon receiving error response from FCM
+         # default: False
+        "DELETE_INACTIVE_DEVICES": False,
+}
 
 COMMENTS_APP = 'molo.commenting'
 COMMENTS_FLAG_THRESHHOLD = 3
@@ -110,7 +123,6 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -129,7 +141,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 TEMPLATES = [

@@ -42,6 +42,29 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/no-script-state.css">
       {% endcompress %}
     </noscript>
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/appicons/springster_icon_96.png" sizes="96x96">
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/appicons/springster_icon_192.png" sizes="192x192">
+    <meta name="theme-color" content="#7300FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Springster">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/serviceworker.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful', registration.scope);
+                }).catch(function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+    <!-- end PWA -->
     <script type="text/javascript">
     !function(a){var b=/iPhone/i,c=/iPod/i,d=/iPad/i,e=/(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,f=/Android/i,g=/(?=.*\bAndroid\b)(?=.*\bSD4930UR\b)/i,h=/(?=.*\bAndroid\b)(?=.*\b(?:KFOT|KFTT|KFJWI|KFJWA|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|KFARWI|KFASWI|KFSAWI|KFSAWA)\b)/i,i=/IEMobile/i,j=/(?=.*\bWindows\b)(?=.*\bARM\b)/i,k=/BlackBerry/i,l=/BB10/i,m=/Opera Mini/i,n=/(CriOS|Chrome)(?=.*\bMobile\b)/i,o=/(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,p=new RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)","i"),q=function(a,b){return a.test(b)},r=function(a){var r=a||navigator.userAgent,s=r.split("[FBAN");return"undefined"!=typeof s[1]&&(r=s[0]),s=r.split("Twitter"),"undefined"!=typeof s[1]&&(r=s[0]),this.apple={phone:q(b,r),ipod:q(c,r),tablet:!q(b,r)&&q(d,r),device:q(b,r)||q(c,r)||q(d,r)},this.amazon={phone:q(g,r),tablet:!q(g,r)&&q(h,r),device:q(g,r)||q(h,r)},this.android={phone:q(g,r)||q(e,r),tablet:!q(g,r)&&!q(e,r)&&(q(h,r)||q(f,r)),device:q(g,r)||q(h,r)||q(e,r)||q(f,r)},this.windows={phone:q(i,r),tablet:q(j,r),device:q(i,r)||q(j,r)},this.other={blackberry:q(k,r),blackberry10:q(l,r),opera:q(m,r),firefox:q(o,r),chrome:q(n,r),device:q(k,r)||q(l,r)||q(m,r)||q(o,r)||q(n,r)},this.seven_inch=q(p,r),this.any=this.apple.device||this.android.device||this.windows.device||this.other.device||this.seven_inch,this.phone=this.apple.phone||this.android.phone||this.windows.phone,this.tablet=this.apple.tablet||this.android.tablet||this.windows.tablet,"undefined"==typeof window?this:void 0},s=function(){var a=new r;return a.Class=r,a};"undefined"!=typeof module&&module.exports&&"undefined"==typeof window?module.exports=r:"undefined"!=typeof module&&module.exports&&"undefined"!=typeof window?module.exports=s():"function"==typeof define&&define.amd?define("isMobile",[],a.isMobile=s()):a.isMobile=s()}(this);
     var smartPhone = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
@@ -109,4 +132,155 @@
       </div>
     </div>
   </body>
+  {% if user.is_authenticated %}
+  <!-- START FIREBASE INITIALIZATION CODE -->
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCLtnDpYhzCabuUopYGDLZ4Z-OXRTxdfvg",
+      messagingSenderId: "158972131363"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script type="text/javascript">
+  const messaging = firebase.messaging();
+  navigator.serviceWorker.register('serviceworker.js')
+    .then((registration) => {
+      console.log(registration);
+      messaging.useServiceWorker(registration);
+
+      // [START refresh_token]
+     // Callback fired if Instance ID token is updated.
+     messaging.onTokenRefresh(function() {
+       console.log("hey");
+       messaging.getToken()
+       .then(function(refreshedToken) {
+         console.log('Token refreshed.');
+         // Indicate that the new Instance ID token has not yet been sent to the
+         // app server.
+         setTokenSentToServer(false);
+         // Send Instance ID token to app server.
+         sendTokenToServer(refreshedToken);
+       })
+       .catch(function(err) {
+         console.log('Unable to retrieve refreshed token ', err);
+       });
+     });
+     // [END refresh_token]
+     // [START receive_message]
+     // Handle incoming messages. Called when:
+     // - a message is received while the app has focus
+     // - the user clicks on an app notification created by a sevice worker
+     //   `messaging.setBackgroundMessageHandler` handler.
+     messaging.onMessage(function(payload) {
+       console.log("Message received. ", payload);
+     });
+     // [END receive_message]
+     function resetUI() {
+      // [START get_token]
+      // Get Instance ID token. Initially this makes a network call, once retrieved
+      // subsequent calls to getToken will return from cache.
+
+      console.log("getting token")
+      messaging.getToken().then((resp) => {
+        console.log(resp)
+      })
+      messaging.getToken()
+      .then(function(currentToken) {
+        console.log("Got current token")
+        if (currentToken) {
+          sendTokenToServer(currentToken);
+        } else {
+          // Show permission request.
+          console.log('No Instance ID token available. Request permission to generate one.');
+          // Show permission UI.
+          updateUIForPushPermissionRequired();
+          setTokenSentToServer(false);
+        }
+      })
+      .catch(function(err) {
+        console.log('An error occurred while retrieving token. ', err);
+        setTokenSentToServer(false);
+      });
+      console.log("End get token")
+
+    }
+    // [END get_token]
+     // [END get_token]
+     // Send the Instance ID token your application server, so that it can:
+     // - send messages back to this app
+     // - subscribe/unsubscribe the token from topics
+     function sendTokenToServer(currentToken) {
+      if (!isTokenSentToServer()) {
+        console.log('Sending token to server...');
+        // TODO(developer): Send the current token to your server.
+        fetch('http://localhost:8000/our-devices/', {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+            },
+          body: JSON.stringify({
+            'registration_id': currentToken,
+            'type': 'web',
+          }),
+          credentials: "include",
+        }).then(function(response) {
+          console.log(response);
+        })
+        setTokenSentToServer(true);
+      } else {
+        console.log('Token already sent to server so won\'t send it again ' +
+            'unless it changes');
+      }
+
+    }
+     function isTokenSentToServer() {
+       return window.localStorage.getItem('sentToServer') == 1;
+     }
+     function setTokenSentToServer(sent) {
+       window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+     }
+     function requestPermission() {
+       console.log('Requesting permission...');
+       // [START request_permission]
+       messaging.requestPermission()
+       .then(function() {
+         console.log('Notification permission granted.');
+         // TODO(developer): Retrieve an Instance ID token for use with FCM.
+         resetUI();
+       })
+       .catch(function(err) {
+         console.log('Unable to get permission to notify.', err);
+       });
+       // [END request_permission]
+     }
+     function deleteToken() {
+       // Delete Instance ID token.
+       // [START delete_token]
+       messaging.getToken()
+       .then(function(currentToken) {
+         messaging.deleteToken(currentToken)
+         .then(function() {
+           console.log('Token deleted.');
+           setTokenSentToServer(false);
+         })
+         .catch(function(err) {
+           console.log('Unable to delete token. ', err);
+         });
+         // [END delete_token]
+       })
+       .catch(function(err) {
+         console.log('Error retrieving Instance ID token. ', err);
+       });
+     }
+     requestPermission();
+    });
+
+  </script>
+  <!-- END FIREBASE INITIALIZATION CODE -->      
+    {% endif %}
+
+  
 </html>
