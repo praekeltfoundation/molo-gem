@@ -6,12 +6,29 @@
     {% elif block.block_type == 'image' %}
       {% image block.value width-320 %}
     {% elif block.value.youtube_link %}
-      {% include "patterns/basics/media/video-player.html" %}
+      {% include "patterns/basics/media/media-player.html" %}
     {% elif block.value.type == 'video'%}
-      <video width="320" height="240" controls>
-          <source src={{block.value.file.url}} type="video/mp4">
-          Your browser does not support the video tag.
-      </video>
+      {% if not 'InternetOrgApp' in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' in request.META %}
+        <div class="media-player">
+          <div class="media-player__content">
+          <video width="320" height="240" controls>
+              <source src={{block.value.file.url}} type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+          </div>
+        </div>
+      {% endif %}
+    {% elif block.value.type == 'audio'%}
+      {% if not 'InternetOrgApp' in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' in request.META %}
+        <div class="media-player">
+          <div class="media-player__content">
+          <audio controls><source src={{block.value.file.url}}
+            type="audio/mpeg">Click here to download
+            <a href={{block.value.file.url}}>{{block.value.title}}</a>
+          </audio>
+          </div>
+        </div>
+      {% endif %}
     {% elif block.block_type == 'numbered_list' %}
       <ol class="ordered-list">
       {% for item in block.value %}
