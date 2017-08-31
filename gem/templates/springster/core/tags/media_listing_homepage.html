@@ -19,7 +19,7 @@
     {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
       <div class="media-player">
         <div class="media-player__content">
-        <audio controls><source src={{block.value.file.url}}
+        <audio controls><source src={{media.file.url}}
           type="audio/mpeg">Click here to download
           <a href={{media.file.url}}>{{media.title}}</a>
         </audio>
