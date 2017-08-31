@@ -471,3 +471,7 @@ FCM_DJANGO_SETTINGS = {
 }
 
 WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
+
+# Setup support for proxy headers
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

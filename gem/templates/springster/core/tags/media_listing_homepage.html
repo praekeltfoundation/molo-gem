@@ -3,7 +3,6 @@
 {% block homepage_media %}
 {% for media in media %}
   {% if media.youtube_link %}
-  {{request.get_host }}
     {% include "patterns/basics/media/media-player.html" %}
   {% elif media.type == 'video'%}
     {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
