@@ -6,26 +6,28 @@
     {% elif block.block_type == 'image' %}
       {% image block.value width-320 %}
     {% elif block.value.youtube_link %}
-      {% include "patterns/basics/media/media-player.html" %}
+      {% with block.value as media %}
+        {% include "patterns/basics/media/media-player.html" %}
+      {% endwith %}
     {% elif block.value.type == 'video'%}
-      {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META %}
+      {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
         <div class="media-player">
           <div class="media-player__content">
-          <video width="320" height="240" controls>
-              <source src={{block.value.file.url}} type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
+            <video width="320" height="240" controls>
+                <source src={{block.value.file.url}} type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       {% endif %}
     {% elif block.value.type == 'audio'%}
-      {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META %}
+      {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
         <div class="media-player">
           <div class="media-player__content">
-          <audio controls><source src={{block.value.file.url}}
-            type="audio/mpeg">Click here to download
-            <a href={{block.value.file.url}}>{{block.value.title}}</a>
-          </audio>
+            <audio controls><source src={{block.value.file.url}}
+              type="audio/mpeg">Click here to download
+              <a href={{block.value.file.url}}>{{block.value.title}}</a>
+            </audio>
           </div>
         </div>
       {% endif %}

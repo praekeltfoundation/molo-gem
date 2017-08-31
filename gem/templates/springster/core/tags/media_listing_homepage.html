@@ -3,25 +3,31 @@
 {% block homepage_media %}
 {% for media in media %}
   {% if media.youtube_link %}
-    <div class="responsive-object">
-      {% embed media.youtube_link %}
-    </div>
-    <button>
-    <a href={{media.file.url}} download>{% trans "Click to Download!" %}</a>
-    </button>
-    <a href={{media.youtube_link}}>{% trans "Click to watch on youtube!" %}</a>
+  {{request.get_host }}
+    {% include "patterns/basics/media/media-player.html" %}
   {% elif media.type == 'video'%}
-    <video width="320" height="240" controls>
-        <source src={{media.file.url}} type="video/mp4">
-        {% trans "Your browser does not support the video tag." %}
-    </video>
+    {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
+      <div class="media-player">
+        <div class="media-player__content">
+          <video width="320" height="240" controls>
+              <source src={{media.file.url}} type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+  {% endif %}
   {% elif media.type == 'audio'%}
-    <div>
-        <audio controls><source src={{media.file.url}}
-          type="audio/mpeg">{% trans "Click here to download" %}
+    {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
+      <div class="media-player">
+        <div class="media-player__content">
+        <audio controls><source src={{block.value.file.url}}
+          type="audio/mpeg">Click here to download
           <a href={{media.file.url}}>{{media.title}}</a>
         </audio>
-    </div>
+        </div>
+      </div>
+    {% endif %}
   {% endif %}
 {% endfor%}
 {% endblock %}
+  
