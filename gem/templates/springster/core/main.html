@@ -12,7 +12,7 @@
     {% paginate 12 tag_nav_data.latest_articles as latest_articles %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
-
+    {% media_listing_homepage %}
     {% bannerpages position=1 %}
     {% poll_page %}
 
