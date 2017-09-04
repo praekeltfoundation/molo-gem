@@ -5,7 +5,7 @@
   {% if media.youtube_link %}
   <div class="media-player">
     <div class="media-player__content">
-      {% if 'InternetOrgApp' in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' in request.META or 'freebasics.com' in request.get_host %}
+      {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' in request.META or 'freebasics.com' in request.get_host %}
         <div class="media-player__no-player">
           <h4 class="title">{{media.title}}</h4>
           <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
@@ -18,8 +18,8 @@
         <a href="{{media.file.ur}}" class="btn">
           <span class="call-to-action__button button">Download</span>
         </a>
-        </div>
     {% endif %}
+    </div>
   </div>
   {% elif media.type == 'video'%}
     {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}

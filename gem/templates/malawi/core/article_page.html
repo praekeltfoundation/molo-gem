@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags static i18n molo_survey_tags %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags static i18n molo_survey_tags wagtailembeds_tags media_tags %}
 
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -16,12 +16,52 @@
   {% for block in self.body %}
       {% if block.block_type == 'heading' %}
       <h1 class="heading heading--xx-large">{{ block.value }}</h1>
-      {% else %}
-      {% if block.block_type == 'image' %}
+      {% elif block.block_type == 'image' %}
         {% image block.value width-320 %}
-      {% else %}
-
-      {% if block.block_type == 'numbered_list' %}
+      {% elif block.value.youtube_link %}
+        {% with block.value as media %}
+        <div class="media-player">
+          <div class="media-player__content">
+            {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' in request.META or 'freebasics.com' in request.get_host %}
+              <div class="media-player__no-player">
+                <h4 class="title">{{media.title}}</h4>
+                <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                <h4>{% trans "Video content will be played externally in a new window" %}</h4>
+              </div> 
+            {% else %}
+              <div class="media-player__embed-object">
+                {% embed media.youtube_link %}
+              </div> 
+              <a href="{{media.file.ur}}" class="btn">
+                <span class="call-to-action__button button">Download</span>
+              </a>
+          {% endif %}
+          </div>
+        </div>
+        {% endwith %}
+      {% elif block.value.type == 'video'%}
+        {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
+          <div class="media-player">
+            <div class="media-player__content">
+              <video width="320" height="240" controls>
+                  <source src={{block.value.file.url}} type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        {% endif %}
+      {% elif block.value.type == 'audio'%}
+        {% if 'InternetOrgApp' not in request.META.HTTP_USER_AGENT or 'X-IORG-FBS' not in request.META or 'freebasics.com' not in request.get_host %}
+          <div class="media-player">
+            <div class="media-player__content">
+              <audio controls><source src={{block.value.file.url}}
+                type="audio/mpeg">Click here to download
+                <a href={{block.value.file.url}}>{{block.value.title}}</a>
+              </audio>
+            </div>
+          </div>
+        {% endif %}
+      {% elif block.block_type == 'numbered_list' %}
       <ol class="ordered-list">
         {% for item in block.value %}
           <li class="ordered-list__item">{{ item|handle_markdown }}</li>
@@ -36,8 +76,6 @@
       </ul>
       {% else %}
         {{ block }}
-      {% endif %}
-      {% endif %}
       {% endif %}
   {% endfor %}
   {% social_media_article %}
