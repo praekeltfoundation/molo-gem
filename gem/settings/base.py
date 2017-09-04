@@ -470,7 +470,7 @@ FCM_DJANGO_SETTINGS = {
     "DELETE_INACTIVE_DEVICES": False,
 }
 
-WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
+# WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
 
 # Setup support for proxy headers
 USE_X_FORWARDED_HOST = True
