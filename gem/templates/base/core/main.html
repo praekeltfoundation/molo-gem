@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 
-{% load core_tags competition_tag poll_votings i18n molo_survey_tags %}
+{% load core_tags competition_tag poll_votings i18n molo_survey_tags media_tags %}
 
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
@@ -41,5 +41,6 @@
   </div>
 
   {% your_words_competition %}
+  {% media_listing_homepage %}
 
 {% endblock %}
