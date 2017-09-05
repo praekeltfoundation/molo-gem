@@ -125,6 +125,7 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'gem.middleware.LogHeaderInformationMiddleware',
 ]
 
 # Template configuration
