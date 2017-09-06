@@ -13,7 +13,7 @@ def default_forms(request):
 def detect_freebasics(request):
     return {
         'is_via_freebasics':
-            'internet.org' in request.META['HTTP_VIA'] or
-            'InternetOrgApp' in request.META['HTTP_USER_AGENT'] or
-            'HTTP_X_IORG_FBS' in request.META,
+            'Internet.org' in request.META.get('HTTP_VIA', '') or
+            'InternetOrgApp' in request.META.get('HTTP_USER_AGENT', '') or
+            'true' in request.META.get('HTTP_X_IORG_FBS', '')
     }
