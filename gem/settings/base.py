@@ -125,7 +125,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'gem.middleware.LogHeaderInformationMiddleware',
 ]
 
 # Template configuration
@@ -150,6 +149,7 @@ TEMPLATES = [
                 'molo.core.context_processors.locale',
                 'wagtail.contrib.settings.context_processors.settings',
                 'gem.context_processors.default_forms',
+                'gem.context_processors.detect_freebasics',
                 'gem.processors.compress_settings',
             ],
             "loaders": [
