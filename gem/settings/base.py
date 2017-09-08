@@ -207,7 +207,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'molo_consolidated_minute_task': {
         'task': 'molo.core.tasks.molo_consolidated_minute_task',
-        'schedule': crontab(minute='*'),
+        'schedule': crontab(minute=0),
     },
 }
 
