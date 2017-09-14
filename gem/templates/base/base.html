@@ -19,7 +19,7 @@
           {% image self.image fill-450x200 as article_photo %}
         {% endif %}
         <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-        <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
         <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% else %}{{ article_photo.url }}{% endif %}"/>
         <meta property="og:image:width" content="450" />
