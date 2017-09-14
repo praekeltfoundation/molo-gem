@@ -134,31 +134,33 @@ MIDDLEWARE_CLASSES = [
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
-                 join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
-        'APP_DIRS': False,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'molo.core.context_processors.locale',
-                'wagtail.contrib.settings.context_processors.settings',
-                'gem.context_processors.default_forms',
-                'gem.context_processors.detect_freebasics',
-                'gem.processors.compress_settings',
-            ],
-            "loaders": [
-                "django.template.loaders.filesystem.Loader",
-                "mote.loaders.app_directories.Loader",
-                "django.template.loaders.app_directories.Loader",
-            ]
-        },
+DEFAULT_TEMPLATE = {
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
+             join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
+    'APP_DIRS': False,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'molo.core.context_processors.locale',
+            'wagtail.contrib.settings.context_processors.settings',
+            'gem.context_processors.default_forms',
+            'gem.context_processors.detect_freebasics',
+            'gem.processors.compress_settings',
+        ],
+        "loaders": [
+            "django.template.loaders.filesystem.Loader",
+            "mote.loaders.app_directories.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ]
     },
+}
+
+TEMPLATES = [
+    DEFAULT_TEMPLATE,
 ]
 
 ROOT_URLCONF = 'gem.urls'

@@ -86,6 +86,17 @@ COMPRESS_OFFLINE_CONTEXT = {  # noqa
     'ENV': ENV,  # noqa
 }  # noqa
 
+DEFAULT_TEMPLATE['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', [
+        "django.template.loaders.filesystem.Loader",
+        "mote.loaders.app_directories.Loader",
+        "django.template.loaders.app_directories.Loader", ]),
+]
+
+TEMPLATES = [
+    DEFAULT_TEMPLATE,
+]
+
 try:
     from .local import *  # noqa
 except ImportError:
