@@ -7,11 +7,38 @@
   }
 }
 
-.search-result {
+.search-results {
   display: block;
   margin: 18px 0;
   padding: 18px;
   overflow: auto;
+  label {
+      display: none;
+  }
+  &.article-list  {
+      .search-result {
+          .text {
+              margin: 0;
+              padding: 0;
+              .section-title {
+                  font-family: Arial,sans-serif;
+                  color: #f8af04;
+                  font-size: 14px;
+              }
+              .search--results__title {
+                  font-family: $font-family-zathu;
+                  color: #412a83;
+                  font-size: 20px;
+                  text-transform: uppercase;
+              }
+
+          }
+      }
+  }
+}
+
+#search-form form {
+    padding: 24px 5px;
 }
 
 #gem-footer #search-form {
