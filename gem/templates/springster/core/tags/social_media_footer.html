@@ -1,7 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
-{% if social_media or 'bbm.' in request.get_host %}
-  {% trans "Find us elsewhere:" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-  {% include "patterns/basics/social-media/social-media_footer.html" %}
+{% if social_media %}
+  {% if 'bbm.' not in request.get_host %}
+    {% trans "Find us elsewhere:" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+    {% include "patterns/basics/social-media/social-media_footer.html" %}
+  {% endif %}
 {% endif %}
 
