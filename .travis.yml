@@ -1,4 +1,4 @@
-sudo: false
+sudo: false  # Force container-based builds.
 language: python
 python:
   - "2.7"
@@ -12,12 +12,7 @@ install:
   - pip install coveralls
 script:
   - flake8
-  # Ensure plural expressions are not allowed in PO files
-  # Disabled: need to find a better way of doing this
-  #- grep -Rq "plural=EXPRESSION" --include \*.po locale/
   - py.test
-  # Check that the molo.core version in requirements.txt matches the version in the Docker image
-  - \[ "$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)" = "$(sed -nE 's/^FROM .*:(.*)-onbuild$/\1/p' Dockerfile)" \]
 after_success:
   - coveralls
 
@@ -41,9 +36,10 @@ jobs:
         - sudo apt-get install -y -o Dpkg::Options::="--force-confold" docker-ce
 
       before_script:
+        - molo_version="$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)"
         - docker pull "$IMAGE_NAME" || true
       script:
-        - docker build --tag "$IMAGE_NAME" --cache-from "$IMAGE_NAME" .
+        - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
 
       before_deploy:
         - pip install docker-ci-deploy==0.3.0
