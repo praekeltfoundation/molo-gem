@@ -6,12 +6,6 @@
   <a href="/" class="call-to-action__nav-item-share">
     <img alt="Instagram" src="{% static 'img/icons/instagram@2x.png' %}" width="30px" class="call-to-action__share-img" />
   </a></li>-->
-  {% if 'bbm.' in request.get_host %}
-    <li class="social-media-list__item">
-      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}"class="call-to-action__item-share call-to-action__nav-item-share--bbm">
-      </a>
-    </li>
-  {% else %}
     <li class="social-media-list__item">
       {% if settings.core.SiteSettings.facebook_sharing %}
         <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--facebook {% if facebook %} call-to-action__nav-item-share-with-image {% endif %}">
@@ -24,5 +18,4 @@
         </a>
       {% endif %}
     </li>
-  {% endif %}
 </ul>
