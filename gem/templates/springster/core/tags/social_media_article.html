@@ -1,11 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags i18n %}
 {% if 'bbm.' in request.get_host %}
-    <ul class="social-media-list">
-      <li class="social-media-list__item">
-          <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}"class="call-to-action__item-share call-to-action__nav-item-share--bbm">
-          </a>
-        </li>
-    </ul>
+  {% include "patterns/basics/social-media/social-media_bbm.html" with page=self %}
 {% else%}
   {% include "patterns/basics/social-media/social-media_with-label.html" %}
 {% endif %}
