@@ -4,3 +4,11 @@
   {% load_child_sections_for_section self as sections %}
   {% include "patterns/components/section-page/sp_variations/base-section_teaser-listing.html" %}
 {% endblock %}
+{% block footer %}
+  {% if 'bbm.' in request.get_host %}
+    {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_section" %}
+  {% else %}  
+    {% include "patterns/components/footer/sp_variations/footer.html" %}
+  {% endif %}
+{% endblock %}
+

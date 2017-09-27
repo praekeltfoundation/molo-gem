@@ -1,5 +1,5 @@
 {% load comments i18n wagtailcore_tags wagtailimages_tags %}
-<form class="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post">
+<form id="comment-form" class="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments" method="post">
     {% csrf_token %}
     {% if form.errors %}
         <h1>{% trans "Please correct the error below" %}</h1>

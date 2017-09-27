@@ -102,7 +102,11 @@
         {% endblock %}
 
         {% block footer %}
-          {% include "patterns/components/footer/sp_variations/footer.html" %}
+          {% if 'bbm.' in request.get_host %}
+            {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_home" %}
+          {% else %}
+            {% include "patterns/components/footer/sp_variations/footer.html" %}
+          {% endif %}
         {% endblock %}
 
         {% block copyright %}

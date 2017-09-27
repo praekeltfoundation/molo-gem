@@ -1,6 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags staticfiles core_tags %}
 <div id="footer-bar">
-  {% social_media_footer %}
+  {% if type == "bbm_section" %}
+    {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+  {% elif type == "bbm_home" %}  
+    {% if request.path == "/" %}
+      {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+    {% endif %}
+  {% else %}
+    {% social_media_footer %}
+  {% endif %}
   {% include "patterns/basics/images/sp_variations/footer-logo_bg.html" %}
   {% include "patterns/basics/languages/language-list-label.html" %}
   {% include "patterns/basics/buttons/back-to-top.html" %}
