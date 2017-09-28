@@ -33,8 +33,8 @@
                 <div class="media-player__embed-object">
                   {% embed media.youtube_link %}
                 </div>
-                <a href="{{media.file.ur}}" class="btn">
-                  <span class="call-to-action__button button">Download</span>
+                <a href="{{media.file.ur}}" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Video" %}</span>
                 </a>
             {% endif %}
             </div>
@@ -48,6 +48,9 @@
                     <source src={{block.value.file.url}} type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <a href="{{block.value.file.ur}}" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+                </a>
               </div>
             </div>
           {% endif %}
@@ -56,9 +59,11 @@
             <div class="media-player">
               <div class="media-player__content">
                 <audio controls><source src={{block.value.file.url}}
-                  type="audio/mpeg">Click here to download
-                  <a href={{block.value.file.url}}>{{block.value.title}}</a>
+                  type="audio/mpeg">
                 </audio>
+                <a href="{{block.value.file.ur}}" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
+                </a>
               </div>
             </div>
           {% endif %}
