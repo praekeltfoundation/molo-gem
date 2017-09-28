@@ -33,16 +33,16 @@ class GemContextProcessorTest(TestCase, MoloTestCaseMixin):
         self.article.save_revision().publish()
 
         response = self.client.get('/sections-main-1/your-mind/test-page-0/')
-        self.assertContains(response, 'Click here to download')
+        self.assertContains(response, 'Download Audio')
 
         client = Client(HTTP_VIA='Internet.org')
         response = client.get('/sections-main-1/your-mind/test-page-0/')
-        self.assertNotContains(response, 'Click here to download')
+        self.assertNotContains(response, 'Download Audio')
 
         client = Client(HTTP_X_IORG_FBS='true',)
         response = client.get('/sections-main-1/your-mind/test-page-0/')
 
-        self.assertNotContains(response, 'Click here to download')
+        self.assertNotContains(response, 'Download Audio')
 
         client = Client(
             HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
@@ -51,7 +51,7 @@ class GemContextProcessorTest(TestCase, MoloTestCaseMixin):
             ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
         response = client.get('/sections-main-1/your-mind/test-page-0/')
 
-        self.assertNotContains(response, 'Click here to download')
+        self.assertNotContains(response, 'Download Audio')
 
         client = Client(
             HTTP_VIA='Internet.org',
@@ -62,4 +62,4 @@ class GemContextProcessorTest(TestCase, MoloTestCaseMixin):
             ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
         response = client.get('/sections-main-1/your-mind/test-page-0/')
 
-        self.assertNotContains(response, 'Click here to download')
+        self.assertNotContains(response, 'Download Audio')
