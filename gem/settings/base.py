@@ -337,6 +337,12 @@ if ES_HOST and ES_SELECTED_INDEX:
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 IMAGE_COMPRESSION_QUALITY = 85
 
+# This setting lets you override the maximum upload size for images (in bytes).
+# If omitted, Wagtail will fall back to using its 10MB default value.
+# http://docs.wagtail.io/en/v1.12.2/advanced_topics/settings.html?#maximum-upload-size-for-images
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 1 * 1024 * 1024
+
 ENABLE_SSO = False
 
 # Additional strings that need translations from other modules
