@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
+{% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
 <article class="{{articletype}}">
   {% for block in self.body %}
     {% if block.block_type == 'heading' %}
@@ -17,6 +17,8 @@
                 <source src={{block.value.file.url}} type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            {% trans "Download Video" as buttontext %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" %}
           </div>
         </div>
       {% endif %}
@@ -24,10 +26,11 @@
       {% if not is_via_freebasics %}
         <div class="media-player">
           <div class="media-player__content">
-            <audio controls><source src={{block.value.file.url}}
-              type="audio/mpeg">Click here to download
-              <a href={{block.value.file.url}}>{{block.value.title}}</a>
+            <audio controls>
+              <source src={{block.value.file.url}} type="audio/mpeg">
             </audio>
+            {% trans "Download Audio" as buttontext %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" %}
           </div>
         </div>
       {% endif %}
