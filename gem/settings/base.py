@@ -486,3 +486,6 @@ WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
 # Setup support for proxy headers
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# https://github.com/wagtail/wagtail/issues/3883
+AWS_S3_FILE_OVERWRITE = False
