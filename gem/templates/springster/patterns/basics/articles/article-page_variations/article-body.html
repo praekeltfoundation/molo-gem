@@ -4,7 +4,7 @@
     {% if block.block_type == 'heading' %}
       <h3 class="heading heading--large">{{ block.value }}</h3>
     {% elif block.block_type == 'image' %}
-      {% image block.value width-320 %}
+      {% image block.value width-320 alt=self.title %}
     {% elif block.value.youtube_link %}
       {% with block.value as media %}
         {% include "patterns/basics/media/media-player.html" %}
