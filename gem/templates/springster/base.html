@@ -70,6 +70,9 @@
         };
       }
     </script>
+  {% if 'bbm.' in request.get_host %}
+    {% include "patterns/components/bbm_partner_ga_code.html" %}
+  {% endif %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% block google_analytics %}
