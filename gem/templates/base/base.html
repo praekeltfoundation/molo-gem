@@ -39,30 +39,6 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-        {% if settings.core.SiteSettings.ga_tag_manager %}
-        <!-- Google Tag Manager -->
-         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
-         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
-        <!-- End Google Tag Manager -->
-        {% endif %}
-
-        {% if settings.core.SiteSettings.global_ga_tag_manager %}
-        <!--Global Google Tag Manager -->
-        <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.global_ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','{{settings.core.SiteSettings.global_ga_tag_manager}}');</script>
-        <!-- End Global Google Tag Manager -->
-        {% endif %}
-
         <div id="gem-header">
             <a id="logo" href="/">
               <img src="{% static '' %}img/logo{% get_site_static_prefix %}.png" width="119" height="28" alt="Girl Effect" />
@@ -155,5 +131,29 @@
         {% block facebook_analytics %}
           {% include "core/facebook_analytics.html" %}
         {% endblock %}
+
+        {% if settings.core.SiteSettings.ga_tag_manager %}
+        <!-- Google Tag Manager -->
+         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
+         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
+        <!-- End Google Tag Manager -->
+        {% endif %}
+
+        {% if settings.core.SiteSettings.global_ga_tag_manager %}
+        <!--Global Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.global_ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{settings.core.SiteSettings.global_ga_tag_manager}}');</script>
+        <!-- End Global Google Tag Manager -->
+        {% endif %}
     </body>
 </html>
