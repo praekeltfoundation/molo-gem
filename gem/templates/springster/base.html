@@ -70,14 +70,8 @@
         };
       }
     </script>
-  {% if 'bbm.' in request.get_host %}
-    {% include "patterns/components/bbm_partner_ga_code.html" %}
-  {% endif %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-    {% block google_analytics %}
-      {% include "patterns/components/ga_tag_manager.html" %}
-    {% endblock %}
     {% wagtailuserbar %}
     <div id="header-wrapper">
       <div id="language-bar">
@@ -117,5 +111,14 @@
         {% endblock %}
       </div>
     </div>
+    {% block google_analytics %}
+      {% include "patterns/components/ga_tag_manager.html" %}
+    {% endblock %}
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
+    {% if 'bbm.' in request.get_host %}
+      {% include "patterns/components/bbm_partner_ga_code.html" %}
+    {% endif %}
   </body>
 </html>
