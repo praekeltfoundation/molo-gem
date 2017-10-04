@@ -22,6 +22,7 @@
     {% if self.get_effective_image %}
       {% image self.get_effective_image fill-450x200 as article_photo %}
     {% endif %}
+    <meta name="google-site-verification" content="1pHfu6F9poexdHOYO-8YohY4exchMmVOaNmiCLhoT9Q" />
     <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
     <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
