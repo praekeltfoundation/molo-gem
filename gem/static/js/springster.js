@@ -116,7 +116,6 @@
   function fadeOutEffect() {
         var state = document.readyState;
         if(state == 'complete'){
-            //Look into the use of setTimeout()
             setTimeout(function() {
                 loaderElement.style.visibility="hidden";
             }, 500)
