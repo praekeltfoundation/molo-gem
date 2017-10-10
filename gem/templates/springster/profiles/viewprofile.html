@@ -53,7 +53,7 @@
   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
   <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block" novalidate>
   {% csrf_token %}
-  {% trans "Change Your Password" as headingtext %}
+  {% trans "Change Your Pin" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
     {% if form.errors or form.non_field_errors %}
       {% if form.non_field_errors %}
@@ -71,7 +71,7 @@
     {% endif %}
     <fieldset>
       <div class="input-group{% if password_change_form.old_password.errors %} input-error{% endif %}">
-        <label>{% trans "Old Password:" %}</label>
+        <label>{% trans "Old Pin:" %}</label>
         {{ password_change_form.old_password }}
         {{ password_change_form.old_password.errors }}
       </div>
@@ -79,14 +79,14 @@
     </fieldset>
     <fieldset>
       <div class="input-group{% if form.new_password.errors %} input-error{% endif %}">
-        <label>{% trans "New Password:" %}</label>
+        <label>{% trans "New Pin:" %}</label>
         {{ password_change_form.new_password }}
         {{ form.new_password.errors }}
       </div>
     </fieldset>
     <fieldset>
       <div class="input-group{% if form.confirm_password.errors %} input-error{% endif %}">
-        <label>{% trans "Confirm Password:" %}</label>
+        <label>{% trans "Confirm Pin:" %}</label>
         {{ password_change_form.confirm_password }}
         {{ form.confirm_password.errors }}
       </div>
