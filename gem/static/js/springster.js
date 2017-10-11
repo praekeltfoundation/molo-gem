@@ -115,14 +115,13 @@
   var loaderElement = document.getElementById("loader");
   function fadeOutEffect() {
         var state = document.readyState;
-        if(state == 'complete'){
+        if(state == 'interactive'){
             setTimeout(function() {
                 loaderElement.style.visibility="hidden";
-            }, 500)
+            }, 800)
         }
     }
     window.addEventListener("load", fadeOutEffect);
-
 
   domReady(function() {
     remNoJS();
