@@ -84,8 +84,11 @@ INSTALLED_APPS = [
     'wagtailmedia',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
-    'wagtailsurveys',
     'wagtail.contrib.wagtailsitemaps',
+
+    'wagtailsurveys',
+    'wagtail_personalisation',
+    'wagtailfontawesome',
 
     'mptt',
     'django.contrib.sites',
