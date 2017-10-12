@@ -96,13 +96,15 @@
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
         {% display_unread_notifications %}
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
 
         {% block breadcrumbs %}
           {% breadcrumbs %}
         {% endblock %}
-        {% tag_menu_homepage %}
+
+        {% block tag_menu_homepage %}
+             {% include "patterns/components/article-tags/sp_variations/tag_menu.html" %}
+        {% endblock %}
 
         {% block footer_menu %}
           {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
