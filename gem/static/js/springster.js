@@ -1,6 +1,6 @@
 
 (function() {
-  
+
   'use strict';
 
   var domReady = function(callback) {
@@ -15,7 +15,7 @@
   var hidePagination = function() {
     document.body.classList.add('toggle-hide');
   };
-  
+
   function getAjax(url, success) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     xhr.open('GET', url);
@@ -78,7 +78,7 @@
         moreLink.parentNode.insertBefore(wrapper, moreLink);
         wrapper.appendChild(moreLink);
         wrapper.setAttribute("id", "articles-more");
-        
+
         wrapper.addEventListener("click", function(event){
           var element = event.target;
           if (element.tagName == 'A' && element.classList.contains("more-link")) {
@@ -112,6 +112,31 @@
     };
   };
 
+  var   ctaButtons = document.getElementsByClassName('call-to-action__button'),
+        ctaButtonPrimary = document.getElementsByClassName('call-to-action__button--primary'),
+        numberOfButtons = ctaButtonPrimary.length;
+    function iterateButtonsOnPage(buttonsObject) {
+        var iterateNum = 0;
+        for (var i = 0; i < buttonsObject.length; i++) {
+            if (buttonsObject[i]) {
+                buttonsObject[i].addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var elemCurrent = e.target,
+                        state = document.readyState;
+                          if(elemCurrent.value) {
+                            elemCurrent.value = "Spin!!!"
+                          } else {
+                              elemCurrent.innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
+                          }
+                });
+                iterateNum++;
+            }
+        }
+        return iterateNum;
+    }
+    iterateButtonsOnPage(ctaButtonPrimary);
+
+
   domReady(function() {
     remNoJS();
     hidePagination();
@@ -121,4 +146,3 @@
   });
 
 })();
-
