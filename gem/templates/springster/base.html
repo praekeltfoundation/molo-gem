@@ -82,9 +82,11 @@
     </script>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-      {% if 'bbm.' in request.get_host %}
-        <div id="loader"></div>
-      {% endif %}
+    {% if 'bbm.' in request.get_host %}
+        <div id="loadProgress">
+           <div id="loadBar"></div>
+        </div>
+    {% endif %}
     {% wagtailuserbar %}
     <div id="header-wrapper">
       <div id="language-bar">

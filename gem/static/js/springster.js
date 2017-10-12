@@ -111,17 +111,28 @@
       scrollToX(document.body, 0, 100);
     };
   };
-
-  var loaderElement = document.getElementById("loader");
-  function fadeOutEffect() {
-        var state = document.readyState;
-        if(state == 'interactive'){
+    var loaderProgress = document.getElementById("loadProgress"),
+        loaderElement = document.getElementById("loadBar"),
+        width = 0,
+        id = setInterval(frame, 5);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
             setTimeout(function() {
-                loaderElement.style.visibility="hidden";
-            }, 800)
+              loaderProgress.style.transition = "opacity 1s ease-in-out";
+              loaderProgress.style.opacity = 0;
+          }, 100)
+        } else {
+            width++;
+            loaderElement.style.width = width + '%';
+            loaderElement.innerHTML = width * 1 + '%';
         }
     }
-    window.addEventListener("load", fadeOutEffect);
+  if(document.readyState === 'interactive'){
+    document.onreadystatechange = function () {
+          frame();
+      }
+  }
 
   domReady(function() {
     remNoJS();
