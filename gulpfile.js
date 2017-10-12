@@ -78,4 +78,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
-gulp.task('default', ['styles', 'watch']);
+gulp.task('default', ['styles','compress','watch']);

@@ -1,8 +1,8 @@
 
-(function() {
-  
-  'use strict';
 
+
+(function() {
+'use strict';
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
@@ -15,7 +15,7 @@
   var hidePagination = function() {
     document.body.classList.add('toggle-hide');
   };
-  
+
   function getAjax(url, success) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     xhr.open('GET', url);
@@ -78,7 +78,7 @@
         moreLink.parentNode.insertBefore(wrapper, moreLink);
         wrapper.appendChild(moreLink);
         wrapper.setAttribute("id", "articles-more");
-        
+
         wrapper.addEventListener("click", function(event){
           var element = event.target;
           if (element.tagName == 'A' && element.classList.contains("more-link")) {
@@ -111,6 +111,28 @@
       scrollToX(document.body, 0, 100);
     };
   };
+    var loaderProgress = document.getElementById("loadProgress"),
+        loaderElement = document.getElementById("loadBar"),
+        width = 0,
+        id = setInterval(frame, 5);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+            setTimeout(function() {
+              loaderProgress.style.transition = "opacity 1s ease-in-out";
+              loaderProgress.style.opacity = 0;
+          }, 100)
+        } else {
+            width++;
+            loaderElement.style.width = width + '%';
+            loaderElement.innerHTML = width * 1 + '%';
+        }
+    }
+  if(document.readyState === 'interactive'){
+    document.onreadystatechange = function () {
+          frame();
+      }
+  }
 
   domReady(function() {
     remNoJS();
@@ -119,6 +141,4 @@
     loadMore();
     backTop();
   });
-
 })();
-
