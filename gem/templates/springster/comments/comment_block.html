@@ -1,9 +1,9 @@
 {% load comments mptt_tags molo_commenting_tags i18n %}
 {% if self.is_commenting_enabled %}
-<div class="comments">
-  {% trans "Share your thoughts" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
+<div id="comments" class="comments">
   {% if self.allow_commenting %}
+  {% trans "Share your thoughts" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}

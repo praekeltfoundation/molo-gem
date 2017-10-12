@@ -1,0 +1,10 @@
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags staticfiles i18n  %}
+<ul class="social-media-list">
+  <li class="social-media-list__item">
+    {% if type == "footer" %}
+      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+    {% else %}
+      <a href="bbmi:///api/share?message=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+    {% endif %}
+    </li>
+</ul>

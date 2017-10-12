@@ -1,0 +1,19 @@
+{% load i18n wagtailsettings_tags wagtailembeds_tags %}
+<div class="media-player">
+  <div class="media-player__content">
+    {% if is_via_freebasics %}
+      <div class="media-player__no-player">
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=media.title %}
+        <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+        {% trans "Media will be played externally in a new window" as headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=headingtext %}
+      </div> 
+    {% else %}
+      <div class="media-player__embed-object">
+        {% embed media.youtube_link %}
+      </div> 
+      {% trans "Download Video" as buttontext %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=media.file.url text=buttontext attribute="download" %}
+  {% endif %}
+  </div>
+</div>

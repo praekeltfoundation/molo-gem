@@ -1,3 +1,4 @@
+@import "_fonts";
 @import "variables/_mixins";
 @import "variables/_variables";
 
@@ -11,16 +12,6 @@ $colorPurple: #412A83;  // pink
 $colorYellow: #ffed00;  // yellow
 $colorOrange: #f8af04;  // orange
 $colorGrey: #dadada;  // grey
-
-@font-face {
-  font-family: 'zathu';
-  src: url('/static/fonts/zathu-webfont.woff2') format('woff2'),
-       url('/static/fonts/zathu-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-$font-family-zathu: 'zathu', Arial, sans-serif;
-$font-family-default: Arial, sans-serif;
 
 html,body, .article {
   font-family: Arial, sans-serif;
@@ -46,14 +37,24 @@ input {
   border-radius: 0;
 }
 
+
+.message-notification {
+    background-color: inherit;
+    color: #412a83;
+    a {
+        color: #412a83;
+        font-weight: bold;
+    }
+ }
+
 #gem-header {
   background: $colorYellow;
-    
+
   #logo {
     margin: 0.2em;
     text-align: center;
   }
-  
+
   a, a:visited {
     font-family: $font-family-default;
     font-weight: bold;
@@ -61,7 +62,7 @@ input {
     color: $colorPurple;
     display: inline-block;
     padding-right: 3px;
-    
+
     @media screen and (min-width: 320px) {
       font-family: $font-family-zathu;
       font-weight: normal;
@@ -76,7 +77,7 @@ input {
       font-size: 1em;
     }
   }
-  
+
   .search-icon {
     width: 1em;
   }
@@ -90,7 +91,6 @@ input {
   input:hover, input:focus {
     outline: none;
   }
-  
   .search__submit {
     background-image: url('/static/img/search_grey.png');
     background-color: $colorWhite;
@@ -103,7 +103,7 @@ input {
   &__anchor {
     color: darken($colorGrey,40%);
     font-weight: normal;
-    
+
     &--main {
       color: $colorPurple;
       font-weight: bold;
@@ -124,7 +124,7 @@ input {
 .language-container {
   text-align: center;
   background-color: $colorGrey;
-  
+
   a.active {
     color: $colorPurple;
   }
@@ -132,7 +132,7 @@ input {
 
 .section-header {
   background-color: $colorPurple;
-  
+
   a {
     font-family: $font-family-zathu;
     color: $colorYellow;
@@ -146,7 +146,7 @@ input {
     .text {
       margin: 0 16px;
       position: relative;
-      
+
       .section-title {
         background-color: transparent;
         position: relative;
@@ -175,7 +175,7 @@ input {
       font-size: 12px;
       font-weight: normal;
       text-transform: capitalize;
-      
+
       a {
         font-family: $font-family-default;
         font-weight: bold;
@@ -183,11 +183,11 @@ input {
         font-size: $font-small;
       }
     }
-    
+
     h3 {
       font-family: $font-family-zathu;
       font-weight: normal;
-      
+
       a {
         color: $colorPurple;
       }
@@ -225,32 +225,32 @@ input {
       font-family: $font-family-zathu;
       font-weight: normal;
   }
-  
+
   &__intro {
       font-family: $font-family-default;
   }
-  
+
   &__form {
       padding: 24px 16px;
       background-color: $colorWhiteSmoke;
-      
+
       label {
         color: $colorPurple;
       }
-      
+
       fieldset {
         ul {
           margin: 15px 0;
         }
       }
   }
-  
+
   &__tout {
     background-color: $colorYellow;
     color: $colorPurple;
     margin: 0 0 24px 0;
     padding: 0 16px;
-    
+
     .section-title {
       h2 {
         font-family: $font-family-default;
@@ -260,21 +260,21 @@ input {
         font-weight: bold;
       }
     }
-    
+
     h3 {
       font-family: $font-family-zathu;
       text-transform: uppercase;
       font-size: $font-x-large;
       font-weight: normal;
     }
-    
+
     input[type=submit], .button {
       background: $colorPurple;
       color: $colorYellow;
       font-size: $font-large;
     }
   }
-  
+
   &__thank-you {
       font-family: $font-family-zathu;
   }
@@ -291,8 +291,8 @@ button, input[type=submit],
 }
 
 .gem-polls {
-  background-color: $colorPurple; 
-  
+  background-color: $colorPurple;
+
   .list-header {
     background-color: $colorYellow;
     font-size: 16px;
@@ -303,7 +303,7 @@ button, input[type=submit],
     padding: 0 16px;
     display: inline-block;
   }
-  
+
   .list-inline {
     h3 {
       font-family: $font-family-zathu;
@@ -313,47 +313,47 @@ button, input[type=submit],
       text-align: center;
       font-weight: normal;
     }
-    
+
     p, label {
       font-family: $font-family-default;
       color: $colorYellow;
       font-size: 18px;
       text-transform: capitalize;
     }
-    
+
     a, input[type="submit"] {
       color: $colorPurple;
       background: $colorYellow;
     }
-    
+
     input {
       margin-bottom: 10px;
     }
-    
+
     .choices p {
       border-top: 1px $colorYellow dashed;;
     }
-    
+
      .choices {
       border-bottom: 1px $colorYellow dashed;;
     }
-    
+
     form {
       div div {
         border-top: 1px $colorYellow dashed;
       }
-      
+
       div:last-child {
         border: none;
         margin: 0;
         text-align: center;
       }
-      
+
       input[type="radio"], input[type="checkbox"] {
         background: $colorYellow;
         border-radius: 0;
       }
-      
+
       input[type="radio"]:checked, input[type="checkbox"]:checked {
         background: $colorYellow url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABCFBMVEUAAAD///+AgP9VVaqAQL9mM5lVK6pJSZJgQJ9VOY5GLotVK5VLLYdKK4pEK4hGLoNELYdCLINFMIpGLYZBL4hBK4hCLoVBLYdDK4dCK4RGLoZELoRFK4ZFLYZCLYVDK4VDKoNCKoNDKoVBLIVCK4RCLIVBK4VCLINCK4RDLINCK4RCK4NCKoRBK4RCK4NCK4NCLIVBK4RBLIVCK4RDKoRCK4RDK4NBLIRCK4RBK4RCK4NCK4NCKoNBKoRCK4NCK4NCKoRCK4RCK4RCK4RCKoNCK4RCK4RCK4RBK4RCKoRBK4NBKoRCK4RBK4RBKoNCKoRCK4NBK4RBK4NCKoNBK4NCK4NCK4RBKoNsNtJmAAAAV3RSTlMAAQIDBAUGBwgJCwwRGB4hIiMlKCsvMjM1Njc4Oz9JWGdtc3V4e32Ag4aHiIuNjpCSlZianZ+hpKaoq62vsLGztrq9vsLF1d3e4OPm6Orr7O3u7/Hz9fx25g1EAAAA+klEQVR42u3Tx1ICURSE4WbAAQMGBHPOOWMkmFBMiKD2+7+JOlxPUWzmznFl1f32/64bjuM4/9JY/nonDb35T5KvQ9BaYKAIpSW21KGzQqMKlTX+WofGpvSVJBS2pb/thcKe9Dc9CDc5N+OjTexA+qtuhEoVSN5lIbwj6S9TCLfBH7Wc9MfSl3xYqJq5jCIQP5X+ogs23tjSmMC3xLn0ZwlYKdJoTgF+QfqTOOwMNmm8TyfL0uc92Bpv0PioSH8Yg72ROjvtS28lV+vodxFR9pntthDZ8BOF7r+ZR+lXoTLwYPplKPXfB/0i1NIl8mUWf9GX8eA4juNE8QWsw2lFWfvXxQAAAABJRU5ErkJggg==) no-repeat 50%/90%;
       }
@@ -414,28 +414,28 @@ button, input[type=submit],
     color: $colorYellow;
     font-size: $font-large;
   }
-  
+
   form {
     label {
       color: $colorPurple;
       font-size: $font-x-medium!important;
     }
-    
+
     input {
       &[type=text]{
         padding: 10px 0;
       }
-      
+
       &[type=checkbox] {
         float: left;
         padding: 0 10px;
-        
+
         +label {
           line-height: 23px;
           display: block;
           margin-left: 25px;
         }
-        
+
         &:checked {
           background: $colorWhite url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABCFBMVEUAAAD///+AgP9VVaqAQL9mM5lVK6pJSZJgQJ9VOY5GLotVK5VLLYdKK4pEK4hGLoNELYdCLINFMIpGLYZBL4hBK4hCLoVBLYdDK4dCK4RGLoZELoRFK4ZFLYZCLYVDK4VDKoNCKoNDKoVBLIVCK4RCLIVBK4VCLINCK4RDLINCK4RCK4NCKoRBK4RCK4NCK4NCLIVBK4RBLIVCK4RDKoRCK4RDK4NBLIRCK4RBK4RCK4NCK4NCKoNBKoRCK4NCK4NCKoRCK4RCK4RCK4RCKoNCK4RCK4RCK4RBK4RCKoRBK4NBKoRCK4RBK4RBKoNCKoRCK4NBK4RBK4NCKoNBK4NCK4NCK4RBKoNsNtJmAAAAV3RSTlMAAQIDBAUGBwgJCwwRGB4hIiMlKCsvMjM1Njc4Oz9JWGdtc3V4e32Ag4aHiIuNjpCSlZianZ+hpKaoq62vsLGztrq9vsLF1d3e4OPm6Orr7O3u7/Hz9fx25g1EAAAA+klEQVR42u3Tx1ICURSE4WbAAQMGBHPOOWMkmFBMiKD2+7+JOlxPUWzmznFl1f32/64bjuM4/9JY/nonDb35T5KvQ9BaYKAIpSW21KGzQqMKlTX+WofGpvSVJBS2pb/thcKe9Dc9CDc5N+OjTexA+qtuhEoVSN5lIbwj6S9TCLfBH7Wc9MfSl3xYqJq5jCIQP5X+ogs23tjSmMC3xLn0ZwlYKdJoTgF+QfqTOOwMNmm8TyfL0uc92Bpv0PioSH8Yg72ROjvtS28lV+vodxFR9pntthDZ8BOF7r+ZR+lXoTLwYPplKPXfB/0i1NIl8mUWf9GX8eA4juNE8QWsw2lFWfvXxQAAAABJRU5ErkJggg==) no-repeat 50%/90%;
         }
@@ -504,7 +504,7 @@ button, input[type=submit],
 .default-container {
   form {
     background-color: $colorGrey;
-    
+
     .inverted {
       text-align: center;
       color: $colorPurple;
@@ -517,11 +517,11 @@ button, input[type=submit],
     font-family: $font-family-default;
     color: $colorPurple;
   }
-  
+
   textarea {
     border: 1px solid $colorGrey;
   }
-  
+
   .comment-submit {
     background-color: $colorPurple;
     color: $colorYellow;

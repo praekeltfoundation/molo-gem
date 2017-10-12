@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     'molo.yourwords',
     'molo.servicedirectory',
     'molo.polls',
+    'molo.pwa',
+    'fcm_django',
     'mote',
 
     'wagtail.wagtailcore',
@@ -134,30 +136,33 @@ MIDDLEWARE_CLASSES = [
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
-                 join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
-        'APP_DIRS': False,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'molo.core.context_processors.locale',
-                'wagtail.contrib.settings.context_processors.settings',
-                'gem.context_processors.default_forms',
-                'gem.processors.compress_settings',
-            ],
-            "loaders": [
-                "django.template.loaders.filesystem.Loader",
-                "mote.loaders.app_directories.Loader",
-                "django.template.loaders.app_directories.Loader",
-            ]
-        },
+DEFAULT_TEMPLATE = {
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
+             join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
+    'APP_DIRS': False,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'molo.core.context_processors.locale',
+            'wagtail.contrib.settings.context_processors.settings',
+            'gem.context_processors.default_forms',
+            'gem.context_processors.detect_freebasics',
+            'gem.processors.compress_settings',
+        ],
+        "loaders": [
+            "django.template.loaders.filesystem.Loader",
+            "mote.loaders.app_directories.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ]
     },
+}
+
+TEMPLATES = [
+    DEFAULT_TEMPLATE,
 ]
 
 ROOT_URLCONF = 'gem.urls'
@@ -206,7 +211,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'molo_consolidated_minute_task': {
         'task': 'molo.core.tasks.molo_consolidated_minute_task',
-        'schedule': crontab(minute='*'),
+        'schedule': crontab(minute=0),
     },
 }
 
@@ -334,6 +339,12 @@ if ES_HOST and ES_SELECTED_INDEX:
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 IMAGE_COMPRESSION_QUALITY = 85
 
+# This setting lets you override the maximum upload size for images (in bytes).
+# If omitted, Wagtail will fall back to using its 10MB default value.
+# http://docs.wagtail.io/en/v1.12.2/advanced_topics/settings.html?#maximum-upload-size-for-images
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 1 * 1024 * 1024
+
 ENABLE_SSO = False
 
 # Additional strings that need translations from other modules
@@ -401,6 +412,8 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     '/media/', '/static/',
     # metrics URL used by promethius monitoring system
     '/metrics',
+    # REST API
+    '/api/',
 ]
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
@@ -436,4 +449,45 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
+PWA_SERVICE_WORKER_PATH = join(
+    PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+PWA_NAME = 'Springster'
+PWA_DESCRIPTION = "Springster"
+PWA_THEME_COLOR = '#7300FF'
+PWA_DISPLAY = 'standalone'
+PWA_START_URL = '/'
+PWA_ICONS = [
+    {
+        "src": "/static/img/appicons/springster_icon_96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }
+]
+PWA_FCM_API_KEY = 'AIzaSyCLtnDpYhzCabuUopYGDLZ4Z-OXRTxdfvg'
+PWA_FCM_MSGSENDER_ID = '158972131363'
+FCM_DJANGO_SETTINGS = {
+    "FCM_SERVER_KEY": "AAAAJQN6OCM:APA91bFnGtnFFnKcuRZFimMgNCcNzes5QCBvNKVLR"
+                      "8NphCN5BhyyVcGxlqNff3ot1mlD-LX_FU2f70Wj6Z-GeHJuJ0QKH2F"
+                      "-JMpxsnKb9ljrPqfceJX8eRZujrCVVNFVvp0Gsjyg930o",
+    "ONE_DEVICE_PER_USER": True,
+    "DELETE_INACTIVE_DEVICES": False,
+}
+
 WAGTAILMEDIA_MEDIA_MODEL = 'core.MoloMedia'
+
+# Setup support for proxy headers
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# https://github.com/wagtail/wagtail/issues/3883
+AWS_S3_FILE_OVERWRITE = False

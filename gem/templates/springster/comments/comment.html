@@ -26,7 +26,12 @@
   </h6>
 {% else %}
   {% if truncate_comment %}
-    <p class="comments__body-small">{{ node.comment|smarttruncatechars:60 }}</p>
+    <p class="comments__body-small">{{ node.comment|smarttruncatechars:100 }}</p>
+    {% if node.comment.200 %}
+    <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--readmore">
+    {% trans "Read More"%}</a>
+    {% endif %}
+    <p></p>
   {% else %}
     <p class="comments__body-small">{{ node.comment }}</p>
   {% endif %}
@@ -39,7 +44,7 @@
 
   {% if node.parent == None %}
   <div class="comments__reply-meta">
-    <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
+    <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
     {% trans "Reply"%}</a>
     {% if do_not_link_replies or node.get_children.count == 0 %}
       <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
@@ -51,7 +56,7 @@
         {% endif %}
       </p>
     {% else %}
-      <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-form" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+      <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
         {{ node.get_children.count }}
         {% if node.get_children.count == 0 or node.get_children.count == 1 %}
           {% trans "Reply"%}

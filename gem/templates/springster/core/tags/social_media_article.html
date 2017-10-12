@@ -1,2 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags i18n %}
+{% if 'bbm.' in request.get_host %}
+  {% include "patterns/basics/social-media/social-media_bbm.html" with page=page %}
+{% else%}
   {% include "patterns/basics/social-media/social-media_with-label.html" %}
+{% endif %}
