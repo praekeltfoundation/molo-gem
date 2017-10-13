@@ -492,3 +492,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # https://github.com/wagtail/wagtail/issues/3883
 AWS_S3_FILE_OVERWRITE = False
+
+PERSONALISATION_SEGMENTS_ADAPTER = 'molo.surveys.adapters.SurveysSegmentsAdapter'
