@@ -124,7 +124,7 @@
                     var elemCurrent = e.target,
                         state = document.readyState;
                           if(elemCurrent.value) {
-                            elemCurrent.value = "Spin!!!"
+                            //elemCurrent.classList.add("loader-submit");
                           } else {
                               elemCurrent.innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
                           }
