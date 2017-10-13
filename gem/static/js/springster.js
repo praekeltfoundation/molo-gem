@@ -112,19 +112,24 @@
     };
   };
 
-  var   ctaButtons = document.getElementsByClassName('call-to-action__button'),
-        ctaButtonPrimary = document.getElementsByClassName('call-to-action__button--primary'),
+  var   ctaButtonPrimary = document.getElementsByClassName('call-to-action__button--primary'),
         numberOfButtons = ctaButtonPrimary.length;
     function iterateButtonsOnPage(buttonsObject) {
         var iterateNum = 0;
         for (var i = 0; i < buttonsObject.length; i++) {
             if (buttonsObject[i]) {
                 buttonsObject[i].addEventListener("click", function(e) {
-                    e.preventDefault();
                     var elemCurrent = e.target,
                         state = document.readyState;
                           if(elemCurrent.value) {
-                            //elemCurrent.classList.add("loader-submit");
+                            //Ideal solution is inject / appending to existing button style
+                            //Reapplies inline CSS and removes Sass style
+                            Object.assign(elemCurrent.style,{
+                                "background-image": "url('/static/img/loading.gif'), url('/static/img/buttons/button-sprite.png')",
+                                "background-position": "center center, 0 0",
+                                "background-size":"auto, 1870px 334px",
+                                "background-repeat":"no-repeat, no-repeat"
+                            });
                           } else {
                               elemCurrent.innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
                           }
