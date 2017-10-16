@@ -36,7 +36,17 @@
             <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
           {% endcompress %}
         {% endif %}
-
+        <!-- Test account Google Tag Manager for Google Optimize -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function()
+          { (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-58902104-9', 'auto');
+          ga('require', 'GTM-T347DZH');
+          ga('send', 'pageview');
+        </script>
+        <!-- End Google Tag Manager for Google Optimize  -->
     </head>
 
     <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
@@ -59,7 +69,7 @@
         <div class="language-container">
            {% get_current_language as LANGUAGE_LOCALE %}
             {% for language in languages %}
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}?{{ request.GET.urlencode }}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
             {% endfor %}
         </div>
         {% endif %}
