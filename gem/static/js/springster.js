@@ -112,35 +112,18 @@
     };
   };
 
-  var   ctaButtonPrimary = document.getElementsByClassName('call-to-action__button--primary'),
-        numberOfButtons = ctaButtonPrimary.length;
-    function iterateButtonsOnPage(buttonsObject) {
-        var iterateNum = 0;
-        for (var i = 0; i < buttonsObject.length; i++) {
-            if (buttonsObject[i]) {
-                buttonsObject[i].addEventListener("click", function(e) {
-                    var elemCurrent = e.target,
-                        state = document.readyState;
-                          if(elemCurrent.value) {
-                            //Ideal solution is inject / appending to existing button style
-                            //Reapplies inline CSS and removes Sass style
-                            Object.assign(elemCurrent.style,{
-                                "background-image": "url('/static/img/loading.gif'), url('/static/img/buttons/button-sprite.png')",
-                                "background-position": "center center, 0 0",
-                                "background-size":"auto, 1870px 334px",
-                                "background-repeat":"no-repeat, no-repeat"
-                            });
-                          } else {
-                              elemCurrent.innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />"
-                          }
-                });
-                iterateNum++;
-            }
-        }
-        return iterateNum;
-    }
-    iterateButtonsOnPage(ctaButtonPrimary);
-
+  var loaderAnimation = function() {
+    var wrapper = document.getElementById("content-wrapper")
+    
+    wrapper.addEventListener("click", function(event){
+      var element = event.target;
+      if (element.classList.contains("call-to-action__button--primary")) {
+        element.setAttribute('value', '');
+        element.innerHTML = '';
+        element.classList.add('call-to-action__button--loader');
+       }
+    });
+  }
 
   domReady(function() {
     remNoJS();
@@ -148,6 +131,7 @@
     stickyHeader();
     loadMore();
     backTop();
+    loaderAnimation();
   });
 
 })();
