@@ -22,7 +22,6 @@
       {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
       {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}
     {% endif %}
-    {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
   </div>
 </div>

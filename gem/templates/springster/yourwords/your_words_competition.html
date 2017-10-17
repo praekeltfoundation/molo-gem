@@ -1,29 +1,25 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags staticfiles core_tags i18n %}
 {% block content %}
-<div class="yourwords">
+<div class="yourwords yourwords--call-to-action">
   <div class="identity-image identity-image--yourwords"></div>
   <div class="yourwords__container">
-  {% trans "Share your story" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+    {% trans "Share your story" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
 
-  {% trans "Hello" as headingtext %}
-  <a href="{% url 'molo.yourwords:competition_entry' self.slug %}">
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}</a>
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.title %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=self.title %}
 
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="p" title=self.description %}
-  {% if request.user.is_authenticated %}
-  <a href="{% url 'molo.yourwords:competition_entry' self.slug %}"class="call-to-action__nav-item call-to-action__nav-item--login">
-    {% trans "Enter" %}
-  </a>
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="p" title=self.description %}
 
-  {% else %}
-
-    {% url "molo.yourwords:competition_entry" competition.slug as link %}
-    {% trans "Log in to Enter" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
-  </a>
+    {% if request.user.is_authenticated %}
+      {% trans "Enter" as buttontext %}
+      {% url "molo.yourwords:competition_entry" self.slug as link %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+    {% else %}
+      {% trans "Log in to Enter" as buttontext %}
+      {% url "molo.profiles:auth_login" as link1 %}
+      {% url "molo.yourwords:competition_entry" self.slug as link2 %}
+      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}
   {% endif %}
   </div>
 </div>

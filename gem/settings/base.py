@@ -85,6 +85,8 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.wagtailsitemaps',
+    'wagtail_personalisation',
+    'wagtailfontawesome',
 
     'wagtailsurveys',
     'wagtail_personalisation',

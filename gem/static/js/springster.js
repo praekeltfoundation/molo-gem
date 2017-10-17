@@ -1,6 +1,6 @@
 
 (function() {
-  
+
   'use strict';
 
   var domReady = function(callback) {
@@ -15,7 +15,7 @@
   var hidePagination = function() {
     document.body.classList.add('toggle-hide');
   };
-  
+
   function getAjax(url, success) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     xhr.open('GET', url);
@@ -78,7 +78,7 @@
         moreLink.parentNode.insertBefore(wrapper, moreLink);
         wrapper.appendChild(moreLink);
         wrapper.setAttribute("id", "articles-more");
-        
+
         wrapper.addEventListener("click", function(event){
           var element = event.target;
           if (element.tagName == 'A' && element.classList.contains("more-link")) {
@@ -112,13 +112,26 @@
     };
   };
 
+  var loaderAnimation = function() {
+    var wrapper = document.getElementById("content-wrapper")
+    
+    wrapper.addEventListener("click", function(event){
+      var element = event.target;
+      if (element.classList.contains("call-to-action__button--primary")) {
+        element.setAttribute('value', '');
+        element.innerHTML = '';
+        element.classList.add('call-to-action__button--loader');
+       }
+    });
+  }
+
   domReady(function() {
     remNoJS();
     hidePagination();
     stickyHeader();
     loadMore();
     backTop();
+    loaderAnimation();
   });
 
 })();
-

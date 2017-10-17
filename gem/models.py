@@ -17,6 +17,8 @@ from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailcore import hooks
 
+from .rules import *  # noqa
+
 
 class GemUserProfile(models.Model):
     user = models.OneToOneField(

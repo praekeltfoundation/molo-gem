@@ -1,7 +1,7 @@
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags i18n personalise_extras %}
 {% block content %}
-{% if surveys %}
-	{% for survey in surveys %}
+{% filter_surveys_by_segments surveys request as filtered_surveys %}
+	{% for survey in filtered_surveys %}
 		{% with survey=survey.molo_survey_page form=survey.form %}
 			{% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submission %}
 			<div class="surveys surveys--call-to-action">
@@ -19,5 +19,4 @@
 			{% endif %}
 		{% endwith %}
 	{% endfor %}
-{% endif %}
 {% endblock %}
