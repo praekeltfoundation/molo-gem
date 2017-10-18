@@ -13,7 +13,7 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif request.get_full_path == '/' %}Our Stories. Our Music. Our Lives.{% else %}{{ self.subtitle }}{% endif %}" />
         <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% endif %}" />
-        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:card" content="summary_large_image"/>
         {% image self.social_media_image fill-400x300 as tmp_photo %}
         {% if self.image %}
           {% image self.image fill-400x300 as article_photo %}
