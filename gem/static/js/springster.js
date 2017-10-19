@@ -115,13 +115,13 @@
   var loaderAnimation = function() {
     var ctaBtn = document.querySelectorAll('.call-to-action__button--primary');
 
-    Array.from(ctaBtn).forEach(link => {
-        link.addEventListener('click', function() {
-          link.classList.add('call-to-action__button--loader')
-          link.setAttribute('value', '');
-          link.innerHTML = '';
-        });
-    });
+    for (var i = 0; i < ctaBtn.length; i++) {
+      ctaBtn[i].addEventListener('click', function() {
+        this.classList.add('call-to-action__button--loader')
+        this.setAttribute('value', '');
+        this.innerHTML = '';
+      });
+    }
   }
 
   domReady(function() {
