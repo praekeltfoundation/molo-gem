@@ -113,15 +113,14 @@
   };
 
   var loaderAnimation = function() {
-    var wrapper = document.getElementById("content-wrapper")
-    
-    wrapper.addEventListener("click", function(event){
-      var element = event.target;
-      if (element.classList.contains("call-to-action__button--primary")) {
-        element.setAttribute('value', '');
-        element.innerHTML = '';
-        element.classList.add('call-to-action__button--loader');
-       }
+    var ctaBtn = document.querySelectorAll('.call-to-action__button--primary');
+
+    Array.from(ctaBtn).forEach(link => {
+        link.addEventListener('click', function() {
+          link.classList.add('call-to-action__button--loader')
+          link.setAttribute('value', '');
+          link.innerHTML = '';
+        });
     });
   }
 
