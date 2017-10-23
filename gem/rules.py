@@ -50,7 +50,7 @@ class ProfileDataRule(AbstractBaseRule):
     Segmentation rule for wagtail-personalisation that evaluates data
     associated with user profile and related models.
     """
-    order = 0
+    order = 10
 
     LESS_THAN = 'lt'
     LESS_THAN_OR_EQUAL = 'lte'
