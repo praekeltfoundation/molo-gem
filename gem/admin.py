@@ -161,7 +161,7 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
 
 
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
-    list_display = ('id', '_date_of_birth', 'is_active', 'last_login', 'gender',)
+    list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
 
     def gender(self, obj):
