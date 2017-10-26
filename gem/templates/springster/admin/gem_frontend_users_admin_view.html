@@ -1,0 +1,15 @@
+{% extends 'admin/frontend_users_admin_view.html' %}
+{% load modeladmin_tags %}
+
+{% block header %}
+    <header class="nice-padding hasform">
+        <div class="row">
+            <div class="left">
+                <div class="col">
+                    {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
+                </div>
+                {% block search %}{% search_form %}{% endblock %}
+            </div>
+        </div>
+    </header>
+{% endblock %}
