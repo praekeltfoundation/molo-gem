@@ -18,7 +18,7 @@ from import_export.results import RowResult
 
 from molo.commenting.admin import MoloCommentAdmin
 from molo.commenting.models import MoloComment
-from molo.profiles.admin import FrontendUsersModelAdmin
+from molo.profiles.admin import FrontendUsersModelAdmin, FrontendUsersDateRangeFilter
 from molo.profiles.admin import ProfileUserAdmin
 from molo.profiles.admin_import_export import FrontendUsersResource
 from molo.profiles.admin_views import FrontendUsersAdminView
@@ -26,6 +26,8 @@ from molo.profiles.models import UserProfile
 
 from wagtail.contrib.modeladmin.views import IndexView
 from wagtail.wagtailcore.models import Site
+
+from .admin_forms import FrontEndAgeToDateOfBirthFilter
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -159,10 +161,22 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
     def get_template_names(self):
         return 'admin/gem_frontend_users_admin_view.html'
 
+    def lookup_allowed(self, lookup, value):
+        return (
+            super(GemFrontendUsersAdminView, self).lookup_allowed(lookup, value) or
+            # Bug in wagtail see for more information https://github.com/wagtail/wagtail/issues/3980
+            lookup.startswith('profile__date_of_birth')
+        )
+
 
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
     list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
+    list_filter = FrontendUsersModelAdmin.list_filter + (
+        'gem_profile__gender',
+        ('last_login', FrontendUsersDateRangeFilter),
+        ('profile__date_of_birth', FrontEndAgeToDateOfBirthFilter)
+    )
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
