@@ -182,7 +182,7 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
             group.users.add(*qs)
             return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
         messages.warning(request, _('Cannot create a group with no users.'))
-        return redirect(request.get_full_path())
+        return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
         context = super(GemFrontendUsersAdminView, self).get_context_data(**kwargs)
