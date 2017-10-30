@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
@@ -33,7 +34,7 @@ from wagtail.contrib.modeladmin.views import IndexView
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Site
 
-from .admin_forms import FrontEndAgeToDateOfBirthFilter
+from .admin_forms import FrontEndAgeToDateOfBirthFilter, UserListForm
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -169,6 +170,11 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
 
     def post(self, request, *args, **kwargs):
         qs = self.get_queryset(request)
+        form = UserListForm(qs, data=request.POST)
+        if form.is_valid() and form.cleaned_data:
+            ids = [user_id for user_id, checked in form.cleaned_data.items() if checked]
+            qs = qs.filter(id__in=ids)
+
         if qs.exists():
             group = SegmentUserGroup.objects.create(
                 name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
@@ -177,6 +183,11 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
             return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
         messages.warning(request, _('Cannot create a group with no users.'))
         return redirect(request.get_full_path())
+
+    def get_context_data(self, **kwargs):
+        context = super(GemFrontendUsersAdminView, self).get_context_data(**kwargs)
+        context['form'] = UserListForm(context['object_list'])
+        return context
 
     def lookup_allowed(self, lookup, value):
         return (
@@ -189,6 +200,7 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
     list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
+    index_view_extra_js = [static('js/modeladmin/index.js')]
     list_filter = FrontendUsersModelAdmin.list_filter + (
         'gem_profile__gender',
         ('last_login', FrontendUsersDateRangeFilter),

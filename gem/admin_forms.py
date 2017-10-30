@@ -9,6 +9,16 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 
 
+class UserListForm(forms.Form):
+    def __init__(self, qs, *args, **kwargs):
+        super(UserListForm, self).__init__(*args, **kwargs)
+        for obj in qs:
+            self.fields[str(obj.id)] = forms.BooleanField(
+                required=False,
+                widget=forms.CheckboxInput(attrs={'class': 'user'}),
+            )
+
+
 class FrontEndAgeToDateOfBirthFilter(FieldListFilter):
     template = 'admin/frontend_users_age_filter.html'
 
