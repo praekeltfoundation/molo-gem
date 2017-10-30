@@ -1,5 +1,5 @@
 {% extends 'admin/frontend_users_admin_view.html' %}
-{% load modeladmin_tags %}
+{% load i18n modeladmin_tags %}
 
 {% block header %}
     <header class="nice-padding hasform">
@@ -9,6 +9,12 @@
                     {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
                 </div>
                 {% block search %}{% search_form %}{% endblock %}
+            </div>
+            <div class="right">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button type="submit" class="button bicolor icon icon-group">{% trans "Create Segment Group From Users" %}</button>
+                </form>
             </div>
         </div>
     </header>

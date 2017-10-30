@@ -1,4 +1,5 @@
 import csv
+import datetime
 
 from django.contrib import admin
 from django.contrib.auth.models import User
@@ -6,6 +7,8 @@ from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.conf import settings
 from django.db.models import Q
+from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
 
 from gem.models import GemUserProfile, GemCommentReport
 from gem.tasks import send_export_email_gem
@@ -23,8 +26,11 @@ from molo.profiles.admin import ProfileUserAdmin
 from molo.profiles.admin_import_export import FrontendUsersResource
 from molo.profiles.admin_views import FrontendUsersAdminView
 from molo.profiles.models import UserProfile
+from molo.surveys.admin import SegmentUserGroupAdmin
+from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.views import IndexView
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Site
 
 from .admin_forms import FrontEndAgeToDateOfBirthFilter
@@ -160,6 +166,17 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
 
     def get_template_names(self):
         return 'admin/gem_frontend_users_admin_view.html'
+
+    def post(self, request, *args, **kwargs):
+        qs = self.get_queryset(request)
+        if qs.exists():
+            group = SegmentUserGroup.objects.create(
+                name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
+            )
+            group.users.add(*qs)
+            return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
+        messages.warning(request, _('Cannot create a group with no users.'))
+        return redirect(request.get_full_path())
 
     def lookup_allowed(self, lookup, value):
         return (
