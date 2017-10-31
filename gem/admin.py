@@ -1,11 +1,15 @@
 import csv
+import datetime
 
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Q
+from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
 
 from gem.models import GemUserProfile, GemCommentReport
 from gem.tasks import send_export_email_gem
@@ -18,40 +22,19 @@ from import_export.results import RowResult
 
 from molo.commenting.admin import MoloCommentAdmin
 from molo.commenting.models import MoloComment
-from molo.profiles.admin import FrontendUsersModelAdmin
+from molo.profiles.admin import FrontendUsersModelAdmin, FrontendUsersDateRangeFilter
 from molo.profiles.admin import ProfileUserAdmin
 from molo.profiles.admin_import_export import FrontendUsersResource
 from molo.profiles.admin_views import FrontendUsersAdminView
 from molo.profiles.models import UserProfile
+from molo.surveys.admin import SegmentUserGroupAdmin
+from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.views import IndexView
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Site
 
-
-def download_as_csv_gem(self, request, queryset):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment;filename=export.csv'
-    writer = csv.writer(response)
-    user_model_fields = (
-        'username', 'email', 'first_name',
-        'last_name', 'is_staff', 'date_joined')
-    profile_fields = ('alias', 'mobile_number', 'date_of_birth')
-    gem_profile_fields = ('gender',)
-    field_names = user_model_fields + profile_fields + gem_profile_fields
-    writer.writerow(field_names)
-    for obj in queryset:
-        if hasattr(obj, 'gem_profile'):
-            if obj.profile.alias:
-                obj.profile.alias = obj.profile.alias.encode('utf-8')
-            obj.username = obj.username.encode('utf-8')
-            obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
-            writer.writerow(
-                [getattr(obj, field) for field in user_model_fields] +
-                [getattr(obj.profile, field) for field in profile_fields] +
-                [getattr(
-                    obj.gem_profile, field) for field in gem_profile_fields])
-    return response
-download_as_csv_gem.short_description = "Download selected as csv gem"
+from .admin_forms import FrontEndAgeToDateOfBirthFilter, UserListForm
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -167,11 +150,11 @@ class GemMergedCMSUserResource(ModelResource):
         instance.gem_profile.save()
 
 
-class GemUserAdmin(ImportExportModelAdmin, ProfileUserAdmin):
+class GemUserAdmin(ProfileUserAdmin):
     resource_class = GemMergedCMSUserResource
     inlines = (GemUserProfileInlineModelAdmin, UserProfileInlineModelAdmin)
     list_display = ProfileUserAdmin.list_display + ('gem_gender',)
-    actions = ProfileUserAdmin.actions + [download_as_csv_gem]
+    actions = None
     list_filter = ('gem_profile__gender',)
 
     def gem_gender(self, obj):
@@ -180,12 +163,49 @@ class GemUserAdmin(ImportExportModelAdmin, ProfileUserAdmin):
 
 class GemFrontendUsersAdminView(FrontendUsersAdminView):
     def send_export_email_to_celery(self, email, arguments):
-        send_export_email_gem.delay(email, arguments)
+        pass
+
+    def get_template_names(self):
+        return 'admin/gem_frontend_users_admin_view.html'
+
+    def post(self, request, *args, **kwargs):
+        qs = self.get_queryset(request)
+        form = UserListForm(qs, data=request.POST)
+        if form.is_valid() and form.cleaned_data:
+            ids = [user_id for user_id, checked in form.cleaned_data.items() if checked]
+            qs = qs.filter(id__in=ids)
+
+        if qs.exists():
+            group = SegmentUserGroup.objects.create(
+                name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
+            )
+            group.users.add(*qs)
+            return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
+        messages.warning(request, _('Cannot create a group with no users.'))
+        return self.render_to_response(self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super(GemFrontendUsersAdminView, self).get_context_data(**kwargs)
+        context['form'] = UserListForm(context['object_list'])
+        return context
+
+    def lookup_allowed(self, lookup, value):
+        return (
+            super(GemFrontendUsersAdminView, self).lookup_allowed(lookup, value) or
+            # Bug in wagtail see for more information https://github.com/wagtail/wagtail/issues/3980
+            lookup.startswith('profile__date_of_birth')
+        )
 
 
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
-    list_display = FrontendUsersModelAdmin.list_display + ('gender',)
+    list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
+    index_view_extra_js = [static('js/modeladmin/index.js')]
+    list_filter = FrontendUsersModelAdmin.list_filter + (
+        'gem_profile__gender',
+        ('last_login', FrontendUsersDateRangeFilter),
+        ('profile__date_of_birth', FrontEndAgeToDateOfBirthFilter)
+    )
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
