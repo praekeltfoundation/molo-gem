@@ -27,11 +27,11 @@
                 <h4 class="title">{{media.title}}</h4>
                 <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
                 <h4>{% trans "Media will be played externally in a new window" %}</h4>
-              </div> 
+              </div>
             {% else %}
               <div class="media-player__embed-object">
                 {% embed media.youtube_link %}
-              </div> 
+              </div>
               <a href="{{media.file.ur}}" class="btn" download>
                 <span class="call-to-action__button button">{% trans "Download Video" %}</span>
               </a>
@@ -47,7 +47,7 @@
                   <source src={{block.value.file.url}} type="video/mp4">
                   Your browser does not support the video tag.
               </video>
-              <a href="{{block.value.file.url}}" class="btn" download>
+              <a href="{{block.value.file.url}}" onclick=”var that=this;_gaq.push([‘_trackEvent’,’Download’,’Video’,this.href]);setTimeout(function(){location.href=that.href;},200);return false;” class="btn" download>
                 <span class="call-to-action__button button">{% trans "Download Video" %}</span>
               </a>
             </div>
