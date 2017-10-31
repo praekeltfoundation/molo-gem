@@ -12,7 +12,7 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, FieldRowPanel, PageChooserPanel
 
 from wagtail_personalisation.rules import AbstractBaseRule
 
@@ -316,3 +316,56 @@ class ProfileDataRule(AbstractBaseRule):
         raise NotImplementedError('Operator "{}" not implemented on {}.'
                                   'test_user.'.format(self.operator,
                                                       type(self).__name__))
+
+
+class CommentCountRule(AbstractBaseRule):
+    EQUALS = 'eq'
+    GREATER_THAN = 'gt'
+    LESS_THAN = 'lt'
+
+    OPERATORS = {
+        EQUALS: lambda a, b: a == b,
+        GREATER_THAN: lambda a, b: a > b,
+        LESS_THAN: lambda a, b: a < b,
+    }
+
+    OPERATOR_CHOICES = (
+        (EQUALS, _('equals')),
+        (GREATER_THAN, _('greater than')),
+        (LESS_THAN, _('less than')),
+    )
+
+    operator = models.CharField(
+        _('operator'), max_length=3,
+        choices=OPERATOR_CHOICES, default=EQUALS,
+    )
+    count = models.IntegerField()
+
+    panels = [
+        FieldRowPanel(
+            [
+                FieldPanel('operator'),
+                FieldPanel('count'),
+            ]
+        ),
+    ]
+
+    class Meta:
+        verbose_name = _('Comment count rule')
+
+    def test_user(self, request):
+        if not request.user.is_authenticated():
+            return False
+
+        operator = self.OPERATORS[self.operator]
+        comments = request.user.comment_comments.filter(is_removed=False).count()
+        return operator(comments, self.count)
+
+    def description(self):
+        return {
+            'title': _('These users commented'),
+            'value': _('{} {} times').format(
+                self.get_operator_display(),
+                self.count
+            ),
+        }
