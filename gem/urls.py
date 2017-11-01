@@ -5,18 +5,36 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.api.v2.router import WagtailAPIRouter
+from wagtail.utils.urlpatterns import decorate_urlpatterns
+from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint
 
 from molo.core.views import ReactionQuestionChoiceView
+from molo.core.api.endpoints import (
+    MoloImagesAPIEndpoint,
+    MoloPagesEndpoint,
+    LanguagesAPIEndpoint,
+)
+from molo.surveys.api.endpoints import SegmentAPIEndpoint
 
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
     AlreadyReportedCommentView
+
+# configure the endpoints for the URL
+api_router = WagtailAPIRouter("wagtailapi_v2")
+api_router.register_endpoint("images", MoloImagesAPIEndpoint)
+api_router.register_endpoint("pages", MoloPagesEndpoint)
+api_router.register_endpoint("documents", DocumentsAPIEndpoint)
+api_router.register_endpoint("languages", LanguagesAPIEndpoint)
+api_router.register_endpoint("segments", SegmentAPIEndpoint)
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -112,7 +130,12 @@ urlpatterns += patterns(
     url(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
         '(?P<question_id>\d+)/vote/$',
         ReactionQuestionChoiceView.as_view(),
-        name='reaction-vote'),
+        name='reaction-vote'
+    ),
+    url(r'^api/v2/', include(
+        decorate_urlpatterns(api_router.get_urlpatterns(), never_cache),
+        namespace=api_router.url_namespace
+    )),
     url(r'', include(wagtail_urls)),
 )
 
