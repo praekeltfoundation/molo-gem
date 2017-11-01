@@ -47,7 +47,7 @@
                   <source src={{block.value.file.url}} type="video/mp4">
                   Your browser does not support the video tag.
               </video>
-              <a href="{{block.value.file.url}}" onclick="ga('send', 'event', '3GP', 'Download', 'Video Download');" class="btn" download>
+              <a href="{{block.value.file.url}}" onclick="ga('send', 'event', '{{block.value.file.ext}}', 'Download', '{{block.value.title}}');" class="btn" download>
                 <span class="call-to-action__button button">{% trans "Download Video" %}</span>
               </a>
             </div>
@@ -61,7 +61,7 @@
                 type="audio/mpeg">Click here to download
                 <a href={{block.value.file.url}}>{{block.value.title}}</a>
               </audio>
-              <a href="{{block.value.file.url}}" class="btn" download>
+              <a href="{{block.value.file.url}}" onclick="ga('send', 'event', '{{block.value.file.ext}}', 'Download', '{{block.value.title}}');" class="btn" download>
                 <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
               </a>
             </div>
