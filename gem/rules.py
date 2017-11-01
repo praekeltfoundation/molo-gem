@@ -328,16 +328,16 @@ class CommentCountRule(AbstractBaseRule):
     }
 
     OPERATOR_CHOICES = (
-        (EQUALS, _('equals')),
         (GREATER_THAN, _('greater than')),
         (LESS_THAN, _('less than')),
+        (EQUALS, _('equals')),
     )
 
     operator = models.CharField(
         _('operator'), max_length=3,
-        choices=OPERATOR_CHOICES, default=EQUALS,
+        choices=OPERATOR_CHOICES, default=GREATER_THAN,
     )
-    count = models.IntegerField()
+    count = models.PositiveSmallIntegerField()
 
     panels = [
         FieldRowPanel(
