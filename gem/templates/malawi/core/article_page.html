@@ -47,7 +47,7 @@
                   <source src={{block.value.file.url}} type="video/mp4">
                   Your browser does not support the video tag.
               </video>
-              <a href="{{block.value.file.url}}" onclick="var that=this;_gaq.push(['_trackEvent','Download','3GP',this.href]);setTimeout(function(){location.href=that.href;},200);return false;" class="btn" download>
+              <a href="{{block.value.file.url}}" onclick="ga('send', 'event', '3GP', 'Download', 'Video Download');" class="btn" download>
                 <span class="call-to-action__button button">{% trans "Download Video" %}</span>
               </a>
             </div>
