@@ -14,7 +14,10 @@
                 <form method="post" action="">
                     {% csrf_token %}
                     {{ form }}
-                    <button type="submit" class="button bicolor icon icon-group">{% trans "Create Segment Group From Users" %}</button>
+                    <button type="submit" class="button bicolor icon icon-group" name="group">{% trans "Create Segment Group From Users" %}</button>
+                    {% if user.is_superuser %}
+                    <button type="submit" class="button bicolor icon icon-download" name="email">{% trans "Email CSV" %}</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
