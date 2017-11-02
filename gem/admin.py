@@ -31,6 +31,7 @@ from molo.surveys.admin import SegmentUserGroupAdmin
 from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.views import IndexView
+from wagtail.contrib.modeladmin.helpers import PermissionHelper
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Site
 
@@ -197,7 +198,14 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
         )
 
 
+class SegementUserPermissionHelper(PermissionHelper):
+    def __init__(self, model, inspect_view_enabled=False):
+        model = SegmentUserGroup
+        super(SegementUserPermissionHelper, self).__init__(model, inspect_view_enabled)
+
+
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
+    permission_helper_class = SegementUserPermissionHelper
     list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
     index_view_extra_js = [static('js/modeladmin/index.js')]
