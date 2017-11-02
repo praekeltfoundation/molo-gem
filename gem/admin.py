@@ -200,9 +200,10 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
             return super(GemFrontendUsersAdminView, self).post(request, *args, **kwargs)
         qs = self.get_queryset(request)
         form = UserListForm(qs, data=request.POST)
-        if form.is_valid() and form.cleaned_data:
+        if form.is_valid():
             ids = [user_id for user_id, checked in form.cleaned_data.items() if checked]
-            qs = qs.filter(id__in=ids)
+            if ids:
+                qs = qs.filter(id__in=ids)
 
         if qs.exists():
             group = SegmentUserGroup.objects.create(
