@@ -1,6 +1,7 @@
 import csv
 import datetime
 
+from daterange_filter.filter import DateRangeFilter
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -14,7 +15,6 @@ from django.utils.translation import ugettext_lazy as _
 from gem.models import GemUserProfile, GemCommentReport
 from gem.tasks import send_export_email_gem
 
-from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 from import_export.widgets import DateTimeWidget, DateWidget, ForeignKeyWidget
 from import_export.resources import ModelResource, Diff
@@ -42,10 +42,8 @@ def download_as_csv_gem(self, request, queryset):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment;filename=export.csv'
     writer = csv.writer(response)
-    user_model_fields = (
-        'username', 'email', 'first_name',
-        'last_name', 'is_staff', 'date_joined')
-    profile_fields = ('alias', 'mobile_number', 'date_of_birth')
+    user_model_fields = ('id', 'username', 'is_active', 'last_login')
+    profile_fields = ('date_of_birth',)
     gem_profile_fields = ('gender',)
     field_names = user_model_fields + profile_fields + gem_profile_fields
     writer.writerow(field_names)
@@ -177,12 +175,20 @@ class GemMergedCMSUserResource(ModelResource):
         instance.gem_profile.save()
 
 
-class GemUserAdmin(ImportExportModelAdmin, ProfileUserAdmin):
+# Remove the non gem user export
+ProfileUserAdmin.actions = []
+
+
+class GemUserAdmin(ProfileUserAdmin):
     resource_class = GemMergedCMSUserResource
     inlines = (GemUserProfileInlineModelAdmin, UserProfileInlineModelAdmin)
-    list_display = ProfileUserAdmin.list_display + ('gem_gender',)
-    actions = ProfileUserAdmin.actions + [download_as_csv_gem]
-    list_filter = ('gem_profile__gender',)
+    list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gem_gender',)
+    actions = [download_as_csv_gem]
+    list_filter = (
+        'gem_profile__gender',
+        ('last_login', DateRangeFilter),
+        ('profile__date_of_birth', FrontEndAgeToDateOfBirthFilter)
+    )
 
     def gem_gender(self, obj):
         return obj.gem_profile.get_gender_display()
