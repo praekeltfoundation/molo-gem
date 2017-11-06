@@ -212,7 +212,7 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
         if 'email' in request.POST:
             self.send_export_email_to_celery(
                 request.user.email,
-                {'id__in': qs.values('id')},
+                {'id__in': list(qs.values_list('id', flat=True))},
             )
             messages.success(request, _(
                 "CSV emailed to '{0}'").format(request.user.email))
