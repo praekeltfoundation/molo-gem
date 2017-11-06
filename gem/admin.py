@@ -202,8 +202,6 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
         return 'admin/gem_frontend_users_admin_view.html'
 
     def post(self, request, *args, **kwargs):
-        if 'email' in request.POST:
-            return super(GemFrontendUsersAdminView, self).post(request, *args, **kwargs)
         qs = self.get_queryset(request)
         form = UserListForm(qs, data=request.POST)
         if form.is_valid():
@@ -211,13 +209,22 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
             if ids:
                 qs = qs.filter(id__in=ids)
 
-        if qs.exists():
-            group = SegmentUserGroup.objects.create(
-                name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
+        if 'email' in request.POST:
+            self.send_export_email_to_celery(
+                request.user.email,
+                {'id__in': qs.values('id')},
             )
-            group.users.add(*qs)
-            return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
-        messages.warning(request, _('Cannot create a group with no users.'))
+            messages.success(request, _(
+                "CSV emailed to '{0}'").format(request.user.email))
+            return redirect(request.path)
+        else:
+            if qs.exists():
+                group = SegmentUserGroup.objects.create(
+                    name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
+                )
+                group.users.add(*qs)
+                return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
+            messages.warning(request, _('Cannot create a group with no users.'))
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
