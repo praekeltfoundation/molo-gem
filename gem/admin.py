@@ -83,7 +83,7 @@ class GemCommentReportModelAdmin(admin.StackedInline):
 class GemFrontendUsersResource(FrontendUsersResource):
         gender = Field()
 
-        class Meta:
+        class Meta(FrontendUsersResource.Meta):
             fields = ('id', 'username', 'date_of_birth',
                       'is_active', 'last_login', 'gender')
 
