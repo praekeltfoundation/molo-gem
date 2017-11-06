@@ -80,21 +80,26 @@ class GemCommentReportModelAdmin(admin.StackedInline):
     readonly_fields = ["user", "reported_reason", ]
 
 
-class GemFrontendUsersResource(FrontendUsersResource):
-        gender = Field()
+class GemFrontendUsersResource(ModelResource):
+    gender = Field()
+    date_of_birth = Field()
 
-        class Meta(FrontendUsersResource.Meta):
-            fields = ('id', 'username', 'date_of_birth',
-                      'is_active', 'last_login', 'gender')
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'date_of_birth',
+                  'is_active', 'last_login', 'gender')
 
-            export_order = ('id', 'username', 'date_of_birth',
-                            'is_active', 'last_login', 'gender')
+        export_order = ('id', 'username', 'date_of_birth',
+                        'is_active', 'last_login', 'gender')
 
-        def dehydrate_gender(self, user):
-            if hasattr(user, 'gem_profile'):
-                return user.gem_profile.get_gender_display() if hasattr(
-                    user, 'gem_profile') else ''
-            return None
+    def dehydrate_gender(self, user):
+        if hasattr(user, 'gem_profile'):
+            return user.gem_profile.get_gender_display() if hasattr(
+                user, 'gem_profile') else ''
+        return None
+
+    def dehydrate_date_of_birth(self, user):
+        return user.profile.date_of_birth if hasattr(user, 'profile') else ''
 
 
 class TzDateTimeWidget(DateTimeWidget):
