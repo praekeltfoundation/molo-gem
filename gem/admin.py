@@ -84,8 +84,11 @@ class GemFrontendUsersResource(FrontendUsersResource):
         gender = Field()
 
         class Meta:
-            export_order = FrontendUsersResource.Meta.export_order + (
-                'gender',)
+            fields = ('id', 'username', 'date_of_birth',
+                      'is_active', 'last_login', 'gender')
+
+            export_order = ('id', 'username', 'date_of_birth',
+                            'is_active', 'last_login', 'gender')
 
         def dehydrate_gender(self, user):
             if hasattr(user, 'gem_profile'):
