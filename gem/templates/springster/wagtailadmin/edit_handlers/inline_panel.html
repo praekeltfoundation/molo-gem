@@ -113,6 +113,14 @@
         </p>
     {% endif %}
 
+    {% if self.formset.prefix == 'surveys_articletagrule_related' %}
+        <p>
+            {% blocktrans %}
+            This rule allows you to segment users that visited a certain number of unique articles with a specific tag during a specified time period, e.g. you can segment users who visited more than 3 articles with the “health” tag between January and March this year.
+{% endblocktrans %}
+        </p>
+    {% endif %}
+
     {% if self.formset.prefix == 'commenting_commentdatarule_related' %}
         <p>
             {% blocktrans %}
