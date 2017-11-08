@@ -16,21 +16,21 @@ from gem.models import GemUserProfile, GemCommentReport
 from gem.tasks import send_export_email_gem
 
 from import_export.fields import Field
-from import_export.widgets import DateTimeWidget, DateWidget, ForeignKeyWidget
-from import_export.resources import ModelResource, Diff
+from import_export.widgets import DateTimeWidget, DateWidget
+from import_export.resources import ModelResource
 from import_export.results import RowResult
 
 from molo.commenting.admin import MoloCommentAdmin
 from molo.commenting.models import MoloComment
-from molo.profiles.admin import FrontendUsersModelAdmin, FrontendUsersDateRangeFilter
+from molo.profiles.admin import (
+    FrontendUsersModelAdmin,
+    FrontendUsersDateRangeFilter,
+)
 from molo.profiles.admin import ProfileUserAdmin
-from molo.profiles.admin_import_export import FrontendUsersResource
 from molo.profiles.admin_views import FrontendUsersAdminView
 from molo.profiles.models import UserProfile
-from molo.surveys.admin import SegmentUserGroupAdmin
 from molo.surveys.models import SegmentUserGroup
 
-from wagtail.contrib.modeladmin.views import IndexView
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailcore.models import Site
@@ -190,7 +190,8 @@ ProfileUserAdmin.actions = []
 class GemUserAdmin(ProfileUserAdmin):
     resource_class = GemMergedCMSUserResource
     inlines = (GemUserProfileInlineModelAdmin, UserProfileInlineModelAdmin)
-    list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gem_gender',)
+    list_display = ('id', 'username', '_date_of_birth', 'is_active',
+                    'last_login', 'gem_gender',)
     actions = [download_as_csv_gem]
     list_filter = (
         'gem_profile__gender',
@@ -213,7 +214,10 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
         qs = self.get_queryset(request)
         form = UserListForm(qs, data=request.POST)
         if form.is_valid():
-            ids = [user_id for user_id, checked in form.cleaned_data.items() if checked]
+            ids = [
+                user_id for user_id, checked in form.cleaned_data.items()
+                if checked
+            ]
             if ids:
                 qs = qs.filter(id__in=ids)
 
@@ -228,22 +232,32 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
         else:
             if qs.exists():
                 group = SegmentUserGroup.objects.create(
-                    name='{} group: {}'.format(request.user.username, datetime.datetime.now()),
+                    name='{} group: {}'.format(
+                        request.user.username, datetime.datetime.now()
+                    ),
                 )
                 group.users.add(*qs)
-                return redirect('surveys_segmentusergroup_modeladmin_edit', instance_pk=group.id)
-            messages.warning(request, _('Cannot create a group with no users.'))
+                return redirect(
+                    'surveys_segmentusergroup_modeladmin_edit',
+                    instance_pk=group.id,
+                )
+            messages.warning(
+                request, _('Cannot create a group with no users.')
+            )
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
-        context = super(GemFrontendUsersAdminView, self).get_context_data(**kwargs)
+        context = super(GemFrontendUsersAdminView, self).get_context_data(
+            **kwargs
+        )
         context['form'] = UserListForm(context['object_list'])
         return context
 
     def lookup_allowed(self, lookup, value):
         return (
-            super(GemFrontendUsersAdminView, self).lookup_allowed(lookup, value) or
-            # Bug in wagtail see for more information https://github.com/wagtail/wagtail/issues/3980
+            super(GemFrontendUsersAdminView, self).lookup_allowed(lookup, value) or  # noqa
+            # Bug in wagtail see for more information
+            # https://github.com/wagtail/wagtail/issues/3980
             lookup.startswith('profile__date_of_birth')
         )
 
@@ -251,12 +265,15 @@ class GemFrontendUsersAdminView(FrontendUsersAdminView):
 class SegementUserPermissionHelper(PermissionHelper):
     def __init__(self, model, inspect_view_enabled=False):
         model = SegmentUserGroup
-        super(SegementUserPermissionHelper, self).__init__(model, inspect_view_enabled)
+        super(SegementUserPermissionHelper, self).__init__(
+            model, inspect_view_enabled
+        )
 
 
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
     permission_helper_class = SegementUserPermissionHelper
-    list_display = ('id', 'username', '_date_of_birth', 'is_active', 'last_login', 'gender',)
+    list_display = ('id', 'username', '_date_of_birth', 'is_active',
+                    'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
     index_view_extra_js = [static('js/modeladmin/index.js')]
     list_filter = FrontendUsersModelAdmin.list_filter + (

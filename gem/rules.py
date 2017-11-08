@@ -12,7 +12,11 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, FieldRowPanel, PageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel,
+    FieldRowPanel,
+    PageChooserPanel,
+)
 
 from wagtail_personalisation.rules import AbstractBaseRule
 
@@ -358,7 +362,9 @@ class CommentCountRule(AbstractBaseRule):
             return False
 
         operator = self.OPERATORS[self.operator]
-        comments = request.user.comment_comments.filter(is_removed=False).count()
+        comments = request.user.comment_comments.filter(
+            is_removed=False,
+        ).count()
         return operator(comments, self.count)
 
     def description(self):

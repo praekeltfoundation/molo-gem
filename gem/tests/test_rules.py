@@ -252,12 +252,16 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.assertFalse(rule.test_user(self.request))
 
     def test_user_passes_gt(self):
-        rule = CommentCountRule(count=1, operator=CommentCountRule.GREATER_THAN)
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
         self.add_comment(self.request.user, self.article)
         self.add_comment(self.request.user, self.article)
         self.assertTrue(rule.test_user(self.request))
 
     def test_user_fails_gt(self):
-        rule = CommentCountRule(count=1, operator=CommentCountRule.GREATER_THAN)
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
