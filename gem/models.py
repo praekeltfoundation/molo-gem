@@ -80,6 +80,7 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
         profile = GemUserProfile(user=instance)
         profile.save()
 
+
 @register_setting
 class GemSettings(BaseSetting):
     banned_keywords_and_patterns = models.TextField(
