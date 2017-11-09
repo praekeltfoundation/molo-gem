@@ -68,5 +68,5 @@ gulp.task('watch', function() {
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
+gulp.task('styles', ['styles:dev', 'styles:prd']);
 gulp.task('default', ['styles', 'compress', 'watch']);
