@@ -1,4 +1,6 @@
 (function($) {
+    console.log("modeladmin/index.js");
+
     $(function() {
         var userCheckboxes = $('input:checkbox.user');
         userCheckboxes.each( function(i, element) {
