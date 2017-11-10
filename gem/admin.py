@@ -275,7 +275,7 @@ class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
     list_display = ('id', 'username', '_date_of_birth', 'is_active',
                     'last_login', 'gender',)
     index_view_class = GemFrontendUsersAdminView
-    # index_view_extra_js = [static('js/modeladmin/index.js')]
+    index_view_extra_js = [static('js/modeladmin/index.js')]
     list_filter = FrontendUsersModelAdmin.list_filter + (
         'gem_profile__gender',
         ('last_login', FrontendUsersDateRangeFilter),
