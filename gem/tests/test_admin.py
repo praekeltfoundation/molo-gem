@@ -61,11 +61,8 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         self.assertEquals(
             message.attachments[0],
             ('Molo_export_GEM.csv',
-             'username,alias,first_name,last_name,date_of_birth,email,mobile_'
-             'number,is_active,date_joined,last_login,gender\r\ntester,,,,,t'
-             'ester@example.com,,1,' + str(
-                 self.user.date_joined.strftime("%Y-%m-%d %H:%M:%S")) +
-             ',,\r\n',
+             'id,username,date_of_birth,is_active,last_login,gender\r\n'
+             '1,tester,,1,,\r\n',
              'text/csv'))
 
     def test_export_csv_no_gem_profile(self):
