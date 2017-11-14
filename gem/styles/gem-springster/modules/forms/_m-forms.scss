@@ -16,18 +16,6 @@ textarea {
   margin: 0 8px;
   display: block;
 }
-label, .checkbox__legend {
-  font-size: $font-medium;
-  padding: 10px 0 0;
-  color: $gunmetal;
-  text-transform: capitalize;
-  display: initial;
-  text-align: center;
-}
-.checkbox__label {
-  display: block;
-  text-transform: capitalize;;
-}
 .required-asterisk {
   color: #909497;
   font-size: 13px;
@@ -92,6 +80,21 @@ input[type="submit"] {
     border: 1px solid red;
   }
 }
+
+label, .checkbox__legend {
+  font-size: $font-medium;
+  padding: 10px 0 0;
+  color: $gunmetal;
+  text-transform: capitalize;
+  display: initial;
+  text-align: center;
+}
+
+.checkbox__label {
+  display: block;
+  text-transform: capitalize;;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -141,6 +144,17 @@ input[type="radio"]  {
   display: block;
 }
 .input-group {
+    ul {
+        padding: 0;
+        margin: 0;
+        li {
+            display: block;
+            position: relative;
+            label {
+                text-align: left;
+            }
+        }
+    }
   &.input-error{
     input, textarea {
       border-color: $bright-orange;

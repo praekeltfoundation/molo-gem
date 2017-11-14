@@ -1,30 +1,48 @@
-label, .checkbox__legend {
+.checkbox__legend,
+label {
   display: block;
 }
+
 fieldset {
   padding: 0 10px;
-  input[type=radio] + label,
-  input[type=checkbox] + label {
+  input[type=radio] + label {
     background: #fff url('/static/img/icons/select@2x.png') 16px 50%/24px no-repeat;
     opacity: 0.8;
   }
-  input[type=radio]:checked + label,
-  input[type=checkbox]:checked + label {
+  input[type=radio]:checked + label {
     background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
   }
-  ul li label {
-        background: #fff;
-        opacity: 0.8;
-        padding: 10px 10px 13px 10px;
-        margin: 0 0 10px;
-        display: block;
-        input[type=radio],
-        input[type=checkbox] {
-          margin: 0 15px 0 12px;
-        }
+  input[type=checkbox] {
+    margin: 0 15px 0 12px;
+    visibility: hidden;
+    position: absolute;
+  }
+  input[type=checkbox]:checked + label:before {
+      background: $springster-purple url('/static/img/icons/check-box.png') 0 50%/24px no-repeat;;
+      opacity: 1;
+  }
+
+  input[type=checkbox] ~ label {
+      background: #fff;
+      padding: 10px 10px 13px 10px;
+      margin: 0 0 10px;
+      cursor: pointer;
+      position: relative;
+      &:before {
+          content: "";
+          background: #fff;
+          border: 2px solid $springster-purple;
+          opacity: 0.8;
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          vertical-align: middle;
+          margin: 0 10px 0 0;
+      }
   }
 }
+
 .profiles__form,
 .comments__form,
 .surveys__form,
@@ -55,6 +73,7 @@ fieldset {
     visibility: hidden;
   }
 }
+
 .yourwords__form {
   .choice {
     background-color: #fff;

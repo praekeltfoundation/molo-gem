@@ -80,16 +80,16 @@
   </fieldset>
   <fieldset>
     <div class="terms-and-conditions">
-      <label for="id_terms_and_conditions">
         {{ form.terms_and_conditions }}
         {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-          <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
-            {% trans "I accept the terms and conditions" %}
-          </a>
+            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
+                {% trans "I accept the terms and conditions" %}
+            </a>
         {% else %}
-          {% trans "I accept the terms and conditions" %}
+            <label for="id_terms_and_conditions">
+                {% trans "I accept the terms and conditions" %}
+            </label>
         {% endif %}
-      </label>
     </div>
     {% if form.terms_and_conditions.errors %}
       <p class="errors">
