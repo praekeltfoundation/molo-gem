@@ -17,4 +17,3 @@ class Command(BaseCommand):
             new_comment = old_comment.replace(string, "")
             comment.comment = new_comment
             comment.save()
-
