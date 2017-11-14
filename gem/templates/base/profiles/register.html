@@ -14,7 +14,11 @@
         </p>
         <form method="post" action="{% url 'molo.profiles:user_register' %}">
         {% csrf_token %}
-
+        {% if form.errors %}
+          <p class="alert-error">
+            {% trans "Please correct the indicated errors." %}
+          </p>
+        {% endif %}
         <fieldset>
           <label>{% trans "Choose a username" %}</label>
           <p class="helptext">
@@ -40,8 +44,8 @@
         <fieldset>
           {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
             <label>{% trans "Enter your mobile number" %}</label>
-            {{ from.errors }}
             {{ form.mobile_number }}
+            {{ form.mobile_number.errors }}
           {% endif %}
         </fieldset>
 
