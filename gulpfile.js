@@ -51,15 +51,6 @@ gulp.task('styles:dev', function() {
   return styles('dev');
 });
 
-//Wagtail Admin CSS override - must be on root static
-gulp.task('stylesAdmin', function() {
-  gulp.src('gem/styles/wagtail-admin.scss')
-      .pipe(sass().on('error', sass.logError))
-      .pipe(cleanCSSMinify())
-      .pipe(gulp.dest('gem/static/css/'))
-      .pipe(notify({ message: 'Styles task complete: Wagtail Admin' }));
-});
-
 // Minify JS
 gulp.task('compress', function() {
   gulp.src('gem/static/js/springster.js')
@@ -77,5 +68,5 @@ gulp.task('watch', function() {
     gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd','stylesAdmin']);
+gulp.task('styles', ['styles:dev', 'styles:prd']);
 gulp.task('default', ['styles', 'compress', 'watch']);

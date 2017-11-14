@@ -18,7 +18,7 @@
                 Your browser does not support the video tag.
             </video>
             {% trans "Download Video" as buttontext %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" tracktitle=block.value.title tracktype="Video"  %}
           </div>
         </div>
       {% endif %}
@@ -30,7 +30,7 @@
               <source src={{block.value.file.url}} type="audio/mpeg">
             </audio>
             {% trans "Download Audio" as buttontext %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" tracktitle=block.value.title tracktype="Audio" %}
           </div>
         </div>
       {% endif %}

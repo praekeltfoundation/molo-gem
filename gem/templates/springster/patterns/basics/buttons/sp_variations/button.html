@@ -1,5 +1,9 @@
 {% if hyperlink %}
-  <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}"{{attribute}}>
+  {% if tracktitle %}
+    <a href="{{hyperlink}}" onclick="ga('send', 'event', 'Video', 'Download', '{{tracktitle}}');" class="call-to-action__button call-to-action__button--{{type}}"{{attribute}}>
+  {% else %}
+    <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}"{{attribute}}>
+  {% endif %}
     <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
   </a>
 {% endif %}
