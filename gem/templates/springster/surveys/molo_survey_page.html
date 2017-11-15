@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags core_tags molo_survey_tags i18n %}
+{% load wagtailcore_tags core_tags gem_tags i18n %}
 {% block content %}
 <div class="surveys surveys--call-to-action">
   <div class="identity-image identity-image--survey"></div>
@@ -20,20 +20,21 @@
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <p class="helptext">{{ field.help_text }}</p>
-        {% if field|is_multiple_choice_field %}
+        {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
-            <div class="choice-group">
-                <input id="id_field_{{ forloop.counter0 }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
-                <label for="id_field_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
+                <div class="choice-group">
+                    <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
+                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text }}</label>
+                </div>
+                {#id_field_{{ forloop.counter0 }}#}
             {% endfor %}
-        {% elif field.field.choices %}
-            {% for choice in field.field.choices %}
-            <div class="choice-group choice-group__radio">
-                <input name='{{ field.name }}'
-                 id='{{ field.auto_id }}_{{ forloop.counter0 }}' type='radio' value='{{ choice.0 }}'/>
-                 <label for='{{ field.auto_id }}_{{ forloop.counter0 }}'>{{ choice.1 }}</label>
-            </div>
+        {% elif field|fieldtype == 'RadioSelect' %}
+            {% for value, text in field.field.choices %}
+                <div class="choice-group choice-group__radio">
+                    <input name='{{ field.name }}'
+                     id='value-{{ field.id_for_label }}-{{ forloop.counter }}' type='radio' value='{{ value }}'/>
+                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text }}</label>
+                </div>
             {% endfor %}
         {% else %}
             {{field}}
