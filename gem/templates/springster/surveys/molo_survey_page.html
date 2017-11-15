@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags core_tags molo_survey_tags i18n %}
 {% block content %}
 <div class="surveys surveys--call-to-action">
   <div class="identity-image identity-image--survey"></div>
@@ -20,7 +20,18 @@
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <p class="helptext">{{ field.help_text }}</p>
-            {{field}}        
+
+        {% if field|is_multiple_choice_field %}
+            <!-- Ideal outcome -->
+            {% for choice in field.field.choices %}
+                <input type="checkbox" name="choice" value="" />
+                <label for="">{{ choice.label }}</label>
+            {% endfor %}
+
+        {% else %}
+            {{field}}
+        {% endif %}
+
         {% if field.errors %}
           <ul class="error-list errorlist">
           {% for error in field.errors %}
