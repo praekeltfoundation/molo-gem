@@ -20,14 +20,21 @@
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <p class="helptext">{{ field.help_text }}</p>
-
         {% if field|is_multiple_choice_field %}
-            <!-- Ideal outcome -->
-            {% for choice in field.field.choices %}
-                <input type="checkbox" name="choice" value="" />
-                <label for="">{{ choice.label }}</label>
+            {% for value, text in field.field.choices %}
+            <div class="choice-group">
+                <input id="id_field_{{ forloop.counter0 }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
+                <label for="id_field_{{ forloop.counter0 }}">{{ text }}</label>
+            </div>
             {% endfor %}
-
+        {% elif field.field.choices %}
+            {% for choice in field.field.choices %}
+            <div class="choice-group choice-group__radio">
+                <input name='{{ field.name }}'
+                 id='{{ field.auto_id }}_{{ forloop.counter0 }}' type='radio' value='{{ choice.0 }}'/>
+                 <label for='{{ field.auto_id }}_{{ forloop.counter0 }}'>{{ choice.1 }}</label>
+            </div>
+            {% endfor %}
         {% else %}
             {{field}}
         {% endif %}
