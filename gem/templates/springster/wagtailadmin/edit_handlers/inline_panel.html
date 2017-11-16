@@ -95,6 +95,15 @@
         </dl>
     {% endif %}
 
+    {% if self.formset.prefix == 'gem_commentcountrule_related' %}
+        <p>
+            {% blocktrans %}
+            This rule allows you to segment users who have submitted a certain number of
+            comments in total (not article-specific) on the site.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
     {% if self.formset.prefix == 'surveys_surveysubmissiondatarule_related' %}
         <p>
             {% blocktrans %}
@@ -120,7 +129,6 @@
 {% endblocktrans %}
         </p>
     {% endif %}
-
 
     {% if self.formset.prefix == 'commenting_commentdatarule_related' %}
         <p>

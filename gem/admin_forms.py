@@ -26,7 +26,9 @@ class FrontEndAgeToDateOfBirthFilter(FieldListFilter):
         self.lookup_kwarg_gte = '{}__gte'.format('age')
         self.lookup_kwarg_lte = '{}__lte'.format('age')
 
-        super(FrontEndAgeToDateOfBirthFilter, self).__init__(field, request, params, model, model_admin, field_path)
+        super(FrontEndAgeToDateOfBirthFilter, self).__init__(
+            field, request, params, model, model_admin, field_path
+        )
 
         self.title = _('Age')
 
@@ -56,16 +58,17 @@ class FrontEndAgeToDateOfBirthFilter(FieldListFilter):
         query_params = {}
         today = datetime.date.today()
 
-        age_from= validated_data.get(self.lookup_kwarg_gte, None)
+        age_from = validated_data.get(self.lookup_kwarg_gte, None)
         age_to = validated_data.get(self.lookup_kwarg_lte, None)
 
         if age_from:
-            query_params['{0}__lte'.format(self.field_path)] = today + relativedelta(years=-age_from)
+            start = '{0}__lte'.format(self.field_path)
+            query_params[start] = today + relativedelta(years=-age_from)
         if age_to:
-            query_params['{0}__gte'.format(self.field_path)] = today + relativedelta(years=-age_to)
+            end = '{0}__gte'.format(self.field_path)
+            query_params[end] = today + relativedelta(years=-age_to)
 
         return query_params
-
 
     def get_form(self, request):
         form_class = self._get_form_class()

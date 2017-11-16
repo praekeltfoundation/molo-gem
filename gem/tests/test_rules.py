@@ -234,35 +234,35 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         )
 
     def test_user_passes_rule_when_they_comment(self):
-        rule = CommentCountRule(count=1)
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article)
         self.assertTrue(rule.test_user(self.request))
 
     def test_other_user_doesnt_get_counted(self):
-        rule = CommentCountRule(count=1)
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article)
         self.add_comment(self.other_user, self.article)
         self.assertTrue(rule.test_user(self.request))
 
     def test_user_fails_rule_when_they_comment_too_much(self):
-        rule = CommentCountRule(count=1)
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article)
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
 
     def test_user_fails_rule_when_they_dont_comment_enough(self):
-        rule = CommentCountRule(count=2)
+        rule = CommentCountRule(count=2, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
 
     def test_user_passes_rule_when_they_comment_multiple_articles(self):
-        rule = CommentCountRule(count=2)
+        rule = CommentCountRule(count=2, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article)
         self.add_comment(self.request.user, self.other_article)
         self.assertTrue(rule.test_user(self.request))
 
     def test_user_fails_rule_when_comment_removed(self):
-        rule = CommentCountRule(count=1)
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
         self.add_comment(self.request.user, self.article, is_removed=True)
         self.assertFalse(rule.test_user(self.request))
 
@@ -276,12 +276,16 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.assertFalse(rule.test_user(self.request))
 
     def test_user_passes_gt(self):
-        rule = CommentCountRule(count=1, operator=CommentCountRule.GREATER_THAN)
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
         self.add_comment(self.request.user, self.article)
         self.add_comment(self.request.user, self.article)
         self.assertTrue(rule.test_user(self.request))
 
     def test_user_fails_gt(self):
-        rule = CommentCountRule(count=1, operator=CommentCountRule.GREATER_THAN)
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))

@@ -61,11 +61,8 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         self.assertEquals(
             message.attachments[0],
             ('Molo_export_GEM.csv',
-             'username,alias,first_name,last_name,date_of_birth,email,mobile_'
-             'number,is_active,date_joined,last_login,gender\r\ntester,,,,,t'
-             'ester@example.com,,1,' + str(
-                 self.user.date_joined.strftime("%Y-%m-%d %H:%M:%S")) +
-             ',,\r\n',
+             'id,username,date_of_birth,is_active,last_login,gender\r\n'
+             '1,tester,,1,,\r\n',
              'text/csv'))
 
     def test_export_csv_no_gem_profile(self):
@@ -99,11 +96,10 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
                                        None,
                                        User.objects.all())
         expected_output = (
-            'Content-Type: text/csv\r\nContent-Disposition: attachment;filen'
-            'ame=export.csv\r\n\r\nusername,email,first_name,last_name,is_sta'
-            'ff,date_joined,alias,mobile_number,date_of_birth,gender\r\nte'
-            'ster,tester@example.com,,,False,' + date + ',The Alias,+277'
-            '84667723,,f\r\n')
+            'Content-Type: text/csv\r\nContent-Disposition: attachment;'
+            'filename=export.csv\r\n\r\nid,username,is_active,last_login,'
+            'date_of_birth,gender\r\n1,tester,True,,,f\r\n'
+        )
         self.assertEquals(str(response), expected_output)
 
     @override_settings(CELERY_ALWAYS_EAGER=True)
@@ -114,7 +110,8 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
                                        None,
                                        User.objects.all())
         expected_output = (
-            'Content-Type: text/csv\r\nContent-Disposition: attachment;file'
-            'name=export.csv\r\n\r\nusername,email,first_name,last_name,is_st'
-            'aff,date_joined,alias,mobile_number,date_of_birth,gender\r\n')
+            'Content-Type: text/csv\r\nContent-Disposition: attachment;'
+            'filename=export.csv\r\n\r\nid,username,is_active,last_login,'
+            'date_of_birth,gender\r\n'
+        )
         self.assertEquals(str(response), expected_output)

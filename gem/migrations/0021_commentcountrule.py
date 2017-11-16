@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
             name='CommentCountRule',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('operator', models.CharField(choices=[(b'eq', 'equals'), (b'gt', 'greater than'), (b'lt', 'less than')], default=b'eq', max_length=3, verbose_name='operator')),
-                ('count', models.IntegerField()),
+                ('operator', models.CharField(choices=[(b'gt', 'greater than'), (b'lt', 'less than'), (b'eq', 'equals')], default=b'gt', max_length=3, verbose_name='operator')),
+                ('count', models.PositiveSmallIntegerField()),
                 ('segment', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='gem_commentcountrule_related', related_query_name='%(app_label)s_%(class)ss', to='wagtail_personalisation.Segment')),
             ],
             options={

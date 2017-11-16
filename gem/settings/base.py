@@ -84,9 +84,8 @@ INSTALLED_APPS = [
     'wagtailmedia',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
-    'wagtail.contrib.wagtailsitemaps',
-
     'wagtailsurveys',
+    'wagtail.contrib.wagtailsitemaps',
     'wagtail_personalisation',
     'wagtailfontawesome',
 
@@ -134,7 +133,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
@@ -415,6 +414,8 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     '/metrics',
     # REST API
     '/api/',
+    # PWA serviceworker
+    '/serviceworker.js',
 ]
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
@@ -493,4 +494,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # https://github.com/wagtail/wagtail/issues/3883
 AWS_S3_FILE_OVERWRITE = False
 
-PERSONALISATION_SEGMENTS_ADAPTER = 'molo.surveys.adapters.SurveysSegmentsAdapter'
+PERSONALISATION_SEGMENTS_ADAPTER = (
+    'molo.surveys.adapters.SurveysSegmentsAdapter'
+)
