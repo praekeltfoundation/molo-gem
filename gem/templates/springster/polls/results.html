@@ -11,7 +11,7 @@
     <ul class="polls-results-list">
   	{% for choice in choices %}
       <li class="polls-results-list__item">
-  			<label>{{ choice.title }}</label>
+  			<label>{{ choice.title|capfirst }}</label>
         {% if question.result_as_percentage %}
   				<div class="polls-results-list__percent">
             <div class="polls-results-list__percent-bar" style="width:{{ choice.percentage }}%">
