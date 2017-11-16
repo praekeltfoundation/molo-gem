@@ -7,7 +7,7 @@ from django.test.client import Client
 from molo.core.tests.base import MoloTestCaseMixin
 
 from molo.profiles.models import UserProfile
-from gem.admin import GemUserAdmin
+from gem.admin import GemUserAdmin, download_as_csv_gem
 from gem.models import GemUserProfile
 from molo.profiles.task import send_export_email
 from django.conf import settings
