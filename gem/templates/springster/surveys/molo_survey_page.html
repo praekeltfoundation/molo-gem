@@ -18,13 +18,13 @@
       {% endif %}
     <fieldset>
       <div class="input-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
         <p class="helptext">{{ field.help_text }}</p>
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
                     <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
-                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text }}</label>
+                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                 </div>
                 {#id_field_{{ forloop.counter0 }}#}
             {% endfor %}
@@ -33,7 +33,7 @@
                 <div class="choice-group choice-group__radio">
                     <input name='{{ field.name }}'
                      id='value-{{ field.id_for_label }}-{{ forloop.counter }}' type='radio' value='{{ value }}'/>
-                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text }}</label>
+                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
                 </div>
             {% endfor %}
         {% else %}
