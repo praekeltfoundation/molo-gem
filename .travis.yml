@@ -39,7 +39,7 @@ jobs:
         - molo_version="$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)"
         - docker pull "$IMAGE_NAME" || true
       script:
-        - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
+        - docker build --pull --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
 
       before_deploy:
         - pip install docker-ci-deploy==0.3.0

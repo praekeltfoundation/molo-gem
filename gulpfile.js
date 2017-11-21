@@ -69,4 +69,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd']);
-gulp.task('default', ['styles', 'compress', 'watch']);
+gulp.task('default', ['styles', 'compress','watch']);

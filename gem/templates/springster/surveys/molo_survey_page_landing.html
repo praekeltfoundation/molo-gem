@@ -17,11 +17,11 @@
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
   	{% for question, answers in results.items %}
     <fieldset>
-  		<label class="surveys__question">{{ question }}</label>
+  		<label class="surveys__question">{{ question|capfirst }}</label>
   		{% for answer, count in answers.items %}
       <div class="surveys__answers-counter-bar">
   		  <h4 class="surveys__answers">
-  			  {{ answer }}
+  			  {{ answer|capfirst }}
   		  </h4>
         <span class="surveys__answers-counter">{% if self.show_results_as_percentage%}{{ count }}%{% else %}{{count}}{% endif %}</span>
       </div>
