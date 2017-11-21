@@ -130,7 +130,7 @@ input[type="month"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
-textarea, select {
+textarea {
   border: 2px solid $springster-purple;
   box-sizing: border-box;
   display: block;
@@ -151,4 +151,27 @@ input[type="radio"]  {
   margin-left: 10px;
   position: initial;
   visibility: initial;
+}
+.select-style {
+    background: #fafafa;
+    border: 2px solid $springster-purple;
+    box-sizing: border-box;
+    border-radius: 0;
+    display: block;
+    margin: 10px auto;
+    overflow: hidden;
+    width: 98%;
+    select {
+        padding: 10px 0 10px 5px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        background-image: none;
+        font-size: 16px;
+        height: 40px;
+        width: 100%;
+        &:focus {
+            outline: none;
+        }
+    }
 }

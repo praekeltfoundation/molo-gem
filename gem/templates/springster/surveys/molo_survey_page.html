@@ -36,6 +36,19 @@
                      <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
                 </div>
             {% endfor %}
+        {% elif field|fieldtype == 'Select' %}
+            <span class="select__toggle-icon select__toggle-icon-down"></span>
+            <span class="select__toggle-icon select__toggle-icon-up"></span>
+            <div class="select-style">
+                 <select class="select">
+                    <option value="none" selected="selected">Choose...</option>
+                    {% for choice in field.field.choices %}
+                        <option value="{{choice.0}}">
+                            {{choice.0}}
+                        </option>
+                    {% endfor %}
+                 </select>
+            </div>
         {% else %}
             {{field}}
         {% endif %}
