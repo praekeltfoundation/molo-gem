@@ -19,7 +19,9 @@
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-        <p class="helptext">{{ field.help_text }}</p>
+        {% if field.help_text %}
+            <p class="helptext">{{ field.help_text }}</p>
+        {% endif %}
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
@@ -37,8 +39,6 @@
                 </div>
             {% endfor %}
         {% elif field|fieldtype == 'Select' %}
-            <span class="select__toggle-icon select__toggle-icon-down"></span>
-            <span class="select__toggle-icon select__toggle-icon-up"></span>
             <div class="select-style">
                  <select class="select">
                     <option value="none" selected="selected">Choose...</option>
@@ -49,6 +49,10 @@
                     {% endfor %}
                  </select>
             </div>
+
+            ---->
+            {{choice.0.default.value}}
+            ---->
         {% else %}
             {{field}}
         {% endif %}
@@ -61,7 +65,6 @@
           </ul>
         {% endif %}
       </div>
-
     </fieldset>
     {% endfor %}
     {% trans "Submit Survey" as text %}
