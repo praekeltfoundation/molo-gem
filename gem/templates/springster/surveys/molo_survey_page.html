@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags core_tags gem_tags i18n %}
 {% block content %}
 <div class="surveys surveys--call-to-action">
   <div class="identity-image identity-image--survey"></div>
@@ -18,9 +18,28 @@
       {% endif %}
     <fieldset>
       <div class="input-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
         <p class="helptext">{{ field.help_text }}</p>
-        {{ field }}
+        {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+            {% for value, text in field.field.choices %}
+                <div class="choice-group">
+                    <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
+                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                </div>
+                {#id_field_{{ forloop.counter0 }}#}
+            {% endfor %}
+        {% elif field|fieldtype == 'RadioSelect' %}
+            {% for value, text in field.field.choices %}
+                <div class="choice-group choice-group__radio">
+                    <input name='{{ field.name }}'
+                     id='value-{{ field.id_for_label }}-{{ forloop.counter }}' type='radio' value='{{ value }}'/>
+                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
+                </div>
+            {% endfor %}
+        {% else %}
+            {{field}}
+        {% endif %}
+
         {% if field.errors %}
           <ul class="error-list errorlist">
           {% for error in field.errors %}

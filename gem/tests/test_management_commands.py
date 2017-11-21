@@ -1,8 +1,14 @@
 # -*- coding: UTF-8 -*-
+from datetime import datetime
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django_comments.models import Comment
 from django.core.management import call_command
 from django.test import TestCase
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
@@ -17,6 +23,9 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         self.main2 = Main.objects.last()
         self.language_setting = Languages.objects.create(
             site_id=self.main.get_site().pk)
+        self.user = User.objects.create_user(
+            'test', 'test@example.org', 'test')
+        self.content_type = ContentType.objects.get_for_model(self.user)
         Image.objects.create(
             title="Yes.png",
             file=get_test_image_file(),
@@ -331,3 +340,50 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         article.refresh_from_db()
         self.assertEqual(str(article.image),
                          "01_happygirl_feature_It gets better.jpg")
+
+    def test_remove_placeholder_text_from_comments(self):
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        article = self.mk_article(
+            self.yourmind, title='it gets better', slug='it-gets-better')
+
+        MoloComment.objects.create(
+            content_type=self.content_type,
+            object_pk=article.pk,
+            content_object=self.user,
+            site=Site.objects.get_current(),
+            user=self.user,
+            comment="comment without place holder text",
+            submit_date=datetime.now())
+
+        MoloComment.objects.create(
+            content_type=self.content_type,
+            object_pk=article.pk,
+            content_object=self.user,
+            site=Site.objects.get_current(),
+            user=self.user,
+            comment="Type your comment here...comment with placeholder text",
+            submit_date=datetime.now())
+
+        MoloComment.objects.create(
+            content_type=self.content_type,
+            object_pk=article.pk,
+            content_object=self.user,
+            site=Site.objects.get_current(),
+            user=self.user,
+            comment="some text before theplaceholder"
+            " Type your comment here...more text after the place holder",
+            submit_date=datetime.now())
+
+        call_command(
+            'remove_placeholder_text_from_comments',
+            'Type your comment here...'
+        )
+
+        for comment in Comment.objects.all().iterator():
+            self.assertNotIn(comment.comment, 'Type your comment here...')

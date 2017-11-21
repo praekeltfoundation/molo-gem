@@ -1,7 +1,7 @@
 fieldset {
   border: none;
   font-family: $baton-regular;
-  margin: 0;
+  margin: 0 0 10px;
   padding: 0 5%;
   display: block;
   position: relative;
@@ -85,14 +85,37 @@ label, .checkbox__legend {
   font-size: $font-medium;
   padding: 10px 0 0;
   color: $gunmetal;
-  text-transform: capitalize;
   display: initial;
   text-align: center;
 }
 
-.checkbox__label {
+.select-group {
+  display: inline-block;
+  padding: 15px 0;
+}
+.sub_label {
   display: block;
-  text-transform: capitalize;;
+}
+.input-group {
+    ul {
+        padding: 0;
+        margin: 0;
+        li {
+            display: block;
+            position: relative;
+            label {
+                text-align: left;
+            }
+        }
+    }
+  &.input-error{
+    input, textarea {
+      border-color: $bright-orange;
+    }
+  }
+  .error-message {
+    color: $bright-orange;
+  }
 }
 
 input[type="text"],
@@ -126,41 +149,6 @@ input[type="checkbox"],
 input[type="radio"]  {
   display: inline-block;
   margin-left: 10px;
-}
-.choice,
-.choice-group {
-  margin: 0 0 10px;
-  input[type="checkbox"],
-  input[type="radio"] {
-    position: initial;
-    visibility: initial;
-  }
-}
-.select-group {
-  display: inline-block;
-  padding: 15px 0;
-}
-.sub_label {
-  display: block;
-}
-.input-group {
-    ul {
-        padding: 0;
-        margin: 0;
-        li {
-            display: block;
-            position: relative;
-            label {
-                text-align: left;
-            }
-        }
-    }
-  &.input-error{
-    input, textarea {
-      border-color: $bright-orange;
-    }
-  }
-  .error-message {
-    color: $bright-orange;
-  }
+  position: initial;
+  visibility: initial;
 }
