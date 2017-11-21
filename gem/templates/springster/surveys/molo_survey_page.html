@@ -8,7 +8,7 @@
 </div>
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if form %}
-  <form action="{% pageurl self %}{% if self.multi_step %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
+  <form action="{% pageurl self %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
   {% csrf_token %}
     {% for field in form %}
       {% if fields_step %}

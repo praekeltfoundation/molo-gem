@@ -95,6 +95,15 @@
         </dl>
     {% endif %}
 
+    {% if self.formset.prefix == 'gem_commentcountrule_related' %}
+        <p>
+            {% blocktrans %}
+            This rule allows you to segment users who have submitted a certain number of
+            comments in total (not article-specific) on the site.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
     {% if self.formset.prefix == 'surveys_surveysubmissiondatarule_related' %}
         <p>
             {% blocktrans %}
@@ -110,6 +119,14 @@
                 This rule allows you to segment content to users based
                 on their group membership.
             {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'surveys_articletagrule_related' %}
+        <p>
+            {% blocktrans %}
+            This rule allows you to segment users that visited a certain number of unique articles with a specific tag during a specified time period, e.g. you can segment users who visited more than 3 articles with the “health” tag between January and March this year.
+{% endblocktrans %}
         </p>
     {% endif %}
 
