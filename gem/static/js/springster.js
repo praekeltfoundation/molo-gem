@@ -83,7 +83,7 @@
           var element = event.target;
           if (element.tagName == 'A' && element.classList.contains("more-link")) {
             event.preventDefault();
-            element.childNodes[1].innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />";
+            element.innerHTML = "<img src='/static/img/loading.gif' alt='Loading...' />";
             getAjax(element.getAttribute('data-next'), function(data){
               element.parentNode.insertAdjacentHTML('beforeend', data);
               element.parentNode.removeChild(element);

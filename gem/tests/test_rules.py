@@ -1,10 +1,15 @@
+from datetime import datetime
+
 import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
+from django.contrib.sites.models import Site
 from django.test import TestCase, RequestFactory
 
+from molo.commenting.models import MoloComment
+from molo.core.models import ArticlePage, SectionPage
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.surveys.models import SurveysIndexPage
 
@@ -12,7 +17,7 @@ from wagtail_personalisation.models import Segment
 
 from molo.surveys.models import (
     PersonalisableSurveyFormField, PersonalisableSurvey)
-from ..rules import ProfileDataRule
+from ..rules import CommentCountRule, ProfileDataRule
 
 
 @pytest.mark.django_db
@@ -169,3 +174,94 @@ class TestProfileDataRuleValidation(TestCase):
 
         self.assertIn('Value has to be non-negative since it represents age.',
                       context.exception.messages)
+
+
+class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+        self.request_factory = RequestFactory()
+        self.request = self.request_factory.get('/')
+        self.request.user = get_user_model().objects.create_user(
+            username='tester', email='tester@example.com', password='tester')
+        self.other_user = get_user_model().objects.create_user(
+            username='other', email='other@example.com', password='other')
+
+        self.section = SectionPage(title='test section')
+        self.section_index.add_child(instance=self.section)
+
+        self.article = self.add_article('first')
+        self.other_article = self.add_article('other')
+
+    def add_article(self, title):
+        new_article = ArticlePage(title=title)
+        self.section.add_child(instance=new_article)
+        new_article.save_revision()
+        return new_article
+
+    def add_comment(self, user, article, **kwargs):
+        return MoloComment.objects.create(
+            comment="test comment",
+            user=user,
+            site=Site.objects.get_current(),
+            content_type=article.content_type,
+            object_pk=article.id,
+            submit_date=datetime.now(),
+            **kwargs
+        )
+
+    def test_user_passes_rule_when_they_comment(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article)
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_other_user_doesnt_get_counted(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article)
+        self.add_comment(self.other_user, self.article)
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_user_fails_rule_when_they_comment_too_much(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article)
+        self.add_comment(self.request.user, self.article)
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_user_fails_rule_when_they_dont_comment_enough(self):
+        rule = CommentCountRule(count=2, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article)
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_user_passes_rule_when_they_comment_multiple_articles(self):
+        rule = CommentCountRule(count=2, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article)
+        self.add_comment(self.request.user, self.other_article)
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_user_fails_rule_when_comment_removed(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
+        self.add_comment(self.request.user, self.article, is_removed=True)
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_user_passes_lt(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_user_fails_lt(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
+        self.add_comment(self.request.user, self.article)
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_user_passes_gt(self):
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
+        self.add_comment(self.request.user, self.article)
+        self.add_comment(self.request.user, self.article)
+        self.assertTrue(rule.test_user(self.request))
+
+    def test_user_fails_gt(self):
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
+        self.add_comment(self.request.user, self.article)
+        self.assertFalse(rule.test_user(self.request))

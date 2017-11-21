@@ -1,8 +1,8 @@
 fieldset {
   border: none;
   font-family: $baton-regular;
-  margin: 0;
-  padding: 0 5%;
+  margin: 0 0 10px;
+  padding: 0 10px;
   display: block;
   position: relative;
   &:last-of-type {
@@ -15,18 +15,6 @@ textarea {
   padding: 8px 8px 0;
   margin: 0 8px;
   display: block;
-}
-label, .checkbox__legend {
-  font-size: $font-medium;
-  padding: 10px 0 0;
-  color: $gunmetal;
-  text-transform: capitalize;
-  display: initial;
-  text-align: center;
-}
-.checkbox__label {
-  display: block;
-  text-transform: capitalize;;
 }
 .required-asterisk {
   color: #909497;
@@ -42,9 +30,9 @@ label, .checkbox__legend {
 .hint-text {
   color: #909497;
   display: block;
-  font-size: 12px;
+  font-size: $font-small;
   font-weight: bold;
-  padding-bottom: 5px;
+   padding: 0 0 10px;
   text-transform: capitalize;
 }
 .search-icon {
@@ -53,9 +41,9 @@ label, .checkbox__legend {
 }
 
 .helptext {
-  font-family: $baton-turbo;
   color: $slate-grey;
-  font-size: $font-x-small;
+  font-size: $font-small;
+  padding: 0 0 10px;
   line-height: get-line-height($font-x-small, 20px);
 }
 
@@ -92,6 +80,44 @@ input[type="submit"] {
     border: 1px solid red;
   }
 }
+
+label, .checkbox__legend {
+  font-size: $font-medium;
+  padding: 10px 0 0;
+  color: $gunmetal;
+  display: initial;
+  text-align: center;
+}
+
+.select-group {
+  display: inline-block;
+  padding: 15px 0;
+}
+.sub_label {
+  display: block;
+}
+.input-group {
+    ul {
+        padding: 0;
+        margin: 0;
+        li {
+            display: block;
+            position: relative;
+            label {
+                text-align: left;
+            }
+        }
+    }
+  &.input-error{
+    input, textarea {
+      border-color: $bright-orange;
+    }
+  }
+  .error-message {
+    color: $bright-orange;
+  }
+}
+
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -123,30 +149,6 @@ input[type="checkbox"],
 input[type="radio"]  {
   display: inline-block;
   margin-left: 10px;
-}
-.choice,
-.choice-group {
-  margin: 0 0 10px;
-  input[type="checkbox"],
-  input[type="radio"] {
-    position: initial;
-    visibility: initial;
-  }
-}
-.select-group {
-  display: inline-block;
-  padding: 15px 0;
-}
-.sub_label {
-  display: block;
-}
-.input-group {
-  &.input-error{
-    input, textarea {
-      border-color: $bright-orange;
-    }
-  }
-  .error-message {
-    color: $bright-orange;
-  }
+  position: initial;
+  visibility: initial;
 }

@@ -14,7 +14,7 @@
       {% else %}
         <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
       {% endif %}
-      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
+      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title|capfirst }}</label>
     </fieldset>
     {% endfor %}
     {% trans "Log in to vote" as buttontext %}
@@ -30,7 +30,7 @@
         {% else %}
           <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
         {% endif %}
-        <label for="{{ question.id }}-{{ forloop.counter }}">{{ choice.title }}</label>
+        <label for="{{ question.id }}-{{ forloop.counter }}">{{ choice.title|capfirst }}</label>
       </fieldset>
     {% endfor %}
     <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">

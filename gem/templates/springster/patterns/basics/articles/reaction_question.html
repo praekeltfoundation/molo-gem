@@ -17,19 +17,19 @@
                           {% image choice.specific.image width-50 %}
                         </div>
                         <div class="reaction-questions__label">
-                          {{ choice.title }}
+                          {{ choice.title|capfirst }}
                         </div>
                       </label>
                   </div>
               {% endfor %}
           </div>
         </form>
-      
+
       {% else %}
       <div class="errors">
         {{ form.errors }}
         {% trans "You have already submitted a response for this article." %}
-      </div>  
+      </div>
       {% endif %}
   </div>
 {% endif %}
