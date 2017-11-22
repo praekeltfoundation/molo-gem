@@ -1,0 +1,9 @@
+{% comment %}
+Replace search form with a Mote pattern.
+{% endcomment %}
+
+{% load i18n mote_tags %}
+
+{% block search_button %}
+    {% render "self.browser.atoms.search" '{"placeholder": "{{ placeholdertext }}", "radius": "{{ radius }}" }' %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load mote_tags %}
+
+MALAWI V1 SEARCH
+<div class="search-bar">
+  <form action="{% url 'search' %}">
+    {% render "self.browser.atoms.inline" '{"tag": "input", "attrs": {"name": "q", "value": "{{ search_query }}", "type": "text", "id": "input__{{ radius }}", "placeholder": "{{ placeholder }}" }}' %}
+    {% render "self.browser.atoms.inline" '{"tag": "input", "classes": {"primary":  "call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon"}, "attrs": {"value": "Search by Mote", "type": "submit"}}' %}
+  </form>
+</div>
