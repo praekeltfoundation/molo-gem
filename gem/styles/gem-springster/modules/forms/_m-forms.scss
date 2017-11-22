@@ -130,16 +130,19 @@ input[type="month"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
-textarea {
+textarea, select {
   border: 2px solid $springster-purple;
   box-sizing: border-box;
+  border-radius: 0;
   display: block;
   font-size: 16px;
   margin: 10px auto;
   padding: 10px 0 10px 5px;
   width: 98%;
-  border-radius: 0;
+
   -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
   -webkit-border-radius: 0px;
   &:focus {
     outline: 0;
@@ -152,26 +155,15 @@ input[type="radio"]  {
   position: initial;
   visibility: initial;
 }
-.select-style {
+
+select {
     background: #fafafa;
-    border: 2px solid $springster-purple;
-    box-sizing: border-box;
-    border-radius: 0;
-    display: block;
     margin: 0 auto 10px;
-    overflow: hidden;
-    width: 98%;
-    select {
-        padding: 10px 0 10px 5px;
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        background-image: none;
-        font-size: 16px;
-        height: 40px;
-        width: 100%;
-        &:focus {
-            outline: none;
-        }
+    outline: none;
+    height: 40px;
+    &:focus,
+    &:visited,
+    &:active {
+        outline: none;
     }
 }
