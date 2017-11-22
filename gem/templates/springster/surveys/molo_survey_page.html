@@ -19,7 +19,9 @@
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-        <p class="helptext">{{ field.help_text }}</p>
+        {% if field.help_text %}
+            <p class="helptext">{{ field.help_text }}</p>
+        {% endif %}
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
@@ -36,6 +38,17 @@
                      <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
                 </div>
             {% endfor %}
+        {% elif field|fieldtype == 'Select' %}
+            <div class="select-style">
+                 <select class="select">
+                    <option value="none" selected="selected">Choose...</option>
+                    {% for choice in field.field.choices %}
+                        <option value="{{choice.0}}">
+                            {{choice.0}}
+                        </option>
+                    {% endfor %}
+                 </select>
+            </div>
         {% else %}
             {{field}}
         {% endif %}
@@ -48,7 +61,6 @@
           </ul>
         {% endif %}
       </div>
-
     </fieldset>
     {% endfor %}
     {% trans "Submit Survey" as text %}
