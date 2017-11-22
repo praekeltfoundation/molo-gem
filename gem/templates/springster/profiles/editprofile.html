@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-{% load i18n %}
+
+{% comment %}
+Replace Update Profile submit input with a Mote element.
+{% endcomment %}
+
+{% load i18n mote_tags %}
 {% block content %}
 <div class="profiles">
   {% trans "Edit your Profile" as headingtext %}
@@ -48,7 +53,7 @@
     </fieldset>
 	{% trans "Update profile" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
-    <input type="submit" value="{% trans "Update profile" %}" class="call-to-action__button call-to-action__button--primary">
+    {% render "self.browser.atoms.inline" '{"tag": "input", "classes": {"primary":  "call-to-action__button call-to-action__button--primary"}, "attrs": {"value": "Update profile", "type": "submit"}}' %}
 		</form>
 </div>
 

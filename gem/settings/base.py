@@ -133,7 +133,8 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+#SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
@@ -502,7 +503,7 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 MOTE = {
-    "project": "gem",
+    "project": "gem2",
     "directories": [i for i in sys.path if i.find("mote-lib-base") != -1] + [join(PROJECT_ROOT, "mote2")]
 }
 print(MOTE)
