@@ -436,6 +436,9 @@ AUTHENTICATION_BACKENDS = [
     'molo.core.backends.MoloCASBackend',
 ]
 
+import sys
+
+
 AWS_HEADERS = {
     # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
@@ -497,3 +500,9 @@ AWS_S3_FILE_OVERWRITE = False
 PERSONALISATION_SEGMENTS_ADAPTER = (
     'molo.surveys.adapters.SurveysSegmentsAdapter'
 )
+
+MOTE = {
+    "project": "gem",
+    "directories": [i for i in sys.path if i.find("mote-lib-base") != -1] + [join(PROJECT_ROOT, "mote2")]
+}
+print(MOTE)

@@ -1,4 +1,10 @@
-{% load i18n %}
+{% comment %}
+Replace button with a Mote element.
+{% endcomment %}
+
+{% load i18n mote_tags %}
+
+{% comment %}
 <div id="search-form">
   <form action="{% url 'search' %}">
     <label>{% trans "looking for something?" %}</label>
@@ -6,6 +12,16 @@
     <button type="submit" class="search__submit">
       {% trans "Submit" %}
     </button>
+    <div class="clear-fix"></div>
+  </form>
+</div>
+{% endcomment %}
+
+<div id="search-form">
+  <form action="{% url 'search' %}">
+    <label>{% trans "looking for something?" %}</label>
+    <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{ search_query }}">
+    {% render "gem2.browser.atoms.button" '{"children": {"text": {"value": "Submit"}}, "classes": {"primary": "search__submit"}}' %}
     <div class="clear-fix"></div>
   </form>
 </div>
