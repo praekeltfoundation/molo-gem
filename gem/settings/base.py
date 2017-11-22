@@ -503,7 +503,6 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 MOTE = {
-    "project": "gem2",
+    "project": SITE_LAYOUT_BASE,
     "directories": [i for i in sys.path if i.find("mote-lib-base") != -1] + [join(PROJECT_ROOT, "mote2")]
 }
-print(MOTE)
