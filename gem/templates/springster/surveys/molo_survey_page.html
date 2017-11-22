@@ -13,7 +13,11 @@
     {% for field in form %}
       {% if fields_step %}
         <h4 class="surveys__question-title">
-          Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
+          {% if self.has_skip_logic %}
+            Question {{fields_step.number}}
+          {% else %}
+            Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
+          {% endif %}
         </h4>
       {% endif %}
     <fieldset>
