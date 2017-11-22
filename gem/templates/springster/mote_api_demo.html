@@ -2,27 +2,96 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/versions.css">
+        <style type="text/css">
+        html { background-color: white !important; }
+        body { padding: 20px; background-color: white !important; }
+        p, pre {
+            color: #646464;
+            background-color: #eeeeee;
+            border: solid 1px #222222;
+            padding: 12px;
+            margin: 40px 0px 16px 0px;
+        }
+        </style>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="/static/mote/js/api.js"></script>
         <script type="text/javascript">
-            // Here's our search widget
-            var data4 = {
-            };
-
             var mote_api = new MoteAPI('/mote/api/');
             mote_api.push(
                 'springster.browser.atoms.search',
-                data4,
-                '#four',
-                function(result) {
-                }
+                {},
+                '#one'
+            );
+            mote_api.push(
+                'malawi.browser.atoms.search',
+                {},
+                '#two'
+            );
+            mote_api.push(
+                'springster2.browser.atoms.search',
+                {},
+                '#three'
+            );
+            mote_api.push(
+                'springster.browser.atoms.search',
+                {"children": {"button": {"attrs": {"value": "Click me to search!"}}}},
+                '#four'
             );
             mote_api.run();
         </script>
     </head>
     <body>
-        <h1>Here's our search widget</h1>
+        <h1>Mote API demo</h1>
+        <p>Mote provides an HTTP API, making it possible to integrate Mote into nearly any
+        system. Here we use the JavaScript API wrapper to render components directly
+        into your browser.</p>
+
+        <p>Render the Springster Version 1 search form. This is the one used by the Springster
+        Global site.</p>
+        <div id="one"></div>
+
+        <p>Render the Malawi Version 1 search component.</p>
+        <div id="two"></div>
+
+        <p>We're working on a Springster Version 2 search component. It's not available in
+        the Springster Global site yet but we can plan our components ahead independent
+        of the code base.</p>
+        <div id="three"></div>
+
+        <p>That button text needs to change. Luckily Mote is *data driven*. Let's feed the component some data!</p>
         <div id="four"></div>
+
+        <p>How does this dark magic work?</p>
+
+        <pre>
+// Get an API instance
+var mote_api = new MoteAPI('/mote/api/');
+
+// Push commands
+mote_api.push(
+    'springster.browser.atoms.search',
+    {},
+    '#one'
+);
+mote_api.push(
+    'malawi.browser.atoms.search',
+    {},
+    '#two'
+);
+mote_api.push(
+    'springster2.browser.atoms.search',
+    {},
+    '#three'
+);
+mote_api.push(
+    'springster.browser.atoms.search',
+    {"children": {"button": {"attrs": {"value": "Click me to search!"}}}},
+    '#four'
+);
+
+// Run the commands
+mote_api.run();
+        </pre>
     </body>
 </html>
