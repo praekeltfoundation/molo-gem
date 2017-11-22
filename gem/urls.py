@@ -113,6 +113,8 @@ urlpatterns += patterns(
         '(?P<question_id>\d+)/vote/$',
         ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
+    url(r'^mote-api-demo$', TemplateView.as_view(
+        template_name='mote_api_demo.html')),
     url(r'', include(wagtail_urls)),
 )
 

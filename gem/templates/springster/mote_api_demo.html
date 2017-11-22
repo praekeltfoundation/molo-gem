@@ -1,75 +1,18 @@
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/versions.css">
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="/static/mote/js/api.js"></script>
         <script type="text/javascript">
-            // Just change the text. Not we only have to provide a subset of the data declared in data.yaml.
-            // Mote will deepmerge our data with the sample data.
-            var data1 = {
-                "children": {
-                    "text": {
-                        "value": "My text"
-                     }
-                }
-            };
-
-            // Change the default child element to another element
-            var data2 = {
-                "children": {
-                    "text": {
-                        "id": "self.browser.atoms.image",
-                        "attrs": {
-                            "src": "http://cdn.24.co.za/files/Cms/General/d/6125/41ae158673794e138b6ad902eda7e954.jpg"
-                        }
-                     }
-                }
-            };
-
-            // Add another child
-            var data3 = {
-                "children": {
-                    "text": {
-                        "value": "Added another child"
-                     },
-                    "image": {
-                        "id": "self.browser.atoms.image",
-                        "attrs": {
-                            "src": "http://cdn.24.co.za/files/Cms/General/d/6125/41ae158673794e138b6ad902eda7e954.jpg"
-                        }
-                     }
-                }
-            };
-
             // Here's our search widget
             var data4 = {
-                "tag": "input", "classes": {"primary":  "call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon"}, "attrs": {"value": "Search", "type": "submit"}
             };
-
 
             var mote_api = new MoteAPI('/mote/api/');
             mote_api.push(
-                'gem2.browser.atoms.button',
-                data1,
-                '#one',
-                function(result) {
-                }
-            );
-            mote_api.push(
-                'gem2.browser.atoms.button',
-                data2,
-                '#two',
-                function(result) {
-                }
-            );
-            mote_api.push(
-                'gem2.browser.atoms.button',
-                data3,
-                '#three',
-                function(result) {
-                }
-            );
-            mote_api.push(
-                'gem2.browser.atoms.inline',
+                'springster.browser.atoms.search',
                 data4,
                 '#four',
                 function(result) {
@@ -79,31 +22,7 @@
         </script>
     </head>
     <body>
-        <h1>We're using the button element in a few different ways.</h1>
-        The button's default data. Note children is a dictionary / associative array and not a list, because we need to be able to perform deep merges:
-        <pre>
-        {
-            "tag": "button",
-             "children": {
-                "text": {
-                    "id": "self.browser.atoms.text",
-                    "value": "Button text"
-                }
-            }
-        }
-        </pre>
-
-        <br />
-        <h1>
-            Just change the text. Not we only have to provide a subset of the data declared in data.yaml.
-            Mote will deepmerge our data with the sample data.
-        </h1>
-        <div id="one"></div>
-        <h1>Change the default child element to another element</h1>
-        <div id="two"></div>
-        <h1>Add another child</h1>
-        <div id="three"></div>
         <h1>Here's our search widget</h1>
         <div id="four"></div>
-</body>
+    </body>
 </html>
