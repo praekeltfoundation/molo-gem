@@ -23,6 +23,7 @@
             <p class="helptext">{{ field.help_text }}</p>
         {% endif %}
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+        {{field.field.default_value}}<br/>
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
                     <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
@@ -31,6 +32,7 @@
                 {#id_field_{{ forloop.counter0 }}#}
             {% endfor %}
         {% elif field|fieldtype == 'RadioSelect' %}
+        {{field.default_value}}<br/>
             {% for value, text in field.field.choices %}
                 <div class="choice-group choice-group__radio">
                     <input name='{{ field.name }}'
@@ -39,6 +41,8 @@
                 </div>
             {% endfor %}
         {% elif field|fieldtype == 'Select' %}
+        {{field.default_value}}<br/>
+        -->
             <div class="select-style">
                  <select class="select">
                     <option value="none" selected="selected">Choose...</option>
@@ -49,10 +53,6 @@
                     {% endfor %}
                  </select>
             </div>
-
-            ---->
-            {{choice.0.default.value}}
-            ---->
         {% else %}
             {{field}}
         {% endif %}
