@@ -25,17 +25,16 @@
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
-                    <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}"  {% if value == choice.0 %}checked="checked"{% endif %}/>
+                    <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
                     <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                 </div>
-                {#id_field_{{ forloop.counter0 }}#}
             {% endfor %}
         {% elif field|fieldtype == 'RadioSelect' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group choice-group__radio">
-                    <input name='{{ field.name }}'
-                     id='value-{{ field.id_for_label }}-{{ forloop.counter }}' type='radio' value='{{ value }}' {% if value == choice.0 %}checked="checked"{% endif %}/>
-                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
+                    <input name="{{ field.name }}"
+                     id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                     <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                 </div>
             {% endfor %}
             {% elif field|fieldtype == 'Select' %}
