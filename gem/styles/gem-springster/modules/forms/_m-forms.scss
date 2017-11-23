@@ -133,13 +133,16 @@ input[type="url"],
 textarea, select {
   border: 2px solid $springster-purple;
   box-sizing: border-box;
+  border-radius: 0;
   display: block;
   font-size: 16px;
   margin: 10px auto;
   padding: 10px 0 10px 5px;
   width: 98%;
-  border-radius: 0;
+
   -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
   -webkit-border-radius: 0px;
   &:focus {
     outline: 0;
@@ -151,4 +154,16 @@ input[type="radio"]  {
   margin-left: 10px;
   position: initial;
   visibility: initial;
+}
+
+select {
+    background: #fafafa;
+    margin: 0 auto 10px;
+    outline: none;
+    height: 40px;
+    &:focus,
+    &:visited,
+    &:active {
+        outline: none;
+    }
 }
