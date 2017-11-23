@@ -1,6 +1,6 @@
 import os
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
@@ -11,8 +11,8 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from molo.core.views import ReactionQuestionChoiceView
-
+from molo.core import views as core_views
+from wagtail.contrib.wagtailsitemaps import views as sitemap_views
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
@@ -20,23 +20,21 @@ from gem.views import report_response, GemRegistrationView, \
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         url(r'^admin/login/', 'django_cas_ng.views.login'),
         url(r'^admin/logout/', 'django_cas_ng.views.logout'),
         url(r'^admin/callback/', 'django_cas_ng.views.callback'),
-    )
+    ]
 else:
-    urlpatterns = patterns('', )
+    urlpatterns = []
 
-urlpatterns += patterns(
-    '',
+urlpatterns += [
     url(r'^django-admin/', include(admin.site.urls)),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
-    url(r'^sitemap\.xml$', 'wagtail.contrib.wagtailsitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'', include('molo.pwa.urls')),
@@ -96,25 +94,25 @@ urlpatterns += patterns(
     url(r'', include('molo.core.urls')),
     url(
         r'^home-index/$',
-        'molo.core.views.home_index',
+        core_views.home_index,
         name='home_index'
     ),
     url(
         r'^home-more/$',
-        'molo.core.views.home_more',
+        core_views.home_more,
         name='home_more'
     ),
     url(
         r'^section-index/$',
-        'molo.core.views.section_index',
+        core_views.section_index,
         name='section_index'
     ),
     url(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
         '(?P<question_id>\d+)/vote/$',
-        ReactionQuestionChoiceView.as_view(),
+        core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-)
+]
 
 
 if settings.DEBUG:
