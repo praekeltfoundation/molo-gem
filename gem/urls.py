@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
+from django_cas_ng import views as cas_views
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -21,9 +22,9 @@ from gem.views import report_response, GemRegistrationView, \
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
     urlpatterns = [
-        url(r'^admin/login/', 'django_cas_ng.views.login'),
-        url(r'^admin/logout/', 'django_cas_ng.views.logout'),
-        url(r'^admin/callback/', 'django_cas_ng.views.callback'),
+        url(r'^admin/login/', cas_views.login),
+        url(r'^admin/logout/', cas_views.views.logout),
+        url(r'^admin/callback/', cas_views.callback),
     ]
 else:
     urlpatterns = []
