@@ -126,7 +126,7 @@
         <p>
             {% blocktrans %}
             This rule allows you to segment users that visited a certain number of unique articles with a specific tag during a specified time period, e.g. you can segment users who visited more than 3 articles with the “health” tag between January and March this year.
-{% endblocktrans %}
+            {% endblocktrans %}
         </p>
     {% endif %}
 
@@ -135,6 +135,41 @@
             {% blocktrans %}
                 This rule allows you to segment content to users based
                 on the comments they have submitted on the front-end.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'surveys_surveyresponserule_related' %}
+        <p>
+            {% blocktrans %}
+                This rule allows you to segment content to users based
+                on the whether they have responded to another survey.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% if self.formset.prefix == 'surveys_combinationrule_related' %}
+        <p>
+            {% blocktrans %}
+            Use the Rule Combination to connect the defined rules with a combination of AND/OR statements. Include the statements that you want to be calculated first as Nested Logic as this will place the statements in parentheses. If you do not use Nested Logic, the system will read the combination in order from top to bottom.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans %}
+            Once you’ve activated the Rule Combination, be sure to include all the rules that you want to use to create your segments. Any defined rules that are not included in the Rule Combination will not contribute to the results of your segment.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans %}
+            Note:
+            {% endblocktrans %}
+            <br>
+            {% blocktrans %}
+            AND will narrow the results of your segment,
+            {% endblocktrans %}
+            <br>
+            {% blocktrans %}
+            OR will broaden the results of your segment.
             {% endblocktrans %}
         </p>
     {% endif %}
