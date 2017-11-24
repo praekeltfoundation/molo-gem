@@ -10,6 +10,9 @@
   {% if form %}
   <form action="{% pageurl self %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
   {% csrf_token %}
+  {% if not is_via_freebasics %}
+    {{ form.media }}
+  {% endif %}
     {% for field in form %}
       {% if fields_step %}
         <h4 class="surveys__question-title">
@@ -24,7 +27,11 @@
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
         {% if field.help_text %}
+          {% if field|fieldtype == 'CharacterCountWidget' %}
+            <span class="surveys__helptext helptext">{{ field.help_text }}</span>
+          {% else %}
             <p class="helptext">{{ field.help_text }}</p>
+          {% endif %}
         {% endif %}
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
