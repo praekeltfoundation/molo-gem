@@ -17,7 +17,11 @@
       {% if fields_step %}
         <h4 class="surveys__question-title">
           {% if self.has_skip_logic %}
-            Question {{fields_step.number}}
+            {% if fields_step %}
+                Question {{ fields_step.paginator.answered|length|add:forloop.counter }}
+            {% else %}
+                Question {{ forloop.counter }}
+            {% endif %}
           {% else %}
             Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
           {% endif %}
