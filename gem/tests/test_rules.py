@@ -127,6 +127,30 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
 
         self.assertTrue(rule.test_user(self.request))
 
+    def test_not_logged_in_user_fails_last_login(self):
+        rule = ProfileDataRule(field='auth.User__last_login',
+                               value='2012-09-23')
+        self.request.user = AnonymousUser()
+
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_none_value_on_related_field_fails_last_login(self):
+        rule = ProfileDataRule(field='auth.User__last_login',
+                               value='2012-09-23')
+
+        self.request.user.last_login = None
+
+        self.assertFalse(rule.test_user(self.request))
+
+    def test_none_value_with_not_equal_rule_field_passes_last_login(self):
+        rule = ProfileDataRule(field='auth.User__last_login',
+                               operator=ProfileDataRule.NOT_EQUAL,
+                               value='2012-09-23')
+
+        self.request.user.last_login = None
+
+        self.assertTrue(rule.test_user(self.request))
+
 
 @pytest.mark.django_db
 class TestProfileDataRuleValidation(TestCase):
