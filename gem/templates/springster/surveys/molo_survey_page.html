@@ -16,7 +16,7 @@
     {% for field in form %}
       {% if fields_step %}
         <h4 class="surveys__question-title">
-          {% if self.has_skip_logic %}
+          {% if self.has_page_breaks %}
             {% if fields_step %}
                 Question {{ fields_step.paginator.answered|length|add:forloop.counter }}
             {% else %}
