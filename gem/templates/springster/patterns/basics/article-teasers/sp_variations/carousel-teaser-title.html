@@ -2,13 +2,13 @@
 {% if page.title_highlight %}
   <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
     <a href="{% pageurl article %}" class="carousel-teaser__title-link">
-        {{ article.title_highlight|safe|smarttruncatechars:45 }}
+        {{ article.title_highlight|smarttruncatechars:45|safe}}
     </a>
   </h3>
 {% else %}
   <h3 class="carousel-teaser__title">
     <a href="{% pageurl article %}" class="carousel-teaser__title-link">
-        {{ article.title|safe|smarttruncatechars:45 }}
+        {{ article.title|smarttruncatechars:45|safe }}
     </a>
   </h3>
 {% endif %}
@@ -16,14 +16,13 @@
 {% if article.subtitle_highlight or article.body_highlight %}
   <p class="carousel-teaser__subtitle highlight-description">
     {% if article.subtitle_highlight %}
-      {{article.subtitle_highlight|safe|smarttruncatechars:45}}
+      {{article.subtitle_highlight|smarttruncatechars:45|safe}}
     {% elif article.body_highlight %}
-      {{article.body_highlight|safe|smarttruncatechars:45}}
+      {{article.body_highlight|smarttruncatechars:45|safe}}
     {% endif %}
-
   </p>
 {% elif article.subtitle %}
   <p class="carousel-teaser__subtitle">
-      {{ article.subtitle|safe|smarttruncatechars:45 }}
+      {{ article.subtitle|smarttruncatechars:45|safe}}
   </p>
 {% endif %}
