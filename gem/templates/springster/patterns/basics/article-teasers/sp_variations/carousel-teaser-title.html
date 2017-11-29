@@ -1,11 +1,15 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if page.title_highlight %}
   <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
-    <a href="{% pageurl article %}" class="carousel-teaser__title-link">{{ article.title_highlight|safe|smarttruncatechars:45 }}</a>
+    <a href="{% pageurl article %}" class="carousel-teaser__title-link">
+        {{ article.title_highlight|safe|smarttruncatechars:45 }}
+    </a>
   </h3>
 {% else %}
   <h3 class="carousel-teaser__title">
-    <a href="{% pageurl article %}" class="carousel-teaser__title-link">{{ article.title|smarttruncatechars:45 }}</a>
+    <a href="{% pageurl article %}" class="carousel-teaser__title-link">
+        {{ article.title|safe|smarttruncatechars:45 }}
+    </a>
   </h3>
 {% endif %}
 
@@ -16,7 +20,10 @@
     {% elif article.body_highlight %}
       {{article.body_highlight|safe|smarttruncatechars:45}}
     {% endif %}
+
   </p>
 {% elif article.subtitle %}
-  <p class="carousel-teaser__subtitle">{{ article.subtitle|smarttruncatechars:45 }}</p>
+  <p class="carousel-teaser__subtitle">
+      {{ article.subtitle|safe|smarttruncatechars:45 }}
+  </p>
 {% endif %}
