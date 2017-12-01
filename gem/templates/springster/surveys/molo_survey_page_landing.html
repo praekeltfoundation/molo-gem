@@ -5,7 +5,12 @@
 <div class="surveys surveys--call-to-action">
     <div class="identity-image identity-image--survey"></div>
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+    {% if self.thank_you_text %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+    {% else %}
+        {% trans "Thank you for submitting survey!" as headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+    {% endif %}
 </div>
 {% if self.show_results and results %}
     <div class="surveys--results">
