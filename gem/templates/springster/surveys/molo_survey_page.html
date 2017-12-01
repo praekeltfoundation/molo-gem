@@ -5,6 +5,13 @@
   <div class="identity-image identity-image--survey"></div>
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
+  {% if fields_step and fields_step.paginator.num_pages > 1 %}
+  <p>
+  {% blocktrans with pages=fields_step.paginator.num_pages %}
+  This survey has {{ pages }} pages
+  {% endblocktrans %}
+  </p>
+  {% endif %}
 </div>
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if form %}
@@ -14,19 +21,6 @@
     {{ form.media }}
   {% endif %}
     {% for field in form %}
-      {% if fields_step %}
-        <h4 class="surveys__question-title">
-          {% if self.has_page_breaks %}
-            {% if fields_step %}
-                Question {{ fields_step.paginator.answered|length|add:forloop.counter }}
-            {% else %}
-                Question {{ forloop.counter }}
-            {% endif %}
-          {% else %}
-            Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
-          {% endif %}
-        </h4>
-      {% endif %}
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
@@ -88,6 +82,13 @@
     {% endfor %}
     {% trans "Submit Survey" as text %}
     <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+    <p>
+    {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
+    Page {{ page }} of {{ pages }}
+    {% endblocktrans %}
+    </p>
+    {% endif %}
   </form>
   {% else %}
   <div class="surveys">
