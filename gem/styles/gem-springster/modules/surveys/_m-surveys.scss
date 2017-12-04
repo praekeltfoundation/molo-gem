@@ -1,40 +1,63 @@
  .surveys {
   position: relative;
   margin: 15px 0 0;
-}
-.surveys--call-to-action {
-  padding: 10px 8px 8px;
-}
+      &--call-to-action {
+        padding: 10px 8px 8px;
+      }
+      &__form {
+        background-color: $mint-green-light;
+        padding: 0 0 20px;
+        @each $name, $color in $color_list {
+            &--#{$name} {
+                background-color: $color;
+            }
+        }
+        fieldset {
+          padding: 0 8px 0;
+        }
+      }
+      &--results {
+        background-color: $mint-green-light;
+        padding: 0 10px 20px;
+        label {
+          text-align: left;
+          padding: 0 0 5px;
+        }
+      }
 
-.surveys__form {
-  background-color: $mint-green-light;
-  padding: 0 0 20px;
-  fieldset {
-    padding: 0 8px 0;
-  }
-}
-.surveys--results {
-  background-color: $mint-green-light;
-  padding: 0 10px 20px;
-  label {
-    text-align: left;
-    padding: 0 0 5px;
-  }
-}
-.surveys__question-title {
-  font-size: 16px;
-  color: $slate-grey;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 30px 0 0;
-}
-.surveys__answers-counter-bar {
-  padding: 0 0 10px;
-}
-.surveys__answers-counter {
-  background: $sunny-yellow;
-  font-size: $font-xx-small;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 8px;
+      &__question-title {
+        font-size: 16px;
+        color: $slate-grey;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 30px 0 0;
+      }
+      &__answers-counter-bar {
+        padding: 0 0 10px;
+      }
+      &__answers-counter {
+        background: $sunny-yellow;
+        font-size: $font-xx-small;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 8px;
+      }
+
+      &__pagination {
+          padding: 15px 15px 0;
+          text-align: center;
+          &-title {
+              color: $gunmetal;
+              font-size: $font-medium;
+              font-family: $baton-regular;
+          }
+      }
+      &__page {
+          color: #4e5358;
+          font-style: italic;
+          font-size: $font-x-small;
+          &-number {
+              font-weight: bold;
+          }
+      }
 }

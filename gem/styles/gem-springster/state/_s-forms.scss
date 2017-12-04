@@ -14,11 +14,11 @@ input[type="radio"] {
     position: absolute;
     visibility: hidden;
 }
+
 input[type=checkbox] + label,
+input[type=checkbox]:checked + label,
 input[type=radio] + label,
-input[type=radio]:checked + label,
-input[type=checkbox]:checked + label {
-    background-color: #fff;
+input[type=radio]:checked + label {
     background-image: none;
 }
 
@@ -32,7 +32,6 @@ input[type=radio]:checked + label {
 }
 input[type=radio] ~ label  {
     padding: 16px 54px 16px;
-    margin: 0 0 10px;
 }
 
 input[type=checkbox] {
@@ -45,7 +44,6 @@ input[type=checkbox]:checked + label:before {
     background: $springster-purple url('/static/img/icons/check-box.png') 0 50%/24px no-repeat;;
     opacity: 1;
 }
-
 input[type=checkbox] ~ label {
     background-color: transparent;
     padding: 10px;
@@ -67,5 +65,5 @@ input[type=checkbox] ~ label {
 
 select {
     background: #fafafa url(/static/img/icons/drop-down@2x.png) 97% 50%/20px no-repeat;
-    height: auto;    
+    height: auto;
 }
