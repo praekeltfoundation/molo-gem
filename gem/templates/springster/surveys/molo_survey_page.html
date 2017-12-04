@@ -6,27 +6,27 @@
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
-  <p>
-  {% blocktrans with pages=fields_step.paginator.num_pages %}
-  This survey has {{ pages }} pages
-  {% endblocktrans %}
-  </p>
+      <h6 class="surveys__pagination-title">
+          {% blocktrans with pages=fields_step.paginator.num_pages %}
+              This survey has {{ pages }} pages
+          {% endblocktrans %}
+      </h6>
   {% endif %}
 </div>
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if form %}
-  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
+  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}">
   {% csrf_token %}
-  {% if not is_via_freebasics %}
-    {{ form.media }}
-  {% endif %}
+    {% if not is_via_freebasics %}
+        {{ form.media }}
+    {% endif %}
     {% for field in form %}
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
         {% if field.help_text %}
           {% if field|fieldtype == 'CharacterCountWidget' %}
-            <span class="surveys__helptext helptext">{{ field.help_text }}</span>
+            <p class="surveys__helptext helptext">{{ field.help_text }}</p>
           {% else %}
             <p class="helptext">{{ field.help_text }}</p>
           {% endif %}
@@ -83,11 +83,13 @@
     {% trans "Submit Survey" as text %}
     <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
-    <p>
-    {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
-    Page {{ page }} of {{ pages }}
-    {% endblocktrans %}
-    </p>
+    <div class="surveys__pagination">
+        <p class="surveys__page">
+            {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                Page <span class="surveys__page-number">{{ page }}</span> of <span class="surveys__page-number">{{ pages }}</span>
+            {% endblocktrans %}
+        </p>
+    </div>
     {% endif %}
   </form>
   {% else %}
