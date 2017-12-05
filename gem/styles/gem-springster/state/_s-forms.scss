@@ -15,6 +15,17 @@ input[type="radio"] {
     visibility: hidden;
 }
 
+label {
+    & > input,
+    & > input[type="checkbox"],
+    & > input[type="radio"],
+    & > textarea,
+    & > select {
+        position: relative;
+        visibility: visible;
+    }
+}
+
 input[type=checkbox] + label,
 input[type=checkbox]:checked + label,
 input[type=radio] + label,
@@ -29,6 +40,12 @@ input[type=radio] + label {
 input[type=radio]:checked + label {
     background: #fff url('/static/img/icons/selected@2x.png') 16px 50%/24px no-repeat;
     opacity: 1;
+}
+.choice-group--comments {
+    input[type=radio] + label,
+    input[type=radio]:checked + label {
+        background-color: $springster-purple-light;
+    }
 }
 input[type=radio] ~ label  {
     padding: 16px 54px 16px;

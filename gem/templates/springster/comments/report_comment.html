@@ -1,19 +1,34 @@
 {% extends "core/article_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags gem_tags i18n %}
 {% block content %}
 {% pageurl article as the_url %}
 {% trans "Back to article" as back %}
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 <div class="comments">
-  {% trans "Please let us know why you are reporting this comment?" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
-  <form method="post" class="comments__form">
-  {% csrf_token %}
-    <fieldset>
-      {{ form.report_reason }}
-    </fieldset>
+    {% trans "Please let us know why you are reporting this comment?" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+    <form method="post" class="comments__form comments__form--report">
+    {% csrf_token %}
+    {% for field in form %}
+        <fieldset>
+        {% if field|fieldtype == 'RadioSelect' %}
+            {% for value, text in field.field.choices %}
+            <div class="choice-group choice-group--comments choice-group__radio">
+            <input name="{{ field.name }}"
+            id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+            <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
+            {% endfor %}
+        {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
+            <div class="choice-group choice-group--comments">
+                <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
+        {% endif %}
+        </fieldset>
+    {% endfor %}
     <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
-  </form>
+    </form>
 </div>
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 {% endblock %}
