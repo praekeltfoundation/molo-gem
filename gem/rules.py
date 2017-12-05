@@ -22,6 +22,7 @@ from wagtail_personalisation.rules import AbstractBaseRule
 
 PERSONALISATION_PROFILE_DATA_FIELDS = [
     '{}__date_joined'.format(settings.AUTH_USER_MODEL),
+    '{}__last_login'.format(settings.AUTH_USER_MODEL),
     'profiles.UserProfile__date_of_birth',
     'gem.GemUserProfile__gender'
 ]

@@ -5,50 +5,67 @@
   <div class="identity-image identity-image--survey"></div>
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
+  {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <h6 class="surveys__pagination-title">
+          {% blocktrans with pages=fields_step.paginator.num_pages %}
+              This survey has {{ pages }} pages
+          {% endblocktrans %}
+      </h6>
+  {% endif %}
 </div>
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if form %}
-  <form action="{% pageurl self %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form">
+  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}">
   {% csrf_token %}
+    {% if not is_via_freebasics %}
+        {{ form.media }}
+    {% endif %}
     {% for field in form %}
-      {% if fields_step %}
-        <h4 class="surveys__question-title">
-          Question {{fields_step.number}} of {{fields_step.paginator.num_pages}}
-        </h4>
-      {% endif %}
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
         {% if field.help_text %}
+          {% if field|fieldtype == 'CharacterCountWidget' %}
+            <p class="surveys__helptext helptext">{{ field.help_text }}</p>
+          {% else %}
             <p class="helptext">{{ field.help_text }}</p>
+          {% endif %}
         {% endif %}
         {% if field|fieldtype == 'CheckboxSelectMultiple' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group">
-                    <input id="value-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ value }}">
+                    <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
                     <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                 </div>
-                {#id_field_{{ forloop.counter0 }}#}
             {% endfor %}
         {% elif field|fieldtype == 'RadioSelect' %}
             {% for value, text in field.field.choices %}
                 <div class="choice-group choice-group__radio">
-                    <input name='{{ field.name }}'
-                     id='value-{{ field.id_for_label }}-{{ forloop.counter }}' type='radio' value='{{ value }}'/>
-                     <label for='value-{{ field.id_for_label }}-{{ forloop.counter }}'>{{ text|capfirst }}</label>
+                    <input name="{{ field.name }}"
+                     id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                     <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                 </div>
             {% endfor %}
-        {% elif field|fieldtype == 'Select' %}
-            <div class="select-style">
-                 <select class="select">
-                    <option value="none" selected="selected">Choose...</option>
-                    {% for choice in field.field.choices %}
-                        <option value="{{choice.0}}">
-                            {{choice.0}}
-                        </option>
-                    {% endfor %}
-                 </select>
-            </div>
+            {% elif field|fieldtype == 'Select' %}
+                <div class="select-style">
+                     <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                         {% if field.value.0 %}
+                             <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                             {% for choice in field.field.choices %}
+                                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                                     {{choice.0}}
+                                 </option>
+                             {% endfor %}
+                         {% elif not field.value.0  %}
+                             <option value="Choose..." selected="selected">Choose..</option>
+                             {% for choice in field.field.choices %}
+                                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                                     {{choice.0}}
+                                 </option>
+                             {% endfor %}
+                         {% endif %}
+                     </select>
+                </div>
         {% else %}
             {{field}}
         {% endif %}
@@ -65,6 +82,15 @@
     {% endfor %}
     {% trans "Submit Survey" as text %}
     <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+    <div class="surveys__pagination">
+        <p class="surveys__page">
+            {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                Page <span class="surveys__page-number">{{ page }}</span> of <span class="surveys__page-number">{{ pages }}</span>
+            {% endblocktrans %}
+        </p>
+    </div>
+    {% endif %}
   </form>
   {% else %}
   <div class="surveys">

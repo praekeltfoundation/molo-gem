@@ -3,33 +3,42 @@
 
 {% block content %}
 <div class="surveys surveys--call-to-action">
-  <div class="identity-image identity-image--survey"></div>
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=self.intro %}
-
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+    <div class="identity-image identity-image--survey"></div>
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+    {% if self.thank_you_text %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+    {% else %}
+        {% trans "Thank you for submitting survey!" as headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+    {% endif %}
 </div>
-	{% if self.show_results and results %}
-  <div class="surveys--results">
+{% if self.show_results and results %}
+    <div class="surveys--results">
     {% trans "Survey Results" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
     {% trans "Your survey has been completed successfully. Please see your submission results below." as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
-  	{% for question, answers in results.items %}
-    <fieldset>
-  		<label class="surveys__question">{{ question|capfirst }}</label>
-  		{% for answer, count in answers.items %}
-      <div class="surveys__answers-counter-bar">
-  		  <h4 class="surveys__answers">
-  			  {{ answer|capfirst }}
-  		  </h4>
-        <span class="surveys__answers-counter">{% if self.show_results_as_percentage%}{{ count }}%{% else %}{{count}}{% endif %}</span>
-      </div>
-  		{% endfor %}
-    </fieldset>
-  	{% endfor %}
-  	</div>
-  {% endif %}
-  {% trans "Back home" as back %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
+        {% for question, answers in results.items %}
+        <fieldset>
+            <label class="surveys__question">{{ question|capfirst }}</label>
+            {% for answer, count in answers.items %}
+                <div class="surveys__answers-counter-bar">
+                <h4 class="surveys__answers">
+                    {{ answer|capfirst }}
+                </h4>
+                <span class="surveys__answers-counter">
+                    {% if self.show_results_as_percentage%}
+                        {{ count }}%
+                    {% else %}
+                        {{count}}
+                    {% endif %}
+                </span>
+            </div>
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+    </div>
+{% endif %}
+{% trans "Back home" as back %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
 {% endblock %}
