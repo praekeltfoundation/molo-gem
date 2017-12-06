@@ -2,17 +2,30 @@
 {% load i18n %}
 {% block content %}
 <div class="profiles">
-  {% trans "Thank you for joining!" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-  {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
-  <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
-  {% csrf_token %}
-    <fieldset>
-      {{ form.date_of_birth }}
-    </fieldset>
-    <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
-    <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
-  </form>
+    {% trans "Thank you for joining!" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+    {% with profile_settings=settings.profiles.UserProfilesSettings %}
+        {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg %}
+            {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+            <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
+            {% csrf_token %}
+            <fieldset>
+            {{ form.date_of_birth }}
+            </fieldset>
+            <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
+            <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
+            </form>
+         {% else %}
+            {% trans "Your birthday is used to get you access to exclusive content." as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+            <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__button call-to-action__button--primary">
+                <span class="call-to-action__button-text call-to-action__button-text--primary">
+                    {% trans "My Profile" %}
+                </span>
+            </a>
+            <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item-text">{% trans "Home Page" %}</a>
+        {% endif %}
+    {% endwith %}
 </div>
 {% endblock %}
