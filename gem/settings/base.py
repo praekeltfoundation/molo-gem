@@ -148,9 +148,9 @@ DEFAULT_TEMPLATE = {
             'django.contrib.auth.context_processors.auth',
             'django.contrib.messages.context_processors.messages',
             'molo.core.context_processors.locale',
+            'molo.core.context_processors.detect_freebasics',
             'wagtail.contrib.settings.context_processors.settings',
             'gem.context_processors.default_forms',
-            'gem.context_processors.detect_freebasics',
             'gem.processors.compress_settings',
         ],
         "loaders": [
