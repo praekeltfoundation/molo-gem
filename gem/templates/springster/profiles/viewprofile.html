@@ -31,37 +31,19 @@
         {% endif %}
     </fieldset>
 
+    {% if profile_settings.activate_dob and profile_settings.capture_dob_on_reg %}
     <fieldset>
         <label>{% trans "Date of Birth: " %}</label>
         <span class="input-feedback">
-            {% if user.profile.date_of_birth %}
-                {{ user.profile.date_of_birth | date:"M d, Y" }}
-            {% else %}
-                {% trans " Not set." %}
-            {% endif %}
+            {{ user.profile.date_of_birth | default:"Not set" }}
         </span>
     </fieldset>
-
-    {% if profile_settings.activate_dob and profile_settings.capture_dob_on_reg %}
-    <fieldset>
-        <label>{% trans "DoB: " %}</label>
-        {{ user.profile.date_of_birth }}
-    </fieldset>
     {% endif %}
-
-    <fieldset>
-        <label>{% trans "Gender:" %}</label>
-        {% if user.gem_profile.get_gender_display %}
-            <span class="input-feedback">{{ user.gem_profile.get_gender_display }}</span>
-        {% else %}
-            <span class="input-feedback">Not set.</span>
-        {% endif %}
-    </fieldset>
 
     {% if profile_settings.activate_gender and profile_settings.capture_gender_on_reg %}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        <span class="input-feedback">{{ user.profile.gender | default:"Not set" }}</span>
+        <span class="input-feedback">{{ user.gem_profile.get_gender_display | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 
