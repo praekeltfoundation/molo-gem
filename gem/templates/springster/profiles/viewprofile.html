@@ -20,6 +20,7 @@
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
     {% trans "Your Profile" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+    {% with profile_settings=settings.profiles.UserProfilesSettings %}
     <fieldset>
         {% if user.profile.alias %}
             <label>{% trans "When you type comments your name will appear as:" %}
@@ -41,6 +42,13 @@
         </span>
     </fieldset>
 
+    {% if profile_settings.activate_dob and profile_settings.capture_dob_on_reg %}
+    <fieldset>
+        <label>{% trans "DoB: " %}</label>
+        {{ user.profile.date_of_birth }}
+    </fieldset>
+    {% endif %}
+
     <fieldset>
         <label>{% trans "Gender:" %}</label>
         {% if user.gem_profile.get_gender_display %}
@@ -49,49 +57,42 @@
             <span class="input-feedback">Not set.</span>
         {% endif %}
     </fieldset>
--->
-    {% if settings.profiles.UserProfilesSettings.activate_gender and settings.profiles.UserProfilesSettings.capture_gender_on_reg %}
+
+    {% if profile_settings.activate_gender and profile_settings.capture_gender_on_reg %}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
         <span class="input-feedback">{{ user.profile.gender | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 
-    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-    <fieldset>
-        <label>{% trans "Mobile number:" %}</label>
-        <span class="input-feedback">{{ user.profile.mobile_number }}</span>
-    </fieldset>
-    {% endif %}
--->
-    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+    {% if profile_settings.show_mobile_number_field and profile_settings.country_code %}
     <fieldset>
         <label>{% trans "Mobile number:" %}</label>
         <span class="input-feedback">{{ user.profile.mobile_number | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 
-    {% if settings.profiles.UserProfilesSettings.show_email_field %}
+    {% if profile_settings.show_email_field %}
     <fieldset>
         <label>{% trans "Email Address:" %}</label>
         <span class="input-feedback">{{ user.email | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 
-    {% if settings.profiles.UserProfilesSettings.activate_location %}
+    {% if profile_settings.activate_location and profile_settings.capture_location_on_reg %}
     <fieldset>
         <label>{% trans "Location:" %}</label>
         <span class="input-feedback">{{ user.profile.location | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 
-    {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+    {% if profile_settings.activate_education_level and profile_settings.capture_education_level_on_reg %}
     <fieldset>
         <label>{% trans "Education Level:" %}</label>
         <span class="input-feedback">{{ user.profile.education_level | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
-
+    {% endwith %}
     {% url "edit_my_profile" as link %}
     {% trans "Update Profile" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
