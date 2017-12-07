@@ -78,25 +78,26 @@
     </div>
     <p class="helptext">{% trans "Please answer the above security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
   </fieldset>
-  <fieldset>
-    <div class="terms-and-conditions">
-        {{ form.terms_and_conditions }}
-        {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">
-                {% trans "I accept the terms and conditions" %}
-            </a>
-        {% else %}
-            <label for="id_terms_and_conditions">
-                {% trans "I accept the terms and conditions" %}
-            </label>
-        {% endif %}
-    </div>
-    {% if form.terms_and_conditions.errors %}
-      <p class="errors">
-        {% trans "Please accept the terms and conditions in order to complete registration" %}
-      </p>
-    {% endif %}
-  </fieldset>
+    <fieldset>
+        <div class="terms-and-conditions">
+           {{ form.terms_and_conditions }}
+           {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+               <label for="id_terms_and_conditions">
+                   <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" class="call-to-action__hyperlink" target="_blank">
+                   {% trans "I accept the Terms and Conditions" %}</a>
+               </label>
+           {% else %}
+               <label for="id_terms_and_conditions">
+                   {% trans "I accept the Terms and Conditions" %}
+               </label>
+           {% endif %}
+        </div>
+           {% if form.terms_and_conditions.errors %}
+               <p class="errors">
+                   {% trans "Please accept the terms and conditions in order to complete registration" %}
+               </p>
+           {% endif %}
+    </fieldset>
   <input type="submit" value='{% trans "Sign up" %}' class="call-to-action__button call-to-action__button--primary">
   <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
   {% trans "Already joined?" as headingtext %}
