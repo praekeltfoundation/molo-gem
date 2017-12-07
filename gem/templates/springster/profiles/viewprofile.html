@@ -2,96 +2,96 @@
 {% load i18n wagtailsettings_tags %}
 {% get_settings %}
 {% block content %}
-<div class="profiles">
-  {% trans "Hello" as headingtext %}
-  {% if user.profile.alias %}
+    <div class="profiles">
+    {% trans "Hello" as headingtext %}
+    {% if user.profile.alias %}
     {% with user.profile.alias as alias %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
     {% endwith %}
-  {% else %}
+    {% else %}
     {% with user|stringformat:"s" as username %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.gem_profile.migrated_username|default:username %}
     {% endwith %}
-  {% endif %}
-  {% url "molo.profiles:auth_logout" as link %}
-  {% trans "log out" as buttontext %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
-  {% trans "Your Profile" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
-  <fieldset>
-    {% if user.profile.alias %}
-      <label>{% trans "When you type comments your name will appear as:" %}
-      <span class="input-feedback">{{ user.profile.alias }}</span></label>
-    {% else %}
-      <label>{% trans "You haven't set a display name, so your comments will appear as 'anonymous'" %}</label>
     {% endif %}
-  </fieldset>
-  <fieldset>
+    {% url "molo.profiles:auth_logout" as link %}
+    {% trans "log out" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
+    {% trans "Your Profile" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+    <fieldset>
+    {% if user.profile.alias %}
+    <label>{% trans "When you type comments your name will appear as:" %}
+    <span class="input-feedback">{{ user.profile.alias }}</span></label>
+    {% else %}
+    <label>{% trans "You haven't set a display name, so your comments will appear as 'anonymous'" %}</label>
+    {% endif %}
+    </fieldset>
+    <fieldset>
     <label>{% trans "Date of birth:" %}<label>
     {% if user.profile.date_of_birth %}
-      <span class="input-feedback">{{ user.profile.date_of_birth }}</span>  <label>
+    <span class="input-feedback">{{ user.profile.date_of_birth }}</span>  <label>
     {% else %}
-      <span class="input-feedback">Not set.</span>
+    <span class="input-feedback">Not set.</span>
     {% endif %}
-  </fieldset>
-  <fieldset>
+    </fieldset>
+    <fieldset>
     <label>{% trans "Gender:" %}</label>
     {% if user.gem_profile.get_gender_display %}
-      <span class="input-feedback">{{ user.gem_profile.get_gender_display }}</span></p>
+    <span class="input-feedback">{{ user.gem_profile.get_gender_display }}</span></p>
     {% else %}
-      <span class="input-feedback">Not set.</span></p>
+    <span class="input-feedback">Not set.</span></p>
     {% endif %}
-  </fieldset>
-  <fieldset>
+    </fieldset>
+    <fieldset>
     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
     <label>{% trans "Mobile number:" %}</label>
-      <span class="input-feedback">{{ user.profile.mobile_number }}</span></p>
+    <span class="input-feedback">{{ user.profile.mobile_number }}</span></p>
     {% endif %}
-  </fieldset>
-  {% url "edit_my_profile" as link %}
-  {% trans "Update Profile" as buttontext %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
-  <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block" novalidate>
-  {% csrf_token %}
-  {% trans "Change Your Pin" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+    </fieldset>
+    {% url "edit_my_profile" as link %}
+    {% trans "Update Profile" as buttontext %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+    <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block" novalidate>
+    {% csrf_token %}
+    {% trans "Change Your Pin" as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
     {% if form.errors or form.non_field_errors %}
-      {% if form.non_field_errors %}
-      {% for error in form.non_field_errors %}
-          <p class="errors">{{ error }}</p>
-      {% endfor %}
-      {% endif %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="errors">{{ error }}</p>
+    {% endfor %}
+    {% endif %}
     {% endif %}
     {% if messages %}
     <ul class="errors-list">
-      {% for message in messages %}
-        <li class="errors-list__item">{{ message }}</li>
-      {% endfor %}
+    {% for message in messages %}
+    <li class="errors-list__item">{{ message }}</li>
+    {% endfor %}
     </ul>
     {% endif %}
     <fieldset>
-      <div class="input-group{% if password_change_form.old_password.errors %} input-error{% endif %}">
-        <label>{% trans "Old Pin:" %}</label>
-        {{ password_change_form.old_password }}
-        {{ password_change_form.old_password.errors }}
-      </div>
+    <div class="input-group{% if password_change_form.old_password.errors %} input-error{% endif %}">
+    <label>{% trans "Old Pin:" %}</label>
+    {{ password_change_form.old_password }}
+    {{ password_change_form.old_password.errors }}
+    </div>
 
     </fieldset>
     <fieldset>
-      <div class="input-group{% if form.new_password.errors %} input-error{% endif %}">
-        <label>{% trans "New Pin:" %}</label>
-        {{ password_change_form.new_password }}
-        {{ form.new_password.errors }}
-      </div>
+    <div class="input-group{% if form.new_password.errors %} input-error{% endif %}">
+    <label>{% trans "New Pin:" %}</label>
+    {{ password_change_form.new_password }}
+    {{ form.new_password.errors }}
+    </div>
     </fieldset>
     <fieldset>
-      <div class="input-group{% if form.confirm_password.errors %} input-error{% endif %}">
-        <label>{% trans "Confirm Pin:" %}</label>
-        {{ password_change_form.confirm_password }}
-        {{ form.confirm_password.errors }}
-      </div>
+    <div class="input-group{% if form.confirm_password.errors %} input-error{% endif %}">
+    <label>{% trans "Confirm Pin:" %}</label>
+    {{ password_change_form.confirm_password }}
+    {{ form.confirm_password.errors }}
+    </div>
     </fieldset>
     <input type="submit" value="{% trans "Change" %}" class="call-to-action__button call-to-action__button--primary">
-  </form>
-</div>
+    </form>
+    </div>
 {% endblock %}
