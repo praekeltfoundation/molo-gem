@@ -8,7 +8,7 @@ from molo.core.models import SiteLanguageRelation, Main, Languages, MoloMedia
 from django.core.files.base import ContentFile
 
 
-class GemContextProcessorTest(TestCase, MoloTestCaseMixin):
+class FreebasicsContentTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.client = Client()

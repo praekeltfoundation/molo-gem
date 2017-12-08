@@ -9,6 +9,8 @@ def default_forms(request):
         'password_change_form': ProfilePasswordChangeForm()
     }
 
+# TODO: remove this context processor
+
 
 def detect_freebasics(request):
     return {
