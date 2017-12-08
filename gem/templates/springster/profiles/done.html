@@ -5,8 +5,74 @@
     {% trans "Thank you for joining!" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
-        {% if profile_settings.activate_dob and profile_settings.capture_dob_on_reg or profile_settings.activate_display_name and profile_settings.capture_display_name_on_reg or profile_settings.activate_gender and profile_settings.capture_gender_on_reg or profile_settings.activate_location and profile_settings.capture_location_on_reg or profile_settings.activate_education_level and profile_settings.capture_education_level_on_reg %}
-            {% trans "Your birthday is used to get you access to exclusive content." as headingtext %}
+        {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg or profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg or profile_settings.activate_gender and not profile_settings.capture_gender_on_reg or profile_settings.activate_location and not profile_settings.capture_location_on_reg or profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
+
+            {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+                <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
+                {% csrf_token %}
+                    {% if profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg %}
+                        <fieldset>
+                            <div class="input-group{% if form.alias.errors %} input-error{% endif %}">
+                                <label for="alias">{% trans "Display name" %}</label>
+                                {{ form.alias }}
+                                {{ form.alias.errors }}
+                            </div>
+                            <p class="helptext">{% trans "Springster values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
+                        </fieldset>
+                    {% endif %}
+
+                    {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg %}
+                        <fieldset>
+                            <div class="input-group{% if form.date_of_birth.errors %} input-error{% endif %}">
+                                <label for="date_of_birth">{% trans "Select Date of Birth" %}</label>
+                                {{ form.date_of_birth }}
+                                {{ form.date_of_birth.errors}}
+                            </div>
+                            <p class="helptext">{% trans "Let us know your birthday to get access to exclusive content." %}</p>
+                        </fieldset>
+                    {% endif %}
+
+                    {% if profile_settings.activate_gender and not profile_settings.capture_gender_on_reg %}
+                        <fieldset>
+                            <div class="input-group{% if form.gender.errors %} input-error{% endif %}">
+                                <label for="gender">{% trans "I identify as" %}</label>
+                                {{ form.gender }}
+                                {{ form.gender.errors }}
+                            </div>
+                            <p class="helptext">
+                                ({% trans "Only you will see this, but it's not mandatory to tell us" %})
+                            </p>
+                        </fieldset>
+                    {% endif %}
+
+                    {% if profile_settings.activate_location and not profile_settings.capture_location_on_reg %}
+                    <fieldset>
+                        <div class="input-group{% if form.location.errors %} input-error{% endif %}">
+                            <label for="location">{% trans "Where do you live?" %}</label>
+                            {{ form.location }}
+                            {{ form.location.errors}}
+                        </div>
+                        <p class="helptext">{% trans "Only you will see this." %}</p>
+                    </fieldset>
+                    {% endif %}
+
+
+                    {% if profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
+                    <fieldset>
+                        <div class="input-group{% if form.education_level.errors %} input-error{% endif %}">
+                            <label for="education_level">{% trans "What is your highest level of education?" %}</label>
+                            {{ form.education_level }}
+                            {{ form.education_level.errors}}
+                        </div>
+                        <p class="helptext">{% trans "Only you will see this." %}</p>
+                    </fieldset>
+                    {% endif %}
+                    <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
+                    <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
+                </form>
+        {% else %}
+            {% trans "Update profile to let us know your birthday to get access to exclusive content." as headingtext %}
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
             <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__button call-to-action__button--primary">
                 <span class="call-to-action__button-text call-to-action__button-text--primary">
@@ -14,18 +80,6 @@
                 </span>
             </a>
             <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item-text">{% trans "Home Page" %}</a>
-         {% else %}
-             {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
-             {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
-             <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
-             {% csrf_token %}
-                 <fieldset>
-                     {{ form.date_of_birth.errors}}
-                     {{ form.date_of_birth }}
-                 </fieldset>
-                 <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
-                 <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
-             </form>
         {% endif %}
     {% endwith %}
 </div>
