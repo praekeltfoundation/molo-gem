@@ -1,9 +1,7 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 <div class="banner">
-{% if bannerpages %}
-{% for bannerpage in bannerpages %}
   {% if bannerpage.banner %}
-  {% image bannerpage.banner width-360 as tmp_photo %}
+    {% image bannerpage.banner width-360 as tmp_photo %}
     {% if bannerpage.banner_link_page %}
       <a href="{% pageurl bannerpage.banner_link_page %}" target="_top" class="banner__item-link">
       <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
@@ -15,7 +13,18 @@
     {% else %}
       <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
     {% endif %}
+  {% else %}
+    <div class="banner__block">
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=bannerpage.title %}
+      {% if bannerpage.subtitle %}
+        <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
+      {% endif %}
+      {% trans "Click Here" as buttontext %}
+      {% if bannerpage.banner_link_page %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=bannerpage.banner_link_page text=buttontext %}
+      {% elif bannerpage.external_link %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=bannerpage.external_link text=buttontext %}
+      {% endif %}
+  </div>
 	{% endif %}
-{% endfor%}
-{% endif %}
 </div>
