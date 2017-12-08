@@ -15,7 +15,7 @@
 </div>
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if form %}
-  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}">
+  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}" novalidate>
   {% csrf_token %}
     {% if not is_via_freebasics %}
         {{ form.media }}

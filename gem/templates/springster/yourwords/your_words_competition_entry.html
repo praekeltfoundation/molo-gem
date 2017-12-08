@@ -16,7 +16,7 @@
   {% endfor %}
 
   <div class="yourwords__container-form">
-  <form method="post" class="yourwords__form">
+  <form method="post" class="yourwords__form" novalidate>
   {% csrf_token %}
     <fieldset>
       <div class="input-group">
@@ -52,7 +52,7 @@
     <input type="submit" value="{% trans "Submit your story" %}" class="call-to-action__button call-to-action__button--primary">
   </form>
   </div>
-  {% trans "Back to article" as back %}
+  {% trans "Back home" as back %}
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
   </div>
 </div>
