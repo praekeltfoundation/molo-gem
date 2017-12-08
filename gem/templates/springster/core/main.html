@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% load staticfiles core_tags wagtailcore_tags molo_survey_tags poll_votings competition_tag el_pagination_tags i18n media_tags %}
+{% load staticfiles core_tags wagtailcore_tags molo_survey_tags poll_votings competition_tag el_pagination_tags i18n media_tags gem_tags %}
 {% block content %}
   {% bannerpages position=0 %}
+  {% gembannerpages %}
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}

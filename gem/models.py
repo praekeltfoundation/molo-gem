@@ -11,11 +11,13 @@ from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
 
 from molo.commenting.models import MoloComment
+from molo.core.models import BannerPage, BannerIndexPage
 
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from .rules import *  # noqa
 
@@ -79,6 +81,24 @@ def gem_user_profile_handler(sender, instance, created, **kwargs):
     if created:
         profile = GemUserProfile(user=instance)
         profile.save()
+
+
+class GemTextBanner(BannerPage):
+    parent_page_types = ['core.BannerIndexPage']
+    hide_on_freebasics = models.BooleanField(default=False)
+
+
+GemTextBanner.content_panels = [
+    FieldPanel('title', classname='full title'),
+    FieldPanel('subtitle'),
+    ImageChooserPanel('banner'),
+    PageChooserPanel('banner_link_page'),
+    FieldPanel('external_link'),
+    FieldPanel('hide_on_freebasics')
+]
+
+
+BannerIndexPage.subpage_types = ['core.BannerPage', 'gem.GemTextBanner']
 
 
 @register_setting
