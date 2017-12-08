@@ -495,5 +495,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 AWS_S3_FILE_OVERWRITE = False
 
 PERSONALISATION_SEGMENTS_ADAPTER = (
-    'molo.surveys.adapters.SurveysSegmentsAdapter'
+    'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
 )
