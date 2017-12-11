@@ -7,7 +7,7 @@
 <div class="comments">
     {% trans "Please let us know why you are reporting this comment?" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
-    <form method="post" class="comments__form comments__form--report">
+    <form method="post" class="comments__form comments__form--report" novalidate>
     {% csrf_token %}
     {% for field in form %}
         <fieldset>

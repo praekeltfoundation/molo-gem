@@ -2,7 +2,7 @@
   {% if error_message %}
     <p class="errors">{{ error_message }}</p>
   {% endif %}
-<form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" >
+<form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" novalidate>
 {% csrf_token %}
 {% if request.user.is_authenticated %}
   {% can_vote question as user_can_vote %}
