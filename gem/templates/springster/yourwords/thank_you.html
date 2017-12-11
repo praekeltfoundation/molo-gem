@@ -16,7 +16,6 @@
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=page.subtitle %}
       <div class="body-content">
-        <!--This must be body - content then -->
         {% include "patterns/basics/articles/article-page_variations/article-body.html" %}
       </div>
     {% endfor %}
@@ -24,7 +23,7 @@
   {% trans "Thank you for sharing your words!" as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
 {% endif %}
-  {% trans "Back to article" as back %}
+  {% trans "Back home" as back %}
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
   </div>
 </div>

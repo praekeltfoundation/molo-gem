@@ -6,7 +6,7 @@
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
   {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
-  <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
+  <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form" novalidate>
   {% csrf_token %}
     <fieldset>
       {{ form.date_of_birth }}

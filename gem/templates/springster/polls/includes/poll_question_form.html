@@ -3,7 +3,7 @@
 {% if error_message %}
   <p class="errors">{{ error_message }}</p>
 {% endif %}
-<form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" >
+<form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" novalidate>
 {% csrf_token %}
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
