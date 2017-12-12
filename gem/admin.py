@@ -87,10 +87,9 @@ class GemFrontendUsersResource(ModelResource):
     class Meta:
         model = User
         fields = ('id', 'username', 'date_of_birth',
-                  'is_active', 'last_login', 'gender')
+                  'is_active', 'date_joined', 'last_login', 'gender')
 
-        export_order = ('id', 'username', 'date_of_birth',
-                        'is_active', 'last_login', 'gender')
+        export_order = fields
 
     def dehydrate_gender(self, user):
         if hasattr(user, 'gem_profile'):
