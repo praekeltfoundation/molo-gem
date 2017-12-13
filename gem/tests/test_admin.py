@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import date, datetime
+from pytz import UTC
 
 from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
@@ -53,16 +54,35 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         self.assertEquals(response.status_code, 302)
 
     def test_send_export_email(self):
+        self.user.date_joined = datetime(2017, 1, 1, tzinfo=UTC)
+        self.user.save()
+
         send_export_email_gem(self.user.email, {})
         message = list(mail.outbox)[0]
+
+        expected_csv_header = [
+            'id',
+            'username',
+            'date_of_birth',
+            'is_active',
+            'date_joined',
+            'last_login',
+            'gender',
+        ]
+
+        expected_csv = [
+            ','.join(expected_csv_header),
+            '1,tester,,1,2017-01-01 00:00:00,,',
+            ''
+        ]
+
         self.assertEquals(message.to, [self.user.email])
         self.assertEquals(
             message.subject, 'Molo export: ' + settings.SITE_NAME)
         self.assertEquals(
             message.attachments[0],
             ('Molo_export_GEM.csv',
-             'id,username,date_of_birth,is_active,last_login,gender\r\n'
-             '1,tester,,1,,\r\n',
+             '\r\n'.join(expected_csv),
              'text/csv'))
 
     def test_export_csv_no_gem_profile(self):
