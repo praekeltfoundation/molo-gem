@@ -19,15 +19,15 @@ from gem.views import report_response, GemRegistrationView, \
     GemResetPasswordSuccessView, ReportCommentView, GemEditProfileView, \
     AlreadyReportedCommentView
 
+urlpatterns = []
+
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
-    urlpatterns = [
+    urlpatterns += [
         url(r'^admin/login/', cas_views.login),
         url(r'^admin/logout/', cas_views.logout),
         url(r'^admin/callback/', cas_views.callback),
     ]
-else:
-    urlpatterns = []
 
 urlpatterns += [
     url(r'^django-admin/', include(admin.site.urls)),
