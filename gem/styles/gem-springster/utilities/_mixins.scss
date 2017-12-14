@@ -104,3 +104,12 @@
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop');
   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop')";
 }
+// font mixin with language fallback
+@mixin font($font-name) {
+  font-family: $font-name;
+  @each $language in $languages {
+    &:lang(#{$language}) {
+      font-family: $font-fallback;
+    }
+  }
+}
