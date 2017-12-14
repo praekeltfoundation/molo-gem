@@ -1,10 +1,10 @@
 body{
   font-size: $font-small;
-  font-family: $baton-turbo;
+  @include font($baton-turbo);
   line-height: get-line-height($font-small, 24px);
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: $baton-medium;
+  @include font($baton-medium);
   font-weight: normal;
 }
 .heading {
@@ -14,7 +14,7 @@ h1,h2,h3,h4,h5,h6 {
   }
 }
 .errors, .error-list__item, .errorlist, .error-message {
-  font-family: $baton-medium;
+  @include font($baton-medium);
 }
 .heading--xx-large {
   @include heading-fontsize-scale($heading-xx-large);
