@@ -1,44 +1,39 @@
-.base-teaser__title-link {
-  font-weight: normal;
+.base-teaser {
+    &__title-link {
+      font-weight: normal;
+    }
+    &__thumbnail-link  {
+      display: inline-block;
+      width: 30%;
+      img {
+        width: 100%;
+      }
+    }
+    &__title {
+        font-size: $font-x-large;
+         @include font($baton-medium);
+        line-height: get-line-height($font-x-large, 24px);
+    }
 }
-.base-teaser__thumbnail-link  {
-  display: inline-block;
-  width: 30%;
-  img {
-    width: 100%;
-  }
-}
-.base-teaser__title {
-  @include font($baton-medium);
-}
+
 .teaser-stacklist__item--content {
   width: 60%;
 }
 .teaser-stacklist-tags {
-  padding: 0;
-  vertical-align: bottom;
-  &__anchor  {
-    @include font($baton-medium);
-    font-size: $font-xxx-small;
-  }
-}
-.base-teaser {
-  &__title {
-    font-size: $font-x-large;
-    line-height: get-line-height($font-x-large, 24px);
-  }
-}
-.teaser-stacklist-tags-container {
-  height: 20px;
-}
-.teaser-stacklist-tags {
-  position: absolute;
-  list-style-position: inside;
-  overflow: hidden;
-  margin-right: 70px;
-  height: 20px;
-  bottom: 8px;
-  &__anchor {
-    font-size: $font-x-small;
-  }
+    position: absolute;
+    list-style-position: inside;
+    overflow: hidden;
+    margin-right: 70px;
+    height: 20px;
+    bottom: 8px;
+    padding: 0;
+    vertical-align: bottom;
+    &__anchor  {
+        @include font($baton-medium);
+        //font-size: $font-xxx-small;
+        font-size: $font-x-small;
+    }
+    &-container {
+        height: 20px;
+    }
 }
