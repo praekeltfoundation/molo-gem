@@ -94,17 +94,6 @@
     }
   };
 
-  var scrollToX = function(element, to, duration) {
-    if (duration < 0 || element.scrollTop == to) return;
-    var difference = to - element.scrollTop;
-    var perTick = difference / duration * 2;
-
-    setTimeout(function() {
-      element.scrollTop = element.scrollTop + perTick;
-      scrollToX(element, to, duration - 2);
-    }, 10);
-  };
-
   var loaderAnimation = function() {
     var ctaBtn = document.querySelectorAll('.call-to-action__button--primary');
 
