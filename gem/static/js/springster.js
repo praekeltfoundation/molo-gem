@@ -105,13 +105,6 @@
     }, 10);
   };
 
-  var backTop = function() {
-    document.getElementById("back-to-top").onclick = function (event) {
-      event.preventDefault();
-      scrollToX(document.body, 0, 100);
-    };
-  };
-
   var loaderAnimation = function() {
     var ctaBtn = document.querySelectorAll('.call-to-action__button--primary');
 
@@ -129,7 +122,6 @@
     hidePagination();
     stickyHeader();
     loadMore();
-    backTop();
     loaderAnimation();
   });
 
