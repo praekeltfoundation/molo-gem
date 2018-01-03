@@ -4,10 +4,10 @@
    {% for bannerpage in bannerpages %}
    {% if bannerpage.hide_on_freebasics %}
      {% if not is_via_freebasics %}
-       {% include "patterns/components/banners/main-banner.html" %}
+       {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
      {% endif %}
    {% else %}
-     {% include "patterns/components/banners/main-banner.html" %}
+     {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
    {% endif %}
    {% endfor%}
  {% endif %}
