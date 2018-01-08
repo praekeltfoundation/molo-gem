@@ -288,8 +288,9 @@ class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
 
 class GemCommentModelAdmin(MoloCommentsModelAdmin):
     list_display = (
-        'comment', 'moderator_reply', 'content', '_user', 'is_removed',
-        'is_reported', 'reported_count', 'reported_reason', 'submit_date')
+        'comment', 'parent_comment', 'moderator_reply', 'content', '_user',
+        'is_removed', 'is_reported', 'reported_count', 'reported_reason',
+        'submit_date')
 
     def reported_reason(self, obj):
         all_reported_reasons = []
