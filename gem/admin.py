@@ -293,9 +293,9 @@ class GemCommentModelAdmin(MoloCommentsModelAdmin):
         'submit_date')
 
     def reported_reason(self, obj):
-        all_reported_reasons = []
-        for report in GemCommentReport.objects.filter(comment=obj.pk):
-            all_reported_reasons.append(report.reported_reason)
+        all_reported_reasons = list(
+            GemCommentReport.objects.filter(comment=obj.pk).values_list(
+                'reported_reason', flat=True))
         breakdown_of_reasons = []
         for value, count in Counter(all_reported_reasons).most_common():
             reason = '%s, (%s)' % (value, count)
