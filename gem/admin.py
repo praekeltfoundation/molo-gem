@@ -1,6 +1,8 @@
 import csv
 import datetime
 
+from collections import Counter
+
 from daterange_filter.filter import DateRangeFilter
 from django.contrib import admin
 from django.contrib.auth.models import User
@@ -11,7 +13,6 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
-
 from gem.models import GemUserProfile, GemCommentReport
 from gem.tasks import send_export_email_gem
 
@@ -20,7 +21,7 @@ from import_export.widgets import DateTimeWidget, DateWidget
 from import_export.resources import ModelResource
 from import_export.results import RowResult
 
-from molo.commenting.admin import MoloCommentAdmin
+from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
 from molo.commenting.models import MoloComment
 from molo.profiles.admin import (
     FrontendUsersModelAdmin,
@@ -283,6 +284,27 @@ class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
+
+
+class GemCommentModelAdmin(MoloCommentsModelAdmin):
+    list_display = (
+        'comment', 'parent_comment', 'moderator_reply', 'content', '_user',
+        'is_removed', 'is_reported', 'reported_count', 'reported_reason',
+        'submit_date')
+
+    def reported_reason(self, obj):
+        all_reported_reasons = list(
+            GemCommentReport.objects.filter(comment=obj.pk).values_list(
+                'reported_reason', flat=True))
+        breakdown_of_reasons = []
+        for value, count in Counter(all_reported_reasons).most_common():
+            reason = '%s, (%s)' % (value, count)
+            breakdown_of_reasons.append(reason)
+
+        return breakdown_of_reasons
+
+    def reported_count(self, obj):
+        return GemCommentReport.objects.filter(comment=obj.pk).count()
 
 
 class GemCommentReportAdmin(MoloCommentAdmin):
