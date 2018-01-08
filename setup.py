@@ -9,11 +9,8 @@ with open(os.path.join(here, 'README.rst')) as f:
 with open(os.path.join(here, 'requirements.txt')) as f:
     requires = filter(None, f.readlines())
 
-with open(os.path.join(here, 'VERSION')) as f:
-    version = f.read().strip()
-
 setup(name='gem',
-      version=version,
+      version='0.0.1',
       description='gem',
       long_description=README,
       classifiers=[
