@@ -273,14 +273,17 @@ class SegementUserPermissionHelper(PermissionHelper):
 class GemFrontendUsersModelAdmin(FrontendUsersModelAdmin):
     permission_helper_class = SegementUserPermissionHelper
     list_display = ('id', 'username', '_date_of_birth', 'is_active',
-                    'last_login', 'gender',)
+                    'last_login', 'gender', 'country')
     index_view_class = GemFrontendUsersAdminView
     index_view_extra_js = ['js/modeladmin/index.js']
     list_filter = FrontendUsersModelAdmin.list_filter + (
         'gem_profile__gender',
         ('last_login', FrontendUsersDateRangeFilter),
-        ('profile__date_of_birth', FrontEndAgeToDateOfBirthFilter)
+        ('profile__date_of_birth', FrontEndAgeToDateOfBirthFilter),
     )
+
+    def country(self, obj):
+        return obj.profile.site.root_page.title
 
     def gender(self, obj):
         return obj.gem_profile.get_gender_display()
@@ -290,7 +293,7 @@ class GemCommentModelAdmin(MoloCommentsModelAdmin):
     list_display = (
         'comment', 'parent_comment', 'moderator_reply', 'content', '_user',
         'is_removed', 'is_reported', 'reported_count', 'reported_reason',
-        'submit_date')
+        'submit_date', 'country')
 
     def reported_reason(self, obj):
         all_reported_reasons = list(
