@@ -1,17 +1,22 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags i18n %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags el_pagination_tags i18n %}
 
 {% block content %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-    {#
-        {% bannerpages %}
-        {% gembannerpages %}
-    #}
+    {#{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}#}
 
-    {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
-    {% for bannerpage in bannerpages %}
-        {{ bannerpage }}
-        {# {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %} #}
+    {% load_child_bannerpages_for_banners self count=6 as bannerpages %}
+    {% paginate bannerpages %}
+    {% for page in bannerpages %}
+        {% image page.banner width-360 as tmp_photo %}
+        <img alt="{{ page.title }}" src="{{ tmp_photo.url }}"/>
     {% endfor %}
+
+    {% get_pages %}
+    {% trans "Load more" as buttontext %}
+
+    {% url 'home_more' as pagelink %}
+    {% url 'home_index' as datalink %}
+
+    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
 
 {% endblock %}

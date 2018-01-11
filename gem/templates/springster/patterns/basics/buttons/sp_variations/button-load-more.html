@@ -1,5 +1,10 @@
 {% if pages.next %}
-{% include "patterns/basics/pagination/sp-pagination-pageof.html" %}
+    {% if paginatePageType == "articles" %}
+        {% include "patterns/basics/pagination/sp-pagination-pageof.html" with paginatePageType="articles" %}
+    {% elif paginatePageType == "bannerpages"  %}
+        {% include "patterns/basics/pagination/sp-pagination-pageof.html" with paginatePageType="bannerpages" %}
+    {% endif %}
+
   {% if section %}
     <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&section={{section.pk}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
   {% elif search_query %}
