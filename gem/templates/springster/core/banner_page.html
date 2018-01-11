@@ -1,11 +1,15 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags staticfiles core_tags gem_tags i18n %}
-
+{% load staticfiles core_tags wagtailcore_tags molo_survey_tags poll_votings competition_tag el_pagination_tags i18n media_tags gem_tags %}
 {% block content %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-    {% if self.subtitle %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h6" title=self.subtitle %}
-    {% endif %}
+    {#{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}#}
+    {#{% if self.subtitle %}{% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h6" title=self.subtitle %}{% endif %}#}
 
     {% include "patterns/components/banners/main-banner.html" with pageTag=self %}
+
+    {% get_tag_articles tag_count=4 as tag_nav_data %}
+    {% paginate 12 tag_nav_data.latest_articles as latest_articles %}
+    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
+
+    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
+
 {% endblock %}

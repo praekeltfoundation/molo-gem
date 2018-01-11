@@ -1,8 +1,17 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags staticfiles core_tags gem_tags i18n %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags i18n %}
 
 {% block content %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-    {% bannerpages %}
-    {% gembannerpages %}
+    {#
+        {% bannerpages %}
+        {% gembannerpages %}
+    #}
+
+    {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
+    {% for bannerpage in bannerpages %}
+        {{ bannerpage }}
+        {# {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %} #}
+    {% endfor %}
+
 {% endblock %}
