@@ -1,22 +1,30 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags el_pagination_tags i18n %}
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags el_pagination_tags i18n %}
 
 {% block content %}
     {#{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}#}
 
-    {% load_child_bannerpages_for_banners self count=6 as bannerpages %}
+    {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
     {% paginate bannerpages %}
-    {% for page in bannerpages %}
-        {% image page.banner width-360 as tmp_photo %}
-        <img alt="{{ page.title }}" src="{{ tmp_photo.url }}"/>
-    {% endfor %}
+
+        {% for banner in bannerpages %}
+            {% include "patterns/components/banners/main-banner.html" with pageTag=banner %}
+        {% endfor %}
 
     {% get_pages %}
-    {% trans "Load more" as buttontext %}
 
-    {% url 'home_more' as pagelink %}
-    {% url 'home_index' as datalink %}
+    -{{ pages.previous }}<br/>
+    ==>{{ pages.next }}<br/>
 
-    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
+
+
+    {% include "patterns/basics/pagination/sp-pagination-pageof.html" with paginatePageType="bannerpages" %}
+    {% if bannerpages %}
+        <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+            <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {% trans "Load more" %}
+            </span>
+        </a>
+    {% endif %}
 
 {% endblock %}
