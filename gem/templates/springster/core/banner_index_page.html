@@ -2,9 +2,9 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags el_pagination_tags i18n %}
 
 {% block content %}
-    {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
-    {% paginate bannerpages %}
-
+<div class="banner-index">
+    {% load_child_bannerpages_for_banners self count=0 as bannerpages %}
+    {% paginate 1 bannerpages %}
     <div class="banner">
         <ul class="banner-list">
         {% for banner in bannerpages %}
@@ -14,16 +14,12 @@
     </div>
 
     {% get_pages %}
-    {{ pages.previous }}<br/>
-    {{ pages.next }}<br/>
-
-    {% include "patterns/basics/pagination/sp-pagination-pageof.html" with paginatePageType="bannerpages" %}
-    {% if bannerpages %}
-        <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-            <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {% trans "Load more" %}
-            </span>
-        </a>
-    {% endif %}
-
+    <div class="pagination banner-index__pagination">
+        <h6 class="pagination__nav-anchor-previous">{{ pages.previous }}</h6>
+        <span class="pagination__current-page">
+            Page {{ pages.current }} of {{ pages.total_count }}
+        </span>
+        <h6 class="pagination__nav-anchor-next">{{ pages.next }}</h6>
+    </div>
+</div>
 {% endblock %}

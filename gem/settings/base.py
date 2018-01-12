@@ -179,7 +179,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # SQLite (simplest install)
 DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
+    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite4'),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)

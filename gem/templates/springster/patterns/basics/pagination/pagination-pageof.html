@@ -1,14 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags staticfiles core_tags %}
-{% if paginatePageType %}
+{% if articles %}
   <div class="pagination">
-    {% if paginatePageType_paginated.has_previous %}
-      <a href="?p={{ paginatePageType_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
+    {% if articles_paginated.has_previous %}
+      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
     {% endif %}
     <span class="pagination__current-page">
-      Page {{ paginatePageType_paginated.number }} of {{ paginatePageType_paginated.paginator.num_pages }}
+      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
     </span>
-    {% if paginatePageType_paginated.has_next %}
-      <a href="?p={{ paginatePageType_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
+    {% if articles_paginated.has_next %}
+      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
     {% endif %}
   </div>
 {% endif %}
