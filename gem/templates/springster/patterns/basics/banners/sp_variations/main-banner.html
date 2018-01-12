@@ -1,30 +1,36 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
-<div class="banner">
-  {% if pageTag.banner %}
+{% if pageTag.banner %}
     {% image pageTag.banner width-360 as tmp_photo %}
     {% if pageTag.banner_link_page %}
-      <a href="{% pageurl pageTag.banner_link_page %}" target="_top" class="banner__item-link">
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-      </a>
+        <li class="banner-list__item">
+            <a href="{% pageurl pageTag.banner_link_page %}" target="_top" class="banner__item-link">
+                <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+            </a>
+        </li>
     {% elif pageTag.external_link %}
-      <a href="{{ pageTag.external_link }}" target="_blank" class="banner__item-link">
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-      </a>
+        <li class="banner-list__item">
+            <a href="{{ pageTag.external_link }}" target="_blank" class="banner__item-link">
+                <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+            </a>
+        </li>
     {% else %}
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        <li class="banner-list__item">
+            <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        </li>
     {% endif %}
-  {% else %}
-    <div class="banner__block">
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=pageTag.title %}
-      {% if pageTag.subtitle %}
-        <p class="banner__subtitle">{{ pageTag.subtitle }}</p>
-      {% endif %}
-      {% trans "Click Here" as buttontext %}
-      {% if pageTag.banner_link_page %}
-        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.banner_link_page text=buttontext %}
-      {% elif pageTag.external_link %}
-        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.external_link text=buttontext %}
-      {% endif %}
-  </div>
-	{% endif %}
-</div>
+{% else %}
+    <li class="banner-list__item">
+        <div class="banner__block">
+          {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=pageTag.title %}
+          {% if pageTag.subtitle %}
+            <p class="banner__subtitle">{{ pageTag.subtitle }}</p>
+          {% endif %}
+          {% trans "Click Here" as buttontext %}
+          {% if pageTag.banner_link_page %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.banner_link_page text=buttontext %}
+          {% elif pageTag.external_link %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.external_link text=buttontext %}
+          {% endif %}
+        </div>
+    </li>
+{% endif %}

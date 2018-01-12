@@ -5,9 +5,13 @@
     {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
     {% paginate bannerpages %}
 
+    <div class="banner">
+        <ul class="banner-list">
         {% for banner in bannerpages %}
             {% include "patterns/components/banners/main-banner.html" with pageTag=banner %}
         {% endfor %}
+        </ul>
+    </div>
 
     {% get_pages %}
     {{ pages.previous }}<br/>
