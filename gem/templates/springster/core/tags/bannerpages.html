@@ -1,17 +1,18 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
 
 {% if bannerpages %}
-    {% is_via_freebasics as is_via_freebasics %}
-    {% for bannerpage in bannerpages %}
-        {% if bannerpage.hide_on_freebasics %}
-            {% if not is_via_freebasics %}
-                {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
-            {% endif %}
-        {% else %}
-            {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
-        {% endif %}
-    {% endfor %}
-
-
-
+    <div class="banner">
+        <ul class="banner-list">
+            {% is_via_freebasics as is_via_freebasics %}
+            {% for bannerpage in bannerpages %}
+                {% if bannerpage.hide_on_freebasics %}
+                    {% if not is_via_freebasics %}
+                        {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
+                    {% endif %}
+                {% else %}
+                    {% include "patterns/components/banners/main-banner.html" with pageTag=bannerpage %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 {% endif %}
