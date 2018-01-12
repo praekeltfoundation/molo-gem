@@ -2,8 +2,6 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags el_pagination_tags i18n %}
 
 {% block content %}
-    {#{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}#}
-
     {% load_child_bannerpages_for_banners self count=5 as bannerpages %}
     {% paginate bannerpages %}
 
