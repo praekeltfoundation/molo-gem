@@ -12,11 +12,8 @@
         {% endfor %}
 
     {% get_pages %}
-
-    -{{ pages.previous }}<br/>
-    ==>{{ pages.next }}<br/>
-
-
+    {{ pages.previous }}<br/>
+    {{ pages.next }}<br/>
 
     {% include "patterns/basics/pagination/sp-pagination-pageof.html" with paginatePageType="bannerpages" %}
     {% if bannerpages %}
