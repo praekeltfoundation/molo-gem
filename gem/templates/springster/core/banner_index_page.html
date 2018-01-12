@@ -4,7 +4,7 @@
 {% block content %}
 <div class="banner-index">
     {% load_child_bannerpages_for_banners self count=0 as bannerpages %}
-    {% paginate 1 bannerpages %}
+    {% paginate 5 bannerpages %}
     <div class="banner">
         <ul class="banner-list">
         {% for banner in bannerpages %}
@@ -15,11 +15,11 @@
 
     {% get_pages %}
     <div class="pagination banner-index__pagination">
-        <h6 class="pagination__nav-anchor-previous">{{ pages.previous }}</h6>
+        <h6 class="pagination__nav-anchor-previous">{{ pages.first_as_arrow }}</h6>
         <span class="pagination__current-page">
-            Page {{ pages.current }} of {{ pages.total_count }}
+            Page {{ pages.current }} of {{ pages|length }}
         </span>
-        <h6 class="pagination__nav-anchor-next">{{ pages.next }}</h6>
+        <h6 class="pagination__nav-anchor-next">{{ pages.last_as_arrow }}</h6>
     </div>
 </div>
 {% endblock %}
