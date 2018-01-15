@@ -169,9 +169,9 @@ ROOT_URLCONF = 'gem.urls'
 WSGI_APPLICATION = 'gem.wsgi.application'
 
 # GEM-195
-# Automatically log users out after 10 mins of inactivity
+# Automatically log users out after 2 hours of inactivity
 # Closing the browser window/tab will NOT end the session
-SESSION_COOKIE_AGE = 60 * 10  # 10 minutes
+SESSION_COOKIE_AGE = 60 * 120  # 2Hours
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Database
