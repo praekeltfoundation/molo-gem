@@ -27,7 +27,8 @@
           {% endif %}
           {% trans "Click Here" as buttontext %}
           {% if pageTag.banner_link_page %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.banner_link_page text=buttontext %}
+            {% pageurl pageTag.banner_link_page as bannerlink %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=bannerlink text=buttontext %}
           {% elif pageTag.external_link %}
             {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.external_link text=buttontext %}
           {% endif %}

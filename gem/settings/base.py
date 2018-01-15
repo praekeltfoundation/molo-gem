@@ -133,7 +133,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
@@ -179,7 +179,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # SQLite (simplest install)
 DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
+    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite4'),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
