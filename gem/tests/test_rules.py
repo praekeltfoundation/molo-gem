@@ -4,19 +4,16 @@ import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser, Group
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import Site
 from django.test import TestCase, RequestFactory
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage, SectionPage
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.surveys.models import SurveysIndexPage
 
 from wagtail_personalisation.models import Segment
 
-from molo.surveys.models import (
-    PersonalisableSurveyFormField, PersonalisableSurvey)
 from ..rules import CommentCountRule, ProfileDataRule
 
 

@@ -3,12 +3,10 @@ from django.test import TestCase
 from django.test.client import Client
 
 from gem.middleware import GemMoloGoogleAnalyticsMiddleware
-from gem.models import GemSettings
 from molo.core.models import (
     Main,
     Languages,
     SiteLanguageRelation,
-    SiteSettings
 )
 from molo.core.tests.base import MoloTestCaseMixin
 

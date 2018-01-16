@@ -18,7 +18,6 @@ from molo.commenting.models import MoloComment
 from molo.core.models import Languages, SiteLanguageRelation, Main
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import UserProfile
-from molo.profiles.task import send_export_email
 
 
 class TestCommentReportingModelAdmin(TestCase, MoloTestCaseMixin):

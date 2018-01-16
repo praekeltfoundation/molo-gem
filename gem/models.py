@@ -1,11 +1,9 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import validators
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from gem.constants import GENDERS
@@ -15,11 +13,12 @@ from molo.core.models import BannerPage, BannerIndexPage
 
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailcore import hooks
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-
-from .rules import *  # noqa
 
 
 class GemUserProfile(models.Model):

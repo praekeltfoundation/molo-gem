@@ -1,6 +1,6 @@
 # coding=utf-8
 import pytest
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
@@ -56,7 +56,7 @@ class TestModels(TestCase, MoloTestCaseMixin):
         self.assertContains(response, 'https://www.google.co.za/')
 
     def test_show_join_banner(self):
-        from os.path import abspath, dirname, join
+        from os.path import join
         temp_dir = [
             {
                 'DIRS': [join(

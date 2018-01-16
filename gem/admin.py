@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _

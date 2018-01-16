@@ -1,7 +1,4 @@
-from bs4 import BeautifulSoup
 from django.conf import settings
-from google_analytics.utils import build_ga_params, set_cookie
-from google_analytics.tasks import send_ga_tracking
 
 from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
