@@ -7,7 +7,7 @@ with open(os.path.join(here, 'README.rst')) as f:
     README = f.read()
 
 with open(os.path.join(here, 'requirements.txt')) as f:
-    requires = filter(None, f.readlines())
+    requires = f.read().split("\n")
 
 setup(name='gem',
       version='0.0.1',
