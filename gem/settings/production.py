@@ -63,7 +63,7 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 # Setup for CAS
 ENABLE_SSO = True
 
-MIDDLEWARE_CLASSES += [
+MIDDLEWARE_CLASSES += [  # noqa: F405
     'molo.core.middleware.MoloCASMiddleware',
     'molo.core.middleware.Custom403Middleware',
 ]
@@ -86,7 +86,7 @@ COMPRESS_OFFLINE_CONTEXT = {  # noqa
     'ENV': ENV,  # noqa
 }  # noqa
 
-DEFAULT_TEMPLATE['OPTIONS']['loaders'] = [
+DEFAULT_TEMPLATE['OPTIONS']['loaders'] = [  # noqa: F405
     ('django.template.loaders.cached.Loader', [
         "django.template.loaders.filesystem.Loader",
         "mote.loaders.app_directories.Loader",
@@ -94,7 +94,7 @@ DEFAULT_TEMPLATE['OPTIONS']['loaders'] = [
 ]
 
 TEMPLATES = [
-    DEFAULT_TEMPLATE,
+    DEFAULT_TEMPLATE,  # noqa: F405
 ]
 
 try:
