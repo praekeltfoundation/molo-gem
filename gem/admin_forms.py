@@ -4,7 +4,6 @@ from collections import OrderedDict
 from dateutils import relativedelta
 from django import forms
 from django.contrib.admin.filters import FieldListFilter
-from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 

@@ -1,10 +1,11 @@
 """Django settings for use within the docker container."""
 
 from os import environ
+from os.path import abspath, dirname, join
 
 import dj_database_url
 
-from .production import *
+from .production import *  # noqa: F401, F403
 
 
 # Disable debug mode

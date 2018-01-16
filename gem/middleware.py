@@ -1,7 +1,4 @@
-from bs4 import BeautifulSoup
 from django.conf import settings
-from google_analytics.utils import build_ga_params, set_cookie
-from google_analytics.tasks import send_ga_tracking
 
 from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
@@ -24,13 +21,6 @@ class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
-
-
-class LogHeaderInformationMiddleware(object):
-
-    def process_request(self, request):
-        print '---------- Header Dump -------------'
-        print request.META.items()
 
 
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):

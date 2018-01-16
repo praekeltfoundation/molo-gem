@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 
-import csv
-from babel import Locale
 from django.core.management.base import BaseCommand
 from wagtail.wagtailimages.tests.utils import Image
 from molo.core.models import Languages, SectionPage, Main, SectionIndexPage

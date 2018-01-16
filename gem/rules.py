@@ -2,21 +2,18 @@ import datetime
 import logging
 import re
 
-from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
-from django.utils import six, timezone
-from django.utils.functional import cached_property
+from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
-    PageChooserPanel,
 )
 
 from wagtail_personalisation.rules import AbstractBaseRule

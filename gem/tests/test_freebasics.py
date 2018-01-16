@@ -1,6 +1,5 @@
 import json
 from six import b
-from django.contrib.sites.models import Site
 from django.test import TestCase, Client
 
 from molo.core.tests.base import MoloTestCaseMixin

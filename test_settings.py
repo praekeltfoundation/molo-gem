@@ -1,4 +1,4 @@
-from gem.settings import *
+from gem.settings import *  # noqa: F401, F403
 
 DATABASES = {
     'default': {

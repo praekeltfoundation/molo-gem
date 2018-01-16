@@ -30,7 +30,6 @@ from molo.commenting.models import MoloComment
 
 from molo.core.models import ArticlePage
 from molo.profiles.views import RegistrationView, MyProfileEdit
-from molo.profiles.models import UserProfile
 
 from wagtail.wagtailcore.models import Site
 

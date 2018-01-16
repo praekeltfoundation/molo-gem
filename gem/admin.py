@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
@@ -60,6 +59,8 @@ def download_as_csv_gem(self, request, queryset):
                 [getattr(
                     obj.gem_profile, field) for field in gem_profile_fields])
     return response
+
+
 download_as_csv_gem.short_description = "Download selected as csv gem"
 
 
