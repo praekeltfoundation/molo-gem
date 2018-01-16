@@ -23,13 +23,6 @@ class ForceDefaultLanguageMiddleware(object):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
-class LogHeaderInformationMiddleware(object):
-
-    def process_request(self, request):
-        print('---------- Header Dump -------------')
-        print(request.META.items())
-
-
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     '''
     Submits GA tracking data to a local account or the additional account
