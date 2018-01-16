@@ -223,7 +223,8 @@ class ProfileDataRule(AbstractBaseRule):
         # Obtain user model's field name with relation to the related model
         # we need to access, e.g. GemUserProfile would be 'gem_profile'.
         for f in user._meta.get_fields():
-            if f.related_model is self.get_related_model():
+            if f.related_model is self.get_related_model() \
+                    and hasattr(user, f.name):
                 instance = getattr(user, f.name)
                 return getattr(instance, self.get_related_field_name())
 
