@@ -29,8 +29,8 @@ class ForceDefaultLanguageMiddleware(object):
 class LogHeaderInformationMiddleware(object):
 
     def process_request(self, request):
-        print '---------- Header Dump -------------'
-        print request.META.items()
+        print('---------- Header Dump -------------')
+        print(request.META.items())
 
 
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
