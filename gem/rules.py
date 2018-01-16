@@ -1,4 +1,5 @@
 import datetime
+import logging
 import re
 
 from django import forms
@@ -247,7 +248,13 @@ class ProfileDataRule(AbstractBaseRule):
 
         # Handy variables for comparisons.
         python_value = self.get_python_value()
-        related_field_value = self.get_related_field_value(user=request.user)
+
+        try:
+            related_field_value = self.get_related_field_value(
+                user=request.user)
+        except LookupError as e:
+            logging.warn(e)
+            return False
 
         # If values are datetimes, make sure they are timezone aware
         # since it is not possible to compare naive and aware datetimes.
