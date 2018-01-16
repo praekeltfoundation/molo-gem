@@ -48,6 +48,20 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.request.user.profile.gender = '-'
         self.request.user.save()
 
+    def test_user_with_no_gem_profile(self):
+        User = get_user_model()
+        user = self.request.user
+        user.gem_profile.delete()
+        user = User.objects.get(pk=user.pk)
+        self.assertFalse(hasattr(user, 'gem_profile'))
+
+        unspecified_rule = ProfileDataRule(
+            field='gem.gemuserprofile__gender', value='-')
+        self.request.user = user
+
+        with self.assertRaises(LookupError):
+            unspecified_rule.test_user(self.request)
+
     def test_unspecified_passes_unspecified_rule(self):
         self.set_user_to_unspecified()
         unspecified_rule = ProfileDataRule(
