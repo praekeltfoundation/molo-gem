@@ -217,10 +217,12 @@ class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
 
         # to get the session set up
         response = self.client.get(reverse('forgot_password'))
+        response_body = response.content.decode(response.charset)
 
-        self.question_being_asked = settings.SECURITY_QUESTION_1 if \
-            settings.SECURITY_QUESTION_1 in response.content else \
-            settings.SECURITY_QUESTION_2
+        if settings.SECURITY_QUESTION_1 in response_body:
+            self.question_being_asked = settings.SECURITY_QUESTION_1
+        else:
+            self.question_being_asked = settings.SECURITY_QUESTION_2
 
     def post_invalid_username_to_forgot_password_view(self):
         return self.client.post(reverse('forgot_password'), {
