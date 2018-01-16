@@ -4,7 +4,7 @@ from os import environ
 
 import dj_database_url
 
-from .production import *
+from .production import *  # noqa: F403
 
 
 # Disable debug mode
