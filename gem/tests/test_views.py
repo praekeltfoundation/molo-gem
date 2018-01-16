@@ -1,5 +1,4 @@
 import time
-from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -10,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
+from django.utils import timezone
 
 from wagtail.wagtailcore.models import Site as WagtailSite
 
@@ -442,7 +442,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             user=user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def getData(self):
         return {
@@ -581,7 +581,7 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
             user=self.user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def create_reported_comment(self, comment, report_reason):
         return GemCommentReport.objects.create(

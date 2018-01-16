@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
-from datetime import datetime
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django_comments.models import Comment
 from django.core.management import call_command
 from django.test import TestCase
+from django.utils import timezone
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 from molo.commenting.models import MoloComment
@@ -359,7 +359,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             site=Site.objects.get_current(),
             user=self.user,
             comment="comment without place holder text",
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
         MoloComment.objects.create(
             content_type=self.content_type,
@@ -368,7 +368,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             site=Site.objects.get_current(),
             user=self.user,
             comment="Type your comment here...comment with placeholder text",
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
         MoloComment.objects.create(
             content_type=self.content_type,
@@ -378,7 +378,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             user=self.user,
             comment="some text before theplaceholder"
             " Type your comment here...more text after the place holder",
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
         call_command(
             'remove_placeholder_text_from_comments',

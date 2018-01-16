@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
@@ -7,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import Site
 from django.test import TestCase, RequestFactory
+from django.utils import timezone
 
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage, SectionPage
@@ -226,7 +225,7 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
             site=Site.objects.get_current(),
             content_type=article.content_type,
             object_pk=article.id,
-            submit_date=datetime.now(),
+            submit_date=timezone.now(),
             **kwargs
         )
 

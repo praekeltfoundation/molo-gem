@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.test import TestCase, override_settings
 from django.test.client import Client
+from django.utils import timezone
 
 from gem.admin import GemUserAdmin, download_as_csv_gem
 from gem.models import GemUserProfile, GemCommentReport
@@ -51,7 +52,7 @@ class TestCommentReportingModelAdmin(TestCase, MoloTestCaseMixin):
             user=self.user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def report_comment(self, comment, reason):
         GemCommentReport.objects.create(
