@@ -383,8 +383,6 @@ REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'
 
 ADMIN_LANGUAGE_CODE = environ.get('ADMIN_LANGUAGE_CODE', "en")
 
-UNICORE_DISTRIBUTE_API = environ.get(
-    'UNICORE_DISTRIBUTE_API', 'http://localhost:6543')
 FROM_EMAIL = environ.get('FROM_EMAIL', "support@moloproject.org")
 CONTENT_IMPORT_SUBJECT = environ.get(
     'CONTENT_IMPORT_SUBJECT', 'Molo Content Import')
