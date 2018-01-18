@@ -1,15 +1,24 @@
 'use strict';
 
 var gulp              =   require('gulp'),
+    glob              =   require('glob'),
     sass              =   require('gulp-sass'),
-    watch             =   require('gulp-watch'),
+    sassLint          =   require('gulp-sass-lint'),
+    sassGlob          =   require('gulp-sass-glob'),
     cleanCSSMinify    =   require('gulp-clean-css'),
+    autoprefixer      =   require('gulp-autoprefixer'),
+    bless             =   require('gulp-bless'),
+    watch             =   require('gulp-watch'),
     rename            =   require('gulp-rename'),
     gzip              =   require('gulp-gzip'),
     notify            =   require('gulp-notify'),
     sourcemaps        =   require('gulp-sourcemaps'),
     livereload        =   require('gulp-livereload'),
-    minify            =   require('gulp-minify');
+    minify            =   require('gulp-minify'),
+    pixrem            =   require('gulp-pixrem'),
+    svgmin            =   require('gulp-svgmin'),
+    del               =   require('del'),
+
 
 var sassPaths = [
     'gem/styles/gem/base_style.scss',
