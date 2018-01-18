@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-29 13:20+0000\n"
-"PO-Revision-Date: 2017-06-01 10:35+0000\n"
+"POT-Creation-Date: 2017-10-25 12:45+0000\n"
+"PO-Revision-Date: 2018-01-17 12:44+0000\n"
 "Last-Translator: Ayanda <ayanda@praekelt.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: th\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1496313315.312260\n"
+"X-POOTLE-MTIME: 1516193077.594236\n"
 
 #: gem/constants.py:7
 msgid "female"
@@ -24,9 +24,9 @@ msgstr "ไม่ต้องการตอบ"
 
 #: gem/forms.py:81
 #: gem/forms.py:209
-#: temp/temp_ve/profiles/forms.py:99
-#: temp/temp_ve/profiles/forms.py:236
-#: temp/temp_ve/profiles/forms.py:280
+#: temp/temp_ve/profiles/forms.py:122
+#: temp/temp_ve/profiles/forms.py:259
+#: temp/temp_ve/profiles/forms.py:303
 msgid "Display Name"
 msgstr "ชื่อที่แสดง"
 
@@ -34,11 +34,12 @@ msgstr "ชื่อที่แสดง"
 #: gem/templates/base/forgot_password.html:23
 #: gem/templates/base/registration/login.html:22
 #: gem/templates/malawi/registration/login.html:22
-#: gem/templates/springster/forgot_password.html:22
-#: gem/templates/springster/profiles/register.html:17
-#: gem/templates/springster/registration/login.html:18
-#: temp/temp_ve/profiles/forms.py:73
-#: temp/temp_ve/profiles/forms.py:435
+#: gem/templates/springster/forgot_password.html:16
+#: gem/templates/springster/profiles/register.html:23
+#: gem/templates/springster/registration/login.html:19
+#: temp/temp_ve/core/templates/registration/login.html:17
+#: temp/temp_ve/profiles/forms.py:96
+#: temp/temp_ve/profiles/forms.py:458
 #: temp/temp_ve/profiles/templates/registration/login.html:25
 #: temp/temp_ve/profiles/test_templates/login.html:25
 msgid "Username"
@@ -52,8 +53,8 @@ msgstr "ตอบคำถามเพื่อความปลอดภัย
 #: gem/templates/base/reset_password.html:26
 #: gem/templates/springster/profiles/reset_password.html:21
 #: gem/templates/springster/reset_password.html:27
-#: temp/temp_ve/profiles/forms.py:93
-#: temp/temp_ve/profiles/forms.py:481
+#: temp/temp_ve/profiles/forms.py:116
+#: temp/temp_ve/profiles/forms.py:504
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:23
 msgid "PIN"
 msgstr "รหัส PIN"
@@ -62,41 +63,40 @@ msgstr "รหัส PIN"
 #: gem/templates/base/reset_password.html:29
 #: gem/templates/springster/profiles/reset_password.html:26
 #: gem/templates/springster/reset_password.html:32
-#: temp/temp_ve/profiles/forms.py:498
+#: temp/temp_ve/profiles/forms.py:521
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:29
 msgid "Confirm PIN"
 msgstr "ยืนยันรหัส PIN"
 
-#: gem/settings/base.py:326
+#: gem/settings/base.py:354
 #: temp/temp_ve/profiles/views.py:161
 msgid "The old password is incorrect."
 msgstr "รหัสผ่านเดิมไม่ถูกต้อง"
 
-#: gem/settings/base.py:328
+#: gem/settings/base.py:355
+#: gem/templates/springster/polls/detail.html:26
+#: gem/templates/springster/polls/free_text_detail.html:16
+#: gem/templates/springster/polls/includes/poll_question_form.html:36
+#: temp/temp_ve/polls/templates/polls/detail.html:24
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
+msgid "Vote"
+msgstr "โหวต"
+
+#: gem/settings/base.py:356
 #: gem/templates/springster/polls/includes/poll_question_form.html:38
 #: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:37
 msgid "Show Results"
 msgstr "แสดงผลลัพธ์"
 
-#: gem/settings/base.py:329
-#: gem/templates/springster/polls/includes/poll_question_form.html:43
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
-msgid "You voted: "
-msgstr "คุณโหวตแล้ว:"
-
-#: gem/settings/base.py:331
+#: gem/settings/base.py:359
 msgid "Name of your primary school"
 msgstr "ชื่อโรงเรียนประถมศึกษาของคุณ"
 
-#: gem/settings/base.py:332
-#: gem/templates/springster/profiles/register.html:11
+#: gem/settings/base.py:360
+#: gem/templates/springster/profiles/register.html:12
 msgid "Please complete this form to join"
 msgstr "โปรดกรอกแบบฟอร์มนี้เพื่อเข้าร่วม"
-
-#: gem/templates/base/403_csrf.html:9
-#: gem/templates/springster/403_csrf.html:6
-msgid "Unable to Login"
-msgstr "ไม่สามารถล็อกอินได้"
 
 #: gem/templates/base/403_csrf.html:13
 #: gem/templates/springster/403_csrf.html:9
@@ -111,71 +111,53 @@ msgstr ""
 "ในขณะนี้ หากต้องการล็อกอินหรือลงทะเบียนสำหรับโปรไฟล์ "
 "โปรดเยี่ยมชมไซต์เคลื่อนที่ฟรีของเราบนเบราเซอร์ในอุปกรณ์เคลื่อนที่ของคุณที่"
 
-#: gem/templates/base/403_csrf.html:13
-#: gem/templates/springster/403_csrf.html:12
-msgid " We're working hard to get this problem resolved. Thank you."
-msgstr "เรากำลังพยายามอย่างเต็มที่เพื่อแก้ไขปัญหานี้ ขอขอบคุณ"
-
-#: gem/templates/base/403_csrf.html:15
-#: gem/templates/springster/403_csrf.html:14
-msgid "XO"
-msgstr "XO"
-
 #: gem/templates/base/403_csrf.html:16
 msgid "Girl Effect"
 msgstr "Girl Effect"
 
 #: gem/templates/base/404.html:9
 #: gem/templates/springster/404.html:6
+#: temp/temp_ve/core/templates/404.html:8
 msgid "Page not found"
 msgstr "ไม่พบหน้านี้"
 
 #: gem/templates/base/404.html:10
 #: gem/templates/springster/404.html:7
+#: temp/temp_ve/core/templates/404.html:10
 msgid "Sorry, this page could not be found."
 msgstr "ขออภัย ไม่พบหน้านี้"
 
 #: gem/templates/base/500.html:18
 #: gem/templates/springster/500.html:17
+#: temp/temp_ve/core/templates/500.html:18
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "ขออภัย ดูเหมือนเกิดข้อผิดพลาด โปรดลองอีกครั้งในภายหลัง"
 
-#: gem/templates/base/base.html:104
-#: gem/templates/malawi/base.html:105
+#: gem/templates/base/base.html:82
+#: gem/templates/malawi/base.html:94
 #: gem/templates/springster/patterns/basics/buttons/back-to-top.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/back-to-top.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
 msgid "Back to Top"
 msgstr "กลับไปที่บนสุด"
 
-#: gem/templates/base/base.html:114
-#: gem/templates/base/core/tags/breadcrumbs.html:6
-#: gem/templates/base/polls/results.html:28
-#: gem/templates/malawi/base.html:115
-#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
-#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
-#: temp/temp_ve/commenting/templates/comments/preview.html:11
-#: temp/temp_ve/polls/templates/polls/detail.html:25
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
-#: temp/temp_ve/polls/templates/polls/results.html:24
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
-msgid "Home"
-msgstr "หน้าหลัก"
-
-#: gem/templates/base/base.html:115
+#: gem/templates/base/base.html:93
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:12
 msgid "Categories"
 msgstr "หมวดหมู่"
 
-#: gem/templates/base/base.html:134
+#: gem/templates/base/base.html:112
 #: gem/templates/base/registration/login.html:7
 #: gem/templates/base/registration/login.html:31
 #: gem/templates/malawi/registration/login.html:7
 #: gem/templates/malawi/registration/login.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:25
 #: gem/templates/springster/registration/login.html:5
-#: gem/templates/springster/registration/login.html:25
+#: gem/templates/springster/registration/login.html:26
 #: gem/templates/springster/registration/password_reset_complete.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:25
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:9
 #: temp/temp_ve/profiles/templates/registration/login.html:5
 #: temp/temp_ve/profiles/templates/registration/login.html:34
 #: temp/temp_ve/profiles/test_templates/login.html:5
@@ -184,7 +166,7 @@ msgid "Log in"
 msgstr "เข้าสู่ระบบ"
 
 #: gem/templates/base/comments/comment.html:20
-#: gem/templates/springster/comments/comment.html:14
+#: gem/templates/springster/comments/comment.html:17
 #: gem/templates/springster/notifications/notice.html:16
 #: temp/temp_ve/commenting/templates/comments/comment.html:8
 #: temp/temp_ve/commenting/templates/notifications/notice.html:10
@@ -193,7 +175,7 @@ msgid "Anonymous"
 msgstr "ไม่ระบุชื่อ"
 
 #: gem/templates/base/comments/comment.html:28
-#: gem/templates/springster/comments/comment.html:22
+#: gem/templates/springster/comments/comment.html:25
 #: temp/temp_ve/commenting/templates/comments/comment.html:16
 msgid ""
 "This comment has been removed by the community. Please read our platform "
@@ -201,7 +183,7 @@ msgid ""
 msgstr "ความคิดเห็นนี้จะถูกลบโดยชุมชน โปรดอ่านกฎของแพล็ตฟอร์มของเรา"
 
 #: gem/templates/base/comments/comment.html:37
-#: gem/templates/springster/comments/comment.html:34
+#: gem/templates/springster/comments/comment.html:42
 #: temp/temp_ve/commenting/templates/comments/comment.html:26
 msgid "Report"
 msgstr "รายงาน"
@@ -209,17 +191,21 @@ msgstr "รายงาน"
 #: gem/templates/base/comments/comment.html:43
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:40
-#: gem/templates/springster/comments/comment.html:45
-#: gem/templates/springster/comments/comment.html:54
+#: gem/templates/springster/comments/comment.html:48
+#: gem/templates/springster/comments/comment.html:53
+#: gem/templates/springster/comments/comment.html:62
+#: gem/templates/springster/notifications/reply_list.html:11
+#: gem/templates/springster/notifications/tags/notification_banner.html:7
 #: temp/temp_ve/commenting/templates/comments/comment.html:39
 msgid "Reply"
 msgstr "ตอบกลับ"
 
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:47
 #: gem/templates/springster/comments/comment.html:55
+#: gem/templates/springster/comments/comment.html:64
+#: gem/templates/springster/notifications/reply_list.html:13
+#: gem/templates/springster/notifications/tags/notification_banner.html:9
 #: temp/temp_ve/commenting/templates/comments/comment.html:31
 #: temp/temp_ve/commenting/templates/comments/comment.html:34
 #: temp/temp_ve/commenting/templates/comments/comment.html:41
@@ -244,6 +230,14 @@ msgstr "แสดงความเห็น"
 #: gem/templates/base/comments/report_response.html:13
 #: gem/templates/base/comments/user_has_already_reported.html:12
 #: gem/templates/base/core/article_tags.html:22
+#: gem/templates/springster/comments/comments.html:6
+#: gem/templates/springster/comments/reply.html:6
+#: gem/templates/springster/comments/report_comment.html:5
+#: gem/templates/springster/comments/report_response.html:14
+#: gem/templates/springster/comments/user_has_already_reported.html:12
+#: gem/templates/springster/patterns/basics/articles/reaction_question_feedback.html:5
+#: gem/templates/springster/yourwords/thank_you.html:27
+#: gem/templates/springster/yourwords/your_words_competition_entry.html:55
 #: temp/temp_ve/commenting/templates/comments/comment_done.html:11
 #: temp/temp_ve/commenting/templates/comments/comments.html:28
 #: temp/temp_ve/commenting/templates/comments/preview.html:44
@@ -253,7 +247,7 @@ msgid "Back to article"
 msgstr "กลับไปที่บทความ"
 
 #: gem/templates/base/comments/form.html:10
-#: gem/templates/springster/comments/form.html:16
+#: gem/templates/springster/comments/form.html:12
 msgid "Comment Anonymously"
 msgstr "แสดงความเห็นโดยไม่เปิดเผยชื่อ"
 
@@ -265,12 +259,6 @@ msgstr "แสดงความเห็นโดยไม่เปิดเผ
 msgid "log in"
 msgstr "เข้าสู่ระบบ"
 
-#: gem/templates/base/comments/reply.html:14
-#: gem/templates/springster/comments/reply.html:13
-#: temp/temp_ve/commenting/templates/comments/reply.html:15
-msgid "Recent replies"
-msgstr "การตอบกลับล่าสุด"
-
 #: gem/templates/base/comments/reply.html:16
 #: gem/templates/springster/comments/reply.html:15
 #: temp/temp_ve/commenting/templates/comments/reply.html:17
@@ -280,25 +268,19 @@ msgstr "การตอบกลับก่อนหน้านี้"
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "of"
 msgstr "จาก"
 
 #: gem/templates/base/comments/report_comment.html:7
-#: gem/templates/springster/comments/report_comment.html:7
+#: gem/templates/springster/comments/report_comment.html:8
 msgid "Please let us know why you are reporting this comment?"
 msgstr "โปรดแจ้งเราถึงสาเหตุที่คุณรายงานความเห็นนี้"
 
 #: gem/templates/base/comments/report_comment.html:14
-#: gem/templates/springster/comments/report_comment.html:14
+#: gem/templates/springster/comments/report_comment.html:15
 msgid "Report Comment"
 msgstr "รายงานความเห็น"
-
-#: gem/templates/base/comments/report_response.html:7
-#: gem/templates/springster/comments/report_response.html:5
-#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
-#: temp/temp_ve/commenting/templates/comments/report_response.html:6
-msgid "Thanks!"
-msgstr "ขอบคุณมาก!"
 
 #: gem/templates/base/comments/report_response.html:10
 #: gem/templates/springster/comments/report_response.html:7
@@ -311,6 +293,36 @@ msgstr "กลับไปที่บทความ"
 msgid "Read more"
 msgstr "อ่านเพิ่มเติม"
 
+#: gem/templates/base/core/article_page.html:30
+#: gem/templates/base/core/tags/media_listing_homepage.html:12
+#: gem/templates/malawi/core/article_page.html:29
+#: gem/templates/springster/patterns/basics/media/media-player.html:8
+msgid "Media will be played externally in a new window"
+msgstr "สื่อจะเล่นภายนอกในหน้าต่างใหม่"
+
+#: gem/templates/base/core/article_page.html:37
+#: gem/templates/base/core/article_page.html:52
+#: gem/templates/malawi/core/article_page.html:36
+#: gem/templates/malawi/core/article_page.html:51
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:20
+#: gem/templates/springster/patterns/basics/media/media-player.html:15
+msgid "Download Video"
+msgstr "ดาวน์โหลดวิดีโอ"
+
+#: gem/templates/base/core/article_page.html:65
+#: gem/templates/malawi/core/article_page.html:65
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:32
+msgid "Download Audio"
+msgstr "ดาวน์โหลดเสียง"
+
+#: gem/templates/base/core/language_block.html:5
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_label.html:6
+msgid "Language"
+msgstr "ภาษา"
+
 #: gem/templates/base/core/main.html:20
 msgid ""
 "This site is free for all MTN subscribers. If you are an Airtel subscriber, "
@@ -322,11 +334,15 @@ msgstr ""
 #: gem/templates/base/core/related-article-list.html:7
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 #: temp/temp_ve/commenting/test_templates/article_page.html:48
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-next_up_in_cat.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 msgid "Next up in"
 msgstr "ถัดไปใน"
 
 #: gem/templates/base/core/related-article-list.html:31
 #: temp/temp_ve/commenting/test_templates/article_page.html:63
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-recommended.html:5
+#: temp/temp_ve/core/templates/patterns/components/article-teasers/latest-promoted_variations/articles_general.html:2
 msgid "Recommended"
 msgstr "แนะนำ"
 
@@ -335,17 +351,17 @@ msgstr "แนะนำ"
 #: gem/templates/base/registration/login.html:34
 #: gem/templates/malawi/registration/login.html:34
 #: gem/templates/springster/forgot_password.html:5
-#: gem/templates/springster/forgot_password.html:35
+#: gem/templates/springster/forgot_password.html:31
 #: gem/templates/springster/profiles/forgot_password.html:5
 #: gem/templates/springster/profiles/forgot_password.html:28
-#: gem/templates/springster/registration/login.html:28
+#: gem/templates/springster/registration/login.html:29
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:6
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:32
 msgid "Forgot PIN"
 msgstr "ลืมรหัส PIN"
 
 #: gem/templates/base/forgot_password.html:27
-#: gem/templates/springster/forgot_password.html:29
+#: gem/templates/springster/forgot_password.html:24
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:27
 msgid "Please answer the following security question."
 msgstr "โปรดตอบคำถามเพื่อความปลอดภัยต่อไปนี้"
@@ -358,13 +374,10 @@ msgstr "ขอบคุณสำหรับการโหวต!"
 
 #: gem/templates/base/profiles/change_password.html:30
 #: gem/templates/base/profiles/viewprofile.html:71
-#: gem/templates/springster/profiles/change_password.html:27
-#: gem/templates/springster/profiles/viewprofile.html:82
 msgid "New Password:"
 msgstr "รหัสผ่านใหม่:"
 
 #: gem/templates/base/profiles/change_password.html:39
-#: gem/templates/springster/profiles/change_password.html:36
 msgid "Change Password"
 msgstr "เปลี่ยนรหัสผ่านของคุณ"
 
@@ -390,7 +403,6 @@ msgid "Edit your Profile"
 msgstr "แก้ไขโปรไฟล์ของคุณ"
 
 #: gem/templates/base/profiles/editprofile.html:13
-#: gem/templates/springster/profiles/editprofile.html:12
 msgid "Nickname:"
 msgstr "ชื่อเล่น:"
 
@@ -415,7 +427,7 @@ msgid "Choose a username"
 msgstr "เลือกชื่อผู้ใช้"
 
 #: gem/templates/base/profiles/register.html:28
-#: gem/templates/springster/profiles/register.html:27
+#: gem/templates/springster/profiles/register.html:34
 msgid "Display name"
 msgstr "ชื่อที่แสดง"
 
@@ -461,24 +473,20 @@ msgstr ""
 #: gem/templates/base/profiles/register.html:85
 #: gem/templates/base/yourwords/your_words_competition_entry.html:66
 #: gem/templates/malawi/yourwords/your_words_competition_entry.html:64
-#: gem/templates/springster/profiles/register.html:80
-#: gem/templates/springster/profiles/register.html:85
+#: gem/templates/springster/profiles/register.html:87
+#: gem/templates/springster/profiles/register.html:90
 msgid "I accept the terms and conditions"
 msgstr "ฉันยอมรับข้อกำหนดและเงื่อนไข"
 
+#: gem/templates/base/profiles/register.html:92
+msgid "already joined?"
+msgstr "เข้าร่วมแล้วใช่หรือไม่?"
+
 #: gem/templates/base/profiles/viewprofile.html:8
 #: gem/templates/springster/profiles/viewprofile.html:6
-#: gem/templates/springster/yourwords/your_words_competition.html:10
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:15
 msgid "Hello"
 msgstr "สวัสดี"
-
-#: gem/templates/base/profiles/viewprofile.html:12
-#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
-#: gem/templates/springster/profiles/viewprofile.html:17
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
-msgid "log out"
-msgstr "ออกจากระบบ"
 
 #: gem/templates/base/profiles/viewprofile.html:17
 #: gem/templates/springster/profiles/viewprofile.html:19
@@ -490,8 +498,13 @@ msgstr "หน้านี้"
 msgid "When you type comments your name will appear as:"
 msgstr "เมื่อคุณพิมพ์ความเห็น ชื่อของคุณจะแสดงเป็น:"
 
+#: gem/templates/base/profiles/viewprofile.html:22
+#: gem/templates/springster/profiles/viewprofile.html:26
+msgid ""
+"You haven't set a display name, so your comments will appear as 'anonymous'"
+msgstr "คุณยังไม่ได้ตั้งชื่อของคุณ ความเห็นที่คุณป้อนจะแสดงเป็น 'ไม่เปิดเผยตัว'"
+
 #: gem/templates/base/profiles/viewprofile.html:76
-#: gem/templates/springster/profiles/viewprofile.html:89
 msgid "Confirm Password:"
 msgstr "ยืนยันรหัสผ่าน:"
 
@@ -500,21 +513,10 @@ msgstr "ยืนยันรหัสผ่าน:"
 msgid "Change"
 msgstr "เปลี่ยน"
 
-#: gem/templates/base/registration/login.html:14
-msgid "Are you not a member yet"
-msgstr "คุณยังไม่ได้เป็นสมาชิกใช่หรือไม่"
-
-#: gem/templates/base/registration/login.html:19
-#: gem/templates/malawi/registration/login.html:19
-#: gem/templates/springster/registration/login.html:14
-#: temp/temp_ve/profiles/templates/registration/login.html:20
-#: temp/temp_ve/profiles/test_templates/login.html:20
-msgid "Your username and password do not match. Please try again."
-msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน โปรดลองอีกครั้ง"
-
 #: gem/templates/base/registration/login.html:27
 #: gem/templates/malawi/registration/login.html:27
-#: gem/templates/springster/registration/login.html:22
+#: gem/templates/springster/registration/login.html:23
+#: temp/temp_ve/core/templates/registration/login.html:19
 #: temp/temp_ve/profiles/templates/registration/login.html:30
 #: temp/temp_ve/profiles/test_templates/login.html:30
 msgid "4-digit pin"
@@ -527,46 +529,29 @@ msgstr "รหัส PIN 4 หลัก"
 msgid "PIN Changed"
 msgstr "รหัส PIN ได้ถูกเปลี่ยนแล้ว"
 
-#: gem/templates/base/reset_password_success.html:10
-#: gem/templates/springster/reset_password_success.html:7
-msgid "Your PIN was changed successfully."
-msgstr "รหัส PIN ของคุณถูกเปลี่ยนเรียบร้อยแล้ว"
-
 #: gem/templates/base/search/search_block.html:4
 msgid "looking for something?"
 msgstr "กำลังค้นหาบางอย่าง?"
-
-#: gem/templates/base/search/search_block.html:5
-#: gem/templates/base/search/search_results.html:12
-#: gem/templates/base/search/search_results.html:64
-#: gem/templates/base/search/search_results.html:71
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
-#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
-#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
-#: gem/templates/springster/search/search_results.html:7
-#: gem/templates/springster/search/search_results.html:31
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:8
-msgid "Search"
-msgstr "ค้นหา"
 
 #: gem/templates/base/search/search_results.html:13
 #: gem/templates/springster/search/search_results.html:11
 msgid "results found for"
 msgstr "ผลลัพธ์ที่พบสำหรับ"
 
-#: gem/templates/base/search/search_results.html:67
-#: gem/templates/springster/search/search_results.html:29
+#: gem/templates/base/search/search_results.html:93
+#: gem/templates/springster/search/search_results.html:21
+#: temp/temp_ve/core/templates/search/search_results.html:60
 msgid "No search results for "
 msgstr "ไม่มีผลการค้นหาสำหรับ"
 
-#: gem/templates/base/search/search_results.html:70
+#: gem/templates/base/search/search_results.html:96
 msgid "I am looking for"
 msgstr "ฉันกำลังมองหา"
 
 #: gem/templates/base/surveys/molo_survey_page.html:48
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
+#: gem/templates/springster/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:38
 msgid "Next Question"
 msgstr "คำถามถัดไป"
 
@@ -575,14 +560,15 @@ msgid "Done"
 msgstr "เสร็จสิ้น"
 
 #: gem/templates/base/surveys/molo_survey_page.html:51
-#: gem/templates/springster/surveys/molo_survey_page.html:39
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: gem/templates/springster/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:41
 msgid "You have already completed this survey."
 msgstr "คุณทำแบบสำรวจนี้เสร็จเรียบร้อยแล้ว"
 
 #: gem/templates/base/surveys/molo_survey_page.html:54
 #: gem/templates/base/surveys/molo_survey_page_landing.html:9
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:39
 #: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:9
 msgid "Back to Home page"
 msgstr "กลับไปยังหน้าหลัก"
@@ -590,12 +576,6 @@ msgstr "กลับไปยังหน้าหลัก"
 #: gem/templates/base/surveys/molo_survey_page.html:59
 msgid "Log in to take survey"
 msgstr "เข้าสู่ระบบพื่อทำแบบสำรวจ"
-
-#: gem/templates/base/surveys/molo_survey_page_landing.html:12
-#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
-msgid "Survey Results"
-msgstr "ผลลัพธ์ของแบบสำรวจ"
 
 #: gem/templates/base/surveys/molo_survey_page_landing.html:14
 #: gem/templates/springster/surveys/molo_survey_page_landing.html:16
@@ -607,7 +587,7 @@ msgstr ""
 "คุณได้กรอกแบบสำรวจครบทุกข้อเรียบร้อยแล้ว "
 "โปรดดูผลลัพธ์ในการส่งของคุณด้านล่างนี้"
 
-#: gem/templates/base/surveys/surveys_list.html:13
+#: gem/templates/base/surveys/surveys_list.html:15
 msgid "Start"
 msgstr "เริ่ม"
 
@@ -632,12 +612,6 @@ msgstr "กลับ"
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:20
 msgid "Share your story"
 msgstr "แบ่งปันเรื่องราวของคุณ"
-
-#: gem/templates/base/yourwords/thank_you.html:10
-#: gem/templates/malawi/yourwords/thank_you.html:10
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
-msgid "Thank you!"
-msgstr "ขอบคุณ!"
 
 #: gem/templates/base/yourwords/thank_you.html:11
 #: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:52
@@ -681,7 +655,7 @@ msgstr "เขียนเรื่องราวของคุณ"
 
 #: gem/templates/base/yourwords/your_words_competition_tag.html:22
 #: gem/templates/malawi/yourwords/your_words_competition_tag.html:20
-#: gem/templates/springster/yourwords/your_words_competition.html:24
+#: gem/templates/springster/yourwords/your_words_competition.html:19
 #: gem/templates/springster/yourwords/your_words_competition_tag.html:21
 #: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:20
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:27
@@ -690,9 +664,14 @@ msgstr "เขียนเรื่องราวของคุณ"
 msgid "Log in to Enter"
 msgstr "เข้าสู่ระบบเพื่อป้อน"
 
-#: gem/templates/malawi/base.html:128
-msgid "Log in / Sign up"
-msgstr "ล็อกอิน / สมัครสมาชิก"
+#: gem/templates/malawi/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:13
+msgid "Hi"
+msgstr "สวัสดี"
+
+#: gem/templates/malawi/403_csrf.html:15
+msgid "Zathu"
+msgstr ""
 
 #: gem/templates/malawi/registration/login.html:14
 msgid "Are you not a member yet? Sign up"
@@ -702,11 +681,17 @@ msgstr "คุณยังไม่ได้เป็นสมาชิกใช
 msgid "Thanks for submitting your story!"
 msgstr "ขอบคุณสำหรับการส่งเรื่องของคุณมา!"
 
-#: gem/templates/springster/comments/comment_block.html:33
+#: gem/templates/springster/comments/comment_block.html:24
+#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+msgid "Your thoughts"
+msgstr "ความคิดของคุณ"
+
+#: gem/templates/springster/comments/comment_block.html:36
 msgid "Read more comments"
 msgstr "ดูความเห็นเพิ่มเติม"
 
-#: gem/templates/springster/comments/form.html:15
+#: gem/templates/springster/comments/form.html:11
 #: temp/temp_ve/commenting/forms.py:18
 msgid "Comment"
 msgstr "แสดงความเห็น"
@@ -716,7 +701,7 @@ msgstr "แสดงความเห็น"
 msgid "Please"
 msgstr "โปรด"
 
-#: gem/templates/springster/comments/preview.html:19
+#: gem/templates/springster/comments/preview.html:20
 msgid "to leave a comment."
 msgstr "เพื่อแสดงความเห็น"
 
@@ -724,51 +709,48 @@ msgstr "เพื่อแสดงความเห็น"
 msgid "Add your reply"
 msgstr "เพิ่มคำตอบของคุณ"
 
+#: gem/templates/springster/forgot_password.html:11
+#: gem/templates/springster/profiles/register.html:18
+msgid "Please correct the indicated errors."
+msgstr "โปรดแก้ไขข้อผิดพลาดที่ระบุ"
+
 #: gem/templates/springster/notifications/notice.html:21
 #: temp/temp_ve/commenting/templates/notifications/notice.html:15
 msgid "replied to your comment on: "
 msgstr "ตอบกลับความเห็นของคุณเมื่อ:"
 
-#: gem/templates/springster/notifications/reply_list.html:12
-#: gem/templates/springster/notifications/tags/notification_banner.html:13
-msgid "reply"
-msgstr "ตอบกลับ"
+#: gem/templates/springster/notifications/notice.html:29
+#: temp/temp_ve/commenting/templates/notifications/notice.html:24
+msgid "Your comment"
+msgstr "ความเห็นของคุณ"
 
-#: gem/templates/springster/notifications/reply_list.html:14
-#: gem/templates/springster/notifications/tags/notification_banner.html:15
-msgid "replies"
-msgstr "ตอบกลับ"
+#: gem/templates/springster/notifications/notice.html:33
+msgid "A Reply"
+msgstr "การตอบกลับ"
 
-#: gem/templates/springster/notifications/reply_list.html:22
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
-msgid "Read replies:"
-msgstr "จำนวนครั้งของการอ่านการตอบกลับ:"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:6
-#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
-msgid "Notification:"
-msgstr "การแจ้งเตือน:"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "You have"
 msgstr "คุณมี"
 
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 msgid "unread"
 msgstr "ข้อความที่ยังไม่ได้อ่าน"
 
-#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
-msgid "Your thought"
-msgstr "ความคิดของคุณ"
+#: gem/templates/springster/patterns/basics/articles/reaction_question.html:31
+#: temp/temp_ve/core/templates/patterns/basics/articles/reaction_question.html:22
+msgid "You have already submitted a response for this article."
+msgstr "คุณส่งการตอบกลับให้กับบทความนี้แล้ว"
 
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
 msgid "You might like"
 msgstr "คุณอาจต้องการ"
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: gem/templates/springster/yourwords/terms_and_conditions.html:19
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: temp/temp_ve/yourwords/templates/yourwords/terms_and_conditions.html:46
 msgid "Back"
 msgstr "ย้อนกลับ"
@@ -776,22 +758,22 @@ msgstr "ย้อนกลับ"
 #: gem/templates/springster/patterns/basics/comment-counter/centered-comment-counter.html:8
 #: gem/templates/springster/patterns/basics/comment-counter/comment-counter.html:8
 #: temp/temp_ve/commenting/templates/comments/comment_block.html:26
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/centered-comment-counter.html:8
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/comment-counter.html:8
 msgid "comment"
 msgstr "แสดงความเห็น"
-
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
-msgid "Join us"
-msgstr "เข้าร่วมกับเรา"
 
 #: gem/templates/springster/patterns/basics/social-media/social-media_with-label.html:4
 msgid "Share"
 msgstr "แบ่งปัน"
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:6
+#: gem/templates/springster/patterns/components/banners/join-banner.html:7
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:6
 msgid "Share your opinions and stories, take polls, win fun prizes."
 msgstr "แบ่งปันความเห็นและเรื่องราวของคุณ ทำแบบสำรวจ ชิงรางวัลสนุกๆ"
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:8
+#: gem/templates/springster/patterns/components/banners/join-banner.html:9
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:8
 msgid "Join"
 msgstr "เข้าร่วม"
 
@@ -808,12 +790,20 @@ msgstr "ร่วมโหวต!"
 msgid "Thank you! Your response has already been submitted."
 msgstr "ขอบคุณมาก! คำตอบของคุณถูกส่งแล้ว"
 
+#: gem/templates/springster/profiles/change_password.html:42
+msgid "Change Pin"
+msgstr "เปลี่ยนรหัส"
+
+#: gem/templates/springster/profiles/editprofile.html:12
+msgid "Display name:"
+msgstr "ชื่อที่แสดง"
+
 #: gem/templates/springster/profiles/register.html:8
-#: gem/templates/springster/profiles/register.html:96
+#: gem/templates/springster/profiles/register.html:102
 msgid "Already joined?"
 msgstr "เข้าร่วมแล้วใช่หรือไม่?"
 
-#: gem/templates/springster/profiles/register.html:52
+#: gem/templates/springster/profiles/register.html:59
 msgid "I identify as"
 msgstr "แสดงตัวเป็น"
 
@@ -828,6 +818,14 @@ msgstr "(เช่น 2086)"
 msgid "Your PIN has been changed sucessfully."
 msgstr "รหัส PIN ของคุณถูกเปลี่ยนเรียบร้อยแล้ว"
 
+#: gem/templates/springster/profiles/reset_password_success.html:10
+msgid "Continue to sign in"
+msgstr "ดำเนินการต่อเพื่อเข้าสู่ระบบ"
+
+#: gem/templates/springster/profiles/viewprofile.html:89
+msgid "Confirm Pin:"
+msgstr "ยืนยันรหัส PIN"
+
 #: gem/templates/springster/registration/login.html:7
 #: temp/temp_ve/profiles/templates/profiles/register.html:14
 #: temp/temp_ve/profiles/templates/registration/login.html:8
@@ -840,15 +838,13 @@ msgid "Your password has been set. You may go ahead and log in now."
 msgstr ""
 "รหัสผ่านของคุณได้รับการตั้งค่าแล้ว คุณสามารถดำเนินการต่อและล็อกอินได้ทันที"
 
-#: gem/templates/springster/registration/password_reset_confirm.html:11
-msgid "New password:"
-msgstr "รหัสผ่านใหม่:"
-
 #: gem/templates/springster/registration/password_reset_confirm.html:16
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:16
 msgid "Confirm password:"
 msgstr "ยืนยันรหัสผ่าน:"
 
 #: gem/templates/springster/registration/password_reset_done.html:5
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:7
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
@@ -858,6 +854,7 @@ msgstr ""
 "คุณควรจะได้รับคำแนะนำเหล่านั้นหลังจากนั้นไม่นาน"
 
 #: gem/templates/springster/registration/password_reset_done.html:8
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:9
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -874,25 +871,30 @@ msgstr ""
 "และเราจะส่งอีเมลคำแนะนำสำหรับการตั้งรหัสผ่านใหม่ไปให้คุณ"
 
 #: gem/templates/springster/registration/password_reset_form.html:17
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:12
 msgid "Reset my password"
 msgstr "ตั้งรหัสผ่านของฉันใหม่"
 
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
-msgid "Submit Survey"
-msgstr "ส่งแบบสำรวจ"
-
-#: gem/templates/springster/surveys/molo_survey_page.html:45
+#: gem/templates/springster/surveys/molo_survey_page.html:47
 msgid "Log in to take Survey"
 msgstr "เข้าสู่ระบบพื่อทำแบบสำรวจ"
 
-#: gem/templates/springster/surveys/surveys_list.html:10
+#: gem/templates/springster/surveys/surveys_list.html:11
 msgid "Take Survey"
 msgstr "ทำแบบสำรวจ"
 
 #: gem/templates/springster/yourwords/thank_you.html:24
 msgid "Thank you for sharing your words!"
 msgstr "ขอบคุณสำหรับการแบ่งปันความเห็นของคุณ!"
+
+#: gem/templates/springster/yourwords/your_words_competition.html:15
+#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
+#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
+msgid "Enter"
+msgstr "ป้อน"
 
 #: gem/templates/springster/yourwords/your_words_competition_entry.html:23
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:54
@@ -910,21 +912,16 @@ msgstr "ฉันยอมรับข้อกำหนดและเงื่
 msgid "Submit your story"
 msgstr "ส่งเรื่องราวของคุณ"
 
-#: gem/views.py:116
+#: gem/views.py:117
 #: temp/temp_ve/profiles/views.py:184
 msgid "Too many attempts. Please try again later."
 msgstr "มีความพยายามหลายครั้งเกินไป โปรดลองอีกครั้งในภายหลัง"
 
-#: gem/views.py:134
+#: gem/views.py:142
 msgid "The username that you entered appears to be invalid. Please try again."
 msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน โปรดลองอีกครั้ง"
 
-#: gem/views.py:217
-#: temp/temp_ve/profiles/views.py:279
-msgid "The two PINs that you entered do not match. Please try again."
-msgstr "รหัส PIN สองรายการที่คุณป้อนไม่ตรงกัน โปรดลองอีกครั้ง"
-
-#: gem/views.py:345
+#: gem/views.py:353
 msgid ""
 "This comment has been removed as it contains profanity, contact information "
 "or other inappropriate content. "
@@ -932,22 +929,25 @@ msgstr ""
 "ความเห็นนี้ถูกลบแล้วเนื่องจากมีถ้อยคำหยาบคาย ข้อมูลติดต่อ หรือเนื้อหาอื่นๆ "
 "ที่ไม่เหมาะสม"
 
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
-msgid "Looking for something?"
-msgstr "กำลังค้นหาบางอย่าง?"
-
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/recommend/element.html:18
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:20
 msgid "More"
 msgstr "อื่นๆ"
 
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/up-next-and-recommended/element.html:14
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
 msgid "Recommended:"
 msgstr "แนะนำ:"
 
-#: temp/temp_ve/commenting/admin_views.py:61
-#: temp/temp_ve/commenting/views.py:111
-msgid "Reply successfully created."
-msgstr "สร้างการตอบกลับสำเร็จแล้ว"
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:64
+msgid "Looking for something?"
+msgstr "กำลังค้นหาบางอย่าง?"
 
 #: temp/temp_ve/commenting/forms.py:13
 #: temp/temp_ve/commenting/forms.py:68
@@ -981,64 +981,96 @@ msgid ""
 msgstr ""
 "ทีมงานของเราจะตรวจสอบความเห็นเหล่านั้นและอาจลบออกหากละเมิดกฎแพล็ตฟอร์มของเรา"
 
-#: temp/temp_ve/commenting/templates/notifications/notice.html:24
-msgid "Your comment"
-msgstr "ความเห็นของคุณ"
-
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "unread replies"
 msgstr "การตอบกลับที่ไม่ได้อ่าน"
+
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
+msgid "Read replies:"
+msgstr "จำนวนครั้งของการอ่านการตอบกลับ:"
+
+#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
+msgid "Notification:"
+msgstr "การแจ้งเตือน:"
+
+#: temp/temp_ve/commenting/views.py:31
+msgid "Reporting comment replies is not allowed."
+msgstr "ไม่อนุญาตการตอบกลับการรายงานความเห็น"
+
+#: temp/temp_ve/core/templates/403.html:8
+msgid "Access Denied"
+msgstr "ถูกปฏิเสธไม่ให้เข้าใช้งาน"
+
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid ""
+"Sorry, you are having trouble accessing this feature! Due to a temporary "
+"technical issue, login and registrations are not available on the Free "
+"Basics app for now. To login or register for a profile, visit our free "
+"mobisite through your mobile browser at"
+msgstr ""
+"ขออภัย คุณกำลังเผชิญปัญหาการเข้าถึงคุณสมบัตินี้! เนื่องจากปัญหาทางเทคนิคชั่"
+"วคราว การล็อกอินและการลงทะเบียนไม่พร้อมใช้งานบนแอปพลิเคชัน Free Basics "
+"ในขณะนี้ หากต้องการล็อกอินหรือลงทะเบียนสำหรับโปรไฟล์ "
+"โปรดเยี่ยมชมไซต์เคลื่อนที่ฟรีของเราบนเบราเซอร์ในอุปกรณ์เคลื่อนที่ของคุณที่"
+
+#: temp/temp_ve/core/templates/core/api/article_import.html:11
+#: temp/temp_ve/core/templates/core/api/image_import_page.html:23
+#: temp/temp_ve/core/templates/core/api/main_import_page.html:9
+#: temp/temp_ve/core/templates/core/api/section_import.html:11
+#: temp/temp_ve/core/templates/core/api/site_import_page.html:9
+msgid "Get content"
+msgstr "รับเนื้อหา"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:12
+msgid "Click to watch on youtube!"
+msgstr "คลิกที่นี่เพื่อดูบน Youtube"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:21
+msgid "Click here to download"
+msgstr "คลิกที่นี่เพื่อดาวน์โหลด"
+
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html:4
+msgid "Back to"
+msgstr "กลับไปยัง"
+
+#: temp/temp_ve/core/templates/registration/login.html:15
+msgid "Your username and password does not match. Please try again."
+msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน โปรดลองอีกครั้ง"
+
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:7
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"รหัสผ่านของคุณได้รับการตั้งค่าแล้ว คุณสามารถดำเนินการต่อและล็อกอินได้ทันที"
 
 #: temp/temp_ve/polls/test_templates/base.html:79
 #: temp/temp_ve/surveys/test_templates/base.html:77
 msgid "Site Language:"
 msgstr "ภาษาของไซต์:"
 
-#: temp/temp_ve/profiles/admin_views.py:16
-msgid ""
-"Your email address is not configured. Please update it before exporting."
-msgstr ""
-"ไม่มีการกำหนดค่าที่อยู่อีเมลของคุณ โปรดอัพเดตที่อยู่อีเมลของคุณก่อนส่งออก"
-
-#: temp/temp_ve/profiles/forms.py:113
-#: temp/temp_ve/profiles/forms.py:244
-#: temp/temp_ve/profiles/forms.py:294
+#: temp/temp_ve/profiles/forms.py:136
+#: temp/temp_ve/profiles/forms.py:267
+#: temp/temp_ve/profiles/forms.py:317
 msgid "Location"
 msgstr "ตำแหน่งที่ตั้ง"
 
-#: temp/temp_ve/profiles/forms.py:184
+#: temp/temp_ve/profiles/forms.py:207
 msgid "Username already exists."
 msgstr "มีชื่อผู้ใช้นี้อยู่แล้ว"
 
-#: temp/temp_ve/profiles/forms.py:189
-msgid ""
-"Sorry, but that is an invalid username. Please don't use your %s in your "
-"username."
-msgstr "ขออภัย ชื่อผู้ใช้นี้ใช้ไม่ได้ โปรดอย่าใช้ %s ของคุณในชื่อผู้ใช้"
-
-#: temp/temp_ve/profiles/forms.py:382
+#: temp/temp_ve/profiles/forms.py:405
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:25
 msgid "Old Password"
 msgstr "รหัสผ่านเดิม"
 
-#: temp/temp_ve/profiles/forms.py:397
+#: temp/temp_ve/profiles/forms.py:420
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:32
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: temp/temp_ve/profiles/forms.py:413
+#: temp/temp_ve/profiles/forms.py:436
 msgid "Confirm Password"
 msgstr "ยืนยันรหัสผ่าน:"
-
-#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
-msgid "Confirm New Password"
-msgstr "ยืนยันรหัสผ่าน:"
-
-#: temp/temp_ve/profiles/templates/profiles/done.html:18
-#: temp/temp_ve/profiles/templates/profiles/register.html:45
-msgid "SELECT DATE OF BIRTH"
-msgstr "เลือกวันเกิด"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:29
 #: temp/temp_ve/profiles/templates/profiles/editprofile.html:14
@@ -1117,25 +1149,17 @@ msgstr "เป็นสมาชิกอยู่แล้วใช่หรื
 msgid "Join us by signing up below."
 msgstr "เข้าร่วมกับเราโดยการสมัครสมาชิกด้านล่าง"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:24
-msgid ""
-"This name you will use to log in and won't appear to other users. Only you "
-"will see this."
-msgstr ""
-"ชื่อนี้จะใช้ในการล็อกอินของคุณและจะไม่ปรากฏให้ผู้ใช้อื่นๆ เห็น "
-"มีเพียงคุณเท่านั้นที่จะเห็นชื่อนี้"
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:31
 msgid "e.g. 2086"
 msgstr "เช่น 2086"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:36
+msgid "CHOOSE A DISPLAY NAME"
+msgstr "เลือกชื่อที่แสดง"
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:84
 msgid "(e.g. 0900000013)"
 msgstr "(เช่น 0900000013)"
-
-#: temp/temp_ve/profiles/templates/profiles/register.html:90
-msgid "ENTER YOUR EMAIL ADDRESS"
-msgstr "ป้อนที่อยู่อีเมลของคุณ"
 
 #: temp/temp_ve/profiles/templates/profiles/register.html:112
 msgid "Please accept the T&amp;Cs in order to complete the registration"
@@ -1167,12 +1191,17 @@ msgstr "ตำแหน่งที่ตั้ง:"
 msgid "Education Level:"
 msgstr "ระดับการศึกษา:"
 
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
+msgid "Change My Password"
+msgstr "เปลี่ยนรหัสผ่านของคุณ"
+
 #: temp/temp_ve/profiles/templates/registration/login.html:32
 #: temp/temp_ve/profiles/test_templates/login.html:32
 msgid "Eg.: 2086"
 msgstr "เช่น: 2086"
 
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:44
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:45
 msgid "Please log in to take this survey"
 msgstr "โปรดล็อกอินเพื่อเข้าร่วมการสำรวจนี้"
 
@@ -1202,17 +1231,17 @@ msgstr ""
 
 #: gem/forms.py:68
 #: gem/forms.py:217
-#: temp/temp_ve/profiles/forms.py:109
-#: temp/temp_ve/profiles/forms.py:240
-#: temp/temp_ve/profiles/forms.py:290
+#: temp/temp_ve/profiles/forms.py:132
+#: temp/temp_ve/profiles/forms.py:263
+#: temp/temp_ve/profiles/forms.py:313
 msgid "Gender"
 msgstr "เพศ"
 
 #: gem/forms.py:83
 #: gem/forms.py:140
 #: gem/forms.py:211
-#: temp/temp_ve/profiles/forms.py:75
-#: temp/temp_ve/profiles/forms.py:437
+#: temp/temp_ve/profiles/forms.py:98
+#: temp/temp_ve/profiles/forms.py:460
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "ค่านี้ต้องมีเฉพาะตัวอักษร ตัวเลข และสัญประกาศ "
 
@@ -1234,14 +1263,14 @@ msgstr ""
 
 #: gem/forms.py:177
 #: gem/forms.py:194
-#: temp/temp_ve/profiles/forms.py:91
-#: temp/temp_ve/profiles/forms.py:411
-#: temp/temp_ve/profiles/forms.py:479
-#: temp/temp_ve/profiles/forms.py:496
+#: temp/temp_ve/profiles/forms.py:114
+#: temp/temp_ve/profiles/forms.py:434
+#: temp/temp_ve/profiles/forms.py:502
+#: temp/temp_ve/profiles/forms.py:519
 msgid "This value must contain only numbers."
 msgstr "ค่านี้ต้องมีเฉพาะตัวเลข"
 
-#: gem/settings/base.py:324
+#: gem/settings/base.py:352
 #: gem/templates/springster/polls/includes/poll_free_text_form.html:23
 #: gem/templates/springster/polls/includes/poll_question_form.html:20
 #: temp/temp_ve/polls/templates/polls/includes/poll_free_text_form.html:18
@@ -1249,73 +1278,133 @@ msgstr "ค่านี้ต้องมีเฉพาะตัวเลข"
 msgid "Log in to vote"
 msgstr "เข้าสู่ระบบเพื่อป้อน"
 
-#: gem/settings/base.py:325
+#: gem/settings/base.py:353
 msgid "That username already exits. Please try another one."
 msgstr "ชื่อผู้ใช้ดังกล่าวมีอยู่แล้ว โปรดลองชื่ออื่น"
 
-#: gem/settings/base.py:327
-#: gem/templates/springster/polls/detail.html:26
-#: gem/templates/springster/polls/free_text_detail.html:16
-#: gem/templates/springster/polls/includes/poll_question_form.html:36
-#: temp/temp_ve/polls/templates/polls/detail.html:24
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
-msgid "Vote"
-msgstr "โหวต"
+#: gem/settings/base.py:357
+#: gem/templates/springster/polls/includes/poll_question_form.html:43
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
+msgid "You voted: "
+msgstr "คุณโหวตแล้ว:"
 
-#: gem/settings/base.py:330
+#: gem/settings/base.py:358
 msgid "Name of the city you were born in"
 msgstr "ชื่อเมืองที่คุณเกิด"
+
+#: gem/templates/base/403_csrf.html:9
+#: gem/templates/malawi/403_csrf.html:9
+#: gem/templates/springster/403_csrf.html:6
+#: temp/temp_ve/core/templates/403_csrf.html:10
+msgid "Unable to Login"
+msgstr "ไม่สามารถล็อกอินได้"
 
 #: gem/templates/base/403_csrf.html:12
 #: gem/templates/springster/403_csrf.html:8
 msgid "Hi Girl"
 msgstr "สวัสดี สาวๆ"
 
+#: gem/templates/base/403_csrf.html:13
+#: gem/templates/springster/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid " We're working hard to get this problem resolved. Thank you."
+msgstr "เรากำลังพยายามอย่างเต็มที่เพื่อแก้ไขปัญหานี้ ขอขอบคุณ"
+
+#: gem/templates/base/403_csrf.html:15
+#: gem/templates/malawi/403_csrf.html:14
+#: gem/templates/springster/403_csrf.html:14
+msgid "XO"
+msgstr "XO"
+
 #: gem/templates/base/500.html:12
 #: gem/templates/base/500.html:17
 #: gem/templates/springster/500.html:11
 #: gem/templates/springster/500.html:16
+#: temp/temp_ve/core/templates/500.html:12
+#: temp/temp_ve/core/templates/500.html:16
 msgid "Internal server error"
 msgstr "มีข้อผิดพลาดภายในของเซิร์ฟเวอร์"
 
-#: gem/templates/base/base.html:73
-#: gem/templates/malawi/base.html:83
+#: gem/templates/base/base.html:57
+#: gem/templates/malawi/base.html:72
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:22
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:5
 msgid "Menu"
 msgstr "เมนู"
 
-#: gem/templates/base/base.html:75
+#: gem/templates/base/base.html:59
 #: gem/templates/base/profiles/register.html:8
 #: gem/templates/base/profiles/register.html:90
-#: gem/templates/malawi/base.html:85
+#: gem/templates/malawi/base.html:74
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
-#: gem/templates/springster/profiles/register.html:94
+#: gem/templates/springster/profiles/register.html:100
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
 msgid "Sign up"
 msgstr "สมัครสมาชิก"
 
-#: gem/templates/base/base.html:77
-#: gem/templates/base/base.html:141
-#: gem/templates/malawi/base.html:87
-#: gem/templates/malawi/base.html:135
+#: gem/templates/base/base.html:61
+#: gem/templates/base/base.html:119
+#: gem/templates/malawi/base.html:76
+#: gem/templates/malawi/base.html:124
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:31
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
 #: temp/temp_ve/profiles/templates/profiles/done.html:64
 msgid "Profile"
 msgstr "โปรไฟล์"
 
-#: gem/templates/base/base.html:128
+#: gem/templates/base/base.html:92
+#: gem/templates/base/core/tags/breadcrumbs.html:6
+#: gem/templates/base/polls/results.html:28
+#: gem/templates/malawi/base.html:104
+#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
+#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/commenting/templates/comments/preview.html:11
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-bg.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:4
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:5
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-column.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-vertical.html:13
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/polls/templates/polls/detail.html:25
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
+#: temp/temp_ve/polls/templates/polls/results.html:24
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
+msgid "Home"
+msgstr "หน้าหลัก"
+
+#: gem/templates/base/base.html:106
 msgid "Sign Up"
 msgstr "สมัครสมาชิก"
 
-#: gem/templates/base/base.html:147
-#: gem/templates/malawi/base.html:141
+#: gem/templates/base/base.html:125
+#: gem/templates/malawi/base.html:130
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:36
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:36
 msgid "Log out"
 msgstr "ออกจากระบบ"
 
-#: gem/templates/base/base.html:156
-#: gem/templates/malawi/base.html:150
+#: gem/templates/base/base.html:134
+#: gem/templates/malawi/base.html:139
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-pipe.html:5
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright.html:5
 msgid "All Rights Reserved."
 msgstr "สงวนลิขสิทธิ์"
 
@@ -1326,7 +1415,7 @@ msgid "Big Sister"
 msgstr "Big Sister"
 
 #: gem/templates/base/comments/comment.html:35
-#: gem/templates/springster/comments/comment.html:31
+#: gem/templates/springster/comments/comment.html:39
 #: gem/templates/springster/notifications/notice.html:24
 #: temp/temp_ve/commenting/templates/notifications/notice.html:18
 msgid "ago"
@@ -1348,7 +1437,7 @@ msgid "View more comments"
 msgstr "ดูความเห็นเพิ่มเติม"
 
 #: gem/templates/base/comments/form.html:5
-#: gem/templates/springster/comments/form.html:8
+#: gem/templates/springster/comments/form.html:6
 #: temp/temp_ve/commenting/templates/comments/form.html:7
 msgid "Please correct the error below"
 msgstr "โปรดแก้ไขข้อผิดพลาดด้านล่าง"
@@ -1374,11 +1463,25 @@ msgstr "โปรด"
 msgid " to leave a comment."
 msgstr "หากต้องการฝากความคิดเห็นเอาไว้"
 
+#: gem/templates/base/comments/reply.html:14
+#: gem/templates/springster/comments/reply.html:13
+#: temp/temp_ve/commenting/templates/comments/reply.html:15
+msgid "Recent replies"
+msgstr "การตอบกลับล่าสุด"
+
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "Page"
 msgstr "หน้า"
+
+#: gem/templates/base/comments/report_response.html:7
+#: gem/templates/springster/comments/report_response.html:5
+#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
+#: temp/temp_ve/commenting/templates/comments/report_response.html:6
+msgid "Thanks!"
+msgstr "ขอบคุณมาก!"
 
 #: gem/templates/base/comments/report_response.html:11
 #: gem/templates/springster/comments/report_response.html:10
@@ -1403,11 +1506,6 @@ msgstr ""
 "ทีมกำกับดูแลจะดำเนินการตรวจสอบ "
 "และอาจลบออกหากละเมิดกฎการใช้งานแพล็ตฟอร์มของเรา"
 
-#: gem/templates/base/core/language_block.html:5
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:8
-msgid "Language"
-msgstr "ภาษา"
-
 #: gem/templates/base/forgot_password.html:26
 #: gem/templates/springster/profiles/forgot_password.html:23
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:26
@@ -1421,13 +1519,10 @@ msgstr "คุณมีความคิดเห็นอย่างไร"
 
 #: gem/templates/base/profiles/change_password.html:25
 #: gem/templates/base/profiles/viewprofile.html:66
-#: gem/templates/springster/profiles/change_password.html:22
-#: gem/templates/springster/profiles/viewprofile.html:74
 msgid "Old Password:"
 msgstr "รหัสผ่านเดิม:"
 
 #: gem/templates/base/profiles/change_password.html:35
-#: gem/templates/springster/profiles/change_password.html:32
 msgid "Confirm New Password:"
 msgstr "ยืนยันรหัสผ่าน:"
 
@@ -1440,7 +1535,7 @@ msgstr "ขอบคุณสำหรับการเข้าร่วม!"
 #: gem/templates/base/profiles/editprofile.html:14
 #: gem/templates/base/profiles/register.html:21
 #: gem/templates/springster/profiles/editprofile.html:16
-#: gem/templates/springster/profiles/register.html:22
+#: gem/templates/springster/profiles/register.html:29
 msgid ""
 "Please do not use your real name, phone number or email address as it's "
 "unsafe."
@@ -1458,6 +1553,7 @@ msgstr "วันเกิดของคุณคือ:"
 #: gem/templates/base/profiles/editprofile.html:34
 #: gem/templates/springster/profiles/editprofile.html:43
 #: gem/templates/springster/registration/password_reset_form.html:13
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:10
 msgid "Email address:"
 msgstr "ที่อยู่อีเมล์:"
 
@@ -1472,35 +1568,34 @@ msgid "Not a member yet? Join us by signing up below."
 msgstr "ยังไม่ได้เป็นสมาชิกใช่หรือไม่ เข้าร่วมกับเราโดยการสมัครสมาชิกด้านล่าง"
 
 #: gem/templates/base/profiles/register.html:35
-#: gem/templates/springster/profiles/register.html:35
+#: gem/templates/springster/profiles/register.html:42
 msgid "Choose a 4-digit pin"
 msgstr "เลือกรหัสพิน 4 ตัวเลข"
 
 #: gem/templates/base/profiles/register.html:42
-#: gem/templates/springster/profiles/register.html:44
+#: gem/templates/springster/profiles/register.html:51
 msgid "Enter your mobile number"
 msgstr "ป้อนหมายเลขโทรศัพท์มือถือของคุณ"
 
 #: gem/templates/base/profiles/register.html:56
-#: gem/templates/springster/forgot_password.html:27
-#: gem/templates/springster/profiles/register.html:60
+#: gem/templates/springster/forgot_password.html:22
+#: gem/templates/springster/profiles/register.html:67
 msgid "Security questions"
 msgstr "คำถามเพื่อความปลอดภัย"
 
 #: gem/templates/base/profiles/register.html:71
-#: gem/templates/springster/profiles/register.html:90
+#: gem/templates/springster/profiles/register.html:96
 msgid ""
 "Please accept the terms and conditions in order to complete registration"
 msgstr "โปรดยอมรับข้อกำหนดและเงื่อนไขเหล่านี้เพื่อให้การลงทะเบียนเสร็จสิ้น"
 
-#: gem/templates/base/profiles/register.html:92
-msgid "already joined?"
-msgstr "เข้าร่วมแล้วใช่หรือไม่?"
-
-#: gem/templates/base/profiles/viewprofile.html:22
-#: gem/templates/springster/profiles/viewprofile.html:26
-msgid "You haven't set a display name, so your comments will appear as 'anonymous'"
-msgstr "เมื่อคุณพิมพ์ความเห็น ชื่อของคุณจะแสดงเป็น: 'ไม่เปิดเผยชื่อ'"
+#: gem/templates/base/profiles/viewprofile.html:12
+#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: gem/templates/springster/profiles/viewprofile.html:17
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
+msgid "log out"
+msgstr "ออกจากระบบ"
 
 #: gem/templates/base/profiles/viewprofile.html:42
 #: gem/templates/springster/profiles/viewprofile.html:52
@@ -1508,9 +1603,20 @@ msgid "Update Profile"
 msgstr "อัปเดตโปรไฟล์"
 
 #: gem/templates/base/profiles/viewprofile.html:50
-#: gem/templates/springster/profiles/viewprofile.html:56
 msgid "Change Your Password"
 msgstr "เปลี่ยนรหัสผ่านของคุณ"
+
+#: gem/templates/base/registration/login.html:14
+msgid "Are you not a member yet"
+msgstr "คุณยังไม่ได้เป็นสมาชิกใช่หรือไม่"
+
+#: gem/templates/base/registration/login.html:19
+#: gem/templates/malawi/registration/login.html:19
+#: gem/templates/springster/registration/login.html:15
+#: temp/temp_ve/profiles/templates/registration/login.html:20
+#: temp/temp_ve/profiles/test_templates/login.html:20
+msgid "Your username and password do not match. Please try again."
+msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน โปรดลองอีกครั้ง"
 
 #: gem/templates/base/reset_password.html:7
 #: gem/templates/base/reset_password.html:33
@@ -1523,75 +1629,202 @@ msgstr "เปลี่ยนรหัสผ่านของคุณ"
 msgid "Reset PIN"
 msgstr "ตั้งรหัส PIN ใหม่"
 
+#: gem/templates/base/reset_password_success.html:10
+#: gem/templates/springster/reset_password_success.html:7
+msgid "Your PIN was changed successfully."
+msgstr "รหัส PIN ของคุณถูกเปลี่ยนเรียบร้อยแล้ว"
+
 #: gem/templates/base/reset_password_success.html:12
 #: gem/templates/springster/reset_password_success.html:9
 #: temp/temp_ve/profiles/templates/profiles/reset_password_success.html:8
 msgid "Continue to Sign In"
 msgstr "ดำเนินการต่อเพื่อเข้าสู่ระบบ"
 
+#: gem/templates/base/search/search_block.html:5
+#: gem/templates/base/search/search_results.html:12
+#: gem/templates/base/search/search_results.html:90
+#: gem/templates/base/search/search_results.html:97
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
+#: gem/templates/springster/search/search_results.html:7
+#: gem/templates/springster/search/search_results.html:23
+#: mote/projects/gem/website/src/patterns/basics/menu/element.html:13
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: temp/temp_ve/core/templates/patterns/components/footer/sp_variations/sp_footer-menu.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:59
+#: temp/temp_ve/core/templates/search/search_results.html:65
+msgid "Search"
+msgstr "ค้นหา"
+
+#: gem/templates/base/surveys/molo_survey_page_landing.html:12
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
+msgid "Survey Results"
+msgstr "ผลลัพธ์ของแบบสำรวจ"
+
+#: gem/templates/base/yourwords/thank_you.html:10
+#: gem/templates/malawi/yourwords/thank_you.html:10
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
+msgid "Thank you!"
+msgstr "ขอบคุณ!"
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid ""
+" Sorry we are having trouble accessing this feature! Due to a temporary "
+"technical issue, log in and registrations are not available on Free Basics "
+"app for now. To login or register for a profile, visit our free mobisite "
+"through your mobile browser at:"
+msgstr ""
+"ขออภัย เราพบปัญหาขณะเข้าถึงฟีเจอร์นี้! เนื่องจากปัญหาขัดข้องทางเทคนิคชั่"
+"วคราว ขณะนี้ไม่สามารถใช้งานการล็อกอินและการลงทะเบียนในแอพเบื้องต้นฟรีได้ "
+"หากต้องการล็อกอินหรือลงทะเบียนสำหรับโปรไฟล์ ไปที่หน้าเว็บสำหรับอุปกรณ์มือถือฟ"
+"รีของเราผ่านทางเบราว์เซอร์บนมือถือของคุณได้ที่:"
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid " We’re working hard to get this problem resolved. Thank you."
+msgstr "เรากำลังพยายามอย่างเต็มที่เพื่อแก้ไขปัญหานี้ ขอขอบคุณ"
+
+#: gem/templates/malawi/base.html:117
+msgid "Log in / Sign up"
+msgstr "ล็อกอิน / สมัครสมาชิก"
+
 #: gem/templates/springster/403_csrf.html:15
 #: gem/templates/springster/patterns/basics/images/sp_variations/logo.html:6
+#: temp/temp_ve/core/templates/patterns/basics/images/sp_variations/logo.html:6
 msgid "Springster"
 msgstr "Springster"
 
-#: gem/templates/springster/comments/comment_block.html:4
-#: gem/templates/springster/comments/form.html:5
+#: gem/templates/springster/comments/comment.html:11
+msgid "Moderator"
+msgstr "พิธีกร"
+
+#: gem/templates/springster/comments/comment.html:32
+msgid "Read More"
+msgstr "อ่านเพิ่มเติม"
+
+#: gem/templates/springster/comments/comment.html:72
+msgid "Recent Replies"
+msgstr "การตอบกลับล่าสุด"
+
+#: gem/templates/springster/comments/comment_block.html:5
 msgid "Share your thoughts"
 msgstr "แบ่งปันความคิดของคุณ"
 
-#: gem/templates/springster/comments/comment_block.html:20
-msgid "Your thoughts"
-msgstr "ความคิดของคุณ"
-
 #: gem/templates/springster/comments/preview.html:17
 #: gem/templates/springster/profiles/register.html:9
-#: gem/templates/springster/profiles/register.html:97
+#: gem/templates/springster/profiles/register.html:103
 msgid "Log in here"
 msgstr "ล็อกอินที่นี่"
 
-#: gem/templates/springster/core/main.html:31
-#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:25
-#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:25
+#: gem/templates/springster/core/article_tags.html:5
+#: gem/templates/springster/notifications/reply_list.html:26
+#: gem/templates/springster/polls/detail.html:29
+#: gem/templates/springster/polls/free_text_detail.html:20
+#: gem/templates/springster/polls/results.html:36
+#: gem/templates/springster/surveys/molo_survey_page.html:41
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:33
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
+msgid "Back home"
+msgstr "กลับไปที่หน้าหลัก"
+
+#: gem/templates/springster/core/article_tags.html:11
+#: gem/templates/springster/core/article_tags_for_paging.html:5
+#: gem/templates/springster/core/main-feature-more.html:8
+#: gem/templates/springster/core/main.html:34
+#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:6
+#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:6
 #: gem/templates/springster/patterns/components/section-page/sp_variations/base-section_teaser-listing.html:20
+#: gem/templates/springster/search/search_results.html:16
+#: gem/templates/springster/search/search_results_for_paging.html:5
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/latest-promoted_variations/sp_variations/latest-articles_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/basics/sections/sp_variations/sectionpage-article-list-standard_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/components/sectionpage/sp_variations/base-section_teaser-listing.html:20
 msgid "Load more"
 msgstr "อ่านเพิ่มเติม"
+
+#: gem/templates/springster/core/tags/social_media_footer.html:3
+msgid "Find us elsewhere:"
+msgstr "พบเราได้ที่"
 
 #: gem/templates/springster/notifications/reply_list.html:5
 msgid "Comment Replies"
 msgstr "ตอบกลับความเห็น"
 
+#: gem/templates/springster/notifications/reply_list.html:21
+msgid "Read replies"
+msgstr "จำนวนครั้งของการอ่านการตอบกลับ:"
+
+#: gem/templates/springster/notifications/tags/notification_banner.html:5
+msgid "New"
+msgstr "ใหม่"
+
 #: gem/templates/springster/patterns/basics/article-tags/sp_article-page-tag.html:7
+#: temp/temp_ve/core/templates/patterns/basics/article-tags/sp_variations/sp_article-tags_with-title.html:7
 msgid "Read more about"
 msgstr "อ่านเพิ่มเติมเกี่ยวกับ"
+
+#: gem/templates/springster/patterns/basics/article-tags/sp_article-tag.html:7
+#: temp/temp_ve/core/templates/patterns/components/article-tags/sp_variations/sp_tags-menu.html:7
+msgid "Read stories about"
+msgstr "อ่านเรื่องราวเกี่ยวกับ"
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
 msgid "Read All"
 msgstr "อ่านทั้งหมด"
 
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:7
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:7
 msgid "Terms &amp; Conditions"
 msgstr "ข้อกำหนด &amp; เงื่อนไข"
 
-#: gem/templates/springster/patterns/components/article-tags/sp_variations/tag_menu.html:8
-msgid "Read stories about"
-msgstr "อ่านเรื่องราวเกี่ยวกับ"
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:20
+msgid "Join us"
+msgstr "เข้าร่วมกับเรา"
+
+#: gem/templates/springster/profiles/change_password.html:23
+#: gem/templates/springster/profiles/viewprofile.html:74
+msgid "Old Pin:"
+msgstr "รหัสเดิม"
+
+#: gem/templates/springster/profiles/change_password.html:30
+#: gem/templates/springster/profiles/viewprofile.html:82
+msgid "New Pin:"
+msgstr "รหัสใหม่"
+
+#: gem/templates/springster/profiles/change_password.html:37
+msgid "Confirm New Pin:"
+msgstr "ยืนยันรหัสใหม่"
 
 #: gem/templates/springster/profiles/forgot_password.html:24
-#: gem/templates/springster/profiles/register.html:72
 msgid ""
 "Please answer the above security questions. You'll have to provide these "
-"answers if you ever need to reset your password."
+"answers if you ever need to reset your pin."
 msgstr ""
-"โปรดตอบคำถามสำหรับความปลอดภัยด้านบน "
-"คุณจะต้องระบุคำตอบเหล่านี้หากคุณต้องการตั้งรหัสผ่านของคุณใหม่"
 
 #: gem/templates/springster/profiles/register.html:6
 msgid "Join Springster"
 msgstr "เข้าร่วมกับ Springster"
 
-#: gem/templates/springster/profiles/register.html:31
+#: gem/templates/springster/profiles/register.html:38
 msgid ""
 "Springster values your online security, therefore we hide your username and "
 "allow you to comment and interact with the site anonymously. If you would "
@@ -1604,23 +1837,32 @@ msgstr ""
 "ต้องการให้เพื่อนของคุณสามารถเห็นคุณจากชื่อผู้ใช้ ไม่ใช่แบบไม่ระบุชื่อ "
 "โปรดอัพเดตชื่อผู้ใช้ของคุณที่นี่"
 
-#: gem/templates/springster/profiles/register.html:39
+#: gem/templates/springster/profiles/register.html:46
 msgid "For example: 2048"
 msgstr "ตัวอย่างเช่น: 2048"
 
-#: gem/templates/springster/profiles/register.html:57
+#: gem/templates/springster/profiles/register.html:64
 msgid "Only you will see this, but it's not mandatory to tell us"
 msgstr "มีเพียงคุณเท่านั้นที่จะเห็นรหัสนี้ และไม่จำเป็นต้องแจ้งให้เรารู้"
 
-#: gem/templates/springster/profiles/reset_password_success.html:10
-msgid "Continue to sign in"
-msgstr "ดำเนินการต่อเพื่อเข้าสู่ระบบ"
+#: gem/templates/springster/profiles/register.html:79
+msgid ""
+"Please answer the above security questions. You'll have to provide these "
+"answers if you ever need to reset your password."
+msgstr ""
+"โปรดตอบคำถามสำหรับความปลอดภัยด้านบน "
+"คุณจะต้องระบุคำตอบเหล่านี้หากคุณต้องการตั้งรหัสผ่านของคุณใหม่"
+
+#: gem/templates/springster/profiles/viewprofile.html:56
+msgid "Change Your Pin"
+msgstr "เปลี่ยนรหัสของคุณ"
 
 #: gem/templates/springster/registration/login.html:8
 msgid "Sign up here"
 msgstr "สมัครสมาชิกที่นี่"
 
 #: gem/templates/springster/registration/password_reset_confirm.html:6
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:10
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -1628,7 +1870,13 @@ msgstr ""
 "โปรดป้อนรหัสผ่านใหม่ของคุณสองครั้งเพื่อให้เราสามารถตรวจยืนยันว่าคุณพิมพ์รหัสผ"
 "่านใหม่ถูกต้อง"
 
+#: gem/templates/springster/registration/password_reset_confirm.html:11
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:14
+msgid "New password:"
+msgstr "รหัสผ่านใหม่:"
+
 #: gem/templates/springster/registration/password_reset_confirm.html:20
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:17
 msgid "Change my password"
 msgstr "เปลี่ยนรหัสผ่านของคุณ"
 
@@ -1641,26 +1889,33 @@ msgstr ""
 "โปรดร้องขอการตั้งรหัสผ่านใหม่"
 
 #: gem/templates/springster/registration/password_reset_form.html:5
+#: temp/temp_ve/core/templates/registration/login.html:25
 #: temp/temp_ve/profiles/templates/registration/login.html:37
 #: temp/temp_ve/profiles/test_templates/login.html:37
 msgid "Forgotten your password?"
 msgstr "ลืมรหัสผ่านของคุณใช่หรือไม่"
 
-#: gem/templates/springster/yourwords/your_words_competition.html:18
-#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
-#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
-msgid "Enter"
-msgstr "ป้อน"
+#: gem/templates/springster/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:31
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:37
+msgid "Submit Survey"
+msgstr "ส่งแบบสำรวจ"
 
-#: gem/views.py:159
+#: gem/views.py:167
 msgid "Your answer to the security question was invalid. Please try again."
 msgstr "คำตอบสำหรับคำถามเพื่อความปลอดภัยของคุณไม่ถูกต้อง โปรดลองอีกครั้ง"
 
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:12
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:9
+#: gem/views.py:225
+#: temp/temp_ve/profiles/views.py:279
+msgid "The two PINs that you entered do not match. Please try again."
+msgstr "รหัส PIN สองรายการที่คุณป้อนไม่ตรงกัน โปรดลองอีกครั้ง"
+
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/footer/language-list_dropdown-footer.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:13
 msgid "Change Language"
 msgstr "เปลี่ยนภาษา"
 
@@ -1672,47 +1927,85 @@ msgstr "ชื่อ"
 msgid "Your comment has been successfully posted"
 msgstr "คำตอบของคุณได้รับการโพสต์เรียบร้อยแล้ว"
 
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
-msgid "Back home"
-msgstr "กลับไปที่หน้าหลัก"
-
-#: temp/temp_ve/commenting/views.py:31
-msgid "Reporting comment replies is not allowed."
-msgstr "ไม่อนุญาตการตอบกลับการรายงานความเห็น"
-
 #: temp/temp_ve/commenting/views.py:34
 msgid "The comment has been reported."
 msgstr "ความเห็นของคุณได้รับการรายงานแล้ว"
 
+#: temp/temp_ve/commenting/views.py:111
+msgid "Reply successfully created."
+msgstr "สร้างการตอบกลับสำเร็จแล้ว"
+
+#: temp/temp_ve/core/forms.py:11
 #: temp/temp_ve/polls/forms.py:20
 msgid "You didn't select a choice"
 msgstr "คุณไม่ได้เลือกตัวเลือก"
+
+#: temp/temp_ve/core/templates/403.html:9
+msgid "You do not have permssion to access this site."
+msgstr "คุณไม่ได้รับอนุญาตให้เข้าถึงไซต์นี้"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:10
+msgid "Click to Download!"
+msgstr "คลิกเพื่อดาวน์โหลด!"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:16
+msgid "Your browser does not support the video tag."
+msgstr "เบราว์เซอร์ของคุณไม่รองรับแท็กวิดีโอ"
+
+#: temp/temp_ve/core/templates/core/tags/nav_tags_section_listing_homepage.html:21
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection_with-bg.html:30
+msgid "More about"
+msgstr "เพิ่มเติมเกี่ยวกับ"
+
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection-child_with-bg.html:27
+msgid "View More"
+msgstr "ดูเพิ่มเติม"
+
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:5
+msgid "More Information"
+msgstr "ข้อมูลเพิ่มเติม"
+
+#: temp/temp_ve/core/templates/registration/login.html:11
+msgid "LOGIN TO YOUR ACCOUNT!"
+msgstr "ล็อกอินเข้าสู่บัญชีผู้ใช้ของคุณ!"
+
+#: temp/temp_ve/core/templates/registration/login.html:12
+msgid "We’re excited to have you..."
+msgstr "เรายินดีอย่างยิ่งที่คุณ..."
+
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:21
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"ลิงก์สำหรับการตั้งรหัสผ่านใหม่ใช้ไม่ได้ อาจเนื่องจากมีการใช้งานอยู่แล้ว "
+"โปรดร้องขอการตั้งรหัสผ่านใหม่"
+
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:6
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+"ลืมรหัสผ่านของคุณใช่หรือไม่ ป้อนที่อยู่อีเมลของคุณด้านล่าง "
+"และเราจะส่งอีเมลคำแนะนำสำหรับการตั้งรหัสผ่านใหม่ไปให้คุณ"
 
 #: temp/temp_ve/polls/templates/polls/results.html:8
 msgid "Your answers:"
 msgstr "คำตอบของคุณ:"
 
-#: temp/temp_ve/profiles/forms.py:117
-#: temp/temp_ve/profiles/forms.py:248
-#: temp/temp_ve/profiles/forms.py:298
+#: temp/temp_ve/profiles/forms.py:140
+#: temp/temp_ve/profiles/forms.py:271
+#: temp/temp_ve/profiles/forms.py:321
 msgid "Education Level"
 msgstr "ระดับการศึกษา"
 
-#: temp/temp_ve/profiles/forms.py:220
-#: temp/temp_ve/profiles/forms.py:344
-msgid ""
-"Sorry, but that is an invalid display name. Please don't use your %s in your "
-"display name."
-msgstr "ขออภัย ชื่อที่แสดงใช้ไม่ได้ โปรดอย่าใช้ %s ของคุณในชื่อที่แสดงของคุณ"
-
-#: temp/temp_ve/profiles/forms.py:380
-#: temp/temp_ve/profiles/forms.py:395
-msgid "This value must contain only           numbers."
-msgstr "ค่านี้ต้องมีเฉพาะตัวเลข"
-
-#: temp/temp_ve/profiles/forms.py:423
+#: temp/temp_ve/profiles/forms.py:446
 msgid "New passwords do not match."
 msgstr "รหัสผ่านใหม่ไม่ตรงกัน"
+
+#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
+msgid "Confirm New Password"
+msgstr "ยืนยันรหัสผ่าน:"
 
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:42
 #: temp/temp_ve/profiles/templates/profiles/done.html:59
@@ -1723,6 +2016,11 @@ msgstr "บันทึก"
 #: temp/temp_ve/profiles/templates/profiles/done.html:13
 msgid "Let us know more about yourself to get access to exclusive content."
 msgstr "โปรดให้ข้อมูลเกี่ยวกับคุณเพิ่มเติมเพื่อรับสิทธิการเข้าถึงเนื้อหาพิเศษ"
+
+#: temp/temp_ve/profiles/templates/profiles/done.html:18
+#: temp/temp_ve/profiles/templates/profiles/register.html:45
+msgid "SELECT DATE OF BIRTH"
+msgstr "เลือกวันเกิด"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:26
 msgid "DISPLAY NAME"
@@ -1749,17 +2047,25 @@ msgstr "เข้าสู่ระบบ"
 msgid "CHOOSE A USERNAME"
 msgstr "เลือกชื่อผู้ใช้"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:24
+msgid ""
+"This name you will use to log in and won't appear to other users. Only you "
+"will see this."
+msgstr ""
+"ชื่อนี้จะใช้ในการล็อกอินของคุณและจะไม่ปรากฏให้ผู้ใช้อื่นๆ เห็น "
+"มีเพียงคุณเท่านั้นที่จะเห็นชื่อนี้"
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:28
 msgid "CHOOSE A 4-DIGIT PIN"
 msgstr "เลือกรหัสพิน 4 ตัวเลข"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:36
-msgid "CHOOSE A DISPLAY NAME"
-msgstr "เลือกชื่อที่แสดง"
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:81
 msgid "ENTER YOUR MOBILE NUMBER"
 msgstr "ป้อนหมายเลขโทรศัพท์มือถือของคุณ"
+
+#: temp/temp_ve/profiles/templates/profiles/register.html:90
+msgid "ENTER YOUR EMAIL ADDRESS"
+msgstr "ป้อนที่อยู่อีเมลของคุณ"
 
 #: temp/temp_ve/profiles/templates/profiles/viewprofile.html:54
 msgid "Email Address:"
@@ -1769,78 +2075,45 @@ msgstr "ที่อยู่อีเมล์:"
 msgid "Edit My Profile"
 msgstr "แก้ไขโปรไฟล์ของคุณ"
 
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
-msgid "Change My Password"
-msgstr "เปลี่ยนรหัสผ่านของคุณ"
-
-#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:10
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:13
 msgid "Take The Survey"
 msgstr "ทำแบบสำรวจ"
 
-#~ msgid "Back to"
-#~ msgstr "กลับไปยัง"
+#~ msgid "reply"
+#~ msgstr "ตอบกลับ"
 
-#~ msgid "Access Denied"
-#~ msgstr "ถูกปฏิเสธไม่ให้เข้าใช้งาน"
+#~ msgid "replies"
+#~ msgstr "ตอบกลับ"
 
-#~ msgid "Hi"
-#~ msgstr "สวัสดี"
+#~ msgid "Your thought"
+#~ msgstr "ความคิดของคุณ"
 
 #~ msgid ""
-#~ "Sorry, you are having trouble accessing this feature! Due to a temporary "
-#~ "technical issue, login and registrations are not available on the Free "
-#~ "Basics app for now. To login or register for a profile, visit our free "
-#~ "mobisite through your mobile browser at"
+#~ "Your email address is not configured. Please update it before exporting."
 #~ msgstr ""
-#~ "ขออภัย คุณกำลังเผชิญปัญหาการเข้าถึงคุณสมบัตินี้! เนื่องจากปัญหาทางเทคนิคชั่"
-#~ "วคราว การล็อกอินและการลงทะเบียนไม่พร้อมใช้งานบนแอปพลิเคชัน Free Basics "
-#~ "ในขณะนี้ หากต้องการล็อกอินหรือลงทะเบียนสำหรับโปรไฟล์ "
-#~ "โปรดเยี่ยมชมไซต์เคลื่อนที่ฟรีของเราบนเบราเซอร์ในอุปกรณ์เคลื่อนที่ของคุณที่"
+#~ "ไม่มีการกำหนดค่าที่อยู่อีเมลของคุณ โปรดอัพเดตที่อยู่อีเมลของคุณก่อนส่งออก"
+
+#~ msgid ""
+#~ "Sorry, but that is an invalid username. Please don't use your %s in your "
+#~ "username."
+#~ msgstr "ขออภัย ชื่อผู้ใช้นี้ใช้ไม่ได้ โปรดอย่าใช้ %s ของคุณในชื่อผู้ใช้"
+
+#~ msgid "You haven't set a nickname, so your comments will appear as 'anonymous'"
+#~ msgstr "เมื่อคุณพิมพ์ความเห็น ชื่อของคุณจะแสดงเป็น: 'ไม่เปิดเผยชื่อ'"
+
+#~ msgid ""
+#~ "Sorry, but that is an invalid display name. Please don't use your %s in your "
+#~ "display name."
+#~ msgstr "ขออภัย ชื่อที่แสดงใช้ไม่ได้ โปรดอย่าใช้ %s ของคุณในชื่อที่แสดงของคุณ"
+
+#~ msgid "This value must contain only           numbers."
+#~ msgstr "ค่านี้ต้องมีเฉพาะตัวเลข"
 
 #~ msgid "Sign in"
 #~ msgstr "เข้าระบบ"
 
-#~ msgid "Your username and password does not match. Please try again."
-#~ msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน โปรดลองอีกครั้ง"
-
-#~ msgid "Your password has been set.  You may go ahead and log in now."
-#~ msgstr ""
-#~ "รหัสผ่านของคุณได้รับการตั้งค่าแล้ว คุณสามารถดำเนินการต่อและล็อกอินได้ทันที"
-
 #~ msgid "That page is not translatable."
 #~ msgstr "หน้านี้ไม่สามารถแปลได้"
 
-#~ msgid "You do not have permssion to access this site."
-#~ msgstr "คุณไม่ได้รับอนุญาตให้เข้าถึงไซต์นี้"
-
-#~ msgid "More about"
-#~ msgstr "เพิ่มเติมเกี่ยวกับ"
-
-#~ msgid "View More"
-#~ msgstr "ดูเพิ่มเติม"
-
-#~ msgid "More Information"
-#~ msgstr "ข้อมูลเพิ่มเติม"
-
 #~ msgid "Latest"
 #~ msgstr "ล่าสุด"
-
-#~ msgid "LOGIN TO YOUR ACCOUNT!"
-#~ msgstr "ล็อกอินเข้าสู่บัญชีผู้ใช้ของคุณ!"
-
-#~ msgid "We’re excited to have you..."
-#~ msgstr "เรายินดีอย่างยิ่งที่คุณ..."
-
-#~ msgid ""
-#~ "The password reset link was invalid, possibly because it has already been "
-#~ "used.  Please request a new password reset."
-#~ msgstr ""
-#~ "ลิงก์สำหรับการตั้งรหัสผ่านใหม่ใช้ไม่ได้ อาจเนื่องจากมีการใช้งานอยู่แล้ว "
-#~ "โปรดร้องขอการตั้งรหัสผ่านใหม่"
-
-#~ msgid ""
-#~ "Forgotten your password? Enter your email address below, and we'll email "
-#~ "instructions for setting a new one."
-#~ msgstr ""
-#~ "ลืมรหัสผ่านของคุณใช่หรือไม่ ป้อนที่อยู่อีเมลของคุณด้านล่าง "
-#~ "และเราจะส่งอีเมลคำแนะนำสำหรับการตั้งรหัสผ่านใหม่ไปให้คุณ"
