@@ -20,9 +20,13 @@ from django.views.generic.edit import FormView
 
 from django_comments.forms import CommentDetailsForm
 
-from forms import GemRegistrationForm, GemForgotPasswordForm, \
-    GemResetPasswordForm, ReportCommentForm, GemEditProfileForm
-
+from gem.forms import (
+    GemEditProfileForm,
+    GemForgotPasswordForm,
+    GemRegistrationForm,
+    GemResetPasswordForm,
+    ReportCommentForm,
+)
 from gem.models import GemSettings, GemCommentReport
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 

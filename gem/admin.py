@@ -1,5 +1,5 @@
-import csv
 import datetime
+import unicodecsv as csv
 
 from collections import Counter
 
@@ -39,9 +39,9 @@ from .admin_forms import FrontEndAgeToDateOfBirthFilter, UserListForm
 
 
 def download_as_csv_gem(self, request, queryset):
-    response = HttpResponse(content_type='text/csv')
+    response = HttpResponse(content_type='text/csv', charset='utf-8')
     response['Content-Disposition'] = 'attachment;filename=export.csv'
-    writer = csv.writer(response)
+    writer = csv.writer(response, encoding='utf-8')
     user_model_fields = ('id', 'username', 'is_active', 'last_login')
     profile_fields = ('date_of_birth',)
     gem_profile_fields = ('gender',)
@@ -49,9 +49,6 @@ def download_as_csv_gem(self, request, queryset):
     writer.writerow(field_names)
     for obj in queryset:
         if hasattr(obj, 'gem_profile'):
-            if obj.profile.alias:
-                obj.profile.alias = obj.profile.alias.encode('utf-8')
-            obj.username = obj.username.encode('utf-8')
             obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
             writer.writerow(
                 [getattr(obj, field) for field in user_model_fields] +
