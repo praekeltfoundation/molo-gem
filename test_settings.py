@@ -7,6 +7,16 @@ DATABASES = {
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {
+            'level': 'WARNING',
+            'class': 'logging.StreamHandler',
+        },
+    },
+}
+
 DEBUG = True
 CELERY_ALWAYS_EAGER = True
 
