@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-29 13:20+0000\n"
-"PO-Revision-Date: 2017-06-01 09:55+0000\n"
+"POT-Creation-Date: 2017-10-25 12:45+0000\n"
+"PO-Revision-Date: 2018-01-17 14:24+0000\n"
 "Last-Translator: Ayanda <ayanda@praekelt.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: bn\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1496310959.158055\n"
+"X-POOTLE-MTIME: 1516199075.053662\n"
 
 #: gem/constants.py:7
 msgid "female"
@@ -28,9 +28,9 @@ msgstr "উত্তর দিতে চাই না"
 
 #: gem/forms.py:81
 #: gem/forms.py:209
-#: temp/temp_ve/profiles/forms.py:99
-#: temp/temp_ve/profiles/forms.py:236
-#: temp/temp_ve/profiles/forms.py:280
+#: temp/temp_ve/profiles/forms.py:122
+#: temp/temp_ve/profiles/forms.py:259
+#: temp/temp_ve/profiles/forms.py:303
 msgid "Display Name"
 msgstr "নাম দেখান"
 
@@ -38,11 +38,12 @@ msgstr "নাম দেখান"
 #: gem/templates/base/forgot_password.html:23
 #: gem/templates/base/registration/login.html:22
 #: gem/templates/malawi/registration/login.html:22
-#: gem/templates/springster/forgot_password.html:22
-#: gem/templates/springster/profiles/register.html:17
-#: gem/templates/springster/registration/login.html:18
-#: temp/temp_ve/profiles/forms.py:73
-#: temp/temp_ve/profiles/forms.py:435
+#: gem/templates/springster/forgot_password.html:16
+#: gem/templates/springster/profiles/register.html:23
+#: gem/templates/springster/registration/login.html:19
+#: temp/temp_ve/core/templates/registration/login.html:17
+#: temp/temp_ve/profiles/forms.py:96
+#: temp/temp_ve/profiles/forms.py:458
 #: temp/temp_ve/profiles/templates/registration/login.html:25
 #: temp/temp_ve/profiles/test_templates/login.html:25
 msgid "Username"
@@ -56,8 +57,8 @@ msgstr "নিরাপত্তামূলক প্রশ্নের উত�
 #: gem/templates/base/reset_password.html:26
 #: gem/templates/springster/profiles/reset_password.html:21
 #: gem/templates/springster/reset_password.html:27
-#: temp/temp_ve/profiles/forms.py:93
-#: temp/temp_ve/profiles/forms.py:481
+#: temp/temp_ve/profiles/forms.py:116
+#: temp/temp_ve/profiles/forms.py:504
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:23
 msgid "PIN"
 msgstr "পিন"
@@ -66,41 +67,40 @@ msgstr "পিন"
 #: gem/templates/base/reset_password.html:29
 #: gem/templates/springster/profiles/reset_password.html:26
 #: gem/templates/springster/reset_password.html:32
-#: temp/temp_ve/profiles/forms.py:498
+#: temp/temp_ve/profiles/forms.py:521
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:29
 msgid "Confirm PIN"
 msgstr "পিন নিশ্চিত করুন"
 
-#: gem/settings/base.py:326
+#: gem/settings/base.py:354
 #: temp/temp_ve/profiles/views.py:161
 msgid "The old password is incorrect."
 msgstr "পুরাতন পাসওয়ার্ড ভুল"
 
-#: gem/settings/base.py:328
+#: gem/settings/base.py:355
+#: gem/templates/springster/polls/detail.html:26
+#: gem/templates/springster/polls/free_text_detail.html:16
+#: gem/templates/springster/polls/includes/poll_question_form.html:36
+#: temp/temp_ve/polls/templates/polls/detail.html:24
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
+msgid "Vote"
+msgstr "ভোট দিন"
+
+#: gem/settings/base.py:356
 #: gem/templates/springster/polls/includes/poll_question_form.html:38
 #: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:37
 msgid "Show Results"
 msgstr "ফলাফল দেখান"
 
-#: gem/settings/base.py:329
-#: gem/templates/springster/polls/includes/poll_question_form.html:43
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
-msgid "You voted: "
-msgstr "আপনি ভোট দিয়েছেন:"
-
-#: gem/settings/base.py:331
+#: gem/settings/base.py:359
 msgid "Name of your primary school"
 msgstr "আপনার প্রাথমিক স্কুলের নাম"
 
-#: gem/settings/base.py:332
-#: gem/templates/springster/profiles/register.html:11
+#: gem/settings/base.py:360
+#: gem/templates/springster/profiles/register.html:12
 msgid "Please complete this form to join"
 msgstr "যোগ দেয়ার জন্য অনুগ্রহ করে এই ফরমটি পূরণ করুন"
-
-#: gem/templates/base/403_csrf.html:9
-#: gem/templates/springster/403_csrf.html:6
-msgid "Unable to Login"
-msgstr "লগইন করতে অক্ষম"
 
 #: gem/templates/base/403_csrf.html:13
 #: gem/templates/springster/403_csrf.html:9
@@ -115,27 +115,19 @@ msgstr ""
 "একটি প্রোফাইলের জন্য লগ-ইন বা নিবন্ধন করতে, আপনার মোবাইল ব্রাউজারের মাধ্যমে "
 "আমাদের ফ্রি Mobisite-এ যান:"
 
-#: gem/templates/base/403_csrf.html:13
-#: gem/templates/springster/403_csrf.html:12
-msgid " We're working hard to get this problem resolved. Thank you."
-msgstr "এই সমস্যা সমাধান করতে আমরা কঠোর পরিশ্রম করছি৷ ধন্যবাদ৷"
-
-#: gem/templates/base/403_csrf.html:15
-#: gem/templates/springster/403_csrf.html:14
-msgid "XO"
-msgstr "XO"
-
 #: gem/templates/base/403_csrf.html:16
 msgid "Girl Effect"
 msgstr "Girl Effect"
 
 #: gem/templates/base/404.html:9
 #: gem/templates/springster/404.html:6
+#: temp/temp_ve/core/templates/404.html:8
 msgid "Page not found"
 msgstr "পেইজটি পাওয়া যায়নি"
 
 #: gem/templates/base/404.html:10
 #: gem/templates/springster/404.html:7
+#: temp/temp_ve/core/templates/404.html:10
 msgid "Sorry, this page could not be found."
 msgstr ""
 "দুঃখিত, এখানে একটি ভুল হয়েছে বলে মনে হচ্ছে৷ অনুগ্রহ করে শীঘ্রই আবার চেষ্টা "
@@ -143,47 +135,37 @@ msgstr ""
 
 #: gem/templates/base/500.html:18
 #: gem/templates/springster/500.html:17
+#: temp/temp_ve/core/templates/500.html:18
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr ""
 "দুঃখিত, এখানে একটি ভুল হয়েছে বলে মনে হচ্ছে৷ অনুগ্রহ করে শীঘ্রই আবার চেষ্টা "
 "করুন৷"
 
-#: gem/templates/base/base.html:104
-#: gem/templates/malawi/base.html:105
+#: gem/templates/base/base.html:82
+#: gem/templates/malawi/base.html:94
 #: gem/templates/springster/patterns/basics/buttons/back-to-top.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/back-to-top.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
 msgid "Back to Top"
 msgstr "উপরে ফিরে যান"
 
-#: gem/templates/base/base.html:114
-#: gem/templates/base/core/tags/breadcrumbs.html:6
-#: gem/templates/base/polls/results.html:28
-#: gem/templates/malawi/base.html:115
-#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
-#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
-#: temp/temp_ve/commenting/templates/comments/preview.html:11
-#: temp/temp_ve/polls/templates/polls/detail.html:25
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
-#: temp/temp_ve/polls/templates/polls/results.html:24
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
-msgid "Home"
-msgstr "হোম"
-
-#: gem/templates/base/base.html:115
+#: gem/templates/base/base.html:93
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:12
 msgid "Categories"
 msgstr "বিভাগ"
 
-#: gem/templates/base/base.html:134
+#: gem/templates/base/base.html:112
 #: gem/templates/base/registration/login.html:7
 #: gem/templates/base/registration/login.html:31
 #: gem/templates/malawi/registration/login.html:7
 #: gem/templates/malawi/registration/login.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:25
 #: gem/templates/springster/registration/login.html:5
-#: gem/templates/springster/registration/login.html:25
+#: gem/templates/springster/registration/login.html:26
 #: gem/templates/springster/registration/password_reset_complete.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:25
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:9
 #: temp/temp_ve/profiles/templates/registration/login.html:5
 #: temp/temp_ve/profiles/templates/registration/login.html:34
 #: temp/temp_ve/profiles/test_templates/login.html:5
@@ -192,7 +174,7 @@ msgid "Log in"
 msgstr "লগ-ইন"
 
 #: gem/templates/base/comments/comment.html:20
-#: gem/templates/springster/comments/comment.html:14
+#: gem/templates/springster/comments/comment.html:17
 #: gem/templates/springster/notifications/notice.html:16
 #: temp/temp_ve/commenting/templates/comments/comment.html:8
 #: temp/temp_ve/commenting/templates/notifications/notice.html:10
@@ -201,7 +183,7 @@ msgid "Anonymous"
 msgstr "বেনামী"
 
 #: gem/templates/base/comments/comment.html:28
-#: gem/templates/springster/comments/comment.html:22
+#: gem/templates/springster/comments/comment.html:25
 #: temp/temp_ve/commenting/templates/comments/comment.html:16
 msgid ""
 "This comment has been removed by the community. Please read our platform "
@@ -211,7 +193,7 @@ msgstr ""
 "নিয়ম-কানুন পড়ুন৷"
 
 #: gem/templates/base/comments/comment.html:37
-#: gem/templates/springster/comments/comment.html:34
+#: gem/templates/springster/comments/comment.html:42
 #: temp/temp_ve/commenting/templates/comments/comment.html:26
 msgid "Report"
 msgstr "রিপোর্ট"
@@ -219,17 +201,21 @@ msgstr "রিপোর্ট"
 #: gem/templates/base/comments/comment.html:43
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:40
-#: gem/templates/springster/comments/comment.html:45
-#: gem/templates/springster/comments/comment.html:54
+#: gem/templates/springster/comments/comment.html:48
+#: gem/templates/springster/comments/comment.html:53
+#: gem/templates/springster/comments/comment.html:62
+#: gem/templates/springster/notifications/reply_list.html:11
+#: gem/templates/springster/notifications/tags/notification_banner.html:7
 #: temp/temp_ve/commenting/templates/comments/comment.html:39
 msgid "Reply"
 msgstr "জবাব"
 
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:47
 #: gem/templates/springster/comments/comment.html:55
+#: gem/templates/springster/comments/comment.html:64
+#: gem/templates/springster/notifications/reply_list.html:13
+#: gem/templates/springster/notifications/tags/notification_banner.html:9
 #: temp/temp_ve/commenting/templates/comments/comment.html:31
 #: temp/temp_ve/commenting/templates/comments/comment.html:34
 #: temp/temp_ve/commenting/templates/comments/comment.html:41
@@ -254,6 +240,14 @@ msgstr "মন্তব্য"
 #: gem/templates/base/comments/report_response.html:13
 #: gem/templates/base/comments/user_has_already_reported.html:12
 #: gem/templates/base/core/article_tags.html:22
+#: gem/templates/springster/comments/comments.html:6
+#: gem/templates/springster/comments/reply.html:6
+#: gem/templates/springster/comments/report_comment.html:5
+#: gem/templates/springster/comments/report_response.html:14
+#: gem/templates/springster/comments/user_has_already_reported.html:12
+#: gem/templates/springster/patterns/basics/articles/reaction_question_feedback.html:5
+#: gem/templates/springster/yourwords/thank_you.html:27
+#: gem/templates/springster/yourwords/your_words_competition_entry.html:55
 #: temp/temp_ve/commenting/templates/comments/comment_done.html:11
 #: temp/temp_ve/commenting/templates/comments/comments.html:28
 #: temp/temp_ve/commenting/templates/comments/preview.html:44
@@ -263,7 +257,7 @@ msgid "Back to article"
 msgstr "নিবন্ধে ফিরে যান"
 
 #: gem/templates/base/comments/form.html:10
-#: gem/templates/springster/comments/form.html:16
+#: gem/templates/springster/comments/form.html:12
 msgid "Comment Anonymously"
 msgstr "বেনামে মন্তব্য করুন"
 
@@ -275,12 +269,6 @@ msgstr "বেনামে মন্তব্য করুন"
 msgid "log in"
 msgstr "প্রবেশ কর"
 
-#: gem/templates/base/comments/reply.html:14
-#: gem/templates/springster/comments/reply.html:13
-#: temp/temp_ve/commenting/templates/comments/reply.html:15
-msgid "Recent replies"
-msgstr "সাম্প্রতিক জবাব"
-
 #: gem/templates/base/comments/reply.html:16
 #: gem/templates/springster/comments/reply.html:15
 #: temp/temp_ve/commenting/templates/comments/reply.html:17
@@ -290,26 +278,20 @@ msgstr "আগের জবাবসমূহ"
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "of"
 msgstr "এর"
 
 #: gem/templates/base/comments/report_comment.html:7
-#: gem/templates/springster/comments/report_comment.html:7
+#: gem/templates/springster/comments/report_comment.html:8
 msgid "Please let us know why you are reporting this comment?"
 msgstr ""
 "আপনি কেন এই মন্তব্য সম্পর্কে রিপোর্ট করছেন তা অনুগ্রহ করে আমাদেরকে জানাবেন?"
 
 #: gem/templates/base/comments/report_comment.html:14
-#: gem/templates/springster/comments/report_comment.html:14
+#: gem/templates/springster/comments/report_comment.html:15
 msgid "Report Comment"
 msgstr "মন্তব্য সম্পর্কে রিপোর্ট করুন"
-
-#: gem/templates/base/comments/report_response.html:7
-#: gem/templates/springster/comments/report_response.html:5
-#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
-#: temp/temp_ve/commenting/templates/comments/report_response.html:6
-msgid "Thanks!"
-msgstr "ধন্যবাদ!"
 
 #: gem/templates/base/comments/report_response.html:10
 #: gem/templates/springster/comments/report_response.html:7
@@ -322,6 +304,36 @@ msgstr "এই মন্তব্যটি সম্পর্কে রিপো
 msgid "Read more"
 msgstr "আরো পড়ুন"
 
+#: gem/templates/base/core/article_page.html:30
+#: gem/templates/base/core/tags/media_listing_homepage.html:12
+#: gem/templates/malawi/core/article_page.html:29
+#: gem/templates/springster/patterns/basics/media/media-player.html:8
+msgid "Media will be played externally in a new window"
+msgstr "একটি নতুন উইন্ডোয় বাহ্যিকভাবে মিডিয়া চালানো হবে"
+
+#: gem/templates/base/core/article_page.html:37
+#: gem/templates/base/core/article_page.html:52
+#: gem/templates/malawi/core/article_page.html:36
+#: gem/templates/malawi/core/article_page.html:51
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:20
+#: gem/templates/springster/patterns/basics/media/media-player.html:15
+msgid "Download Video"
+msgstr "ভিডিও ডাউনলোড করুন"
+
+#: gem/templates/base/core/article_page.html:65
+#: gem/templates/malawi/core/article_page.html:65
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:32
+msgid "Download Audio"
+msgstr "অডিও ডাউনলোড করুন"
+
+#: gem/templates/base/core/language_block.html:5
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_label.html:6
+msgid "Language"
+msgstr "ভাষা"
+
 #: gem/templates/base/core/main.html:20
 msgid ""
 "This site is free for all MTN subscribers. If you are an Airtel subscriber, "
@@ -333,11 +345,15 @@ msgstr ""
 #: gem/templates/base/core/related-article-list.html:7
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 #: temp/temp_ve/commenting/test_templates/article_page.html:48
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-next_up_in_cat.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 msgid "Next up in"
 msgstr "পরবর্তীতে আছে"
 
 #: gem/templates/base/core/related-article-list.html:31
 #: temp/temp_ve/commenting/test_templates/article_page.html:63
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-recommended.html:5
+#: temp/temp_ve/core/templates/patterns/components/article-teasers/latest-promoted_variations/articles_general.html:2
 msgid "Recommended"
 msgstr "সুপারিশকৃত"
 
@@ -346,17 +362,17 @@ msgstr "সুপারিশকৃত"
 #: gem/templates/base/registration/login.html:34
 #: gem/templates/malawi/registration/login.html:34
 #: gem/templates/springster/forgot_password.html:5
-#: gem/templates/springster/forgot_password.html:35
+#: gem/templates/springster/forgot_password.html:31
 #: gem/templates/springster/profiles/forgot_password.html:5
 #: gem/templates/springster/profiles/forgot_password.html:28
-#: gem/templates/springster/registration/login.html:28
+#: gem/templates/springster/registration/login.html:29
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:6
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:32
 msgid "Forgot PIN"
 msgstr "পিন ভুলে গেছি"
 
 #: gem/templates/base/forgot_password.html:27
-#: gem/templates/springster/forgot_password.html:29
+#: gem/templates/springster/forgot_password.html:24
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:27
 msgid "Please answer the following security question."
 msgstr "অনুগ্রহ করে নিচের নিরাপত্তামূলক প্রশ্নের উত্তর দিন৷"
@@ -369,13 +385,10 @@ msgstr "ভোট দেয়ার জন্য আপনাকে ধন্য�
 
 #: gem/templates/base/profiles/change_password.html:30
 #: gem/templates/base/profiles/viewprofile.html:71
-#: gem/templates/springster/profiles/change_password.html:27
-#: gem/templates/springster/profiles/viewprofile.html:82
 msgid "New Password:"
 msgstr "নতুন পাসওয়ার্ড:"
 
 #: gem/templates/base/profiles/change_password.html:39
-#: gem/templates/springster/profiles/change_password.html:36
 msgid "Change Password"
 msgstr "পাসওয়ার্ড পরিবর্তন"
 
@@ -401,7 +414,6 @@ msgid "Edit your Profile"
 msgstr "আপনার প্রোফাইল সম্পাদনা করুন"
 
 #: gem/templates/base/profiles/editprofile.html:13
-#: gem/templates/springster/profiles/editprofile.html:12
 msgid "Nickname:"
 msgstr "ডাকনাম:"
 
@@ -426,7 +438,7 @@ msgid "Choose a username"
 msgstr "একটি ব্যবহারকারীর নাম বেছে নিন"
 
 #: gem/templates/base/profiles/register.html:28
-#: gem/templates/springster/profiles/register.html:27
+#: gem/templates/springster/profiles/register.html:34
 msgid "Display name"
 msgstr "প্রদর্শিত নাম"
 
@@ -472,24 +484,20 @@ msgstr ""
 #: gem/templates/base/profiles/register.html:85
 #: gem/templates/base/yourwords/your_words_competition_entry.html:66
 #: gem/templates/malawi/yourwords/your_words_competition_entry.html:64
-#: gem/templates/springster/profiles/register.html:80
-#: gem/templates/springster/profiles/register.html:85
+#: gem/templates/springster/profiles/register.html:87
+#: gem/templates/springster/profiles/register.html:90
 msgid "I accept the terms and conditions"
 msgstr "আমি শর্ত ও নিয়মাবলির সাথে সম্মতি দিচ্ছি"
 
+#: gem/templates/base/profiles/register.html:92
+msgid "already joined?"
+msgstr "ইতোমধ্যে যোগ দিয়েছেন?"
+
 #: gem/templates/base/profiles/viewprofile.html:8
 #: gem/templates/springster/profiles/viewprofile.html:6
-#: gem/templates/springster/yourwords/your_words_competition.html:10
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:15
 msgid "Hello"
 msgstr "হ্যালো"
-
-#: gem/templates/base/profiles/viewprofile.html:12
-#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
-#: gem/templates/springster/profiles/viewprofile.html:17
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
-msgid "log out"
-msgstr "লগ-আউট"
 
 #: gem/templates/base/profiles/viewprofile.html:17
 #: gem/templates/springster/profiles/viewprofile.html:19
@@ -501,8 +509,15 @@ msgstr "আপনার প্রোফাইল"
 msgid "When you type comments your name will appear as:"
 msgstr "আপনি মন্তব্য টাইপ করার সময় আপনার নাম এভাবে দেখানো হবে:"
 
+#: gem/templates/base/profiles/viewprofile.html:22
+#: gem/templates/springster/profiles/viewprofile.html:26
+msgid ""
+"You haven't set a display name, so your comments will appear as 'anonymous'"
+msgstr ""
+"আপনি কোনো ডিসপ্লে নাম নির্দিষ্ট করেন নি, তাই আপনার মন্তব্যগুলো ‘অজ্ঞাতপরিচয়’ "
+"হিসেবে দেখা যাবে।"
+
 #: gem/templates/base/profiles/viewprofile.html:76
-#: gem/templates/springster/profiles/viewprofile.html:89
 msgid "Confirm Password:"
 msgstr "পাসওয়ার্ড নিশ্চিত করুন:"
 
@@ -511,22 +526,10 @@ msgstr "পাসওয়ার্ড নিশ্চিত করুন:"
 msgid "Change"
 msgstr "পরিবর্তন"
 
-#: gem/templates/base/registration/login.html:14
-msgid "Are you not a member yet"
-msgstr "আপনি কি এখনো একজন সদস্য নন"
-
-#: gem/templates/base/registration/login.html:19
-#: gem/templates/malawi/registration/login.html:19
-#: gem/templates/springster/registration/login.html:14
-#: temp/temp_ve/profiles/templates/registration/login.html:20
-#: temp/temp_ve/profiles/test_templates/login.html:20
-msgid "Your username and password do not match. Please try again."
-msgstr ""
-"আপনার ব্যবহারকারীর নাম ও পাসওয়ার্ড মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
-
 #: gem/templates/base/registration/login.html:27
 #: gem/templates/malawi/registration/login.html:27
-#: gem/templates/springster/registration/login.html:22
+#: gem/templates/springster/registration/login.html:23
+#: temp/temp_ve/core/templates/registration/login.html:19
 #: temp/temp_ve/profiles/templates/registration/login.html:30
 #: temp/temp_ve/profiles/test_templates/login.html:30
 msgid "4-digit pin"
@@ -539,46 +542,29 @@ msgstr "4-সংখ্যাবিশিষ্ট পিন"
 msgid "PIN Changed"
 msgstr "পিন পরিবর্তিত হয়েছে"
 
-#: gem/templates/base/reset_password_success.html:10
-#: gem/templates/springster/reset_password_success.html:7
-msgid "Your PIN was changed successfully."
-msgstr "আপনার পিন সফলভাবে পরিবর্তিত হয়েছে৷"
-
 #: gem/templates/base/search/search_block.html:4
 msgid "looking for something?"
 msgstr "কিছু খুঁজছেন?"
-
-#: gem/templates/base/search/search_block.html:5
-#: gem/templates/base/search/search_results.html:12
-#: gem/templates/base/search/search_results.html:64
-#: gem/templates/base/search/search_results.html:71
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
-#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
-#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
-#: gem/templates/springster/search/search_results.html:7
-#: gem/templates/springster/search/search_results.html:31
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:8
-msgid "Search"
-msgstr "অনুসন্ধান"
 
 #: gem/templates/base/search/search_results.html:13
 #: gem/templates/springster/search/search_results.html:11
 msgid "results found for"
 msgstr "এর জন্য ফলাফল পাওয়া গেছে:"
 
-#: gem/templates/base/search/search_results.html:67
-#: gem/templates/springster/search/search_results.html:29
+#: gem/templates/base/search/search_results.html:93
+#: gem/templates/springster/search/search_results.html:21
+#: temp/temp_ve/core/templates/search/search_results.html:60
 msgid "No search results for "
 msgstr "এর জন্য অনুসন্ধানের কোনো ফলাফল নেই:"
 
-#: gem/templates/base/search/search_results.html:70
+#: gem/templates/base/search/search_results.html:96
 msgid "I am looking for"
 msgstr "আমি খুঁজছি"
 
 #: gem/templates/base/surveys/molo_survey_page.html:48
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
+#: gem/templates/springster/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:38
 msgid "Next Question"
 msgstr "পরবর্তী প্রশ্ন"
 
@@ -587,14 +573,15 @@ msgid "Done"
 msgstr "সম্পন্ন হয়েছে"
 
 #: gem/templates/base/surveys/molo_survey_page.html:51
-#: gem/templates/springster/surveys/molo_survey_page.html:39
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: gem/templates/springster/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:41
 msgid "You have already completed this survey."
 msgstr "আপনি এই সমীক্ষাটি ইতিমধ্যেই সম্পূর্ণ করেছেন।"
 
 #: gem/templates/base/surveys/molo_survey_page.html:54
 #: gem/templates/base/surveys/molo_survey_page_landing.html:9
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:39
 #: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:9
 msgid "Back to Home page"
 msgstr "হোম পেজে ফিরে যান"
@@ -602,12 +589,6 @@ msgstr "হোম পেজে ফিরে যান"
 #: gem/templates/base/surveys/molo_survey_page.html:59
 msgid "Log in to take survey"
 msgstr "সমীক্ষায় অংশ নিতে লগ ইন করুন"
-
-#: gem/templates/base/surveys/molo_survey_page_landing.html:12
-#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
-msgid "Survey Results"
-msgstr "সমীক্ষার ফলাফল"
 
 #: gem/templates/base/surveys/molo_survey_page_landing.html:14
 #: gem/templates/springster/surveys/molo_survey_page_landing.html:16
@@ -619,7 +600,7 @@ msgstr ""
 "আপনার সমীক্ষাটি সফলভাবে সম্পূর্ণ হয়েছে। অনুগ্রহ করে নিচে আপনার জমা দেওয়া ফলা"
 "ফল দেখুন।"
 
-#: gem/templates/base/surveys/surveys_list.html:13
+#: gem/templates/base/surveys/surveys_list.html:15
 msgid "Start"
 msgstr "শুরু"
 
@@ -644,12 +625,6 @@ msgstr "পেছনে"
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:20
 msgid "Share your story"
 msgstr "আপনার গল্পটি লিখুন"
-
-#: gem/templates/base/yourwords/thank_you.html:10
-#: gem/templates/malawi/yourwords/thank_you.html:10
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
-msgid "Thank you!"
-msgstr "ধন্যবাদ!"
 
 #: gem/templates/base/yourwords/thank_you.html:11
 #: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:52
@@ -695,7 +670,7 @@ msgstr "আপনার গল্পটি লিখুন"
 
 #: gem/templates/base/yourwords/your_words_competition_tag.html:22
 #: gem/templates/malawi/yourwords/your_words_competition_tag.html:20
-#: gem/templates/springster/yourwords/your_words_competition.html:24
+#: gem/templates/springster/yourwords/your_words_competition.html:19
 #: gem/templates/springster/yourwords/your_words_competition_tag.html:21
 #: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:20
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:27
@@ -704,9 +679,14 @@ msgstr "আপনার গল্পটি লিখুন"
 msgid "Log in to Enter"
 msgstr "প্রবেশ করতে লগ-ইন করুন"
 
-#: gem/templates/malawi/base.html:128
-msgid "Log in / Sign up"
-msgstr "লগ-ইন / সাইন-আপ"
+#: gem/templates/malawi/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:13
+msgid "Hi"
+msgstr "হাই"
+
+#: gem/templates/malawi/403_csrf.html:15
+msgid "Zathu"
+msgstr ""
 
 #: gem/templates/malawi/registration/login.html:14
 msgid "Are you not a member yet? Sign up"
@@ -716,11 +696,17 @@ msgstr "আপনি কি এখনো একজন সদস্য নন? �
 msgid "Thanks for submitting your story!"
 msgstr "আপনার গল্প জমা দেয়ার জন্য ধন্যবাদ!"
 
-#: gem/templates/springster/comments/comment_block.html:33
+#: gem/templates/springster/comments/comment_block.html:24
+#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+msgid "Your thoughts"
+msgstr "এই বিষয়ে লেখা পড়ো"
+
+#: gem/templates/springster/comments/comment_block.html:36
 msgid "Read more comments"
 msgstr "আরো মন্তব্য দেখুন"
 
-#: gem/templates/springster/comments/form.html:15
+#: gem/templates/springster/comments/form.html:11
 #: temp/temp_ve/commenting/forms.py:18
 msgid "Comment"
 msgstr "মন্তব্য"
@@ -730,7 +716,7 @@ msgstr "মন্তব্য"
 msgid "Please"
 msgstr "অনুগ্রহ করে"
 
-#: gem/templates/springster/comments/preview.html:19
+#: gem/templates/springster/comments/preview.html:20
 msgid "to leave a comment."
 msgstr "মন্তব্য জমা দেয়ার জন্য৷"
 
@@ -738,51 +724,48 @@ msgstr "মন্তব্য জমা দেয়ার জন্য৷"
 msgid "Add your reply"
 msgstr "তোমার উত্তর দাও"
 
+#: gem/templates/springster/forgot_password.html:11
+#: gem/templates/springster/profiles/register.html:18
+msgid "Please correct the indicated errors."
+msgstr "অনুগ্রহ করে নির্দেশিত ত্রুটিগুলো শুধরে নিন।"
+
 #: gem/templates/springster/notifications/notice.html:21
 #: temp/temp_ve/commenting/templates/notifications/notice.html:15
 msgid "replied to your comment on: "
 msgstr "আপনার মন্তব্যের জবাব দিয়েছেন:"
 
-#: gem/templates/springster/notifications/reply_list.html:12
-#: gem/templates/springster/notifications/tags/notification_banner.html:13
-msgid "reply"
-msgstr "জবাব"
+#: gem/templates/springster/notifications/notice.html:29
+#: temp/temp_ve/commenting/templates/notifications/notice.html:24
+msgid "Your comment"
+msgstr "আপনার মন্তব্য"
 
-#: gem/templates/springster/notifications/reply_list.html:14
-#: gem/templates/springster/notifications/tags/notification_banner.html:15
-msgid "replies"
-msgstr "জবাব"
+#: gem/templates/springster/notifications/notice.html:33
+msgid "A Reply"
+msgstr "একটি প্রতিক্রিয়া"
 
-#: gem/templates/springster/notifications/reply_list.html:22
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
-msgid "Read replies:"
-msgstr "জবাবগুলো পড়ুন:"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:6
-#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
-msgid "Notification:"
-msgstr "বিজ্ঞপ্তি:"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "You have"
 msgstr "আপনার আছে"
 
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 msgid "unread"
 msgstr "অপঠিত"
 
-#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
-msgid "Your thought"
-msgstr "এই বিষয়ে লেখা পড়ো"
+#: gem/templates/springster/patterns/basics/articles/reaction_question.html:31
+#: temp/temp_ve/core/templates/patterns/basics/articles/reaction_question.html:22
+msgid "You have already submitted a response for this article."
+msgstr "আপনি এই প্রব‌ন্ধের জন্য ইতিমধ্যেই একটি প্রতিক্রিয়া জমা দিয়েছেন"
 
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
 msgid "You might like"
 msgstr "আপনি হয়তো পছন্দ করতে পারেন"
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: gem/templates/springster/yourwords/terms_and_conditions.html:19
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: temp/temp_ve/yourwords/templates/yourwords/terms_and_conditions.html:46
 msgid "Back"
 msgstr "পেছনে"
@@ -790,22 +773,22 @@ msgstr "পেছনে"
 #: gem/templates/springster/patterns/basics/comment-counter/centered-comment-counter.html:8
 #: gem/templates/springster/patterns/basics/comment-counter/comment-counter.html:8
 #: temp/temp_ve/commenting/templates/comments/comment_block.html:26
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/centered-comment-counter.html:8
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/comment-counter.html:8
 msgid "comment"
 msgstr "মন্তব্য"
-
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
-msgid "Join us"
-msgstr "আমাদের সাথে যোগ দিন"
 
 #: gem/templates/springster/patterns/basics/social-media/social-media_with-label.html:4
 msgid "Share"
 msgstr "শেয়ার"
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:6
+#: gem/templates/springster/patterns/components/banners/join-banner.html:7
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:6
 msgid "Share your opinions and stories, take polls, win fun prizes."
 msgstr "আপনার মতামত ও গল্প শেয়ার করুন, ভোট দিন, মজার উপহার জিতুন৷"
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:8
+#: gem/templates/springster/patterns/components/banners/join-banner.html:9
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:8
 msgid "Join"
 msgstr "যোগ দিন"
 
@@ -822,12 +805,20 @@ msgstr "ভোট দিন!"
 msgid "Thank you! Your response has already been submitted."
 msgstr "ধন্যবাদ! আপনার জবাব ইতোমধ্যে জমা দেয়া হয়েছে৷"
 
+#: gem/templates/springster/profiles/change_password.html:42
+msgid "Change Pin"
+msgstr "পিন পরিবর্তন করুন"
+
+#: gem/templates/springster/profiles/editprofile.html:12
+msgid "Display name:"
+msgstr "প্রদর্শিত নাম"
+
 #: gem/templates/springster/profiles/register.html:8
-#: gem/templates/springster/profiles/register.html:96
+#: gem/templates/springster/profiles/register.html:102
 msgid "Already joined?"
 msgstr "ইতোমধ্যে যোগ দিয়েছেন?"
 
-#: gem/templates/springster/profiles/register.html:52
+#: gem/templates/springster/profiles/register.html:59
 msgid "I identify as"
 msgstr "আমার লিঙ্গ হলো"
 
@@ -842,6 +833,14 @@ msgstr "(যেমন 2086)"
 msgid "Your PIN has been changed sucessfully."
 msgstr "আপনার পিন সফলভাবে পরিবর্তিত হয়েছে৷"
 
+#: gem/templates/springster/profiles/reset_password_success.html:10
+msgid "Continue to sign in"
+msgstr "সাইন-ইন করতে এগিয়ে যান"
+
+#: gem/templates/springster/profiles/viewprofile.html:89
+msgid "Confirm Pin:"
+msgstr "পিন নিশ্চিত করুন"
+
 #: gem/templates/springster/registration/login.html:7
 #: temp/temp_ve/profiles/templates/profiles/register.html:14
 #: temp/temp_ve/profiles/templates/registration/login.html:8
@@ -853,15 +852,13 @@ msgstr "এখনো সদস্য নন"
 msgid "Your password has been set. You may go ahead and log in now."
 msgstr "আপনার পাসওয়ার্ড সেট করা হয়েছে৷ আপনি এখন এগিয়ে যেতে ও লগ-ইন করতে পারবেন৷"
 
-#: gem/templates/springster/registration/password_reset_confirm.html:11
-msgid "New password:"
-msgstr "নতুন পাসওয়ার্ড:"
-
 #: gem/templates/springster/registration/password_reset_confirm.html:16
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:16
 msgid "Confirm password:"
 msgstr "পাসওয়ার্ড নিশ্চিত করুন:"
 
 #: gem/templates/springster/registration/password_reset_done.html:5
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:7
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
@@ -870,6 +867,7 @@ msgstr ""
 "য আমরা আপনাকে নির্দেশনাগুলো ইমেল করেছি৷ আপনি সেগুলো শীঘ্রই পাবেন।"
 
 #: gem/templates/springster/registration/password_reset_done.html:8
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:9
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -886,25 +884,30 @@ msgstr ""
 "নির্দেশনাগুলো ইমেইল করবো৷"
 
 #: gem/templates/springster/registration/password_reset_form.html:17
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:12
 msgid "Reset my password"
 msgstr "আমার পাসওয়ার্ড রিসেট করুন"
 
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
-msgid "Submit Survey"
-msgstr "সমীক্ষা জমা দিন"
-
-#: gem/templates/springster/surveys/molo_survey_page.html:45
+#: gem/templates/springster/surveys/molo_survey_page.html:47
 msgid "Log in to take Survey"
 msgstr "সমীক্ষায় অংশ নিতে লগ ইন করুন"
 
-#: gem/templates/springster/surveys/surveys_list.html:10
+#: gem/templates/springster/surveys/surveys_list.html:11
 msgid "Take Survey"
 msgstr "জরিপে অংশ নিন"
 
 #: gem/templates/springster/yourwords/thank_you.html:24
 msgid "Thank you for sharing your words!"
 msgstr "আপনার কথা শেয়ার করার জন্য ধন্যবাদ!"
+
+#: gem/templates/springster/yourwords/your_words_competition.html:15
+#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
+#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
+msgid "Enter"
+msgstr "প্রবেশ"
 
 #: gem/templates/springster/yourwords/your_words_competition_entry.html:23
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:54
@@ -922,23 +925,18 @@ msgstr "আমি শর্ত ও নিয়মাবলির সাথে স�
 msgid "Submit your story"
 msgstr "আপনার গল্প জমা দিন"
 
-#: gem/views.py:116
+#: gem/views.py:117
 #: temp/temp_ve/profiles/views.py:184
 msgid "Too many attempts. Please try again later."
 msgstr "খুব বেশিবার চেষ্টা করা হয়েছে৷ অনুগ্রহ করে পরে আবার চেষ্টা করুন৷"
 
-#: gem/views.py:134
+#: gem/views.py:142
 msgid "The username that you entered appears to be invalid. Please try again."
 msgstr ""
 "আপনার লেখা ব্যবহারকারীর নামটি অকার্যকর বলে মনে হচ্ছে৷ অনুগ্রহ করে আবার চেষ্টা"
 " করুন৷"
 
-#: gem/views.py:217
-#: temp/temp_ve/profiles/views.py:279
-msgid "The two PINs that you entered do not match. Please try again."
-msgstr "আপনার লেখা দু’টি পিন মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
-
-#: gem/views.py:345
+#: gem/views.py:353
 msgid ""
 "This comment has been removed as it contains profanity, contact information "
 "or other inappropriate content. "
@@ -946,22 +944,25 @@ msgstr ""
 "এই মন্তব্যে ধর্মবিদ্বেষ, যোগাযোগের তথ্য বা অন্যান্য অযথার্থ কন্টেন্ট থাকায় "
 "এটি অপসারণ করা হয়েছে৷"
 
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
-msgid "Looking for something?"
-msgstr "কিছু খুঁজছেন?"
-
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/recommend/element.html:18
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:20
 msgid "More"
 msgstr "সরান"
 
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/up-next-and-recommended/element.html:14
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
 msgid "Recommended:"
 msgstr "সুপারিশকৃত:"
 
-#: temp/temp_ve/commenting/admin_views.py:61
-#: temp/temp_ve/commenting/views.py:111
-msgid "Reply successfully created."
-msgstr "জবাব সফলভাবে তৈরি করা হয়েছে৷"
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:64
+msgid "Looking for something?"
+msgstr "কিছু খুঁজছেন?"
 
 #: temp/temp_ve/commenting/forms.py:13
 #: temp/temp_ve/commenting/forms.py:68
@@ -996,67 +997,96 @@ msgstr ""
 "টিম এটি পর্যালোচনা করবে এবং আমাদের প্ল্যাটফর্মের নিয়ম-কানুন ভঙ্গ করলে এটি "
 "সরিয়ে ফেলা হতে পারে"
 
-#: temp/temp_ve/commenting/templates/notifications/notice.html:24
-msgid "Your comment"
-msgstr "আপনার মন্তব্য"
-
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "unread replies"
 msgstr "অপঠিত জবাব"
+
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
+msgid "Read replies:"
+msgstr "জবাবগুলো পড়ুন:"
+
+#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
+msgid "Notification:"
+msgstr "বিজ্ঞপ্তি:"
+
+#: temp/temp_ve/commenting/views.py:31
+msgid "Reporting comment replies is not allowed."
+msgstr "মন্তব্যের জবাব সম্পর্কে রিপোর্ট করার অনুমতি নেই৷"
+
+#: temp/temp_ve/core/templates/403.html:8
+msgid "Access Denied"
+msgstr "প্রবেশাধিকার প্রত্যাখ্যাত"
+
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid ""
+"Sorry, you are having trouble accessing this feature! Due to a temporary "
+"technical issue, login and registrations are not available on the Free "
+"Basics app for now. To login or register for a profile, visit our free "
+"mobisite through your mobile browser at"
+msgstr ""
+"দুঃখিত, এই ফিচারটি অ্যাক্সেস করতে আপনার সমস্যা হচ্ছে! একটি সাময়িক কারিগরি "
+"সমস্যার কারণে, এখন ফ্রি বেসিক অ্যাপগুলোতে লগ-ইন ও নিবন্ধন লভ্য নেই৷ একটি "
+"প্রোফাইলের জন্য লগ-ইন বা নিবন্ধন করতে, আপনার মোবাইল ব্রাউজারের মাধ্যমে আমাদে"
+"র ফ্রি Mobisite-এ যান:"
+
+#: temp/temp_ve/core/templates/core/api/article_import.html:11
+#: temp/temp_ve/core/templates/core/api/image_import_page.html:23
+#: temp/temp_ve/core/templates/core/api/main_import_page.html:9
+#: temp/temp_ve/core/templates/core/api/section_import.html:11
+#: temp/temp_ve/core/templates/core/api/site_import_page.html:9
+msgid "Get content"
+msgstr "বিষয়বস্তু নিন"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:12
+msgid "Click to watch on youtube!"
+msgstr "YouTube দেখার জন্য এখানে ক্লিক করুন"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:21
+msgid "Click here to download"
+msgstr "ডাউনলোড করতে এখানে ক্লিক করুন"
+
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html:4
+msgid "Back to"
+msgstr "ফিরে যান"
+
+#: temp/temp_ve/core/templates/registration/login.html:15
+msgid "Your username and password does not match. Please try again."
+msgstr ""
+"আপনার ব্যবহারকারীর নাম ও পাসওয়ার্ড মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
+
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:7
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "আপনার পাসওয়ার্ড সেট করা হয়েছে৷ আপনি এখন এগিয়ে যেতে ও লগ-ইন করতে পারেন৷"
 
 #: temp/temp_ve/polls/test_templates/base.html:79
 #: temp/temp_ve/surveys/test_templates/base.html:77
 msgid "Site Language:"
 msgstr "সাইটের ভাষা:"
 
-#: temp/temp_ve/profiles/admin_views.py:16
-msgid ""
-"Your email address is not configured. Please update it before exporting."
-msgstr ""
-"আপনার ইমেইল ঠিকানা কনফিগার করা হয়নি৷ রপ্তানি করার আগে অনুগ্রহ করে এটি আপডেট "
-"করুন৷"
-
-#: temp/temp_ve/profiles/forms.py:113
-#: temp/temp_ve/profiles/forms.py:244
-#: temp/temp_ve/profiles/forms.py:294
+#: temp/temp_ve/profiles/forms.py:136
+#: temp/temp_ve/profiles/forms.py:267
+#: temp/temp_ve/profiles/forms.py:317
 msgid "Location"
 msgstr "অবস্থান"
 
-#: temp/temp_ve/profiles/forms.py:184
+#: temp/temp_ve/profiles/forms.py:207
 msgid "Username already exists."
 msgstr "ব্যবহারকারীর নাম ইতোমধ্যে বিদ্যমান রয়েছে৷"
 
-#: temp/temp_ve/profiles/forms.py:189
-msgid ""
-"Sorry, but that is an invalid username. Please don't use your %s in your "
-"username."
-msgstr ""
-"দুঃখিত, কিন্তু এই ব্যবহারকারীর নামটি অগ্রহণযোগ্য৷ অনুগ্রহ করে আপনার "
-"ব্যবহারকারীর নামের মধ্যে %s ব্যবহার করবেন না৷"
-
-#: temp/temp_ve/profiles/forms.py:382
+#: temp/temp_ve/profiles/forms.py:405
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:25
 msgid "Old Password"
 msgstr "পুরাতন পাসওয়ার্ড:"
 
-#: temp/temp_ve/profiles/forms.py:397
+#: temp/temp_ve/profiles/forms.py:420
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:32
 msgid "New Password"
 msgstr "নতুন পাসওয়ার্ড:"
 
-#: temp/temp_ve/profiles/forms.py:413
+#: temp/temp_ve/profiles/forms.py:436
 msgid "Confirm Password"
 msgstr "পাসওয়ার্ড নিশ্চিত করুন:"
-
-#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
-msgid "Confirm New Password"
-msgstr "নতুন পাসওয়ার্ড নিশ্চিত করুন:"
-
-#: temp/temp_ve/profiles/templates/profiles/done.html:18
-#: temp/temp_ve/profiles/templates/profiles/register.html:45
-msgid "SELECT DATE OF BIRTH"
-msgstr "জন্মতারিখ নির্বাচন করুন"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:29
 #: temp/temp_ve/profiles/templates/profiles/editprofile.html:14
@@ -1136,25 +1166,17 @@ msgstr "ইতোমধ্যে একজন সদস্য হয়েছেন
 msgid "Join us by signing up below."
 msgstr "নিচে সাইন-আপ করে আমাদের সাথে যোগ দিন৷"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:24
-msgid ""
-"This name you will use to log in and won't appear to other users. Only you "
-"will see this."
-msgstr ""
-"আপনি লগ-ইন করার জন্য এই নামটি ব্যবহার করবেন এবং অন্য ব্যবহারকারীরা এটা দেখতে "
-"পারবে না৷ শুধু আপনি এটি দেখতে পারবেন৷"
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:31
 msgid "e.g. 2086"
 msgstr "যেমন, 2086"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:36
+msgid "CHOOSE A DISPLAY NAME"
+msgstr "একটি প্রদর্শিত নাম বেছে নিন"
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:84
 msgid "(e.g. 0900000013)"
 msgstr "(যেমন 0900000013)"
-
-#: temp/temp_ve/profiles/templates/profiles/register.html:90
-msgid "ENTER YOUR EMAIL ADDRESS"
-msgstr "আপনার ইমেইল ঠিকানা লিখুন"
 
 #: temp/temp_ve/profiles/templates/profiles/register.html:112
 msgid "Please accept the T&amp;Cs in order to complete the registration"
@@ -1184,12 +1206,17 @@ msgstr "অবস্থান"
 msgid "Education Level:"
 msgstr "শিক্ষাগত লেভেল:"
 
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
+msgid "Change My Password"
+msgstr "পাসওয়ার্ড পরিবর্তন"
+
 #: temp/temp_ve/profiles/templates/registration/login.html:32
 #: temp/temp_ve/profiles/test_templates/login.html:32
 msgid "Eg.: 2086"
 msgstr "যেমন: 2086"
 
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:44
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:45
 msgid "Please log in to take this survey"
 msgstr "সমীক্ষায় অংশ নিতে লগ ইন করুন"
 
@@ -1220,17 +1247,17 @@ msgstr ""
 
 #: gem/forms.py:68
 #: gem/forms.py:217
-#: temp/temp_ve/profiles/forms.py:109
-#: temp/temp_ve/profiles/forms.py:240
-#: temp/temp_ve/profiles/forms.py:290
+#: temp/temp_ve/profiles/forms.py:132
+#: temp/temp_ve/profiles/forms.py:263
+#: temp/temp_ve/profiles/forms.py:313
 msgid "Gender"
 msgstr "লিঙ্গ"
 
 #: gem/forms.py:83
 #: gem/forms.py:140
 #: gem/forms.py:211
-#: temp/temp_ve/profiles/forms.py:75
-#: temp/temp_ve/profiles/forms.py:437
+#: temp/temp_ve/profiles/forms.py:98
+#: temp/temp_ve/profiles/forms.py:460
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "এখানে অবশ্যই শুধু অক্ষর, সংখ্যা ও আন্ডারস্কোর থাকতে পারবে৷"
 
@@ -1252,14 +1279,14 @@ msgstr ""
 
 #: gem/forms.py:177
 #: gem/forms.py:194
-#: temp/temp_ve/profiles/forms.py:91
-#: temp/temp_ve/profiles/forms.py:411
-#: temp/temp_ve/profiles/forms.py:479
-#: temp/temp_ve/profiles/forms.py:496
+#: temp/temp_ve/profiles/forms.py:114
+#: temp/temp_ve/profiles/forms.py:434
+#: temp/temp_ve/profiles/forms.py:502
+#: temp/temp_ve/profiles/forms.py:519
 msgid "This value must contain only numbers."
 msgstr "এখানে অবশ্যই শুধু সংখ্যা থাকতে পারবে৷"
 
-#: gem/settings/base.py:324
+#: gem/settings/base.py:352
 #: gem/templates/springster/polls/includes/poll_free_text_form.html:23
 #: gem/templates/springster/polls/includes/poll_question_form.html:20
 #: temp/temp_ve/polls/templates/polls/includes/poll_free_text_form.html:18
@@ -1267,75 +1294,135 @@ msgstr "এখানে অবশ্যই শুধু সংখ্যা থ�
 msgid "Log in to vote"
 msgstr "ভোট দিতে লগ-ইন করুন"
 
-#: gem/settings/base.py:325
+#: gem/settings/base.py:353
 msgid "That username already exits. Please try another one."
 msgstr ""
 "এই ব্যবহারকারীর নামটি ইতোমধ্যে বিদ্যমান রয়েছে৷ অনুগ্রহ করে আরেকটি দিয়ে চেষ্টা"
 " করুন৷"
 
-#: gem/settings/base.py:327
-#: gem/templates/springster/polls/detail.html:26
-#: gem/templates/springster/polls/free_text_detail.html:16
-#: gem/templates/springster/polls/includes/poll_question_form.html:36
-#: temp/temp_ve/polls/templates/polls/detail.html:24
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
-msgid "Vote"
-msgstr "ভোট দিন"
+#: gem/settings/base.py:357
+#: gem/templates/springster/polls/includes/poll_question_form.html:43
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
+msgid "You voted: "
+msgstr "আপনি ভোট দিয়েছেন:"
 
-#: gem/settings/base.py:330
+#: gem/settings/base.py:358
 msgid "Name of the city you were born in"
 msgstr "আপনি যে শহরে জন্মগ্রহণ করেছেন তার নাম"
+
+#: gem/templates/base/403_csrf.html:9
+#: gem/templates/malawi/403_csrf.html:9
+#: gem/templates/springster/403_csrf.html:6
+#: temp/temp_ve/core/templates/403_csrf.html:10
+msgid "Unable to Login"
+msgstr "লগইন করতে অক্ষম"
 
 #: gem/templates/base/403_csrf.html:12
 #: gem/templates/springster/403_csrf.html:8
 msgid "Hi Girl"
 msgstr "হাই Girl"
 
+#: gem/templates/base/403_csrf.html:13
+#: gem/templates/springster/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid " We're working hard to get this problem resolved. Thank you."
+msgstr "এই সমস্যা সমাধান করতে আমরা কঠোর পরিশ্রম করছি৷ ধন্যবাদ৷"
+
+#: gem/templates/base/403_csrf.html:15
+#: gem/templates/malawi/403_csrf.html:14
+#: gem/templates/springster/403_csrf.html:14
+msgid "XO"
+msgstr "XO"
+
 #: gem/templates/base/500.html:12
 #: gem/templates/base/500.html:17
 #: gem/templates/springster/500.html:11
 #: gem/templates/springster/500.html:16
+#: temp/temp_ve/core/templates/500.html:12
+#: temp/temp_ve/core/templates/500.html:16
 msgid "Internal server error"
 msgstr "অভ্যন্তরীণ সার্ভারে ত্রুটি"
 
-#: gem/templates/base/base.html:73
-#: gem/templates/malawi/base.html:83
+#: gem/templates/base/base.html:57
+#: gem/templates/malawi/base.html:72
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:22
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:5
 msgid "Menu"
 msgstr "মেনু"
 
-#: gem/templates/base/base.html:75
+#: gem/templates/base/base.html:59
 #: gem/templates/base/profiles/register.html:8
 #: gem/templates/base/profiles/register.html:90
-#: gem/templates/malawi/base.html:85
+#: gem/templates/malawi/base.html:74
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
-#: gem/templates/springster/profiles/register.html:94
+#: gem/templates/springster/profiles/register.html:100
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
 msgid "Sign up"
 msgstr "সাইন-আপ"
 
-#: gem/templates/base/base.html:77
-#: gem/templates/base/base.html:141
-#: gem/templates/malawi/base.html:87
-#: gem/templates/malawi/base.html:135
+#: gem/templates/base/base.html:61
+#: gem/templates/base/base.html:119
+#: gem/templates/malawi/base.html:76
+#: gem/templates/malawi/base.html:124
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:31
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
 #: temp/temp_ve/profiles/templates/profiles/done.html:64
 msgid "Profile"
 msgstr "প্রোফাইল"
 
-#: gem/templates/base/base.html:128
+#: gem/templates/base/base.html:92
+#: gem/templates/base/core/tags/breadcrumbs.html:6
+#: gem/templates/base/polls/results.html:28
+#: gem/templates/malawi/base.html:104
+#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
+#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/commenting/templates/comments/preview.html:11
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-bg.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:4
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:5
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-column.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-vertical.html:13
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/polls/templates/polls/detail.html:25
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
+#: temp/temp_ve/polls/templates/polls/results.html:24
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
+msgid "Home"
+msgstr "হোম"
+
+#: gem/templates/base/base.html:106
 msgid "Sign Up"
 msgstr "সাইন-আপ"
 
-#: gem/templates/base/base.html:147
-#: gem/templates/malawi/base.html:141
+#: gem/templates/base/base.html:125
+#: gem/templates/malawi/base.html:130
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:36
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:36
 msgid "Log out"
 msgstr "লগ-আউট"
 
-#: gem/templates/base/base.html:156
-#: gem/templates/malawi/base.html:150
+#: gem/templates/base/base.html:134
+#: gem/templates/malawi/base.html:139
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-pipe.html:5
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright.html:5
 msgid "All Rights Reserved."
 msgstr "সকল সত্ত্ব সংরক্ষিত৷"
 
@@ -1346,7 +1433,7 @@ msgid "Big Sister"
 msgstr "বড় বোন"
 
 #: gem/templates/base/comments/comment.html:35
-#: gem/templates/springster/comments/comment.html:31
+#: gem/templates/springster/comments/comment.html:39
 #: gem/templates/springster/notifications/notice.html:24
 #: temp/temp_ve/commenting/templates/notifications/notice.html:18
 msgid "ago"
@@ -1369,7 +1456,7 @@ msgid "View more comments"
 msgstr "আরো মন্তব্য দেখুন"
 
 #: gem/templates/base/comments/form.html:5
-#: gem/templates/springster/comments/form.html:8
+#: gem/templates/springster/comments/form.html:6
 #: temp/temp_ve/commenting/templates/comments/form.html:7
 msgid "Please correct the error below"
 msgstr "অনুগ্রহ করে নিচের ত্রুটিটি সংশোধন করুন"
@@ -1395,11 +1482,25 @@ msgstr "অনুগ্রহ করে"
 msgid " to leave a comment."
 msgstr "মন্তব্য জমা দেয়ার জন্য৷"
 
+#: gem/templates/base/comments/reply.html:14
+#: gem/templates/springster/comments/reply.html:13
+#: temp/temp_ve/commenting/templates/comments/reply.html:15
+msgid "Recent replies"
+msgstr "সাম্প্রতিক জবাব"
+
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "Page"
 msgstr "পৃষ্ঠা"
+
+#: gem/templates/base/comments/report_response.html:7
+#: gem/templates/springster/comments/report_response.html:5
+#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
+#: temp/temp_ve/commenting/templates/comments/report_response.html:6
+msgid "Thanks!"
+msgstr "ধন্যবাদ!"
 
 #: gem/templates/base/comments/report_response.html:11
 #: gem/templates/springster/comments/report_response.html:10
@@ -1424,11 +1525,6 @@ msgstr ""
 "মডারেশন টিম এই মন্তব্যটি পর্যালোচনা করবে এবং এটি আমাদের প্ল্যাটফর্মের "
 "নিয়ম-কানুন ভঙ্গ করলে এটি সরিয়ে ফেলা হতে পারে"
 
-#: gem/templates/base/core/language_block.html:5
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:8
-msgid "Language"
-msgstr "ভাষা"
-
 #: gem/templates/base/forgot_password.html:26
 #: gem/templates/springster/profiles/forgot_password.html:23
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:26
@@ -1442,13 +1538,10 @@ msgstr "আপনার মতামত কী?"
 
 #: gem/templates/base/profiles/change_password.html:25
 #: gem/templates/base/profiles/viewprofile.html:66
-#: gem/templates/springster/profiles/change_password.html:22
-#: gem/templates/springster/profiles/viewprofile.html:74
 msgid "Old Password:"
 msgstr "পুরাতন পাসওয়ার্ড:"
 
 #: gem/templates/base/profiles/change_password.html:35
-#: gem/templates/springster/profiles/change_password.html:32
 msgid "Confirm New Password:"
 msgstr "নতুন পাসওয়ার্ড নিশ্চিত করুন:"
 
@@ -1461,7 +1554,7 @@ msgstr "যোগ দেয়ার জন্য আপনাকে ধন্য�
 #: gem/templates/base/profiles/editprofile.html:14
 #: gem/templates/base/profiles/register.html:21
 #: gem/templates/springster/profiles/editprofile.html:16
-#: gem/templates/springster/profiles/register.html:22
+#: gem/templates/springster/profiles/register.html:29
 msgid ""
 "Please do not use your real name, phone number or email address as it's "
 "unsafe."
@@ -1479,6 +1572,7 @@ msgstr "আপনার জন্মতারিখ হলো:"
 #: gem/templates/base/profiles/editprofile.html:34
 #: gem/templates/springster/profiles/editprofile.html:43
 #: gem/templates/springster/registration/password_reset_form.html:13
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:10
 msgid "Email address:"
 msgstr "ইমেইল ঠিকানা‌:"
 
@@ -1493,37 +1587,34 @@ msgid "Not a member yet? Join us by signing up below."
 msgstr "এখনো সদস্য নন?  নিচে সাইন-আপ করে আমাদের সাথে যোগ দিন৷"
 
 #: gem/templates/base/profiles/register.html:35
-#: gem/templates/springster/profiles/register.html:35
+#: gem/templates/springster/profiles/register.html:42
 msgid "Choose a 4-digit pin"
 msgstr "4-সংখ্যাবিশিষ্ট পিন বেছে নিন"
 
 #: gem/templates/base/profiles/register.html:42
-#: gem/templates/springster/profiles/register.html:44
+#: gem/templates/springster/profiles/register.html:51
 msgid "Enter your mobile number"
 msgstr "আপনার মোবাইল নম্বর লিখুন"
 
 #: gem/templates/base/profiles/register.html:56
-#: gem/templates/springster/forgot_password.html:27
-#: gem/templates/springster/profiles/register.html:60
+#: gem/templates/springster/forgot_password.html:22
+#: gem/templates/springster/profiles/register.html:67
 msgid "Security questions"
 msgstr "নিরাপত্তামূলক প্রশ্নসমূহ"
 
 #: gem/templates/base/profiles/register.html:71
-#: gem/templates/springster/profiles/register.html:90
+#: gem/templates/springster/profiles/register.html:96
 msgid ""
 "Please accept the terms and conditions in order to complete registration"
 msgstr "নিবন্ধন সম্পন্ন করতে অনুগ্রহ করে শর্ত ও নিয়মাবলিতে সম্মতি দিন"
 
-#: gem/templates/base/profiles/register.html:92
-msgid "already joined?"
-msgstr "ইতোমধ্যে যোগ দিয়েছেন?"
-
-#: gem/templates/base/profiles/viewprofile.html:22
-#: gem/templates/springster/profiles/viewprofile.html:26
-msgid "You haven't set a display name, so your comments will appear as 'anonymous'"
-msgstr ""
-"আপনি কোনো ডাকনাম সেট করেননি, তাই আপনার মন্তব্যগুলো ‘বেনামী’ হিসেবে দেখানো "
-"হবে৷"
+#: gem/templates/base/profiles/viewprofile.html:12
+#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: gem/templates/springster/profiles/viewprofile.html:17
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
+msgid "log out"
+msgstr "লগ-আউট"
 
 #: gem/templates/base/profiles/viewprofile.html:42
 #: gem/templates/springster/profiles/viewprofile.html:52
@@ -1531,9 +1622,21 @@ msgid "Update Profile"
 msgstr "প্রোফাইল আপডেট করুন"
 
 #: gem/templates/base/profiles/viewprofile.html:50
-#: gem/templates/springster/profiles/viewprofile.html:56
 msgid "Change Your Password"
 msgstr "আপনার পাসওয়ার্ড পরিবর্তন করুন"
+
+#: gem/templates/base/registration/login.html:14
+msgid "Are you not a member yet"
+msgstr "আপনি কি এখনো একজন সদস্য নন"
+
+#: gem/templates/base/registration/login.html:19
+#: gem/templates/malawi/registration/login.html:19
+#: gem/templates/springster/registration/login.html:15
+#: temp/temp_ve/profiles/templates/registration/login.html:20
+#: temp/temp_ve/profiles/test_templates/login.html:20
+msgid "Your username and password do not match. Please try again."
+msgstr ""
+"আপনার ব্যবহারকারীর নাম ও পাসওয়ার্ড মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
 
 #: gem/templates/base/reset_password.html:7
 #: gem/templates/base/reset_password.html:33
@@ -1546,75 +1649,202 @@ msgstr "আপনার পাসওয়ার্ড পরিবর্তন ক
 msgid "Reset PIN"
 msgstr "পিন রিসেট করুন"
 
+#: gem/templates/base/reset_password_success.html:10
+#: gem/templates/springster/reset_password_success.html:7
+msgid "Your PIN was changed successfully."
+msgstr "আপনার পিন সফলভাবে পরিবর্তিত হয়েছে৷"
+
 #: gem/templates/base/reset_password_success.html:12
 #: gem/templates/springster/reset_password_success.html:9
 #: temp/temp_ve/profiles/templates/profiles/reset_password_success.html:8
 msgid "Continue to Sign In"
 msgstr "সাইন-ইন করতে এগিয়ে যান"
 
+#: gem/templates/base/search/search_block.html:5
+#: gem/templates/base/search/search_results.html:12
+#: gem/templates/base/search/search_results.html:90
+#: gem/templates/base/search/search_results.html:97
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
+#: gem/templates/springster/search/search_results.html:7
+#: gem/templates/springster/search/search_results.html:23
+#: mote/projects/gem/website/src/patterns/basics/menu/element.html:13
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: temp/temp_ve/core/templates/patterns/components/footer/sp_variations/sp_footer-menu.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:59
+#: temp/temp_ve/core/templates/search/search_results.html:65
+msgid "Search"
+msgstr "অনুসন্ধান"
+
+#: gem/templates/base/surveys/molo_survey_page_landing.html:12
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
+msgid "Survey Results"
+msgstr "সমীক্ষার ফলাফল"
+
+#: gem/templates/base/yourwords/thank_you.html:10
+#: gem/templates/malawi/yourwords/thank_you.html:10
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
+msgid "Thank you!"
+msgstr "ধন্যবাদ!"
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid ""
+" Sorry we are having trouble accessing this feature! Due to a temporary "
+"technical issue, log in and registrations are not available on Free Basics "
+"app for now. To login or register for a profile, visit our free mobisite "
+"through your mobile browser at:"
+msgstr ""
+"দুঃখিত, এই কার্যকরিতাটিতে প্রবেশ করতে আমাদের সমস্যা হ‌চ্ছে! একটি সাময়িক "
+"প্রযুক্তিগত সমস্যার কারণে এই মুহূর্তে ফ্রি বেসিক্স অ্যাপে লগ ইন ও নিব‌ন্ধন "
+"উপল‌ব্ধ নয়। লগইন করতে অথবা একটি প্রোফাইলের জন্য নিব‌ন্ধন করতে আপনার মোবাইল "
+"ব্রাউজারের মাধ্যমে আমাদের বিনামূল্য মোবিসাইটে যান:"
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid " We’re working hard to get this problem resolved. Thank you."
+msgstr "এই সমস্যা সমাধান করতে আমরা কঠোর পরিশ্রম করছি৷ ধন্যবাদ৷"
+
+#: gem/templates/malawi/base.html:117
+msgid "Log in / Sign up"
+msgstr "লগ-ইন / সাইন-আপ"
+
 #: gem/templates/springster/403_csrf.html:15
 #: gem/templates/springster/patterns/basics/images/sp_variations/logo.html:6
+#: temp/temp_ve/core/templates/patterns/basics/images/sp_variations/logo.html:6
 msgid "Springster"
 msgstr "Springster"
 
-#: gem/templates/springster/comments/comment_block.html:4
-#: gem/templates/springster/comments/form.html:5
+#: gem/templates/springster/comments/comment.html:11
+msgid "Moderator"
+msgstr "মধ্য‌স্থতাকারী"
+
+#: gem/templates/springster/comments/comment.html:32
+msgid "Read More"
+msgstr "আরো পড়ুন"
+
+#: gem/templates/springster/comments/comment.html:72
+msgid "Recent Replies"
+msgstr "সাম্প্রতিক জবাব"
+
+#: gem/templates/springster/comments/comment_block.html:5
 msgid "Share your thoughts"
 msgstr "তোমার মতামত জানাও"
 
-#: gem/templates/springster/comments/comment_block.html:20
-msgid "Your thoughts"
-msgstr "এই বিষয়ে লেখা পড়ো"
-
 #: gem/templates/springster/comments/preview.html:17
 #: gem/templates/springster/profiles/register.html:9
-#: gem/templates/springster/profiles/register.html:97
+#: gem/templates/springster/profiles/register.html:103
 msgid "Log in here"
 msgstr "এখানে লগ-ইন করুন"
 
-#: gem/templates/springster/core/main.html:31
-#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:25
-#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:25
+#: gem/templates/springster/core/article_tags.html:5
+#: gem/templates/springster/notifications/reply_list.html:26
+#: gem/templates/springster/polls/detail.html:29
+#: gem/templates/springster/polls/free_text_detail.html:20
+#: gem/templates/springster/polls/results.html:36
+#: gem/templates/springster/surveys/molo_survey_page.html:41
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:33
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
+msgid "Back home"
+msgstr "হোমে ফিরে যান"
+
+#: gem/templates/springster/core/article_tags.html:11
+#: gem/templates/springster/core/article_tags_for_paging.html:5
+#: gem/templates/springster/core/main-feature-more.html:8
+#: gem/templates/springster/core/main.html:34
+#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:6
+#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:6
 #: gem/templates/springster/patterns/components/section-page/sp_variations/base-section_teaser-listing.html:20
+#: gem/templates/springster/search/search_results.html:16
+#: gem/templates/springster/search/search_results_for_paging.html:5
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/latest-promoted_variations/sp_variations/latest-articles_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/basics/sections/sp_variations/sectionpage-article-list-standard_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/components/sectionpage/sp_variations/base-section_teaser-listing.html:20
 msgid "Load more"
 msgstr "আরো লোড করুন"
+
+#: gem/templates/springster/core/tags/social_media_footer.html:3
+msgid "Find us elsewhere:"
+msgstr "আমাদের অন্যত্র খুঁজে নিন"
 
 #: gem/templates/springster/notifications/reply_list.html:5
 msgid "Comment Replies"
 msgstr "মন্তব্যের জবাব"
 
+#: gem/templates/springster/notifications/reply_list.html:21
+msgid "Read replies"
+msgstr "জবাবগুলো পড়ুন:"
+
+#: gem/templates/springster/notifications/tags/notification_banner.html:5
+msgid "New"
+msgstr "নতুন"
+
 #: gem/templates/springster/patterns/basics/article-tags/sp_article-page-tag.html:7
+#: temp/temp_ve/core/templates/patterns/basics/article-tags/sp_variations/sp_article-tags_with-title.html:7
 msgid "Read more about"
 msgstr "এই বিষয়ে আরও পড়ো"
+
+#: gem/templates/springster/patterns/basics/article-tags/sp_article-tag.html:7
+#: temp/temp_ve/core/templates/patterns/components/article-tags/sp_variations/sp_tags-menu.html:7
+msgid "Read stories about"
+msgstr "এই বিষয়ে গল্প পড়ুন"
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
 msgid "Read All"
 msgstr "সব পড়ুন"
 
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:7
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:7
 msgid "Terms &amp; Conditions"
 msgstr "শর্ত ও নিয়মাবলি"
 
-#: gem/templates/springster/patterns/components/article-tags/sp_variations/tag_menu.html:8
-msgid "Read stories about"
-msgstr "এই বিষয়ে গল্প পড়ুন"
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:20
+msgid "Join us"
+msgstr "আমাদের সাথে যোগ দিন"
+
+#: gem/templates/springster/profiles/change_password.html:23
+#: gem/templates/springster/profiles/viewprofile.html:74
+msgid "Old Pin:"
+msgstr "পুরনো পিন"
+
+#: gem/templates/springster/profiles/change_password.html:30
+#: gem/templates/springster/profiles/viewprofile.html:82
+msgid "New Pin:"
+msgstr "নতুন পিন"
+
+#: gem/templates/springster/profiles/change_password.html:37
+msgid "Confirm New Pin:"
+msgstr "নতুন পিন নিশ্চিত করুন"
 
 #: gem/templates/springster/profiles/forgot_password.html:24
-#: gem/templates/springster/profiles/register.html:72
 msgid ""
 "Please answer the above security questions. You'll have to provide these "
-"answers if you ever need to reset your password."
+"answers if you ever need to reset your pin."
 msgstr ""
-"অনুগ্রহ করে নিচের নিরাপত্তামূলক প্রশ্নগুলোর উত্তর দিন৷ কখনো আপনার পাসওয়ার্ড "
-"রিসেট করার প্রয়োজন হলে আপনাকে এই উত্তরগুলো দিতে হবে৷"
 
 #: gem/templates/springster/profiles/register.html:6
 msgid "Join Springster"
 msgstr "Springster এ যোগ দাও"
 
-#: gem/templates/springster/profiles/register.html:31
+#: gem/templates/springster/profiles/register.html:38
 msgid ""
 "Springster values your online security, therefore we hide your username and "
 "allow you to comment and interact with the site anonymously. If you would "
@@ -1627,23 +1857,32 @@ msgstr ""
 " একটি ব্যবহারকারীর নাম হিসাবে দেখতে পারবেন এবং আপনি বেনামী থাকবেন না, তাহলে "
 "আপনার ব্যবহারকারীর নাম এখানে আপডেট করুন"
 
-#: gem/templates/springster/profiles/register.html:39
+#: gem/templates/springster/profiles/register.html:46
 msgid "For example: 2048"
 msgstr "যেমন: 2048"
 
-#: gem/templates/springster/profiles/register.html:57
+#: gem/templates/springster/profiles/register.html:64
 msgid "Only you will see this, but it's not mandatory to tell us"
 msgstr "শুধু আপনি এটা দেখতে পারবেন, কিন্তু এটা আমাদেরকে বলা বাধ্যতামূলক নয়"
 
-#: gem/templates/springster/profiles/reset_password_success.html:10
-msgid "Continue to sign in"
-msgstr "সাইন-ইন করতে এগিয়ে যান"
+#: gem/templates/springster/profiles/register.html:79
+msgid ""
+"Please answer the above security questions. You'll have to provide these "
+"answers if you ever need to reset your password."
+msgstr ""
+"অনুগ্রহ করে নিচের নিরাপত্তামূলক প্রশ্নগুলোর উত্তর দিন৷ কখনো আপনার পাসওয়ার্ড "
+"রিসেট করার প্রয়োজন হলে আপনাকে এই উত্তরগুলো দিতে হবে৷"
+
+#: gem/templates/springster/profiles/viewprofile.html:56
+msgid "Change Your Pin"
+msgstr "পিন পরিবর্তন করুন"
 
 #: gem/templates/springster/registration/login.html:8
 msgid "Sign up here"
 msgstr "এখানে সাইন-আপ করুন"
 
 #: gem/templates/springster/registration/password_reset_confirm.html:6
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:10
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -1651,7 +1890,13 @@ msgstr ""
 "অনুগ্রহ করে আপনার নতুন পাসওয়ার্ড দু’বার লিখুন যাতে আমরা যাচাই করতে পারি যে "
 "আপনি এটি সঠিকভাবে লিখেছেন কিনা৷"
 
+#: gem/templates/springster/registration/password_reset_confirm.html:11
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:14
+msgid "New password:"
+msgstr "নতুন পাসওয়ার্ড:"
+
 #: gem/templates/springster/registration/password_reset_confirm.html:20
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:17
 msgid "Change my password"
 msgstr "পাসওয়ার্ড পরিবর্তন"
 
@@ -1664,27 +1909,34 @@ msgstr ""
 "অনুগ্রহ করে পাসওয়ার্ড রিসেটের জন্য নতুন করে অনুরোধ জানান৷"
 
 #: gem/templates/springster/registration/password_reset_form.html:5
+#: temp/temp_ve/core/templates/registration/login.html:25
 #: temp/temp_ve/profiles/templates/registration/login.html:37
 #: temp/temp_ve/profiles/test_templates/login.html:37
 msgid "Forgotten your password?"
 msgstr "আপনার পাসওয়ার্ড ভুলে গেছেন?"
 
-#: gem/templates/springster/yourwords/your_words_competition.html:18
-#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
-#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
-msgid "Enter"
-msgstr "প্রবেশ"
+#: gem/templates/springster/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:31
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:37
+msgid "Submit Survey"
+msgstr "সমীক্ষা জমা দিন"
 
-#: gem/views.py:159
+#: gem/views.py:167
 msgid "Your answer to the security question was invalid. Please try again."
 msgstr ""
 "আপনার নিরাপত্তামূলক প্রশ্নের উত্তরটি ভুল ছিল৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
 
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:12
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:9
+#: gem/views.py:225
+#: temp/temp_ve/profiles/views.py:279
+msgid "The two PINs that you entered do not match. Please try again."
+msgstr "আপনার লেখা দু’টি পিন মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
+
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/footer/language-list_dropdown-footer.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:13
 msgid "Change Language"
 msgstr "ভাষা পরিবর্তন করুন"
 
@@ -1696,49 +1948,85 @@ msgstr "নাম"
 msgid "Your comment has been successfully posted"
 msgstr "আপনার মন্তব্য সফলভাবে পোস্ট করা হয়েছে"
 
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
-msgid "Back home"
-msgstr "হোমে ফিরে যান"
-
-#: temp/temp_ve/commenting/views.py:31
-msgid "Reporting comment replies is not allowed."
-msgstr "মন্তব্যের জবাব সম্পর্কে রিপোর্ট করার অনুমতি নেই৷"
-
 #: temp/temp_ve/commenting/views.py:34
 msgid "The comment has been reported."
 msgstr "এই মন্তব্যটি সম্পর্কে রিপোর্ট করা হয়েছে৷"
 
+#: temp/temp_ve/commenting/views.py:111
+msgid "Reply successfully created."
+msgstr "জবাব সফলভাবে তৈরি করা হয়েছে৷"
+
+#: temp/temp_ve/core/forms.py:11
 #: temp/temp_ve/polls/forms.py:20
 msgid "You didn't select a choice"
 msgstr "আপনি কোনো অপশন নির্বাচন করেননি"
+
+#: temp/temp_ve/core/templates/403.html:9
+msgid "You do not have permssion to access this site."
+msgstr "আপনার এই সাইট অ্যাক্সেস করার অনুমতি নেই৷"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:10
+msgid "Click to Download!"
+msgstr "ডাউনলোড করতে ক্লিক করুন!"
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:16
+msgid "Your browser does not support the video tag."
+msgstr "আপনার ব্রাউজার ভিডিও ট্যাগকে সম‌র্থন করে না।"
+
+#: temp/temp_ve/core/templates/core/tags/nav_tags_section_listing_homepage.html:21
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection_with-bg.html:30
+msgid "More about"
+msgstr "আরো পরিচিতি"
+
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection-child_with-bg.html:27
+msgid "View More"
+msgstr "আরো দেখুন"
+
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:5
+msgid "More Information"
+msgstr "আরো তথ্য"
+
+#: temp/temp_ve/core/templates/registration/login.html:11
+msgid "LOGIN TO YOUR ACCOUNT!"
+msgstr "আপনার অ্যাকাউন্টে লগ-ইন করুন!"
+
+#: temp/temp_ve/core/templates/registration/login.html:12
+msgid "We’re excited to have you..."
+msgstr "আপনাকে পেয়ে আমরা আনন্দিত..."
+
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:21
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"পাসওয়ার্ড রিসেট করার লিংক অকার্যকর, সম্ভবত এটি ইতোমধ্যে ব্যবহার করা হয়েছে৷ "
+"অনুগ্রহ করে পাসওয়ার্ড রিসেটের জন্য নতুন করে অনুরোধ জানান৷"
+
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:6
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+"আপনার পাসওয়ার্ড ভুলে গেছেন? নিচে আপনার ইমেইল ঠিকানা লিখুন, এবং নতুন একটি সেট "
+"করার জন্য আমরা আপনাকে নির্দেশনাগুলো ইমেইল করবো৷"
 
 #: temp/temp_ve/polls/templates/polls/results.html:8
 msgid "Your answers:"
 msgstr "আপনার উত্তর:"
 
-#: temp/temp_ve/profiles/forms.py:117
-#: temp/temp_ve/profiles/forms.py:248
-#: temp/temp_ve/profiles/forms.py:298
+#: temp/temp_ve/profiles/forms.py:140
+#: temp/temp_ve/profiles/forms.py:271
+#: temp/temp_ve/profiles/forms.py:321
 msgid "Education Level"
 msgstr "শিক্ষাগত লেভেল"
 
-#: temp/temp_ve/profiles/forms.py:220
-#: temp/temp_ve/profiles/forms.py:344
-msgid ""
-"Sorry, but that is an invalid display name. Please don't use your %s in your "
-"display name."
-msgstr ""
-"দুঃখিত, কিন্তু এটি একটি অকার্যকর প্রদর্শিত নাম৷ অনুগ্রহ করে আপনার প্রদর্শিত "
-"নামে আপনার %s ব্যবহার করবেন না৷"
-
-#: temp/temp_ve/profiles/forms.py:380
-#: temp/temp_ve/profiles/forms.py:395
-msgid "This value must contain only           numbers."
-msgstr "এখানে অবশ্যই শুধু সংখ্যা থাকতে পারবে৷"
-
-#: temp/temp_ve/profiles/forms.py:423
+#: temp/temp_ve/profiles/forms.py:446
 msgid "New passwords do not match."
 msgstr "নতুন পাসওয়ার্ড মিলছে না।"
+
+#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
+msgid "Confirm New Password"
+msgstr "নতুন পাসওয়ার্ড নিশ্চিত করুন:"
 
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:42
 #: temp/temp_ve/profiles/templates/profiles/done.html:59
@@ -1749,6 +2037,11 @@ msgstr "সংরক্ষণ"
 #: temp/temp_ve/profiles/templates/profiles/done.html:13
 msgid "Let us know more about yourself to get access to exclusive content."
 msgstr "অনন্য কন্টেন্টে প্রবেশাধিকার পেতে আমাদেরকে আপনার জন্মদিন জানান৷"
+
+#: temp/temp_ve/profiles/templates/profiles/done.html:18
+#: temp/temp_ve/profiles/templates/profiles/register.html:45
+msgid "SELECT DATE OF BIRTH"
+msgstr "জন্মতারিখ নির্বাচন করুন"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:26
 msgid "DISPLAY NAME"
@@ -1775,17 +2068,25 @@ msgstr "লগ-ইন"
 msgid "CHOOSE A USERNAME"
 msgstr "একটি ব্যবহারকারীর নাম বেছে নিন"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:24
+msgid ""
+"This name you will use to log in and won't appear to other users. Only you "
+"will see this."
+msgstr ""
+"আপনি লগ-ইন করার জন্য এই নামটি ব্যবহার করবেন এবং অন্য ব্যবহারকারীরা এটা দেখতে "
+"পারবে না৷ শুধু আপনি এটি দেখতে পারবেন৷"
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:28
 msgid "CHOOSE A 4-DIGIT PIN"
 msgstr "4-অঙ্কের একটি পিন বেছে নিন"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:36
-msgid "CHOOSE A DISPLAY NAME"
-msgstr "একটি প্রদর্শিত নাম বেছে নিন"
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:81
 msgid "ENTER YOUR MOBILE NUMBER"
 msgstr "আপনার মোবাইল নম্বর লিখুন"
+
+#: temp/temp_ve/profiles/templates/profiles/register.html:90
+msgid "ENTER YOUR EMAIL ADDRESS"
+msgstr "আপনার ইমেইল ঠিকানা লিখুন"
 
 #: temp/temp_ve/profiles/templates/profiles/viewprofile.html:54
 msgid "Email Address:"
@@ -1795,78 +2096,52 @@ msgstr "ইমেইল ঠিকানা:"
 msgid "Edit My Profile"
 msgstr "আপনার প্রোফাইল সম্পাদনা করুন"
 
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
-msgid "Change My Password"
-msgstr "পাসওয়ার্ড পরিবর্তন"
-
-#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:10
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:13
 msgid "Take The Survey"
 msgstr "সমীক্ষায় অংশ নিন"
 
-#~ msgid "Back to"
-#~ msgstr "ফিরে যান"
+#~ msgid "reply"
+#~ msgstr "জবাব"
 
-#~ msgid "Access Denied"
-#~ msgstr "প্রবেশাধিকার প্রত্যাখ্যাত"
+#~ msgid "replies"
+#~ msgstr "জবাব"
 
-#~ msgid "Hi"
-#~ msgstr "হাই"
+#~ msgid "Your thought"
+#~ msgstr "এই বিষয়ে লেখা পড়ো"
 
 #~ msgid ""
-#~ "Sorry, you are having trouble accessing this feature! Due to a temporary "
-#~ "technical issue, login and registrations are not available on the Free "
-#~ "Basics app for now. To login or register for a profile, visit our free "
-#~ "mobisite through your mobile browser at"
+#~ "Your email address is not configured. Please update it before exporting."
 #~ msgstr ""
-#~ "দুঃখিত, এই ফিচারটি অ্যাক্সেস করতে আপনার সমস্যা হচ্ছে! একটি সাময়িক কারিগরি "
-#~ "সমস্যার কারণে, এখন ফ্রি বেসিক অ্যাপগুলোতে লগ-ইন ও নিবন্ধন লভ্য নেই৷ একটি "
-#~ "প্রোফাইলের জন্য লগ-ইন বা নিবন্ধন করতে, আপনার মোবাইল ব্রাউজারের মাধ্যমে আমাদে"
-#~ "র ফ্রি Mobisite-এ যান:"
+#~ "আপনার ইমেইল ঠিকানা কনফিগার করা হয়নি৷ রপ্তানি করার আগে অনুগ্রহ করে এটি আপডেট "
+#~ "করুন৷"
+
+#~ msgid ""
+#~ "Sorry, but that is an invalid username. Please don't use your %s in your "
+#~ "username."
+#~ msgstr ""
+#~ "দুঃখিত, কিন্তু এই ব্যবহারকারীর নামটি অগ্রহণযোগ্য৷ অনুগ্রহ করে আপনার "
+#~ "ব্যবহারকারীর নামের মধ্যে %s ব্যবহার করবেন না৷"
+
+#~ msgid "You haven't set a nickname, so your comments will appear as 'anonymous'"
+#~ msgstr ""
+#~ "আপনি কোনো ডাকনাম সেট করেননি, তাই আপনার মন্তব্যগুলো ‘বেনামী’ হিসেবে দেখানো "
+#~ "হবে৷"
+
+#~ msgid ""
+#~ "Sorry, but that is an invalid display name. Please don't use your %s in your "
+#~ "display name."
+#~ msgstr ""
+#~ "দুঃখিত, কিন্তু এটি একটি অকার্যকর প্রদর্শিত নাম৷ অনুগ্রহ করে আপনার প্রদর্শিত "
+#~ "নামে আপনার %s ব্যবহার করবেন না৷"
+
+#~ msgid "This value must contain only           numbers."
+#~ msgstr "এখানে অবশ্যই শুধু সংখ্যা থাকতে পারবে৷"
 
 #~ msgid "Sign in"
 #~ msgstr "সাইন-ইন"
 
-#~ msgid "Your username and password does not match. Please try again."
-#~ msgstr ""
-#~ "আপনার ব্যবহারকারীর নাম ও পাসওয়ার্ড মিলছে না৷ অনুগ্রহ করে আবার চেষ্টা করুন৷"
-
-#~ msgid "Your password has been set.  You may go ahead and log in now."
-#~ msgstr "আপনার পাসওয়ার্ড সেট করা হয়েছে৷ আপনি এখন এগিয়ে যেতে ও লগ-ইন করতে পারেন৷"
-
 #~ msgid "That page is not translatable."
 #~ msgstr "এই পেইজটি অনুবাদযোগ্য নয়৷"
 
-#~ msgid "You do not have permssion to access this site."
-#~ msgstr "আপনার এই সাইট অ্যাক্সেস করার অনুমতি নেই৷"
-
-#~ msgid "More about"
-#~ msgstr "আরো পরিচিতি"
-
-#~ msgid "View More"
-#~ msgstr "আরো দেখুন"
-
-#~ msgid "More Information"
-#~ msgstr "আরো তথ্য"
-
 #~ msgid "Latest"
 #~ msgstr "সর্বসাম্প্রতিক"
-
-#~ msgid "LOGIN TO YOUR ACCOUNT!"
-#~ msgstr "আপনার অ্যাকাউন্টে লগ-ইন করুন!"
-
-#~ msgid "We’re excited to have you..."
-#~ msgstr "আপনাকে পেয়ে আমরা আনন্দিত..."
-
-#~ msgid ""
-#~ "The password reset link was invalid, possibly because it has already been "
-#~ "used.  Please request a new password reset."
-#~ msgstr ""
-#~ "পাসওয়ার্ড রিসেট করার লিংক অকার্যকর, সম্ভবত এটি ইতোমধ্যে ব্যবহার করা হয়েছে৷ "
-#~ "অনুগ্রহ করে পাসওয়ার্ড রিসেটের জন্য নতুন করে অনুরোধ জানান৷"
-
-#~ msgid ""
-#~ "Forgotten your password? Enter your email address below, and we'll email "
-#~ "instructions for setting a new one."
-#~ msgstr ""
-#~ "আপনার পাসওয়ার্ড ভুলে গেছেন? নিচে আপনার ইমেইল ঠিকানা লিখুন, এবং নতুন একটি সেট "
-#~ "করার জন্য আমরা আপনাকে নির্দেশনাগুলো ইমেইল করবো৷"
