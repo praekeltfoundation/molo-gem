@@ -1,0 +1,29 @@
+/*
+*   NOTE:   Cannot create load statement withing conditional loaded file for RTL
+*           Use of Media Query is correct
+*/
+.header {
+    &__menu {
+      text-align: left;
+    }
+    &__search {
+        &-bar:after {
+          @media screen and (min-width: 360px) {
+            right: inherit;
+            left: 3px;
+          }
+        }
+    }
+}
+
+#profile {
+  @media screen and (min-width: 360px) {
+    float: right;
+  }
+}
+#profile, #search {
+    .menu-list__anchor--section-nav,
+    .menu-list__anchor--section-nav {
+      padding: 0;
+    }
+}

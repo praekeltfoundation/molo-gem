@@ -18,41 +18,42 @@ var gulp              =   require('gulp'),
     pixrem            =   require('gulp-pixrem'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
+    sassPaths = [
+        'gem/styles/gem/base_style.scss',
+        'gem/styles/gem/base_style-rtl.scss',
+        'gem/styles/gem-malawi/malawi.scss',
+
+        'gem/styles/gem-springster/01_springster.s+(a|c)ss',
+        'gem/styles/gem-springster/02_springster-rtl.s+(a|c)ss',
+        'gem/styles/gem-springster/03_state.s+(a|c)ss',
+        'gem/styles/gem-springster/04_state_320.s+(a|c)ss',
+        'gem/styles/gem-springster/05_no-script-state.s+(a|c)ss'
+    ],
+    sassDest = {
+         prd: 'gem/static/css/prd',
+         dev: 'gem/static/css/dev'
+    };
 
 
-var sassPaths = [
-    'gem/styles/gem/base_style.scss',
-    'gem/styles/gem/base_style-rtl.scss',
-    'gem/styles/gem-malawi/malawi.scss',
-
-    'gem/styles/versions.scss',
-
-    'gem/styles/gem-springster/springster.scss',
-    'gem/styles/gem-springster/springster-rtl.scss',
-    'gem/styles/gem-springster/state/state_320.scss',
-    'gem/styles/gem-springster/state/state_smart.scss',
-    'gem/styles/gem-springster/state/state.scss',
-    'gem/styles/gem-springster/state/no-script-state.scss',
-];
-var sassDest = {
-     prd: 'gem/static/css/prd',
-     dev: 'gem/static/css/dev'
-};
 function styles(env) {
   var s = gulp.src(sassPaths);
   var isDev = env === 'dev';
-  if (isDev) s = s
-    .pipe(sourcemaps.init());
+  if (isDev)
     s = s
+        .pipe(sourcemaps.init());
+    s = s
+    .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
+    .pipe(bless())
     .pipe(cleanCSSMinify())
-    if (isDev) s = s
+    .pipe(pixrem());
+    if (isDev)
+    s = s
         .pipe(sourcemaps.write('/maps'));
-        return s
-        .pipe(gulp.dest(sassDest[env]))
-        .pipe(notify({ message: `Styles task complete: ${env}` }));
+    return s
+    .pipe(gulp.dest(sassDest[env]))
+    .pipe(notify({ message: `Styles task complete: ${env}` }));
 }
-
 gulp.task('styles:prd', function() {
   return styles('prd');
 });
@@ -74,8 +75,8 @@ gulp.task('compress', function() {
 
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch(['gem/client/css/**/*.scss', 'gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
+    gulp.watch(['gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd']);
-gulp.task('default', ['styles', 'compress','watch']);
+gulp.task('default', ['styles', 'compress']);
