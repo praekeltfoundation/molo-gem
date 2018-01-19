@@ -151,7 +151,7 @@ DEFAULT_TEMPLATE = {
             'wagtail.contrib.settings.context_processors.settings',
             'gem.context_processors.default_forms',
             'gem.context_processors.detect_freebasics',
-            'gem.processors.compress_settings',
+            'gem.context_processors.compress_settings',
         ],
         "loaders": [
             "django.template.loaders.filesystem.Loader",
