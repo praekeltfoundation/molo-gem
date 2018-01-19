@@ -1,5 +1,8 @@
 # coding=utf-8
 import pytest
+
+from copy import deepcopy
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -12,6 +15,8 @@ from molo.core.tests.base import MoloTestCaseMixin
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
 from gem.models import GemSettings
+
+from os.path import join
 
 
 @pytest.mark.django_db
@@ -56,31 +61,12 @@ class TestModels(TestCase, MoloTestCaseMixin):
         self.assertContains(response, 'https://www.google.co.za/')
 
     def test_show_join_banner(self):
-        from os.path import join
-        temp_dir = [
-            {
-                'DIRS': [join(
-                    settings.PROJECT_ROOT, 'gem', 'templates',
-                    'springster'), ],
-                'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                'OPTIONS': {
-                    'context_processors': [
-                        'django.template.context_processors.debug',
-                        'django.template.context_processors.request',
-                        'django.contrib.auth.context_processors.auth',
-                        'django.contrib.messages.context_processors.messages',
-                        'molo.core.context_processors.locale',
-                        'wagtail.contrib.settings.context_processors.settings',
-                        'gem.context_processors.default_forms',
-                        'gem.processors.compress_settings',
-                    ],
-                    "loaders": [
-                        "django.template.loaders.filesystem.Loader",
-                        "mote.loaders.app_directories.Loader",
-                        "django.template.loaders.app_directories.Loader",
-                    ]
-                }, }]
-        with self.settings(TEMPLATES=temp_dir):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'gem', 'templates', 'springster')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
             molo_survey_page = MoloSurveyPage(
                 title='survey title',
                 slug='survey-slug',
