@@ -1,5 +1,4 @@
 import time
-from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -10,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
+from django.utils import timezone
 
 from wagtail.wagtailcore.models import Site as WagtailSite
 
@@ -217,10 +217,12 @@ class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
 
         # to get the session set up
         response = self.client.get(reverse('forgot_password'))
+        response_body = response.content.decode(response.charset)
 
-        self.question_being_asked = settings.SECURITY_QUESTION_1 if \
-            settings.SECURITY_QUESTION_1 in response.content else \
-            settings.SECURITY_QUESTION_2
+        if settings.SECURITY_QUESTION_1 in response_body:
+            self.question_being_asked = settings.SECURITY_QUESTION_1
+        else:
+            self.question_being_asked = settings.SECURITY_QUESTION_2
 
     def post_invalid_username_to_forgot_password_view(self):
         return self.client.post(reverse('forgot_password'), {
@@ -442,7 +444,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             user=user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def getData(self):
         return {
@@ -581,7 +583,7 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
             user=self.user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def create_reported_comment(self, comment, report_reason):
         return GemCommentReport.objects.create(

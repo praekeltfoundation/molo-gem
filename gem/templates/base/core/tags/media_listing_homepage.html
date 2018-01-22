@@ -10,11 +10,11 @@
           <h4 class="title">{{media.title}}</h4>
           <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
           <h4>{% trans "Media will be played externally in a new window" %}</h4>
-        </div> 
+        </div>
       {% else %}
         <div class="media-player__embed-object">
           {% embed media.youtube_link %}
-        </div> 
+        </div>
         <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
           <span class="call-to-action__button button">{% trans "Download Video" %}</span>
         </a>
@@ -52,4 +52,3 @@
   {% endif %}
 {% endfor%}
 {% endblock %}
-  

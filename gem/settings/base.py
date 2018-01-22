@@ -151,7 +151,7 @@ DEFAULT_TEMPLATE = {
             'wagtail.contrib.settings.context_processors.settings',
             'gem.context_processors.default_forms',
             'gem.context_processors.detect_freebasics',
-            'gem.processors.compress_settings',
+            'gem.context_processors.compress_settings',
         ],
         "loaders": [
             "django.template.loaders.filesystem.Loader",
@@ -272,9 +272,7 @@ EXTRA_LANG_INFO = {
     },
 }
 
-LANG_INFO = (
-    dict(django.conf.locale.LANG_INFO.items() + EXTRA_LANG_INFO.items()))
-django.conf.locale.LANG_INFO = LANG_INFO
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
 LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),

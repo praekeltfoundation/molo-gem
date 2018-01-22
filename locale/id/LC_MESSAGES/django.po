@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-29 13:20+0000\n"
-"PO-Revision-Date: 2017-06-01 13:31+0000\n"
-"Last-Translator: Rosa <rosa.annang@gmail.com>\n"
+"POT-Creation-Date: 2017-10-25 12:45+0000\n"
+"PO-Revision-Date: 2018-01-12 12:12+0000\n"
+"Last-Translator: Lisa <lisa@praekelt.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1496323895.347646\n"
+"X-POOTLE-MTIME: 1515759178.322341\n"
 
 #: gem/constants.py:7
 msgid "female"
@@ -28,9 +28,9 @@ msgstr "Tidak ingin menjawab"
 
 #: gem/forms.py:81
 #: gem/forms.py:209
-#: temp/temp_ve/profiles/forms.py:99
-#: temp/temp_ve/profiles/forms.py:236
-#: temp/temp_ve/profiles/forms.py:280
+#: temp/temp_ve/profiles/forms.py:122
+#: temp/temp_ve/profiles/forms.py:259
+#: temp/temp_ve/profiles/forms.py:303
 msgid "Display Name"
 msgstr "Nama tampilan"
 
@@ -38,11 +38,12 @@ msgstr "Nama tampilan"
 #: gem/templates/base/forgot_password.html:23
 #: gem/templates/base/registration/login.html:22
 #: gem/templates/malawi/registration/login.html:22
-#: gem/templates/springster/forgot_password.html:22
-#: gem/templates/springster/profiles/register.html:17
-#: gem/templates/springster/registration/login.html:18
-#: temp/temp_ve/profiles/forms.py:73
-#: temp/temp_ve/profiles/forms.py:435
+#: gem/templates/springster/forgot_password.html:16
+#: gem/templates/springster/profiles/register.html:23
+#: gem/templates/springster/registration/login.html:19
+#: temp/temp_ve/core/templates/registration/login.html:17
+#: temp/temp_ve/profiles/forms.py:96
+#: temp/temp_ve/profiles/forms.py:458
 #: temp/temp_ve/profiles/templates/registration/login.html:25
 #: temp/temp_ve/profiles/test_templates/login.html:25
 msgid "Username"
@@ -56,8 +57,8 @@ msgstr "Jawaban untuk Pertanyaan Keamanan "
 #: gem/templates/base/reset_password.html:26
 #: gem/templates/springster/profiles/reset_password.html:21
 #: gem/templates/springster/reset_password.html:27
-#: temp/temp_ve/profiles/forms.py:93
-#: temp/temp_ve/profiles/forms.py:481
+#: temp/temp_ve/profiles/forms.py:116
+#: temp/temp_ve/profiles/forms.py:504
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:23
 msgid "PIN"
 msgstr "PIN"
@@ -66,41 +67,40 @@ msgstr "PIN"
 #: gem/templates/base/reset_password.html:29
 #: gem/templates/springster/profiles/reset_password.html:26
 #: gem/templates/springster/reset_password.html:32
-#: temp/temp_ve/profiles/forms.py:498
+#: temp/temp_ve/profiles/forms.py:521
 #: temp/temp_ve/profiles/templates/profiles/reset_password.html:29
 msgid "Confirm PIN"
 msgstr "Konfirmasi PIN "
 
-#: gem/settings/base.py:326
+#: gem/settings/base.py:354
 #: temp/temp_ve/profiles/views.py:161
 msgid "The old password is incorrect."
 msgstr "Sandi lamamu salah."
 
-#: gem/settings/base.py:328
+#: gem/settings/base.py:355
+#: gem/templates/springster/polls/detail.html:26
+#: gem/templates/springster/polls/free_text_detail.html:16
+#: gem/templates/springster/polls/includes/poll_question_form.html:36
+#: temp/temp_ve/polls/templates/polls/detail.html:24
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
+msgid "Vote"
+msgstr "Pilih"
+
+#: gem/settings/base.py:356
 #: gem/templates/springster/polls/includes/poll_question_form.html:38
 #: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:37
 msgid "Show Results"
 msgstr "Tampilkan hasil"
 
-#: gem/settings/base.py:329
-#: gem/templates/springster/polls/includes/poll_question_form.html:43
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
-msgid "You voted: "
-msgstr "Kamu memilih:"
-
-#: gem/settings/base.py:331
+#: gem/settings/base.py:359
 msgid "Name of your primary school"
 msgstr "Sebutkan di mana SD kamu"
 
-#: gem/settings/base.py:332
-#: gem/templates/springster/profiles/register.html:11
+#: gem/settings/base.py:360
+#: gem/templates/springster/profiles/register.html:12
 msgid "Please complete this form to join"
 msgstr "Lengkapi formulir ini untuk bergabung"
-
-#: gem/templates/base/403_csrf.html:9
-#: gem/templates/springster/403_csrf.html:6
-msgid "Unable to Login"
-msgstr "Tidak bisa login"
 
 #: gem/templates/base/403_csrf.html:13
 #: gem/templates/springster/403_csrf.html:9
@@ -115,71 +115,53 @@ msgstr ""
 "Basics untuk saat ini. Untuk masuk atau mendaftar ke profil, kunjungi "
 "mobisite gratis kami melalui browser mobile kamu di"
 
-#: gem/templates/base/403_csrf.html:13
-#: gem/templates/springster/403_csrf.html:12
-msgid " We're working hard to get this problem resolved. Thank you."
-msgstr "Kami berhasil menyelesaikan masalah ini. Terima kasih."
-
-#: gem/templates/base/403_csrf.html:15
-#: gem/templates/springster/403_csrf.html:14
-msgid "XO"
-msgstr "XO"
-
 #: gem/templates/base/403_csrf.html:16
 msgid "Girl Effect"
 msgstr ""
 
 #: gem/templates/base/404.html:9
 #: gem/templates/springster/404.html:6
+#: temp/temp_ve/core/templates/404.html:8
 msgid "Page not found"
 msgstr "Halaman Tak Ditemukan"
 
 #: gem/templates/base/404.html:10
 #: gem/templates/springster/404.html:7
+#: temp/temp_ve/core/templates/404.html:10
 msgid "Sorry, this page could not be found."
 msgstr "Maaf, halaman ini tidak dapat ditemukan."
 
 #: gem/templates/base/500.html:18
 #: gem/templates/springster/500.html:17
+#: temp/temp_ve/core/templates/500.html:18
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "Maaf, tampaknya ada kesalahan. Silakan coba lagi."
 
-#: gem/templates/base/base.html:104
-#: gem/templates/malawi/base.html:105
+#: gem/templates/base/base.html:82
+#: gem/templates/malawi/base.html:94
 #: gem/templates/springster/patterns/basics/buttons/back-to-top.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/back-to-top.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/back-to-top_with-bg.html:4
 msgid "Back to Top"
 msgstr "Kembali ke atas"
 
-#: gem/templates/base/base.html:114
-#: gem/templates/base/core/tags/breadcrumbs.html:6
-#: gem/templates/base/polls/results.html:28
-#: gem/templates/malawi/base.html:115
-#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
-#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
-#: temp/temp_ve/commenting/templates/comments/preview.html:11
-#: temp/temp_ve/polls/templates/polls/detail.html:25
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
-#: temp/temp_ve/polls/templates/polls/results.html:24
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
-msgid "Home"
-msgstr "Home"
-
-#: gem/templates/base/base.html:115
+#: gem/templates/base/base.html:93
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:12
 msgid "Categories"
 msgstr "Kategori"
 
-#: gem/templates/base/base.html:134
+#: gem/templates/base/base.html:112
 #: gem/templates/base/registration/login.html:7
 #: gem/templates/base/registration/login.html:31
 #: gem/templates/malawi/registration/login.html:7
 #: gem/templates/malawi/registration/login.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:25
 #: gem/templates/springster/registration/login.html:5
-#: gem/templates/springster/registration/login.html:25
+#: gem/templates/springster/registration/login.html:26
 #: gem/templates/springster/registration/password_reset_complete.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:25
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:9
 #: temp/temp_ve/profiles/templates/registration/login.html:5
 #: temp/temp_ve/profiles/templates/registration/login.html:34
 #: temp/temp_ve/profiles/test_templates/login.html:5
@@ -188,7 +170,7 @@ msgid "Log in"
 msgstr "Log in"
 
 #: gem/templates/base/comments/comment.html:20
-#: gem/templates/springster/comments/comment.html:14
+#: gem/templates/springster/comments/comment.html:17
 #: gem/templates/springster/notifications/notice.html:16
 #: temp/temp_ve/commenting/templates/comments/comment.html:8
 #: temp/temp_ve/commenting/templates/notifications/notice.html:10
@@ -197,7 +179,7 @@ msgid "Anonymous"
 msgstr "Anonim"
 
 #: gem/templates/base/comments/comment.html:28
-#: gem/templates/springster/comments/comment.html:22
+#: gem/templates/springster/comments/comment.html:25
 #: temp/temp_ve/commenting/templates/comments/comment.html:16
 msgid ""
 "This comment has been removed by the community. Please read our platform "
@@ -205,7 +187,7 @@ msgid ""
 msgstr "Komentar ini telah dihapus. Silahkan baca aturan platform kami."
 
 #: gem/templates/base/comments/comment.html:37
-#: gem/templates/springster/comments/comment.html:34
+#: gem/templates/springster/comments/comment.html:42
 #: temp/temp_ve/commenting/templates/comments/comment.html:26
 msgid "Report"
 msgstr "Laporkan"
@@ -213,17 +195,21 @@ msgstr "Laporkan"
 #: gem/templates/base/comments/comment.html:43
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:40
-#: gem/templates/springster/comments/comment.html:45
-#: gem/templates/springster/comments/comment.html:54
+#: gem/templates/springster/comments/comment.html:48
+#: gem/templates/springster/comments/comment.html:53
+#: gem/templates/springster/comments/comment.html:62
+#: gem/templates/springster/notifications/reply_list.html:11
+#: gem/templates/springster/notifications/tags/notification_banner.html:7
 #: temp/temp_ve/commenting/templates/comments/comment.html:39
 msgid "Reply"
 msgstr "Balasan"
 
 #: gem/templates/base/comments/comment.html:47
 #: gem/templates/base/comments/comment.html:51
-#: gem/templates/springster/comments/comment.html:47
 #: gem/templates/springster/comments/comment.html:55
+#: gem/templates/springster/comments/comment.html:64
+#: gem/templates/springster/notifications/reply_list.html:13
+#: gem/templates/springster/notifications/tags/notification_banner.html:9
 #: temp/temp_ve/commenting/templates/comments/comment.html:31
 #: temp/temp_ve/commenting/templates/comments/comment.html:34
 #: temp/temp_ve/commenting/templates/comments/comment.html:41
@@ -248,6 +234,14 @@ msgstr "Komentar"
 #: gem/templates/base/comments/report_response.html:13
 #: gem/templates/base/comments/user_has_already_reported.html:12
 #: gem/templates/base/core/article_tags.html:22
+#: gem/templates/springster/comments/comments.html:6
+#: gem/templates/springster/comments/reply.html:6
+#: gem/templates/springster/comments/report_comment.html:5
+#: gem/templates/springster/comments/report_response.html:14
+#: gem/templates/springster/comments/user_has_already_reported.html:12
+#: gem/templates/springster/patterns/basics/articles/reaction_question_feedback.html:5
+#: gem/templates/springster/yourwords/thank_you.html:27
+#: gem/templates/springster/yourwords/your_words_competition_entry.html:55
 #: temp/temp_ve/commenting/templates/comments/comment_done.html:11
 #: temp/temp_ve/commenting/templates/comments/comments.html:28
 #: temp/temp_ve/commenting/templates/comments/preview.html:44
@@ -257,7 +251,7 @@ msgid "Back to article"
 msgstr "Kembali ke Artikel"
 
 #: gem/templates/base/comments/form.html:10
-#: gem/templates/springster/comments/form.html:16
+#: gem/templates/springster/comments/form.html:12
 msgid "Comment Anonymously"
 msgstr "Komentar Anonim"
 
@@ -269,12 +263,6 @@ msgstr "Komentar Anonim"
 msgid "log in"
 msgstr "Log in"
 
-#: gem/templates/base/comments/reply.html:14
-#: gem/templates/springster/comments/reply.html:13
-#: temp/temp_ve/commenting/templates/comments/reply.html:15
-msgid "Recent replies"
-msgstr "Balasan Terbaru"
-
 #: gem/templates/base/comments/reply.html:16
 #: gem/templates/springster/comments/reply.html:15
 #: temp/temp_ve/commenting/templates/comments/reply.html:17
@@ -284,25 +272,19 @@ msgstr "Balasan yang lalu"
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "of"
 msgstr "dari"
 
 #: gem/templates/base/comments/report_comment.html:7
-#: gem/templates/springster/comments/report_comment.html:7
+#: gem/templates/springster/comments/report_comment.html:8
 msgid "Please let us know why you are reporting this comment?"
 msgstr "Kenapa kamu mau melaporkan komentar ini?"
 
 #: gem/templates/base/comments/report_comment.html:14
-#: gem/templates/springster/comments/report_comment.html:14
+#: gem/templates/springster/comments/report_comment.html:15
 msgid "Report Comment"
 msgstr "Laporkan komentar"
-
-#: gem/templates/base/comments/report_response.html:7
-#: gem/templates/springster/comments/report_response.html:5
-#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
-#: temp/temp_ve/commenting/templates/comments/report_response.html:6
-msgid "Thanks!"
-msgstr "Terima Kasih!"
 
 #: gem/templates/base/comments/report_response.html:10
 #: gem/templates/springster/comments/report_response.html:7
@@ -315,6 +297,36 @@ msgstr "Komentar ini telah dilaporkan."
 msgid "Read more"
 msgstr "Baca selengkapnya"
 
+#: gem/templates/base/core/article_page.html:30
+#: gem/templates/base/core/tags/media_listing_homepage.html:12
+#: gem/templates/malawi/core/article_page.html:29
+#: gem/templates/springster/patterns/basics/media/media-player.html:8
+msgid "Media will be played externally in a new window"
+msgstr "Video ini akan terbuka di browser"
+
+#: gem/templates/base/core/article_page.html:37
+#: gem/templates/base/core/article_page.html:52
+#: gem/templates/malawi/core/article_page.html:36
+#: gem/templates/malawi/core/article_page.html:51
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:20
+#: gem/templates/springster/patterns/basics/media/media-player.html:15
+msgid "Download Video"
+msgstr ""
+
+#: gem/templates/base/core/article_page.html:65
+#: gem/templates/malawi/core/article_page.html:65
+#: gem/templates/springster/patterns/basics/articles/article-page_variations/article-body.html:32
+msgid "Download Audio"
+msgstr ""
+
+#: gem/templates/base/core/language_block.html:5
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_label.html:6
+msgid "Language"
+msgstr "Bahasa"
+
 #: gem/templates/base/core/main.html:20
 msgid ""
 "This site is free for all MTN subscribers. If you are an Airtel subscriber, "
@@ -324,11 +336,15 @@ msgstr ""
 #: gem/templates/base/core/related-article-list.html:7
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 #: temp/temp_ve/commenting/test_templates/article_page.html:48
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-next_up_in_cat.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_up-next.html:5
 msgid "Next up in"
 msgstr "Selanjutnya di"
 
 #: gem/templates/base/core/related-article-list.html:31
 #: temp/temp_ve/commenting/test_templates/article_page.html:63
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-recommended.html:5
+#: temp/temp_ve/core/templates/patterns/components/article-teasers/latest-promoted_variations/articles_general.html:2
 msgid "Recommended"
 msgstr "Rekomendasi"
 
@@ -337,17 +353,17 @@ msgstr "Rekomendasi"
 #: gem/templates/base/registration/login.html:34
 #: gem/templates/malawi/registration/login.html:34
 #: gem/templates/springster/forgot_password.html:5
-#: gem/templates/springster/forgot_password.html:35
+#: gem/templates/springster/forgot_password.html:31
 #: gem/templates/springster/profiles/forgot_password.html:5
 #: gem/templates/springster/profiles/forgot_password.html:28
-#: gem/templates/springster/registration/login.html:28
+#: gem/templates/springster/registration/login.html:29
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:6
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:32
 msgid "Forgot PIN"
 msgstr "Lupa PIN"
 
 #: gem/templates/base/forgot_password.html:27
-#: gem/templates/springster/forgot_password.html:29
+#: gem/templates/springster/forgot_password.html:24
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:27
 msgid "Please answer the following security question."
 msgstr "Silakan jawab pertanyaan keamanan berikut:"
@@ -360,13 +376,10 @@ msgstr "Terima kasih telah mendaftar!"
 
 #: gem/templates/base/profiles/change_password.html:30
 #: gem/templates/base/profiles/viewprofile.html:71
-#: gem/templates/springster/profiles/change_password.html:27
-#: gem/templates/springster/profiles/viewprofile.html:82
 msgid "New Password:"
 msgstr "Kata sandi baru"
 
 #: gem/templates/base/profiles/change_password.html:39
-#: gem/templates/springster/profiles/change_password.html:36
 msgid "Change Password"
 msgstr "Ganti kata sandi"
 
@@ -394,7 +407,6 @@ msgid "Edit your Profile"
 msgstr "Menyunting Profil"
 
 #: gem/templates/base/profiles/editprofile.html:13
-#: gem/templates/springster/profiles/editprofile.html:12
 msgid "Nickname:"
 msgstr "Nama panggilan:"
 
@@ -419,7 +431,7 @@ msgid "Choose a username"
 msgstr "Pilih nama pengguna"
 
 #: gem/templates/base/profiles/register.html:28
-#: gem/templates/springster/profiles/register.html:27
+#: gem/templates/springster/profiles/register.html:34
 msgid "Display name"
 msgstr "Nama tampilan"
 
@@ -465,24 +477,20 @@ msgstr ""
 #: gem/templates/base/profiles/register.html:85
 #: gem/templates/base/yourwords/your_words_competition_entry.html:66
 #: gem/templates/malawi/yourwords/your_words_competition_entry.html:64
-#: gem/templates/springster/profiles/register.html:80
-#: gem/templates/springster/profiles/register.html:85
+#: gem/templates/springster/profiles/register.html:87
+#: gem/templates/springster/profiles/register.html:90
 msgid "I accept the terms and conditions"
 msgstr "Aku menerima Syarat dan Ketentuan yang berlaku"
 
+#: gem/templates/base/profiles/register.html:92
+msgid "already joined?"
+msgstr "Sudah bergabung?"
+
 #: gem/templates/base/profiles/viewprofile.html:8
 #: gem/templates/springster/profiles/viewprofile.html:6
-#: gem/templates/springster/yourwords/your_words_competition.html:10
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:15
 msgid "Hello"
 msgstr "Halo"
-
-#: gem/templates/base/profiles/viewprofile.html:12
-#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
-#: gem/templates/springster/profiles/viewprofile.html:17
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
-msgid "log out"
-msgstr "Keluar"
 
 #: gem/templates/base/profiles/viewprofile.html:17
 #: gem/templates/springster/profiles/viewprofile.html:19
@@ -494,8 +502,13 @@ msgstr "Profil Kamu"
 msgid "When you type comments your name will appear as:"
 msgstr "Saat mengetik komentar namamu akan muncul sebagai:"
 
+#: gem/templates/base/profiles/viewprofile.html:22
+#: gem/templates/springster/profiles/viewprofile.html:26
+msgid ""
+"You haven't set a display name, so your comments will appear as 'anonymous'"
+msgstr ""
+
 #: gem/templates/base/profiles/viewprofile.html:76
-#: gem/templates/springster/profiles/viewprofile.html:89
 msgid "Confirm Password:"
 msgstr "Konfirmasi Sandi"
 
@@ -504,21 +517,10 @@ msgstr "Konfirmasi Sandi"
 msgid "Change"
 msgstr "Ubah "
 
-#: gem/templates/base/registration/login.html:14
-msgid "Are you not a member yet"
-msgstr "Kamu belum terdaftar"
-
-#: gem/templates/base/registration/login.html:19
-#: gem/templates/malawi/registration/login.html:19
-#: gem/templates/springster/registration/login.html:14
-#: temp/temp_ve/profiles/templates/registration/login.html:20
-#: temp/temp_ve/profiles/test_templates/login.html:20
-msgid "Your username and password do not match. Please try again."
-msgstr ""
-
 #: gem/templates/base/registration/login.html:27
 #: gem/templates/malawi/registration/login.html:27
-#: gem/templates/springster/registration/login.html:22
+#: gem/templates/springster/registration/login.html:23
+#: temp/temp_ve/core/templates/registration/login.html:19
 #: temp/temp_ve/profiles/templates/registration/login.html:30
 #: temp/temp_ve/profiles/test_templates/login.html:30
 msgid "4-digit pin"
@@ -531,46 +533,29 @@ msgstr "Pin 4 digit"
 msgid "PIN Changed"
 msgstr "PIN diubah"
 
-#: gem/templates/base/reset_password_success.html:10
-#: gem/templates/springster/reset_password_success.html:7
-msgid "Your PIN was changed successfully."
-msgstr ""
-
 #: gem/templates/base/search/search_block.html:4
 msgid "looking for something?"
 msgstr "Mencari sesuatu?"
-
-#: gem/templates/base/search/search_block.html:5
-#: gem/templates/base/search/search_results.html:12
-#: gem/templates/base/search/search_results.html:64
-#: gem/templates/base/search/search_results.html:71
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
-#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
-#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
-#: gem/templates/springster/search/search_results.html:7
-#: gem/templates/springster/search/search_results.html:31
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:8
-msgid "Search"
-msgstr "Pencarian"
 
 #: gem/templates/base/search/search_results.html:13
 #: gem/templates/springster/search/search_results.html:11
 msgid "results found for"
 msgstr "hasil yang ditemukan untuk"
 
-#: gem/templates/base/search/search_results.html:67
-#: gem/templates/springster/search/search_results.html:29
+#: gem/templates/base/search/search_results.html:93
+#: gem/templates/springster/search/search_results.html:21
+#: temp/temp_ve/core/templates/search/search_results.html:60
 msgid "No search results for "
 msgstr "Tidak ada hasil pencarian untuk"
 
-#: gem/templates/base/search/search_results.html:70
+#: gem/templates/base/search/search_results.html:96
 msgid "I am looking for"
 msgstr "Saya mencari"
 
 #: gem/templates/base/surveys/molo_survey_page.html:48
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
+#: gem/templates/springster/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:38
 msgid "Next Question"
 msgstr "PERTANYAAN SELANJUTNYA"
 
@@ -579,26 +564,21 @@ msgid "Done"
 msgstr "Selesai"
 
 #: gem/templates/base/surveys/molo_survey_page.html:51
-#: gem/templates/springster/surveys/molo_survey_page.html:39
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:32
+#: gem/templates/springster/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:36
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:41
 msgid "You have already completed this survey."
 msgstr ""
 
 #: gem/templates/base/surveys/molo_survey_page.html:54
 #: gem/templates/base/surveys/molo_survey_page_landing.html:9
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:39
 #: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:9
 msgid "Back to Home page"
 msgstr "Kembali ke Home Page"
 
 #: gem/templates/base/surveys/molo_survey_page.html:59
 msgid "Log in to take survey"
-msgstr ""
-
-#: gem/templates/base/surveys/molo_survey_page_landing.html:12
-#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
-msgid "Survey Results"
 msgstr ""
 
 #: gem/templates/base/surveys/molo_survey_page_landing.html:14
@@ -609,7 +589,7 @@ msgid ""
 "results below."
 msgstr ""
 
-#: gem/templates/base/surveys/surveys_list.html:13
+#: gem/templates/base/surveys/surveys_list.html:15
 msgid "Start"
 msgstr "Mulai"
 
@@ -634,12 +614,6 @@ msgstr "Kembali"
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:20
 msgid "Share your story"
 msgstr "Bagikan Kisahmu"
-
-#: gem/templates/base/yourwords/thank_you.html:10
-#: gem/templates/malawi/yourwords/thank_you.html:10
-#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
-msgid "Thank you!"
-msgstr "Terima kasih!"
 
 #: gem/templates/base/yourwords/thank_you.html:11
 #: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:52
@@ -685,7 +659,7 @@ msgstr "Tulis Kisahmu"
 
 #: gem/templates/base/yourwords/your_words_competition_tag.html:22
 #: gem/templates/malawi/yourwords/your_words_competition_tag.html:20
-#: gem/templates/springster/yourwords/your_words_competition.html:24
+#: gem/templates/springster/yourwords/your_words_competition.html:19
 #: gem/templates/springster/yourwords/your_words_competition_tag.html:21
 #: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:20
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:27
@@ -694,9 +668,14 @@ msgstr "Tulis Kisahmu"
 msgid "Log in to Enter"
 msgstr "Log in untuk mengirim"
 
-#: gem/templates/malawi/base.html:128
-msgid "Log in / Sign up"
-msgstr "Login/daftar"
+#: gem/templates/malawi/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:13
+msgid "Hi"
+msgstr ""
+
+#: gem/templates/malawi/403_csrf.html:15
+msgid "Zathu"
+msgstr ""
 
 #: gem/templates/malawi/registration/login.html:14
 msgid "Are you not a member yet? Sign up"
@@ -706,11 +685,17 @@ msgstr "Kamu belum terdaftar? Daftar yuk."
 msgid "Thanks for submitting your story!"
 msgstr "Terima kasih sudah membagikan ceritamu!"
 
-#: gem/templates/springster/comments/comment_block.html:33
+#: gem/templates/springster/comments/comment_block.html:24
+#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/article-comment-counter.html:5
+msgid "Your thoughts"
+msgstr "Tanggapan kamu"
+
+#: gem/templates/springster/comments/comment_block.html:36
 msgid "Read more comments"
 msgstr "Tampilkan komentar"
 
-#: gem/templates/springster/comments/form.html:15
+#: gem/templates/springster/comments/form.html:11
 #: temp/temp_ve/commenting/forms.py:18
 msgid "Comment"
 msgstr "Komentar"
@@ -720,7 +705,7 @@ msgstr "Komentar"
 msgid "Please"
 msgstr "Mohon"
 
-#: gem/templates/springster/comments/preview.html:19
+#: gem/templates/springster/comments/preview.html:20
 msgid "to leave a comment."
 msgstr "Tinggalkan komentar"
 
@@ -728,51 +713,48 @@ msgstr "Tinggalkan komentar"
 msgid "Add your reply"
 msgstr "Tambahkan balasanmu"
 
+#: gem/templates/springster/forgot_password.html:11
+#: gem/templates/springster/profiles/register.html:18
+msgid "Please correct the indicated errors."
+msgstr ""
+
 #: gem/templates/springster/notifications/notice.html:21
 #: temp/temp_ve/commenting/templates/notifications/notice.html:15
 msgid "replied to your comment on: "
 msgstr "balas komentarmu di:"
 
-#: gem/templates/springster/notifications/reply_list.html:12
-#: gem/templates/springster/notifications/tags/notification_banner.html:13
-msgid "reply"
-msgstr "Balasan"
+#: gem/templates/springster/notifications/notice.html:29
+#: temp/temp_ve/commenting/templates/notifications/notice.html:24
+msgid "Your comment"
+msgstr "Komentarmu"
 
-#: gem/templates/springster/notifications/reply_list.html:14
-#: gem/templates/springster/notifications/tags/notification_banner.html:15
-msgid "replies"
+#: gem/templates/springster/notifications/notice.html:33
+msgid "A Reply"
 msgstr ""
 
-#: gem/templates/springster/notifications/reply_list.html:22
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
-msgid "Read replies:"
-msgstr "Baca balasan"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:6
-#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
-msgid "Notification:"
-msgstr "Notifikasi"
-
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "You have"
 msgstr "Kamu punya"
 
-#: gem/templates/springster/notifications/tags/notification_banner.html:11
+#: gem/templates/springster/notifications/reply_list.html:9
 msgid "unread"
 msgstr "belum dibaca"
 
-#: gem/templates/springster/patterns/basics/articles/sp_variations/article-comment-counter.html:5
-msgid "Your thought"
-msgstr "Tanggapan kamu"
+#: gem/templates/springster/patterns/basics/articles/reaction_question.html:31
+#: temp/temp_ve/core/templates/patterns/basics/articles/reaction_question.html:22
+msgid "You have already submitted a response for this article."
+msgstr ""
 
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
+#: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
 msgid "You might like"
 msgstr ""
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: gem/templates/springster/yourwords/terms_and_conditions.html:19
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: temp/temp_ve/yourwords/templates/yourwords/terms_and_conditions.html:46
 msgid "Back"
 msgstr "Kembali"
@@ -780,22 +762,22 @@ msgstr "Kembali"
 #: gem/templates/springster/patterns/basics/comment-counter/centered-comment-counter.html:8
 #: gem/templates/springster/patterns/basics/comment-counter/comment-counter.html:8
 #: temp/temp_ve/commenting/templates/comments/comment_block.html:26
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/centered-comment-counter.html:8
+#: temp/temp_ve/core/templates/patterns/basics/comment-counter/comment-counter.html:8
 msgid "comment"
 msgstr "Komentar"
-
-#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
-msgid "Join us"
-msgstr "Gabung yuk!"
 
 #: gem/templates/springster/patterns/basics/social-media/social-media_with-label.html:4
 msgid "Share"
 msgstr "Bagikan"
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:6
+#: gem/templates/springster/patterns/components/banners/join-banner.html:7
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:6
 msgid "Share your opinions and stories, take polls, win fun prizes."
 msgstr ""
 
-#: gem/templates/springster/patterns/components/banners/join-banner.html:8
+#: gem/templates/springster/patterns/components/banners/join-banner.html:9
+#: temp/temp_ve/core/templates/patterns/components/banners/join-banner.html:8
 msgid "Join"
 msgstr ""
 
@@ -812,12 +794,20 @@ msgstr ""
 msgid "Thank you! Your response has already been submitted."
 msgstr "Terima kasih! Responmu sudah masuk!"
 
+#: gem/templates/springster/profiles/change_password.html:42
+msgid "Change Pin"
+msgstr ""
+
+#: gem/templates/springster/profiles/editprofile.html:12
+msgid "Display name:"
+msgstr "Nama tampilan"
+
 #: gem/templates/springster/profiles/register.html:8
-#: gem/templates/springster/profiles/register.html:96
+#: gem/templates/springster/profiles/register.html:102
 msgid "Already joined?"
 msgstr "Sudah bergabung?"
 
-#: gem/templates/springster/profiles/register.html:52
+#: gem/templates/springster/profiles/register.html:59
 msgid "I identify as"
 msgstr "Saya teridentifikasi sebagai"
 
@@ -832,6 +822,14 @@ msgstr "(contoh 2086)"
 msgid "Your PIN has been changed sucessfully."
 msgstr ""
 
+#: gem/templates/springster/profiles/reset_password_success.html:10
+msgid "Continue to sign in"
+msgstr "Lanjutkan untuk Masuk"
+
+#: gem/templates/springster/profiles/viewprofile.html:89
+msgid "Confirm Pin:"
+msgstr "Konfirmasi PIN "
+
 #: gem/templates/springster/registration/login.html:7
 #: temp/temp_ve/profiles/templates/profiles/register.html:14
 #: temp/temp_ve/profiles/templates/registration/login.html:8
@@ -844,15 +842,13 @@ msgid "Your password has been set. You may go ahead and log in now."
 msgstr ""
 "Password kamu telah ditetapkan. Kamu bisa melanjutkan dan login sekarang."
 
-#: gem/templates/springster/registration/password_reset_confirm.html:11
-msgid "New password:"
-msgstr "Kata sandi baru"
-
 #: gem/templates/springster/registration/password_reset_confirm.html:16
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:16
 msgid "Confirm password:"
 msgstr "Konfirmasi Sandi"
 
 #: gem/templates/springster/registration/password_reset_done.html:5
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:7
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
@@ -862,6 +858,7 @@ msgstr ""
 "sesegera mungkin. "
 
 #: gem/templates/springster/registration/password_reset_done.html:8
+#: temp/temp_ve/core/templates/registration/password_reset_done.html:9
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -878,25 +875,30 @@ msgstr ""
 "instruksi untuk mengatur yang baru."
 
 #: gem/templates/springster/registration/password_reset_form.html:17
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:12
 msgid "Reset my password"
 msgstr "Atur ulang password"
 
-#: gem/templates/springster/surveys/molo_survey_page.html:35
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:28
-msgid "Submit Survey"
-msgstr ""
-
-#: gem/templates/springster/surveys/molo_survey_page.html:45
+#: gem/templates/springster/surveys/molo_survey_page.html:47
 msgid "Log in to take Survey"
 msgstr ""
 
-#: gem/templates/springster/surveys/surveys_list.html:10
+#: gem/templates/springster/surveys/surveys_list.html:11
 msgid "Take Survey"
 msgstr ""
 
 #: gem/templates/springster/yourwords/thank_you.html:24
 msgid "Thank you for sharing your words!"
 msgstr ""
+
+#: gem/templates/springster/yourwords/your_words_competition.html:15
+#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
+#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
+msgid "Enter"
+msgstr "Masukkan"
 
 #: gem/templates/springster/yourwords/your_words_competition_entry.html:23
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:54
@@ -914,21 +916,16 @@ msgstr "Aku menerima Syarat dan Ketentuan yang berlaku"
 msgid "Submit your story"
 msgstr "Kirim kisahmu"
 
-#: gem/views.py:116
+#: gem/views.py:117
 #: temp/temp_ve/profiles/views.py:184
 msgid "Too many attempts. Please try again later."
 msgstr "Maaf, kamu mencoba terlalu sering. Silakan coba lagi nanti."
 
-#: gem/views.py:134
+#: gem/views.py:142
 msgid "The username that you entered appears to be invalid. Please try again."
 msgstr "Nama pengguna yang kamu masukkan tidak valid. Silakan coba lagi"
 
-#: gem/views.py:217
-#: temp/temp_ve/profiles/views.py:279
-msgid "The two PINs that you entered do not match. Please try again."
-msgstr "Kedua PIN yang kamu masukkan tidak cocok. Silakan coba lagi."
-
-#: gem/views.py:345
+#: gem/views.py:353
 msgid ""
 "This comment has been removed as it contains profanity, contact information "
 "or other inappropriate content. "
@@ -936,22 +933,25 @@ msgstr ""
 "Komentar ini telah dihapus karena mengandung kata-kata kasar, data diri "
 "pribadi dan konten tidak pantas lainnya."
 
-#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
-msgid "Looking for something?"
-msgstr "Mencari sesuatu?"
-
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/recommend/element.html:18
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/recommend/element.html:17
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:20
 msgid "More"
 msgstr "Pindah"
 
-#: mote/projects/gem/website/src/patterns/components/article-list/variations/up-next-and-recommended/element.html:14
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
 msgid "Recommended:"
 msgstr "Direkomendasikan:"
 
-#: temp/temp_ve/commenting/admin_views.py:61
-#: temp/temp_ve/commenting/views.py:111
-msgid "Reply successfully created."
-msgstr "Balasan berhasil dibuat"
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:6
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:3
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:64
+msgid "Looking for something?"
+msgstr "Mencari sesuatu?"
 
 #: temp/temp_ve/commenting/forms.py:13
 #: temp/temp_ve/commenting/forms.py:68
@@ -986,64 +986,96 @@ msgstr ""
 "Ini akan ditinjau oleh tim kita dan dapat dihapus jika melanggar peraturan "
 "platform."
 
-#: temp/temp_ve/commenting/templates/notifications/notice.html:24
-msgid "Your comment"
-msgstr "Komentarmu"
-
 #: temp/temp_ve/commenting/templates/notifications/reply_list.html:9
 #: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:12
 msgid "unread replies"
 msgstr "Balasan belum dibaca"
+
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:19
+msgid "Read replies:"
+msgstr "Baca balasan"
+
+#: temp/temp_ve/commenting/templates/notifications/tags/notification_banner.html:6
+msgid "Notification:"
+msgstr "Notifikasi"
+
+#: temp/temp_ve/commenting/views.py:31
+msgid "Reporting comment replies is not allowed."
+msgstr "Pelaporan balasan komentar tidak diperbolehkan"
+
+#: temp/temp_ve/core/templates/403.html:8
+msgid "Access Denied"
+msgstr "Akses ditolak"
+
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid ""
+"Sorry, you are having trouble accessing this feature! Due to a temporary "
+"technical issue, login and registrations are not available on the Free "
+"Basics app for now. To login or register for a profile, visit our free "
+"mobisite through your mobile browser at"
+msgstr ""
+"Maaf, kamu mengalami masalah dalam mengakses fitur ini! Karena masalah "
+"teknis sementara, login dan pendaftaran tidak tersedia di aplikasi Free "
+"Basics untuk saat ini. Untuk masuk atau mendaftar ke profil, kunjungi "
+"mobisite gratis kami melalui browser mobile kamu di"
+
+#: temp/temp_ve/core/templates/core/api/article_import.html:11
+#: temp/temp_ve/core/templates/core/api/image_import_page.html:23
+#: temp/temp_ve/core/templates/core/api/main_import_page.html:9
+#: temp/temp_ve/core/templates/core/api/section_import.html:11
+#: temp/temp_ve/core/templates/core/api/site_import_page.html:9
+msgid "Get content"
+msgstr ""
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:12
+msgid "Click to watch on youtube!"
+msgstr ""
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:21
+msgid "Click here to download"
+msgstr ""
+
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html:4
+msgid "Back to"
+msgstr ""
+
+#: temp/temp_ve/core/templates/registration/login.html:15
+msgid "Your username and password does not match. Please try again."
+msgstr ""
+
+#: temp/temp_ve/core/templates/registration/password_reset_complete.html:7
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"Password kamu telah ditetapkan. Kamu bisa melanjutkan dan login sekarang."
 
 #: temp/temp_ve/polls/test_templates/base.html:79
 #: temp/temp_ve/surveys/test_templates/base.html:77
 msgid "Site Language:"
 msgstr ""
 
-#: temp/temp_ve/profiles/admin_views.py:16
-msgid ""
-"Your email address is not configured. Please update it before exporting."
-msgstr ""
-
-#: temp/temp_ve/profiles/forms.py:113
-#: temp/temp_ve/profiles/forms.py:244
-#: temp/temp_ve/profiles/forms.py:294
+#: temp/temp_ve/profiles/forms.py:136
+#: temp/temp_ve/profiles/forms.py:267
+#: temp/temp_ve/profiles/forms.py:317
 msgid "Location"
 msgstr "Lokasi"
 
-#: temp/temp_ve/profiles/forms.py:184
+#: temp/temp_ve/profiles/forms.py:207
 msgid "Username already exists."
 msgstr ""
 
-#: temp/temp_ve/profiles/forms.py:189
-msgid ""
-"Sorry, but that is an invalid username. Please don't use your %s in your "
-"username."
-msgstr ""
-"Maaf, tapi username itu tidak valid. Jangan gunakan %s kamu pada username-mu."
-
-#: temp/temp_ve/profiles/forms.py:382
+#: temp/temp_ve/profiles/forms.py:405
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:25
 msgid "Old Password"
 msgstr "Kata sandi lama"
 
-#: temp/temp_ve/profiles/forms.py:397
+#: temp/temp_ve/profiles/forms.py:420
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:32
 msgid "New Password"
 msgstr "Kata sandi baru"
 
-#: temp/temp_ve/profiles/forms.py:413
+#: temp/temp_ve/profiles/forms.py:436
 msgid "Confirm Password"
 msgstr "Konfirmasi Sandi"
-
-#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
-msgid "Confirm New Password"
-msgstr "Konfirmasi Sandi"
-
-#: temp/temp_ve/profiles/templates/profiles/done.html:18
-#: temp/temp_ve/profiles/templates/profiles/register.html:45
-msgid "SELECT DATE OF BIRTH"
-msgstr "PILIH TANGGAL LAHIR"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:29
 #: temp/temp_ve/profiles/templates/profiles/editprofile.html:14
@@ -1123,25 +1155,17 @@ msgstr "Punya akun? Masuk"
 msgid "Join us by signing up below."
 msgstr "Gabung bersama kami dengan mendaftar di bawah"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:24
-msgid ""
-"This name you will use to log in and won't appear to other users. Only you "
-"will see this."
-msgstr ""
-"Gunakan nama ini untuk log in. Hanya kamu yang bisa melihat nama ini, "
-"pengguna lain hanya dapat melihat nama yang tertera di nama tampilanmu."
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:31
 msgid "e.g. 2086"
 msgstr "(contoh 2086)"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:36
+msgid "CHOOSE A DISPLAY NAME"
+msgstr "PILIH NAMA TAMPILAN"
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:84
 msgid "(e.g. 0900000013)"
 msgstr "(contoh: 0900000013)"
-
-#: temp/temp_ve/profiles/templates/profiles/register.html:90
-msgid "ENTER YOUR EMAIL ADDRESS"
-msgstr "MASUKAN ALAMAT EMAILMU"
 
 #: temp/temp_ve/profiles/templates/profiles/register.html:112
 msgid "Please accept the T&amp;Cs in order to complete the registration"
@@ -1171,12 +1195,17 @@ msgstr "Lokasi:"
 msgid "Education Level:"
 msgstr "Tingkat pendidikan:"
 
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
+msgid "Change My Password"
+msgstr "Ganti kata sandi"
+
 #: temp/temp_ve/profiles/templates/registration/login.html:32
 #: temp/temp_ve/profiles/test_templates/login.html:32
 msgid "Eg.: 2086"
 msgstr ""
 
-#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:40
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:44
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:45
 msgid "Please log in to take this survey"
 msgstr ""
 
@@ -1207,17 +1236,17 @@ msgstr ""
 
 #: gem/forms.py:68
 #: gem/forms.py:217
-#: temp/temp_ve/profiles/forms.py:109
-#: temp/temp_ve/profiles/forms.py:240
-#: temp/temp_ve/profiles/forms.py:290
+#: temp/temp_ve/profiles/forms.py:132
+#: temp/temp_ve/profiles/forms.py:263
+#: temp/temp_ve/profiles/forms.py:313
 msgid "Gender"
 msgstr "Jenis Kelamin"
 
 #: gem/forms.py:83
 #: gem/forms.py:140
 #: gem/forms.py:211
-#: temp/temp_ve/profiles/forms.py:75
-#: temp/temp_ve/profiles/forms.py:437
+#: temp/temp_ve/profiles/forms.py:98
+#: temp/temp_ve/profiles/forms.py:460
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "Bagian ini hanya dapat diisi huruf, angka dan garis bawah."
 
@@ -1239,14 +1268,14 @@ msgstr ""
 
 #: gem/forms.py:177
 #: gem/forms.py:194
-#: temp/temp_ve/profiles/forms.py:91
-#: temp/temp_ve/profiles/forms.py:411
-#: temp/temp_ve/profiles/forms.py:479
-#: temp/temp_ve/profiles/forms.py:496
+#: temp/temp_ve/profiles/forms.py:114
+#: temp/temp_ve/profiles/forms.py:434
+#: temp/temp_ve/profiles/forms.py:502
+#: temp/temp_ve/profiles/forms.py:519
 msgid "This value must contain only numbers."
 msgstr "Bagian ini hanya dapat diisi angka."
 
-#: gem/settings/base.py:324
+#: gem/settings/base.py:352
 #: gem/templates/springster/polls/includes/poll_free_text_form.html:23
 #: gem/templates/springster/polls/includes/poll_question_form.html:20
 #: temp/temp_ve/polls/templates/polls/includes/poll_free_text_form.html:18
@@ -1254,73 +1283,133 @@ msgstr "Bagian ini hanya dapat diisi angka."
 msgid "Log in to vote"
 msgstr "Log in untuk menjawab"
 
-#: gem/settings/base.py:325
+#: gem/settings/base.py:353
 msgid "That username already exits. Please try another one."
 msgstr "Username itu sudah ada yang pakai, coba pakai username lain"
 
-#: gem/settings/base.py:327
-#: gem/templates/springster/polls/detail.html:26
-#: gem/templates/springster/polls/free_text_detail.html:16
-#: gem/templates/springster/polls/includes/poll_question_form.html:36
-#: temp/temp_ve/polls/templates/polls/detail.html:24
-#: temp/temp_ve/polls/templates/polls/free_text_detail.html:11
-#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:35
-msgid "Vote"
-msgstr "Pilih"
+#: gem/settings/base.py:357
+#: gem/templates/springster/polls/includes/poll_question_form.html:43
+#: temp/temp_ve/polls/templates/polls/includes/poll_question_form.html:40
+msgid "You voted: "
+msgstr "Kamu memilih:"
 
-#: gem/settings/base.py:330
+#: gem/settings/base.py:358
 msgid "Name of the city you were born in"
 msgstr "Sebutkan kota kelahiran kamu"
+
+#: gem/templates/base/403_csrf.html:9
+#: gem/templates/malawi/403_csrf.html:9
+#: gem/templates/springster/403_csrf.html:6
+#: temp/temp_ve/core/templates/403_csrf.html:10
+msgid "Unable to Login"
+msgstr "Tidak bisa login"
 
 #: gem/templates/base/403_csrf.html:12
 #: gem/templates/springster/403_csrf.html:8
 msgid "Hi Girl"
 msgstr "Hai!"
 
+#: gem/templates/base/403_csrf.html:13
+#: gem/templates/springster/403_csrf.html:12
+#: temp/temp_ve/core/templates/403_csrf.html:14
+msgid " We're working hard to get this problem resolved. Thank you."
+msgstr "Kami berhasil menyelesaikan masalah ini. Terima kasih."
+
+#: gem/templates/base/403_csrf.html:15
+#: gem/templates/malawi/403_csrf.html:14
+#: gem/templates/springster/403_csrf.html:14
+msgid "XO"
+msgstr "XO"
+
 #: gem/templates/base/500.html:12
 #: gem/templates/base/500.html:17
 #: gem/templates/springster/500.html:11
 #: gem/templates/springster/500.html:16
+#: temp/temp_ve/core/templates/500.html:12
+#: temp/temp_ve/core/templates/500.html:16
 msgid "Internal server error"
 msgstr "Galat internal pada server"
 
-#: gem/templates/base/base.html:73
-#: gem/templates/malawi/base.html:83
+#: gem/templates/base/base.html:57
+#: gem/templates/malawi/base.html:72
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:22
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:5
 msgid "Menu"
 msgstr "Menu"
 
-#: gem/templates/base/base.html:75
+#: gem/templates/base/base.html:59
 #: gem/templates/base/profiles/register.html:8
 #: gem/templates/base/profiles/register.html:90
-#: gem/templates/malawi/base.html:85
+#: gem/templates/malawi/base.html:74
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
-#: gem/templates/springster/profiles/register.html:94
+#: gem/templates/springster/profiles/register.html:100
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_profile-icon.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:8
 msgid "Sign up"
 msgstr "Daftar"
 
-#: gem/templates/base/base.html:77
-#: gem/templates/base/base.html:141
-#: gem/templates/malawi/base.html:87
-#: gem/templates/malawi/base.html:135
+#: gem/templates/base/base.html:61
+#: gem/templates/base/base.html:119
+#: gem/templates/malawi/base.html:76
+#: gem/templates/malawi/base.html:124
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:31
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:31
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:12
 #: temp/temp_ve/profiles/templates/profiles/done.html:64
 msgid "Profile"
 msgstr "Profil"
 
-#: gem/templates/base/base.html:128
+#: gem/templates/base/base.html:92
+#: gem/templates/base/core/tags/breadcrumbs.html:6
+#: gem/templates/base/polls/results.html:28
+#: gem/templates/malawi/base.html:104
+#: gem/templates/springster/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:5
+#: gem/templates/springster/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/commenting/templates/comments/preview.html:11
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-bg.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-general.html:7
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:4
+#: temp/temp_ve/core/templates/patterns/basics/breadcrumbs/breadcrumbs-static.html:5
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:5
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-column.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation-vertical.html:13
+#: temp/temp_ve/core/templates/patterns/basics/navigation/navigation.html:9
+#: temp/temp_ve/core/templates/patterns/basics/navigation/sp_variations/navigation-category_full.html:6
+#: temp/temp_ve/polls/templates/polls/detail.html:25
+#: temp/temp_ve/polls/templates/polls/free_text_detail.html:12
+#: temp/temp_ve/polls/templates/polls/results.html:24
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:56
+#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_entry.html:84
+msgid "Home"
+msgstr "Home"
+
+#: gem/templates/base/base.html:106
 msgid "Sign Up"
 msgstr "Daftar"
 
-#: gem/templates/base/base.html:147
-#: gem/templates/malawi/base.html:141
+#: gem/templates/base/base.html:125
+#: gem/templates/malawi/base.html:130
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:36
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:36
 msgid "Log out"
 msgstr "Keluar"
 
-#: gem/templates/base/base.html:156
-#: gem/templates/malawi/base.html:150
+#: gem/templates/base/base.html:134
+#: gem/templates/malawi/base.html:139
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-pipe.html:5
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:4
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright.html:5
 msgid "All Rights Reserved."
 msgstr "Semua hak dilindungi"
 
@@ -1331,7 +1420,7 @@ msgid "Big Sister"
 msgstr "Big Sister"
 
 #: gem/templates/base/comments/comment.html:35
-#: gem/templates/springster/comments/comment.html:31
+#: gem/templates/springster/comments/comment.html:39
 #: gem/templates/springster/notifications/notice.html:24
 #: temp/temp_ve/commenting/templates/notifications/notice.html:18
 msgid "ago"
@@ -1353,7 +1442,7 @@ msgid "View more comments"
 msgstr "Tampilkan komentar"
 
 #: gem/templates/base/comments/form.html:5
-#: gem/templates/springster/comments/form.html:8
+#: gem/templates/springster/comments/form.html:6
 #: temp/temp_ve/commenting/templates/comments/form.html:7
 msgid "Please correct the error below"
 msgstr "Mohon perbaiki kesalahan di bawah"
@@ -1379,11 +1468,25 @@ msgstr "Mohon"
 msgid " to leave a comment."
 msgstr "Tinggalkan komentar"
 
+#: gem/templates/base/comments/reply.html:14
+#: gem/templates/springster/comments/reply.html:13
+#: temp/temp_ve/commenting/templates/comments/reply.html:15
+msgid "Recent replies"
+msgstr "Balasan Terbaru"
+
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/springster/patterns/basics/pagination/pagination-comments.html:7
 #: temp/temp_ve/commenting/templates/comments/reply.html:29
+#: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "Page"
 msgstr "Halaman"
+
+#: gem/templates/base/comments/report_response.html:7
+#: gem/templates/springster/comments/report_response.html:5
+#: temp/temp_ve/commenting/templates/comments/comment_done.html:7
+#: temp/temp_ve/commenting/templates/comments/report_response.html:6
+msgid "Thanks!"
+msgstr "Terima Kasih!"
 
 #: gem/templates/base/comments/report_response.html:11
 #: gem/templates/springster/comments/report_response.html:10
@@ -1406,11 +1509,6 @@ msgid ""
 "breaks our Platform rules"
 msgstr ""
 
-#: gem/templates/base/core/language_block.html:5
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:8
-msgid "Language"
-msgstr "Bahasa"
-
 #: gem/templates/base/forgot_password.html:26
 #: gem/templates/springster/profiles/forgot_password.html:23
 #: temp/temp_ve/profiles/templates/profiles/forgot_password.html:26
@@ -1424,13 +1522,10 @@ msgstr "Apa pendapatmu?"
 
 #: gem/templates/base/profiles/change_password.html:25
 #: gem/templates/base/profiles/viewprofile.html:66
-#: gem/templates/springster/profiles/change_password.html:22
-#: gem/templates/springster/profiles/viewprofile.html:74
 msgid "Old Password:"
 msgstr "Kata sandi lama"
 
 #: gem/templates/base/profiles/change_password.html:35
-#: gem/templates/springster/profiles/change_password.html:32
 msgid "Confirm New Password:"
 msgstr "Konfirmasi Sandi"
 
@@ -1443,7 +1538,7 @@ msgstr "Terima kasih telah mendaftar!"
 #: gem/templates/base/profiles/editprofile.html:14
 #: gem/templates/base/profiles/register.html:21
 #: gem/templates/springster/profiles/editprofile.html:16
-#: gem/templates/springster/profiles/register.html:22
+#: gem/templates/springster/profiles/register.html:29
 msgid ""
 "Please do not use your real name, phone number or email address as it's "
 "unsafe."
@@ -1461,6 +1556,7 @@ msgstr "Tempat, tanggal lahir:"
 #: gem/templates/base/profiles/editprofile.html:34
 #: gem/templates/springster/profiles/editprofile.html:43
 #: gem/templates/springster/registration/password_reset_form.html:13
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:10
 msgid "Email address:"
 msgstr "Alamat email:"
 
@@ -1477,37 +1573,34 @@ msgstr ""
 "ini."
 
 #: gem/templates/base/profiles/register.html:35
-#: gem/templates/springster/profiles/register.html:35
+#: gem/templates/springster/profiles/register.html:42
 msgid "Choose a 4-digit pin"
 msgstr "Pilih 4 digit pin"
 
 #: gem/templates/base/profiles/register.html:42
-#: gem/templates/springster/profiles/register.html:44
+#: gem/templates/springster/profiles/register.html:51
 msgid "Enter your mobile number"
 msgstr "Masukkan nomor HPmu"
 
 #: gem/templates/base/profiles/register.html:56
-#: gem/templates/springster/forgot_password.html:27
-#: gem/templates/springster/profiles/register.html:60
+#: gem/templates/springster/forgot_password.html:22
+#: gem/templates/springster/profiles/register.html:67
 msgid "Security questions"
 msgstr "Pertanyaan keamanan"
 
 #: gem/templates/base/profiles/register.html:71
-#: gem/templates/springster/profiles/register.html:90
+#: gem/templates/springster/profiles/register.html:96
 msgid ""
 "Please accept the terms and conditions in order to complete registration"
 msgstr ""
 
-#: gem/templates/base/profiles/register.html:92
-msgid "already joined?"
-msgstr "Sudah bergabung?"
-
-#: gem/templates/base/profiles/viewprofile.html:22
-#: gem/templates/springster/profiles/viewprofile.html:26
-msgid "You haven't set a display name, so your comments will appear as 'anonymous'"
-msgstr ""
-"Kamu belum menentukan nama panggilan, jadi komentar kamu akan muncul sebagai "
-"'anonymous'."
+#: gem/templates/base/profiles/viewprofile.html:12
+#: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: gem/templates/springster/profiles/viewprofile.html:17
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_logout.html:4
+#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:59
+msgid "log out"
+msgstr "Keluar"
 
 #: gem/templates/base/profiles/viewprofile.html:42
 #: gem/templates/springster/profiles/viewprofile.html:52
@@ -1515,9 +1608,20 @@ msgid "Update Profile"
 msgstr "Menyimpan profil"
 
 #: gem/templates/base/profiles/viewprofile.html:50
-#: gem/templates/springster/profiles/viewprofile.html:56
 msgid "Change Your Password"
 msgstr "Ganti kata sandi"
+
+#: gem/templates/base/registration/login.html:14
+msgid "Are you not a member yet"
+msgstr "Kamu belum terdaftar"
+
+#: gem/templates/base/registration/login.html:19
+#: gem/templates/malawi/registration/login.html:19
+#: gem/templates/springster/registration/login.html:15
+#: temp/temp_ve/profiles/templates/registration/login.html:20
+#: temp/temp_ve/profiles/test_templates/login.html:20
+msgid "Your username and password do not match. Please try again."
+msgstr ""
 
 #: gem/templates/base/reset_password.html:7
 #: gem/templates/base/reset_password.html:33
@@ -1530,75 +1634,198 @@ msgstr "Ganti kata sandi"
 msgid "Reset PIN"
 msgstr "Reset PIN"
 
+#: gem/templates/base/reset_password_success.html:10
+#: gem/templates/springster/reset_password_success.html:7
+msgid "Your PIN was changed successfully."
+msgstr ""
+
 #: gem/templates/base/reset_password_success.html:12
 #: gem/templates/springster/reset_password_success.html:9
 #: temp/temp_ve/profiles/templates/profiles/reset_password_success.html:8
 msgid "Continue to Sign In"
 msgstr "Lanjutkan untuk Masuk"
 
+#: gem/templates/base/search/search_block.html:5
+#: gem/templates/base/search/search_results.html:12
+#: gem/templates/base/search/search_results.html:90
+#: gem/templates/base/search/search_results.html:97
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: gem/templates/springster/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: gem/templates/springster/patterns/components/footer/sp_variations/footer-menu.html:3
+#: gem/templates/springster/search/search_results.html:7
+#: gem/templates/springster/search/search_results.html:23
+#: mote/projects/gem/website/src/patterns/basics/menu/element.html:13
+#: mote/projects/gem/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/search/element.html:7
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-icons.html:8
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-standard.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_home-toggle.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/menu-with_search-icon.html:11
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:18
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-full_with-icons.html:26
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon-bg.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button-icon.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/search-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/search/sp_variations/search-button-icon.html:6
+#: temp/temp_ve/core/templates/patterns/components/footer/sp_variations/sp_footer-menu.html:3
+#: temp/temp_ve/core/templates/search/search_results.html:59
+#: temp/temp_ve/core/templates/search/search_results.html:65
+msgid "Search"
+msgstr "Pencarian"
+
+#: gem/templates/base/surveys/molo_survey_page_landing.html:12
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:14
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page_landing.html:12
+msgid "Survey Results"
+msgstr ""
+
+#: gem/templates/base/yourwords/thank_you.html:10
+#: gem/templates/malawi/yourwords/thank_you.html:10
+#: temp/temp_ve/yourwords/templates/yourwords/thank_you.html:50
+msgid "Thank you!"
+msgstr "Terima kasih!"
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid ""
+" Sorry we are having trouble accessing this feature! Due to a temporary "
+"technical issue, log in and registrations are not available on Free Basics "
+"app for now. To login or register for a profile, visit our free mobisite "
+"through your mobile browser at:"
+msgstr ""
+
+#: gem/templates/malawi/403_csrf.html:13
+msgid " We’re working hard to get this problem resolved. Thank you."
+msgstr "Kami berhasil menyelesaikan masalah ini. Terima kasih."
+
+#: gem/templates/malawi/base.html:117
+msgid "Log in / Sign up"
+msgstr "Login/daftar"
+
 #: gem/templates/springster/403_csrf.html:15
 #: gem/templates/springster/patterns/basics/images/sp_variations/logo.html:6
+#: temp/temp_ve/core/templates/patterns/basics/images/sp_variations/logo.html:6
 msgid "Springster"
 msgstr "Springster"
 
-#: gem/templates/springster/comments/comment_block.html:4
-#: gem/templates/springster/comments/form.html:5
+#: gem/templates/springster/comments/comment.html:11
+msgid "Moderator"
+msgstr ""
+
+#: gem/templates/springster/comments/comment.html:32
+msgid "Read More"
+msgstr "Baca selengkapnya"
+
+#: gem/templates/springster/comments/comment.html:72
+msgid "Recent Replies"
+msgstr "Balasan Terbaru"
+
+#: gem/templates/springster/comments/comment_block.html:5
 msgid "Share your thoughts"
 msgstr "Bagikan tanggapanmu"
 
-#: gem/templates/springster/comments/comment_block.html:20
-msgid "Your thoughts"
-msgstr "Tanggapan kamu"
-
 #: gem/templates/springster/comments/preview.html:17
 #: gem/templates/springster/profiles/register.html:9
-#: gem/templates/springster/profiles/register.html:97
+#: gem/templates/springster/profiles/register.html:103
 msgid "Log in here"
 msgstr "Login di sini"
 
-#: gem/templates/springster/core/main.html:31
-#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:25
-#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:25
+#: gem/templates/springster/core/article_tags.html:5
+#: gem/templates/springster/notifications/reply_list.html:26
+#: gem/templates/springster/polls/detail.html:29
+#: gem/templates/springster/polls/free_text_detail.html:20
+#: gem/templates/springster/polls/results.html:36
+#: gem/templates/springster/surveys/molo_survey_page.html:41
+#: gem/templates/springster/surveys/molo_survey_page_landing.html:33
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
+msgid "Back home"
+msgstr "Kembali ke awal"
+
+#: gem/templates/springster/core/article_tags.html:11
+#: gem/templates/springster/core/article_tags_for_paging.html:5
+#: gem/templates/springster/core/main-feature-more.html:8
+#: gem/templates/springster/core/main.html:34
+#: gem/templates/springster/patterns/basics/article-teasers/latest-promoted_variations/latest-articles_for-paging.html:6
+#: gem/templates/springster/patterns/basics/sections/sectionpage-article-list-standard_for-paging.html:6
 #: gem/templates/springster/patterns/components/section-page/sp_variations/base-section_teaser-listing.html:20
+#: gem/templates/springster/search/search_results.html:16
+#: gem/templates/springster/search/search_results_for_paging.html:5
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/latest-promoted_variations/sp_variations/latest-articles_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/basics/sections/sp_variations/sectionpage-article-list-standard_for-paging.html:6
+#: temp/temp_ve/core/templates/patterns/components/sectionpage/sp_variations/base-section_teaser-listing.html:20
 msgid "Load more"
 msgstr "Baca selengkapnya"
+
+#: gem/templates/springster/core/tags/social_media_footer.html:3
+msgid "Find us elsewhere:"
+msgstr ""
 
 #: gem/templates/springster/notifications/reply_list.html:5
 msgid "Comment Replies"
 msgstr "Komen balasan"
 
+#: gem/templates/springster/notifications/reply_list.html:21
+msgid "Read replies"
+msgstr "Baca balasan"
+
+#: gem/templates/springster/notifications/tags/notification_banner.html:5
+msgid "New"
+msgstr ""
+
 #: gem/templates/springster/patterns/basics/article-tags/sp_article-page-tag.html:7
+#: temp/temp_ve/core/templates/patterns/basics/article-tags/sp_variations/sp_article-tags_with-title.html:7
 msgid "Read more about"
 msgstr "Baca lebih lanjut tentang"
+
+#: gem/templates/springster/patterns/basics/article-tags/sp_article-tag.html:7
+#: temp/temp_ve/core/templates/patterns/components/article-tags/sp_variations/sp_tags-menu.html:7
+msgid "Read stories about"
+msgstr "Baca cerita tentang"
 
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
+#: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
 msgid "Read All"
 msgstr ""
 
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:7
+#: temp/temp_ve/core/templates/patterns/basics/copyright/copyright-terms.html:7
 msgid "Terms &amp; Conditions"
 msgstr "Syarat dan Ketentuan"
 
-#: gem/templates/springster/patterns/components/article-tags/sp_variations/tag_menu.html:8
-msgid "Read stories about"
-msgstr "Baca cerita tentang"
+#: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
+#: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:20
+msgid "Join us"
+msgstr "Gabung yuk!"
+
+#: gem/templates/springster/profiles/change_password.html:23
+#: gem/templates/springster/profiles/viewprofile.html:74
+msgid "Old Pin:"
+msgstr ""
+
+#: gem/templates/springster/profiles/change_password.html:30
+#: gem/templates/springster/profiles/viewprofile.html:82
+msgid "New Pin:"
+msgstr ""
+
+#: gem/templates/springster/profiles/change_password.html:37
+msgid "Confirm New Pin:"
+msgstr ""
 
 #: gem/templates/springster/profiles/forgot_password.html:24
-#: gem/templates/springster/profiles/register.html:72
 msgid ""
 "Please answer the above security questions. You'll have to provide these "
-"answers if you ever need to reset your password."
+"answers if you ever need to reset your pin."
 msgstr ""
-"Tolong jawab pertanyaan keamanan di atas. Kamu harus menjawabannya ketika "
-"reset ulang password."
 
 #: gem/templates/springster/profiles/register.html:6
 msgid "Join Springster"
 msgstr "Bergabung dengan Springster"
 
-#: gem/templates/springster/profiles/register.html:31
+#: gem/templates/springster/profiles/register.html:38
 msgid ""
 "Springster values your online security, therefore we hide your username and "
 "allow you to comment and interact with the site anonymously. If you would "
@@ -1611,23 +1838,32 @@ msgstr ""
 "orang lain, seperti temanmu untuk dapat melihatmu dengan nama pengguna dan "
 "tidak anonim, perbarui nama penggunamu di sini."
 
-#: gem/templates/springster/profiles/register.html:39
+#: gem/templates/springster/profiles/register.html:46
 msgid "For example: 2048"
 msgstr "Contohnya: 2048"
 
-#: gem/templates/springster/profiles/register.html:57
+#: gem/templates/springster/profiles/register.html:64
 msgid "Only you will see this, but it's not mandatory to tell us"
 msgstr "Hanya kamu yang akan melihat hal ini,tapi tidak wajib memberi tahu kami"
 
-#: gem/templates/springster/profiles/reset_password_success.html:10
-msgid "Continue to sign in"
-msgstr "Lanjutkan untuk Masuk"
+#: gem/templates/springster/profiles/register.html:79
+msgid ""
+"Please answer the above security questions. You'll have to provide these "
+"answers if you ever need to reset your password."
+msgstr ""
+"Tolong jawab pertanyaan keamanan di atas. Kamu harus menjawabannya ketika "
+"reset ulang password."
+
+#: gem/templates/springster/profiles/viewprofile.html:56
+msgid "Change Your Pin"
+msgstr ""
 
 #: gem/templates/springster/registration/login.html:8
 msgid "Sign up here"
 msgstr "Daftar di sini"
 
 #: gem/templates/springster/registration/password_reset_confirm.html:6
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:10
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -1635,7 +1871,13 @@ msgstr ""
 "Masukkan password-mu 2 kali, sehingga kami bisa membuktikan bahwa kamu "
 "mengetiknya dengan benar."
 
+#: gem/templates/springster/registration/password_reset_confirm.html:11
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:14
+msgid "New password:"
+msgstr "Kata sandi baru"
+
 #: gem/templates/springster/registration/password_reset_confirm.html:20
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:17
 msgid "Change my password"
 msgstr "Ganti kata sandi"
 
@@ -1648,26 +1890,33 @@ msgstr ""
 "reset password baru."
 
 #: gem/templates/springster/registration/password_reset_form.html:5
+#: temp/temp_ve/core/templates/registration/login.html:25
 #: temp/temp_ve/profiles/templates/registration/login.html:37
 #: temp/temp_ve/profiles/test_templates/login.html:37
 msgid "Forgotten your password?"
 msgstr "Lupa password?"
 
-#: gem/templates/springster/yourwords/your_words_competition.html:18
-#: gem/templates/springster/yourwords/your_words_competition_tag.html:17
-#: gem/templates/springster/yourwords/your_words_competition_tag_for_section.html:16
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition.html:23
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:29
-#: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
-msgid "Enter"
-msgstr "Masukkan"
+#: gem/templates/springster/surveys/molo_survey_page.html:35
+#: temp/temp_ve/surveys/templates/surveys/molo_survey_page.html:31
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:37
+msgid "Submit Survey"
+msgstr ""
 
-#: gem/views.py:159
+#: gem/views.py:167
 msgid "Your answer to the security question was invalid. Please try again."
 msgstr "Jawabanmu atas pertanyaan keamanan tidak valid. Silakan coba lagi."
 
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:12
-#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:9
+#: gem/views.py:225
+#: temp/temp_ve/profiles/views.py:279
+msgid "The two PINs that you entered do not match. Please try again."
+msgstr "Kedua PIN yang kamu masukkan tidak cocok. Silakan coba lagi."
+
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/footer/language-list_dropdown-footer.html:8
+#: temp/temp_ve/core/templates/patterns/basics/languages/language-list_dropdown.html:13
 msgid "Change Language"
 msgstr "Ubah Bahasa"
 
@@ -1679,49 +1928,85 @@ msgstr "Nama"
 msgid "Your comment has been successfully posted"
 msgstr "Komentarmu telah berhasil diposting"
 
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:27
-msgid "Back home"
-msgstr "Kembali ke awal"
-
-#: temp/temp_ve/commenting/views.py:31
-msgid "Reporting comment replies is not allowed."
-msgstr "Pelaporan balasan komentar tidak diperbolehkan"
-
 #: temp/temp_ve/commenting/views.py:34
 msgid "The comment has been reported."
 msgstr "Komentar ini telah dilaporkan."
 
+#: temp/temp_ve/commenting/views.py:111
+msgid "Reply successfully created."
+msgstr "Balasan berhasil dibuat"
+
+#: temp/temp_ve/core/forms.py:11
 #: temp/temp_ve/polls/forms.py:20
 msgid "You didn't select a choice"
 msgstr "Kamu belum memilih pilihan"
+
+#: temp/temp_ve/core/templates/403.html:9
+msgid "You do not have permssion to access this site."
+msgstr ""
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:10
+msgid "Click to Download!"
+msgstr ""
+
+#: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:16
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+#: temp/temp_ve/core/templates/core/tags/nav_tags_section_listing_homepage.html:21
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection_with-bg.html:30
+msgid "More about"
+msgstr "Lebih tentang"
+
+#: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection-child_with-bg.html:27
+msgid "View More"
+msgstr "Lihat lebih"
+
+#: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-with_title-bg.html:5
+msgid "More Information"
+msgstr "Informasi lebih lanjut"
+
+#: temp/temp_ve/core/templates/registration/login.html:11
+msgid "LOGIN TO YOUR ACCOUNT!"
+msgstr ""
+
+#: temp/temp_ve/core/templates/registration/login.html:12
+msgid "We’re excited to have you..."
+msgstr "Kita sangat senang kamu..."
+
+#: temp/temp_ve/core/templates/registration/password_reset_confirm.html:21
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Link reset password tidak valid, mungkin karena sudah digunakan. Mohon minta "
+"reset password baru."
+
+#: temp/temp_ve/core/templates/registration/password_reset_form.html:6
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+"Lupa password? Masukkan alamat email-mu di bawah ini, dan kita akan "
+"mengirimkan email untuk pengaturan yang baru."
 
 #: temp/temp_ve/polls/templates/polls/results.html:8
 msgid "Your answers:"
 msgstr "Jawaban kamu:"
 
-#: temp/temp_ve/profiles/forms.py:117
-#: temp/temp_ve/profiles/forms.py:248
-#: temp/temp_ve/profiles/forms.py:298
+#: temp/temp_ve/profiles/forms.py:140
+#: temp/temp_ve/profiles/forms.py:271
+#: temp/temp_ve/profiles/forms.py:321
 msgid "Education Level"
 msgstr "Tingkat pendidikan"
 
-#: temp/temp_ve/profiles/forms.py:220
-#: temp/temp_ve/profiles/forms.py:344
-msgid ""
-"Sorry, but that is an invalid display name. Please don't use your %s in your "
-"display name."
-msgstr ""
-"Maaf, tapi nama tampilan itu tidak valid. Jangan gunakan %s kamu pada nama "
-"tampilanmu."
-
-#: temp/temp_ve/profiles/forms.py:380
-#: temp/temp_ve/profiles/forms.py:395
-msgid "This value must contain only           numbers."
-msgstr "Bagian ini hanya dapat diisi angka."
-
-#: temp/temp_ve/profiles/forms.py:423
+#: temp/temp_ve/profiles/forms.py:446
 msgid "New passwords do not match."
 msgstr "Password baru tidak cocok"
+
+#: temp/temp_ve/profiles/templates/profiles/change_password.html:38
+msgid "Confirm New Password"
+msgstr "Konfirmasi Sandi"
 
 #: temp/temp_ve/profiles/templates/profiles/change_password.html:42
 #: temp/temp_ve/profiles/templates/profiles/done.html:59
@@ -1734,6 +2019,11 @@ msgid "Let us know more about yourself to get access to exclusive content."
 msgstr ""
 "Beri tau kami tanggal ulangtahunmu untuk mendapatkan akses ke konten "
 "eksklusif."
+
+#: temp/temp_ve/profiles/templates/profiles/done.html:18
+#: temp/temp_ve/profiles/templates/profiles/register.html:45
+msgid "SELECT DATE OF BIRTH"
+msgstr "PILIH TANGGAL LAHIR"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:26
 msgid "DISPLAY NAME"
@@ -1760,17 +2050,25 @@ msgstr "Log in"
 msgid "CHOOSE A USERNAME"
 msgstr "PILIH NAMA PENGGUNA"
 
+#: temp/temp_ve/profiles/templates/profiles/register.html:24
+msgid ""
+"This name you will use to log in and won't appear to other users. Only you "
+"will see this."
+msgstr ""
+"Gunakan nama ini untuk log in. Hanya kamu yang bisa melihat nama ini, "
+"pengguna lain hanya dapat melihat nama yang tertera di nama tampilanmu."
+
 #: temp/temp_ve/profiles/templates/profiles/register.html:28
 msgid "CHOOSE A 4-DIGIT PIN"
 msgstr "PILIH 4-DIGIT PIN"
 
-#: temp/temp_ve/profiles/templates/profiles/register.html:36
-msgid "CHOOSE A DISPLAY NAME"
-msgstr "PILIH NAMA TAMPILAN"
-
 #: temp/temp_ve/profiles/templates/profiles/register.html:81
 msgid "ENTER YOUR MOBILE NUMBER"
 msgstr "MASUKAN NOMOR HANDPHONEMU"
+
+#: temp/temp_ve/profiles/templates/profiles/register.html:90
+msgid "ENTER YOUR EMAIL ADDRESS"
+msgstr "MASUKAN ALAMAT EMAILMU"
 
 #: temp/temp_ve/profiles/templates/profiles/viewprofile.html:54
 msgid "Email Address:"
@@ -1780,57 +2078,36 @@ msgstr "Alamat email:"
 msgid "Edit My Profile"
 msgstr "Menyunting Profil"
 
-#: temp/temp_ve/profiles/templates/profiles/viewprofile.html:61
-msgid "Change My Password"
-msgstr "Ganti kata sandi"
-
-#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:10
+#: temp/temp_ve/surveys/templates/surveys/surveys_list.html:13
 msgid "Take The Survey"
 msgstr ""
 
-#~ msgid "Access Denied"
-#~ msgstr "Akses ditolak"
+#~ msgid "reply"
+#~ msgstr "Balasan"
+
+#~ msgid "Your thought"
+#~ msgstr "Tanggapan kamu"
 
 #~ msgid ""
-#~ "Sorry, you are having trouble accessing this feature! Due to a temporary "
-#~ "technical issue, login and registrations are not available on the Free "
-#~ "Basics app for now. To login or register for a profile, visit our free "
-#~ "mobisite through your mobile browser at"
+#~ "Sorry, but that is an invalid username. Please don't use your %s in your "
+#~ "username."
 #~ msgstr ""
-#~ "Maaf, kamu mengalami masalah dalam mengakses fitur ini! Karena masalah "
-#~ "teknis sementara, login dan pendaftaran tidak tersedia di aplikasi Free "
-#~ "Basics untuk saat ini. Untuk masuk atau mendaftar ke profil, kunjungi "
-#~ "mobisite gratis kami melalui browser mobile kamu di"
+#~ "Maaf, tapi username itu tidak valid. Jangan gunakan %s kamu pada username-mu."
 
-#~ msgid "Your password has been set.  You may go ahead and log in now."
+#~ msgid "You haven't set a nickname, so your comments will appear as 'anonymous'"
 #~ msgstr ""
-#~ "Password kamu telah ditetapkan. Kamu bisa melanjutkan dan login sekarang."
+#~ "Kamu belum menentukan nama panggilan, jadi komentar kamu akan muncul sebagai "
+#~ "'anonymous'."
+
+#~ msgid ""
+#~ "Sorry, but that is an invalid display name. Please don't use your %s in your "
+#~ "display name."
+#~ msgstr ""
+#~ "Maaf, tapi nama tampilan itu tidak valid. Jangan gunakan %s kamu pada nama "
+#~ "tampilanmu."
+
+#~ msgid "This value must contain only           numbers."
+#~ msgstr "Bagian ini hanya dapat diisi angka."
 
 #~ msgid "That page is not translatable."
 #~ msgstr "Halaman itu tidak bisa diterjemahkan."
-
-#~ msgid "More about"
-#~ msgstr "Lebih tentang"
-
-#~ msgid "View More"
-#~ msgstr "Lihat lebih"
-
-#~ msgid "More Information"
-#~ msgstr "Informasi lebih lanjut"
-
-#~ msgid "We’re excited to have you..."
-#~ msgstr "Kita sangat senang kamu..."
-
-#~ msgid ""
-#~ "The password reset link was invalid, possibly because it has already been "
-#~ "used.  Please request a new password reset."
-#~ msgstr ""
-#~ "Link reset password tidak valid, mungkin karena sudah digunakan. Mohon minta "
-#~ "reset password baru."
-
-#~ msgid ""
-#~ "Forgotten your password? Enter your email address below, and we'll email "
-#~ "instructions for setting a new one."
-#~ msgstr ""
-#~ "Lupa password? Masukkan alamat email-mu di bawah ini, dan kita akan "
-#~ "mengirimkan email untuk pengaturan yang baru."

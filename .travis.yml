@@ -1,7 +1,5 @@
 sudo: false  # Force container-based builds.
 language: python
-python:
-  - "2.7"
 cache:
   - pip
 before_install:
@@ -20,8 +18,10 @@ after_success:
 jobs:
   include:
     - stage: test
-    - stage: docker
       python: "2.7"
+    - python: "3.6"
+    - stage: docker
+      python: "3.6"
       sudo: required
       dist: trusty
       services: [docker]

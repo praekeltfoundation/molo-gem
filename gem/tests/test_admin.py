@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.test import TestCase, override_settings
 from django.test.client import Client
+from django.utils import timezone
 
 from gem.admin import GemUserAdmin, download_as_csv_gem
 from gem.models import GemUserProfile, GemCommentReport
@@ -51,7 +52,7 @@ class TestCommentReportingModelAdmin(TestCase, MoloTestCaseMixin):
             user=self.user,
             comment=comment,
             parent=parent,
-            submit_date=datetime.now())
+            submit_date=timezone.now())
 
     def report_comment(self, comment, reason):
         GemCommentReport.objects.create(
@@ -146,7 +147,7 @@ class TestFrontendUsersAdminView(TestCase, MoloTestCaseMixin):
         self.assertEquals(response.status_code, 302)
 
 
-class ModelsTestCase(TestCase, MoloTestCaseMixin):
+class TestCsvDownload(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.user = User.objects.create_user(
@@ -169,11 +170,15 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
                                        None,
                                        User.objects.all())
         expected_output = (
-            'Content-Type: text/csv\r\nContent-Disposition: attachment;'
-            'filename=export.csv\r\n\r\nid,username,is_active,last_login,'
-            'date_of_birth,gender\r\n1,tester,True,,,f\r\n'
+            'id,username,is_active,last_login,date_of_birth,gender\r\n'
+            '1,tester,True,,,f\r\n'
         )
-        self.assertEquals(str(response), expected_output)
+        self.assertEquals(response['Content-Type'], 'text/csv')
+        self.assertEquals(
+            response['Content-Disposition'],
+            'attachment;filename=export.csv',
+        )
+        self.assertContains(response, expected_output)
 
     @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_download_csv_no_gem_profile(self):
@@ -182,9 +187,11 @@ class ModelsTestCase(TestCase, MoloTestCaseMixin):
         response = download_as_csv_gem(GemUserAdmin(UserProfile, self.site),
                                        None,
                                        User.objects.all())
-        expected_output = (
-            'Content-Type: text/csv\r\nContent-Disposition: attachment;'
-            'filename=export.csv\r\n\r\nid,username,is_active,last_login,'
-            'date_of_birth,gender\r\n'
+        self.assertContains(
+            response,
+            'id,username,is_active,last_login,date_of_birth,gender\r\n',
         )
-        self.assertEquals(str(response), expected_output)
+        self.assertNotContains(
+            response,
+            '1,tester,True,,,f'
+        )
