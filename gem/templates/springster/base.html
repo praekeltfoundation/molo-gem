@@ -77,12 +77,11 @@
     var minScreen = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 240);
     var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
 
-    var stateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/03_state.css" media="(min-width: 40em)">{% endcompress %}{% endspaceless %}';
-    var smartStateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state_320.css" media="(min-width: 40em)">{% endcompress %}{% endspaceless %}';
+    var stateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/03_state.css" media="(min-width: 320px)">{% endcompress %}{% endspaceless %}';
+    var smartStateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state_320.css" media="(min-width: 320px)">{% endcompress %}{% endspaceless %}';
 
       if (cutsTheMustard === true) {
         document.write(stateStyles);
-
         if(minScreen && smartDevice) {
           document.write(smartStateStyles);
           js = document.createElement('script');
