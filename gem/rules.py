@@ -53,6 +53,8 @@ class ProfileDataRule(AbstractBaseRule):
     Segmentation rule for wagtail-personalisation that evaluates data
     associated with user profile and related models.
     """
+    static = True
+
     order = 10
 
     LESS_THAN = 'lt'
@@ -329,6 +331,8 @@ class ProfileDataRule(AbstractBaseRule):
 
 
 class CommentCountRule(AbstractBaseRule):
+    static = True
+
     EQUALS = 'eq'
     GREATER_THAN = 'gt'
     LESS_THAN = 'lt'
