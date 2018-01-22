@@ -1,13 +1,20 @@
-.heading__square {
-border: 1px solid yellow;
-  @include divider-bottom-1;
-  background-color: $springster-purple;
-  *:first-child {
-    @include underline(skewed, 10px);
-  }
-}
-.heading__component {
-  @include underline(zig-zag, 10px);
-  margin: 0 8px 20px;
-  padding-top: 30px;
+.heading {
+    @media screen and (max-width: 300px) {
+        &__section h1 {
+          font-size: $font-x-large !important;
+      }
+    }
+    &__square {
+      @include divider-bottom-1;
+      background-color: $springster-purple;
+      *:first-child {
+        @include underline(skewed, 10px);
+      }
+    }
+    &__component {
+      @include underline(zig-zag, 10px);
+      margin: 0 8px 20px;
+      padding-top: 30px;
+    }
+
 }

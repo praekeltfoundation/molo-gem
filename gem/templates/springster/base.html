@@ -81,8 +81,8 @@
     var smartStateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state_320.css" media="(min-width: 320px)">{% endcompress %}{% endspaceless %}';
 
       if (cutsTheMustard === true) {
-        document.write(stateStyles);
-        if(minScreen && smartDevice) {
+        if(minScreen) { document.write(stateStyles);}
+        else if (minScreen && smartDevice) {
           document.write(smartStateStyles);
           js = document.createElement('script');
           js.src = '{{ STATIC_URL }}js/springster-min.js';
