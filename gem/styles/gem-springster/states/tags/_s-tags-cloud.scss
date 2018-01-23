@@ -1,0 +1,36 @@
+.tag-cloud__container {
+  @include divider-combo-1;
+  background-color: $sunny-yellow;
+}
+
+.article-page-tag-cloud {
+  @include divider-line(4px, $pale-grey-three);
+}
+@media only screen and (min-width: 320px){
+  .tag-cloud {
+    margin-top: 60px;
+    &__container {
+      padding-top: 60px;
+    }
+    &__heading {
+      @include underline(zig-zag, 10px);
+    }
+    &__icon {
+      margin-top: -35px;
+      background-image: url("/static/img/tag-cloud-love-hands.png");
+      background-image: url("/static/img/tag-cloud-love-hands.svg"),
+        linear-gradient(transparent, transparent);
+      background-repeat: no-repeat;
+      background-position: center center;
+      padding: 2px 5px;
+      height: 88px;
+      width: 100px;
+      position: absolute;
+      left: 50%;
+      margin-left: -55px;
+      text-align: center;
+      display: block;
+    }
+
+  }
+}
