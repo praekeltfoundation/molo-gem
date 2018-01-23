@@ -44,6 +44,12 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.request.user.profile.gender = '-'
         self.request.user.save()
 
+    def test_profile_data_rule_is_static(self):
+        rule = ProfileDataRule(field='profiles.userprofile__gender',
+                               value='m')
+
+        self.assertTrue(rule.static)
+
     def test_user_with_no_gem_profile(self):
         User = get_user_model()
         user = self.request.user
@@ -241,6 +247,11 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
             submit_date=timezone.now(),
             **kwargs
         )
+
+    def test_comment_count_rule_is_static(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
+
+        self.assertTrue(rule.static)
 
     def test_user_passes_rule_when_they_comment(self):
         rule = CommentCountRule(count=1, operator=CommentCountRule.EQUALS)
