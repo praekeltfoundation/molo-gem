@@ -25,11 +25,11 @@ var gulp              =   require('gulp'),
         'gem/styles/gem/base_style-rtl.scss',
         'gem/styles/gem-malawi/malawi.scss',
 
-        'gem/styles/gem-springster/01_springster.s+(a|c)ss',
-        'gem/styles/gem-springster/02_springster-rtl.s+(a|c)ss',
-        'gem/styles/gem-springster/03_state.s+(a|c)ss',
-        'gem/styles/gem-springster/04_state-320.s+(a|c)ss',
-        'gem/styles/gem-springster/05_no-script-state.s+(a|c)ss'
+        'gem/styles/gem-springster/springster.s+(a|c)ss',
+        'gem/styles/gem-springster/springster-rtl.s+(a|c)ss',
+        'gem/styles/gem-springster/state.s+(a|c)ss',
+        'gem/styles/gem-springster/state-320.s+(a|c)ss',
+        'gem/styles/gem-springster/no-script-state.s+(a|c)ss'
     ],
     sassDest = {
          prd: 'gem/static/css/prd',
