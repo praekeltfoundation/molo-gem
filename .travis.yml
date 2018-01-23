@@ -1,5 +1,29 @@
 sudo: false  # Force container-based builds.
 language: python
+
+
+matrix:
+  include:
+    # Include a separate job for the node tests
+    - language: node_js
+      node_js: '8' # LTS version
+      env: []
+      cache:
+        directories: [node_modules]
+      before_install:
+        - npm i -g npm@5
+        - npm install -g gulp-cli
+      install:
+        - travis_retry npm install
+      script:
+        - gulp --type=ci
+
+      # Clear unused build steps
+      services: []
+      deploy: []
+      after_success: []
+
+
 cache:
   - pip
 before_install:
