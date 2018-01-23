@@ -18,6 +18,8 @@ var gulp              =   require('gulp'),
     pixrem            =   require('gulp-pixrem'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
+    qunit             =   require('gulp-qunit'),
+    gutil             =   require('gulp-util'),
     sassPaths = [
         'gem/styles/gem/base_style.scss',
         'gem/styles/gem/base_style-rtl.scss',
@@ -49,10 +51,10 @@ function styles(env) {
     .pipe(pixrem());
     if (isDev)
     s = s
-        .pipe(sourcemaps.write('/maps'));
+    .pipe(sourcemaps.write('/maps'));
     return s
-    .pipe(gulp.dest(sassDest[env]))
-    .pipe(notify({ message: `Styles task complete: ${env}` }));
+    .pipe(gutil.env.type !== 'ci' ? notify({ message: `Styles task complete: ${env}` }) : gutil.noop())
+    .pipe(gulp.dest(sassDest[env]));
 }
 gulp.task('styles:prd', function() {
   return styles('prd');
@@ -72,6 +74,7 @@ gulp.task('compress', function() {
     }))
     .pipe(gulp.dest('gem/static/js/'))
 });
+
 
 gulp.task('watch', function() {
     livereload.listen();
