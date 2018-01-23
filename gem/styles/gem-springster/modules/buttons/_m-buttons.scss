@@ -1,52 +1,58 @@
 .call-to-action {
   position: relative;
   padding: 20px 0 18px 0;
-}
-.call-to-action__nav-item,
-.call-to-action__item {
-  cursor: pointer;
-  font-size: 14px;
-  padding: 10px 5px 0 0;
-  margin: 10px 0;
-  background: none;
-  border: none;
-  color: $springster-purple;
-  display: block;
-  font-weight: 700;
-  text-align: left;
-  text-decoration: underline;
-  text-transform: uppercase;
-  @media screen and (min-width: 320px) {
-    background: #000;
-    color: #fff;
-    border-radius: 3px;
-    padding: 10px;
-    text-align: center;
-    font-weight: normal;
-    text-decoration: none;
+  &__item {
+    background: none;
+    color: $springster-purple;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 5px 0 0;
+    margin: 10px 0;
+    border: none;
+    display: block;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: underline;
+    text-transform: uppercase;
+    @media screen and (min-width: 320px) {
+      background: $black;
+      color: $white;
+      border-radius: 3px;
+      padding: 10px;
+      text-align: center;
+      font-weight: normal;
+      text-decoration: none;
+    }
+    &--text {
+        cursor: pointer;
+        @include font($baton-medium);
+        font-size: 16px;
+        text-transform: uppercase;
+        text-decoration: underline;
+        color: $springster-purple;
+        position: relative;
+        &:hover {
+          color: $black;
+        }
+    }
+  }
+
+  &__nav-item {
+      /*This selector should inherit the styles of
+        selector above including enhancement --text*/
+      @extend .call-to-action__item;
+  }
+  &__hyperlink {
+    cursor: pointer;
+    @include font($baton-medium);
+    font-size: $font-x-small;
+    color: $springster-purple;
+    text-transform: uppercase;
+    text-decoration: underline;
   }
 }
-.call-to-action__hyperlink {
-  cursor: pointer;
-  @include font($baton-medium);
-  font-size: $font-x-small;
-  color: $springster-purple;
-  text-transform: uppercase;
-  text-decoration: underline;
-}
-.call-to-action__item--text {
-  cursor: pointer;
-  @include font($baton-medium);
-  font-size: 16px;
-  text-transform: uppercase;
-  text-decoration: underline;
-  color: $springster-purple;
-  position: relative;
-  &:hover {
-    color: $black;
-  }
-}
-// Toggle loadmore button on js freindly featurephones
+
+//Toggle loadmore button on js friendly featurephones
 .no-js .more-link {
   display: none;
 }

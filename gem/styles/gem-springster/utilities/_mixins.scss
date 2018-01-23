@@ -18,13 +18,14 @@
   }
 }
 
+
 @mixin float-clear($value) {
   float: $value;
   clear: $value;
 }
 
+
 // Dividers
-// TODO: combine divder mixins
 @mixin divider-top-1 {
   background: url('/static/img/top-div-1@2x.png') no-repeat 0 0/contain;
   margin-top: 5px;
@@ -40,11 +41,11 @@
   background: url('/static/img/bottom-div-1@2x.png') no-repeat 0 100%/contain, url('/static/img/top-div-2@2x.png') no-repeat 0 0/contain;
   margin-top: 5px;
 }
-
 @mixin divider-combo-2 {
   background: url('/static/img/bottom-div-1@2x.png') no-repeat 0 100%/contain, url('/static/img/top-div-1@2x.png') no-repeat 0 0/contain;
   margin-top: 5px;
 }
+
 
 @mixin divider-line($height, $color) {
   &:after {
@@ -54,6 +55,7 @@
     border-bottom: $height solid $color;
   }
 }
+
 
 // Underlines
 @mixin underline($style, $padding) {
@@ -69,42 +71,37 @@
 
 // Grid Container Mixin
 @mixin grid($width: $container) {
-
   $container: $width;
-
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
   flex: 0 1 auto;
-
   max-width: $container;
   margin: 0 auto;
 }
 
 // Grid Column Mixin
 @mixin column($span: $columns) {
-
   $columns: $span;
-
   box-sizing: border-box;
   flex: $columns $columns auto;
   flex-basis: $columns;
   max-width: $columns;
-
   padding-right: $grid-gutter;
   padding-left: $grid-gutter;
   padding-bottom: $grid-gutter*2;
-
 }
 
-// background contain mixin for older IE and nokias
+// Background contain mixin for older IE and nokias
 @mixin background-cover($image-path) {
   background-size: contain;
   background-image: url(#{$image-path});
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop');
   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image-path}', sizingMethod='crop')";
 }
-// font mixin with language fallback
+
+
+// Font mixin with language fallback
 @mixin font($font-name) {
   font-family: $font-name;
   @each $language in $languages {
