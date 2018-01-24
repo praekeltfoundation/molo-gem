@@ -113,6 +113,19 @@
           {% else %}
             {% include "patterns/components/footer/sp_variations/footer.html" %}
           {% endif %}
+          
+          {% block google_analytics %}
+            {% include "patterns/components/ga_tag_manager.html" %}
+          {% endblock %}
+          {% block facebook_pixel_tracker %}
+            {% include "patterns/components/facebook_pixel_tracker.html" %}
+          {% endblock %}
+          {% block facebook_analytics %}
+            {% include "core/facebook_analytics.html" %}
+          {% endblock %}
+          {% if 'bbm.' in request.get_host %}
+            {% include "patterns/components/bbm_partner_ga_code.html" %}
+          {% endif %}
         {% endblock %}
 
         {% block copyright %}
