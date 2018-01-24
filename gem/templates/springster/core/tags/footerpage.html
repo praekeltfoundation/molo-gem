@@ -1,12 +1,25 @@
 {% load wagtailcore_tags core_tags %}
 {% block footer %}
-{% if footers %}
-  {% for page in footers %}
-  <li class="footer-menu-list__item">
-    <a href="{% pageurl page %}" class="footer-menu-list__anchor">
-      {{page.title}}
-    </a>
-  </li>
-  {% endfor %}
-{% endif %}
+    {% if footers %}
+      {% for page in footers %}
+      <li class="footer-menu-list__item">
+        <a href="{% pageurl page %}" class="footer-menu-list__anchor">
+          {{page.title}}
+        </a>
+      </li>
+      {% endfor %}
+    {% endif %}
+
+    {% block google_analytics %}
+      {% include "patterns/components/ga_tag_manager.html" %}
+    {% endblock %}
+    {% block facebook_pixel_tracker %}
+      {% include "patterns/components/facebook_pixel_tracker.html" %}
+    {% endblock %}
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
+    {% if 'bbm.' in request.get_host %}
+      {% include "patterns/components/bbm_partner_ga_code.html" %}
+    {% endif %}
 {% endblock %}
