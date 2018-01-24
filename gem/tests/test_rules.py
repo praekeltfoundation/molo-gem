@@ -166,6 +166,20 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
 
         self.assertTrue(rule.test_user(self.request))
 
+    def test_test_user_without_request(self):
+        self.set_user_to_male()
+        rule = ProfileDataRule(field='profiles.userprofile__gender',
+                               value='m')
+
+        self.assertTrue(rule.test_user(None, self.request.user))
+
+    def test_test_user_without_user_or_request(self):
+        self.set_user_to_male()
+        rule = ProfileDataRule(field='profiles.userprofile__gender',
+                               value='m')
+
+        self.assertFalse(rule.test_user(None))
+
 
 @pytest.mark.django_db
 class TestProfileDataRuleValidation(TestCase):
