@@ -22,7 +22,6 @@ djcelery.setup_loader()
 # Absolute filesystem path to the Django project directory:
 PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
