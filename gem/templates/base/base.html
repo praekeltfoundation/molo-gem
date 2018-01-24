@@ -88,7 +88,10 @@
 
       <div id="gem-header">
             <a id="logo" href="/">
-              <img src="{% static '' %}img/logo{% get_site_static_prefix %}.png" width="119" height="28" alt="Girl Effect" />
+              {% get_site_static_prefix as site_prefix %}
+              {% with "img/logo"|add:site_prefix|add:".png" as logo_url %}
+              <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
+              {% endwith %}
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
