@@ -32,6 +32,7 @@
     var content = document.getElementById("content-wrapper");
     var menuList = document.getElementById("nav-list");
 
+    //WHY IS THIS BG APPLIED
     var onResizing = function(event) {
       if (window.innerWidth < 1024){
         content.style.backgroundColor =  "#7300ff";
