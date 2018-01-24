@@ -20,10 +20,11 @@
         <p class="banner__subtitle">{{ pageTag.subtitle }}</p>
       {% endif %}
       {% trans "Click Here" as buttontext %}
-      {% if pageTag.banner_link_page %}
-        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.banner_link_page text=buttontext %}
-      {% elif pageTag.external_link %}
+      {% if pageTag.external_link %}
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=pageTag.external_link text=buttontext %}
+      {% elif pageTag.banner_link_page %}
+        {% pageurl pageTag.banner_link_page.specific as url %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=url text=buttontext %}
       {% endif %}
   </div>
 	{% endif %}
