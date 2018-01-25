@@ -2,8 +2,8 @@
 {% block content %}
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
     {% for survey in filtered_surveys %}
-        {% with survey=survey.molo_survey_page form=survey.form %}
-            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submission %}
+      {% with survey=survey.molo_survey_page form=survey.form %}
+        {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
             <div class="surveys surveys--call-to-action">
                 <div class="identity-image identity-image--survey"></div>
                 {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
@@ -13,9 +13,9 @@
                 {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
             {% endwith %}
             </div>
-            {% else %}
-                {% include "patterns/components/banners/join-banner.html" %}
-            {% endif %}
-        {% endwith %}
+        {% else %}
+            {% include "patterns/components/banners/join-banner.html" %}
+        {% endif %}
+      {% endwith %}
     {% endfor %}
 {% endblock %}

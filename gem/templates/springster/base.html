@@ -39,12 +39,31 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
-    {% compress css %}
+    {% compress css inline %}
+        <style type="text/css">
+            @font-face {
+              font-family: 'BatonRegular';
+              src: url('/static/fonts/Baton-Regular-Web.woff2') format('woff2'),
+                   url('/static/fonts/Baton-Regular-Web.woff') format('woff'),
+                   url('/static/fonts/Baton-Regular-Web.eot') format('truetype');
+            }
+            @font-face {
+              font-family: 'BatonMedium';
+              src: url('/static/fonts/Baton-Medium-Web.woff2') format('woff2'),
+                   url('/static/fonts/Baton-Medium-Web.woff') format('woff'),
+                   url('/static/fonts/Baton-Medium-Web.eot') format('truetype');
+            }
+            @font-face {
+              font-family: 'BatonTurboRegular';
+              src: url('/static/fonts/BatonTurboWeb-Regular.woff2') format('woff2'),
+                   url('/static/fonts/BatonTurboWeb-Regular.woff') format('woff'),
+                   url('/static/fonts/BatonTurboWeb-Regular.eot') format('truetype');
+            }
+        </style>
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
     {% endcompress %}
-
     {% if LANGUAGE_CODE|language_bidi == True %}
-      {% compress css %}
+      {% compress css inline %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
       {% endcompress %}
     {% endif %}
@@ -64,12 +83,8 @@
     var stateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/03_state.css">{% endcompress %}{% endspaceless %}';
     var smartStateStyles = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css">{% endcompress %}{% endspaceless %}';
       if (cutsTheMustard === true) {
-        if(minScreen) {
-            document.write(stateStyles);
-        }
-        if (minScreen && smartDevice) {
-            document.write(smartStateStyles);
-        }
+        if(minScreen) {document.write(stateStyles);}
+        if (minScreen && smartDevice) {document.write(smartStateStyles);}
         if(smartDevice) {
             js = document.createElement('script');
             js.src = '{{ STATIC_URL }}js/springster-min.js';
@@ -113,6 +128,19 @@
           {% else %}
             {% include "patterns/components/footer/sp_variations/footer.html" %}
           {% endif %}
+
+          {% block google_analytics %}
+            {% include "patterns/components/ga_tag_manager.html" %}
+          {% endblock %}
+          {% block facebook_pixel_tracker %}
+            {% include "patterns/components/facebook_pixel_tracker.html" %}
+          {% endblock %}
+          {% block facebook_analytics %}
+            {% include "core/facebook_analytics.html" %}
+          {% endblock %}
+          {% if 'bbm.' in request.get_host %}
+            {% include "patterns/components/bbm_partner_ga_code.html" %}
+          {% endif %}
         {% endblock %}
 
         {% block copyright %}
@@ -120,17 +148,6 @@
         {% endblock %}
       </div>
     </div>
-    {% block google_analytics %}
-      {% include "patterns/components/ga_tag_manager.html" %}
-    {% endblock %}
-    {% block facebook_pixel_tracker %}
-      {% include "patterns/components/facebook_pixel_tracker.html" %}
-    {% endblock %}
-    {% block facebook_analytics %}
-      {% include "core/facebook_analytics.html" %}
-    {% endblock %}
-    {% if 'bbm.' in request.get_host %}
-      {% include "patterns/components/bbm_partner_ga_code.html" %}
-    {% endif %}
+
   </body>
 </html>

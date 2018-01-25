@@ -82,14 +82,19 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 field_type='singleline',
                 required=True
             )
+            setting = GemSettings.for_site(self.main.get_site())
+            self.assertFalse(setting.show_join_banner)
             response = self.client.get('%s?next=%s' % (
                 reverse('molo.profiles:auth_logout'),
                 reverse('molo.profiles:user_register')))
             response = self.client.get('/')
-            self.assertNotContains(response, 'profiles-join-banner')
-            setting = GemSettings.for_site(self.main.get_site())
+            self.assertNotContains(
+                response,
+                "Share your opinions and stories, take polls, win fun prizes.")
             setting.show_join_banner = True
             setting.save()
 
             response = self.client.get('/')
-            self.assertContains(response, 'profiles-join-banner')
+            self.assertContains(
+                response,
+                "Share your opinions and stories, take polls, win fun prizes.")

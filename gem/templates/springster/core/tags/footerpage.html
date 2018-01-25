@@ -1,12 +1,12 @@
 {% load wagtailcore_tags core_tags %}
 {% block footer %}
-{% if footers %}
-  {% for page in footers %}
-  <li class="footer-menu-list__item">
-    <a href="{% pageurl page %}" class="footer-menu-list__anchor">
-      {{page.title}}
-    </a>
-  </li>
-  {% endfor %}
-{% endif %}
+    {% if footers %}
+      {% for page in footers %}
+      <li class="footer-menu-list__item">
+        <a href="{% pageurl page %}" class="footer-menu-list__anchor">
+          {{page.title}}
+        </a>
+      </li>
+      {% endfor %}
+    {% endif %}
 {% endblock %}
