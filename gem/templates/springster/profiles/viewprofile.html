@@ -11,7 +11,7 @@
         {% endwith %}
     {% else %}
         {% with user|stringformat:"s" as username %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.gem_profile.migrated_username|default:username %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.profile.migrated_username|default:username %}
         {% endwith %}
     {% endif %}
 
