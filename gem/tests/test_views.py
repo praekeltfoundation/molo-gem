@@ -20,6 +20,7 @@ from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import SiteLanguageRelation, Main, Languages
+from molo.profiles.models import UserProfile
 
 
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
@@ -32,6 +33,23 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         response = self.client.get(reverse('user_register'))
         self.assertTrue(isinstance(response.context['form'],
                         GemRegistrationForm))
+
+    def test_register_view_valid_form(self):
+        self.assertEqual(UserProfile.objects.all().count(), 0)
+        self.client.post(reverse('user_register'), {
+            'username': 'testuser',
+            'password': '1234',
+            'gender': 'f',
+            'security_question_1_answer': 'answer_1',
+            'security_question_2_answer': 'answer_2',
+            'terms_and_conditions': 'on',
+        })
+        self.assertEqual(UserProfile.objects.all().count(), 1)
+        user = User.objects.get(username='testuser')
+        self.assertEqual(user.gem_profile.gender, 'f')
+
+        # test thatthe registrationv view writes to both gem and molo profiles
+        self.assertEqual(user.profile.gender, 'f')
 
     def test_register_view_invalid_form(self):
         # NOTE: empty form submission

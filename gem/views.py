@@ -64,6 +64,7 @@ class GemRegistrationView(RegistrationView):
         ]
         user = User.objects.create_user(username=username, password=password)
 
+        user.profile.gender = gender
         user.profile.alias = alias
         user.profile.mobile_number = mobile_number
         user.profile.site = self.request.site
