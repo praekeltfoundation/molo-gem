@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('profiles', '0018_userprofile_admin_sites'),
+        ('gem', '0015_add_migrated_username'),
     ]
 
     operations = [
