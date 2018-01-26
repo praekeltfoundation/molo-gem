@@ -240,9 +240,13 @@ class ProfileDataRule(AbstractBaseRule):
             )
         }
 
-    def test_user(self, request):
-        # Fail segmentation if user is not logged-in.
-        if not request.user.is_authenticated():
+    def test_user(self, request, user=None):
+        if request:
+            # Fail segmentation if user is not logged-in.
+            if not request.user.is_authenticated():
+                return False
+            user = request.user
+        if not user:
             return False
 
         # Handy variables for comparisons.
@@ -250,7 +254,7 @@ class ProfileDataRule(AbstractBaseRule):
 
         try:
             related_field_value = self.get_related_field_value(
-                user=request.user)
+                user=user)
         except LookupError as e:
             logging.warn(e)
             return False
@@ -367,12 +371,17 @@ class CommentCountRule(AbstractBaseRule):
     class Meta:
         verbose_name = _('Comment count rule')
 
-    def test_user(self, request):
-        if not request.user.is_authenticated():
+    def test_user(self, request, user=None):
+        if request:
+            # Fail segmentation if user is not logged-in.
+            if not request.user.is_authenticated():
+                return False
+            user = request.user
+        if not user:
             return False
 
         operator = self.OPERATORS[self.operator]
-        comments = request.user.comment_comments.filter(
+        comments = user.comment_comments.filter(
             is_removed=False,
         ).count()
         return operator(comments, self.count)
