@@ -323,3 +323,11 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         )
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
+
+    def test_test_user_without_request(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
+        self.assertTrue(rule.test_user(None, self.request.user))
+
+    def test_test_user_without_user_or_request(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
+        self.assertFalse(rule.test_user(None))
