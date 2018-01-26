@@ -14,6 +14,7 @@ def switch_to_using_profiles_migrated_username(
         if hasattr(gem_profile.user, 'profile'):
             gem_profile.user.profile.migrated_username = \
                 gem_profile.migrated_username
+            gem_profile.user.profile.save()
 
 
 class Migration(migrations.Migration):
