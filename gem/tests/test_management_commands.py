@@ -341,6 +341,19 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         self.assertEqual(str(article.image),
                          "01_happygirl_feature_It gets better.jpg")
 
+    def test_move_migrated_username_to_profiles(self):
+        user = User.objects.create_user(
+              username='1_newuser',
+              email='newuser@example.com',
+              password='newuser')
+        user.gem_profile.migrated_username = 'newuser'
+        user.gem_profile.save()
+
+        self.assertFalse(user.profile.migrated_username == 'newuser')
+        call_command('copy_migrated_username_to_profile')
+        user.profile.refresh_from_db()
+        self.assertTrue(user.profile.migrated_username == 'newuser')
+
     def test_remove_placeholder_text_from_comments(self):
         SiteLanguageRelation.objects.create(
             language_setting=self.language_setting,
