@@ -13,6 +13,7 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from gem.models import GemUserProfile, GemCommentReport
+from gem.rules import ProfileDataRule, CommentCountRule
 from gem.tasks import send_export_email_gem
 
 from import_export.fields import Field
@@ -310,6 +311,22 @@ class GemCommentModelAdmin(MoloCommentsModelAdmin):
 
 class GemCommentReportAdmin(MoloCommentAdmin):
     inlines = (GemCommentReportModelAdmin,)
+
+
+class ProfileDataRuleAdminInline(admin.TabularInline):
+    """
+    Inline the ProfileDataRule into the administration
+    interface for segments.
+    """
+    model = ProfileDataRule
+
+
+class CommentCountRuleAdminInline(admin.TabularInline):
+    """
+    Inline the CommentCountRule into the administration
+    interface for segments.
+    """
+    model = CommentCountRule
 
 
 admin.site.unregister(User)
