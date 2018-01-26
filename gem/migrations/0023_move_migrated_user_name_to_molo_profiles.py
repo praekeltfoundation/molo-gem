@@ -2,19 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from gem.models import GemProfile
+from django.core.management import call_command
 
 
-def switch_to_using_profiles_migrated_username(
-        switch_to_using_profiles_migrated_username):
-    '''
-    Copies the migrated username from gem_profiles and adds it to molo profile
-    '''
-    for gem_profile in GemProfile.objects.all():
-        if hasattr(gem_profile.user, 'profile'):
-            profile = gem_profile.user.profile
-            profile.migrated_username = gem_profile.migrated_username
-            profile.save()
+def switch_to_using_profiles_migrated_username(apps, schema_editor):
+    call_command('copy_migrated_username_to_profile')
 
 
 class Migration(migrations.Migration):
