@@ -1,0 +1,49 @@
+.call-to-action__nav-item {
+    &-text {
+        &--backToTop {
+            @include font($baton-medium);
+            font-weight: normal;
+            line-height: 1.7em;
+        }
+        &--backToTop,
+        &--backToTop-up_arrow {
+            @media screen and (min-width: 320px) {
+                &:after {
+                  background-image: url(/static/img/icons/up-arrow.svg);
+                  height: 24px;
+                  width: 24px;
+                  top: 0;
+                  margin-left: 10px;
+                }
+            }
+        }
+    }
+    &--with-icon {
+        text-indent: -99em;
+        height: 21px;
+        width: 21px;
+        position: absolute;
+        right: 10%;
+        top: 0;
+        padding: 0;
+    }
+    &--replies-counter {}
+    &--search-icon {
+        background-repeat:  no-repeat;
+        background-position: 100% 0;
+        background-size: auto 98%;
+        right: 3%;
+    }
+    &--search-icon-bg {
+        background-repeat:  no-repeat;
+        background-position: 12px 10px;
+        background-size: auto 60%;
+        right: 10%;
+        top: 10px;
+    }
+    &--search-icon,
+    &--search-icon-bg {
+        background-color: transparent;
+        background-image: url(/static/img/icons/search.svg), url(/static/img/icons/search@2x.png);
+    }
+}

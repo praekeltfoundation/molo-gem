@@ -1,0 +1,53 @@
+.call-to-action__button {
+    /*Buttons
+        Primary
+        Secondary
+    */
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 95%;
+    border-radius: 5px;
+    white-space: normal;
+    &--primary {
+      background-color: $springster-purple;
+      background-position: -792px -123px; //What should be doen with these
+      color: $white;
+      border: none;
+      margin: 15px auto;
+      height: 40px;
+      //Inherited
+      font-size: $font-small;
+      font-weight: bold;
+      background-image: url('/static/img/buttons/button-sprite.png');
+      background-size: 1870px 334px;
+      background-repeat: no-repeat;
+      img {padding: 5px 0;}
+      &.call-to-action__button--loader {
+        background-image: url('/static/img/loading.gif'), url('/static/img/buttons/button-sprite.png');
+        background-size: auto, 1870px 334px;
+        background-position: center, 0 0;
+      }
+    }
+    &--secondary {
+      background-color: #D7DBDD;
+      background-position: -1728px -260px;
+      color: $springster-purple;
+      margin: 16px auto;
+      height: 42px;
+      @extend .call-to-action__button--primary;
+    }
+    &--yellow {
+        background: url('/static/img/buttons/button-yellow.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center 50%;
+        margin: 8px;
+        width: 95%;
+    }
+}
+
+input.call-to-action__button-text {
+  border: 0;
+  display: block;
+}

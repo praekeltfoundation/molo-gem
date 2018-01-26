@@ -1,0 +1,48 @@
+.base-teaser {
+    &__title-link {
+      font-weight: normal;
+    }
+    &__thumbnail-link  {
+      display: inline-block;
+      width: 30%;
+      //Is this img or anchor tag style?
+      @media only screen and (min-width: 360px) {
+          width: auto !important;
+          min-width: 96px;
+          min-height: 96px;
+      }
+      img {width: 100%;}
+    }
+    &__title {
+        font-size: $font-x-large;
+         @include font($baton-medium);
+        line-height: get-line-height($font-x-large, 24px);
+    }
+
+    @media only screen and (min-width: 360px) {
+        &__subtitle {
+          font-size: $font-x-small;
+        }
+    }
+}
+
+.teaser-stacklist__item--content {
+  width: 60%;
+}
+.teaser-stacklist-tags {
+    position: absolute;
+    list-style-position: inside;
+    overflow: hidden;
+    margin-right: 70px;
+    height: 20px;
+    bottom: 8px;
+    padding: 0;
+    vertical-align: bottom;
+    &__anchor  {
+        @include font($baton-medium);
+        font-size: $font-x-small;
+    }
+    &-container {
+        height: 20px;
+    }
+}

@@ -58,7 +58,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
-          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/versions.css">
         {% endcompress %}
         {% get_current_language as LANGUAGE_CODE %}
         {% if LANGUAGE_CODE|language_bidi == True %}
@@ -89,7 +88,10 @@
 
       <div id="gem-header">
             <a id="logo" href="/">
-              <img src="{% static '' %}img/logo{% get_site_static_prefix %}.png" width="119" height="28" alt="Girl Effect" />
+              {% get_site_static_prefix as site_prefix %}
+              {% with "img/logo"|add:site_prefix|add:".png" as logo_url %}
+              <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
+              {% endwith %}
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
