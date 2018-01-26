@@ -268,9 +268,6 @@ class GemEditProfileView(MyProfileEdit):
     def form_valid(self, form):
         super(MyProfileEdit, self).form_valid(form)
         gender = form.cleaned_data['gender']
-        alias = form.cleaned_data['alias']
-
-        self.request.user.gem_profile.alias = alias
         self.request.user.gem_profile.gender = gender
         self.request.user.gem_profile.save()
         return HttpResponseRedirect(
