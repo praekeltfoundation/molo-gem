@@ -357,6 +357,20 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         user.profile.refresh_from_db()
         self.assertTrue(user.profile.migrated_username == 'newuser')
 
+    def test_move_gem_gender_to_profiles(self):
+        user = User.objects.create_user(
+              username='1_newuser',
+              email='newuser@example.com',
+              password='newuser')
+        user.gem_profile.gender = 'female'
+        user.gem_profile.save()
+        self.assertNotEqual(
+            user.profile.gender, user.gem_profile.gender)
+        call_command('copy_gender_to_profiles_gender')
+        user.profile.refresh_from_db()
+        self.assertEqual(
+            user.profile.gender, user.gem_profile.gender)
+
     def test_remove_placeholder_text_from_comments(self):
         SiteLanguageRelation.objects.create(
             language_setting=self.language_setting,

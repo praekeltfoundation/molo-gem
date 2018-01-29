@@ -66,6 +66,7 @@ class GemRegistrationView(RegistrationView):
         ]
         user = User.objects.create_user(username=username, password=password)
 
+        user.profile.gender = gender
         user.profile.alias = alias
         user.profile.mobile_number = mobile_number
         user.profile.site = self.request.site
@@ -294,9 +295,6 @@ class GemEditProfileView(MyProfileEdit):
     def form_valid(self, form):
         super(MyProfileEdit, self).form_valid(form)
         gender = form.cleaned_data['gender']
-        alias = form.cleaned_data['alias']
-
-        self.request.user.gem_profile.alias = alias
         self.request.user.gem_profile.gender = gender
         self.request.user.gem_profile.save()
         return HttpResponseRedirect(
