@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django_comments.models import Comment
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
@@ -13,6 +15,7 @@ from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage)
+from molo.profiles.models import SecurityQuestion
 
 
 class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
@@ -414,3 +417,70 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
 
         for comment in Comment.objects.all().iterator():
             self.assertNotIn(comment.comment, 'Type your comment here...')
+
+
+@override_settings(
+    SECURITY_QUESTION_1='Answer to Security Question 1',
+    SECURITY_QUESTION_2='Answer to Security Question 2',
+)
+class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+        self.main = Main.objects.all().first()
+
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+    def test_it_creates_main_language_questions_for_one_site(self):
+        call_command('create_security_questions_from_settings')
+
+        questions = SecurityQuestion.objects.all()
+        self.assertEqual(questions.count(), 2)
+        self.assertEqual(
+            questions.first().title,
+            'Answer to Security Question 1',
+        )
+        self.assertEqual(
+            questions.last().title,
+            'Answer to Security Question 2',
+        )
+
+    def test_it_creates_translations_for_one_site(self):
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='fr',
+            is_active=True)
+
+        call_command('create_security_questions_from_settings')
+
+        questions = SecurityQuestion.objects.all()
+
+        self.assertEqual(questions.count(), 4)
+
+        # FIXME: It would be nice to assert the translation of the question
+        # is correct but there's something up with the locales available on
+        # Travis which makes the translation not work.
+
+    def test_it_creates_questions_for_multiple_sites(self):
+        self.mk_main2()
+        self.main2 = Main.objects.all().last()
+
+        self.language_setting2 = Languages.objects.create(
+            site_id=self.main2.get_site().pk)
+
+        SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting2,
+            locale='rw',
+            is_active=True)
+
+        call_command('create_security_questions_from_settings')
+
+        questions = SecurityQuestion.objects.all()
+        self.assertEqual(questions.count(), 4)
+        self.assertEqual(questions.descendant_of(self.main).count(), 2)
+        self.assertEqual(questions.descendant_of(self.main2).count(), 2)

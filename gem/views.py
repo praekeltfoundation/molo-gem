@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.syndication.views import Feed
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http.request import QueryDict
@@ -33,6 +34,7 @@ from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from molo.commenting.models import MoloComment
 
 from molo.core.models import ArticlePage
+from molo.profiles.models import SecurityAnswer, SecurityQuestion
 from molo.profiles.views import RegistrationView, MyProfileEdit
 
 from wagtail.wagtailcore.models import Site
@@ -68,6 +70,31 @@ class GemRegistrationView(RegistrationView):
         user.profile.alias = alias
         user.profile.mobile_number = mobile_number
         user.profile.site = self.request.site
+
+        security_answers = [
+            security_question_1_answer,
+            security_question_2_answer,
+        ]
+
+        for i in range(1, 3):
+            question_setting = 'SECURITY_QUESTION_{0}'.format(i)
+            question_text = getattr(settings, question_setting, None)
+
+            if question_text is None:
+                raise ImproperlyConfigured(
+                    'Security question {0} is unset'.format(question_setting))
+
+            security_question = SecurityQuestion.objects.get(
+                title=question_text,
+            )
+
+            security_answer, _ = SecurityAnswer.objects.get_or_create(
+                user=user.profile,
+                question=security_question,
+            )
+            security_answer.set_answer(security_answers[i-1])
+            security_answer.save()
+
         user.profile.save()
 
         user.gem_profile.gender = gender
