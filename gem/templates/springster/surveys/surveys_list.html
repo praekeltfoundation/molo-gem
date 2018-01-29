@@ -20,16 +20,13 @@
                 {% image survey.image width-98 as tmp_photo_small %}
                 {% image survey.image width-320 as tmp_photo_large %}
                 <div class="gcn-competition__image">
-                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ self.title }}" class="dynamic" />
+                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
                 </div>
             {% else %}
-                <div class="identity-image gcn-competition__image"></div>
+                <div class="gcn-competition__image gcn-competition__default"></div>
             {% endif %}
-
-            {% trans "Share your story" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=survey.title %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="p" title=survey.intro %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.intro %}
 
             {% trans "Take Survey" as buttontext %}
             {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
