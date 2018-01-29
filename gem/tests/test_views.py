@@ -116,8 +116,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='1_newuser',
             email='newuser@example.com',
             password='newuser')
-        user.gem_profile.migrated_username = 'newuser'
-        user.gem_profile.save()
+        user.profile.migrated_username = 'newuser'
+        user.profile.save()
 
         response = self.client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -140,8 +140,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='2_newuser',
             email='newuser@example.com',
             password='newuser2')
-        user.gem_profile.migrated_username = 'newuser'
-        user.gem_profile.save()
+        user.profile.migrated_username = 'newuser'
+        user.profile.save()
         user.profile.site = self.site2
         user.profile.save()
 
@@ -149,8 +149,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='1_newuser',
             email='newuser@example.com',
             password='newuser1')
-        user3.gem_profile.migrated_username = 'newuser'
-        user3.gem_profile.save()
+        user3.profile.migrated_username = 'newuser'
+        user3.profile.save()
         user3.profile.site = self.site
         user3.profile.save()
 

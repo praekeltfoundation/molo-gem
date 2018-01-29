@@ -68,13 +68,6 @@ MIDDLEWARE_CLASSES += [  # noqa: F405
     'molo.core.middleware.Custom403Middleware',
 ]
 
-
-AUTHENTICATION_BACKENDS = [
-    'gem.backends.GemModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
-    'molo.core.backends.MoloCASBackend',
-]
-
 CAS_SERVER_URL = ''
 CAS_ADMIN_PREFIX = '/admin/'
 LOGIN_URL = 'molo.profiles:auth_login'

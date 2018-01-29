@@ -116,7 +116,7 @@ class GemMergedCMSUserResource(ModelResource):
     mobile_number = Field('profile__mobile_number', 'mobile_number')
     gender = Field('gem_profile__gender', 'gender')
     migrated_username = Field(
-        'gem_profile__migrated_username', 'migrated_username')
+        'profile__migrated_username', 'migrated_username')
     security_question_1_answer = Field(
         'gem_profile__security_question_1_answer',
         'security_question_1_answer')

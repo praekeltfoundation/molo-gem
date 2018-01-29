@@ -160,7 +160,7 @@ class GemForgotPasswordView(FormView):
         # see django.contrib.auth.forms.AuthenticationForm for reference
         try:
             user = User.objects.get(
-                gem_profile__migrated_username=username,
+                profile__migrated_username=username,
                 profile__site=self.request.site)
             username = user.username
         except User.DoesNotExist:
