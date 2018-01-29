@@ -1,10 +1,7 @@
-import unicodecsv as csv
-
 from collections import Counter
 
 from django.contrib import admin
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.db.models import Q
 from django.utils.timezone import localtime
 from django.conf import settings
@@ -24,26 +21,6 @@ from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
 from wagtail.wagtailcore.models import Site
-
-
-def download_as_csv_gem(self, request, queryset):
-    response = HttpResponse(content_type='text/csv', charset='utf-8')
-    response['Content-Disposition'] = 'attachment;filename=export.csv'
-    writer = csv.writer(response, encoding='utf-8')
-    user_model_fields = ('id', 'username', 'is_active', 'last_login')
-    profile_fields = ('date_of_birth', 'gender')
-    field_names = user_model_fields + profile_fields
-    writer.writerow(field_names)
-    for obj in queryset:
-        if hasattr(obj, 'gem_profile'):
-            obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
-            writer.writerow(
-                [getattr(obj, field) for field in user_model_fields] +
-                [getattr(obj.profile, field) for field in profile_fields])
-    return response
-
-
-download_as_csv_gem.short_description = "Download selected as csv gem"
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
