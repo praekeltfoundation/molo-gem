@@ -61,7 +61,6 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         })
         self.assertEqual(UserProfile.objects.all().count(), 1)
         user = User.objects.get(username='testuser')
-        self.assertEqual(user.gem_profile.gender, 'f')
 
         # test thatthe registrationv view writes to both gem and molo profiles
         self.assertEqual(user.profile.gender, 'f')
