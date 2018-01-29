@@ -23,4 +23,4 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         response = self.client.get(reverse('edit_my_profile'))
         self.assertContains(response, 'useralias')
         self.assertContains(
-            response, '<option value="f" selected="selected">female</option>')
+            response, '<option value="f" selected>female</option>')
