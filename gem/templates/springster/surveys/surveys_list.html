@@ -1,4 +1,4 @@
-{% load wagtailcore_tags gem_tags i18n personalise_extras %}
+{% load wagtailcore_tags gem_tags wagtailimages_tags i18n personalise_extras %}
 {% block content %}
 
 <!--
@@ -15,14 +15,27 @@
               3. On Main.html - Display on separate position
               4. If User is authenticated show GCN Competition
           -->
-          <div class="surveys surveys--call-to-action">
-              <div class="identity-image identity-image--survey"></div>
-              {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-              {% trans "Take Survey" as buttontext %}
-              {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-                  {% pageurl survey as the_url %}
-                  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-              {% endwith %}
+          <div class="surveys gcn-competition">
+            {% if survey.image %}
+                {% image survey.image width-98 as tmp_photo_small %}
+                {% image survey.image width-320 as tmp_photo_large %}
+                <div class="gcn-competition__image">
+                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ self.title }}" class="dynamic" />
+                </div>
+            {% else %}
+                <div class="identity-image gcn-competition__image"></div>
+            {% endif %}
+
+            {% trans "Share your story" as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=survey.title %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="p" title=survey.intro %}
+
+            {% trans "Take Survey" as buttontext %}
+            {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
+            {% pageurl survey as the_url %}
+            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
+            {% endwith %}
           </div>
         {% else %}
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
@@ -39,8 +52,6 @@
                 {% include "patterns/components/banners/join-banner.html" %}
             {% endif %}
         {% endif %}
-
-
 
       {% endwith %}
     {% endfor %}
