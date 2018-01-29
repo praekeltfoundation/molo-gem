@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n wagtailsettings_tags %}
+{% load i18n wagtailsettings_tags gem_tags %}
 
 {% get_settings %}
 {% block content %}
@@ -43,7 +43,8 @@
     {% if profile_settings.activate_gender and profile_settings.capture_gender_on_reg %}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        <span class="input-feedback">{{ user.profile.gender | default:"Not set" }}</span>
+        {% gender_display as gender %}
+        <span class="input-feedback">{{ gender | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 

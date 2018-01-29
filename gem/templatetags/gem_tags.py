@@ -1,6 +1,7 @@
 from django.template import Library
 from django.conf import settings
 
+from gem.constants import GENDER
 from gem.models import GemTextBanner
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
@@ -14,6 +15,14 @@ def get_site_static_prefix():
 @register.filter('fieldtype')
 def fieldtype(field):
     return field.field.widget.__class__.__name__
+
+
+@register.simple_tag(takes_context=True)
+def gender_display(context):
+    user = context['request'].user
+    if hasattr(user, 'profile') and user.profile.gender is not None:
+        return GENDER[user.profile.gender]
+    return None
 
 
 @register.simple_tag(takes_context=True)
