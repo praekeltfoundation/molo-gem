@@ -97,7 +97,6 @@ class GemRegistrationView(RegistrationView):
 
         user.profile.save()
 
-        user.gem_profile.gender = gender
         user.gem_profile.set_security_question_1_answer(
             security_question_1_answer
         )
@@ -289,14 +288,14 @@ class GemEditProfileView(MyProfileEdit):
 
     def get_initial(self):
         initial = super(GemEditProfileView, self).get_initial()
-        initial.update({'gender': self.request.user.gem_profile.gender})
+        initial.update({'gender': self.request.user.profile.gender})
         return initial
 
     def form_valid(self, form):
         super(MyProfileEdit, self).form_valid(form)
         gender = form.cleaned_data['gender']
-        self.request.user.gem_profile.gender = gender
-        self.request.user.gem_profile.save()
+        self.request.user.profile.gender = gender
+        self.request.user.profile.save()
         return HttpResponseRedirect(
             reverse('molo.profiles:view_my_profile'))
 

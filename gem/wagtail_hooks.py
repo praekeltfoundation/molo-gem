@@ -1,8 +1,7 @@
-from gem.admin import GemFrontendUsersModelAdmin, GemCommentModelAdmin
+from gem.admin import GemCommentModelAdmin
 from wagtail.contrib.modeladmin.options import modeladmin_register
 from wagtail.wagtailcore import hooks
 
-modeladmin_register(GemFrontendUsersModelAdmin)
 modeladmin_register(GemCommentModelAdmin)
 
 
