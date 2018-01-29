@@ -43,8 +43,7 @@
     {% if profile_settings.activate_gender and profile_settings.capture_gender_on_reg %}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        {% gender_display as gender %}
-        <span class="input-feedback">{{ gender | default:"Not set" }}</span>
+        <span class="input-feedback">{{gender|gender_display | default:"Not set" }}</span>
     </fieldset>
     {% endif %}
 

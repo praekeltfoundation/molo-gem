@@ -17,11 +17,10 @@ def fieldtype(field):
     return field.field.widget.__class__.__name__
 
 
-@register.simple_tag(takes_context=True)
-def gender_display(context):
-    user = context['request'].user
-    if hasattr(user, 'profile') and user.profile.gender is not None:
-        return GENDER[user.profile.gender]
+@register.simple_tag()
+def gender_display(gender):
+    if gender in ['m', 'f', '-']:
+        return GENDER[gender]
     return None
 
 
@@ -37,12 +36,10 @@ def is_via_freebasics(context):
 def gembannerpages(context):
     request = context['request']
     locale = context.get('locale_code')
-
+    pages = []
     if request.site:
         pages = request.site.root_page.specific.bannerpages().exact_type(
             GemTextBanner)
-    else:
-        pages = []
     return {
         'bannerpages': get_pages(context, pages, locale),
         'request': context['request'],
