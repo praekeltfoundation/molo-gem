@@ -427,7 +427,7 @@ FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
 
 
 AUTHENTICATION_BACKENDS = [
-    'gem.backends.GemModelBackend',
+    'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'molo.core.backends.MoloCASBackend',
 ]
