@@ -17,7 +17,7 @@ def fieldtype(field):
     return field.field.widget.__class__.__name__
 
 
-@register.simple_tag()
+@register.filter
 def gender_display(gender):
     if gender in ['m', 'f', '-']:
         return GENDER[gender]
