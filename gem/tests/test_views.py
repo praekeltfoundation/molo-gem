@@ -28,11 +28,21 @@ from molo.profiles.models import (
 )
 
 
+@override_settings(
+    SECURITY_QUESTION_1='question_1',
+    SECURITY_QUESTION_2='question_2',
+)
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
         self.client = Client()
         self.mk_main2()
+
+        security_index = SecurityQuestionIndexPage.objects.first()
+        for i in range(1, 3):
+            question = SecurityQuestion(title='question_{0}'.format(i))
+            security_index.add_child(instance=question)
+            question.save_revision().publish()
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -174,17 +184,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             response,
             'Your username and password do not match. Please try again.')
 
-    @override_settings(
-        SECURITY_QUESTION_1='question_1',
-        SECURITY_QUESTION_2='question_2',
-    )
     def test_registration_creates_security_answer(self):
-        security_index = SecurityQuestionIndexPage.objects.first()
-        for i in range(1, 3):
-            question = SecurityQuestion(title='question_{0}'.format(i))
-            security_index.add_child(instance=question)
-            question.save_revision().publish()
-
         self.client.post(reverse('user_register'), {
             'username': 'testuser',
             'password': '1234',
