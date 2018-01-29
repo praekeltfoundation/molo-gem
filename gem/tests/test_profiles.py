@@ -17,8 +17,6 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.client.login(username='tester', password='tester')
         response = self.client.get(reverse('edit_my_profile'))
         self.assertNotContains(response, 'useralias')
-        self.assertNotContains(
-            response, '<option value="f" selected="selected">female</option>')
         self.user.profile.gender = 'f'
         self.user.profile.alias = 'useralias'
         self.user.profile.save()
