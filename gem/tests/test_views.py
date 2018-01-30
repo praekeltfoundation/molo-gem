@@ -38,11 +38,23 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.client = Client()
         self.mk_main2()
 
-        security_index = SecurityQuestionIndexPage.objects.first()
-        for i in range(1, 3):
-            question = SecurityQuestion(title='question_{0}'.format(i))
-            security_index.add_child(instance=question)
-            question.save_revision().publish()
+        for main in [self.main, self.main2]:
+            security_index = SecurityQuestionIndexPage.objects.descendant_of(
+                main).first()
+            for i in range(1, 3):
+                question = SecurityQuestion(title='question_{0}'.format(i))
+                security_index.add_child(instance=question)
+                question.save_revision().publish()
+
+    def user_registration_data(self):
+        return {
+            'username': 'testuser',
+            'password': '1234',
+            'gender': 'f',
+            'security_question_1_answer': 'answer_1',
+            'security_question_2_answer': 'answer_2',
+            'terms_and_conditions': 'on',
+        }
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
@@ -185,21 +197,13 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'Your username and password do not match. Please try again.')
 
     def test_registration_creates_security_answer(self):
-        self.client.post(reverse('user_register'), {
-            'username': 'testuser',
-            'password': '1234',
-            'gender': 'f',
-            'security_question_1_answer': 'answer_1',
-            'security_question_2_answer': 'answer_2',
-            'terms_and_conditions': 'on',
-        })
+        self.client.post(
+            reverse('user_register'),
+            self.user_registration_data(),
+        )
 
-        security_questions = SecurityQuestion.objects.all()
-
-        self.assertEqual(security_questions.count(), 2)
-        self.assertEqual(security_questions.first().title, 'question_1')
-        self.assertEqual(security_questions.last().title, 'question_2')
-
+        security_questions = SecurityQuestion.objects.descendant_of(
+            self.main).all()
         security_answers = SecurityAnswer.objects.all()
 
         self.assertEqual(security_answers.count(), 2)
@@ -219,6 +223,23 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             security_answers.last().check_answer('answer_2'),
             True,
         )
+
+    def test_security_answer_attached_to_question_from_correct_site(self):
+        client = Client(HTTP_HOST=self.site2.hostname)
+        client.post(
+            reverse('user_register'),
+            self.user_registration_data(),
+        )
+
+        security_questions = SecurityQuestion.objects.descendant_of(
+            self.main2).all()
+        security_answers = SecurityAnswer.objects.all()
+
+        for i in range(2):
+            self.assertEqual(
+                security_answers[i].question,
+                security_questions[i],
+            )
 
 
 class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
