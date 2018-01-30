@@ -19,9 +19,9 @@
     {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
         {% if form %}
             {% if self.your_words_competition %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html"  with surveytype="competition" %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="competition" surveytypeClass="surveys" %}
             {% else %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html" with surveytype="survey" %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html" with  surveytype="survey" surveytypeClass="surveys" %}
             {% endif %}
         {% else %}
             {% if self.your_words_competition %}

@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
-  {% if survey.image %}
-      {% image survey.image width-98 as tmp_photo_small %}
-      {% image survey.image width-320 as tmp_photo_large %}
+  {% if pagetype.image %}
+      {% image pagetype.image width-98 as tmp_photo_small %}
+      {% image pagetype.image width-320 as tmp_photo_large %}
       <div class="gcn-competition__image">
           <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
       </div>

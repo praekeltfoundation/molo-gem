@@ -1,6 +1,6 @@
 {% load wagtailcore_tags core_tags gem_tags wagtailimages_tags i18n %}
 <div class="{{surveytypeClass}}">
-    <p class="errors">{% trans 'You have already completed this {{surveytype}}.' %}</p>
+    <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
     {% trans "Back home" as back %}
     {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
 </div>

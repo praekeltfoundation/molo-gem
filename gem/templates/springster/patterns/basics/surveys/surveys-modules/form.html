@@ -64,8 +64,9 @@
     </div>
   </fieldset>
   {% endfor %}
-  {% trans "Submit {{surveytype}}" as text %}
-  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+  <!--Find a way to include {{surveytype}} variable to text -->
+  {% trans "Submit" as text %}
+  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}} {{surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
 
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
   <div class="{{surveytypeClass}}__pagination">
