@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+  {% if survey.image %}
+      {% image survey.image width-98 as tmp_photo_small %}
+      {% image survey.image width-320 as tmp_photo_large %}
+      <div class="gcn-competition__image">
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+      </div>
+  {% else %}
+      <div class="gcn-competition__image gcn-competition__default"></div>
+  {% endif %}
+
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=pagetype.title %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=pagetype.intro %}

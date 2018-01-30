@@ -1,55 +1,17 @@
 {% load wagtailcore_tags gem_tags wagtailimages_tags i18n personalise_extras %}
-{% block content %}
 
+{% block content %}
 <!--
     1. Differentiate Personlaised Survey by Segments vs Standard Surveys
 -->
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
     {% for survey in filtered_surveys %}
       {% with survey=survey.molo_survey_page form=survey.form %}
-
         {% if survey.your_words_competition %}
-          <!--
-              1. Display default or custom image
-              2. Display color theme
-              3. On Main.html - Display on separate position
-              4. If User is authenticated show GCN Competition
-          -->
-          <div class="surveys gcn-competition">
-            {% if survey.image %}
-                {% image survey.image width-98 as tmp_photo_small %}
-                {% image survey.image width-320 as tmp_photo_large %}
-                <div class="gcn-competition__image">
-                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
-                </div>
-            {% else %}
-                <div class="gcn-competition__image gcn-competition__default"></div>
-            {% endif %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.intro %}
-
-            {% trans "Take Survey" as buttontext %}
-            {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-            {% pageurl survey as the_url %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-            {% endwith %}
-          </div>
+            {% include "patterns/basics/surveys/surveys-list_gcn.html" %}
         {% else %}
-            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-                <div class="surveys surveys--call-to-action">
-                    <div class="identity-image identity-image--survey"></div>
-                    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-                    {% trans "Take Survey" as buttontext %}
-                    {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-                        {% pageurl survey as the_url %}
-                        {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-                    {% endwith %}
-                </div>
-            {% else %}
-                {% include "patterns/components/banners/join-banner.html" %}
-            {% endif %}
+            {% include "patterns/basics/surveys/surveys-list_generic.html" %}
         {% endif %}
-
       {% endwith %}
     {% endfor %}
 {% endblock %}

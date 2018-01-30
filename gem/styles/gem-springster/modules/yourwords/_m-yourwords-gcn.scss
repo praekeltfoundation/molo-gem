@@ -1,0 +1,33 @@
+.gcn-competition {
+    padding: 0 0 10px;
+    position: relative;
+    @media screen and (min-width: 320px) {
+        @each $name, $color in $color_list {
+            &--#{$name} {
+                background-color: $color;
+            }
+        }
+    }
+    &__image {}
+    &__dynamic {
+        width: 100%;
+        height: auto;
+    }
+    &__default {
+        @media screen and (min-width: 320px) {
+            background: url(/static/img/gcn-banner.jpg) no-repeat 0 0/contain;
+            min-height: 160px;
+            height: auto;
+            width: 100%;
+        }
+    }
+    &--homepage {
+        margin: 15px 0 0;
+        border-color: #edf0f2;
+        border-style: solid;
+        border-width: 0;
+        border-bottom-width: 4px;
+        border-top-width: 4px;
+    }
+    .heading__component {padding-top: 0;}
+}
