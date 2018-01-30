@@ -22,6 +22,8 @@ from molo.profiles.models import (
     SecurityQuestionIndexPage,
 )
 
+from os.path import join
+
 
 class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
@@ -422,6 +424,24 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
 
         for comment in Comment.objects.all().iterator():
             self.assertNotIn(comment.comment, 'Type your comment here...')
+
+
+class AddDefaultTagsTest(TestCase):
+    def test_command_works(self):
+        call_command('add_default_tags')
+
+
+class AddDefaultTagsToArticlesTest(TestCase):
+    def test_command_works(self):
+        csv_file = join('gem', 'tests', 'fixtures',
+                        'add_default_tags_to_articles.csv')
+        call_command('add_default_tags_to_articles', csv_file, 'en')
+
+
+class AddImagesToSectionsTest(TestCase, MoloTestCaseMixin):
+    def test_command_works(self):
+        self.mk_main()
+        call_command('add_images_to_sections', 'en')
 
 
 @override_settings(

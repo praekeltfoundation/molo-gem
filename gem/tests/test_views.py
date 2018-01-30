@@ -494,3 +494,9 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         )
 
         self.assertContains(response, 'You have already reported this comment')
+
+    def test_renders_report_response_template(self):
+        comment = self.create_comment(self.article, 'report me')
+        response = self.client.get(
+            reverse('report_response', args=(comment.pk,)))
+        self.assertContains(response, 'This comment has been reported.')
