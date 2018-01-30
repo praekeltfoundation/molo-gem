@@ -1,0 +1,79 @@
+{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags i18n %}
+<form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
+    {% csrf_token %}
+  {% if not is_via_freebasics %}
+      {{ form.media }}
+  {% endif %}
+  {% for field in form %}
+  <fieldset>
+    <div class="input-group">
+      <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+      {% if field.help_text %}
+        {% if field|fieldtype == 'CharacterCountWidget' %}
+          <p class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</p>
+        {% else %}
+          <p class="helptext">{{ field.help_text }}</p>
+        {% endif %}
+      {% endif %}
+      {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+          {% for value, text in field.field.choices %}
+              <div class="choice-group">
+                  <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                  <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+              </div>
+          {% endfor %}
+      {% elif field|fieldtype == 'RadioSelect' %}
+          {% for value, text in field.field.choices %}
+              <div class="choice-group choice-group__radio">
+                  <input name="{{ field.name }}"
+                   id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                   <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+              </div>
+          {% endfor %}
+          {% elif field|fieldtype == 'Select' %}
+              <div class="select-style">
+                   <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                       {% if field.value.0 %}
+                           <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                           {% for choice in field.field.choices %}
+                               <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                                   {{choice.0}}
+                               </option>
+                           {% endfor %}
+                       {% elif not field.value.0  %}
+                           <option value selected="selected">Choose..</option>
+                           {% for choice in field.field.choices %}
+                               <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                                   {{choice.0}}
+                               </option>
+                           {% endfor %}
+                       {% endif %}
+                   </select>
+              </div>
+      {% else %}
+          {{field}}
+      {% endif %}
+
+      {% if field.errors %}
+        <ul class="error-list errorlist">
+        {% for error in field.errors %}
+          <li class="error-list__item">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </fieldset>
+  {% endfor %}
+  {% trans "Submit {{surveytype}}" as text %}
+  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+
+  {% if fields_step and fields_step.paginator.num_pages > 1 %}
+  <div class="{{surveytypeClass}}__pagination">
+      <p class="{{surveytypeClass}}__page">
+          {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
+              Page <span class="{{surveytypeClass}}__page-number">{{ page }}</span> of <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
+          {% endblocktrans %}
+      </p>
+  </div>
+  {% endif %}
+</form>
