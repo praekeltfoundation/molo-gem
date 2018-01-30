@@ -2,10 +2,9 @@
 {% load wagtailcore_tags core_tags gem_tags wagtailimages_tags i18n %}
 
 {% block content %}
-
     {% if self.your_words_competition %}
         <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
-            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype="self" %}
+            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
         </div>
     {% else %}
@@ -14,9 +13,9 @@
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
 
-            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="survey" surveytypeClass="surveys" %}
+            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
       </div>
-      
+
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
         {% if form %}
             <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}" novalidate>

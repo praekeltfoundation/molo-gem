@@ -7,7 +7,7 @@
     4. If User is authenticated show GCN Competition
 -->
     <div class="gcn-competition gcn-competition--homepage {% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
-        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype="survey" %}
+        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
 
         {% trans "Take GCN competition" as buttontext %}
         {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
