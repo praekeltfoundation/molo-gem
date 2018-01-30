@@ -5,6 +5,7 @@
     {% if self.your_words_competition %}
         <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
             {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=pagetype.intro %}
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
         </div>
     {% else %}
