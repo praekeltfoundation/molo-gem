@@ -280,10 +280,6 @@ class GemResetPasswordView(FormView):
         )
 
 
-class GemResetPasswordSuccessView(TemplateView):
-    template_name = 'reset_password_success.html'
-
-
 class GemEditProfileView(MyProfileEdit):
     form_class = GemEditProfileForm
 
