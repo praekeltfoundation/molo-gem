@@ -153,50 +153,6 @@ class GemForgotPasswordForm(Form):
     )
 
 
-class GemResetPasswordForm(Form):
-    username = forms.CharField(
-        widget=forms.HiddenInput()
-    )
-
-    token = forms.CharField(
-        widget=forms.HiddenInput()
-    )
-
-    password = forms.RegexField(
-        regex=r'^\d{4}$',
-        widget=forms.PasswordInput(
-            attrs=dict(
-                required=True,
-                render_value=False,
-                type='password',
-            )
-        ),
-        max_length=4,
-        min_length=4,
-        error_messages={
-            'invalid': _("This value must contain only numbers."),
-        },
-        label=_("PIN")
-    )
-
-    confirm_password = forms.RegexField(
-        regex=r'^\d{4}$',
-        widget=forms.PasswordInput(
-            attrs=dict(
-                required=True,
-                render_value=False,
-                type='password',
-            )
-        ),
-        max_length=4,
-        min_length=4,
-        error_messages={
-            'invalid': _("This value must contain only numbers."),
-        },
-        label=_("Confirm PIN")
-    )
-
-
 class GemEditProfileForm(GemAliasMixin, EditProfileForm):
     alias = forms.RegexField(
         regex=r'^[\w.@+-]+$',

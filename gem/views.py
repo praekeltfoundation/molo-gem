@@ -25,7 +25,6 @@ from gem.forms import (
     GemEditProfileForm,
     GemForgotPasswordForm,
     GemRegistrationForm,
-    GemResetPasswordForm,
     ReportCommentForm,
 )
 from gem.models import GemSettings, GemCommentReport
@@ -225,57 +224,6 @@ class GemForgotPasswordView(FormView):
             random_security_question_idx
 
         return super(GemForgotPasswordView, self).render_to_response(
-            context, **response_kwargs
-        )
-
-
-class GemResetPasswordView(FormView):
-    form_class = GemResetPasswordForm
-    template_name = 'reset_password.html'
-
-    def form_valid(self, form):
-        username = form.cleaned_data['username']
-        token = form.cleaned_data['token']
-
-        try:
-            user = User.objects.get_by_natural_key(username)
-        except User.DoesNotExist:
-            return HttpResponseForbidden()
-
-        if not user.is_active:
-            return HttpResponseForbidden()
-
-        if not default_token_generator.check_token(user, token):
-            return HttpResponseForbidden()
-
-        password = form.cleaned_data['password']
-        confirm_password = form.cleaned_data['confirm_password']
-
-        if password != confirm_password:
-            form.add_error('password',
-                           _('The two PINs that you entered do not match. '
-                             'Please try again.'))
-            return self.render_to_response({'form': form})
-
-        user.set_password(password)
-        user.save()
-        self.request.session.flush()
-
-        return HttpResponseRedirect(reverse('reset_password_success'))
-
-    def render_to_response(self, context, **response_kwargs):
-        username = self.request.GET.get('user')
-        token = self.request.GET.get('token')
-
-        if not username or not token:
-            return HttpResponseForbidden()
-
-        context['form'].initial.update({
-            'username': username,
-            'token': token
-        })
-
-        return super(GemResetPasswordView, self).render_to_response(
             context, **response_kwargs
         )
 

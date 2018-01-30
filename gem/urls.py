@@ -13,9 +13,10 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
 from molo.core import views as core_views
+from molo.profiles.views import ResetPasswordView
 from wagtail.contrib.wagtailsitemaps import views as sitemap_views
 from gem.views import report_response, GemRegistrationView, \
-    GemRssFeed, GemAtomFeed, GemForgotPasswordView, GemResetPasswordView, \
+    GemRssFeed, GemAtomFeed, GemForgotPasswordView, \
     ReportCommentView, GemEditProfileView, \
     AlreadyReportedCommentView
 
@@ -44,8 +45,8 @@ urlpatterns += [
     url(r'^profiles/forgot_password/$',
         GemForgotPasswordView.as_view(), name='forgot_password'),
     url(r'^profiles/reset_password/$',
-        GemResetPasswordView.as_view(), name='reset_password'),
-    url(r'^profiles/reset_password_success/$',
+        ResetPasswordView.as_view(), name='reset_password'),
+    url(r'^profiles/reset-success/$',
         TemplateView.as_view(
             template_name='profiles/reset_password_success.html'
         ),
