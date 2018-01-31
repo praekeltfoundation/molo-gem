@@ -29,7 +29,7 @@
               {% endif %}
               <p>{% trans "Gender:" %}
               {% if user.profile.gender %}
-                  <span>{{gender|gender_display | default:"Not set" }}</span></p>
+                  <span>{{ user.profile.gender|gender_display | default:"Not set" }}</span></p>
               {% else %}
                 <span>Not set.</span></p>
               {% endif %}
