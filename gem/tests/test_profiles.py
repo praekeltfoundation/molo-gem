@@ -19,3 +19,7 @@ class TestProfileInformationDisplay(TestCase, MoloTestCaseMixin):
         self.user.profile.save()
         response = self.client.get(reverse('molo.profiles:view_my_profile'))
         self.assertContains(response, '<span>female</span>')
+        self.user.profile.gender = 'None'
+        self.user.profile.save()
+        response = self.client.get(reverse('molo.profiles:view_my_profile'))
+        self.assertContains(response, '<span>Not set</span>')
