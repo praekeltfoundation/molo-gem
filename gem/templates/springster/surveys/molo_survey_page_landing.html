@@ -2,43 +2,34 @@
 {% load i18n %}
 
 {% block content %}
-<div class="surveys surveys--call-to-action">
-    <div class="identity-image identity-image--survey"></div>
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+    {% if self.your_words_competition %}
+        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+        </div>
+    {% else %}
+    <div class="surveys surveys--call-to-action">
+        <div class="identity-image identity-image--survey"></div>
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+    </div>
+    {% endif %}
+
     {% if self.thank_you_text %}
         {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
     {% else %}
-        {% trans "Thank you for submitting survey!" as headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+        {% if self.your_words_competition %}
+            {% trans "Thank you for submitting GCN competition" as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+        {% else %}
+            {% trans "Thank you for submitting survey!" as headingtext %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+        {% endif %}
     {% endif %}
-</div>
-{% if self.show_results and results %}
-    <div class="surveys--results">
-    {% trans "Survey Results" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-    {% trans "Your survey has been completed successfully. Please see your submission results below." as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
-        {% for question, answers in results.items %}
-        <fieldset>
-            <label class="surveys__question">{{ question|capfirst }}</label>
-            {% for answer, count in answers.items %}
-                <div class="surveys__answers-counter-bar">
-                <h4 class="surveys__answers">
-                    {{ answer|capfirst }}
-                </h4>
-                <span class="surveys__answers-counter">
-                    {% if self.show_results_as_percentage%}
-                        {{ count }}%
-                    {% else %}
-                        {{count}}
-                    {% endif %}
-                </span>
-            </div>
-            {% endfor %}
-        </fieldset>
-        {% endfor %}
-    </div>
-{% endif %}
+
+    {% if self.your_words_competition %}
+        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="competition" surveytypeClass="surveys" %}
+    {% else %}
+        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="surveys" surveytypeClass="surveys" %}
+    {% endif %}
 {% trans "Back home" as back %}
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
 {% endblock %}

@@ -10,7 +10,7 @@
     {% media_listing_homepage %}
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
-    {% paginate 12 tag_nav_data.latest_articles as latest_articles %}
+    {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
     {% media_listing_homepage %}
@@ -20,16 +20,26 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
     {% bannerpages position=2 %}
-    {% surveys_list %}
+
+    {% surveys_list only_yourwords=True %}
+
+    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
+
+    {% if not survey.your_words_competition %}
+        {% surveys_list only_direct_surveys=True %}
+        {% surveys_list only_linked_surveys=True %}
+    {% endif %}
 
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
+
+    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
+
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
     {% bannerpages position=3 %}
     {% your_words_competition %}
 
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
+    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
 
     {% get_pages %}
     {% trans "Load more" as buttontext %}
