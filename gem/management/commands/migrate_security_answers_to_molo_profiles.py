@@ -32,6 +32,10 @@ class Command(BaseCommand):
                     logging.warn('User {0} has no profile'.format(user.id))
                     continue
 
+                if user.profile.site is None:
+                    logging.warn('User {0} has no site'.format(user.id))
+                    continue
+
                 main_page = user.profile.site.root_page
                 security_index = SecurityQuestionIndexPage.objects.child_of(
                     main_page).first()
