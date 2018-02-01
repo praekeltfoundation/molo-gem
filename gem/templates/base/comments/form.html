@@ -1,4 +1,4 @@
-{% load comments i18n wagtailcore_tags wagtailimages_tags %}
+{% load comments wagtailcore_tags wagtailimages_tags %}
 <form id="comment-form" class="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments" method="post">
     {% csrf_token %}
     {% if form.errors %}
