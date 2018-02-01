@@ -1,7 +1,6 @@
 from django.conf import settings
 
 
-# TODO: remove this context processor
 def detect_freebasics(request):
     return {
         'is_via_freebasics':
