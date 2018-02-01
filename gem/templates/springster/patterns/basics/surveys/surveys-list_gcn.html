@@ -1,4 +1,4 @@
-{% load wagtailcore_tags gem_tags wagtailimages_tags personalise_extras i18n %}
+{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags personalise_extras i18n %}
 
 <!--
     1. Display default or custom image
@@ -8,7 +8,10 @@
 -->
     <div class="gcn-competition gcn-competition--homepage {% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
         {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.intro %}
+        {% if survey.intro %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.intro %}
+        {% endif %}
+
 
         {% trans "Take GCN competition" as buttontext %}
         {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
