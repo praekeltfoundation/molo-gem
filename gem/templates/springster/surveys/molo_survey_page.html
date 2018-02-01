@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags core_tags gem_tags wagtailimages_tags i18n %}
 
+
 {% block content %}
     {% if self.your_words_competition %}
         <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
             {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=pagetype.intro %}
+
+            {% if self.intro %}
+                {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.intro %}
+            {% endif %}
+
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
         </div>
     {% else %}
@@ -16,6 +21,30 @@
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
         </div>
     {% endif %}
+    <!--    Enable H tag streamfield
+            Enable p tag streamfield
+            Disable all other streamfields via checkbox value
+
+            1. Paragraph must have a limit characters
+                One long paragraph or several para
+            2. Only use/limit first H and p tags
+    -->
+    {% if self.content %}
+        {% for block in self.content %}
+            {% if forloop.counter %}
+                {% if block.block_type == 'heading' %}
+                    <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
+                        {{ block.value }}</br/>
+                    </h4>
+                {% elif block.block_type == 'paragraph' %}
+                    <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
+                        {{ block.value }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
     {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
         {% if form %}
             {% if self.your_words_competition %}
