@@ -84,9 +84,9 @@ class GemRegistrationView(RegistrationView):
                 raise ImproperlyConfigured(
                     'Security question {0} is unset'.format(question_setting))
 
-            security_question = SecurityQuestion.objects.get(
-                title=question_text,
-            )
+            security_question = SecurityQuestion.objects.descendant_of(
+                self.request.site.root_page).filter(
+                title=question_text).first()
 
             security_answer, _ = SecurityAnswer.objects.get_or_create(
                 user=user.profile,
