@@ -141,6 +141,9 @@ DEFAULT_TEMPLATE = {
              join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
     'APP_DIRS': False,
     'OPTIONS': {
+        'builtins': [
+            'django.templatetags.i18n',
+        ],
         'context_processors': [
             'django.template.context_processors.debug',
             'django.template.context_processors.request',
