@@ -1,12 +1,7 @@
-import time
-
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.utils import timezone
@@ -291,208 +286,6 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, expected_validation_message)
 
 
-class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
-    def setUp(self):
-        self.mk_main()
-        self.client = Client()
-
-        self.user = User.objects.create_user(
-            username='tester',
-            email='tester@example.com',
-            password='tester')
-
-        self.user.gem_profile.set_security_question_1_answer('dog')
-        self.user.gem_profile.set_security_question_2_answer('cat')
-        self.user.gem_profile.save()
-
-        # to get the session set up
-        response = self.client.get(reverse('forgot_password'))
-        response_body = response.content.decode(response.charset)
-
-        if settings.SECURITY_QUESTION_1 in response_body:
-            self.question_being_asked = settings.SECURITY_QUESTION_1
-        else:
-            self.question_being_asked = settings.SECURITY_QUESTION_2
-
-    def post_invalid_username_to_forgot_password_view(self):
-        return self.client.post(reverse('forgot_password'), {
-            'username': 'invalid',
-            'random_security_question_answer': 'something'
-        })
-
-    def test_forgot_password_view_invalid_username(self):
-        response = self.post_invalid_username_to_forgot_password_view()
-
-        self.assertContains(response, 'The username that you entered appears '
-                                      'to be invalid. Please try again.')
-
-    def test_forgot_password_view_inactive_user(self):
-        self.user.is_active = False
-        self.user.save()
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': 'something'
-        })
-
-        self.assertContains(response, 'This account is inactive.')
-
-    def post_invalid_answer_to_forgot_password_view(self):
-        return self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': 'invalid'
-        })
-
-    def test_forgot_password_view_invalid_answer(self):
-        response = self.post_invalid_answer_to_forgot_password_view()
-
-        self.assertContains(response, 'Your answer to the security question '
-                                      'was invalid. Please try again.')
-
-    def test_unsuccessful_username_attempts(self):
-        response = None
-        for x in range(6):
-            response = self.post_invalid_username_to_forgot_password_view()
-
-        # on the 6th attempt
-        self.assertContains(response, 'Too many attempts. Please try again '
-                                      'later.')
-
-    def test_unsuccessful_answer_attempts(self):
-        response = None
-        for x in range(6):
-            response = self.post_invalid_answer_to_forgot_password_view()
-
-        # on the 6th attempt
-        self.assertContains(response, 'Too many attempts. Please try again '
-                                      'later.')
-
-    def get_expected_token_and_redirect_url(self):
-        expected_token = default_token_generator.make_token(self.user)
-        expected_query_params = QueryDict(mutable=True)
-        expected_query_params['user'] = self.user.username
-        expected_query_params['token'] = expected_token
-        expected_redirect_url = '{0}?{1}'.format(
-            reverse('reset_password'), expected_query_params.urlencode()
-        )
-        return expected_token, expected_redirect_url
-
-    def proceed_to_reset_password_page(self):
-        if self.question_being_asked == settings.SECURITY_QUESTION_1:
-            answer = 'dog'
-        else:
-            answer = 'cat'
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': answer
-        })
-
-        expected_token, expected_redirect_url = \
-            self.get_expected_token_and_redirect_url()
-
-        self.assertRedirects(response, expected_redirect_url)
-
-        return expected_token, expected_redirect_url
-
-    def test_reset_password_view_pin_mismatch(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '4321'
-        })
-
-        self.assertContains(response, 'The two PINs that you entered do not '
-                                      'match. Please try again.')
-
-    def test_reset_password_view_requires_query_params(self):
-        response = self.client.get(reverse('reset_password'))
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_invalid_username(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': 'invalid',
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_inactive_user(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        self.user.is_active = False
-        self.user.save()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_invalid_token(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': 'invalid',
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_happy_path(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertRedirects(response, reverse('reset_password_success'))
-
-        self.assertTrue(
-            self.client.login(username='tester', password='1234')
-        )
-
-    @override_settings(SESSION_COOKIE_AGE=1)
-    def test_session_expiration_allows_subsequent_attempts(self):
-        self.test_unsuccessful_username_attempts()
-
-        time.sleep(1)
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': 'invalid',
-            'random_security_question_answer': 'something'
-        })
-
-        # the view should redirect back to itself to set up a new session
-        self.assertRedirects(response, reverse('forgot_password'))
-
-        # follow the redirect
-        self.client.get(reverse('forgot_password'))
-
-        # now another attempt should be possible
-        self.test_forgot_password_view_invalid_username()
-
-
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
@@ -701,3 +494,9 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         )
 
         self.assertContains(response, 'You have already reported this comment')
+
+    def test_renders_report_response_template(self):
+        comment = self.create_comment(self.article, 'report me')
+        response = self.client.get(
+            reverse('report_response', args=(comment.pk,)))
+        self.assertContains(response, 'This comment has been reported.')

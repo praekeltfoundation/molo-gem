@@ -3,6 +3,7 @@ import pytest
 
 from copy import deepcopy
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -14,7 +15,7 @@ from molo.core.models import (
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
-from gem.models import GemSettings
+from gem.models import GemSettings, GemUserProfile
 
 from os.path import join
 
@@ -98,3 +99,16 @@ class TestModels(TestCase, MoloTestCaseMixin):
             self.assertContains(
                 response,
                 "Share your opinions and stories, take polls, win fun prizes.")
+
+
+class TestGemUserProfile(TestCase, MoloTestCaseMixin):
+    def test_security_questions_check(self):
+        self.mk_main()
+        get_user_model().objects.create_user(
+            username='user', email='user@example.com', password='pass')
+        profile = GemUserProfile.objects.first()
+        profile.set_security_question_1_answer('Answer 1')
+        profile.set_security_question_2_answer('Answer 2')
+
+        self.assertTrue(profile.check_security_question_1_answer('Answer 1'))
+        self.assertTrue(profile.check_security_question_2_answer('Answer 2'))
