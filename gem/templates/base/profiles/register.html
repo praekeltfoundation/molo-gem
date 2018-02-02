@@ -14,11 +14,13 @@
         </p>
         <form method="post" action="{% url 'molo.profiles:user_register' %}">
         {% csrf_token %}
+
         {% if form.errors %}
           <p class="alert-error">
             {% trans "Please correct the indicated errors." %}
           </p>
         {% endif %}
+
         <fieldset>
           <label>{% trans "Choose a username" %}</label>
           <p class="helptext">
@@ -28,12 +30,14 @@
           {{ form.username }}
         </fieldset>
 
-        <fieldset>
-          <label>{% trans "Display name" %}</label>
-            <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
-            {{ form.alias.errors }}
-            {{ form.alias }}
-        </fieldset>
+        {% if settings.profiles.UserProfilesSettings.activate_display_name and settings.profiles.UserProfilesSettings.capture_display_name_on_reg %}
+          <fieldset>
+            <label>{% trans "Display name" %}</label>
+              <p class="helptext">{% trans "Girl Effect values your online security, therefore we hide your username and allow you to comment and interact with the site anonymously. If you would like to interact with other people, like your friends to be able to see you as a username and not anonymous, update your username here" %}</p>
+              {{ form.alias.errors }}
+              {{ form.alias }}
+          </fieldset>
+        {% endif %}
 
         <fieldset>
           <label>{% trans "Choose a 4-digit pin" %}</label>
@@ -41,33 +45,81 @@
           <input id="id_password" maxlength="4" name="password" placeholder="eg. 2086" type="password" required="" pattern="[0-9]*" inputmode="numeric">
         </fieldset>
 
-        <fieldset>
-          {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-            <label>{% trans "Enter your mobile number" %}</label>
-            {{ form.mobile_number }}
-            {{ form.mobile_number.errors }}
-          {% endif %}
-        </fieldset>
+        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+          <fieldset>
+              <label>{% trans "Enter your mobile number" %}</label>
+              {{ form.mobile_number }}
+              {{ form.mobile_number.errors }}
+          </fieldset>
+        {% endif %}
 
-        <fieldset>
-          <label>{% trans "I identify my gender as" %}</label>
-          {{ form.gender.errors }}
-          {{ form.gender }}
-          <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
-        </fieldset>
+        {% if settings.profiles.UserProfilesSettings.activate_gender and settings.profiles.UserProfilesSettings.capture_gender_on_reg %}
+          <fieldset>
+            <label>{% trans "I identify my gender as" %}</label>
+            {{ form.gender }}
+            {{ form.gender.errors }}
+            <p class="sigin-form__input-hint">({% trans "Only you will see this" %})</p>
+          </fieldset>
+        {% endif %}
 
+        {% if settings.profiles.UserProfilesSettings.activate_dob and settings.profiles.UserProfilesSettings.capture_dob_on_reg %}
+          <fieldset>
+              <label for="date_of_birth">{% trans "Select Date of Birth" %}</label>
+              {{ form.date_of_birth }}
+              {{ form.date_of_birth.errors}}
+              <p class="helptext">{% trans "Let us know your birthday to get access to exclusive content." %}</p>
+          </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.show_email_field %}
         <fieldset>
+          <label for="id_email">{% trans "ENTER YOUR EMAIL ADDRESS" %}</label><br>
+          {{ form.email.errors}}
+          {{ form.email }}
+          <span class="input-hint">{% trans "(e.g. example@foo.com)" %}</span>
+        </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.show_email_field %}
+        <fieldset>
+            <label for="id_email">{% trans "Enter your email address" %}</label>
+            {{ form.email }}
+            {{ form.email.errors}}
+            <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
+        </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
+        <fieldset>
+            <label for="location">{% trans "Where do you live?" %}</label>
+            {{ form.location }}
+            {{ form.location.errors}}
+            <p class="helptext">{% trans "Only you will see this." %}</p>
+        </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
+          <fieldset>
+            <label for="education_level">{% trans "What is your highest level of education?" %}</label>
+            {{ form.education_level }}
+            {{ form.education_level.errors}}
+            <p class="helptext">{% trans "Only you will see this." %}</p>
+          </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.show_security_question_fields  %}
           <label>{% trans "Security questions" %}</label>
           <p class="helptext">{% trans "Please answer the following security questions. You'll have to provide these answers if you ever need to reset your password." %}</p>
-
-          <label>{% trans security_question_1 %}</label>
-          {{ form.security_question_1_answer.errors }}
-          {{ form.security_question_1_answer }}
-
-          <label>{% trans security_question_2 %}</label>
-          {{ form.security_question_2_answer.errors }}
-          {{ form.security_question_2_answer }}
-        </fieldset>
+          {% for field in form %}
+            {% if field in form.security_questions %}
+              <fieldset>
+                <label for="id_email">{% trans field.label_tag %}</label><br>
+                {{ field.errors}}
+                {{ field }}
+              </fieldset>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
 
         <fieldset>
           {% if form.terms_and_conditions.errors %}

@@ -112,23 +112,24 @@
             <p class="helptext">{% trans "Only you will see this." %}</p>
         </fieldset>
         {% endif %}
-        <fieldset>
-            {% trans "Security questions" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="h3" title=headingtext %}
-            <div class="input-group{% if form.security_question_1_answer.errors %} input-error{% endif %}">
-                <label>{% trans security_question_1 %}</label>
-                {{ form.security_question_1_answer }}
-                {{ form.security_question_1_answer.errors }}
-            </div>
-            <div class="input-group{% if form.security_question_1_answer.errors %} input-error{% endif %}">
-                <label>{% trans security_question_2 %}</label>
-                {{ form.security_question_2_answer }}
-                {{ form.security_question_2_answer.errors }}
-            </div>
-            <p class="helptext">
-                {% trans "Please answer the above security questions. You'll have to provide these answers if you ever need to reset your password." %}
-            </p>
-        </fieldset>
+        {% if settings.profiles.UserProfilesSettings.show_security_question_fields  %}
+          <fieldset>
+              {% trans "Security questions" as headingtext %}
+              {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="h3" title=headingtext %}
+              {% for field in form %}
+                {% if field in form.security_questions %}
+                  <div class="input-group{% if field.errors %} input-error{% endif %}">
+                      <label>{% trans field.label_tag %}</label>
+                      {{ field }}
+                      {{ field.errors }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+              <p class="helptext">
+                  {% trans "Please answer the above security questions. You'll have to provide these answers if you ever need to reset your password." %}
+              </p>
+          </fieldset>
+        {% endif %}
         <fieldset>
             <div class="terms-and-conditions">
                 {{ form.terms_and_conditions }}
