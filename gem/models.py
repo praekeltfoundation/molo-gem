@@ -31,19 +31,6 @@ class GemUserProfile(models.Model):
     security_question_1_answer = models.CharField(max_length=128, null=True)
     security_question_2_answer = models.CharField(max_length=128, null=True)
 
-    migrated_username = models.CharField(
-        _('migrated_username'),
-        max_length=30,
-        validators=[
-            validators.RegexValidator(
-                r'^[\w.@+-]+$',
-                _('Enter a valid username. This value may contain only '
-                  'letters, numbers ' 'and @/./+/-/_ characters.')
-            ),
-        ],
-        null=True, blank=True
-    )
-
     # based on django.contrib.auth.models.AbstractBaseUser set_password &
     # check_password functions
     def set_security_question_1_answer(self, raw_answer):
