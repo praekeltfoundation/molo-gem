@@ -1,6 +1,7 @@
 from django.template import Library
 from django.conf import settings
 
+from gem.constants import GENDER
 from gem.models import GemTextBanner
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
@@ -16,6 +17,13 @@ def fieldtype(field):
     return field.field.widget.__class__.__name__
 
 
+@register.filter
+def gender_display(gender):
+    if gender in ['m', 'f', '-']:
+        return GENDER[gender]
+    return None
+
+
 @register.simple_tag(takes_context=True)
 def is_via_freebasics(context):
     request = context['request']
@@ -28,12 +36,10 @@ def is_via_freebasics(context):
 def gembannerpages(context):
     request = context['request']
     locale = context.get('locale_code')
-
+    pages = []
     if request.site:
         pages = request.site.root_page.specific.bannerpages().exact_type(
             GemTextBanner)
-    else:
-        pages = []
     return {
         'bannerpages': get_pages(context, pages, locale),
         'request': context['request'],

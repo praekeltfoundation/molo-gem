@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailsettings_tags %}
+{% load wagtailsettings_tags gem_tags %}
 {% get_settings %}
 
 {% block content %}
@@ -28,8 +28,8 @@
                 <span>Not set.</span></p>
               {% endif %}
               <p>{% trans "Gender:" %}
-              {% if user.gem_profile.get_gender_display %}
-                  <span>{{ user.gem_profile.get_gender_display }}</span></p>
+              {% if user.profile.gender %}
+                  <span>{{ user.profile.gender|gender_display | default:"Not set" }}</span></p>
               {% else %}
                 <span>Not set.</span></p>
               {% endif %}
