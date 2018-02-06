@@ -540,7 +540,6 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
         self.user.gem_profile.save()
 
     def test_it_copies_security_answers_to_molo_profiles(self):
-        import pdb; pdb.set_trace()
         call_command('migrate_security_answers_to_molo_profiles')
 
         security_answer_1 = SecurityAnswer.objects.get(
