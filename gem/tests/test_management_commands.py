@@ -514,6 +514,7 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
 @override_settings(
     SECURITY_QUESTION_1='Question 1',
     SECURITY_QUESTION_2='Question 2',
+    CELERY_ALWAYS_EAGER=True,
 )
 class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
