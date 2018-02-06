@@ -514,6 +514,7 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
 @override_settings(
     SECURITY_QUESTION_1='Question 1',
     SECURITY_QUESTION_2='Question 2',
+    CELERY_ALWAYS_EAGER=True,
 )
 class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
@@ -539,6 +540,7 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
         self.user.gem_profile.save()
 
     def test_it_copies_security_answers_to_molo_profiles(self):
+        import pdb; pdb.set_trace()
         call_command('migrate_security_answers_to_molo_profiles')
 
         security_answer_1 = SecurityAnswer.objects.get(
