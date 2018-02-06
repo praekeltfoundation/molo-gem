@@ -47,9 +47,9 @@
 
         {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
           <fieldset>
-              <label>{% trans "Enter your mobile number" %}</label>
-              {{ form.mobile_number }}
-              {{ form.mobile_number.errors }}
+            <label>{% trans "Enter your mobile number" %}</label>
+            {{ form.mobile_number }}
+            {{ form.mobile_number.errors }}
           </fieldset>
         {% endif %}
 
@@ -64,29 +64,29 @@
 
         {% if settings.profiles.UserProfilesSettings.activate_dob and settings.profiles.UserProfilesSettings.capture_dob_on_reg %}
           <fieldset>
-              <label for="date_of_birth">{% trans "Select Date of Birth" %}</label>
-              {{ form.date_of_birth }}
-              {{ form.date_of_birth.errors}}
-              <p class="helptext">{% trans "Let us know your birthday to get access to exclusive content." %}</p>
+            <label for="date_of_birth">{% trans "Select Date of Birth" %}</label>
+            {{ form.date_of_birth }}
+            {{ form.date_of_birth.errors}}
+            <p class="helptext">{% trans "Let us know your birthday to get access to exclusive content." %}</p>
           </fieldset>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.show_email_field %}
-        <fieldset>
+          <fieldset>
             <label for="id_email">{% trans "Enter your email address" %}</label>
             {{ form.email }}
             {{ form.email.errors}}
             <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
-        </fieldset>
+          </fieldset>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
-        <fieldset>
+          <fieldset>
             <label for="location">{% trans "Where do you live?" %}</label>
             {{ form.location }}
             {{ form.location.errors}}
             <p class="helptext">{% trans "Only you will see this." %}</p>
-        </fieldset>
+          </fieldset>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
