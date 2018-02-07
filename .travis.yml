@@ -1,4 +1,18 @@
 sudo: false  # Force container-based builds.
+- language: node_js
+  node_js: '8' # LTS version
+  env: []
+  cache:
+    directories: [node_modules]
+  before_install:
+    - npm i -g npm@5
+    - npm install -g gulp-cli
+  install:
+    - travis_retry npm install
+  script:
+    - gulp --type=ci
+
+
 language: python
 
 
@@ -22,19 +36,6 @@ jobs:
     - stage: test
       python: "2.7"
     - python: "3.6"
-    - language: node_js
-      node_js: '8' # LTS version
-      env: []
-      cache:
-        directories: [node_modules]
-      before_install:
-        - npm i -g npm@5
-        - npm install -g gulp-cli
-      install:
-        - travis_retry npm install
-      script:
-        - gulp --type=ci
-
       # Clear unused build steps
       services: []
       deploy: []
