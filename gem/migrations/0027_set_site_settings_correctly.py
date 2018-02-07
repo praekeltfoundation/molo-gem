@@ -14,7 +14,7 @@ def set_site_settings(apps, schema_editor):
 
         settings.show_security_question_fields = True
         settings.security_questions_required = True
-        settings.num_security_questions = 2
+        settings.num_security_questions = 1
 
         settings.activate_display_name = True
         settings.capture_display_name_on_reg = True
