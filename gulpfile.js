@@ -18,7 +18,6 @@ var gulp              =   require('gulp'),
     pixrem            =   require('gulp-pixrem'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
-    qunit             =   require('gulp-qunit'),
     gutil             =   require('gulp-util'),
     sassPaths = [
         'gem/styles/gem/base_style.scss',
