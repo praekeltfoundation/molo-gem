@@ -17,12 +17,12 @@
               <h3>{% trans "Your Profile" %}</h3>
               {% if settings.profiles.UserProfilesSettings.activate_display_name %}
                   <p>{% trans "When you type comments your name will appear as:" %}
-                  <span>{{ user.profile.alias | default: "Not set"}}</span></p>
+                  <span>{{ user.profile.alias | default:"Not set" }}</span></p>
               {% endif %}
 
               {% if settings.profiles.UserProfilesSettings.activate_dob %}
                 <p>{% trans "Date of birth:" %}
-                  <span>{{ user.profile.date_of_birth | default: "Not set"}}</span></p>
+                  <span>{{ user.profile.date_of_birth | default:"Not set" }}</span></p>
               {% endif %}
 
               {% if settings.profiles.UserProfilesSettings.activate_gender %}
