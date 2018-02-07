@@ -2,6 +2,21 @@ sudo: false  # Force container-based builds.
 language: python
 
 
+cache:
+  - pip
+before_install:
+  - pip install --upgrade pip
+install:
+  - pip install -e .
+  - pip install -r requirements-dev.txt
+  - pip install coveralls
+script:
+  - flake8
+  - py.test
+after_success:
+  - coveralls
+
+
 jobs:
   include:
     - stage: test
