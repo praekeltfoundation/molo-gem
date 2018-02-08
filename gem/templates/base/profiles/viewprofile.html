@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n wagtailsettings_tags %}
+{% load wagtailsettings_tags gem_tags %}
 {% get_settings %}
 
 {% block content %}
@@ -15,27 +15,39 @@
         <div class="nickname-form">
             <div class="block">
               <h3>{% trans "Your Profile" %}</h3>
-              {% if user.profile.alias %}
-                <p>{% trans "When you type comments your name will appear as:" %}
-                <span>{{ user.profile.alias }}</span></p>
-              {% else %}
-                <p>{% trans "You haven't set a display name, so your comments will appear as 'anonymous'" %}</p>
+              {% if settings.profiles.UserProfilesSettings.activate_display_name %}
+                  <p>{% trans "When you type comments your name will appear as:" %}
+                  <span>{{ user.profile.alias | default:"Not set" }}</span></p>
               {% endif %}
-              <p>{% trans "Date of birth:" %}
-              {% if user.profile.date_of_birth %}
-                <span>{{ user.profile.date_of_birth }}</span></p>
-              {% else %}
-                <span>Not set.</span></p>
+
+              {% if settings.profiles.UserProfilesSettings.activate_dob %}
+                <p>{% trans "Date of birth:" %}
+                  <span>{{ user.profile.date_of_birth | default:"Not set" }}</span></p>
               {% endif %}
-              <p>{% trans "Gender:" %}
-              {% if user.gem_profile.get_gender_display %}
-                  <span>{{ user.gem_profile.get_gender_display }}</span></p>
-              {% else %}
-                <span>Not set.</span></p>
+
+              {% if settings.profiles.UserProfilesSettings.activate_gender %}
+                <p>{% trans "Gender:" %}
+                    <span>{{ user.profile.gender|gender_display | default:"Not set" }}</span></p>
               {% endif %}
+
               {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
                 <p>{% trans "Mobile number:" %}
                 <span>{{ user.profile.mobile_number }}</span></p>
+              {% endif %}
+
+              {% if settings.profiles.UserProfilesSettings.show_email_field %}
+                  <p>{% trans "Email Address:" %}
+                  <span>{{ user.email | default:"Not set" }}</span></p>
+              {% endif %}
+
+              {% if settings.profiles.UserProfilesSettings.activate_location%}
+                  <p>{% trans "Location:" %}
+                  <span>{{ user.profile.location | default:"Not set" }}</span></p>
+              {% endif %}
+
+              {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+                  <p>{% trans "Education Level:" %}
+                  <span>{{ user.profile.education_level | default:"Not set" }}</span></p>
               {% endif %}
 
               <a href="{% url 'edit_my_profile' %}"

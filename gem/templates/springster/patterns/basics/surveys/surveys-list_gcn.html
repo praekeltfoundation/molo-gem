@@ -1,0 +1,21 @@
+{% load wagtailcore_tags core_tags %}
+
+<!--
+    1. Display default or custom image
+    2. Display color theme
+    3. On Main.html - Display on separate position
+    4. If User is authenticated show GCN Competition
+-->
+    <div class="gcn-competition gcn-competition--homepage {% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
+        {% if survey.intro %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.intro %}
+        {% endif %}
+
+
+        {% trans "Take GCN competition" as buttontext %}
+        {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
+        {% pageurl survey as the_url %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
+        {% endwith %}
+    </div>

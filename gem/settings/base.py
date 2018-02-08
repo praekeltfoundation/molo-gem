@@ -141,6 +141,9 @@ DEFAULT_TEMPLATE = {
              join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
     'APP_DIRS': False,
     'OPTIONS': {
+        'builtins': [
+            'django.templatetags.i18n',
+        ],
         'context_processors': [
             'django.template.context_processors.debug',
             'django.template.context_processors.request',
@@ -427,7 +430,7 @@ FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
 
 
 AUTHENTICATION_BACKENDS = [
-    'gem.backends.GemModelBackend',
+    'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'molo.core.backends.MoloCASBackend',
 ]

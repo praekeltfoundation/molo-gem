@@ -1,20 +1,16 @@
-{% load wagtailcore_tags gem_tags i18n personalise_extras %}
+{% load personalise_extras %}
+
 {% block content %}
+<!--
+    1. Differentiate Personalised Survey by Segments vs Standard Surveys
+-->
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
     {% for survey in filtered_surveys %}
       {% with survey=survey.molo_survey_page form=survey.form %}
-        {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-            <div class="surveys surveys--call-to-action">
-                <div class="identity-image identity-image--survey"></div>
-                {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-                {% trans "Take Survey" as buttontext %}
-                {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-                {% pageurl survey as the_url %}
-                {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-            {% endwith %}
-            </div>
+        {% if survey.your_words_competition %}
+            {% include "patterns/basics/surveys/surveys-list_gcn.html" %}
         {% else %}
-            {% include "patterns/components/banners/join-banner.html" %}
+            {% include "patterns/basics/surveys/surveys-list_generic.html" %}
         {% endif %}
       {% endwith %}
     {% endfor %}

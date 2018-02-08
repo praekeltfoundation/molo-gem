@@ -1,110 +1,68 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags core_tags gem_tags i18n %}
+
+
 {% block content %}
-<div class="surveys surveys--call-to-action">
-  <div class="identity-image identity-image--survey"></div>
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
-  {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <h6 class="surveys__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
-              This survey has {{ pages }} pages
-          {% endblocktrans %}
-      </h6>
-  {% endif %}
-</div>
-{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-  {% if form %}
-  <form action="{% pageurl self %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form surveys__form{{self.get_effective_extra_style_hints}}" novalidate>
-  {% csrf_token %}
-    {% if not is_via_freebasics %}
-        {{ form.media }}
+    {% if self.your_words_competition %}
+        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+
+            {% if self.intro %}
+                {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.intro %}
+            {% endif %}
+
+            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
+        </div>
+    {% else %}
+        <div class="surveys surveys--call-to-action">
+            <div class="identity-image identity-image--survey"></div>
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
+            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
+        </div>
     {% endif %}
-    {% for field in form %}
-    <fieldset>
-      <div class="input-group">
-        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-        {% if field.help_text %}
-          {% if field|fieldtype == 'CharacterCountWidget' %}
-            <p class="surveys__helptext helptext">{{ field.help_text }}</p>
-          {% else %}
-            <p class="helptext">{{ field.help_text }}</p>
-          {% endif %}
-        {% endif %}
-        {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-            {% for value, text in field.field.choices %}
-                <div class="choice-group">
-                    <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                </div>
-            {% endfor %}
-        {% elif field|fieldtype == 'RadioSelect' %}
-            {% for value, text in field.field.choices %}
-                <div class="choice-group choice-group__radio">
-                    <input name="{{ field.name }}"
-                     id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                     <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                </div>
-            {% endfor %}
-            {% elif field|fieldtype == 'Select' %}
-                <div class="select-style">
-                     <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                         {% if field.value.0 %}
-                             <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                             {% for choice in field.field.choices %}
-                                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                     {{choice.0}}
-                                 </option>
-                             {% endfor %}
-                         {% elif not field.value.0  %}
-                             <option value selected="selected">Choose..</option>
-                             {% for choice in field.field.choices %}
-                                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                     {{choice.0}}
-                                 </option>
-                             {% endfor %}
-                         {% endif %}
-                     </select>
-                </div>
+    <!--    Enable H tag streamfield
+            Enable p tag streamfield
+            Disable all other streamfields via checkbox value
+
+            1. Paragraph must have a limit characters
+                One long paragraph or several para
+            2. Only use/limit first H and p tags
+    -->
+    {% if self.content %}
+        {% for block in self.content %}
+            {% if forloop.counter %}
+                {% if block.block_type == 'heading' %}
+                    <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
+                        {{ block.value }}</br/>
+                    </h4>
+                {% elif block.block_type == 'paragraph' %}
+                    <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
+                        {{ block.value }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+        {% if form %}
+            {% if self.your_words_competition %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="competition" surveytypeClass="surveys" %}
+            {% else %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html" with  surveytype="survey" surveytypeClass="surveys" %}
+            {% endif %}
         {% else %}
-            {{field}}
+            {% if self.your_words_competition %}
+                {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="competition" surveytypeClass="surveys" %}
+            {% else %}
+                {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="survey" surveytypeClass="surveys" %}
+            {% endif %}
         {% endif %}
-
-        {% if field.errors %}
-          <ul class="error-list errorlist">
-          {% for error in field.errors %}
-            <li class="error-list__item">{{ error }}</li>
-          {% endfor %}
-          </ul>
+    {% else %}
+        {% if self.your_words_competition %}
+            {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="competition" surveytypeClass="surveys" %}
+        {% else %}
+            {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="survey" surveytypeClass="surveys" %}
         {% endif %}
-      </div>
-    </fieldset>
-    {% endfor %}
-    {% trans "Submit Survey" as text %}
-    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text }}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
-    {% if fields_step and fields_step.paginator.num_pages > 1 %}
-    <div class="surveys__pagination">
-        <p class="surveys__page">
-            {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                Page <span class="surveys__page-number">{{ page }}</span> of <span class="surveys__page-number">{{ pages }}</span>
-            {% endblocktrans %}
-        </p>
-    </div>
     {% endif %}
-  </form>
-  {% else %}
-  <div class="surveys">
-    <p class="errors">{% trans 'You have already completed this survey.' %}</p>
-    {% trans "Back home" as back %}
-    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=back direction="left" %}
-  </div>
-  {% endif %}
-{% else %}
-  <div class="surveys">
-    {% trans "Log in to take Survey" as buttontext %}
-    {% url "molo.profiles:auth_login" as link %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
-  </div>
-{% endif %}
-
 {% endblock %}

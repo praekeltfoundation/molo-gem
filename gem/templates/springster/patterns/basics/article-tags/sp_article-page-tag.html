@@ -1,10 +1,10 @@
-{% load wagtailcore_tags core_tags i18n %}
+{% load core_tags %}
 {% load_tags_for_article self as navigation_tags %}
 {% if navigation_tags %}
 <div class="article-page-tag-cloud">
   <ul class="tag-cloud__block">
   {% if settings.core.SiteSettings.enable_tag_navigation %}
-    {% trans "Read more about" as headingtext%}
+    {% trans "Read more about" as headingtext %}
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="h4" title=headingtext %}
     {% for tag in navigation_tags  %}
       <li class="tag-cloud__item">

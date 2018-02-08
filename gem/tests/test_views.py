@@ -1,12 +1,7 @@
-import time
-
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.http import QueryDict
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.utils import timezone
@@ -20,18 +15,84 @@ from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import SiteLanguageRelation, Main, Languages
+from molo.profiles.models import (
+    SecurityAnswer,
+    SecurityQuestion,
+    SecurityQuestionIndexPage,
+    UserProfile,
+    UserProfilesSettings,
+)
 
 
+@override_settings(
+    SECURITY_QUESTION_1='question_1',
+    SECURITY_QUESTION_2='question_2',
+)
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
         self.client = Client()
         self.mk_main2()
+        self.language_setting2 = Languages.objects.create(
+            site_id=self.main2.get_site().pk)
+        self.english2 = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting2,
+            locale='en',
+            is_active=True)
+
+        for main in Main.objects.all():
+            profile_settings = UserProfilesSettings.for_site(main.get_site())
+            profile_settings.show_security_question_fields = True
+            profile_settings.security_questions_required = True
+            profile_settings.num_security_questions = 2
+            profile_settings.activate_gender = True
+            profile_settings.capture_gender_on_reg = True
+            profile_settings.gender_required = True
+            profile_settings.save()
+
+            security_index = SecurityQuestionIndexPage.objects.descendant_of(
+                main).first()
+            for i in range(1, 3):
+                question = SecurityQuestion(title='question_{0}'.format(i))
+                security_index.add_child(instance=question)
+                question.save_revision().publish()
+
+    def user_registration_data(self):
+        return {
+            'username': 'testuser',
+            'password': '1234',
+            'gender': 'f',
+            'question_0': 'answer_1',
+            'question_1': 'answer_2',
+            'terms_and_conditions': 'on',
+        }
 
     def test_register_view(self):
         response = self.client.get(reverse('user_register'))
         self.assertTrue(isinstance(response.context['form'],
                         GemRegistrationForm))
+
+    def test_register_view_valid_form(self):
+        self.assertEqual(UserProfile.objects.all().count(), 0)
+        self.client.post(reverse('user_register'), {
+            'username': 'testuser',
+            'password': '1234',
+            'gender': 'f',
+            'question_0': 'answer_1',
+            'question_1': 'answer_2',
+            'terms_and_conditions': 'on',
+        })
+        self.assertEqual(UserProfile.objects.all().count(), 1)
+        user = User.objects.get(username='testuser')
+
+        # test thatthe registrationv view writes to both gem and molo profiles
+        self.assertEqual(user.profile.gender, 'f')
 
     def test_register_view_invalid_form(self):
         # NOTE: empty form submission
@@ -44,11 +105,11 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.assertFormError(
             response, 'form', 'gender', ['This field is required.'])
         self.assertFormError(
-            response, 'form', 'security_question_1_answer',
+            response, 'form', 'question_0',
             ['This field is required.']
         )
         self.assertFormError(
-            response, 'form', 'security_question_2_answer',
+            response, 'form', 'question_1',
             ['This field is required.']
         )
 
@@ -57,8 +118,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': 'tester@test.com',
             'password': '1234',
             'gender': 'm',
-            'security_question_1_answer': 'cat',
-            'security_question_2_answer': 'dog'
+            'question_0': 'cat',
+            'question_1': 'dog'
         })
 
         expected_validation_message = "Sorry, but that is an invalid" \
@@ -72,8 +133,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': '0821231234',
             'password': '1234',
             'gender': 'm',
-            'security_question_1_answer': 'cat',
-            'security_question_2_answer': 'dog'
+            'question_0': 'cat',
+            'question_1': 'dog'
         })
 
         self.assertContains(response, expected_validation_message)
@@ -83,8 +144,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='1_newuser',
             email='newuser@example.com',
             password='newuser')
-        user.gem_profile.migrated_username = 'newuser'
-        user.gem_profile.save()
+        user.profile.migrated_username = 'newuser'
+        user.profile.save()
 
         response = self.client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -107,8 +168,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='2_newuser',
             email='newuser@example.com',
             password='newuser2')
-        user.gem_profile.migrated_username = 'newuser'
-        user.gem_profile.save()
+        user.profile.migrated_username = 'newuser'
+        user.profile.save()
         user.profile.site = self.site2
         user.profile.save()
 
@@ -116,8 +177,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             username='1_newuser',
             email='newuser@example.com',
             password='newuser1')
-        user3.gem_profile.migrated_username = 'newuser'
-        user3.gem_profile.save()
+        user3.profile.migrated_username = 'newuser'
+        user3.profile.save()
         user3.profile.site = self.site
         user3.profile.save()
 
@@ -150,6 +211,50 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.assertContains(
             response,
             'Your username and password do not match. Please try again.')
+
+    def test_registration_creates_security_answer(self):
+        self.client.post(
+            reverse('user_register'),
+            self.user_registration_data(),
+        )
+
+        security_questions = SecurityQuestion.objects.descendant_of(
+            self.main).all()
+        security_answers = SecurityAnswer.objects.all()
+
+        self.assertEqual(security_answers.count(), 2)
+        self.assertEqual(
+            security_answers.first().question,
+            security_questions.first(),
+        )
+        self.assertEqual(
+            security_answers.first().user,
+            User.objects.get(username='testuser').profile,
+        )
+        self.assertEqual(
+            security_answers.first().check_answer('answer_1'),
+            True,
+        )
+        self.assertEqual(
+            security_answers.last().check_answer('answer_2'),
+            True,
+        )
+
+    def test_security_answer_attached_to_question_from_correct_site(self):
+        client = Client(HTTP_HOST=self.site2.hostname)
+        client.post(
+            reverse('user_register'),
+            self.user_registration_data(),
+        )
+        security_questions = SecurityQuestion.objects.descendant_of(
+            self.main2).all()
+        security_answers = SecurityAnswer.objects.all()
+
+        for i in range(2):
+            self.assertEqual(
+                security_answers[i].question,
+                security_questions[i],
+            )
 
 
 class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
@@ -199,208 +304,6 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
                                       "allowed. Please, use a different name "\
                                       "for your display name."
         self.assertContains(response, expected_validation_message)
-
-
-class GemResetPasswordTest(TestCase, MoloTestCaseMixin):
-    def setUp(self):
-        self.mk_main()
-        self.client = Client()
-
-        self.user = User.objects.create_user(
-            username='tester',
-            email='tester@example.com',
-            password='tester')
-
-        self.user.gem_profile.set_security_question_1_answer('dog')
-        self.user.gem_profile.set_security_question_2_answer('cat')
-        self.user.gem_profile.save()
-
-        # to get the session set up
-        response = self.client.get(reverse('forgot_password'))
-        response_body = response.content.decode(response.charset)
-
-        if settings.SECURITY_QUESTION_1 in response_body:
-            self.question_being_asked = settings.SECURITY_QUESTION_1
-        else:
-            self.question_being_asked = settings.SECURITY_QUESTION_2
-
-    def post_invalid_username_to_forgot_password_view(self):
-        return self.client.post(reverse('forgot_password'), {
-            'username': 'invalid',
-            'random_security_question_answer': 'something'
-        })
-
-    def test_forgot_password_view_invalid_username(self):
-        response = self.post_invalid_username_to_forgot_password_view()
-
-        self.assertContains(response, 'The username that you entered appears '
-                                      'to be invalid. Please try again.')
-
-    def test_forgot_password_view_inactive_user(self):
-        self.user.is_active = False
-        self.user.save()
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': 'something'
-        })
-
-        self.assertContains(response, 'This account is inactive.')
-
-    def post_invalid_answer_to_forgot_password_view(self):
-        return self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': 'invalid'
-        })
-
-    def test_forgot_password_view_invalid_answer(self):
-        response = self.post_invalid_answer_to_forgot_password_view()
-
-        self.assertContains(response, 'Your answer to the security question '
-                                      'was invalid. Please try again.')
-
-    def test_unsuccessful_username_attempts(self):
-        response = None
-        for x in range(6):
-            response = self.post_invalid_username_to_forgot_password_view()
-
-        # on the 6th attempt
-        self.assertContains(response, 'Too many attempts. Please try again '
-                                      'later.')
-
-    def test_unsuccessful_answer_attempts(self):
-        response = None
-        for x in range(6):
-            response = self.post_invalid_answer_to_forgot_password_view()
-
-        # on the 6th attempt
-        self.assertContains(response, 'Too many attempts. Please try again '
-                                      'later.')
-
-    def get_expected_token_and_redirect_url(self):
-        expected_token = default_token_generator.make_token(self.user)
-        expected_query_params = QueryDict(mutable=True)
-        expected_query_params['user'] = self.user.username
-        expected_query_params['token'] = expected_token
-        expected_redirect_url = '{0}?{1}'.format(
-            reverse('reset_password'), expected_query_params.urlencode()
-        )
-        return expected_token, expected_redirect_url
-
-    def proceed_to_reset_password_page(self):
-        if self.question_being_asked == settings.SECURITY_QUESTION_1:
-            answer = 'dog'
-        else:
-            answer = 'cat'
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': self.user.username,
-            'random_security_question_answer': answer
-        })
-
-        expected_token, expected_redirect_url = \
-            self.get_expected_token_and_redirect_url()
-
-        self.assertRedirects(response, expected_redirect_url)
-
-        return expected_token, expected_redirect_url
-
-    def test_reset_password_view_pin_mismatch(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '4321'
-        })
-
-        self.assertContains(response, 'The two PINs that you entered do not '
-                                      'match. Please try again.')
-
-    def test_reset_password_view_requires_query_params(self):
-        response = self.client.get(reverse('reset_password'))
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_invalid_username(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': 'invalid',
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_inactive_user(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        self.user.is_active = False
-        self.user.save()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_reset_password_view_invalid_token(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': 'invalid',
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertEqual(403, response.status_code)
-
-    def test_happy_path(self):
-        expected_token, expected_redirect_url = \
-            self.proceed_to_reset_password_page()
-
-        response = self.client.post(expected_redirect_url, {
-            'username': self.user.username,
-            'token': expected_token,
-            'password': '1234',
-            'confirm_password': '1234'
-        })
-
-        self.assertRedirects(response, reverse('reset_password_success'))
-
-        self.assertTrue(
-            self.client.login(username='tester', password='1234')
-        )
-
-    @override_settings(SESSION_COOKIE_AGE=1)
-    def test_session_expiration_allows_subsequent_attempts(self):
-        self.test_unsuccessful_username_attempts()
-
-        time.sleep(1)
-
-        response = self.client.post(reverse('forgot_password'), {
-            'username': 'invalid',
-            'random_security_question_answer': 'something'
-        })
-
-        # the view should redirect back to itself to set up a new session
-        self.assertRedirects(response, reverse('forgot_password'))
-
-        # follow the redirect
-        self.client.get(reverse('forgot_password'))
-
-        # now another attempt should be possible
-        self.test_forgot_password_view_invalid_username()
 
 
 class CommentingTestCase(TestCase, MoloTestCaseMixin):
@@ -611,3 +514,9 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         )
 
         self.assertContains(response, 'You have already reported this comment')
+
+    def test_renders_report_response_template(self):
+        comment = self.create_comment(self.article, 'report me')
+        response = self.client.get(
+            reverse('report_response', args=(comment.pk,)))
+        self.assertContains(response, 'This comment has been reported.')

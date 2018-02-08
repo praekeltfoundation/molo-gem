@@ -18,7 +18,6 @@ var gulp              =   require('gulp'),
     pixrem            =   require('gulp-pixrem'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
-    qunit             =   require('gulp-qunit'),
     gutil             =   require('gulp-util'),
     sassPaths = [
         'gem/styles/gem/base_style.scss',
@@ -82,4 +81,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('styles', ['styles:dev', 'styles:prd']);
-gulp.task('default', ['styles', 'compress']);
+gulp.task('default', ['styles', 'compress','watch']);
