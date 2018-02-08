@@ -7,10 +7,12 @@
     {% else %}
       {% image article.image fill-400x300 class="article-thumbnail" %}
     {% endif %}
-
-    {% image article.get_parent_section.image width-200 as tmp_photo_small %}
-    {% image article.get_parent_section.image width-400 as tmp_photo_large %}
-    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }} {% if not article.image %} section-icon--noimage{% endif %}" />
+    
+    {% if show_section_image %}
+      {% image article.get_parent_section.image width-200 as tmp_photo_small %}
+      {% image article.get_parent_section.image width-400 as tmp_photo_large %}
+      <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }} {% if not article.image %} section-icon--noimage{% endif %}" />
+    {% endif %}
   {% endif %}</a>
   <div class="text">
     <div class="section-title{% if not article.image %} section-title--noimage{% endif %}">
