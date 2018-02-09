@@ -21,23 +21,21 @@
       <a href="http://www.freebasics.com" target="_blank">freebasics.com</a>
   </div>
   {% endif %}
-
  {% bannerpages %}
-
   <div id="article-hero">
     {% latest_listing_homepage %}
   </div>
-
   {% media_listing_homepage %}
-
- <div class="gem-surverys">
-      {% surveys_list %}
- </div>
-
-  <div class="gem-polls">
-      {% poll_page %}
-  </div>
-
+  {% if surveys_list %}
+   <div class="gem-surverys">
+        {% surveys_list %}
+   </div>
+   {% endif %}
+  {% if poll_page %}
+    <div class="gem-polls">
+        {% poll_page %}
+    </div>
+  {% endif %}
   <div class="article-list">
     {% section_listing_homepage %}
   </div>
