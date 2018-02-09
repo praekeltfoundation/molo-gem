@@ -24,14 +24,6 @@ def gender_display(gender):
     return None
 
 
-@register.simple_tag(takes_context=True)
-def is_via_freebasics(context):
-    request = context['request']
-    return ('Internet.org' in request.META.get('HTTP_VIA', '') or
-            'InternetOrgApp' in request.META.get('HTTP_USER_AGENT', '') or
-            'true' in request.META.get('HTTP_X_IORG_FBS', ''))
-
-
 @register.inclusion_tag('core/tags/bannerpages.html', takes_context=True)
 def gembannerpages(context):
     request = context['request']
