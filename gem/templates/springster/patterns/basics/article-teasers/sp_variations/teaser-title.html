@@ -1,13 +1,13 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if article.title_highlight %}
   <h3 class="{{layouttype}}-teaser__title {{layouttype}}-teaser__title--highlight block-with-text">
-      <a href="{% pageurl article %}" class="{{layouttype}}-teaser__title-link">
+      <a href="{% pageurl article.specific %}" class="{{layouttype}}-teaser__title-link">
            {{ article.title_highlight|smarttruncatechars:45|safe}}
       </a>
   </h3>
 {% else %}
   <h3 class="{{layouttype}}-teaser__title block-with-text">
-      <a href="{% pageurl article %}" class="{{layouttype}}-teaser__title-link">
+      <a href="{% pageurl article.specific %}" class="{{layouttype}}-teaser__title-link">
           {{ article.title|smarttruncatechars:45|safe}}
       </a>
   </h3>

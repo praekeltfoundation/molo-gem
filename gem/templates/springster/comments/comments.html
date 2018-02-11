@@ -2,7 +2,7 @@
 {% load wagtailcore_tags mptt_tags %}
 section.get_effective_extra_style_hints
 {% block content %}
-{% pageurl self as the_url %}
+{% pageurl self.specific as the_url %}
 {% trans "Back to article" as back %}
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
 <div class="comments">

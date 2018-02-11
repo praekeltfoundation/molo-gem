@@ -15,7 +15,7 @@
 
         {% trans "Take GCN competition" as buttontext %}
         {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-        {% pageurl survey as the_url %}
+        {% pageurl survey.specific as the_url %}
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
         {% endwith %}
     </div>

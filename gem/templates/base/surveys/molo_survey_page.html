@@ -8,7 +8,7 @@
   <h4 class="surveys__intro">{{ page.intro }}</h4>
   {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
     {% if form %}
-      <form class="surveys__form" action="{% pageurl self %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post">
+      <form class="surveys__form" action="{% pageurl self.specific %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post">
         {% csrf_token %}
         {% for field in form %}
           <fieldset>
@@ -49,7 +49,7 @@
     {% else %}
       <p class="error error--surveys">{% trans 'You have already completed this survey.' %}</p>
       <div class="call-to-action call-to-action--surveys">
-        <a href="{{request.site.root_page.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+        <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
         {% trans "Back to Home page" %}</a>
       </div>
     {% endif %}

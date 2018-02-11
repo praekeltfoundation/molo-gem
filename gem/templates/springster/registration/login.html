@@ -23,7 +23,7 @@
       {{form.password}}
     </fieldset>
     <input type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">
-    <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.url}}{% endif %}" />
+    <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.specific.url}}{% endif %}" />
     {% url "forgot_password" as link %}
     {% trans "Forgot PIN" as buttontext %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
