@@ -2,7 +2,7 @@
 <div class="article-preview">
 
   {% if article.image %}
-  <a href="{% pageurl article %}" class="image">
+  <a href="{% pageurl article.specific %}" class="image">
     {% if square_image %}
       {% image article.image fill-200x200 %}
     {% else %}
@@ -19,7 +19,7 @@
   <div class="text">
     <div class="section-title">
       {% get_translation article.get_parent_section as section %}
-      <a href="{% pageurl section %}">{{ section }}</a>
+      <a href="{% pageurl section.specific %}">{{ section }}</a>
     </div>
 
     {% if article %}
@@ -27,8 +27,8 @@
           {% image article.get_parent_section.image width-400 as tmp_photo_large %}
     {% endif %}
 
-    <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>
+    <h3><a href="{% pageurl article.specific %}">{{ article.title }}</a></h3>
     <p>{{ article.subtitle }}</p>
-    <a class="read-more" href="{% pageurl article %}">{% trans "Read more" %}</a>
+    <a class="read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
   </div>
 </div>

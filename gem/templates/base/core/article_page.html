@@ -10,7 +10,7 @@
 {% get_translation self.get_parent_section as parent_section %}
 <div class="article article{{ parent_section.get_effective_extra_style_hints }}">
   {% include "core/section_header_partial.html" with url=parent_section image=parent_section.image title=parent_section.title extra_classes=parent_section.get_effective_extra_style_hints %}
-  
+
   {% include "core/article_intro_partial.html" with article=page %}
 
   <article class="article-content">
@@ -96,7 +96,7 @@
       <ul class="tags-list">
         {% for tag in self.tags_list %}
           <li class="tag-list__item">
-            <a href="{% url 'tags_list' tag %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
+            <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
           </li>
         {% endfor %}
       </ul>

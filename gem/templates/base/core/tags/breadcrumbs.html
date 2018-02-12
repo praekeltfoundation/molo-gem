@@ -8,9 +8,8 @@
       {% if forloop.last %}
         <span class="active">{{ ancestor }}</span>
       {% else %}
-        <span><a href="{% pageurl ancestor %}">{{ ancestor }}</a></span> &gt;
+        <span><a href="{% pageurl ancestor.specific %}">{{ ancestor }}</a></span> &gt;
       {% endif %}
     {% endfor %}
   </h4>
 {% endif %}
-
