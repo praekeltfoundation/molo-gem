@@ -4,7 +4,7 @@ from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
 from gem.models import GemSettings
-from molo.profiles.forms import RegistrationForm, EditProfileForm
+from molo.profiles.forms import RegistrationForm, EditProfileForm, DoneForm
 from gem.settings import REGEX_EMAIL, REGEX_PHONE
 
 from wagtail.wagtailcore.models import Site
@@ -128,6 +128,14 @@ class GemEditProfileForm(GemAliasMixin, EditProfileForm):
 
     def clean_alias(self):
         return self._clean_alias()
+
+
+class GemRegistrationDoneForm(DoneForm):
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=GENDERS,
+        required=False
+    )
 
 
 class ReportCommentForm(Form):

@@ -16,6 +16,7 @@ from django_comments.forms import CommentDetailsForm
 from gem.forms import (
     GemEditProfileForm,
     GemRegistrationForm,
+    GemRegistrationDoneForm,
     ReportCommentForm,
 )
 from gem.models import GemSettings, GemCommentReport
@@ -24,7 +25,11 @@ from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from molo.commenting.models import MoloComment
 
 from molo.core.models import ArticlePage
-from molo.profiles.views import RegistrationView, MyProfileEdit
+from molo.profiles.views import (
+    RegistrationView,
+    MyProfileEdit,
+    RegistrationDone
+)
 
 from wagtail.wagtailcore.models import Site
 
@@ -39,6 +44,10 @@ def report_response(request, comment_pk):
 
 class GemRegistrationView(RegistrationView):
     form_class = GemRegistrationForm
+
+
+class GemRegistrationDoneView(RegistrationDone):
+    form_class = GemRegistrationDoneForm
 
 
 class GemResetPasswordSuccessView(TemplateView):
