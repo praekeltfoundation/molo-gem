@@ -1,11 +1,7 @@
 import re
 
 from django import forms
-from django.conf import settings
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
 from django.contrib.syndication.views import Feed
-from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
@@ -20,6 +16,7 @@ from django_comments.forms import CommentDetailsForm
 from gem.forms import (
     GemEditProfileForm,
     GemRegistrationForm,
+    GemRegistrationDoneForm,
     ReportCommentForm,
 )
 from gem.models import GemSettings, GemCommentReport
@@ -28,8 +25,11 @@ from gem.settings import REGEX_PHONE, REGEX_EMAIL
 from molo.commenting.models import MoloComment
 
 from molo.core.models import ArticlePage
-from molo.profiles.models import SecurityAnswer, SecurityQuestion
-from molo.profiles.views import RegistrationView, MyProfileEdit
+from molo.profiles.views import (
+    RegistrationView,
+    MyProfileEdit,
+    RegistrationDone
+)
 
 from wagtail.wagtailcore.models import Site
 
@@ -45,89 +45,17 @@ def report_response(request, comment_pk):
 class GemRegistrationView(RegistrationView):
     form_class = GemRegistrationForm
 
-    def form_valid(self, form):
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        alias = form.cleaned_data['alias']
-        gender = form.cleaned_data['gender']
-        mobile_number = form.cleaned_data['mobile_number']
 
-        security_question_1_answer = form.cleaned_data[
-            'security_question_1_answer'
-        ]
-        security_question_2_answer = form.cleaned_data[
-            'security_question_2_answer'
-        ]
-        user = User.objects.create_user(username=username, password=password)
+class GemRegistrationDoneView(RegistrationDone):
+    form_class = GemRegistrationDoneForm
 
-        user.profile.gender = gender
-        user.profile.alias = alias
-        user.profile.mobile_number = mobile_number
-        user.profile.site = self.request.site
 
-        security_answers = [
-            security_question_1_answer,
-            security_question_2_answer,
-        ]
-
-        for i in range(1, 3):
-            question_setting = 'SECURITY_QUESTION_{0}'.format(i)
-            question_text = getattr(settings, question_setting, None)
-
-            if question_text is None:
-                raise ImproperlyConfigured(
-                    'Security question {0} is unset'.format(question_setting))
-
-            security_question = SecurityQuestion.objects.descendant_of(
-                self.request.site.root_page).filter(
-                title=question_text).first()
-
-            security_answer, _ = SecurityAnswer.objects.get_or_create(
-                user=user.profile,
-                question=security_question,
-            )
-            security_answer.set_answer(security_answers[i-1])
-            security_answer.save()
-
-        user.profile.save()
-
-        user.gem_profile.set_security_question_1_answer(
-            security_question_1_answer
-        )
-        user.gem_profile.set_security_question_2_answer(
-            security_question_2_answer
-        )
-        user.gem_profile.save()
-
-        authed_user = authenticate(username=username, password=password)
-        login(self.request, authed_user)
-        return HttpResponseRedirect(form.cleaned_data.get('next', '/'))
-
-    def render_to_response(self, context, **response_kwargs):
-        context.update({
-            'security_question_1': settings.SECURITY_QUESTION_1,
-            'security_question_2': settings.SECURITY_QUESTION_2
-        })
-        return super(GemRegistrationView, self).render_to_response(
-            context, **response_kwargs
-        )
+class GemResetPasswordSuccessView(TemplateView):
+    template_name = 'reset_password_success.html'
 
 
 class GemEditProfileView(MyProfileEdit):
     form_class = GemEditProfileForm
-
-    def get_initial(self):
-        initial = super(GemEditProfileView, self).get_initial()
-        initial.update({'gender': self.request.user.profile.gender})
-        return initial
-
-    def form_valid(self, form):
-        super(MyProfileEdit, self).form_valid(form)
-        gender = form.cleaned_data['gender']
-        self.request.user.profile.gender = gender
-        self.request.user.profile.save()
-        return HttpResponseRedirect(
-            reverse('molo.profiles:view_my_profile'))
 
 
 class GemRssFeed(Feed):

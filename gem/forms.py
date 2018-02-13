@@ -4,8 +4,7 @@ from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
 from gem.models import GemSettings
-from molo.profiles.forms import RegistrationForm, EditProfileForm
-from molo.profiles.models import UserProfile
+from molo.profiles.forms import RegistrationForm, EditProfileForm, DoneForm
 from gem.settings import REGEX_EMAIL, REGEX_PHONE
 
 from wagtail.wagtailcore.models import Site
@@ -85,26 +84,6 @@ class GemRegistrationForm(GemAliasMixin, RegistrationForm):
         }
     )
 
-    security_question_1_answer = forms.CharField(
-        label=_("Answer to Security Question 1"),
-        widget=forms.TextInput(
-            attrs=dict(
-                required=True,
-                max_length=128,
-            )
-        ),
-    )
-
-    security_question_2_answer = forms.CharField(
-        label=_("Answer to Security Question 2"),
-        widget=forms.TextInput(
-            attrs=dict(
-                required=True,
-                max_length=128,
-            )
-        ),
-    )
-
     def clean_username(self):
         username = super(GemRegistrationForm, self).clean_username()
 
@@ -123,7 +102,6 @@ class GemRegistrationForm(GemAliasMixin, RegistrationForm):
 
     def __init__(self, *args, **kwargs):
         super(GemRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['gender'].required = True
 
 
 class GemEditProfileForm(GemAliasMixin, EditProfileForm):
@@ -151,9 +129,13 @@ class GemEditProfileForm(GemAliasMixin, EditProfileForm):
     def clean_alias(self):
         return self._clean_alias()
 
-    class Meta:
-        model = UserProfile
-        fields = ['alias', 'date_of_birth', 'mobile_number', 'gender']
+
+class GemRegistrationDoneForm(DoneForm):
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=GENDERS,
+        required=False
+    )
 
 
 class ReportCommentForm(Form):

@@ -20,6 +20,7 @@ from molo.profiles.models import (
     SecurityQuestion,
     SecurityQuestionIndexPage,
     UserProfile,
+    UserProfilesSettings,
 )
 
 
@@ -30,10 +31,31 @@ from molo.profiles.models import (
 class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
         self.client = Client()
         self.mk_main2()
+        self.language_setting2 = Languages.objects.create(
+            site_id=self.main2.get_site().pk)
+        self.english2 = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting2,
+            locale='en',
+            is_active=True)
 
-        for main in [self.main, self.main2]:
+        for main in Main.objects.all():
+            profile_settings = UserProfilesSettings.for_site(main.get_site())
+            profile_settings.show_security_question_fields = True
+            profile_settings.security_questions_required = True
+            profile_settings.num_security_questions = 2
+            profile_settings.activate_gender = True
+            profile_settings.capture_gender_on_reg = True
+            profile_settings.gender_required = True
+            profile_settings.save()
+
             security_index = SecurityQuestionIndexPage.objects.descendant_of(
                 main).first()
             for i in range(1, 3):
@@ -46,8 +68,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': 'testuser',
             'password': '1234',
             'gender': 'f',
-            'security_question_1_answer': 'answer_1',
-            'security_question_2_answer': 'answer_2',
+            'question_0': 'answer_1',
+            'question_1': 'answer_2',
             'terms_and_conditions': 'on',
         }
 
@@ -62,8 +84,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': 'testuser',
             'password': '1234',
             'gender': 'f',
-            'security_question_1_answer': 'answer_1',
-            'security_question_2_answer': 'answer_2',
+            'question_0': 'answer_1',
+            'question_1': 'answer_2',
             'terms_and_conditions': 'on',
         })
         self.assertEqual(UserProfile.objects.all().count(), 1)
@@ -83,11 +105,11 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         self.assertFormError(
             response, 'form', 'gender', ['This field is required.'])
         self.assertFormError(
-            response, 'form', 'security_question_1_answer',
+            response, 'form', 'question_0',
             ['This field is required.']
         )
         self.assertFormError(
-            response, 'form', 'security_question_2_answer',
+            response, 'form', 'question_1',
             ['This field is required.']
         )
 
@@ -96,8 +118,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': 'tester@test.com',
             'password': '1234',
             'gender': 'm',
-            'security_question_1_answer': 'cat',
-            'security_question_2_answer': 'dog'
+            'question_0': 'cat',
+            'question_1': 'dog'
         })
 
         expected_validation_message = "Sorry, but that is an invalid" \
@@ -111,8 +133,8 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'username': '0821231234',
             'password': '1234',
             'gender': 'm',
-            'security_question_1_answer': 'cat',
-            'security_question_2_answer': 'dog'
+            'question_0': 'cat',
+            'question_1': 'dog'
         })
 
         self.assertContains(response, expected_validation_message)
@@ -224,7 +246,6 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             reverse('user_register'),
             self.user_registration_data(),
         )
-
         security_questions = SecurityQuestion.objects.descendant_of(
             self.main2).all()
         security_answers = SecurityAnswer.objects.all()

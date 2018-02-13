@@ -18,7 +18,7 @@ from wagtail.contrib.wagtailsitemaps import views as sitemap_views
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, \
     ReportCommentView, GemEditProfileView, \
-    AlreadyReportedCommentView
+    AlreadyReportedCommentView, GemRegistrationDoneView
 
 urlpatterns = []
 
@@ -42,6 +42,8 @@ urlpatterns += [
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
+    url(r'^profiles/register/done/',
+        GemRegistrationDoneView.as_view(), name='registration_done'),
     url(r'^profiles/forgot_password/$',
         ForgotPasswordView.as_view(), name='forgot_password'),
     url(r'^profiles/reset_password/$',
