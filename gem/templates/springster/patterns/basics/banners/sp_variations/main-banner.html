@@ -3,7 +3,7 @@
   {% if pageTag.banner %}
     {% image pageTag.banner width-360 as tmp_photo %}
     {% if pageTag.banner_link_page %}
-      <a href="{% pageurl pageTag.banner_link_page %}" target="_top" class="banner__item-link">
+      <a href="{% pageurl pageTag.banner_link_page.specific %}" target="_top" class="banner__item-link">
       <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
       </a>
     {% elif pageTag.external_link %}

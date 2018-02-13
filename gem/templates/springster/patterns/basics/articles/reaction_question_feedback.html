@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags core_tags %}
 {% block content %}
-{% pageurl article as the_url %}
+{% pageurl article.specific as the_url %}
 {% trans "Back to article" as back %}
 <div class="reaction-questions-success__block">
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left"  %}
@@ -11,4 +11,3 @@
   </div>
 </div>
 {% endblock %}
-

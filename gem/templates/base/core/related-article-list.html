@@ -7,12 +7,12 @@
   <h3 class="heading heading--small related-articles__up-next">{% trans "Next up in" %} {{ section.title }}</h3>
   <div class="related-articles-up-next">
     {% if next_article.image %}
-      <a href="{% pageurl next_article %}" class="article__anchor">
+      <a href="{% pageurl next_article.specific %}" class="article__anchor">
         {% image next_article.image width-320 class="article__image" %}
       </a>
     {% endif %}
     <h1 class="heading heading--xx-large related-articles-up-next__title">
-      <a href="{% pageurl next_article %}" class="call-to-action__item--text call-to-action__item--text-related-article">
+      <a href="{% pageurl next_article.specific %}" class="call-to-action__item--text call-to-action__item--text-related-article">
         {{next_article.title}}
       </a>
     </h1>
@@ -41,15 +41,15 @@
        {% endif %}">
         {% if article.image %}
           {% if forloop.counter0 == 0 %}
-            <a href="{% pageurl article %}" class="promoted-article-list__anchor">
+            <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor">
               {% image article.image width-320 class="article__image" %}
             </a>
           {% elif forloop.counter0 == 1 %}
-            <a href="{% pageurl article %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
+            <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
             {% image article.image width-200 height-200 class="article__image article__image-thumbnail" %}
             </a>
           {% elif forloop.counter0 == 2 %}
-          <a href="{% pageurl article %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
+          <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
             {% image article.image width-200 height-200 class="article__image article__image-thumbnail" %}
           </a>
            {% endif %}
@@ -57,7 +57,7 @@
 
         <div class="related-articles-recommended-list__content {% if forloop.first %} related-articles-recommended-list__content--hero {% endif %}">
           <h3 class="heading heading--large related-articles-recommended__title">
-            <a href="{% pageurl article %}">{{article.title}}</a>
+            <a href="{% pageurl article.specific %}">{{article.title}}</a>
           </h3>
           {% if article.subtitle %}
             <p class="related-articles-recommended__desc">{{article.subtitle}}</p>

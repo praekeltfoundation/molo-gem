@@ -3,7 +3,7 @@
 {% block content %}
 {% get_translation tag as translated_tag %}
 {% trans "Back home" as backhome %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.url page_name=backhome direction="left" %}
+{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=backhome direction="left" %}
 {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" extraclass="hash-tag" htmltag="h1" title=translated_tag.title %}
 {% paginate 10 object_list as articles %}
 {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
@@ -15,4 +15,3 @@
 {% get_articles_for_tag next_tag as articles %}
 {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=next_tag tag_articles=articles %}
 {% endblock %}
-
