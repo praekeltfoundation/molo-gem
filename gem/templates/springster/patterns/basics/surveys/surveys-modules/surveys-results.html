@@ -1,27 +1,32 @@
 {% if self.show_results and results %}
     <div class="{{surveytypeClass}}--results">
-    {% trans "{{surveytype}} Results" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-    {% trans "Your {{surveytype}} has been completed successfully. Please see your submission results below." as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
-        {% for question, answers in results.items %}
-        <fieldset>
-            <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
-            {% for answer, count in answers.items %}
-                <div class="{{surveytypeClass}}__answers-counter-bar">
-                <h4 class="{{surveytypeClass}}__answers">
-                    {{ answer|capfirst }}
-                </h4>
-                <span class="{{surveytypeClass}}__answers-counter">
-                    {% if self.show_results_as_percentage%}
-                        {{ count }}%
-                    {% else %}
-                        {{count}}
-                    {% endif %}
-                </span>
-            </div>
+    {% with surveytype|add:' Results' as text %}
+      {% trans text as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+    {% endwith %}
+
+    {% with 'Your '|add:surveytype|add:' has been completed successfully. Please see your submission results below.' as paragraph_text %}
+      {% trans paragraph_text as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+          {% for question, answers in results.items %}
+            <fieldset>
+                <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+                {% for answer, count in answers.items %}
+                    <div class="{{surveytypeClass}}__answers-counter-bar">
+                    <h4 class="{{surveytypeClass}}__answers">
+                        {{ answer|capfirst }}
+                    </h4>
+                    <span class="{{surveytypeClass}}__answers-counter">
+                        {% if self.show_results_as_percentage%}
+                            {{ count }}%
+                        {% else %}
+                            {{count}}
+                        {% endif %}
+                    </span>
+                </div>
             {% endfor %}
-        </fieldset>
-        {% endfor %}
+          </fieldset>
+          {% endfor %}
+      {% endwith %}
     </div>
 {% endif %}
