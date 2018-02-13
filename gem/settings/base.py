@@ -19,8 +19,9 @@ import djcelery
 from celery.schedules import crontab
 djcelery.setup_loader()
 
-# Absolute filesystem path to the Django project directory:
-PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+# Absolute filesystem paths
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+PROJECT_ROOT = BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
