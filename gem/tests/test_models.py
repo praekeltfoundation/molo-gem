@@ -71,7 +71,7 @@ class TestModels(TestCase, MoloTestCaseMixin):
             molo_survey_page = MoloSurveyPage(
                 title='survey title',
                 slug='survey-slug',
-                intro='Introduction to Test Survey ...',
+                homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
             )
 
