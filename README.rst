@@ -5,12 +5,14 @@ This is an application scaffold for Molo_.
 
 Getting started
 ---------------
+In a seperate terminal::
+
+    $ redis-server
 
 To set up enviroment::
 
     $ virtualenv ve
     $ pip install -e .
-    $ in a new terminal: redis-server
     $ ./manage.py migrate
     $ ./manage.py createsuperuser
     $ ./manage.py runserver
