@@ -21,7 +21,7 @@ djcelery.setup_loader()
 
 # Absolute filesystem paths
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
-PROJECT_ROOT = BASE_DIR
+PROJECT_ROOT = join(BASE_DIR, 'gem')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -138,8 +138,8 @@ SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
-             join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
+    'DIRS': [join(PROJECT_ROOT, 'templates', SITE_LAYOUT_2),
+             join(PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE), ],
     'APP_DIRS': False,
     'OPTIONS': {
         'builtins': [
@@ -182,7 +182,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # SQLite (simplest install)
 DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
+    default='sqlite:///%s' % (join(BASE_DIR, 'db.sqlite3'),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
@@ -285,13 +285,13 @@ EXTRA_LANG_INFO = {
 django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
 LOCALE_PATHS = [
-    join(PROJECT_ROOT, "locale"),
+    join(BASE_DIR, "locale"),
 ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = join(PROJECT_ROOT, 'static')
+STATIC_ROOT = join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
 
@@ -305,7 +305,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
-MEDIA_ROOT = join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Wagtail settings
@@ -460,7 +460,7 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
 PWA_NAME = 'Springster'
 PWA_DESCRIPTION = "Springster"
 PWA_THEME_COLOR = '#7300FF'
