@@ -1,32 +1,8 @@
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 
 from gem.templatetags.gem_tags import (
-    is_via_freebasics,
     smart_truncate_chars,
 )
-
-
-class TestIsViaFreebasics(TestCase):
-    def setUp(self):
-        self.request_factory = RequestFactory()
-
-    def test_returns_true_if_internetorg_in_httpvia(self):
-        request = self.request_factory.get('/', HTTP_VIA='Internet.org')
-        context = {'request': request}
-        self.assertTrue(is_via_freebasics(context))
-
-    def test_returns_true_if_internetorgapp_in_user_agent(self):
-        request = self.request_factory.get(
-            '/',
-            HTTP_USER_AGENT='InternetOrgApp',
-        )
-        context = {'request': request}
-        self.assertTrue(is_via_freebasics(context))
-
-    def test_returns_true_if_true_in_xiorgsfbs(self):
-        request = self.request_factory.get('/', HTTP_X_IORG_FBS='true')
-        context = {'request': request}
-        self.assertTrue(is_via_freebasics(context))
 
 
 class TestSmartTruncateChars(TestCase):
