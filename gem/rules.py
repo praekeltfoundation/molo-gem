@@ -336,6 +336,21 @@ class ProfileDataRule(AbstractBaseRule):
     def get_column_header(self):
         return self.get_related_field_name().replace('_', ' ').title()
 
+    def get_user_info_string(self, user):
+        try:
+            related_field_value = self.get_related_field_value(
+                user=user)
+        except LookupError as e:
+            logging.warn(e)
+            return "None"
+
+        if isinstance(related_field_value, datetime.datetime) \
+                or isinstance(related_field_value, datetime.date):
+            if isinstance(related_field_value, datetime.datetime) and \
+                    timezone.is_naive(related_field_value):
+                related_field_value = timezone.make_aware(related_field_value)
+            return related_field_value.strftime("%Y-%m-%d %H:%M")
+        return str(related_field_value)
 
 class CommentCountRule(AbstractBaseRule):
     static = True
