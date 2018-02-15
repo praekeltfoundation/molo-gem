@@ -20,6 +20,7 @@ To set up enviroment::
 You can now connect access the demo site on http://localhost:8000
 
 To get started::
+
 	* log in to : http://localhost:8000/admin
 	* click on settings, then choose language
 	* add a new language and save it
