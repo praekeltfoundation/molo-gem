@@ -333,6 +333,9 @@ class ProfileDataRule(AbstractBaseRule):
                                   'test_user.'.format(self.operator,
                                                       type(self).__name__))
 
+    def get_column_header(self):
+        return self.get_related_field_name().replace('_', ' ').title()
+
 
 class CommentCountRule(AbstractBaseRule):
     static = True
