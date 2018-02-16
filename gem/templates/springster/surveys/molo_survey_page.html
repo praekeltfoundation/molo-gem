@@ -3,33 +3,28 @@
 
 {% block content %}
     {% if self.your_words_competition %}
-        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %} surveys--page">
             {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
 
-            {% if self.intro %}
-                {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.intro %}
+            {% if self.introduction %}
+                {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.introduction %}
             {% endif %}
 
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
         </div>
     {% else %}
-        <div class="surveys surveys--call-to-action">
+        <div class="surveys surveys--call-to-action surveys--page">
             <div class="identity-image identity-image--survey"></div>
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.intro %}
+
+            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.introduction %}
+
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
         </div>
     {% endif %}
-    <!--    Enable H tag streamfield
-            Enable p tag streamfield
-            Disable all other streamfields via checkbox value
 
-            1. Paragraph must have a limit characters
-                One long paragraph or several para
-            2. Only use/limit first H and p tags
-    -->
-    {% if self.content %}
-        {% for block in self.content %}
+    {% if self.description %}
+        {% for block in self.description %}
             {% if forloop.counter %}
                 {% if block.block_type == 'heading' %}
                     <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
