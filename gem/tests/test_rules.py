@@ -259,7 +259,7 @@ class TestProfileDataRuleGetData(TestCase, MoloTestCaseMixin):
     def test_get_user_info_string_returns_string_values(self):
         rule = ProfileDataRule(field='profiles.userprofile__gender',
                                value='f')
-        self.user.profile.gender='f'
+        self.user.profile.gender = 'f'
         self.user.save()
 
         self.assertEqual(rule.get_user_info_string(self.user), 'f')

@@ -352,6 +352,7 @@ class ProfileDataRule(AbstractBaseRule):
             return related_field_value.strftime("%Y-%m-%d %H:%M")
         return str(related_field_value)
 
+
 class CommentCountRule(AbstractBaseRule):
     static = True
 
