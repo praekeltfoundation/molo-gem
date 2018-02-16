@@ -32,7 +32,7 @@
     var content = document.getElementById("content-wrapper");
     var menuList = document.getElementById("nav-list");
 
-    //WHY IS THIS BG APPLIED
+    //REASONS FOR BACKGROUND
     var onResizing = function(event) {
       if (window.innerWidth < 1024){
         content.style.backgroundColor =  "#7300ff";
@@ -40,9 +40,8 @@
         content.style.backgroundColor =  "transparent";
       }
     };
-
-    window.onresize = onResizing;
-    window.onload = onResizing;
+    /*window.onresize = onResizing;
+      window.onload = onResizing;*/
 
     window.addEventListener('scroll', function(){
       var scrollAmount = this.y - window.pageYOffset;
