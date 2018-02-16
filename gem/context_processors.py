@@ -1,19 +1,6 @@
 from django.conf import settings
 
-from molo.profiles.forms import ProfilePasswordChangeForm
 
-
-# TODO: this context processor generates the HTML for the password
-# change form on every single request which is hugely inefficient.
-# Once password_change_form is available for the viewprofile.html
-# view we can remove this context processor.
-def default_forms(request):
-    return {
-        'password_change_form': ProfilePasswordChangeForm()
-    }
-
-
-# TODO: remove this context processor
 def detect_freebasics(request):
     return {
         'is_via_freebasics':
