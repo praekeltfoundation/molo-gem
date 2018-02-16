@@ -41,7 +41,7 @@
       }
     };
     /*window.onresize = onResizing;
-      window.onload = onResizing;*/
+    window.onload = onResizing;*/
 
     window.addEventListener('scroll', function(){
       var scrollAmount = this.y - window.pageYOffset;

@@ -21,6 +21,9 @@
                   <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
                   <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
               </div>
+              {{field.field.choices}}<br/><br/>
+            -->{{ field.name }}<br/><br/>
+              ==>{{ field.id_for_label }}<br/><br/>
           {% endfor %}
       {% elif field|fieldtype == 'RadioSelect' %}
           {% for value, text in field.field.choices %}
