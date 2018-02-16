@@ -12,7 +12,7 @@ def switch_to_using_profiles_migrated_username(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0018_userprofile_admin_sites'),
+        ('profiles', '0019_add_uuid_field'),
         ('gem', '0022_text_banner'),
     ]
 
