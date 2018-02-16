@@ -412,3 +412,12 @@ class CommentCountRule(AbstractBaseRule):
                 self.count
             ),
         }
+
+    def get_column_header(self):
+        return "Comment Count"
+
+    def get_user_info_string(self, user):
+        comments = user.comment_comments.filter(
+            is_removed=False,
+        ).count()
+        return str(comments)
