@@ -89,18 +89,16 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% wagtailuserbar %}
-    {% cache 3600 base_header LANGUAGE_CODE %}
-      <div id="header-wrapper">
-        <div id="language-bar">
-          {% block navigation %}
-            {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
-          {% endblock %}
-        </div>
-        {% block header %}
-          {% include "patterns/components/header/sp_variations/header-center.html" %}
+    <div id="header-wrapper">
+      <div id="language-bar">
+        {% block navigation %}
+          {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
         {% endblock %}
       </div>
-    {% endcache %}
+      {% block header %}
+        {% include "patterns/components/header/sp_variations/header-center.html" %}
+      {% endblock %}
+    </div>
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
         {% display_unread_notifications %}
