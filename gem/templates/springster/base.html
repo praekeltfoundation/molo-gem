@@ -41,10 +41,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
-    {% if LANGUAGE_CODE|language_bidi == True %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
-    {% endif %}
     {% endcompress %}
+    {% if LANGUAGE_CODE|language_bidi == True %}
+      {% compress css inline %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
+      {% endcompress %}
+    {% endif %}
     <noscript>
     {% compress css %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
