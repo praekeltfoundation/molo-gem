@@ -21,8 +21,8 @@
             {% endfor %}
         {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
             <div class="choice-group choice-group--comments">
-                <input name="{{ field.name }}" id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
             </div>
         {% endif %}
         </fieldset>

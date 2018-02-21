@@ -1,4 +1,4 @@
-{% load core_tags %}
+{% load wagtailcore_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if featured_articles %}
 <div class="grid-teaser-wrapper">
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=section.title %}
@@ -7,9 +7,55 @@
   {% get_translation article.get_parent_section as origin_section %}
     {% if origin_section == section %}
     <li class="grid-teaser-list__item">
-      {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html" with layouttype="grid" %}
-      {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="grid" %}
-      {% include "patterns/basics/comment-counter/sp_comment-counter.html" with layouttype="base" %}
+      {% with layouttype="grid" %}
+        {% if article.get_effective_image %}
+        <a href="{% pageurl article.specific %}" class="{{layouttype}}-teaser__thumbnail-link">
+          {% image article.get_effective_image fill-96x96 as teaser_thumbnail %}
+          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="{{layouttype}}-teaser__thumbnail" />
+        </a>
+        {% endif %}
+        {% if article.title_highlight %}
+          <h3 class="{{layouttype}}-teaser__title {{layouttype}}-teaser__title--highlight block-with-text">
+              <a href="{% pageurl article.specific %}" class="{{layouttype}}-teaser__title-link">
+                   {{ article.title_highlight|smarttruncatechars:45|safe}}
+              </a>
+          </h3>
+        {% else %}
+          <h3 class="{{layouttype}}-teaser__title block-with-text">
+              <a href="{% pageurl article.specific %}" class="{{layouttype}}-teaser__title-link">
+                  {{ article.title|smarttruncatechars:45|safe}}
+              </a>
+          </h3>
+        {% endif %}
+        {% if article.subtitle_highlight or article.body_highlight %}
+          <p class="carousel-teaser__subtitle highlight-description">
+            {% if article.subtitle_highlight %}
+              {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+            {% elif article.body_highlight %}
+              {{article.body_highlight|smarttruncatechars:28|safe}}
+            {% endif %}
+          </p>
+        {% elif article.subtitle %}
+          {% if article.title.30 %}
+            <p class="{{layouttype}}-teaser__subtitle block-with-text">
+                {{ article.subtitle|smarttruncatechars:28|safe}}
+            </p>
+          {% else %}
+            <p class="{{layouttype}}-teaser__subtitle block-with-text">
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+            </p>
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+      {% with layouttype="base" %}
+        {% get_comment_count for article as comment_count %}
+        {% if comment_count > 0 %}
+          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+            <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+            <span class="comment-counter__numeral">{{comment_count}}</span>
+          </a>
+        {% endif %}
+      {% endwith %}
     </li>
     {% endif %}
   {% endfor %}

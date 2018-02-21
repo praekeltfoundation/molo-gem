@@ -5,10 +5,8 @@
       <div class="section-title">
         <h2>{% trans "Share your story" %}</h2>
       </div>
-
       <h3>{{ competition.title }}</h3>
       <p>{{ competition.description }}</p>
-
       {% if request.user.is_authenticated %}
         <a href="{% url 'molo.yourwords:competition_entry' competition.slug %}" class="button">
           {% trans "Write your story" %}

@@ -1,4 +1,4 @@
-{% load compress wagtailuserbar core_tags staticfiles %}
+{% load cache compress wagtailuserbar core_tags staticfiles %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -40,11 +40,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
     {% compress css inline %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
-    {% if LANGUAGE_CODE|language_bidi == True %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
-    {% endif %}
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
     {% endcompress %}
+    {% if LANGUAGE_CODE|language_bidi == True %}
+      {% compress css inline %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
+      {% endcompress %}
+    {% endif %}
     <noscript>
     {% compress css %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
@@ -98,34 +100,36 @@
 
         {% tag_menu_homepage %}
 
-        {% block footer_menu %}
-          {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
-        {% endblock %}
-
-        {% block footer %}
-          {% if 'bbm.' in request.get_host %}
-            {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_home" %}
-          {% else %}
-            {% include "patterns/components/footer/sp_variations/footer.html" %}
-          {% endif %}
-
-          {% block google_analytics %}
-            {% include "patterns/components/ga_tag_manager.html" %}
+        {% cache 3600 base_footer LANGUAGE_CODE %}
+          {% block footer_menu %}
+            {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
           {% endblock %}
-          {% block facebook_pixel_tracker %}
-            {% include "patterns/components/facebook_pixel_tracker.html" %}
-          {% endblock %}
-          {% block facebook_analytics %}
-            {% include "core/facebook_analytics.html" %}
-          {% endblock %}
-          {% if 'bbm.' in request.get_host %}
-            {% include "patterns/components/bbm_partner_ga_code.html" %}
-          {% endif %}
-        {% endblock %}
 
-        {% block copyright %}
-          {% include "patterns/basics/copyright/copyright-terms.html" %}
-        {% endblock %}
+          {% block footer %}
+            {% if 'bbm.' in request.get_host %}
+              {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_home" %}
+            {% else %}
+              {% include "patterns/components/footer/sp_variations/footer.html" %}
+            {% endif %}
+
+            {% block google_analytics %}
+              {% include "patterns/components/ga_tag_manager.html" %}
+            {% endblock %}
+            {% block facebook_pixel_tracker %}
+              {% include "patterns/components/facebook_pixel_tracker.html" %}
+            {% endblock %}
+            {% block facebook_analytics %}
+              {% include "core/facebook_analytics.html" %}
+            {% endblock %}
+            {% if 'bbm.' in request.get_host %}
+              {% include "patterns/components/bbm_partner_ga_code.html" %}
+            {% endif %}
+          {% endblock %}
+
+          {% block copyright %}
+            {% include "patterns/basics/copyright/copyright-terms.html" %}
+          {% endblock %}
+        {% endcache %}
       </div>
     </div>
 
