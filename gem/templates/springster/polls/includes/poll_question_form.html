@@ -11,9 +11,16 @@
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
+
+
+
     <fieldset class="choice choice-group">
       {% if question.get_main_language_page.allow_multiple_choice %}
         <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+        
+        {{ question.id }}
+        ==>
+
       {% else %}
         <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
       {% endif %}
