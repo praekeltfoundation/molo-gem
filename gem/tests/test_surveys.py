@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
-from django.test.utils import override_settings
 from molo.core.models import (
     Languages,
     Main,
@@ -19,7 +18,6 @@ from molo.surveys.models import (
 User = get_user_model()
 
 
-@override_settings(SITE_LAYOUT_BASE='springster')
 class TestSurveyViews(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.client = Client()
@@ -67,7 +65,6 @@ class TestSurveyViews(TestCase, MoloTestCaseMixin):
         settings.enable_tag_navigation = True
         settings.save()
 
-
     def create_molo_survey_page(self, parent, **kwargs):
         molo_survey_page = MoloSurveyPage(
             title='Test Survey', slug='test-survey',
@@ -99,6 +96,7 @@ class TestSurveyViews(TestCase, MoloTestCaseMixin):
         translated_survey = MoloSurveyPage.objects.get(
             slug='french-translation-of-test-survey')
         translated_survey.save_revision().publish()
+        translated_survey.refresh_from_db()
 
         response = self.client.get("/")
         self.assertContains(response, 'Test Survey')
