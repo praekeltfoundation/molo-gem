@@ -11,20 +11,13 @@
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
-
-
-
     <fieldset class="choice choice-group">
       {% if question.get_main_language_page.allow_multiple_choice %}
-        <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
-        
-        {{ question.id }}
-        ==>
-
+        <input type="checkbox" id="choice-{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
       {% else %}
-        <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+        <input type="radio" id="choice-{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
       {% endif %}
-      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title|capfirst }}</label>
+      <label for="choice-{{ question.id }}-{{ forloop.counter }}" >{{ choice.title|capfirst }}</label>
     </fieldset>
     {% endfor %}
     {% trans "Log in to vote" as buttontext %}
