@@ -1,77 +1,84 @@
-.call-to-action__nav-item-text {
-    /*Nav item text
-        Right
-        Left
-        Right-wide
-        Wide-back
-        Disabled
-    */
-    cursor: pointer;
-    text-transform: uppercase;
-    text-decoration: underline;
-    color: $springster-purple;
+.call-to-action {
+  &--wide-back {
+    padding: 10px;
+    background-color: $springster-purple-light;
     font-size: $font-x-small;
-    font-weight: bold;
-    position: relative;
-    display: block;
-    text-align: center;
-    &--article-comments {
-        padding-bottom: 15px;
-    }
-    &--right {
-    margin: 0 30px;
-    line-height: 24px;
-        &:after {
-        background-image: url("/static/img/icons/next.png");
-        background-image: url("/static/img/icons/next.svg"),
-        linear-gradient(transparent, transparent);
-        background-repeat: no-repeat;
-        background-position: 50%;
-        content:"";
-          position: absolute;
-          margin: 0 0 0 10px;
-          width: 24px;
-          height: 25px;
-        }
-    }
-    &--left {
-        line-height: 24px;
-        &:before {
-        background-image: url("/static/img/icons/back.png");
-        background-image: url("/static/img/icons/back.svg"),
-        linear-gradient(transparent, transparent);
-        background-repeat: no-repeat;
-        background-position: 50%;
-        content: "";
+  }
+  &__nav-item-text {
+      /*Nav item text
+          Right
+          Left
+          Right-wide
+          Wide-back
+          Disabled
+      */
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: underline;
+      color: $springster-purple;
+      font-size: $font-x-small;
+      font-weight: bold;
+      position: relative;
+      text-align: center;
+      display: block;
+      &--article-comments {
+          padding-bottom: 15px;
+      }
+      &--right {
+      margin: 0;
+      line-height: 24px;
+      padding: 0 10px;
+          &:after {
+          background-image: url("/static/img/icons/next.png");
+          background-image: url("/static/img/icons/next.svg"),
+          linear-gradient(transparent, transparent);
+          background-repeat: no-repeat;
+          background-position: 50%;
+          content:"";
             position: absolute;
-            left: 0;
-            margin: 0 0 0 10px;
-            width: 24px;
-            height: 24px;
-        }
-    }
-    &--right-wide {
-        margin: 0 30px;
-        line-height: 24px;
-        text-align: left;
-    &:after {
-        background-image: url("/static/img/icons/next.png");
-        background-image: url("/static/img/icons/next.svg"),
-        linear-gradient(transparent, transparent);
-        background-repeat: no-repeat;
-        background-position: 50%;
-        content:"";
-            position: absolute;
-            right: 0;
             margin: 0 0 0 10px;
             width: 24px;
             height: 25px;
-        }
-    }
-    &--wide-back {
-      padding: 10px;
-      background-color: $springster-purple-light;
-      font-size: $font-x-small;
-    }
-    &--disabled {color: $cool-grey;}
+          }
+      }
+      &--left {
+          line-height: 24px;
+          &:before {
+          background-image: url("/static/img/icons/back.png");
+          background-image: url("/static/img/icons/back.svg"),
+          linear-gradient(transparent, transparent);
+          background-repeat: no-repeat;
+          background-position: 50%;
+          content: "";
+              position: absolute;
+              left: 0;
+              margin: 0 0 0 10px;
+              width: 24px;
+              height: 24px;
+          }
+      }
+      &--right-wide {
+          margin: 0 30px;
+          line-height: 24px;
+          text-align: left;
+      &:after {
+          background-image: url("/static/img/icons/next.png");
+          background-image: url("/static/img/icons/next.svg"),
+          linear-gradient(transparent, transparent);
+          background-repeat: no-repeat;
+          background-position: 50%;
+          content:"";
+              position: absolute;
+              right: 0;
+              margin: 0 0 0 10px;
+              width: 24px;
+              height: 25px;
+          }
+      }
+
+      &--disabled {color: $cool-grey;}
+      &--report {
+        padding: 0 10px 0 0;
+      }
+  }
 }

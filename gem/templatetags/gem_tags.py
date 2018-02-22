@@ -1,3 +1,5 @@
+import re
+
 from django.template import Library
 from django.conf import settings
 
@@ -15,6 +17,15 @@ def get_site_static_prefix():
 @register.filter('fieldtype')
 def fieldtype(field):
     return field.field.widget.__class__.__name__
+
+
+@register.filter(name='idfromlabel')
+def idfromlabel(label):
+    '''
+    return a string that contains only alphanuumeric characters from
+    original string with the prefix 'id_'
+    '''
+    return "id_{}".format(re.sub(r'([^\w]|_)+', '', label.lower()))
 
 
 @register.filter
