@@ -5,8 +5,11 @@
 .menu-list {
   width: 100%;
   display: inline-block;
-  &__item {
-    padding: 0;
+  @media screen and (min-width: 360px) {
+    &__item {
+      //This should Cascade (Not working without important)
+      padding: 5px 0 0 !important;
+    }
   }
 }
 .header__search {

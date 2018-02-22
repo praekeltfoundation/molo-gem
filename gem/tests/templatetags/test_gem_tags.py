@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from gem.templatetags.gem_tags import (
     smart_truncate_chars,
+    idfromlabel
 )
 
 
@@ -19,3 +20,12 @@ class TestSmartTruncateChars(TestCase):
         string = 'Thisisateststringwhichislong'
         result = smart_truncate_chars(string, 15)
         self.assertEqual(result, 'Thisisateststr...')
+
+
+class TestIdFromLabelTag(TestCase):
+
+    def test_returns_expected_value(self):
+        self.assertEqual(idfromlabel('I have visited'), 'id_ihavevisited')
+        self.assertEqual(idfromlabel('I have visited . . .'),
+                         'id_ihavevisited')
+        self.assertEqual(idfromlabel('I have visited 1'), 'id_ihavevisited1')
