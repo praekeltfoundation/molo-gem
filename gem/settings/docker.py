@@ -1,5 +1,7 @@
 """Django settings for use within the docker container."""
 
+from django.core.exceptions import ImproperlyConfigured
+
 from os import environ
 from os.path import abspath, dirname, join
 
@@ -8,11 +10,13 @@ import dj_database_url
 from .production import *  # noqa: F401, F403
 
 
+if SECRET_KEY == DEFAULT_SECRET_KEY:  # noqa: F405
+    raise ImproperlyConfigured('SECRET_KEY is set to default value')
+
 # Disable debug mode
 
 DEBUG = False
 
-SECRET_KEY = environ.get('SECRET_KEY') or 'please-change-me'
 PROJECT_ROOT = (
     environ.get('PROJECT_ROOT') or dirname(dirname(abspath(__file__))))
 
