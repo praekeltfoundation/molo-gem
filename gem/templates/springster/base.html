@@ -32,7 +32,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
-    {% molo_pwa_meta %}
     <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png">
@@ -80,6 +79,7 @@
       }
     </script>
     {% endcompress %}
+    {% molo_pwa_meta %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% wagtailuserbar %}
