@@ -20,6 +20,7 @@
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
     {% poll_page %}
+    {% surveys_list only_direct_surveys=True %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
@@ -28,7 +29,6 @@
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
-    {% surveys_list only_direct_surveys=True %}
     {% surveys_list only_linked_surveys=True %}
 
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
