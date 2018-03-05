@@ -1,6 +1,5 @@
 {% load wagtailcore_tags gem_tags %}
 
-
 <div class="polls polls--call-to-action">
   <div class="polls__bubble-icon"></div>
   <div class="polls__container">
@@ -14,7 +13,11 @@
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
         {% if form %}
           {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="poll" surveytypeClass="polls" %}
+        {% else %}
+          {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="poll" surveytypeClass="polls" %}
         {% endif %}
+      {% else %}
+        {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="poll" surveytypeClass="polls" %}
       {% endif %}
   </div>
 </div>

@@ -1,5 +1,5 @@
 {% load wagtailcore_tags core_tags gem_tags %}
-<form action="{% pageurl self.specific %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
+<form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
     {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
@@ -67,7 +67,19 @@
 
   {% trans "Submit" as text %}
   {% trans "Vote on poll" as polltext %}
-  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+  <!-- The display_survey_directly uses survey instead of self -->
+  {% if survey.display_survey_directly %}
+    {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+      <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
+    {% else %}
+        {% trans "Log in to vote" as buttontext %}
+        {% url "molo.profiles:auth_login" as link %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+    {% endif %}
+  {% else %}
+      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+  {% endif %}
+
 
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
   <div class="{{surveytypeClass}}__pagination">
