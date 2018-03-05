@@ -67,7 +67,7 @@
 
   {% trans "Submit" as text %}
   {% trans "Vote on poll" as polltext %}
-  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.display_survey_directly %}{{ self.submit_text|default:polltext }}{% else %}{{ self.submit_text|default:text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+  <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
 
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
   <div class="{{surveytypeClass}}__pagination">
