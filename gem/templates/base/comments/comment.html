@@ -14,10 +14,10 @@
           {% trans "Big Sister" %}
         {% endif %}
     {% elif node.user_name.lower == 'anonymous' %}
-      {{node.user_name}}
+      {% trans settings.commenting.CommentingSettings.commenting_anonymous %}
     {% else %}
       {% if not node.user.profile.alias %}
-        {% trans "Anonymous" %}
+        {% trans settings.commenting.CommentingSettings.commenting_anonymous %}
       {% else %}
         {{node.user.profile.alias}}
       {% endif %}
