@@ -1,16 +1,39 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags core_tags gem_tags %}
+{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags static %}
 
 {% block content %}
-<div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
-  <h1 class="surveys__title">{{ page.title }}</h1>
-  <h4 class="surveys__intro">{{ page.introduction }}</h4>
-  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-        {% include "surveys/form.html" with surveytypeClass="surveys" %}
+  {% if page.your_words_competition %}
+  <div class="standalone-page your-words your-words{{ page.get_effective_extra_style_hints }}">
+    <div class="section-title">
+      <h2>{% trans "Share your story" %}</h2>
+    </div>
+    <h3>{{ page.title }}</h3>
+    <p>{{ page.introduction }}</p>
+    <img src="{% static 'img/Pencil.png' %}" />
+    <div class="content">
+    {% for block in survey.description %}
+      {% if block.block_type == 'heading' %}
+          <h5>{{ block.value }}</h5>
+      {% elif block.block_type == 'paragraph' %}
+          <p>{{ block.value }}</p>
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% include "surveys/form.html" with surveytypeClass="your-words"  %}
+  </div>
   {% else %}
-    <div class="call-to-action call-to-action--surveys">
-      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
+    <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
+      <h1 class="surveys__title">{{ page.title }}</h1>
+      <h4 class="surveys__intro">{{ page.introduction }}</h4>
+      {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+            {% include "surveys/form.html" with surveytypeClass="surveys" %}
+      {% else %}
+        <div class="call-to-action call-to-action--surveys">
+          <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
+        </div>
+      {% endif %}
     </div>
   {% endif %}
-</div>
+
+
 {% endblock %}

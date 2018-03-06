@@ -6,23 +6,13 @@
   {% with survey=survey.molo_survey_page form=survey.form %}
 
     {% if survey.your_words_competition %}
-        <div class="your-words your-words{{ competition.get_effective_extra_style_hints }}">
+        <div class="your-words your-words{{ self.get_effective_extra_style_hints }}">
             <div class="section-title">
               <h2>{% trans "Share your story" %}</h2>
             </div>
             <h3>{{ survey.title }}</h3>
             <p>{{ survey.homepage_introduction }}</p>
             <img src="{% static 'img/Pencil.png' %}" />
-            <!--THIS NEEDS TO BE ON SURVEY PAGE -->
-            <div class="content">
-            {% for block in survey.description %}
-              {% if block.block_type == 'heading' %}
-                  <h5>{{ block.value }}</h5>
-              {% elif block.block_type == 'paragraph' %}
-                  <p>{{ block.value }}</p>
-              {% endif %}
-            {% endfor %}
-            </div>
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
               <a href="{% pageurl survey.specific %}" class="button">
                 {% if survey.homepage_button_text %}
@@ -49,7 +39,6 @@
           {% endif %}
         </div>
       </div>
-
     {% else %}
         <div class="surveys surveys__tout surveys{{self.get_effective_extra_style_hints}}">
           <div class="section-title">

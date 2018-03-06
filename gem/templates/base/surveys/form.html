@@ -1,6 +1,6 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if form %}
-  <form class="{{surveytypeClass}}__form" action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post">
+  <form class="{{surveytypeClass}}__form" action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
     {% csrf_token %}
     {% for field in form %}
       <fieldset>
