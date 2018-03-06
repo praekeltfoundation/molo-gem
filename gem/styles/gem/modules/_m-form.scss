@@ -3,6 +3,14 @@ fieldset {
   margin: 10px 0;
   padding: 0;
   text-align: left;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      padding: 5px 0;
+    }
+  }
 }
 
 label {
@@ -58,28 +66,23 @@ button, input[type=submit],
   border: 0;
   font-size: 12px;
   font-weight: bold;
-
+  margin: 5px 0 15px;
   height: auto;
   line-height: 1.3333;
   padding: 8px 10px;
-
-    margin-bottom: 15px;
-    text-transform: uppercase;
+  text-transform: uppercase;
   @media screen and (min-width:480px) {
     padding: 10px 24px;
     font-size: 18px;
   }
 }
 
-
 .error {
   color: red;
 }
-
 .input-error {
   border: solid 1px red;
 }
-
 .label-wide, .input-wide {
   display: block;
   width: 100%;
@@ -106,13 +109,10 @@ button, input[type=submit],
   display: block;
 }
 
-
-
 .terms-and-conditions {
     &__field {
       @extend %gem__field;
     }
-
     input {
       @extend %gem__checkbox;
     }

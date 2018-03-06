@@ -6,52 +6,7 @@
   <h1 class="surveys__title">{{ page.title }}</h1>
   <h4 class="surveys__intro">{{ page.introduction }}</h4>
   {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-    {% if form %}
-      <form class="surveys__form" action="{% pageurl self.specific %}{% if self.multi_step or self.has_skip_logic %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-          <fieldset>
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <span class="surveys__helptext">{{ field.help_text }}</span>
-            {% if field|fieldtype == 'RadioSelect' %}
-                <ul>
-                  {% for choice in field.field.choices %}
-                    <li>
-                      <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="radio" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked="checked"{% endif %}>
-                      <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
-                    </li>
-                  {% endfor %}
-                </ul>
-            {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
-            <ul>
-              {% for choice in field.field.choices %}
-                <li>
-                  <input id="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ choice.0 }}" {% if field.value.0 == choice.0 %}checked="checked"{% endif %}>
-                  <label for="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
-                </li>
-              {% endfor %}
-            </ul>
-            {% else %}
-                {{ field }}
-            {% endif %}
-            {% if field.errors %}
-              <ul class="error error--surveys">
-              {% for error in field.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-              </ul>
-            {% endif %}
-          </fieldset>
-        {% endfor %}
-        <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{% trans 'Done' %}{% endif %}" />
-      </form>
-    {% else %}
-      <p class="error error--surveys">{% trans 'You have already completed this survey.' %}</p>
-      <div class="call-to-action call-to-action--surveys">
-        <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
-        {% trans "Back to Home page" %}</a>
-      </div>
-    {% endif %}
+        {% include "surveys/form.html" with surveytypeClass="surveys" %}
   {% else %}
     <div class="call-to-action call-to-action--surveys">
       <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
