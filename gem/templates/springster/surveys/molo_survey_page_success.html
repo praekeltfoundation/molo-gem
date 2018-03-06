@@ -1,43 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if self.your_words_competition %}
-      <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
-          {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
-      </div>
-    {% elif self.display_survey_directly %}
-      <div class="polls polls--call-to-action">
-        <div class="polls__bubble-icon"></div>
-          <div class="polls__container">
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-          </div>
-      </div>
-    {% else %}
-      <div class="surveys surveys--call-to-action">
-          <div class="identity-image identity-image--survey"></div>
-          {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-      </div>
-    {% endif %}
 
+  {% if self.your_words_competition %}
+    <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+    </div>
     {% if self.thank_you_text %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
     {% else %}
-        {% if self.your_words_competition %}
-            {% trans "Thank you for submitting GCN competition" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
-        {% else %}
-            {% trans "Thank you for submitting survey!" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
-        {% endif %}
+      {% trans "Thank you for submitting GCN competition" as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
     {% endif %}
 
-    {% if self.your_words_competition %}
-        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="competition" surveytypeClass="surveys" %}
-    {% elif self.display_survey_directly %}
-      {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="poll" surveytypeClass="polls" %}
+    {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="competition" surveytypeClass="surveys" %}
+
+  {% elif self.display_survey_directly %}
+    <div class="polls polls--call-to-action">
+      <div class="polls__bubble-icon"></div>
+      <div class="polls__container">
+        {% trans "Take a vote!" as headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+        <!--NO FEEDBACK MESSAGE -->
+        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="poll" surveytypeClass="polls" %}
+        </div>
+    </div>
+
+  {% else %}
+    <div class="surveys surveys--call-to-action">
+        <div class="identity-image identity-image--survey"></div>
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+    </div>
+    {% if self.thank_you_text %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
     {% else %}
-        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="survey" surveytypeClass="surveys" %}
+      {% trans "Thank you for submitting survey!" as headingtext %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
     {% endif %}
+
+    {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="survey" surveytypeClass="surveys" %}
+  {% endif %}
 
 {% trans "Back home" as back %}
 {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}

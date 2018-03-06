@@ -1,13 +1,44 @@
+{% load wagtailcore_tags core_tags gem_tags %}
+
 {% if self.show_results and results %}
+
+  {% if self.display_survey_directly %}
+    {% with 'Your '|add:surveytype|add:' has been completed successfully. See results' as paragraph_text %}
+    {% trans paragraph_text as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+      <ul class="polls-results-list">
+      {% for question, answers in results.items %}
+      <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+        {% for answer, count in answers.items %}
+        <li class="polls-results-list__item">
+          {% if self.show_results_as_percentage %}
+            <div class="polls-results-list__percent">
+              <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
+                <span class="choice-percentage">{{ count }}%</p>
+              </div>
+            </div>
+          {% else %}
+            <h4 class="polls-results-list__votes">{{count|pluralize}}</h4>
+          {% endif %}
+        </li>
+        {% endfor %}
+      {% endfor %}
+      </ul>
+    {% endwith %}
+
+  {% else %}
+
     <div class="{{surveytypeClass}}--results">
+
     {% with surveytype|add:' Results' as text %}
       {% trans text as headingtext %}
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
     {% endwith %}
 
     {% with 'Your '|add:surveytype|add:' has been completed successfully. Please see your submission results below.' as paragraph_text %}
-      {% trans paragraph_text as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+    {% trans paragraph_text as headingtext %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+
           {% for question, answers in results.items %}
             <fieldset>
                 <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
@@ -28,5 +59,7 @@
           </fieldset>
           {% endfor %}
       {% endwith %}
+
     </div>
+  {% endif %}
 {% endif %}
