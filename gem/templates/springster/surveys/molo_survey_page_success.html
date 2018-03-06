@@ -34,9 +34,7 @@
     {% if self.your_words_competition %}
         {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="competition" surveytypeClass="surveys" %}
     {% elif self.display_survey_directly %}
-    <div class="polls__container">
       {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="poll" surveytypeClass="polls" %}
-    </div>
     {% else %}
         {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="survey" surveytypeClass="surveys" %}
     {% endif %}
