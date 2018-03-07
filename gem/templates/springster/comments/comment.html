@@ -11,13 +11,21 @@
         - {% trans "Moderator" %}
       </span>
   {% elif node.user_name.lower == 'anonymous' %}
-    {{node.user_name}}
+      {% if settings.commenting.CommentingSettings.commenting_anonymous.lower == 'anonymous' %}
+             {% trans "Anonymous" %}
+      {% else %}
+            {{settings.commenting.CommentingSettings.commenting_anonymous}}
+      {% endif %}
   {% else %}
-    {% if not node.user.profile.alias %}
-      {% trans "Anonymous" %}
-    {% else %}
-      {{node.user.profile.alias}}
-    {% endif %}
+      {% if not node.user.profile.alias %}
+            {% if settings.commenting.CommentingSettings.commenting_anonymous.lower == 'anonymous' %}
+                {% trans "Anonymous" %}
+      {% else %}
+                {{settings.commenting.CommentingSettings.commenting_anonymous}}
+        {% endif %}
+        {% else %}
+            {{node.user.profile.alias}}
+        {% endif %}
   {% endif %}
   </h5>
 {% if node.is_removed %}
