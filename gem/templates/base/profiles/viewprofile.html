@@ -57,7 +57,7 @@
         <hr>
         <div class="password-form">
             <div class="block">
-                <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile">
+                <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile" novalidate>
                       {% csrf_token %}
                     <h5>{% trans "Change Your Password" %}</h5>
                     {% if form.errors or form.non_field_errors %}
