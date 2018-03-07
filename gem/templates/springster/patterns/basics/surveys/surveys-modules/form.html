@@ -77,7 +77,7 @@
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
     {% endif %}
   {% else %}
-      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
   {% endif %}
 
 
