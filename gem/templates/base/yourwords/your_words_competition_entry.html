@@ -41,7 +41,8 @@
           {% endif %}
       {% endfor %}
     </div>
-    <form method="post">
+
+    <form method="post" novalidate>
       {% csrf_token %}
 
       {% if form.story_name.errors %}
@@ -58,7 +59,7 @@
       <p>{{ form.story_text }}</p>
 
       <div class="options">
-        <div>
+        <div class="yourwords-group">
           {% if form.terms_or_conditions_approved.errors %}
           <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
           {% endif %}
@@ -66,7 +67,7 @@
           <label>{% trans "I accept the terms and conditions" %}</label>
         </div>
 
-        <div >
+        <div class="yourwords-group">
           {{ form.hide_real_name }}
           <label>{% trans "Share my story anonymously" %}</label>
         </div>
@@ -75,6 +76,7 @@
       <input type="submit" value="{% trans "Submit Your Story" %}"/>
 
     </form>
+
   </div>
 </div>
 {% endblock %}
