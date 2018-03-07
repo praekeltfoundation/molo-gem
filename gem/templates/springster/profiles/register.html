@@ -72,36 +72,6 @@
             </p>
         </fieldset>
         {% endif %}
-        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-        <fieldset>
-            <div class="input-group{% if form.mobile_number.errors %} input-error{% endif %}">
-                <label for="id_mobile_number">{% trans "Mobile number" %}</label>
-                {{ form.mobile_number }}
-                {{ from.mobile_number.errors }}
-            </div>
-            <p class="helptext">{% trans "Please add your mobile number e.g. 0719009000" %}</p>
-        </fieldset>
-        {% endif %}
-        {% if settings.profiles.UserProfilesSettings.show_email_field %}
-        <fieldset>
-            <div class="input-group{% if form.email.errors %} input-error{% endif %}">
-                <label for="id_email">{% trans "Enter your email address" %}</label>
-                {{ form.email }}
-                {{ form.email.errors}}
-            </div>
-            <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
-        </fieldset>
-        {% endif %}
-        {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
-        <fieldset>
-            <div class="input-group{% if form.location.errors %} input-error{% endif %}">
-                <label for="location">{% trans "Where do you live?" %}</label>
-                {{ form.location }}
-                {{ form.location.errors}}
-            </div>
-            <p class="helptext">{% trans "Only you will see this." %}</p>
-        </fieldset>
-        {% endif %}
         {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
             <fieldset>
             <div class="input-group{% if form.education_level.errors %} input-error{% endif %}">
