@@ -51,6 +51,16 @@
     {% else %}
         <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
     {% endif %}
+
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="{{surveytypeClass}}__pagination">
+          <p class="{{surveytypeClass}}__page">
+              {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                  Page <span class="{{surveytypeClass}}__page-number">{{ page }}</span> of <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
+              {% endblocktrans %}
+          </p>
+      </div>
+    {% endif %}
   </form>
   {% else %}
       <p class="error error--{{surveytypeClass}}">{% trans 'You have already completed this' %} {{surveytype}}.</p>
