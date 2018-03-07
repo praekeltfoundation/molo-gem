@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
@@ -166,14 +167,14 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
 
         self.assertTrue(rule.test_user(self.request))
 
-    def test_test_user_without_request(self):
+    def test_call_test_user_without_request(self):
         self.set_user_to_male()
         rule = ProfileDataRule(field='profiles.userprofile__gender',
                                value='m')
 
         self.assertTrue(rule.test_user(None, self.request.user))
 
-    def test_test_user_without_user_or_request(self):
+    def test_call_test_user_without_user_or_request(self):
         self.set_user_to_male()
         rule = ProfileDataRule(field='profiles.userprofile__gender',
                                value='m')
@@ -227,6 +228,55 @@ class TestProfileDataRuleValidation(TestCase):
 
         self.assertIn('Value has to be non-negative since it represents age.',
                       context.exception.messages)
+
+
+@pytest.mark.django_db
+class TestProfileDataRuleGetData(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+        self.segment = Segment.objects.create()
+        self.user = get_user_model().objects \
+                                    .create_user(username='tester',
+                                                 email='tester@example.com',
+                                                 password='tester')
+
+    def test_get_column_header_returns_related_field_name(self):
+        rule = ProfileDataRule(field='profiles.UserProfile__date_of_birth',
+                               operator=ProfileDataRule.OF_AGE,
+                               value='1')
+        self.assertEqual(rule.get_column_header(), 'Date Of Birth')
+
+    def test_get_user_info_string_returns_formatted_dates(self):
+        rule = ProfileDataRule(field='auth.User__date_joined',
+                               operator=ProfileDataRule.NOT_EQUAL,
+                               value='2012-09-23')
+        self.user.date_joined = datetime.datetime.today()
+        self.user.save()
+
+        self.assertEqual(rule.get_user_info_string(self.user),
+                         datetime.datetime.today().strftime('%Y-%m-%d %H:%M'))
+
+    def test_get_user_info_string_returns_string_values(self):
+        rule = ProfileDataRule(field='profiles.userprofile__gender',
+                               value='f')
+        self.user.profile.gender = 'f'
+        self.user.save()
+
+        self.assertEqual(rule.get_user_info_string(self.user), 'f')
+
+    def test_get_user_info_string_handles_null_values(self):
+        rule = ProfileDataRule(field='auth.User__last_login',
+                               operator=ProfileDataRule.NOT_EQUAL,
+                               value='2012-09-23')
+        self.user.last_login = None
+
+        self.assertEqual(rule.get_user_info_string(self.user), 'None')
+
+    def test_get_user_info_string_returns_none_if_model_not_implemented(self):
+        rule = ProfileDataRule(field='lel.not_existing_model__date_joined',
+                               value='2')
+
+        self.assertEqual(rule.get_user_info_string(self.user), 'None')
 
 
 class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
@@ -324,10 +374,22 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
 
-    def test_test_user_without_request(self):
+    def test_call_test_user_without_request(self):
         rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
         self.assertTrue(rule.test_user(None, self.request.user))
 
-    def test_test_user_without_user_or_request(self):
+    def test_call_test_user_without_user_or_request(self):
         rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
         self.assertFalse(rule.test_user(None))
+
+    def test_get_column_header(self):
+        rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
+        self.assertEqual(rule.get_column_header(), "Comment Count")
+
+    def test_get_user_info_string_returns_comment_count(self):
+        rule = CommentCountRule(
+            count=1, operator=CommentCountRule.GREATER_THAN
+        )
+        self.add_comment(self.request.user, self.article)
+        self.add_comment(self.request.user, self.article)
+        self.assertEqual(rule.get_user_info_string(self.request.user), "2")
