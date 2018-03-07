@@ -29,15 +29,11 @@
         </div>
     {% elif survey.display_survey_directly %}
       <div class="gem-polls">
-        <div class="polls">
           <h4 class="poll__title">{% trans "What's your opinion?" %}</h4>
           <div class="poll__form-block">
             <h2 class="poll__question-title">{{ survey.title }}</h2>
           </div>
-          {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
             {% include "surveys/form.html" with surveytypeClass="polls"  %}
-          {% endif %}
-        </div>
       </div>
     {% else %}
         <div class="surveys surveys__tout surveys{{self.get_effective_extra_style_hints}}">

@@ -35,6 +35,18 @@
               {% endfor %}
           {% endfor %}
       </div>
+      {% else %}
+        <div class="poll__form-block">
+          <h2 class="poll__question-title">{{ self.title }}</h2>
+          </br>
+          {% if self.thank_you_text %}
+            <h3 class="poll__title">{{ self.thank_you_text }}</h3>
+          {% else %}
+            <h3 class="poll__title">
+              {% trans "Thank you for submitting poll!" %}
+            </h3>
+          {% endif %}
+        </div>
       {% endif %}
   </div>
   {% else %}
@@ -44,7 +56,7 @@
         {% if self.thank_you_text %}
           {{ self.thank_you_text }}
         {% else %}
-          {% trans "Thank you for submitting survey!" as headingtext %}
+          {% trans "Thank you for submitting survey!" %}
         {% endif %}
       </h4>
       {% if self.show_results and results %}
