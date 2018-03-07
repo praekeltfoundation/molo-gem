@@ -1,5 +1,12 @@
+{% load wagtailcore_tags gem_tags %}
 <div class="{{surveytypeClass}}">
     <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
-    {% trans "Back home" as back %}
-    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+    {% if request.path == "/" %}
+        {% trans "Show Results" as buttontext %}
+        {% pageurl survey as link %}
+        {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"success/" text=buttontext %}
+    {% else %}
+      {% trans "Back home" as back %}
+      {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+    {% endif %}
 </div>

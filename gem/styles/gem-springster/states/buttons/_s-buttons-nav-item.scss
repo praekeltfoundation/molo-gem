@@ -27,7 +27,6 @@
         top: 0;
         padding: 0;
     }
-    &--replies-counter {}
     &--search-icon {
         background-repeat:  no-repeat;
         background-position: 100% 0;
@@ -46,4 +45,11 @@
         background-color: transparent;
         background-image: url(/static/img/icons/search.svg), url(/static/img/icons/search@2x.png);
     }
+}
+
+.comments__reply-meta {
+  .call-to-action__nav-item--replies-counter {
+    //Enforce display - cascade  in not inherited
+      float: right;
+  }
 }

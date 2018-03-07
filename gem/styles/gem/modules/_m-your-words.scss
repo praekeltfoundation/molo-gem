@@ -1,13 +1,13 @@
-
 .standalone-page.your-words .section-title h2 {
   background: #B2C121;
 }
-
-
 .your-words {
   margin: 0 0 24px 0;
-
+  background: #ae016d;
+  color: #fff;
+  text-align: center;
   .section-title {
+    text-transform: uppercase;
     h2 {
       height: 30px;
       line-height: 30px;
@@ -19,75 +19,57 @@
       font-weight: normal;
     }
   }
-
   h3 {
     padding: 0 8px;
     font-size: 14px;
     margin: 0 0 24px 0;
   }
-
   p {
     padding: 0 8px;
     font-size: 14px;
     margin:0 0 24px 0;
   }
-  
   img {
     width: 116px;
     margin: 0 auto 24px auto;
     display: block;
   }
-
+  &__helptext {
+    display: block;
+  }
+  form {
+    margin: 0 8px;
+    text-align: left;
+    p {padding: 0;}
+    br { display: none; }
+    input[type=text] {
+      width: 100%;
+    }
+    label {
+      font-size: 16px;
+      color: #fff;
+    }
+    .yourwords-group {
+      padding: 10px 0;
+    }
+    .alert-error {
+      text-align: center;
+    }
+    .options {
+      text-align: left;
+      margin: 0 0 24px 0;
+    }
+    input[type="checkbox"] {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  .error--your-words {
+    color: #b2c121 !important;
+  }
   input[type=submit], .button {
     background: #fff;
     color: #ed008c;
     margin: 0 0 32px 0;
-  }
-}
-
-// Check other forms, we may be able to share styles.
-.your-words form {
-
-  margin: 0 8px;
-
-  p {
-    padding: 0;
-  }
-
-  br { display: none; }
-
-  text-align: left;
-
-  input[type=text] {
-    width: 100%;
-  }
-
-  label {
-    font-size: 14px !important;
-    color: #fff;
-  }
-
-  .alert-error {
-    text-align: center;
-  }
-
-  .options {
-    text-align: left;
-    margin: 0 0 24px 0;
-  }
-
-  input[type="checkbox"] {
-    height: 20px;
-    width: 20px;
-  }
-}
-
-.your-words {
-  background: #ae016d;
-  color: #fff;
-  text-align: center;
-
-  .section-title {
-    text-transform: uppercase;
   }
 }

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if self.your_words_competition %}
+    <div class="standalone-page your-words {{ competition.get_effective_extra_style_hints }}">
+        <div class="section-title">
+          <h2>{% trans "Share your story" %}</h2>
+        </div>
+        <h3>{% trans 'Thank you!' %}</h3>
+        <h4 class="surveys__thank-you">
+          {% if self.thank_you_text %}
+            {{ self.thank_you_text }}
+          {% else %}
+            {% trans "Thanks for submitting your story! You’ll find out soon if you’re a winner!" %}
+          {% endif %}
+        </h4>
+    </div>
+  {% elif self.display_survey_directly %}
+  <div class="standalone-page gem-polls">
+      <h2 class="list-header">{% trans "What's your opinion?" %}</h2>
+      {% if self.show_results and results %}
+      <div class="list-inline">
+          {% for question, answers in results.items %}
+            <h3 class="polls__question">{{ question }}</h3>
+              {% for answer, count in answers.items %}
+              <div class="choices">
+                <p>{{ answer }}
+                  {% if self.show_results_as_percentage %}
+                    <span class="choice-percentage">{{ count }}%</span>
+                  {% else %}
+                    <span class="choice-percentage">{{ count }} vote{{ count|pluralize }}</span>
+                  {% endif %}
+                </p>
+              </div>
+              {% endfor %}
+          {% endfor %}
+      </div>
+      {% else %}
+        <div class="poll__form-block">
+          <h2 class="poll__question-title">{{ self.title }}</h2>
+          </br>
+          {% if self.thank_you_text %}
+            <h3 class="poll__title">{{ self.thank_you_text }}</h3>
+          {% else %}
+            <h3 class="poll__title">
+              {% trans "Thank you for submitting poll!" %}
+            </h3>
+          {% endif %}
+        </div>
+      {% endif %}
+  </div>
+  {% else %}
+    <div class="surveys">
+      <h1 class="surveys__title">{% trans "Survey Results" %}</h1>
+      <h4 class="surveys__thank-you">
+        {% if self.thank_you_text %}
+          {{ self.thank_you_text }}
+        {% else %}
+          {% trans "Thank you for submitting survey!" %}
+        {% endif %}
+      </h4>
+      {% if self.show_results and results %}
+        <h5 class="surveys__thank-you">
+        {% trans "Your survey has been completed successfully." %}
+      </h5>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="call-to-action">
+    <a href="{{request.site.root_page.specific.url}}" class="button">
+    {% trans "Back to Home page" %}</a>
+  </div>
+{% endblock %}
