@@ -6,7 +6,7 @@
     <div class="block">
         <h4 class="report left">{% trans "Please let us know why you are reporting this comment?" %}</h4>
         <div class="report block">
-          <form method="post">
+          <form method="post" novalidate>
             {% csrf_token %}
             <div>
                 {{ form.report_reason }}

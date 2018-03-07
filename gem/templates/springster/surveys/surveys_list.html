@@ -1,14 +1,14 @@
-{% load personalise_extras %}
+{% load personalise_extras gem_tags %}
 
 {% block content %}
-<!--
-    1. Differentiate Personalised Survey by Segments vs Standard Surveys
--->
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
     {% for survey in filtered_surveys %}
       {% with survey=survey.molo_survey_page form=survey.form %}
+
         {% if survey.your_words_competition %}
             {% include "patterns/basics/surveys/surveys-list_gcn.html" %}
+        {% elif survey.display_survey_directly %}
+            {% include "patterns/basics/surveys/surveys-list_polls.html" %}
         {% else %}
             {% include "patterns/basics/surveys/surveys-list_generic.html" %}
         {% endif %}

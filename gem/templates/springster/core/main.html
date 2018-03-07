@@ -12,23 +12,27 @@
     {% media_listing_homepage %}
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
-
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
 
+    {% surveys_list personalisable_survey=True %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
+
+    <!-- POLLS AND POLLS VIA SURVEYS -->
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
     {% bannerpages position=2 %}
+    <!-- YOURWORDS COMPETITION (FOR GCN) VIA SURVEYS -->
     {% surveys_list only_yourwords=True %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
+    <!-- SURVEYS -->
     {% surveys_list only_linked_surveys=True %}
 
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
@@ -38,6 +42,7 @@
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
     {% bannerpages position=3 %}
+      <!-- YOURWORDS COMPETITION -->
     {% your_words_competition %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}

@@ -13,7 +13,8 @@
                 {% trans "Are you not a member yet" %}?
                 </a>
               <p>
-            <form method="post" action=".">{% csrf_token %}
+            <form method="post" action="" novalidate>
+            {% csrf_token %}
                 {% if form.errors %}
                     <p class="error errorlist">{% trans "Your username and password do not match. Please try again." %}</p>
                 {% endif %}

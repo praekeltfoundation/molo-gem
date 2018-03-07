@@ -1,14 +1,16 @@
 {% load wagtailcore_tags gem_tags %}
-
+<!-- If  User is not authenticated OR
+    anonymous_submissions is not set
+    AND join banner is not set
+      Normal surveys do not show? Desired behavior?
+-->
 {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
     <div class="surveys surveys--call-to-action">
-        <div class="identity-image identity-image--survey"></div>
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-
+      <div class="identity-image identity-image--survey"></div>
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
         {%  if survey.homepage_introduction %}
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
         {% endif %}
-
         {% trans "Take Survey" as buttontext %}
         {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
             {% pageurl survey.specific as the_url %}
