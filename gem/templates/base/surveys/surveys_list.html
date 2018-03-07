@@ -33,7 +33,21 @@
           <div class="poll__form-block">
             <h2 class="poll__question-title">{{ survey.title }}</h2>
           </div>
-            {% include "surveys/form.html" with surveytypeClass="polls"  %}
+          {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+            {% if form %}
+              {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls"  %}
+            {% else %}
+            <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
+              {% if request.path == "/" %}
+                <a href="{% pageurl survey %}success/" class="button">
+                  {% trans "Show Results" %}
+                </a>
+              {% else %}
+                <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+                {% trans "Back home" %}</a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
       </div>
     {% else %}
         <div class="surveys surveys__tout surveys{{self.get_effective_extra_style_hints}}">
