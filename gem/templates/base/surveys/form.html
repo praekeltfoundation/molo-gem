@@ -39,17 +39,16 @@
 
     {% trans "Done" as text %}
     {% trans "Vote" as polltext %}
-
     {% if survey.display_survey_directly %}
       {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-        <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
+        <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="button call-to-action__button call-to-action__button--primary" />
       {% else %}
           {% trans "Log in to vote" as buttontext %}
           {% url "molo.profiles:auth_login" as link %}
           {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
       {% endif %}
     {% else %}
-        <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+        <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
     {% endif %}
 
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
