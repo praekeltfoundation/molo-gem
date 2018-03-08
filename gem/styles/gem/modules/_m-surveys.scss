@@ -3,40 +3,27 @@
 .surveys {
     $block: unquote("#{&}"); // Node LibSass workaround for @at-root bug. This stores the value of `&` as a variable.
     padding: 24px;
-
     &__title {
         line-height: 1.15;
         font-family: $font-family-avenirBold;
         padding: 25px 0 15px;
     }
-
     &__intro {
         font-family: $font-family-avenir-ot;
     }
-
     &__helptext {
         display: block;
         font-size: 16px;
     }
-
     &__form {
         padding: 24px 16px;
         background-color: $colorWhiteSmoke;
-
         fieldset {
           @extend %gem__field;
         }
-
         label {
           @extend %gem__label;
         }
-
-        input,
-        textarea,
-        select {
-          @extend %gem__input;
-        }
-
         textarea {
             padding: 16px 8px;
         }
@@ -72,7 +59,6 @@
             background-color: #ae016d;
             font-size: 12px;
             font-weight: normal;
-
             @media screen and (min-width: 320px) {
                 height: 40px;
                 line-height: 40px;
@@ -153,10 +139,6 @@
             margin-top: 8px;
         }
     }
-}
-
-%gem__input {
-  width: 95%;
 }
 
 %gem__checkbox {
