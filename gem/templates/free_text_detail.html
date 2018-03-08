@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static core_tags i18n %}
+{% block content %}
+<div class="polls">
+		<h3>{{ question.title }}</h3>
+		{% if form.answer.errors %}<p><strong>{{form.answer.errors|join:", " }}</strong></p>{% endif %}
+		<form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
+			{% csrf_token %}
+			{{form.answer}}
+			<div>
+				<input class="poll-choice__submit" type="submit" value="{% trans "Vote" %}"/>
+				<a href="{{request.site.root_page.url}}">{% trans "Home" %}</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}
