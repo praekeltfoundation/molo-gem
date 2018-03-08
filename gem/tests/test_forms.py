@@ -8,6 +8,18 @@ class GemRegisterTestCase(TestCase, MoloTestCaseMixin):
     def setUp(self):
         self.mk_main()
 
+    def test_registration_form_removes_unwanted_fields(self):
+        form_data = {
+            'email': 'personal_data@domain.com',
+            'location': '123 Street, City, Country',
+            'mobile_number': '+27710123456',
+        }
+        form = GemRegistrationForm(data=form_data)
+        form.is_valid()
+        self.assertEqual(form.cleaned_data['email'], None)
+        self.assertEqual(form.cleaned_data['location'], None)
+        self.assertEqual(form.cleaned_data['mobile_number'], None)
+
     def test_register_gender_required(self):
         form_data = {
             'username': 'Jeyabal@-1',
