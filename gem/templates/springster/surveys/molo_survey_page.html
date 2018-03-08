@@ -9,7 +9,7 @@
             {% if self.introduction %}
                 {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.introduction %}
             {% endif %}
-            
+
             {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
         </div>
     {% else %}
@@ -42,9 +42,9 @@
     {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
         {% if form %}
             {% if self.your_words_competition %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="competition" surveytypeClass="surveys" %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html"  with surveytype="competition" surveytypeClass="surveys" %}
             {% else %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html" with  surveytype="survey" surveytypeClass="surveys" %}
+                {% include "patterns/basics/surveys/surveys-modules/form.html" with surveytype="survey" surveytypeClass="surveys" %}
             {% endif %}
         {% else %}
             {% if self.your_words_competition %}
