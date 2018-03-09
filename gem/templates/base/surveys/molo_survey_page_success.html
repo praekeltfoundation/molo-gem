@@ -2,24 +2,25 @@
 
 {% block content %}
   {% if self.your_words_competition %}
-    <div class="standalone-page your-words {{ competition.get_effective_extra_style_hints }}">
-        <div class="section-title">
-          <h2>{% trans "Share your story" %}</h2>
-        </div>
-        <h3>{% trans 'Thank you!' %}</h3>
-        <h4 class="surveys__thank-you">
-          {% if self.thank_you_text %}
-            {{ self.thank_you_text }}
-          {% else %}
-            {% trans "Thanks for submitting your story! You’ll find out soon if you’re a winner!" %}
-          {% endif %}
-        </h4>
+    <div class="standalone-page your-words your-words{{ self.get_effective_extra_style_hints }}">
+      <div class="section-title">
+        <h2>{% trans "Share your story" %}</h2>
+      </div>
+
+      <h3>{% trans 'Thank you!' %}</h3>
+      <h4 class="surveys__thank-you">
+        {% if self.thank_you_text %}
+          {{ self.thank_you_text }}
+        {% else %}
+          {% trans "Thanks for submitting your story! You’ll find out soon if you’re a winner!" %}
+        {% endif %}
+      </h4>
     </div>
   {% elif self.display_survey_directly %}
-  <div class="standalone-page gem-polls">
-      <h2 class="list-header">{% trans "What's your opinion?" %}</h2>
-      {% if self.show_results and results %}
+  <div class="standalone-page polls gem-polls">
+      <h4 class="poll__title list-header">{% trans "What's your opinion?" %}</h4>
       <div class="list-inline">
+      {% if self.show_results and results %}
           {% for question, answers in results.items %}
             <h3 class="polls__question">{{ question }}</h3>
               {% for answer, count in answers.items %}
@@ -34,7 +35,6 @@
               </div>
               {% endfor %}
           {% endfor %}
-      </div>
       {% else %}
         <div class="poll__form-block">
           <h2 class="poll__question-title">{{ self.title }}</h2>
@@ -48,9 +48,10 @@
           {% endif %}
         </div>
       {% endif %}
+    </div>
   </div>
   {% else %}
-    <div class="surveys">
+    <div class="surveys surveys{{ self.get_effective_extra_style_hints }}">
       <h1 class="surveys__title">{% trans "Survey Results" %}</h1>
       <h4 class="surveys__thank-you">
         {% if self.thank_you_text %}
@@ -67,7 +68,7 @@
     </div>
   {% endif %}
   <div class="call-to-action">
-    <a href="{{request.site.root_page.specific.url}}" class="button">
+    <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
     {% trans "Back to Home page" %}</a>
   </div>
 {% endblock %}

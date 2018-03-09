@@ -3,24 +3,26 @@
 
 {% block content %}
   {% if page.your_words_competition %}
-  <div class="standalone-page your-words your-words{{ page.get_effective_extra_style_hints }}">
-    <div class="section-title">
-      <h2>{% trans "Share your story" %}</h2>
+    <div class="standalone-page your-words your-words{{ page.get_effective_extra_style_hints }}">
+      <div class="section-title">
+        <h2>{% trans "Share your story" %}</h2>
+      </div>
+
+      <h3>{{ page.title }}</h3>
+      <p>{{ page.introduction }}</p>
+      <img src="{% static 'img/Pencil.png' %}" />
+
+      <div class="content">
+        {% for block in survey.description %}
+          {% if block.block_type == 'heading' %}
+              <h5>{{ block.value }}</h5>
+          {% elif block.block_type == 'paragraph' %}
+              <p>{{ block.value }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
     </div>
-    <h3>{{ page.title }}</h3>
-    <p>{{ page.introduction }}</p>
-    <img src="{% static 'img/Pencil.png' %}" />
-    <div class="content">
-    {% for block in survey.description %}
-      {% if block.block_type == 'heading' %}
-          <h5>{{ block.value }}</h5>
-      {% elif block.block_type == 'paragraph' %}
-          <p>{{ block.value }}</p>
-      {% endif %}
-    {% endfor %}
-    </div>
-    {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
-  </div>
   {% else %}
     <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
       <h1 class="surveys__title">{{ page.title }}</h1>
@@ -34,6 +36,4 @@
       {% endif %}
     </div>
   {% endif %}
-
-
 {% endblock %}

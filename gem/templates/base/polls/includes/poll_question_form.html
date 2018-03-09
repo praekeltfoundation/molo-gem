@@ -1,0 +1,47 @@
+{% load i18n static poll_votings %}
+
+  {% if error_message %}
+    <p class="error error--polls">{{ error_message }}</p>
+  {% endif %}
+<form class="polls__form" action="{% url 'molo.polls:vote' question.id %}" method="post">
+  {% csrf_token %}
+  {% load_choices_for_poll_page question as choices %}
+    {% if not request.user.is_authenticated %}
+      {% for choice in choices %}
+      <div class="fieldset">
+        {% if question.get_main_language_page.allow_multiple_choice %}
+          <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+          <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+        {% else %}
+          <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+          <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+        {% endif %}
+      </div>
+      {% endfor %}
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__button call-to-action__button--primary">
+        {% trans "Log in to vote" %}
+      </a>
+    {% else %}
+      {% can_vote question as user_can_vote %}
+      {% if user_can_vote %}
+        {% for choice in choices %}
+          <div class="fieldset">
+            {% if question.get_main_language_page.allow_multiple_choice %}
+              <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+              <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+            {% else %}
+              <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.get_main_language_page.id}}" />
+              <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <input type="submit" value="{% trans "Vote" %}" class="button call-to-action__button call-to-action__button--primary" />
+      {% elif question.get_main_language_page.show_results %}
+        <a href="{% url 'molo.polls:results' question.id %}" class="button call-to-action__button call-to-action__button--primary">{% trans "Show Results" %}</a>
+      {% elif not question.get_main_language_page.show_results %}
+        {% user_choice question as user_choice %}
+        <h5>{% trans "You voted: " %}{{user_choice}}</h5>
+      {% endif %}
+    {% endif %}
+  </div>
+</form>
