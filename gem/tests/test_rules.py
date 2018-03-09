@@ -193,7 +193,6 @@ class TestProfileDataRuleValidation(TestCase):
     def setUp(self):
         self.segment = Segment.objects.create()
 
-
     def test_missing_field_raises_validation_error(self):
         rule = ProfileDataRule()
 
