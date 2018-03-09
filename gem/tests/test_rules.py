@@ -187,6 +187,15 @@ class TestProfileDataRuleValidation(TestCase):
     def setUp(self):
         self.segment = Segment.objects.create()
 
+
+    def test_missing_field_raises_validation_error(self):
+        rule = ProfileDataRule()
+
+        with self.assertRaises(ValidationError) as e:
+            rule.clean()
+
+        self.assertEqual(e.exception.messages, ['This field is required'])
+
     def test_invalid_regex_value_raises_validation_error(self):
         rule = ProfileDataRule(segment=self.segment,
                                operator=ProfileDataRule.REGEX,

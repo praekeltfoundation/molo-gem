@@ -135,6 +135,12 @@ class ProfileDataRule(AbstractBaseRule):
         super(ProfileDataRule, self).__init__(*args, **kwargs)
 
     def clean(self):
+        # Django formsets don't honour 'required' fields
+        if not self.field:
+            raise ValidationError({
+                'field': _('This field is required')
+            })
+
         # Deal with regular expression operator.
         if self.operator == self.REGEX:
             # Make sure value is a valid regular expression string.
