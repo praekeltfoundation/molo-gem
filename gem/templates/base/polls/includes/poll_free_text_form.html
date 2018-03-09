@@ -12,7 +12,8 @@
         {% endif%}
         <input type="submit" value="{% trans "Submit" %}" class="button call-to-action__button call-to-action__button--primary" />
       {% else %}
-        <p>{% trans "Thank you! Your response has already been submitted." %}<p>
+        <h4>{% trans "Thank you!" %}</h4>
+        <p>{% trans "Your response has already been submitted." %}<p>
       {% endif %}
     {% else %}
         <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__button call-to-action__button--primary">{% trans "Log in to vote" %}</a>
