@@ -167,6 +167,12 @@ class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
 
         self.assertTrue(rule.test_user(self.request))
 
+    def test_call_test_user_on_invalid_rule_fails(self):
+        self.set_user_to_male()
+        rule = ProfileDataRule()
+
+        self.assertFalse(rule.test_user(None))
+
     def test_call_test_user_without_request(self):
         self.set_user_to_male()
         rule = ProfileDataRule(field='profiles.userprofile__gender',
@@ -382,6 +388,10 @@ class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
         )
         self.add_comment(self.request.user, self.article)
         self.assertFalse(rule.test_user(self.request))
+
+    def test_call_test_user_on_invalid_rule_fails(self):
+        rule = CommentCountRule()
+        self.assertFalse(rule.test_user(None, self.request.user))
 
     def test_call_test_user_without_request(self):
         rule = CommentCountRule(count=1, operator=CommentCountRule.LESS_THAN)
