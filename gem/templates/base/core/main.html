@@ -30,9 +30,11 @@
   </div>
 
   {% surveys_list only_direct_surveys=True %}
-  <div class="gem-polls">
-    {% poll_page %}
-  </div>
+  {% if poll_page %}
+    <div class="gem-polls">
+      {% poll_page %}
+    </div>
+  {% endif %}
 
   <div class="article-list">
     {% section_listing_homepage %}
