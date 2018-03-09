@@ -4,6 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from django.views.decorators.cache import cache_control
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 from django_cas_ng import views as cas_views
@@ -15,6 +16,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from molo.core import views as core_views
 from molo.profiles.views import ForgotPasswordView, ResetPasswordView
 from wagtail.contrib.wagtailsitemaps import views as sitemap_views
+from wagtail.utils.urlpatterns import decorate_urlpatterns
 from gem.views import report_response, GemRegistrationView, \
     GemRssFeed, GemAtomFeed, \
     ReportCommentView, GemEditProfileView, \
@@ -118,9 +120,18 @@ urlpatterns += [
         '(?P<question_id>\d+)/vote/$',
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
+]
+
+cacheable_urlpatterns = [
     url(r'', include(wagtail_urls)),
 ]
 
+cacheable_urlpatterns = decorate_urlpatterns(
+    cacheable_urlpatterns,
+    cache_control(public=True, max_age=600),
+)
+
+urlpatterns += cacheable_urlpatterns
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
