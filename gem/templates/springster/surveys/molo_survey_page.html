@@ -2,62 +2,89 @@
 
 
 {% block content %}
+{% if self.your_words_competition %}
+  <div class="gcn-competition surveys{{survey.get_effective_extra_style_hints}} surveys--page">
+{% elif self.display_survey_directly %}
+  <div class="polls polls--call-to-action">
+    <div class="polls__bubble-icon"></div>
+    <div class="polls__container">
+{% else %}
+  <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
+    <div class="identity-image identity-image--survey"></div>
+{% endif %}
+
+{% if self.your_words_competition %}
+  {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+  {% if self.introduction %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.introduction %}
+  {% endif %}
+  {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
+{% elif self.display_survey_directly %}
+  {% trans "Take a vote!" as headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.title %}
+{% else %}
+  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+  {% if self.introduction %}
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.introduction %}
+  {% endif %}
+  {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
+{% endif %}
+
+  {% if self.description %}
+    {% for block in self.description %}
+        {% if forloop.counter %}
+            {% if block.block_type == 'heading' %}
+                <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
+                    {{ block.value }}
+                </h4>
+            {% elif block.block_type == 'paragraph' %}
+                <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
+                    {{ block.value }}
+                </p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+
+{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+  <!-- FORM -->
+  {% if form %}
+     {% if self.your_words_competition %}
+      {% include "patterns/basics/surveys/surveys-modules/form.html"  with surveytype="competition" surveytypeClass="surveys" %}
+     {% elif self.display_survey_directly %}
+      {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="poll" surveytypeClass="polls" %}
+     {% else %}
+      {% include "patterns/basics/surveys/surveys-modules/form.html" with surveytype="survey" surveytypeClass="surveys" %}
+     {% endif %}
+  {% else %}
+      <!-- FEEDBACK -->
     {% if self.your_words_competition %}
-        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %} surveys--page">
-            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
-
-            {% if self.introduction %}
-                {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=self.introduction %}
-            {% endif %}
-
-            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype="competition" surveytypeClass="surveys" %}
-        </div>
+      {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="competition" surveytypeClass="surveys" %}
+    {% elif self.display_survey_directly %}
+      ---
     {% else %}
-        <div class="surveys surveys--call-to-action surveys--page">
-            <div class="identity-image identity-image--survey"></div>
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=page.introduction %}
-
-            {% include "patterns/basics/surveys/surveys-modules/surveys_page-break.html" with surveytype=self surveytypeClass="surveys" %}
-        </div>
+      {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="survey" surveytypeClass="surveys" %}
     {% endif %}
+  {% endif %}
+{% else %}
+  <!-- CTA -->
+  {% if self.your_words_competition %}
+    {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="competition" surveytypeClass="surveys" %}
+  {% elif self.display_survey_directly %}
+    {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="poll" surveytypeClass="polls" %}
+  {% else %}
+    {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="survey" surveytypeClass="surveys" %}
+  {% endif %}
+{% endif %}
 
-    {% if self.description %}
-        {% for block in self.description %}
-            {% if forloop.counter %}
-                {% if block.block_type == 'heading' %}
-                    <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
-                        {{ block.value }}</br/>
-                    </h4>
-                {% elif block.block_type == 'paragraph' %}
-                    <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
-                        {{ block.value }}
-                    </p>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
 
-    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-        {% if form %}
-            {% if self.your_words_competition %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html"  with surveytype="competition" surveytypeClass="surveys" %}
-            {% else %}
-                {% include "patterns/basics/surveys/surveys-modules/form.html" with surveytype="survey" surveytypeClass="surveys" %}
-            {% endif %}
-        {% else %}
-            {% if self.your_words_competition %}
-                {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="competition" surveytypeClass="surveys" %}
-            {% else %}
-                {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="survey" surveytypeClass="surveys" %}
-            {% endif %}
-        {% endif %}
-    {% else %}
-        {% if self.your_words_competition %}
-            {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="competition" surveytypeClass="surveys" %}
-        {% else %}
-            {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="survey" surveytypeClass="surveys" %}
-        {% endif %}
-    {% endif %}
+{% if self.your_words_competition %}
+  </div>
+{% elif self.display_survey_directly %}
+  </div>
+</div>
+{% else %}
+</div>
+{% endif %}
 {% endblock %}

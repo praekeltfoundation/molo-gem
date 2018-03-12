@@ -7,11 +7,9 @@
       <div class="section-title">
         <h2>{% trans "Share your story" %}</h2>
       </div>
-
       <h3>{{ page.title }}</h3>
       <p>{{ page.introduction }}</p>
       <img src="{% static 'img/Pencil.png' %}" />
-
       <div class="content">
         {% for block in survey.description %}
           {% if block.block_type == 'heading' %}
@@ -23,12 +21,36 @@
       </div>
       {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
     </div>
+  {% elif page.display_survey_directly %}
+      <div class="polls gem-polls">
+          <div class="section-title">
+            <h4 class="poll__title list-header">{% trans "What's your opinion?" %}</h4>
+          </div>
+          <div class="list-inline">
+            <h2 class="poll__question-title">{{ page.title }}</h2>
+            {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+              {% if form %}
+                {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls"  %}
+              {% else %}
+              <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
+                {% if request.path == "/" %}
+                  <a href="{% pageurl survey %}success/" class="button call-to-action__button call-to-action__button--primary">
+                    {% trans "Show Results" %}
+                  </a>
+                {% else %}
+                  <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+                  {% trans "Back home" %}</a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          </div>
+      </div>
   {% else %}
     <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
       <h1 class="surveys__title">{{ page.title }}</h1>
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-            {% include "surveys/form.html" with surveytypeClass="surveys" %}
+            {% include "surveys/form.html" with surveytype="survey" surveytypeClass="surveys" %}
       {% else %}
         <div class="call-to-action call-to-action--surveys">
           <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>

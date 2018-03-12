@@ -1,5 +1,4 @@
 // Chris Sergienko - Praekelt Consulting (2016/09/30)
-
 .surveys {
     $block: unquote("#{&}"); // Node LibSass workaround for @at-root bug. This stores the value of `&` as a variable.
     padding: 24px;
@@ -18,20 +17,14 @@
     &__form {
         padding: 24px 16px;
         background-color: $colorWhiteSmoke;
-        fieldset {
-          @extend %gem__field;
-        }
         label {
           @extend %gem__label;
         }
-        textarea {
-            padding: 16px 8px;
-        }
-
         [type="checkbox"],
         [type="radio"] {
             @extend %gem__checkbox;
         }
+
     }
 
     &__item + &__item {
@@ -46,28 +39,21 @@
         margin: 0 0 24px 0;
         padding: 0 16px;
         text-align: center;
-
         .section-title {
             text-align: left;
-
-          h2 {
-            height: 30px;
-            line-height: 30px;
-            margin: 0 0 24px 0;
-            font-family: 'AvenirNextCondensed-Medium', sans-serif;
-            text-align: center;
-            background-color: #ae016d;
-            font-size: 12px;
-            font-weight: normal;
-            @media screen and (min-width: 320px) {
-                height: 40px;
-                line-height: 40px;
-                font-size: 16px;
-                padding: 0 16px;
-                margin: 0 0 56px 0;
-                display: inline-block;
+            h2 {
+              margin: 0 0 24px 0;
+              font-family: 'AvenirNextCondensed-Medium', sans-serif;
+              text-align: center;
+              background-color: #ae016d;
+              font-size: 16px;
+              font-weight: normal;
+              padding: 15px 16px;
+              text-transform: uppercase;
+              @media screen and (min-width: 320px) {
+                  display: inline-block;
+              }
             }
-          }
         }
 
         h3 {
@@ -120,24 +106,13 @@
     border: 0;
     padding: 10px 0;
     margin: 0;
-
-    & + & {
-        margin-top: 24px;
-    }
-
-    // Checkbox/Radio Groups
+    & + & { margin-top: 24px; }
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
-
-        li {
-            display: block;
-        }
-
-        li + li {
-            margin-top: 8px;
-        }
+        li {display: block;}
+        li + li { margin-top: 8px; }
     }
 }
 
@@ -147,7 +122,6 @@
     height: 0;
     opacity: 0;
     z-index: -100;
-
     & + label {
         &:before {
             display: inline-block;
@@ -162,7 +136,6 @@
             content: "";
         }
     }
-
     &:checked + label {
         &:before {
             content: "";
@@ -170,7 +143,6 @@
             background-color: $colorSecond;
         }
     }
-
     &[type="radio"] + label {
         &:before {
             border-radius: 50%;
@@ -183,6 +155,7 @@
     font-size: 18px;
     color: $colorFirst;
 }
+
 .surveys__results {
   overflow: auto;
   padding: 10px 0 0;

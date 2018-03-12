@@ -6,7 +6,7 @@
     3. On Main.html - Display on separate position
     4. If User is authenticated show GCN Competition
 -->
-    <div class="gcn-competition gcn-competition--homepage {% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+    <div class="gcn-competition gcn-competition--homepage">
         {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
         {%  if survey.homepage_introduction %}
             {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
