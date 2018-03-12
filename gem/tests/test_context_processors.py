@@ -1,6 +1,23 @@
 from django.test import RequestFactory, TestCase, override_settings
 
-from gem.context_processors import compress_settings, detect_freebasics
+from gem.context_processors import (
+    compress_settings,
+    detect_bbm,
+    detect_freebasics,
+)
+
+
+class TestDetectBbm(TestCase):
+    def setUp(self):
+        self.request_factory = RequestFactory()
+
+    def test_returns_false_for_requests_without_bbm_host(self):
+        request = self.request_factory.get('/')
+        self.assertEqual(detect_bbm(request), {'is_via_bbm': False})
+
+    def test_returns_true_for_requests_with_bbm_host(self):
+        request = self.request_factory.get('/', HTTP_HOST='bbm.example.com:80')
+        self.assertEqual(detect_bbm(request), {'is_via_bbm': True})
 
 
 class TestDetectFreebasics(TestCase):

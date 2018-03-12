@@ -151,6 +151,7 @@ DEFAULT_TEMPLATE = {
             'django.contrib.messages.context_processors.messages',
             'molo.core.context_processors.locale',
             'wagtail.contrib.settings.context_processors.settings',
+            'gem.context_processors.detect_bbm',
             'gem.context_processors.detect_freebasics',
             'gem.context_processors.compress_settings',
         ],
