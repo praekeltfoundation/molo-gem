@@ -1,22 +1,18 @@
 .gem-polls {
-  padding: 25px 16px 15px 16px;
+  padding: 0 16px 0;
   text-align: left;
   .list-header {
-    padding: 0;
     font-size: 16px;
     font-family: 'AvenirNextCondensed-Medium';
-    padding: 0 16px;
+    padding: 15px 16px;
     display: inline-block;
   }
   .list-inline {
-    padding: 0;
-    padding-bottom: 18px;
-    h3 {
+    h3, .poll__title {
       text-align: left;
-      font-size: 24px;
-      line-height: 32px;
+      font-size: 16px;
       text-transform: uppercase;
-      margin: 0 0 24px 0;
+      padding: 0 0 24px 0;
     }
     h3 + p {
       font: 'AvenirNextCondensed-Medium';
@@ -28,27 +24,25 @@
     .choices {
       border-bottom: 1px rgba(0, 0, 0, .3) dashed;
       p {
-        padding: 20px 0;
+        padding: 18px 0;
         margin: 0;
         border-top: 1px rgba(0, 0, 0, .3) dashed;
       }
-    }
-    .choices {
-      border-bottom: 1px rgba(0, 0, 0, .3) dashed;
-    }
-    p, label {
-      font-size: 18px;
-      line-height: 1;
-      width: 100%;
-      margin-right: 16px;
-    }
-
-    a, input[type="submit"] {
-      color: #ed008c;
-      background: #fff;
+      &--result {
+        font-weight: 700;
+        float: right;
+        font-size: 18px;
+        display: block;
+      }
     }
 
     form {
+      p, label {
+        font-size: 18px;
+        line-height: 1;
+        width: 100%;
+        margin-right: 16px;
+      }
       div div {
         border-top: 1px rgba(0, 0, 0, .3) dashed;
         display: flex;
@@ -56,6 +50,13 @@
         align-items: center;
         margin: 0;
       }
+
+      [type="checkbox"],
+      [type="radio"] {
+          @extend %gem__checkbox;
+          background-color: #cadb2a;
+      }
+
       div:last-child {
         border-bottom: 1px rgba(0, 0, 0, .3) dashed;
         margin: 0 0 32px 0;
