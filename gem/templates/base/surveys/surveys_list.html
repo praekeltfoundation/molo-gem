@@ -4,7 +4,6 @@
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
 {% for survey in filtered_surveys %}
   {% with survey=survey.molo_survey_page form=survey.form %}
-
     {% if survey.your_words_competition %}
         <div class="your-words your-words{{ self.get_effective_extra_style_hints }}">
             <div class="section-title">
@@ -36,7 +35,7 @@
           </div>
           <div class="list-inline">
             <h2 class="poll__question-title">{{ survey.title }}</h2>
-            {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+
               {% if form %}
                 {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls"  %}
               {% else %}
@@ -50,7 +49,7 @@
                   {% trans "Back home" %}</a>
                 {% endif %}
               {% endif %}
-            {% endif %}
+          
           </div>
       </div>
     {% else %}
