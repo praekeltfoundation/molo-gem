@@ -2,7 +2,7 @@
 {% get_translation self.get_parent_section as section %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=self.title %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=self.subtitle %}
-  {% if 'bbm.' in request.get_host %}
+  {% if is_via_bbm %}
     {% include "patterns/basics/social-media/social-media_bbm.html" with page=self %}
   {% endif %}
   {% include "patterns/basics/articles/sp_variations/article-comment-counter.html" %}

@@ -1,6 +1,12 @@
 from django.conf import settings
 
 
+def detect_bbm(request):
+    return {
+        'is_via_bbm': 'bbm.' in request.get_host(),
+    }
+
+
 def detect_freebasics(request):
     return {
         'is_via_freebasics':
