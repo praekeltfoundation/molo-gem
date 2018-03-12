@@ -1,17 +1,18 @@
 form {
   overflow: auto;
-}
-fieldset {
-  border: none;
-  margin: 10px 0;
-  padding: 0;
-  text-align: left;
-  ul {
-    margin: 0;
+  fieldset {
+    border: none;
+    margin: 10px 0;
     padding: 0;
-    li {
-      list-style: none;
-      padding: 5px 0;
+    text-align: left;
+    overflow: auto;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        padding: 5px 0;
+      }
     }
   }
 }
@@ -26,11 +27,30 @@ label {
 .profile__dob {
   margin: 0;
 }
-
-input, select {
-  padding: 10px 8px;
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select {
+  padding: 10px;
   font-size: 18px;
   border: 1px #D6D6D6 solid;
+  width: 90%;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+input.btn-wide {
+  width: 100%;
+  cursor: pointer;
 }
 
 select {
@@ -41,15 +61,6 @@ select {
   border-radius: 0;
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
-}
-
-input[type="search"] {
-  -webkit-appearance: textfield;
-}
-
-input.btn-wide {
-  width: 100%;
-  cursor: pointer;
 }
 
 textarea {
@@ -80,19 +91,13 @@ button, input[type=submit],
     font-size: 18px;
   }
 }
-
-.error {
-  color: red;
-}
-.input-error {
-  border: solid 1px red;
-}
+.error {color: red;}
+.input-error {border: solid 1px red;}
 .label-wide, .input-wide {
   display: block;
   width: 100%;
   margin-bottom: 1em;
 }
-
 #id_terms_and_conditions {
   display: inline;
   width: auto;

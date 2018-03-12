@@ -1,5 +1,4 @@
 // Chris Sergienko - Praekelt Consulting (2016/09/30)
-
 .surveys {
     $block: unquote("#{&}"); // Node LibSass workaround for @at-root bug. This stores the value of `&` as a variable.
     padding: 24px;
@@ -18,16 +17,9 @@
     &__form {
         padding: 24px 16px;
         background-color: $colorWhiteSmoke;
-        fieldset {
-          @extend %gem__field;
-        }
         label {
           @extend %gem__label;
         }
-        textarea {
-            padding: 16px 8px;
-        }
-
         [type="checkbox"],
         [type="radio"] {
             @extend %gem__checkbox;
@@ -147,7 +139,6 @@
     height: 0;
     opacity: 0;
     z-index: -100;
-
     & + label {
         &:before {
             display: inline-block;

@@ -7,11 +7,9 @@
       <div class="section-title">
         <h2>{% trans "Share your story" %}</h2>
       </div>
-
       <h3>{{ page.title }}</h3>
       <p>{{ page.introduction }}</p>
       <img src="{% static 'img/Pencil.png' %}" />
-
       <div class="content">
         {% for block in survey.description %}
           {% if block.block_type == 'heading' %}
@@ -52,7 +50,7 @@
       <h1 class="surveys__title">{{ page.title }}</h1>
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-            {% include "surveys/form.html" with surveytypeClass="surveys" %}
+            {% include "surveys/form.html" with surveytype="survey" surveytypeClass="surveys" %}
       {% else %}
         <div class="call-to-action call-to-action--surveys">
           <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
