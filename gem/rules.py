@@ -135,6 +135,12 @@ class ProfileDataRule(AbstractBaseRule):
         super(ProfileDataRule, self).__init__(*args, **kwargs)
 
     def clean(self):
+        # Django formsets don't honour 'required' fields
+        if not self.field:
+            raise ValidationError({
+                'field': _('This field is required')
+            })
+
         # Deal with regular expression operator.
         if self.operator == self.REGEX:
             # Make sure value is a valid regular expression string.
@@ -249,8 +255,12 @@ class ProfileDataRule(AbstractBaseRule):
         if not user:
             return False
 
-        # Handy variables for comparisons.
-        python_value = self.get_python_value()
+        # Django formsets don't honour 'required' fields so check rule is valid
+        try:
+            # Handy variables for comparisons.
+            python_value = self.get_python_value()
+        except ValueError:
+            return False
 
         try:
             related_field_value = self.get_related_field_value(
@@ -397,6 +407,10 @@ class CommentCountRule(AbstractBaseRule):
                 return False
             user = request.user
         if not user:
+            return False
+
+        # Django formsets don't honour 'required' fields so check rule is valid
+        if not self.count:
             return False
 
         operator = self.OPERATORS[self.operator]
