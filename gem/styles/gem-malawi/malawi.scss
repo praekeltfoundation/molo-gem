@@ -1,9 +1,8 @@
-@import "../versions";
-@import "_fonts";
-@import "variables/_mixins";
-@import "variables/_variables";
+@import "gem/styles/gem/_fonts";
+@import "gem/styles/gem/variables/_mixins.scss";
+@import "gem/styles/gem/variables/_variables";
+@import "gem/styles/gem/_base";
 
-@import "_base";
 @import "layout/_layout";
 @import "modules/_module";
 @import "state/_state";
@@ -246,7 +245,10 @@ a:hover {
       font-size: $font-x-large;
       font-weight: normal;
     }
-    input[type=submit], .button {
+    input[type=submit],
+    .call-to-action__button--primary,
+    .call-to-action__nav-item--back-home,
+    .button  {
       background: $colorPurple;
       color: $colorYellow;
       font-size: $font-large;
@@ -292,7 +294,10 @@ button, input[type=submit],
       color: $colorYellow;
       font-size: 18px;
     }
-    a, input[type="submit"] {
+    input[type=submit],
+    .call-to-action__button--primary,
+    .call-to-action__nav-item--back-home,
+    .button  {
       color: $colorPurple;
       background: $colorYellow;
     }
@@ -369,7 +374,10 @@ button, input[type=submit],
     font-weight: normal;
   }
 
-  input[type=submit], .button {
+  input[type=submit],
+  .call-to-action__button--primary,
+  .call-to-action__nav-item--back-home,
+  .button {
     background: $colorPurple;
     color: $colorYellow;
     font-size: $font-large;
@@ -395,6 +403,7 @@ button, input[type=submit],
 }
 
 .standalone-page {
+  padding: 10px 16px;
   &.your-words {
     .section-title {
       h2 {
