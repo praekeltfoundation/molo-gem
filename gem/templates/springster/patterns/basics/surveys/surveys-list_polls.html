@@ -10,14 +10,10 @@
       {% if survey.homepage_introduction %}
           {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
       {% endif %}
-      {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-        {% if form %}
-          {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="poll" surveytypeClass="polls" %}
-        {% else %}
-          {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="poll" surveytypeClass="polls" %}
-        {% endif %}
+      {% if form %}
+        {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="poll" surveytypeClass="polls" %}
       {% else %}
-        {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="poll" surveytypeClass="polls" %}
+          {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="poll" surveytypeClass="polls" %}
       {% endif %}
   </div>
 </div>
