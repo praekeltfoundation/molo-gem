@@ -392,7 +392,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             reverse('molo.commenting:more-comments', args=(
                 self.translated_article.pk,)))
         self.assertContains(response, "This is another comment for French")
-        self.assertNotContains(response, "Anonymous")
+        self.assertContains(response, "Anonyme")
 
     def test_comment_distinguishes_moderator_user(self):
         self.user = User.objects.create_user(
