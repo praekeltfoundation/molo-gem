@@ -337,6 +337,15 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
                                        title='article 1',
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
+        self.content_type = ContentType.objects.get_for_model(self.user)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.site),
+            locale='fr',
+            is_active=True)
+        self.translated_article = self.mk_article_translation(
+            self.article, self.french,
+            title=self.article.title + ' in french',
+            subtitle=self.article.subtitle + ' in french')
 
     def create_comment(self, article, comment, user, parent=None):
         return MoloComment.objects.create(
@@ -368,6 +377,24 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         response = self.client.get('/sections-main-1/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
+
+    def test_anonymous_comment_translation(self):
+        self.user.profile.alias = 'this is my alias'
+        MoloComment.objects.create(
+            content_object=self.translated_article,
+            object_pk=self.translated_article.id,
+            content_type=ContentType.objects.get_for_model(
+                self.translated_article),
+            site=Site.objects.get_current(), user=self.user,
+            comment='This is another comment for French',
+            submit_date=timezone.now())
+        response = self.client.get('/locale/fr/')
+        response = self.client.get(
+            reverse('molo.commenting:more-comments', args=(
+                self.translated_article.pk,)))
+        self.assertContains(response, "This is another comment for French")
+        self.assertContains(response, "Anonyme")
+        self.assertNotContains(response, "this is my alias")
 
     def test_comment_distinguishes_moderator_user(self):
         self.user = User.objects.create_user(
