@@ -9,11 +9,9 @@
             <div class="section-title">
               <h2>{% trans "Share your story" %}</h2>
             </div>
-
             <h3>{{ survey.title }}</h3>
             <p>{{ survey.homepage_introduction }}</p>
             <img src="{% static 'img/Pencil.png' %}" />
-
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
               <a href="{% pageurl survey.specific %}" class="button call-to-action__button call-to-action__button--primary">
                 {% if survey.homepage_button_text %}
@@ -49,7 +47,7 @@
                   {% trans "Back home" %}</a>
                 {% endif %}
               {% endif %}
-          
+
           </div>
       </div>
     {% else %}
@@ -57,10 +55,9 @@
           <div class="section-title">
             <h2>Take the Survey</h2>
           </div>
-
           <div class="surveys__item">
             <h3>{{ survey.title }}</h3>
-            <p>{{ survey.introduction }}</p>
+            <p>{{ survey.homepage_introduction }}</p>
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
               <a href="{% pageurl survey.specific %}" class="button call-to-action__button call-to-action__button--primary">
                 {% if survey.homepage_button_text %}

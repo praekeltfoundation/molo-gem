@@ -10,7 +10,7 @@
       {% for choice in choices %}
         <p>{{ choice.title }}
           {% if question.result_as_percentage %}
-            <span class="choices--result">{{ choice.percentage }}%</span>
+            <span class="choices--percentage">{{ choice.percentage }}%</span>
           {% else %}
             <span class="choices--result">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
           {% endif %}
