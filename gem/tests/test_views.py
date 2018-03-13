@@ -392,7 +392,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             reverse('molo.commenting:more-comments', args=(
                 self.translated_article.pk,)))
         self.assertContains(response, "This is another comment for French")
-        # we test for translation of anonymous in project tests
         self.assertNotContains(response, "Anonymous")
 
     def test_comment_distinguishes_moderator_user(self):
