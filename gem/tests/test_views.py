@@ -378,8 +378,23 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
 
-    def test_anonymous_comment_translation(self):
+    def test_anonymous_comment_with_alias(self):
+        self.client.login(username='tester', password='tester')
         self.user.profile.alias = 'this is my alias'
+        self.user.profile.save()
+        data = MoloCommentForm(self.user, {}).generate_security_data()
+        data.update({
+            'comment': 'Foo',
+            'submit_anonymously': '1',
+        })
+        self.client.post(
+            reverse('molo.commenting:molo-comments-post'), data)
+        [comment] = MoloComment.objects.filter(user=self.user)
+        print(comment)
+        self.assertEqual(comment.comment, 'Foo')
+        self.assertEqual(comment.user_name, 'Anonymous')
+
+    def test_anonymous_comment_translation(self):
         MoloComment.objects.create(
             content_object=self.translated_article,
             object_pk=self.translated_article.id,
@@ -394,7 +409,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
                 self.translated_article.pk,)))
         self.assertContains(response, "This is another comment for French")
         self.assertContains(response, "Anonyme")
-        self.assertNotContains(response, "this is my alias")
 
     def test_comment_distinguishes_moderator_user(self):
         self.user = User.objects.create_user(
