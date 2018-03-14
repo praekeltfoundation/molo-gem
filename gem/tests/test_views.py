@@ -394,21 +394,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.assertEqual(comment.comment, 'Foo')
         self.assertEqual(comment.user_name, 'Anonymous')
 
-    def test_anonymous_comment_translation(self):
-        MoloComment.objects.create(
-            content_object=self.translated_article,
-            object_pk=self.translated_article.id,
-            content_type=ContentType.objects.get_for_model(
-                self.translated_article),
-            site=Site.objects.get_current(), user=self.user,
-            comment='This is another comment for French',
-            submit_date=timezone.now())
-        response = self.client.get('/locale/fr/')
-        response = self.client.get(
-            reverse('molo.commenting:more-comments', args=(
-                self.translated_article.pk,)))
-        self.assertContains(response, "This is another comment for French")
-
     def test_comment_distinguishes_moderator_user(self):
         self.user = User.objects.create_user(
             username='foo',
