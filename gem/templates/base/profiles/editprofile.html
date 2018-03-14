@@ -29,25 +29,6 @@
 				{{ form.gender }}
 	    </fieldset>
 		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-    	<fieldset>
-	      <label>{% trans "Mobile number:" %}</label>
-		      {{ form.mobile_number.errors }}
-		      {{ form.mobile_number }}
-				</fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.show_email_field %}
-      <label>{% trans "Email address:" %}</label>
-	      {{ form.email.errors }}
-	      {{ form.email }}
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.activate_location %}
-		<fieldset>
-				<label>{% trans "Update where you live:" %}</label>
-				{{ form.location }}
-				{{ form.location.errors}}
-		</fieldset>
-		{% endif %}
 		{% if settings.profiles.UserProfilesSettings.activate_education_level %}
 				<fieldset>
 				<label>{% trans "Update your Education Level:" %}</label>

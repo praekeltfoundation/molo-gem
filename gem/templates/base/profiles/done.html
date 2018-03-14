@@ -28,13 +28,6 @@
   				{{ form.gender }}
   	    </fieldset>
   		{% endif %}
-  		{% if settings.profiles.UserProfilesSettings.activate_location and not profile_settings.capture_location_on_reg%}
-  		<fieldset>
-  				<label>{% trans "Update where you live:" %}</label>
-  				{{ form.location }}
-  				{{ form.location.errors}}
-  		</fieldset>
-  		{% endif %}
   		{% if settings.profiles.UserProfilesSettings.activate_education_level and not not profile_settings.capture_education_level_on_reg_name_on_reg%}
   				<fieldset>
   				<label>{% trans "Update your Education Level:" %}</label>
