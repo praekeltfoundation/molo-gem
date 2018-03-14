@@ -337,15 +337,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
                                        title='article 1',
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
-        self.content_type = ContentType.objects.get_for_model(self.user)
-        self.french = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.site),
-            locale='fr',
-            is_active=True)
-        self.translated_article = self.mk_article_translation(
-            self.article, self.french,
-            title=self.article.title + ' in french',
-            subtitle=self.article.subtitle + ' in french')
 
     def create_comment(self, article, comment, user, parent=None):
         return MoloComment.objects.create(
@@ -390,7 +381,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.client.post(
             reverse('molo.commenting:molo-comments-post'), data)
         [comment] = MoloComment.objects.filter(user=self.user)
-        print(comment)
         self.assertEqual(comment.comment, 'Foo')
         self.assertEqual(comment.user_name, 'Anonymous')
 
