@@ -1,0 +1,27 @@
+.adv_wrapper {
+    margin: 0;
+    background-color: $mint-green-light;
+    position: relative;
+    overflow: auto;
+    section {
+      .heading__component {
+        padding: 10px 0 0;
+      }
+      .heading__subheading {
+        padding: 10px 0 0 10px;
+        p {font-size: $font-medium;}
+      }
+    }
+    aside {
+      .adv_wrapper__item-icon {
+        display: block;
+        margin: 0 auto;
+        max-width: 70%;
+      }
+    }
+    @each $name, $color in $color_list {
+        &--#{$name} {
+            background-color: $color;
+        }
+    }
+}
