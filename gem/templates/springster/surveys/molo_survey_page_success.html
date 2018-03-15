@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
+{% load wagtailimages_tags wagtailcore_tags static %}
 
 {% block content %}
-
   {% if self.your_words_competition %}
     <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
         {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
@@ -39,8 +39,13 @@
 
   {% else %}
     <div class="surveys surveys--call-to-action">
+      {% if self.image %}
+        {% image self.image width-165 as icon_small %}
+        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
+      {% else %}
         <div class="identity-image identity-image--survey"></div>
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+      {% endif %}
+      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
     </div>
     {% if self.thank_you_text %}
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
