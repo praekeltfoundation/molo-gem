@@ -1,5 +1,44 @@
 .gem-polls {
+    background-color: $colorPurple;
+    .list-header {
+      background-color: $colorYellow;
+      font-size: 16px;
+      font-family: $font-family-default;
+      color: $colorPurple;
+      text-transform: capitalize;
+      font-weight: bold;
+      display: inline-block;
+    }
   .list-inline {
+    h3 {
+      font-family: $font-family-zathu;
+      color: $colorYellow;
+      font-size: $font-x-large;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: normal;
+    }
+    p, label {
+      font-family: $font-family-default;
+      color: $colorYellow;
+      font-size: 18px;
+    }
+    .choices p {
+      border-top: 1px $colorYellow dashed;;
+    }
+    .choices {
+      border-bottom: 1px $colorYellow dashed;;
+    }
+    form {
+      div div {
+        border-top: 1px $colorYellow dashed;
+      }
+      div:last-child {
+        border: none;
+        margin: 0;
+        text-align: center;
+      }
+    }
     form {
       [type="checkbox"],[type="radio"]   {
         & + label {
@@ -16,5 +55,12 @@
         }
       }
     }
+  }
+  input[type=submit],
+  .call-to-action__button--primary,
+  .call-to-action__nav-item--back-home,
+  .button  {
+    background: $colorYellow;
+    color: $colorPurple;
   }
 }
