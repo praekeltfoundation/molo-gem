@@ -7,12 +7,6 @@
 
 {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
 <div class="adv_wrapper adv_wrapper--surveys">
-  <section>
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-    {%  if survey.homepage_introduction %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
-    {% endif %}
-  </section>
   <aside>
     {% if survey.image %}
     {% image survey.image width-165 as icon_small %}
@@ -21,6 +15,12 @@
       <img src="{% static 'img/icons/poll@2x.png' %}" class="adv_wrapper__item-icon" />
     {% endif %}
   </aside>
+  <section>
+    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
+    {%  if survey.homepage_introduction %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
+    {% endif %}
+  </section>
   <nav>
     {% trans "Take Survey" as buttontext %}
     {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
