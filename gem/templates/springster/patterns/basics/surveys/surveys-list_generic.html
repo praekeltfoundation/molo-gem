@@ -1,4 +1,4 @@
-{% load wagtailcore_tags static gem_tags %}
+{% load wagtailimages_tags wagtailcore_tags static gem_tags %}
 <!-- If  User is not authenticated OR
     anonymous_submissions is not set
     AND join banner is not set
@@ -14,7 +14,12 @@
     {% endif %}
   </section>
   <aside>
-    <img src="{% static 'img/icons/poll@2x.png' %}" class="adv_wrapper__item-icon" />
+    {% if survey.image %}
+    {% image survey.image width-165 as icon_small %}
+      <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
+    {% else %}
+      <img src="{% static 'img/icons/poll@2x.png' %}" class="adv_wrapper__item-icon" />
+    {% endif %}
   </aside>
   <nav>
     {% trans "Take Survey" as buttontext %}
