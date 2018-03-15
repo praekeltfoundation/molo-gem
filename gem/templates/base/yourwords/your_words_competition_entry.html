@@ -41,42 +41,42 @@
           {% endif %}
       {% endfor %}
     </div>
-
-    <form method="post" novalidate>
-      {% csrf_token %}
-
-      {% if form.story_name.errors %}
-      <p class="alert-error">* {{form.story_name.errors|join:' '}}</p>
-      {% endif %}
-
-      <label>{% trans "Title of your story" %}</label><br/>
-      <p>{{ form.story_name }}</p>
-
-      {% if form.story_text.errors %}
-        <p class="alert-error" >* {{form.story_text.errors|join:' '}}</p>
-      {% endif %}
-      <label>{% trans "Tell us your story here" %}</label>
-      <p>{{ form.story_text }}</p>
-
-      <div class="options">
-        <div class="yourwords-group">
-          {% if form.terms_or_conditions_approved.errors %}
-          <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
+  <div class="yourwords__container-form">
+    <form method="post" class="yourwords__form" novalidate>
+    {% csrf_token %}
+      <fieldset>
+        <div class="input-group">
+          <label>{% trans "Title of your story" %}</label>
+          {{ form.story_name }}
+           {% if form.story_name.errors %}
+            <p class="errors errorlist">* {{form.story_name.errors|join:' '}}</p>
           {% endif %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="input-group">
+          <label>{% trans "Tell us your story here" %}</label>
+          {{ form.story_text }}
+          {% if form.story_text.errors %}
+            <p class="errors errorlist" >* {{form.story_text.errors|join:' '}}</p>
+          {% endif %}
+        </div>
+      </fieldset>
+      <fieldset class="choice">
+        {% if form.terms_or_conditions_approved.errors %}
+        <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
+        {% endif %}
+        <div class="input-group">
           {{ form.terms_or_conditions_approved }}
-          <label>{% trans "I accept the terms and conditions" %}</label>
+          <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
         </div>
-
-        <div class="yourwords-group">
-          {{ form.hide_real_name }}
-          <label>{% trans "Share my story anonymously" %}</label>
-        </div>
-      </div>
-
-      <input type="submit" value="{% trans "Submit Your Story" %}"/>
-
+      </fieldset>
+      <fieldset class="choice">
+        {{ form.hide_real_name }}
+        <label for="id_hide_real_name">{% trans "Share my story anonymously" %}</label>
+      </fieldset>
+      <input type="submit" value="{% trans "Submit your story" %}" class="call-to-action__button call-to-action__button--primary">
     </form>
-
   </div>
 </div>
 {% endblock %}
