@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
 
+    'cloudinary_storage',
+    'cloudinary',
 
     'taggit',
     'modelcluster',
@@ -434,6 +436,21 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'molo.core.backends.MoloCASBackend',
 ]
+
+CLOUD_NAME = environ.get('CLOUD_NAME', '')
+API_KEY = environ.get('API_KEY', '')
+API_SECRET = environ.get(
+    'API_SECRET', '')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': CLOUD_NAME,
+    'API_KEY': API_KEY,
+    'API_SECRET': API_SECRET
+}
+
+if CLOUD_NAME and API_KEY and API_SECRET:
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AWS_HEADERS = {
     # see http://developer.yahoo.com/performance/rules.html#expires
