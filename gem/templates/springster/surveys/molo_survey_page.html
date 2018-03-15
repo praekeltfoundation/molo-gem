@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load wagtailimages_tags wagtailcore_tags static %}
 
 {% block content %}
 {% if self.your_words_competition %}
@@ -10,7 +10,12 @@
     <div class="polls__container">
 {% else %}
   <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
-    <div class="identity-image identity-image--survey"></div>
+    {% if self.image %}
+      {% image self.image width-165 as icon_small %}
+      <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="identity-image__item-icon" />
+    {% else %}
+      <div class="identity-image identity-image--survey"></div>
+    {% endif %}
 {% endif %}
 
 {% if self.your_words_competition %}
