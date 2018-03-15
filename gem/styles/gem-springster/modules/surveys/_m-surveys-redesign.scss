@@ -1,6 +1,6 @@
 .adv_wrapper {
     margin: 0;
-    background: $mint-green-light;
+    background-color: $mint-green-light;
     position: relative;
     overflow: auto;
     section {
@@ -18,5 +18,10 @@
         margin: 0 auto;
         max-width: 70%;
       }
+    }
+    @each $name, $color in $color_list {
+        &--#{$name} {
+            background-color: $color;
+        }
     }
 }
