@@ -1,0 +1,17 @@
+.surveys {
+  &__form {
+    [type="checkbox"],[type="radio"]   {
+      & + label {
+        &:before {
+          background-color: $colorWhite;
+          border: 1px solid $colorGrey;
+        }
+      }
+      &:checked + label {
+          &:before {
+            background-color: #412a83;
+          }
+      }
+    }
+  }
+}
