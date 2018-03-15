@@ -20,19 +20,12 @@
         label {
           @extend %gem__label;
         }
-        [type="checkbox"],
-        [type="radio"] {
-            @extend %gem__checkbox;
-        }
-
     }
-
     &__item + &__item {
         padding-top: 24px;
         margin-top: 24px;
         border-top: 1px solid #ffffff;
     }
-
     &__tout {
         background-color: $colorFirst;
         color: #ffffff;
@@ -130,8 +123,6 @@
             height: 16px;
             margin-right: 16px;
             padding: 4px;
-            background-color: $colorWhite;
-            border: 1px solid $colorGrey;
             vertical-align: middle;
             content: "";
         }
@@ -140,7 +131,6 @@
         &:before {
             content: "";
             background-clip: content-box;
-            background-color: $colorSecond;
         }
     }
     &[type="radio"] + label {
@@ -149,21 +139,22 @@
         }
     }
 }
-
 %gem__label {
-    display: block;
-    font-size: 18px;
-    color: $colorFirst;
+  display: block;
+  font-size: 18px;
+  color: $colorFirst;
 }
 
-.surveys__results {
-  overflow: auto;
-  padding: 10px 0 0;
-}
-.surveys__answer {
-  span {
-    display: block;
-    padding: 10px 0;
-    word-wrap: break-word;
+.surveys {
+  &__results {
+    overflow: auto;
+    padding: 10px 0 0;
+  }
+  &__answer {
+    span {
+      display: block;
+      padding: 10px 0;
+      word-wrap: break-word;
+    }
   }
 }
