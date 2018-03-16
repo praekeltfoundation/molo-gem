@@ -520,3 +520,17 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         response = self.client.get(
             reverse('report_response', args=(comment.pk,)))
         self.assertContains(response, 'This comment has been reported.')
+
+
+class TestBbmRedirectView(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+        self.client = Client()
+
+    def test_it_sets_cookie_for_bbm(self):
+        response = self.client.get(reverse('bbm_redirect'))
+        self.assertEqual(response.cookies['bbm'].value, 'true')
+
+    def test_it_redirects_to_homepage(self):
+        response = self.client.get(reverse('bbm_redirect'))
+        self.assertEqual(response['Location'], '/')

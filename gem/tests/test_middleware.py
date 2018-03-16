@@ -52,6 +52,25 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
             'bbm_tracking_code', request, self.response)
 
     @patch(submit_tracking_method)
+    def test_submit_to_bbm_analytics_if_cookie_set(self, mock_submit_tracking):
+        '''
+        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
+        are set in Gem Settings, and the BBM cookie is set, info
+        should be sent to the additional GA account.
+        '''
+
+        request = RequestFactory().get('/', HTTP_HOST='example.com')
+        request.COOKIES['bbm'] = 'true'
+        request.site = self.site
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.submit_to_local_account(
+            request, self.response, self.site_settings)
+
+        mock_submit_tracking.assert_called_once_with(
+            'bbm_tracking_code', request, self.response)
+
+    @patch(submit_tracking_method)
     def test_submit_to_local_ga_account(self, mock_submit_tracking):
         '''
         Given that bbm_ga_account_subdomain and bbm_ga_tracking_code

@@ -15,10 +15,13 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from molo.core import views as core_views
 from molo.profiles.views import ForgotPasswordView, ResetPasswordView
 from wagtail.contrib.wagtailsitemaps import views as sitemap_views
-from gem.views import report_response, GemRegistrationView, \
-    GemRssFeed, GemAtomFeed, \
-    ReportCommentView, GemEditProfileView, \
-    AlreadyReportedCommentView, GemRegistrationDoneView
+from gem.views import (
+    report_response, GemRegistrationView,
+    GemRssFeed, GemAtomFeed,
+    ReportCommentView, GemEditProfileView,
+    AlreadyReportedCommentView, GemRegistrationDoneView,
+    BbmRedirect,
+)
 
 urlpatterns = []
 
@@ -38,6 +41,8 @@ urlpatterns += [
         template_name='robots.txt', content_type='text/plain')),
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
+
+    url(r'^bbm/$', BbmRedirect.as_view(), name='bbm_redirect'),
 
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',

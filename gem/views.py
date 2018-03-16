@@ -8,6 +8,7 @@ from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.translation import ugettext_lazy as _
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -201,3 +202,10 @@ class AlreadyReportedCommentView(TemplateView):
         return self.render_to_response({
             'article': comment.content_object
         })
+
+
+class BbmRedirect(View):
+    def get(self, request):
+        response = HttpResponseRedirect('/')
+        response.set_cookie('bbm', 'true')
+        return response
