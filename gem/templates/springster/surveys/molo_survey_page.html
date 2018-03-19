@@ -67,7 +67,7 @@
     {% if self.your_words_competition %}
       {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="competition" surveytypeClass="surveys" %}
     {% elif self.display_survey_directly %}
-      ---
+      {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="poll" surveytypeClass="polls" %}
     {% else %}
       {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="survey" surveytypeClass="surveys" %}
     {% endif %}
@@ -82,7 +82,6 @@
     {% include "patterns/basics/surveys/surveys-modules/surveys-cta.html" with surveytype="survey" surveytypeClass="surveys" %}
   {% endif %}
 {% endif %}
-
 
 {% if self.your_words_competition %}
   </div>
