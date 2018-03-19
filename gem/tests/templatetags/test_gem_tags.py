@@ -1,9 +1,19 @@
-from django.test import TestCase
+from django.template import Context
+from django.test import RequestFactory, TestCase
 
 from gem.templatetags.gem_tags import (
+    bbm_share_url,
     smart_truncate_chars,
     idfromlabel
 )
+
+
+class TestBbmShareUrl(TestCase):
+    def test_returns_url_prefixed_with_bbm(self):
+        request = RequestFactory().get('/section/one/')
+        context = Context({'request': request})
+        result = bbm_share_url(context)
+        self.assertEqual(result, 'http://testserver/bbm/section/one/')
 
 
 class TestSmartTruncateChars(TestCase):

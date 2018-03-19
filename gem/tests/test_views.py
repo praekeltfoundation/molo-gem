@@ -528,9 +528,22 @@ class TestBbmRedirectView(TestCase, MoloTestCaseMixin):
         self.client = Client()
 
     def test_it_sets_cookie_for_bbm(self):
-        response = self.client.get(reverse('bbm_redirect'))
+        response = self.client.get('/bbm/')
         self.assertEqual(response.cookies['bbm'].value, 'true')
 
     def test_it_redirects_to_homepage(self):
-        response = self.client.get(reverse('bbm_redirect'))
-        self.assertEqual(response['Location'], '/')
+        response = self.client.get('/bbm/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'http://testserver/')
+
+    def test_it_redirects_to_specified_location(self):
+        response = self.client.get('/bbm/section/one/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            'http://testserver/section/one/',
+        )
+
+    def test_it_returns_bad_request_if_url_unsafe(self):
+        response = self.client.get('/bbm//http://evil.com/')
+        self.assertEqual(response.status_code, 400)

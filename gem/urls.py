@@ -42,7 +42,8 @@ urlpatterns += [
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
 
-    url(r'^bbm/$', BbmRedirect.as_view(), name='bbm_redirect'),
+    url(r'^bbm/(?P<redirect_path>.*)$',
+        BbmRedirect.as_view(), name='bbm_redirect'),
 
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',

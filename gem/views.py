@@ -3,10 +3,11 @@ import re
 from django import forms
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
+from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import TemplateView
@@ -205,7 +206,14 @@ class AlreadyReportedCommentView(TemplateView):
 
 
 class BbmRedirect(View):
-    def get(self, request):
-        response = HttpResponseRedirect('/')
-        response.set_cookie('bbm', 'true')
+    def get(self, request, redirect_path):
+        destination = request.build_absolute_uri('/{0}'.format(redirect_path))
+        allowed_hosts = [request.get_host()]
+
+        if is_safe_url(destination, allowed_hosts=allowed_hosts):
+            response = HttpResponseRedirect(destination)
+            response.set_cookie('bbm', 'true')
+        else:
+            response = HttpResponseBadRequest('Redirect URL is unsafe')
+
         return response
