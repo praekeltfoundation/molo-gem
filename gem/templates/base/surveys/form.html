@@ -13,7 +13,7 @@
           {% if field|fieldtype == 'CharacterCountWidget' %}
             <span class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</span>
           {% else %}
-            <span class="helptext">{{ field.help_text }}</span>
+            <span class="{{surveytypeClass}}__helptext">{{ field.help_text }}</span>
           {% endif %}
         {% endif %}
         {% if field|fieldtype == 'RadioSelect' %}
