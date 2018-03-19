@@ -19,6 +19,16 @@
           {% endif %}
         {% endfor %}
       </div>
+      {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="your-words__pagination your-words__pagination--multi-step">
+          <h6 class="your-words__pagination-title">
+              {% blocktrans with pages=fields_step.paginator.num_pages %}
+                  This competition has {{ pages }} pages
+              {% endblocktrans %}
+          </h6>
+      </div>
+      {% endif %}
+
       {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
     </div>
   {% elif page.display_survey_directly %}
@@ -49,6 +59,16 @@
     <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
       <h1 class="surveys__title">{{ page.title }}</h1>
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
+      {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="surveys__pagination surveys__pagination--multi-step">
+          <h6 class="surveys__pagination-title">
+              {% blocktrans with pages=fields_step.paginator.num_pages %}
+                  This survey has {{ pages }} pages
+              {% endblocktrans %}
+          </h6>
+      </div>
+      {% endif %}
+
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
             {% include "surveys/form.html" with surveytype="survey" surveytypeClass="surveys" %}
       {% else %}

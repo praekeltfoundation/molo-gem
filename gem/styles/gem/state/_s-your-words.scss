@@ -21,11 +21,19 @@
     font-size: 18px;
   }
 
-  form {
-    .options {
-      input[type="checkbox"] {
-        float: left;
-        margin-right: 5px;
+  form ,
+  .options {
+    [type="checkbox"],[type="radio"]   {
+      & + label {
+        &:before {
+          background-color: #5F113E;
+          border: 1px solid #5F113E;
+        }
+      }
+      &:checked + label {
+          &:before {
+            background-color: #5F113E;
+          }
       }
     }
   }
