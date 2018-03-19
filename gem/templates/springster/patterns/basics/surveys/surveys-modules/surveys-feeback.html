@@ -1,5 +1,5 @@
 {% load wagtailcore_tags gem_tags %}
-<div class="{{surveytypeClass}}">
+<div class="{{surveytypeClass}} {{surveytypeClass}}{{survey.get_effective_extra_style_hints}}">
     <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
     {% if request.path == "/" %}
         {% trans "Show Results" as buttontext %}
