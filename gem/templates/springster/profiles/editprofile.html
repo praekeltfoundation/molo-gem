@@ -37,37 +37,6 @@
           </fieldset>
         {% endif %}
 
-        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-          <fieldset>
-              <div class="input-group{% if form.mobile_number.errors %} input-error{% endif %}">
-                  <label>{% trans "Mobile number:" %}</label>
-                  {{ form.mobile_number }}
-                  {{ form.mobile_number.errors }}
-              </div>
-          </fieldset>
-        {% endif %}
-
-        {% if settings.profiles.UserProfilesSettings.show_email_field %}
-        <fieldset>
-            <div class="input-group{% if form.email.errors %} input-error{% endif %}">
-                <label>{% trans "Email address:" %}</label>
-                {{ form.email }}
-                {{ form.email.errors }}
-            </div>
-        </fieldset>
-        {% endif %}
-
-        {% if settings.profiles.UserProfilesSettings.activate_location %}
-        <fieldset>
-            <div class="input-group{% if form.location.errors %} input-error{% endif %}">
-                <label>{% trans "Update where you live:" %}</label>
-                {{ form.location }}
-                {{ form.location.errors}}
-            </div>
-            <p class="helptext">{% trans "Only you will see this." %}</p>
-        </fieldset>
-        {% endif %}
-
         {% if settings.profiles.UserProfilesSettings.activate_education_level %}
             <fieldset>
             <div class="input-group{% if form.education_level.errors %} input-error{% endif %}">

@@ -111,6 +111,9 @@ class GemRegistrationForm(GemAliasMixin, RegistrationForm):
 
     def __init__(self, *args, **kwargs):
         super(GemRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = False
+        self.fields['location'].required = False
+        self.fields['mobile_number'].required = False
 
 
 class GemEditProfileForm(GemAliasMixin, EditProfileForm):

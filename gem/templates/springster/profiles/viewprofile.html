@@ -50,27 +50,6 @@
     </fieldset>
     {% endif %}
 
-    {% if profile_settings.show_mobile_number_field and profile_settings.country_code %}
-    <fieldset>
-        <label>{% trans "Mobile number:" %}</label>
-        <span class="input-feedback">{{ user.profile.mobile_number | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
-    {% if profile_settings.show_email_field %}
-    <fieldset>
-        <label>{% trans "Email Address:" %}</label>
-        <span class="input-feedback">{{ user.email | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
-    {% if profile_settings.activate_location%}
-    <fieldset>
-        <label>{% trans "Location:" %}</label>
-        <span class="input-feedback">{{ user.profile.location | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
     {% if profile_settings.activate_education_level %}
     <fieldset>
         <label>{% trans "Education Level:" %}</label>
