@@ -1,11 +1,21 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if form %}
-  <form class="{{surveytypeClass}}__form" action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
-    {% csrf_token %}
+<form class="{{surveytypeClass}}__form" action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
+{% csrf_token %}
+  {% if not is_via_freebasics %}
+      {{ form.media }}
+  {% endif %}
     {% for field in form %}
-      <fieldset>
+    <fieldset>
+      <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        <span class="{{surveytypeClass}}__helptext">{{ field.help_text }}</span>
+        {% if field.help_text %}
+          {% if field|fieldtype == 'CharacterCountWidget' %}
+            <span class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</span>
+          {% else %}
+            <span class="helptext">{{ field.help_text }}</span>
+          {% endif %}
+        {% endif %}
         {% if field|fieldtype == 'RadioSelect' %}
             <ul>
               {% for choice in field.field.choices %}
@@ -16,17 +26,18 @@
               {% endfor %}
             </ul>
         {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
-        <ul>
-          {% for choice in field.field.choices %}
-            <li>
-              <input id="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ choice.0 }}" {% if field.value.0 == choice.0 %}checked="checked"{% endif %}>
-              <label for="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
-            </li>
-          {% endfor %}
-        </ul>
-        {% else %}
-            {{ field }}
-        {% endif %}
+          <ul>
+            {% for choice in field.field.choices %}
+              <li>
+                <input id="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ choice.0 }}" {% if field.value.0 == choice.0 %}checked="checked"{% endif %}>
+                <label for="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
+              </li>
+            {% endfor %}
+          </ul>
+      {% else %}
+        {{ field }}
+      {% endif %}
+
         {% if field.errors %}
           <ul class="error error--{{surveytypeClass}}">
           {% for error in field.errors %}
@@ -34,7 +45,8 @@
           {% endfor %}
           </ul>
         {% endif %}
-      </fieldset>
+      </div>
+    </fieldset>
     {% endfor %}
 
     {% trans "Done" as text %}
