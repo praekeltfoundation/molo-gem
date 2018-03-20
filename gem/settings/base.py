@@ -32,18 +32,7 @@ SECRET_KEY = "dqji)!xte^trgai!3c)_4)ftaoevwvbog-i&nl$#ef9xb+y*ab"
 DEBUG = True
 ENV = 'dev'
 
-ALLOWED_HOSTS = [
-    # QA
-    '.molo.unicore.io',
-    '.seed.p16n.org',
-    # Production
-    '.heyspringster.com',
-    'ninyampinga.com',
-    'www.ninyampinga.com',
-    'cewekeren.com',
-    'www.cewekeren.com',
-]
-
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
