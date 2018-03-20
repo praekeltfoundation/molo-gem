@@ -310,7 +310,6 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
         self.mk_main()
-        self.client = ()
         self.main = Main.objects.all().first()
         self.language_setting = Languages.objects.create(
             site_id=self.main.get_site().pk)
