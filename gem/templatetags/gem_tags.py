@@ -1,5 +1,6 @@
 import re
 
+from django.core.urlresolvers import reverse
 from django.template import Library
 from django.conf import settings
 
@@ -7,6 +8,16 @@ from gem.constants import GENDER
 from gem.models import GemTextBanner
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
+
+
+@register.simple_tag(takes_context=True)
+def bbm_share_url(context):
+    req = context['request']
+    uri = reverse(
+        'bbm_redirect',
+        kwargs={'redirect_path': req.get_full_path().lstrip('/')},
+    )
+    return req.build_absolute_uri(uri)
 
 
 @register.simple_tag()

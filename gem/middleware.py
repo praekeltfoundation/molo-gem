@@ -26,7 +26,7 @@ class ForceDefaultLanguageMiddleware(object):
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     '''
     Submits GA tracking data to a local account or the additional account
-    depending on the subdomain in the request.
+    depending on the subdomain in the request or the bbm cookie.
 
     TODO: Pull the submit_to_local_account and submit_to_global_account
     into the MoloGoogleAnalyticsMiddleware class and override
@@ -34,11 +34,19 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     '''
     def submit_to_local_account(self, request, response, site_settings):
         gem_site_settings = GemSettings.for_site(request.site)
-        subdomain = request.get_host().split(".")[0]
-        if (subdomain == gem_site_settings.bbm_ga_account_subdomain and
-                gem_site_settings.bbm_ga_tracking_code):
-                return self.submit_tracking(
-                    gem_site_settings.bbm_ga_tracking_code, request, response)
+        bbm_ga_code = gem_site_settings.bbm_ga_tracking_code
+        bbm_subdomain = gem_site_settings.bbm_ga_account_subdomain
+        current_subdomain = request.get_host().split(".")[0]
+        should_submit_to_bbm_account = False
+
+        if current_subdomain == bbm_subdomain:
+            should_submit_to_bbm_account = True
+
+        if request.COOKIES.get('bbm', 'false') == 'true':
+            should_submit_to_bbm_account = True
+
+        if bbm_ga_code and should_submit_to_bbm_account:
+            return self.submit_tracking(bbm_ga_code, request, response)
         else:
             local_ga_account = site_settings.local_ga_tracking_code or \
                 settings.GOOGLE_ANALYTICS.get('google_analytics_id')

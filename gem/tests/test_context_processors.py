@@ -11,12 +11,17 @@ class TestDetectBbm(TestCase):
     def setUp(self):
         self.request_factory = RequestFactory()
 
-    def test_returns_false_for_requests_without_bbm_host(self):
+    def test_returns_false_for_requests_without_bbm_cookie(self):
         request = self.request_factory.get('/')
         self.assertEqual(detect_bbm(request), {'is_via_bbm': False})
 
     def test_returns_true_for_requests_with_bbm_host(self):
         request = self.request_factory.get('/', HTTP_HOST='bbm.example.com:80')
+        self.assertEqual(detect_bbm(request), {'is_via_bbm': True})
+
+    def test_returns_true_for_requests_with_bbm_cookie(self):
+        request = self.request_factory.get('/')
+        request.COOKIES['bbm'] = 'true'
         self.assertEqual(detect_bbm(request), {'is_via_bbm': True})
 
 
