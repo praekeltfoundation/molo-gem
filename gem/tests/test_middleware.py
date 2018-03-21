@@ -1,7 +1,8 @@
-from django.test import RequestFactory, TestCase
+from django.http import HttpResponseRedirect
+from django.test import RequestFactory, TestCase, override_settings
 from django.test.client import Client
 
-from gem.middleware import GemMoloGoogleAnalyticsMiddleware
+from gem.middleware import AdminRedirectHTTPS, GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
 
 from mock import patch
@@ -88,3 +89,40 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
 
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code', request, self.response)
+
+
+@override_settings(ADMIN_REDIRECT_HTTPS=True)
+class TestAdminRedirectHTTPSMiddleware(TestCase):
+    def setUp(self):
+        self.middleware = AdminRedirectHTTPS()
+
+    def test_should_do_nothing_if_not_admin_page(self):
+        request = RequestFactory().get('/')
+        return_value = self.middleware.process_request(request)
+        self.assertEqual(return_value, None)
+
+    @override_settings(ADMIN_REDIRECT_HTTPS=False)
+    def test_should_do_nothing_if_setting_disabled(self):
+        request = RequestFactory().get('/admin/')
+        return_value = self.middleware.process_request(request)
+        self.assertEqual(return_value, None)
+
+    def test_should_do_nothing_if_scheme_not_http(self):
+        request = RequestFactory().get('/admin/', secure=True)
+        return_value = self.middleware.process_request(request)
+        self.assertEqual(return_value, None)
+
+    def test_should_redirect_admin_requests_to_https(self):
+        request = RequestFactory().get('/admin/path/')
+        return_value = self.middleware.process_request(request)
+        self.assertTrue(isinstance(return_value, HttpResponseRedirect))
+        self.assertEqual(return_value.url, 'https://testserver/admin/path/')
+
+    def test_should_redirect_django_admin_requests_to_https(self):
+        request = RequestFactory().get('/django-admin/path/')
+        return_value = self.middleware.process_request(request)
+        self.assertTrue(isinstance(return_value, HttpResponseRedirect))
+        self.assertEqual(
+            return_value.url,
+            'https://testserver/django-admin/path/',
+        )

@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.shortcuts import redirect
+from django.utils.deprecation import MiddlewareMixin
 
 from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
@@ -62,3 +64,21 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             request, response, site_settings)
 
         return response
+
+
+class AdminRedirectHTTPS(MiddlewareMixin):
+    def process_request(self, request):
+        if settings.ADMIN_REDIRECT_HTTPS is False:
+            return None
+
+        if request.scheme != 'http':
+            return None
+
+        host = request.get_host()
+        path = request.path
+        redirect_uri = 'https://{0}{1}'.format(host, path)
+
+        if path.startswith('/admin') or path.startswith('/django-admin'):
+            return redirect(redirect_uri)
+
+        return None

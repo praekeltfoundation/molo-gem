@@ -35,6 +35,9 @@ ENV = 'dev'
 
 ALLOWED_HOSTS = ['*']
 
+# FIXME: This should be set to true once we have verified there's
+# no problem enabling it for some of the larger sites.
+ADMIN_REDIRECT_HTTPS = 'ADMIN_REDIRECT_HTTPS' in environ
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
@@ -110,6 +113,7 @@ COMMENTS_HIDE_REMOVED = False
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
+    'gem.middleware.AdminRedirectHTTPS',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
