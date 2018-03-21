@@ -1,26 +1,11 @@
 from django.conf import settings
+from django.shortcuts import redirect
+from django.utils.deprecation import MiddlewareMixin
 
 from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 
 from gem.models import GemSettings
-
-
-class ForceDefaultLanguageMiddleware(object):
-    """
-    Ignore Accept-Language HTTP headers
-
-    This will force the I18N machinery to always choose settings.LANGUAGE_CODE
-    as the default initial language, unless another one is set via sessions or
-    cookies
-
-    Should be installed *before* any middleware that
-    checks request.META['HTTP_ACCEPT_LANGUAGE'],
-    namely django.middleware.locale.LocaleMiddleware
-    """
-    def process_request(self, request):
-        if 'HTTP_ACCEPT_LANGUAGE' in request.META:
-            del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
@@ -79,3 +64,21 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             request, response, site_settings)
 
         return response
+
+
+class AdminRedirectHTTPS(MiddlewareMixin):
+    def process_request(self, request):
+        if settings.ADMIN_REDIRECT_HTTPS is False:
+            return None
+
+        if request.scheme != 'http':
+            return None
+
+        host = request.get_host()
+        path = request.path
+        redirect_uri = 'https://{0}{1}'.format(host, path)
+
+        if path.startswith('/admin') or path.startswith('/django-admin'):
+            return redirect(redirect_uri)
+
+        return None
