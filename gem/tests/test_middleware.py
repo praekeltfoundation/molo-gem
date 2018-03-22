@@ -41,7 +41,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
         the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='bbm.example.com')
+        request = RequestFactory().get('/', HTTP_HOST='bbm.localhost')
         request.site = self.site
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
@@ -59,7 +59,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
         should be sent to the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='example.com')
+        request = RequestFactory().get('/', HTTP_HOST='localhost')
         request.COOKIES['bbm'] = 'true'
         request.site = self.site
 
@@ -79,7 +79,7 @@ class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
         the local GA account, not the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='example.com')
+        request = RequestFactory().get('/', HTTP_HOST='localhost')
         request.site = self.site
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
