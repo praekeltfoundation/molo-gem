@@ -16,7 +16,7 @@ class TestDetectBbm(TestCase):
         self.assertEqual(detect_bbm(request), {'is_via_bbm': False})
 
     def test_returns_true_for_requests_with_bbm_host(self):
-        request = self.request_factory.get('/', HTTP_HOST='bbm.example.com:80')
+        request = self.request_factory.get('/', HTTP_HOST='bbm.localhost:80')
         self.assertEqual(detect_bbm(request), {'is_via_bbm': True})
 
     def test_returns_true_for_requests_with_bbm_cookie(self):

@@ -33,8 +33,7 @@ SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 DEBUG = True
 ENV = 'dev'
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
