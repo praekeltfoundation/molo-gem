@@ -58,8 +58,8 @@
     var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window,
     minScreen = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 240),
     smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-    var smartStylesBase = '{% escapescript %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/03_state.css" media="all">{% endcompress %}{% endescapescript %}';
-    var smartStylesLarge = '{% escapescript %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="all">{% endcompress %}{% endescapescript %} {% escapescript %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/@font-face-baton.css" media="all">{% endcompress %}{% endescapescript %}';
+    var smartStylesBase = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/03_state.css" media="all">';
+    var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="all"> <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/@font-face-baton.css" media="all">';
       if (cutsTheMustard === true) {
         if (minScreen) {
           var smartStylesBaseDefer  = document.getElementsByTagName('style')[0];
