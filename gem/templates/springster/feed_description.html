@@ -1,8 +1,0 @@
-{% load wagtailimages_tags %}
-<div class="server-error">
-  {% if obj.image %}
-      {% image obj.image width-40 as article_image %}
-      <img alt="Server error" src="http://{{ request.get_host }}{{ article_image.url }}"/>
-  {% endif %}
-  <h1 class="heading heading--title">{{ obj.subtitle }}</h1>
-</div>
