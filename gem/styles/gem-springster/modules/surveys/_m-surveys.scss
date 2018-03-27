@@ -2,11 +2,15 @@
   position: relative;
   margin: 15px 0 0;
       &__form {
-        background-color: $pink-bright;
+        background-color: lighten( $springster-sunny-yellow, 15%);
         padding: 0 0 20px;
         @each $name, $color in $color_list {
             &--#{$name} {
-                background-color: $color;
+              @if $color == $tiffany-blue {
+                background-color: lighten( $color, 25%);
+              } @else {
+                background-color: lighten( $color, 10%);
+              }
             }
         }
         fieldset {
@@ -69,4 +73,12 @@
       .errors {
         text-align: left;
       }
+}
+
+.identity-image--survey,
+.adv_wrapper__item-icon,
+.identity-image__item-icon  {
+  display: block;
+  text-align: center;
+  margin: 15px auto;
 }

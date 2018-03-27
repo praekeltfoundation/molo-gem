@@ -3,7 +3,7 @@ from .base import *  # noqa
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.localhost',
+    '.localhost'
 ]
 
 DEBUG = True
