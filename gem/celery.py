@@ -8,6 +8,9 @@ from celery.signals import celeryd_init
 from django.conf import settings
 from django.core.management import call_command
 
+from raven import Client
+from raven.contrib.celery import register_signal, register_logger_signal
+
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'gem.settings.production')
@@ -18,6 +21,12 @@ app = Celery('proj')
 # pickle the object when using Windows.
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+if hasattr(settings, 'RAVEN_DSN'):
+    raven_client = Client(settings.RAVEN_DSN)
+
+    register_logger_signal(raven_client)
+    register_signal(raven_client)
 
 
 @celeryd_init.connect
