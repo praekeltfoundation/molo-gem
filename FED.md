@@ -1,5 +1,42 @@
 FED
 
+LANGUAGE TRANSLATION
+There are two types of translation
+1. Wagtail CMS - translated content created on the CMS for supported languages
+2. Website templates - static language on Pootle
+    1. Pootle translation process
+
+
+CMS Wagtail  
+translation for supported languages
+Translation is done on Wagtail CMS on dynamically created content that has supported languages option such as:
+* Sections content
+* Articles content
+
+Website templates
+static language for Pootle translation
+
+All static content on the templates uses Django template trans block argument
+Translation for supported languages is done through Pootle and translation files (file.po) is uploaded into the website templates locale/language/LC_MESSAGES/django.po
+
+Pootle Translation process
+
+Commands
+manage makemessages --locale en
+
+The translator cannot reorder the arguments.
+ Please consider using a format string with named arguments, and a mapping instead of a tuple for the arguments.
+xgettext: .%/compat.py:1: Unknown encoding "utf-8-".
+Proceeding with ASCII instead.
+
+xgettext: ./ve/lib/python2.7/site-packages/git/test/test_base.py:1:  Unknown encoding "utf-8-". Proceeding with ASCII instead.
+xgettext: Non-ASCII string at ./ve/lib/python2.7/site-packages/git/test/test_base.py:117.
+
+Please specify the source encoding through --from-code or through a comment as specified in http://www.python.org/peps/pep-0263.html.
+
+
+
+
   Maintenance, Performance, and Readability.
 
   MARKUP & CSS
@@ -67,7 +104,7 @@ FED
   -------------------------
   Requirements:
   Must have node.js npm and gulp installed globally
-  
+
   - npm install gulp-cli -g
 
   For asset bundling & processing, concatenating and minification file:
