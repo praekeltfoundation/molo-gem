@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-03 15:55+0200\n"
+"POT-Creation-Date: 2018-03-29 17:14+0200\n"
 "PO-Revision-Date: 2017-05-17 13:23+0000\n"
 "Last-Translator: Saeed <saeed@praekelt.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: gem/settings/base.py:357
 #: gem/templates/base/polls/includes/poll_question_form.html:40
-#: gem/templates/base/surveys/molo_survey_page.html:47
+#: gem/templates/base/surveys/molo_survey_page.html:48
 #: gem/templates/base/surveys/surveys_list.html:43
 #: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys-feeback.html:5
 #: gem/templates/springster/polls/includes/poll_question_form.html:41
@@ -361,6 +361,12 @@ msgstr ""
 msgid "Replies"
 msgstr ""
 
+#: gem/templates/base/comments/comment_block.html:8
+#, python-format
+msgid "%(comment_count)s comment"
+msgid_plural "%(comment_count)s comments"
+msgstr[0] ""
+
 #: gem/templates/base/comments/comment_block.html:14
 #: gem/templates/springster/comments/comment_block.html:11
 #: temp/temp_ve/commenting/templates/comments/comment_block.html:14
@@ -579,7 +585,7 @@ msgstr ""
 #: gem/templates/base/polls/polls_details.html:7
 #: gem/templates/base/polls/question.html:6
 #: gem/templates/base/polls/results.html:5
-#: gem/templates/base/surveys/molo_survey_page.html:36
+#: gem/templates/base/surveys/molo_survey_page.html:37
 #: gem/templates/base/surveys/molo_survey_page_success.html:26
 #: gem/templates/base/surveys/surveys_list.html:32
 #: temp/temp_ve/polls/templates/polls/poll_page.html:7
@@ -822,10 +828,6 @@ msgstr ""
 msgid "Reset PIN"
 msgstr ""
 
-#: gem/templates/base/profiles/reset_password.html:16
-msgid "error"
-msgstr ""
-
 #: gem/templates/base/profiles/reset_password.html:25
 #: gem/templates/springster/profiles/reset_password.html:26
 #: temp/temp_ve/profiles/forms.py:117 temp/temp_ve/profiles/forms.py:517
@@ -993,6 +995,17 @@ msgstr ""
 msgid "Next Question"
 msgstr ""
 
+#: gem/templates/base/surveys/form.html:69
+#: gem/templates/springster/patterns/basics/surveys/surveys-modules/form.html:86
+#, python-format
+msgid ""
+"\n"
+"                  Page <span class=\"%(surveytypeClass)s__page-number\">"
+"%(page)s</span> of <span class=\"%(surveytypeClass)s__page-number\">"
+"%(pages)s</span>\n"
+"              "
+msgstr ""
+
 #: gem/templates/base/surveys/form.html:77
 #: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys-feeback.html:3
 msgid "You have already completed this"
@@ -1026,12 +1039,20 @@ msgstr ""
 msgid "Share your story"
 msgstr ""
 
-#: gem/templates/base/surveys/molo_survey_page.html:44
+#: gem/templates/base/surveys/molo_survey_page.html:25
+#, python-format
+msgid ""
+"\n"
+"                  This competition has %(pages)s pages\n"
+"              "
+msgstr ""
+
+#: gem/templates/base/surveys/molo_survey_page.html:45
 #: gem/templates/base/surveys/surveys_list.html:40
 msgid "You have already completed this poll."
 msgstr ""
 
-#: gem/templates/base/surveys/molo_survey_page.html:51
+#: gem/templates/base/surveys/molo_survey_page.html:52
 #: gem/templates/base/surveys/surveys_list.html:47
 #: gem/templates/springster/core/article_tags.html:5
 #: gem/templates/springster/notifications/reply_list.html:25
@@ -1048,15 +1069,14 @@ msgid "Back home"
 msgstr ""
 
 #: gem/templates/base/surveys/molo_survey_page.html:65
-msgid "This survey has"
+#, python-format
+msgid ""
+"\n"
+"                  This survey has %(pages)s pages\n"
+"              "
 msgstr ""
 
-#: gem/templates/base/surveys/molo_survey_page.html:65
-#: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys_page-break.html:5
-msgid "pages"
-msgstr ""
-
-#: gem/templates/base/surveys/molo_survey_page.html:75
+#: gem/templates/base/surveys/molo_survey_page.html:76
 msgid "Log in to take survey"
 msgstr ""
 
@@ -1160,7 +1180,7 @@ msgstr ""
 
 #: gem/templates/malawi/403_csrf.html:12
 msgid ""
-"Sorry we are having trouble accessing this feature! Due to a temporary "
+" Sorry we are having trouble accessing this feature! Due to a temporary "
 "technical issue, log in and registrations are not available on Free Basics "
 "app for now. To login or register for a profile, visit our free mobisite "
 "through your mobile browser at:"
@@ -1387,12 +1407,12 @@ msgstr ""
 msgid "Log in to take"
 msgstr ""
 
-#: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys_page-break.html:5
-msgid "This"
-msgstr ""
-
-#: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys_page-break.html:5
-msgid "has"
+#: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys_page-break.html:4
+#, python-format
+msgid ""
+"\n"
+"            This %(surveytype)s has %(pages)s pages\n"
+"        "
 msgstr ""
 
 #: gem/templates/springster/patterns/components/banners/join-banner.html:6
@@ -1719,6 +1739,7 @@ msgstr ""
 #: temp/temp_ve/commenting/views.py:111
 msgid "Reply successfully created."
 msgstr ""
+
 
 #: temp/temp_ve/core/forms.py:11 temp/temp_ve/polls/forms.py:21
 msgid "You didn't select a choice"
