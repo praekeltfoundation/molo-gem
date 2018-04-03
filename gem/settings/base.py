@@ -233,6 +233,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('bn', 'Bengali'),
     ('my', 'Burmese'),
     ('ny', 'Chichewa'),
+    ('prs', 'Dari'),
 ]
 
 EXTRA_LANG_INFO = {
@@ -271,6 +272,12 @@ EXTRA_LANG_INFO = {
         'code': 'ny',
         'name': 'Chichewa',
         'name_local': 'Chichewa',
+    },
+    'prs': {
+        'bidi': False,
+        'code': 'prs',
+        'name': 'Dari',
+        'name_local': u'دری',
     },
 }
 
