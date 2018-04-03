@@ -3,173 +3,127 @@
 {{ self.formset.management_form }}
 
 {% if 'wagtail_personalisation_' in self.formset.prefix or 'surveys_' in self.formset.prefix or 'commenting_' in self.formset.prefix or 'gem_' in self.formset.prefix %}
-    {% blocktrans with heading=self.heading|lower %}
+    {% with heading=self.heading|lower %}
         <h2>{{ heading }}</h2>
-    {% endblocktrans %}
+    {% endwith %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_timerule_related' %}
         <p>
-            {% blocktrans %}
-                This rule is based on the time of the visit of the users.
-                If they visit in between the provided period, they will be
-                segmented. If the "Persistent" option is not selected, the rule
-                will be only valid between the specified times.
-            {% endblocktrans %}
+            {% trans "This rule is based on the time of the visit of the users.
+            If they visit in between the provided period, they will be
+            segmented. If the "Persistent" option is not selected, the rule
+            will be only valid between the specified times." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_dayrule_related' %}
         <p>
-            {% blocktrans %}
-                This rule is based on the weekday of the visit of the users.
-                If they visit on the weekday selected, they will be segmented.
-            {% endblocktrans %}
+          {% trans "This rule is based on the weekday of the visit of the users. If they visit on the weekday selected, they will be segmented." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_referralrule_related' %}
         <p>
-            {% blocktrans %}
-                This rule allows you to match visitors based on the website
-                they were referred from in form of a regex string, e.g.
-                "example\.com|secondexample\.com|.*subdomain\.com".
-            {% endblocktrans %}
+          {% trans "This rule allows you to match visitors based on the website they were referred from in form of a regex string, e.g. "example\.com|secondexample\.com|.*subdomain\.com"." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_visitcountrule_related' %}
         <p>
-            {% blocktrans %}
-               This rule allows you to segment a visitor based on
-               the amount of visits per page. Use the operator to set a
-               maximum, minimum or equal amount of visits.
-            {% endblocktrans %}
+          {% trans "This rule allows you to segment a visitor based on the amount of visits per page. Use the operator to set a maximum, minimum or equal amount of visits." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_queryrule_related' %}
         <p>
-            {% blocktrans %}
-               This rule allows you to set a paremeter in a URL that would
-               activate the segment. You could give that link to a particular
-               group of people and if they accessed it, they would be segmented,
-               e.g. "http://example.com/?some_parameter=abc"
-               where "some_parameter" would be the parameter and "abc" would be
-               the value.
-            {% endblocktrans %}
+          {% trans "This rule allows you to set a paremeter in a URL that would
+          activate the segment. You could give that link to a particular
+          group of people and if they accessed it, they would be segmented,
+          e.g. 'http://example.com/?some_parameter=abc' where 'some_parameter' would be the parameter and 'abc' would be
+          the value." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_devicerule_related' %}
         <p>
-            {% blocktrans %}
-              This rule allows to serve different content to users of different
+            {% trans "This rule allows to serve different content to users of different
               device types. Please remember that the detection is not always
-              100% accurate.
-            {% endblocktrans %}
+              100% accurate." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'wagtail_personalisation_userisloggedinrule_related' %}
         <p>
-            {% blocktrans %}
-              This rule allows you to segment content based on whether a user is logged in
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment content based on whether a user is logged in" %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'gem_profiledatarule_related' %}
         <p>
-            {% blocktrans %}
-                Segment users based on the data filled in the profile.
-            {% endblocktrans %}
+            {% trans "Segment users based on the data filled in the profile." %}
         </p>
         <dl>
             <dt>{% trans 'Gender' %}</ht>
             <dd>
-                {% blocktrans %}
-                    Please use "f" for female and "m" for male.
-                {% endblocktrans %}
+                {% trans "Please use "f" for female and "m" for male." %}
             </dd>
         </dl>
     {% endif %}
 
     {% if self.formset.prefix == 'gem_commentcountrule_related' %}
         <p>
-            {% blocktrans %}
-            This rule allows you to segment users who have submitted a certain number of
-            comments in total (not article-specific) on the site.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment users who have submitted a certain number of
+            comments in total (not article-specific) on the site." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'surveys_surveysubmissiondatarule_related' %}
         <p>
-            {% blocktrans %}
-                This rule allows you to segment content to users based
-                on their previous answers to surveys.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment content to users based
+                on their previous answers to surveys." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'surveys_groupmembershiprule_related' %}
         <p>
-            {% blocktrans %}
-                This rule allows you to segment content to users based
-                on their group membership.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment content to users based
+                on their group membership." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'surveys_articletagrule_related' %}
         <p>
-            {% blocktrans %}
-            This rule allows you to segment users that visited a certain number of unique articles with a specific tag during a specified time period, e.g. you can segment users who visited more than 3 articles with the “health” tag between January and March this year.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment users that visited a certain number of unique articles with a specific tag during a specified time period, e.g. you can segment users who visited more than 3 articles with the “health” tag between January and March this year." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'commenting_commentdatarule_related' %}
         <p>
-            {% blocktrans %}
-                This rule allows you to segment content to users based
-                on the comments they have submitted on the front-end.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment content to users based
+                on the comments they have submitted on the front-end." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'surveys_surveyresponserule_related' %}
         <p>
-            {% blocktrans %}
-                This rule allows you to segment content to users based
-                on the whether they have responded to another survey.
-            {% endblocktrans %}
+            {% trans "This rule allows you to segment content to users based
+                on the whether they have responded to another survey." %}
         </p>
     {% endif %}
 
     {% if self.formset.prefix == 'surveys_combinationrule_related' %}
         <p>
-            {% blocktrans %}
-            Use the Rule Combination to connect the defined rules with a combination of AND/OR statements. Include the statements that you want to be calculated first as Nested Logic as this will place the statements in parentheses. If you do not use Nested Logic, the system will read the combination in order from top to bottom.
-            {% endblocktrans %}
+            {% trans "Use the Rule Combination to connect the defined rules with a combination of AND/OR statements. Include the statements that you want to be calculated first as Nested Logic as this will place the statements in parentheses. If you do not use Nested Logic, the system will read the combination in order from top to bottom." %}
         </p>
         <p>
-            {% blocktrans %}
-            Once you’ve activated the Rule Combination, be sure to include all the rules that you want to use to create your segments. Any defined rules that are not included in the Rule Combination will not contribute to the results of your segment.
-            {% endblocktrans %}
+            {% trans "Once you’ve activated the Rule Combination, be sure to include all the rules that you want to use to create your segments. Any defined rules that are not included in the Rule Combination will not contribute to the results of your segment." %}
         </p>
         <p>
-            {% blocktrans %}
-            Note:
-            {% endblocktrans %}
+            {% trans "Note:""%}
             <br>
-            {% blocktrans %}
-            AND will narrow the results of your segment,
-            {% endblocktrans %}
+            {% trans "AND will narrow the results of your segment," %}
             <br>
-            {% blocktrans %}
-            OR will broaden the results of your segment.
-            {% endblocktrans %}
+            {% trans "OR will broaden the results of your segment." %}
         </p>
     {% endif %}
 {% endif %}
@@ -196,7 +150,7 @@
 
 <p class="add">
     <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD">
-        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}
+        {% with heading=self.heading|lower %}{% trans "Add" %} {{ heading }}{% endwith %}
     </a>
 </p>
 

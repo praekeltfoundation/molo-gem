@@ -79,14 +79,13 @@
   {% else %}
       <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
   {% endif %}
-
-    {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="{{surveytypeClass}}__pagination">
-          <p class="{{surveytypeClass}}__page">
-              {% blocktrans with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                  Page <span class="{{surveytypeClass}}__page-number">{{ page }}</span> of <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
-              {% endblocktrans %}
-          </p>
-      </div>
-    {% endif %}
+  {% if fields_step and fields_step.paginator.num_pages > 1 %}
+    <div class="{{surveytypeClass}}__pagination">
+        <p class="{{surveytypeClass}}__page">
+          {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+            {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
+          {% endwith %}
+        </p>
+    </div>
+  {% endif %}
 </form>

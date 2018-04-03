@@ -5,7 +5,7 @@
         });
     });
 </script>
-<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<h3>{% with filter_title=title %} {% trans "By" %} {{ filter_title }} {% endwith %}</h3>
 {% with choices.0 as i %}
 <form id="age_range_filter" method="GET" action="">
     {{ spec.form.media }}

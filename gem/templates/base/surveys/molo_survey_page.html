@@ -21,14 +21,13 @@
       </div>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="your-words__pagination your-words__pagination--multi-step">
-          <h6 class="your-words__pagination-title">
-              {% blocktrans with pages=fields_step.paginator.num_pages %}
-                  This competition has {{ pages }} pages
-              {% endblocktrans %}
-          </h6>
+        <h6 class="your-words__pagination-title">
+          {% with pages=fields_step.paginator.num_pages %}
+              {% trans This competition has %} {{ pages }} {% trans pages %}
+          {% endwith %}
+        </h6>
       </div>
       {% endif %}
-
       {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
     </div>
   {% elif page.display_survey_directly %}
@@ -61,11 +60,11 @@
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="surveys__pagination surveys__pagination--multi-step">
-          <h6 class="surveys__pagination-title">
-              {% blocktrans with pages=fields_step.paginator.num_pages %}
-                  This survey has {{ pages }} pages
-              {% endblocktrans %}
-          </h6>
+        <h6 class="surveys__pagination-title">
+          {% with pages=fields_step.paginator.num_pages %}
+            {% trans "This survey has" %} {{ pages }} {% trans "pages" %}
+          {% endwith %}
+        </h6>
       </div>
       {% endif %}
 
