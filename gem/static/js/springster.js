@@ -2,7 +2,6 @@
 (function() {
 
   'use strict';
-
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
@@ -71,7 +70,6 @@
     var moreLink = document.getElementById('more-link');
     if (moreLink) {
       var articlesMore = document.getElementById('articles-more');
-
       if (articlesMore === null) {
         var wrapper = document.createElement('div');
         moreLink.parentNode.insertBefore(wrapper, moreLink);

@@ -52,18 +52,18 @@
           <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply"%}
+              {% trans "Reply" %}
             {% else %}
-              {% trans "Replies"%}
+              {% trans "Replies" %}
             {% endif %}
           </p>
         {% else %}
           <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply"%}
+              {% trans "Reply" %}
             {% else %}
-              {% trans "Replies"%}
+              {% trans "Replies" %}
             {% endif %}
           </a>
         {% endif %}
