@@ -217,3 +217,12 @@ class BbmRedirect(View):
             response = HttpResponseBadRequest('Redirect URL is unsafe')
 
         return response
+
+
+class MaintenanceView(TemplateView):
+    template_name = 'maintenance.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['status'] = 503
+        return super(TemplateView, self).render_to_response(
+            context, **response_kwargs)
