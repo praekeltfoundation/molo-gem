@@ -40,7 +40,9 @@ ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 # a trailing slash
 BASE_URL = 'http://example.com'
 
-
+DEBUG_TOOLBAR_PANELS = [
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'template_timings_panel',
 
 
     'taggit',
