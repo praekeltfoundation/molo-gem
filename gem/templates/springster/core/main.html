@@ -1,22 +1,37 @@
 {% extends "base.html" %}
 {% load cache core_tags molo_survey_tags poll_votings competition_tag el_pagination_tags media_tags gem_tags %}
 {% block content %}
+
   {% cache 900 main_banners_top request.site locale_code %}
     {% bannerpages position=0 %}
     {% gembannerpages %}
   {% endcache %}
+
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
     {% media_listing_homepage %}
   {% else %}
+
+  <!--NOTE
+
+    * grid-teaser-listing
+    * carousel-teaser-listing
+    * latest_articles
+
+  -->
+
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
 
     {% surveys_list personalisable_survey=True %}
+
+
+    <!-- NOTE RENDER -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
+
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
 
@@ -24,27 +39,30 @@
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
 
+    <!-- NOTE RENDER -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
     {% bannerpages position=2 %}
     <!-- YOURWORDS COMPETITION (FOR GCN) VIA SURVEYS -->
     {% surveys_list only_yourwords=True %}
 
+    <!-- NOTE RENDER -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
     <!-- SURVEYS -->
     {% surveys_list only_linked_surveys=True %}
 
+    <!-- NOTE RENDER -->
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
-
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
     {% bannerpages position=3 %}
       <!-- YOURWORDS COMPETITION -->
     {% your_words_competition %}
 
+
+    <!-- NOTE RENDER -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
 
     {% get_pages %}

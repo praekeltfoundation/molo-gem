@@ -32,6 +32,7 @@ SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ENV = 'dev'
+INTERNAL_IPS = ('127.0.0.1')
 
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
@@ -40,9 +41,6 @@ ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 # a trailing slash
 BASE_URL = 'http://example.com'
 
-DEBUG_TOOLBAR_PANELS = [
-    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
-]
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'template_timings_panel',
+    'debug_toolbar',
 
 
     'taggit',
@@ -111,6 +110,7 @@ COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
+
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
@@ -129,8 +129,25 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+DEBUG_TOOLBAR_PANELS = [
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+
+]
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
