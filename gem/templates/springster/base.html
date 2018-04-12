@@ -84,12 +84,27 @@
     {% wagtailuserbar %}
     <div id="header-wrapper">
       <div id="language-bar">
-        {% block navigation %}
-          {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
-        {% endblock %}
+      {% block navigation %}
+        {% if languages|length > 1 %}
+        <div class="languages languages--fixed-header">
+          <ul class="language-list language-list--standard-center">
+          {% for language in languages %}
+            <li class="language-list__item language-list__item--standard-center">
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor-standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
+                {{language.locale|language_name_local}}
+              </a>
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      {% endblock %}
       </div>
       {% block header %}
-        {% include "patterns/components/header/sp_variations/header-center.html" %}
+        <div id="header" class="header">
+          {% include "patterns/basics/menu/sp_variations/menu-full_with-icons.html" %}
+          {% include "patterns/basics/navigation/sp_variations/navigation-category_full.html" %}
+        </div>
       {% endblock %}
     </div>
     <div id="content-wrapper" class="content-wrapper">
