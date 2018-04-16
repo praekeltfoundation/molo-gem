@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.conf import settings
 
 from django_comments.forms import CommentDetailsForm
 
@@ -217,3 +218,14 @@ class BbmRedirect(View):
             response = HttpResponseBadRequest('Redirect URL is unsafe')
 
         return response
+
+
+class MaintenanceView(TemplateView):
+    template_name = 'maintenance.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['status'] = 503
+        context['SITE_LAYOUT_BASE'] = settings.SITE_LAYOUT_BASE
+        context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
+        return super(TemplateView, self).render_to_response(
+            context, **response_kwargs)

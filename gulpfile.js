@@ -23,6 +23,7 @@ var gulp              =   require('gulp'),
         'gem/styles/gem/base_style.scss',
         'gem/styles/gem/base_style-rtl.scss',
         'gem/styles/gem-malawi/malawi.scss',
+        'gem/styles/maintenance.scss',
 
         'gem/styles/gem-springster/01_springster.s+(a|c)ss',
         'gem/styles/gem-springster/02_springster-rtl.s+(a|c)ss',
