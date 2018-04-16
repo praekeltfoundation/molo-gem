@@ -1,4 +1,4 @@
-{% load compress wagtailuserbar core_tags staticfiles %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -82,58 +82,129 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% wagtailuserbar %}
+
     <div id="header-wrapper">
       <div id="language-bar">
-        {% block navigation %}
-          {% include "patterns/basics/languages/sp_variations/language-list-center_fixed.html" %}
-        {% endblock %}
+        {% if languages|length > 1 %}
+        <div class="languages languages--fixed-header">
+          <ul class="language-list language-list--standard-center">
+          {% for language in languages %}
+            <li class="language-list__item language-list__item--standard-center">
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor-standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
+                {{language.locale|language_name_local}}
+              </a>
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </div>
-      {% block header %}
-        {% include "patterns/components/header/sp_variations/header-center.html" %}
-      {% endblock %}
+      <div id="header" class="header">
+        {% include "patterns/basics/menu/sp_variations/menu-full_with-icons.html" %}
+        {% include "patterns/basics/navigation/sp_variations/navigation-category_full.html" %}
+      </div>
     </div>
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
         {% display_unread_notifications %}
         {% block content %}
         {% endblock %}
-
         {% block breadcrumbs %}
           {% breadcrumbs %}
         {% endblock %}
-
         {% tag_menu_homepage %}
 
           {% block footer_menu %}
-            {% include "patterns/components/footer/sp_variations/footer-menu.html" %}
+            <div id="gem-footer">
+              {% trans "Search" as placeholdertext %}
+              {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
+              <!-- NOTE: Can this be cached? -->
+              {% include "patterns/basics/menu/sp_variations/menu-column.html" %}
+            </div>
           {% endblock %}
 
         {% block footer %}
-          {% if is_via_bbm %}
-            {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_home" %}
-          {% else %}
-            {% include "patterns/components/footer/sp_variations/footer.html" %}
-          {% endif %}
-
+          <div id="footer-bar">
+            {% if is_via_bbm %}
+              {% if type == "bbm_section" %}
+                {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+              {% elif type == "bbm_home" %}
+                {% if request.path == "/" %}
+                  {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+                {% endif %}
+              {% else %}
+                {% social_media_footer %}
+              {% endif %}
+            {% else %}
+              {% social_media_footer %}
+            {% endif %}
+              {% include "patterns/basics/images/sp_variations/footer-logo_bg.html" %}
+              {% include "patterns/basics/languages/language-list_label.html" %}
+              {% include "patterns/basics/buttons/back-to-top.html" %}
+            </div>
           {% block google_analytics %}
             {% include "patterns/components/ga_tag_manager.html" %}
           {% endblock %}
+
           {% block facebook_pixel_tracker %}
-            {% include "patterns/components/facebook_pixel_tracker.html" %}
+          <!-- Facebook Pixel Code -->
+          <script>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function()
+          {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
+          ;
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window,document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1890257480988407');
+          fbq('track', 'PageView');
+          </script>
+          <noscript>
+          <img height="1" width="1"
+          src="https://www.facebook.com/tr?id=1890257480988407&ev=PageView
+          &noscript=1" alt="Facebook pixel tracker"/>
+          </noscript>
+          <!-- End Facebook Pixel Code -->
           {% endblock %}
           {% block facebook_analytics %}
             {% include "core/facebook_analytics.html" %}
           {% endblock %}
+
           {% if is_via_bbm %}
-            {% include "patterns/components/bbm_partner_ga_code.html" %}
+          <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-91670449-1', 'auto', 'BBMGATracker');
+              ga('BBMGATracker.set', 'dimension1', 'Girl Effect');
+              ga('BBMGATracker.require', 'linkid', 'linkid.js');
+              ga('BBMGATracker.require', 'displayfeatures');
+
+              ga('BBMGATracker.send', 'pageview');
+            </script>
           {% endif %}
         {% endblock %}
 
-        {% block copyright %}
-          {% include "patterns/basics/copyright/copyright-terms.html" %}
-        {% endblock %}
+        <div class="copyright">
+          <p class="copyright__footer-copy" >&copy;
+            {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
+            {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
+              {% trans "Terms &amp; Conditions" %}
+            </a>
+            {% endif %}
+          </p>
+          {% if settings.gem.GemSettings.show_partner_credit %}
+            <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+              {{settings.gem.GemSettings.partner_credit_description}}
+            </a>
+          {% endif %}
+        </div>
       </div>
     </div>
-
   </body>
 </html>

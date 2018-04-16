@@ -42,7 +42,6 @@ ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 # a trailing slash
 BASE_URL = 'http://example.com'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
 
     'taggit',
     'modelcluster',
