@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'template_timings_panel',
-    'debug_toolbar',
 
 
     'taggit',
@@ -129,18 +127,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-]
-
-DEBUG_TOOLBAR_PANELS = [
-    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-    'debug_toolbar.panels.logging.LoggingPanel',
-    'debug_toolbar.panels.redirects.RedirectsPanel',
 
 ]
 # Template configuration
