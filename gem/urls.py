@@ -20,7 +20,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect,
+    BbmRedirect, MaintenanceView,
 )
 
 urlpatterns = []
@@ -137,3 +137,9 @@ if settings.DEBUG:
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.MAINTENANCE_MODE:
+    urlpatterns = [
+        url(r'', MaintenanceView.as_view()),
+    ]
