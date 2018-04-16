@@ -7,9 +7,13 @@
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
+
       {% url 'molo.profiles:auth_login' as link %}
       {% trans "Log in to comment" as buttontext %}
       {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+
+
+
       </a>
     {% endif %}
   {% else %}
@@ -32,6 +36,7 @@
         {% endrecursetree %}
       {% endfor %}
       {% if comment_count > 2 %}
+
         {% url "molo.commenting:more-comments" self.pk as link %}
         {% trans "Read more comments" as buttontext %}
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
