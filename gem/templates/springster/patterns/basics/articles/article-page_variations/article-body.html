@@ -5,13 +5,11 @@
       <h3 class="heading heading--large">{{ block.value }}</h3>
     {% elif block.block_type == 'image' %}
       {% image block.value width-320 alt=self.title %}
-    {% endif %}
-
-    {% with block.value as media %}
-      {% include "patterns/components/media/media-player.html" %}
-    {% endwith %}
-
-    {% if block.block_type == 'numbered_list' %}
+    {% elif block.block_type == 'media' %}
+      {% with block.value as media %}
+        {% include "patterns/components/media/media-player.html" %}
+      {% endwith %}
+    {% elif block.block_type == 'numbered_list' %}
       <ol class="ordered-list">
       {% for item in block.value %}
         <li class="ordered-list__item">{{ item|handle_markdown }}</li>
@@ -26,6 +24,5 @@
     {% else %}
       {{ block }}
     {% endif %}
-
   {% endfor %}
 </article>
