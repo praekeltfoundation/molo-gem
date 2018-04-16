@@ -141,5 +141,9 @@ if settings.DEBUG:
 
 if settings.MAINTENANCE_MODE:
     urlpatterns = [
+        url(
+            r'^health/$',
+            core_views.health,
+        ),
         url(r'', MaintenanceView.as_view()),
     ]
