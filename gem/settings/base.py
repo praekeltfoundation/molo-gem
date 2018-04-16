@@ -32,7 +32,7 @@ SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ENV = 'dev'
-INTERNAL_IPS = ('127.0.0.1')
+
 
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
 
     'taggit',
     'modelcluster',
@@ -127,6 +126,7 @@ MIDDLEWARE_CLASSES = [
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
+
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
