@@ -1,0 +1,32 @@
+{% load wagtailembeds_tags wagtailsettings_tags %}
+{% get_settings %}
+<div class="media-player">
+  <div class="media-player__content">
+    {% if is_via_freebasics %}
+      <div class="media-player__no-player">
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=media.title %}
+        <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+        {% trans "Media will be played externally in a new window" as headingtext %}
+        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=headingtext %}
+      </div>
+    {% else %}
+      <div class="media-player__embed-object">
+        {% embed media.youtube_link %}
+      </div>
+      {% if media.title %}
+        {% if settings.core.SiteSettings.local_ga_tracking_code %}
+          <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
+          </script>
+        {% endif %}
+        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
+          <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Download Video" %}</span>
+        </a>
+      {% endif %}
+  {% endif %}
+  </div>
+</div>
