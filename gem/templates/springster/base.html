@@ -82,9 +82,9 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% wagtailuserbar %}
+
     <div id="header-wrapper">
       <div id="language-bar">
-      {% block navigation %}
         {% if languages|length > 1 %}
         <div class="languages languages--fixed-header">
           <ul class="language-list language-list--standard-center">
@@ -98,14 +98,11 @@
           </ul>
         </div>
         {% endif %}
-      {% endblock %}
       </div>
-      {% block header %}
-        <div id="header" class="header">
-          {% include "patterns/basics/menu/sp_variations/menu-full_with-icons.html" %}
-          {% include "patterns/basics/navigation/sp_variations/navigation-category_full.html" %}
-        </div>
-      {% endblock %}
+      <div id="header" class="header">
+        {% include "patterns/basics/menu/sp_variations/menu-full_with-icons.html" %}
+        {% include "patterns/basics/navigation/sp_variations/navigation-category_full.html" %}
+      </div>
     </div>
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
@@ -121,33 +118,30 @@
             <div id="gem-footer">
               {% trans "Search" as placeholdertext %}
               {% include "patterns/basics/search/sp_variations/search-button-icon.html" with radius="none" placeholder=placeholdertext %}
-
               <!-- NOTE: Can this be cached? -->
               {% include "patterns/basics/menu/sp_variations/menu-column.html" %}
             </div>
           {% endblock %}
 
         {% block footer %}
-
-
-        <div id="footer-bar">
-          {% if is_via_bbm %}
-            {% if type == "bbm_section" %}
-              {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
-            {% elif type == "bbm_home" %}
-              {% if request.path == "/" %}
+          <div id="footer-bar">
+            {% if is_via_bbm %}
+              {% if type == "bbm_section" %}
                 {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+              {% elif type == "bbm_home" %}
+                {% if request.path == "/" %}
+                  {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
+                {% endif %}
+              {% else %}
+                {% social_media_footer %}
               {% endif %}
             {% else %}
               {% social_media_footer %}
             {% endif %}
-          {% else %}
-            {% social_media_footer %}
-          {% endif %}
-            {% include "patterns/basics/images/sp_variations/footer-logo_bg.html" %}
-            {% include "patterns/basics/languages/language-list_label.html" %}
-            {% include "patterns/basics/buttons/back-to-top.html" %}
-          </div>
+              {% include "patterns/basics/images/sp_variations/footer-logo_bg.html" %}
+              {% include "patterns/basics/languages/language-list_label.html" %}
+              {% include "patterns/basics/buttons/back-to-top.html" %}
+            </div>
           {% block google_analytics %}
             {% include "patterns/components/ga_tag_manager.html" %}
           {% endblock %}
@@ -195,25 +189,22 @@
           {% endif %}
         {% endblock %}
 
-        {% block copyright %}
-          <div class="copyright">
-            <p class="copyright__footer-copy" >&copy;
-              {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
-              {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-              <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
-                {% trans "Terms &amp; Conditions" %}
-              </a>
-              {% endif %}
-            </p>
-            {% if settings.gem.GemSettings.show_partner_credit %}
-              <a href="{{settings.gem.GemSettings.partner_credit_link}}">
-                {{settings.gem.GemSettings.partner_credit_description}}
-              </a>
+        <div class="copyright">
+          <p class="copyright__footer-copy" >&copy;
+            {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
+            {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
+              {% trans "Terms &amp; Conditions" %}
+            </a>
             {% endif %}
-          </div>
-        {% endblock %}
+          </p>
+          {% if settings.gem.GemSettings.show_partner_credit %}
+            <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+              {{settings.gem.GemSettings.partner_credit_description}}
+            </a>
+          {% endif %}
+        </div>
       </div>
     </div>
-
   </body>
 </html>
