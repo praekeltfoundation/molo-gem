@@ -108,7 +108,6 @@ COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
-
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
@@ -127,7 +126,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-
 ]
 # Template configuration
 
