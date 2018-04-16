@@ -1,5 +1,7 @@
 {% block homepage_media %}
   {% for media in media %}
+    {% include "patterns/components/media/media-player.html" %}
+
     {% if media.youtube_link %}
       {% include "patterns/components/media/media-player.html" %}
     {% elif media.type == 'video'%}
@@ -29,5 +31,9 @@
         </div>
       {% endif %}
     {% endif %}
+
+
+
+
   {% endfor %}
 {% endblock %}
