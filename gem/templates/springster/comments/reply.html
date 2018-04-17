@@ -21,15 +21,18 @@
     {% endfor %}
   {% include "patterns/basics/pagination/pagination-comments.html"%}
   <div id="comment-block">
-    {% trans "Add your reply" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext  %}
+    <div class="heading heading__component">
+      <h2>{% trans "Add your reply" %}</h2>
+    </div>
     {% if request.user.is_authenticated %}
       {% include "comments/form.html" with node=comment %}
     {% else %}
-      {% url 'molo.profiles:auth_login' as link %}
-      {% trans "Please" as headingtext %}
-      {% trans "log in" as linktext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link|add:"?next="|add:request.path linktitle=linktext %}
+      <div class="heading heading__micro">
+        <p>
+          <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__hyperlink">
+            {% trans "Please log in to leave a comment." %}</a>
+        </p>
+      </div>
     {% endif %}
   </div>
   {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
