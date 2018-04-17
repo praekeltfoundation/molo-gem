@@ -1,3 +1,63 @@
-{% block load_tags_for_homepage %}
-  {% include "patterns/components/article-tags/sp_variations/tag_articles_block.html" %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
+{% if tag %}
+<div class="carousel-teaser">
+  <h1 class="carousel-teaser__heading">
+    <a href="{% url 'tags_list' tag.slug %}" class="carousel-teaser__heading-link">{{tag.title}}</a>
+  </h1>
+  <ul class="carousel-teaser-list">
+    {% for article in tag_articles %}
+    <li class="carousel-teaser-list__item">
+      {% if article.get_effective_image %}
+      <a href="{% pageurl article.specific %}" class="carousel-teaser__thumbnail-link">
+        {% image article.get_effective_image fill-218x96 as carousel_teaser_thumbnail %}
+        <img alt="{{ article.title }}" src="{{ carousel_teaser_thumbnail.url }}" class="carousel-teaser__thumbnail" />
+      </a>
+      {% endif %}
+      {% if page.title_highlight %}
+        <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
+          <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+              {{ article.title_highlight|smarttruncatechars:45|safe}}
+          </a>
+        </h3>
+      {% else %}
+        <h3 class="carousel-teaser__title">
+          <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+              {{ article.title|smarttruncatechars:45|safe }}
+          </a>
+        </h3>
+      {% endif %}
+      {% if article.subtitle_highlight or article.body_highlight %}
+        <p class="carousel-teaser__subtitle highlight-description">
+          {% if article.subtitle_highlight %}
+            {{article.subtitle_highlight|smarttruncatechars:45|safe}}
+          {% elif article.body_highlight %}
+            {{article.body_highlight|smarttruncatechars:45|safe}}
+          {% endif %}
+        </p>
+      {% elif article.subtitle %}
+        <p class="carousel-teaser__subtitle">
+            {{ article.subtitle|smarttruncatechars:45|safe}}
+        </p>
+      {% endif %}
+      {% load_tags_for_article article as tags %}
+      <div class="teaser-stacklist-tags-container">
+        <ul class="teaser-stacklist-tags">
+          {% for tag in tags %}
+          {% if not tag.title.20 %}
+            <li class="teaser-stacklist-tags__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="call-to-action">
+    <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+      {% trans "Read All" %} {{tag}}</a>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
