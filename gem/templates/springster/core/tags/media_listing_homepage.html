@@ -1,3 +1,8 @@
-{% for media in media %}
-  {% include "patterns/components/media/media-player.html" %}
-{% endfor %}
+{% load wagtailcore_tags core_tags wagtailembeds_tags wagtailsettings_tags %}
+  {% for media in media %}
+  <div class="media-player">
+    <div class="media-player__content">
+      {% include "patterns/components/media/media-player.html" %}
+    </div>
+  </div>
+  {% endfor %}
