@@ -2,7 +2,10 @@
 {% load core_tags gem_tags %}
 
 {% block content %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
-    {% bannerpages %}
-    {% gembannerpages %}
+  <div class="heading heading__component">
+    <h1>{{self.title}}</h1>
+  </div>
+
+  {% bannerpages %}
+  {% gembannerpages %}
 {% endblock %}
