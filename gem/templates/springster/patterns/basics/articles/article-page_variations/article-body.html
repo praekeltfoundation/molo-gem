@@ -5,35 +5,24 @@
       <h3 class="heading heading--large">{{ block.value }}</h3>
     {% elif block.block_type == 'image' %}
       {% image block.value width-320 alt=self.title %}
-    {% elif block.value.youtube_link %}
-      {% with block.value as media %}
-        {% include "patterns/basics/media/media-player.html" %}
-      {% endwith %}
-    {% elif block.value.type == 'video'%}
-      {% if not is_via_freebasics %}
-        <div class="media-player">
-          <div class="media-player__content">
-            <video width="320" height="240" controls>
-                <source src={{block.value.file.url}} type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            {% trans "Download Video" as buttontext %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" tracktitle=block.value.title tracktype="Video"  %}
-          </div>
+    {% elif block.block_type == 'media' %}
+      <div class="media-player">
+        <div class="media-player__content">
+          {% with block.value as media %}
+            {% if is_via_freebasics %}
+              <div class="media-player__no-player">
+                <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
+                <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                <span class="heading heading__subheading-alt">
+                <h4>{% trans "Media will be played externally in a new window" %}</h4>
+                </span>
+              </div>
+            {% else %}
+              {% include "patterns/components/media/media-player.html" %}
+            {% endif %}
+          {% endwith %}
         </div>
-      {% endif %}
-    {% elif block.value.type == 'audio'%}
-      {% if not is_via_freebasics %}
-        <div class="media-player">
-          <div class="media-player__content">
-            <audio controls>
-              <source src={{block.value.file.url}} type="audio/mpeg">
-            </audio>
-            {% trans "Download Audio" as buttontext %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=block.value.file.url text=buttontext attribute="download" tracktitle=block.value.title tracktype="Audio" %}
-          </div>
-        </div>
-      {% endif %}
+      </div>
     {% elif block.block_type == 'numbered_list' %}
       <ol class="ordered-list">
       {% for item in block.value %}

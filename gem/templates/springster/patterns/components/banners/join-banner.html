@@ -1,3 +1,5 @@
+{% load wagtailsettings_tags %}
+{% get_settings %}
 {% block content %}
 {% if settings.gem.GemSettings.show_join_banner %}
   <div class="profiles-join-banner">
@@ -5,9 +7,9 @@
     <div class="profiles-join-banner__content">
       {% trans "Share your opinions and stories, take polls, win fun prizes." as headingtext %}
       {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading-alt" htmltag="h4" title=headingtext %}
-      {% trans "Join" as buttontext %}
-      {% url "molo.profiles:user_register" as link %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="yellow" hyperlink=link text=buttontext %}
+      <a href="{% url 'molo.profiles:user_register' %}" class="call-to-action__button call-to-action__button--yellow">
+        <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Join" %}</span>
+      </a>
     </div>
   </div>
 {% endif %}

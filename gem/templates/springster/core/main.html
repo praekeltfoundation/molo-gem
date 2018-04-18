@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load cache core_tags molo_survey_tags poll_votings competition_tag el_pagination_tags media_tags gem_tags %}
+
 {% block content %}
 
   {% cache 900 main_banners_top request.site locale_code %}
@@ -30,7 +31,22 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
 
-    {% media_listing_homepage %}
+    {% if is_via_freebasics %}
+      <div class="media-player">
+        <div class="media-player__content">
+          <div class="media-player__no-player">
+            <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
+            <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+            <span class="heading heading__subheading-alt">
+            <h4>{% trans "Media will be played externally in a new window" %}</h4>
+            </span>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      {% media_listing_homepage %}
+    {% endif %}
+
     {% bannerpages position=1 %}
 
     <!-- POLLS AND POLLS VIA SURVEYS -->
@@ -64,6 +80,7 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
 
     {% get_pages %}
+
     {% trans "Load more" as buttontext %}
     {% url 'home_more' as pagelink %}
     {% url 'home_index' as datalink %}
