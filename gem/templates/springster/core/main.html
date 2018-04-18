@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags media_tags gem_tags %}
 
-
 {% block content %}
   {% cache 900 main_banners_top request.site locale_code %}
     {% bannerpages position=0 %}
