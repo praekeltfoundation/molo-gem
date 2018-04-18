@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load cache core_tags molo_survey_tags poll_votings competition_tag el_pagination_tags media_tags gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags media_tags gem_tags %}
+
 
 {% block content %}
-
   {% cache 900 main_banners_top request.site locale_code %}
     {% bannerpages position=0 %}
     {% gembannerpages %}
@@ -14,22 +14,83 @@
     {% section_listing_homepage %}
     {% media_listing_homepage %}
   {% else %}
-
-  <!--NOTE
-    * grid-teaser-listing
-    * carousel-teaser-listing
-    * latest_articles
-  -->
-
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
-
     {% surveys_list personalisable_survey=True %}
 
-
-    <!-- NOTE RENDER -->
+    <!--START PROMOTED: Tag articles -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
-    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
+    {% with tag_nav_data.tags_list.0.0 as tag %}
+      {% if tag %}
+        <div class="carousel-teaser">
+          <div class="heading heading__component">
+            <h2>{{tag.title}}</h2>
+          </div>
+          {% with tag_nav_data.tags_list.0.1 as tag_articles %}
+            {% if tag_articles %}
+            <ul class="carousel-teaser-list">
+              {% for article in tag_articles %}
+                <li class="carousel-teaser-list__item">
+                  <div class="carousel-teaser-list__item--container">
+                    {% if article.get_effective_image %}
+                      <a href="{% pageurl article.specific %}" class="carousel-teaser__thumbnail-link">
+                        {% image article.get_effective_image fill-218x96 as carousel_teaser_thumbnail %}
+                        <img alt="{{ article.title }}" src="{{ carousel_teaser_thumbnail.url }}" class="carousel-teaser__thumbnail" />
+                      </a>
+                    {% endif %}
+                    <div class="carousel-teaser__wrapper">
+                      <div class="carousel-teaser__content">
+                        {% if page.title_highlight %}
+                           <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
+                             <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+                                 {{ article.title_highlight|smarttruncatechars:45|safe}}
+                             </a>
+                           </h3>
+                        {% else %}
+                           <h3 class="carousel-teaser__title">
+                             <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+                                 {{ article.title|smarttruncatechars:45|safe }}
+                             </a>
+                           </h3>
+                        {% endif %}
+                        {% if article.subtitle_highlight or article.body_highlight %}
+                           <p class="carousel-teaser__subtitle highlight-description">
+                             {% if article.subtitle_highlight %}
+                               {{article.subtitle_highlight|smarttruncatechars:45|safe}}
+                             {% elif article.body_highlight %}
+                               {{article.body_highlight|smarttruncatechars:45|safe}}
+                             {% endif %}
+                           </p>
+                        {% elif article.subtitle %}
+                           <p class="carousel-teaser__subtitle">
+                               {{ article.subtitle|smarttruncatechars:45|safe}}
+                           </p>
+                        {% endif %}
+
+                        {% get_comment_count for article as comment_count %}
+                        {% if comment_count > 0 %}
+                         <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                           <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+                           <span class="comment-counter__numeral">{{comment_count}}</span>
+                         </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+              <div class="call-to-action">
+                <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+                  {% trans "Read All" %} {{tag}}
+                </a>
+              </div>
+            {% endif %}
+          {% endwith %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <!--END PROMOTED: Tag articles -->
 
     {% if is_via_freebasics %}
       <div class="media-player">
@@ -46,24 +107,19 @@
     {% else %}
       {% media_listing_homepage %}
     {% endif %}
-
     {% bannerpages position=1 %}
-
-    <!-- POLLS AND POLLS VIA SURVEYS -->
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
 
-    <!-- NOTE RENDER -->
+    <!--START PROMOTED: Latest -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
     {% bannerpages position=2 %}
-    <!-- YOURWORDS COMPETITION (FOR GCN) VIA SURVEYS -->
     {% surveys_list only_yourwords=True %}
 
-    <!-- NOTE RENDER -->
+    <!--START PROMOTED: Latest -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
-    <!-- SURVEYS -->
     {% surveys_list only_linked_surveys=True %}
 
     <!-- NOTE RENDER -->
@@ -72,18 +128,29 @@
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
     {% bannerpages position=3 %}
-      <!-- YOURWORDS COMPETITION -->
     {% your_words_competition %}
 
 
-    <!-- NOTE RENDER -->
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
 
     {% get_pages %}
-
-    {% trans "Load more" as buttontext %}
-    {% url 'home_more' as pagelink %}
-    {% url 'home_index' as datalink %}
-    {% include "patterns/basics/buttons/sp_variations/button-load-more.html" with type="primary" text=buttontext pagelink=pagelink datalink=datalink %}
+    {% if pages.next %}
+      {% if articles %}
+      <div class="pagination">
+      {% if articles_paginated.has_previous %}
+      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
+      {% endif %}
+      <span class="pagination__current-page">
+      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+      </span>
+      {% if articles_paginated.has_next %}
+      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
+      {% endif %}
+      </div>
+      {% endif %}
+      <a id="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
+      </a>
+    {% endif %}
   {% endif %}
 {% endblock %}

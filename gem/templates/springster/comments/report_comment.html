@@ -1,12 +1,14 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags gem_tags %}
 {% block content %}
-{% pageurl article as the_url %}
-{% trans "Back to article" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
 <div class="comments">
-    {% trans "Please let us know why you are reporting this comment?" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+    <div class="heading heading__subheading">
+      <h3>{% trans "Please let us know why you are reporting this comment?" %}</h3>
+    </div>
     <form method="post" class="comments__form comments__form--report" novalidate>
     {% csrf_token %}
     {% for field in form %}
@@ -30,5 +32,8 @@
     <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
     </form>
 </div>
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
 {% endblock %}

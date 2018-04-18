@@ -2,9 +2,10 @@
 {% load wagtailcore_tags mptt_tags %}
 section.get_effective_extra_style_hints
 {% block content %}
-{% pageurl self.specific as the_url %}
-{% trans "Back to article" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
 <div class="comments">
   <div id="comments-list" class="comments__list">
   {% for node in comments %}
@@ -15,6 +16,9 @@ section.get_effective_extra_style_hints
   {% endfor %}
   </div>
   {% include "patterns/basics/pagination/page-numbers.html" %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      {% trans "Back to article" %}</a>
+  </div>
 </div>
 {% endblock %}

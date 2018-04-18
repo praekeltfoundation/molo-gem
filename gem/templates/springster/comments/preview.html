@@ -13,11 +13,12 @@
   {% if request.user.is_authenticated %}
     {% include "comments/form.html" with node=comment %}
   {% else %}
-    {% trans "Please" as headingtext %}
-    {% trans "Log in here" as linktext %}
-    {% url 'molo.profiles:auth_login' as link %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
-    {% trans "to leave a comment." as headingtext %}
+    <div class="heading heading__micro">
+      <p>
+        <a href="{% url 'molo.profiles:auth_login' %}" class="call-to-action__hyperlink">
+          {% trans "Please Log in here to leave a comment." %}</a>
+      </p>
+    </div>
   {% endif %}
 </div>
 {% endblock %}
