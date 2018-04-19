@@ -11,12 +11,50 @@
   {% get_translation article.get_parent_section as origin_section %}
     {% if origin_section == section %}
     <li class="grid-teaser-list__item">
-      {% include "patterns/basics/article-teasers/sp_variations/teaser-thumbnail.html" with layouttype="grid" %}
-      {% include "patterns/basics/article-teasers/sp_variations/teaser-title.html" with layouttype="grid" %}
+      {% if article.get_effective_image %}
+        <a href="{% pageurl article.specific %}" class="grid-teaser__thumbnail-link">
+          {% image article.get_effective_image fill-96x96 as teaser_thumbnail %}
+          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="grid-teaser__thumbnail" />
+        </a>
+      {% endif %}
+      {% if article.title_highlight %}
+        <h3 class="grid-teaser__title grid-teaser__title--highlight block-with-text">
+            <a href="{% pageurl article.specific %}" class="grid-teaser__title-link">
+                 {{ article.title_highlight|smarttruncatechars:45|safe}}
+            </a>
+        </h3>
+      {% else %}
+        <h3 class="grid-teaser__title block-with-text">
+            <a href="{% pageurl article.specific %}" class="grid-teaser__title-link">
+                {{ article.title|smarttruncatechars:45|safe}}
+            </a>
+        </h3>
+      {% endif %}
+      {% if article.subtitle_highlight or article.body_highlight %}
+        <p class="carousel-teaser__subtitle highlight-description">
+          {% if article.subtitle_highlight %}
+            {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+          {% elif article.body_highlight %}
+            {{article.body_highlight|smarttruncatechars:28|safe}}
+          {% endif %}
+        </p>
+      {% elif article.subtitle %}
+        <p class="grid-teaser__subtitle block-with-text">
+          {% if article.title.30 %}
+            {{ article.subtitle|smarttruncatechars:28|safe}}
+          {% else %}
+            {{ article.subtitle|smarttruncatechars:50|safe}}
+          {% endif %}
+        </p>
+      {% endif %}
     </li>
     {% endif %}
   {% endfor %}
   </ul>
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_button.html" with direction="right" %}
+
+  <div class="call-to-action">
+    <a href="{% pageurl section.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+      {% trans "Read All" %} {{ section }}</a>
+  </div>
 </div>
 {% endif %}
