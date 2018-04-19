@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="comments">
-  {% trans "Comment Replies" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext %}
+  <div class="heading heading__component">
+    <h2>{% trans "Comment Replies" %}</h2>
+  </div>
 <div class="comments__list">
 {% if unread_notifications %}
   <h3 class="comment__replies-title comment__replies-cta-title">{% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}

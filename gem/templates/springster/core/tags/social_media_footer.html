@@ -1,6 +1,16 @@
+{% load wagtailimages_tags core_tags %}
 {% if social_media %}
-  {% trans "Find us elsewhere:" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-  {% include "patterns/basics/social-media/social-media_footer.html" %}
+  <div class="heading heading__micro">
+    <p>{% trans "Find us elsewhere:" %}</p>
+  </div>
+  <div class="social-media-footer-list">
+    {% for site in social_media %}
+    <div class="social-media-footer-list__item">
+      <a href="https://{{ site.value.link }}" class="social-media-footer__anchor">
+        {% image site.value.image width-24 %}
+        <span class="social-media-footer__label">{{ site.value.title }}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
 {% endif %}
-
