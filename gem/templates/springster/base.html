@@ -178,8 +178,46 @@
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
             </div>
-            <!-- NOTE: This needs to be cached -->
-            {% include "patterns/basics/menu/sp_variations/menu-column.html" %}
+            <div class="group">
+              <ul class="sections footer-menu-list left">
+                <li class="footer-menu-list__item">
+                  <a href="/" class="footer-menu-list__anchor">{% trans "Home" %}</a></li>
+                {% load_sections as sections %}
+                {% for section in sections %}
+                  <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__item">
+                    <a href="{% pageurl section.specific %}" class="footer-menu-list__anchor">
+                        {{section.title}}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <ul class="sections footer-menu-list right">
+                {% footer_page %}
+                {% if not user.is_authenticated %}
+                  <li class="footer-menu-list__item">
+                    <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+                      {% trans "Join us" %}
+                    </a>
+                  </li>
+                  <li class="footer-menu-list__item">
+                    <a href="{% url 'molo.profiles:auth_login' %}" class="footer-menu-list__anchor">
+                      {% trans "Log in" %}
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="footer-menu-list__item">
+                    <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
+                      {% trans "Profile" %}
+                    </a>
+                  </li>
+                  <li class="footer-menu-list__item">
+                    <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
+                      {% trans "Log out" %}
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
           </div>
         {% endblock %}
 
@@ -199,7 +237,22 @@
               {% social_media_footer %}
             {% endif %}
             <a class="footer-logo" href="/"></a>
-            {% include "patterns/basics/languages/language-list_label.html" %}
+            {% if languages|length > 1 %}
+              <div class="languages">
+                <ul class="language-list language-list--with-label">
+                  <li class="language-list__item language-list__item--with-label">
+                    <span class="language-list--with-label__title">{% trans "Language" %}</span>
+                  </li>
+                  {% for language in languages %}
+                  <li class="language-list__item language-list__item--with-label">
+                    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--with-label {% if LANGUAGE_CODE == language.locale %}is-active{% endif %}">
+                      {{language.locale|language_name_local}}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
             <div class="call-to-action call-to-action--backToTop">
               <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
                 {% trans "Back to Top" %}</a>

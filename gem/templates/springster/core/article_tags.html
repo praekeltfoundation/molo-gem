@@ -2,9 +2,15 @@
 {% load core_tags el_pagination_tags %}
 {% block content %}
 {% get_translation tag as translated_tag %}
-{% trans "Back home" as backhome %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=backhome direction="left" %}
-{% include "patterns/basics/headings/sp_variations/heading.html" with type="component" extraclass="hash-tag" htmltag="h1" title=translated_tag.title %}
+<div class="call-to-action call-to-action--wide-back call-to-action--{{extraclass}}">
+  <a href="{% request.site.root_page.specific.url %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back home" %}
+  </a>
+</div>
+<div class="heading heading__component hash-tag">
+  <h1>{{translated_tag.title}}</h1>
+</div>
+  
 {% paginate 10 object_list as articles %}
 {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" %}
 {% get_pages %}
