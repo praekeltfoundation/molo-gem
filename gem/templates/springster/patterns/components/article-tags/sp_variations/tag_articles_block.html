@@ -55,8 +55,10 @@
     </li>
     {% endfor %}
   </ul>
-  {% include "patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html" with direction="right" %}
+  <div class="call-to-action">
+    <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+      {% trans "Read All" %} {{tag}}</a>
+  </div>
 </div>
 {% endif %}
 {% endblock %}
-
