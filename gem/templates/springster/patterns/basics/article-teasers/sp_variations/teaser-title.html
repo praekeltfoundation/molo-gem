@@ -12,6 +12,7 @@
       </a>
   </h3>
 {% endif %}
+
 {% if article.subtitle_highlight or article.body_highlight %}
   <p class="carousel-teaser__subtitle highlight-description">
     {% if article.subtitle_highlight %}
@@ -21,13 +22,11 @@
     {% endif %}
   </p>
 {% elif article.subtitle %}
-  {% if article.title.30 %}
-    <p class="{{layouttype}}-teaser__subtitle block-with-text">
-        {{ article.subtitle|smarttruncatechars:28|safe}}
-    </p>
-  {% else %}
-    <p class="{{layouttype}}-teaser__subtitle block-with-text">
-        {{ article.subtitle|smarttruncatechars:50|safe}}
-    </p>
-  {% endif %}
+  <p class="{{layouttype}}-teaser__subtitle block-with-text">
+    {% if article.title.30 %}
+      {{ article.subtitle|smarttruncatechars:28|safe}}
+    {% else %}
+      {{ article.subtitle|smarttruncatechars:50|safe}}
+    {% endif %}
+  </p>
 {% endif %}
