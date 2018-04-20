@@ -1,4 +1,4 @@
-{% load core_tags %}
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles comments %}
 {% get_translation self.get_parent_section as section %}
   <div class="heading heading__article">
     <h1>{{self.title}}</h1>
@@ -8,31 +8,31 @@
       <h2>{{self.subtitle}}</h2>
     </div>
   {% endif %}
-
   {% if is_via_bbm %}
-    <ul class="social-media-list">
-      <li class="social-media-list__item">
-          <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
-        </li>
-    </ul>
-  {% endif %}
-  {% get_comment_count for article as comment_count %}
-  {% if comment_count > 0 %}
-  <a href="/" class="comment-counter comment-counter--carousel">
-    <img alt="Comments" srcset="{% static 'img/icons/check.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-    <span class="comment-counter__numeral">{{comment_count}}</span>
-    <span class="comment-counter__numeral comment-counter__numeral--plural">
-      {% trans "comment" %}{{comment_count|pluralize}}
-    </span>
-  </a>
-  {% endif %}
-  {% if self.get_effective_image %}
-    <a href="{% pageurl self.specific %}" class="article__anchor article__anchor--{{type}}">
-      {% image self.get_effective_image fill-360x160 as article_image %}
-      <img alt="{{ self.title }}" src="{{ article_image.url }}" class="article__image article__image--{{type}}" />
-    </a>
-  {% endif %}
-  <article class="{{articletype}}">
+      <ul class="social-media-list">
+        <li class="social-media-list__item">
+            <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+          </li>
+      </ul>
+    {% endif %}
+    {% get_comment_count for article as comment_count %}
+      {% if comment_count > 0 %}
+        <a href="/" class="comment-counter comment-counter--carousel">
+          <img alt="Comments" srcset="{% static 'img/icons/check.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+          <span class="comment-counter__numeral">{{comment_count}}</span>
+          <span class="comment-counter__numeral comment-counter__numeral--plural">
+            {% trans "comment" %}{{comment_count|pluralize}}
+          </span>
+        </a>
+      {% endif %}
+    {% if self.get_effective_image %}
+      <a href="{% pageurl self.specific %}" class="article__anchor article__anchor--{{type}}">
+        {% image self.get_effective_image fill-360x160 as article_image %}
+        <img alt="{{ self.title }}" src="{{ article_image.url }}" class="article__image article__image--{{type}}" />
+      </a>
+    {% endif %}
+
+  <article>
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
         <h3 class="heading heading--large">{{ block.value }}</h3>
