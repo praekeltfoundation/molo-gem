@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles comments gem_tags %}
 
 {% block content %}
 {% get_translation self.get_parent_section as section %}
@@ -10,6 +10,21 @@
     <div class="heading heading__subheading">
       <h2>{{self.subtitle}}</h2>
     </div>
+  {% endif %}
+  {% if is_via_bbm %}
+	<ul class="social-media-list">
+    <li class="social-media-list__item">
+        <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+      </li>
+  </ul>
+  {% endif %}
+
+  {% get_comment_count for self as comment_count %}
+  {% if comment_count > 0 %}
+    <a href="{% pageurl self %}#comments" class="call-to-action__nav-item-text call-to-action__nav-item-text--article-comments">
+      {% trans "Your thoughts" %}
+      ({{comment_count}})
+    </a>
   {% endif %}
   {% if self.get_effective_image %}
     <a href="{% pageurl self.specific %}" class="article__anchor article__anchor--{{type}}">
