@@ -86,95 +86,75 @@
 {% endif %}
 </div>
 
-
-{% get_pages %}
-  <div class="pagination">
-    {% if pages.previous %}
-      {% if pages.previous.number == 1 and pagelink == request.path %}
-        <a href="/" class="pagination__nav-anchor-previous"></a>
-      {% else %}
-        <a href="{{ pagelink }}?page={{ pages.previous.number }}" class="pagination__nav-anchor-previous"></a>
-      {% endif %}
-    {% endif %}
-      <span class="pagination__current-page">
-        Page {{ pages.current }} of {{ pages|length }}
-      </span>
-    {% if pages.next %}
-      <a href="{{ pagelink }}?page={{ pages.next.number }}" class="pagination__nav-anchor-next"></a>
-    {% endif %}
-  </div>
-
-  {{pages.next.number}}
-
   <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.title}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
     <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
   </a>
 
 {% get_next_tag tag as next_tag %}
 {% get_articles_for_tag next_tag as articles %}
-{% if next_tag %}
-  <div class="carousel-teaser">
-  {% if articles %}
-  <div class="heading heading__component">
-    <h2>{{next_tag.title}}</h2>
-  </div>
-  <ul class="carousel-teaser-list">
-    {% for article in articles %}
-    <li class="carousel-teaser-list__item">
-      <div class="carousel-teaser-list__item--container">
-        {% if article.get_effective_image %}
-        <a href="{% pageurl article.specific %}" class="carousel-teaser__thumbnail-link">
-          {% image article.get_effective_image fill-218x96 as carousel_teaser_thumbnail %}
-          <img alt="{{ article.title }}" src="{{ carousel_teaser_thumbnail.url }}" class="carousel-teaser__thumbnail" />
-        </a>
-        {% endif %}
-        <div class="carousel-teaser__wrapper">
-          <div class="carousel-teaser__content">
-            {% if page.title_highlight %}
-              <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
-                <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
-                    {{ article.title_highlight|smarttruncatechars:45|safe}}
-                </a>
-              </h3>
-            {% else %}
-              <h3 class="carousel-teaser__title">
-                <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
-                    {{ article.title|smarttruncatechars:45|safe }}
-                </a>
-              </h3>
-            {% endif %}
-            {% if article.subtitle_highlight or article.body_highlight %}
-              <p class="carousel-teaser__subtitle highlight-description">
-                {% if article.subtitle_highlight %}
-                  {{article.subtitle_highlight|smarttruncatechars:45|safe}}
-                {% elif article.body_highlight %}
-                  {{article.body_highlight|smarttruncatechars:45|safe}}
-                {% endif %}
-              </p>
-            {% elif article.subtitle %}
-              <p class="carousel-teaser__subtitle">
-                  {{ article.subtitle|smarttruncatechars:45|safe}}
-              </p>
-            {% endif %}
-              {% get_comment_count for article as comment_count %}
-              {% if comment_count > 0 %}
-                <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                  <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-                  <span class="comment-counter__numeral">{{comment_count}}</span>
-                </a>
+  {% if next_tag %}
+    <div class="carousel-teaser">
+    {% if articles %}
+    <div class="heading heading__component">
+      <h2>{{next_tag.title}}</h2>
+    </div>
+    <ul class="carousel-teaser-list">
+      {% for article in articles %}
+      <li class="carousel-teaser-list__item">
+        <div class="carousel-teaser-list__item--container">
+          {% if article.get_effective_image %}
+          <a href="{% pageurl article.specific %}" class="carousel-teaser__thumbnail-link">
+            {% image article.get_effective_image fill-218x96 as carousel_teaser_thumbnail %}
+            <img alt="{{ article.title }}" src="{{ carousel_teaser_thumbnail.url }}" class="carousel-teaser__thumbnail" />
+          </a>
+          {% endif %}
+          <div class="carousel-teaser__wrapper">
+            <div class="carousel-teaser__content">
+              {% if page.title_highlight %}
+                <h3 class="carousel-teaser__title carousel-teaser__title--highlight">
+                  <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+                      {{ article.title_highlight|smarttruncatechars:45|safe}}
+                  </a>
+                </h3>
+              {% else %}
+                <h3 class="carousel-teaser__title">
+                  <a href="{% pageurl article.specific %}" class="carousel-teaser__title-link">
+                      {{ article.title|smarttruncatechars:45|safe }}
+                  </a>
+                </h3>
               {% endif %}
+              {% if article.subtitle_highlight or article.body_highlight %}
+                <p class="carousel-teaser__subtitle highlight-description">
+                  {% if article.subtitle_highlight %}
+                    {{article.subtitle_highlight|smarttruncatechars:45|safe}}
+                  {% elif article.body_highlight %}
+                    {{article.body_highlight|smarttruncatechars:45|safe}}
+                  {% endif %}
+                </p>
+              {% elif article.subtitle %}
+                <p class="carousel-teaser__subtitle">
+                    {{ article.subtitle|smarttruncatechars:45|safe}}
+                </p>
+              {% endif %}
+                {% get_comment_count for article as comment_count %}
+                {% if comment_count > 0 %}
+                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                    <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+                    <span class="comment-counter__numeral">{{comment_count}}</span>
+                  </a>
+                {% endif %}
+            </div>
           </div>
         </div>
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
-  <div class="call-to-action">
-    <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
-      {% trans "Read All" %} {{next_tag}}</a>
-  </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="call-to-action">
+      <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+        {% trans "Read All" %} {{next_tag}}</a>
+    </div>
+    {% endif %}
+    </div>
   {% endif %}
-  </div>
-{% endif %}
 
 {% endblock %}

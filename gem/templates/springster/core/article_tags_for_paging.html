@@ -5,7 +5,6 @@
     <ul class="teaser-stacklist">
       {% for article in articles %}
       <li class="teaser-stacklist__item">
-        {% with layouttype="base" %}
           {% load wagtailcore_tags core_tags wagtailimages_tags %}
           {% if article.get_effective_image %}
           <a href="{% pageurl article.specific %}" class="base-teaser__thumbnail-link">
@@ -13,9 +12,7 @@
             <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="base-teaser__thumbnail" />
           </a>
           {% endif %}
-        {% endwith %}
         <div class="teaser-stacklist__item--content">
-          {% with layouttype="base" %}
             {% if article.title_highlight %}
               <h3 class="base-teaser__title base-teaser__title--highlight block-with-text">
                   <a href="{% pageurl article.specific %}" class="base-teaser__title-link">
@@ -46,7 +43,6 @@
                 {% endif %}
               </p>
             {% endif %}
-          {% endwith %}
           {% load_tags_for_article article as tags %}
           {% if tags %}
             {% load_tags_for_article article as tags %}
@@ -62,7 +58,6 @@
               </ul>
             </div>
           {% endif %}
-          {% with layouttype="base" %}
             {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
               <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
@@ -70,7 +65,6 @@
                 <span class="comment-counter__numeral">{{comment_count}}</span>
               </a>
             {% endif %}
-          {% endwith %}
         </div>
       </li>
       {% endfor %}
@@ -78,6 +72,6 @@
   {% endif %}
   </div>
   {% get_pages %}
-  <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&tag_name={{tag.title}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+  <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.title}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
     <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
   </a>
