@@ -1,37 +1,205 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags wagtailcore_tags static %}
+{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
   {% if self.your_words_competition %}
-    <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
-        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+    <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">        {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+
+        {# include template "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" #}
+          {% with pagetype=self %}
+            {% if pagetype.image %}
+                {% image pagetype.image width-98 as tmp_photo_small %}
+                {% image pagetype.image width-320 as tmp_photo_large %}
+                <div class="gcn-competition__image">
+                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+                </div>
+            {% else %}
+                <div class="gcn-competition__image gcn-competition__default"></div>
+            {% endif %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="component" htmltag="h1" title=pagetype.title %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
+          {% endwith %}
+        {# end include template #}
     </div>
     {% if self.thank_you_text %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+
+      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+        {% with type="subheading" htmltag="h3" title=self.thank_you_text %}
+          <div class="heading heading__{{type}} {{extraclass}}">
+            <{{htmltag}}>{{title}}</{{htmltag}}>
+          </div>
+        {% endwith %}
+      {# end include template #}
+
     {% else %}
-      {% trans "Thank you for submitting GCN competition" as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+
+      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+        {% trans "Thank you for submitting GCN competition" as headingtext %}
+        {% with type="subheading" htmltag="h3" title=headingtext %}
+          <div class="heading heading__{{type}} {{extraclass}}">
+            <{{htmltag}}>{{title}}</{{htmltag}}>
+          </div>
+        {% endwith %}
+      {# end include template #}
+
     {% endif %}
 
-    {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="Competition" surveytypeClass="surveys" %}
+    {# include template "patterns/basics/surveys/surveys-modules/surveys-results.html" #}
+      {% with surveytype="Competition" surveytypeClass="surveys" %}
+        {% if self.show_results and results %}
+          {% if self.display_survey_directly %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% trans 'Your '|add:surveytype|add:' has been completed successfully. See results' as headingtext %}
+              {% with type="subheading" htmltag="h4" title=headingtext %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+  
+              <ul class="polls-results-list">
+              {% for question, answers in results.items %}
+              <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+                {% for answer, count in answers.items %}
+                <li class="{{surveytypeClass}}-results-list__item">
+                  {% if self.show_results_as_percentage %}
+                    {{answer}}
+                    <div class="{{surveytypeClass}}-results-list__percent">
+                      <div class="{{surveytypeClass}}-results-list__percent-bar" style="width:{{ count }}%">
+                        <span class="choice-percentage">{{ count }}%</span>
+                      </div>
+                    </div>
+                  {% else %}
+                    <h4 class="{{surveytypeClass}}__answers-counter">
+                      {{answer}} -
+                      {{ count }} vote{{ count|pluralize }}</h4>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              {% endfor %}
+              </ul>
+          {% else %}
+
+                {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+                  {% trans 'Your '|add:surveytype|add:' has been completed successfully!' as headingtext %}
+                  {% with type="subheading" htmltag="h4" title=headingtext %}
+                    <div class="heading heading__{{type}} {{extraclass}}">
+                      <{{htmltag}}>{{title}}</{{htmltag}}>
+                    </div>
+                  {% endwith %}
+                {# end include template #}
+
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+    {# end include template #}
 
   {% elif self.display_survey_directly %}
     <div class="polls polls--call-to-action">
       <div class="polls__bubble-icon"></div>
       <div class="polls__container">
-        {% trans "Take a vote!" as headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% trans "Take a vote!" as headingtext %}
+          {% with type="micro" htmltag="p" title=headingtext %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% with type="component" htmltag="h1" title=self.title %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
 
         {% if self.show_results and results %}
           <!--NO FEEDBACK MESSAGE -->
-          {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="Poll" surveytypeClass="polls" %}
+
+          {# include template "patterns/basics/surveys/surveys-modules/surveys-results.html" #}
+            {% with surveytype="Poll" surveytypeClass="polls" %}
+              {% if self.show_results and results %}
+                {% if self.display_survey_directly %}
+
+                  {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+                    {% trans 'Your '|add:surveytype|add:' has been completed successfully. See results' as headingtext %}
+                    {% with type="subheading" htmltag="h4" title=headingtext %}
+                      <div class="heading heading__{{type}} {{extraclass}}">
+                        <{{htmltag}}>{{title}}</{{htmltag}}>
+                      </div>
+                    {% endwith %}
+                  {# end include template #}
+
+                    <ul class="polls-results-list">
+                    {% for question, answers in results.items %}
+                    <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+                      {% for answer, count in answers.items %}
+                      <li class="{{surveytypeClass}}-results-list__item">
+                        {% if self.show_results_as_percentage %}
+                          {{answer}}
+                          <div class="{{surveytypeClass}}-results-list__percent">
+                            <div class="{{surveytypeClass}}-results-list__percent-bar" style="width:{{ count }}%">
+                              <span class="choice-percentage">{{ count }}%</span>
+                            </div>
+                          </div>
+                        {% else %}
+                          <h4 class="{{surveytypeClass}}__answers-counter">
+                            {{answer}} -
+                            {{ count }} vote{{ count|pluralize }}</h4>
+                        {% endif %}
+                      </li>
+                      {% endfor %}
+                    {% endfor %}
+                    </ul>
+                {% else %}
+
+                      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+                        {% trans 'Your '|add:surveytype|add:' has been completed successfully!' as headingtext %}
+                        {% with type="subheading" htmltag="h4" title=headingtext %}
+                          <div class="heading heading__{{type}} {{extraclass}}">
+                            <{{htmltag}}>{{title}}</{{htmltag}}>
+                          </div>
+                        {% endwith %}
+                      {# end include template #}
+
+                {% endif %}
+              {% endif %}
+            {% endwith %}
+          {# end include template #}
+
         {% else %}
           {% if self.thank_you_text %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="subheading" htmltag="h3" title=self.thank_you_text %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
           {% else %}
-            {% trans "Thank you for submitting this poll." as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% trans "Thank you for submitting this poll." as headingtext %}
+              {% with type="subheading" htmltag="h3" title=headingtext %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
           {% endif %}
         {% endif %}
         </div>
@@ -45,18 +213,100 @@
       {% else %}
         <div class="identity-image identity-image--survey"></div>
       {% endif %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+
+      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+        {% with type="component" htmltag="h1" title=self.title%}
+          <div class="heading heading__{{type}} {{extraclass}}">
+            <{{htmltag}}>{{title}}</{{htmltag}}>
+          </div>
+        {% endwith %}
+      {# end include template #}
+      
     </div>
     {% if self.thank_you_text %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+
+      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+        {% with type="subheading" htmltag="h3" title=self.thank_you_text %}
+          <div class="heading heading__{{type}} {{extraclass}}">
+            <{{htmltag}}>{{title}}</{{htmltag}}>
+          </div>
+        {% endwith %}
+      {# end include template #}
+
     {% else %}
-      {% trans "Thank you for submitting survey!" as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+
+      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+        {% trans "Thank you for submitting survey!" as headingtext %}
+        {% with type="subheading" htmltag="h3" title=headingtext %}
+          <div class="heading heading__{{type}} {{extraclass}}">
+            <{{htmltag}}>{{title}}</{{htmltag}}>
+          </div>
+        {% endwith %}
+      {# end include template #}
+  
     {% endif %}
 
-    {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="Survey" surveytypeClass="surveys" %}
+    {# include template "patterns/basics/surveys/surveys-modules/surveys-results.html" #}
+      {% with surveytype="Survey" surveytypeClass="surveys" %}
+        {% if self.show_results and results %}
+          {% if self.display_survey_directly %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% trans 'Your '|add:surveytype|add:' has been completed successfully. See results' as headingtext %}
+              {% with type="subheading" htmltag="h4" title=headingtext %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
+              <ul class="polls-results-list">
+              {% for question, answers in results.items %}
+              <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+                {% for answer, count in answers.items %}
+                <li class="{{surveytypeClass}}-results-list__item">
+                  {% if self.show_results_as_percentage %}
+                    {{answer}}
+                    <div class="{{surveytypeClass}}-results-list__percent">
+                      <div class="{{surveytypeClass}}-results-list__percent-bar" style="width:{{ count }}%">
+                        <span class="choice-percentage">{{ count }}%</span>
+                      </div>
+                    </div>
+                  {% else %}
+                    <h4 class="{{surveytypeClass}}__answers-counter">
+                      {{answer}} -
+                      {{ count }} vote{{ count|pluralize }}</h4>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              {% endfor %}
+              </ul>
+          {% else %}
+
+                {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+                  {% trans 'Your '|add:surveytype|add:' has been completed successfully!' as headingtext %}
+                  {% with type="subheading" htmltag="h4" title=headingtext %}
+                    <div class="heading heading__{{type}} {{extraclass}}">
+                      <{{htmltag}}>{{title}}</{{htmltag}}>
+                    </div>
+                  {% endwith %}
+                {# end include template #}
+
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+    {# end include template #}
+
   {% endif %}
 
-{% trans "Back home" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+{# include template "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" #}
+  {% trans "Back home" as back %}
+  {% with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+    <div class="call-to-action call-to-action--wide-back call-to-action--{{extraclass}}">
+      <a href="{{hyperlink}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--{{direction}}">
+        {% trans page_name %}</a>
+    </div>
+  {% endwith %}
+{# end include template #}
+
 {% endblock %}
