@@ -4,23 +4,24 @@
   {% for competition in competitions %}
   <div class="identity-image identity-image--yourwords"></div>
   <div class="yourwords__container">
-  {% trans "Share your story" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=competition.title %}
-
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="macro" htmltag="p" title=competition.description %}
-
+    <div class="heading heading__micro">
+      <p>{% trans "Share your story" %}</p>
+    </div>
+    <div class="heading heading__subheading"><h2>{{competition.title}}</h2></div>
+    {% if competition.description %}
+      <div class="heading heading__macro">
+        <p>{{competition.description}}</p>
+      </div>
+    {% endif %}
     {% if request.user.is_authenticated %}
-      {% trans "Enter" as buttontext %}
-      {% url "molo.yourwords:competition_entry" competition.slug as link %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+      <a href="{% url 'molo.yourwords:competition_entry' competition.slug  %}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Enter" %}</span>
+      </a>
     {% else %}
-      {% trans "Log in to Enter" as buttontext %}
-      {% url "molo.profiles:auth_login" as link1 %}
-      {% url "molo.yourwords:competition_entry" competition.slug as link2 %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link1|add:"?next="|add:link2 text=buttontext %}
-  {% endif %}
+      <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Log in to Enter" %}</span>
+      </a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
