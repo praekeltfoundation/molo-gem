@@ -20,9 +20,9 @@
       <label for="choice-{{ question.id }}-{{ forloop.counter }}" >{{ choice.title|capfirst }}</label>
     </fieldset>
     {% endfor %}
-    {% trans "Log in to vote" as buttontext %}
-    {% url "molo.profiles:auth_login" as link %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+    <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+      <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Log in to vote" %}</span>
+    </a>
   {% else %}
     {% can_vote question as user_can_vote %}
     {% if user_can_vote %}
@@ -38,13 +38,12 @@
     {% endfor %}
     <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
     {% elif question.get_main_language_page.show_results %}
-      {% trans "Show Results" as buttontext %}
-      {% url "molo.polls:results" question.id as link %}
-      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+      <a href="{% url 'molo.polls:results' question.id %}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Show Results" %}</span>
+      </a>
     {% elif not question.get_main_language_page.show_results %}
       {% user_choice question as user_choice %}
       <h5>{% trans "You voted: " %}{{user_choice}}</h5>
     {% endif %}
   {% endif %}
-  
 </form>
