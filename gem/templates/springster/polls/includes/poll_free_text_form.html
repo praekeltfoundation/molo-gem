@@ -16,12 +16,13 @@
   </fieldset>
   <input type="submit" value="{% trans "Submit" %}" class="call-to-action__button call-to-action__button--primary">
   {% else %}
-    {% trans "Thank you! Your response has already been submitted." as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+    <div class="heading heading__subheading">
+      <p>{% trans "Thank you! Your response has already been submitted." %}</p>
+    </div>
   {% endif %}
 {% else %}
-	{% trans "Log in to vote" as buttontext %}
-  {% url "molo.profiles:auth_login" as link %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+  <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+    <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Log in to vote" %}</span>
+  </a>
 {% endif %}
 </form>

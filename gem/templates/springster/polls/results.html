@@ -4,10 +4,14 @@
   <div class="polls__bubble-icon"></div>
   <div class="polls__container">
   {% trans "Take a vote!" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-	{% if question.show_results and not question.freetextquestion%}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=question.title %}
+  <div class="heading heading__micro">
+    <p>{% trans "Take a vote!" %}</p>
+  </div>
 
+  {% if question.show_results and not question.freetextquestion%}
+    <div class="heading heading__article">
+      <h1>{{question.title}}</h1>
+    </div>
     <ul class="polls-results-list">
   	{% for choice in choices %}
       <li class="polls-results-list__item">
@@ -36,6 +40,8 @@
 	{% endif %}
   </div>
 </div>
-{% trans "Back home" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+  {% trans "Back home" %}</a>
+</div>
 {% endblock %}
