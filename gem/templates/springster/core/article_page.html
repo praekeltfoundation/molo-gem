@@ -12,11 +12,11 @@
     </div>
   {% endif %}
   {% if is_via_bbm %}
-  <ul class="social-media-list">
-    <li class="social-media-list__item">
-        <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
-      </li>
-  </ul>
+    <ul class="social-media-list">
+      <li class="social-media-list__item">
+          <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+        </li>
+    </ul>
   {% endif %}
   {% get_comment_count for self as comment_count %}
   {% if comment_count > 0 %}
