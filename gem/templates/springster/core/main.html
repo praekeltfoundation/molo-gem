@@ -4,9 +4,9 @@
 {% block content %}
   {% cache 900 main_banners_top request.site locale_code %}
     {% bannerpages position=0 %}
-
+    {% gembannerpages %}
   {% endcache %}
-  {% gembannerpages %}
+
 
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
     {% topic_of_the_day %}
