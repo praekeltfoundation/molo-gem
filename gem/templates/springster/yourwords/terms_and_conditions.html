@@ -3,21 +3,65 @@
 <div class="yourwords">
   <div class="identity-image identity-image--yourwords"></div>
   <div class="yourwords__container">
-  {% trans "Share your story" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
+    <div class="heading heading__micro">
+      <p>{% trans "Share your story" %}</p>
+    </div>
+    <div class="heading heading__component"><h1>{{self.title}}</h1></div>
+    {% if self.subtitle %}
+      <div class="heading heading__subheading">
+        <h3>{{self.subtitle}}</h3>
+      </div>
+    {% endif %}
 
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+    <div class="body-content">
+    {% for block in self.body %}
+    <article>
+      {% for block in self.body %}
+        {% if block.block_type == 'heading' %}
+          <h3 class="heading heading--large">{{ block.value }}</h3>
+        {% elif block.block_type == 'image' %}
+          {% image block.value width-320 alt=self.title %}
+        {% elif block.block_type == 'media' %}
+          <div class="media-player">
+            <div class="media-player__content">
+              {% with block.value as media %}
+                {% if is_via_freebasics %}
+                  <div class="media-player__no-player">
+                    <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
+                    <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                    <span class="heading heading__subheading-alt">
+                    <h4>{% trans "Media will be played externally in a new window" %}</h4>
+                    </span>
+                  </div>
+                {% else %}
+                  {% include "patterns/components/media/media-player.html" %}
+                {% endif %}
+              {% endwith %}
+            </div>
+          </div>
+        {% elif block.block_type == 'numbered_list' %}
+          <ol class="ordered-list">
+          {% for item in block.value %}
+            <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+          {% endfor %}
+          </ol>
+        {% elif block.block_type == 'list' %}
+          <ul class="unordered-list">
+          {% for item in block.value %}
+            <li class="unordered-list__item">{{ item|handle_markdown }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+          {{ block }}
+        {% endif %}
+      {% endfor %}
+    </article>
+    {% endfor %}
+    </div>
 
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.subtitle %}
-  <div class="body-content">
-  {% for block in self.body %}
-    {% include "patterns/basics/articles/article-page_variations/article-body.html" %}
-  {% endfor %}
-  </div>
-
-  {% trans "Back home" as buttontext %}
-  {% url "molo.yourwords:competition_entry" self.get_parent_page.slug as link %}
-  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+    <a href="{% url 'molo.yourwords:competition_entry' self.get_parent_page.slug %}" class="call-to-action__button call-to-action__button--primary">
+      <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Back home" %}</span>
+    </a>
   </div>
 </div>
 {% endblock %}
