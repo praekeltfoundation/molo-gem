@@ -1,5 +1,26 @@
-{% if is_via_bbm %}
-  {% include "patterns/basics/social-media/social-media_bbm.html" with page=page %}
-{% else%}
-  {% include "patterns/basics/social-media/social-media_with-label.html" %}
-{% endif %}
+{% load wagtailsettings_tags gem_tags staticfiles %}
+{% get_settings %}
+
+  <ul class="social-media-list">
+  {% if is_via_bbm %}
+    <li class="social-media-list__item">
+      <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+    </li>
+  {% else %}
+      <li class="social-media-list__item">
+        <label class="social-media__label">{% trans "Share" %}</label>
+      </li>
+      <li class="social-media-list__item">
+        {% if settings.core.SiteSettings.facebook_sharing %}
+          <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--facebook {% if facebook %} call-to-action__nav-item-share-with-image {% endif %}">
+          </a>
+        {% endif %}
+      </li>
+      <li class="social-media-list__item">
+        {% if settings.core.SiteSettings.twitter_sharing %}
+          <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--twitter {% if twitter %} call-to-action__nav-item-share-with-image {% endif %}">
+          </a>
+        {% endif %}
+      </li>
+  {% endif %}
+  </ul>
