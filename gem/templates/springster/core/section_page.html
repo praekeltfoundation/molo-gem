@@ -1,14 +1,47 @@
 {% extends "base.html" %}
-{% load core_tags %}
+{% load wagtailimages_tags core_tags el_pagination_tags %}
+
 {% block content %}
   {% load_child_sections_for_section self as sections %}
-  {% include "patterns/components/section-page/sp_variations/base-section_teaser-listing.html" %}
-{% endblock %}
-{% block footer %}
-  {% if is_via_bbm %}
-    {% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_section" %}
-  {% else %}  
-    {% include "patterns/components/footer/sp_variations/footer.html" %}
-  {% endif %}
+  {#{% include "patterns/components/section-page/sp_variations/base-section_teaser-listing.html" %}#}
+  {#{% include "patterns/basics/banners/sp_variations/section-banner.html" %}#}
+  <div class="section-teaser-listing section-teaser-listing--base">
+    <div class="section-teaser-listing-header section-teaser-listing-header--{{self.get_effective_extra_style_hints}}">
+      <div class="heading heading__section">
+        <h1>{{self.title}}</h1>
+      </div>
+      <div class="section-banner">
+        {% if self.get_effective_image %}
+          {% image self.get_effective_image fill-172x128 as section_photo %}
+            <img alt="{{ self.title }}" src="{{ section_photo.url }}"/>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+    {% load_child_articles_for_section self count=0 as articles %}
+    {% paginate 12 articles %}
+    {% get_tags_for_section self as tags %}
+
+    {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"0:4"%}
+
+    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tags.0.0 tag_articles=tags.0.1%}
+
+    {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"4:8"%}
+
+    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tags.1.0 tag_articles=tags.1.1%}
+
+    {% include "patterns/components/article-teasers/sp_variations/base-teaser-listing.html" with section=self articles=articles|slice:"8:12"%}
+
+    {% get_pages %}
+    {% if pages.next %}
+      <a id="more-link" href="#" data-next="{% url 'section_index' %}?page={{pages.next.number}}&section={{self.pk}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
+      </a>
+    {% endif %}
 {% endblock %}
 
+<!-- Why define this here again? Instead of Base-->
+{#{% block footer %}#}
+{#{% if is_via_bbm %}{#{% include "patterns/components/footer/sp_variations/footer.html" with type="bbm_section" %}#}
+{{#{% else %}{% include "patterns/components/footer/sp_variations/footer.html" %}#}
+{#{% endif %}{% endblock %}#}
