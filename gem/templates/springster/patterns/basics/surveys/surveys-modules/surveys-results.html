@@ -2,9 +2,16 @@
 
 {% if self.show_results and results %}
   {% if self.display_survey_directly %}
-    {% with 'Your '|add:surveytype|add:' has been completed successfully. See results' as paragraph_text %}
-    {% trans paragraph_text as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
+
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans 'Your '|add:surveytype|add:' has been completed successfully. See results' as headingtext %}
+      {% with type="subheading" htmltag="h4" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+
       <ul class="polls-results-list">
       {% for question, answers in results.items %}
       <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
@@ -26,11 +33,17 @@
         {% endfor %}
       {% endfor %}
       </ul>
-    {% endwith %}
   {% else %}
-      {% with 'Your '|add:surveytype|add:' has been completed successfully!' as paragraph_text %}
-        {% trans paragraph_text as headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
-      {% endwith %}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% trans 'Your '|add:surveytype|add:' has been completed successfully!' as headingtext %}
+          {% with type="subheading" htmltag="h4" title=headingtext %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
+
   {% endif %}
 {% endif %}
+
