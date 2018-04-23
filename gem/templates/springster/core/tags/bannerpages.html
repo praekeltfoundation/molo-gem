@@ -3,43 +3,52 @@
  <div class="banner">
   {% for bannerpage in bannerpages %}
     {% if bannerpage.hide_on_freebasics %}
-       {% if not is_via_freebasics %}{% endif %}
+      {% if not is_via_freebasics %}
+        <!-- hide_on_freebasics is available for Gem text banner setting -->
+         <div class="banner__block">
+            <div class="heading heading__subheading">
+              <h3>{{bannerpage.title}}</h3>
+            </div>
+            {% if bannerpage.subtitle %}
+              <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
+            {% endif %}
+            {% if bannerpage.external_link %}
+             <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
+               <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+             </a>
+            {% endif %}
+          </div>
+      {% endif %}
     {% else %}
       {% if bannerpage.banner %}
-       {% image bannerpage.banner width-360 as tmp_photo %}
-       {% if bannerpage.banner_link_page %}
-         <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
-         <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-         </a>
-       {% elif bannerpage.external_link %}
-         <a href="{{ bannerpage.external_link }}" target="_blank" class="banner__item-link">
-         <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-         </a>
-       {% else %}
-         <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-       {% endif %}
+          {% image bannerpage.banner width-360 as tmp_photo %}
+          {% if bannerpage.banner_link_page %}
+           <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
+             <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+           </a>
+          {% elif bannerpage.external_link %}
+           <a href="{{ bannerpage.external_link }}" target="_blank" class="banner__item-link">
+             <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+           </a>
+          {% else %}
+            <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+         {% endif %}
       {% else %}
-       <div class="banner__block">
-         <div class="heading heading__subheading">
-           <h3>{{bannerpage.title}}</h3>
-         </div>
-         {% if bannerpage.subtitle %}
-           <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
-         {% endif %}
-         {% if bannerpage.external_link %}
-           <a href="{{bannerpage.external_link}}" class="call-to-action__button">
-             <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{% trans "Click Here" %}</span>
-           </a>
-         {% elif bannerpage.banner_link_page %}
-           <a href="{% pageurl bannerpage.banner_link_page.specific %}" class="call-to-action__button">
-             <span class="call-to-action__button-text">
-               {% trans "Click Here" %}
-              </span>
-           </a>
-         {% endif %}
-       </div>
+         <div class="banner__block">
+            <div class="heading heading__subheading">
+              <h3>{{bannerpage.title}}</h3>
+            </div>
+            {% if bannerpage.subtitle %}
+              <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
+            {% endif %}
+            {% if bannerpage.external_link %}
+             <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
+               <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+             </a>
+            {% endif %}
+          </div>
       {% endif %}
-     {% endif %}
+    {% endif %}
   {% endfor %}
 </div>
 {% endif %}
