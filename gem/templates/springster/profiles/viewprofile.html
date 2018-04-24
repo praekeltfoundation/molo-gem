@@ -7,19 +7,49 @@
     {% trans "Hello" as headingtext %}
     {% if user.profile.alias %}
         {% with user.profile.alias as alias %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
         {% endwith %}
     {% else %}
         {% with user|stringformat:"s" as username %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.profile.migrated_username|default:username %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="component" htmltag="h1" title=headingtext|add:" "|add:user.profile.migrated_username|default:username %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
         {% endwith %}
     {% endif %}
 
-    {% url "molo.profiles:auth_logout" as link %}
-    {% trans "log out" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
-    {% trans "Your Profile" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+    {# include template "patterns/basics/buttons/sp_variations/button.html" #}
+      {% trans "log out" as buttontext %}
+      {% url "molo.profiles:auth_logout" as link %}
+      {% with type="hyperlink" hyperlink=link text=buttontext %}
+        <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
+          <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
+        </a>
+      {% endwith %}
+    {# end include template #}
+
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Your Profile" as headingtext %}
+      {% with type="basic" htmltag="h2" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
 
     {% if profile_settings.activate_display_name %}
@@ -57,14 +87,29 @@
     </fieldset>
     {% endif %}
     {% endwith %}
-    {% url "edit_my_profile" as link %}
-    {% trans "Update Profile" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+
+    {# include template "patterns/basics/buttons/sp_variations/button.html" #}
+      {% trans "Update Profile" as buttontext %}
+      {% url "edit_my_profile" as link %}
+      {% with type="primary" hyperlink=link text=buttontext %}
+        <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
+          <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
+        </a>
+      {% endwith %}
+    {# end include template #}
 
     <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block" novalidate>
     {% csrf_token %}
-        {% trans "Change Your Pin" as headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% trans "Change Your Pin" as headingtext %}
+          {% with type="basic" htmltag="h2" title=headingtext %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
+
         {% if form.errors or form.non_field_errors %}
             {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}

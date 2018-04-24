@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="profiles">
-    {% trans "Edit your Profile" as headingtext %}
+    
     {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+    
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
+      {% with type="component" htmltag="h1" title=headingtext  %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+    
     <form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}" class="profiles__form" novalidate>
     {% csrf_token %}
         {{ form.non_field_errors }}
@@ -47,9 +57,6 @@
             <p class="helptext">{% trans "Only you will see this." %}</p>
         </fieldset>
         {% endif %}
-
-        {% trans "Update profile" as buttontext %}
-        {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" text=buttontext %}
         <input type="submit" value="{% trans "Update profile" %}" class="call-to-action__button call-to-action__button--primary">
     </form>
     <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__nav-item-text">Back to profile</a>

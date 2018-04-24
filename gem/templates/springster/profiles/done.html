@@ -1,13 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="profiles">
-    {% trans "Thank you for joining!" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
+    
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Thank you for joining!" as headingtext %}
+      {% with type="component" htmltag="h1" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+    
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
         {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg or profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg or profile_settings.activate_gender and not profile_settings.capture_gender_on_reg or profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
 
-            {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% trans "Let us know your birthday to get access to exclusive content." as headingtext %}
+              {% with type="subheading" htmltag="p" title=headingtext  %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
                 <form method="post" action="{% url 'molo.profiles:registration_done' %}" class="profiles__form">
                 {% csrf_token %}
                     {% if profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg %}
@@ -58,8 +73,16 @@
                     <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
                 </form>
         {% else %}
-            {% trans "Update profile to let us know your birthday to get access to exclusive content." as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=headingtext %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% trans "Update profile to let us know your birthday to get access to exclusive content." as headingtext %}
+              {% with type="subheading" htmltag="p" title=headingtext %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
             <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__button call-to-action__button--primary">
                 <span class="call-to-action__button-text call-to-action__button-text--primary">
                     {% trans "My Profile" %}
