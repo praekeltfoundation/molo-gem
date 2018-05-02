@@ -6,7 +6,6 @@
     {% for article in articles %}
     <li class="teaser-stacklist__item">
       {% with layouttype="base" %}
-        {% load wagtailcore_tags core_tags wagtailimages_tags %}
         {% if article.get_effective_image %}
         <a href="{% pageurl article.specific %}" class="base-teaser__thumbnail-link">
           {% image article.get_effective_image fill-96x96 as teaser_thumbnail %}
