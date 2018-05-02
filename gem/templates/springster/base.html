@@ -25,6 +25,7 @@
     <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
     <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <link href="  {{ request.build_absolute_uri }}" rel="canonical" />
     <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
     <meta property="og:image:width" content="450" />
     <meta property="og:image:height" content="200" />
