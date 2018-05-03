@@ -5,12 +5,13 @@
 
   <div class="media-player">
     <div class="media-player__content">
+    {% if not is_via_freebasics %}
       {% if media.youtube_link %}
           <div class="media-player__embed-object">
             {% embed media.youtube_link %}
           </div>
       {% elif media.type == 'video'%}
-          {% if not is_via_freebasics %}
+
             <div class="media-player">
               <div class="media-player__content">
                 <video width="320" height="240" controls>
@@ -19,9 +20,7 @@
                 </video>
               </div>
             </div>
-          {% endif %}
       {% elif media.type == 'audio'%}
-          {% if not is_via_freebasics %}
             <div class="media-player">
               <div class="media-player__content">
                 <audio controls><source src={{media.file.url}}
@@ -31,6 +30,24 @@
               </div>
             </div>
           {% endif %}
+          {% else %}
+          {% if media.youtube_link %}
+           <div class="media-player__no-player">
+          <h4 class="title">{{media.title}}</h4>
+          <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+          <h4>{% trans "Youtube link will be played externally in a new window" %}</h4>
+        </div>
+      {% elif media.type == 'video'%}
+          <div class="media-player__no-player">
+          <h4 class="title">{{media.title}}</h4>
+          <a class="media-player__icon" ></a><h4>{% trans "Video files will not be played, you can download them" %}</h4>
+        </div>
+      {% elif media.type == 'audio'%}
+          <div class="media-player__no-player">
+          <h4 class="title">{{media.title}}</h4>
+          <a class="media-player__icon" ></a><h4>{% trans "Audi files will not be played, you can download them" %}</h4>
+        </div>
+      {% endif %}
       {% endif %}
       {% if media.title %}
         {% if settings.core.SiteSettings.local_ga_tracking_code %}
@@ -43,7 +60,7 @@
           </script>
         {% endif %}
         <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
-          <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}</span>
+          <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video {% elif media.type == 'audio'%}Audio{% endif %}</span>
         </a>
       {% endif %}
     </div>
