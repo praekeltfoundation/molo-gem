@@ -31,8 +31,8 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-client_id = environ.get('CLIENT_ID', '')
-client_secret = environ.get('CLIENT_SECRET', '')
+CLIENT_ID = environ.get('CLIENT_ID', '')
+CLIENT_SECRET = environ.get('CLIENT_SECRET', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
