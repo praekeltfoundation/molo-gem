@@ -35,6 +35,15 @@ OIDC_RP_CLIENT_ID = environ.get(
     'OIDC_RP_CLIENT_ID', '')
 OIDC_RP_CLIENT_SECRET = environ.get(
     'OIDC_RP_CLIENT_SECRET', '')
+# <URL of the OIDC OP authorization endpoint>
+OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+
+# <URL of the OIDC OP token endpoint>
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
+
+# <URL of the OIDC OP userinfo endpoint>
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -141,7 +150,7 @@ MIDDLEWARE_CLASSES = [
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
@@ -318,7 +327,9 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
+
 
 LOGIN_URL = 'molo.profiles:auth_login'
 
