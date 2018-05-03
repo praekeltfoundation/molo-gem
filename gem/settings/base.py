@@ -31,10 +31,10 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-CORE_INFRASTRUCTURE_CLIENT_ID = environ.get(
-    'CORE_INFRASTRUCTURE_CLIENT_ID', '')
-CORE_INFRASTRUCTURE_CLIENT_SECRET = environ.get(
-    'CORE_INFRASTRUCTURE_CLIENT_SECRET', '')
+OIDC_RP_CLIENT_ID = environ.get(
+    'OIDC_RP_CLIENT_ID', '')
+OIDC_RP_CLIENT_SECRET = environ.get(
+    'OIDC_RP_CLIENT_SECRET', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+
+    'mozilla_django_oidc',
 
     'taggit',
     'modelcluster',
@@ -316,8 +318,9 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-LOGIN_URL = 'molo.profiles:auth_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+
+LOGIN_URL = 'molo.profiles:auth_login'
 
 SITE_NAME = environ.get('SITE_NAME', "GEM")
 WAGTAIL_SITE_NAME = SITE_NAME
@@ -444,6 +447,7 @@ FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
 
 
 AUTHENTICATION_BACKENDS = [
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
     'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     'molo.core.backends.MoloCASBackend',

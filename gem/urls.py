@@ -35,7 +35,7 @@ if settings.ENABLE_SSO:
 
 urlpatterns += [
     url(r'^django-admin/', include(admin.site.urls)),
-
+    url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
