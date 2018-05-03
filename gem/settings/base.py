@@ -30,6 +30,12 @@ PROJECT_ROOT = join(BASE_DIR, 'gem')
 DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
+# Authentication Service Tokens
+CORE_INFRASTRUCTURE_CLIENT_ID = environ.get(
+    'CORE_INFRASTRUCTURE_CLIENT_ID', '')
+CORE_INFRASTRUCTURE_CLIENT_SECRET = environ.get(
+    'CORE_INFRASTRUCTURE_CLIENT_SECRET', '')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ENV = 'dev'
