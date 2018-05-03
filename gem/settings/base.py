@@ -137,15 +137,23 @@ MIDDLEWARE_CLASSES = [
 
 # Template configuration
 
-# We have multiple layouts: use `base`, `malawi` or `springster`
+TEMPLATE_DIRECTORIES = [join(PROJECT_ROOT, 'templates')]
+
+# We have multiple custom layouts: use `malawi` or `springster`
 # to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
-SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', None)
+
+if SITE_LAYOUT_BASE:
+    TEMPLATE_DIRECTORIES.insert(
+        0,
+        join(
+            PROJECT_ROOT, 'templates',
+            '_layout_specific_templates', SITE_LAYOUT_BASE,
+        ))
 
 DEFAULT_TEMPLATE = {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [join(PROJECT_ROOT, 'templates', SITE_LAYOUT_2),
-             join(PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE), ],
+    'DIRS': TEMPLATE_DIRECTORIES,
     'APP_DIRS': False,
     'OPTIONS': {
         'builtins': [

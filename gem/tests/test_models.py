@@ -64,7 +64,10 @@ class TestModels(TestCase, MoloTestCaseMixin):
     def test_show_join_banner(self):
         template_settings = deepcopy(settings.TEMPLATES)
         template_settings[0]['DIRS'] = [
-            join(settings.PROJECT_ROOT, 'templates', 'springster')
+            join(
+                settings.PROJECT_ROOT, 'templates',
+                '_layout_specific_templates', 'springster',
+            )
         ]
 
         with self.settings(TEMPLATES=template_settings):
