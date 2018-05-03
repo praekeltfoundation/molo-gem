@@ -44,6 +44,7 @@ OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
 
 # <URL of the OIDC OP userinfo endpoint>
 OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
+OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
