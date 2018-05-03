@@ -466,7 +466,7 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+    PROJECT_ROOT, 'templates', 'springster', 'serviceworker.js')
 PWA_NAME = 'Springster'
 PWA_DESCRIPTION = "Springster"
 PWA_THEME_COLOR = '#7300FF'
