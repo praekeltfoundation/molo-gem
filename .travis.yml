@@ -13,7 +13,6 @@ install:
 script:
   - flake8
   - python manage.py runscript template_lint
-  - py.test
 after_success:
   - coveralls
 
@@ -62,7 +61,7 @@ jobs:
 
       before_deploy:
         - pip install docker-ci-deploy==0.3.0
-        - echo -n $REGISTRY_PASS | docker login -u "$REGISTRY_USER" --password-stdin 
+        - echo -n $REGISTRY_PASS | docker login -u "$REGISTRY_USER" --password-stdin
       deploy:
         - provider: script
           script: dcd --version "$(git rev-parse --short HEAD)" --version-latest "$IMAGE_NAME"
