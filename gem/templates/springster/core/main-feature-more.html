@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
+{% load core_tags el_pagination_tags wagtailcore_tags wagtailimages_tags gem_tags staticfiles comments %}
 
 {% block content %}
 {% get_tag_articles tag_count=4 as tag_nav_data %}
@@ -10,7 +10,6 @@
     <ul class="teaser-stacklist">
       {% for article in articles %}
       <li class="teaser-stacklist__item">
-          {% load wagtailcore_tags core_tags wagtailimages_tags %}
           {% if article.get_effective_image %}
           <a href="{% pageurl article.specific %}" class="base-teaser__thumbnail-link">
             {% image article.get_effective_image fill-96x96 as teaser_thumbnail %}
