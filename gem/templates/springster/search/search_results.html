@@ -2,6 +2,15 @@
 {% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags comments %}
 
 {% block body_class %}default-container{% endblock %}
+
+{% block search_input_header %}
+  <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{search_query}}" id="input__none">
+{% endblock %}
+
+{% block search_input_footer %}
+  <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{search_query}}" id="input__none">
+{% endblock %}
+
 {% block content %}
 <div class="search search-results">
   <div class="heading heading__component">

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags %}
 
+{% block meta %}
+    <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
+    <meta name="keywords" content="{{ self.seo_title }}" />
+    <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+    <meta property="og:description" content="{{ self.search_description }}"/>
+    <meta property="og:image" content="{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}"/>
+{% endblock %}
+
 {% block content %}
   {% cache 900 main_banners_top request.site locale_code %}
     {% bannerpages position=0 %}
