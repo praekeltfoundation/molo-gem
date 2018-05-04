@@ -117,27 +117,27 @@
                 </div>
               {% endfor %}
             {% elif field|fieldtype == 'Select' %}
-                  <div class="select-style">
-                    <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                    {% if field.value.0 %}
-                      <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                      {% for choice in field.field.choices %}
-                        <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                          {{choice.0}}
-                        </option>
-                      {% endfor %}
-                      {% elif not field.value.0  %}
-                        <option value selected="selected">Choose..</option>
-                        {% for choice in field.field.choices %}
-                        <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                          {{choice.0}}
-                        </option>
-                      {% endfor %}
-                    {% endif %}
-                    </select>
-                  </div>
+              <div class="select-style">
+                <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                {% if field.value.0 %}
+                  <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                  {% for choice in field.field.choices %}
+                    <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                      {{choice.0}}
+                    </option>
+                  {% endfor %}
+                  {% elif not field.value.0  %}
+                    <option value selected="selected">Choose..</option>
+                    {% for choice in field.field.choices %}
+                    <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                      {{choice.0}}
+                    </option>
+                  {% endfor %}
+                {% endif %}
+                </select>
+              </div>
             {% else %}
-                {{field}}
+              {{field}}
             {% endif %}
 
             {% if field.errors %}

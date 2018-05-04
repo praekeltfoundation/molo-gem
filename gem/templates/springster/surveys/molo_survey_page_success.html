@@ -31,7 +31,7 @@
       {% endif %}
   {% endif %}
   <!--END HEADING -->
-  <div class="heading heading__component">
+  <div class="heading heading__{% if self.display_survey_directly %}article{% else %}component{% endif %}">
     <h1>{{self.title}}</h1>
   </div>
 
@@ -42,55 +42,44 @@
     </div>
   {% else %}
     <div class="heading heading__subheading">
-      <h3>{% trans "Thank you for submitting" %}{% if self.your_words_competition %}{% trans 'GCN competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey!' %}{% endif %}</h3>
+      <h3>{% trans "Thank you for submitting " %}{% if self.your_words_competition %}{% trans 'GCN competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey!' %}{% endif %}</h3>
     </div>
   {% endif %}
 
   <!--ENABLED RESULTS -->
   {% if self.show_results and results %}
-    {% if self.display_survey_directly %}
+    {% if not self.display_survey_directly %}
       <div class="heading heading__subheading">
-        <h4>{% trans 'Your' %} {% if self.your_words_competition %}{% trans 'GCN competition' %} {% elif self.display_survey_directly %}{% trans 'poll' %} {% else %} {% trans 'survey!' %} {% endif %} {% trans 'has been completed successfully. See results' %}</h4>
+        <h4>{% trans 'Your' %} {% if self.your_words_competition %}{% trans 'GCN competition' %}{% else %} {% trans 'survey!' %} {% endif %} {% trans 'has been completed successfully. See results' %}</h4>
       </div>
+    {% endif %}
       <ul class="polls-results-list">
-      {% for question, answers in results.items %}
-
-        <label class="surveys__question">{{ question|capfirst }}</label>
-        {% for answer, count in answers.items %}
-        <li class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__item">
-          {% if self.show_results_as_percentage %}
-            {{answer}}
-            <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent">
-              <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent-bar" style="width:{{ count }}%">
-                <span class="choice-percentage">{{ count }}%</span>
+        {% for question, answers in results.items %}
+          <label class="surveys__question">{{ question|capfirst }}</label>
+          {% for answer, count in answers.items %}
+          <li class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__item">
+            {% if self.show_results_as_percentage %}
+              {{answer}}
+              <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent">
+                <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent-bar" style="width:{{ count }}%">
+                  <span class="choice-percentage">{{ count }}%</span>
+                </div>
               </div>
-            </div>
-          {% else %}
-            <h4 class="surveys__answers-counter">
-              {{answer}} -
-              {{ count }} vote{{ count|pluralize }}</h4>
-          {% endif %}
-        </li>
+            {% else %}
+              <h4 class="surveys__answers-counter">
+                {{answer}} -
+                {{ count }} vote{{ count|pluralize }}</h4>
+            {% endif %}
+          </li>
+          {% endfor %}
         {% endfor %}
-      {% endfor %}
       </ul>
     {% else %}
       {% if not self.display_survey_directly %}
         <div class="heading heading__subheading">
           <h4>{% trans 'Your' %} {% if self.your_words_competition %}{% trans 'GCN competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey!' %}{% endif %} {% trans 'has been completed successfully!' %}</h4>
         </div>
-      {% else %}
-        {% if self.thank_you_text %}
-          <div class="heading heading__subheading">
-            <h3>{{self.thank_you_text}}</h3>
-          </div>
-        {% else %}
-          <div class="heading heading__subheading">
-            <h3>{% trans "Thank you for submitting this poll." %}</h3>
-          </div>
-        {% endif %}
       {% endif %}
-    {% endif %}
   {% endif %}
 
   <!--DIV CLOSE-->
