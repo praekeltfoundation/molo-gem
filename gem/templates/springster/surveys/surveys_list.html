@@ -2,79 +2,100 @@
 
 {% block content %}
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
-    {% for survey in filtered_surveys %}
-      {% with survey=survey.molo_survey_page form=survey.form %}
-        {% if survey.your_words_competition %}
-
-            {# include template "patterns/basics/surveys/surveys-list_gcn.html" #}
-              <div class="gcn-competition gcn-competition--homepage gcn-competition{{survey.get_effective_extra_style_hints}}">
-                  {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
-                  {%  if survey.homepage_introduction %}
-                      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
-                  {% endif %}
-
-                  {% trans "Take GCN competition" as buttontext %}
-                  {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-                  {% pageurl survey.specific as the_url %}
-                  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-                  {% endwith %}
-              </div>
-            {# end include template #}
-        {% elif survey.display_survey_directly %}
-
-            {# include template "patterns/basics/surveys/surveys-list_polls.html" #}
-              <div class="polls polls--call-to-action">
-                <div class="polls__bubble-icon"></div>
-                <div class="polls__container">
-                  {% trans "Take a vote!" as headingtext %}
-                  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-
-                  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=survey.title %}
-                    {% if survey.homepage_introduction %}
-                        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
-                    {% endif %}
-                    {% if form %}
-                      {% include "patterns/basics/surveys/surveys-modules/form.html"  with  surveytype="poll" surveytypeClass="polls" %}
-                    {% else %}
-                        {% include "patterns/basics/surveys/surveys-modules/surveys-feeback.html" with surveytype="poll" surveytypeClass="polls" %}
-                    {% endif %}
+  {% for survey in filtered_surveys %}
+    {% with survey=survey.molo_survey_page form=survey.form %}
+      {% if survey.your_words_competition %}
+        {# include template "patterns/basics/surveys/surveys-list_gcn.html" #}
+          <div class="gcn-competition gcn-competition--homepage gcn-competition{{survey.get_effective_extra_style_hints}}">
+            {% if survey.image %}
+              {% image survey.image width-98 as tmp_photo_small %}
+              {% image survey.image width-320 as tmp_photo_large %}
+                <div class="gcn-competition__image">
+                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
                 </div>
+            {% else %}
+                <div class="gcn-competition__image gcn-competition__default"></div>
+            {% endif %}
+            <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
+            {% if survey.homepage_introduction %}
+              <div class="heading heading__subheading">
+                <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
               </div>
-            {# end include template #}
-
-        {% else %}
-
-            {# include template "patterns/basics/surveys/surveys-list_generic.html" #}
-              {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-              <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">
-                <aside>
-                  {% if survey.image %}
-                    {% image survey.image width-165 as icon_small %}
-                    <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
-                  {% else %}
-                    <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
-                  {% endif %}
-                </aside>
-                <section>
-                  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=survey.title %}
-                  {%  if survey.homepage_introduction %}
-                      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="p" title=survey.homepage_introduction|smarttruncatechars:100|safe %}
-                  {% endif %}
-                </section>
-                <nav>
-                  {% trans "Take Survey" as buttontext %}
-                  {% with trans_buttontext=survey.homepage_button_text|default:buttontext %}
-                      {% pageurl survey.specific as the_url %}
-                      {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=the_url text=trans_buttontext %}
-                  {% endwith %}
-                </nav>
+            {% endif %}
+            <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+              <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {{ survey.homepage_button_text|default:"Take GCN competition"}}
+              </span>
+            </a>
+          </div>
+        {# end include template #}
+      {% elif survey.display_survey_directly %}
+          {# include template "patterns/basics/surveys/surveys-list_polls.html" #}
+            <div class="polls polls--call-to-action">
+              <div class="polls__bubble-icon"></div>
+              <div class="polls__container">
+                <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
+                <div class="heading heading__subheading"><h3>{{survey.title}}</h3></div>
+                {% if survey.homepage_introduction %}
+                  <div class="heading heading__subheading">
+                    <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
+                  </div>
+                {% endif %}
+                {% if form %}
+                  {% include "patterns/basics/surveys/surveys-modules/form.html" with surveytype="poll" surveytypeClass="polls" %}
+                {% else %}
+                  <div class="polls">
+                    <p class="errors">{% trans 'You have already completed this poll' %}.</p>
+                    {% if request.path == "/" %}
+                      <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                        <span class="call-to-action__button-text call-to-action__button-text--primary">
+                          {% trans "Show Results" %}
+                        </span>
+                      </a>
+                    {% else %}
+                      <div class="call-to-action call-to-action--wide-back">
+                        <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+                          {% trans "Back home" %}</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
               </div>
-              {% else %}
-                  {% include "patterns/components/banners/join-banner.html" %}
-              {% endif %}
-            {# end include template #}
-
-        {% endif %}
-      {% endwith %}
-    {% endfor %}
+            </div>
+          {# end include template #}
+      {% else %}
+          {# include template "patterns/basics/surveys/surveys-list_generic.html" #}
+            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+            <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">
+              <aside>
+                {% if survey.image %}
+                  {% image survey.image width-165 as icon_small %}
+                  <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
+                {% else %}
+                  <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
+                {% endif %}
+              </aside>
+              <section>
+                <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
+                {% if survey.homepage_introduction %}
+                  <div class="heading heading__subheading">
+                    <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
+                  </div>
+                {% endif %}
+              </section>
+              <nav>
+                <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                  <span class="call-to-action__button-text call-to-action__button-text--primary">
+                    {{ survey.homepage_button_text|default:"Take Survey"}}
+                  </span>
+                </a>
+              </nav>
+            </div>
+            {% else %}
+              {% include "patterns/components/banners/join-banner.html" %}
+            {% endif %}
+          {# end include template #}
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
 {% endblock %}
