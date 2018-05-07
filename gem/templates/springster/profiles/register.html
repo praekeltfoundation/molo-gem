@@ -17,7 +17,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url 'molo.profiles:auth_login' as link %}
+      {% url 'oidc_authentication_init' as link %}
       {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
       <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
         <{{htmltag}}>{{title}}</{{htmltag}}>
@@ -149,7 +149,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url 'molo.profiles:auth_login' as link %}
+      {% url 'oidc_authentication_init' as link %}
       {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
         <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
           <{{htmltag}}>{{title}}</{{htmltag}}>

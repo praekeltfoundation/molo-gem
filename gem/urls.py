@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from django.views.generic import RedirectView
+
 from django.contrib.auth.decorators import login_required
-from django_cas_ng import views as cas_views
+# from django_cas_ng import views as cas_views
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -26,16 +28,17 @@ from gem.views import (
 urlpatterns = []
 
 # implement CAS URLs in a production setting
-if settings.ENABLE_SSO:
-    urlpatterns += [
-        url(r'^admin/login/', cas_views.login),
-        url(r'^admin/logout/', cas_views.logout),
-        url(r'^admin/callback/', cas_views.callback),
-    ]
+# if settings.ENABLE_SSO:
+#     urlpatterns += [
+#         url(r'^admin/login/', cas_views.login),
+#         url(r'^admin/logout/', cas_views.logout),
+#         url(r'^admin/callback/', cas_views.callback),
+#     ]
 
 urlpatterns += [
-    url(r'^django-admin/', include(admin.site.urls)),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+    url(r'^admin/login/', RedirectView.as_view(pattern_name="oidc_authentication_init")),
+    url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),

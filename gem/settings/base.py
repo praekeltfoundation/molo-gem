@@ -38,13 +38,18 @@ OIDC_RP_CLIENT_SECRET = environ.get(
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
     'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
-
 # <URL of the OIDC OP token endpoint>
 OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
-
 # <URL of the OIDC OP userinfo endpoint>
 OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
+WAGTAIL_SITE_NAME = environ.get('WAGTAIL_SITE_NAME', "Wagtail Demo")
+SITE_CODE = environ.get('SITE_CODE', "none")
+OIDC_STORE_ID_TOKEN = True
+
+# Add extra parameters to the auth request. We can set a site-specific theme here.
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"theme": SITE_CODE}
+WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -64,13 +69,12 @@ BASE_URL = 'http://example.com'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
-    'mozilla_django_oidc',
 
     'taggit',
     'modelcluster',
