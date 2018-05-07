@@ -330,6 +330,9 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL')
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
+OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+WAGTAIL_REDIRECT_URL = environ.get(
+    'WAGTAIL_REDIRECT_URL', "http://springster-core.qa-hub.ie.gehosting.org/")
 
 
 LOGIN_URL = reverse_lazy("oidc_authentication_init")
