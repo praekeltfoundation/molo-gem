@@ -47,7 +47,8 @@ WAGTAIL_SITE_NAME = environ.get('WAGTAIL_SITE_NAME', "Wagtail Demo")
 SITE_CODE = environ.get('SITE_CODE', "none")
 OIDC_STORE_ID_TOKEN = True
 
-# Add extra parameters to the auth request. We can set a site-specific theme here.
+# Add extra parameters to the auth request.
+# We can set a site-specific theme here.
 OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"theme": SITE_CODE}
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL')
 

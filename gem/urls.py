@@ -37,7 +37,8 @@ urlpatterns = []
 
 urlpatterns += [
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
-    url(r'^admin/login/', RedirectView.as_view(pattern_name="oidc_authentication_init")),
+    url(r'^admin/login/', RedirectView.as_view(
+        pattern_name="oidc_authentication_init")),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
