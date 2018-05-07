@@ -61,10 +61,10 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 )
 
 # Setup for CAS
-ENABLE_SSO = True
+# ENABLE_SSO = True
 
 MIDDLEWARE_CLASSES += [  # noqa: F405
-    'molo.core.middleware.MoloCASMiddleware',
+    # 'molo.core.middleware.MoloCASMiddleware',
     'molo.core.middleware.Custom403Middleware',
 ]
 
