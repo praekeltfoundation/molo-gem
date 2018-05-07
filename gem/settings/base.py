@@ -143,6 +143,7 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'mozilla_django_oidc.middleware.RefreshIDToken',
 ]
 
 # Template configuration
