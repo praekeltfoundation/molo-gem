@@ -332,7 +332,7 @@ LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL')
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 
 
-LOGIN_URL=reverse_lazy("oidc_authentication_init")
+LOGIN_URL = reverse_lazy("oidc_authentication_init")
 
 SITE_NAME = environ.get('SITE_NAME', "GEM")
 WAGTAIL_SITE_NAME = SITE_NAME
