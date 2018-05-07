@@ -115,6 +115,7 @@ class TestModels(TestCase, MoloTestCaseMixin):
             self.assertContains(
                 response,
                 "Share your opinions and stories, take polls, win fun prizes.")
+
             # test that the join banner only shows up once
             soup = BeautifulSoup(response.content, 'html.parser')
             self.assertEquals(
