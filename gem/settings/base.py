@@ -464,10 +464,10 @@ FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
 
 
 AUTHENTICATION_BACKENDS = [
+    'gem.backends.GirlEffectOIDCBackend',
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
     'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'molo.core.backends.MoloCASBackend',
 ]
 
 AWS_HEADERS = {
