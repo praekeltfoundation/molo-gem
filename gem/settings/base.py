@@ -43,14 +43,7 @@ OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
 # <URL of the OIDC OP userinfo endpoint>
 OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
-WAGTAIL_SITE_NAME = environ.get('WAGTAIL_SITE_NAME', "Wagtail Demo")
-SITE_CODE = environ.get('SITE_CODE', "none")
 OIDC_STORE_ID_TOKEN = True
-
-# Add extra parameters to the auth request.
-# We can set a site-specific theme here.
-OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"theme": SITE_CODE}
-WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
