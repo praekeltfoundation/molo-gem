@@ -2,7 +2,7 @@
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
-  <!--HEADING-->
+  {# HEADING #}
   {% if self.your_words_competition %}
     <div class="gcn-competition surveys{{survey.get_effective_extra_style_hints}} surveys--page">
   {% elif self.display_survey_directly %}
@@ -18,10 +18,10 @@
         <div class="identity-image identity-image--survey"></div>
       {% endif %}
   {% endif %}
-  <!--END HEADING -->
+  {# END HEADING #}
 
   {% if self.your_words_competition %}
-      <!--GCN COMPETITION HEADING-->
+      {# GCN COMPETITION HEADING #}
       {% if self.image %}
         {% image self.image width-98 as tmp_photo_small %}
         {% image self.image width-320 as tmp_photo_large %}
@@ -45,11 +45,11 @@
       </div>
     {% endif %}
   {% elif self.display_survey_directly %}
-    <!--POLLS HEADING-->
+    {# POLLS HEADING #}
     <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
     <div class="heading heading__subheading"><h3>{{self.title}}</h3></div>
   {% else %}
-    <!--SURVEYS HEADING-->
+    {# SURVEYS HEADING #}
     <div class="heading heading__component"><h1>{{self.title}}</h1></div>
     {% if self.introduction %}
       <div class="heading heading__subheading">
@@ -83,7 +83,7 @@
   {% endif %}
 
   {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-    <!-- FORM -->
+    {# FORM #}
     {% if form %}
     <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
       {% csrf_token %}
@@ -177,7 +177,7 @@
         {% endif %}
       </form>
     {% else %}
-      <!-- FEEDBACK -->
+      {# FEEDBACK #}
       <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
         <p class="errors">{% trans 'You have already completed this ' %}
           {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
@@ -196,10 +196,10 @@
           </div>
         {% endif %}
       </div>
-      <!--END FEEDBACK -->
+      {# END FEEDBACK #}
     {% endif %}
   {% else %}
-    <!-- CTA -->
+    {# CTA #}
     <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
       <a href="{% url 'molo.profiles:auth_login' %}?next='request.path'" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
@@ -208,10 +208,10 @@
         </span>
       </a>
     </div>
-    <!--END CTA -->
+    {# END CTA #}
   {% endif %}
 
-  <!--DIV CLOSE-->
+  {# DIV CLOSE #}
   {% if self.your_words_competition %}
     </div>
   {% elif self.display_survey_directly %}
@@ -220,5 +220,5 @@
   {% else %}
     </div>
   {% endif %}
-  <!--END DIV CLOSE-->
+  {# END DIV CLOSE #}
 {% endblock %}

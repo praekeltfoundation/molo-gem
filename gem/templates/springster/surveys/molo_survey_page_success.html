@@ -2,7 +2,7 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-  <!--HEADING-->
+  {# HEADING #}
   {% if self.your_words_competition %}
     <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
       {% if self.image %}
@@ -30,12 +30,12 @@
         <div class="identity-image identity-image--survey"></div>
       {% endif %}
   {% endif %}
-  <!--END HEADING -->
+  {# END HEADING #}
   <div class="heading heading__{% if self.display_survey_directly %}article{% else %}component{% endif %}">
     <h1>{{self.title}}</h1>
   </div>
 
-  <!--THIS MAY NOT BE USED BY: POLLS -->
+  {# THIS MAY NOT BE USED BY: POLLS #}
   {% if self.thank_you_text %}
     <div class="heading heading__subheading">
       <h3>{{self.thank_you_text}}</h3>
@@ -46,7 +46,7 @@
     </div>
   {% endif %}
 
-  <!--ENABLED RESULTS -->
+  {# ENABLED RESULTS #}
   {% if self.show_results and results %}
     {% if not self.display_survey_directly %}
       <div class="heading heading__subheading">
@@ -82,7 +82,7 @@
       {% endif %}
   {% endif %}
 
-  <!--DIV CLOSE-->
+  {# DIV CLOSE #}
   {% if self.your_words_competition %}
     </div>
   {% elif self.display_survey_directly %}
@@ -91,7 +91,7 @@
   {% else %}
     </div>
   {% endif %}
-  <!--END DIV CLOSE-->
+  {# END DIV CLOSE #}
   <div class="call-to-action call-to-action--wide-back">
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
       {% trans "Back home" %}</a>

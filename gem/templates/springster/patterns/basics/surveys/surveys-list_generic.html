@@ -1,9 +1,10 @@
 {% load wagtailimages_tags wagtailcore_tags static gem_tags %}
-<!-- If  User is not authenticated OR
+{% comment %}
+    If  User is not authenticated OR
     anonymous_submissions is not set
     AND join banner is not set
       Normal surveys do not show? Desired behavior?
--->
+{% endcomment %}
 
 {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
 <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">

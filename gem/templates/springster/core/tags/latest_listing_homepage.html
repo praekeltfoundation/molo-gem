@@ -45,7 +45,8 @@
               {% endif %}
             {% endif %}
 
-          <!--Article Tags-->
+          {# Article Tags #}
+
           {% load_tags_for_article article as tags %}
           {% if tags %}
             {% load_tags_for_article article as tags %}
@@ -61,7 +62,8 @@
               </ul>
             </div>
           {% endif %}
-          <!--Aricle comments-->
+
+          {# Aricle comments #}
           {% get_comment_count for article as comment_count %}
           {% if comment_count > 0 %}
             <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
