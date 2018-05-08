@@ -67,7 +67,7 @@
 
   {% trans "Submit" as text %}
   {% trans "Vote on poll" as polltext %}
-  <!-- The display_survey_directly uses survey instead of self -->
+  {#  The display_survey_directly uses survey instead of self #}
   {% if survey.display_survey_directly %}
     {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
       <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />

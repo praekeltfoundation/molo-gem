@@ -24,10 +24,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
-
     {% comment %}
-    This meta block is overriden in some child templates because not all of the properties
-    used here are available on every model.
+      This meta block is overriden in some child templates because not all of the properties
+      used here are available on every model.
     {% endcomment %}
     {% block meta %}
     {% image self.social_media_image fill-450x200 as tmp_photo %}
@@ -277,7 +276,7 @@
           {% endblock %}
 
           {% block facebook_pixel_tracker %}
-          <!-- Facebook Pixel Code -->
+          {# Facebook Pixel Code #}
             <script>
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function()
@@ -296,7 +295,7 @@
             src="https://www.facebook.com/tr?id=1890257480988407&ev=PageView
             &noscript=1" alt="Facebook pixel tracker"/>
             </noscript>
-          <!-- End Facebook Pixel Code -->
+          {# End Facebook Pixel Code #}
           {% endblock %}
 
           {% block facebook_analytics %}

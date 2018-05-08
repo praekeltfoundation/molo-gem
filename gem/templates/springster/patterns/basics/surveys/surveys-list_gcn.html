@@ -1,11 +1,11 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 
-<!--
+{% comment %}
     1. Display default or custom image
     2. Display color theme
     3. On Main.html - Display on separate position
     4. If User is authenticated show GCN Competition
--->
+{% endcomment %}
     <div class="gcn-competition gcn-competition--homepage gcn-competition{{survey.get_effective_extra_style_hints}}">
         {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=survey %}
         {%  if survey.homepage_introduction %}
