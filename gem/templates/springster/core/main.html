@@ -26,10 +26,10 @@
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
     {% surveys_list personalisable_survey=True %}
 
-    <!--START PROMOTED: Tag articles -->
+  {# START PROMOTED: Tag articles #}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
-    <!--END PROMOTED: Tag articles -->
+  {# END PROMOTED: Tag articles #}
 
       {% media_listing_homepage %}
 
@@ -38,18 +38,18 @@
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
 
-    <!--START PROMOTED: Latest -->
+    {# START PROMOTED: Latest #}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
     {% bannerpages position=2 %}
     {% surveys_list only_yourwords=True %}
 
-    <!--START PROMOTED: Latest -->
+    {# START PROMOTED: Latest #}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
     {% surveys_list only_linked_surveys=True %}
 
-    <!-- NOTE RENDER -->
+    {# NOTE RENDER #}
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
