@@ -19,6 +19,8 @@ from gem.models import GemSettings, GemUserProfile
 
 from os.path import join
 
+from bs4 import BeautifulSoup
+
 
 @pytest.mark.django_db
 class TestModels(TestCase, MoloTestCaseMixin):
@@ -44,6 +46,8 @@ class TestModels(TestCase, MoloTestCaseMixin):
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.enable_tag_navigation = True
         self.site_settings.save()
+        self.banner_message = ("Share your opinions and stories, " +
+                               "take polls, win fun prizes.")
 
     def test_partner_credit(self):
         response = self.client.get('/')
@@ -74,8 +78,15 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
             )
+            molo_survey_page2 = MoloSurveyPage(
+                title='survey title',
+                slug='another-survey-slug',
+                homepage_introduction='Introduction to Test Survey ...',
+                thank_you_text='Thank you for taking the Test Survey',
+            )
 
             self.survey_index.add_child(instance=molo_survey_page)
+            self.survey_index.add_child(instance=molo_survey_page2)
             MoloSurveyFormField.objects.create(
                 page=molo_survey_page,
                 sort_order=1,
@@ -83,22 +94,34 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 field_type='singleline',
                 required=True
             )
+            MoloSurveyFormField.objects.create(
+                page=molo_survey_page2,
+                sort_order=1,
+                label='Your birthday month',
+                field_type='singleline',
+                required=True
+            )
             setting = GemSettings.for_site(self.main.get_site())
             self.assertFalse(setting.show_join_banner)
             response = self.client.get('%s?next=%s' % (
                 reverse('molo.profiles:auth_logout'),
-                reverse('molo.profiles:user_register')))
+                reverse('molo.profiles:auth_login')))
             response = self.client.get('/')
             self.assertNotContains(
                 response,
-                "Share your opinions and stories, take polls, win fun prizes.")
+                self.banner_message)
             setting.show_join_banner = True
             setting.save()
 
             response = self.client.get('/')
             self.assertContains(
                 response,
-                "Share your opinions and stories, take polls, win fun prizes.")
+                self.banner_message)
+
+            # test that the join banner only shows up once
+            soup = BeautifulSoup(response.content, 'html.parser')
+            self.assertEquals(
+                soup.get_text().count(self.banner_message), 1)
 
 
 class TestGemUserProfile(TestCase, MoloTestCaseMixin):

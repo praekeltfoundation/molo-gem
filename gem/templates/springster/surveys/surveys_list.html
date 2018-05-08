@@ -2,6 +2,18 @@
 
 {% block content %}
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
+
+{% if filtered_surveys %}
+{% with survey=filtered_surveys|first %}
+{% with survey=survey.molo_survey_page%}
+{% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions %}
+{% if  not survey.your_words_competition and not survey.display_survey_directly %}
+  {% include "patterns/components/banners/join-banner.html" %}
+{% endif %}
+{% endif %}
+{% endwith %}
+{% endwith %}
+{% endif %}
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
@@ -91,8 +103,6 @@
                 </a>
               </nav>
             </div>
-            {% else %}
-              {% include "patterns/components/banners/join-banner.html" %}
             {% endif %}
           {# end include template #}
       {% endif %}
