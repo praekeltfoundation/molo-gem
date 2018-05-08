@@ -35,5 +35,7 @@ def detect_freebasics(request):
 def compress_settings(request):
     return {
         'STATIC_URL': settings.STATIC_URL,
-        'ENV': settings.ENV
+        'ENV': settings.ENV,
+        'OIDC_OP': settings.OIDC_OP,
+        'WAGTAIL_REDIRECT_URL': settings.WAGTAIL_REDIRECT_URL
     }
