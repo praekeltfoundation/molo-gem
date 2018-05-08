@@ -2,11 +2,11 @@
   {% if pagetype.image %}
       {% image pagetype.image width-98 as tmp_photo_small %}
       {% image pagetype.image width-320 as tmp_photo_large %}
-      <div class="gcn-competition__image">
-          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+      <div class="surveys--page__image-wrapper">
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
       </div>
   {% else %}
-      <div class="gcn-competition__image gcn-competition__default"></div>
+      <div class="surveys--page__image gcn-competition__default"></div>
   {% endif %}
 
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=pagetype.title %}
