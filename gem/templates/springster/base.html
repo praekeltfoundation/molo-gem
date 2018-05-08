@@ -116,7 +116,7 @@
           <ul class="menu-list menu-list--section-nav">
             <li id="profile" class="menu-list__item menu-list__item--section-nav">
               {% if not user.is_authenticated %}
-                <a  href="{% url 'molo.profiles:user_register' %}" class="menu-list__anchor menu-list__anchor--section-nav">
+                <a  href="{{ settings.OIDC_OP }}/registration/?theme=springster&hide=end-user&redirect_url={{ settings.WAGTAIL_REDIRECT_URL|urlencode }}" class="menu-list__anchor menu-list__anchor--section-nav">
                   {% trans "Sign up" %}
                 </a>
               {% else %}
