@@ -46,6 +46,8 @@ class TestModels(TestCase, MoloTestCaseMixin):
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.enable_tag_navigation = True
         self.site_settings.save()
+        self.banner_message = ("Share your opinions and stories, " +
+                               "take polls, win fun prizes.")
 
     def test_partner_credit(self):
         response = self.client.get('/')
@@ -107,20 +109,19 @@ class TestModels(TestCase, MoloTestCaseMixin):
             response = self.client.get('/')
             self.assertNotContains(
                 response,
-                "Share your opinions and stories, take polls, win fun prizes.")
+                self.banner_message)
             setting.show_join_banner = True
             setting.save()
 
             response = self.client.get('/')
             self.assertContains(
                 response,
-                "Share your opinions and stories, take polls, win fun prizes.")
+                self.banner_message)
 
             # test that the join banner only shows up once
             soup = BeautifulSoup(response.content, 'html.parser')
             self.assertEquals(
-                soup.get_text().count(
-                    "Share your opinions and stories, take polls, win fun prizes."), 1)
+                soup.get_text().count(self.banner_message), 1)
 
 
 class TestGemUserProfile(TestCase, MoloTestCaseMixin):
