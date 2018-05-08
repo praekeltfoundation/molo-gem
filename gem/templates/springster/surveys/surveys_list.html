@@ -1,4 +1,5 @@
-{% load personalise_extras wagtailimages_tags wagtailcore_tags static gem_tags %}
+{% load personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
+{% get_settings %}
 
 {% block content %}
 {% filter_surveys_by_segments surveys request as filtered_surveys %}
@@ -7,7 +8,21 @@
       {% with survey=survey.molo_survey_page %}
         {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions %}
           {% if  not survey.your_words_competition and not survey.display_survey_directly %}
-            {% include "patterns/components/banners/join-banner.html" %}
+            {#{% include "patterns/components/banners/join-banner.html" %}#}
+              {% if settings.gem.GemSettings.show_join_banner %}
+                <div class="profiles-join-banner">
+                  <div class="profiles-join-banner__icon"></div>
+                  <div class="profiles-join-banner__content">
+                    <div class="heading heading__subheading-alt">
+                      <h4>{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
+                    </div>
+                    <a href="{% url 'molo.profiles:auth_login' %}" class="call-to-action__button call-to-action__button--yellow">
+                      <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Join" %}</span>
+                    </a>
+                  </div>
+                </div>
+              {% endif %}
+            {# end include template #}
           {% endif %}
         {% endif %}
       {% endwith %}
