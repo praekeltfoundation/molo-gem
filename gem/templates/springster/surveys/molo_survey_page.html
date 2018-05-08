@@ -2,545 +2,223 @@
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
-{% if self.your_words_competition %}
-  <div class="gcn-competition surveys{{survey.get_effective_extra_style_hints}} surveys--page">
-{% elif self.display_survey_directly %}
-  <div class="polls polls--call-to-action">
-    <div class="polls__bubble-icon"></div>
-    <div class="polls__container">
-{% else %}
-  <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
-    {% if self.image %}
-      {% image self.image width-165 as icon_small %}
-      <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="identity-image__item-icon" />
-    {% else %}
-      <div class="identity-image identity-image--survey"></div>
-    {% endif %}
-{% endif %}
-
-{% if self.your_words_competition %}
-
-  {# include template "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" #}
-    {% with pagetype=self %}
-      {% if pagetype.image %}
-          {% image pagetype.image width-98 as tmp_photo_small %}
-          {% image pagetype.image width-320 as tmp_photo_large %}
-          <div class="gcn-competition__image">
-              <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
-          </div>
+  {# HEADING #}
+  {% if self.your_words_competition %}
+    <div class="gcn-competition surveys{{survey.get_effective_extra_style_hints}} surveys--page">
+  {% elif self.display_survey_directly %}
+    <div class="polls polls--call-to-action">
+      <div class="polls__bubble-icon"></div>
+      <div class="polls__container">
+  {% else %}
+    <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
+      {% if self.image %}
+        {% image self.image width-165 as icon_small %}
+        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="identity-image__item-icon" />
       {% else %}
-          <div class="gcn-competition__image gcn-competition__default"></div>
+        <div class="identity-image identity-image--survey"></div>
       {% endif %}
-
-      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-        {% with type="component" htmltag="h1" title=pagetype.title %}
-          <div class="heading heading__{{type}} {{extraclass}}">
-            <{{htmltag}}>{{title}}</{{htmltag}}>
-          </div>
-        {% endwith %}
-      {# end include template #}
-
-    {% endwith %}
-  {# end include template #}
-
-  {% if self.introduction %}
-
-      {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-        {% with type="subheading" htmltag="p" title=self.introduction %}
-          <div class="heading heading__{{type}} {{extraclass}}">
-            <{{htmltag}}>{{title}}</{{htmltag}}>
-          </div>
-        {% endwith %}
-      {# end include template #}
-
   {% endif %}
+  {# END HEADING #}
 
-  {# include template "patterns/basics/surveys/surveys-modules/surveys_page-break.html" #}
-    {% with surveytype="competition" surveytypeClass="surveys" %}
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="{{surveytypeClass}}__pagination {{surveytypeClass}}__pagination--multi-step">
-        <h6 class="{{surveytypeClass}}__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
-              This {{surveytype}} has {{ pages }} pages
-          {% endblocktrans %}
-        </h6>
-      </div>
-      {% endif %}
-    {% endwith %}
-  {# end include template #}
-
-{% elif self.display_survey_directly %}
-  
-  {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-    {% trans "Take a vote!" as headingtext %}
-    {% with type="micro" htmltag="p" title=headingtext %}
-      <div class="heading heading__{{type}} {{extraclass}}">
-        <{{htmltag}}>{{title}}</{{htmltag}}>
-      </div>
-    {% endwith %}
-  {# end include template #}
-
-  {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-    {% with type="subheading" htmltag="h3" title=self.title %}
-      <div class="heading heading__{{type}} {{extraclass}}">
-        <{{htmltag}}>{{title}}</{{htmltag}}>
-      </div>
-    {% endwith %}
-  {# end include template #}
-
-{% else %}
-
-  {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-    {% with type="component" htmltag="h1" title=self.title %}
-      <div class="heading heading__{{type}} {{extraclass}}">
-        <{{htmltag}}>{{title}}</{{htmltag}}>
-      </div>
-    {% endwith %}
-  {# end include template #}
-
-  {% if self.introduction %}
-
-    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
-      {% with type="subheading" htmltag="h4" title=page.introduction %}
-        <div class="heading heading__{{type}} {{extraclass}}">
-          <{{htmltag}}>{{title}}</{{htmltag}}>
+  {% if self.your_words_competition %}
+      {# GCN COMPETITION HEADING #}
+      {% if self.image %}
+        {% image self.image width-98 as tmp_photo_small %}
+        {% image self.image width-320 as tmp_photo_large %}
+        <div class="gcn-competition__image">
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
         </div>
-      {% endwith %}
-    {# end include template #}
-  {% endif %}
-
-  {# include template "patterns/basics/surveys/surveys-modules/surveys_page-break.html" #}
-    {% with surveytype=self surveytypeClass="surveys" %}
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="{{surveytypeClass}}__pagination {{surveytypeClass}}__pagination--multi-step">
-        <h6 class="{{surveytypeClass}}__pagination-title">
+      {% else %}
+        <div class="gcn-competition__image gcn-competition__default"></div>
+      {% endif %}
+      <div class="heading heading__component"><h1>{{self.title}}</h1></div>
+    {% if self.introduction %}
+      <div class="heading heading__subheading"><p>{{self.introduction}}</p></div>
+    {% endif %}
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="surveys__pagination surveys__pagination--multi-step">
+        <h6 class="surveys__pagination-title">
           {% blocktrans with pages=fields_step.paginator.num_pages %}
-              This {{surveytype}} has {{ pages }} pages
+              This competition has {{pages}} pages
           {% endblocktrans %}
         </h6>
       </div>
-      {% endif %}
-    {% endwith %}
-  {# end include template #}
-
-{% endif %}
-
+    {% endif %}
+  {% elif self.display_survey_directly %}
+    {# POLLS HEADING #}
+    <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
+    <div class="heading heading__subheading"><h3>{{self.title}}</h3></div>
+  {% else %}
+    {# SURVEYS HEADING #}
+    <div class="heading heading__component"><h1>{{self.title}}</h1></div>
+    {% if self.introduction %}
+      <div class="heading heading__subheading">
+        <h4>{{page.introduction}}</h4>
+      </div>
+    {% endif %}
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="surveys__pagination surveys__pagination--multi-step">
+        <h6 class="surveys__pagination-title">
+          {% blocktrans with pages=fields_step.paginator.num_pages %}
+              This {{self}} has {{pages}} pages
+          {% endblocktrans %}
+        </h6>
+      </div>
+    {% endif %}
+  {% endif %}
   {% if self.description %}
     {% for block in self.description %}
-        {% if forloop.counter %}
-            {% if block.block_type == 'heading' %}
-                <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
-                    {{ block.value }}
-                </h4>
-            {% elif block.block_type == 'paragraph' %}
-                <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
-                    {{ block.value }}
-                </p>
-            {% endif %}
+      {% if forloop.counter %}
+        {% if block.block_type == 'heading' %}
+          <h4 class="gcn-competition__excerpt gcn-competition__excerpt-heading">
+              {{ block.value }}
+          </h4>
+        {% elif block.block_type == 'paragraph' %}
+          <p class="gcn-competition__excerpt gcn-competition__excerpt-description">
+              {{ block.value }}
+          </p>
         {% endif %}
+      {% endif %}
     {% endfor %}
   {% endif %}
 
-{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-  <!-- FORM -->
-  {% if form %}
-     {% if self.your_words_competition %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/form.html" #}
-        {% with surveytype="competition" surveytypeClass="surveys" %}
-          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
-          {% csrf_token %}
-            {% if not is_via_freebasics %}
-                {{ form.media }}
-            {% endif %}
-            {% for field in form %}
-            <fieldset>
-              <div class="input-group">
-                <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-                {% if field.help_text %}
-                  {% if field|fieldtype == 'CharacterCountWidget' %}
-                    <p class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</p>
-                  {% else %}
-                    <p class="helptext">{{ field.help_text }}</p>
-                  {% endif %}
-                {% endif %}
-                {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group">
-                            <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                            <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                {% elif field|fieldtype == 'RadioSelect' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group choice-group__radio">
-                            <input name="{{ field.name }}"
-                             id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                    {% elif field|fieldtype == 'Select' %}
-                        <div class="select-style">
-                             <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                                 {% if field.value.0 %}
-                                     <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% elif not field.value.0  %}
-                                     <option value selected="selected">Choose..</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% endif %}
-                             </select>
-                        </div>
-                {% else %}
-                    {{field}}
-                {% endif %}
-
-                {% if field.errors %}
-                  <ul class="error-list errorlist">
-                  {% for error in field.errors %}
-                    <li class="error-list__item">{{ error }}</li>
-                  {% endfor %}
-                  </ul>
-                {% endif %}
-              </div>
-            </fieldset>
-            {% endfor %}
-
-            {% trans "Submit" as text %}
-            {% trans "Vote on poll" as polltext %}
-            <!-- The display_survey_directly uses survey instead of self -->
-            {% if survey.display_survey_directly %}
-              {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-                <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
+  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+    {# FORM #}
+    {% if form %}
+    <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
+      {% csrf_token %}
+        {% if not is_via_freebasics %}
+            {{ form.media }}
+        {% endif %}
+        {% for field in form %}
+        <fieldset>
+          <div class="input-group">
+            <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+            {% if field.help_text %}
+              {% if field|fieldtype == 'CharacterCountWidget' %}
+                <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
               {% else %}
-                  {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
-                  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+                <p class="helptext">{{ field.help_text }}</p>
               {% endif %}
-            {% else %}
-                <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
             {% endif %}
-            {% if fields_step and fields_step.paginator.num_pages > 1 %}
-              <div class="{{surveytypeClass}}__pagination">
-                  <p class="{{surveytypeClass}}__page">
-                    {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                      {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
-                    {% endwith %}
-                  </p>
-              </div>
-            {% endif %}
-          </form>
-        {% endwith %}
-      {# end include template #}
-
-     {% elif self.display_survey_directly %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/form.html" #}
-        {% with surveytype="poll" surveytypeClass="polls" %}
-          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
-          {% csrf_token %}
-            {% if not is_via_freebasics %}
-                {{ form.media }}
-            {% endif %}
-            {% for field in form %}
-            <fieldset>
-              <div class="input-group">
-                <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-                {% if field.help_text %}
-                  {% if field|fieldtype == 'CharacterCountWidget' %}
-                    <p class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</p>
-                  {% else %}
-                    <p class="helptext">{{ field.help_text }}</p>
-                  {% endif %}
-                {% endif %}
-                {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group">
-                            <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                            <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                {% elif field|fieldtype == 'RadioSelect' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group choice-group__radio">
-                            <input name="{{ field.name }}"
-                             id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                    {% elif field|fieldtype == 'Select' %}
-                        <div class="select-style">
-                             <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                                 {% if field.value.0 %}
-                                     <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% elif not field.value.0  %}
-                                     <option value selected="selected">Choose..</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% endif %}
-                             </select>
-                        </div>
-                {% else %}
-                    {{field}}
-                {% endif %}
-
-                {% if field.errors %}
-                  <ul class="error-list errorlist">
-                  {% for error in field.errors %}
-                    <li class="error-list__item">{{ error }}</li>
+            {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+              {% for value, text in field.field.choices %}
+                <div class="choice-group">
+                  <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                  <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                </div>
+              {% endfor %}
+            {% elif field|fieldtype == 'RadioSelect' %}
+              {% for value, text in field.field.choices %}
+                <div class="choice-group choice-group__radio">
+                  <input name="{{ field.name }}"
+                   id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                  <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                </div>
+              {% endfor %}
+            {% elif field|fieldtype == 'Select' %}
+              <div class="select-style">
+                <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                {% if field.value.0 %}
+                  <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                  {% for choice in field.field.choices %}
+                    <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                      {{choice.0}}
+                    </option>
                   {% endfor %}
-                  </ul>
-                {% endif %}
-              </div>
-            </fieldset>
-            {% endfor %}
-
-            {% trans "Submit" as text %}
-            {% trans "Vote on poll" as polltext %}
-            <!-- The display_survey_directly uses survey instead of self -->
-            {% if survey.display_survey_directly %}
-              {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-                <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
-              {% else %}
-                  {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
-                  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
-              {% endif %}
-            {% else %}
-                <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
-            {% endif %}
-            {% if fields_step and fields_step.paginator.num_pages > 1 %}
-              <div class="{{surveytypeClass}}__pagination">
-                  <p class="{{surveytypeClass}}__page">
-                    {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                      {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
-                    {% endwith %}
-                  </p>
-              </div>
-            {% endif %}
-          </form>
-        {% endwith %}
-      {# end include template #}
-
-     {% else %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/form.html" #}
-        {% with surveytype="survey" surveytypeClass="surveys" %}
-          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
-          {% csrf_token %}
-            {% if not is_via_freebasics %}
-                {{ form.media }}
-            {% endif %}
-            {% for field in form %}
-            <fieldset>
-              <div class="input-group">
-                <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-                {% if field.help_text %}
-                  {% if field|fieldtype == 'CharacterCountWidget' %}
-                    <p class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</p>
-                  {% else %}
-                    <p class="helptext">{{ field.help_text }}</p>
-                  {% endif %}
-                {% endif %}
-                {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group">
-                            <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                            <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                {% elif field|fieldtype == 'RadioSelect' %}
-                    {% for value, text in field.field.choices %}
-                        <div class="choice-group choice-group__radio">
-                            <input name="{{ field.name }}"
-                             id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                        </div>
-                    {% endfor %}
-                    {% elif field|fieldtype == 'Select' %}
-                        <div class="select-style">
-                             <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                                 {% if field.value.0 %}
-                                     <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% elif not field.value.0  %}
-                                     <option value selected="selected">Choose..</option>
-                                     {% for choice in field.field.choices %}
-                                         <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                             {{choice.0}}
-                                         </option>
-                                     {% endfor %}
-                                 {% endif %}
-                             </select>
-                        </div>
-                {% else %}
-                    {{field}}
-                {% endif %}
-
-                {% if field.errors %}
-                  <ul class="error-list errorlist">
-                  {% for error in field.errors %}
-                    <li class="error-list__item">{{ error }}</li>
+                  {% elif not field.value.0  %}
+                    <option value selected="selected">Choose..</option>
+                    {% for choice in field.field.choices %}
+                    <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                      {{choice.0}}
+                    </option>
                   {% endfor %}
-                  </ul>
                 {% endif %}
+                </select>
               </div>
-            </fieldset>
-            {% endfor %}
-
-            {% trans "Submit" as text %}
-            {% trans "Vote on poll" as polltext %}
-            <!-- The display_survey_directly uses survey instead of self -->
-            {% if survey.display_survey_directly %}
-              {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-                <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
-              {% else %}
-                  {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
-                  {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
-              {% endif %}
             {% else %}
-                <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+              {{field}}
             {% endif %}
-            {% if fields_step and fields_step.paginator.num_pages > 1 %}
-              <div class="{{surveytypeClass}}__pagination">
-                  <p class="{{surveytypeClass}}__page">
-                    {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                      {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
-                    {% endwith %}
-                  </p>
-              </div>
+
+            {% if field.errors %}
+              <ul class="error-list errorlist">
+              {% for error in field.errors %}
+                <li class="error-list__item">{{ error }}</li>
+              {% endfor %}
+              </ul>
             {% endif %}
-          </form>
-        {% endwith %}
-      {# end include template #}
+          </div>
+        </fieldset>
+        {% endfor %}
+        {% if survey.display_survey_directly %}
+          {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+            <input type="submit" value="{{ survey.submit_text|default:'Vote on poll' }}" class="call-to-action__button call-to-action__button--primary" />
+          {% else %}
+            <div class="polls">
+              <a href="{% url 'molo.profiles:auth_login' %}?next='request.path'" class="call-to-action__button call-to-action__button--primary">
+                <span class="call-to-action__button-text call-to-action__button-text--primary">
+                  {% trans "Log in to vote" %}
+                </span>
+              </a>
+            </div>
+          {% endif %}
+        {% else %}
+          <input type="submit" value="{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+        {% endif %}
 
-     {% endif %}
-  {% else %}
-      <!-- FEEDBACK -->
-    {% if self.your_words_competition %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/surveys-feeback.html" #}
-        {% with surveytype="competition" surveytypeClass="surveys" %}
-        <div class="{{surveytypeClass}}">
-            <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
-            {% if request.path == "/" %}
-                {% trans "Show Results" as buttontext %}
-                {% pageurl survey as link %}
-                {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"success/" text=buttontext %}
-            {% else %}
-              {% trans "Back home" as back %}
-              {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
-            {% endif %}
-        </div>
-        {% endwith %}
-      {# end include template #}
-
-    {% elif self.display_survey_directly %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/surveys-feeback.html" #}
-        {% with surveytype="poll" surveytypeClass="polls" %}
-        <div class="{{surveytypeClass}}">
-            <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
-            {% if request.path == "/" %}
-                {% trans "Show Results" as buttontext %}
-                {% pageurl survey as link %}
-                {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"success/" text=buttontext %}
-            {% else %}
-              {% trans "Back home" as back %}
-              {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
-            {% endif %}
-        </div>
-        {% endwith %}
-      {# end include template #}
-
+        {% if fields_step and fields_step.paginator.num_pages > 1 %}
+          <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__pagination">
+              <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page">
+                {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                  {% trans Page %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number">{{page}}</span> {% trans of %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number">{{pages}}</span>
+                {% endwith %}
+              </p>
+          </div>
+        {% endif %}
+      </form>
     {% else %}
-
-      {# include template "patterns/basics/surveys/surveys-modules/surveys-feeback.html" #}
-        {% with surveytype="survey" surveytypeClass="surveys" %}
-        <div class="{{surveytypeClass}}">
-            <p class="errors">{% trans 'You have already completed this' %} {{surveytype}}.</p>
-            {% if request.path == "/" %}
-                {% trans "Show Results" as buttontext %}
-                {% pageurl survey as link %}
-                {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"success/" text=buttontext %}
-            {% else %}
-              {% trans "Back home" as back %}
-              {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
-            {% endif %}
-        </div>
-        {% endwith %}
-      {# end include template #}
-
+      {# FEEDBACK #}
+      <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+        <p class="errors">{% trans 'You have already completed this ' %}
+          {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% endif %}.
+        </p>
+        {% if request.path == "/" %}
+          <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+            <span class="call-to-action__button-text call-to-action__button-text--primary">
+              {% trans "Show Results" %}
+            </span>
+          </a>
+        {% else %}
+          <div class="call-to-action call-to-action--wide-back">
+            <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+              {% trans "Back home" %}</a>
+          </div>
+        {% endif %}
+      </div>
+      {# END FEEDBACK #}
     {% endif %}
-  {% endif %}
-{% else %}
-  <!-- CTA -->
-  {% if self.your_words_competition %}
-
-    {# include template "patterns/basics/surveys/surveys-modules/surveys-cta.html" #}
-      {% with surveytype="competition" surveytypeClass="surveys" %}
-        <div class="{{surveytypeClass}}">
-            {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
-        </div>
-      {% endwith %}
-    {# end include template #}
-
-  {% elif self.display_survey_directly %}
-
-    {# include template "patterns/basics/surveys/surveys-modules/surveys-cta.html" #}
-      {% with surveytype="poll" surveytypeClass="polls" %}
-        <div class="{{surveytypeClass}}">
-            {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
-        </div>
-      {% endwith %}
-    {# end include template #}
-
   {% else %}
-
-    {# include template "patterns/basics/surveys/surveys-modules/surveys-cta.html" #}
-      {% with surveytype="survey" surveytypeClass="surveys" %}
-        <div class="{{surveytypeClass}}">
-            {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
-        </div>
-      {% endwith %}
-    {# end include template #}
-
+    {# CTA #}
+    <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+      <a href="{% url 'molo.profiles:auth_login' %}?next='request.path'" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% endif %}.
+        </span>
+      </a>
+    </div>
+    {# END CTA #}
   {% endif %}
-{% endif %}
 
-{% if self.your_words_competition %}
-  </div>
-{% elif self.display_survey_directly %}
-  </div>
-</div>
-{% else %}
-</div>
-{% endif %}
+  {# DIV CLOSE #}
+  {% if self.your_words_competition %}
+    </div>
+  {% elif self.display_survey_directly %}
+    </div>
+    </div>
+  {% else %}
+    </div>
+  {% endif %}
+  {# END DIV CLOSE #}
 {% endblock %}

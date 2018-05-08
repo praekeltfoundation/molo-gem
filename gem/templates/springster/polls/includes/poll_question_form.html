@@ -3,9 +3,8 @@
 {% if error_message %}
   <p class="errors">{{ error_message }}</p>
 {% endif %}
-<!--
-  NOTE
-  Polls Question ID not getting pulled -->
+
+{# Polls Question ID not getting pulled #}
 <form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" novalidate>
 {% csrf_token %}
   {% load_choices_for_poll_page question as choices %}
