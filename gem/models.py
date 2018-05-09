@@ -145,8 +145,8 @@ class GemSettings(BaseSetting):
         '. https://www.google.co.za/')
     bbm_ga_tracking_code = models.TextField(
         null=True, blank=True,
-        help_text='Tracking code for additional Google Analytics account '
-                  'to divert traffic that matches a specific subdomain.')
+        help_text='Google Analytics account ID (UA-XXXXXXXX-X) to use '
+                  'when somebody accesses the BBM version of the site.')
     # FIXME: Remove bbm_ga_account_subdomain and its uses in middleware once
     # BBM South Africa and Nigeria are changed to use `/bbm/` cookie endpoint.
     bbm_ga_account_subdomain = models.TextField(
