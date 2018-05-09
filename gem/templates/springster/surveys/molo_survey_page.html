@@ -53,23 +53,23 @@
 
 {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
   {% if self.description %}
+  <div class="surveys--page__excerpt">
     {% for block in self.description %}
       {% if forloop.counter %}
         {% if block.block_type == 'heading' %}
-          <h4 class="surveys--page__excerpt surveys--page__excerpt-heading">
+          <h4 class="surveys--page__excerpt-heading">
               {{ block.value }}
           </h4>
-        {% elif block.block_type == 'paragraph' %}
-          <p class="surveys--page__excerpt surveys--page__excerpt-description">
-              {{ block.value }}
-          </p>
+        {% else %}
+          {{ block }}
         {% endif %}
       {% endif %}
     {% endfor %}
+  </div>
   {% endif %}
   {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
     <div class="surveys--page__terms">
-      {% trans "Read:" %} 
+      {% trans "Read:" %}
       <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="surveys--page__terms-anchor">
         {{page.terms_and_conditions.first.terms_and_conditions.title}}
       </a>
