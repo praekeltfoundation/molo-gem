@@ -70,7 +70,7 @@
   {# end include template #}
 
 {% elif self.display_survey_directly %}
-  
+
   {# include template "patterns/basics/headings/sp_variations/heading.html" #}
     {% trans "Take a vote!" as headingtext %}
     {% with type="micro" htmltag="p" title=headingtext %}
@@ -222,7 +222,7 @@
                 <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
               {% else %}
                   {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
+                  {% url 'oidc_authentication_init' as link %}
                   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
               {% endif %}
             {% else %}
@@ -319,7 +319,7 @@
                 <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
               {% else %}
                   {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
+                  {% url 'oidc_authentication_init' as link %}
                   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
               {% endif %}
             {% else %}
@@ -416,7 +416,7 @@
                 <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
               {% else %}
                   {% trans "Log in to vote" as buttontext %}
-                  {% url "molo.profiles:auth_login" as link %}
+                  {% url 'oidc_authentication_init' as link %}
                   {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
               {% endif %}
             {% else %}
@@ -502,7 +502,7 @@
       {% with surveytype="competition" surveytypeClass="surveys" %}
         <div class="{{surveytypeClass}}">
             {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
+            {% url 'oidc_authentication_init' as link %}
             {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
         </div>
       {% endwith %}
@@ -514,7 +514,7 @@
       {% with surveytype="poll" surveytypeClass="polls" %}
         <div class="{{surveytypeClass}}">
             {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
+            {% url 'oidc_authentication_init' as link %}
             {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
         </div>
       {% endwith %}
@@ -526,7 +526,7 @@
       {% with surveytype="survey" surveytypeClass="surveys" %}
         <div class="{{surveytypeClass}}">
             {% trans "Log in to take" as buttontext %}
-            {% url "molo.profiles:auth_login" as link %}
+            {% url 'oidc_authentication_init' as link %}
             {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
         </div>
       {% endwith %}

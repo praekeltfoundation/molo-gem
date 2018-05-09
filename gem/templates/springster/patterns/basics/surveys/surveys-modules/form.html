@@ -73,7 +73,7 @@
       <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
     {% else %}
         {% trans "Log in to vote" as buttontext %}
-        {% url "molo.profiles:auth_login" as link %}
+        {% url 'oidc_authentication_init' as link %}
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
     {% endif %}
   {% else %}

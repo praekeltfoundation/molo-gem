@@ -114,7 +114,6 @@ INSTALLED_APPS = [
 
     'raven.contrib.django.raven_compat',
     'djcelery',
-    'django_cas_ng',
     'compressor',
     'notifications',
     'el_pagination',

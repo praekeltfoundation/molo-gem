@@ -26,13 +26,6 @@ from gem.views import (
 
 urlpatterns = []
 
-# implement CAS URLs in a production setting
-# if settings.ENABLE_SSO:
-#     urlpatterns += [
-#         url(r'^admin/login/', cas_views.login),
-#         url(r'^admin/logout/', cas_views.logout),
-#         url(r'^admin/callback/', cas_views.callback),
-#     ]
 
 urlpatterns += [
     url(r'^oidc/', include('mozilla_django_oidc.urls')),

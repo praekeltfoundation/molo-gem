@@ -33,8 +33,6 @@ GOOGLE_PLACES_API_SERVER_KEY = environ.get(
 RAVEN_DSN = environ.get('RAVEN_DSN')
 RAVEN_CONFIG = {'dsn': RAVEN_DSN} if RAVEN_DSN else {}
 
-CAS_SERVER_URL = environ.get('CAS_SERVER_URL') or ''
-
 COMPRESS_OFFLINE = True
 
 DATABASES = {
