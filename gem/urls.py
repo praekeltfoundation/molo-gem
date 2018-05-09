@@ -15,13 +15,12 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
 from molo.core import views as core_views
-from molo.profiles.views import ForgotPasswordView, ResetPasswordView
 from wagtail.contrib.wagtailsitemaps import views as sitemap_views
 from gem.views import (
-    report_response, GemRegistrationView,
+    report_response,
     GemRssFeed, GemAtomFeed,
-    ReportCommentView, GemEditProfileView,
-    AlreadyReportedCommentView, GemRegistrationDoneView,
+    ReportCommentView,
+    AlreadyReportedCommentView,
     BbmRedirect, MaintenanceView,
 )
 
@@ -52,26 +51,6 @@ urlpatterns += [
         BbmRedirect.as_view(), name='bbm_redirect'),
 
     url(r'', include('molo.pwa.urls')),
-    url(r'^profiles/register/$',
-        GemRegistrationView.as_view(), name='user_register'),
-    url(r'^profiles/register/done/',
-        GemRegistrationDoneView.as_view(), name='registration_done'),
-    url(r'^profiles/forgot_password/$',
-        ForgotPasswordView.as_view(), name='forgot_password'),
-    url(r'^profiles/reset_password/$',
-        ResetPasswordView.as_view(), name='reset_password'),
-    url(r'^profiles/reset-success/$',
-        TemplateView.as_view(
-            template_name='profiles/reset_password_success.html'
-        ),
-        name='reset_password_success'),
-    url(r'^profiles/edit/myprofile/$',
-        login_required(GemEditProfileView.as_view()),
-        name='edit_my_profile'),
-    url(r'^profiles/',
-        include('molo.profiles.urls',
-                namespace='molo.profiles',
-                app_name='molo.profiles')),
 
     url(r'^commenting/',
         include('molo.commenting.urls',

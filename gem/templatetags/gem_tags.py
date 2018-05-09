@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from django.template import Library
 from django.conf import settings
 
-from gem.constants import GENDER
 from gem.models import GemTextBanner
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
@@ -37,13 +36,6 @@ def idfromlabel(label):
     original string with the prefix 'id_'
     '''
     return "id_{}".format(re.sub(r'([^\w]|_)+', '', label.lower()))
-
-
-@register.filter
-def gender_display(gender):
-    if gender in ['m', 'f', '-']:
-        return GENDER[gender]
-    return None
 
 
 @register.inclusion_tag('core/tags/bannerpages.html', takes_context=True)

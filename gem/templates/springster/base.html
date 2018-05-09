@@ -120,7 +120,7 @@
                   {% trans "Sign up" %}
                 </a>
               {% else %}
-                <a  href="{% url 'molo.profiles:view_my_profile' %}" class="menu-list__anchor menu-list__anchor--section-nav">
+                <a  href="{{ OIDC_OP }}/profile/edit/?theme=springster&redirect_url={{ WAGTAIL_REDIRECT_URL|urlencode }}" class="menu-list__anchor menu-list__anchor--section-nav">
                   {% trans "Profile" %}
                 </a>
               {% endif %}

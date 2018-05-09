@@ -3,7 +3,7 @@ from collections import Counter
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from gem.models import GemUserProfile, GemCommentReport
+from gem.models import GemCommentReport
 from gem.rules import ProfileDataRule, CommentCountRule
 
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
@@ -12,11 +12,6 @@ from molo.profiles.models import UserProfile
 from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
-
-
-class GemUserProfileInlineModelAdmin(admin.StackedInline):
-    model = GemUserProfile
-    can_delete = False
 
 
 class UserProfileInlineModelAdmin(admin.StackedInline):
