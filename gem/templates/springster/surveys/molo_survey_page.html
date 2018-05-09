@@ -12,8 +12,10 @@
   {% else %}
     <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
       {% if self.image %}
-        {% image self.image width-165 as icon_small %}
-        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="identity-image__item-icon" />
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-165 as icon_small %}
+          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys--page__image" />
+        </div>
       {% else %}
         <div class="identity-image identity-image--survey"></div>
       {% endif %}
@@ -23,26 +25,17 @@
   {% if self.your_words_competition %}
       {# GCN COMPETITION HEADING #}
       {% if self.image %}
-        {% image self.image width-98 as tmp_photo_small %}
-        {% image self.image width-320 as tmp_photo_large %}
-        <div class="gcn-competition__image">
-          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-98 as tmp_photo_small %}
+          {% image self.image width-320 as tmp_photo_large %}
+            <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
         </div>
       {% else %}
-        <div class="gcn-competition__image gcn-competition__default"></div>
+        <div class="surveys--page__image gcn-competition__default"></div>
       {% endif %}
       <div class="heading heading__component"><h1>{{self.title}}</h1></div>
     {% if self.introduction %}
       <div class="heading heading__subheading"><p>{{self.introduction}}</p></div>
-    {% endif %}
-    {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="surveys__pagination surveys__pagination--multi-step">
-        <h6 class="surveys__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
-              This competition has {{pages}} pages
-          {% endblocktrans %}
-        </h6>
-      </div>
     {% endif %}
   {% elif self.display_survey_directly %}
     {# POLLS HEADING #}
@@ -56,16 +49,25 @@
         <h4>{{page.introduction}}</h4>
       </div>
     {% endif %}
+  {% endif %}
+  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="surveys__pagination surveys__pagination--multi-step">
         <h6 class="surveys__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
+          {% if self.your_words_competition %}
+            {% blocktrans with pages=fields_step.paginator.num_pages %}
+              This competition has {{pages}} pages
+            {% endblocktrans %}
+          {% elif not self.display_survey_directly %}
+            {% blocktrans with pages=fields_step.paginator.num_pages %}
               This {{self}} has {{pages}} pages
-          {% endblocktrans %}
+            {% endblocktrans %}
+          {% endif %}
         </h6>
       </div>
     {% endif %}
   {% endif %}
+
   {% if self.description %}
     {% for block in self.description %}
       {% if forloop.counter %}
@@ -85,7 +87,7 @@
   {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
     {# FORM #}
     {% if form %}
-    <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
+    <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
       {% csrf_token %}
         {% if not is_via_freebasics %}
             {{ form.media }}

@@ -6,13 +6,13 @@
   {% if self.your_words_competition %}
     <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
       {% if self.image %}
-        {% image self.image width-98 as tmp_photo_small %}
-        {% image self.image width-320 as tmp_photo_large %}
-        <div class="gcn-competition__image">
-          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-98 as tmp_photo_small %}
+          {% image self.image width-320 as tmp_photo_large %}
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
         </div>
       {% else %}
-        <div class="gcn-competition__image gcn-competition__default"></div>
+        <div class="surveys--page__image gcn-competition__default"></div>
       {% endif %}
   {% elif self.display_survey_directly %}
     <div class="polls polls--call-to-action">
@@ -23,9 +23,12 @@
         </div>
   {% else %}
     <div class="surveys surveys--call-to-action">
+      <!--WHICH MESSAGE -->
       {% if self.image %}
-        {% image self.image width-165 as icon_small %}
-        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-165 as icon_small %}
+          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys--page__image" />
+        </div>
       {% else %}
         <div class="identity-image identity-image--survey"></div>
       {% endif %}

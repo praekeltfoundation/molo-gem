@@ -36,11 +36,11 @@
             {% if survey.image %}
               {% image survey.image width-98 as tmp_photo_small %}
               {% image survey.image width-320 as tmp_photo_large %}
-                <div class="gcn-competition__image">
-                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="gcn-competition__dynamic" />
+                <div class="surveys--page__image-wrapper">
+                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
                 </div>
             {% else %}
-                <div class="gcn-competition__image gcn-competition__default"></div>
+                <div class="surveys--page__image gcn-competition__default"></div>
             {% endif %}
             <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
             {% if survey.homepage_introduction %}
@@ -96,7 +96,7 @@
               <aside>
                 {% if survey.image %}
                   {% image survey.image width-165 as icon_small %}
-                  <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-icon" />
+                  <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-thumb" />
                 {% else %}
                   <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
                 {% endif %}
