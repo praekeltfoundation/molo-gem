@@ -48,6 +48,7 @@ OIDC_STORE_ID_TOKEN = True
 OIDC_OP = environ.get('OIDC_OP', '')
 
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+LOGIN_URL = environ.get('LOGIN_URL', 'molo.profiles:auth_login')
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 
