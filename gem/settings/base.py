@@ -41,7 +41,7 @@ DEBUG = True
 ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
-
+USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
