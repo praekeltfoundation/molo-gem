@@ -13,6 +13,7 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.conf import global_settings
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
@@ -31,17 +32,31 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-CORE_INFRASTRUCTURE_CLIENT_ID = environ.get(
-    'CORE_INFRASTRUCTURE_CLIENT_ID', '')
-CORE_INFRASTRUCTURE_CLIENT_SECRET = environ.get(
-    'CORE_INFRASTRUCTURE_CLIENT_SECRET', '')
+USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
+OIDC_RP_CLIENT_ID = environ.get(
+    'OIDC_RP_CLIENT_ID', '')
+OIDC_RP_CLIENT_SECRET = environ.get(
+    'OIDC_RP_CLIENT_SECRET', '')
+# <URL of the OIDC OP authorization endpoint>
+OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+# <URL of the OIDC OP token endpoint>
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
+# <URL of the OIDC OP userinfo endpoint>
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
+OIDC_RP_SCOPES = 'openid profile email address phone site roles'
+OIDC_STORE_ID_TOKEN = True
+OIDC_OP = environ.get('OIDC_OP', '')
+
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
+WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
-USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
@@ -54,6 +69,7 @@ BASE_URL = 'http://example.com'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -315,10 +331,6 @@ MEDIA_ROOT = join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Wagtail settings
-
-LOGIN_URL = 'molo.profiles:auth_login'
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-
 SITE_NAME = environ.get('SITE_NAME', "GEM")
 WAGTAIL_SITE_NAME = SITE_NAME
 
