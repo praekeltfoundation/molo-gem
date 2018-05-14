@@ -469,10 +469,7 @@ AUTHENTICATION_BACKENDS = [
 
 if USE_OIDC_AUTHENTICATION:
     AUTHENTICATION_BACKENDS = [
-<<<<<<< HEAD
         'gem.backends.GirlEffectOIDCBackend',
-=======
->>>>>>> 463f09faa826cfbbab00cdb6a9b000e63d14371e
         'mozilla_django_oidc.auth.OIDCAuthenticationBackend,'
     ] + AUTHENTICATION_BACKENDS
 
