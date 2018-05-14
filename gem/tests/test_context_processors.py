@@ -68,6 +68,7 @@ class TestCompressSettings(TestCase):
         self.assertEqual(
             compress_settings(request),
             {
+                'LOGIN_URL': 'molo.profiles:auth_login',
                 'ENV': 'test_env',
                 'STATIC_URL': 'test_static_url',
             }

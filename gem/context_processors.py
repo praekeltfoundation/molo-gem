@@ -33,8 +33,6 @@ def detect_freebasics(request):
 
 
 def compress_settings(request):
-    if settings.USE_OIDC_AUTHENTICATION:
-        settings.LOGIN_URL = 'oidc_authentication_init'
     return {
         'STATIC_URL': settings.STATIC_URL,
         'ENV': settings.ENV,
