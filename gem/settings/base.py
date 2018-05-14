@@ -154,8 +154,12 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'mozilla_django_oidc.middleware.SessionRefresh',
 ]
+
+if USE_OIDC_AUTHENTICATION:
+    MIDDLEWARE_CLASSES += [
+        'mozilla_django_oidc.middleware.SessionRefresh'
+    ]
 
 # Template configuration
 
@@ -470,7 +474,7 @@ AUTHENTICATION_BACKENDS = [
 if USE_OIDC_AUTHENTICATION:
     AUTHENTICATION_BACKENDS = [
         'gem.backends.GirlEffectOIDCBackend',
-        'mozilla_django_oidc.auth.OIDCAuthenticationBackend,'
+        'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
     ] + AUTHENTICATION_BACKENDS
 
 AWS_HEADERS = {
