@@ -106,7 +106,7 @@
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
-              <a class="profile-menu-item" href="{% url 'molo.profiles:user_register' %}">{% trans "Sign up" %}</a>
+              <a class="profile-menu-item" href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
             {% else %}
             <a class="profile-menu-item" href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
             {% endif %}

@@ -12,7 +12,7 @@
         <p class="call-to-action__nav-item--challenge-heading">
           {% trans "Not a member yet? Join us by signing up below." %}
         </p>
-        <form method="post" action="{% url 'molo.profiles:user_register' %}" novalidate>
+        <form method="post" action={{REGISTRATION_URL}} novalidate>
         {% csrf_token %}
 
         {% if form.errors %}

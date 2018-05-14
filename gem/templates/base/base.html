@@ -94,7 +94,7 @@
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
-              <a href="{% url 'molo.profiles:user_register' %}">{% trans "Sign up" %}</a>
+              <a href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
             {% else %}
             <a href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
             {% endif %}
@@ -141,7 +141,7 @@
               {% footer_page %}
               {% if not user.is_authenticated %}
                 <li class="footer-menu-list__item">
-                  <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+                  <a href={{REGISTRATION_URL}} class="footer-menu-list__anchor">
                     {% trans "Sign Up" %}
                   </a>
                 </li>
