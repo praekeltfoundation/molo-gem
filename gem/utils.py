@@ -1,4 +1,4 @@
-from urllib.parse import urlencode
+from django.utils.http import urlencode
 
 from django.conf import settings
 
@@ -29,3 +29,11 @@ def provider_login_url(USE_OIDC_AUTHENTICATION):
     if USE_OIDC_AUTHENTICATION:
         return 'oidc_authentication_init'
     return 'molo.profiles:auth_login'
+
+
+def provider_registration_url(USE_OIDC_AUTHENTICATION):
+    if USE_OIDC_AUTHENTICATION:
+        return "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
+                settings.OIDC_OP,
+                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
+    return 'molo.profiles:user_register'

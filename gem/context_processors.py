@@ -33,10 +33,6 @@ def detect_freebasics(request):
 
 
 def compress_settings(request):
-    if settings.USE_OIDC_AUTHENTICATION:
-        settings.REGISTRATION_URL = "%s/registration/?",
-        "theme=%s}&hide=end-user&redirect_url=%s" % (
-            settings.OIDC_OP, settings.THEME, settings.WAGTAIL_REDIRECT_URL)
     return {
         'STATIC_URL': settings.STATIC_URL,
         'ENV': settings.ENV,
