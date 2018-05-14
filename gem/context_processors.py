@@ -41,4 +41,5 @@ def compress_settings(request):
         'STATIC_URL': settings.STATIC_URL,
         'ENV': settings.ENV,
         'REGISTRATION_URL': settings.REGISTRATION_URL,
+        'LOGIN_URL': settings.LOGIN_URL,
     }
