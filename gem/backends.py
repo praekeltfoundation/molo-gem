@@ -20,16 +20,16 @@ def _update_user_from_claims(user, claims):
     This function is called on registration (new user) as well as login events.
     This function provides the mapping from the OIDC claims fields to the
     internal user profile fields.
-    In this example we use the role names as the names for Django
+    We use the role names as the names for Django
     Groups to which a user belongs.
     :param user: The user profile
     :param claims: The claims for the profile
     """
     LOGGER.debug("Updating user {} with claims: {}".format(user, claims))
 
-    user.first_name = claims.get("given_name") or claims["nickname"]
-    user.last_name = claims.get("family_name") or ""
-    user.email = claims.get("email") or ""
+    user.first_name = claims.get("given_name") or claims.get("nickname", "")
+    user.last_name = claims.get("family_name", "")
+    user.email = claims.get("email", "")
     user.save()
 
     # Synchronise the roles that the user has.
@@ -37,12 +37,6 @@ def _update_user_from_claims(user, claims):
     # than the previous time the user logged in.
     roles = set(claims.get("roles", []))
     groups = set(group.name for group in user.groups.all())
-
-    # If the user has any role, we assume that it is a staff user
-    # This is just to get logging in working on Core QA site
-    if roles:
-        user.is_staff = True
-        user.save()
 
     groups_to_add = roles - groups
     groups_to_remove = groups - roles
@@ -59,10 +53,6 @@ def _update_user_from_claims(user, claims):
     user.groups.remove(*args)
     LOGGER.debug(
         "Removed groups from user {}: {}".format(user, groups_to_remove))
-
-    site_specific_data = claims.get("site")
-    if site_specific_data:
-        LOGGER.debug("Got site specific data: {}".format(site_specific_data))
 
 
 class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
@@ -111,14 +101,3 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         user = self.UserModel.objects.create_user(username, email)
         _update_user_from_claims(user, claims)
         return user
-
-    def verify_claims(self, claims):
-        """
-        This function can be used to prevent authorisation of users based
-        on claims information.
-        """
-        verified = super(GirlEffectOIDCBackend, self).verify_claims(claims)
-        # Example of how to prevent users without a verified email from
-        # logging in.
-        # verified = verified and claims.get("email_verified")
-        return verified
