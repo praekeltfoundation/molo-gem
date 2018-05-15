@@ -16,6 +16,6 @@
         <p>{% trans "Your response has already been submitted." %}<p>
       {% endif %}
     {% else %}
-        <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button call-to-action__button call-to-action__button--primary">{% trans "Log in to vote" %}</a>
+        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button call-to-action__button call-to-action__button--primary">{% trans "Log in to vote" %}</a>
     {% endif %}
 </form>

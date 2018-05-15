@@ -17,7 +17,7 @@
         <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Enter" %}</span>
       </a>
     {% else %}
-      <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__button call-to-action__button--primary">
+      <a href="{% url LOGIN_URL %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Log in to Enter" %}</span>
       </a>
     {% endif %}
