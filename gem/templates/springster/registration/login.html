@@ -5,7 +5,7 @@
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
   {% trans "Not a member yet?" as headingtext %}
   {% trans "Sign up here" as linktext %}
-  {% url 'molo.profiles:user_register' as link %}
+  {% url REGISTRATION_URL as link %}
   {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
   <form method="post" action="." class="profiles__form" novalidate>
   {% csrf_token %}
