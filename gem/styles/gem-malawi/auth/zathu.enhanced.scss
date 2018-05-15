@@ -1,0 +1,325 @@
+@import '../../gem/variables/*';
+
+@font-face {
+  font-family: 'zathu';
+  src: url('/fonts/zathu-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body,
+html {
+  background: $colorFourth;
+  margin: 0;
+}
+
+body,
+select,
+textarea {
+  color: $colorPurple;
+  font-family: $font-family-default;
+  font-size: $font-small;
+}
+
+a {
+  border: 0;
+  color: $colorPurple;
+  text-decoration: none;
+
+  &:hover {
+    border: 0;
+    color: $colorPurple;
+  }
+}
+
+h1 {
+  font-family: $font-family-zathu;
+  font-size: 1.6em;
+  text-align: center;
+}
+
+h2 {
+  font-family: $font-family-zathu;
+  font-size: 1.4em;
+  text-align: center;
+}
+
+p,
+ul {
+  margin: $spacer 0;
+  text-align: center;
+}
+
+hr {
+  margin: $spacer-multiple 0;
+}
+// STRUCTURE
+
+.Header {
+  margin-bottom: $spacer-multiple;
+  text-align: center;
+
+  &-branding {
+    margin-bottom: 0;
+
+    &-image {
+      width: 100%;
+    }
+  }
+
+  &-title {
+    background: #fff;
+    margin: 0 (-$spacer-mid);
+    text-align: center;
+
+    h1 {
+      color: $colorPurple;
+      font-size: $font-x-large;
+      margin: 0;
+      padding: $spacer-mid;
+    }
+  }
+}
+
+.List {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: $spacer-mid 0 0;
+  }
+}
+
+.QR {
+  text-align: center;
+
+  &-image {
+    border: 3px solid $colorPurple;
+  }
+}
+
+.Tokens {
+  border: 1px solid $colorGrey;
+  margin: $spacer $spacer-mid;
+  padding: 0 $spacer-mid $spacer-mid;
+
+  li {
+    float: left;
+    width: 50%;
+  }
+
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+.Footer {
+  margin: $spacer-multiple (-$spacer-mid);
+  padding: $spacer-multiple;
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
+}
+
+@media (min-width: 40em) {
+  body {
+    margin-top: $spacer-multiple * 2;
+  }
+
+  .Container {
+    background: $colorGrey;
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0 $spacer-mid;
+  }
+}
+
+.Form {
+  .Field {
+    margin-top: $spacer-multiple;
+
+    &-message {
+      margin-top: $spacer;
+    }
+
+    &-label {
+      font-size: $font-medium;
+      font-weight: normal;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      color: $colorPurple;
+      font-weight: normal;
+      padding: $spacer;
+
+      &:focus {
+        border-color: $colorPurple;
+      }
+    }
+
+    .Textarea {
+      height: 100px;
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    &::after {
+      border-style: solid;
+      border-width: .15em .15em 0 0;
+      color: $colorPurple;
+      content: '';
+      display: inline-block;
+      height: .65em;
+      pointer-events: none;
+      position: absolute;
+      right: $spacer-mid;
+      top: 46px;
+      transform: rotate(135deg);
+      width: .65em;
+    }
+
+    .Select {
+      appearance: none;
+      background-color: #fff;
+      border: 0;
+      border-radius: 0;
+      color: $colorPurple;
+      min-height: 41px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+
+      &:focus {
+        border-color: $colorPurple;
+      }
+    }
+  }
+
+  .BooleanField {
+    display: table;
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .Field-label {
+      display: table-cell;
+      padding-right: $spacer;
+      text-align: right;
+      vertical-align: middle;
+      width: 60%;
+    }
+
+    .Field-item {
+      text-align: left;
+      vertical-align: middle;
+
+      .CheckboxInput {
+        appearance: none;
+        border: 2px solid $colorPurple;
+        display: block;
+        height: $spacer-multiple;
+        outline: none;
+        padding: $spacer-mid;
+        width: $spacer-multiple;
+
+        &:checked {
+          background-color: $colorPurple;
+          border-color: $colorPurple;
+
+          &::after {
+            color: #fff;
+            content: '\2714';
+            font-size: $spacer-multiple;
+            left: -$spacer;
+            line-height: $spacer-multiple;
+            position: relative;
+            top: -$spacer;
+          }
+        }
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorOrange;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-bottom: $spacer-multiple;
+  }
+}
+
+.Button {
+  &--warning {
+    background: $colorOrange;
+  }
+}
+
+.Messages {
+  .Message {
+    font-family: $font-family-default;
+  }
+}
+
+.errorlist {
+  margin-top: $spacer-multiple;
+}
+
+.Menu {
+  margin: 0;
+
+  &-title {
+    background: $colorPurple;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+
+    h1 {
+      color: #fff;
+      font-size: 1.2em;
+    }
+  }
+
+  &-list {
+    padding-top: $spacer-half;
+  }
+
+  &-item {
+    margin: $spacer-mid 0;
+
+    a {
+      display: inline-block;
+
+      &:hover {
+        border: 0;
+      }
+    }
+  }
+}
+@media (min-width: 40em) {
+  .Menu {
+    margin-top: $spacer-mid;
+    padding-bottom: $spacer;
+  }
+}

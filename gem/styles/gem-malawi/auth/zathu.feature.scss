@@ -1,8 +1,8 @@
-@import '../utilities/*';
+@import '../../gem/variables/*';
 
 body,
 html {
-  background: $cool-grey;
+  background: $colorFourth;
   margin: 0;
   padding: 0;
 }
@@ -10,22 +10,22 @@ html {
 body,
 select,
 textarea {
-  color: $gunmetal;
-  font-family: $font-fallback;
+  color: $colorPurple;
+  font-family: $font-family-default;
   font-size: $font-small;
 }
 
 a {
-  color: $springster-purple;
+  color: $colorPurple;
 
   &:hover {
-    color: $springster-purple;
+    color: $colorPurple;
   }
 }
 
 h1 {
   font-size: 1.2em;
-  margin: $spacer 0;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -41,7 +41,7 @@ ul {
 
 hr {
   border: 0;
-  border-top: 1px solid $slate-grey;
+  border-top: 1px solid $colorFourth;
   height: 0;
   margin: $spacer 0;
 }
@@ -51,11 +51,11 @@ hr {
 }
 
 .Container {
-  background: $white;
+  background: $colorGrey;
   padding: 0 $spacer-mid;
 
   .Intro {
-    color: $slate-grey;
+    color: $colorPurple;
     padding: 0 $spacer-mid;
     text-align: center;
   }
@@ -65,20 +65,23 @@ hr {
   text-align: center;
 
   &-title {
-    background: transparent;
+    background: #fff;
+    margin: 0 (-$spacer-mid);
 
     h1 {
-      color: $gunmetal;
+      color: $colorPurple;
     }
   }
 
   &-branding {
+    background-color: $colorYellow;
+    margin: 0 (-$spacer-mid);
     padding: $spacer-mid;
 
     &-image {
-      background: url('/img/sp-logo.png') no-repeat;
+      background: url('/img/zathu.png') no-repeat;
       background-position: 50%;
-      background-size: contain;
+      background-size: 200px;
       display: block;
       height: 60px;
       padding-left: 100%;
@@ -88,9 +91,10 @@ hr {
 }
 
 .Footer {
-  background: $white;
-  border-top: 1px solid $slate-grey;
-  font-size: $font-xx-small;
+  background: #fff;
+  border-top: 1px solid $colorFourth;
+  font-size: $font-m-small;
+  margin: 0 (-$spacer-mid);
   padding: $spacer 0;
   text-align: center;
 }
@@ -112,7 +116,7 @@ hr {
     }
 
     &-message {
-      color: $slate-grey;
+      color: $colorPurple;
       font-size: $font-small;
       margin-top: $spacer-half;
       text-align: center;
@@ -125,7 +129,7 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 2px solid $springster-purple;
+      border: 0;
       font-size: 1em;
       height: 40px;
       outline: none;
@@ -133,7 +137,7 @@ hr {
       width: 100%;
 
       &:focus {
-        border-color: $springster-purple;
+        border-color: $colorGrey;
       }
     }
 
@@ -147,7 +151,7 @@ hr {
 
     &--required {
       input {
-        border-color: $mustard;
+        border-color: $colorYellow;
       }
     }
   }
@@ -156,7 +160,7 @@ hr {
     &.Field--required {
       .Field-item {
         input {
-          border-color: $mustard;
+          border-color: $colorYellow;
         }
       }
     }
@@ -172,8 +176,8 @@ hr {
 }
 
 .Button {
-  background: $springster-purple;
-  color: $white;
+  background: $colorPurple;
+  color: #fff;
   display: block;
   font-size: 1em;
   margin-bottom: $spacer;
@@ -184,13 +188,18 @@ hr {
   width: 100%;
 
   &:hover {
-    background: $iron-grey;
-    color: $springster-purple;
+    background: $colorPurple;
+    color: #fff;
     cursor: pointer;
+    opacity: .8;
   }
 
   &--warning {
-    background-color: $bright-orange;
+    background: $colorOrange;
+
+    &:hover {
+      background: $colorOrange;
+    }
   }
 }
 
@@ -198,22 +207,22 @@ hr {
   margin: $spacer 0;
 
   .Message {
-    color: $white;
+    color: #fff;
     padding: $spacer;
 
     &--success {
-      background: $springster-sunny-yellow;
+      background: $colorPurple;
     }
 
     &--error,
     &--warning {
-      background: $mustard;
+      background: $colorYellow;
     }
   }
 }
 
 .errorlist {
-  color: $mustard;
+  color: $colorYellow;
   list-style: none;
   margin: $spacer-half 0;
   padding: 0;
@@ -224,8 +233,7 @@ hr {
 }
 
 .Menu {
-  background-color: $mint-green;
-  padding: $spacer $spacer-mid;
+  padding: 0;
 
   &-title {
     display: none;
