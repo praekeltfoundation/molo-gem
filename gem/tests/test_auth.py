@@ -3,7 +3,8 @@ from django.contrib.auth import get_user_model
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import Main, Languages, SiteLanguageRelation
 from gem.utils import (
-    provider_login_url, provider_registration_url, provider_logout_url)
+    provider_login_url, provider_registration_url, provider_logout_url,
+    provider_edit_profile_url, provider_view_profile_url)
 from gem.backends import GirlEffectOIDCBackend
 
 
@@ -27,11 +28,33 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
         self.assertEquals(login_url_without_oidc, 'molo.profiles:auth_login')
 
     def test_logout_url(self):
-        login_url_with_oidc = provider_logout_url(USE_OIDC_AUTHENTICATION=True)
-        self.assertEquals(login_url_with_oidc, 'oidc_logout')
-        login_url_without_oidc = provider_logout_url(
+        logout_url_with_oidc = provider_logout_url(
+            USE_OIDC_AUTHENTICATION=True)
+        self.assertEquals(logout_url_with_oidc, 'oidc_logout')
+        logout_url_without_oidc = provider_logout_url(
             USE_OIDC_AUTHENTICATION=False)
-        self.assertEquals(login_url_without_oidc, 'molo.profiles:auth_logout')
+        self.assertEquals(logout_url_without_oidc, 'molo.profiles:auth_logout')
+
+    def test_edit_profile_url(self):
+        edit_profile_url_with_oidc = provider_edit_profile_url(
+            USE_OIDC_AUTHENTICATION=True)
+        self.assertEquals(
+            edit_profile_url_with_oidc,
+            '/profile/edit/?theme=springster&redirect_url=')
+        edit_profile_url_without_oidc = provider_edit_profile_url(
+            USE_OIDC_AUTHENTICATION=False)
+        self.assertEquals(edit_profile_url_without_oidc, 'edit_my_profile')
+
+    def test_view_profile_url(self):
+        view_profile_url_with_oidc = provider_view_profile_url(
+            USE_OIDC_AUTHENTICATION=True)
+        self.assertEquals(
+            view_profile_url_with_oidc,
+            '/profile/edit/?theme=springster&redirect_url=')
+        view_profile_url_without_oidc = provider_view_profile_url(
+            USE_OIDC_AUTHENTICATION=False)
+        self.assertEquals(
+            view_profile_url_without_oidc, 'molo.profiles:view_my_profile')
 
     def test_registration_url(self):
         registration_url_with_oidc = provider_registration_url(

@@ -43,3 +43,19 @@ def provider_registration_url(USE_OIDC_AUTHENTICATION):
                 settings.OIDC_OP,
                 settings.THEME, settings.WAGTAIL_REDIRECT_URL)
     return 'molo.profiles:user_register'
+
+
+def provider_view_profile_url(USE_OIDC_AUTHENTICATION):
+    if USE_OIDC_AUTHENTICATION:
+        return "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+                settings.OIDC_OP,
+                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
+    return 'molo.profiles:view_my_profile'
+
+
+def provider_edit_profile_url(USE_OIDC_AUTHENTICATION):
+    if USE_OIDC_AUTHENTICATION:
+        return "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+                settings.OIDC_OP,
+                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
+    return 'edit_my_profile'
