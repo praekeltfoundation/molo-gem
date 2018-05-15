@@ -18,7 +18,9 @@ from django.urls import reverse_lazy
 import dj_database_url
 import djcelery
 from celery.schedules import crontab
-from gem.utils import provider_login_url, provider_logout_url
+from gem.utils import (
+    provider_login_url, provider_logout_url, provider_edit_profile_url,
+    provider_view_profile_url)
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -52,6 +54,8 @@ THEME = environ.get('THEME', 'springster')
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
 LOGIN_URL = provider_login_url(USE_OIDC_AUTHENTICATION)
 LOGOUT_URL = provider_logout_url(USE_OIDC_AUTHENTICATION)
+EDIT_PROFILE_URL = provider_edit_profile_url(USE_OIDC_AUTHENTICATION)
+VIEW_PROFILE_URL = provider_view_profile_url(USE_OIDC_AUTHENTICATION)
 REGISTRATION_URL = environ.get(
     'REGISTRATION_URL', reverse_lazy('molo.profiles:user_register'))
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
