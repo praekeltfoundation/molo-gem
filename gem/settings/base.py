@@ -18,12 +18,8 @@ import dj_database_url
 import djcelery
 from celery.schedules import crontab
 from gem.utils import (
-<<<<<<< HEAD
     provider_login_url, provider_logout_url, provider_edit_profile_url,
-    provider_view_profile_url)
-=======
-    provider_login_url, provider_logout_url, provider_registration_url)
->>>>>>> 9838169a7dfcd6fa422da5258099db295b177ca2
+    provider_view_profile_url, provider_registration_url)
 djcelery.setup_loader()
 
 # Absolute filesystem paths
