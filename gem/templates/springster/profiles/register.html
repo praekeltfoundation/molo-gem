@@ -37,7 +37,7 @@
       {% endwith %}
     {# end include template #}
 
-    <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form" novalidate>
+    <form method="post" action={{REGISTRATION_URL}} class="profiles__form" novalidate>
     {% csrf_token %}
         {% if form.errors %}
             <p class="errors">

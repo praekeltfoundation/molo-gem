@@ -36,5 +36,7 @@ def compress_settings(request):
     return {
         'STATIC_URL': settings.STATIC_URL,
         'ENV': settings.ENV,
-        'LOGIN_URL': settings.LOGIN_URL
+        'REGISTRATION_URL': settings.REGISTRATION_URL,
+        'LOGIN_URL': settings.LOGIN_URL,
+        'LOGOUT_URL': settings.LOGOUT_URL,
     }

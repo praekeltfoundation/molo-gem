@@ -3,12 +3,13 @@
 {% get_settings %}
 
 {% block content %}
+
   <div class="profile-container">
     <div class="title profile">
       <h3>{% trans "Hello" %} {{ user }}</h3>
     </div>
     <div class="block">
-      <a href="{% url 'molo.profiles:auth_logout' %}"
+      <a href="{% url LOGOUT_URL %}"
       class="button inverted logout-link">{% trans "log out" %}</a>
     </div>
     <hr>

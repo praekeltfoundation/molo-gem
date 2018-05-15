@@ -115,7 +115,7 @@
           <ul class="menu-list menu-list--section-nav">
             <li id="profile" class="menu-list__item menu-list__item--section-nav">
               {% if not user.is_authenticated %}
-                <a  href="{% url 'molo.profiles:user_register' %}" class="menu-list__anchor menu-list__anchor--section-nav">
+                <a  href={{REGISTRATION_URL}} class="menu-list__anchor menu-list__anchor--section-nav">
                   {% trans "Sign up" %}
                 </a>
               {% else %}
@@ -207,7 +207,7 @@
                 {% footer_page %}
                 {% if not user.is_authenticated %}
                   <li class="footer-menu-list__item">
-                    <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+                    <a href={{REGISTRATION_URL}} class="footer-menu-list__anchor">
                       {% trans "Join us" %}
                     </a>
                   </li>
@@ -223,7 +223,7 @@
                     </a>
                   </li>
                   <li class="footer-menu-list__item">
-                    <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
+                    <a href="{% url LOGOUT_URL %}" class="footer-menu-list__anchor">
                       {% trans "Log out" %}
                     </a>
                   </li>
