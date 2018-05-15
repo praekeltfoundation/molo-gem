@@ -464,7 +464,7 @@ AUTHENTICATION_BACKENDS = [
 
 if USE_OIDC_AUTHENTICATION:
     AUTHENTICATION_BACKENDS = [
-        'mozilla_django_oidc.auth.OIDCAuthenticationBackend,'
+        'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
     ] + AUTHENTICATION_BACKENDS
 
 AWS_HEADERS = {
