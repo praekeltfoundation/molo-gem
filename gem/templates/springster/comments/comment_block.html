@@ -8,7 +8,7 @@
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
-      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
           {% trans "Log in to comment" %}</span>
       </a>

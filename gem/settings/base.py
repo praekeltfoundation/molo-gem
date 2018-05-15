@@ -14,13 +14,16 @@ from os import environ
 import django.conf.locale
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
 import dj_database_url
 import djcelery
 from celery.schedules import crontab
 from gem.utils import (
+<<<<<<< HEAD
     provider_login_url, provider_logout_url, provider_edit_profile_url,
     provider_view_profile_url)
+=======
+    provider_login_url, provider_logout_url, provider_registration_url)
+>>>>>>> 9838169a7dfcd6fa422da5258099db295b177ca2
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -56,8 +59,7 @@ LOGIN_URL = provider_login_url(USE_OIDC_AUTHENTICATION)
 LOGOUT_URL = provider_logout_url(USE_OIDC_AUTHENTICATION)
 EDIT_PROFILE_URL = provider_edit_profile_url(USE_OIDC_AUTHENTICATION)
 VIEW_PROFILE_URL = provider_view_profile_url(USE_OIDC_AUTHENTICATION)
-REGISTRATION_URL = environ.get(
-    'REGISTRATION_URL', reverse_lazy('molo.profiles:user_register'))
+REGISTRATION_URL = provider_registration_url(USE_OIDC_AUTHENTICATION)
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url_redirect"

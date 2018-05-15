@@ -19,7 +19,7 @@
       <label for="choice-{{ question.id }}-{{ forloop.counter }}" >{{ choice.title|capfirst }}</label>
     </fieldset>
     {% endfor %}
-    <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+    <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
       <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Log in to vote" %}</span>
     </a>
   {% else %}

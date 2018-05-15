@@ -1,5 +1,5 @@
 <div class="{{surveytypeClass}}">
     {% trans "Log in to take" as buttontext %}
-    {% url "molo.profiles:auth_login" as link %}
+    {% url LOGIN_URL as link %}
     {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:surveytype  %}
 </div>
