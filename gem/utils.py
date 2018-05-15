@@ -3,7 +3,7 @@ from django.utils.http import urlencode
 from django.conf import settings
 
 
-def provider_logout_url(request):
+def provider_logout_url_redirect(request):
     """
     This function is used to construct a logout URL that can be used to
     log the user out of
@@ -29,6 +29,12 @@ def provider_login_url(USE_OIDC_AUTHENTICATION):
     if USE_OIDC_AUTHENTICATION:
         return 'oidc_authentication_init'
     return 'molo.profiles:auth_login'
+
+
+def provider_logout_url(USE_OIDC_AUTHENTICATION):
+    if USE_OIDC_AUTHENTICATION:
+        return 'oidc_logout'
+    return 'molo.profiles:auth_logout'
 
 
 def provider_registration_url(USE_OIDC_AUTHENTICATION):

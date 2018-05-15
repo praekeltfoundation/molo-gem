@@ -70,6 +70,7 @@ class TestCompressSettings(TestCase):
             {
                 'LOGIN_URL': 'molo.profiles:auth_login',
                 'REGISTRATION_URL': u'/profiles/register/',
+                'LOGOUT_URL': 'molo.profiles:auth_logout',
                 'ENV': 'test_env',
                 'STATIC_URL': 'test_static_url',
             }

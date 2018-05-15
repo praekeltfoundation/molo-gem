@@ -38,4 +38,5 @@ def compress_settings(request):
         'ENV': settings.ENV,
         'REGISTRATION_URL': settings.REGISTRATION_URL,
         'LOGIN_URL': settings.LOGIN_URL,
+        'LOGOUT_URL': settings.LOGOUT_URL,
     }

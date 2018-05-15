@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import Main, Languages, SiteLanguageRelation
-from gem.utils import provider_login_url, provider_registration_url
+from gem.utils import (
+    provider_login_url, provider_registration_url, provider_logout_url)
 from gem.backends import GirlEffectOIDCBackend
 
 
@@ -24,6 +25,13 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
         login_url_without_oidc = provider_login_url(
             USE_OIDC_AUTHENTICATION=False)
         self.assertEquals(login_url_without_oidc, 'molo.profiles:auth_login')
+
+    def test_logout_url(self):
+        login_url_with_oidc = provider_logout_url(USE_OIDC_AUTHENTICATION=True)
+        self.assertEquals(login_url_with_oidc, 'oidc_logout')
+        login_url_without_oidc = provider_logout_url(
+            USE_OIDC_AUTHENTICATION=False)
+        self.assertEquals(login_url_without_oidc, 'molo.profiles:auth_logout')
 
     def test_registration_url(self):
         registration_url_with_oidc = provider_registration_url(
