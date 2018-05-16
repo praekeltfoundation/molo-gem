@@ -13,7 +13,7 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.conf import global_settings
-from django
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
