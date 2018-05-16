@@ -17,9 +17,6 @@ from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
 from celery.schedules import crontab
-from gem.utils import (
-    provider_login_url, provider_logout_url, provider_edit_profile_url,
-    provider_view_profile_url, provider_registration_url)
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -51,14 +48,25 @@ OIDC_STORE_ID_TOKEN = True
 OIDC_OP = environ.get('OIDC_OP', '')
 THEME = environ.get('THEME', 'springster')
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
-LOGIN_URL = provider_login_url(USE_OIDC_AUTHENTICATION)
-LOGOUT_URL = provider_logout_url(USE_OIDC_AUTHENTICATION)
-EDIT_PROFILE_URL = provider_edit_profile_url(USE_OIDC_AUTHENTICATION)
-VIEW_PROFILE_URL = provider_view_profile_url(USE_OIDC_AUTHENTICATION)
-REGISTRATION_URL = provider_registration_url(USE_OIDC_AUTHENTICATION)
+LOGIN_URL = 'molo.profiles:auth_login'
+LOGOUT_URL = 'molo.profiles:auth_logout'
+REGISTRATION_URL = 'molo.profiles:user_register'
+VIEW_PROFILE_URL = 'molo.profiles:view_my_profile'
+EDIT_PROFILE_URL = 'edit_my_profile'
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url_redirect"
+
+if USE_OIDC_AUTHENTICATION:
+    LOGIN_URL = 'oidc_authentication_init'
+    LOGOUT_URL = 'oidc_logout'
+    REGISTRATION_URL = (
+        "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
+    VIEW_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
+    EDIT_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
