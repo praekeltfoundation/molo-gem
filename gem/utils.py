@@ -3,7 +3,7 @@ from django.utils.http import urlencode
 from django.conf import settings
 
 
-def provider_logout_url_redirect(request):
+def provider_logout_url(request):
     """
     This function is used to construct a logout URL that can be used to
     log the user out of

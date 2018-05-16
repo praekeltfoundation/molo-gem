@@ -13,6 +13,7 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.conf import global_settings
+from django
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
@@ -50,12 +51,12 @@ THEME = environ.get('THEME', 'springster')
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
-REGISTRATION_URL = 'molo.profiles:user_register'
+REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = 'molo.profiles:view_my_profile'
 EDIT_PROFILE_URL = 'edit_my_profile'
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
-OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url_redirect"
+OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
