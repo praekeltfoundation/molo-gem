@@ -35,7 +35,9 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-springster/auth/springster.feature.scss',
         'gem/styles/gem-springster/auth/springster.enhanced.scss',
         'gem/styles/gem-malawi/auth/zathu.feature.scss',
-        'gem/styles/gem-malawi/auth/zathu.enhanced.scss'
+        'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
+        'gem/styles/gem/auth/rwanda.feature.scss',
+        'gem/styles/gem/auth/rwanda.enhanced.scss'
     ],
     sassDest = {
          prd: 'gem/static/css/prd',
