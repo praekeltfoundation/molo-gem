@@ -3,7 +3,7 @@ from django.utils.http import urlencode
 from django.conf import settings
 
 
-def provider_logout_url_redirect(request):
+def provider_logout_url(request):
     """
     This function is used to construct a logout URL that can be used to
     log the user out of
@@ -23,39 +23,3 @@ def provider_logout_url_redirect(request):
     redirect_url = settings.OIDC_OP_LOGOUT_URL + "?" + urlencode(
         parameters, doseq=True)
     return redirect_url
-
-
-def provider_login_url(USE_OIDC_AUTHENTICATION):
-    if USE_OIDC_AUTHENTICATION:
-        return 'oidc_authentication_init'
-    return 'molo.profiles:auth_login'
-
-
-def provider_logout_url(USE_OIDC_AUTHENTICATION):
-    if USE_OIDC_AUTHENTICATION:
-        return 'oidc_logout'
-    return 'molo.profiles:auth_logout'
-
-
-def provider_registration_url(USE_OIDC_AUTHENTICATION):
-    if USE_OIDC_AUTHENTICATION:
-        return "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
-                settings.OIDC_OP,
-                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
-    return 'molo.profiles:user_register'
-
-
-def provider_view_profile_url(USE_OIDC_AUTHENTICATION):
-    if USE_OIDC_AUTHENTICATION:
-        return "%s/profile/edit/?theme=%s&redirect_url=%s" % (
-                settings.OIDC_OP,
-                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
-    return 'molo.profiles:view_my_profile'
-
-
-def provider_edit_profile_url(USE_OIDC_AUTHENTICATION):
-    if USE_OIDC_AUTHENTICATION:
-        return "%s/profile/edit/?theme=%s&redirect_url=%s" % (
-                settings.OIDC_OP,
-                settings.THEME, settings.WAGTAIL_REDIRECT_URL)
-    return 'edit_my_profile'
