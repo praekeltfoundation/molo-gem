@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from django.views.generic import RedirectView
 from django.contrib.auth.decorators import login_required
 from django_cas_ng import views as cas_views
 
@@ -20,7 +21,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView,
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
 )
 
 urlpatterns = []
@@ -35,6 +36,10 @@ if settings.ENABLE_SSO:
 
 urlpatterns += [
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+    url(r'^admin/login/', RedirectWithQueryStringView.as_view(
+        pattern_name="oidc_authentication_init")),
+    url(r'^django-admin/login/', RedirectView.as_view(
+        pattern_name="oidc_authentication_init")),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
