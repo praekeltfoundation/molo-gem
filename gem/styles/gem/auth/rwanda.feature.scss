@@ -1,4 +1,4 @@
-@import '../../gem/variables/*';
+@import '../variables/*';
 
 body,
 html {
@@ -10,16 +10,17 @@ html {
 body,
 select,
 textarea {
-  color: $colorPurple;
+  color: #000;
   font-family: $font-family-default;
   font-size: $font-small;
 }
 
 a {
-  color: $colorPurple;
+  color: $colorFirst;
+  font-weight: bold;
 
   &:hover {
-    color: $colorPurple;
+    color: $colorFirst;
   }
 }
 
@@ -55,7 +56,7 @@ hr {
   padding: 0 $spacer-mid;
 
   .Intro {
-    color: $colorPurple;
+    color: #000;
     padding: 0 $spacer-mid;
     text-align: center;
   }
@@ -69,21 +70,21 @@ hr {
     margin: 0 (-$spacer-mid);
 
     h1 {
-      color: $colorPurple;
+      color: #000;
     }
   }
 
   &-branding {
-    background-color: $colorYellow;
+    background-color: $colorFirst;
     margin: 0 (-$spacer-mid);
     padding: $spacer-mid;
 
     &-image {
-      background: url('/img/zathu.png') no-repeat;
-      background-position: 50%;
+      background: url('/img/logo_rwanda.png') no-repeat;
+      background-position: 50% 70%;
       background-size: 200px;
       display: block;
-      height: 60px;
+      height: 50px;
       padding-left: 100%;
       width: 100%;
     }
@@ -93,6 +94,7 @@ hr {
 .Footer {
   background: #fff;
   border: 0;
+  color: $colorFourth;
   font-size: $font-m-small;
   margin: 0 (-$spacer-mid);
   padding: $spacer 0;
@@ -116,7 +118,7 @@ hr {
     }
 
     &-message {
-      color: $colorPurple;
+      color: #000;
       font-size: $font-small;
       margin-top: $spacer-half;
       text-align: center;
@@ -129,7 +131,7 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 0;
+      border: 2px solid $colorPink;
       font-size: 1em;
       height: 40px;
       outline: none;
@@ -176,7 +178,7 @@ hr {
 }
 
 .Button {
-  background: $colorPurple;
+  background: $colorPink;
   color: #fff;
   display: block;
   font-size: 1em;
@@ -188,7 +190,7 @@ hr {
   width: 100%;
 
   &:hover {
-    background: $colorPurple;
+    background: $colorPink;
     color: #fff;
     cursor: pointer;
     opacity: .8;
@@ -211,7 +213,7 @@ hr {
     padding: $spacer;
 
     &--success {
-      background: $colorPurple;
+      background: $colorFirst;
     }
 
     &--error,
