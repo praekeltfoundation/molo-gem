@@ -8,9 +8,11 @@
     <div class="title profile">
       <h3>{% trans "Hello" %} {{ user }}</h3>
     </div>
-    <div class="block">
-      <a href="{% url LOGOUT_URL %}"
-      class="button inverted logout-link">{% trans "log out" %}</a>
+    <div class="block clean-form">
+      <form method="post" action="{% url LOGOUT_URL %}">
+        {% csrf_token %}
+        <input class="button inverted logout-linkr" value="{% trans "Log out" %}" type="submit">
+      </form>
     </div>
     <hr>
     <div class="nickname-form">
