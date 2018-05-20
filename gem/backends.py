@@ -21,7 +21,7 @@ def _update_user_from_claims(user, claims):
     This function is called on registration (new user) as well as login events.
     This function provides the mapping from the OIDC claims fields to the
     internal user profile fields.
-    In this example we use the role names as the names for Django
+    We use the role names as the names for Django
     Groups to which a user belongs.
     :param user: The user profile
     :param claims: The claims for the profile
@@ -39,8 +39,10 @@ def _update_user_from_claims(user, claims):
     roles = set(claims.get("roles", []))
     groups = set(group.name for group in user.groups.all())
 
-    # If the user has any role, we assume that it is a staff user
-    # This is just to get logging in working on Core QA site
+    # If the user has any role, we assume that it is a superuser while
+    # the permissions are being integrated with the Auth Service
+    # (Currently all admin users are superusers)
+    # This is to get logging in working on Core QA site and will change
     if roles:
         wagtail_permission = Permission.objects.get(
             content_type__app_label='wagtailadmin', codename='access_admin')
@@ -113,7 +115,4 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         on claims information.
         """
         verified = super(GirlEffectOIDCBackend, self).verify_claims(claims)
-        # Example of how to prevent users without a verified email from
-        # logging in.
-        # verified = verified and claims.get("email_verified")
         return verified
