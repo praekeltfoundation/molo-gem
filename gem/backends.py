@@ -45,7 +45,7 @@ def _update_user_from_claims(user, claims):
         wagtail_permission = Permission.objects.get(
             content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(wagtail_permission)
-        user.is_staff = True
+        user.is_superuser = True
         user.save()
 
     groups_to_add = roles - groups
