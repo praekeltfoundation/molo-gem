@@ -24,9 +24,15 @@
 </div>
 
 
-
+==>===>{{get_recommended_articles}}
+<hr/>
+==>>{{recommended_article__pk}}
+<hr/>
+{{get_recommended_articles}}
+<hr/>
 {% if self.get_parent_section.enable_recommended_section %}
 {% get_recommended_articles self as recommended_articles %}
+======>{{recommended_articles}}
 {% if recommended_articles %}
   <h3 class="heading heading--small related-articles__recommended">{% trans "Recommended" %}</h3>
   <div class="related-articles-recommended">
