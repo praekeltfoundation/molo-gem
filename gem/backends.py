@@ -91,6 +91,21 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         except self.UserModel.DoesNotExist:
             LOGGER.debug("Lookup failed based on {}".format(kwargs))
 
+        """
+        Users with an existing account will be migrated on their first login so
+        we find these users based on their User.id
+        """
+        user_id = claims.get("migration_information", {}).get("user_id", None)
+        if user_id is not None:
+            try:
+                kwargs = {'id': user_id}
+                user = self.UserModel.objects.get(**kwargs)
+                # Update the user with the latest info
+                _update_user_from_claims(user, claims)
+                return[user]
+            except self.UserModel.DoesNotExist:
+                LOGGER.debug("Lookup failed based on {}".format(kwargs))
+
         return self.UserModel.objects.none()
 
     def create_user(self, claims):
