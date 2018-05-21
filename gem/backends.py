@@ -33,6 +33,11 @@ def _update_user_from_claims(user, claims):
     user.email = claims.get("email") or ""
     user.save()
 
+    # Ensure the profile is linked to their auth service account using the uuid
+    if user.profile.auth_service_uuid is None:
+        user.profile.auth_service_uuid = claims["sub"]
+        user.profile.save()
+
     # Synchronise the roles that the user has.
     # The list of roles may contain more or less roles
     # than the previous time the user logged in.
