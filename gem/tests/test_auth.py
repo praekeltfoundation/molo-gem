@@ -18,10 +18,11 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
             is_active=True)
 
     def test_filter_users_by_claims(self):
-        claims = {}
+        claims = {'sub': 'this1234is5678uuid'}
         user = get_user_model().objects.create(
-            username='this1234is5678uuid', password='pass')
-        claims["sub"] = user.username
+            username='test_user', password='pass')
+        user.profile.auth_service_uuid = claims['sub']
+        user.profile.save()
         backend = GirlEffectOIDCBackend()
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEqual(returned_user[0].pk, user.pk)
