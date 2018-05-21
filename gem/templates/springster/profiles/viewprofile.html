@@ -31,15 +31,10 @@
         {% endwith %}
     {% endif %}
 
-    {# include template "patterns/basics/buttons/sp_variations/button.html" #}
-      {% trans "log out" as buttontext %}
-      {% url "molo.profiles:auth_logout" as link %}
-      {% with type="hyperlink" hyperlink=link text=buttontext %}
-        <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
-          <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
-        </a>
-      {% endwith %}
-    {# end include template #}
+    <form method="post" action="{% url LOGOUT_URL %}">
+      {% csrf_token %}
+      <input class="call-to-action__button call-to-action__button-text call-to-action__button-text--hyperlink" value="{% trans "Log out" %}" type="submit">
+    </form>
 
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Your Profile" as headingtext %}
@@ -90,7 +85,7 @@
 
     {# include template "patterns/basics/buttons/sp_variations/button.html" #}
       {% trans "Update Profile" as buttontext %}
-      {% url "edit_my_profile" as link %}
+      {% url EDIT_PROFILE_URL as link %}
       {% with type="primary" hyperlink=link text=buttontext %}
         <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
           <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>

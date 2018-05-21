@@ -13,11 +13,11 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.conf import global_settings
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
 from celery.schedules import crontab
-from gem.utils import provider_login_url
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -47,11 +47,27 @@ OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
 OIDC_OP = environ.get('OIDC_OP', '')
-
+THEME = environ.get('THEME', 'springster')
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
-LOGIN_URL = provider_login_url(USE_OIDC_AUTHENTICATION)
+LOGIN_URL = 'molo.profiles:auth_login'
+LOGOUT_URL = 'molo.profiles:auth_logout'
+REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
+VIEW_PROFILE_URL = 'molo.profiles:view_my_profile'
+EDIT_PROFILE_URL = 'edit_my_profile'
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
+OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+
+if USE_OIDC_AUTHENTICATION:
+    LOGIN_URL = 'oidc_authentication_init'
+    LOGOUT_URL = 'oidc_logout'
+    REGISTRATION_URL = (
+        "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
+    VIEW_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
+    EDIT_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -151,6 +167,11 @@ MIDDLEWARE_CLASSES = [
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
+
+if USE_OIDC_AUTHENTICATION:
+    MIDDLEWARE_CLASSES += [
+        'mozilla_django_oidc.middleware.SessionRefresh',
+    ]
 
 # Template configuration
 
@@ -464,7 +485,7 @@ AUTHENTICATION_BACKENDS = [
 
 if USE_OIDC_AUTHENTICATION:
     AUTHENTICATION_BACKENDS = [
-        'mozilla_django_oidc.auth.OIDCAuthenticationBackend,'
+        'gem.backends.GirlEffectOIDCBackend',
     ] + AUTHENTICATION_BACKENDS
 
 AWS_HEADERS = {

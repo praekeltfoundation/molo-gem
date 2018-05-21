@@ -70,7 +70,6 @@ MIDDLEWARE_CLASSES += [  # noqa: F405
 
 CAS_SERVER_URL = ''
 CAS_ADMIN_PREFIX = '/admin/'
-LOGIN_URL = 'molo.profiles:auth_login'
 CAS_VERSION = '3'
 
 

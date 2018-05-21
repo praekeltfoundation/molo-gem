@@ -16,7 +16,7 @@
     {% footer_page %}
     {% if not user.is_authenticated %}
       <li class="footer-menu-list__item">
-        <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+        <a href={{REGISTRATION_URL}} class="footer-menu-list__anchor">
           {% trans "Join us" %}
         </a>
       </li>
@@ -27,14 +27,15 @@
       </li>
     {% else %}
       <li class="footer-menu-list__item">
-        <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
+        <a href="{% url VIEW_PROFILE_URL %}" class="footer-menu-list__anchor">
           {% trans "Profile" %}
         </a>
       </li>
       <li class="footer-menu-list__item">
-        <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
-          {% trans "Log out" %}
-        </a>
+        <form method="post" action="{% url LOGOUT_URL %}">
+          {% csrf_token %}
+          <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+        </form>
       </li>
     {% endif %}
   </ul>

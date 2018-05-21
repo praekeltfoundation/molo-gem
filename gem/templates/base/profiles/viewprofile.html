@@ -3,13 +3,16 @@
 {% get_settings %}
 
 {% block content %}
+
   <div class="profile-container">
     <div class="title profile">
       <h3>{% trans "Hello" %} {{ user }}</h3>
     </div>
-    <div class="block">
-      <a href="{% url 'molo.profiles:auth_logout' %}"
-      class="button inverted logout-link">{% trans "log out" %}</a>
+    <div class="block clean-form">
+      <form method="post" action="{% url LOGOUT_URL %}">
+        {% csrf_token %}
+        <input class="button inverted logout-linkr" value="{% trans "Log out" %}" type="submit">
+      </form>
     </div>
     <hr>
     <div class="nickname-form">
@@ -35,7 +38,7 @@
             <span>{{ user.profile.education_level | default:"Not set" }}</span></p>
         {% endif %}
 
-        <a href="{% url 'edit_my_profile' %}" class="button inverted logout-link">
+        <a href="{% url EDIT_PROFILE_URL %}" class="button inverted logout-link">
           {% trans "Update Profile" %}
         </a>
       </div>

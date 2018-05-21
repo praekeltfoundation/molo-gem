@@ -17,7 +17,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url 'molo.profiles:auth_login' as link %}
+      {% url LOGIN_URL as link %}
       {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
       <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
         <{{htmltag}}>{{title}}</{{htmltag}}>
@@ -37,7 +37,7 @@
       {% endwith %}
     {# end include template #}
 
-    <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form" novalidate>
+    <form method="post" action={{REGISTRATION_URL}} class="profiles__form" novalidate>
     {% csrf_token %}
         {% if form.errors %}
             <p class="errors">
@@ -149,7 +149,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url 'molo.profiles:auth_login' as link %}
+      {% url LOGIN_URL as link %}
       {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
         <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
           <{{htmltag}}>{{title}}</{{htmltag}}>
