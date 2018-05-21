@@ -38,7 +38,8 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
             'roles': roles,
             'given_name': 'testgivenname',
             'family_name': 'testfamilyname',
-            'email': 'test@email.com'}
+            'email': 'test@email.com',
+            'sub': 'this1234is5678uuid'}
         user = get_user_model().objects.create(
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
@@ -48,3 +49,4 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')
         self.assertEquals(user.email, 'test@email.com')
+        self.assertEquals(user.profile.auth_service_uuid, 'this1234is5678uuid')
