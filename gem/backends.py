@@ -83,7 +83,7 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         """
         uuid = claims["sub"]
         try:
-            kwargs = {USERNAME_FIELD: uuid}
+            kwargs = {'profile__auth_service_uuid': uuid}
             user = self.UserModel.objects.get(**kwargs)
             # Update the user with the latest info
             _update_user_from_claims(user, claims)
