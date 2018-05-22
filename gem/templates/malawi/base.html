@@ -108,7 +108,7 @@
             {% if not user.is_authenticated %}
               <a class="profile-menu-item" href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
             {% else %}
-            <a class="profile-menu-item" href="{% url VIEW_PROFILE_URL %}">{% trans "Profile" %}</a>
+            <a class="profile-menu-item" href="{{VIEW_PROFILE_URL}}">{% trans "Profile" %}</a>
             {% endif %}
             <a class="search-icon" href="#search-form">
               <img src="{% static 'img/icons/search/search_purple.png' %}" width="100%" alt="Search" />
@@ -157,7 +157,7 @@
 
               {% else %}
               <li class="footer-menu-list__item">
-                <a href="{% url VIEW_PROFILE_URL %}" class="footer-menu-list__anchor">
+                <a href="{{VIEW_PROFILE_URL}}" class="footer-menu-list__anchor">
                   {% trans "Profile" %}
                 </a>
               </li>
