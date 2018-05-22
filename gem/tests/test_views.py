@@ -133,6 +133,7 @@ class GemRegistrationViewTest(TestCase, GemTestCaseMixin):
             email='newuser@example.com',
             password='newuser')
         user.profile.migrated_username = 'newuser'
+        user.profile.site = self.main.get_site()
         user.profile.save()
 
         response = self.client.post('/profiles/login/?next=/', {
@@ -152,23 +153,27 @@ class GemRegistrationViewTest(TestCase, GemTestCaseMixin):
             'Your username and password do not match. Please try again.')
 
     def test_successful_login_for_migrated_users_in_site_2(self):
-        user = User.objects.create_user(
-            username='2_newuser',
-            email='newuser@example.com',
-            password='newuser2')
-        user.profile.migrated_username = 'newuser'
-        user.profile.save()
-        user.profile.site = self.main.get_site()
-        user.profile.save()
-
-        user3 = User.objects.create_user(
+        user_site_1 = User.objects.create_user(
             username='1_newuser',
             email='newuser@example.com',
             password='newuser1')
-        user3.profile.migrated_username = 'newuser'
-        user3.profile.save()
-        user3.profile.site = self.main2.get_site()
-        user3.profile.save()
+        user_site_1.profile.migrated_username = 'newuser'
+        user_site_1.profile.site = self.main.get_site()
+        user_site_1.profile.save()
+
+        user_site_2 = User.objects.create_user(
+            username='2_newuser',
+            email='newuser@example.com',
+            password='newuser2')
+        user_site_2.profile.migrated_username = 'newuser'
+        user_site_2.profile.site = self.main2.get_site()
+        user_site_2.profile.save()
+
+        response = self.client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser1',
+        })
+        self.assertRedirects(response, '/')
 
         response = self.client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -177,12 +182,6 @@ class GemRegistrationViewTest(TestCase, GemTestCaseMixin):
         self.assertContains(
             response,
             'Your username and password do not match. Please try again.')
-
-        response = self.client.post('/profiles/login/?next=/', {
-            'username': 'newuser',
-            'password': 'newuser1',
-        })
-        self.assertRedirects(response, '/')
 
         client = Client(HTTP_HOST=self.main2.get_site().hostname)
 

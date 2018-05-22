@@ -57,7 +57,8 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your mind')
         self.yourmind2 = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main2).first(), title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main2).first(), title='Your mind')
         first_main_article = self.mk_article(
             parent=self.yourmind, title='first_main_article')
         first_main_banner = BannerPage(
@@ -90,7 +91,8 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(), title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind')
         spanish_capitals_spaced_article = self.mk_article(
             parent=self.yourmind, title=' ¿QUE TAL?')
         spaced_article = self.mk_article(
@@ -381,7 +383,8 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(), title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind')
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
 
@@ -511,11 +514,8 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
-
-
         security_index = SecurityQuestionIndexPage.objects.child_of(
             self.main).first()
-
         self.questions = []
 
         for i in range(1, 3):
@@ -526,7 +526,6 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
 
         self.user = get_user_model().objects.create(username='user')
         self.user.save()
-
         self.user.gem_profile.set_security_question_1_answer('Answer 1')
         self.user.gem_profile.set_security_question_2_answer('Answer 2')
         self.user.gem_profile.save()
