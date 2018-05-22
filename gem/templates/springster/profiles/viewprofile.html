@@ -45,8 +45,8 @@
       {% endwith %}
     {# end include template #}
 
+    {% trans "Not set." as defaultText %}
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
-
     {% if profile_settings.activate_display_name %}
       <fieldset>
           {% if user.profile.alias %}
@@ -63,7 +63,7 @@
     <fieldset>
         <label>{% trans "Date of Birth: " %}</label>
         <span class="input-feedback">
-            {{ user.profile.date_of_birth | default:"Not set" }}
+            {{ user.profile.date_of_birth|default:defaultText }}
         </span>
     </fieldset>
     {% endif %}
@@ -71,14 +71,14 @@
     {% if profile_settings.activate_gender%}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        <span class="input-feedback">{{user.profile.gender|gender_display | default:"Not set" }}</span>
+        <span class="input-feedback">{{user.profile.gender|gender_display|default:defaultText }}</span>
     </fieldset>
     {% endif %}
 
     {% if profile_settings.activate_education_level %}
     <fieldset>
         <label>{% trans "Education Level:" %}</label>
-        <span class="input-feedback">{{ user.profile.education_level | default:"Not set" }}</span>
+        <span class="input-feedback">{{ user.profile.education_level|default:defaultText }}</span>
     </fieldset>
     {% endif %}
     {% endwith %}
