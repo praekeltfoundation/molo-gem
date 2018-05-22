@@ -7,18 +7,19 @@ from gem.models import GemSettings
 from mock import patch
 
 from molo.core.models import SiteSettings
-from molo.core.tests.base import MoloTestCaseMixin
+from gem.tests.base import GemTestCaseMixin
 
 
-class TestCustomGemMiddleware(TestCase, MoloTestCaseMixin):
+class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
     submit_tracking_method = (
         "gem.middleware.GemMoloGoogleAnalyticsMiddleware.submit_tracking"
     )
 
     def setUp(self):
-        self.client = Client()
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
         self.site_settings = SiteSettings.for_site(self.site)
         self.site_settings.local_ga_tracking_code = 'local_ga_tracking_code'

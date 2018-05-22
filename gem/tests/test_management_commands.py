@@ -12,10 +12,10 @@ from django.utils import timezone
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 from molo.commenting.models import MoloComment
-from molo.core.tests.base import MoloTestCaseMixin
+from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
-                              ArticlePage, BannerPage)
+                              ArticlePage, BannerPage, SectionIndexPage)
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
@@ -25,16 +25,18 @@ from molo.profiles.models import (
 from os.path import join
 
 
-class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
+class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-        self.mk_main2()
-        self.main2 = Main.objects.last()
-        self.language_setting = Languages.objects.create(
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.language_setting = Languages.objects.get(
             site_id=self.main.get_site().pk)
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
+
         self.user = User.objects.create_user(
             'test', 'test@example.org', 'test')
+
         self.content_type = ContentType.objects.get_for_model(self.user)
         Image.objects.create(
             title="Yes.png",
@@ -50,13 +52,9 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         )
 
     def test_create_new_banner_relations(self):
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         self.yourmind2 = self.mk_section(
             self.section_index2, title='Your mind')
         first_main_article = self.mk_article(
@@ -320,11 +318,6 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
                      'en', stdout=out)
         self.assertIn('Main language does not exist in "Main"', out.getvalue())
 
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
         out = StringIO()
         call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
@@ -438,9 +431,10 @@ class AddDefaultTagsToArticlesTest(TestCase):
         call_command('add_default_tags_to_articles', csv_file, 'en')
 
 
-class AddImagesToSectionsTest(TestCase, MoloTestCaseMixin):
+class AddImagesToSectionsTest(TestCase, GemTestCaseMixin):
     def test_command_works(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         call_command('add_images_to_sections', 'en')
 
 
@@ -448,18 +442,12 @@ class AddImagesToSectionsTest(TestCase, MoloTestCaseMixin):
     SECURITY_QUESTION_1='Answer to Security Question 1',
     SECURITY_QUESTION_2='Answer to Security Question 2',
 )
-class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
+class CreateSecurityQuestionsFromSettingsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-
-        self.language_setting = Languages.objects.create(
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.language_setting = Languages.objects.get(
             site_id=self.main.get_site().pk)
-
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
 
     def test_it_creates_main_language_questions_for_one_site(self):
         call_command('create_security_questions_from_settings')
@@ -492,14 +480,14 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
         # Travis which makes the translation not work.
 
     def test_it_creates_questions_for_multiple_sites(self):
-        self.mk_main2()
-        self.main2 = Main.objects.all().last()
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
 
-        self.language_setting2 = Languages.objects.create(
+        language_setting = Languages.objects.get(
             site_id=self.main2.get_site().pk)
 
         SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting2,
+            language_setting=language_setting,
             locale='rw',
             is_active=True)
 
@@ -516,13 +504,13 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
     SECURITY_QUESTION_2='Question 2',
     CELERY_ALWAYS_EAGER=True,
 )
-class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
+class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        main = Main.objects.first()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
 
         security_index = SecurityQuestionIndexPage.objects.child_of(
-            main).first()
+            self.main).first()
 
         self.questions = []
 

@@ -1,21 +1,18 @@
-from django.test import TestCase
-from molo.core.models import SiteLanguageRelation, Main, Languages
-from molo.core.tests.base import MoloTestCaseMixin
+from django.test import TestCase, Client
+from molo.core.models import SiteLanguageRelation, Languages
+from gem.tests.base import GemTestCaseMixin
 
 
-class TestLanguageCodeSetting(TestCase, MoloTestCaseMixin):
+class TestLanguageCodeSetting(TestCase, GemTestCaseMixin):
 
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-        self.language_setting = Languages.objects.create(
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        language_setting = Languages.objects.get(
             site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
         self.bahasa = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
+            language_setting=language_setting,
             locale='id',
             is_active=True)
 

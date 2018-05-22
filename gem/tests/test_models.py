@@ -10,12 +10,11 @@ from django.conf import settings
 
 from wagtail.wagtailcore.models import Site
 
-from molo.core.models import (
-    SiteLanguageRelation, Main, Languages, SiteSettings)
-from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import SiteSettings
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
 from gem.models import GemSettings, GemUserProfile
+from gem.tests.base import GemTestCaseMixin
 
 from os.path import join
 
@@ -23,26 +22,14 @@ from bs4 import BeautifulSoup
 
 
 @pytest.mark.django_db
-class TestModels(TestCase, MoloTestCaseMixin):
+class TestModels(TestCase, GemTestCaseMixin):
 
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-        self.french = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='fr',
-            is_active=True)
-        self.survey_index = SurveysIndexPage.objects.first()
-        self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
-        self.yourmind_sub = self.mk_section(
-            self.yourmind, title='Your mind subsection')
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+
+        self.survey_index = SurveysIndexPage.objects.child_of(
+            self.main).first()
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.enable_tag_navigation = True
         self.site_settings.save()
@@ -124,9 +111,10 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 soup.get_text().count(self.banner_message), 1)
 
 
-class TestGemUserProfile(TestCase, MoloTestCaseMixin):
+class TestGemUserProfile(TestCase, GemTestCaseMixin):
     def test_security_questions_check(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         get_user_model().objects.create_user(
             username='user', email='user@example.com', password='pass')
         profile = GemUserProfile.objects.first()

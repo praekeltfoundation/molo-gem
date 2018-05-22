@@ -1,14 +1,15 @@
-from molo.core.tests.base import MoloTestCaseMixin
+from gem.tests.base import GemTestCaseMixin
 from molo.profiles.models import UserProfilesSettings
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 
-class TestProfileInformationDisplay(TestCase, MoloTestCaseMixin):
+class TestProfileInformationDisplay(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         profile_settings = UserProfilesSettings.for_site(self.main.get_site())
         profile_settings.activate_gender = True
         profile_settings.capture_gender_on_reg = True
