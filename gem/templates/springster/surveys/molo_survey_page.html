@@ -160,7 +160,7 @@
         {% endfor %}
         {% if survey.display_survey_directly %}
           {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-            {% trans "Vote on poll" as defaultText %}
+            {% trans "Vote" as defaultText %}
             <input type="submit" value="{{ survey.submit_text|default:defaultText }}" class="call-to-action__button call-to-action__button--primary" />
           {% else %}
             <div class="polls">
