@@ -31,7 +31,8 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-springster/04_state-320.s+(a|c)ss',
         'gem/styles/gem-springster/05_no-script-state.s+(a|c)ss',
         'gem/styles/gem-springster/@font-face-baton.s+(a|c)ss',
-  
+    ],
+    authSassPaths = [
         'gem/styles/gem-springster/auth/springster.feature.scss',
         'gem/styles/gem-springster/auth/springster.enhanced.scss',
         'gem/styles/gem-malawi/auth/zathu.feature.scss',
@@ -41,12 +42,15 @@ var gulp              =   require('gulp'),
     ],
     sassDest = {
          prd: 'gem/static/css/prd',
-         dev: 'gem/static/css/dev'
+         dev: 'gem/static/css/dev',
+    },
+    authSassDest = {
+         auth: 'gem/styles/gem/auth/compiled'
     };
 
 
 function styles(env) {
-  var s = gulp.src(sassPaths);
+  var s = gulp.src(env === 'auth' ? authSassPaths : sassPaths);
   var isDev = env === 'dev';
   if (isDev)
     s = s
@@ -62,13 +66,16 @@ function styles(env) {
     .pipe(sourcemaps.write('/maps'));
     return s
     .pipe(gutil.env.type !== 'ci' ? notify({ message: `Styles task complete: ${env}` }) : gutil.noop())
-    .pipe(gulp.dest(sassDest[env]));
+    .pipe(gulp.dest(env === 'auth' ? authSassDest[env] : sassDest[env]));
 }
 gulp.task('styles:prd', function() {
   return styles('prd');
 });
 gulp.task('styles:dev', function() {
   return styles('dev');
+});
+gulp.task('styles:auth', function() {
+  return styles('auth');
 });
 
 // Minify JS
@@ -89,5 +96,5 @@ gulp.task('watch', function() {
     gulp.watch(['gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
 });
 
-gulp.task('styles', ['styles:dev', 'styles:prd']);
+gulp.task('styles', ['styles:dev', 'styles:prd', 'styles:auth']);
 gulp.task('default', ['styles', 'compress']);
