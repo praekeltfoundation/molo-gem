@@ -1,4 +1,4 @@
-{% load personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
+{% load personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags i18n %}
 {% get_settings %}
 
 {% block content %}
@@ -50,7 +50,8 @@
             {% endif %}
             <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
               <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {{ survey.homepage_button_text|default:"Take GCN competition"}}
+                {% trans "Take GCN competition" as defaultTextGCN %}
+                {{ survey.homepage_button_text|default:defaultTextGCN}}
               </span>
             </a>
           </div>
@@ -112,7 +113,8 @@
               <nav>
                 <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
                   <span class="call-to-action__button-text call-to-action__button-text--primary">
-                    {{ survey.homepage_button_text|default:"Take Survey"}}
+                    {% trans "Take The Survey" as defaultText %}
+                    {{ survey.homepage_button_text|default:defaultText }}
                   </span>
                 </a>
               </nav>
