@@ -15,7 +15,8 @@ from molo.commenting.models import MoloComment
 from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
-                              ArticlePage, BannerPage, SectionIndexPage)
+                              ArticlePage, BannerPage, SectionIndexPage,
+                              BannerIndexPage)
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
@@ -56,12 +57,13 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your mind')
         self.yourmind2 = self.mk_section(
-            self.section_index2, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main2).first(), title='Your mind')
         first_main_article = self.mk_article(
             parent=self.yourmind, title='first_main_article')
         first_main_banner = BannerPage(
             title='first_main_banner', slug='firstmainbanner',
             banner_link_page=first_main_article)
+        self.banner_index = BannerIndexPage.objects.live().first()
         self.banner_index.add_child(instance=first_main_banner)
         first_main_banner.save_revision().publish()
         second_main_article = self.mk_article(
@@ -71,6 +73,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         second_main_banner = BannerPage(
             title='second_main_banner', slug='secondmainbanner',
             banner_link_page=first_main_article)
+        self.banner_index2 = BannerIndexPage.objects.live().first()
         self.banner_index2.add_child(instance=second_main_banner)
         second_main_banner.save_revision().publish()
 
@@ -87,7 +90,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(), title='Your mind')
         spanish_capitals_spaced_article = self.mk_article(
             parent=self.yourmind, title=' ¿QUE TAL?')
         spaced_article = self.mk_article(
@@ -122,7 +125,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 4)
+        self.assertEqual(reaction_question.count(), 8)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 3)
@@ -138,7 +141,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 8)
+        self.assertEqual(reaction_question.count(), 12)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 6)
@@ -152,7 +155,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 12)
+        self.assertEqual(reaction_question.count(), 16)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 9)
@@ -165,7 +168,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 16)
+        self.assertEqual(reaction_question.count(), 20)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 12)
@@ -178,7 +181,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 20)
+        self.assertEqual(reaction_question.count(), 24)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 15)
@@ -191,7 +194,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 24)
+        self.assertEqual(reaction_question.count(), 28)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 18)
@@ -204,7 +207,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 28)
+        self.assertEqual(reaction_question.count(), 32)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 21)
@@ -217,7 +220,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 32)
+        self.assertEqual(reaction_question.count(), 36)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 24)
@@ -230,7 +233,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 36)
+        self.assertEqual(reaction_question.count(), 40)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 27)
@@ -242,7 +245,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 40)
+        self.assertEqual(reaction_question.count(), 44)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 30)
@@ -255,7 +258,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 44)
+        self.assertEqual(reaction_question.count(), 48)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 33)
@@ -268,7 +271,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 48)
+        self.assertEqual(reaction_question.count(), 52)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 36)
@@ -281,7 +284,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 52)
+        self.assertEqual(reaction_question.count(), 56)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 39)
@@ -294,7 +297,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 56)
+        self.assertEqual(reaction_question.count(), 60)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 42)
@@ -307,7 +310,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 60)
+        self.assertEqual(reaction_question.count(), 64)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 45)
@@ -378,7 +381,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(), title='Your mind')
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
 
@@ -494,9 +497,9 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, GemTestCaseMixin):
         call_command('create_security_questions_from_settings')
 
         questions = SecurityQuestion.objects.all()
-        self.assertEqual(questions.count(), 4)
+        self.assertEqual(questions.count(), 6)
         self.assertEqual(questions.descendant_of(self.main).count(), 2)
-        self.assertEqual(questions.descendant_of(self.main2).count(), 2)
+        self.assertEqual(questions.descendant_of(self.main2).count(), 4)
 
 
 @override_settings(
@@ -508,6 +511,7 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
+
 
         security_index = SecurityQuestionIndexPage.objects.child_of(
             self.main).first()
@@ -544,7 +548,8 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
         self.assertTrue(security_answer_2.check_answer('Answer 2'))
 
     def test_it_copies_answers_for_multiple_sites(self):
-        self.mk_main2()
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
         main2 = Main.objects.last()
 
         security_index2 = SecurityQuestionIndexPage.objects.child_of(

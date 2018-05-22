@@ -21,12 +21,12 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
-        self.site_settings = SiteSettings.for_site(self.site)
+        self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         self.site_settings.save()
 
         GemSettings.objects.create(
-            site_id=self.site.id,
+            site_id=self.main.get_site().id,
             bbm_ga_account_subdomain='bbm',
             bbm_ga_tracking_code='bbm_tracking_code',
         )
@@ -43,7 +43,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         '''
 
         request = RequestFactory().get('/', HTTP_HOST='bbm.localhost')
-        request.site = self.site
+        request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
@@ -62,7 +62,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
         request = RequestFactory().get('/', HTTP_HOST='localhost')
         request.COOKIES['bbm'] = 'true'
-        request.site = self.site
+        request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
@@ -81,7 +81,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         '''
 
         request = RequestFactory().get('/', HTTP_HOST='localhost')
-        request.site = self.site
+        request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
