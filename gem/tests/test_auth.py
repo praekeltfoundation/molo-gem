@@ -32,6 +32,20 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEquals(returned_user.count(), 0)
 
+    def test_filter_users_by_claims_migrated_user(self):
+        claims = {'sub': 'this1234is5678uuid'}
+        user = get_user_model().objects.create(
+            username='test_user', password='pass')
+        claims['migration_information'] = {'user_id': user.id}
+        backend = GirlEffectOIDCBackend()
+        returned_user = backend.filter_users_by_claims(claims)
+        self.assertEqual(returned_user[0].pk, user.pk)
+
+        # it should return none if user does not DoesNotExist
+        claims['migration_information'] = {'user_id': -2}
+        returned_user = backend.filter_users_by_claims(claims)
+        self.assertEquals(returned_user.count(), 0)
+
     def test_update_user_from_claims(self):
         roles = ['example role', ]
         claims = {
