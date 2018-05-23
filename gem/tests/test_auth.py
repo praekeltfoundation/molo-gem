@@ -1,21 +1,14 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import Main, Languages, SiteLanguageRelation
 from gem.backends import GirlEffectOIDCBackend, _update_user_from_claims
+from gem.tests.base import GemTestCaseMixin
 
 
-class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
+class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
 
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.first()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
 
     def test_filter_users_by_claims(self):
         claims = {'sub': 'this1234is5678uuid'}
@@ -58,7 +51,7 @@ class TestOIDCAuthIntegration(TestCase, MoloTestCaseMixin):
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
         _update_user_from_claims(user, claims)
-        user = user.refresh_from_db()
+        user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')

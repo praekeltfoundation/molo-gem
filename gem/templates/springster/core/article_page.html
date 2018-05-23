@@ -63,7 +63,15 @@
       {% endif %}
     {% endfor %}
   </article>
-  {% social_media_article page=self %}
+  {% if is_via_bbm %}
+    <ul class="social-media-list">
+      <li class="social-media-list__item">
+        <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
+      </li>
+    </ul>
+  {% else %}
+    {% social_media_article page=self %}
+  {% endif %}
   {% load_reaction_question article as question %}
   {% if question %}
   <div class="reaction-questions__block">
@@ -206,7 +214,6 @@
       </ul>
     </div>
   {% endif %}
-
 
   {% if self.get_parent_section.enable_recommended_section %}
   {% get_recommended_articles self as articles %}

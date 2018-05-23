@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.core.management import call_command
 from django.db import migrations
 
 
 def create_security_questions(apps, schema_editor):
-    call_command('create_security_questions_from_settings')
+    # This functionality is no longer needed
+    pass
 
 
 def delete_security_questions(apps, schema_editor):
