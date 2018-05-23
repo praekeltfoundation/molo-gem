@@ -338,7 +338,7 @@ LOCALE_PATHS = [
 STATIC_ROOT = join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
-#COMPRESS_OFFLINE = True
+
 
 STATICFILES_STORAGE = (
     'django.contrib.staticfiles.storage.ManifestStaticFilesStorage')
@@ -349,10 +349,6 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
-#COMPRESS_OFFLINE_CONTEXT = {  # noqa
-    ##'STATIC_URL': STATIC_URL,  # noqa
-    #'ENV': ENV,  # noqa
-#}
 
 MEDIA_ROOT = join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
