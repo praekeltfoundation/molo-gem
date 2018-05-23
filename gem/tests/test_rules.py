@@ -7,9 +7,10 @@ from django.contrib.sites.models import Site
 from django.test import TestCase, RequestFactory
 from django.utils import timezone
 
+from gem.tests.base import GemTestCaseMixin
+
 from molo.commenting.models import MoloComment
-from molo.core.models import ArticlePage, SectionPage
-from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import ArticlePage, SectionIndexPage
 
 from wagtail_personalisation.models import Segment
 
@@ -17,9 +18,10 @@ from ..rules import CommentCountRule, ProfileDataRule
 
 
 @pytest.mark.django_db
-class TestProfileDataRuleSegmentation(TestCase, MoloTestCaseMixin):
+class TestProfileDataRuleSegmentation(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.request_factory = RequestFactory()
 
         # Fabricate a request with a logged-in user
@@ -244,9 +246,10 @@ class TestProfileDataRuleValidation(TestCase):
 
 
 @pytest.mark.django_db
-class TestProfileDataRuleGetData(TestCase, MoloTestCaseMixin):
+class TestProfileDataRuleGetData(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.segment = Segment.objects.create()
         self.user = get_user_model().objects \
                                     .create_user(username='tester',
@@ -292,18 +295,20 @@ class TestProfileDataRuleGetData(TestCase, MoloTestCaseMixin):
         self.assertEqual(rule.get_user_info_string(self.user), 'None')
 
 
-class TestCommentCountRuleSegmentation(TestCase, MoloTestCaseMixin):
+class TestCommentCountRuleSegmentation(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+
+        self.section = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='test section')
         self.request_factory = RequestFactory()
         self.request = self.request_factory.get('/')
         self.request.user = get_user_model().objects.create_user(
             username='tester', email='tester@example.com', password='tester')
         self.other_user = get_user_model().objects.create_user(
             username='other', email='other@example.com', password='other')
-
-        self.section = SectionPage(title='test section')
-        self.section_index.add_child(instance=self.section)
 
         self.article = self.add_article('first')
         self.other_article = self.add_article('other')

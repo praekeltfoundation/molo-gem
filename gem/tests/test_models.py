@@ -4,18 +4,15 @@ import pytest
 from copy import deepcopy
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from wagtail.wagtailcore.models import Site
-
-from molo.core.models import (
-    SiteLanguageRelation, Main, Languages, SiteSettings)
-from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import SiteSettings
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
 from gem.models import GemSettings, GemUserProfile
+from gem.tests.base import GemTestCaseMixin
 
 from os.path import join
 
@@ -23,26 +20,14 @@ from bs4 import BeautifulSoup
 
 
 @pytest.mark.django_db
-class TestModels(TestCase, MoloTestCaseMixin):
+class TestModels(TestCase, GemTestCaseMixin):
 
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-        self.french = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='fr',
-            is_active=True)
-        self.survey_index = SurveysIndexPage.objects.first()
-        self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
-        self.yourmind_sub = self.mk_section(
-            self.yourmind, title='Your mind subsection')
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.survey_index = SurveysIndexPage.objects.child_of(
+            self.main).first()
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.enable_tag_navigation = True
         self.site_settings.save()
@@ -54,8 +39,7 @@ class TestModels(TestCase, MoloTestCaseMixin):
         self.assertNotContains(response, 'Thank You')
         self.assertNotContains(response, 'https://www.google.co.za/')
 
-        default_site = Site.objects.get(is_default_site=True)
-        setting = GemSettings.for_site(default_site)
+        setting = GemSettings.for_site(self.main.get_site())
         setting.show_partner_credit = True
         setting.partner_credit_description = "Thank You"
         setting.partner_credit_link = "https://www.google.co.za/"
@@ -77,16 +61,20 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 slug='survey-slug',
                 homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
+                allow_anonymous_submissions=False
             )
+            self.survey_index.add_child(instance=molo_survey_page)
+
             molo_survey_page2 = MoloSurveyPage(
                 title='survey title',
                 slug='another-survey-slug',
                 homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
+                allow_anonymous_submissions=True
             )
 
-            self.survey_index.add_child(instance=molo_survey_page)
             self.survey_index.add_child(instance=molo_survey_page2)
+
             MoloSurveyFormField.objects.create(
                 page=molo_survey_page,
                 sort_order=1,
@@ -101,6 +89,8 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 field_type='singleline',
                 required=True
             )
+            molo_survey_page.save_revision().publish()
+            molo_survey_page2.save_revision().publish()
             setting = GemSettings.for_site(self.main.get_site())
             self.assertFalse(setting.show_join_banner)
             response = self.client.get('%s?next=%s' % (
@@ -113,6 +103,10 @@ class TestModels(TestCase, MoloTestCaseMixin):
             setting.show_join_banner = True
             setting.save()
 
+            self.assertTrue(GemSettings.for_site(
+                self.main.get_site()).show_join_banner)
+            self.assertTrue(SiteSettings.for_site(
+                self.main.get_site()).enable_tag_navigation)
             response = self.client.get('/')
             self.assertContains(
                 response,
@@ -124,9 +118,10 @@ class TestModels(TestCase, MoloTestCaseMixin):
                 soup.get_text().count(self.banner_message), 1)
 
 
-class TestGemUserProfile(TestCase, MoloTestCaseMixin):
+class TestGemUserProfile(TestCase, GemTestCaseMixin):
     def test_security_questions_check(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         get_user_model().objects.create_user(
             username='user', email='user@example.com', password='pass')
         profile = GemUserProfile.objects.first()
