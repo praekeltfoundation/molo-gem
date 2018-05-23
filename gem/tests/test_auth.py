@@ -10,6 +10,14 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
 
+    def test_create_user_from_claims(self):
+        claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+                  'preferred_username': 'testuser'}
+        backend = GirlEffectOIDCBackend()
+        returned_user = backend.create_user(claims)
+        self.assertEqual(returned_user.username, 'testuser')
+        self.assertEqual(returned_user.profile.auth_service_uuid, 'e2556752-16d0-445a-8850-f190e860dea4')
+
     def test_filter_users_by_claims(self):
         claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(

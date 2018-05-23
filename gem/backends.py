@@ -100,7 +100,8 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         We use the user id (called the subscriber identity in OIDC) as the
         username, since it is always available and guaranteed to be unique.
         """
-        username = claims.get("sub")  # The sub field _must_ be in the claims.
+        # If we don't have a username we should break
+        username = claims.get("preferred_username")
         email = claims.get("email", "")  # Email is optional
         # We create the user based on the username and optional email fields.
         if email:
