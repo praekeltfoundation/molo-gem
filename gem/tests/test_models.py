@@ -27,7 +27,6 @@ class TestModels(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
-
         self.survey_index = SurveysIndexPage.objects.child_of(
             self.main).first()
         self.site_settings = SiteSettings.for_site(self.main.get_site())
@@ -64,16 +63,20 @@ class TestModels(TestCase, GemTestCaseMixin):
                 slug='survey-slug',
                 homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
+                allow_anonymous_submissions=False
             )
+            self.survey_index.add_child(instance=molo_survey_page)
+
             molo_survey_page2 = MoloSurveyPage(
                 title='survey title',
                 slug='another-survey-slug',
                 homepage_introduction='Introduction to Test Survey ...',
                 thank_you_text='Thank you for taking the Test Survey',
+                allow_anonymous_submissions=True
             )
 
-            self.survey_index.add_child(instance=molo_survey_page)
             self.survey_index.add_child(instance=molo_survey_page2)
+
             MoloSurveyFormField.objects.create(
                 page=molo_survey_page,
                 sort_order=1,
@@ -88,6 +91,8 @@ class TestModels(TestCase, GemTestCaseMixin):
                 field_type='singleline',
                 required=True
             )
+            molo_survey_page.save_revision().publish()
+            molo_survey_page2.save_revision().publish()
             setting = GemSettings.for_site(self.main.get_site())
             self.assertFalse(setting.show_join_banner)
             response = self.client.get('%s?next=%s' % (
@@ -100,6 +105,10 @@ class TestModels(TestCase, GemTestCaseMixin):
             setting.show_join_banner = True
             setting.save()
 
+            self.assertTrue(GemSettings.for_site(
+                self.main.get_site()).show_join_banner)
+            self.assertTrue(SiteSettings.for_site(
+                self.main.get_site()).enable_tag_navigation)
             response = self.client.get('/')
             self.assertContains(
                 response,

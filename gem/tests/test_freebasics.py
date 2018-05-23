@@ -28,16 +28,17 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
             'value': self.media.id,
         }])
         self.article.save_revision().publish()
-
-        response = self.client.get('/sections-main1-1/your-mind/test-page-0/')
+        response = self.client.get(self.article.url)
         self.assertContains(response, 'Download Audio')
 
-        client = Client(HTTP_VIA='Internet.org')
-        response = client.get('/sections-main1-1/your-mind/test-page-0/')
+        client = Client(
+            HTTP_VIA='Internet.org', HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
         self.assertNotContains(response, 'Download Audio')
 
-        client = Client(HTTP_X_IORG_FBS='true',)
-        response = client.get('/sections-main1-1/your-mind/test-page-0/')
+        client = Client(
+            HTTP_X_IORG_FBS='true', HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')
 
@@ -45,8 +46,9 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
             HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
             ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
             ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
-            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
-        response = client.get('/sections-main1-1/your-mind/test-page-0/')
+            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+            HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')
 
@@ -56,7 +58,8 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
             HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
             ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
             ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
-            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
-        response = client.get('/sections-main1-1/your-mind/test-page-0/')
+            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+            HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')

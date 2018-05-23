@@ -15,7 +15,6 @@
     {% gembannerpages %}
   {% endcache %}
 
-
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
@@ -47,7 +46,7 @@
     {# START PROMOTED: Latest #}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
 
-    {% surveys_list only_linked_surveys=True %}
+      {% surveys_list only_linked_surveys=True %}
 
     {# NOTE RENDER #}
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}

@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from molo.core.models import SiteLanguageRelation, Languages
+from molo.core.models import SiteLanguageRelation, Languages, SectionIndexPage
 from gem.tests.base import GemTestCaseMixin
 
 
@@ -18,7 +18,8 @@ class TestLanguageCodeSetting(TestCase, GemTestCaseMixin):
 
     def test_language_code_setting(self):
         eng_section = self.mk_section(
-            self.section_index, title='English Section')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='English Section')
         self.mk_section_translation(
             eng_section, self.bahasa, title='Bahasa Section')
 

@@ -64,7 +64,8 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         first_main_banner = BannerPage(
             title='first_main_banner', slug='firstmainbanner',
             banner_link_page=first_main_article)
-        self.banner_index = BannerIndexPage.objects.live().first()
+        self.banner_index = BannerIndexPage.objects.child_of(
+            self.main).first()
         self.banner_index.add_child(instance=first_main_banner)
         first_main_banner.save_revision().publish()
         second_main_article = self.mk_article(
@@ -74,7 +75,8 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         second_main_banner = BannerPage(
             title='second_main_banner', slug='secondmainbanner',
             banner_link_page=first_main_article)
-        self.banner_index2 = BannerIndexPage.objects.live().first()
+        self.banner_index2 = BannerIndexPage.objects.child_of(
+            self.main2).first()
         self.banner_index2.add_child(instance=second_main_banner)
         second_main_banner.save_revision().publish()
 
@@ -327,17 +329,18 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Article "it-gets-better" does not exist in'
-                      ' "main-1.localhost [default]"', out.getvalue())
+                      ' "main1-1.localhost"', out.getvalue())
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
         out = StringIO()
         call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Image "01_happygirl_feature_It gets better"'
-                      ' does not exist in "Main"', out.getvalue())
+                      ' does not exist in "main1"', out.getvalue())
 
         Image.objects.create(
             title="01_happygirl_feature_It gets better.jpg",
@@ -531,6 +534,13 @@ class MigrateSecurityAnswersToMoloProfilesTest(TestCase, GemTestCaseMixin):
         self.user.gem_profile.save()
 
     def test_it_copies_security_answers_to_molo_profiles(self):
+        language_setting = Languages.objects.get(
+            site_id=Main.objects.first().pk)
+        SiteLanguageRelation.objects.create(
+            language_setting=language_setting,
+            locale='en',
+            is_main_language=True,
+            is_active=True)
         call_command('migrate_security_answers_to_molo_profiles')
 
         security_answer_1 = SecurityAnswer.objects.get(
