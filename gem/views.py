@@ -10,7 +10,7 @@ from django.utils.feedgenerator import Atom1Feed
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.views.generic.edit import FormView
 from django.conf import settings
 
@@ -43,6 +43,10 @@ def report_response(request, comment_pk):
     return render(request, 'comments/report_response.html', {
         'article': comment.content_object,
     })
+
+
+class RedirectWithQueryStringView(RedirectView):
+    query_string = True
 
 
 class GemRegistrationView(RegistrationView):

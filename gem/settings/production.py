@@ -1,6 +1,6 @@
 import os
 from .base import *  # noqa
-
+from base import USE_OIDC_AUTHENTICATION
 
 # Disable debug mode
 
@@ -63,14 +63,15 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 # Setup for CAS
 ENABLE_SSO = True
 
-MIDDLEWARE_CLASSES += [  # noqa: F405
-    'molo.core.middleware.MoloCASMiddleware',
-    'molo.core.middleware.Custom403Middleware',
-]
+if not USE_OIDC_AUTHENTICATION:
+    MIDDLEWARE_CLASSES += [  # noqa: F405
+        'molo.core.middleware.MoloCASMiddleware',
+        'molo.core.middleware.Custom403Middleware',
+    ]
 
-CAS_SERVER_URL = ''
-CAS_ADMIN_PREFIX = '/admin/'
-CAS_VERSION = '3'
+    CAS_SERVER_URL = ''
+    CAS_ADMIN_PREFIX = '/admin/'
+    CAS_VERSION = '3'
 
 
 COMPRESS_OFFLINE_CONTEXT = {  # noqa
