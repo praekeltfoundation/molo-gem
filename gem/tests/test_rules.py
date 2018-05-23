@@ -1,4 +1,3 @@
-import datetime
 import pytest
 
 from django.core.exceptions import FieldDoesNotExist, ValidationError
@@ -267,11 +266,11 @@ class TestProfileDataRuleGetData(TestCase, GemTestCaseMixin):
         rule = ProfileDataRule(field='auth.User__date_joined',
                                operator=ProfileDataRule.NOT_EQUAL,
                                value='2012-09-23')
-        self.user.date_joined = datetime.datetime.today()
+        self.user.date_joined = timezone.now()
         self.user.save()
 
         self.assertEqual(rule.get_user_info_string(self.user),
-                         datetime.datetime.today().strftime('%Y-%m-%d %H:%M'))
+                         timezone.now().strftime('%Y-%m-%d %H:%M'))
 
     def test_get_user_info_string_returns_string_values(self):
         rule = ProfileDataRule(field='profiles.userprofile__gender',
