@@ -11,7 +11,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             title='main1', slug='main1', path='00010002', url_path='/main1/')
 
     def test_filter_users_by_claims(self):
-        claims = {'sub': 'this1234is5678uuid'}
+        claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
             username='test_user', password='pass')
         user.profile.auth_service_uuid = claims['sub']
@@ -21,12 +21,12 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(returned_user[0].pk, user.pk)
 
         # it should return none if user does not DoesNotExist
-        claims["sub"] = 'thisisnotavaliduuid'
+        claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEquals(returned_user.count(), 0)
 
     def test_filter_users_by_claims_migrated_user(self):
-        claims = {'sub': 'this1234is5678uuid'}
+        claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
             username='test_user', password='pass')
         claims['migration_information'] = {'user_id': user.id}
@@ -35,6 +35,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(returned_user[0].pk, user.pk)
 
         # it should return none if user does not DoesNotExist
+        claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
         claims['migration_information'] = {'user_id': -2}
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEquals(returned_user.count(), 0)
@@ -46,7 +47,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'given_name': 'testgivenname',
             'family_name': 'testfamilyname',
             'email': 'test@email.com',
-            'sub': 'this1234is5678uuid'}
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
@@ -56,4 +57,4 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')
         self.assertEquals(user.email, 'test@email.com')
-        self.assertEquals(user.profile.auth_service_uuid, 'this1234is5678uuid')
+        self.assertEquals(str(user.profile.auth_service_uuid), 'e2556752-16d0-445a-8850-f190e860dea4')
