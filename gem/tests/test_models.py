@@ -41,8 +41,7 @@ class TestModels(TestCase, GemTestCaseMixin):
         self.assertNotContains(response, 'Thank You')
         self.assertNotContains(response, 'https://www.google.co.za/')
 
-        default_site = Site.objects.get(is_default_site=True)
-        setting = GemSettings.for_site(default_site)
+        setting = GemSettings.for_site(self.main.get_site())
         setting.show_partner_credit = True
         setting.partner_credit_description = "Thank You"
         setting.partner_credit_link = "https://www.google.co.za/"
