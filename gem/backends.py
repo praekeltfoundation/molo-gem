@@ -28,9 +28,9 @@ def _update_user_from_claims(user, claims):
     """
     LOGGER.debug("Updating user {} with claims: {}".format(user, claims))
 
-    user.first_name = claims.get("given_name") or claims["nickname"]
-    user.last_name = claims.get("family_name") or ""
-    user.email = claims.get("email") or ""
+    user.first_name = claims.get("given_name") or claims.get("nickname", "")
+    user.last_name = claims.get("family_name", "")
+    user.email = claims.get("email", "")
     user.save()
 
     # Synchronise the roles that the user has.

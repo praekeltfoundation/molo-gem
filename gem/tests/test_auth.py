@@ -35,7 +35,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
         _update_user_from_claims(user, claims)
-        user = user.refresh_from_db()
+        user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')
