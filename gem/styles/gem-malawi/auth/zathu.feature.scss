@@ -24,13 +24,13 @@ a {
 }
 
 h1 {
-  font-size: 1.2em;
+  font-size: $font-large;
   margin: 0;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 1em;
+  font-size: $font-medium;
   margin: $spacer 0;
 }
 
@@ -79,7 +79,7 @@ hr {
     padding: $spacer-mid;
 
     &-image {
-      background: url('/img/zathu.png') no-repeat;
+      background: url('/static/authentication_service/images/zathu.png') no-repeat;
       background-position: 50%;
       background-size: 200px;
       display: block;
@@ -92,7 +92,7 @@ hr {
 
 .Footer {
   background: #fff;
-  border-top: 1px solid $colorFourth;
+  border: 0;
   font-size: $font-m-small;
   margin: 0 (-$spacer-mid);
   padding: $spacer 0;
@@ -160,7 +160,7 @@ hr {
     &.Field--required {
       .Field-item {
         input {
-          border-color: $colorYellow;
+          border-color: $colorRed;
         }
       }
     }
@@ -216,13 +216,13 @@ hr {
 
     &--error,
     &--warning {
-      background: $colorYellow;
+      background: $colorRed;
     }
   }
 }
 
 .errorlist {
-  color: $colorYellow;
+  color: $colorRed;
   list-style: none;
   margin: $spacer-half 0;
   padding: 0;

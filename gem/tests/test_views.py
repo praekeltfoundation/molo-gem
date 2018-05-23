@@ -6,15 +6,13 @@ from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from wagtail.wagtailcore.models import Site as WagtailSite
-
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport
+from gem.tests.base import GemTestCaseMixin
 
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
-from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguageRelation, Main, Languages
+from molo.core.models import Main, SectionIndexPage
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
@@ -28,23 +26,13 @@ from molo.profiles.models import (
     SECURITY_QUESTION_1='question_1',
     SECURITY_QUESTION_2='question_2',
 )
-class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
+class GemRegistrationViewTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-        self.client = Client()
-        self.mk_main2()
-        self.language_setting2 = Languages.objects.create(
-            site_id=self.main2.get_site().pk)
-        self.english2 = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting2,
-            locale='en',
-            is_active=True)
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
         for main in Main.objects.all():
             profile_settings = UserProfilesSettings.for_site(main.get_site())
@@ -145,6 +133,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             email='newuser@example.com',
             password='newuser')
         user.profile.migrated_username = 'newuser'
+        user.profile.site = self.main.get_site()
         user.profile.save()
 
         response = self.client.post('/profiles/login/?next=/', {
@@ -153,7 +142,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         })
         self.assertRedirects(response, '/')
 
-        client = Client(HTTP_HOST=self.site2.hostname)
+        client = Client(HTTP_HOST=self.main2.get_site().hostname)
 
         response = client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -164,23 +153,27 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             'Your username and password do not match. Please try again.')
 
     def test_successful_login_for_migrated_users_in_site_2(self):
-        user = User.objects.create_user(
-            username='2_newuser',
-            email='newuser@example.com',
-            password='newuser2')
-        user.profile.migrated_username = 'newuser'
-        user.profile.save()
-        user.profile.site = self.site2
-        user.profile.save()
-
-        user3 = User.objects.create_user(
+        user_site_1 = User.objects.create_user(
             username='1_newuser',
             email='newuser@example.com',
             password='newuser1')
-        user3.profile.migrated_username = 'newuser'
-        user3.profile.save()
-        user3.profile.site = self.site
-        user3.profile.save()
+        user_site_1.profile.migrated_username = 'newuser'
+        user_site_1.profile.site = self.main.get_site()
+        user_site_1.profile.save()
+
+        user_site_2 = User.objects.create_user(
+            username='2_newuser',
+            email='newuser@example.com',
+            password='newuser2')
+        user_site_2.profile.migrated_username = 'newuser'
+        user_site_2.profile.site = self.main2.get_site()
+        user_site_2.profile.save()
+
+        response = self.client.post('/profiles/login/?next=/', {
+            'username': 'newuser',
+            'password': 'newuser1',
+        })
+        self.assertRedirects(response, '/')
 
         response = self.client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -190,13 +183,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             response,
             'Your username and password do not match. Please try again.')
 
-        response = self.client.post('/profiles/login/?next=/', {
-            'username': 'newuser',
-            'password': 'newuser1',
-        })
-        self.assertRedirects(response, '/')
-
-        client = Client(HTTP_HOST=self.site2.hostname)
+        client = Client(HTTP_HOST=self.main2.get_site().hostname)
 
         response = client.post('/profiles/login/?next=/', {
             'username': 'newuser',
@@ -241,7 +228,7 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
         )
 
     def test_security_answer_attached_to_question_from_correct_site(self):
-        client = Client(HTTP_HOST=self.site2.hostname)
+        client = Client(HTTP_HOST=self.main2.get_site().hostname)
         client.post(
             reverse('user_register'),
             self.user_registration_data(),
@@ -257,10 +244,11 @@ class GemRegistrationViewTest(TestCase, MoloTestCaseMixin):
             )
 
 
-class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
+class GemEditProfileViewTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
         self.user = User.objects.create_user(
             username='tester',
@@ -291,33 +279,26 @@ class GemEditProfileViewTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, expected_validation_message)
 
     def test_offensive_language_not_allowed_in_display_name(self):
-        site = Site.objects.get(id=1)
-        site.name = 'GEM'
-        site.save()
-        GemSettings.objects.create(
-            site_id=site.id,
+        gem_settings, created = GemSettings.objects.get_or_create(
+            site_id=Main.objects.first().get_site().pk,
             banned_names_with_offensive_language='naughty')
         response = self.client.post(reverse('edit_my_profile'), {
             'alias': 'naughty'
         })
-        expected_validation_message = "Sorry, the name you have used is not " \
-                                      "allowed. Please, use a different name "\
-                                      "for your display name."
+        expected_validation_message = (
+            "Sorry, the name you have used is not allowed. "
+            "Please, use a different name for your display name.")
         self.assertContains(response, expected_validation_message)
 
 
-class CommentingTestCase(TestCase, MoloTestCaseMixin):
+class CommentingTestCase(TestCase, GemTestCaseMixin):
 
     def setUp(self):
-        self.mk_main()
-        self.client = ()
-        self.main = Main.objects.all().first()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
         self.user = User.objects.create_user(
             username='tester',
@@ -329,10 +310,9 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
             email='admin@example.com',
             password='admin')
 
-        self.client = Client()
-
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         self.article = self.mk_article(self.yourmind,
                                        title='article 1',
                                        subtitle='article 1 subtitle',
@@ -358,14 +338,14 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
     def test_comment_shows_user_display_name(self):
         # check when user doesn't have an alias
         self.create_comment(self.article, 'test comment1 text', self.user)
-        response = self.client.get('/sections-main-1/your-mind/article-1/')
+        response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertContains(response, "Anonymous")
 
         # check when user have an alias
         self.user.profile.alias = 'this is my alias'
         self.user.profile.save()
         self.create_comment(self.article, 'test comment2 text', self.user)
-        response = self.client.get('/sections-main-1/your-mind/article-1/')
+        response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertContains(response, "this is my alias")
         self.assertNotContains(response, "tester")
 
@@ -393,20 +373,20 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
 
         self.client.login(username='admin', password='admin')
 
-        response = self.client.get('/sections-main-1/your-mind/article-1/')
+        response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertNotContains(response, "Gabi")
 
         self.create_comment(self.article, 'test comment1 text', self.superuser)
-        response = self.client.get('/sections-main-1/your-mind/article-1/')
+        response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertContains(response, "Big Sister")
         self.assertNotContains(response, "Gabi")
 
-        default_site = WagtailSite.objects.get(is_default_site=True)
-        setting = GemSettings.objects.get(site=default_site)
+        setting = GemSettings.objects.get(
+            site_id=self.main.get_site().pk)
         setting.moderator_name = 'Gabi'
         setting.save()
-        response = self.client.get('/sections-main-1/your-mind/article-1/')
+        response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
 
@@ -417,10 +397,7 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         return form_data
 
     def test_comment_filters(self):
-        site = Site.objects.get(id=1)
-        site.name = 'GEM'
-        site.save()
-        GemSettings.objects.create(site_id=site.id,
+        GemSettings.objects.create(site_id=Main.objects.first().get_site().pk,
                                    banned_keywords_and_patterns='naughty')
 
         form_data = self.getValidData(self.article)
@@ -447,15 +424,18 @@ class CommentingTestCase(TestCase, MoloTestCaseMixin):
         self.assertFalse(comment_form.is_valid())
 
 
-class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
+class GemFeedViewsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
-        section = self.mk_section(self.section_index, title='Test Section')
+        self.section = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Test Section')
 
         self.article_page = self.mk_article(
-            section, title='Test Article',
+            self.section, title='Test Article',
             subtitle='This should appear in the feed')
 
     def test_rss_feed_view(self):
@@ -473,24 +453,35 @@ class GemFeedViewsTest(TestCase, MoloTestCaseMixin):
         self.assertNotContains(response, 'example.com')
 
 
-class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
+class GemReportCommentViewTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',
             password='tester')
 
-        self.client.login(username='tester', password='tester')
-
-        self.content_type = ContentType.objects.get_for_model(self.user)
+        self.superuser = User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
+            password='admin')
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         self.article = self.mk_article(self.yourmind,
                                        title='article 1',
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
+
+        self.client.login(username='tester', password='tester')
+
+        self.content_type = ContentType.objects.get_for_model(self.user)
 
     def create_comment(self, article, comment, parent=None):
         return MoloComment.objects.create(
@@ -537,10 +528,11 @@ class GemReportCommentViewTest(TestCase, MoloTestCaseMixin):
         self.assertContains(response, 'This comment has been reported.')
 
 
-class TestBbmRedirectView(TestCase, MoloTestCaseMixin):
+class TestBbmRedirectView(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
     def test_it_sets_cookie_for_bbm(self):
         response = self.client.get('/bbm/')
@@ -549,14 +541,15 @@ class TestBbmRedirectView(TestCase, MoloTestCaseMixin):
     def test_it_redirects_to_homepage(self):
         response = self.client.get('/bbm/')
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['Location'], 'http://testserver/')
+        self.assertEqual(
+            response['Location'], 'http://main1-1.localhost/')
 
     def test_it_redirects_to_specified_location(self):
         response = self.client.get('/bbm/section/one/')
         self.assertEqual(response.status_code, 302)
         self.assertEqual(
             response['Location'],
-            'http://testserver/section/one/',
+            'http://main1-1.localhost/section/one/',
         )
 
     def test_it_returns_bad_request_if_url_unsafe(self):

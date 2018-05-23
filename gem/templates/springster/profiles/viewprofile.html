@@ -31,15 +31,10 @@
         {% endwith %}
     {% endif %}
 
-    {# include template "patterns/basics/buttons/sp_variations/button.html" #}
-      {% trans "log out" as buttontext %}
-      {% url LOGOUT_URL as link %}
-      {% with type="hyperlink" hyperlink=link text=buttontext %}
-        <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
-          <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
-        </a>
-      {% endwith %}
-    {# end include template #}
+    <form method="post" action="{% url LOGOUT_URL %}">
+      {% csrf_token %}
+      <input class="call-to-action__button call-to-action__button-text call-to-action__button-text--hyperlink" value="{% trans "Log out" %}" type="submit">
+    </form>
 
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Your Profile" as headingtext %}
@@ -50,8 +45,8 @@
       {% endwith %}
     {# end include template #}
 
+    {% trans "Not set." as defaultText %}
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
-
     {% if profile_settings.activate_display_name %}
       <fieldset>
           {% if user.profile.alias %}
@@ -68,7 +63,7 @@
     <fieldset>
         <label>{% trans "Date of Birth: " %}</label>
         <span class="input-feedback">
-            {{ user.profile.date_of_birth | default:"Not set" }}
+            {{ user.profile.date_of_birth|default:defaultText }}
         </span>
     </fieldset>
     {% endif %}
@@ -76,23 +71,22 @@
     {% if profile_settings.activate_gender%}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        <span class="input-feedback">{{user.profile.gender|gender_display | default:"Not set" }}</span>
+        <span class="input-feedback">{{user.profile.gender|gender_display|default:defaultText }}</span>
     </fieldset>
     {% endif %}
 
     {% if profile_settings.activate_education_level %}
     <fieldset>
         <label>{% trans "Education Level:" %}</label>
-        <span class="input-feedback">{{ user.profile.education_level | default:"Not set" }}</span>
+        <span class="input-feedback">{{ user.profile.education_level|default:defaultText }}</span>
     </fieldset>
     {% endif %}
     {% endwith %}
 
     {# include template "patterns/basics/buttons/sp_variations/button.html" #}
       {% trans "Update Profile" as buttontext %}
-      {% url EDIT_PROFILE_URL as link %}
-      {% with type="primary" hyperlink=link text=buttontext %}
-        <a href="{{hyperlink}}" class="call-to-action__button call-to-action__button--{{type}}">
+      {% with type="primary" text=buttontext %}
+        <a href="{{EDIT_PROFILE_URL}}" class="call-to-action__button call-to-action__button--{{type}}">
           <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
         </a>
       {% endwith %}

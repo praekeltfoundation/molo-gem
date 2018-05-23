@@ -1,12 +1,13 @@
 from django.test import TestCase
 
 from gem.forms import GemRegistrationForm
-from molo.core.tests.base import MoloTestCaseMixin
+from gem.tests.base import GemTestCaseMixin
 
 
-class GemRegisterTestCase(TestCase, MoloTestCaseMixin):
+class GemRegisterTestCase(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
 
     def test_registration_form_removes_unwanted_fields(self):
         form_data = {

@@ -1,12 +1,7 @@
-{% load wagtailsettings_tags gem_tags %}
+{% load wagtailsettings_tags %}
 {% get_settings %}
 
   <ul class="social-media-list">
-  {% if is_via_bbm %}
-    <li class="social-media-list__item">
-      <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
-    </li>
-  {% else %}
       <li class="social-media-list__item">
         <label class="social-media__label">{% trans "Share" %}</label>
       </li>
@@ -22,5 +17,4 @@
           </a>
         {% endif %}
       </li>
-  {% endif %}
   </ul>

@@ -7,32 +7,25 @@ from django.test.client import Client
 from django.utils import timezone
 
 from gem.models import GemCommentReport
-
+from gem.tests.base import GemTestCaseMixin
 from molo.commenting.models import MoloComment
-from molo.core.models import Languages, SiteLanguageRelation, Main
-from molo.core.tests.base import MoloTestCaseMixin
+from molo.core.models import SectionIndexPage
 
 
-class TestCommentReportingModelAdmin(TestCase, MoloTestCaseMixin):
+class TestCommentReportingModelAdmin(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.first()
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.section = self.mk_section(
-            self.section_index, title='section')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='section')
         self.article = self.mk_article(self.section, title='article 1',
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
         self.user = User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')
         self.content_type = ContentType.objects.get_for_model(self.article)
-        self.client = Client()
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.client.login(username='testadmin', password='testadmin')
 
     def mk_comment(self, comment, parent=None):
