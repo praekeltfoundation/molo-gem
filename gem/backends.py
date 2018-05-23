@@ -6,7 +6,7 @@ https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additiona
 import logging
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Permission
 
 
 USERNAME_FIELD = "username"
@@ -37,7 +37,6 @@ def _update_user_from_claims(user, claims):
     # The list of roles may contain more or less roles
     # than the previous time the user logged in.
     roles = set(claims.get("roles", []))
-    groups = set(group.name for group in user.groups.all())
 
     # If the user has any role, we assume that it is a superuser while
     # the permissions are being integrated with the Auth Service
@@ -49,26 +48,6 @@ def _update_user_from_claims(user, claims):
         user.user_permissions.add(wagtail_permission)
         user.is_superuser = True
         user.save()
-
-    groups_to_add = roles - groups
-    groups_to_remove = groups - roles
-
-    for group_name in groups_to_add:
-        group, created = Group.objects.get_or_create(name=group_name)
-        if created:
-            LOGGER.debug("Created new group: {}".format(group_name))
-        user.groups.add(group)
-    LOGGER.debug("Added groups to user {}: {}".format(user, groups_to_add))
-
-    args = [
-        Group.objects.get(name=group_name) for group_name in groups_to_remove]
-    user.groups.remove(*args)
-    LOGGER.debug(
-        "Removed groups from user {}: {}".format(user, groups_to_remove))
-
-    site_specific_data = claims.get("site")
-    if site_specific_data:
-        LOGGER.debug("Got site specific data: {}".format(site_specific_data))
 
 
 class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
