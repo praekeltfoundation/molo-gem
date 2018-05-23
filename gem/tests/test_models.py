@@ -8,8 +8,6 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from wagtail.wagtailcore.models import Site
-
 from molo.core.models import SiteSettings
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
