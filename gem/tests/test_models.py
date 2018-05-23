@@ -4,7 +4,7 @@ import pytest
 from copy import deepcopy
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
@@ -27,6 +27,7 @@ class TestModels(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.survey_index = SurveysIndexPage.objects.child_of(
             self.main).first()
         self.site_settings = SiteSettings.for_site(self.main.get_site())
