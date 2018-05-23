@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.sites.models import Site
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django_comments.models import Comment
@@ -17,9 +16,7 @@ from molo.core.models import (SiteLanguageRelation, Main, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage)
 from molo.profiles.models import (
-    SecurityAnswer,
     SecurityQuestion,
-    SecurityQuestionIndexPage,
 )
 
 from os.path import join
@@ -509,88 +506,3 @@ class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
         self.assertEqual(questions.count(), 4)
         self.assertEqual(questions.descendant_of(self.main).count(), 2)
         self.assertEqual(questions.descendant_of(self.main2).count(), 2)
-
-
-@override_settings(
-    SECURITY_QUESTION_1='Question 1',
-    SECURITY_QUESTION_2='Question 2',
-    CELERY_ALWAYS_EAGER=True,
-)
-class MigrateSecurityAnswersToMoloProfilesTest(TestCase, MoloTestCaseMixin):
-    def setUp(self):
-        self.mk_main()
-        main = Main.objects.first()
-
-        security_index = SecurityQuestionIndexPage.objects.child_of(
-            main).first()
-
-        self.questions = []
-
-        for i in range(1, 3):
-            question = SecurityQuestion(title='Question {0}'.format(i))
-            security_index.add_child(instance=question)
-            question.save_revision().publish()
-            self.questions.append(question)
-
-        self.user = get_user_model().objects.create(username='user')
-        self.user.save()
-
-        self.user.gem_profile.set_security_question_1_answer('Answer 1')
-        self.user.gem_profile.set_security_question_2_answer('Answer 2')
-        self.user.gem_profile.save()
-
-    def test_it_copies_security_answers_to_molo_profiles(self):
-        call_command('migrate_security_answers_to_molo_profiles')
-
-        security_answer_1 = SecurityAnswer.objects.get(
-            question=self.questions[0],
-            user=self.user.profile,
-        )
-
-        security_answer_2 = SecurityAnswer.objects.get(
-            question=self.questions[1],
-            user=self.user.profile,
-        )
-
-        self.assertTrue(security_answer_1.check_answer('Answer 1'))
-        self.assertTrue(security_answer_2.check_answer('Answer 2'))
-
-    def test_it_copies_answers_for_multiple_sites(self):
-        self.mk_main2()
-        main2 = Main.objects.last()
-
-        security_index2 = SecurityQuestionIndexPage.objects.child_of(
-            main2).first()
-
-        questions2 = []
-
-        for i in range(1, 3):
-            question = SecurityQuestion(title='Question {0}'.format(i))
-            security_index2.add_child(instance=question)
-            question.save_revision().publish()
-            questions2.append(question)
-
-        user2 = get_user_model().objects.create(username='user2')
-        user2.save()
-
-        user2.profile.site = main2.get_site()
-        user2.profile.save()
-
-        user2.gem_profile.set_security_question_1_answer('User 2 Answer 1')
-        user2.gem_profile.set_security_question_2_answer('User 2 Answer 2')
-        user2.gem_profile.save()
-
-        call_command('migrate_security_answers_to_molo_profiles')
-
-        security_answer_1 = SecurityAnswer.objects.get(
-            question=questions2[0],
-            user=user2.profile,
-        )
-
-        security_answer_2 = SecurityAnswer.objects.get(
-            question=questions2[1],
-            user=user2.profile,
-        )
-
-        self.assertTrue(security_answer_1.check_answer('User 2 Answer 1'))
-        self.assertTrue(security_answer_2.check_answer('User 2 Answer 2'))
