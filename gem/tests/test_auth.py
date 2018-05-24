@@ -16,7 +16,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
         returned_user = backend.create_user(claims)
         self.assertEqual(returned_user.username, 'testuser')
-        self.assertEqual(returned_user.profile.auth_service_uuid, 'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEqual(returned_user.profile.auth_service_uuid,
+                         'e2556752-16d0-445a-8850-f190e860dea4')
 
     def test_filter_users_by_claims(self):
         claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
@@ -65,4 +66,5 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')
         self.assertEquals(user.email, 'test@email.com')
-        self.assertEquals(str(user.profile.auth_service_uuid), 'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEquals(str(user.profile.auth_service_uuid),
+                          'e2556752-16d0-445a-8850-f190e860dea4')
