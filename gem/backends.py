@@ -7,6 +7,8 @@ import logging
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Permission
+from molo.profiles.models import UserProfile
+from wagtail.wagtailcore.models import Site
 
 
 USERNAME_FIELD = "username"
@@ -34,6 +36,12 @@ def _update_user_from_claims(user, claims):
     user.save()
 
     # Ensure the profile is linked to their auth service account using the uuid
+    # If, for some reason, the user doesn't have a profile for some reason
+    if not hasattr(user, 'profile'):
+        user.profile = UserProfile(user=user)
+        user.profile.site = Site.objects.get(is_default_site=True)
+        user.profile.save()
+
     if user.profile.auth_service_uuid is None:
         user.profile.auth_service_uuid = claims["sub"]
         user.profile.save()

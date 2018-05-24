@@ -68,3 +68,24 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.email, 'test@email.com')
         self.assertEquals(str(user.profile.auth_service_uuid),
                           'e2556752-16d0-445a-8850-f190e860dea4')
+
+    def test_update_user_from_claims_creates_profile(self):
+        user = get_user_model().objects.create(
+            username='testuser', password='password')
+        user.profile.delete()
+        user = get_user_model().objects.get(id=user.pk)
+        roles = ['example role', ]
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        _update_user_from_claims(user, claims)
+        user = get_user_model().objects.get(id=user.pk)
+        self.assertTrue(user.is_superuser)
+        self.assertEquals(user.first_name, 'testgivenname')
+        self.assertEquals(user.last_name, 'testfamilyname')
+        self.assertEquals(user.email, 'test@email.com')
+        self.assertEquals(str(user.profile.auth_service_uuid),
+                          'e2556752-16d0-445a-8850-f190e860dea4')
