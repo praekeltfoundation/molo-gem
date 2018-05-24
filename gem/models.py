@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 from django.core import validators
 from django.db import models
 from django.db.models.signals import post_save
@@ -11,6 +12,7 @@ from gem.constants import GENDERS
 from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
 
+from wagtail.wagtailcore.models import Site
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import (
@@ -19,6 +21,20 @@ from wagtail.wagtailadmin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+
+class OIDCSettings(models.Model):
+    site = models.OneToOneField(Site)
+    oidc_rp_client_id = models.CharField(max_length=255)
+    oidc_rp_client_secret = models.CharField(max_length=255)
+    oidc_rp_scopes = models.CharField(
+        blank=True, max_length=255,
+        default='openid profile email address phone site roles')
+    extra_params = JSONField(blank=True, default={})
+    wagtail_redirect_url = models.URLField()
+
+    def __str__(self):
+        return '{} {}'.format(self.site, self.oidc_rp_client_id)
 
 
 class GemUserProfile(models.Model):
