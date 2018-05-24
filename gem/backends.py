@@ -105,7 +105,7 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
                 "Site {} has no settings configured.".format(site))
 
         self.OIDC_RP_CLIENT_SECRET = site.oidcsettings.oidc_rp_client_secret
-        return super().verify_token(token, **kwargs)
+        return super(GirlEffectOIDCBackend, self).verify_token(token, **kwargs)
 
     def authenticate(self, **kwargs):
         if "request" in kwargs:
@@ -118,4 +118,4 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
             self.OIDC_RP_CLIENT_SECRET = \
                 site.oidcsettings.oidc_rp_client_secret
 
-        return super().authenticate(**kwargs)
+        return super(GirlEffectOIDCBackend, self).authenticate(**kwargs)

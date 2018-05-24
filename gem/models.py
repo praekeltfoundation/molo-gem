@@ -30,7 +30,7 @@ class OIDCSettings(models.Model):
     oidc_rp_scopes = models.CharField(
         blank=True, max_length=255,
         default='openid profile email address phone site roles')
-    extra_params = JSONField(blank=True, default={})
+    extra_params = JSONField(blank=True, null=True, default={})
     wagtail_redirect_url = models.URLField()
 
     def __str__(self):

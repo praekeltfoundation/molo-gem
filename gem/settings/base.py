@@ -32,31 +32,32 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
+USE_OIDC_AUTHENTICATION = environ.get(
+    'USE_OIDC_AUTHENTICATION', 'true') == 'true'
 OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
 OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
-    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', 'http://authentication-service.qa-hub.ie.gehosting.org/openid/authorize/')
 # <URL of the OIDC OP token endpoint>
-OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', 'http://authentication-service.qa-hub.ie.gehosting.org/openid/token/')
 # <URL of the OIDC OP userinfo endpoint>
-OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', 'http://authentication-service.qa-hub.ie.gehosting.org/openid/userinfo/')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
-OIDC_OP = environ.get('OIDC_OP', '')
+OIDC_OP = environ.get('OIDC_OP', 'http://authentication-service.qa-hub.ie.gehosting.org')
 THEME = environ.get('THEME', 'springster')
-LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'http://127.0.0.1:8000/')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
 REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
-LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
-WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', 'http://127.0.0.1:8000/')
+WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', 'http://127.0.0.1:8000/')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+OIDC_OP_LOGOUT_URL = "http://authentication-service.qa-hub.ie.gehosting.org/openid/end-session/"
 OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
-OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
 
 
 if USE_OIDC_AUTHENTICATION:
