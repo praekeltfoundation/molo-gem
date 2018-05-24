@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
-from django.views.generic import RedirectView
 from django.contrib.auth.decorators import login_required
 from django_cas_ng import views as cas_views
 
