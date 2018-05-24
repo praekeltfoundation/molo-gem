@@ -223,7 +223,8 @@
                     </a>
                   </li>
                   <li class="footer-menu-list__item">
-                    <form method="post" action="{% url LOGOUT_URL %}">
+                    <form method="post" action="{% url LOGOUT_URL %}
+                      ?next={% url 'logout_message' %}">
                       {% csrf_token %}
                       <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
                     </form>

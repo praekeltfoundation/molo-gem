@@ -21,7 +21,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView, GemLogoutView
 )
 
 urlpatterns = []
@@ -46,6 +46,7 @@ urlpatterns += [
         template_name='robots.txt', content_type='text/plain')),
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'^profiles/logout/$', GemLogoutView.as_view(), name='logout_message'),
 
     url(r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
