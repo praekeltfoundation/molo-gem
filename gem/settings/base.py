@@ -170,7 +170,7 @@ MIDDLEWARE_CLASSES = [
 
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE_CLASSES += [
-        'mozilla_django_oidc.middleware.SessionRefresh',
+        'gem.middleware.CustomSessionRefresh',
     ]
 
 # Template configuration
