@@ -33,10 +33,8 @@ SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
-OIDC_RP_CLIENT_ID = environ.get(
-    'OIDC_RP_CLIENT_ID', '')
-OIDC_RP_CLIENT_SECRET = environ.get(
-    'OIDC_RP_CLIENT_SECRET', '')
+OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
     'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
@@ -57,6 +55,9 @@ EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
+OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
+
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'

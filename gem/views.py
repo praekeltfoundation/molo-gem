@@ -33,7 +33,8 @@ from molo.profiles.views import (
     MyProfileEdit,
     RegistrationDone
 )
-
+from mozilla_django_oidc.views import (
+    OIDCAuthenticationCallbackView, OIDCAuthenticationRequestView)
 from wagtail.wagtailcore.models import Site
 
 
@@ -43,6 +44,79 @@ def report_response(request, comment_pk):
     return render(request, 'comments/report_response.html', {
         'article': comment.content_object,
     })
+
+
+class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
+    """
+    To support multi-site setups, we need to replace cases where the
+    Mozilla OIDC Client references any of the following:
+    * settings.OIDC_RP_CLIENT_ID
+    * settings.OIDC_RP_CLIENT_SECRET
+    * settings.OIDC_RP_SCOPES
+    * settings.WAGTAIL_REDIRECT_URL
+    These are typically referenced in the constructors of most classes,
+    but we have to make sure it is proper on the functions where we have
+    a request (since we can get the current site from the request).
+    """
+
+    def get(self, request):
+        """
+        To support proper login handling for multi-site configurations,
+        we need to set the applicable CLIENT_ID and CLIENT_SECRET.
+        :param request:
+        :return:
+        """
+        site = request.site
+        if not hasattr(site, "oidcsettings"):
+            raise RuntimeError(
+                "Site {} has no settings configured.".format(site))
+
+        self.OIDC_RP_CLIENT_ID = site.oidcsettings.oidc_rp_client_id
+        self.OIDC_RP_SCOPES = site.oidcsettings.oidc_rp_scopes
+        return super().get(request)
+
+    def get_extra_params(self, request):
+        """
+        Extra parameters can be passed along in the login URL that is
+        generated. Set these parameters here.
+        """
+        params = super().get_extra_params(request)
+        site = request.site
+        if not hasattr(site, "oidcsettings"):
+            raise RuntimeError(
+                "Site {} has no settings configured.".format(site))
+
+        params.update(site.oidcsettings.extra_params)
+        return params
+
+
+class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
+    """
+    To support multi-site setups, we need to replace cases where the
+    Mozilla OIDC Client references any of the following:
+    * settings.OIDC_RP_CLIENT_ID
+    * settings.OIDC_RP_CLIENT_SECRET
+    * settings.OIDC_RP_SCOPES ??
+    * settings.LOGIN_REDIRECT_URL
+    These are typically referenced in the constructors of most classes,
+    but we have to make sure it is proper on the functions where we have
+    a request (since we can get the current site from the request).
+    """
+    @property
+    def failure_url(self):
+        """
+        The URL to redirect to for a login failure can be customised here.
+        The request is available in self.request.
+        """
+        return super().failure_url
+
+    @property
+    def success_url(self):
+        """
+        The URL to redirect to for a successful login can be customised here.
+        The request is available in self.request.
+        """
+        return super().success_url
 
 
 class RedirectWithQueryStringView(RedirectView):
