@@ -233,7 +233,3 @@ class MaintenanceView(TemplateView):
         context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
-
-
-class GemLogoutView(TemplateView):
-    template_name = 'logout_done.html'
