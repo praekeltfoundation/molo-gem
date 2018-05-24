@@ -43,7 +43,7 @@ def _update_user_from_claims(user, claims):
         user.profile.save()
 
     if user.profile.auth_service_uuid is None:
-        user.profile.auth_service_uuid = claims["sub"]
+        user.profile.auth_service_uuid = claims.get("sub")
         user.profile.save()
 
     # Synchronise the roles that the user has.
