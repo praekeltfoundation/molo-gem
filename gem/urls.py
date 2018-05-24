@@ -37,6 +37,8 @@ elif settings.USE_OIDC_AUTHENTICATION:
     urlpatterns += [
         url(r'^admin/login/', RedirectWithQueryStringView.as_view(
             pattern_name="oidc_authentication_init")),
+        url(r'^admin/logout/', RedirectWithQueryStringView.as_view(
+            pattern_name="oidc_logout")),
     ]
 
 urlpatterns += [
