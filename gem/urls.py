@@ -24,20 +24,18 @@ from gem.views import (
 )
 
 urlpatterns = []
-
-# implement CAS URLs in a production setting
-if settings.ENABLE_SSO:
-    urlpatterns += [
-        url(r'^admin/login/', cas_views.login),
-        url(r'^admin/logout/', cas_views.logout),
-        url(r'^admin/callback/', cas_views.callback),
-    ]
-elif settings.USE_OIDC_AUTHENTICATION:
+if settings.USE_OIDC_AUTHENTICATION:
     urlpatterns += [
         url(r'^admin/login/', RedirectWithQueryStringView.as_view(
             pattern_name="oidc_authentication_init")),
         url(r'^admin/logout/', RedirectWithQueryStringView.as_view(
             pattern_name="oidc_logout")),
+    ]
+elif settings.ENABLE_SSO:
+    urlpatterns += [
+        url(r'^admin/login/', cas_views.login),
+        url(r'^admin/logout/', cas_views.logout),
+        url(r'^admin/callback/', cas_views.callback),
     ]
 
 urlpatterns += [
