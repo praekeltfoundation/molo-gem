@@ -34,8 +34,10 @@ if settings.ENABLE_SSO:
         url(r'^admin/callback/', cas_views.callback),
     ]
 elif settings.USE_OIDC_AUTHENTICATION:
-    url(r'^admin/login/', RedirectWithQueryStringView.as_view(
-        pattern_name="oidc_authentication_init")),
+    urlpatterns += [
+        url(r'^admin/login/', RedirectWithQueryStringView.as_view(
+            pattern_name="oidc_authentication_init")),
+    ]
 
 urlpatterns += [
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
