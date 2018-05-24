@@ -97,3 +97,25 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         """
         verified = super(GirlEffectOIDCBackend, self).verify_claims(claims)
         return verified
+
+    def verify_token(self, token, **kwargs):
+        site = self.request.site
+        if not hasattr(site, "oidcsettings"):
+            raise RuntimeError(
+                "Site {} has no settings configured.".format(site))
+
+        self.OIDC_RP_CLIENT_SECRET = site.oidcsettings.oidc_rp_client_secret
+        return super().verify_token(token, **kwargs)
+
+    def authenticate(self, **kwargs):
+        if "request" in kwargs:
+            site = kwargs["request"].site
+            if not hasattr(site, "oidcsettings"):
+                raise RuntimeError(
+                    "Site {} has no settings configured.".format(site))
+
+            self.OIDC_RP_CLIENT_ID = site.oidcsettings.oidc_rp_client_id
+            self.OIDC_RP_CLIENT_SECRET = \
+                site.oidcsettings.oidc_rp_client_secret
+
+        return super().authenticate(**kwargs)
