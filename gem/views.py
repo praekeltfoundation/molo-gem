@@ -33,7 +33,8 @@ from molo.profiles.views import (
     MyProfileEdit,
     RegistrationDone
 )
-from mozilla_django_oidc.views import OIDCAuthenticationRequestView
+from mozilla_django_oidc.views import (
+    OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
 from wagtail.wagtailcore.models import Site
 
 
@@ -43,6 +44,32 @@ def report_response(request, comment_pk):
     return render(request, 'comments/report_response.html', {
         'article': comment.content_object,
     })
+
+
+class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
+    """
+    To support multi-site setups, we need to replace cases where the
+    Mozilla OIDC Client references any of the following:
+    * settings.OIDC_RP_CLIENT_ID
+    * settings.OIDC_RP_CLIENT_SECRET
+    * settings.OIDC_RP_SCOPES ??
+    * settings.LOGIN_REDIRECT_URL
+    These are typically referenced in the constructors of most classes,
+    but we have to make sure it is proper on the functions where we have
+    a request (since we can get the current site from the request).
+    """
+    @property
+    def failure_url(self):
+        return super(CustomAuthenticationCallbackView, self).failure_url
+
+    @property
+    def success_url(self):
+        site = self.request.site
+        if not hasattr(site, "oidcsettings"):
+            raise RuntimeError(
+                "Site {} has no settings configured.".format(site))
+
+        return site.oidcsettings.wagtail_redirect_url
 
 
 class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
@@ -72,6 +99,7 @@ class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
 
         self.OIDC_RP_CLIENT_ID = site.oidcsettings.oidc_rp_client_id
         self.OIDC_RP_SCOPES = site.oidcsettings.oidc_rp_scopes
+        self.wagtail_redirect_url = site.oidcsettings.wagtail_redirect_url
         return super(CustomAuthenticationRequestView, self).get(request)
 
     def get_extra_params(self, request):

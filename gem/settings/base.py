@@ -58,7 +58,7 @@ WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', 'http://127.0.0.1:800
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
 OIDC_OP_LOGOUT_URL = "http://authentication-service.qa-hub.ie.gehosting.org/openid/end-session/"
 OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
-
+OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
