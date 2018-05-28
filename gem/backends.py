@@ -4,6 +4,7 @@ The technical background can be found here:
 https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additional-optional-configuration
 """
 import logging
+from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Permission
@@ -35,16 +36,22 @@ def _update_user_from_claims(user, claims):
     user.email = claims.get("email", "")
     user.save()
 
-    # Ensure the profile is linked to their auth service account using the uuid
-    # If, for some reason, the user doesn't have a profile for some reason
+    # If the user doesn't have a profile for some reason make one
     if not hasattr(user, 'profile'):
         user.profile = UserProfile(user=user)
         user.profile.site = Site.objects.get(is_default_site=True)
-        user.profile.save()
 
+    # Ensure the profile is linked to their auth service account using the uuid
     if user.profile.auth_service_uuid is None:
         user.profile.auth_service_uuid = claims.get("sub")
-        user.profile.save()
+
+    # Synchronise a user's profile data
+    user.profile.gender = claims.get("gender", "-").lower()[0]
+    date_of_birth = claims.get("birthdate", None)
+    if date_of_birth:
+        date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
+    user.profile.date_of_birth = date_of_birth
+    user.profile.save()
 
     # Synchronise the roles that the user has.
     # The list of roles may contain more or less roles
