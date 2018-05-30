@@ -32,11 +32,10 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
-OIDC_RP_CLIENT_ID = environ.get(
-    'OIDC_RP_CLIENT_ID', '')
-OIDC_RP_CLIENT_SECRET = environ.get(
-    'OIDC_RP_CLIENT_SECRET', '')
+USE_OIDC_AUTHENTICATION = environ.get(
+    'USE_OIDC_AUTHENTICATION', '') == 'true'
+OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
     'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
@@ -48,15 +47,17 @@ OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
 OIDC_OP = environ.get('OIDC_OP', '')
 THEME = environ.get('THEME', 'springster')
-LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', '')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
 REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
-LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
+OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
 OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 
 if USE_OIDC_AUTHENTICATION:
@@ -171,7 +172,7 @@ MIDDLEWARE_CLASSES = [
 
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE_CLASSES += [
-        'mozilla_django_oidc.middleware.SessionRefresh',
+        'gem.middleware.CustomSessionRefresh',
     ]
 
 # Template configuration
