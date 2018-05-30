@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import TemplateView
-from django.views.generic import RedirectView
 from django.contrib.auth.decorators import login_required
 from django_cas_ng import views as cas_views
 
@@ -25,20 +24,18 @@ from gem.views import (
 )
 
 urlpatterns = []
-
-# implement CAS URLs in a production setting
-if settings.ENABLE_SSO:
+if settings.USE_OIDC_AUTHENTICATION:
+    urlpatterns += [
+        url(r'^admin/login/', RedirectWithQueryStringView.as_view(
+            pattern_name="oidc_authentication_init")),
+        url(r'^admin/logout/', RedirectWithQueryStringView.as_view(
+            pattern_name="oidc_logout")),
+    ]
+elif settings.ENABLE_SSO:
     urlpatterns += [
         url(r'^admin/login/', cas_views.login),
         url(r'^admin/logout/', cas_views.logout),
         url(r'^admin/callback/', cas_views.callback),
-    ]
-elif settings.USE_OIDC_AUTHENTICATION:
-    urlpatterns += [
-        url(r'^admin/login/', RedirectWithQueryStringView.as_view(
-            pattern_name="oidc_authentication_init")),
-        url(r'^django-admin/login/', RedirectView.as_view(
-            pattern_name="oidc_authentication_init")),
     ]
 
 urlpatterns += [

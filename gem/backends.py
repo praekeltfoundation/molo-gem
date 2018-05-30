@@ -4,9 +4,12 @@ The technical background can be found here:
 https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additional-optional-configuration
 """
 import logging
+from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Permission
+from molo.profiles.models import UserProfile
+from wagtail.wagtailcore.models import Site
 
 
 USERNAME_FIELD = "username"
@@ -32,6 +35,23 @@ def _update_user_from_claims(user, claims):
     user.last_name = claims.get("family_name", "")
     user.email = claims.get("email", "")
     user.save()
+
+    # If the user doesn't have a profile for some reason make one
+    if not hasattr(user, 'profile'):
+        user.profile = UserProfile(user=user)
+        user.profile.site = Site.objects.get(is_default_site=True)
+
+    # Ensure the profile is linked to their auth service account using the uuid
+    if user.profile.auth_service_uuid is None:
+        user.profile.auth_service_uuid = claims.get("sub")
+
+    # Synchronise a user's profile data
+    user.profile.gender = claims.get("gender", "-").lower()[0]
+    date_of_birth = claims.get("birthdate", None)
+    if date_of_birth:
+        date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
+    user.profile.date_of_birth = date_of_birth
+    user.profile.save()
 
     # Synchronise the roles that the user has.
     # The list of roles may contain more or less roles
@@ -62,13 +82,28 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         """
         uuid = claims["sub"]
         try:
-            kwargs = {USERNAME_FIELD: uuid}
+            kwargs = {'profile__auth_service_uuid': uuid}
             user = self.UserModel.objects.get(**kwargs)
             # Update the user with the latest info
             _update_user_from_claims(user, claims)
             return [user]
         except self.UserModel.DoesNotExist:
             LOGGER.debug("Lookup failed based on {}".format(kwargs))
+
+        """
+        Users with an existing account will be migrated on their first login so
+        we find these users based on their User.id
+        """
+        user_id = claims.get("migration_information", {}).get("user_id", None)
+        if user_id is not None:
+            try:
+                kwargs = {'id': user_id}
+                user = self.UserModel.objects.get(**kwargs)
+                # Update the user with the latest info
+                _update_user_from_claims(user, claims)
+                return[user]
+            except self.UserModel.DoesNotExist:
+                LOGGER.debug("Lookup failed based on {}".format(kwargs))
 
         return self.UserModel.objects.none()
 
@@ -80,7 +115,8 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         We use the user id (called the subscriber identity in OIDC) as the
         username, since it is always available and guaranteed to be unique.
         """
-        username = claims.get("sub")  # The sub field _must_ be in the claims.
+        # If we don't have a username we should break
+        username = claims.get("preferred_username")
         email = claims.get("email", "")  # Email is optional
         # We create the user based on the username and optional email fields.
         if email:
