@@ -1,6 +1,5 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField
 from django.core import validators
 from django.db import models
 from django.db.models.signals import post_save
@@ -30,7 +29,6 @@ class OIDCSettings(models.Model):
     oidc_rp_scopes = models.CharField(
         blank=True, max_length=255,
         default='openid profile email address phone site roles')
-    extra_params = JSONField(blank=True, null=True, default={})
     wagtail_redirect_url = models.URLField()
 
     def __str__(self):

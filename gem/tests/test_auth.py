@@ -12,17 +12,22 @@ from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
     CustomAuthenticationRequestView)
 from wagtail.wagtailcore import urls as wagtail_urls
+from django.core.urlresolvers import reverse
 
 
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
+    url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'', include(wagtail_urls)),
 ]
 
 
 @override_settings(
-    ROOT_URLCONF='gem.tests.test_auth')
+    ROOT_URLCONF='gem.tests.test_auth',
+    USE_OIDC_AUTHENTICATION=True,
+    OIDC_AUTHENTICATE_CLASS="gem.views.CustomAuthenticationRequestView",
+    OIDC_CALLBACK_CLASS="gem.views.CustomAuthenticationCallbackView")
 class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
 
     def setUp(self):
@@ -64,61 +69,41 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_url_changes_when_use_oidc_set_true(self):
         self.assertTrue(settings.USE_OIDC_AUTHENTICATION)
-        response = self.client.get('/admin/login/', follow=True)
-        self.assertEquals(response.status_code, 410)
-
-    def test_auth_backend_verify_token(self):
-        # it should throw an error if the site has no OIDC settings
-        site = self.main.get_site()
-        request = HttpRequest()
-        request.site = site
-        backend = GirlEffectOIDCBackend()
-        backend.request = request
-        self.assertRaises(RuntimeError, backend.verify_token, 'token')
-
-        # it should change the client secret of the backend if successful
-        self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'unused')
         OIDCSettings.objects.create(
-            site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
-            extra_params='', wagtail_redirect_url='https://redirecit.com')
-        backend.verify_token('token')
-        self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'secret')
+            site=self.main.get_site(), oidc_rp_client_secret='secret',
+            oidc_rp_client_id='id',
+            wagtail_redirect_url='https://redirecit.com')
+        response = self.client.get('/admin/login/')
+        self.assertEquals(response['location'], '/oidc/authenticate/')
 
     def test_auth_backend_authenticate(self):
-        # it should throw an error if site has no OIDC settings
         site = self.main.get_site()
         request = HttpRequest()
         request.site = site
         backend = GirlEffectOIDCBackend()
-        self.assertRaises(
-            RuntimeError, backend.authenticate, kwargs={'request': request})
 
         # it should change the client id and client secret if successful
         self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'unused')
         self.assertEquals(backend.OIDC_RP_CLIENT_ID, 'unused')
         OIDCSettings.objects.create(
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
-            extra_params='', wagtail_redirect_url='https://redirecit.com')
-        backend.authenticate(kwargs={'request': request})
+            wagtail_redirect_url='https://redirecit.com')
+        backend = GirlEffectOIDCBackend()
+        backend.authenticate(request=request)
         self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'secret')
         self.assertEquals(backend.OIDC_RP_CLIENT_ID, 'id')
 
     def test_auth_callback_view_success_url(self):
-        # it should throw an error if site has no OIDC settings
         site = self.main.get_site()
         request = HttpRequest()
         request.site = site
         view = CustomAuthenticationCallbackView()
         view.request = request
-        self.assertRaises(
-            RuntimeError, view.success_url, kwargs={'request': request})
-
         # it should return the correct redirect url if successful
         settings = OIDCSettings.objects.create(
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
-            extra_params='', wagtail_redirect_url='https://redirecit.com')
-        redirect_url = view.success_url()
-        self.assertEquals(redirect_url, settings.wagtail_redirect_url)
+            wagtail_redirect_url='https://redirecit.com')
+        self.assertEquals(view.success_url, settings.wagtail_redirect_url)
 
     def test_auth_request_get_view(self):
         # it should throw an error if site has no OIDC settings
@@ -126,37 +111,15 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         request = HttpRequest()
         request.site = site
         view = CustomAuthenticationRequestView()
-        view.request = request
         self.assertRaises(
             RuntimeError, view.get, request)
 
         # it should change the redirect_url and client ID if successful
-        self.assertNotEquals(view.OIDC_RP_CLIENT_ID, 'ID')
-        self.assertNotEquals(
-            view.wagtail_redirect_url, 'https://redirecit.com')
         OIDCSettings.objects.create(
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
-            extra_params='', wagtail_redirect_url='https://redirecit.com')
-        view.get('token')
-        self.assertEquals(view.OIDC_RP_CLIENT_ID, 'ID')
-        self.assertEquals(view.wagtail_redirect_url, 'https://redirecit.com')
-
-    def test_auth_request_view_get_extra_params(self):
-        # it should throw an error if site has no OIDC settings
-        site = self.main.get_site()
-        request = HttpRequest()
-        request.site = site
-        view = CustomAuthenticationRequestView()
-        view.request = request
-        self.assertRaises(
-            RuntimeError, view.get_extra_params, request)
-
-        # it should return the extra params set by the OIDC settings
-        setting = OIDCSettings.objects.create(
-            site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
-            extra_params='{"THEME": "zathu"}',
-            wagtail_redirect_url='https://redirecit.com')
-        self.assertEquals(view.get_extra_params(request), setting.extra_params)
+            wagtail_redirect_url='http://main1.localhost:8000')
+        response = self.client.get(reverse('oidc_authentication_callback'))
+        self.assertEquals(response['location'], '/')
 
     def test_auth_middleware(self):
         # it should throw an error if site has no OIDC settings

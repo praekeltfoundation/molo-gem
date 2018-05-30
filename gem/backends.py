@@ -117,5 +117,4 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
             self.OIDC_RP_CLIENT_ID = site.oidcsettings.oidc_rp_client_id
             self.OIDC_RP_CLIENT_SECRET = \
                 site.oidcsettings.oidc_rp_client_secret
-
         return super(GirlEffectOIDCBackend, self).authenticate(**kwargs)

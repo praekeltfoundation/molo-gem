@@ -58,9 +58,6 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
     but we have to make sure it is proper on the functions where we have
     a request (since we can get the current site from the request).
     """
-    @property
-    def failure_url(self):
-        return super(CustomAuthenticationCallbackView, self).failure_url
 
     @property
     def success_url(self):
@@ -101,21 +98,6 @@ class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
         self.OIDC_RP_SCOPES = site.oidcsettings.oidc_rp_scopes
         self.wagtail_redirect_url = site.oidcsettings.wagtail_redirect_url
         return super(CustomAuthenticationRequestView, self).get(request)
-
-    def get_extra_params(self, request):
-        """
-        Extra parameters can be passed along in the login URL that is
-        generated. Set these parameters here.
-        """
-        params = super(
-            CustomAuthenticationRequestView, self).get_extra_params(request)
-        site = request.site
-        if not hasattr(site, "oidcsettings"):
-            raise RuntimeError(
-                "Site {} has no settings configured.".format(site))
-        if params:
-            params.update(site.oidcsettings.extra_params)
-        return params
 
 
 class RedirectWithQueryStringView(RedirectView):
