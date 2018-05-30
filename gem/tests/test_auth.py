@@ -1,3 +1,4 @@
+from datetime import date
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.contrib.auth import get_user_model
@@ -71,7 +72,9 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'given_name': 'testgivenname',
             'family_name': 'testfamilyname',
             'email': 'test@email.com',
-            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+            'gender': 'Female',
+            'birthdate': '1988-05-22'}
         user = get_user_model().objects.create(
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
@@ -83,6 +86,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.email, 'test@email.com')
         self.assertEquals(str(user.profile.auth_service_uuid),
                           'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEquals(user.profile.gender, 'f')
+        self.assertEquals(user.profile.date_of_birth, date(1988, 5, 22))
 
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
