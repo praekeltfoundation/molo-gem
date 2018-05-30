@@ -6,32 +6,31 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django_comments.models import Comment
 from django.core.management import call_command
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.utils import timezone
 from django.utils.six import StringIO
 from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
 from molo.commenting.models import MoloComment
-from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import (SiteLanguageRelation, Main, Languages,
+from gem.tests.base import GemTestCaseMixin
+from molo.core.models import (SiteLanguageRelation, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
-                              ArticlePage, BannerPage)
-from molo.profiles.models import (
-    SecurityQuestion,
-)
-
+                              ArticlePage, BannerPage, SectionIndexPage,
+                              BannerIndexPage)
 from os.path import join
 
 
-class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
+class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-        self.mk_main2()
-        self.main2 = Main.objects.last()
-        self.language_setting = Languages.objects.create(
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.language_setting = Languages.objects.get(
             site_id=self.main.get_site().pk)
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/main2/')
+
         self.user = User.objects.create_user(
             'test', 'test@example.org', 'test')
+
         self.content_type = ContentType.objects.get_for_model(self.user)
         Image.objects.create(
             title="Yes.png",
@@ -47,20 +46,19 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         )
 
     def test_create_new_banner_relations(self):
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         self.yourmind2 = self.mk_section(
-            self.section_index2, title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main2).first(), title='Your mind')
         first_main_article = self.mk_article(
             parent=self.yourmind, title='first_main_article')
         first_main_banner = BannerPage(
             title='first_main_banner', slug='firstmainbanner',
             banner_link_page=first_main_article)
+        self.banner_index = BannerIndexPage.objects.child_of(
+            self.main).first()
         self.banner_index.add_child(instance=first_main_banner)
         first_main_banner.save_revision().publish()
         second_main_article = self.mk_article(
@@ -70,6 +68,8 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         second_main_banner = BannerPage(
             title='second_main_banner', slug='secondmainbanner',
             banner_link_page=first_main_article)
+        self.banner_index2 = BannerIndexPage.objects.child_of(
+            self.main2).first()
         self.banner_index2.add_child(instance=second_main_banner)
         second_main_banner.save_revision().publish()
 
@@ -86,7 +86,8 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind')
         spanish_capitals_spaced_article = self.mk_article(
             parent=self.yourmind, title=' ¿QUE TAL?')
         spaced_article = self.mk_article(
@@ -121,7 +122,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 4)
+        self.assertEqual(reaction_question.count(), 8)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 3)
@@ -137,7 +138,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 8)
+        self.assertEqual(reaction_question.count(), 12)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 6)
@@ -151,7 +152,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 12)
+        self.assertEqual(reaction_question.count(), 16)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 9)
@@ -164,7 +165,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 16)
+        self.assertEqual(reaction_question.count(), 20)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 12)
@@ -177,7 +178,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 20)
+        self.assertEqual(reaction_question.count(), 24)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 15)
@@ -190,7 +191,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 24)
+        self.assertEqual(reaction_question.count(), 28)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 18)
@@ -203,7 +204,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 28)
+        self.assertEqual(reaction_question.count(), 32)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 21)
@@ -216,7 +217,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 32)
+        self.assertEqual(reaction_question.count(), 36)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 24)
@@ -229,7 +230,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 36)
+        self.assertEqual(reaction_question.count(), 40)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 27)
@@ -241,7 +242,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 40)
+        self.assertEqual(reaction_question.count(), 44)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 30)
@@ -254,7 +255,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 44)
+        self.assertEqual(reaction_question.count(), 48)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 33)
@@ -267,7 +268,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 48)
+        self.assertEqual(reaction_question.count(), 52)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 36)
@@ -280,7 +281,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 52)
+        self.assertEqual(reaction_question.count(), 56)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 39)
@@ -293,7 +294,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 56)
+        self.assertEqual(reaction_question.count(), 60)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 42)
@@ -306,7 +307,7 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
         call_command('add_reaction_questions_and_choices', stdout=out)
         self.assertIn('', out.getvalue())
         reaction_question = ReactionQuestion.objects.all()
-        self.assertEqual(reaction_question.count(), 60)
+        self.assertEqual(reaction_question.count(), 64)
         choices = ReactionQuestionChoice.objects.child_of(
             reaction_question.first())
         self.assertEqual(choices.count(), 45)
@@ -317,26 +318,22 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
                      'en', stdout=out)
         self.assertIn('Main language does not exist in "Main"', out.getvalue())
 
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
         out = StringIO()
         call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Article "it-gets-better" does not exist in'
-                      ' "main-1.localhost [default]"', out.getvalue())
+                      ' "main1-1.localhost"', out.getvalue())
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
         out = StringIO()
         call_command('add_images_to_articles', 'data/articles_image.csv',
                      'en', stdout=out)
         self.assertIn('Image "01_happygirl_feature_It gets better"'
-                      ' does not exist in "Main"', out.getvalue())
+                      ' does not exist in "main1"', out.getvalue())
 
         Image.objects.create(
             title="01_happygirl_feature_It gets better.jpg",
@@ -382,7 +379,8 @@ class GemManagementCommandsTest(TestCase, MoloTestCaseMixin):
             is_active=True)
 
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind')
         article = self.mk_article(
             self.yourmind, title='it gets better', slug='it-gets-better')
 
@@ -435,74 +433,8 @@ class AddDefaultTagsToArticlesTest(TestCase):
         call_command('add_default_tags_to_articles', csv_file, 'en')
 
 
-class AddImagesToSectionsTest(TestCase, MoloTestCaseMixin):
+class AddImagesToSectionsTest(TestCase, GemTestCaseMixin):
     def test_command_works(self):
-        self.mk_main()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
         call_command('add_images_to_sections', 'en')
-
-
-@override_settings(
-    SECURITY_QUESTION_1='Answer to Security Question 1',
-    SECURITY_QUESTION_2='Answer to Security Question 2',
-)
-class CreateSecurityQuestionsFromSettingsTest(TestCase, MoloTestCaseMixin):
-    def setUp(self):
-        self.mk_main()
-        self.main = Main.objects.all().first()
-
-        self.language_setting = Languages.objects.create(
-            site_id=self.main.get_site().pk)
-
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='en',
-            is_active=True)
-
-    def test_it_creates_main_language_questions_for_one_site(self):
-        call_command('create_security_questions_from_settings')
-
-        questions = SecurityQuestion.objects.all()
-        self.assertEqual(questions.count(), 2)
-        self.assertEqual(
-            questions.first().title,
-            'Answer to Security Question 1',
-        )
-        self.assertEqual(
-            questions.last().title,
-            'Answer to Security Question 2',
-        )
-
-    def test_it_creates_translations_for_one_site(self):
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting,
-            locale='fr',
-            is_active=True)
-
-        call_command('create_security_questions_from_settings')
-
-        questions = SecurityQuestion.objects.all()
-
-        self.assertEqual(questions.count(), 4)
-
-        # FIXME: It would be nice to assert the translation of the question
-        # is correct but there's something up with the locales available on
-        # Travis which makes the translation not work.
-
-    def test_it_creates_questions_for_multiple_sites(self):
-        self.mk_main2()
-        self.main2 = Main.objects.all().last()
-
-        self.language_setting2 = Languages.objects.create(
-            site_id=self.main2.get_site().pk)
-
-        SiteLanguageRelation.objects.create(
-            language_setting=self.language_setting2,
-            locale='rw',
-            is_active=True)
-
-        call_command('create_security_questions_from_settings')
-
-        questions = SecurityQuestion.objects.all()
-        self.assertEqual(questions.count(), 4)
-        self.assertEqual(questions.descendant_of(self.main).count(), 2)
-        self.assertEqual(questions.descendant_of(self.main2).count(), 2)

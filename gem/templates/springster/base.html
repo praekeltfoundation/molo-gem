@@ -232,17 +232,7 @@
 
         {% block footer %}
           <div id="footer-bar">
-            {% if is_via_bbm %}
-              {% if type == "bbm_section" %}
-                {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
-              {% elif type == "bbm_home" %}
-                {% if request.path == "/" %}
-                  {% include "patterns/basics/social-media/social-media_bbm.html" with page=self type="footer" %}
-                {% endif %}
-              {% else %}
-                {% social_media_footer %}
-              {% endif %}
-            {% else %}
+            {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
             <a class="footer-logo" href="/"></a>
