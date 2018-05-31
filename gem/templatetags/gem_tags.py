@@ -86,3 +86,8 @@ def media_listing_homepage(context):
         'is_via_freebasics': context['is_via_freebasics'],
 
     }
+
+
+@register.simple_tag()
+def main_nav():
+    return settings.LOGOUT_URL
