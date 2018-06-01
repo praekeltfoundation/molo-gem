@@ -164,7 +164,7 @@ def get_permission(Permission, code_name):
 
 
 def create_page_permission(GroupPagePermission, group, pages, page_permission_type):
-    for page in pages:
+    for page in pages.iterator():
         for permission_type in page_permission_type:
             GroupPagePermission.objects.get_or_create(
                 group=group, page=page, permission_type=permission_type)
