@@ -142,7 +142,6 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.groups.all().count(), 1)
         self.assertEquals(user.groups.first().name, 'Content Admin')
 
-
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
             username='testuser', password='password')

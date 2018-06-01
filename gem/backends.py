@@ -7,7 +7,7 @@ import logging
 from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.models import Group
 from molo.profiles.models import UserProfile
 from wagtail.wagtailcore.models import Site
 
@@ -72,15 +72,14 @@ def _update_user_from_claims(user, claims):
             else:
                 try:
                     user.groups.add(Group.objects.get(name=group_name))
-                except:
+                except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
         for group_name in groups_to_remove:
             try:
                 user.groups.remove(Group.objects.get(name=group_name))
-            except:
+            except Group.DoesNotExist:
                 LOGGER.debug("Group {} does not exist".format(group_name))
-
 
 
 class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
