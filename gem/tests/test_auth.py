@@ -121,7 +121,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(str(user.profile.auth_service_uuid),
                           'e2556752-16d0-445a-8850-f190e860dea4')
 
-   @override_settings(USE_OIDC_AUTHENTICATION=True)
+    @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_url_changes_when_use_oidc_set_true(self):
         self.assertTrue(settings.USE_OIDC_AUTHENTICATION)
         OIDCSettings.objects.create(
