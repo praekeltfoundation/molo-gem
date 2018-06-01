@@ -14,7 +14,7 @@ from wagtail.wagtailcore.models import Site
 
 USERNAME_FIELD = "username"
 EMAIL_FIELD = "email"
-
+SUPERUSER_GROUP = 'Product Tech Admin'
 LOGGER = logging.getLogger(__name__)
 
 
@@ -65,7 +65,7 @@ def _update_user_from_claims(user, claims):
         groups_to_add = auth_service_roles - wagtail_groups
         groups_to_remove = wagtail_groups - auth_service_roles
         for group_name in groups_to_add:
-            if group_name == 'Product Tech Admin':
+            if group_name == SUPERUSER_GROUP:
                 user.is_staff = True
                 user.is_superuser = True
                 user.save()
