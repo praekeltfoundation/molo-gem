@@ -12,14 +12,18 @@
             </div>
             {% main_nav as LOGOUT_URL %}
             <ul class="footer-submenu">
-
-                <li><a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">{% trans "Account settings" %}</a></li>
-
-                <li class="icon icon-logout">
-                <form method="post" action="{% url LOGOUT_URL %}">
-                  {% csrf_token %}
-                  <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
-                </form>
+                <li>
+                  <a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">
+                    {% trans "Account settings" %}
+                  </a>
+                </li>
+                <li>
+                  <form method="post" action="{% url LOGOUT_URL %}">
+                    {% csrf_token %}
+                    <span class="icon-logout_wrapper">
+                      <input class="icon icon-logout" value="{% trans "Log out" %}" type="submit">
+                    </span>
+                  </form>
               </li>
             </ul>
 
