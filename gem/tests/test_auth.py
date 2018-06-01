@@ -75,8 +75,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEquals(returned_user.count(), 0)
 
-    def test_auth_backend_update_user_from_claims(self):
-        roles = ['example role', ]
+    def test_add_superuser_role_from_claims(self):
+        roles = ['Product Tech Admin', ]
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -99,12 +99,56 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.profile.gender, 'f')
         self.assertEquals(user.profile.date_of_birth, date(1988, 5, 22))
 
+    def test_add_user_role_from_claims(self):
+        roles = ['Data Admin', ]
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        user = get_user_model().objects.create(
+            username='testuser', password='password')
+        _update_user_from_claims(user, claims)
+        user = get_user_model().objects.get(id=user.pk)
+        self.assertFalse(user.is_superuser)
+        self.assertEquals(user.groups.all().count(), 1)
+        self.assertEquals(user.groups.first().name, 'Data Admin')
+
+    def test_removing_user_role(self):
+        roles = ['Data Admin', 'Content Admin']
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        user = get_user_model().objects.create(
+            username='testuser', password='password')
+        _update_user_from_claims(user, claims)
+        user = get_user_model().objects.get(id=user.pk)
+        self.assertEquals(user.groups.all().count(), 2)
+        self.assertEquals(user.groups.first().name, 'Data Admin')
+        self.assertEquals(user.groups.last().name, 'Content Admin')
+
+        roles = ['Content Admin']
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        _update_user_from_claims(user, claims)
+        self.assertEquals(user.groups.all().count(), 1)
+        self.assertEquals(user.groups.first().name, 'Content Admin')
+
+
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
             username='testuser', password='password')
         user.profile.delete()
         user = get_user_model().objects.get(id=user.pk)
-        roles = ['example role', ]
+        roles = ['Product Tech Admin', ]
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
