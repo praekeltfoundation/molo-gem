@@ -192,17 +192,17 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
 
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_logout_when_oidc_set_true(self):
-        self.main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.main2 = self.mk_main(
+            title='main2', slug='main2', path='00010003', url_path='/mainagain/')
         self.section = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(),
+            SectionIndexPage.objects.child_of(self.main2).first(),
             title='section')
         self.article = self.mk_article(self.section, title='article 1',
                                        subtitle='article 1 subtitle',
                                        slug='article-1')
         self.user = User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')
-        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.client = Client(HTTP_HOST=self.main2.get_site().hostname)
         self.client.login(username='testadmin', password='testadmin')
         response = self.client.get('/admin/')
         print(response)
