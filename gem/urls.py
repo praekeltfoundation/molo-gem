@@ -20,7 +20,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
 )
 
 urlpatterns = []
