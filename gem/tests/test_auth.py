@@ -16,12 +16,17 @@ from gem.views import (
 from wagtail.wagtailcore import urls as wagtail_urls
 from django.core.urlresolvers import reverse
 
-
+from molo.core.models import SectionIndexPage
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+    url(r'^profiles/',
+        include('molo.profiles.urls',
+                namespace='molo.profiles',
+                app_name='molo.profiles')),
     url(r'', include(wagtail_urls)),
+
 ]
 
 
@@ -187,13 +192,42 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
 
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_logout_when_oidc_set_true(self):
-        self.assertTrue(settings.USE_OIDC_AUTHENTICATION)
-        response = self.client.get('/admin/login/', follow=True)
-        self.assertEquals(response.status_code, 410)
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.section = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='section')
+        self.article = self.mk_article(self.section, title='article 1',
+                                       subtitle='article 1 subtitle',
+                                       slug='article-1')
         self.user = User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.client.login(username='testadmin', password='testadmin')
-        response = self.client.get('/admin/logout/', follow=True)
-        print(response['Location'])
-        self.assertEquals(response.status_code, 410)
+        response = self.client.get('/admin/')
+        print(response)
+        # roles = ['example role', ]
+        # claims = {
+        #     'roles': roles,
+        #     'given_name': 'testgivenname',
+        #     'family_name': 'testfamilyname',
+        #     'email': 'test@email.com',
+        #     'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+        #     'gender': 'Female',
+        #     'birthdate': '1988-05-22'}
+        # user = get_user_model().objects.create(
+        #     username='testuser', password='password')
+        # _update_user_from_claims(user, claims)
+        #
+        # OIDCSettings.objects.create(
+        #     site=self.main.get_site(), oidc_rp_client_secret='secret',
+        #     oidc_rp_client_id='id',
+        #     wagtail_redirect_url='https://redirecit.com')
+        # logg = self.client.login(username='testuser', password='password')
+        # print("\nare you logged in: ")
+        # print(logg)
+        # response = self.client.get('/admin/commenting/molocomment/')
+        # print(response)
+        # # print(response['location'])
+        self.assertEquals(response.status_code, 200)
+        # self.assertEquals(response['location'], '/')
