@@ -71,13 +71,19 @@ def _update_user_from_claims(user, claims):
                 user.save()
             else:
                 try:
-                    user.groups.add(Group.objects.get(name=group_name))
+                    wagtail_group = Group.objects.get(name=group_name)
+                    user.groups.add(wagtail_group)
                 except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
+        if user.is_superuser and not SUPERUSER_GROUP in auth_service_roles:
+                user.is_staff = False
+                user.is_superuser = False
+                user.save()
         for group_name in groups_to_remove:
             try:
-                user.groups.remove(Group.objects.get(name=group_name))
+                wagtail_group = Group.objects.get(name=group_name)
+                user.groups.remove(wagtail_group)
             except Group.DoesNotExist:
                 LOGGER.debug("Group {} does not exist".format(group_name))
 

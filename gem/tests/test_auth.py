@@ -116,7 +116,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.groups.first().name, 'Data Admin')
 
     def test_removing_user_role(self):
-        roles = ['Data Admin', 'Content Admin']
+        roles = ['Product Tech Admin', 'Data Admin', 'Content Admin']
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -127,6 +127,20 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             username='testuser', password='password')
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
+        self.assertTrue(user.is_superuser)
+        self.assertEquals(user.groups.all().count(), 2)
+        self.assertEquals(user.groups.first().name, 'Data Admin')
+        self.assertEquals(user.groups.last().name, 'Content Admin')
+
+        roles = ['Data Admin', 'Content Admin']
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        _update_user_from_claims(user, claims)
+        self.assertFalse(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 2)
         self.assertEquals(user.groups.first().name, 'Data Admin')
         self.assertEquals(user.groups.last().name, 'Content Admin')
@@ -139,6 +153,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'email': 'test@email.com',
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
+        self.assertFalse(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 1)
         self.assertEquals(user.groups.first().name, 'Content Admin')
 
