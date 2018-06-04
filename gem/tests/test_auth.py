@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from datetime import date
 from django.test import TestCase, Client
 from django.test.utils import override_settings
@@ -13,14 +14,16 @@ from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
     CustomAuthenticationRequestView)
 from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from django.core.urlresolvers import reverse
-
 
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+    url(r'^admin/', include(wagtailadmin_urls)),
     url(r'', include(wagtail_urls)),
+
 ]
 
 
@@ -241,3 +244,17 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         middleware = CustomSessionRefresh()
         self.assertRaises(
             RuntimeError, middleware.process_request, request)
+
+    @override_settings(LOGOUT_URL='oidc_logout')
+    def test_admin_logout_button_when_oidc_is_true(self):
+        # check that users need to login
+        response = self.client.get('/admin/')
+        self.assertEquals(response['location'], "/admin/login/?next=/admin/")
+        # test that the admin logs the user in
+        User.objects.create_superuser(
+            'testadmin', 'testadmin@example.org', 'testadmin')
+        self.client.login(username='testadmin', password='testadmin')
+        response = self.client.get('/admin/')
+        self.assertContains(response, "Welcome to the GEM Wagtail CMS")
+        # test that the correct logout button is in in the template
+        self.assertContains(response, "oidc/logout")
