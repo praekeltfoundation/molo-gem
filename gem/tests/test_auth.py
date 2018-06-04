@@ -14,9 +14,9 @@ from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
     CustomAuthenticationRequestView)
 from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from django.core.urlresolvers import reverse
 
-from molo.core.models import SectionIndexPage
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
@@ -25,6 +25,7 @@ urlpatterns = [
         include('molo.profiles.urls',
                 namespace='molo.profiles',
                 app_name='molo.profiles')),
+    url(r'^admin/', include(wagtailadmin_urls)),
     url(r'', include(wagtail_urls)),
 
 ]
@@ -249,43 +250,15 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             RuntimeError, middleware.process_request, request)
 
     @override_settings(USE_OIDC_AUTHENTICATION=True)
-    def test_admin_logout_when_oidc_set_true(self):
-        self.main2 = self.mk_main(
-            title='main2', slug='main2', path='00010003', url_path='/mainagain/')
-        self.section = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main2).first(),
-            title='section')
-        self.article = self.mk_article(self.section, title='article 1',
-                                       subtitle='article 1 subtitle',
-                                       slug='article-1')
-        self.user = User.objects.create_superuser(
+    def test_admin_login_when_oidc_set_true(self):
+        response = self.client.get('/admin/login/')
+        self.assertEquals(response['location'], '/oidc/authenticate/')
+        User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')
-        self.client = Client(HTTP_HOST=self.main2.get_site().hostname)
         self.client.login(username='testadmin', password='testadmin')
         response = self.client.get('/admin/')
-        print(response)
-        # roles = ['example role', ]
-        # claims = {
-        #     'roles': roles,
-        #     'given_name': 'testgivenname',
-        #     'family_name': 'testfamilyname',
-        #     'email': 'test@email.com',
-        #     'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
-        #     'gender': 'Female',
-        #     'birthdate': '1988-05-22'}
-        # user = get_user_model().objects.create(
-        #     username='testuser', password='password')
-        # _update_user_from_claims(user, claims)
-        #
-        # OIDCSettings.objects.create(
-        #     site=self.main.get_site(), oidc_rp_client_secret='secret',
-        #     oidc_rp_client_id='id',
-        #     wagtail_redirect_url='https://redirecit.com')
-        # logg = self.client.login(username='testuser', password='password')
-        # print("\nare you logged in: ")
-        # print(logg)
-        # response = self.client.get('/admin/commenting/molocomment/')
-        # print(response)
-        # # print(response['location'])
+        self.assertContains(response.content, "oidc/logout")
         self.assertEquals(response.status_code, 200)
-        # self.assertEquals(response['location'], '/')
+        response = self.client.get('/admin/logout/')
+        print(response.templates)
+        self.assertEquals(response.status_code, 200)
