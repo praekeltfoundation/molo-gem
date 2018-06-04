@@ -7,14 +7,14 @@ import logging
 from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
 from molo.profiles.models import UserProfile
 from wagtail.wagtailcore.models import Site
 
 
 USERNAME_FIELD = "username"
 EMAIL_FIELD = "email"
-
+SUPERUSER_GROUP = 'Product Tech Admin'
 LOGGER = logging.getLogger(__name__)
 
 
@@ -56,18 +56,36 @@ def _update_user_from_claims(user, claims):
     # Synchronise the roles that the user has.
     # The list of roles may contain more or less roles
     # than the previous time the user logged in.
-    roles = set(claims.get("roles", []))
+    auth_service_roles = set(claims.get("roles", []))
+    wagtail_groups = set(group.name for group in user.groups.all())
 
-    # If the user has any role, we assume that it is a superuser while
-    # the permissions are being integrated with the Auth Service
-    # (Currently all admin users are superusers)
-    # This is to get logging in working on Core QA site and will change
-    if roles:
-        wagtail_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin')
-        user.user_permissions.add(wagtail_permission)
-        user.is_superuser = True
-        user.save()
+    # If the user has any role, add the wagtail group equivalent
+    # to that role to the user
+    if auth_service_roles:
+        groups_to_add = auth_service_roles - wagtail_groups
+        groups_to_remove = wagtail_groups - auth_service_roles
+        for group_name in groups_to_add:
+            if group_name == SUPERUSER_GROUP:
+                user.is_staff = True
+                user.is_superuser = True
+                user.save()
+            else:
+                try:
+                    wagtail_group = Group.objects.get(name=group_name)
+                    user.groups.add(wagtail_group)
+                except Group.DoesNotExist:
+                    LOGGER.debug("Group {} does not exist".format(group_name))
+        # Remove the user's revoked role
+        if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
+                user.is_staff = False
+                user.is_superuser = False
+                user.save()
+        for group_name in groups_to_remove:
+            try:
+                wagtail_group = Group.objects.get(name=group_name)
+                user.groups.remove(wagtail_group)
+            except Group.DoesNotExist:
+                LOGGER.debug("Group {} does not exist".format(group_name))
 
 
 class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
