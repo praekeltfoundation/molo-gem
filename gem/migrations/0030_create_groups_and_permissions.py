@@ -80,7 +80,7 @@ def create_groups_and_permissions(apps, schema_editor):
     # **** Create wagtail groups ****
 
     # <----- Product Admin ----->
-    product_admin_group = create_group(Group, 'Product Admin')
+    product_admin_group = create_group(Group, 'product_admin')
     # Page permissions
     create_page_permission(GroupPagePermission, product_admin_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, banners, page_permission_types)
@@ -94,7 +94,7 @@ def create_groups_and_permissions(apps, schema_editor):
         delete_yourwords_entries, add_molocomment)
 
     # <----- Data Admin ----->
-    data_admin_group = create_group(Group, 'Data Admin')
+    data_admin_group = create_group(Group, 'data_admin')
     # Page permissions
     create_page_permission(GroupPagePermission, data_admin_group, polls, page_permission_types)
     create_page_permission(GroupPagePermission, data_admin_group, surveys, page_permission_types)
@@ -105,12 +105,12 @@ def create_groups_and_permissions(apps, schema_editor):
         change_segmentusergroup, delete_segmentusergroup, add_molocomment)
 
     # <----- Data Viewer ----->
-    data_viewer_group = create_group(Group, 'Data Viewer')
+    data_viewer_group = create_group(Group, 'data_viewer')
     # Django permissions
     data_viewer_group.permissions.add(access_admin, add_yourwords_entries, add_molocomment)
 
     # <----- Content Admin ----->
-    content_admin_group = create_group(Group, 'Content Admin')
+    content_admin_group = create_group(Group, 'content_admin')
     # Page permissions
     create_page_permission(GroupPagePermission, content_admin_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, banners, page_permission_types)
@@ -129,7 +129,7 @@ def create_groups_and_permissions(apps, schema_editor):
         change_segmentusergroup, delete_segmentusergroup)
 
     # <----- Content Editor ----->
-    content_editor_group = create_group(Group, 'Content Editor')
+    content_editor_group = create_group(Group, 'content_editor')
     # Page permissions
     create_page_permission(GroupPagePermission, content_editor_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, banners, page_permission_types)
@@ -145,7 +145,7 @@ def create_groups_and_permissions(apps, schema_editor):
         delete_yourwords_entries, change_userprofile_settings)
 
     # <----- Comment Moderator ----->
-    comment_moderator_group = create_group(Group, 'Comment Moderator')
+    comment_moderator_group = create_group(Group, 'comment_moderator')
     # Django permissions
     comment_moderator_group.permissions.add(
         access_admin, add_cannedresponse, change_cannedresponse,

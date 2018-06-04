@@ -76,7 +76,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(returned_user.count(), 0)
 
     def test_add_superuser_role_from_claims(self):
-        roles = ['Product Tech Admin', ]
+        roles = ['product_tech_admin', ]
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -100,7 +100,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.profile.date_of_birth, date(1988, 5, 22))
 
     def test_add_user_role_from_claims(self):
-        roles = ['Data Admin', ]
+        roles = ['data_admin', ]
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -113,10 +113,10 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertFalse(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 1)
-        self.assertEquals(user.groups.first().name, 'Data Admin')
+        self.assertEquals(user.groups.first().name, 'data_admin')
 
     def test_removing_user_role(self):
-        roles = ['Product Tech Admin', 'Data Admin', 'Content Admin']
+        roles = ['product_tech_admin', 'data_admin', 'content_admin']
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -129,10 +129,10 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 2)
-        self.assertEquals(user.groups.first().name, 'Data Admin')
-        self.assertEquals(user.groups.last().name, 'Content Admin')
+        self.assertEquals(user.groups.first().name, 'data_admin')
+        self.assertEquals(user.groups.last().name, 'content_admin')
 
-        roles = ['Data Admin', 'Content Admin']
+        roles = ['data_admin', 'content_admin']
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -142,10 +142,10 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 2)
-        self.assertEquals(user.groups.first().name, 'Data Admin')
-        self.assertEquals(user.groups.last().name, 'Content Admin')
+        self.assertEquals(user.groups.first().name, 'data_admin')
+        self.assertEquals(user.groups.last().name, 'content_admin')
 
-        roles = ['Content Admin']
+        roles = ['content_admin']
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
@@ -155,14 +155,14 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertEquals(user.groups.all().count(), 1)
-        self.assertEquals(user.groups.first().name, 'Content Admin')
+        self.assertEquals(user.groups.first().name, 'content_admin')
 
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
             username='testuser', password='password')
         user.profile.delete()
         user = get_user_model().objects.get(id=user.pk)
-        roles = ['Product Tech Admin', ]
+        roles = ['product_tech_admin', ]
         claims = {
             'roles': roles,
             'given_name': 'testgivenname',
