@@ -89,5 +89,5 @@ def media_listing_homepage(context):
 
 
 @register.simple_tag()
-def main_nav():
+def oidc_logout_url():
     return settings.LOGOUT_URL

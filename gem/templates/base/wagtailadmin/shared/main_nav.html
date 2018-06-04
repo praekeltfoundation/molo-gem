@@ -10,7 +10,7 @@
                 </span>
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
             </div>
-            {% main_nav as LOGOUT_URL %}
+            {% oidc_logout_url as LOGOUT_URL %}
             <ul class="footer-submenu">
                 <li>
                   <a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">
