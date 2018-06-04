@@ -76,7 +76,7 @@ def _update_user_from_claims(user, claims):
                 except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
-        if user.is_superuser and not SUPERUSER_GROUP in auth_service_roles:
+        if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
                 user.is_staff = False
                 user.is_superuser = False
                 user.save()
