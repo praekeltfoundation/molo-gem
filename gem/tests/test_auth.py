@@ -249,16 +249,16 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertRaises(
             RuntimeError, middleware.process_request, request)
 
-    @override_settings(USE_OIDC_AUTHENTICATION=True)
-    def test_admin_login_when_oidc_set_true(self):
-        response = self.client.get('/admin/login/')
-        self.assertEquals(response['location'], '/oidc/authenticate/')
+    @override_settings(LOGOUT_URL='oidc_logout')
+    def test_admin_logout_button_when_oidc_is_true(self):
+        # check that users need to login
+        response = self.client.get('/admin/')
+        self.assertEquals(response['location'], "/admin/login/?next=/admin/")
+        # test that the admin logs the user in
         User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')
         self.client.login(username='testadmin', password='testadmin')
         response = self.client.get('/admin/')
-        self.assertContains(response.content, "oidc/logout")
-        self.assertEquals(response.status_code, 200)
-        response = self.client.get('/admin/logout/')
-        print(response.templates)
-        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, "Welcome to the GEM Wagtail CMS")
+        # test that the correct logout button is in in the template
+        self.assertContains(response, "oidc/logout")
