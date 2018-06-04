@@ -14,7 +14,7 @@ from wagtail.wagtailcore.models import Site
 
 USERNAME_FIELD = "username"
 EMAIL_FIELD = "email"
-SUPERUSER_GROUP = 'Product Tech Admin'
+SUPERUSER_GROUP = 'product_tech_admin'
 LOGGER = logging.getLogger(__name__)
 
 
