@@ -21,10 +21,6 @@ urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
-    url(r'^profiles/',
-        include('molo.profiles.urls',
-                namespace='molo.profiles',
-                app_name='molo.profiles')),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'', include(wagtail_urls)),
 
