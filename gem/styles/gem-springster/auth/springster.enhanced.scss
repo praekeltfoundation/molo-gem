@@ -7,6 +7,10 @@
   font-family: 'BatonMedium';
   src: url('/static/authentication_service/fonts/Baton-Regular-Web.woff');
 }
+@font-face {
+  font-family: 'BatonTurboRegular';
+  src: url('/static/authentication_service/fonts/BatonTurboWeb-Regular.woff');
+}
 
 body,
 html {
@@ -265,7 +269,6 @@ hr {
     }*/
 
     //Heading__square
-
     background-color: $springster-purple;
     margin: 0;
     padding: 15px 8px 35px;
@@ -319,9 +322,64 @@ hr {
 }
 
 .Footer {
-  margin: $spacer-multiple 0;
-  padding: $spacer-multiple;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  border-top: none;
+
+  &-logo {
+    background-size: contain;
+    background-image: url("/static/authentication_service/images/sp-logo.png");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 60px;
+    max-width: 200px;
+    background-position: 0 50%;
+    margin: 25px auto;
+    display: block;
+  }
+
+  .call-to-action--backToTop {
+    background-color: #f0f3f5;
+    position: relative;
+    &-nav-item {
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: underline;
+      color: #7300ff;
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      text-align: center;
+      display: block;
+      padding: 20px 0 18px 0;
+      &:after {
+        content: "";
+        background-image: url("/static/authentication_service/images/icons/up-arrow.svg");
+        height: 24px;
+        width: 24px;
+        top: 30%;
+        margin-left: 10px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: auto 100%;
+        position: absolute;
+      }
+    }
+  }
+
+  .Copyright {
+    padding: 0 0 5px;
+    p {
+      color: #a3a7ae;
+      font-size: 12px;
+      padding: 15px 15px 10px;
+      margin: 0;
+      text-align: center;
+      font-family: BatonTurboRegular,Helvetica,Arial,sans-serif;
+    }
+  }
+
 
   p {
     margin: 0;
@@ -553,17 +611,4 @@ hr {
     margin-top: $spacer-mid;
     padding-bottom: $spacer;
   }
-}
-
-//_S-HEADER.SCSS
-
-#header-fixed {
-  position: fixed;
-  top: 0;
-  z-index: 9999;
-  width: 100%;
-  box-sizing: border-box;
-  transform: translate3d(0px, 0px, 0px);
-  transition: transform 300ms ease 0ms;
-  animation: qs-timer 300ms;
 }
