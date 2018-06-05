@@ -35,6 +35,7 @@ a {
   border: 0;
   color: $springster-purple;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     border: 0;
@@ -143,7 +144,7 @@ hr {
       }
     }
   }
-  .call-to-action {
+  .Call-to-action {
     &__item {
       border: none;
       &--search-icon {
@@ -354,12 +355,11 @@ hr {
     display: block;
   }
 
-  .call-to-action {
+  .Call-to-action {
     &--backToTop {
       background-color: #f0f3f5;
       position: relative;
       &-nav-item {
-        cursor: pointer;
         text-transform: uppercase;
         text-decoration: underline;
         color: #7300ff;
@@ -459,9 +459,14 @@ hr {
 
 
 //CONTENT BODY STYLES
+.Content {
+  padding: 10px 15px 0;
+  overflow: auto;
+}
 
 //FORM STYLES
 .Form {
+  padding: 0;
   .Field {
     margin-top: $spacer-multiple;
 
@@ -489,6 +494,26 @@ hr {
       &:focus {
         border-color: $springster-purple;
       }
+    }
+    .ClearableFileInput {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    input[type="file"] + label {
+      font-size: 1.25em;
+      font-weight: 700;
+      color: white;
+      background-color: black;
+      display: inline-block;
+    }
+
+    .input[type="file"]:focus + label,
+    .input[type="file"] + label:hover {
+      background-color: red;
     }
 
     .Textarea {
@@ -598,23 +623,30 @@ hr {
     font-family: $baton-regular;
   }
 }
-
 .errorlist {
   margin-top: $spacer-multiple;
 }
-
 
 .Button {
   background-color: transparent;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyNiA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4gICAgICAgIDxwYXRoIGZpbGw9IiM3MzAwRkYiICAgICAgICAgIGQ9Im0zMjUuNDkgMC4zNTQxYy0wLjM3NjMtMC4zNDgtMS45OTMzLTAuMzgzLTkuNjcxOS0wLjMzOS0yMC4yMSAwLjExNS02NS41MDggMC4yOTQtMTEzLjg4IDAuMzQyLTY5LjM2NSAwLjA2OC0xNzEuNjMtMC40MjYtMTk2LjkyIDAuMDY4LTEuODQ5MyAwLjAzNi0zLjM0MjEgMC4xODItNC4yODE0IDEuMTUyLTAuOTU3MzMgMC45ODgtMC43MTg0NyAzLjUzNC0wLjY5MDk4IDcuMjU2IDAuMDU2ODcxIDcuNTY3IDAuMjA5NDcgMTUuNTI0IDAuMzY1ODcgMjEuNjg1IDAuMTI1MTIgNC45MTMgNC4xMTY1IDcuNzIgOC44NTY3IDcuNjk5IDM5LjgxMS0wLjE3MiAxNDYuNjUgMi4xMzggMTgwLjY4IDEuNjQgNC45NjY3LTAuMDczIDQ5LjI0NC0wLjA2NSA3NC4zNjItMC4zMTUgMTYuMDk3LTAuMTYxIDM0LjM1My0xLjAxOCA2MS42MS0wLjUxNCAwIDAgMC4xOTgxLTIyLjE1NS0wLjAyNzQ4OC0zMy41MjktMC4wNzc3MjQtMy45MTkgMC4xMTQ2OS00LjY3LTAuMzk5MDQtNS4xNDUiLz48L3N2Zz4=');
   background-repeat: no-repeat;
   background-size: 100%;
+  background-position: 0 0;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  max-width: 344px;
+  max-height: 40px;
+  width: 100%;
+  white-space: normal;
+
   color: $white;
   font-family: $baton-medium;
   font-size: $font-small;
   height: $spacer-max;
   line-height: .5em;
-  margin-top: $spacer-mid * 2;
+  margin: $spacer-mid auto;
   text-align: center;
 
   &:hover {
@@ -629,8 +661,26 @@ hr {
     background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyNiA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4gICAgICAgIDxwYXRoIGZpbGw9IiNGRjU1MDAiICAgICAgICAgIGQ9Im0zMjUuNDkgMC4zNTQxYy0wLjM3NjMtMC4zNDgtMS45OTMzLTAuMzgzLTkuNjcxOS0wLjMzOS0yMC4yMSAwLjExNS02NS41MDggMC4yOTQtMTEzLjg4IDAuMzQyLTY5LjM2NSAwLjA2OC0xNzEuNjMtMC40MjYtMTk2LjkyIDAuMDY4LTEuODQ5MyAwLjAzNi0zLjM0MjEgMC4xODItNC4yODE0IDEuMTUyLTAuOTU3MzMgMC45ODgtMC43MTg0NyAzLjUzNC0wLjY5MDk4IDcuMjU2IDAuMDU2ODcxIDcuNTY3IDAuMjA5NDcgMTUuNTI0IDAuMzY1ODcgMjEuNjg1IDAuMTI1MTIgNC45MTMgNC4xMTY1IDcuNzIgOC44NTY3IDcuNjk5IDM5LjgxMS0wLjE3MiAxNDYuNjUgMi4xMzggMTgwLjY4IDEuNjQgNC45NjY3LTAuMDczIDQ5LjI0NC0wLjA2NSA3NC4zNjItMC4zMTUgMTYuMDk3LTAuMTYxIDM0LjM1My0xLjAxOCA2MS42MS0wLjUxNCAwIDAgMC4xOTgxLTIyLjE1NS0wLjAyNzQ4OC0zMy41MjktMC4wNzc3MjQtMy45MTkgMC4xMTQ2OS00LjY3LTAuMzk5MDQtNS4xNDUiLz48L3N2Zz4=');
   }
 }
+.Additional-text {
+  padding-left: 15px;
+  margin: 0;
+  line-height: 28px;
+  text-align: center;
+  a {
+    font-family:$baton-medium;
+    text-align: left;
+    font-weight: 400;
 
-.call-to-action {
+    text-transform: uppercase;
+    text-decoration: underline;
+    color: #7300ff;
+    font-size: 16px;
+    position: relative;
+    text-align: center;
+    display: block;
+  }
+}
+.Call-to-action {
   a, button {
     font-family:$baton-medium;
   }
