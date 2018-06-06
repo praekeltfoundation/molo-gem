@@ -61,7 +61,9 @@ OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
 OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 
 if USE_OIDC_AUTHENTICATION:
-    LOGIN_URL = 'oidc_authentication_init'
+    LOGIN_URL = (
+        "%s/login/?theme=%s&hide=end-user&redirect_url=%s" % (
+            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
     LOGOUT_URL = 'oidc_logout'
     REGISTRATION_URL = (
         "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
