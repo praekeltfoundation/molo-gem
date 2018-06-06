@@ -61,8 +61,21 @@ hr {
   }
 }
 
+
+//HEADER STYLES
+.Breadcrumbs {
+  padding: $spacer $spacer-mid;
+  background: $springster-purple;
+  p {
+    margin: 0;
+    color: $pale-lilac;
+    text-align: center;
+  }
+}
+
 .Header {
   text-align: center;
+<<<<<<< Updated upstream
   //Start extra code
   .menu-list {
     margin: 0;
@@ -126,9 +139,10 @@ hr {
   }
   //End extra code
 
+=======
+>>>>>>> Stashed changes
   &-title {
     background: transparent;
-
     h1 {
       color: $gunmetal;
     }
@@ -136,27 +150,19 @@ hr {
 
   &-branding {
     padding: $spacer-mid;
-
     &-image {
       background: url('/static/authentication_service/images/sp-logo.png') no-repeat;
       background-position: 50%;
       background-size: contain;
       display: block;
-      height: 60px;
+      height: 35px;
       padding-left: 100%;
       width: 100%;
     }
   }
 }
 
-.Footer {
-  background: $white;
-  border-top: 1px solid $slate-grey;
-  font-size: $font-xx-small;
-  padding: $spacer 0;
-  text-align: center;
-}
-
+//FORM
 .Form {
   .Field {
     margin-top: $spacer;
@@ -228,11 +234,35 @@ hr {
     margin-top: $spacer;
   }
 }
+.Messages {
+  margin: $spacer 0;
 
-.Additional-text {
-  text-align: center;
+  .Message {
+    color: $white;
+    padding: $spacer;
+
+    &--success {
+      background: $springster-sunny-yellow;
+    }
+
+    &--error,
+    &--warning {
+      background: $red;
+    }
+  }
+}
+.errorlist {
+  color: $red;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
 }
 
+//BUTTONS
 .Button {
   background: $springster-purple;
   color: $white;
@@ -255,50 +285,30 @@ hr {
     background-color: $bright-orange;
   }
 }
-
-.Messages {
-  margin: $spacer 0;
-
-  .Message {
-    color: $white;
-    padding: $spacer;
-
-    &--success {
-      background: $springster-sunny-yellow;
-    }
-
-    &--error,
-    &--warning {
-      background: $red;
-    }
-  }
+.Additional-text {
+  text-align: center;
 }
 
-.errorlist {
-  color: $red;
-  list-style: none;
-  margin: $spacer-half 0;
-  padding: 0;
-
-  li {
-    margin: $spacer-half 0;
-  }
+//FOOTER
+.Footer {
+  background: $white;
+  border-top: 1px solid $slate-grey;
+  font-size: $font-xx-small;
+  padding: $spacer 0;
+  text-align: center;
 }
 
 .Menu {
   background-color: $mint-green;
   padding: $spacer $spacer-mid;
-
   &-title {
     display: none;
   }
-
   &-item {
     a {
       font-size: $font-medium;
     }
   }
-
   &-list {
     list-style: none;
     margin: 0;
