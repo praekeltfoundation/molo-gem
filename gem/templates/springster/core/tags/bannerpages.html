@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags gem_tags %}
 {% if bannerpages %}
  <div class="banner">
   {% for bannerpage in bannerpages %}
@@ -7,10 +7,10 @@
       {# hide_on_freebasics is available for Gem text banner setting #}
          <div class="banner__block">
             <div class="heading heading__subheading">
-              <h3>{{bannerpage.title}}</h3>
+              <h3>{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
             </div>
             {% if bannerpage.subtitle %}
-              <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
+              <p class="banner__subtitle">{{ bannerpage.subtitle|smarttruncatechars:100|safe }}</p>
             {% endif %}
             {% if bannerpage.external_link %}
              <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
@@ -36,10 +36,10 @@
       {% else %}
          <div class="banner__block">
             <div class="heading heading__subheading">
-              <h3>{{bannerpage.title}}</h3>
+              <h3>{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
             </div>
             {% if bannerpage.subtitle %}
-              <p class="banner__subtitle">{{ bannerpage.subtitle }}</p>
+              <p class="banner__subtitle">{{ bannerpage.subtitle|smarttruncatechars:100|safe }}</p>
             {% endif %}
             {% if bannerpage.external_link %}
              <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">

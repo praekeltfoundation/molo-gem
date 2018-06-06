@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags gem_tags %}
 {% block content %}
   <div class="heading heading__component">
     <h1>{{self.title}}</h1>
@@ -27,10 +27,10 @@
     {% else %}
       <div class="banner__block">
         <div class="heading heading__subheading">
-          <h3>{{self.title}}</h3>
+          <h3>{{self.title|smarttruncatechars:100|safe}}</h3>
         </div>
         {% if self.subtitle %}
-          <p class="banner__subtitle">{{ self.subtitle }}</p>
+          <p class="banner__subtitle">{{ self.subtitle|smarttruncatechars:100|safe }}</p>
         {% endif %}
         {% if self.external_link %}
           <a href="{{ self.external_link }}" class="call-to-action__button call-to-action__button--hyperlink">
