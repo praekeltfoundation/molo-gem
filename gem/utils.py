@@ -26,12 +26,3 @@ def provider_logout_url(request):
     redirect_url = settings.OIDC_OP_LOGOUT_URL + "?" + urlencode(
         parameters, doseq=True)
     return redirect_url
-
-
-def get_oidc_settings(request):
-    site = request.site
-    if not hasattr(site, "oidcsettings"):
-        raise RuntimeError(
-            "Site {} has no settings configured.".format(site))
-
-    return site.oidcsettings
