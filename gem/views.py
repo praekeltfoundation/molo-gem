@@ -99,6 +99,20 @@ class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
         self.wagtail_redirect_url = site.oidcsettings.wagtail_redirect_url
         return super(CustomAuthenticationRequestView, self).get(request)
 
+    def get_extra_params(self, request):
+        """
+        Extra parameters can be passed along in the login URL that is
+        generated. Set these parameters here.
+        """
+        params = super(
+            CustomAuthenticationRequestView, self).get_extra_params(request)
+        site = request.site
+        if not hasattr(site, "oidcsettings"):
+            raise RuntimeError(
+                "Site {} has no settings configured.".format(site))
+        params.update({'theme': settings.THEME})
+        return params
+
 
 class RedirectWithQueryStringView(RedirectView):
     query_string = True
