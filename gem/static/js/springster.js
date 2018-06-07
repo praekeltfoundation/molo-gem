@@ -104,29 +104,12 @@
     }
   }
 
-  var termsValidation = function() {
-    var termsLabel = document.getElementById("id_terms_and_conditions");
-    var termsLink = document.getElementById("terms_link");
-    var register = document.getElementById("registration");
-    termsLabel.disabled = true;
-    termsLink.addEventListener('click', function() {
-      termsLabel.disabled = false;
-      document.cookie = "newCookie=cookieCookie; expires=Fri, 3 Aug 2018 20:47:11 UTC; path=/";
-    });
-    if (document.cookie.split(';').filter(function(item) {
-        return item.indexOf('newCookie=') >= 0}).length) {
-      termsLabel.disabled = false;
-      console.log('The cookie "newCookie" exists')
-    }
-  }
-
   domReady(function() {
     remNoJS();
     hidePagination();
     stickyHeader();
     loadMore();
     loaderAnimation();
-    termsValidation();
   });
 
 })();
