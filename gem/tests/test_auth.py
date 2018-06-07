@@ -13,7 +13,6 @@ from gem.tests.base import GemTestCaseMixin
 from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
     CustomAuthenticationRequestView)
-from gem.utils import get_oidc_settings
 from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from django.core.urlresolvers import reverse
@@ -263,13 +262,3 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertContains(response, "Welcome to the GEM Wagtail CMS")
         # test that the correct logout button is in in the template
         self.assertContains(response, "oidc/logout")
-
-    def test_get_oidc_settings_util(self):
-        OIDCSettings.objects.create(
-            site=self.main.get_site(), oidc_rp_client_secret='secret',
-            oidc_rp_client_id='id',
-            wagtail_redirect_url='https://redirecit.com')
-        request = HttpRequest()
-        request.site = self.main.get_site()
-        settings = get_oidc_settings(request)
-        self.assertEquals(settings.site.pk, self.main.get_site().pk)
