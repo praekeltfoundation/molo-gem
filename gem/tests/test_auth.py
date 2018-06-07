@@ -248,6 +248,10 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
 
     @override_settings(LOGOUT_URL='oidc_logout')
     def test_admin_logout_button_when_oidc_is_true(self):
+        OIDCSettings.objects.create(
+            site=self.main.get_site(), oidc_rp_client_secret='secret',
+            oidc_rp_client_id='id',
+            wagtail_redirect_url='http://main1.localhost:8000')
         # check that users need to login
         response = self.client.get('/admin/')
         self.assertEquals(response['location'], "/admin/login/?next=/admin/")
