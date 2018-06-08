@@ -50,6 +50,14 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    {% comment %}
+      Redesign to be deployed to current base.
+      Have Springster activated features
+    {% endcomment %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/ninyampinga.css">
+    {% endcompress %}
+
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE|language_bidi == True %}
     {% endif %}

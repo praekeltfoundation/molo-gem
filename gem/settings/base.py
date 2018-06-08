@@ -179,7 +179,7 @@ if USE_OIDC_AUTHENTICATION:
 
 # Template configuration
 
-# We have multiple layouts: use `base`, `malawi` or `springster`
+# We have multiple layouts: use `base`, `malawi` , `springster` or `rwanda`
 # to switch between them.
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'rwanda')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
