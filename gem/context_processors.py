@@ -46,9 +46,11 @@ def compress_settings(request):
         oidc_settings = site.oidcsettings
         if oidc_settings:
             REGISTRATION_URL = (
-                "%s/registration/?theme=%s&hide=end-user&redirect_uri=%s" % (
+                "%s/registration/?theme=%s&hide=end-user&redirect_uri=%s"
+                "&client_id=%s" % (
                     settings.OIDC_OP, settings.THEME,
-                    oidc_settings.wagtail_redirect_url))
+                    oidc_settings.wagtail_redirect_url,
+                    oidc_settings.oidc_rp_client_id))
             VIEW_PROFILE_URL = (
                 "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
                     settings.OIDC_OP, settings.THEME,
