@@ -1,0 +1,82 @@
+{% load wagtailcore_tags core_tags gem_tags %}
+{% if form %}
+<form class="{{surveytypeClass}}__form" action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
+{% csrf_token %}
+  {% if not is_via_freebasics %}
+      {{ form.media }}
+  {% endif %}
+    {% for field in form %}
+    <fieldset>
+      <div class="input-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.help_text %}
+          {% if field|fieldtype == 'CharacterCountWidget' %}
+            <span class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</span>
+          {% else %}
+            <span class="{{surveytypeClass}}__helptext">{{ field.help_text }}</span>
+          {% endif %}
+        {% endif %}
+        {% if field|fieldtype == 'RadioSelect' %}
+            <ul>
+              {% for choice in field.field.choices %}
+                <li>
+                  <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="radio" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked="checked"{% endif %}>
+                  <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
+                </li>
+              {% endfor %}
+            </ul>
+        {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
+          <ul>
+            {% for choice in field.field.choices %}
+              <li>
+                <input id="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}" type="checkbox" value="{{ choice.0 }}" {% if field.value.0 == choice.0 %}checked="checked"{% endif %}>
+                <label for="choice-{{ field.label|idfromlabel }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
+              </li>
+            {% endfor %}
+          </ul>
+      {% else %}
+        {{ field }}
+      {% endif %}
+
+        {% if field.errors %}
+          <ul class="error error--{{surveytypeClass}}">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </fieldset>
+    {% endfor %}
+
+    {% trans "Done" as text %}
+    {% trans "Vote" as polltext %}
+    {% if survey.display_survey_directly %}
+      {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+        <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="button call-to-action__button call-to-action__button--primary" />
+      {% else %}
+          {% trans "Log in to vote" as buttontext %}
+          {% url LOGIN_URL as link %}
+          {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
+      {% endif %}
+    {% else %}
+        <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
+    {% endif %}
+
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="{{surveytypeClass}}__pagination">
+        <p class="{{surveytypeClass}}__page">
+          {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+            {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
+          {% endwith %}
+        </p>
+      </div>
+    {% endif %}
+  </form>
+  {% else %}
+      <p class="error error--{{surveytypeClass}}">{% trans 'You have already completed this' %} {{surveytype}}.</p>
+      <div class="call-to-action call-to-action--{{surveytypeClass}}">
+        <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+        {% trans "Back to Home page" %}</a>
+      </div>
+  {% endif %}

@@ -1,0 +1,30 @@
+{% extends "core/article_page.html" %}
+{% load wagtailcore_tags mptt_tags %}
+
+{% block content %}
+  <div class="comments comments{{self.get_parent_section.get_effective_extra_style_hints}}">
+      <h1 class="heading comments__reply-heading">{% trans "Comments" %}</h1>
+    <div id="comment__list" class="comments__list">
+      {% for node in comments %}
+        {% recursetree node %}
+            {% include "comments/comment.html" %}
+            {{ children }}
+        {% endrecursetree %}
+      {% endfor %}
+    </div>
+
+    <div class="pagination">
+    {% if page.has_previous %}
+        <a href="?p={{ page.previous_page_number }}" class="pagination__item pagination__item--prev">&larr;</a>
+    {% endif %}
+    <span class="pagination__item pagination__item--current">
+        Page {{ page.number }} of {{ page.paginator.num_pages }}
+    </span>
+    {% if page.has_next %}
+        <a href="?p={{ page.next_page_number }}" class="pagination__item pagination__item--next">&rarr;</a>
+    {% endif %}
+    <a href="{% pageurl self %}" class="call-to-action__nav-item call-to-action__nav-item--back">
+    {% trans "Back to article" %}</a>
+    </div>
+  </div>
+{% endblock %}

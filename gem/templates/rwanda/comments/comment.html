@@ -1,0 +1,58 @@
+{% load molo_commenting_tags %}
+<div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}
+  {% if node.parent %}
+    comment__admin-reply
+  {% else %}
+    comment__user-reply
+  {% endif %}">
+  <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
+    <strong>
+    {% if node.user.is_staff %}
+        {% if settings.gem.GemSettings.moderator_name %}
+          {{settings.gem.GemSettings.moderator_name}}
+        {% else %}
+          {% trans "Big Sister" %}
+        {% endif %}
+    {% elif node.user_name.lower == 'anonymous' %}
+      {% trans "Anonymous" %}
+    {% else %}
+      {% if not node.user.profile.alias %}
+        {% trans "Anonymous" %}
+      {% else %}
+        {{node.user.profile.alias}}
+      {% endif %}
+    {% endif %}
+    </strong>
+  </p>
+  {% if node.is_removed %}
+    <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
+  {% else %}
+    {% if truncate_comment %}
+      <p>{{ node.comment|truncatechars:60 }}</p>
+    {% else %}
+      <p>{{ node.comment }}</p>
+    {% endif %}
+    <span class="date">{{node.submit_date|timesince}} {% trans "ago" %}</span>
+    {% if not node.user|is_in_admin_group %}
+      <a href="{% url 'report_comment' node.pk %}" class="report">{% trans "Report" %}</a>
+    {% endif %}
+    {% if node.parent == None %}
+      {% if request.user.is_authenticated %}
+        <div class="comment__reply-meta">
+          <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comment__reply-meta-link">
+            {% trans "Reply"%}
+          </a>
+          {% if do_not_link_replies or node.get_children.count == 0 %}
+            <p class="comment__reply-meta-link comment__reply-meta-replies-list-disabled">
+              {{ node.get_children.count }} {% if node.get_children.count == 1 %}{% trans "Reply"%}{% else %}{% trans "Replies"%}{% endif %}
+            </p>
+          {% else %}
+            <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comment__reply-meta-link comment__reply-meta-replies-list">
+              {{ node.get_children.count }} {% if node.get_children.count == 1 %}{% trans "Reply"%}{% else %}{% trans "Replies"%}{% endif %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+</div>

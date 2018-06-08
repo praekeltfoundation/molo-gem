@@ -1,0 +1,10 @@
+<div id="search-form">
+  <form action="{% url 'search' %}" novalidate>
+    <label>{% trans "looking for something?" %}</label>
+    <input placeholder="{% trans "Search" %}" name="q" type="text" value="{{ search_query }}">
+    <button type="submit" class="search__submit">
+      {% trans "Submit" %}
+    </button>
+    <div class="clear-fix"></div>
+  </form>
+</div>

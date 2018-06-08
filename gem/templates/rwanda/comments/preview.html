@@ -1,0 +1,25 @@
+{% extends "core/article_page.html" %}
+{% load molo_commenting_tags %}
+{% block content %}
+{% get_comments_content_object for form as self %}
+<div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="comment-preview">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="article-copy">
+      <div class="post-comment">
+        {% if request.user.is_authenticated %}
+          {% include "comments/form.html" with node=comment %}
+        {% else %}
+          <p>{% trans "Please " %}<a href="{% url LOGIN_URL %}">{% trans "log in" %}</a>{% trans " to leave a comment." %}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

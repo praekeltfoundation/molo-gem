@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags static %}
+
+{% block content %}
+<div class="standalone-page your-words {{ competition.get_effective_extra_style_hints }}">
+    <div class="section-title">
+      <h2>{% trans "Share your story" %}</h2>
+    </div>
+
+    <h3>{{ competition.title }}</h3>
+    <p>{{ competition.description }}</p>
+
+    <img src="{% static 'img/Pencil.png' %}" />
+
+    <div class="content">
+      {% for block in competition.content %}
+          {% if block.block_type == 'heading' %}
+              <h5>{{ block.value }}</h5>
+          {% else %}
+          {% if block.block_type == 'image' %}
+            {% image block.value width-320 %}
+          {% else %}
+          {% if block.block_type == 'numbered_list' %}
+            <ol>
+            {% for item in block.value %}
+              <li>{{item}}</li>
+            {% endfor %}
+            </ol>
+          {% else %}
+          {% if block.block_type == 'list' %}
+            <ul>
+            {% for item in block.value %}
+              <li>{{item}}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+              {{ block }}
+          {% endif %}
+          {% endif %}
+          {% endif %}
+          {% endif %}
+      {% endfor %}
+    </div>
+  <div class="yourwords__container-form">
+    <form method="post" class="yourwords__form" novalidate>
+    {% csrf_token %}
+      <fieldset>
+        <div class="input-group">
+          <label>{% trans "Title of your story" %}</label>
+          {{ form.story_name }}
+           {% if form.story_name.errors %}
+            <p class="errors errorlist">* {{form.story_name.errors|join:' '}}</p>
+          {% endif %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="input-group">
+          <label>{% trans "Tell us your story here" %}</label>
+          {{ form.story_text }}
+          {% if form.story_text.errors %}
+            <p class="errors errorlist" >* {{form.story_text.errors|join:' '}}</p>
+          {% endif %}
+        </div>
+      </fieldset>
+      <fieldset class="choice">
+        {% if form.terms_or_conditions_approved.errors %}
+        <p class="alert-error">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
+        {% endif %}
+        <div class="input-group">
+          {{ form.terms_or_conditions_approved }}
+          <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
+        </div>
+      </fieldset>
+      <fieldset class="choice">
+        {{ form.hide_real_name }}
+        <label for="id_hide_real_name">{% trans "Share my story anonymously" %}</label>
+      </fieldset>
+      <input type="submit" value="{% trans "Submit your story" %}" class="call-to-action__button call-to-action__button--primary">
+    </form>
+  </div>
+</div>
+{% endblock %}

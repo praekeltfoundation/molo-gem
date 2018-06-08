@@ -1,0 +1,45 @@
+{% extends "core/article_page.html" %}
+{% load wagtailcore_tags molo_commenting_tags %}
+{% block content %}
+{% get_comments_content_object for form as self %}
+<a href="{% pageurl self %}" class="call-to-action__nav-item call-to-action__nav-item--back">
+    {% trans "Back to article" %}</a>
+
+<div class="block {{self.articlepage.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="comment">
+    {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
+  </div>
+</div><!-- /title -->
+{% if page == 1 %}
+  <p class="comments__reply-title">{% trans "Recent replies" %}</p>
+{% else %}
+  <p class="comments__reply-title">{% trans "Earlier replies" %}</p>
+{% endif %}
+  <div class="comment__reply-content">
+  {% for node in replies reversed %}
+    {% include "comments/comment.html" %}
+  {% endfor %}
+  </div>
+<div class="pagination">
+  {% if replies.has_previous %}
+      <a href="?p={{ replies.previous_page_number }}" class="pagination__item pagination__item--prev">&larr;</a>
+  {% endif %}
+  <span class="pagination__item pagination__item--current">
+      {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
+  </span>
+  {% if replies.has_next %}
+      <a href="?p={{ replies.next_page_number }}" class="pagination__item pagination__item--next">&rarr;</a>
+  {% endif %}
+</div>
+<div class="block {{self.get_parent_section.get_effective_extra_style_hints}}">
+  <div class="article-copy">
+    <div class="post-comment">
+      {% if request.user.is_authenticated %}
+        {% include "comments/form.html" with node=comment %}
+      {% else %}
+        <p>{% trans "Please " %}<a href="{% url LOGIN_URL %}">{% trans "log in" %}</a>{% trans " to leave a comment." %}</p>
+      {% endif %}
+		</div>
+  </div>
+</div>
+{% endblock %}

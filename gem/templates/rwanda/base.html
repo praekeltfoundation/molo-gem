@@ -1,0 +1,163 @@
+{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags gem_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+  <html class="no-js" lang="{{LANGUAGE_CODE}}">
+<!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    {% comment %}
+      ++++++++++++++++++++++++++++
+        is site available via BBM?
+        <title>{% if is_via_bbm %}GirlTalk{% endif %}</title>
+      ++++++++++++++++++++++++++++
+    {% endcomment %}
+    <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="twitter:card" content="summary_large_image"/>
+    {% comment %}
+      ++++++++++++++++++++++++++++
+        Set google-site-verification
+        Ninyampinga site description
+      ++++++++++++++++++++++++++++
+    {% endcomment %}
+    <meta name="google-site-verification" content="" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <link href="{{ request.build_absolute_uri }}" rel="canonical" />
+    <meta property="og:image:width" content="450" />
+    <meta property="og:image:height" content="200" />
+    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+    <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Ninyampinga{% endif %}" />
+    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+    <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+    {% image self.social_media_image fill-450x200 as tmp_photo %}
+    {% if self.get_effective_image %}
+      {% image self.get_effective_image fill-450x200 as article_photo %}
+    {% endif %}
+    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/logo_rwanda.png' %}{% endif %}"/>
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'img/appicons/gem-r/NN_Favicon_WHITE.svg">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/gem-r/NN_Favicon_GREEN.svg">
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE|language_bidi == True %}
+    {% endif %}
+  </head>
+  <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+  {% wagtailuserbar %}
+  <header>
+    <div id="header" class="header">
+      <a href="/" class="logo logo--left">
+        {% get_site_static_prefix as site_prefix %}
+        {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
+          <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
+        {% endwith %}
+      </a>
+      <span id="search" class="menu-list__item menu-list__item--section-nav">
+        <a class="menu-list__anchor menu-list__anchor--section-nav">
+          <label for="search-toggle" >{% trans "Search" %}</label>
+        </a>
+      </span>
+      <!-- DROP DOWN MENU-->
+      <a href="#feature-menu">{% trans "Menu" %}</a>
+      <!--PROFILE-->
+      {% if not user.is_authenticated %}
+      <a href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
+      {% else %}
+      <a href={{VIEW_PROFILE_URL}}>{% trans "Profile" %}</a>
+      {% endif %}
+
+      {% if languages|length > 1 %}
+      <div class="language-container">
+         {% get_current_language as LANGUAGE_LOCALE %}
+          {% for language in languages %}
+            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" {% if LANGUAGE_LOCALE == language.locale %} class="active" {% endif %}>{{language.locale | language_name_local}}</a>
+          {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  {% display_unread_notifications %}
+  {% block content %}{% endblock %}
+  {% block footer %}
+  <footer>
+    <div id="gem-footer">
+      {% block search %}
+        {% include "search/search_block.html" %}
+          {% social_media_footer %}
+        {% endblock %}
+        <ul id="feature-menu" class="sections footer-menu-list">
+          <li class="footer-menu-list__item">
+            <a href="/" class="footer-menu-list__anchor">
+              {% trans "Home" %}
+            </a>
+          </li>
+          <li class="footer-menu-list__item">
+            <b class="footer-menu-list__label">
+              {% trans "Categories" %}
+            </b>
+          </li>
+          {% load_sections as sections %}
+            {% for section in sections %}
+              <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__sub-menu">
+                <a href="{% pageurl section.specific %}" class="footer-menu-list__sub-anchor">
+                    {{section.title}}
+                </a>
+              </li>
+            {% endfor %}
+          {% footer_page %}
+          {% if not user.is_authenticated %}
+            <li class="footer-menu-list__item">
+              <a href={{REGISTRATION_URL}} class="footer-menu-list__anchor">
+                {% trans "Sign Up" %}
+              </a>
+            </li>
+
+            <li class="footer-menu-list__item">
+              <a href="{% url LOGIN_URL %}" class="footer-menu-list__anchor">
+                {% trans "Log in" %}
+              </a>
+            </li>
+
+          {% else %}
+          <li class="footer-menu-list__item">
+            <a href={{VIEW_PROFILE_URL}} class="footer-menu-list__anchor">
+              {% trans "Profile" %}
+            </a>
+          </li>
+
+          <li class="footer-menu-list__item">
+            <form method="post" action="{% url LOGOUT_URL %}">
+                  {% csrf_token %}
+                  <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+                </form>
+          </li>
+          {% endif %}
+        </ul>
+      {% endblock %}
+      {% include "core/language_block.html" %}
+      <div id="footer-bar">
+        <p>@{% now "Y" %}  Girl Effect. {% trans "All Rights Reserved." %}</p>
+        {% if settings.gem.GemSettings.show_partner_credit %}
+          <a href="{{settings.gem.GemSettings.partner_credit_link}}">{{settings.gem.GemSettings.partner_credit_description}}</a>
+        {% endif %}
+      </div>
+    </div>
+  </footer>
+  {% wagtailuserbar %}
+  {% block facebook_analytics %}
+    {% include "core/facebook_analytics.html" %}
+  {% endblock %}
+  </body>
+</html>
