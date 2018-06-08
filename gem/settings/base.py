@@ -243,7 +243,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ALWAYS_EAGER = False
 CELERY_IMPORTS = (
-    'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task')
+    'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task',
+    'molo.commenting.tasks')
 BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = environ.get(
     'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
