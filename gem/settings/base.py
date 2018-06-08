@@ -63,15 +63,6 @@ OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
     LOGOUT_URL = 'oidc_logout'
-    REGISTRATION_URL = (
-        "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
-    VIEW_PROFILE_URL = (
-        "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL, OIDC_RP_CLIENT_ID))
-    EDIT_PROFILE_URL = (
-        "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL, OIDC_RP_CLIENT_ID))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
