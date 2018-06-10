@@ -136,12 +136,13 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_editor_group, footers, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, polls, page_permission_types)
-    create_page_permission(GroupPagePermission, content_admin_group, surveys, page_permission_types)
+    create_page_permission(GroupPagePermission, content_editor_group, surveys, page_permission_types)
     # Django permissions
     content_editor_group.permissions.add(
         access_admin, add_cannedresponse, change_cannedresponse,
         delete_cannedresponse, add_comment, change_comment, delete_comment,
-        add_yourwords_entries, change_yourwords_entries,
+        add_molocomment, change_molocomment,
+        delete_molocomment, add_yourwords_entries, change_yourwords_entries,
         delete_yourwords_entries, change_userprofile_settings)
 
     # <----- Comment Moderator ----->
