@@ -63,15 +63,6 @@ OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
     LOGOUT_URL = 'oidc_logout'
-    REGISTRATION_URL = (
-        "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
-    VIEW_PROFILE_URL = (
-        "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL, OIDC_RP_CLIENT_ID))
-    EDIT_PROFILE_URL = (
-        "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL, OIDC_RP_CLIENT_ID))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -251,7 +242,9 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ALWAYS_EAGER = False
-CELERY_IMPORTS = ('gem.tasks', 'molo.core.tasks', 'google_analytics.tasks')
+CELERY_IMPORTS = (
+    'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task',
+    'molo.commenting.tasks')
 BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = environ.get(
     'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
