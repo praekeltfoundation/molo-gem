@@ -94,6 +94,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
         self.assertEquals(user.first_name, 'testgivenname')
         self.assertEquals(user.last_name, 'testfamilyname')
         self.assertEquals(user.email, 'test@email.com')
@@ -115,6 +116,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertFalse(user.is_superuser)
+        self.assertTrue(user.is_staff)
         self.assertEquals(user.groups.all().count(), 1)
         self.assertEquals(user.groups.first().name, 'data_admin')
 
@@ -131,6 +133,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
         self.assertEquals(user.groups.all().count(), 2)
         self.assertEquals(user.groups.first().name, 'data_admin')
         self.assertEquals(user.groups.last().name, 'content_admin')
@@ -144,6 +147,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
+        self.assertTrue(user.is_staff)
         self.assertEquals(user.groups.all().count(), 2)
         self.assertEquals(user.groups.first().name, 'data_admin')
         self.assertEquals(user.groups.last().name, 'content_admin')
@@ -157,8 +161,20 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
+        self.assertTrue(user.is_staff)
         self.assertEquals(user.groups.all().count(), 1)
         self.assertEquals(user.groups.first().name, 'content_admin')
+
+        roles = []
+        claims = {
+            'roles': roles,
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        _update_user_from_claims(user, claims)
+        self.assertFalse(user.is_staff)
+        self.assertEquals(user.groups.all().count(), 0)
 
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
