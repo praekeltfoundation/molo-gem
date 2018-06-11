@@ -1,34 +1,39 @@
 {% extends "base.html" %}
 {% load poll_votings %}
+
 {% block content %}
-<!--
-  NOTE
-  Polls Question ID not getting pulled -->
+
+{# Polls Question ID not getting pulled #}
 <div class="polls polls--call-to-action">
   <div class="polls__bubble-icon"></div>
   <div class="polls__container">
-  {% trans "Take a vote!" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-	{% if form.choice.errors %}
-    <p class="errors">{{form.choice.errors|join:", " }}</p>
-  {% endif %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=question.title %}
-	<form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" novalidate>
-	{% csrf_token %}
-		{% load_choices_for_poll_page question as choices %}
-		{% for choice in choices %}
-    <fieldset class="choice choice-group">
-      {% if question.get_main_language_page.allow_multiple_choice %}
-        <input type="checkbox" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
-      {% else %}
-        <input type="radio" id="{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
-      {% endif %}
-      <label for="{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
-    </fieldset>
-		{% endfor %}
-    <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
-	</form>
-</div>
-{% trans "Back home" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" extraclass="margin-top" %}
+    <div class="heading heading__micro">
+      <p>{% trans "Take a vote!" %}</p>
+    </div>
+  	{% if form.choice.errors %}
+      <p class="errors">{{form.choice.errors|join:", " }}</p>
+    {% endif %}
+    <div class="heading heading__article">
+      <h1>{{question.title}}</h1>
+    </div>
+  	<form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" novalidate>
+  	{% csrf_token %}
+  		{% load_choices_for_poll_page question as choices %}
+  		{% for choice in choices %}
+      <fieldset class="choice choice-group">
+        {% if question.get_main_language_page.allow_multiple_choice %}
+          <input type="checkbox" id="choice-{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+        {% else %}
+          <input type="radio" id="choice-{{ question.id }}-{{ forloop.counter }}" name="choice" value="{{ choice.get_main_language_page.id }}" />
+        {% endif %}
+        <label for="choice-{{ question.id }}-{{ forloop.counter }}" >{{ choice.title }}</label>
+      </fieldset>
+  		{% endfor %}
+      <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">
+  	</form>
+  </div>
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back home" %}</a>
+  </div>
 {% endblock %}

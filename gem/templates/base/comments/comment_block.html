@@ -11,7 +11,7 @@
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
-      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
     {% endif %}
   {% else %}
     <p>{% trans "Commenting on this article is currently disabled" %}</p>
@@ -30,7 +30,7 @@
       {% endfor %}
       {% if comment_count > 2 %}
         <div class="pagination">
-          <a href="{% url 'molo.commenting:more-comments' self.pk %}">{% trans "View more comments" %}</a>
+          <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__hyperlink">{% trans "View more comments" %}</a>
         </div>
       {% endif %}
 </div>

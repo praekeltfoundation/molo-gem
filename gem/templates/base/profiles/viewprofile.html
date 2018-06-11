@@ -3,96 +3,86 @@
 {% get_settings %}
 
 {% block content %}
-    <div class="profile-container">
-        <div class="title profile">
-            <h3>{% trans "Hello" %} {{ user }}</h3>
-        </div>
-        <div class="block">
-            <a href="{% url 'molo.profiles:auth_logout' %}"
-               class="button inverted logout-link">{% trans "log out" %}</a>
-        </div>
-        <hr>
-        <div class="nickname-form">
-            <div class="block">
-              <h3>{% trans "Your Profile" %}</h3>
-              {% if settings.profiles.UserProfilesSettings.activate_display_name %}
-                  <p>{% trans "When you type comments your name will appear as:" %}
-                  <span>{{ user.profile.alias | default:"Not set" }}</span></p>
-              {% endif %}
 
-              {% if settings.profiles.UserProfilesSettings.activate_dob %}
-                <p>{% trans "Date of birth:" %}
-                  <span>{{ user.profile.date_of_birth | default:"Not set" }}</span></p>
-              {% endif %}
-
-              {% if settings.profiles.UserProfilesSettings.activate_gender %}
-                <p>{% trans "Gender:" %}
-                    <span>{{ user.profile.gender|gender_display | default:"Not set" }}</span></p>
-              {% endif %}
-
-              {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-                <p>{% trans "Mobile number:" %}
-                <span>{{ user.profile.mobile_number }}</span></p>
-              {% endif %}
-
-              {% if settings.profiles.UserProfilesSettings.show_email_field %}
-                  <p>{% trans "Email Address:" %}
-                  <span>{{ user.email | default:"Not set" }}</span></p>
-              {% endif %}
-
-              {% if settings.profiles.UserProfilesSettings.activate_location%}
-                  <p>{% trans "Location:" %}
-                  <span>{{ user.profile.location | default:"Not set" }}</span></p>
-              {% endif %}
-
-              {% if settings.profiles.UserProfilesSettings.activate_education_level %}
-                  <p>{% trans "Education Level:" %}
-                  <span>{{ user.profile.education_level | default:"Not set" }}</span></p>
-              {% endif %}
-
-              <a href="{% url 'edit_my_profile' %}"
-                 class="button inverted logout-link">{% trans "Update Profile" %}</a>
-            </div>
-        </div>
-        <hr>
-        <div class="password-form">
-            <div class="block">
-                <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile">
-                      {% csrf_token %}
-                    <h5>{% trans "Change Your Password" %}</h5>
-                    {% if form.errors or form.non_field_errors %}
-                        {% if form.non_field_errors %}
-                            {% for error in form.non_field_errors %}
-                                <p class="errorlist">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
-                    {% if messages %}
-                        <ul class="errorlist">
-                            {% for message in messages %}
-                                <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    <fieldset>
-                        <p>{% trans "Old Password:" %}</p>
-                        {{ password_change_form.old_password }}
-                        <span>{{ password_change_form.old_password.errors }}</span>
-                    </fieldset>
-                    <fieldset>
-                        <p>{% trans "New Password:" %}</p>
-                        {{ password_change_form.new_password }}
-                        <span>{{ form.new_password.errors }}</span>
-                    </fieldset>
-                    <fieldset>
-                        <p>{% trans "Confirm Password:" %}</p>
-                        {{ password_change_form.confirm_password }}
-                        <span>{{ form.confirm_password.errors }}</span>
-                    </fieldset>
-                    <input type="submit" value='{% trans "Change" %}'>
-                </form>
-            </div>
-        </div>
-        <hr>
+  <div class="profile-container">
+    <div class="title profile">
+      <h3>{% trans "Hello" %} {{ user }}</h3>
     </div>
+    <div class="block clean-form">
+      <form method="post" action="{% url LOGOUT_URL %}">
+        {% csrf_token %}
+        <input class="button inverted logout-linkr" value="{% trans "Log out" %}" type="submit">
+      </form>
+    </div>
+    <hr>
+    <div class="nickname-form">
+      <div class="block">
+        {% trans "Not set" as defaultText %}
+        <h3>{% trans "Your Profile" %}</h3>
+        {% if settings.profiles.UserProfilesSettings.activate_display_name %}
+          <p>{% trans "When you type comments your name will appear as:" %}
+            <span>{{ user.profile.alias | default:defaultText }}</span></p>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_dob %}
+          <p>{% trans "Date of birth:" %}
+            <span>{{ user.profile.date_of_birth | default:defaultText }}</span></p>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_gender %}
+          <p>{% trans "Gender:" %}
+            <span>{{ user.profile.gender|gender_display | default:defaultText }}</span></p>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+          <p>{% trans "Education Level:" %}
+            <span>{{ user.profile.education_level | default:defaultText }}</span></p>
+        {% endif %}
+
+        <a href="{{EDIT_PROFILE_URL}}" class="button inverted logout-link">
+          {% trans "Update Profile" %}
+        </a>
+      </div>
+    </div>
+    <hr>
+    <div class="password-form">
+      <div class="block">
+        <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profile" novalidate>
+        {% csrf_token %}
+          <h5>{% trans "Change Your Password" %}</h5>
+          {% if form.errors or form.non_field_errors %}
+            {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+                <p class="errorlist">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+          {% if messages %}
+            <ul class="errorlist">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+          <fieldset>
+            <p>{% trans "Old Password:" %}</p>
+            {{ password_change_form.old_password }}
+            <span>{{ password_change_form.old_password.errors }}</span>
+          </fieldset>
+          <fieldset>
+            <p>{% trans "New Password:" %}</p>
+            {{ password_change_form.new_password }}
+            <span>{{ form.new_password.errors }}</span>
+          </fieldset>
+          <fieldset>
+            <p>{% trans "Confirm Password:" %}</p>
+            {{ password_change_form.confirm_password }}
+            <span>{{ form.confirm_password.errors }}</span>
+          </fieldset>
+          <input type="submit" value='{% trans "Change" %}'>
+        </form>
+      </div>
+    </div>
+    <hr>
+  </div>
 {% endblock %}

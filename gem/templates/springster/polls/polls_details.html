@@ -4,9 +4,12 @@
 <div class="polls polls--call-to-action">
   <div class="polls__bubble-icon"></div>
   <div class="polls__container">
-    % trans "Take a vote!" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="article" htmltag="h1" title=question.title %}
+    <div class="heading heading__micro">
+      <p>{% trans "Take a vote!" %}</p>
+    </div>
+    <div class="heading heading__article">
+      <h1>{{question.title}}</h1>
+    </div>
     {% if question.freetextquestion %}
       {% include 'polls/includes/poll_free_text_form.html'%}
     {% else %}

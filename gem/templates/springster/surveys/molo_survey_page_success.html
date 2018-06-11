@@ -1,34 +1,97 @@
 {% extends 'base.html' %}
+{% load wagtailimages_tags %}
 
 {% block content %}
-    {% if self.your_words_competition %}
-        <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
-            {% include "patterns/basics/surveys/surveys-modules/surveys_gcn-heading.html" with pagetype=self %}
+  {# HEADING #}
+  {% if self.your_words_competition %}
+    <div class="gcn-competition{% if survey.your_words_competition %}{% if survey.get_effective_extra_style_hints %}  gcn-competition{{survey.get_effective_extra_style_hints}}{% endif %}{% endif %}">
+      {% if self.image %}
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-98 as tmp_photo_small %}
+          {% image self.image width-320 as tmp_photo_large %}
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
         </div>
-    {% else %}
+      {% else %}
+        <div class="surveys--page__image gcn-competition__default"></div>
+      {% endif %}
+  {% elif self.display_survey_directly %}
+    <div class="polls polls--call-to-action">
+      <div class="polls__bubble-icon"></div>
+      <div class="polls__container">
+        <div class="heading heading__micro">
+          <p>{% trans "Take a vote!" %}</p>
+        </div>
+  {% else %}
     <div class="surveys surveys--call-to-action">
+      <!--WHICH MESSAGE -->
+      {% if self.image %}
+        <div class="surveys--page__image-wrapper">
+          {% image self.image width-165 as icon_small %}
+          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys--page__image" />
+        </div>
+      {% else %}
         <div class="identity-image identity-image--survey"></div>
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=self.title %}
+      {% endif %}
+  {% endif %}
+  {# END HEADING #}
+  <div class="heading heading__{% if self.display_survey_directly %}article{% else %}component{% endif %}">
+    <h1>{{self.title}}</h1>
+  </div>
+
+  {# ENABLED RESULTS #}
+  {% if self.show_results and results %}
+    <div class="heading heading__subheading">
+      <h4>{% trans 'Your' %} {% if self.your_words_competition %}{% trans 'GCN competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey!' %} {% endif %} {% trans 'has been completed successfully. See results' %}</h4>
     </div>
-    {% endif %}
-
+    <ul class="polls-results-list">
+        {% for question, answers in results.items %}
+          <label class="polls__question">{{ question|capfirst }}</label>
+          {% for answer, count in answers.items %}
+          <li class="polls-results-list__item">
+            {% if self.show_results_as_percentage %}
+              {{answer}}
+              <div class="polls-results-list__percent">
+                <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
+                  <span class="choice-percentage">{{ count }}%</span>
+                </div>
+              </div>
+            {% else %}
+              <h4 class="polls__answers-counter">
+                {{answer}} -
+                {{ count }} vote{{ count|pluralize }}</h4>
+            {% endif %}
+          </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+  {% else %}
     {% if self.thank_you_text %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=self.thank_you_text %}
+      <div class="heading heading__subheading">
+        <h3>{{self.thank_you_text}}</h3>
+      </div>
     {% else %}
+      <div class="heading heading__subheading">
         {% if self.your_words_competition %}
-            {% trans "Thank you for submitting GCN competition" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+          <h4>{% trans 'Your' %} {% if self.your_words_competition %}{% trans 'GCN competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey!' %}{% endif %} {% trans 'has been completed successfully!' %}</h4>
         {% else %}
-            {% trans "Thank you for submitting survey!" as headingtext %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+          <h3>{% trans "Thank you for submitting " %}{% if self.display_survey_directly %}{% trans 'this poll.' %}{% else %}{% trans 'this survey!' %}{% endif %}</h3>
         {% endif %}
+      </div>
     {% endif %}
+  {% endif %}
 
-    {% if self.your_words_competition %}
-        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="competition" surveytypeClass="surveys" %}
-    {% else %}
-        {% include "patterns/basics/surveys/surveys-modules/surveys-results.html" with surveytype="survey" surveytypeClass="surveys" %}
-    {% endif %}
-{% trans "Back home" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+  {# DIV CLOSE #}
+  {% if self.your_words_competition %}
+    </div>
+  {% elif self.display_survey_directly %}
+    </div>
+    </div>
+  {% else %}
+    </div>
+  {% endif %}
+  {# END DIV CLOSE #}
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      {% trans "Back home" %}</a>
+  </div>
 {% endblock %}

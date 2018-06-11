@@ -1,0 +1,254 @@
+@import '../../gem/variables/*';
+
+body,
+html {
+  background: $colorFourth;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+select,
+textarea {
+  color: $colorPurple;
+  font-family: $font-family-default;
+  font-size: $font-small;
+}
+
+a {
+  color: $colorPurple;
+
+  &:hover {
+    color: $colorPurple;
+  }
+}
+
+h1 {
+  font-size: $font-large;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: $font-medium;
+  margin: $spacer 0;
+}
+
+p,
+ul {
+  margin: $spacer 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $colorFourth;
+  height: 0;
+  margin: $spacer 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.Container {
+  background: $colorGrey;
+  padding: 0 $spacer-mid;
+
+  .Intro {
+    color: $colorPurple;
+    padding: 0 $spacer-mid;
+    text-align: center;
+  }
+}
+
+.Header {
+  text-align: center;
+
+  &-title {
+    background: #fff;
+    margin: 0 (-$spacer-mid);
+
+    h1 {
+      color: $colorPurple;
+    }
+  }
+
+  &-branding {
+    background-color: $colorYellow;
+    margin: 0 (-$spacer-mid);
+    padding: $spacer-mid;
+
+    &-image {
+      background: url('/static/authentication_service/images/zathu.png') no-repeat;
+      background-position: 50%;
+      background-size: 200px;
+      display: block;
+      height: 60px;
+      padding-left: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.Footer {
+  background: #fff;
+  border: 0;
+  font-size: $font-m-small;
+  margin: 0 (-$spacer-mid);
+  padding: $spacer 0;
+  text-align: center;
+}
+
+.Form {
+  .Field {
+    margin-top: $spacer;
+    text-align: center;
+
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+
+    &-label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+
+    &-message {
+      color: $colorPurple;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      border: 0;
+      font-size: 1em;
+      height: 40px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+
+      &:focus {
+        border-color: $colorGrey;
+      }
+    }
+
+    .Textarea {
+      height: 60px;
+    }
+
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $colorYellow;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRed;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer;
+  }
+}
+
+.Additional-text {
+  text-align: center;
+}
+
+.Button {
+  background: $colorPurple;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &:hover {
+    background: $colorPurple;
+    color: #fff;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  &--warning {
+    background: $colorOrange;
+
+    &:hover {
+      background: $colorOrange;
+    }
+  }
+}
+
+.Messages {
+  margin: $spacer 0;
+
+  .Message {
+    color: #fff;
+    padding: $spacer;
+
+    &--success {
+      background: $colorPurple;
+    }
+
+    &--error,
+    &--warning {
+      background: $colorRed;
+    }
+  }
+}
+
+.errorlist {
+  color: $colorRed;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+.Menu {
+  padding: 0;
+
+  &-title {
+    display: none;
+  }
+
+  &-item {
+    a {
+      font-size: $font-medium;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}

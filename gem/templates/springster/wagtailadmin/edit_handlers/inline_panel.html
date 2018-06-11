@@ -3,9 +3,11 @@
 {{ self.formset.management_form }}
 
 {% if 'wagtail_personalisation_' in self.formset.prefix or 'surveys_' in self.formset.prefix or 'commenting_' in self.formset.prefix or 'gem_' in self.formset.prefix %}
+  <h2>
     {% blocktrans with heading=self.heading|lower %}
-        <h2>{{ heading }}</h2>
+      {{ heading }}
     {% endblocktrans %}
+  </h2>
 
     {% if self.formset.prefix == 'wagtail_personalisation_timerule_related' %}
         <p>

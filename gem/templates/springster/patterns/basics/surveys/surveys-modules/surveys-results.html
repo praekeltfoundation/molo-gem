@@ -1,32 +1,47 @@
 {% if self.show_results and results %}
-    <div class="{{surveytypeClass}}--results">
-    {% with surveytype|add:' Results' as text %}
-      {% trans text as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext %}
-    {% endwith %}
+  {% if self.display_survey_directly %}
 
-    {% with 'Your '|add:surveytype|add:' has been completed successfully. Please see your submission results below.' as paragraph_text %}
-      {% trans paragraph_text as headingtext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h4" title=headingtext %}
-          {% for question, answers in results.items %}
-            <fieldset>
-                <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
-                {% for answer, count in answers.items %}
-                    <div class="{{surveytypeClass}}__answers-counter-bar">
-                    <h4 class="{{surveytypeClass}}__answers">
-                        {{ answer|capfirst }}
-                    </h4>
-                    <span class="{{surveytypeClass}}__answers-counter">
-                        {% if self.show_results_as_percentage%}
-                            {{ count }}%
-                        {% else %}
-                            {{count}}
-                        {% endif %}
-                    </span>
-                </div>
-            {% endfor %}
-          </fieldset>
-          {% endfor %}
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans 'Your '|add:surveytype|add:' has been completed successfully. See results' as headingtext %}
+      {% with type="subheading" htmltag="h4" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
       {% endwith %}
-    </div>
+    {# end include template #}
+
+      <ul class="polls-results-list">
+      {% for question, answers in results.items %}
+      <label class="{{surveytypeClass}}__question">{{ question|capfirst }}</label>
+        {% for answer, count in answers.items %}
+        <li class="{{surveytypeClass}}-results-list__item">
+          {% if self.show_results_as_percentage %}
+            {{answer}}
+            <div class="{{surveytypeClass}}-results-list__percent">
+              <div class="{{surveytypeClass}}-results-list__percent-bar" style="width:{{ count }}%">
+                <span class="choice-percentage">{{ count }}%</span>
+              </div>
+            </div>
+          {% else %}
+            <h4 class="{{surveytypeClass}}__answers-counter">
+              {{answer}} -
+              {{ count }} vote{{ count|pluralize }}</h4>
+          {% endif %}
+        </li>
+        {% endfor %}
+      {% endfor %}
+      </ul>
+  {% else %}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% trans 'Your '|add:surveytype|add:' has been completed successfully!' as headingtext %}
+          {% with type="subheading" htmltag="h4" title=headingtext %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
+
+  {% endif %}
 {% endif %}
+

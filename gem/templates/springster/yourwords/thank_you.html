@@ -1,30 +1,81 @@
 {% extends "base.html" %}
+{% load wagtailimages_tags core_tags %}
 {% load competition_tag %}
 {% block content %}
 <div class="yourwords yourwords--call-to-action">
   <div class="identity-image identity-image--yourwords"></div>
   <div class="yourwords__container">
-  {% trans "Share your story" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext %}
-
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=competition.title %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=competition.description %}
-
+    <div class="heading heading__micro">
+      <p>{% trans "Share your story" %}</p>
+    </div>
+    <div class="heading heading__component"><h1>{{competition.title}}</h1></div>
+    {% if competition.description %}
+      <div class="heading heading__subheading">
+        <h3>{{competition.description}}</h3>
+      </div>
+    {% endif %}
   {% load_thank_you_page_for_competition competition as thank_you_pages %}
   {% if thank_you_pages %}
     {% for page in thank_you_pages %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=page.title %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=page.subtitle %}
+      <div class="heading heading__component"><h1>{{page.title}}</h1></div>
+      {% if page.subtitle %}
+        <div class="heading heading__subheading">
+          <h3>{{page.subtitle}}</h3>
+        </div>
+      {% endif %}
       <div class="body-content">
-        {% include "patterns/basics/articles/article-page_variations/article-body.html" %}
+        <article>
+          {% for block in self.body %}
+            {% if block.block_type == 'heading' %}
+              <h3 class="heading heading--large">{{ block.value }}</h3>
+            {% elif block.block_type == 'image' %}
+              {% image block.value width-320 alt=self.title %}
+            {% elif block.block_type == 'media' %}
+              <div class="media-player">
+                <div class="media-player__content">
+                  {% with block.value as media %}
+                    {% if is_via_freebasics %}
+                      <div class="media-player__no-player">
+                        <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
+                        <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                        <span class="heading heading__subheading-alt">
+                        <h4>{% trans "Media will be played externally in a new window" %}</h4>
+                        </span>
+                      </div>
+                    {% else %}
+                      {% include "patterns/components/media/media-player.html" %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+              </div>
+            {% elif block.block_type == 'numbered_list' %}
+              <ol class="ordered-list">
+              {% for item in block.value %}
+                <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+              {% endfor %}
+              </ol>
+            {% elif block.block_type == 'list' %}
+              <ul class="unordered-list">
+              {% for item in block.value %}
+                <li class="unordered-list__item">{{ item|handle_markdown }}</li>
+              {% endfor %}
+            </ul>
+            {% else %}
+              {{ block }}
+            {% endif %}
+          {% endfor %}
+        </article>
       </div>
     {% endfor %}
 {% else %}
-  {% trans "Thank you for sharing your words!" as headingtext %}
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=headingtext %}
+  <div class="heading heading__subheading">
+    <h3>{% trans "Thank you for sharing your words!" %}</h3>
+  </div>
 {% endif %}
-  {% trans "Back home" as back %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back home" %}</a>
+  </div>
   </div>
 </div>
 {% endblock %}

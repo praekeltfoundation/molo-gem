@@ -11,6 +11,7 @@ from gem.constants import GENDERS
 from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
 
+from wagtail.wagtailcore.models import Site
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.wagtailadmin.edit_handlers import (
@@ -19,6 +20,19 @@ from wagtail.wagtailadmin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+
+class OIDCSettings(models.Model):
+    site = models.OneToOneField(Site)
+    oidc_rp_client_id = models.CharField(max_length=255)
+    oidc_rp_client_secret = models.CharField(max_length=255)
+    oidc_rp_scopes = models.CharField(
+        blank=True, max_length=255,
+        default='openid profile email address phone site roles')
+    wagtail_redirect_url = models.URLField()
+
+    def __str__(self):
+        return '{} {}'.format(self.site, self.oidc_rp_client_id)
 
 
 class GemUserProfile(models.Model):
@@ -147,6 +161,8 @@ class GemSettings(BaseSetting):
         null=True, blank=True,
         help_text='Tracking code for additional Google Analytics account '
                   'to divert traffic that matches a specific subdomain.')
+    # FIXME: Remove bbm_ga_account_subdomain and its uses in middleware once
+    # BBM South Africa and Nigeria are changed to use `/bbm/` cookie endpoint.
     bbm_ga_account_subdomain = models.TextField(
         default='bbm',
         help_text=('Subdomain prefix to seperate traffics data for Google '

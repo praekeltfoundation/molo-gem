@@ -100,8 +100,20 @@ class GemRegistrationForm(GemAliasMixin, RegistrationForm):
     def clean_alias(self):
         return self._clean_alias()
 
+    def clean_email(self):
+        return None
+
+    def clean_location(self):
+        return None
+
+    def clean_mobile_number(self):
+        return None
+
     def __init__(self, *args, **kwargs):
         super(GemRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = False
+        self.fields['location'].required = False
+        self.fields['mobile_number'].required = False
 
 
 class GemEditProfileForm(GemAliasMixin, EditProfileForm):

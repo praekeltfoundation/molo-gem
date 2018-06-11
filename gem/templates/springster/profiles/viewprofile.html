@@ -7,21 +7,46 @@
     {% trans "Hello" as headingtext %}
     {% if user.profile.alias %}
         {% with user.profile.alias as alias %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="component" htmltag="h1" title=headingtext|add:" "|add:alias %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
         {% endwith %}
     {% else %}
         {% with user|stringformat:"s" as username %}
-            {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h1" title=headingtext|add:" "|add:user.profile.migrated_username|default:username %}
+
+            {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+              {% with type="component" htmltag="h1" title=headingtext|add:" "|add:user.profile.migrated_username|default:username %}
+                <div class="heading heading__{{type}} {{extraclass}}">
+                  <{{htmltag}}>{{title}}</{{htmltag}}>
+                </div>
+              {% endwith %}
+            {# end include template #}
+
         {% endwith %}
     {% endif %}
 
-    {% url "molo.profiles:auth_logout" as link %}
-    {% trans "log out" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="hyperlink" hyperlink=link text=buttontext %}
-    {% trans "Your Profile" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
-    {% with profile_settings=settings.profiles.UserProfilesSettings %}
+    <form method="post" action="{% url LOGOUT_URL %}">
+      {% csrf_token %}
+      <input class="call-to-action__button call-to-action__button-text call-to-action__button-text--hyperlink" value="{% trans "Log out" %}" type="submit">
+    </form>
 
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Your Profile" as headingtext %}
+      {% with type="basic" htmltag="h2" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+
+    {% trans "Not set." as defaultText %}
+    {% with profile_settings=settings.profiles.UserProfilesSettings %}
     {% if profile_settings.activate_display_name %}
       <fieldset>
           {% if user.profile.alias %}
@@ -38,7 +63,7 @@
     <fieldset>
         <label>{% trans "Date of Birth: " %}</label>
         <span class="input-feedback">
-            {{ user.profile.date_of_birth | default:"Not set" }}
+            {{ user.profile.date_of_birth|default:defaultText }}
         </span>
     </fieldset>
     {% endif %}
@@ -46,46 +71,39 @@
     {% if profile_settings.activate_gender%}
     <fieldset>
         <label>{% trans "Gender:" %}</label>
-        <span class="input-feedback">{{user.profile.gender|gender_display | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
-    {% if profile_settings.show_mobile_number_field and profile_settings.country_code %}
-    <fieldset>
-        <label>{% trans "Mobile number:" %}</label>
-        <span class="input-feedback">{{ user.profile.mobile_number | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
-    {% if profile_settings.show_email_field %}
-    <fieldset>
-        <label>{% trans "Email Address:" %}</label>
-        <span class="input-feedback">{{ user.email | default:"Not set" }}</span>
-    </fieldset>
-    {% endif %}
-
-    {% if profile_settings.activate_location%}
-    <fieldset>
-        <label>{% trans "Location:" %}</label>
-        <span class="input-feedback">{{ user.profile.location | default:"Not set" }}</span>
+        <span class="input-feedback">{{user.profile.gender|gender_display|default:defaultText }}</span>
     </fieldset>
     {% endif %}
 
     {% if profile_settings.activate_education_level %}
     <fieldset>
         <label>{% trans "Education Level:" %}</label>
-        <span class="input-feedback">{{ user.profile.education_level | default:"Not set" }}</span>
+        <span class="input-feedback">{{ user.profile.education_level|default:defaultText }}</span>
     </fieldset>
     {% endif %}
     {% endwith %}
-    {% url "edit_my_profile" as link %}
-    {% trans "Update Profile" as buttontext %}
-    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link text=buttontext %}
+
+    {# include template "patterns/basics/buttons/sp_variations/button.html" #}
+      {% trans "Update Profile" as buttontext %}
+      {% with type="primary" text=buttontext %}
+        <a href="{{EDIT_PROFILE_URL}}" class="call-to-action__button call-to-action__button--{{type}}">
+          <span class="call-to-action__button-text call-to-action__button-text--{{type}}">{{text}}</span>
+        </a>
+      {% endwith %}
+    {# end include template #}
 
     <form method="post" id="frmProfilePasswordChange" action="{% url 'molo.profiles:profile_password_change' %}" class="profiles__form profiles__form--block" novalidate>
     {% csrf_token %}
-        {% trans "Change Your Pin" as headingtext %}
-        {% include "patterns/basics/headings/sp_variations/heading.html" with type="basic" htmltag="h2" title=headingtext %}
+
+        {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+          {% trans "Change Your Pin" as headingtext %}
+          {% with type="basic" htmltag="h2" title=headingtext %}
+            <div class="heading heading__{{type}} {{extraclass}}">
+              <{{htmltag}}>{{title}}</{{htmltag}}>
+            </div>
+          {% endwith %}
+        {# end include template #}
+
         {% if form.errors or form.non_field_errors %}
             {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}

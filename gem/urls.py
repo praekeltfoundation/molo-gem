@@ -15,15 +15,21 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from molo.core import views as core_views
 from molo.profiles.views import ForgotPasswordView, ResetPasswordView
 from wagtail.contrib.wagtailsitemaps import views as sitemap_views
-from gem.views import report_response, GemRegistrationView, \
-    GemRssFeed, GemAtomFeed, \
-    ReportCommentView, GemEditProfileView, \
-    AlreadyReportedCommentView, GemRegistrationDoneView
+from gem.views import (
+    report_response, GemRegistrationView,
+    GemRssFeed, GemAtomFeed,
+    ReportCommentView, GemEditProfileView,
+    AlreadyReportedCommentView, GemRegistrationDoneView,
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
+)
 
 urlpatterns = []
-
-# implement CAS URLs in a production setting
-if settings.ENABLE_SSO:
+if settings.USE_OIDC_AUTHENTICATION:
+    urlpatterns += [
+        url(r'^admin/login/', RedirectWithQueryStringView.as_view(
+            pattern_name="oidc_authentication_init")),
+    ]
+elif settings.ENABLE_SSO:
     urlpatterns += [
         url(r'^admin/login/', cas_views.login),
         url(r'^admin/logout/', cas_views.logout),
@@ -31,13 +37,16 @@ if settings.ENABLE_SSO:
     ]
 
 urlpatterns += [
+    url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^django-admin/', include(admin.site.urls)),
-
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
+
+    url(r'^bbm/(?P<redirect_path>.*)$',
+        BbmRedirect.as_view(), name='bbm_redirect'),
 
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
@@ -131,3 +140,12 @@ if settings.DEBUG:
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.MAINTENANCE_MODE:
+    urlpatterns = [
+        url(
+            r'^health/$',
+            core_views.health,
+        ),
+        url(r'', MaintenanceView.as_view()),
+    ]

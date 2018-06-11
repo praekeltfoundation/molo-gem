@@ -3,17 +3,18 @@ import time
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 from django.test.utils import override_settings
-from molo.core.tests.base import MoloTestCaseMixin
+from gem.tests.base import GemTestCaseMixin
 
 
 @override_settings(SESSION_COOKIE_AGE=1)
-class GemAutomaticLogoutTest(TestCase, MoloTestCaseMixin):
+class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
     """
     Note that SESSION_SAVE_EVERY_REQUEST must = True for this to work
     """
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.user = User.objects.create_user(
             username='tester',
             email='tester@example.com',

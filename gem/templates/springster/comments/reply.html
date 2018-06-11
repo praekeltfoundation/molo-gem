@@ -1,13 +1,89 @@
 {% extends "core/article_page.html" %}
-{% load wagtailcore_tags molo_commenting_tags %}
+{% load wagtailcore_tags molo_commenting_tags gem_tags %}
 {% block content %}
 {% get_comments_content_object for form as self %}
-  {% pageurl self as the_url %}
-  {% trans "Back to article" as back %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+{% pageurl self as the_url %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+  {% trans "Back to article" %}</a>
+</div>
 <div class="comments">
-  {% include "comments/comment.html" with node=comment do_not_link_replies=True %}
-    {% if do_not_link_replies or node.get_children.count == 0 %}
+  {% with comment as node %}
+    <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
+      <h5 class="comments__alias comments__alias-author">
+      {% if node.user.is_staff %}
+          {% if settings.gem.GemSettings.moderator_name %}
+            {{settings.gem.GemSettings.moderator_name}}
+          {% else %}
+            {% trans "Big Sister" %}
+          {% endif %}
+          <span class="comments__staff">
+            - {% trans "Moderator" %}
+          </span>
+      {% elif node.user_name.lower == 'anonymous' %}
+        {% trans "Anonymous" %}
+      {% else %}
+        {% if not node.user.profile.alias %}
+          {% trans "Anonymous" %}
+        {% else %}
+          {{node.user.profile.alias}}
+        {% endif %}
+      {% endif %}
+      </h5>
+      {% if node.is_removed %}
+      <h6 class="comments__description">
+        {% trans "This comment has been removed by the community. Please read our platform rules." %}
+      </h6>
+      {% else %}
+      {% if truncate_comment %}
+        <p class="comments__body-small">{{ node.comment|smarttruncatechars:100 }}</p>
+        {% if node.comment.200 %}
+        <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--readmore">
+        {% trans "Read More"%}</a>
+        {% endif %}
+      {% else %}
+        <p class="comments__body-small">{{ node.comment }}</p>
+      {% endif %}
+        <span class="comments__publish-date">
+          {{node.submit_date|timesince}} {% trans "ago" %}
+        </span>
+      <div class="comments__reply-meta">
+          {% if not node.user|is_in_admin_group %}
+            <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">
+              {% trans "Report" %}
+            </a>
+          {% endif %}
+          {% if node.parent == None %}
+            <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
+            {% trans "Reply"%}</a>
+            {% if do_not_link_replies or node.get_children.count == 0 %}
+              <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                {{ node.get_children.count }}
+                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                  {% trans "Reply" %}
+                {% else %}
+                  {% trans "Replies" %}
+                {% endif %}
+              </p>
+            {% else %}
+              <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                {{ node.get_children.count }}
+                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                  {% trans "Reply" %}
+                {% else %}
+                  {% trans "Replies" %}
+                {% endif %}
+              </a>
+            {% endif %}
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if node.parent == None and node.get_children.count != 0 %}
+      <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
+      {% endif %}
+    </div>
+  {% endwith %}
+  {% if do_not_link_replies or node.get_children.count == 0 %}
     <h6 class="comments__body-title">
       {% if page == 1 %}
         {% trans "Recent replies" %}
@@ -15,23 +91,130 @@
         {% trans "Earlier replies" %}
       {% endif %}
     </h6>
+  {% endif %}
+  {% for node in replies reversed %}
+    <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
+      <h5 class="comments__alias comments__alias-author">
+      {% if node.user.is_staff %}
+          {% if settings.gem.GemSettings.moderator_name %}
+            {{settings.gem.GemSettings.moderator_name}}
+          {% else %}
+            {% trans "Big Sister" %}
+          {% endif %}
+          <span class="comments__staff">
+            - {% trans "Moderator" %}
+          </span>
+      {% elif node.user_name.lower == 'anonymous' %}
+        {% trans "Anonymous" %}
+      {% else %}
+        {% if not node.user.profile.alias %}
+          {% trans "Anonymous" %}
+        {% else %}
+          {{node.user.profile.alias}}
+        {% endif %}
+      {% endif %}
+      </h5>
+      {% if node.is_removed %}
+      <h6 class="comments__description">
+        {% trans "This comment has been removed by the community. Please read our platform rules." %}
+      </h6>
+      {% else %}
+      {% if truncate_comment %}
+        <p class="comments__body-small">{{ node.comment|smarttruncatechars:100 }}</p>
+        {% if node.comment.200 %}
+        <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--readmore">
+        {% trans "Read More"%}</a>
+        {% endif %}
+      {% else %}
+        <p class="comments__body-small">{{ node.comment }}</p>
+      {% endif %}
+        <span class="comments__publish-date">
+          {{node.submit_date|timesince}} {% trans "ago" %}
+        </span>
+      <div class="comments__reply-meta">
+          {% if not node.user|is_in_admin_group %}
+            <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">
+              {% trans "Report" %}
+            </a>
+          {% endif %}
+          {% if node.parent == None %}
+            <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
+            {% trans "Reply"%}</a>
+            {% if do_not_link_replies or node.get_children.count == 0 %}
+              <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                {{ node.get_children.count }}
+                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                  {% trans "Reply" %}
+                {% else %}
+                  {% trans "Replies" %}
+                {% endif %}
+              </p>
+            {% else %}
+              <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                {{ node.get_children.count }}
+                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                  {% trans "Reply" %}
+                {% else %}
+                  {% trans "Replies" %}
+                {% endif %}
+              </a>
+            {% endif %}
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if node.parent == None and node.get_children.count != 0 %}
+      <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <div class="pagination">
+    {% if replies.has_previous %}
+      <a href="?p={{ replies.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
     {% endif %}
-    {% for node in replies reversed %}
-      {% include "comments/comment.html" %}
-    {% endfor %}
-  {% include "patterns/basics/pagination/pagination-comments.html"%}
-  <div id="comment-block">
-    {% trans "Add your reply" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=headingtext  %}
-    {% if request.user.is_authenticated %}
-      {% include "comments/form.html" with node=comment %}
-    {% else %}
-      {% url 'molo.profiles:auth_login' as link %}
-      {% trans "Please" as headingtext %}
-      {% trans "log in" as linktext %}
-      {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link|add:"?next="|add:request.path linktitle=linktext %}
+    <span class="pagination__current-page">
+      {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
+    </span>
+    {% if replies.has_next %}
+      <a href="?p={{ replies.next_page_number }}" class="pagination__nav-anchor-next"></a>
     {% endif %}
   </div>
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+  <div id="comment-block">
+    <div class="heading heading__component">
+      <h2>{% trans "Add your reply" %}</h2>
+    </div>
+    {% if request.user.is_authenticated %}
+      <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
+        {% csrf_token %}
+        <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+          {% if form.errors %}
+            <p class="errors">{% trans "Please correct the error below" %}</p>
+          {% endif %}
+          {{ form.comment }}
+          {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+        </div>
+        <input type="submit" name="submit" value="{% trans "Comment" %}" class="call-to-action__button call-to-action__button--primary">
+        <input type="submit" name="submit_anonymously" value="{% trans "Comment Anonymously" %}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+        {{ form.object_pk }}
+        {{ form.content_type }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input type="hidden" name="next" value="{% pageurl self %}" />
+        {% if comment.id %}
+        <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+        {% endif %}
+      </form>
+    {% else %}
+      <div class="heading heading__micro">
+        <p>
+          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__hyperlink">
+            {% trans "Please log in to leave a comment." %}</a>
+        </p>
+      </div>
+    {% endif %}
+  </div>
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+  </div>
 </div>
 {% endblock %}

@@ -1,35 +1,47 @@
-
 #gem-header {
-  padding: 0 8px;
-  line-height: 42px;
-  text-align: right;
-  background: #00b8ae;
+  background: $colorYellow;
 
-  a {
-    font-size: 16px;
-    padding: 5px 10px;
-  }
-
-  a[href="#search-form"] {
-    img {
-      margin-bottom: 2px;
-    }
+  #logo {
+    margin: 0.2em;
+    text-align: center;
   }
 
   a, a:visited {
-    padding: 5px;
-    vertical-align: middle;
-    font-size: 14px;
-    text-transform: uppercase;;
-    color: #fff;
+    font-family: $font-family-default;
+    font-weight: bold;
+    font-size: 0.8em;
+    color: $colorPurple;
+    display: inline-block;
+    padding-right: 3px;
+
+    @media screen and (min-width: 320px) {
+      font-family: $font-family-zathu;
+      font-weight: normal;
+      font-size: 1em;
+    }
+    @media screen and (min-width: 400px) {
+      padding-right: 10px;
+      font-size: 1.3em;
+    }
+    @media screen and (min-width: 600px) {
+      padding-right: 3px;
+      font-size: 1em;
+    }
   }
 
-  #logo {
-    float: left;
-    padding: 0;
+  .search-icon {
+    width: 1em;
   }
 }
 
-.banner__birthday {
-  background: #f3f4f1;
+.languages__item--active {
+  color: $colorPurple;
+}
+
+.language-container {
+  text-align: center;
+  background-color: $colorGrey;
+  a.active {
+    color: $colorPurple;
+  }
 }

@@ -92,7 +92,7 @@
     <div class="block">
       <p class="no-search-results">{% trans "No search results for " %} <br/> `{{ search_query }}`</p>
       <div id="search-form">
-          <form action="{% url 'search' %}">
+          <form action="{% url 'search' %}" novalidate>
             <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
             <input type="submit" value="{% trans "Search"%}">
           </form>

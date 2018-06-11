@@ -1,7 +1,9 @@
-{% load wagtailcore_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if featured_articles %}
 <div class="grid-teaser-wrapper">
-  {% include "patterns/basics/headings/sp_variations/heading.html" with type="component" htmltag="h2" title=section.title %}
+  <div class="heading heading__component">
+    <h2>{{section.title}}</h2>
+  </div>
   <ul class="grid-teaser-list">
   {% for article in featured_articles %}
   {% get_translation article.get_parent_section as origin_section %}
@@ -60,6 +62,9 @@
     {% endif %}
   {% endfor %}
   </ul>
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_button.html" with direction="right" %}
+  <div class="call-to-action">
+    <a href="{% pageurl section.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+      {% trans "Read All" %} {{ section }}</a>
+  </div>
 </div>
 {% endif %}

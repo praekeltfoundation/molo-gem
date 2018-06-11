@@ -3,7 +3,7 @@ from collections import Counter
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from gem.models import GemUserProfile, GemCommentReport
+from gem.models import GemUserProfile, GemCommentReport, OIDCSettings
 from gem.rules import ProfileDataRule, CommentCountRule
 
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
@@ -12,6 +12,11 @@ from molo.profiles.models import UserProfile
 from molo.surveys.models import SegmentUserGroup
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
+
+
+class OIDCSettingsAdmin(admin.ModelAdmin):
+    class Meta:
+        verbose_name_plural = "OIDC Settings"
 
 
 class GemUserProfileInlineModelAdmin(admin.StackedInline):
@@ -84,4 +89,5 @@ class CommentCountRuleAdminInline(admin.TabularInline):
 admin.site.unregister(User)
 
 admin.site.unregister(MoloComment)
+admin.site.register(OIDCSettings, OIDCSettingsAdmin)
 admin.site.register(MoloComment, GemCommentReportAdmin)

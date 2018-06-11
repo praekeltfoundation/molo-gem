@@ -1,7 +1,10 @@
-
 #gem-footer {
   background: #ECECEC;
-  padding: 12px 8px;
+
+}
+#gem-footer {
+    background: $colorGrey;
+    padding: 12px 8px;
 }
 #feature-menu {
     padding: 15px 0 0;
@@ -38,4 +41,39 @@
       font-size: 22px;
     }
   }
+
+  input[type=submit] {
+    color: darken($colorGrey, 40%);
+    text-decoration: none;
+  }
+}
+
+#gem-footer #search-form {
+  input:hover, input:focus {
+    outline: none;
+  }
+  .search__submit {
+    background-image: url('/static/img/icons/search/search_grey.png');
+    background-color: $colorWhite;
+    background-size: 60%;
+    padding: 10px 0;
+  }
+}
+
+.footer-menu-list {
+  &__anchor {
+    color: darken($colorGrey,40%);
+    font-weight: normal;
+
+    &--main {
+      color: $colorPurple;
+      font-weight: bold;
+    }
+  }
+}
+
+.footer-languages {
+  color: darken($colorGrey,40%);
+  font-size: $font-x-medium;
+  padding: 10px 0 0 9px;
 }

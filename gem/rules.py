@@ -135,6 +135,12 @@ class ProfileDataRule(AbstractBaseRule):
         super(ProfileDataRule, self).__init__(*args, **kwargs)
 
     def clean(self):
+        # Django formsets don't honour 'required' fields
+        if not self.field:
+            raise ValidationError({
+                'field': _('This field is required')
+            })
+
         # Deal with regular expression operator.
         if self.operator == self.REGEX:
             # Make sure value is a valid regular expression string.
@@ -249,8 +255,12 @@ class ProfileDataRule(AbstractBaseRule):
         if not user:
             return False
 
-        # Handy variables for comparisons.
-        python_value = self.get_python_value()
+        # Django formsets don't honour 'required' fields so check rule is valid
+        try:
+            # Handy variables for comparisons.
+            python_value = self.get_python_value()
+        except ValueError:
+            return False
 
         try:
             related_field_value = self.get_related_field_value(
@@ -333,6 +343,25 @@ class ProfileDataRule(AbstractBaseRule):
                                   'test_user.'.format(self.operator,
                                                       type(self).__name__))
 
+    def get_column_header(self):
+        return self.get_related_field_name().replace('_', ' ').title()
+
+    def get_user_info_string(self, user):
+        try:
+            related_field_value = self.get_related_field_value(
+                user=user)
+        except LookupError as e:
+            logging.warn(e)
+            return "None"
+
+        if isinstance(related_field_value, datetime.datetime) \
+                or isinstance(related_field_value, datetime.date):
+            if isinstance(related_field_value, datetime.datetime) and \
+                    timezone.is_naive(related_field_value):
+                related_field_value = timezone.make_aware(related_field_value)
+            return related_field_value.strftime("%Y-%m-%d %H:%M")
+        return str(related_field_value)
+
 
 class CommentCountRule(AbstractBaseRule):
     static = True
@@ -380,6 +409,10 @@ class CommentCountRule(AbstractBaseRule):
         if not user:
             return False
 
+        # Django formsets don't honour 'required' fields so check rule is valid
+        if not self.count:
+            return False
+
         operator = self.OPERATORS[self.operator]
         comments = user.comment_comments.filter(
             is_removed=False,
@@ -394,3 +427,12 @@ class CommentCountRule(AbstractBaseRule):
                 self.count
             ),
         }
+
+    def get_column_header(self):
+        return "Comment Count"
+
+    def get_user_info_string(self, user):
+        comments = user.comment_comments.filter(
+            is_removed=False,
+        ).count()
+        return str(comments)

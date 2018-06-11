@@ -4,18 +4,40 @@
 {% get_settings %}
 {% block content %}
 <div class="profiles">
-    {% trans "Join Springster" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="square" htmltag="h1" title=headingtext %}
 
-    {% trans "Already joined?" as headingtext %}
-    {% trans "Log in here" as linktext %}
-    {% url 'molo.profiles:auth_login' as link %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Join Springster" as headingtext %}
+      {% with type="square" htmltag="h1" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
 
-    {% trans "Please complete this form to join" as headingtext %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h2" title=headingtext %}
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Already joined?" as headingtext %}
+      {% trans "Log in here" as linktext %}
+      {% url LOGIN_URL as link %}
+      {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+      <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
+        <{{htmltag}}>{{title}}</{{htmltag}}>
+        <a href="{{hyperlink}}" class="call-to-action__hyperlink">
+            {{linktitle}}
+        </a>
+      </div>
+      {% endwith %}
+    {# end include template #}
 
-    <form method="post" action="{% url 'molo.profiles:user_register' %}" class="profiles__form" novalidate>
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Please complete this form to join" as headingtext %}
+      {% with type="subheading" htmltag="h2" title=headingtext %}
+        <div class="heading heading__{{type}} {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+        </div>
+      {% endwith %}
+    {# end include template #}
+
+    <form method="post" action={{REGISTRATION_URL}} class="profiles__form" novalidate>
     {% csrf_token %}
         {% if form.errors %}
             <p class="errors">
@@ -72,36 +94,6 @@
             </p>
         </fieldset>
         {% endif %}
-        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-        <fieldset>
-            <div class="input-group{% if form.mobile_number.errors %} input-error{% endif %}">
-                <label for="id_mobile_number">{% trans "Mobile number" %}</label>
-                {{ form.mobile_number }}
-                {{ from.mobile_number.errors }}
-            </div>
-            <p class="helptext">{% trans "Please add your mobile number e.g. 0719009000" %}</p>
-        </fieldset>
-        {% endif %}
-        {% if settings.profiles.UserProfilesSettings.show_email_field %}
-        <fieldset>
-            <div class="input-group{% if form.email.errors %} input-error{% endif %}">
-                <label for="id_email">{% trans "Enter your email address" %}</label>
-                {{ form.email }}
-                {{ form.email.errors}}
-            </div>
-            <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
-        </fieldset>
-        {% endif %}
-        {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
-        <fieldset>
-            <div class="input-group{% if form.location.errors %} input-error{% endif %}">
-                <label for="location">{% trans "Where do you live?" %}</label>
-                {{ form.location }}
-                {{ form.location.errors}}
-            </div>
-            <p class="helptext">{% trans "Only you will see this." %}</p>
-        </fieldset>
-        {% endif %}
         {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
             <fieldset>
             <div class="input-group{% if form.education_level.errors %} input-error{% endif %}">
@@ -153,10 +145,20 @@
         <input type="submit" value='{% trans "Sign up" %}' class="call-to-action__button call-to-action__button--primary">
         <input type="hidden" name="next" value="{% url 'molo.profiles:registration_done' %}" />
     </form>
-    {% trans "Already joined?" as headingtext %}
-    {% trans "Log in here" as linktext %}
-    {% url 'molo.profiles:auth_login' as link %}
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+
+    {# include template "patterns/basics/headings/sp_variations/heading.html" #}
+      {% trans "Already joined?" as headingtext %}
+      {% trans "Log in here" as linktext %}
+      {% url LOGIN_URL as link %}
+      {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+        <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
+          <{{htmltag}}>{{title}}</{{htmltag}}>
+          <a href="{{hyperlink}}" class="call-to-action__hyperlink">
+              {{linktitle}}
+          </a>
+        </div>
+      {% endwith %}
+    {# end include template #}
 
 </div>
 {% endblock %}

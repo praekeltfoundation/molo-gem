@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
-<form id="comment-form" class="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments" method="post">
+<form id="comment-form" class="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments" method="post" novalidate>
     {% csrf_token %}
     {% if form.errors %}
         <h1>{% trans "Please correct the error below" %}</h1>

@@ -1,0 +1,22 @@
+{% block content %}
+  {% if questions %}
+    {% for question in questions %}
+    <div class="polls gem-polls">
+
+      {% if forloop.first%}
+        <div class="section-title">
+          <h4 class="poll__title list-header">{% trans "What's your opinion?" %}</h4>
+        </div>
+      {% endif %}
+        <div class="list-inline">
+          <h2 class="poll__question-title">{{ question.title }}</h2>
+            {% if question.freetextquestion %}
+              {% include 'polls/includes/poll_free_text_form.html'%}
+            {% else %}
+              {% include 'polls/includes/poll_question_form.html'%}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

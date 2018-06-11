@@ -1,30 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="standalone-page gem-polls">
-
+<div class="standalone-page polls gem-polls">
   <h2 class="list-header">{% trans "What's your opinion?" %}</h2>
-
-	<div class="list-inline">
-		{% if question.show_results and not question.freetextquestion%}
-			<h3>{{ question.title }}</h3>
-      <div class="choices">
-				{% for choice in choices %}
-					<p>{{ choice.title }}
-						{% if question.result_as_percentage %}
-							<span>{{ choice.percentage }}%</span>
-
-						{% else %}
-							<span>{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
-						{% endif %}
-		      </p>
-				{% endfor %}
+  <div class="list-inline">
+    {% if question.show_results and not question.freetextquestion%}
+      <h3>{{ question.title }}</h3>
+      <div class="choices poll-choices">
+      {% for choice in choices %}
+        <p>{{ choice.title }}
+          {% if question.result_as_percentage %}
+            <span class="choices--percentage">{{ choice.percentage }}%</span>
+          {% else %}
+            <span class="choices--result">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+          {% endif %}
+        </p>
+      {% endfor %}
       </div>
-		{% else %}
-			<h4>{% trans "Thank you for voting!" %}</h4>
-		{% endif %}
-		<br>
-	  <a href="{{request.site.root_page.specific.url}}">{% trans "Home" %}</a>
-	</div>
+    {% else %}
+      <h2 class="poll__question-title">{% trans "Thank you for voting!" %}</h2>
+    {% endif %}
+    <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">{% trans "Home" %}</a>
+  </div>
 </div>
 {% endblock %}

@@ -1,18 +1,11 @@
-@import "../versions";
-@import "_fonts";
-@import "variables/_mixins";
-@import "variables/_variables";
+@import "gem/styles/gem/_fonts";
+@import "gem/styles/gem/variables/_mixins.scss";
+@import "gem/styles/gem/variables/_variables";
+@import "gem/styles/gem/_base";
 
-@import "_base";
 @import "layout/_layout";
 @import "modules/_module";
 @import "state/_state";
-
-
-$colorPurple: #412A83;  // pink
-$colorYellow: #ffed00;  // yellow
-$colorOrange: #f8af04;  // orange
-$colorGrey: #dadada;  // grey
 
 html,body, .article {
   font-family: Arial, sans-serif;
@@ -33,12 +26,6 @@ a:hover {
   color: $colorBlack;
 }
 
-input {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
-
 .message-notification {
     background-color: inherit;
     color: #412a83;
@@ -48,92 +35,8 @@ input {
     }
  }
 
-#gem-header {
-  background: $colorYellow;
-
-  #logo {
-    margin: 0.2em;
-    text-align: center;
-  }
-
-  a, a:visited {
-    font-family: $font-family-default;
-    font-weight: bold;
-    font-size: 0.8em;
-    color: $colorPurple;
-    display: inline-block;
-    padding-right: 3px;
-
-    @media screen and (min-width: 320px) {
-      font-family: $font-family-zathu;
-      font-weight: normal;
-      font-size: 1em;
-    }
-    @media screen and (min-width: 400px) {
-      padding-right: 10px;
-      font-size: 1.3em;
-    }
-    @media screen and (min-width: 600px) {
-      padding-right: 3px;
-      font-size: 1em;
-    }
-  }
-
-  .search-icon {
-    width: 1em;
-  }
-}
-
-#gem-footer {
-    background: $colorGrey;
-}
-
-#gem-footer #search-form {
-  input:hover, input:focus {
-    outline: none;
-  }
-  .search__submit {
-    background-image: url('/static/img/search_grey.png');
-    background-color: $colorWhite;
-    background-size: 60%;
-    padding: 10px 0;
-  }
-}
-
-.footer-menu-list {
-  &__anchor {
-    color: darken($colorGrey,40%);
-    font-weight: normal;
-
-    &--main {
-      color: $colorPurple;
-      font-weight: bold;
-    }
-  }
-}
-
-.footer-languages {
-  color: darken($colorGrey,40%);
-  font-size: $font-x-medium;
-  padding: 10px 0 0 9px;
-}
-
-.languages__item--active {
-  color: $colorPurple;
-}
-
-.language-container {
-  text-align: center;
-  background-color: $colorGrey;
-
-  a.active {
-    color: $colorPurple;
-  }
-}
-
 .section-header {
   background-color: $colorPurple;
-
   a {
     font-family: $font-family-zathu;
     color: $colorYellow;
@@ -147,7 +50,6 @@ input {
     .text {
       margin: 0 16px;
       position: relative;
-
       .section-title {
         background-color: transparent;
         position: relative;
@@ -157,7 +59,6 @@ input {
         line-height: 20px;
         font-weight: normal;
         padding: 0;
-
         a {
           font-family: $font-family-default;
           font-weight: bold;
@@ -176,7 +77,6 @@ input {
       font-size: 12px;
       font-weight: normal;
       text-transform: capitalize;
-
       a {
         font-family: $font-family-default;
         font-weight: bold;
@@ -188,7 +88,6 @@ input {
     h3 {
       font-family: $font-family-zathu;
       font-weight: normal;
-
       a {
         color: $colorPurple;
       }
@@ -220,148 +119,6 @@ input {
   }
 }
 
-
-.surveys {
-  &__title {
-      font-family: $font-family-zathu;
-      font-weight: normal;
-  }
-
-  &__intro {
-      font-family: $font-family-default;
-  }
-
-  &__form {
-      padding: 24px 16px;
-      background-color: $colorWhiteSmoke;
-
-      label {
-        color: $colorPurple;
-      }
-
-      fieldset {
-        ul {
-          margin: 15px 0;
-        }
-      }
-  }
-
-  &__tout {
-    background-color: $colorYellow;
-    color: $colorPurple;
-    margin: 0 0 24px 0;
-    padding: 0 16px;
-
-    .section-title {
-      h2 {
-        font-family: $font-family-default;
-        background-color: $colorPurple;
-        color: $colorYellow;
-        font-size: $font-small;
-        font-weight: bold;
-      }
-    }
-
-    h3 {
-      font-family: $font-family-zathu;
-      text-transform: uppercase;
-      font-size: $font-x-large;
-      font-weight: normal;
-    }
-
-    input[type=submit], .button {
-      background: $colorPurple;
-      color: $colorYellow;
-      font-size: $font-large;
-    }
-  }
-
-  &__thank-you {
-      font-family: $font-family-zathu;
-  }
-}
-
-button, input[type=submit],
-.button, .gem-polls a,
-.search__submit {
-  background: $colorPurple;
-  font-family: $font-family-zathu;
-  color: $colorYellow;
-  font-size: $font-x-medium;
-  font-weight: normal;
-}
-
-.gem-polls {
-  background-color: $colorPurple;
-
-  .list-header {
-    background-color: $colorYellow;
-    font-size: 16px;
-    font-family: $font-family-default;
-    color: $colorPurple;
-    text-transform: capitalize;
-    font-weight: bold;
-    padding: 0 16px;
-    display: inline-block;
-  }
-
-  .list-inline {
-    h3 {
-      font-family: $font-family-zathu;
-      color: $colorYellow;
-      font-size: $font-x-large;
-      text-transform: uppercase;
-      text-align: center;
-      font-weight: normal;
-    }
-
-    p, label {
-      font-family: $font-family-default;
-      color: $colorYellow;
-      font-size: 18px;
-      text-transform: capitalize;
-    }
-
-    a, input[type="submit"] {
-      color: $colorPurple;
-      background: $colorYellow;
-    }
-
-    input {
-      margin-bottom: 10px;
-    }
-
-    .choices p {
-      border-top: 1px $colorYellow dashed;;
-    }
-
-     .choices {
-      border-bottom: 1px $colorYellow dashed;;
-    }
-
-    form {
-      div div {
-        border-top: 1px $colorYellow dashed;
-      }
-
-      div:last-child {
-        border: none;
-        margin: 0;
-        text-align: center;
-      }
-
-      input[type="radio"], input[type="checkbox"] {
-        background: $colorYellow;
-        border-radius: 0;
-      }
-
-      input[type="radio"]:checked, input[type="checkbox"]:checked {
-        background: $colorYellow url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABCFBMVEUAAAD///+AgP9VVaqAQL9mM5lVK6pJSZJgQJ9VOY5GLotVK5VLLYdKK4pEK4hGLoNELYdCLINFMIpGLYZBL4hBK4hCLoVBLYdDK4dCK4RGLoZELoRFK4ZFLYZCLYVDK4VDKoNCKoNDKoVBLIVCK4RCLIVBK4VCLINCK4RDLINCK4RCK4NCKoRBK4RCK4NCK4NCLIVBK4RBLIVCK4RDKoRCK4RDK4NBLIRCK4RBK4RCK4NCK4NCKoNBKoRCK4NCK4NCKoRCK4RCK4RCK4RCKoNCK4RCK4RCK4RBK4RCKoRBK4NBKoRCK4RBK4RBKoNCKoRCK4NBK4RBK4NCKoNBK4NCK4NCK4RBKoNsNtJmAAAAV3RSTlMAAQIDBAUGBwgJCwwRGB4hIiMlKCsvMjM1Njc4Oz9JWGdtc3V4e32Ag4aHiIuNjpCSlZianZ+hpKaoq62vsLGztrq9vsLF1d3e4OPm6Orr7O3u7/Hz9fx25g1EAAAA+klEQVR42u3Tx1ICURSE4WbAAQMGBHPOOWMkmFBMiKD2+7+JOlxPUWzmznFl1f32/64bjuM4/9JY/nonDb35T5KvQ9BaYKAIpSW21KGzQqMKlTX+WofGpvSVJBS2pb/thcKe9Dc9CDc5N+OjTexA+qtuhEoVSN5lIbwj6S9TCLfBH7Wc9MfSl3xYqJq5jCIQP5X+ogs23tjSmMC3xLn0ZwlYKdJoTgF+QfqTOOwMNmm8TyfL0uc92Bpv0PioSH8Yg72ROjvtS28lV+vodxFR9pntthDZ8BOF7r+ZR+lXoTLwYPplKPXfB/0i1NIl8mUWf9GX8eA4juNE8QWsw2lFWfvXxQAAAABJRU5ErkJggg==) no-repeat 50%/90%;
-      }
-    }
-  }
-}
-
 .default-container {
   form {
     label, p {
@@ -388,64 +145,8 @@ button, input[type=submit],
   font-size: 18px;
 }
 
-.your-words {
-  background-color: $colorOrange;
-  color: $colorPurple;
-
-  .section-title {
-    h2 {
-      font-family: $font-family-default;
-      background-color: $colorPurple;
-      color: $colorYellow;
-      font-size: $font-small;
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-  }
-
-  h3 {
-    font-family: $font-family-zathu;
-    text-transform: uppercase;
-    font-size: $font-x-large;
-    font-weight: normal;
-  }
-
-  input[type=submit], .button {
-    background: $colorPurple;
-    color: $colorYellow;
-    font-size: $font-large;
-  }
-
-  form {
-    label {
-      color: $colorPurple;
-      font-size: $font-x-medium!important;
-    }
-
-    input {
-      &[type=text]{
-        padding: 10px 0;
-      }
-
-      &[type=checkbox] {
-        float: left;
-        padding: 0 10px;
-
-        +label {
-          line-height: 23px;
-          display: block;
-          margin-left: 25px;
-        }
-
-        &:checked {
-          background: $colorWhite url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABCFBMVEUAAAD///+AgP9VVaqAQL9mM5lVK6pJSZJgQJ9VOY5GLotVK5VLLYdKK4pEK4hGLoNELYdCLINFMIpGLYZBL4hBK4hCLoVBLYdDK4dCK4RGLoZELoRFK4ZFLYZCLYVDK4VDKoNCKoNDKoVBLIVCK4RCLIVBK4VCLINCK4RDLINCK4RCK4NCKoRBK4RCK4NCK4NCLIVBK4RBLIVCK4RDKoRCK4RDK4NBLIRCK4RBK4RCK4NCK4NCKoNBKoRCK4NCK4NCKoRCK4RCK4RCK4RCKoNCK4RCK4RCK4RBK4RCKoRBK4NBKoRCK4RBK4RBKoNCKoRCK4NBK4RBK4NCKoNBK4NCK4NCK4RBKoNsNtJmAAAAV3RSTlMAAQIDBAUGBwgJCwwRGB4hIiMlKCsvMjM1Njc4Oz9JWGdtc3V4e32Ag4aHiIuNjpCSlZianZ+hpKaoq62vsLGztrq9vsLF1d3e4OPm6Orr7O3u7/Hz9fx25g1EAAAA+klEQVR42u3Tx1ICURSE4WbAAQMGBHPOOWMkmFBMiKD2+7+JOlxPUWzmznFl1f32/64bjuM4/9JY/nonDb35T5KvQ9BaYKAIpSW21KGzQqMKlTX+WofGpvSVJBS2pb/thcKe9Dc9CDc5N+OjTexA+qtuhEoVSN5lIbwj6S9TCLfBH7Wc9MfSl3xYqJq5jCIQP5X+ogs23tjSmMC3xLn0ZwlYKdJoTgF+QfqTOOwMNmm8TyfL0uc92Bpv0PioSH8Yg72ROjvtS28lV+vodxFR9pntthDZ8BOF7r+ZR+lXoTLwYPplKPXfB/0i1NIl8mUWf9GX8eA4juNE8QWsw2lFWfvXxQAAAABJRU5ErkJggg==) no-repeat 50%/90%;
-        }
-      }
-    }
-  }
-}
-
 .standalone-page {
+  padding: 10px 16px;
   &.your-words {
     .section-title {
       h2 {
@@ -458,18 +159,18 @@ button, input[type=submit],
 .related-articles-up-next {
   &:after {
     height: 30px;
-    background: url('/static/img/mw_zig_pattern_30.png') repeat-x center center;
+    background: url('/static/img/gem-lines/mw_zig_pattern_30.png') repeat-x center center;
   }
 }
 
 #article-hero:after {
-  background-image: url('/static/img/mw_zig_pattern_30.png');
+  background-image: url('/static/img/gem-lines/mw_zig_pattern_30.png');
   background-repeat: repeat-x;
 }
 
 .teal-ribbon {
   height: 40px;
-  background-image: url('/static/img/mw_zig_pattern_30.png');
+  background-image: url('/static/img/gem-lines/mw_zig_pattern_30.png');
   margin: 0 0 15px 0;
   background-repeat: repeat-x;
   background-size: auto;
@@ -477,7 +178,7 @@ button, input[type=submit],
 
 .sd-container {
   hr {
-    background-image: url('/static/img/mw_zig_pattern_30.png');
+    background-image: url('/static/img/gem-lines/mw_zig_pattern_30.png');
     background-repeat: repeat-x;
   }
 }
@@ -486,7 +187,7 @@ button, input[type=submit],
 #article-hero {
   &:after {
     height: 50px;
-    background-image: url('/static/img/mw_zig_pattern_30.png');
+    background-image: url('/static/img/gem-lines/mw_zig_pattern_30.png');
     margin: 0 0 10px 0;
     background-repeat: repeat-x;
   }
@@ -513,16 +214,15 @@ button, input[type=submit],
   }
 }
 
+
+//COMMENTS
 .comment-form {
-  h1 {
-    font-family: $font-family-default;
-    color: $colorPurple;
-  }
-
-  textarea {
-    border: 1px solid $colorGrey;
-  }
-
+  font-family: $font-family-default;
+  h1, .comment.staff .by {color: $colorPurple;}
+  textarea {border: 1px solid $colorGrey;}
+  .title h6 {font-family: $font-family-default;}
+  h3.comment-header {color: #141414;}
+  .view-more-comments a{background: $colorGrey; }
   .comment-submit {
     background-color: $colorPurple;
     color: $colorYellow;
@@ -535,75 +235,34 @@ button, input[type=submit],
     font-weight: normal;
   }
 }
-
-.title {
-  h6 {
-    font-family: $font-family-default;
-  }
-}
-
-h3.comment-header {
+.comment {
   font-family: $font-family-default;
-  color: #141414;
-}
-
-.view-more-comments {
-  a {
-    background: $colorGrey;
-    font-family: $font-family-default;
-  }
-}
-
-.comments-count {
-  font-family: $font-family-default;
-}
-.comment.staff {
-  .by {
+  &-sign-up a ,
+  &__reply-meta-link {
     color: $colorPurple;
   }
-}
-.comment__alias, a.report, p.comment-body, .date,.comment-login, .comments__reply-title {
-  font-family: $font-family-default;
-}
-
-.comment__reply-meta-link {
-  font-family: $font-family-default;
-  color: $colorPurple;
-}
-
-.comment__admin-reply {
-  background: #ececec;
-}
-
-a.comment-login-button {
-  button {
-    font-family: $font-family-default;
+  &__admin-reply {
+    background: #ececec;
+  }
+  &__reply-thread-content {
+    padding: 0 15px 10px;
   }
 }
 
-.comment-sign-up {
-  font-family: $font-family-default;
-  a {
+.comments {
+  &__reply-title--unread {
     color: $colorPurple;
+    font-weight: normal;
+  }
+  &__reply-heading {
+    font-family: $font-family-zathu;
+    padding: 15px 15px 0;
   }
 }
 
+//PAGINATION
 .pagination {
   a {
     color: $colorPurple;
   }
-}
-
-.comments__reply-title--unread {
-  color: $colorPurple;
-  font-weight: normal;
-}
-
-.comments__reply-heading {
-  font-family: $font-family-zathu;
-  padding: 15px 15px 0;
-}
-
-.comment__reply-thread-content {
-  padding: 0 15px 10px;
 }

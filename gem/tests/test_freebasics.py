@@ -2,22 +2,20 @@ import json
 from six import b
 from django.test import TestCase, Client
 
-from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguageRelation, Main, Languages, MoloMedia
+from gem.tests.base import GemTestCaseMixin
+from molo.core.models import SectionIndexPage, MoloMedia
 from django.core.files.base import ContentFile
 
 
-class FreebasicsContentTest(TestCase, MoloTestCaseMixin):
+class FreebasicsContentTest(TestCase, GemTestCaseMixin):
     def setUp(self):
-        self.mk_main()
-        self.client = Client()
-        main = Main.objects.all().first()
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(main.get_site()),
-            locale='en',
-            is_active=True)
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
         self.yourmind = self.mk_section(
-            self.section_index, title='Your mind')
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
         self.article = self.mk_article(self.yourmind)
 
     def test_detect_freebasics(self):
@@ -30,16 +28,17 @@ class FreebasicsContentTest(TestCase, MoloTestCaseMixin):
             'value': self.media.id,
         }])
         self.article.save_revision().publish()
-
-        response = self.client.get('/sections-main-1/your-mind/test-page-0/')
+        response = self.client.get(self.article.url)
         self.assertContains(response, 'Download Audio')
 
-        client = Client(HTTP_VIA='Internet.org')
-        response = client.get('/sections-main-1/your-mind/test-page-0/')
+        client = Client(
+            HTTP_VIA='Internet.org', HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
         self.assertNotContains(response, 'Download Audio')
 
-        client = Client(HTTP_X_IORG_FBS='true',)
-        response = client.get('/sections-main-1/your-mind/test-page-0/')
+        client = Client(
+            HTTP_X_IORG_FBS='true', HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')
 
@@ -47,8 +46,9 @@ class FreebasicsContentTest(TestCase, MoloTestCaseMixin):
             HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
             ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
             ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
-            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
-        response = client.get('/sections-main-1/your-mind/test-page-0/')
+            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+            HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')
 
@@ -58,7 +58,8 @@ class FreebasicsContentTest(TestCase, MoloTestCaseMixin):
             HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
             ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
             ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
-            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]')
-        response = client.get('/sections-main-1/your-mind/test-page-0/')
+            ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+            HTTP_HOST=self.main.get_site().hostname)
+        response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')

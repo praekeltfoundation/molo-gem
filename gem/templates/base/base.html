@@ -88,18 +88,18 @@
       <div id="gem-header">
             <a id="logo" href="/">
               {% get_site_static_prefix as site_prefix %}
-              {% with "img/logo"|add:site_prefix|add:".png" as logo_url %}
+              {% with "img/logos/logo"|add:site_prefix|add:".png" as logo_url %}
               <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
               {% endwith %}
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
-              <a href="{% url 'molo.profiles:user_register' %}">{% trans "Sign up" %}</a>
+              <a href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
             {% else %}
-            <a href="{% url 'molo.profiles:view_my_profile' %}">{% trans "Profile" %}</a>
+            <a href={{VIEW_PROFILE_URL}}>{% trans "Profile" %}</a>
             {% endif %}
             <a href="#search-form">
-              <img src="{% static 'img/search_white.png' %}" width="19" height="19" alt="Search" />
+              <img src="{% static 'img/icons/search/search_white.png' %}" width="19" height="19" alt="Search" />
             </a>
         </div>
 
@@ -141,28 +141,29 @@
               {% footer_page %}
               {% if not user.is_authenticated %}
                 <li class="footer-menu-list__item">
-                  <a href="{% url 'molo.profiles:user_register' %}" class="footer-menu-list__anchor">
+                  <a href={{REGISTRATION_URL}} class="footer-menu-list__anchor">
                     {% trans "Sign Up" %}
                   </a>
                 </li>
 
                 <li class="footer-menu-list__item">
-                  <a href="{% url 'molo.profiles:auth_login' %}" class="footer-menu-list__anchor">
+                  <a href="{% url LOGIN_URL %}" class="footer-menu-list__anchor">
                     {% trans "Log in" %}
                   </a>
                 </li>
 
               {% else %}
               <li class="footer-menu-list__item">
-                <a href="{% url 'molo.profiles:view_my_profile' %}" class="footer-menu-list__anchor">
+                <a href={{VIEW_PROFILE_URL}} class="footer-menu-list__anchor">
                   {% trans "Profile" %}
                 </a>
               </li>
 
               <li class="footer-menu-list__item">
-                <a href="{% url 'molo.profiles:auth_logout' %}" class="footer-menu-list__anchor">
-                  {% trans "Log out" %}
-                </a>
+                <form method="post" action="{% url LOGOUT_URL %}">
+                      {% csrf_token %}
+                      <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+                    </form>
               </li>
               {% endif %}
             </ul>
@@ -181,6 +182,5 @@
         {% block facebook_analytics %}
           {% include "core/facebook_analytics.html" %}
         {% endblock %}
-
     </body>
 </html>

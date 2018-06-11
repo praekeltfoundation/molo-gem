@@ -12,7 +12,7 @@
           {% trans "Write your story" %}
         </a>
       {% else %}
-        <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="button">
+        <a href="{% url LOGIN_URL %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="button">
           {% trans "Log in to Enter" %}
         </a>
       {% endif %}

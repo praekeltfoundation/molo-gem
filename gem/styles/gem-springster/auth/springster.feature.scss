@@ -1,0 +1,246 @@
+@import '../utilities/*';
+
+body,
+html {
+  background: $cool-grey;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+select,
+textarea {
+  color: $gunmetal;
+  font-family: $font-fallback;
+  font-size: $font-small;
+}
+
+a {
+  color: $springster-purple;
+
+  &:hover {
+    color: $springster-purple;
+  }
+}
+
+h1 {
+  font-size: 1.2em;
+  margin: $spacer 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1em;
+  margin: $spacer 0;
+}
+
+p,
+ul {
+  margin: $spacer 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $slate-grey;
+  height: 0;
+  margin: $spacer 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.Container {
+  background: $white;
+  padding: 0 $spacer-mid;
+
+  .Intro {
+    color: $slate-grey;
+    padding: 0 $spacer-mid;
+    text-align: center;
+  }
+}
+
+.Header {
+  text-align: center;
+
+  &-title {
+    background: transparent;
+
+    h1 {
+      color: $gunmetal;
+    }
+  }
+
+  &-branding {
+    padding: $spacer-mid;
+
+    &-image {
+      background: url('/static/authentication_service/images/sp-logo.png') no-repeat;
+      background-position: 50%;
+      background-size: contain;
+      display: block;
+      height: 60px;
+      padding-left: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.Footer {
+  background: $white;
+  border-top: 1px solid $slate-grey;
+  font-size: $font-xx-small;
+  padding: $spacer 0;
+  text-align: center;
+}
+
+.Form {
+  .Field {
+    margin-top: $spacer;
+    text-align: center;
+
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+
+    &-label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+
+    &-message {
+      color: $slate-grey;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      border: 2px solid $springster-purple;
+      font-size: 1em;
+      height: 40px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+
+      &:focus {
+        border-color: $springster-purple;
+      }
+    }
+
+    .Textarea {
+      height: 60px;
+    }
+
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $mustard;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $red;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer;
+  }
+}
+
+.Additional-text {
+  text-align: center;
+}
+
+.Button {
+  background: $springster-purple;
+  color: $white;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &:hover {
+    background: $iron-grey;
+    color: $springster-purple;
+    cursor: pointer;
+  }
+
+  &--warning {
+    background-color: $bright-orange;
+  }
+}
+
+.Messages {
+  margin: $spacer 0;
+
+  .Message {
+    color: $white;
+    padding: $spacer;
+
+    &--success {
+      background: $springster-sunny-yellow;
+    }
+
+    &--error,
+    &--warning {
+      background: $red;
+    }
+  }
+}
+
+.errorlist {
+  color: $red;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+.Menu {
+  background-color: $mint-green;
+  padding: $spacer $spacer-mid;
+
+  &-title {
+    display: none;
+  }
+
+  &-item {
+    a {
+      font-size: $font-medium;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}

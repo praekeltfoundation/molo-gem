@@ -1,20 +1,107 @@
 {% extends "core/article_page.html" %}
-{% load wagtailcore_tags mptt_tags %}
-section.get_effective_extra_style_hints
+{% load wagtailcore_tags mptt_tags molo_commenting_tags gem_tags %}
 {% block content %}
-{% pageurl self.specific as the_url %}
-{% trans "Back to article" as back %}
-{% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
 <div class="comments">
   <div id="comments-list" class="comments__list">
   {% for node in comments %}
     {% recursetree node %}
-        {% include "comments/comment.html" %}
+        <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
+          <h5 class="comments__alias comments__alias-author">
+          {% if node.user.is_staff %}
+              {% if settings.gem.GemSettings.moderator_name %}
+                {{settings.gem.GemSettings.moderator_name}}
+              {% else %}
+                {% trans "Big Sister" %}
+              {% endif %}
+              <span class="comments__staff">
+                - {% trans "Moderator" %}
+              </span>
+          {% elif node.user_name.lower == 'anonymous' %}
+            {% trans "Anonymous" %}
+          {% else %}
+            {% if not node.user.profile.alias %}
+              {% trans "Anonymous" %}
+            {% else %}
+              {{node.user.profile.alias}}
+            {% endif %}
+          {% endif %}
+          </h5>
+        {% if node.is_removed %}
+          <h6 class="comments__description">
+            {% trans "This comment has been removed by the community. Please read our platform rules." %}
+          </h6>
+        {% else %}
+          {% if truncate_comment %}
+            <p class="comments__body-small">{{ node.comment|smarttruncatechars:100 }}</p>
+            {% if node.comment.200 %}
+            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--readmore">
+            {% trans "Read More"%}</a>
+            {% endif %}
+          {% else %}
+            <p class="comments__body-small">{{ node.comment }}</p>
+          {% endif %}
+
+            <span class="comments__publish-date">
+              {{node.submit_date|timesince}} {% trans "ago" %}
+            </span>
+          <div class="comments__reply-meta">
+              {% if not node.user|is_in_admin_group %}
+                <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">
+                  {% trans "Report" %}
+                </a>
+              {% endif %}
+
+              {% if node.parent == None %}
+                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
+                {% trans "Reply"%}</a>
+                {% if do_not_link_replies or node.get_children.count == 0 %}
+                  <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                    {{ node.get_children.count }}
+                    {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                      {% trans "Reply" %}
+                    {% else %}
+                      {% trans "Replies" %}
+                    {% endif %}
+                  </p>
+                {% else %}
+                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                    {{ node.get_children.count }}
+                    {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                      {% trans "Reply" %}
+                    {% else %}
+                      {% trans "Replies" %}
+                    {% endif %}
+                  </a>
+                {% endif %}
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if node.parent == None and node.get_children.count != 0 %}
+          <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
+        {% endif %}
+        </div>
         {{ children }}
     {% endrecursetree %}
   {% endfor %}
   </div>
-  {% include "patterns/basics/pagination/page-numbers.html" %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=the_url page_name=back direction="left" %}
+  <div class="pagination">
+    {% if page.has_previous %}
+      <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
+    {% endif %}
+    <span class="pagination__nav-item pagination__nav-item--current">
+      Page {{ page.number }} of {{ page.paginator.num_pages }}
+    </span>
+    {% if page.has_next %}
+      <a href="?p={{ page.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next"></a>
+    {% endif %}
+  </div>
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      {% trans "Back to article" %}</a>
+  </div>
 </div>
 {% endblock %}

@@ -1,65 +1,44 @@
 {% extends "base.html" %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
 
 {% block content %}
 <div class="profiles profile-container">
-		<div class="title profile">
-			<h3>{% trans "Edit your Profile" %}</h3>
-	</div>
-	<form method="post" id="frmProfileEdit" action="{% url 'edit_my_profile' %}">
+  <div class="title profile">
+    <h3>{% trans "Edit your Profile" %}</h3>
+  </div>
+  <form method="post" id="frmProfileEdit" action="{{EDIT_PROFILE_URL}}" novalidate>
   {% csrf_token %}
-	{{ form.non_field_errors }}
-	{% if settings.profiles.UserProfilesSettings.activate_display_name %}
-	    <fieldset>
-				<label>{% trans "Nickname:" %}</label>
-				<label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
-				{{ form.alias.errors }}
-				{{ form.alias }}
-	    </fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.activate_dob %}
-	    <fieldset>
-	      <label>{% trans "Date of birth:" %}</label>
-		      {{ form.date_of_birth }}
-	    </fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.activate_gender %}
-	    <fieldset>
-	      <label>{% trans "Gender:" %}</label>
-				{{ form.gender.errors }}
-				{{ form.gender }}
-	    </fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-    	<fieldset>
-	      <label>{% trans "Mobile number:" %}</label>
-		      {{ form.mobile_number.errors }}
-		      {{ form.mobile_number }}
-				</fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.show_email_field %}
-      <label>{% trans "Email address:" %}</label>
-	      {{ form.email.errors }}
-	      {{ form.email }}
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.activate_location %}
-		<fieldset>
-				<label>{% trans "Update where you live:" %}</label>
-				{{ form.location }}
-				{{ form.location.errors}}
-		</fieldset>
-		{% endif %}
-		{% if settings.profiles.UserProfilesSettings.activate_education_level %}
-				<fieldset>
-				<label>{% trans "Update your Education Level:" %}</label>
-				{{ form.education_level }}
-				{{ form.education_level.errors}}
-		</fieldset>
-		{% endif %}
-    </fieldset>
-				<br>
-				<br>
-			<input type="submit" value='{% trans "Update profile" %}' class="btn">
-		</form>
+    {{ form.non_field_errors }}
+    {% if settings.profiles.UserProfilesSettings.activate_display_name %}
+      <fieldset>
+        <label>{% trans "Nickname:" %}</label>
+        <label>{% trans "Please do not use your real name, phone number or email address as it's unsafe." %}</label>
+        {{ form.alias.errors }}
+        {{ form.alias }}
+      </fieldset>
+    {% endif %}
+    {% if settings.profiles.UserProfilesSettings.activate_dob %}
+      <fieldset>
+        <label>{% trans "Date of birth:" %}</label>
+        {{ form.date_of_birth }}
+      </fieldset>
+    {% endif %}
+    {% if settings.profiles.UserProfilesSettings.activate_gender %}
+      <fieldset>
+        <label>{% trans "Gender:" %}</label>
+        {{ form.gender.errors }}
+        {{ form.gender }}
+      </fieldset>
+    {% endif %}
+    {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+      <fieldset>
+        <label>{% trans "Update your Education Level:" %}</label>
+        {{ form.education_level }}
+        {{ form.education_level.errors}}
+      </fieldset>
+    {% endif %}
+    <input type="submit" value='{% trans "Update profile" %}' class="btn">
+  </form>
 </div>
-
 {% endblock %}

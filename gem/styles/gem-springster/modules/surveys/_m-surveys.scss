@@ -1,67 +1,114 @@
  .surveys {
   position: relative;
-  margin: 15px 0 0;
-      &__form {
-        background-color: $mint-green-light;
-        padding: 0 0 20px;
-        @each $name, $color in $color_list {
-            &--#{$name} {
-                background-color: $color;
-            }
-        }
-        fieldset {
-          padding: 0 8px 0;
-        }
-      }
-      &__question-title {
-        font-size: 16px;
-        color: $slate-grey;
-        text-align: center;
-        text-transform: uppercase;
-        padding: 30px 0 0;
-      }
-      &__answers-counter-bar {
-        padding: 0 0 10px;
-      }
-      &__answers-counter {
-        background: $sunny-yellow;
-        font-size: $font-xx-small;
-        display: inline-block;
-        vertical-align: middle;
-        padding: 8px;
-      }
-
-      &__pagination {
-          padding: 15px 15px 0;
-          text-align: center;
-          &-title {
-              color: $gunmetal;
-              font-size: $font-medium;
-              @include font($baton-regular);
+  &__form {
+    background-color: lighten( $springster-sunny-yellow, 15%);
+    padding: 0 0 20px;
+    @each $name, $color in $color_list {
+        &--#{$name} {
+          @if $color == $tiffany-blue {
+            background-color: lighten( $color, 25%);
+          } @else {
+            background-color: lighten( $color, 10%);
           }
+        }
+    }
+    fieldset {
+      padding: 0 8px 0;
+    }
+  }
+  &__question-title {
+    font-size: 16px;
+    color: $slate-grey;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 30px 0 0;
+  }
+  &__answers-counter-bar {
+    padding: 0 0 10px;
+  }
+  &__answers-counter {
+    background: $sunny-yellow;
+    font-size: $font-xx-small;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+  }
+  &__pagination {
+      padding: 15px 15px 0;
+      text-align: center;
+      &--multi-step {
+        text-align: left;
       }
-      &__page {
-          color: #4e5358;
+      &-title {
+          color: $gunmetal;
+          font-size: $font-medium;
+          @include font($baton-regular);
           font-style: italic;
-          font-size: $font-x-small;
-          &-number {
-              font-weight: bold;
-          }
+          font-weight: bold;
       }
-      &--results {
-        background-color: $mint-green-light;
-        padding: 0 10px 20px;
-        label {
-          text-align: left;
-          padding: 0 0 5px;
+  }
+  &__page {
+    //Where is this located?
+      color: #4e5358;
+      font-style: italic;
+      font-size: $font-x-small;
+      &-number {
+          font-weight: bold;
+      }
+  }
+  &--page {
+    text-align: left;
+    &__image-wrapper {
+      overflow: hidden;
+      margin: 0 auto;
+      max-height: 300px;
+      text-align: center;
+    }
+    &__image {
+      width: 100%;
+      height: auto;
+      padding: 0 0 25px;
+    }
+    &__excerpt {
+        padding: 0 15px;
+        &-heading {
+          font-size: $font-x-large;
+          color: $gunmetal;
+          margin: 0 0 10px;
         }
+        &-description { font-size: $font-small;}
+    }
+    &__terms {
+      padding: 5px 15px;
+      &-anchor {
+        font-size: 16px;
+        color: $black;
+        text-decoration: underline;
       }
-      &--page {
+    }
+    .heading__subheading {text-align: left;}
+  }
+  &--results {
+    background-color: $mint-green-light;
+    padding: 0 10px 20px;
+    label {
+      text-align: left;
+      padding: 0 0 5px;
+    }
+  }
+  .error-list__item,
+  .errors {
         text-align: left;
-        .heading__subheading {text-align: left;}
       }
-      .error-list__item,
-      .errors {
-        text-align: left;
-      }
+}
+.identity-image--survey,
+.adv_wrapper__item-icon,
+.identity-image__item-icon,
+.adv_wrapper__item-thumb {
+  display: block;
+  text-align: center;
+  margin: 15px auto;
+}
+.identity-image--survey {
+  margin: 25px auto 15px;
 }

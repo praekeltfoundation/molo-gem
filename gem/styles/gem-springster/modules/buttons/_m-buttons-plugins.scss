@@ -11,9 +11,6 @@
   width: 100%;
   margin-top: 20px;
 }
-.surveys--call-to-action {
-  padding: 10px 8px 8px;
-}
 
 .reaction-questions-success__block {
     .call-to-action {
@@ -46,10 +43,6 @@
           font-size: $font-xxx-small;
           color: $cool-grey;
         }
-        &--response,
-        &--replies {
-            display: inline-block;
-        }
         &--readmore {
           text-align: left;
           color: $cool-grey;
@@ -61,9 +54,20 @@
       font-size: $font-x-small;
       color: $cool-grey;
       text-decoration: none;
-      float: right;
       font-weight: bold;
-      display: inline-block;
       cursor: unset !important;
     }
+}
+.comments__reply-meta {
+  .call-to-action__nav-item-text--response,
+  .call-to-action__nav-item-text--replies,
+  .call-to-action__nav-item-text--report,
+  .call-to-action__nav-item--replies-counter {
+    //Enforce display - cascade  in not inherited
+    display: inline-block;
+  }
+  .call-to-action__nav-item--replies-counter {
+    text-align: left;
+    display: inline-block;
+  }
 }

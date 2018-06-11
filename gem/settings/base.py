@@ -13,45 +13,80 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.conf import global_settings
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url
 import djcelery
 from celery.schedules import crontab
 djcelery.setup_loader()
 
-# Absolute filesystem path to the Django project directory:
-PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+# Absolute filesystem paths
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+PROJECT_ROOT = join(BASE_DIR, 'gem')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "dqji)!xte^trgai!3c)_4)ftaoevwvbog-i&nl$#ef9xb+y*ab"
+DEFAULT_SECRET_KEY = 'please-change-me'
+SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
+
+# Authentication Service Tokens
+USE_OIDC_AUTHENTICATION = environ.get(
+    'USE_OIDC_AUTHENTICATION', '') == 'true'
+OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
+# <URL of the OIDC OP authorization endpoint>
+OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+# <URL of the OIDC OP token endpoint>
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
+# <URL of the OIDC OP userinfo endpoint>
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
+OIDC_RP_SCOPES = 'openid profile email address phone site roles'
+OIDC_STORE_ID_TOKEN = True
+OIDC_OP = environ.get('OIDC_OP', '')
+THEME = environ.get('THEME', 'springster')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', '')
+LOGIN_URL = 'molo.profiles:auth_login'
+LOGOUT_URL = 'molo.profiles:auth_logout'
+REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
+VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
+EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
+WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
+OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
+OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
+OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
+
+if USE_OIDC_AUTHENTICATION:
+    LOGIN_URL = 'oidc_authentication_init'
+    LOGOUT_URL = 'oidc_logout'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ENV = 'dev'
 
-ALLOWED_HOSTS = ['*']
-
+MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
 # a trailing slash
 BASE_URL = 'http://example.com'
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
 
     'taggit',
     'modelcluster',
@@ -128,6 +163,11 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
+if USE_OIDC_AUTHENTICATION:
+    MIDDLEWARE_CLASSES += [
+        'gem.middleware.CustomSessionRefresh',
+    ]
+
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` or `springster`
@@ -137,8 +177,8 @@ SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_2),
-             join(PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE), ],
+    'DIRS': [join(PROJECT_ROOT, 'templates', SITE_LAYOUT_2),
+             join(PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE), ],
     'APP_DIRS': False,
     'OPTIONS': {
         'builtins': [
@@ -151,6 +191,7 @@ DEFAULT_TEMPLATE = {
             'django.contrib.messages.context_processors.messages',
             'molo.core.context_processors.locale',
             'wagtail.contrib.settings.context_processors.settings',
+            'gem.context_processors.detect_bbm',
             'gem.context_processors.detect_freebasics',
             'gem.context_processors.compress_settings',
         ],
@@ -180,7 +221,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # SQLite (simplest install)
 DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3'),))}
+    default='sqlite:///%s' % (join(BASE_DIR, 'db.sqlite3'),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
@@ -201,7 +242,9 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ALWAYS_EAGER = False
-CELERY_IMPORTS = ('gem.tasks', 'molo.core.tasks', 'google_analytics.tasks')
+CELERY_IMPORTS = (
+    'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task',
+    'molo.commenting.tasks')
 BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = environ.get(
     'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
@@ -232,6 +275,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('bn', 'Bengali'),
     ('my', 'Burmese'),
     ('ny', 'Chichewa'),
+    ('prs', 'Dari'),
 ]
 
 EXTRA_LANG_INFO = {
@@ -271,18 +315,24 @@ EXTRA_LANG_INFO = {
         'name': 'Chichewa',
         'name_local': 'Chichewa',
     },
+    'prs': {
+        'bidi': False,
+        'code': 'prs',
+        'name': 'Dari',
+        'name_local': u'دری',
+    },
 }
 
 django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
 LOCALE_PATHS = [
-    join(PROJECT_ROOT, "locale"),
+    join(BASE_DIR, "locale"),
 ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = join(PROJECT_ROOT, 'static')
+STATIC_ROOT = join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 COMPRESS_ENABLED = True
 
@@ -296,14 +346,10 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
-MEDIA_ROOT = join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Wagtail settings
-
-LOGIN_URL = 'molo.profiles:auth_login'
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-
 SITE_NAME = environ.get('SITE_NAME', "GEM")
 WAGTAIL_SITE_NAME = SITE_NAME
 
@@ -434,10 +480,16 @@ AUTHENTICATION_BACKENDS = [
     'molo.core.backends.MoloCASBackend',
 ]
 
+if USE_OIDC_AUTHENTICATION:
+    AUTHENTICATION_BACKENDS = [
+        'gem.backends.GirlEffectOIDCBackend',
+    ] + AUTHENTICATION_BACKENDS
+
 AWS_HEADERS = {
     # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
     'Cache-Control': 'max-age=94608000',
+    'Content-Disposition':  'attachment',
 }
 
 AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME', '')
@@ -450,7 +502,7 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'gem', 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
 PWA_NAME = 'Springster'
 PWA_DESCRIPTION = "Springster"
 PWA_THEME_COLOR = '#7300FF'
