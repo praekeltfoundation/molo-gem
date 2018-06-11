@@ -81,155 +81,152 @@ hr {
 .Header {
   margin-bottom: 0;
   text-align: center;
-  padding: 0 10px 5px;
   overflow: auto;
-  background-color: $springster-purple;
+  padding: 0 $spacer $spacer-half;
   position: relative;
-
-  #search-toggle__button  {
-    visibility: hidden;
-    position: absolute;
-  }
-  .search--toggle {
-    display: none;
-    padding: 15px 0 0 0;
-  }
-  #search-toggle__button:not(checked) ~ .search {
-      display: none;
-  }
-  #search-toggle__button:checked ~ .search {
-      display: block;
-  }
-  &__search {
-    .Header__search-input,
-    .Header__search-input + * {
-      display: none;
+  //START PHASE 2:HEADER
+    #search-toggle__button  {
+      visibility: hidden;
+      position: absolute;
     }
-    .Header__search-input:checked + * {
-      display: block;
-    }
-    .Header__search-bar {
-      position: relative;
+    .search--toggle {
       display: none;
-      &:after {
-        content: "";
-        background-color: $springster-purple;
-        background-image: url(/static/authentication_service/images/icons/dismiss.svg), url(/static/authentication_service/images/icons/dismiss.svg);
-        background-repeat: no-repeat;
-        background-position: 0 50%;
-        background-size: 70%;
-        float: right;
-        height: 30px;
-        width: 25px;
-        pointer-events: none;
-        margin-top: -89px;
+      padding: $spacer-mid 0 0 0;
+    }
+    #search-toggle__button:not(checked) ~ .search {
+        display: none;
+    }
+    #search-toggle__button:checked ~ .search {
+        display: block;
+    }
+    &__search {
+      .Header__search-input,
+      .Header__search-input + * {
+        display: none;
       }
-      .search-bar {
+      .Header__search-input:checked + * {
+        display: block;
+      }
+      .Header__search-bar {
         position: relative;
-        margin: 0;
-        input[type="text"] {
-          @include font($baton-regular);
-          color: $springster-purple;
-          font-size: 20px;
-          padding: 5px 0 5px 15px;
-          width: 98%;
-          border: 2px solid $springster-purple;
-          box-sizing: border-box;
-          &:focus {
-            border: 2px solid $gunmetal;
-            outline: 0;
+        display: none;
+        &:after {
+          content: "";
+          background-color: $springster-purple;
+          background-image: url("/static/authentication_service/images/icons/dismiss.svg"), url("/static/authentication_service/images/icons/dismiss.svg");
+          background-repeat: no-repeat;
+          background-position: 0 50%;
+          background-size: 70%;
+          float: right;
+          height: 30px;
+          width: 25px;
+          pointer-events: none;
+          margin-top: -89px;
+        }
+        .search-bar {
+          position: relative;
+          margin: 0;
+          input[type="text"] {
+            @include font($baton-regular);
+            color: $springster-purple;
+            font-size: 20px;
+            padding: $spacer-half 0 $spacer-half $spacer-mid;
+            width: 98%;
+            border: 2px solid $springster-purple;
+            box-sizing: border-box;
+            &:focus {
+              border: 2px solid $gunmetal;
+              outline: 0;
+            }
           }
         }
       }
     }
-  }
-  .Call-to-action {
-    &__item {
-      border: none;
-      &--search-icon {
-          text-indent: -99em;
-          height: 21px;
-          width: 21px;
-          position: absolute;
-          top: 20%;
-          padding: 0;
-
-          background-color: transparent;
-          background-image: url(/static/authentication_service/images/icons/search.svg), url(/static/authentication_service/images/icons/search@2x.png);
-          background-repeat:  no-repeat;
-          background-position: 100% 0;
-          background-size: auto 98%;
-          right: 3%;
-      }
-    }
-
-  }
-
-  &__menu {
-    .menu-list {
-      padding: 0;
-      margin: 0;
-      overflow: auto;
-      text-align: center;
-      width: 100%;
-      display: inline-block;
+    .Call-to-action {
       &__item {
-        padding: 5px 0 0;
-      }
-    }
-    .menu-list__anchor,
-    .menu-list__anchor label {
-      padding: 5px;
-      font-weight: normal;
-    }
-  }
+        border: none;
+        &--search-icon {
+            text-indent: -99em;
+            height: 21px;
+            width: 21px;
+            position: absolute;
+            top: 20%;
+            padding: 0;
 
-  #profile {
-    float: left;
-    .menu-list__anchor--section-nav {
-      background-image: url(/static/authentication_service/images/icons/avatar.svg), url(/static/authentication_service/images/icons/avatar@2x.png);
-      background-position: 10px 3px;
-      background-repeat: no-repeat;
+            background-color: transparent;
+            background-image: url(/static/authentication_service/images/icons/search.svg), url(/static/authentication_service/images/icons/search@2x.png);
+            background-repeat:  no-repeat;
+            background-position: 100% 0;
+            background-size: auto 98%;
+            right: 3%;
+        }
+      }
+
     }
-  }
-  #search {
-    float: right;
-    .menu-list__anchor--section-nav {
-      background-image: url(/static/authentication_service/images/icons/nav_search.svg), url(/static/authentication_service/images/icons/search-mint@2x.png);
-      background-position: 15px 3px;
-      background-repeat: no-repeat;
-    }
-  }
-  #profile,
-  #search {
-    .menu-list__anchor--section-nav {
-      background-size: auto 95%;
-      background-position: 3px 0;
-      text-indent: 120%;
-      vertical-align: middle;
-      overflow: hidden;
-      white-space: nowrap;
-      width: 28px;
-      padding: 0;
-      height: 25px;
-      color: #fff;
-      display: block;
+    &__menu {
+      .menu-list {
+        padding: 0;
+        margin: 0;
+        overflow: auto;
+        text-align: center;
+        width: 100%;
+        display: inline-block;
+        &__item {
+          padding: $spacer-half 0 0;
+        }
+      }
+      .menu-list__anchor,
       .menu-list__anchor label {
-        text-indent: 100%;
-        margin: -10px 0;
-        color: #fff;
+        padding: $spacer-half;
+        font-weight: normal;
       }
     }
-  }
+    #profile {
+      float: left;
+      .menu-list__anchor--section-nav {
+        background-image: url("/static/authentication_service/images/icons/avatar.svg"), url("/static/authentication_service/images/icons/avatar@2x.png");
+        background-position: $spacer 3px;
+        background-repeat: no-repeat;
+      }
+    }
+    #search {
+      float: right;
+      .menu-list__anchor--section-nav {
+        background-image: url("/static/authentication_service/images/icons/nav_search.svg"), url("/static/authentication_service/images/icons/search-mint@2x.png");
+        background-position: $spacer-mid 3px;
+        background-repeat: no-repeat;
+      }
+    }
+    #profile,
+    #search {
+      .menu-list__anchor--section-nav {
+        background-size: auto 95%;
+        background-position: 3px 0;
+        text-indent: 120%;
+        vertical-align: middle;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 28px;
+        padding: 0;
+        height: 25px;
+        color: #fff;
+        display: block;
+        .menu-list__anchor label {
+          text-indent: 100%;
+          margin: -10px 0; //-10px issue
+          color: #fff;
+        }
+      }
+    }
 
-  //SECTION NAVIGATION
-  .section-nav {
+    //SECTION NAVIGATION
+    .section-nav {
     &-list {
       margin: 0;
       padding: 0;
       &__item {
         display: inline-block;
-        padding: 5px 15px 2px 0;
+        padding: $spacer $spacer-mid 2px 0;
         &:last-child {
           padding-right: 0;
         }
@@ -246,19 +243,12 @@ hr {
       }
     }
   }
-
-  //End extra code
+  //END PHASE 2:HEADER
 
   &-branding {
-    margin-bottom: 0;
-    //Start extra code
-    margin: 0 auto;
+    margin: 0 auto 0;
     display: inline-block;
-    left: 0;
-    right: 0;
-    position: absolute;
     width: 65%;
-    //End extra code
     &-image {
       width: 100%;
     }
@@ -267,21 +257,19 @@ hr {
   &-title {
     background: transparent;
     text-align: center;
-    background-color: $springster-purple;
     margin: 0;
-    padding: 15px 8px 35px;
-
+    padding: $spacer-mid 8px $spacer-mid;
     h1 {
       background: url('/static/authentication_service/images/lines/zig-zag-underline.png') bottom no-repeat;
       background-size: 145px;
       color: $gunmetal;
       font-size: $font-x-large;
       margin: 0;
-      padding: 0 0 10px;
+      padding: 0 0 $spacer;
     }
   }
   &-links {
-   margin: 10px 0 0;
+   margin: $spacer 0 0;
   }
 }
 
@@ -289,14 +277,12 @@ hr {
 .List {
   list-style: none;
   padding: 0;
-
   li {
     margin: $spacer-mid 0 0;
   }
 }
 .QR {
   text-align: center;
-
   &-image {
     border: 3px solid $gunmetal;
   }
@@ -324,16 +310,13 @@ hr {
   padding: 0;
   .Field {
     margin-top: $spacer-multiple;
-
     &-message {
       margin-top: $spacer;
     }
-
     &-label {
       font-size: $font-medium;
       font-weight: normal;
     }
-
     .DateInput,
     .EmailInput,
     .NumberInput,
@@ -365,12 +348,10 @@ hr {
       background-color: black;
       display: inline-block;
     }
-
     .input[type="file"]:focus + label,
     .input[type="file"] + label:hover {
       background-color: red;
     }
-
     .Textarea {
       height: 100px;
     }
@@ -381,7 +362,6 @@ hr {
     display: block;
     position: relative;
     width: 100%;
-
     &::after {
       border-style: solid;
       border-width: .15em .15em 0 0;
@@ -396,7 +376,6 @@ hr {
       transform: rotate(135deg);
       width: .65em;
     }
-
     .Select {
       appearance: none;
       background-color: transparent;
@@ -407,7 +386,6 @@ hr {
       outline: none;
       padding: $spacer;
       width: 100%;
-
       &:focus {
         border-color: $gunmetal;
       }
@@ -419,7 +397,6 @@ hr {
     margin: 0;
     position: relative;
     width: 100%;
-
     .Field-label {
       display: table-cell;
       padding-right: $spacer;
@@ -427,11 +404,9 @@ hr {
       vertical-align: middle;
       width: 60%;
     }
-
     .Field-item {
       text-align: left;
       vertical-align: middle;
-
       .CheckboxInput {
         appearance: none;
         border: 2px solid $springster-purple;
@@ -440,11 +415,9 @@ hr {
         outline: none;
         padding: $spacer-mid;
         width: $spacer-multiple;
-
         &:checked {
           background-color: $springster-purple;
           border-color: $springster-purple;
-
           &::after {
             color: $white;
             content: '\2714';
@@ -458,7 +431,6 @@ hr {
       }
     }
   }
-
   .Field-message--error {
     &.Field--required {
       .Field-item {
@@ -468,7 +440,6 @@ hr {
       }
     }
   }
-
   &-buttons {
     margin-bottom: $spacer-multiple;
   }
@@ -491,7 +462,7 @@ hr {
   background-size: 100%;
   background-position: 0 0;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: $spacer-half;
   display: block;
   max-width: 344px;
   max-height: 40px;
@@ -603,7 +574,6 @@ hr {
       font-family: BatonTurboRegular,Helvetica,Arial,sans-serif;
     }
   }
-
   p {
     margin: 0;
   }
