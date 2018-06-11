@@ -51,13 +51,23 @@ hr {
 }
 
 .Container {
-  background: $colorGrey;
-  padding: 0 $spacer-mid;
+  background: #fff;
+  padding: 0;
+  overflow: auto;
 
   .Intro {
     color: $colorPurple;
     padding: 0 $spacer-mid;
     text-align: center;
+  }
+}
+
+.Breadcrumbs {
+  background: #f3f4f1;
+  padding: 5px 10px;
+  p {
+    margin: 0;
+    color: #7a7a7a;
   }
 }
 
@@ -75,13 +85,14 @@ hr {
 
   &-branding {
     background-color: $colorYellow;
-    margin: 0 (-$spacer-mid);
-    padding: $spacer-mid;
-
+    margin: 0;
+    padding: 0 $spacer-mid;
+    text-align: left;
+    overflow: auto;
     &-image {
       background: url('/static/authentication_service/images/zathu.png') no-repeat;
-      background-position: 50%;
-      background-size: 200px;
+      background-position: 0;
+      background-size: 130px;
       display: block;
       height: 60px;
       padding-left: 100%;
@@ -90,19 +101,29 @@ hr {
   }
 }
 
-.Footer {
-  background: #fff;
-  border: 0;
-  font-size: $font-m-small;
-  margin: 0 (-$spacer-mid);
-  padding: $spacer 0;
-  text-align: center;
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  &:after {
+    content: "";
+    height: 40px;
+    background-image: url("/static/authentication_service/images/separator/mw_zig_pattern_30.png");
+    margin: 0 0 $spacer-mid 0;
+    background-position: center center;
+    background-repeat: repeat-x;
+    background-size: auto;
+    display: block;
+  }
 }
 
 .Form {
+  background: $colorGrey;
+  padding: $spacer $spacer-mid;
+  margin: 0 $spacer;
   .Field {
     margin-top: $spacer;
-    text-align: center;
+    text-align: left;
 
     &-item {
       display: contents;
@@ -173,6 +194,9 @@ hr {
 
 .Additional-text {
   text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  padding: $spacer-mid 0 0;
 }
 
 .Button {
@@ -232,23 +256,47 @@ hr {
   }
 }
 
+.Footer {
+  background: $colorGrey;
+  border: 0;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
+}
+
 .Menu {
   padding: 0;
-
   &-title {
     display: none;
   }
-
-  &-item {
-    a {
-      font-size: $font-medium;
-    }
-  }
-
   &-list {
     list-style: none;
     margin: 0;
     padding: 0;
+    text-align: left;
+  }
+  &-item {
+    a {
+      font-size: $font-large;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+
+.Call-to-action {
+  padding: 0 0 $spacer-mid 0;
+  &--backToTop-nav-item {
+    color: #5c5c5c;
+    font-size: 20px;
+  }
+}
+.Copyright {
+  padding: 8px $spacer 0 0;
+  p {
+    font-size: 12px;
+    color: #a3a3a3;
     text-align: left;
   }
 }
