@@ -1,0 +1,32 @@
+{% load gravatar gem_tags %}
+<nav class="nav-main">
+    <ul>
+        {{ menu_html }}
+
+        <li class="footer" id="footer">
+            <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
+                <span class="avatar square avatar-on-dark">
+                    <img src="{% gravatar_url request.user.email 25 %}" />
+                </span>
+                <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
+            </div>
+            {% oidc_logout_url as LOGOUT_URL %}
+            <ul class="footer-submenu">
+                <li>
+                  <a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">
+                    {% trans "Account settings" %}
+                  </a>
+                </li>
+                <li>
+                  <form method="post" action="{% url LOGOUT_URL %}">
+                    {% csrf_token %}
+                    <span class="icon-logout_wrapper">
+                      <input class="icon icon-logout" value="{% trans "Log out" %}" type="submit">
+                    </span>
+                  </form>
+              </li>
+            </ul>
+
+        </li>
+    </ul>
+</nav>

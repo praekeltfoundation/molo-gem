@@ -32,11 +32,10 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 # Authentication Service Tokens
-USE_OIDC_AUTHENTICATION = environ.get('USE_OIDC_AUTHENTICATION', '') == 'true'
-OIDC_RP_CLIENT_ID = environ.get(
-    'OIDC_RP_CLIENT_ID', '')
-OIDC_RP_CLIENT_SECRET = environ.get(
-    'OIDC_RP_CLIENT_SECRET', '')
+USE_OIDC_AUTHENTICATION = environ.get(
+    'USE_OIDC_AUTHENTICATION', '') == 'true'
+OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
     'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
@@ -48,27 +47,22 @@ OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
 OIDC_OP = environ.get('OIDC_OP', '')
 THEME = environ.get('THEME', 'springster')
-LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', '')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
 REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
-LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
+OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
+OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
 OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
     LOGOUT_URL = 'oidc_logout'
-    REGISTRATION_URL = (
-        "%s/registration/?theme=%s&hide=end-user&redirect_url=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL))
-    VIEW_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
-    EDIT_PROFILE_URL = "%s/profile/edit/?theme=%s&redirect_url=%s" % (
-            OIDC_OP, THEME, WAGTAIL_REDIRECT_URL)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -171,7 +165,7 @@ MIDDLEWARE_CLASSES = [
 
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE_CLASSES += [
-        'mozilla_django_oidc.middleware.SessionRefresh',
+        'gem.middleware.CustomSessionRefresh',
     ]
 
 # Template configuration
@@ -248,7 +242,9 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ALWAYS_EAGER = False
-CELERY_IMPORTS = ('gem.tasks', 'molo.core.tasks', 'google_analytics.tasks')
+CELERY_IMPORTS = (
+    'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task',
+    'molo.commenting.tasks')
 BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = environ.get(
     'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
