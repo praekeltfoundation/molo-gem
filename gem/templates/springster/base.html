@@ -47,16 +47,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="screen and (min-width: 360px)">
     {% endcompress %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
       {% endcompress %}
     {% endif %}
-
     <noscript>
-    {% compress css %}
+    {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
@@ -66,7 +65,7 @@
   var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
   var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
   var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-  var smartStylesLarge = '{% spaceless %}{% compress css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="all">{% endcompress %}{% endspaceless %}';
+  var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="all">';
     if (cutsTheMustard === true) {
       if (smartDevice && raf) {
           raf(function() {
