@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 def detect_bbm(request):
@@ -49,7 +50,8 @@ def compress_settings(request):
                 "%s/registration/?theme=%s&hide=end-user&redirect_uri=%s"
                 "&client_id=%s" % (
                     settings.OIDC_OP, settings.THEME,
-                    oidc_settings.wagtail_redirect_url,
+                    request.site.root_url
+                    + reverse('oidc_authentication_init'),
                     oidc_settings.oidc_rp_client_id))
             VIEW_PROFILE_URL = (
                 "%s/profile/edit/?theme=%s&redirect_uri=%s&client_id=%s" % (
