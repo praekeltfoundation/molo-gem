@@ -41,13 +41,6 @@ def _update_user_from_claims(user, claims):
         user.profile = UserProfile(user=user)
         user.profile.site = Site.objects.get(is_default_site=True)
 
-    # check if the user has an alias
-    # if so. ensure that the alias is eaul to the user_name
-    if user.profile.alias is None or user.profile.alias == "":
-        user.profile.alias = user.first_name
-    elif user.profile.alias != user.first_name:
-        user.profile.alias = user.first_name
-
     # Ensure the profile is linked to their auth service account using the uuid
     if user.profile.auth_service_uuid is None:
         user.profile.auth_service_uuid = claims.get("sub")
@@ -58,6 +51,10 @@ def _update_user_from_claims(user, claims):
     if date_of_birth:
         date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
     user.profile.date_of_birth = date_of_birth
+    if user.profile.alias is None or user.profile.alias == "":
+        user.profile.alias = user.username
+    elif user.profile.alias != user.username:
+        user.profile.alias = user.username
     user.profile.save()
 
     # Synchronise the roles that the user has.
