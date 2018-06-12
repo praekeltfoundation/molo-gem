@@ -73,19 +73,26 @@ def _update_user_from_claims(user, claims):
                 try:
                     wagtail_group = Group.objects.get(name=group_name)
                     user.groups.add(wagtail_group)
+                    if not user.is_staff:
+                        user.is_staff = True
+                        user.save()
                 except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
         if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
-                user.is_staff = False
                 user.is_superuser = False
                 user.save()
+
         for group_name in groups_to_remove:
             try:
                 wagtail_group = Group.objects.get(name=group_name)
                 user.groups.remove(wagtail_group)
             except Group.DoesNotExist:
                 LOGGER.debug("Group {} does not exist".format(group_name))
+    else:
+        user.groups.clear()
+        user.is_staff = False
+        user.save()
 
 
 class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
