@@ -91,6 +91,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.create(
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
+        user.profile.alias = "fake_alias"
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
@@ -101,6 +102,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
                           'e2556752-16d0-445a-8850-f190e860dea4')
         self.assertEquals(user.profile.gender, 'f')
         self.assertEquals(user.profile.date_of_birth, date(1988, 5, 22))
+        self.assertEquals(user.profile.alias, 'testgivenname')
 
     def test_add_user_role_from_claims(self):
         roles = ['data_admin', ]
