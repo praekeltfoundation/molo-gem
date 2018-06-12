@@ -36,17 +36,17 @@
 
         {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
             <p>{% trans "Mobile number:" %}
-            <span>{{ user.profile.mobile_number | default:"Not set" }}</span></p>
+            <span>{{ user.profile.mobile_number | default:defaultText }}</span></p>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.show_email_field %}
           <p>{% trans "Email Address:" %}
-          <span>{{ user.email | default:"Not set" }}</span></p>
+          <span>{{ user.email | default:defaultText }}</span></p>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.activate_location %}
             <p>{% trans "Location:" %}
-            <span>{{ user.profile.location | default:"Not set" }}</span></p>
+            <span>{{ user.profile.location | default:defaultText }}</span></p>
         {% endif %}
 
         {% if settings.profiles.UserProfilesSettings.activate_education_level %}
