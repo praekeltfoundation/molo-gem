@@ -73,8 +73,9 @@ def _update_user_from_claims(user, claims):
                 try:
                     wagtail_group = Group.objects.get(name=group_name)
                     user.groups.add(wagtail_group)
-                    user.is_staff = True
-                    user.save()
+                    if not user.is_staff:
+                        user.is_staff = True
+                        user.save()
                 except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
