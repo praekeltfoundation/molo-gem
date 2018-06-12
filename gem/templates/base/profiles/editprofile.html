@@ -31,6 +31,29 @@
         {{ form.gender }}
       </fieldset>
     {% endif %}
+    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+      <fieldset>
+        <label>{% trans "Update your mobile number:" %}</label>
+        {{ form.mobile_number.errors }}
+        {{ form.mobile_number }}
+        <p class="helptext">{% trans "(e.g. 0914556789)" %}</p>
+      </fieldset>
+    {% endif %}
+    {% if settings.profiles.UserProfilesSettings.show_email_field %}
+    <fieldset>
+      <label>{% trans "Update your email address:" %}</label>
+      {{ form.email.errors }}
+      {{ form.email}}
+      <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
+    </fieldset>
+    {% endif %}
+    {% if settings.profiles.UserProfilesSettings.activate_location %}
+    <fieldset>
+      <label>{% trans "Update where you live:" %}</label>
+      {{ form.location.errors}}
+      {{ form.location }}
+    </fieldset>
+    {% endif %}
     {% if settings.profiles.UserProfilesSettings.activate_education_level %}
       <fieldset>
         <label>{% trans "Update your Education Level:" %}</label>
