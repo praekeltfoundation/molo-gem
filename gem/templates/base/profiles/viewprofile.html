@@ -34,11 +34,25 @@
             <span>{{ user.profile.gender|gender_display | default:defaultText }}</span></p>
         {% endif %}
 
-        {% if settings.profiles.UserProfilesSettings.activate_education_level %}
-          <p>{% trans "Education Level:" %}
-            <span>{{ user.profile.education_level | default:defaultText }}</span></p>
+        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+            <p>{% trans "Mobile number:" %}
+            <span>{{ user.profile.mobile_number | default:"Not set" }}</span></p>
         {% endif %}
 
+        {% if settings.profiles.UserProfilesSettings.show_email_field %}
+          <p>{% trans "Email Address:" %}
+          <span>{{ user.email | default:"Not set" }}</span></p>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_location %}
+            <p>{% trans "Location:" %}
+            <span>{{ user.profile.location | default:"Not set" }}</span></p>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+          <p>{% trans "Education Level:" %}
+          <span>{{ user.profile.education_level | default:defaultText }}</span></p>
+        {% endif %}
         <a href="{{EDIT_PROFILE_URL}}" class="button inverted logout-link">
           {% trans "Update Profile" %}
         </a>
