@@ -133,8 +133,6 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         # check that alias is initially empty
         self.assertEquals(user.profile.alias, None)
         _update_user_from_claims(user, claims)
-        user = get_user_model().objects.get(id=user.pk)
-
         # test that empty alias is set to username
         self.assertEquals(user.profile.alias, user.username)
         # test that alias will only change on update from claims
