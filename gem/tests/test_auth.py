@@ -130,6 +130,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
             username='testuser', password='password')
+        # check that alias is initially empty
+        self.assertEquals(user.profile.alias, None)
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
 
