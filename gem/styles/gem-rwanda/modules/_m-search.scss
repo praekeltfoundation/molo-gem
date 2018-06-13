@@ -1,7 +1,16 @@
 .search {
-  //padding:  $spacer-small $spacer-half;
-  //position: relative;
+  padding:  $spacer-small $spacer-half;
   label {
+    //For smartphone 
+    @media screen and (min-width: $phablet) {
+      background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-cion.svg');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 100%;
+      height: auto;
+      text-indent: -1000px;
+      width: 30px;
+    }
     color: #ffffff;
     cursor: pointer;
     display: block;
@@ -22,7 +31,10 @@
     position: absolute;
     right: 10%;
   }
-  .search__input + * {display: none;}
-  .search__input:checked + * {display: block;}
-  //.search__bar {display: block;}
+  .search__input + * {
+    display: none;
+  }
+  .search__input:checked + * {
+    display: block;
+  }
 }
