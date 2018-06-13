@@ -120,7 +120,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEquals(user.groups.all().count(), 1)
         self.assertEquals(user.groups.first().name, 'data_admin')
 
-    def test_display_username_as_alias_from_claims(self):
+    def test_alias_set_to_username(self):
         roles = ['data_admin', ]
         claims = {
             'roles': roles,
@@ -130,12 +130,15 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
             username='testuser', password='password')
-
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
+
+        # test that empty alias is set to username
         self.assertEquals(user.profile.alias, user.username)
+        # test that alias will only change on update from claims
         user.profile.alias = "an_alias"
         self.assertNotEquals(user.profile.alias, user.username)
+        # test that non-empty alias is also set to username
         _update_user_from_claims(user, claims)
         self.assertEquals(user.profile.alias, user.username)
 
