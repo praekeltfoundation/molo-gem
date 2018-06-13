@@ -51,6 +51,10 @@ def _update_user_from_claims(user, claims):
     if date_of_birth:
         date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
     user.profile.date_of_birth = date_of_birth
+    if user.profile.alias is None or user.profile.alias == "":
+        user.profile.alias = user.username
+    elif user.profile.alias != user.username:
+        user.profile.alias = user.username
     user.profile.save()
 
     # Synchronise the roles that the user has.
