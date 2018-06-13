@@ -1,0 +1,32 @@
+nav .nav {
+  clear: both;
+  &-list {
+    padding: 0;
+    margin: 0;
+    float: left;
+    &__item {
+      display: inline-block;
+    }
+    &__anchor {
+      color: #ffffff;
+      padding: $spacer-small $spacer-half;
+      text-transform: uppercase;
+    }
+    &__label {
+      color: #ffffff;
+      text-transform: uppercase;
+      //Show this on smartphones
+        &:before {
+          content: '';
+          background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
+          width: 25px;
+          height: 25px;
+          display: inline-block;
+          vertical-align: text-top;
+          margin: 0 $spacer-half 0 0;
+        }
+      padding: $spacer-small $spacer-half;
+    }
+  }
+  &--header {}
+}

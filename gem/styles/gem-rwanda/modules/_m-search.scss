@@ -1,0 +1,28 @@
+.search {
+  //padding:  $spacer-small $spacer-half;
+  //position: relative;
+  label {
+    color: #ffffff;
+    cursor: pointer;
+    display: block;
+    float: right;
+    text-transform: uppercase;
+    &:active, &:hover, &:focus {
+      color: $color-pink;
+    } &:visited {
+      @media screen and (min-width: $phablet) {
+        outline: none;
+      }
+    }
+  }
+
+  //SEARCH TOGGLE
+  .search__input {
+    visibility: hidden;
+    position: absolute;
+    right: 10%;
+  }
+  .search__input + * {display: none;}
+  .search__input:checked + * {display: block;}
+  //.search__bar {display: block;}
+}
