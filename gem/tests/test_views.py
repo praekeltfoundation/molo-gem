@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, Client, RequestFactory
 from django.test.utils import override_settings
 from django.utils import timezone
+from mock import patch
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport, OIDCSettings
@@ -563,6 +564,31 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
+    @patch('mozilla_django_oidc.views.OIDCAuthenticationRequestView.get')
+    def test_settings_added_to_login_request(self, mock_super):
+        view = CustomAuthenticationRequestView()
+        request = RequestFactory().get('/')
+        site = self.main.get_site()
+        request.site = site
+
+        # Check an error is raised if settings don't exist
+        with self.assertRaises(RuntimeError) as e:
+            view.get(request)
+        self.assertTrue("Site {} has no settings configured.".format(site)
+                        in e.exception)
+
+        # Add settings
+        site.oidcsettings = OIDCSettings.objects.create(
+            oidc_rp_client_id='client_id',
+            oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
+            wagtail_redirect_url='http://example.url', site_id=site.id)
+
+        view.get(request)
+        self.assertEqual(view.OIDC_RP_CLIENT_ID, 'client_id')
+        self.assertEqual(view.OIDC_RP_SCOPES, 'scopes')
+        self.assertEqual(view.wagtail_redirect_url, 'http://example.url')
+        mock_super.assert_called_with(request)
 
     def test_extra_params_set(self):
         """ Test the custom auth view sets the correct extra_params"""
