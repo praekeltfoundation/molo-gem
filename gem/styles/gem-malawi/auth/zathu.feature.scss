@@ -98,18 +98,21 @@ hr {
     content: " ";
     height: 40px;
     background-image: url("/static/authentication_service/images/separator/mw_zig_pattern_30.png");
-    margin: 0 0 $spacer-mid 0;
+    margin: $spacer-multiple 0 $spacer-mid 0;
     background-position: center center;
     background-repeat: repeat-x;
     background-size: auto;
     display: block;
+  }
+  p, .center {
+    padding: 0 $spacer-mid;
   }
 }
 
 .Form {
   background: $colorGrey;
   padding: $spacer $spacer-mid;
-  margin: 0 $spacer;
+  margin: 0 $spacer $spacer-multiple;
   .Field {
     margin-top: $spacer;
     text-align: left;
@@ -186,7 +189,12 @@ hr {
   text-align: center;
   font-weight: 400;
   font-size: 16px;
-  padding: $spacer-mid 0 0;
+  padding: 0;
+  margin: 0;
+  a {
+    display: inline-block;
+    padding: $spacer 0;
+  }
 }
 
 .Button {
