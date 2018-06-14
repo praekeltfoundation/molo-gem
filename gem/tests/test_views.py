@@ -576,10 +576,7 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
         request.site = site
 
         # Check an error is raised if settings don't exist
-        with self.assertRaises(RuntimeError) as e:
-            view.get(request)
-        self.assertTrue("Site {} has no settings configured.".format(site)
-                        in e.exception)
+        self.assertRaises(RuntimeError, view.get, request)
 
         # Add settings
         site.oidcsettings = OIDCSettings.objects.create(
@@ -601,10 +598,7 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
         request.site = site
 
         # Check an error is raised if settings don't exist
-        with self.assertRaises(RuntimeError) as e:
-            view.get_extra_params(request)
-        self.assertTrue("Site {} has no settings configured.".format(site)
-                        in e.exception)
+        self.assertRaises(RuntimeError, view.get_extra_params, request)
 
         # Add settings
         site.oidcsettings = OIDCSettings.objects.create(
