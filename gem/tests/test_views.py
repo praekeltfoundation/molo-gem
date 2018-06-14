@@ -567,6 +567,9 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
 
     @patch('mozilla_django_oidc.views.OIDCAuthenticationRequestView.get')
     def test_settings_added_to_login_request(self, mock_super):
+        """ Test the custom auth view adds the neccessary settings to the
+        request
+        """
         view = CustomAuthenticationRequestView()
         request = RequestFactory().get('/')
         site = self.main.get_site()

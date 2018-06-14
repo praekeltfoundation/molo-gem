@@ -87,6 +87,10 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
     @override_settings(ENV='test_env', STATIC_URL='test_static_url',
                        USE_OIDC_AUTHENTICATION='True')
     def test_returns_oidc_settings(self):
+        """ Test OIDC settings for a site are used when getting the settings
+        for a request
+        """
+        # Create request and add settings to site
         request = RequestFactory().get('/')
         site = self.main.get_site()
         site.oidcsettings = OIDCSettings.objects.create(
@@ -95,6 +99,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
             wagtail_redirect_url='http://example.url', site_id=site.id)
         request.site = site
 
+        # Check settings
         settings = compress_settings(request)
         self.assertEqual(settings['LOGIN_URL'], 'molo.profiles:auth_login')
         self.assertEqual(
