@@ -2,13 +2,14 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from django.test.utils import override_settings
 from django.utils import timezone
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
-from gem.models import GemSettings, GemCommentReport
+from gem.models import GemSettings, GemCommentReport, OIDCSettings
 from gem.tests.base import GemTestCaseMixin
+from gem.views import CustomAuthenticationRequestView
 
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
@@ -555,3 +556,33 @@ class TestBbmRedirectView(TestCase, GemTestCaseMixin):
     def test_it_returns_bad_request_if_url_unsafe(self):
         response = self.client.get('/bbm//http://evil.com/')
         self.assertEqual(response.status_code, 400)
+
+
+class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
+    def test_extra_params_set(self):
+        """ Test the custom auth view sets the correct extra_params"""
+        view = CustomAuthenticationRequestView()
+        request = RequestFactory().get('/')
+        site = self.main.get_site()
+        request.site = site
+
+        # Check an error is raised if settings don't exist
+        with self.assertRaises(RuntimeError) as e:
+            view.get_extra_params(request)
+        self.assertTrue("Site {} has no settings configured.".format(site)
+                        in e.exception)
+
+        # Add settings
+        site.oidcsettings = OIDCSettings.objects.create(
+            oidc_rp_client_id='client_id',
+            oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
+            wagtail_redirect_url='http://example.url', site_id=site.id)
+
+        self.assertEqual(view.get_extra_params(request), {
+            'theme': 'springster', 'language': 'en'
+        })
