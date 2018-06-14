@@ -1,8 +1,16 @@
 @import '../variables/*';
+@font-face {
+  font-family: 'AvenirNextCondensed';
+  src: url('/static/fonts/AvenirNextCondensed-Bold.woff2') format('woff2'),
+       url('/static/fonts/AvenirNextCondensed-Bold.woff') format('woff'),
+       url('/static/fonts/AvenirNextCondensed-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
 
 body,
 html {
   background: $colorFourth;
+
   margin: 0;
 }
 
@@ -10,7 +18,7 @@ body,
 select,
 textarea {
   color: #000;
-  font-family: $font-family-default;
+  font-family: "AvenirNextCondensed", Helvetica, Arial, sans-serif;
   font-size: $font-small;
 }
 
@@ -47,21 +55,32 @@ hr {
   margin: $spacer-multiple 0;
 }
 
-.Header {
-  margin-bottom: $spacer-multiple;
-  text-align: center;
 
+@media (min-width: 40em) {
+  body {
+    margin-top: 0;
+  }
+
+  .Container {
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0;
+  }
+}
+
+
+.Header {
+  margin-bottom: 0;
+  text-align: center;
   &-branding {
     margin-bottom: 0;
-
     &-image {
       width: 100%;
     }
   }
-
   &-title {
     background: #fff;
-    margin: 0 (-$spacer-mid);
+    margin: 0;
     text-align: center;
 
     h1 {
@@ -107,33 +126,10 @@ hr {
   }
 }
 
-.Footer {
-  margin: $spacer-multiple (-$spacer-mid);
-  padding: $spacer-multiple;
-  text-align: center;
-
-  p {
-    margin: 0;
-  }
-}
-
-@media (min-width: 40em) {
-  body {
-    margin-top: $spacer-multiple * 2;
-  }
-
-  .Container {
-    background: $colorGrey;
-    margin: 0 auto;
-    max-width: 360px;
-    padding: 0 $spacer-mid;
-  }
-}
 
 .Form {
   .Field {
     margin-top: $spacer-multiple;
-
     &-message {
       margin-top: $spacer;
     }
@@ -314,5 +310,16 @@ hr {
   .Menu {
     margin-top: $spacer-mid;
     padding-bottom: $spacer;
+  }
+}
+
+
+.Footer {
+  margin: $spacer-multiple 0;
+  padding: $spacer-multiple;
+  text-align: center;
+
+  p {
+    margin: 0;
   }
 }

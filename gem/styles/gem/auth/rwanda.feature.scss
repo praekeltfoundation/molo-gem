@@ -52,8 +52,8 @@ hr {
 }
 
 .Container {
-  background: $colorGrey;
-  padding: 0 $spacer-mid;
+  background: #fff;
+  padding: 0;
 
   .Intro {
     color: #000;
@@ -64,11 +64,9 @@ hr {
 
 .Header {
   text-align: center;
-
   &-title {
     background: #fff;
-    margin: 0 (-$spacer-mid);
-
+    margin: 0;
     h1 {
       color: #000;
     }
@@ -76,7 +74,7 @@ hr {
 
   &-branding {
     background-color: $colorFirst;
-    margin: 0 (-$spacer-mid);
+    margin: 0;
     padding: $spacer-mid;
 
     &-image {
@@ -91,21 +89,23 @@ hr {
   }
 }
 
-.Footer {
-  background: #fff;
-  border: 0;
-  color: $colorFourth;
-  font-size: $font-m-small;
-  margin: 0 (-$spacer-mid);
-  padding: $spacer 0;
-  text-align: center;
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  p, .center {
+    padding: 0 $spacer-mid;
+  }
 }
 
+
 .Form {
+  background: $colorGrey;
+  margin: $spacer $spacer-half;
+  padding: $spacer;
   .Field {
     margin-top: $spacer;
-    text-align: center;
-
+    text-align: left;
     &-item {
       display: contents;
       margin-top: $spacer-half;
@@ -172,6 +172,35 @@ hr {
     margin-top: $spacer;
   }
 }
+.Messages {
+  margin: $spacer 0;
+
+  .Message {
+    color: #fff;
+    padding: $spacer;
+
+    &--success {
+      background: $colorFirst;
+    }
+
+    &--error,
+    &--warning {
+      background: $colorRed;
+    }
+  }
+}
+
+.errorlist {
+  color: $colorRed;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
 
 .Additional-text {
   text-align: center;
@@ -205,34 +234,6 @@ hr {
   }
 }
 
-.Messages {
-  margin: $spacer 0;
-
-  .Message {
-    color: #fff;
-    padding: $spacer;
-
-    &--success {
-      background: $colorFirst;
-    }
-
-    &--error,
-    &--warning {
-      background: $colorRed;
-    }
-  }
-}
-
-.errorlist {
-  color: $colorRed;
-  list-style: none;
-  margin: $spacer-half 0;
-  padding: 0;
-
-  li {
-    margin: $spacer-half 0;
-  }
-}
 
 .Menu {
   padding: 0;
@@ -243,6 +244,7 @@ hr {
 
   &-item {
     a {
+      font-weight: normal;
       font-size: $font-medium;
     }
   }
@@ -252,5 +254,20 @@ hr {
     margin: 0;
     padding: 0;
     text-align: left;
+  }
+}
+
+
+.Footer {
+  background: #ececec;
+  border: 0;
+  color: #5c5c5c;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
+  a {
+    font-size: 22px;
+    color: #5c5c5c;
   }
 }
