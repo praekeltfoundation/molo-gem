@@ -62,22 +62,11 @@ hr {
   }
 }
 
-.Breadcrumbs {
-  background: #f3f4f1;
-  padding: 5px 10px;
-  p {
-    margin: 0;
-    color: #7a7a7a;
-  }
-}
-
 .Header {
   text-align: center;
-
   &-title {
     background: #fff;
-    margin: 0 (-$spacer-mid);
-
+    margin: 0;
     h1 {
       color: $colorPurple;
     }
@@ -106,7 +95,7 @@ hr {
   padding:  0;
   overflow: auto;
   &:after {
-    content: "";
+    content: " ";
     height: 40px;
     background-image: url("/static/authentication_service/images/separator/mw_zig_pattern_30.png");
     margin: 0 0 $spacer-mid 0;
@@ -192,6 +181,7 @@ hr {
   }
 }
 
+.Header-links,
 .Additional-text {
   text-align: center;
   font-weight: 400;
@@ -256,15 +246,6 @@ hr {
   }
 }
 
-.Footer {
-  background: $colorGrey;
-  border: 0;
-  font-size: $font-m-small;
-  margin: 0;
-  padding: $spacer 0;
-  text-align: left;
-}
-
 .Menu {
   padding: 0;
   &-title {
@@ -285,18 +266,25 @@ hr {
   }
 }
 
-.Call-to-action {
-  padding: 0 0 $spacer-mid 0;
-  &--backToTop-nav-item {
-    color: #5c5c5c;
-    font-size: 20px;
-  }
-}
-.Copyright {
+.Footer {
+  background: $colorGrey;
+  border: 0;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
   padding: 8px $spacer 0 0;
   p {
     font-size: 12px;
     color: #a3a3a3;
     text-align: left;
+  }
+}
+
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: #5c5c5c;
+    font-size: 20px;
   }
 }
