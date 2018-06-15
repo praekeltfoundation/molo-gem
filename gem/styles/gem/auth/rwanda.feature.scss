@@ -12,7 +12,7 @@ select,
 textarea {
   color: #000;
   font-family: $font-family-default;
-  font-size: $font-small;
+  font-size: $font-x-medium;
 }
 
 a {
@@ -64,6 +64,7 @@ hr {
 
 .Header {
   text-align: center;
+  overflow: auto;
   &-title {
     background: #fff;
     margin: 0;
@@ -76,15 +77,20 @@ hr {
     background-color: $colorFirst;
     margin: 0;
     padding: $spacer-mid;
-
+    overflow: auto;
     &-image {
       background: url('/static/authentication_service/images/logo_rwanda.png') no-repeat;
-      background-position: 50% 70%;
-      background-size: 200px;
+      background-position: 0 0;
+      background-size: 119px;
       display: block;
-      height: 50px;
+      height: 28px;
       padding-left: 100%;
       width: 100%;
+      vertical-align: middle;
+      font-size: 14px;
+      text-transform: uppercase;
+      line-height: 42px;
+      text-align: right;
     }
   }
 }
@@ -100,9 +106,9 @@ hr {
 
 
 .Form {
-  background: $colorGrey;
-  margin: $spacer $spacer-half;
-  padding: $spacer;
+  background: #ececec;
+  margin: $spacer $spacer-mid;
+  padding: $spacer $spacer-mid;
   .Field {
     margin-top: $spacer;
     text-align: left;
@@ -131,15 +137,15 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 2px solid $colorPink;
+      border: 1px #d6d6d6 solid;
       font-size: 1em;
       height: 40px;
       outline: none;
       padding: $spacer;
       width: 100%;
-
+      border-width: 1px;
       &:focus {
-        border-color: $colorGrey;
+        border: 1px $colorGrey solid;
       }
     }
 
@@ -154,6 +160,16 @@ hr {
     &--required {
       input {
         border-color: $colorYellow;
+      }
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    .Select {
+      border: 1px solid $colorGrey;
+      &:focus {
+        border-color: $colorPink;
       }
     }
   }
@@ -204,6 +220,7 @@ hr {
 
 .Additional-text {
   text-align: center;
+  padding: $spacer-multiple 0 0;
 }
 
 .Button {
@@ -216,6 +233,7 @@ hr {
   padding: $spacer $spacer-half;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   width: 100%;
 
   &:hover {
@@ -227,17 +245,23 @@ hr {
 
   &--warning {
     background: $colorOrange;
-
     &:hover {
       background: $colorOrange;
     }
   }
 }
 
+.Back-to-top {
+  padding: $spacer 0 $spacer-multiple;
+  &--link {
+    font-weight: normal;
+  }
+}
 
 .Menu {
   padding: 0;
-
+  margin-top: 0;
+  margin-bottom: 0;
   &-title {
     display: none;
   }
@@ -269,5 +293,8 @@ hr {
   a {
     font-size: 22px;
     color: #5c5c5c;
+  }
+  p {
+    color: #a3a3a3;
   }
 }
