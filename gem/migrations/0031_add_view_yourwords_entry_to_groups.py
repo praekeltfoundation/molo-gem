@@ -18,7 +18,7 @@ def add_view_yourwords_entry_to_groups(apps, schema_editor):
     view_yourwords_entry = Permission.objects.get(
         codename='can_view_yourwords_entry')
     group_names = ('product_admin', 'data_admin', 'data_viewer',
-                   'content_admin', 'content_admin')
+                   'content_editor', 'content_admin')
     for group_name in group_names:
         group = Group.objects.get(name=group_name)
         group.permissions.add(view_yourwords_entry)
