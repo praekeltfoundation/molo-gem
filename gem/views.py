@@ -107,10 +107,11 @@ class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
         params = super(
             CustomAuthenticationRequestView, self).get_extra_params(request)
         site = request.site
+        language = getattr(request, 'LANGUAGE_CODE', settings.LANGUAGE_CODE)
         if not hasattr(site, "oidcsettings"):
             raise RuntimeError(
                 "Site {} has no settings configured.".format(site))
-        params.update({'theme': settings.THEME})
+        params.update({'theme': settings.THEME, 'language': language})
         return params
 
 
