@@ -4,6 +4,12 @@
   font-style: normal;
   font-weight: normal;
   src: url('/static/authentication_service/fonts/zathu-webfont.woff') format('woff');
+  src: url('/static/authentication_service/fonts/zathu-webfont.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'TwCenMT';
+  src: url('/static/authentication_service/fonts/TwCenMT-Regular.woff') format('woff');
+  font-weight: normal;
 }
 
 body,
@@ -43,23 +49,39 @@ h2 {
   text-align: center;
 }
 
-p,
-ul {
+p, ul {
   margin: $spacer 0;
   text-align: center;
+}
+
+ul, ol, li {
+  list-style: none;
 }
 
 hr {
   margin: $spacer-multiple 0;
 }
 
+
+@media (min-width: 40em) {
+  body {
+    margin-top: 0;
+  }
+
+  .Container {
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0;
+    overflow: auto;
+  }
+}
+
+
 .Header {
   margin-bottom: $spacer-multiple;
   text-align: center;
-
   &-branding {
     margin-bottom: 0;
-
     &-image {
       width: 100%;
     }
@@ -113,37 +135,14 @@ hr {
   }
 }
 
-.Footer {
-  margin: $spacer-multiple (-$spacer-mid);
-  padding: $spacer-multiple;
-  text-align: center;
-
-  p {
-    margin: 0;
-  }
-}
-
-@media (min-width: 40em) {
-  body {
-    margin-top: $spacer-multiple * 2;
-  }
-
-  .Container {
-    background: $colorGrey;
-    margin: 0 auto;
-    max-width: 360px;
-    padding: 0 $spacer-mid;
-  }
-}
 
 .Form {
+    background: $colorGrey;
   .Field {
     margin-top: $spacer-multiple;
-
     &-message {
       margin-top: $spacer;
     }
-
     &-label {
       font-size: $font-medium;
       font-weight: normal;
@@ -267,6 +266,9 @@ hr {
     margin-bottom: $spacer-multiple;
   }
 }
+.Additional-text {
+  font-family:  "TwCenMT-Regular", ArialMT, Arial, sans-serif;
+}
 
 .Button {
   &--warning {
@@ -284,28 +286,32 @@ hr {
   margin-top: $spacer-multiple;
 }
 
+
+.Footer {
+  margin: $spacer-multiple 0 0;
+  padding: $spacer-multiple;
+  text-align: left;
+  p {
+    margin: 0;
+  }
+}
 .Menu {
   margin: 0;
-
   &-title {
     background: $colorPurple;
     margin-left: 0;
     margin-right: 0;
     text-align: center;
-
     h1 {
       color: #fff;
       font-size: 1.2em;
     }
   }
-
   &-list {
-    padding-top: $spacer-half;
+    padding-top: 0;
   }
-
   &-item {
     margin: $spacer-mid 0;
-
     a {
       display: inline-block;
 

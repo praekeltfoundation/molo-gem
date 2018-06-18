@@ -63,12 +63,39 @@
           </fieldset>
         {% endif %}
 
+        {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+          <fieldset>
+            <label for="mobile_number">{% trans "Enter your mobile number" %}</label>
+            {{ form.mobile_number.errors}}
+            {{ form.mobile_number }}
+            <p class="helptext">{% trans "(e.g. 0900000013)" %}</p>
+          </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.show_email_field %}
+          <fieldset>
+            <label for="id_email">{% trans "Enter your email address" %}</label>
+            {{ form.email.errors}}
+            {{ form.email }}
+            <p class="helptext">{% trans "(e.g. example@foo.com)" %}</p>
+          </fieldset>
+        {% endif %}
+
         {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
           <fieldset>
             <label for="education_level">{% trans "What is your highest level of education?" %}</label>
             {{ form.education_level }}
             {{ form.education_level.errors}}
             <p class="helptext">{% trans "Only you will see this." %}</p>
+          </fieldset>
+        {% endif %}
+
+        {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
+          <fieldset>
+            <label for="location">{% trans "Where do you live?" %}</label>
+            {{ form.location.errors}}
+            {{ form.location }}
+            <p class="helptext">{% trans "Only you will see this" %}</p>
           </fieldset>
         {% endif %}
 

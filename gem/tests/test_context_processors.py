@@ -5,6 +5,8 @@ from gem.context_processors import (
     detect_bbm,
     detect_freebasics,
 )
+from gem.models import OIDCSettings
+from gem.tests.base import GemTestCaseMixin
 
 
 class TestDetectBbm(TestCase):
@@ -61,7 +63,11 @@ class TestDetectFreebasics(TestCase):
         )
 
 
-class TestCompressSettings(TestCase):
+class TestCompressSettings(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+
     @override_settings(ENV='test_env', STATIC_URL='test_static_url')
     def test_returns_settings(self):
         request = RequestFactory().get('/')
@@ -77,3 +83,37 @@ class TestCompressSettings(TestCase):
                 'STATIC_URL': 'test_static_url',
             }
         )
+
+    @override_settings(ENV='test_env', STATIC_URL='test_static_url',
+                       USE_OIDC_AUTHENTICATION='True')
+    def test_returns_oidc_settings(self):
+        """ Test OIDC settings for a site are used when getting the settings
+        for a request
+        """
+        # Create request and add settings to site
+        request = RequestFactory().get('/')
+        site = self.main.get_site()
+        site.oidcsettings = OIDCSettings.objects.create(
+            oidc_rp_client_id='client_id',
+            oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
+            wagtail_redirect_url='http://example.url', site_id=site.id)
+        request.site = site
+
+        # Check settings
+        settings = compress_settings(request)
+        self.assertEqual(settings['LOGIN_URL'], 'molo.profiles:auth_login')
+        self.assertEqual(
+            settings['VIEW_PROFILE_URL'],
+            u'/profile/edit/?theme=springster&redirect_uri='
+            'http://example.url&client_id=client_id&language=en')
+        self.assertEqual(settings['EDIT_PROFILE_URL'],
+                         u'/profile/edit/?theme=springster&redirect_uri='
+                         'http://example.url&client_id=client_id&language=en')
+        self.assertEqual(
+            settings['REGISTRATION_URL'],
+            u'/registration/?theme=springster&hide=end-user&redirect_uri='
+            'http://main1-1.localhost/oidc/authenticate/&client_id=client_id&'
+            'language=en')
+        self.assertEqual(settings['LOGOUT_URL'], 'molo.profiles:auth_logout')
+        self.assertEqual(settings['ENV'], 'test_env')
+        self.assertEqual(settings['STATIC_URL'], 'test_static_url')
