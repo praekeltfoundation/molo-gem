@@ -1,5 +1,5 @@
 .search {
-  padding:  $spacer-small $spacer-half;
+  padding-bottom: $spacer-small;
   &__form {
     position: relative;
   }
@@ -11,27 +11,25 @@
       background-position: 0 0;
       background-size: 88%;
       height: auto;
-      text-indent: -1000px;
-      width: 30px;
+      text-indent: -1000px; //PX
+      width: 30px; //PX
     }
     color: #ffffff;
     cursor: pointer;
     display: block;
-    float: right;
     text-transform: uppercase;
-    &:active, &:hover, &:focus {
-      color: $color-pink;
-    } &:visited {
-      @media screen and (min-width: $phablet) {
-        outline: none;
-      }
-    }
+    position: absolute;
+    right: $spacer-small;
+    top: 13px; //PX
   }
   //SEARCH TOGGLE
   .search__input {
     visibility: hidden;
     position: absolute;
-    right: 10%;
+    @media screen and (min-width: $phablet) {
+      right: $spacer-small;
+      top: 13px; //PX
+    }
   }
   .search__input + * {
     display: none;
@@ -51,9 +49,9 @@
     background-position: center center;
     background-size: 60%;
     margin: 0;
-    padding: 10px 0;
+    padding: ($spacer-half + 1) 0;
     height: auto;
-    width: 50px;
+    width: 50px; //PX
   }
 }
 
