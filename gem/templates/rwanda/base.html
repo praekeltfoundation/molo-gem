@@ -78,9 +78,9 @@
       <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
       <div class="search__bar">
         <input id="search_toggle" class="search__input" type="checkbox">
-        <form action="{% url 'search' %}" novalidate>
-            <input id="input__none" name="q" type="text" placeholder="{% trans "Search" %}" >
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
+        <form action="{% url 'search' %}" novalidate class="search__form">
+            <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
+          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
         </form>
       </div>
     </div>
@@ -137,9 +137,9 @@
     <div id="footer" class="footer">
       {% block search %}
         <div class="search">
-          <form action="{% url 'search' %}" novalidate>
-            <input id="input__none" name="q" type="text" placeholder="{% trans "Search" %}" >
-            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
+          <form action="{% url 'search' %}" novalidate class="search__form">
+            <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
+            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
           </form>
         </div>
       {% endblock %}

@@ -1,8 +1,23 @@
 .call-to-action {
   padding: $spacer-mid $spacer-half;
   &__item {
-    &--with-icon {}
-    &--with-icon-search {}
+    &--with-icon {
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        text-indent: -99em;
+        position: absolute;
+        right: 5px;
+        top: 0;
+      }
+    }
+    //SEARCH CTA
+    &--with-icon-search {
+      right: 55px;
+      top: 30px;
+    }
+    &--with-icon-search_footer {
+      right: 55px;
+    }
   }
   &--backToTop {}
 }
@@ -12,7 +27,6 @@ button,
 [type="reset"],
 [type="submit"],
 .call-to-action__item  {
-  background-color: $color-cyan-fountain;
   border: none;
   border-radius: 2px;
   color: #ffffff;
@@ -22,5 +36,4 @@ button,
   padding: $spacer-half;
   text-align: center;
   text-transform: uppercase;
-  width: 100%;
 }
