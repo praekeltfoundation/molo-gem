@@ -50,6 +50,7 @@ hr {
   box-sizing: border-box;
 }
 
+
 .Container {
   background: $white;
   padding: 0 !important; //Override Default
@@ -61,17 +62,8 @@ hr {
 }
 
 
-//HEADER STYLES
-.Breadcrumbs {
-  padding: $spacer $spacer-mid;
-  background: $springster-purple;
-  p {
-    margin: 0;
-    color: $pale-lilac;
-    text-align: center;
-  }
-}
 
+//HEADER STYLES
 .Header {
   text-align: center;
   &-title {
@@ -84,17 +76,65 @@ hr {
   &-branding {
     padding: $spacer-mid;
     &-image {
-      background: url('/static/authentication_service/images/sp-logo.png') no-repeat;
+      background: url('/static/authentication_service/images/springster-logo.svg')no-repeat;
       background-position: 50%;
       background-size: contain;
       display: block;
-      height: 35px;
+      height: 24px;
       padding-left: 100%;
       width: 100%;
     }
   }
 }
+//HEADING MODIFICATIONS
+.Registration {
+  .Header {
+    background-color: #7300ff;
+    padding: 0;
+    &-branding {
+      &-image {
+        background: url('/static/authentication_service/images/springster-logo-white.svg') no-repeat;
+        background-position: 50%;
+        background-size: contain;
+        height: 24px;
+      }
+    }
 
+    &-title {
+      background: 0 0;
+      text-align: center;
+      background-color: #7300ff;
+      margin: 0;
+      padding: 15px 8px 35px;
+      h1 {
+        background: url("/static/authentication_service/images/lines/skewed-underline.png") no-repeat 50% 100%/200px;
+        color: #fff;
+        font-size: 32px;
+        margin: 0;
+        padding: 0 0 10px;
+      }
+    }
+
+    &-links {
+      color: #ffffff;
+      a { color: #ffffff; }
+    }
+  }
+}
+.Delete-Account,
+.Security,
+.Password,
+.Reset-Password {
+  .Header-title {
+    padding: 0;
+    h1 {
+      background: transparent;
+      color: #4e5358;
+      font-size: 18px;
+      padding: $spacer-mid 8px 0;
+    }
+  }
+}
 //CONTENT BODY
 .Content {
   padding: 0 $spacer-mid 0;
@@ -226,6 +266,7 @@ hr {
 }
 .Additional-text {
   text-align: center;
+  display: block;
 }
 
 //FOOTER
@@ -235,6 +276,14 @@ hr {
   font-size: $font-xx-small;
   padding: $spacer 0;
   text-align: center;
+  //COPYRIGHT
+  p {
+    color: #a3a7ae;
+    font-size: 12px;
+    padding: $spacer-mid $spacer-mid $spacer;
+    margin: 0;
+    text-align: center;
+  }
 }
 
 .Menu {
