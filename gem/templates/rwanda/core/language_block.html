@@ -1,9 +1,9 @@
 {% if languages|length > 1 %}
-<div class="footer-languages footer-languages{{ extra_classes }}">
-  {% trans "Language" %}:
+<div class="languages languages--footer">
+  <p class="languages__label">{% trans "Language" %}:<p>
   {% get_current_language as LANGUAGE_CODE %}
   {% for language in languages %}
-    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__item {% if LANGUAGE_CODE == language.locale %} languages__item--active{% endif %}">{{ language }}</a>
+    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_LOCALE == language.locale %}active{% endif %}">{{ language }}</a>
   {% endfor %}
 </div>
 {% endif %}

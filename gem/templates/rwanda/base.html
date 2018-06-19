@@ -182,28 +182,28 @@
             </li>
           {% endif %}
         </ul>
+      </div>
       {% include "core/language_block.html" %}
       {% social_media_footer %}
-
-      <div class="copyright">
-        <div class="call-to-action call-to-action--backToTop">
-          <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
-            {% trans "Back to Top" %}</a>
-        </div>
-        <p class="copyright__footer-copy" >
-          &copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
-          {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
-              {% trans "Terms &amp; Conditions" %}
-            </a>
-          {% endif %}
-        </p>
-        {% if settings.gem.GemSettings.show_partner_credit %}
-          <a href="{{settings.gem.GemSettings.partner_credit_link}}">
-            {{settings.gem.GemSettings.partner_credit_description}}
+    </div>
+    <div class="copyright">
+      <div class="call-to-action call-to-action--backToTop">
+        <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
+          {% trans "Back to Top" %}</a>
+      </div>
+      <p class="copyright__disclaimer">
+        &copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
+        {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+          <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
+            {% trans "Terms &amp; Conditions" %}
           </a>
         {% endif %}
-      </div>
+      </p>
+      {% if settings.gem.GemSettings.show_partner_credit %}
+        <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+          {{settings.gem.GemSettings.partner_credit_description}}
+        </a>
+      {% endif %}
     </div>
   </footer>
   {% wagtailuserbar %}
