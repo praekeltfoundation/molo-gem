@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+  <h1 class="heading heading--tags"><span class="heading--related-tag">{{request.GET.tag}}</span></h1>
+  <div class="article-list">
+    {% for each_article in object_list %}
+    <div class="article-preview">
+      {% if each_article.image %}
+      <a href="{% pageurl each_article.specific %}" class="image">
+        {% image each_article.image width-80 %}
+      </a>
+      {% endif %}
+      <div class="article-except">
+        <h3 class="heading heading--article-tags"><a href="{% pageurl each_article.specific %}">{{each_article.title}}</a></h3>
+        <p>{{each_article.subtitle}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a href="{{request.GET.next}}" class="call-to-action-nav-back">{% trans "Back to article" %}</a>
+
+{% endblock %}

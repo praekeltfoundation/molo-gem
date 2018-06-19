@@ -1,0 +1,9 @@
+{% if languages|length > 1 %}
+<div class="footer-languages footer-languages{{ extra_classes }}">
+  {% trans "Language" %}:
+  {% get_current_language as LANGUAGE_CODE %}
+  {% for language in languages %}
+    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__item {% if LANGUAGE_CODE == language.locale %} languages__item--active{% endif %}">{{ language }}</a>
+  {% endfor %}
+</div>
+{% endif %}

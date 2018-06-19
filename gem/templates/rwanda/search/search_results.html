@@ -1,0 +1,110 @@
+
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags core_tags %}
+
+
+{% block body_class %}default-container{% endblock %}
+
+{% block content %}
+  {% if search_results %}
+  <div class="container">
+    <div class="title search">
+      <h3>{% trans "Search" %}</h3>
+      <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+      {% include "search/search_block.html" %}
+    </div>
+    <div class="search-results article-list">
+      {% for page in search_results %}
+      {% get_translation page.get_parent_section as parent_section %}
+        {% if page.image %}
+        <a href="{% pageurl page.specific %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
+          <div class="search-image">
+              {% image page.image fill-200x200 %}
+              {% image parent_section.image width-40 as section_image %}
+              <img src="{{ section_image.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }}" />
+          </div>
+          <div class="text">
+            <div class="section-title">
+              {{ parent_section.title }}
+            </div>
+            {% if page.title_highlight %}
+              <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
+            {% else %}
+              <h1 class="search--results__title">{{page.title}}</h1>
+            {% endif %}
+            {% if page.subtitle_highlight or page.body_highlight %}
+              <p class="search--results__subtitle highlight-description">
+                {% if page.subtitle_highlight %}
+                  {{page.subtitle_highlight|safe}}
+                {% elif page.body_highlight %}
+                  {{page.body_highlight|safe}}
+                {% endif %}
+              </p>
+            {% else %}
+              <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
+            {% endif %}
+          </div>
+        </a>
+        {% else %}
+          <a href="{% pageurl page.specific %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
+            <div class="text">
+              <div class="section-title">
+                {{ parent_section.title }}
+              </div>
+              {% if page.title_highlight %}
+                <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
+              {% else %}
+                <h1 class="search--results__title">{{page.title}}</h1>
+              {% endif %}
+              {% if page.subtitle_highlight or page.body_highlight %}
+                <p class="search--results__subtitle highlight-description">
+                  {% if page.subtitle_highlight %}
+                    {{page.subtitle_highlight|safe}}
+                  {% elif page.body_highlight %}
+                    {{page.body_highlight|safe}}
+                  {% endif %}
+                </p>
+              {% else %}
+                <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
+              {% endif %}
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="search-result pagination">
+      <div class="step-links">
+        {% if search_results.has_previous %}
+            <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}">&larr;</a>
+        {% endif %}
+        <span class="current">
+            Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
+        </span>
+        {% if search_results.has_next %}
+            <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}">&rarr;</a>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="title search">
+        <h3>{% trans "Search" %}</h3>
+    </div>
+    <div class="block">
+      <p class="no-search-results">{% trans "No search results for " %} <br/> `{{ search_query }}`</p>
+      <div id="search-form">
+          <form action="{% url 'search' %}" novalidate>
+            <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
+            <input type="submit" value="{% trans "Search"%}">
+          </form>
+      </div>
+    </div>
+    <hr>
+  </div>
+  {% endif %}
+{% endblock %}
+
+{% block search %}
+  {% if search_results %}
+      {% include "search/search_block.html" %}
+  {% endif %}
+{% endblock %}

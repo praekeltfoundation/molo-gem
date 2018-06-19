@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load core_tags molo_survey_tags %}
+
+
+{% block content %}
+<div class="section_page">
+  {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
+
+  <div id="article-hero">
+    {% load_child_articles_for_section self as articles %}
+    {% with articles|first as article %}
+    {% if article %}
+      {% include "core/article_intro_partial.html" with article=article %}
+    {% endif %}
+    {% endwith %}
+  </div>
+
+  <div class="article-list">
+    {% load_child_articles_for_section self as articles %}
+    {% for article in articles|slice:"1:" %}
+        {% include "core/article_intro_partial.html" with article=article square_image=True %}
+    {% endfor %}
+  </div>
+</div>
+{% if articles %}
+<div class="pagination">
+  {% if articles_paginated.has_previous %}
+    <a href="?p={{ articles_paginated.previous_page_number }}">&larr;</a>
+  {% endif %}
+  <span>
+    Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+  </span>
+  {% if articles_paginated.has_next %}
+    <a href="?p={{ articles_paginated.next_page_number }}">&rarr;</a>
+  {% endif %}
+</div>
+{% endif %}
+
+{% surveys_list_for_pages page=self %}
+
+{% endblock %}
