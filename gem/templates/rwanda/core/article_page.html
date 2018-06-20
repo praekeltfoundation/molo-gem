@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load molo_survey_tags wagtailembeds_tags %}
+
+{% load core_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+{% get_translation self.get_parent_section as parent_section %}
+<div class="article article{{ parent_section.get_effective_extra_style_hints }}">
+  {% include "core/section_header_partial.html" with url=parent_section image=parent_section.image title=parent_section.title extra_classes=parent_section.get_effective_extra_style_hints %}
+
+  {% include "core/article_intro_partial.html" with article=page %}
+
+  <article class="article-content">
+  {% social_media_article %}
+    {% for block in self.body %}
+        {% if block.block_type == 'heading' %}
+        <h1 class="heading heading--xx-large">{{ block.value }}</h1>
+        {% elif block.block_type == 'image' %}
+          {% image block.value width-320 %}
+        {% elif block.value.youtube_link %}
+          {% with block.value as media %}
+          <div class="media-player">
+            <div class="media-player__content">
+              {% if is_via_freebasics %}
+                <div class="media-player__no-player">
+                  <h4 class="title">{{media.title}}</h4>
+                  <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                  <h4>{% trans "Media will be played externally in a new window" %}</h4>
+                </div>
+              {% else %}
+                <div class="media-player__embed-object">
+                  {% embed media.youtube_link %}
+                </div>
+                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+                </a>
+            {% endif %}
+            </div>
+          </div>
+          {% endwith %}
+        {% elif block.value.type == 'video'%}
+          {% if not is_via_freebasics %}
+            <div class="media-player">
+              <div class="media-player__content">
+                <video width="320" height="240" controls>
+                    <source src={{block.value.file.url}} type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{block.value.title}}');" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+                </a>
+              </div>
+            </div>
+          {% endif %}
+        {% elif block.value.type == 'audio'%}
+          {% if not is_via_freebasics %}
+            <div class="media-player">
+              <div class="media-player__content">
+                <audio controls><source src={{block.value.file.url}}
+                  type="audio/mpeg">
+                </audio>
+                <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{block.value.title}}');" class="btn" download>
+                  <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
+                </a>
+              </div>
+            </div>
+          {% endif %}
+        {% elif block.block_type == 'numbered_list' %}
+        <ol class="ordered-list">
+          {% for item in block.value %}
+            <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+          {% endfor %}
+        </ol>
+
+        {% elif block.block_type == 'list' %}
+          <ul class="unordered-list">
+          {% for item in block.value %}
+            <li class="unordered-list__item">{{ item|handle_markdown }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+          {{ block }}
+        {% endif %}
+    {% endfor %}
+
+  </article>
+</div>
+  {% include "comments/comment_block.html" %}
+  {% include "core/related-article-list.html" %}
+
+{% if settings.core.SiteSettings.enable_clickable_tags %}
+    <div class="tags">
+      <ul class="tags-list">
+        {% for tag in self.tags_list %}
+          <li class="tag-list__item">
+            <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endif %}
+{% surveys_list_for_pages page=self %}
+
+{% endblock %}
