@@ -1,39 +1,33 @@
-
 {% extends "base.html" %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags media_tags %}
 
-{% load core_tags competition_tag poll_votings molo_survey_tags media_tags %}
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% comment %}
+  media_tags - how it's used on Springster
+{% endcomment %}
 
 {% block content %}
   {% if 'cewekeren.com' in request.get_host %}
-  <div class="message-notification">
-    Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
-    Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank">Internet.org</a>
-    hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
-  </div>
+    <div class="message-notification">
+      Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
+      Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank">Internet.org</a>
+      hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+    </div>
+  {% endif %}
+  {% if 'ninyampinga.com' in request.get_host %}
+    <div class="message-notification">
+    {% trans "This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to " %}
+        <a href="http://www.freebasics.com" target="_blank">freebasics.com</a>
+    </div>
   {% endif %}
 
-  {% if 'ninyampinga.com' in request.get_host %}
-  <div class="message-notification">
-  {% trans "This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to " %}
-      <a href="http://www.freebasics.com" target="_blank">freebasics.com</a>
-  </div>
-  {% endif %}
- {% bannerpages %}
-  <div id="article-hero">
-    {% latest_listing_homepage %}
-  </div>
+  {% bannerpages %}
+  {% gembannerpages %}
+
+  {% latest_listing_homepage %}
   {% media_listing_homepage %}
-  <div class="gem-surveys">
-    {% surveys_list only_linked_surveys=True %}
-  </div>
+  {% surveys_list only_linked_surveys=True %}
   {% surveys_list only_direct_surveys=True %}
   {% poll_page %}
-  <div class="article-list">
-    {% section_listing_homepage %}
-  </div>
-
-  {% surveys_list only_yourwords=True %}
-  {% your_words_competition %}
+  {% section_listing_homepage %}
 
 {% endblock %}

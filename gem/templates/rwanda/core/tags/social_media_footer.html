@@ -1,10 +1,16 @@
 {% load wagtailimages_tags %}
-
 {% if social_media %}
+  <div class="heading heading__micro">
+    <p>{% trans "Find us elsewhere:" %}</p>
+  </div>
+  <div class="social-media-footer-list">
     {% for site in social_media %}
-        <a href="http://{{ site.value.link }}" class="call-to-action__item-share call-to-action__item-share--footer {% if site.value.image %} call-to-action__item-share-with-image {% endif %}" target="_blank">
-            {% image site.value.image width-30 class="call-to-action__item-share-img" %}
-              <span class="call-to-action__item-share-title">{{ site.value.title }}</span>
-        </a>
+    <div class="social-media-footer-list__item">
+      <a href="https://{{ site.value.link }}" class="social-media-footer__anchor">
+        {% image site.value.image width-24 %}
+        <span class="social-media-footer__label">{{ site.value.title }}</span>
+      </a>
+    </div>
     {% endfor %}
+  </div>
 {% endif %}

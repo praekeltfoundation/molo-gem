@@ -1,5 +1,5 @@
-{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags gem_tags %}
-{% load wagtailsettings_tags %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
+{% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags gem_tags %}
 {% get_settings %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
@@ -131,7 +131,7 @@
   </div>
   </header>
   {% display_unread_notifications %}
-  {# {% block content %}{% endblock %} #}
+  {% block content %}{% endblock %}
 
   <footer>
     <div id="footer" class="footer">
@@ -184,7 +184,9 @@
         </ul>
       </div>
       {% include "core/language_block.html" %}
+
       {% social_media_footer %}
+      -->
     </div>
     <div class="copyright">
       <div class="call-to-action call-to-action--backToTop">
