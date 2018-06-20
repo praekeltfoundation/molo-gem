@@ -12,7 +12,7 @@ select,
 textarea {
   color: #000;
   font-family: $font-family-default;
-  font-size: $font-small;
+  font-size: $font-x-medium;
 }
 
 a {
@@ -52,8 +52,8 @@ hr {
 }
 
 .Container {
-  background: $colorGrey;
-  padding: 0 $spacer-mid;
+  background: #fff;
+  padding: 0;
 
   .Intro {
     color: #000;
@@ -64,11 +64,10 @@ hr {
 
 .Header {
   text-align: center;
-
+  overflow: auto;
   &-title {
     background: #fff;
-    margin: 0 (-$spacer-mid);
-
+    margin: 0;
     h1 {
       color: #000;
     }
@@ -76,36 +75,43 @@ hr {
 
   &-branding {
     background-color: $colorFirst;
-    margin: 0 (-$spacer-mid);
+    margin: 0;
     padding: $spacer-mid;
-
+    overflow: auto;
     &-image {
       background: url('/static/authentication_service/images/logo_rwanda.png') no-repeat;
-      background-position: 50% 70%;
-      background-size: 200px;
+      background-position: 0 0;
+      background-size: 119px;
       display: block;
-      height: 50px;
+      height: 28px;
       padding-left: 100%;
       width: 100%;
+      vertical-align: middle;
+      font-size: 14px;
+      text-transform: uppercase;
+      line-height: 42px;
+      text-align: right;
     }
   }
 }
 
-.Footer {
-  background: #fff;
-  border: 0;
-  color: $colorFourth;
-  font-size: $font-m-small;
-  margin: 0 (-$spacer-mid);
-  padding: $spacer 0;
-  text-align: center;
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  p, .center {
+    padding: 0 $spacer-mid;
+  }
 }
 
+
 .Form {
+  background: #ececec;
+  margin: $spacer $spacer-mid;
+  padding: $spacer $spacer-mid;
   .Field {
     margin-top: $spacer;
-    text-align: center;
-
+    text-align: left;
     &-item {
       display: contents;
       margin-top: $spacer-half;
@@ -131,15 +137,15 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 2px solid $colorPink;
+      border: 1px #d6d6d6 solid;
       font-size: 1em;
       height: 40px;
       outline: none;
       padding: $spacer;
       width: 100%;
-
+      border-width: 1px;
       &:focus {
-        border-color: $colorGrey;
+        border: 1px $colorGrey solid;
       }
     }
 
@@ -158,6 +164,16 @@ hr {
     }
   }
 
+  .ModelChoiceField,
+  .TypedChoiceField {
+    .Select {
+      border: 1px solid $colorGrey;
+      &:focus {
+        border-color: $colorPink;
+      }
+    }
+  }
+
   .Field-message--error {
     &.Field--required {
       .Field-item {
@@ -172,39 +188,6 @@ hr {
     margin-top: $spacer;
   }
 }
-
-.Additional-text {
-  text-align: center;
-}
-
-.Button {
-  background: $colorPink;
-  color: #fff;
-  display: block;
-  font-size: 1em;
-  margin-bottom: $spacer;
-  max-width: 100%;
-  padding: $spacer $spacer-half;
-  text-align: center;
-  text-decoration: none;
-  width: 100%;
-
-  &:hover {
-    background: $colorPink;
-    color: #fff;
-    cursor: pointer;
-    opacity: .8;
-  }
-
-  &--warning {
-    background: $colorOrange;
-
-    &:hover {
-      background: $colorOrange;
-    }
-  }
-}
-
 .Messages {
   margin: $spacer 0;
 
@@ -234,15 +217,58 @@ hr {
   }
 }
 
+
+.Additional-text {
+  text-align: center;
+  padding: $spacer-multiple 0 0;
+}
+
+.Button {
+  background: $colorPink;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+
+  &:hover {
+    background: $colorPink;
+    color: #fff;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  &--warning {
+    background: $colorOrange;
+    &:hover {
+      background: $colorOrange;
+    }
+  }
+}
+
+.Back-to-top {
+  padding: $spacer 0 $spacer-multiple;
+  &--link {
+    font-weight: normal;
+  }
+}
+
 .Menu {
   padding: 0;
-
+  margin-top: 0;
+  margin-bottom: 0;
   &-title {
     display: none;
   }
 
   &-item {
     a {
+      font-weight: normal;
       font-size: $font-medium;
     }
   }
@@ -252,5 +278,23 @@ hr {
     margin: 0;
     padding: 0;
     text-align: left;
+  }
+}
+
+
+.Footer {
+  background: #ececec;
+  border: 0;
+  color: #5c5c5c;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
+  a {
+    font-size: 22px;
+    color: #5c5c5c;
+  }
+  p {
+    color: #a3a3a3;
   }
 }

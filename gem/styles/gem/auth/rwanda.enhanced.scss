@@ -1,8 +1,15 @@
 @import '../variables/*';
+@font-face {
+  font-family: 'AvenirNextCondensed';
+  src: url('/static/authentication_service/fonts/AvenirNextCondensed-Regular.woff2') format('woff2'),
+       url('/static/authentication_service/fonts/AvenirNextCondensed-Regular.woff') format('woff');
+  font-weight: bold;
+}
 
 body,
 html {
   background: $colorFourth;
+
   margin: 0;
 }
 
@@ -10,8 +17,8 @@ body,
 select,
 textarea {
   color: #000;
-  font-family: $font-family-default;
-  font-size: $font-small;
+  font-family: "AvenirNextCondensed", Arial, sans-serif;
+  font-size: $font-x-medium;
 }
 
 a {
@@ -47,21 +54,32 @@ hr {
   margin: $spacer-multiple 0;
 }
 
-.Header {
-  margin-bottom: $spacer-multiple;
-  text-align: center;
 
-  &-branding {
-    margin-bottom: 0;
-
-    &-image {
-      width: 100%;
-    }
+@media (min-width: 40em) {
+  body {
+    margin-top: 0;
   }
 
+  .Container {
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0;
+  }
+}
+
+
+.Header {
+  margin-bottom: 0;
+  text-align: center;
+  &-branding {
+    margin-bottom: 0;
+    &-image {
+      float: left;
+    }
+  }
   &-title {
     background: #fff;
-    margin: 0 (-$spacer-mid);
+    margin: 0;
     text-align: center;
 
     h1 {
@@ -81,7 +99,6 @@ hr {
     margin: $spacer-mid 0 0;
   }
 }
-
 .QR {
   text-align: center;
 
@@ -89,7 +106,6 @@ hr {
     border: 3px solid $colorFirst;
   }
 }
-
 .Tokens {
   border: 1px solid #000;
   margin: $spacer $spacer-mid;
@@ -107,33 +123,9 @@ hr {
   }
 }
 
-.Footer {
-  margin: $spacer-multiple (-$spacer-mid);
-  padding: $spacer-multiple;
-  text-align: center;
-
-  p {
-    margin: 0;
-  }
-}
-
-@media (min-width: 40em) {
-  body {
-    margin-top: $spacer-multiple * 2;
-  }
-
-  .Container {
-    background: $colorGrey;
-    margin: 0 auto;
-    max-width: 360px;
-    padding: 0 $spacer-mid;
-  }
-}
-
 .Form {
   .Field {
     margin-top: $spacer-multiple;
-
     &-message {
       margin-top: $spacer;
     }
@@ -150,13 +142,12 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 2px solid $colorPink;
       color: #000;
       font-weight: normal;
       padding: $spacer;
-
+      border-width: 1px;
       &:focus {
-        border-color: $colorPink;
+        border: 1px $colorPink solid;
       }
     }
 
@@ -173,7 +164,7 @@ hr {
 
     &::after {
       border-style: solid;
-      border-width: .15em .15em 0 0;
+      border-width: 1px;
       color: $colorPink;
       content: '';
       display: inline-block;
@@ -189,14 +180,13 @@ hr {
     .Select {
       appearance: none;
       background-color: #fff;
-      border: 2px solid $colorPink;
       border-radius: 0;
       color: #000;
       min-height: 41px;
       outline: none;
       padding: $spacer;
       width: 100%;
-
+      border: 1px solid $colorGrey;
       &:focus {
         border-color: $colorPink;
       }
@@ -263,12 +253,6 @@ hr {
   }
 }
 
-.Button {
-  &--warning {
-    background: $colorOrange;
-  }
-}
-
 .Messages {
   .Message {
     font-family: $font-family-default;
@@ -279,9 +263,19 @@ hr {
   margin-top: $spacer-multiple;
 }
 
+.Button {
+  &--warning {
+    background: $colorOrange;
+  }
+}
+
+.Additional-text {
+  text-align: center;
+  padding: $spacer-multiple 0 0;
+}
+
 .Menu {
   margin: 0;
-
   &-title {
     background: $colorPurple;
     margin-left: 0;
@@ -312,7 +306,17 @@ hr {
 }
 @media (min-width: 40em) {
   .Menu {
-    margin-top: $spacer-mid;
-    padding-bottom: $spacer;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+.Footer {
+  margin: $spacer-multiple 0;
+  padding: $spacer-multiple;
+  text-align: left;
+  p {
+    margin: 0;
   }
 }
