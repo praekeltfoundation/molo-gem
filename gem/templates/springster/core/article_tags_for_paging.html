@@ -71,6 +71,6 @@
   {% endif %}
   </div>
   {% get_pages %}
-  <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.title}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+  <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.slug}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
     <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
   </a>

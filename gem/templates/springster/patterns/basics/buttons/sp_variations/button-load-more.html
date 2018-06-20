@@ -5,7 +5,7 @@
   {% elif search_query %}
       <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&q={{search_query}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
   {% elif 'tag' in request.path %}
-      <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&tag_name={{tag.title}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
+      <a id="more-link" href="#" data-next="{{datalink}}?page={{pages.next.number}}&tag_name={{tag.slug}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
   {% else %}
     <a id="more-link" data-next="{{datalink}}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--{{type}}">
   {% endif %}
