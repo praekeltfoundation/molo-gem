@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags gem_tags %}
+{% block content %}
+  <div class="heading heading__component">
+    <h1>{{self.title}}</h1>
+  </div>
+  {% if self.subtitle %}
+    <div class="heading heading__subheading">
+      <h6>{{self.subtitle}}</h6>
+    </div>
+  {% endif %}
+  {#{% include "patterns/components/banners/main-banner.html" with pageTag=self %}#}
+  <div class="banner">
+    {% if self.banner %}
+      {% image self.banner width-360 as tmp_photo %}
+      {% if self.banner_link_page %}
+        <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        </a>
+      {% elif self.external_link %}
+        <a href="{{ self.external_link }}" target="_blank" class="banner__item-link">
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        </a>
+      {% else %}
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+      {% endif %}
+    {% else %}
+      <div class="banner__block">
+        <div class="heading heading__subheading">
+          <h3>{{self.title|smarttruncatechars:100|safe}}</h3>
+        </div>
+        {% if self.subtitle %}
+          <p class="banner__subtitle">{{ self.subtitle|smarttruncatechars:100|safe }}</p>
+        {% endif %}
+        {% if self.external_link %}
+          <a href="{{ self.external_link }}" class="call-to-action__button call-to-action__button--hyperlink">
+            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+          </a>
+        {% elif self.banner_link_page %}
+          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__button call-to-action__button--hyperlink">
+            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+          </a>
+        {% endif %}
+    </div>
+  	{% endif %}
+  </div>
+{% endblock %}
