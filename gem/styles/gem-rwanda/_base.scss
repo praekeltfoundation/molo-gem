@@ -1,5 +1,5 @@
 html, body {
- background-color: $color-gray;
+ background-color: $color-gray-dark;
 }
 body {
   background-color: #ffffff;
@@ -12,7 +12,7 @@ body {
   body {
     font-family: $AvenirNextCondensed;
     margin: 0 auto;
-    width: $tablet;
+    width: $phablet;
   }
 }
 
@@ -24,4 +24,17 @@ h3, h4, h5, h6 {
 }
 ul,li {
   list-style-type: none;
+}
+
+
+a {
+  &:active, &:hover, &:focus {
+    color: $color-pink-hollywood;
+    text-decoration: none;
+  }
+  &:visited {
+    @media screen and (min-width: $phablet) {
+      outline: none;
+    }
+  }
 }

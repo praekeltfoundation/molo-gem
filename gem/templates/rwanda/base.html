@@ -1,6 +1,8 @@
-{% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags gem_tags %}
-{% load wagtailsettings_tags %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
+{% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags gem_tags %}
+{% get_current_language as LANGUAGE_CODE %}
 {% get_settings %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
@@ -58,7 +60,6 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/ninyampinga.css">
     {% endcompress %}
 
-    {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE|language_bidi == True %}
     {% endif %}
   </head>
@@ -78,9 +79,9 @@
       <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
       <div class="search__bar">
         <input id="search_toggle" class="search__input" type="checkbox">
-        <form action="{% url 'search' %}" novalidate>
-            <input id="input__none" name="q" type="text" placeholder="{% trans "Search" %}" >
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
+        <form action="{% url 'search' %}" novalidate class="search__form">
+            <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
+          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
         </form>
       </div>
     </div>
@@ -119,39 +120,38 @@
           </li>
         </ul>
         {% if languages|length > 1 %}
-        <div class="languages">
-           {% get_current_language as LANGUAGE_LOCALE %}
+          <div class="languages">
             {% for language in languages %}
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_LOCALE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
             {% endfor %}
-        </div>
+          </div>
         {% endif %}
       </div>
     </nav>
   </div>
   </header>
   {% display_unread_notifications %}
-  {# {% block content %}{% endblock %} #}
+  {% block content %}{% endblock %}
 
   <footer>
     <div id="footer" class="footer">
       {% block search %}
         <div class="search">
-          <form action="{% url 'search' %}" novalidate>
-            <input id="input__none" name="q" type="text" placeholder="{% trans "Search" %}" >
-            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
+          <form action="{% url 'search' %}" novalidate class="search__form">
+            <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
+            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
           </form>
         </div>
       {% endblock %}
 
       <div class="menu menu--footer">
         <ul class="menu-list">
+          <li class="menu-list__item">
+            <b class="menu-list__label">
+              {% trans "Categories" %}
+            </b>
+          </li>
           <ul class="menu-list--sections">
-            <li class="menu-list__item">
-              <b class="menu-list__label">
-                {% trans "Categories" %}
-              </b>
-            </li>
             {% load_sections as sections %}
             {% for section in sections %}
               <li class="menu-list__item">
@@ -182,28 +182,35 @@
             </li>
           {% endif %}
         </ul>
-      {% include "core/language_block.html" %}
-      {% social_media_footer %}
-
-      <div class="copyright">
-        <div class="call-to-action call-to-action--backToTop">
-          <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
-            {% trans "Back to Top" %}</a>
-        </div>
-        <p class="copyright__footer-copy" >
-          &copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
-          {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
-              {% trans "Terms &amp; Conditions" %}
-            </a>
-          {% endif %}
-        </p>
-        {% if settings.gem.GemSettings.show_partner_credit %}
-          <a href="{{settings.gem.GemSettings.partner_credit_link}}">
-            {{settings.gem.GemSettings.partner_credit_description}}
+      </div>
+      {% if languages|length > 1 %}
+      <div class="languages languages--footer">
+        <p class="languages__label">{% trans "Language" %}:<p>
+        {% for language in languages %}
+          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% social_media_footer %}
+    <div class="copyright">
+      <div class="call-to-action call-to-action--backToTop">
+        <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
+          {% trans "Back to Top" %}</a>
+      </div>
+      <p class="copyright__disclaimer">
+        &copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
+        {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+          <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
+            {% trans "Terms &amp; Conditions" %}
           </a>
         {% endif %}
-      </div>
+      </p>
+      {% if settings.gem.GemSettings.show_partner_credit %}
+        <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+          {{settings.gem.GemSettings.partner_credit_description}}
+        </a>
+      {% endif %}
     </div>
   </footer>
   {% wagtailuserbar %}
