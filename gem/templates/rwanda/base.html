@@ -1,5 +1,6 @@
 {% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags gem_tags %}
+{% get_current_language as LANGUAGE_CODE %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
@@ -59,7 +60,6 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/ninyampinga.css">
     {% endcompress %}
 
-    {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE|language_bidi == True %}
     {% endif %}
   </head>
@@ -120,12 +120,11 @@
           </li>
         </ul>
         {% if languages|length > 1 %}
-        <div class="languages">
-           {% get_current_language as LANGUAGE_LOCALE %}
+          <div class="languages">
             {% for language in languages %}
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_LOCALE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
             {% endfor %}
-        </div>
+          </div>
         {% endif %}
       </div>
     </nav>
@@ -184,7 +183,14 @@
           {% endif %}
         </ul>
       </div>
-      {% include "core/language_block.html" %}
+      {% if languages|length > 1 %}
+      <div class="languages languages--footer">
+        <p class="languages__label">{% trans "Language" %}:<p>
+        {% for language in languages %}
+          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
     {% social_media_footer %}
     <div class="copyright">
