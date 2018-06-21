@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags media_tags %}
 
 {% comment %}
   media_tags - how it's used on Springster
@@ -23,11 +23,9 @@
   {% bannerpages %}
   {% gembannerpages %}
 
-  {% latest_listing_homepage %}
-  {% media_listing_homepage %}
-  {% surveys_list only_linked_surveys=True %}
-  {% surveys_list only_direct_surveys=True %}
-  {% poll_page %}
+  {% topic_of_the_day %}
+  {% latest_listing_homepage num_count=6 %}
   {% section_listing_homepage %}
+  {% media_listing_homepage %}
 
 {% endblock %}
