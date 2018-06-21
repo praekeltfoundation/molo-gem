@@ -1,0 +1,42 @@
+.article-teaser {
+  $block: unquote("#{&}");
+  overflow: auto;
+  &:before {
+    background: url("/static/img/lines/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
+    content: "";
+    display: block;
+    height: 40px;
+    width: 100%;
+  }
+  &__thumbnail {}
+  &__title {}
+  &__subtitle {}
+  .highlight-description {}
+
+  .teaser-stacklist {
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: block;
+    }
+    #{$block}__link {
+      cursor: pointer;
+      display: flex;
+      padding: $spacer-half $spacer-multiple;
+      width: 100%;
+      &:active, &:hover, &:focus {
+        background-color: rgba($color-gray-light, 0.1);
+      }
+    }
+    &__content {
+      margin-left: $spacer-mid;
+      #{$block}__title {
+        margin-bottom: 0;
+      }
+      #{$block}__subtitle {
+        margin: 0;
+      }
+
+    }
+  }
+}

@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags %}
 
-{% comment %}
-  media_tags - how it's used on Springster
-{% endcomment %}
-
 {% block content %}
-  {% if 'cewekeren.com' in request.get_host %}
-    <div class="message-notification">
-      Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
-      Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank">Internet.org</a>
-      hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+  <div class="freebasics-notification">
+    {% if 'cewekeren.com' in request.get_host %}
+      {% blocktrans %}
+        <p class="freebasics-notification__text">Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
+        Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">Internet.org</a>
+        hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?</p>
+      {% endblocktrans %}
+    {% endif %}
+    {% if 'ninyampinga.com' in request.get_host %}
+      {% blocktrans %}
+        <p class="freebasics-notification__text">This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a></p>
+      {% endblocktrans %}
+    {% endif %}
+
+    <p class="freebasics-notification__text">This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a></p>
     </div>
-  {% endif %}
-  {% if 'ninyampinga.com' in request.get_host %}
-    <div class="message-notification">
-    {% trans "This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to " %}
-        <a href="http://www.freebasics.com" target="_blank">freebasics.com</a>
-    </div>
-  {% endif %}
+
 
   {% bannerpages %}
   {% gembannerpages %}

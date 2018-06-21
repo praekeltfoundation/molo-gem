@@ -76,7 +76,7 @@ def smart_truncate_chars(value, max_length):
 
 
 @register.inclusion_tag(
-    'gem/tags/media_listing_homepage.html',
+    'core/tags/media_listing_homepage.html',
     takes_context=True
 )
 def media_listing_homepage(context):
