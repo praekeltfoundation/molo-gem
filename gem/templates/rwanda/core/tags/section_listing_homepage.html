@@ -6,9 +6,10 @@
         <ul class="teaser-stacklist">
           {% for article in featured_articles %}
           <li class="teaser-stacklist__item">
+          <div class="teaser-stacklist__wrapper">
             {% if article.get_effective_image %}
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% image article.get_effective_image width-200 as teaser_thumbnail %}
+              {% image article.get_effective_image fill-200x200 as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
             </a>
             {% endif %}
@@ -24,34 +25,32 @@
                   </h3>
                 {% endif %}
               </a>
-              <a href="{% pageurl article.specific %}" class="article-teaser__link">
-                {% if article.subtitle_highlight or article.body_highlight %}
-                  <p class="article-teaser__subtitle highlight-description">
-                    {% if article.subtitle_highlight %}
-                      {{article.subtitle_highlight|smarttruncatechars:28|safe}}
-                    {% elif article.body_highlight %}
-                      {{article.body_highlight|smarttruncatechars:28|safe}}
-                    {% endif %}
-                  </p>
-                {% elif article.subtitle %}
-                  <p class="article-teaser__subtitle">
-                    {% if article.title.30 %}
-                      {{ article.subtitle|smarttruncatechars:28|safe}}
-                    {% else %}
-                      {{ article.subtitle|smarttruncatechars:50|safe}}
-                    {% endif %}
-                  </p>
-                {% endif %}
-                </a>
-            </div>
-
-              {% get_comment_count for article as comment_count %}
-              {% if comment_count > 0 %}
-                <a href="{% pageurl article.specific %}?#comments" class="comments__counter">
-                  <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comments__counter-icon">
-                  <span class="comments__counter-number">{{comment_count}}</span>
-                </a>
+              {% if article.subtitle_highlight or article.body_highlight %}
+                <p class="article-teaser__subtitle highlight-description">
+                  {% if article.subtitle_highlight %}
+                    {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                  {% elif article.body_highlight %}
+                    {{article.body_highlight|smarttruncatechars:28|safe}}
+                  {% endif %}
+                </p>
+              {% elif article.subtitle %}
+                <p class="article-teaser__subtitle">
+                  {% if article.title.30 %}
+                    {{ article.subtitle|smarttruncatechars:28|safe}}
+                  {% else %}
+                    {{ article.subtitle|smarttruncatechars:50|safe}}
+                  {% endif %}
+                </p>
               {% endif %}
+            </div>
+            {% get_comment_count for article as comment_count %}
+            {% if comment_count > 0 %}
+              <a href="{% pageurl article.specific %}?#comments" class="comments__counter">
+                <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comments__counter-icon">
+                <span class="comments__counter-number">{{comment_count}}</span>
+              </a>
+            {% endif %}
+            </div>
           </li>
           {% endfor %}
         </ul>
