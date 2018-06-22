@@ -1,13 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags gem_tags %}
-{% if bannerpages %}
  <div class="banner">
+{% if bannerpages %}
+
   {% for bannerpage in bannerpages %}
     {% if bannerpage.hide_on_freebasics %}
       {% if not is_via_freebasics %}
       {# hide_on_freebasics is available for Gem text banner setting #}
-         <div class="banner__block">
-            <div class="heading heading__subheading">
-              <h3>{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
+         <div class="banner__text">
+            <div class="heading">
+              <h3 class="heading__subheading">{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
             </div>
             {% if bannerpage.subtitle %}
               <p class="banner__subtitle">{{ bannerpage.subtitle|smarttruncatechars:100|safe }}</p>
@@ -34,9 +35,9 @@
             <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
          {% endif %}
       {% else %}
-         <div class="banner__block">
-            <div class="heading heading__subheading">
-              <h3>{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
+         <div class="banner__text">
+            <div class="heading">
+              <h3 class="heading__subheading">{{bannerpage.title|smarttruncatechars:100|safe}}</h3>
             </div>
             {% if bannerpage.subtitle %}
               <p class="banner__subtitle">{{ bannerpage.subtitle|smarttruncatechars:100|safe }}</p>
@@ -50,5 +51,6 @@
       {% endif %}
     {% endif %}
   {% endfor %}
-</div>
+
 {% endif %}
+</div>

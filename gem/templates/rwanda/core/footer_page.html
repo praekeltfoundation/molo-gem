@@ -1,36 +1,49 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags %}
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
-
+{% load wagtailimages_tags core_tags %}
 {% block content %}
-<div class="articles nav">
-  <h3 class="article-title">{{self.title}}</h3>
-  <p>{{self.subtitle}}</p>
-
-  {% if self.image %}
-  <div class="banner">{% image self.image width-320 %}</div>
-  {% endif %}
-
-<article>
-  {% for block in self.body %}
+  <div class="heading heading__square">
+    <h1>{{self.title}}</h1>
+  </div>
+  {#{% include "patterns/basics/articles/article-page_variations/article-body.html" %}#}
+  <article>
+    {% for block in self.body %}
       {% if block.block_type == 'heading' %}
-          <h1>{{ block.value }}</h1>
-      {% else %}
-      {% if block.block_type == 'image' %}
-        {% image block.value width-320 %}
-      {% else %}
-      {% if block.block_type == 'numbered_list' %}
-        <ol>
+        <h3 class="heading heading--large">{{ block.value }}</h3>
+      {% elif block.block_type == 'image' %}
+        {% image block.value width-320 alt=self.title %}
+      {% elif block.block_type == 'media' %}
+        <div class="media-player">
+          <div class="media-player__content">
+            {% with block.value as media %}
+              {% if is_via_freebasics %}
+                <div class="media-player__no-player">
+                  <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
+                  <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                  <span class="heading heading__subheading-alt">
+                  <h4>{% trans "Media will be played externally in a new window" %}</h4>
+                  </span>
+                </div>
+              {% else %}
+                {% include "patterns/components/media/media-player.html" %}
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+      {% elif block.block_type == 'numbered_list' %}
+        <ol class="ordered-list">
         {% for item in block.value %}
-          <li>{{item}}</li>
+          <li class="ordered-list__item">{{ item|handle_markdown }}</li>
         {% endfor %}
         </ol>
+      {% elif block.block_type == 'list' %}
+        <ul class="unordered-list">
+        {% for item in block.value %}
+          <li class="unordered-list__item">{{ item|handle_markdown }}</li>
+        {% endfor %}
+      </ul>
       {% else %}
-          {{ block }}
+        {{ block }}
       {% endif %}
-      {% endif %}
-      {% endif %}
-  {% endfor %}
-</article>
-</div>
+    {% endfor %}
+  </article>
 {% endblock %}

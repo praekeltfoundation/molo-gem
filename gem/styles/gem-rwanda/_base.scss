@@ -26,8 +26,12 @@ ul,li {
   list-style-type: none;
 }
 
-
 a {
+  font-weight: bold;
+    //SMARTPHONE
+    @media screen and (min-width: $phablet) {
+        font-weight: normal;
+    }
   &:active, &:hover, &:focus {
     color: $color-pink-hollywood;
     text-decoration: none;
