@@ -5,13 +5,16 @@
     background: url("/static/img/lines/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     content: "";
     display: block;
-    height: 40px;
+    height: 40px; // QUESTIONABLE UNIT:
     width: 100%;
   }
   &__thumbnail {
-    margin-right: $spacer-mid;
-    overflow: hidden;
-    max-width: 40%;
+    width: 100%;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+      }
   }
   &__title {
     text-transform: uppercase;
@@ -19,33 +22,40 @@
   }
   &__subtitle {}
   .highlight-description {}
-
   .teaser-stacklist {
     margin: 0;
     padding: 0;
     &__item {
-      display: block;
+      align-items: center;
+      padding: $spacer-half $spacer-mid;
+        //SMARTPHONE
+        @media screen and (min-width: $phablet) {
+          display: grid;
+          grid-gap: 10px;
+          grid-template-columns: auto;
+        }
     }
     #{$block}__link {
+      color: #000000;
       cursor: pointer;
-      display: flex;
-      padding: $spacer-half $spacer-multiple;
-      width: 100%;
+      display: block;
       &:active, &:hover, &:focus {
         background-color: rgba($color-gray-light, 0.1);
       }
     }
     &__content {
-      color: #000000;
       text-align: center;
-      width: 60%; 
+        //SMARTPHONE
+        @media screen and (min-width: $phablet) {
+          grid-column: 3 / 5;
+          grid-row: 1;
+        }
       #{$block}__title {
         margin-bottom: 0;
       }
       #{$block}__subtitle {
         margin: 0;
       }
-
     }
   }
 }

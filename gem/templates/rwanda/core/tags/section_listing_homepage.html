@@ -5,41 +5,46 @@
       {% if featured_articles %}
         <ul class="teaser-stacklist">
           {% for article in featured_articles %}
-            <li class="teaser-stacklist__item">
-            <a href="{% pageurl article.specific %}" class="article-teaser__link">
+          <li class="teaser-stacklist__item">
             {% if article.get_effective_image %}
+            <a href="{% pageurl article.specific %}" class="article-teaser__link">
               {% image article.get_effective_image width-200 as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+            </a>
             {% endif %}
             <div class="teaser-stacklist__content">
-              {% if article.title_highlight %}
-                <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ article.title_highlight|smarttruncatechars:45|safe}}
-                </h3>
-              {% else %}
-                <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:45|safe}}
-                </h3>
-              {% endif %}
-              {% if article.subtitle_highlight or article.body_highlight %}
-                <p class="article-teaser__subtitle highlight-description">
-                  {% if article.subtitle_highlight %}
-                    {{article.subtitle_highlight|smarttruncatechars:28|safe}}
-                  {% elif article.body_highlight %}
-                    {{article.body_highlight|smarttruncatechars:28|safe}}
-                  {% endif %}
-                </p>
-              {% elif article.subtitle %}
-                <p class="article-teaser__subtitle">
-                  {% if article.title.30 %}
-                    {{ article.subtitle|smarttruncatechars:28|safe}}
-                  {% else %}
-                    {{ article.subtitle|smarttruncatechars:50|safe}}
-                  {% endif %}
-                </p>
-              {% endif %}
+              <a href="{% pageurl article.specific %}" class="article-teaser__link">
+                {% if article.title_highlight %}
+                  <h3 class="article-teaser__title article-teaser__title--highlight">
+                    {{ article.title_highlight|smarttruncatechars:45|safe}}
+                  </h3>
+                {% else %}
+                  <h3 class="article-teaser__title">
+                    {{ article.title|smarttruncatechars:45|safe}}
+                  </h3>
+                {% endif %}
+              </a>
+              <a href="{% pageurl article.specific %}" class="article-teaser__link">
+                {% if article.subtitle_highlight or article.body_highlight %}
+                  <p class="article-teaser__subtitle highlight-description">
+                    {% if article.subtitle_highlight %}
+                      {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                    {% elif article.body_highlight %}
+                      {{article.body_highlight|smarttruncatechars:28|safe}}
+                    {% endif %}
+                  </p>
+                {% elif article.subtitle %}
+                  <p class="article-teaser__subtitle">
+                    {% if article.title.30 %}
+                      {{ article.subtitle|smarttruncatechars:28|safe}}
+                    {% else %}
+                      {{ article.subtitle|smarttruncatechars:50|safe}}
+                    {% endif %}
+                  </p>
+                {% endif %}
+                </a>
             </div>
-            </a>
+
               {% get_comment_count for article as comment_count %}
               {% if comment_count > 0 %}
                 <a href="{% pageurl article.specific %}?#comments" class="comments__counter">

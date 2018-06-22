@@ -1,9 +1,22 @@
 .search {
-  padding-bottom: $spacer-small;
+  padding: $spacer-small;
+    //SMARTPHONE
+    @media screen and (min-width: $phablet) {
+      padding: 0 0 $spacer-small;
+    }
   &__form {
     position: relative;
   }
   label {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #ffffff;
+    cursor: pointer;
+    display: block;
+    text-transform: uppercase;
+    position: absolute;
+    right: 20px;
+    top: 13px;
     //SMARTPHONE
     @media screen and (min-width: $phablet) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
@@ -12,20 +25,16 @@
       background-size: 88%;
       height: auto;
       text-indent: -1000px;
+      right: 5px;
       width: 30px;
     }
-    color: #ffffff;
-    cursor: pointer;
-    display: block;
-    text-transform: uppercase;
-    position: absolute;
-    right: $spacer-small;
-    top: 13px;
+
   }
   //SEARCH TOGGLE
   .search__input {
     visibility: hidden;
     position: absolute;
+    //SMARTPHONE
     @media screen and (min-width: $phablet) {
       right: $spacer-small;
       top: 13px;
@@ -44,19 +53,28 @@
   [type="reset"],
   [type="submit"] {
     background-color: transparent;
-    background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 60%;
     margin: 0;
     padding: ($spacer-half + 1) 0;
-    height: auto;
-    width: 50px;
+    text-decoration: underline;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 60%;
+        height: auto;
+        width: 50px;
+      }
   }
 }
 
 .footer {
   .search {
-    input[type="search"] { width: 90%; }
+    input[type="search"] {
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        width: 90%;
+      }
+    }
   }
 }

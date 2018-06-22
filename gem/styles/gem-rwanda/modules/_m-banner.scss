@@ -2,35 +2,55 @@
   $block: unquote("#{&}");
   background: $color-gray-light;
   overflow: auto;
-  height: 213px;
   &__image {
     display: block;
     width: 100%;
   }
   &__text {
-    padding: $spacer-multiple;
+    padding: $spacer-mid;
     color: $color-yellow;
+    //SMARTPHONE
+    @media screen and (min-width: $phablet) {
+      padding: $spacer-multiple;
+    }
     .heading__subheading {
       text-transform: uppercase;
+      margin: 0;
+      padding: $spacer-half 0;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        padding: inherit;
+        margin: inherit;
+      }
     }
     #{$block}__subtitle {
       font-size: $font-x-medium;
+      margin: 0;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        margin: auto;
+      }
     }
   }
 }
 
 .freebasics-notification {
-  background: $color-gray-light url("/static/img/lines/rwanda/pattern-banner.png") no-repeat 0 0/100%;
+  background: $color-gray-light url("/static/img/lines/rwanda/pattern-banner.png") repeat 0 0/100%;
   color: #000000;
-  padding: $spacer-multiple;
+  padding: 0;
   overflow: auto;
   text-align: center;
   width: 100%;
+    //SMARTPHONE
+    @media screen and (min-width: $phablet) {
+      padding: $spacer-multiple;
+    }
   &__text {
     color: $color-yellow;
   }
   &__anchor {
     color: #ffffff;
+    padding: $spacer-half;
     &:active, &:hover, &:focus  {
       color: $color-yellow;
     }
