@@ -4,7 +4,10 @@
   &-list {
     padding: 0;
     margin: 0;
-    float: left;
+    //SMARTPHONE
+    @media screen and (min-width: $phablet) {
+      float: left;
+    }
     &__item {
       display: inline-block;
     }
@@ -16,15 +19,19 @@
     &__label {
       color: #ffffff;
       text-transform: uppercase;
-      //Show this on smartphones
-        &:before {
-          content: '';
-          background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
-          width: 25px;
-          height: 25px;
-          display: inline-block;
-          vertical-align: text-top;
-          margin: 0 $spacer-half 0 0;
+      font-weight: bold;
+      //SMARTPHONE
+        @media screen and (min-width: $phablet) {
+            font-weight: normal;
+            &:before {
+              content: '';
+              background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
+              display: inline-block;
+              height: 25px;
+              vertical-align: text-top;
+              margin: 0 $spacer-half 0 0;
+              width: 25px;
+            }
         }
       padding: $spacer-small 0 $spacer-small $spacer-small;
     }

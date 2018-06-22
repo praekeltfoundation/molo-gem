@@ -21,7 +21,34 @@
   &__nav-item-text  {
     &--backToTop {
       color: #ffffff;
-    }
+      &:before {
+        background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 22px;
+        height: 26px;
+      }
+    };
+  }
+  &__button {
+    color: #fff;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: $spacer-half;
+  }
+  &--backToTop {
+    background: $color-cyan-fountain;
+    border-radius: 5px;
+    padding: $spacer-mid;
+    margin: $spacer-mid 0;
+    text-align: center;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        padding: $spacer-multiple;
+        width: 45%;
+      }
   }
 }
 
