@@ -1,26 +1,72 @@
 {% extends "base.html" %}
-{% load molo_survey_tags core_tags wagtailimages_tags staticfiles wagtailembeds_tags gem_tags %}
-
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles wagtailembeds_tags gem_tags %}
 
 {% block content %}
-{% get_translation self.get_parent_section as parent_section %}
-<div class="article article{{ parent_section.get_effective_extra_style_hints }}">
-  {{parent_section}}
+  {% get_translation self.get_parent_section as parent_section %}
+  <div class="article-page {% if parent_section.get_effective_extra_style_hints %}article-page--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
 
-    <a href="{#{% pageurl article.specific %}#}"></a>
-      {% if parent_section.image %}
-        {% image parent_section.image width-40 %}
+    {% if parent_section.image %}
+      {% image parent_section.image width-40 %}
+    {% endif %}
+    <div class="heading">
+      <h1>{{ parent_section.title }}</h1>
+    </div>
+
+    <a href="{% pageurl page.specific %}" class="article-teaser__link">
+    {% if page.image %}
+      {% if square_image %}
+        {% image page.image fill-200x200 class="article-teaser__thumbnail" %}
+      {% else %}
+        {% image page.image fill-400x300 class="article-teaser__thumbnail" %}
       {% endif %}
-      {{ parent_section.title }}
-  
+        {% if show_section_image %}
+          {% if page.get_parent_section.image %}
+            {% image page.get_parent_section.image width-200 as tmp_photo_small %}
+            {% image page.get_parent_section.image width-400 as tmp_photo_large %}
+              <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="article-teaser__thumbnail" />
+          {% endif %}
+        {% endif %}
+    {% endif %}
+    </a>
+    <div class="teaser-stacklist__content">
+      <a href="{% pageurl page.specific %}" class="article-teaser__link">
+        {% if page.title_highlight %}
+          <h3 class="article-teaser__title article-teaser__title--highlight">
+            {{ page.title_highlight|smarttruncatechars:45|safe}}
+          </h3>
+        {% else %}
+          <h3 class="article-teaser__title">
+            {{ page.title|smarttruncatechars:45|safe}}
+          </h3>
+        {% endif %}
+      </a>
+      {% if page.subtitle_highlight or article.body_highlight %}
+        <p class="article-teaser__subtitle highlight-description">
+          {% if page.subtitle_highlight %}
+            {{page.subtitle_highlight|smarttruncatechars:28|safe}}
+          {% elif page.body_highlight %}
+            {{page.body_highlight|smarttruncatechars:28|safe}}
+          {% endif %}
+        </p>
+      {% elif page.subtitle %}
+        <p class="article-teaser__subtitle">
+          {% if page.title.30 %}
+            {{ page.subtitle|smarttruncatechars:28|safe}}
+          {% else %}
+            {{ page.subtitle|smarttruncatechars:50|safe}}
+          {% endif %}
+        </p>
+      {% endif %}
+      <a class="read-more" href="{% pageurl page.specific %}">{% trans "Read more" %}</a>
+    </div>
 
-  {% include "core/article_intro_partial.html" with article=page %}
-
-  <article class="article-content">
-  {% social_media_article %}
+    <article class="article-content">
+    {% social_media_article %}
     {% for block in self.body %}
         {% if block.block_type == 'heading' %}
-        <h1 class="heading heading--xx-large">{{ block.value }}</h1>
+        <div class="heading">
+          <h3 class="heading--large">{{ block.value }}</h3>
+        </div>
         {% elif block.block_type == 'image' %}
           {% image block.value width-320 %}
         {% elif block.value.youtube_link %}
@@ -88,13 +134,12 @@
           {{ block }}
         {% endif %}
     {% endfor %}
-
   </article>
-</div>
+  </div>
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
 
-{% if settings.core.SiteSettings.enable_clickable_tags %}
+  {% if settings.core.SiteSettings.enable_clickable_tags %}
     <div class="tags">
       <ul class="tags-list">
         {% for tag in self.tags_list %}
@@ -104,7 +149,7 @@
         {% endfor %}
       </ul>
     </div>
-{% endif %}
-{% surveys_list_for_pages page=self %}
+  {% endif %}
+
 
 {% endblock %}

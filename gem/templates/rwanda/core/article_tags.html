@@ -2,8 +2,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-
-  <h1 class="heading heading--tags"><span class="heading--related-tag">{{request.GET.tag}}</span></h1>
+  <div class="heading">
+    <h1 class="heading--tags">{{request.GET.tag}}</h1>
+  </div>
   <div class="article-list">
     {% for each_article in object_list %}
     <div class="article-preview">
@@ -19,6 +20,7 @@
     </div>
     {% endfor %}
   </div>
-  <a href="{{request.GET.next}}" class="call-to-action-nav-back">{% trans "Back to article" %}</a>
-
+  <a href="{{request.GET.next}}" class="call-to-action-nav-back">
+    {% trans "Back to article" %}
+  </a>
 {% endblock %}
