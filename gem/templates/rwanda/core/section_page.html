@@ -1,10 +1,18 @@
 {% extends "base.html" %}
-{% load core_tags molo_survey_tags %}
-
+{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles el_pagination_tags gem_tags %}
 
 {% block content %}
-<div class="section_page">
-  {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
+<div class="section-page">
+  
+  {% load_child_sections_for_section self as sections %}
+  {% if self.get_effective_image %}
+    {% image self.get_effective_image fill-172x128 as section_photo %}
+      <img alt="{{ self.title }}" src="{{ section_photo.url }}"/>
+  {% endif %}
+  <div class="heading {% if self.get_effective_extra_style_hints %}heading--section_page-self.get_effective_extra_style_hints{% else %} heading--backgound{% endif %}">
+    <h1 class="heading__section">{{self.title}}</h1>
+  </div>
+  </div>
 
   <div id="article-hero">
     {% load_child_articles_for_section self as articles %}
@@ -22,6 +30,7 @@
     {% endfor %}
   </div>
 </div>
+
 {% if articles %}
 <div class="pagination">
   {% if articles_paginated.has_previous %}
@@ -35,7 +44,4 @@
   {% endif %}
 </div>
 {% endif %}
-
-{% surveys_list_for_pages page=self %}
-
 {% endblock %}
