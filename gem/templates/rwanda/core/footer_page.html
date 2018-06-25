@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags core_tags %}
 {% block content %}
-  <div class="heading heading__square">
-    <h1>{{self.title}}</h1>
+  <div class="heading">
+    <h1 class=" heading__square">{{self.title}}</h1>
   </div>
-  {#{% include "patterns/basics/articles/article-page_variations/article-body.html" %}#}
   <article>
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
-        <h3 class="heading heading--large">{{ block.value }}</h3>
+        <div class="heading">
+          <h3 class="heading--large">{{ block.value }}</h3>
+        </div>
       {% elif block.block_type == 'image' %}
         {% image block.value width-320 alt=self.title %}
       {% elif block.block_type == 'media' %}

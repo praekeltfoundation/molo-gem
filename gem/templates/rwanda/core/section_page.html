@@ -1,41 +1,79 @@
 {% extends "base.html" %}
-{% load core_tags molo_survey_tags %}
-
+{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles el_pagination_tags gem_tags %}
 
 {% block content %}
-<div class="section_page">
-  {% include "core/section_header_partial.html" with url=page image=page.image title=self.title extra_classes=self.get_effective_extra_style_hints %}
-
-  <div id="article-hero">
-    {% load_child_articles_for_section self as articles %}
-    {% with articles|first as article %}
-    {% if article %}
-      {% include "core/article_intro_partial.html" with article=article %}
+<div class="section-page">
+  {% load_child_sections_for_section self as sections %}
+  {% comment %}
+    {% if self.get_effective_image %}
+      {% image self.get_effective_image fill-172x128 as section_photo %}
+        <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section-page__thumbnail"/>
     {% endif %}
-    {% endwith %}
+  {% endcomment %}
+  <div class="heading {% if self.get_effective_extra_style_hints %}heading--{{self.get_effective_extra_style_hints}}{% else %} heading--background{% endif %}">
+    <h1 class="heading__section">{{self.title}}</h1>
   </div>
-
-  <div class="article-list">
-    {% load_child_articles_for_section self as articles %}
-    {% for article in articles|slice:"1:" %}
-        {% include "core/article_intro_partial.html" with article=article square_image=True %}
-    {% endfor %}
-  </div>
+  {% load_child_articles_for_section self as articles %}
+  <ul class="teaser-stacklist">
+  {% for article in articles %}
+      <li class="teaser-stacklist__item">
+        <div class="teaser-stacklist__wrapper">
+          <div class="teaser-stacklist__thumbnail-wrap">
+            <a href="{% pageurl article.specific %}" class="article-teaser__link">
+            {% if article.image %}
+              {% image article.image width-120 class="article-teaser__thumbnail" %}
+            {% endif %}
+            </a>
+          </div>
+          <div class="teaser-stacklist__content">
+          <a href="{% pageurl article.specific %}" class="article-teaser__link">
+            {% if article.title_highlight %}
+              <h3 class="article-teaser__title article-teaser__title--highlight">
+                {{ article.title_highlight|smarttruncatechars:45|safe}}
+              </h3>
+            {% else %}
+              <h3 class="article-teaser__title">
+                {{ article.title|smarttruncatechars:45|safe}}
+              </h3>
+            {% endif %}
+          </a>
+          {% if article.subtitle_highlight or article.body_highlight %}
+            <p class="article-teaser__subtitle highlight-description">
+              {% if article.subtitle_highlight %}
+                {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+              {% elif article.body_highlight %}
+                {{article.body_highlight|smarttruncatechars:28|safe}}
+              {% endif %}
+            </p>
+          {% elif article.subtitle %}
+            <p class="article-teaser__subtitle">
+              {% if article.title.30 %}
+                {{ article.subtitle|smarttruncatechars:28|safe}}
+              {% else %}
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              {% endif %}
+            </p>
+          {% endif %}
+          <a class="article-teaser__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <!--PAGINATION-->
+    {% if articles %}
+      <div class="pagination">
+      {% if articles_paginated.has_previous %}
+        <a href="?p={{ articles_paginated.previous_page_number }}">&larr;</a>
+      {% endif %}
+        <span>
+          Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+        </span>
+      {% if articles_paginated.has_next %}
+        <a href="?p={{ articles_paginated.next_page_number }}">&rarr;</a>
+      {% endif %}
+      </div>
+    {% endif %}
 </div>
-{% if articles %}
-<div class="pagination">
-  {% if articles_paginated.has_previous %}
-    <a href="?p={{ articles_paginated.previous_page_number }}">&larr;</a>
-  {% endif %}
-  <span>
-    Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-  </span>
-  {% if articles_paginated.has_next %}
-    <a href="?p={{ articles_paginated.next_page_number }}">&rarr;</a>
-  {% endif %}
-</div>
-{% endif %}
-
-{% surveys_list_for_pages page=self %}
 
 {% endblock %}
