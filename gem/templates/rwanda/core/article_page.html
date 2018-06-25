@@ -1,72 +1,61 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles wagtailembeds_tags gem_tags %}
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles wagtailembeds_tags gem_tags comments %}
 
 {% block content %}
-  {% get_translation self.get_parent_section as parent_section %}
-  <div class="article-page {% if parent_section.get_effective_extra_style_hints %}article-page--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
-
-    {% if parent_section.image %}
-      {% image parent_section.image width-40 %}
-    {% endif %}
+{% get_translation self.get_parent_section as parent_section %}
+<div class="article-page {% if parent_section.get_effective_extra_style_hints %}article--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
     <div class="heading">
-      <h1>{{ parent_section.title }}</h1>
-    </div>
-
-    <a href="{% pageurl page.specific %}" class="article-teaser__link">
-    {% if page.image %}
-      {% if square_image %}
-        {% image page.image fill-200x200 class="article-teaser__thumbnail" %}
+      {% if page.title_highlight %}
+        <h1 class="heading__article">
+          {{ page.title_highlight|smarttruncatechars:45|safe}}
+        </h1>
       {% else %}
-        {% image page.image fill-400x300 class="article-teaser__thumbnail" %}
+        <h1 class="heading__article">
+          {{ page.title|smarttruncatechars:45|safe}}
+        </h1>
       {% endif %}
-        {% if show_section_image %}
-          {% if page.get_parent_section.image %}
-            {% image page.get_parent_section.image width-200 as tmp_photo_small %}
-            {% image page.get_parent_section.image width-400 as tmp_photo_large %}
-              <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="article-teaser__thumbnail" />
-          {% endif %}
-        {% endif %}
-    {% endif %}
-    </a>
-    <div class="teaser-stacklist__content">
-      <a href="{% pageurl page.specific %}" class="article-teaser__link">
-        {% if page.title_highlight %}
-          <h3 class="article-teaser__title article-teaser__title--highlight">
-            {{ page.title_highlight|smarttruncatechars:45|safe}}
-          </h3>
-        {% else %}
-          <h3 class="article-teaser__title">
-            {{ page.title|smarttruncatechars:45|safe}}
-          </h3>
-        {% endif %}
-      </a>
-      {% if page.subtitle_highlight or article.body_highlight %}
-        <p class="article-teaser__subtitle highlight-description">
-          {% if page.subtitle_highlight %}
-            {{page.subtitle_highlight|smarttruncatechars:28|safe}}
-          {% elif page.body_highlight %}
-            {{page.body_highlight|smarttruncatechars:28|safe}}
-          {% endif %}
-        </p>
-      {% elif page.subtitle %}
-        <p class="article-teaser__subtitle">
-          {% if page.title.30 %}
-            {{ page.subtitle|smarttruncatechars:28|safe}}
-          {% else %}
-            {{ page.subtitle|smarttruncatechars:50|safe}}
-          {% endif %}
-        </p>
-      {% endif %}
-      <a class="read-more" href="{% pageurl page.specific %}">{% trans "Read more" %}</a>
     </div>
 
-    <article class="article-content">
-    {% social_media_article %}
-    {% for block in self.body %}
+    {% if page.subtitle_highlight or article.body_highlight %}
+      <p class="article__subtitle highlight-description">
+        {% if page.subtitle_highlight %}
+          {{page.subtitle_highlight|smarttruncatechars:28|safe}}
+        {% elif page.body_highlight %}
+          {{page.body_highlight|smarttruncatechars:28|safe}}
+        {% endif %}
+      </p>
+    {% elif page.subtitle %}
+      <p class="article__subtitle">
+        {% if page.title.30 %}
+          {{ page.subtitle|smarttruncatechars:28|safe}}
+        {% else %}
+          {{ page.subtitle|smarttruncatechars:50|safe}}
+        {% endif %}
+      </p>
+    {% endif %}
+
+    {% get_comment_count for self as comment_count %}
+    {% if comment_count > 0 %}
+      <a href="{% pageurl self %}#comments" class="call-to-action__nav-item-text call-to-action__nav-item-text--article-comments">
+        {% trans "Your thoughts" %}
+        ({{comment_count}})
+      </a>
+    {% endif %}
+
+    {% if page.image %}
+      {% image page.image width-360 class="article-teaser__thumbnail" %}
+    {% endif %}
+
+
+    <article class="article--body">
+      <!-- ?SOCIAL MEDIA? -->
+      {% social_media_article %}
+
+      {% for block in self.body %}
         {% if block.block_type == 'heading' %}
-        <div class="heading">
-          <h3 class="heading--large">{{ block.value }}</h3>
-        </div>
+          <div class="heading">
+            <h3 class="heading--large">{{ block.value }}</h3>
+          </div>
         {% elif block.block_type == 'image' %}
           {% image block.value width-320 %}
         {% elif block.value.youtube_link %}
@@ -86,70 +75,67 @@
                 <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
                   <span class="call-to-action__button button">{% trans "Download Video" %}</span>
                 </a>
-            {% endif %}
+              {% endif %}
             </div>
           </div>
           {% endwith %}
-        {% elif block.value.type == 'video'%}
-          {% if not is_via_freebasics %}
-            <div class="media-player">
-              <div class="media-player__content">
-                <video width="320" height="240" controls>
-                    <source src={{block.value.file.url}} type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{block.value.title}}');" class="btn" download>
-                  <span class="call-to-action__button button">{% trans "Download Video" %}</span>
-                </a>
-              </div>
-            </div>
-          {% endif %}
-        {% elif block.value.type == 'audio'%}
-          {% if not is_via_freebasics %}
-            <div class="media-player">
-              <div class="media-player__content">
-                <audio controls><source src={{block.value.file.url}}
-                  type="audio/mpeg">
-                </audio>
-                <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{block.value.title}}');" class="btn" download>
-                  <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
-                </a>
-              </div>
-            </div>
-          {% endif %}
-        {% elif block.block_type == 'numbered_list' %}
+      {% elif block.value.type == 'video'%}
+        {% if not is_via_freebasics %}
+        <div class="media-player">
+          <div class="media-player__content">
+            <video width="320" height="240" controls>
+                <source src={{block.value.file.url}} type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{block.value.title}}');" class="btn" download>
+              <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% elif block.value.type == 'audio'%}
+        {% if not is_via_freebasics %}
+        <div class="media-player">
+          <div class="media-player__content">
+            <audio controls><source src={{block.value.file.url}}
+              type="audio/mpeg">
+            </audio>
+            <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{block.value.title}}');" class="btn" download>
+              <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% elif block.block_type == 'numbered_list' %}
         <ol class="ordered-list">
           {% for item in block.value %}
             <li class="ordered-list__item">{{ item|handle_markdown }}</li>
           {% endfor %}
         </ol>
-
-        {% elif block.block_type == 'list' %}
-          <ul class="unordered-list">
+      {% elif block.block_type == 'list' %}
+        <ul class="unordered-list">
           {% for item in block.value %}
-            <li class="unordered-list__item">{{ item|handle_markdown }}</li>
+            <li class="unordered-list__item">
+              {{ item|handle_markdown }}
+            </li>
           {% endfor %}
         </ul>
-        {% else %}
-          {{ block }}
-        {% endif %}
+      {% else %}
+        {{ block }}
+      {% endif %}
     {% endfor %}
-  </article>
-  </div>
+    </article>
+
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
-
   {% if settings.core.SiteSettings.enable_clickable_tags %}
-    <div class="tags">
-      <ul class="tags-list">
-        {% for tag in self.tags_list %}
-          <li class="tag-list__item">
-            <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <ul class="teaser-stacklist-tags">
+      {% for tag in self.tags_list %}
+        <li class="teaser-stacklist-tags__item">
+          <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">{{tag}}</a>
+        </li>
+      {% endfor %}
+    </ul>
   {% endif %}
-
-
+</div>
 {% endblock %}

@@ -11,7 +11,7 @@
     {% endif %}
   {% endcomment %}
   <div class="heading {% if self.get_effective_extra_style_hints %}heading--{{self.get_effective_extra_style_hints}}{% else %} heading--background{% endif %}">
-    <h1 class="heading__section">{{self.title}}</h1>
+    <h1 class="heading__component">{{self.title}}</h1>
   </div>
   {% load_child_articles_for_section self as articles %}
   <ul class="teaser-stacklist">
@@ -21,40 +21,40 @@
           <div class="teaser-stacklist__thumbnail-wrap">
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
             {% if article.image %}
-              {% image article.image width-120 class="article-teaser__thumbnail" %}
+              {% image article.image width-200 class="article-teaser__thumbnail" %}
             {% endif %}
             </a>
           </div>
           <div class="teaser-stacklist__content">
-          <a href="{% pageurl article.specific %}" class="article-teaser__link">
-            {% if article.title_highlight %}
-              <h3 class="article-teaser__title article-teaser__title--highlight">
-                {{ article.title_highlight|smarttruncatechars:45|safe}}
-              </h3>
-            {% else %}
-              <h3 class="article-teaser__title">
-                {{ article.title|smarttruncatechars:45|safe}}
-              </h3>
-            {% endif %}
-          </a>
-          {% if article.subtitle_highlight or article.body_highlight %}
-            <p class="article-teaser__subtitle highlight-description">
-              {% if article.subtitle_highlight %}
-                {{article.subtitle_highlight|smarttruncatechars:28|safe}}
-              {% elif article.body_highlight %}
-                {{article.body_highlight|smarttruncatechars:28|safe}}
-              {% endif %}
-            </p>
-          {% elif article.subtitle %}
-            <p class="article-teaser__subtitle">
-              {% if article.title.30 %}
-                {{ article.subtitle|smarttruncatechars:28|safe}}
+            <a href="{% pageurl article.specific %}" class="article-teaser__link">
+              {% if article.title_highlight %}
+                <h3 class="article-teaser__title article-teaser__title--highlight">
+                  {{ article.title_highlight|smarttruncatechars:45|safe}}
+                </h3>
               {% else %}
-                {{ article.subtitle|smarttruncatechars:50|safe}}
+                <h3 class="article-teaser__title">
+                  {{ article.title|smarttruncatechars:45|safe}}
+                </h3>
               {% endif %}
-            </p>
-          {% endif %}
-          <a class="article-teaser__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+            </a>
+            {% if article.subtitle_highlight or article.body_highlight %}
+              <p class="article-teaser__subtitle highlight-description">
+                {% if article.subtitle_highlight %}
+                  {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                {% elif article.body_highlight %}
+                  {{article.body_highlight|smarttruncatechars:28|safe}}
+                {% endif %}
+              </p>
+            {% elif article.subtitle %}
+              <p class="article-teaser__subtitle">
+                {% if article.title.30 %}
+                  {{ article.subtitle|smarttruncatechars:28|safe}}
+                {% else %}
+                  {{ article.subtitle|smarttruncatechars:50|safe}}
+                {% endif %}
+              </p>
+            {% endif %}
+            <a class="article-teaser__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
           </div>
         </div>
       </li>

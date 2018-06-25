@@ -1,69 +1,94 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
+{% load wagtailcore_tags core_tags wagtailimages_tags comments gem_tags %}
 
-<div class="related-articles related-articles{{section.get_effective_extra_style_hints}}">
 {% get_translation self.get_parent_section as section %}
 {% get_next_article self as next_article %}
-{% if next_article and self.get_parent_section.enable_next_section %}
-  <h3 class="heading heading--small related-articles__up-next">{% trans "Next up in" %} {{ section.title }}</h3>
-  <div class="related-articles-up-next">
-    {% if next_article.image %}
-      <a href="{% pageurl next_article.specific %}" class="article__anchor">
-        {% image next_article.image width-320 class="article__image" %}
-      </a>
-    {% endif %}
-    <h1 class="heading heading--xx-large related-articles-up-next__title">
-      <a href="{% pageurl next_article.specific %}" class="call-to-action__item--text call-to-action__item--text-related-article">
-        {{next_article.title}}
-      </a>
-    </h1>
-    {% if next_article.subtitle %}
-      <p class="related-articles-up-next__desc">{{next_article.subtitle}}</p>
-    {% endif %}
-  </div>
-{% endif %}
+<div class="related-articles">
+  {% if next_article and self.get_parent_section.enable_next_section %}
+  <h3 class="heading heading--article">
+    {% trans "Next up" %}
+  </h3>
+  <ul class="teaser-stacklist">
+    <li class="teaser-stacklist__item">
+      <div class="teaser-stacklist__wrapper">
+          {% if next_article.image %}
+            <div class="teaser-stacklist__thumbnail-wrap">
+              <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__link">
+                {% image next_article.image width-200 class="teaser-stacklist__thumbnail" %}
+              </a>
+            </div>
+          {% endif %}
+          <div class="teaser-stacklist__content">
+            <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
+              {% if next_article.title_highlight %}
+                <h3 class="article-teaser__title article-teaser__title--highlight">
+                  {{ next_article.title_highlight|smarttruncatechars:45|safe}}
+                </h3>
+              {% else %}
+                <h3 class="article-teaser__title">
+                  {{ next_article.title|smarttruncatechars:45|safe}}
+                </h3>
+              {% endif %}
+            </a>
+
+            {% if next_article.subtitle_highlight or next_article.body_highlight %}
+              <p class="article-teaser__subtitle highlight-description">
+                {% if next_article.subtitle_highlight %}
+                  {{next_article.subtitle_highlight|smarttruncatechars:28|safe}}
+                {% elif next_article.body_highlight %}
+                  {{next_article.body_highlight|smarttruncatechars:28|safe}}
+                {% endif %}
+              </p>
+            {% elif next_article.subtitle %}
+              <p class="article-teaser__subtitle">
+                {% if next_article.title.30 %}
+                  {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                {% else %}
+                  {{ next_article.subtitle|smarttruncatechars:50|safe}}
+                {% endif %}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+    </li>
+  </ul>
+  {% endif %}
 </div>
 
-{% if self.get_parent_section.enable_recommended_section %}
-{% get_recommended_articles self as recommended_articles %}
-{% if recommended_articles %}
-  <h3 class="heading heading--small related-articles__recommended">{% trans "Recommended" %}</h3>
-  <div class="related-articles-recommended">
-    <ul class="related-articles-recommended-list">
-      {% for article in recommended_articles %}
-      <li class="related-articles-recommended-list__item
-      {% if forloop.counter0 == 0 %} related-articles-recommended-list__item--hero
-        {% elif forloop.counter0 == 1 %}
-          related-articles-recommended-list__item--grid
-        {% elif forloop.counter0 == 2 %}
-          related-articles-recommended-list__item--grid
-       {% endif %}">
-        {% if article.image %}
-          {% if forloop.counter0 == 0 %}
-            <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor">
-              {% image article.image width-320 class="article__image" %}
-            </a>
-          {% elif forloop.counter0 == 1 %}
-            <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
-            {% image article.image width-200 height-200 class="article__image article__image-thumbnail" %}
-            </a>
-          {% elif forloop.counter0 == 2 %}
-          <a href="{% pageurl article.specific %}" class="promoted-article-list__anchor promoted-article-list__anchor-grid">
-            {% image article.image width-200 height-200 class="article__image article__image-thumbnail" %}
-          </a>
-           {% endif %}
-        {% endif %}
 
-        <div class="related-articles-recommended-list__content {% if forloop.first %} related-articles-recommended-list__content--hero {% endif %}">
-          <h3 class="heading heading--large related-articles-recommended__title">
-            <a href="{% pageurl article.specific %}">{{article.title}}</a>
-          </h3>
-          {% if article.subtitle %}
-            <p class="related-articles-recommended__desc">{{article.subtitle}}</p>
+{% if self.get_parent_section.enable_recommended_section %}
+  {% get_recommended_articles self as recommended_articles %}
+  {% if recommended_articles %}
+  <div class="recommended-articles">
+    <h3 class="heading heading--article">
+      {% trans "Recommended" %}
+    </h3>
+    <ul class="teaser-stacklist">
+      {% for article in recommended_articles %}
+      <li class="teaser-stacklist__item">
+        <div class="teaser-stacklist__wrapper">
+          {% if article.image %}
+            <div class="teaser-stacklist__thumbnail-wrap">
+              <a href="{% pageurl article.specific %}" class="teaser-stacklist__link">
+                {% image article.image width-200 height-200 class="teaser-stacklist__thumbnail" %}
+              </a>
+            </div>
           {% endif %}
+          <div class="teaser-stacklist__content">
+            <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
+              <h3 class="article-teaser__title">
+                {{article.title}}
+              </h3>
+            </a>
+            {% if article.subtitle %}
+              <p class="article-teaser__subtitle">
+                {{article.subtitle}}
+              </p>
+            {% endif %}
+          </div>
         </div>
       </li>
       {% endfor %}
     </ul>
   </div>
-{% endif %}
+  {% endif %}
 {% endif %}
