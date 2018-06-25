@@ -18,11 +18,13 @@
   {% for article in articles %}
       <li class="teaser-stacklist__item">
         <div class="teaser-stacklist__wrapper">
-          <a href="{% pageurl article.specific %}" class="article-teaser__link">
-          {% if article.image %}
-            {% image article.image width-200 class="article-teaser__thumbnail" %}
-          {% endif %}
-          </a>
+          <div class="teaser-stacklist__thumbnail-wrap">
+            <a href="{% pageurl article.specific %}" class="article-teaser__link">
+            {% if article.image %}
+              {% image article.image width-120 class="article-teaser__thumbnail" %}
+            {% endif %}
+            </a>
+          </div>
           <div class="teaser-stacklist__content">
           <a href="{% pageurl article.specific %}" class="article-teaser__link">
             {% if article.title_highlight %}

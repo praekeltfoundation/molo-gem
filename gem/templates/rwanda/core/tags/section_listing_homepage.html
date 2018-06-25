@@ -8,10 +8,12 @@
           <li class="teaser-stacklist__item">
           <div class="teaser-stacklist__wrapper">
             {% if article.get_effective_image %}
-            <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% image article.get_effective_image fill-220x120 as teaser_thumbnail %}
-              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
-            </a>
+            <div class="teaser-stacklist__thumbnail-wrap">
+              <a href="{% pageurl article.specific %}" class="article-teaser__link">
+                {% image article.get_effective_image width-120 as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+              </a>
+            </div>
             {% endif %}
             <div class="teaser-stacklist__content">
               <a href="{% pageurl article.specific %}" class="article-teaser__link">
