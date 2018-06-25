@@ -9,7 +9,7 @@
           <div class="teaser-stacklist__wrapper">
             {% if article.get_effective_image %}
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% image article.get_effective_image width-200 as teaser_thumbnail %}
+              {% image article.get_effective_image fill-220x120 as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
             </a>
             {% endif %}
@@ -42,6 +42,9 @@
                   {% endif %}
                 </p>
               {% endif %}
+              <a class="article-teaser__read-more" href="{% pageurl article.specific %}">
+                {% trans "Read more" %}
+              </a>
             </div>
             {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}

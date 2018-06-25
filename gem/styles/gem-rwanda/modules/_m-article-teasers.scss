@@ -8,6 +8,8 @@
     height: 40px; // QUESTIONABLE UNIT:
     width: 100%;
   }
+  &__thumbnail {}
+  &__title {}
   &__subtitle {}
   .highlight-description {}
   .teaser-stacklist {
@@ -24,13 +26,15 @@
         text-align: center;
       }
     }
-
   }
 }
 
 // FOR ALL ARTICLES: #{$block}
 .article-teaser__thumbnail {
   width: 100%;
+  max-width: 150px;
+  max-height: 102px;
+
     //SMARTPHONE
     @media screen and (min-width: $phablet) {
       grid-column: 1 / span 2;
@@ -39,6 +43,20 @@
 }
 .article-teaser__title {
   text-transform: uppercase;
+  margin-bottom: 0;
+}
+.article-teaser__subtitle {
+  margin: 0;
+}
+.article-teaser__link {
+  color: #000000;
+  cursor: pointer;
+  display: block;
+}
+.article-teaser__read-more {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .teaser-stacklist {
@@ -69,22 +87,11 @@
         grid-template-columns: auto;
       }
     }
-    .article-teaser__link {
-      color: #000000;
-      cursor: pointer;
-      display: block;
-    }
     &__content {
         //SMARTPHONE
         @media screen and (min-width: $phablet) {
           grid-column: 2 / 2;
           grid-row: 1;
         }
-      .article-teaser__title {
-        margin-bottom: 0;
-      }
-      .article-teaser__subtitle {
-        margin: 0;
-      }
     }
 }
