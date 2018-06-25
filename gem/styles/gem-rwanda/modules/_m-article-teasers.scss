@@ -2,32 +2,61 @@
   $block: unquote("#{&}");
   overflow: auto;
   &:before {
-    background: url("/static/img/lines/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
+    background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     content: "";
     display: block;
     height: 40px; // QUESTIONABLE UNIT:
     width: 100%;
   }
-  &__thumbnail {
-    width: 100%;
-      //SMARTPHONE
-      @media screen and (min-width: $phablet) {
-        grid-column: 1 / span 2;
-        grid-row: 1;
-      }
-  }
-  &__title {
-    text-transform: uppercase;
-    padding: 0 $spacer-multiple;
-  }
+  &__thumbnail {}
+  &__title {}
   &__subtitle {}
   .highlight-description {}
   .teaser-stacklist {
-    margin: 0;
-    padding: 0;
+    &__item {
+      @media screen and (min-width: $phablet) {
+        &:nth-child(even):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
+        }
+        &:nth-child(odd):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
+        }
+      }
+      &__content {
+        text-align: center;
+      }
+    }
+  }
+}
+
+// FOR ALL ARTICLES: #{$block}
+.article-teaser__thumbnail {
+  width: 100%;
+}
+.article-teaser__title {
+  text-transform: uppercase;
+  margin: 0;
+}
+.article-teaser__subtitle {
+  margin: 0;
+}
+.article-teaser__link {
+  color: #000000;
+  cursor: pointer;
+  display: block;
+}
+.article-teaser__read-more {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.teaser-stacklist {
+  margin: 0;
+  padding: 0;
     &__item {
       align-items: center;
-        //SMARTPHONE
+      //SMARTPHONE
       &:nth-child(even),
       &:nth-child(odd) {
         &:after {
@@ -35,47 +64,19 @@
           display: block;
           height: 40px;
           width: 100%;
-            @media screen and (min-width: $phablet) {
-              grid-column: 1 / 5;
-              grid-row: 2;
-            }
-        }
-      }
-      @media screen and (min-width: $phablet) {
-        &:nth-child(even):after {
-          background: url("/static/img/lines/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
-        }
-        &:nth-child(odd):after {
-          background: url("/static/img/lines/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
         }
       }
     }
     &__wrapper {
       padding: $spacer-half $spacer-mid;
-      @media screen and (min-width: $phablet) {
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: auto;
-      }
+      display: flex;
+      flex-direction: row;
     }
-    #{$block}__link {
-      color: #000000;
-      cursor: pointer;
-      display: block;
+    &__thumbnail-wrap {
+      padding-right: $spacer-mid;
+      width: 60%;
     }
     &__content {
-      text-align: center;
-        //SMARTPHONE
-        @media screen and (min-width: $phablet) {
-          grid-column: 2 / 2;
-          grid-row: 1;
-        }
-      #{$block}__title {
-        margin-bottom: 0;
-      }
-      #{$block}__subtitle {
-        margin: 0;
-      }
+      width: auto
     }
-  }
 }
