@@ -47,17 +47,14 @@
     {% endif %}
 
 
-    <article class="article--body">
-      <!-- ?SOCIAL MEDIA? -->
-      {% social_media_article %}
-
+    <article class="article">
       {% for block in self.body %}
         {% if block.block_type == 'heading' %}
           <div class="heading">
-            <h3 class="heading--large">{{ block.value }}</h3>
+            <h3 class="heading__component">{{ block.value }}</h3>
           </div>
         {% elif block.block_type == 'image' %}
-          {% image block.value width-320 %}
+          {% image block.value width-320 class="article-teaser__thumbnail" %}
         {% elif block.value.youtube_link %}
           {% with block.value as media %}
           <div class="media-player">
@@ -79,7 +76,7 @@
             </div>
           </div>
           {% endwith %}
-      {% elif block.value.type == 'video'%}
+        {% elif block.value.type == 'video'%}
         {% if not is_via_freebasics %}
         <div class="media-player">
           <div class="media-player__content">
@@ -93,7 +90,7 @@
           </div>
         </div>
         {% endif %}
-      {% elif block.value.type == 'audio'%}
+        {% elif block.value.type == 'audio'%}
         {% if not is_via_freebasics %}
         <div class="media-player">
           <div class="media-player__content">
@@ -106,36 +103,41 @@
           </div>
         </div>
         {% endif %}
-      {% elif block.block_type == 'numbered_list' %}
+        {% elif block.block_type == 'numbered_list' %}
         <ol class="ordered-list">
           {% for item in block.value %}
             <li class="ordered-list__item">{{ item|handle_markdown }}</li>
           {% endfor %}
         </ol>
-      {% elif block.block_type == 'list' %}
-        <ul class="unordered-list">
+        {% elif block.block_type == 'list' %}
+          <ul class="unordered-list">
           {% for item in block.value %}
             <li class="unordered-list__item">
               {{ item|handle_markdown }}
             </li>
           {% endfor %}
         </ul>
-      {% else %}
-        {{ block }}
-      {% endif %}
+        {% elif block.block_type == 'paragraph' %}
+        <!-- NO RICH TEXT -->
+          <p class="article__paragraphs">{{block.value}}</p>
+        {% else %}
+          {{ block }}
+        {% endif %}
     {% endfor %}
     </article>
 
-  {% include "comments/comment_block.html" %}
-  {% include "core/related-article-list.html" %}
-  {% if settings.core.SiteSettings.enable_clickable_tags %}
-    <ul class="teaser-stacklist-tags">
-      {% for tag in self.tags_list %}
-        <li class="teaser-stacklist-tags__item">
-          <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">{{tag}}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+    {% social_media_article %}
+
+    {% include "comments/comment_block.html" %}
+    {% include "core/related-article-list.html" %}
+    {% if settings.core.SiteSettings.enable_clickable_tags %}
+      <ul class="teaser-stacklist-tags">
+        {% for tag in self.tags_list %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">{{tag}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 </div>
 {% endblock %}
