@@ -17,23 +17,13 @@
   <ul class="teaser-stacklist">
   {% for article in articles %}
       <li class="teaser-stacklist__item">
-        <a href="{% pageurl article.specific %}" class="article-teaser__link">
-        {% if article.image %}
-          {% if square_image %}
-            {% image article.image fill-200x200 class="article-teaser__thumbnail" %}
-          {% else %}
-            {% image article.image fill-400x300 class="article-teaser__thumbnail" %}
+        <div class="teaser-stacklist__wrapper">
+          <a href="{% pageurl article.specific %}" class="article-teaser__link">
+          {% if article.image %}
+            {% image article.image width-200 class="article-teaser__thumbnail" %}
           {% endif %}
-            {% if show_section_image %}
-              {% if article.get_parent_section.image %}
-                {% image article.get_parent_section.image width-200 as tmp_photo_small %}
-                {% image article.get_parent_section.image width-400 as tmp_photo_large %}
-                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" class="article-teaser__thumbnail" />
-              {% endif %}
-            {% endif %}
-        {% endif %}
-        </a>
-        <div class="teaser-stacklist__content">
+          </a>
+          <div class="teaser-stacklist__content">
           <a href="{% pageurl article.specific %}" class="article-teaser__link">
             {% if article.title_highlight %}
               <h3 class="article-teaser__title article-teaser__title--highlight">
@@ -63,6 +53,7 @@
             </p>
           {% endif %}
           <a class="read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+        </div>
         </div>
       </li>
       {% endfor %}

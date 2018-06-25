@@ -9,7 +9,7 @@
           <div class="teaser-stacklist__wrapper">
             {% if article.get_effective_image %}
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% image article.get_effective_image fill-200x200 as teaser_thumbnail %}
+              {% image article.get_effective_image width-200 as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
             </a>
             {% endif %}
