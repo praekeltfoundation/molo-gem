@@ -1,0 +1,39 @@
+{% extends "core/article_page.html" %}
+{% load wagtailcore_tags gem_tags %}
+{% block content %}
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
+<div class="comments">
+    <div class="heading heading__subheading">
+      <h3>{% trans "Please let us know why you are reporting this comment?" %}</h3>
+    </div>
+    <form method="post" class="comments__form comments__form--report" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+        <fieldset>
+        {% if field|fieldtype == 'RadioSelect' %}
+            {% for value, text in field.field.choices %}
+            <div class="choice-group choice-group--comments choice-group__radio">
+            <input name="{{ field.name }}"
+            id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+            <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
+            {% endfor %}
+        {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
+            <div class="choice-group choice-group--comments">
+                <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
+        {% endif %}
+        </fieldset>
+    {% endfor %}
+    <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
+    </form>
+</div>
+<div class="call-to-action call-to-action--wide-back">
+  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back to article" %}</a>
+</div>
+{% endblock %}
