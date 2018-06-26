@@ -35,6 +35,31 @@ button,
       right: 20px;
     }
   }
+  &__button-text {
+    &--primary {}
+  }
+  &__report {}
+  &__response {
+    color: $color-cyan-fountain;
+    font-weight: bold;
+    vertical-align: middle;
+    width: 50%;
+  }
+  &__replies-counter {
+    color: $color-cyan-fountain;
+    font-weight: bold;
+    margin: 0;
+    vertical-align: middle;
+    text-align: right;
+    width: 50%;
+
+  }
+  .article-teaser__read-more,
+  &__read-more {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
   &__nav-item-text  {
     &--left {
       color: $color-cyan-fountain;
@@ -58,15 +83,31 @@ button,
     }
     &--backToTop {
       color: #ffffff;
+      display: block;
+      padding: $spacer-small $spacer-mid;
+      &:active, &:hover, &:focus {
+        color: #ffffff;
+      }
       &:before {
         background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
         content: "";
         display: block;
         margin: 0 auto;
         width: 22px;
-        height: 26px;
+        height: 20px;
       }
-    };
+    }
+  }
+  &--backToTop {
+    background: $color-cyan-fountain;
+    border-radius: 5px;
+    padding: 0;
+    margin: $spacer-mid 0;
+    text-align: center;
+    width: 60%;
+    &:active, &:hover, &:focus {
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    }
   }
   &__button {
     color: #fff;
@@ -88,48 +129,5 @@ button,
     }
     &--secondary {}
   }
-  //?
-  &__button-text {
-    &--primary {}
-  }
-  //GENERIC BUTTON
-  /*
-    BUTTON
-    TEXT
-  */
-  &__report {}
-  &__response {
-    color: $color-cyan-fountain;
-    font-weight: bold;
-    vertical-align: middle;
-    width: 50%;
-  }
-  &__replies-counter {
-    color: $color-cyan-fountain;
-    font-weight: bold;
-    margin: 0;
-    vertical-align: middle;
-    text-align: right;
-    width: 50%;
 
-  }
-  .article-teaser__read-more,
-  &__read-more {
-    color: #000000;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-
-  &--backToTop {
-    background: $color-cyan-fountain;
-    border-radius: 5px;
-    padding: $spacer-mid;
-    margin: $spacer-mid 0;
-    text-align: center;
-      //SMARTPHONE
-      @media screen and (min-width: $phablet) {
-        padding: $spacer-multiple;
-        width: 45%;
-      }
-  }
 }
