@@ -17,6 +17,12 @@ button,
 //CUSTOM
 .call-to-action {
   padding: $spacer-half $spacer-mid;
+  //HEADINGS
+  &--profile {
+    padding: $spacer-half 0;
+  }
+
+  //BUTTONS
   &__item {
     &--with-icon {
       //SMARTPHONE
@@ -61,15 +67,21 @@ button,
     text-decoration: underline;
   }
   &__nav-item-text  {
+    color: $color-cyan-fountain;
+    font-weight: bold;
+    text-decoration: underline;
+    text-transform: uppercase;
+    padding: 0 $spacer-half;
     &--left {
-      color: $color-cyan-fountain;
-      font-weight: bold;
-      text-decoration: underline;
-      text-transform: uppercase;
+      padding: 0;
+      display: block;
+      text-decoration: none;
+      text-transform: capitalize;
     }
     &--right {
       color: $color-yellow-gorse;
       font-weight: bold;
+      padding: 0;
       text-transform: uppercase;
     }
     &--article-comments {
@@ -121,6 +133,7 @@ button,
       color: $color-yellow;
       font-weight: bold;
       padding: $spacer-half ($spacer-max + 5);
+      margin: $spacer-half 0;
       &:active, &:hover, &:focus {
         color: $color-yellow;
         text-decoration: underline;
