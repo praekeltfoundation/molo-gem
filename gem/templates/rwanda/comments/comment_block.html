@@ -25,7 +25,7 @@
   {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
   {% if comment_count > 1 %}
     <div class="heading">
-      <h2 class=" heading__component">{% trans "Your thoughts" %}</h2>
+      <h2 class=" heading__component">{% trans "Comments" %}</h2>
     </div>
   {% endif %}
   <div id="comments-list" class="comments-list">
@@ -98,7 +98,7 @@
           </div>
         {% endif %}
         {% if node.parent == None and node.get_children.count != 0 %}
-          <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
+          <h3 class="comments__replies-title">{% trans "Recent Replies"%}</h3>
         {% endif %}
         </div>
         {{ children }}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="comments-list">
+    <div class="heading">
+      <h2 class="heading__component">
+        {% trans "Comment Replies" %}
+      </h2>
+    </div>
+      {% if unread_notifications %}
+      <div class="heading">
+        <h4 class="heading__subtitle">
+          {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
+          {% if number_unread_notifications == 1 %}
+            {% trans "Reply"%}
+          {% else %}
+            {% trans "Replies"%}
+          {% endif %}
+        </h4>
+      </div>
+        {% for notice in unread_notifications %}
+          {% include 'notifications/notice.html' %}
+        {% endfor %}
+      {% endif %}
+      {% if read_notifications %}
+        <div class="heading">
+          <h4 class="heading__subtitle">{% trans "Read replies"%}:</h4>
+        </div>
+        {% for notice in read_notifications %}
+          {% include 'notifications/notice.html' %}
+        {% endfor %}
+      {% endif %}
+  </div>
+  <div class="call-to-action">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      {% trans "Back home" %}</a>
+  </div>
+{% endblock %}

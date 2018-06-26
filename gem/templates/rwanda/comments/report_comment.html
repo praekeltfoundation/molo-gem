@@ -1,13 +1,13 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags gem_tags %}
 {% block content %}
-<div class="call-to-action call-to-action--wide-back">
+<div class="call-to-action">
   <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
     {% trans "Back to article" %}</a>
 </div>
 <div class="comments">
-    <div class="heading heading__subheading">
-      <h3>{% trans "Please let us know why you are reporting this comment?" %}</h3>
+    <div class="heading">
+      <h4 class="heading__subheading">{% trans "Please let us know why you are reporting this comment?" %}</h4>
     </div>
     <form method="post" class="comments__form comments__form--report" novalidate>
     {% csrf_token %}
@@ -32,7 +32,7 @@
     <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
     </form>
 </div>
-<div class="call-to-action call-to-action--wide-back">
+<div class="call-to-action">
   <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
     {% trans "Back to article" %}</a>
 </div>
