@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+<form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
+{% csrf_token %}
+  <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+    {% if form.errors %}
+      <p class="errors">{% trans "Please correct the error below" %}</p>
+    {% endif %}
+    {{ form.comment }}
+    {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+  </div>
+  <input type="submit" name="submit" value="{% trans "Comment" %}" class="call-to-action__button call-to-action__button--primary">
+  <input type="submit" name="submit_anonymously" value="{% trans "Comment Anonymously" %}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+  {{ form.object_pk }}
+  {{ form.content_type }}
+  {{ form.timestamp }}
+  {{ form.security_hash }}
+  <input type="hidden" name="next" value="{% pageurl self %}" />
+  {% if node.id %}
+  <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />
+  {% endif %}
+</form>

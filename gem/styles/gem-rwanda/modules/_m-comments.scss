@@ -1,0 +1,79 @@
+.comments {
+  &:before {
+    background: url("/static/img/patterns/rwanda/partten-line-grey.png") repeat-x 0 0/100%;
+    content: "";
+    display: block;
+    height: 10px;
+    width: 100%;
+  }
+  &-list {
+    font-size: $font-x-medium;
+    &__item {
+      padding: $spacer-half $spacer-mid;
+      margin: $spacer-half 0;
+      &--parent {
+        border-top: 1px solid $color-gray;
+      }
+      &--reply {
+        background-color: $color-gray-light;
+      }
+    }
+  }
+  &-replies-list {
+    background-color: $color-gray-light;
+    margin: 0;
+    padding: $spacer-half $spacer-mid;
+    &__item {
+      padding: $spacer-half 0;
+    }
+  }
+  &__alias {
+    color: #000000;
+    margin: 0;
+    font-size: $font-small;
+    text-transform: uppercase;
+    &--author {}
+  }
+
+  &__staff {}
+  &__description {}
+  &__body-small {
+    margin: 0;
+  }
+  &__publish-date {
+    color: $color-gray;
+    display: inline-block;
+  }
+
+  &__replies-title {
+    color: $color-cyan-fountain;
+    font-size: $font-x-medium;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+  &__replies-label {
+    margin: 0;
+  }
+  &__replied-link {
+    display: block;
+    color: $color-cyan-fountain;
+    font-weight: bold;
+  }
+  &__reply-notification {
+    background-color: rgba($color-cyan-fountain, 0.5);
+    padding: $spacer-mid $spacer-mid;
+    color: $color-yellow;
+  }
+  &__reply-meta {
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: auto;
+    padding: $spacer-mid 0 0;
+  }
+  &__form {
+    padding: 0 $spacer-mid;
+  }
+
+}
