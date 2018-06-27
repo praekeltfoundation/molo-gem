@@ -5,8 +5,11 @@
     background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     content: "";
     display: block;
-    height: 40px; // QUESTIONABLE UNIT:
+    height: 20px; // QUESTIONABLE UNIT:
     width: 100%;
+      @media screen and (min-width: $phablet) {
+        height: 40px; // QUESTIONABLE UNIT:
+      }
   }
   &__thumbnail {}
   &__title {}
@@ -14,7 +17,13 @@
   .highlight-description {}
   .teaser-stacklist {
     &__item {
+      border-bottom: 1px solid $color-gray-light;
+      //&:first-child
+      &:last-child {
+        border-bottom: none;
+      }
       @media screen and (min-width: $phablet) {
+        border-bottom: none;
         &:nth-child(even):after {
           background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
         }
@@ -54,12 +63,15 @@
       //SMARTPHONE
       &:nth-child(even),
       &:nth-child(odd) {
-        &:after {
-          content: "";
-          display: block;
-          height: 40px;
-          width: 100%;
+        @media screen and (min-width: $phablet) {
+          &:after {
+            content: "";
+            display: block;
+            height: 40px;
+            width: 100%;
+          }
         }
+
       }
     }
     &__wrapper {

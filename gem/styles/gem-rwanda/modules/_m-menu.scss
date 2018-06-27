@@ -1,3 +1,4 @@
+//DEFAULT STYLE
 .menu {
   display: block;
   $block: unquote("#{&}");
@@ -16,21 +17,33 @@
     }
     &__anchor {
       color: #ffffff;
-      font-size: $font-x-small;
-    }
-    //INNER LIST
-    &--sections {
-      margin: 0;
-      #{$block}-list {
-        &__item {}
-      }
     }
   }
 
+  //HEADER (DROPDOWN MENU)
   &--header {
-    background-color: #ffffff;
-    display: none;
+    background-color: $color-cyan;
+    border-top: 2px solid #ffffff;
+    color: #ffffff;
+    overflow: auto;
+    width: 100%;
+    #{$block}-list {
+      @media screen and (min-width: $phablet) {
+        text-align: left;
+      }
+      &__item {
+        border-bottom: 1px solid $color-cyan-fountain;
+        @media screen and (min-width: $phablet) {
+          padding: 0 $spacer-half 0 ($spacer-half * 4);
+        }
+      }
+      &__anchor {
+        display: block;
+        padding: $spacer-half $spacer-small;
+      }
+    }
   }
+  //FOOTER (MENU)
   &--footer {
     display: inline-block;
     #{$block}-list {

@@ -88,8 +88,28 @@
     <!-- DROP DOWN MENU-->
     <nav>
       <div class="nav nav--header">
+        <ul class="nav-list">
+          <li class="nav-list__item">
+            <span class="nav-list__label">{% trans "Menu" %}</span>
+          </li>
+          <li class="nav-list__item">
+            {% if not user.is_authenticated %}
+            <a href={{REGISTRATION_URL}} class="nav-list__anchor">{% trans "Sign up" %}</a>
+            {% else %}
+            <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">{% trans "Profile" %}</a>
+            {% endif %}
+          </li>
+        </ul>
+        {% if languages|length > 1 %}
+          <div class="languages">
+            {% for language in languages %}
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
+
         <div class="menu menu--header">
-          <ul class="menu-list menu-list--sections">
+          <ul class="menu-list">
             <li class="menu-list__item">
               <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">
                 {% trans "Home" %}
@@ -106,26 +126,6 @@
             {% endfor %}
           </ul>
         </div>
-        <ul class="nav-list">
-          <li class="nav-list__item">
-            <a href="#" class="nav-list__label">{% trans "Menu" %}</a>
-          </li>
-          <li class="nav-list__item">
-            {% if not user.is_authenticated %}
-            <a href={{REGISTRATION_URL}} class="nav-list__anchor">{% trans "Sign up" %}</a>
-            {% else %}
-            <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">{% trans "Profile" %}</a>
-            {% endif %}
-          </li>
-        </ul>
-
-        {% if languages|length > 1 %}
-          <div class="languages">
-            {% for language in languages %}
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
-            {% endfor %}
-          </div>
-        {% endif %}
       </div>
     </nav>
   </div>
