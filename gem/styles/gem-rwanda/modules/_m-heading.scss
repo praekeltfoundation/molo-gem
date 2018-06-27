@@ -1,0 +1,53 @@
+.heading {
+  font-size: $font-medium;
+  padding: $spacer-half $spacer-mid;
+  text-transform: uppercase;
+  @each $name, $theme_bg in $sections_theme {
+    &--#{$name} {
+      background: $theme_bg;
+      padding: $spacer-half;
+      max-height: 55px;
+    }
+  }
+  &__component {
+    color: $color-cyan-fountain;
+    font-size: $font-medium;
+  }
+  &__micro {
+    margin: 0;
+    font-size: $font-x-small;
+  }
+  &__subtitle {
+    color: #000000;
+    font-size: $font-small;
+    text-transform: uppercase;
+  }
+  &__subheading {
+    margin: 0;
+    padding: $spacer-half 0;
+    text-transform: uppercase;
+  }
+  &__section {
+    color: #ffffff;
+    margin: 0;
+    font-size: $font-large;
+    text-align: center;
+  }
+  &__article {
+    color: $color-cyan-fountain;
+    font-size: $font-x-large;
+  }
+
+  //PROFILES
+  &__profiles {
+    font-size: $font-x-large;
+    text-align: center;
+    padding-top: $spacer-multiple;
+  }
+  &--subtitle {
+    color: #000000;
+    font-size: $font-small;
+    text-transform: none;
+    padding: $spacer-half $spacer-mid 0;
+  }
+}

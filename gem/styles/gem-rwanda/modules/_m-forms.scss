@@ -12,11 +12,27 @@ input[type="datetime-local"],
 input[type="url"],
 select {
   background-color: #ffffff;
-  border: none;
+  border: 1px #d6d6d6 solid;
   color: $color-cyan;
-  font-size: $font-x-medium;
+  font-size: $font-small;
   padding: $spacer-half;
+  margin: $spacer-small 0;
   width: 100%;
+}
+select {
+  height: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  -webkit-border-radius: 0;
+  outline: none;
+  text-transform: capitalize;
+}
+select[value="value"] {
+  font-size: $font-small;
+  text-transform: capitalize;
 }
 input[type="search"] {
   -webkit-appearance: textfield;
@@ -30,8 +46,16 @@ input[type="search"] {
 [type="checkbox"],
 [type="radio"] {}
 
-
+textarea {
+  background-color: $color-gray-light;
+  border: none;
+  margin: 0 auto;
+  max-height: 150px;
+  padding: $spacer-mid $spacer-half;
+  width: 90%;
+}
 fieldset {
   border: none;
+  padding: $spacer-small 0;
   margin: 0;
 }

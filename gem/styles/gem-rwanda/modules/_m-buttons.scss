@@ -1,5 +1,28 @@
+//DEFAULTS
+button,
+[type="button"],
+[type="reset"],
+[type="submit"],
+.call-to-action__item  {
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: $font-small;
+  margin: $spacer-half 0;
+  padding: $spacer-half;
+  text-align: center;
+  text-transform: uppercase;
+}
+//CUSTOM
 .call-to-action {
-  padding: $spacer-mid $spacer-half;
+  padding: $spacer-half $spacer-mid;
+  //HEADINGS
+  &--profile {
+    padding: $spacer-half 0;
+  }
+
+  //BUTTONS
   &__item {
     &--with-icon {
       //SMARTPHONE
@@ -18,52 +41,113 @@
       right: 20px;
     }
   }
+  &__button-text {
+    &--primary {}
+  }
+  &__report {}
+  &__response {
+    color: $color-cyan-fountain;
+    font-weight: bold;
+    vertical-align: middle;
+    width: 50%;
+  }
+  &__replies-counter {
+    color: $color-cyan-fountain;
+    font-weight: bold;
+    margin: 0;
+    vertical-align: middle;
+    text-align: right;
+    width: 50%;
+
+  }
+  .article-teaser__read-more,
+  &__read-more {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
   &__nav-item-text  {
+    color: $color-cyan-fountain;
+    &--left {
+      padding: 0;
+      display: block;
+      padding: 0 $spacer-half;
+      text-decoration: none;
+      text-transform: capitalize;
+      font-weight: bold;
+      text-decoration: underline;
+      text-transform: uppercase;
+
+    }
+    &--right {
+      color: $color-yellow-gorse;
+      font-weight: bold;
+      padding: 0;
+      text-transform: uppercase;
+    }
+    &--article-comments {
+      color: $color-pink;
+      display: block;
+      font-weight: bold;
+      font-size: $font-x-small;
+      padding: $spacer-half $spacer-mid;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
     &--backToTop {
       color: #ffffff;
+      display: block;
+      padding: $spacer-small $spacer-mid;
+      &:active, &:hover, &:focus {
+        color: #ffffff;
+      }
       &:before {
         background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
         content: "";
         display: block;
         margin: 0 auto;
         width: 22px;
-        height: 26px;
+        height: 20px;
       }
-    };
-  }
-  &__button {
-    color: #fff;
-    display: block;
-    text-align: center;
-    text-transform: uppercase;
-    padding: $spacer-half;
+    }
+    &--login {
+      font-weight: bold;
+      padding: 0 $spacer-mid;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
   }
   &--backToTop {
     background: $color-cyan-fountain;
     border-radius: 5px;
-    padding: $spacer-mid;
+    padding: 0;
     margin: $spacer-mid 0;
     text-align: center;
-      //SMARTPHONE
-      @media screen and (min-width: $phablet) {
-        padding: $spacer-multiple;
-        width: 45%;
-      }
+    width: 60%;
+    &:active, &:hover, &:focus {
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    }
   }
-}
+  &__button {
+    color: #fff;
+    border-radius: 0;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: $spacer-half;
+    &--primary {
+      background-color: $color-pink-hollywood;
+      color: $color-yellow;
+      font-weight: bold;
+      padding: $spacer-half ($spacer-max + 5);
+      margin: $spacer-half 0;
+      &:active, &:hover, &:focus {
+        color: $color-yellow;
+        text-decoration: underline;
+        background-color: rgba($color-pink, 0.8);
+      }
+    }
+    &--secondary {}
+  }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"],
-.call-to-action__item  {
-  border: none;
-  border-radius: 2px;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: $font-small;
-  margin: $spacer-half 0;
-  padding: $spacer-half;
-  text-align: center;
-  text-transform: uppercase;
 }
