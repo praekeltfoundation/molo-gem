@@ -80,13 +80,9 @@
     <div class="surveys__pagination surveys__pagination--multi-step">
       <h6 class="surveys__pagination-title">
         {% if self.your_words_competition %}
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
-            This competition has {{pages}} pages
-          {% endblocktrans %}
+          {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
         {% elif not self.display_survey_directly %}
-          {% blocktrans with pages=fields_step.paginator.num_pages %}
-            This {{self}} has {{pages}} pages
-          {% endblocktrans %}
+            {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
         {% endif %}
       </h6>
     </div>
@@ -179,7 +175,7 @@
           <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__pagination">
               <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page">
                 {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                  {% trans Page %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number">{{page}}</span> {% trans of %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number">{{pages}}</span>
+                  {% trans "Page"  %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{page}}</span> {% trans "of" %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{pages}}</span>
                 {% endwith %}
               </p>
           </div>
