@@ -1,13 +1,11 @@
 .nav {
   clear: both;
   overflow: auto;
+  position: relative;
   &-list {
+    display: inline-block;
     padding: 0 $spacer-mid 0;
     margin: 0;
-    //SMARTPHONE
-    @media screen and (min-width: $phablet) {
-      float: left;
-    }
     &__item {
       display: inline-block;
     }
@@ -18,12 +16,14 @@
     }
     &__label {
       color: #ffffff;
+      cursor: pointer;
       text-transform: uppercase;
       font-weight: bold;
-      cursor: pointer;
+      padding-left: $spacer-mid;
       //SMARTPHONE
         @media screen and (min-width: $phablet) {
             font-weight: normal;
+            float: left;
             &:before {
               content: '';
               background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
@@ -34,7 +34,22 @@
               width: 25px;
             }
         }
-      padding: $spacer-small 0 $spacer-small $spacer-small;
+
+    }
+    &__checkbox {
+      position: absolute;
+      visibility: hidden;
+      @media screen and (min-width: $phablet) {
+        position: absolute;
+        left: 28%;
+        top: 5px;
+      }
+      & + * {
+        display: none;
+      }
+      &:checked + * {
+        display: block;
+      }
     }
   }
   &--header {}
