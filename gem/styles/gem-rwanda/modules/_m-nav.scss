@@ -20,9 +20,14 @@
       text-transform: uppercase;
       font-weight: bold;
       padding-left: $spacer-mid;
-      &:active, &:hover, &:focus {
-        color: $color-pink-hollywood;
-      }
+        &:active, &:hover, &:focus {
+          color: $color-pink-hollywood;
+          @media screen and (min-width: $phablet) {
+              &:before {
+                background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+              }
+          }
+        }
         //SMARTPHONE
         @media screen and (min-width: $phablet) {
             font-weight: normal;
@@ -55,5 +60,14 @@
       }
     }
   }
+  &__active {
+    color: $color-pink-hollywood;
+    @media screen and (min-width: $phablet) {
+        &:before {
+          background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+        }
+    }
+  }
+  &__is-open {}
   &--header {}
 }

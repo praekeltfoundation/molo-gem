@@ -8,7 +8,9 @@
       var menuListLabel = document.getElementById('nav_slide');
       var menuList = document.querySelector('.menu--header');
       menuListLabel.addEventListener('click', function() {
-        menuList.classList.toggle('is-open');
+        var $label = event.target.previousElementSibling;
+        $label.classList.toggle('nav__active');
+        menuList.classList.toggle('nav__is-open');
       });
   }
 
