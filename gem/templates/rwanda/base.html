@@ -126,7 +126,7 @@
             {% for section in sections %}
               {% pageurl section.specific as section_path %}
                 <li class="menu-list__item menu-list__item--{{section.get_effective_extra_style_hints}}">
-                  <a href="{% pageurl section.specific %}" class="menu-list__anchor{% if request.path == section_path %} selected{% endif %}">
+                  <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
                     {{section.title}}
                   </a>
                 </li>
@@ -162,7 +162,7 @@
             {% load_sections as sections %}
             {% for section in sections %}
               <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor">
+                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
                     {{section.title}}
                 </a>
               </li>
