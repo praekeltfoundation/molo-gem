@@ -53,10 +53,32 @@
         top: 5px;
       }
       & + * {
-        display: none;
+        @media screen and (max-width: $smartphone) {
+          display: none;
+        }
+        @media screen and (min-width: $phablet) {
+          visibility: hidden;
+          height:0px;
+          -webkit-transition:height, 0.5s linear;
+          -moz-transition: height, 0.5s linear;
+          -ms-transition: height, 0.5s linear;
+          -o-transition: height, 0.5s linear;
+          transition: height, 0.5s linear;
+        }
       }
       &:checked + * {
-        display: block;
+        @media screen and (max-width: $smartphone) {
+          display: block;
+        }
+        @media screen and (min-width: $phablet) {
+          visibility: visible;
+          height: 270px;
+          -webkit-transition:height, 0.5s linear;
+          -moz-transition: height, 0.5s linear;
+          -ms-transition: height, 0.5s linear;
+          -o-transition: height, 0.5s linear;
+          transition: height, 0.5s linear;
+        }
       }
     }
   }

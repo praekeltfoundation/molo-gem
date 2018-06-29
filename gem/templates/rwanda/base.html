@@ -71,7 +71,7 @@
   <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   {% wagtailuserbar %}
   <header>
-  <div id="header" class="header">
+    <div id="header" class="header">
     <div class="logo-wrapper">
       <a href="/" class="logo logo--left">
         {% get_site_static_prefix as site_prefix %}
@@ -137,9 +137,10 @@
     </nav>
   </div>
   </header>
-  {% display_unread_notifications %}
-  {% block content %}{% endblock %}
-
+  <main role="main">
+    {% display_unread_notifications %}
+    {% block content %}{% endblock %}
+  </main>
   <footer>
     <div id="footer" class="footer">
       {% block search %}
