@@ -104,20 +104,6 @@
     }
   }
 
-  var menuToggle = function() {
-    var menuListLabel = document.getElementById('nav_toggle');
-    var menuList = document.querySelector('.menu--header');
-    menuListLabel.addEventListener('click', function(e) {
-        e.preventDefault();
-        menuList.classList.toggle('is-open');
-    });
-    FancyNavToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        menuList.classList.toggle('is-open');
-    });
-  }
-
-
   domReady(function() {
     remNoJS();
     hidePagination();
