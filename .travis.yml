@@ -22,12 +22,12 @@ jobs:
   include:
     - stage: test
     - language: node_js
-      node_js: '8' # LTS version
+      node_js: '9' # LTS version
       env: []
       cache:
         directories: [node_modules]
       before_install:
-        - npm i -g npm@5
+        - npm i -g npm@6
         - npm install -g gulp-cli
       install:
         - travis_retry npm install
