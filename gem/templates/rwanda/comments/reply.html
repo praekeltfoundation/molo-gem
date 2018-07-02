@@ -174,13 +174,13 @@
 </div>
 <div class="pagination">
     {% if replies.has_previous %}
-      <a href="?p={{ replies.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
+      <a href="?p={{ replies.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
     {% endif %}
-    <span class="pagination__current-page">
+    <span class="pagination__nav-item pagination__nav-item--current">
       {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
     </span>
     {% if replies.has_next %}
-      <a href="?p={{ replies.next_page_number }}" class="pagination__nav-anchor-next"></a>
+      <a href="?p={{ replies.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next"></a>
     {% endif %}
   </div>
   <div id="comment-block">

@@ -64,13 +64,13 @@
     {% if articles %}
       <div class="pagination">
       {% if articles_paginated.has_previous %}
-        <a href="?p={{ articles_paginated.previous_page_number }}">&larr;</a>
+        <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous">&larr;</a>
       {% endif %}
-        <span>
+        <span class="pagination__nav-item pagination__nav-item--current">
           Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
         </span>
       {% if articles_paginated.has_next %}
-        <a href="?p={{ articles_paginated.next_page_number }}">&rarr;</a>
+        <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next">&rarr;</a>
       {% endif %}
       </div>
     {% endif %}
