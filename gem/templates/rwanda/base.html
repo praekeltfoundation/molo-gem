@@ -11,12 +11,6 @@
 <!--<![endif]-->
   <head>
     <meta charset="utf-8" />
-    {% comment %}
-      ++++++++++++++++++++++++++++
-        is site available via BBM?
-        <title>{% if is_via_bbm %}GirlTalk{% endif %}</title>
-      ++++++++++++++++++++++++++++
-    {% endcomment %}
     <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
@@ -25,8 +19,8 @@
         Set google-site-verification
         Ninyampinga site description
       ++++++++++++++++++++++++++++
+      <!--<meta name="google-site-verification" content="" />-->
     {% endcomment %}
-    <meta name="google-site-verification" content="" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
     <meta property="og:image:width" content="450" />
@@ -222,8 +216,10 @@
     </div>
   </footer>
   {% wagtailuserbar %}
-  {% block facebook_analytics %}
-    {% include "core/facebook_analytics.html" %}
-  {% endblock %}
+  {% comment %}
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
+  {% endcomment %}
   </body>
 </html>
