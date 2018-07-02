@@ -19,6 +19,7 @@ var gulp              =   require('gulp'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
     gutil             =   require('gulp-util'),
+    uglify            =   require('gulp-uglify'),
     sassPaths = [
         'gem/styles/gem/base_style.scss',
         'gem/styles/gem/base_style-rtl.scss',
@@ -81,14 +82,17 @@ gulp.task('styles:auth', function() {
 
 // Minify JS
 gulp.task('compress', function() {
-  gulp.src('gem/static/js/springster.js')
-    .pipe(minify({
-        ext:{
-            min:'-min.js'
-        },
-        noSource:[],
+  return gulp.src([
+      'gem/static/js/springster.js',
+      'gem/static/js/menu.js',
+      'gem/static/js/modeladmin/index.js'
+    ])
+    .pipe(rename({
+      suffix: "-min",
+      extname: ".js"
     }))
-    .pipe(gulp.dest('gem/static/js/'))
+    .pipe(uglify())
+    .pipe(gulp.dest('gem/static/js/dest'))
 });
 
 

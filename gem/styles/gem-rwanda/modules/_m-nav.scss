@@ -1,13 +1,11 @@
 .nav {
   clear: both;
   overflow: auto;
+  position: relative;
   &-list {
-    padding: 0;
+    display: inline-block;
+    padding: 0 $spacer-mid 0;
     margin: 0;
-    //SMARTPHONE
-    @media screen and (min-width: $phablet) {
-      float: left;
-    }
     &__item {
       display: inline-block;
     }
@@ -18,11 +16,22 @@
     }
     &__label {
       color: #ffffff;
+      cursor: pointer;
       text-transform: uppercase;
       font-weight: bold;
-      //SMARTPHONE
+      padding-left: $spacer-mid;
+        &:active, &:hover, &:focus {
+          color: $color-pink-hollywood;
+          @media screen and (min-width: $phablet) {
+              &:before {
+                background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+              }
+          }
+        }
+        //SMARTPHONE
         @media screen and (min-width: $phablet) {
             font-weight: normal;
+            float: left;
             &:before {
               content: '';
               background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
@@ -33,8 +42,54 @@
               width: 25px;
             }
         }
-      padding: $spacer-small 0 $spacer-small $spacer-small;
+
+    }
+    &__checkbox {
+      position: absolute;
+      visibility: hidden;
+      @media screen and (min-width: $phablet) {
+        position: absolute;
+        left: 28%;
+        top: 5px;
+      }
+      & + * {
+        @media screen and (max-width: $smartphone) {
+          display: none;
+        }
+        @media screen and (min-width: $phablet) {
+          visibility: hidden;
+          height:0px;
+          -webkit-transition:height, 0.5s linear;
+          -moz-transition: height, 0.5s linear;
+          -ms-transition: height, 0.5s linear;
+          -o-transition: height, 0.5s linear;
+          transition: height, 0.5s linear;
+        }
+      }
+      &:checked + * {
+        @media screen and (max-width: $smartphone) {
+          display: block;
+        }
+        @media screen and (min-width: $phablet) {
+          visibility: visible;
+          height: 270px;
+          -webkit-transition:height, 0.5s linear;
+          -moz-transition: height, 0.5s linear;
+          -ms-transition: height, 0.5s linear;
+          -o-transition: height, 0.5s linear;
+          transition: height, 0.5s linear;
+        }
+      }
     }
   }
+  &__active {
+    color: $color-pink-hollywood;
+    @media screen and (min-width: $phablet) {
+        &:before {
+          background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+        }
+    }
+  }
+  &__is-open {}
   &--header {}
 }
