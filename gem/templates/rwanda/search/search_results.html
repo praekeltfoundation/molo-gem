@@ -75,13 +75,13 @@
     <div class="search-result pagination">
       <div class="step-links">
         {% if search_results.has_previous %}
-            <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}">&larr;</a>
+            <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="pagination__nav-item pagination__nav-anchor-previous">&larr;</a>
         {% endif %}
-        <span class="current">
+        <span cclass="pagination__nav-item pagination__nav-item--current">
             Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
         </span>
         {% if search_results.has_next %}
-            <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}">&rarr;</a>
+            <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="pagination__nav-item pagination__nav-anchor-next">&rarr;</a>
         {% endif %}
       </div>
     </div>
