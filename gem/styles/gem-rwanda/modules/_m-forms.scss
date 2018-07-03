@@ -13,6 +13,7 @@ input[type="url"],
 select {
   background-color: #ffffff;
   border: 1px #d6d6d6 solid;
+  border-radius: 10px;
   color: $color-cyan;
   font-size: $font-small;
   padding: $spacer-half;
@@ -43,8 +44,51 @@ input[type="search"] {
       width: 85%;
     }
 }
+
 [type="checkbox"],
-[type="radio"] {}
+[type="radio"] {
+  margin: 0;
+  visibility: hidden;
+  position: absolute;
+  opacity: 0.9;
+  & ~ label {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    &:before {
+      content: " ";
+      border: 1px solid $color-gray;
+      opacity: 0.9;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      vertical-align: middle;
+      margin-right: $spacer-half;
+    }
+  }
+}
+
+[type="checkbox"] {
+  //SMARTPHONE STYLES
+  &:checked + label:before {
+    background: $color-pink url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
+    border-color: $color-pink;
+    opacity: 1;
+  }
+}
+
+[type="radio"] {
+  & ~ label:before {
+    border-radius: 50%;
+  }
+  &:checked + label:before {
+    background: $color-pink url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
+    border-color: $color-pink;
+    opacity: 1;
+  }
+}
 
 textarea {
   background-color: $color-gray-light;
@@ -58,4 +102,8 @@ fieldset {
   border: none;
   padding: $spacer-small 0;
   margin: 0;
+}
+
+.choice-group {
+  padding: $spacer-small 0;
 }

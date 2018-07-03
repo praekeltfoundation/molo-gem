@@ -4,27 +4,36 @@
 {% block content %}
   <div class="freebasics-notification">
     {% if 'cewekeren.com' in request.get_host %}
-        <p class="freebasics-notification__text">Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
-        Girl Effect secara gratis lewat <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">Internet.org</a>
-        hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?</p>
+      <p class="freebasics-notification__text">
+        {% blocktrans %}
+          Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
+          Girl Effect secara gratis lewat" %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">Internet.org</a>
+          hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+        {% endblocktrans %}
+      </p>
     {% endif %}
+
     {% if 'ninyampinga.com' in request.get_host %}
-        <p class="freebasics-notification__text">{% trans "This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to" %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">{% trans "freebasics.com" %}</a></p>
+        <p class="freebasics-notification__text">
+        {% blocktrans %}
+          This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to" %}
+          <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a>
+        {% endblocktrans %}
+        </p>
     {% endif %}
+  </div>
 
-    <p class="freebasics-notification__text">This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a></p>
-    </div>
+    {% bannerpages %}
+    {% gembannerpages %}
+    {% topic_of_the_day %}
+    {% latest_listing_homepage num_count=6 %}
+    {% section_listing_homepage %}
+    {% surveys_list personalisable_survey=True %}
+    {% media_listing_homepage %}
+    {% poll_page %}
+    {% surveys_list only_direct_surveys=True %}
+    {% surveys_list only_yourwords=True %}
+    {% surveys_list only_linked_surveys=True %}
+    {% your_words_competition %}
 
-  {% bannerpages %}
-  {% gembannerpages %}
-  {% topic_of_the_day %}
-  {% latest_listing_homepage num_count=6 %}
-  {% section_listing_homepage %}
-  {% surveys_list personalisable_survey=True %}
-  {% media_listing_homepage %}
-  {% poll_page %}
-  {% surveys_list only_direct_surveys=True %}
-  {% surveys_list only_yourwords=True %}
-  {% surveys_list only_linked_surveys=True %}
-  {% your_words_competition %}
 {% endblock %}
