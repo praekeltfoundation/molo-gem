@@ -76,6 +76,7 @@
     </div>
   {% endif %}
 
+  {% comment %}
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
     <div class="surveys__pagination surveys__pagination--multi-step">
       <h6 class="surveys__pagination-title">
@@ -87,6 +88,8 @@
       </h6>
     </div>
   {% endif %}
+  {% endcomment %}
+
   {# START FORM #}
     {% if form %}
     <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
