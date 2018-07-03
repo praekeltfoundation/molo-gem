@@ -47,22 +47,28 @@
     display: block;
   }
 
-  //SEARCH CTA
+  input[type="search"] {
+    border-radius: 0;
+  }
   button,
   [type="button"],
   [type="reset"],
   [type="submit"] {
     background-color: transparent;
     margin: 0;
-    padding: ($spacer-half + 1) 0;
+    padding: $spacer-half 0;
     text-decoration: underline;
       //SMARTPHONE
       @media screen and (min-width: $phablet) {
         background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
         background-repeat: no-repeat;
         background-position: center center;
-        background-size: 60%;
+        background-size: 48%;
+        border-left: 2px solid $color-cyan-dark;
+        border-radius: 0;
         height: auto;
+        margin: $spacer-half 0;
+        padding: 0;
         width: 50px;
       }
   }
@@ -71,10 +77,8 @@
 .footer {
   .search {
     input[type="search"] {
-      //SMARTPHONE
-      @media screen and (min-width: $phablet) {
-        width: 90%;
-      }
+      margin: 0;
+      width: 100%;
     }
   }
 }

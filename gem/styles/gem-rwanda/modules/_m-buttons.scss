@@ -6,10 +6,11 @@ button,
 .call-to-action__item  {
   border: none;
   border-radius: 2px;
+  display: block;
   color: #ffffff;
   cursor: pointer;
   font-size: $font-small;
-  margin: $spacer-half 0;
+  margin: $spacer-half auto;
   padding: $spacer-half;
   text-align: center;
   text-transform: uppercase;
@@ -29,17 +30,13 @@ button,
       @media screen and (min-width: $phablet) {
         text-indent: -99em;
         position: absolute;
-        right: 5px;
+        right: 0;
         top: 0;
       }
     }
     //SEARCH CTA
-    &--with-icon-search {
-      right: 30px;
-    }
-    &--with-icon-search_footer {
-      right: 20px;
-    }
+    &--with-icon-search {right: 25px;}
+    &--with-icon-search_footer {}
   }
   &__button-text {
     &--primary {}
@@ -140,7 +137,7 @@ button,
       color: $color-yellow;
       font-weight: bold;
       padding: $spacer-half ($spacer-max + 5);
-      margin: $spacer-half 0;
+      margin: $spacer-half auto;
       &:active, &:hover, &:focus {
         color: $color-yellow;
         text-decoration: underline;

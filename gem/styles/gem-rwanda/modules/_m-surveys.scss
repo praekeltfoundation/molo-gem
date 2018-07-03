@@ -2,7 +2,7 @@
   background-color: $color-cyan-fountain;
   color: #ffffff;
   overflow: auto;
-  padding: $spacer-half 0;
+  padding: 0;
   position: relative;
   $block: unquote("#{&}");
   &:after {
@@ -43,17 +43,20 @@
   .errors {
     text-align: left;
   }
+
   .call-to-action {
     padding: 0 $spacer-mid;
     &__button {
       &--primary {
         background-color: $color-yellow;
         color: $color-cyan-fountain;
-        display: inline-block;
         padding: $spacer-half $spacer-multiple;
         text-transform: inherit;
       }
     }
+  }
+  a.call-to-action__button--primary {
+    display: inline-block;
   }
   &__question-title {
     font-size: 16px;
@@ -139,13 +142,7 @@
   }
   &__type {
     &--gcn-competition {}
-    &--polls {
-      .call-to-action__button--primary  {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-      }
-    }
+    &--polls {}
   }
 
   &__form {
@@ -187,7 +184,7 @@
       //SMARTPHONE STYLES
       &:checked + label:before {
         background: $color-yellow-gorse url("/static/img/icons/rwanda/check-box-cyan.png") center center / 65% no-repeat;
-        border-color: $color-yellow-gorse ;
+        border-color: $color-yellow-gorse;
         opacity: 1;
       }
     }
