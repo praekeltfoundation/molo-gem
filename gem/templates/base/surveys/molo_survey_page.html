@@ -19,6 +19,7 @@
           {% endif %}
         {% endfor %}
       </div>
+      {% comment %}
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="your-words__pagination your-words__pagination--multi-step">
         <h6 class="your-words__pagination-title">
@@ -26,6 +27,7 @@
         </h6>
       </div>
       {% endif %}
+      {% endcomment %}
       {% include "surveys/form.html" with surveytype="competition" surveytypeClass="your-words"  %}
     </div>
   {% elif page.display_survey_directly %}
