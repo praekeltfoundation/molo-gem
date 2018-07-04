@@ -97,6 +97,9 @@
             {% endif %}
           </li>
         </ul>
+        <label for="nav_slide" class="nav-list__label">
+          <span>{% trans "Menu" %}</span>
+        </label>
         {% if languages|length > 1 %}
           <div class="languages">
             {% for language in languages %}
@@ -104,11 +107,10 @@
             {% endfor %}
           </div>
         {% endif %}
-
-        <label for="nav_slide" class="nav-list__label">
-          <span>{% trans "Menu" %}</span>
-        </label>
         <input type="checkbox" name="toggle" id="nav_slide" class="nav-list__checkbox" />
+
+
+
         <div class="menu menu--header">
           <ul class="menu-list">
             <li class="menu-list__item">
@@ -127,6 +129,7 @@
             {% endfor %}
           </ul>
         </div>
+
       </div>
     </nav>
   </div>
