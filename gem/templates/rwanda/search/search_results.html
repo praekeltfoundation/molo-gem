@@ -1,77 +1,61 @@
-
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
-
-
-{% block body_class %}default-container{% endblock %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
 
 {% block content %}
   {% if search_results %}
-  <div class="container">
-    <div class="title search">
-      <h3>{% trans "Search" %}</h3>
-      <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+    <div class="heading">
+        <h1 class="heading--micro">{% trans "Search" %}</h1>
+    </div>
+    <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
       {% include "search/search_block.html" %}
-    </div>
-    <div class="search-results article-list">
-      {% for page in search_results %}
-      {% get_translation page.get_parent_section as parent_section %}
-        {% if page.image %}
-        <a href="{% pageurl page.specific %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
-          <div class="search-image">
-              {% image page.image fill-200x200 %}
-              {% image parent_section.image width-40 as section_image %}
-              <img src="{{ section_image.url }}" class="section-image icon-{{ section_image.get_effective_extra_style_hints }}" />
-          </div>
-          <div class="text">
-            <div class="section-title">
-              {{ parent_section.title }}
-            </div>
-            {% if page.title_highlight %}
-              <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
-            {% else %}
-              <h1 class="search--results__title">{{page.title}}</h1>
-            {% endif %}
-            {% if page.subtitle_highlight or page.body_highlight %}
-              <p class="search--results__subtitle highlight-description">
-                {% if page.subtitle_highlight %}
-                  {{page.subtitle_highlight|safe}}
-                {% elif page.body_highlight %}
-                  {{page.body_highlight|safe}}
+      <div class="article-teaser">
+        <ul class="teaser-stacklist">
+          {# Currently not being used #}
+          {% get_translation page.get_parent_section as parent_section %}
+          {% for page in search_results %}
+            <li class="teaser-stacklist__item">
+              <div class="teaser-stacklist__wrapper">
+                {% if page.image %}
+                  <a href="{% pageurl page.specific %}" class="article-teaser__link">
+                    {% image page.image width-200 as teaser_thumbnail %}
+                    <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+                  </a>
                 {% endif %}
-              </p>
-            {% else %}
-              <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
-            {% endif %}
-          </div>
-        </a>
-        {% else %}
-          <a href="{% pageurl page.specific %}" class="article-preview search-result {{parent_section.get_effective_extra_style_hints}}">
-            <div class="text">
-              <div class="section-title">
-                {{ parent_section.title }}
               </div>
-              {% if page.title_highlight %}
-                <h1 class="search--results__title search--results__title-highlight">{{page.title_highlight|safe}}</h1>
-              {% else %}
-                <h1 class="search--results__title">{{page.title}}</h1>
-              {% endif %}
-              {% if page.subtitle_highlight or page.body_highlight %}
-                <p class="search--results__subtitle highlight-description">
-                  {% if page.subtitle_highlight %}
-                    {{page.subtitle_highlight|safe}}
-                  {% elif page.body_highlight %}
-                    {{page.body_highlight|safe}}
+
+              <div class="teaser-stacklist__content">
+                <a href="{% pageurl article.specific %}" class="article-teaser__link">
+                  {% if page.title_highlight %}
+                    <h3 class="article-teaser__title article-teaser__title--highlight">
+                      {{ page.title_highlight|smarttruncatechars:45|safe}}
+                    </h3>
+                  {% else %}
+                    <h3 class="article-teaser__title">
+                      {{ page.title|smarttruncatechars:45|safe}}
+                    </h3>
                   {% endif %}
-                </p>
-              {% else %}
-                <p class="ssearch--results__subtitle">{{page.subtitle}}</p>
-              {% endif %}
-            </div>
-          </a>
-        {% endif %}
-      {% endfor %}
+                </a>
+
+                {% if page.subtitle_highlight or page.body_highlight %}
+                  <p class="article-teaser__subtitle highlight-description">
+                    {% if page.subtitle_highlight %}
+                      {{page.subtitle_highlight|safe}}
+                    {% elif page.body_highlight %}
+                      {{page.body_highlight|safe}}
+                    {% endif %}
+                  </p>
+                {% else %}
+                    <p class="article-teaser__subtitle">{{page.subtitle}}</p>
+                {% endif %}
+                <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
+                  {% trans "Read more" %}
+                </a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
     </div>
+
     <div class="search-result pagination">
       <div class="step-links">
         {% if search_results.has_previous %}
@@ -85,21 +69,18 @@
         {% endif %}
       </div>
     </div>
+
   {% else %}
-    <div class="title search">
-        <h3>{% trans "Search" %}</h3>
+    <div class="heading">
+        <h1 class="heading--micro">{% trans "Search" %}</h1>
     </div>
-    <div class="block">
+    <div class="search">
       <p class="no-search-results">{% trans "No search results for " %} <br/> `{{ search_query }}`</p>
-      <div id="search-form">
-          <form action="{% url 'search' %}" novalidate>
-            <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
-            <input type="submit" value="{% trans "Search"%}">
-          </form>
-      </div>
+      <form action="{% url 'search' %}" class="search__form" novalidate>
+        <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
+        <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon">
+      </form>
     </div>
-    <hr>
-  </div>
   {% endif %}
 {% endblock %}
 
