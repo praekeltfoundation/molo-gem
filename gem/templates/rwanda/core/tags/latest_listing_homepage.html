@@ -1,7 +1,6 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if articles %}
-<div class="article-teaser article-teaser--promotion">
-  <ul class="teaser-stacklist">
+<ul class="teaser-stacklist">
   {% for article in articles %}
     <li class="teaser-stacklist__item">
       <div class="teaser-stacklist__wrapper">
@@ -58,18 +57,16 @@
             </ul>
         {% endif %}
       </div>
-
-        {# Article comments #}
-        {% get_comment_count for article as comment_count %}
-        {% if comment_count > 0 %}
-          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-            <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-            <span class="comment-counter__numeral">{{comment_count}}</span>
-          </a>
-        {% endif %}
+      {# Article comments #}
+      {% get_comment_count for article as comment_count %}
+      {% if comment_count > 0 %}
+        <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+          <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+          <span class="comment-counter__numeral">{{comment_count}}</span>
+        </a>
+      {% endif %}
       </div>
     </li>
   {% endfor %}
-  </ul>
-</div>
+</ul>
 {% endif %}
