@@ -5,7 +5,9 @@
   &-list {
     padding: 0;
     margin: 0;
-    text-align: center;
+      @media screen and (min-width: $phablet) {
+        text-align: center;
+      }
     &__label {
       color: #ffffff;
       font-size: $font-x-medium;
@@ -37,7 +39,9 @@
       }
       &__item {
         border-bottom: 1px solid $color-cyan-fountain;
+        display: inline-block;
         @media screen and (min-width: $phablet) {
+          display: block;
           padding: 0 $spacer-half 0 ($spacer-half * 4);
         }
       }
