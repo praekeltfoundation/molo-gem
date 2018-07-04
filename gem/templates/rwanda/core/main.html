@@ -2,28 +2,31 @@
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag gem_tags %}
 
 {% block content %}
-  <div class="freebasics-notification">
     {% with cewekerenHost='cewekeren.com' ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org'  %}
       {% if cewekerenHost in request.get_host %}
-        <p class="freebasics-notification__text">
-          {% blocktrans %}
-            Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
-            Girl Effect secara gratis lewat" %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">Internet.org</a>
-            hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
-          {% endblocktrans %}
-        </p>
+        <div class="freebasics-notification">
+          <p class="freebasics-notification__text">
+            {% blocktrans %}
+              Hei cewek keren! Apa kamu pelanggan Indosat? Kalo iya, kamu bisa mengakses
+              Girl Effect secara gratis lewat" %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">Internet.org</a>
+              hanya dengan meng-klik pilihan "Girl Effect" yang tersedia di dalam menu. Keren banget, kan?
+            {% endblocktrans %}
+          </p>
+        </div>
       {% endif %}
 
       {% if ninyampingaHost in request.get_host  or qaHost in request.get_host %}
+        <div class="freebasics-notification">
           <p class="freebasics-notification__text">
           {% blocktrans %}
             This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to"
             <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a>
           {% endblocktrans %}
           </p>
+        </div>
       {% endif %}
     {% endwith %}
-  </div>
+
 
     {% bannerpages %}
     {% gembannerpages %}
