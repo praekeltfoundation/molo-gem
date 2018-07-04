@@ -12,11 +12,15 @@
     text-decoration: underline;
     color: #ffffff;
     cursor: pointer;
-    display: block;
+    display: none;
     text-transform: uppercase;
-    position: absolute;
-    right: 20px;
-    top: 13px;
+    //SMARTPHONE
+    @media screen and (min-width: $smartphone) {
+      display: block;
+      position: absolute;
+      right: 20px;
+      top: 13px;
+    }
     //SMARTPHONE
     @media screen and (min-width: $phablet) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
@@ -30,21 +34,23 @@
     }
 
   }
-  //SEARCH TOGGLE
-  .search__input {
-    visibility: hidden;
-    position: absolute;
-    //SMARTPHONE
-    @media screen and (min-width: $phablet) {
-      right: $spacer-small;
-      top: 13px;
+  @media screen and (min-width: $phablet) {
+    //SEARCH TOGGLE
+    .search__input {
+      visibility: hidden;
+      position: absolute;
+      //SMARTPHONE
+      @media screen and (min-width: $phablet) {
+        right: $spacer-small;
+        top: 13px;
+      }
     }
-  }
-  .search__input + * {
-    display: none;
-  }
-  .search__input:checked + * {
-    display: block;
+    .search__input + * {
+      display: none;
+    }
+    .search__input:checked + * {
+      display: block;
+    }
   }
 
   //SEARCH CTA
