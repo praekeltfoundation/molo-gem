@@ -7,10 +7,11 @@
       </h1>
     </div>-->
   {% endcomment %}
+<div class="article-teaser">
   <ul class="teaser-stacklist">
     {% for article in articles %}
-    <div class="teaser-stacklist__wrapper">
       <li class="teaser-stacklist__item">
+        <div class="teaser-stacklist__wrapper">
           {% if article.get_effective_image %}
             <div class="teaser-stacklist__thumbnail-wrap">
               <a href="{% pageurl article.specific %}" class="article-teaser__link">
@@ -73,8 +74,9 @@
             </a>
           {% endif %}
           </div>
+        </div>
       </li>
-    </div>
     {% endfor %}
   </ul>
+</div>
 {% endif %}

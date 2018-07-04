@@ -2,51 +2,24 @@
   $block: unquote("#{&}");
   overflow: auto;
   &:before {
-    background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     content: "";
     display: block;
-    height: 20px; // QUESTIONABLE UNIT:
+    height: 20px;
     width: 100%;
       @media screen and (min-width: $phablet) {
-        height: 40px; // QUESTIONABLE UNIT:
+        height: 40px;
       }
+  }
+  &:nth-child(even):before  {
+    background: url("/static/img/patterns/rwanda/pattern-breaker.png") repeat 0 0 / 100%;
+  }
+  &:nth-child(odd):before {
+    background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
   }
   &__thumbnail {
     padding-right: $spacer-mid;
-    width: 60%;
-    height: auto;
-
-  }
-  &__title {}
-  &__subtitle {}
-  .highlight-description {}
-  .teaser-stacklist {
-    &__item {
-      border-bottom: 1px solid $color-gray-light;
-      //&:first-child
-      &:last-child {
-        border-bottom: none;
-      }
-      @media screen and (min-width: $phablet) {
-        border-bottom: none;
-        &:nth-child(even):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
-        }
-        &:nth-child(odd):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
-        }
-      }
-      &__content {
-        text-align: center;
-      }
-    }
-  }
-}
-
-// FOR ALL ARTICLES: #{$block}
-.article-teaser {
-  &__thumbnail {
     width: 100%;
+    height: auto;
   }
   &__title {
     text-transform: uppercase;
@@ -60,12 +33,15 @@
     cursor: pointer;
     display: block;
   }
+  .highlight-description {}
 }
 
+// FOR ALL ARTICLES: #{$block}
 .teaser-stacklist {
   margin: 0;
   padding: 0;
     &__item {
+      border-bottom: 1px solid $color-gray-light;
       align-items: center;
       //SMARTPHONE
       &:nth-child(even),
@@ -74,11 +50,25 @@
           &:after {
             content: "";
             display: block;
-            height: 40px;
+            height: 15px;
             width: 100%;
           }
         }
-
+      }
+      @media screen and (min-width: $phablet) {
+        border-bottom: none;
+        &:nth-child(even):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
+        }
+        &:nth-child(odd):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
+        }
+        &:last-child:after {
+          background: transparent;
+        }
+      }
+      &__content {
+        text-align: center;
       }
     }
     &__wrapper {

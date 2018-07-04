@@ -1,6 +1,7 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if articles %}
-<ul class="teaser-stacklist">
+<div class="article-teaser">
+  <ul class="teaser-stacklist">
   {% for article in articles %}
     <li class="teaser-stacklist__item">
       <div class="teaser-stacklist__wrapper">
@@ -68,5 +69,6 @@
       </div>
     </li>
   {% endfor %}
-</ul>
+  </ul>
+</div>
 {% endif %}
