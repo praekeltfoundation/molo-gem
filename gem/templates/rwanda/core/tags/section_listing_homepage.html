@@ -1,10 +1,10 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags comments staticfiles %}
-  <div class="article-teaser article-teaser--promotion">
+<div class="article-teaser">
+  <ul class="teaser-stacklist">
     {% for section in sections %}
-      {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
-      {% if featured_articles %}
-        <ul class="teaser-stacklist">
-          {% for article in featured_articles %}
+  {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
+    {% if featured_articles %}
+        {% for article in featured_articles %}
           <li class="teaser-stacklist__item">
           <div class="teaser-stacklist__wrapper">
             {% if article.get_effective_image %}
@@ -55,10 +55,10 @@
                 <span class="comments__counter-number">{{comment_count}}</span>
               </a>
             {% endif %}
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+  {% endif %}
     {% endfor %}
-  </div>
+  </ul>
+</div>
