@@ -131,7 +131,9 @@
     <div class="article-page__tag-cloud">
       <ul class="teaser-stacklist-tags">
       {% if settings.core.SiteSettings.enable_tag_navigation %}
+      <div class="heading">
         <h4 class="heading__micro">{% trans "Read more about" %}</h4>
+      </div>
         {% for tag in navigation_tags  %}
           <li class="teaser-stacklist-tags__item">
             <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">

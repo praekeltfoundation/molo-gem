@@ -5,14 +5,14 @@
 <div class="article-teaser article-teaser--related">
   {% if next_article and self.get_parent_section.enable_next_section %}
   <div class="heading">
-    <h3 class="heading__article">{% trans "Next up" %}</h3>
+    <h3 class="heading__subtitle">{% trans "Next up" %}</h3>
   </div>
   <ul class="teaser-stacklist">
     <li class="teaser-stacklist__item">
       <div class="teaser-stacklist__wrapper">
           {% if next_article.image %}
             <div class="teaser-stacklist__thumbnail-wrap">
-              <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__link">
+              <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
                 {% image next_article.image width-200 class="teaser-stacklist__thumbnail" %}
               </a>
             </div>
@@ -76,7 +76,7 @@
   {% if recommended_articles %}
   <div class="article-teaser article-teaser--recommended">
     <div class="heading">
-      <h3 class="heading__article">{% trans "Recommended" %}</h3>
+      <h3 class="heading__subtitle">{% trans "Recommended" %}</h3>
     </div>
     <ul class="teaser-stacklist">
       {% for article in recommended_articles %}
@@ -84,7 +84,7 @@
         <div class="teaser-stacklist__wrapper">
           {% if article.image %}
             <div class="teaser-stacklist__thumbnail-wrap">
-              <a href="{% pageurl article.specific %}" class="teaser-stacklist__link">
+              <a href="{% pageurl article.specific %}" class="article-teaser__link">
                 {% image article.image width-200 height-200 class="teaser-stacklist__thumbnail" %}
               </a>
             </div>

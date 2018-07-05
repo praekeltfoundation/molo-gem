@@ -64,6 +64,7 @@
   }
   &__title {
     text-transform: uppercase;
+    font-size: $font-small;
     margin: 0;
   }
   &__subtitle {
@@ -81,21 +82,24 @@
 .teaser-stacklist {
   margin: 0;
   padding: 0;
-    &__item {
-      border-bottom: 1px solid $color-gray-light;
-      align-items: center;
-      &__content {
-        text-align: center;
-      }
-    }
-    &__wrapper {
-      padding: $spacer-half $spacer-mid;
-      display: flex;
-      flex-direction: row;
-      position: relative;
-    }
-    &__thumbnail-wrap {}
+  &__item {
+    border-bottom: 1px solid $color-gray-light;
+    align-items: center;
     &__content {
-      width: auto
+      text-align: center;
     }
+  }
+  &__wrapper {
+    padding: $spacer-half $spacer-mid;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+  &__thumbnail-wrap {
+    width: 45%;
+    margin-right: 5%;
+  }
+  &__content {
+    width: 50%;
+  }
 }
