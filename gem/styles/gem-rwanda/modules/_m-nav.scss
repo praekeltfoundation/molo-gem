@@ -23,14 +23,14 @@
       padding-left: $spacer-mid;
         &:active, &:hover, &:focus {
           color: $color-pink-hollywood;
-          @media screen and (min-width: $phablet) {
+          @media screen and (min-width: $smartphone) {
               &:before {
                 background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
               }
           }
         }
         //SMARTPHONE
-        @media screen and (min-width: $phablet) {
+        @media screen and (min-width: $smartphone) {
             font-weight: normal;
             float: left;
             &:before {
@@ -48,16 +48,14 @@
     &__checkbox {
       position: absolute;
       visibility: hidden;
-      @media screen and (min-width: $phablet) {
+      @media screen and (min-width: $smartphone) {
         position: absolute;
         left: 28%;
         top: 5px;
       }
       & + * {
-        @media screen and (max-width: $smartphone) {
+        @media screen and (min-width: $smartphone) {
           display: none;
-        }
-        @media screen and (min-width: $phablet) {
           visibility: hidden;
           height:0px;
           -webkit-transition:height, 0.5s linear;
@@ -68,10 +66,8 @@
         }
       }
       &:checked + * {
-        @media screen and (max-width: $smartphone) {
+        @media screen and (min-width: $smartphone) {
           display: block;
-        }
-        @media screen and (min-width: $phablet) {
           visibility: visible;
           height: 270px;
           -webkit-transition:height, 0.5s linear;
@@ -85,7 +81,7 @@
   }
   &__active {
     color: $color-pink-hollywood;
-    @media screen and (min-width: $phablet) {
+    @media screen and (min-width: $smartphone) {
         &:before {
           background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
         }
