@@ -50,9 +50,9 @@
             </div>
             {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
-              <a href="{% pageurl article.specific %}?#comments" class="comments__counter">
-                <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comments__counter-icon">
-                <span class="comments__counter-number">{{comment_count}}</span>
+              <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                <div class="comment-counter__icon"></div>
+                <span class="comment-counter__numeral">{{comment_count}}</span>
               </a>
             {% endif %}
           </div>

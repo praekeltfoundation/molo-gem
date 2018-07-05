@@ -21,35 +21,41 @@
                     <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
                   </a>
                 {% endif %}
-              </div>
-
-              <div class="teaser-stacklist__content">
-                <a href="{% pageurl article.specific %}" class="article-teaser__link">
-                  {% if page.title_highlight %}
-                    <h3 class="article-teaser__title article-teaser__title--highlight">
-                      {{ page.title_highlight|smarttruncatechars:45|safe}}
-                    </h3>
-                  {% else %}
-                    <h3 class="article-teaser__title">
-                      {{ page.title|smarttruncatechars:45|safe}}
-                    </h3>
-                  {% endif %}
-                </a>
-
-                {% if page.subtitle_highlight or page.body_highlight %}
-                  <p class="article-teaser__subtitle highlight-description">
-                    {% if page.subtitle_highlight %}
-                      {{page.subtitle_highlight|safe}}
-                    {% elif page.body_highlight %}
-                      {{page.body_highlight|safe}}
+                <div class="teaser-stacklist__content">
+                  <a href="{% pageurl article.specific %}" class="article-teaser__link">
+                    {% if page.title_highlight %}
+                      <h3 class="article-teaser__title article-teaser__title--highlight">
+                        {{ page.title_highlight|smarttruncatechars:45|safe}}
+                      </h3>
+                    {% else %}
+                      <h3 class="article-teaser__title">
+                        {{ page.title|smarttruncatechars:45|safe}}
+                      </h3>
                     {% endif %}
-                  </p>
-                {% else %}
-                    <p class="article-teaser__subtitle">{{page.subtitle}}</p>
+                  </a>
+
+                  {% if page.subtitle_highlight or page.body_highlight %}
+                    <p class="article-teaser__subtitle highlight-description">
+                      {% if page.subtitle_highlight %}
+                        {{page.subtitle_highlight|safe}}
+                      {% elif page.body_highlight %}
+                        {{page.body_highlight|safe}}
+                      {% endif %}
+                    </p>
+                  {% else %}
+                      <p class="article-teaser__subtitle">{{page.subtitle}}</p>
+                  {% endif %}
+                  <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
+                    {% trans "Read more" %}
+                  </a>
+                </div>
+                {% get_comment_count for article as comment_count %}
+                {% if comment_count > 0 %}
+                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                    <div class="comment-counter__icon"></div>
+                    <span class="comment-counter__numeral">{{comment_count}}</span>
+                  </a>
                 {% endif %}
-                <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
-                  {% trans "Read more" %}
-                </a>
               </div>
             </li>
           {% endfor %}
