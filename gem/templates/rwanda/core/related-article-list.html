@@ -2,11 +2,11 @@
 
 {% get_translation self.get_parent_section as section %}
 {% get_next_article self as next_article %}
-<div class="related-articles">
+<div class="article-teaser article-teaser--related">
   {% if next_article and self.get_parent_section.enable_next_section %}
-  <h3 class="heading heading--article">
-    {% trans "Next up" %}
-  </h3>
+  <div class="heading">
+    <h3 class="heading__article">{% trans "Next up" %}</h3>
+  </div>
   <ul class="teaser-stacklist">
     <li class="teaser-stacklist__item">
       <div class="teaser-stacklist__wrapper">
@@ -29,7 +29,6 @@
                 </h3>
               {% endif %}
             </a>
-
             {% if next_article.subtitle_highlight or next_article.body_highlight %}
               <p class="article-teaser__subtitle highlight-description">
                 {% if next_article.subtitle_highlight %}
@@ -46,6 +45,23 @@
                   {{ next_article.subtitle|smarttruncatechars:50|safe}}
                 {% endif %}
               </p>
+              <a class="call-to-action__read-more" href="{% pageurl next_article.specific %}">
+                {% trans "Read more" %}
+              </a>
+              {% load_tags_for_article next_article as tags %}
+              {% if tags %}
+                  <ul class="teaser-stacklist-tags">
+                    {% for tag in tags %}
+                    {% if not tag.title.20 %}
+                      <li class="teaser-stacklist-tags__item">
+                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+                          {{ tag.title }}
+                        </a>
+                      </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+              {% endif %}
             {% endif %}
           </div>
         </div>
@@ -58,10 +74,10 @@
 {% if self.get_parent_section.enable_recommended_section %}
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
-  <div class="recommended-articles">
-    <h3 class="heading heading--article">
-      {% trans "Recommended" %}
-    </h3>
+  <div class="article-teaser article-teaser--recommended">
+    <div class="heading">
+      <h3 class="heading__article">{% trans "Recommended" %}</h3>
+    </div>
     <ul class="teaser-stacklist">
       {% for article in recommended_articles %}
       <li class="teaser-stacklist__item">
@@ -74,7 +90,7 @@
             </div>
           {% endif %}
           <div class="teaser-stacklist__content">
-            <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
+            <a href="{% pageurl article.specific %}" class="article-teaser__link">
               <h3 class="article-teaser__title">
                 {{article.title}}
               </h3>
@@ -84,15 +100,32 @@
                 {{article.subtitle}}
               </p>
             {% endif %}
+            <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
+              {% trans "Read more" %}
+            </a>
+            {% load_tags_for_article article as tags %}
+            {% if tags %}
+                <ul class="teaser-stacklist-tags">
+                  {% for tag in tags %}
+                  {% if not tag.title.20 %}
+                    <li class="teaser-stacklist-tags__item">
+                      <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+                        {{ tag.title }}
+                      </a>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            {% endif %}
           </div>
+          {% get_comment_count for article as comment_count %}
+          {% if comment_count > 0 %}
+            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+              <div class="comment-counter__icon"></div>
+              <span class="comment-counter__numeral">{{comment_count}}</span>
+            </a>
+          {% endif %}
         </div>
-        {% get_comment_count for article as comment_count %}
-        {% if comment_count > 0 %}
-          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-            <div class="comment-counter__icon"></div>
-            <span class="comment-counter__numeral">{{comment_count}}</span>
-          </a>
-        {% endif %}
       </li>
       {% endfor %}
     </ul>

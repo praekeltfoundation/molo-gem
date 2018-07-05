@@ -1,20 +1,62 @@
 .article-teaser {
   $block: unquote("#{&}");
   overflow: auto;
-  &:before {
-    content: "";
-    display: block;
-    height: 20px;
-    width: 100%;
-      @media screen and (min-width: $smartphone) {
-        height: 40px;
+  &--related {
+    .heading {
+      padding: $spacer-half $spacer-mid;
+    }
+  }
+  &--recommended {
+    .heading {
+      padding: $spacer-half $spacer-mid;
+    }
+  }
+  &--promo {
+    &:before {
+      content: "";
+      display: block;
+      height: 20px;
+      width: 100%;
+        @media screen and (min-width: $smartphone) {
+          height: 40px;
+        }
+    }
+    &:nth-child(even):before  {
+      background: url("/static/img/patterns/rwanda/pattern-breaker.png") repeat 0 0 / 100%;
+    }
+    &:nth-child(odd):before {
+      background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
+    }
+    .teaser-stacklist {
+      &__item {
+        //SMARTPHONE
+        &:nth-child(even),
+        &:nth-child(odd) {
+          @media screen and (min-width: $smartphone) {
+            &:after {
+              content: "";
+              display: block;
+              height: 15px;
+              width: 100%;
+            }
+          }
+        }
+        @media screen and (min-width: $smartphone) {
+          border-bottom: none;
+          &:nth-child(even):after {
+            background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
+          }
+          &:nth-child(odd):after {
+            background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
+          }
+          &:last-child:after {
+            background: transparent;
+          }
+        }
+
       }
-  }
-  &:nth-child(even):before  {
-    background: url("/static/img/patterns/rwanda/pattern-breaker.png") repeat 0 0 / 100%;
-  }
-  &:nth-child(odd):before {
-    background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
+    }
+
   }
   &__thumbnail {
     width: 100%;
@@ -42,30 +84,6 @@
     &__item {
       border-bottom: 1px solid $color-gray-light;
       align-items: center;
-      //SMARTPHONE
-      &:nth-child(even),
-      &:nth-child(odd) {
-        @media screen and (min-width: $smartphone) {
-          &:after {
-            content: "";
-            display: block;
-            height: 15px;
-            width: 100%;
-          }
-        }
-      }
-      @media screen and (min-width: $smartphone) {
-        border-bottom: none;
-        &:nth-child(even):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
-        }
-        &:nth-child(odd):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
-        }
-        &:last-child:after {
-          background: transparent;
-        }
-      }
       &__content {
         text-align: center;
       }

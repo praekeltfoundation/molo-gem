@@ -1,6 +1,6 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if articles %}
-<div class="article-teaser">
+<div class="article-teaser article-teaser--promo">
   <ul class="teaser-stacklist">
   {% for article in articles %}
     <li class="teaser-stacklist__item">
@@ -44,7 +44,6 @@
 
         {% load_tags_for_article article as tags %}
         {% if tags %}
-          {% load_tags_for_article article as tags %}
             <ul class="teaser-stacklist-tags">
               {% for tag in tags %}
               {% if not tag.title.20 %}
