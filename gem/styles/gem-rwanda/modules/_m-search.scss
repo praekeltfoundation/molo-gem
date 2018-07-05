@@ -1,7 +1,7 @@
 .search {
   padding: $spacer-small;
     //SMARTPHONE
-    @media screen and (min-width: $phablet) {
+    @media screen and (min-width: $smartphone) {
       padding: 0 0 $spacer-small;
     }
   &__form {
@@ -14,36 +14,30 @@
     cursor: pointer;
     display: none;
     text-transform: uppercase;
+
     //SMARTPHONE
     @media screen and (min-width: $smartphone) {
-      display: block;
-      position: absolute;
-      right: 20px;
-      top: 13px;
-    }
-    //SMARTPHONE
-    @media screen and (min-width: $phablet) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
       background-repeat: no-repeat;
       background-position: 0 0;
-      background-size: 88%;
-      height: auto;
+      background-size: 85%;
+      display: block;
+      height: 30px;
+      position: absolute;
       text-indent: -1000px;
-      right: 5px;
       width: 30px;
+      right: 14px;
+      top: 13px;
     }
 
   }
-  @media screen and (min-width: $phablet) {
+  @media screen and (min-width: $smartphone) {
     //SEARCH TOGGLE
     .search__input {
       visibility: hidden;
       position: absolute;
-      //SMARTPHONE
-      @media screen and (min-width: $phablet) {
-        right: $spacer-small;
-        top: 13px;
-      }
+      right: $spacer-small;
+      top: 13px;
     }
     .search__input + * {
       display: none;
@@ -65,7 +59,7 @@
     padding: $spacer-half 0;
     text-decoration: underline;
       //SMARTPHONE
-      @media screen and (min-width: $phablet) {
+      @media screen and (min-width: $smartphone) {
         background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
         background-repeat: no-repeat;
         background-position: center center;

@@ -21,74 +21,55 @@
       text-transform: uppercase;
       font-weight: bold;
       padding-left: $spacer-mid;
-        &:active, &:hover, &:focus {
-          color: $color-pink-hollywood;
-          @media screen and (min-width: $phablet) {
-              &:before {
-                background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
-              }
-          }
+      font-weight: normal;
+      float: left;
+      &:before {
+        content: '';
+        background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
+        display: inline-block;
+        height: 25px;
+        vertical-align: text-top;
+        margin: 0 $spacer-half 0 0;
+        width: 25px;
+      }
+      &:active, &:hover, &:focus {
+        color: $color-pink-hollywood;
+        &:before {
+          background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
         }
-        //SMARTPHONE
-        @media screen and (min-width: $phablet) {
-            font-weight: normal;
-            float: left;
-            &:before {
-              content: '';
-              background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
-              display: inline-block;
-              height: 25px;
-              vertical-align: text-top;
-              margin: 0 $spacer-half 0 0;
-              width: 25px;
-            }
-        }
-
+      }
     }
     &__checkbox {
       position: absolute;
       visibility: hidden;
-      @media screen and (min-width: $phablet) {
-        position: absolute;
-        left: 28%;
-        top: 5px;
-      }
+      position: absolute;
+      left: 28%;
+      top: 5px;
       & + * {
-        @media screen and (max-width: $smartphone) {
-          display: none;
-        }
-        @media screen and (min-width: $phablet) {
-          visibility: hidden;
-          height:0px;
-          -webkit-transition:height, 0.5s linear;
-          -moz-transition: height, 0.5s linear;
-          -ms-transition: height, 0.5s linear;
-          -o-transition: height, 0.5s linear;
-          transition: height, 0.5s linear;
-        }
+        visibility: hidden;
+        height:0px;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
       }
       &:checked + * {
-        @media screen and (max-width: $smartphone) {
-          display: block;
-        }
-        @media screen and (min-width: $phablet) {
-          visibility: visible;
-          height: 270px;
-          -webkit-transition:height, 0.5s linear;
-          -moz-transition: height, 0.5s linear;
-          -ms-transition: height, 0.5s linear;
-          -o-transition: height, 0.5s linear;
-          transition: height, 0.5s linear;
-        }
+        display: block;
+        visibility: visible;
+        height: 270px;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
       }
     }
   }
   &__active {
     color: $color-pink-hollywood;
-    @media screen and (min-width: $phablet) {
-        &:before {
-          background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
-        }
+    &:before {
+      background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
     }
   }
   &__is-open {}

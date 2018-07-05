@@ -2,13 +2,14 @@
 {% load wagtailimages_tags core_tags %}
 {% block content %}
   <div class="heading">
-    <h1 class=" heading__square">{{self.title}}</h1>
+    <h1 class="heading__article">{{self.title}}</h1>
   </div>
-  <article>
+  <div class="footer-page">
+    <article>
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
         <div class="heading">
-          <h3 class="heading--large">{{ block.value }}</h3>
+          <h3 class="heading__article">{{ block.value }}</h3>
         </div>
       {% elif block.block_type == 'image' %}
         {% image block.value width-320 alt=self.title %}
@@ -47,4 +48,5 @@
       {% endif %}
     {% endfor %}
   </article>
+  </div>
 {% endblock %}
