@@ -204,17 +204,20 @@
           {% trans "Back to Top" %}</a>
       </div>
       <p class="copyright__disclaimer">
-        &copy; {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
+        &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
         {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-          <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}">
+          <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
             {% trans "Terms &amp; Conditions" %}
           </a>
         {% endif %}
       </p>
+
       {% if settings.gem.GemSettings.show_partner_credit %}
-        <a href="{{settings.gem.GemSettings.partner_credit_link}}">
+      <p class="copyright__disclaimer">
+        <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link">
           {{settings.gem.GemSettings.partner_credit_description}}
         </a>
+      </p>
       {% endif %}
     </div>
   </footer>
