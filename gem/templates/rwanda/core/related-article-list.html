@@ -86,6 +86,13 @@
             {% endif %}
           </div>
         </div>
+        {% get_comment_count for article as comment_count %}
+        {% if comment_count > 0 %}
+          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+            <div class="comment-counter__icon"></div>
+            <span class="comment-counter__numeral">{{comment_count}}</span>
+          </a>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>

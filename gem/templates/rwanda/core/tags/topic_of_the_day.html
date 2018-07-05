@@ -69,7 +69,7 @@
           {% get_comment_count for article as comment_count %}
           {% if comment_count > 0 %}
             <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-              <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+              <div class="comment-counter__icon"></div>
               <span class="comment-counter__numeral">{{comment_count}}</span>
             </a>
           {% endif %}
