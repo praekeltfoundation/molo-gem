@@ -38,11 +38,21 @@
   $block: unquote("#{&}");
   section { padding: 0 $spacer-mid;}
   aside {
-    #{$block}__item-thumb {
-      float: right;
-      width: 35%;
-      margin: 0 $spacer-multiple;
-      vertical-align: middle;
+    #{$block}__item {
+      &-icon {
+        background: url("/static/img/icons/rwanda/polls-con.png") no-repeat 0/ 100%;
+        width: 70px;
+        height: 65px;
+        float: right;
+        margin: $spacer-multiple;
+        vertical-align: middle;
+      }
+      &-thumb {
+        float: right;
+        width: 35%;
+        margin: 0 $spacer-multiple;
+        vertical-align: middle;
+      }
     }
   }
   nav {
