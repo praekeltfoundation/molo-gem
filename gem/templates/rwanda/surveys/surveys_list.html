@@ -13,8 +13,8 @@
                 <div class="profiles-join-banner">
                   <div class="profiles-join-banner__icon"></div>
                   <div class="profiles-join-banner__content">
-                    <div class="heading heading__subheading-alt">
-                      <h4>{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
+                    <div class="heading">
+                      <h4 class="heading__subheading  heading__subheading-alt">{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
                     </div>
                     <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--yellow">
                       <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Join" %}</span>
@@ -77,14 +77,12 @@
           <section>
             <div class="heading">
               <h1 class="heading__component">{{survey.title}}</h1>
-            </div>
-            {% if survey.homepage_introduction %}
-              <div class="heading">
+              {% if survey.homepage_introduction %}
                 <h5 class="heading__subheading">
                   {{survey.homepage_introduction|smarttruncatechars:100|safe}}
                 </h5>
-              </div>
-            {% endif %}
+              {% endif %}
+            </div>
           </section>
             {% if form %}
               {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
@@ -105,8 +103,8 @@
               {% endif %}
             </nav>
           {% endif %}
-
         </div>
+        <div class="surveys__type--polls-separator"></div>
       {% else %}
         {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
           <div class="surveys">
