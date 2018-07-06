@@ -1,0 +1,143 @@
+.polls,
+.surveys__type--polls {
+  background-color: $color-cyan-fountain;
+  color: #ffffff;
+  overflow: auto;
+  position: relative;
+  padding: 0 $spacer-mid;
+  .heading {
+    padding: 0 0 $spacer-half;
+    &__component {
+      color: $color-yellow-gorse;
+      font-size: $font-medium;
+    }
+    &__subheading {
+      color: #ffffff;
+      font-size: $font-x-medium;
+    }
+  }
+  .error-list__item, .errors {
+    text-align: left;
+  }
+  .call-to-action {
+    padding: 0 $spacer-mid;
+  }
+  .call-to-action__button--primary,
+  .poll-choice__submit {
+    background-color: $color-yellow;
+    color: $color-cyan-fountain;
+    padding: $spacer-half $spacer-multiple;
+    text-transform: inherit;
+  }
+  .poll {
+    &__title {
+      text-transform: uppercase;
+      font-size: $font-x-small;
+      padding: $spacer-multiple 0 0;
+    }
+    &__form-block {}
+    &__question-title {
+      color: $color-yellow-gorse;
+      text-transform: uppercase;
+      padding: $spacer-half 0;
+      font-size: $font-medium;
+    }
+    &-choices {
+      padding: $spacer-half 0;
+      .fieldset {
+        padding: $spacer-half 0;
+      }
+      a {
+        color: #ffffff;
+        text-transform: uppercase;
+        &:hover {
+          color: $color-yellow;
+          text-decoration: underline;
+        }
+      }
+    }
+    &-choice__submit {
+      display: block;
+      font-weight: 700;
+      margin: $spacer-half auto;
+      text-align: center;
+    }
+  }
+  &-form,
+  &__form {
+    background-color: $color-cyan-fountain;
+    padding: 0 0 $spacer-multiple;
+    fieldset {
+      .input-group label {
+        padding: 10px 0;
+        display: block;
+      }
+      .choice-group label {
+        padding: 0;
+      }
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="search"],
+    input[type="week"],
+    input[type="date"],
+    input[type="month"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="url"],
+    select {
+      background: $color-cyan-dark;
+      color: #ffffff;
+      border-color: $color-cyan-dark;
+    }
+    [type="checkbox"],
+    [type="radio"] {
+      & ~ label  {
+        &:before {
+          background-color: $color-yellow-gorse;
+          border: 1px solid $color-yellow-gorse;
+        }
+      }
+    }
+    [type="checkbox"] {
+      &:checked + label:before {
+        background: $color-yellow-gorse url("/static/img/icons/rwanda/check-box-cyan.png") center center / 65% no-repeat;
+        border-color: $color-yellow-gorse ;
+        opacity: 1;
+      }
+    }
+  }
+  &--results {
+    p {
+      font-size: $font-x-medium;
+      padding: $spacer-small 0;
+    }
+    a {
+      color: #ffffff;
+      display: block;
+      padding: $spacer-half 0;
+      text-transform: uppercase;
+      &:hover {
+        color: $color-yellow;
+        text-decoration: underline;
+      }
+    }
+  }
+  //BRUTE FORCE
+  section {padding: 0 !important;}
+  aside {
+    .surveys__item-thumb {width: 30% !important;}
+  }
+}
+
+.surveys__type--polls-separator {
+  background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/100%;
+  content: " ";
+  display: block;
+  height: 20px;
+  position: relative;
+  top: -15px;
+}

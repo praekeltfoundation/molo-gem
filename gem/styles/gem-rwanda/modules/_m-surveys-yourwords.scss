@@ -1,91 +1,39 @@
-.surveys,
-.polls {
-  background-color: $color-cyan-fountain;
-  color: #ffffff;
+.yourwords {
+  background-color: $color-yellow-gorse;
+  color: $color-pink-hollywood;
   overflow: auto;
   padding: 0;
   position: relative;
-
-  &:after {
-    background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/100%;
-    content: " ";
-    display: block;
-    height: 20px;
-  }
-
   .heading {
-    padding: $spacer-half 0;
-  }
-  .heading__component,
-  .poll__question-title {
-    color: $color-yellow-gorse;
-    font-size: $font-medium;
-    font-weight: normal;
-  }
-  .heading__subheading {
-    color: #ffffff;
-    font-size: $font-x-medium;
-    font-weight: normal;
-  }
-  .error-list__item, .errors {
-    text-align: left;
+    &--yourwords {
+      &-subtitle {}
+    }
+    &--hero-yourwords {}
   }
   .call-to-action {
-    padding: 0 $spacer-mid;
-  }
-  .call-to-action__button--primary,
-  .poll-choice__submit {
-    background-color: $color-yellow;
-    color: $color-cyan-fountain;
-    //display: inline-block;
-    padding: $spacer-half $spacer-multiple;
-    text-transform: inherit;
-  }
-  &__form {
-    background-color: $color-cyan-fountain;
-    padding: 0 0 $spacer-multiple;
-    fieldset {
-      padding: $spacer-half $spacer-multiple;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    input[type="password"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="search"],
-    input[type="week"],
-    input[type="date"],
-    input[type="month"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="url"],
-    select {
-      background: $color-cyan-dark;
-      color: #ffffff;
-      border-color: $color-cyan-dark;
-    }
-
-    [type="checkbox"],
-    [type="radio"] {
-      & ~ label  {
-        &:before {
-          background-color: $color-yellow-gorse;
-          border: 1px solid $color-yellow-gorse;
-        }
-      }
-    }
-
-    [type="checkbox"] {
-      //SMARTPHONE STYLES
-      &:checked + label:before {
-        background: $color-yellow-gorse url("/static/img/icons/rwanda/check-box-cyan.png") center center / 65% no-repeat;
-        border-color: $color-yellow-gorse ;
-        opacity: 1;
+    &__nav-item {
+      &--login {
+        background-color: $color-pink-hollywood;
+        color: $color-yellow-gorse;
+        padding: $spacer-half $spacer-multiple;
+        text-transform: inherit;
+        display: inline-block;
+        margin: 10px auto;
+        font-weight: 700;
       }
     }
   }
 }
+.competition {
+  &__title {
+    color: #000000;
+    &--description {
+      color: $color-pink-hollywood;
+    }
+  }
+}
+
+
 .surveys {
   $block: unquote("#{&}");
   section { padding: 0 $spacer-mid;}

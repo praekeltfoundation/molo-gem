@@ -113,6 +113,9 @@
     {% endif %}
   </section>
 </div>
+{% if survey.display_survey_directly %}
+  <div class="surveys__type--polls-separator"></div>
+{% endif %}
   <div class="call-to-action">
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
       {% trans "Back home" %}
