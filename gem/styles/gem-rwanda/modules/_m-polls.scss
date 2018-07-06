@@ -14,17 +14,24 @@
     }
   }
   .error-list__item, .errors {
+    color: $color-yellow;
     text-align: left;
+    margin-top: 0;
   }
   .call-to-action {
     padding: 0 $spacer-mid;
   }
+  .poll-choice__submit,
   .call-to-action__button--primary,
   .poll-choice__submit {
     background-color: $color-yellow;
-    color: $color-cyan-fountain;
     padding: $spacer-half $spacer-multiple;
-    text-transform: inherit;
+    font-weight: 700;
+    display: block;
+    margin: $spacer-half auto;
+    text-align: center;
+    color: $color-cyan-fountain !important; //Brute force on polls a{}
+    text-transform: inherit !important;
   }
   .poll {
     &__title {
@@ -41,6 +48,9 @@
     }
     &-choices {
       padding: $spacer-half 0;
+      &__item {
+        padding: $spacer-half 0;
+      }
       .fieldset {
         padding: $spacer-half 0;
       }
@@ -53,14 +63,7 @@
         }
       }
     }
-    &-choice__submit {
-      display: block;
-      font-weight: 700;
-      margin: $spacer-half auto;
-      text-align: center;
-    }
   }
-
   &-results {
     &-list {
       padding: 0;
@@ -159,7 +162,7 @@
     }
   }
   //BRUTE FORCE
-  section {padding: $spacer-multiple 0!important;}
+  section {padding: $spacer-multiple 0 0!important;}
   aside {
     .surveys__item-thumb {
       width: 30% !important;
