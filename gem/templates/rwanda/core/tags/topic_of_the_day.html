@@ -5,7 +5,7 @@
     {% trans "Topic of the Day" %}
   </h1>
 </div>
-<div class="article-teaser">
+<div class="article-teaser article-teaser--promo">
   <ul class="teaser-stacklist">
     {% for article in articles %}
       <li class="teaser-stacklist__item">
@@ -42,15 +42,13 @@
                   {% if article.title.30 %}
                     <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:28|safe}}</p>
                   {% else %}
-                    <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:50|safe}}</p>
+                    <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:40|safe}}</p>
                   {% endif %}
                 {% endif %}
               <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
-
-            {% load_tags_for_article article as tags %}
-            {% if tags %}
-              {% load_tags_for_article article as tags %}
-                <ul class="teaser-stacklist-tags">
+              <ul class="teaser-stacklist-tags">
+                {% load_tags_for_article article as tags %}
+                {% if tags %}
                   {% for tag in tags %}
                   {% if not tag.title.20 %}
                     <li class="teaser-stacklist-tags__item">
@@ -60,20 +58,21 @@
                     </li>
                     {% endif %}
                   {% endfor %}
-                </ul>
-            {% endif %}
-          </div>
-          {# Article comments #}
-          {% get_comment_count for article as comment_count %}
-          {% if comment_count > 0 %}
-            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-              <div class="comment-counter__icon"></div>
-              <span class="comment-counter__numeral">{{comment_count}}</span>
-            </a>
-          {% endif %}
+                {% endif %}
+                {% get_comment_count for article as comment_count %}
+                {% if comment_count > 0 %}
+                <li class="teaser-stacklist-tags__item">
+                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                    <div class="comment-counter__icon"></div>
+                    <span class="comment-counter__numeral">{{comment_count}}</span>
+                  </a>
+                  </li>
+                {% endif %}
+              </ul>
           </div>
         </div>
-      </li>
+      </div>
+    </li>
     {% endfor %}
   </ul>
 </div>

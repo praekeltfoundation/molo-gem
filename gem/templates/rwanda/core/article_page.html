@@ -126,17 +126,31 @@
     </article>
 
     {% social_media_article %}
-
-    {% include "comments/comment_block.html" %}
-    {% include "core/related-article-list.html" %}
-    {% if settings.core.SiteSettings.enable_clickable_tags %}
+    {% load_tags_for_article self as navigation_tags %}
+    {% if navigation_tags %}
+    <div class="article-page__tag-cloud">
       <ul class="teaser-stacklist-tags">
-        {% for tag in self.tags_list %}
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+      <div class="heading">
+        <h4 class="heading__micro">{% trans "Read more about" %}</h4>
+      </div>
+        {% for tag in navigation_tags  %}
           <li class="teaser-stacklist-tags__item">
-            <a href="{% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">{{tag}}</a>
+            <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+              {{tag}}</a>
           </li>
         {% endfor %}
+      {% elif settings.core.SiteSettings.enable_clickable_tags %}
+        {% for tag in self.tags_list %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% url 'tags_list' tag.specific %}" class="teaser-stacklist-tags__anchor">{{tag}}</a>
+          </li>
+        {% endfor %}
+      {% endif %}
       </ul>
+    </div>
     {% endif %}
-</div>
+    {% include "comments/comment_block.html" %}
+    {% include "core/related-article-list.html" %}
+  </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 .comments {
+  padding: 0  $spacer-mid;
   &:before {
     background: url("/static/img/patterns/rwanda/partten-line-grey.png") repeat-x 0 0/100%;
     content: "";
@@ -7,7 +8,7 @@
     width: 100%;
   }
   &-list {
-    font-size: $font-x-medium;
+    font-size: $font-small;
     &__item {
       padding: $spacer-half $spacer-mid;
       margin: $spacer-half 0;
@@ -30,7 +31,6 @@
   &__alias {
     color: #000000;
     margin: 0;
-    font-size: $font-small;
     text-transform: uppercase;
     &--author {}
   }
@@ -38,43 +38,64 @@
   &__staff {}
   &__description {}
   &__body-small {
-    margin: 0;
+    margin: $spacer-half 0;
   }
   &__publish-date {
     color: $color-gray;
     display: inline-block;
   }
 
-  &__replies-title {
-    color: $color-cyan-fountain;
-    font-size: $font-x-medium;
-    margin-bottom: 0;
-    text-transform: uppercase;
+  &__replies {
+    &-title {
+      color: $color-cyan-fountain;
+      margin: $spacer-multiple 0 0;
+      text-transform: uppercase;
+      font-size: $font-small;
+    }
+    &-label {
+      margin: 0;
+    }
   }
-  &__replies-label {
-    margin: 0;
+
+  &__replied {
+    &-link {
+      display: block;
+      color: $color-cyan-fountain;
+      font-weight: bold;
+      padding: $spacer-half 0;
+    }
   }
-  &__replied-link {
-    display: block;
-    color: $color-cyan-fountain;
-    font-weight: bold;
+  &__reply {
+    &-notification {
+      background-color: rgba($color-cyan-fountain, 0.5);
+      padding: $spacer-mid $spacer-mid;
+      color: $color-yellow;
+    }
+    &-meta {
+      clear: both;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      overflow: auto;
+      padding: $spacer-mid 0 0;
+    }
   }
-  &__reply-notification {
-    background-color: rgba($color-cyan-fountain, 0.5);
-    padding: $spacer-mid $spacer-mid;
-    color: $color-yellow;
+
+  //COMMENTS ADJUSTMENTS + HIERARCHY
+  .call-to-action__button  {
+    margin:  $spacer-half $spacer-mid;
   }
-  &__reply-meta {
-    clear: both;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    overflow: auto;
-    padding: $spacer-mid 0 0;
+  .heading {
+    padding:  $spacer-half $spacer-mid;
   }
   &__form {
     padding: 0 $spacer-mid;
+    //COMMENTS ADJUSTMENTS
+    .call-to-action__button  {
+      margin: $spacer-half 0;
+    }
   }
+
 }
 
 //SMARTPHONE
@@ -82,21 +103,17 @@
   &-counter {
     display: inline-block;
     color: $color-pink;
-    position: absolute;
-    margin: 0;
-    right: 25px;
-    bottom: 5px;
     &:active, &:hover, &:focus {
       color: $color-yellow;
+      .comment-counter__icon {
+        background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
+      }
     }
     &__icon {
       background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
       display: inline-block;
       height: 23px;
       width: 31px;
-      &:active, &:hover, &:focus {
-        background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
-      }
     }
     &__numeral {
       display: inline-block;

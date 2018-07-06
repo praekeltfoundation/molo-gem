@@ -105,10 +105,8 @@
       {% endrecursetree %}
     {% endfor %}
     {% if comment_count > 2 %}
-      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__button call-to-action__button--primary" {{attribute}}>
-        <span class="call-to-action__button-text call-to-action__button-text--primary">
+      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left" {{attribute}}>
           {% trans "Read more comments" %}
-        </span>
       </a>
     {% endif %}
   </div>
