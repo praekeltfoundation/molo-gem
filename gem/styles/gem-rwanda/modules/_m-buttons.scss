@@ -41,62 +41,72 @@ button,
   &__button-text {
     &--primary {}
   }
-  &__report {}
+  //COMMENTS
+  &__report {
+    padding-right: $spacer-mid;
+  }
   &__response {
     color: $color-cyan-fountain;
-    font-weight: bold;
     vertical-align: middle;
     width: 50%;
   }
   &__replies-counter {
     color: $color-cyan-fountain;
-    font-weight: bold;
     margin: 0;
     vertical-align: middle;
     text-align: right;
     width: 50%;
-
   }
+
+  //ARTICLES
   .article-teaser__read-more,
   &__read-more {
     color: #000000;
     font-weight: bold;
     text-decoration: underline;
+    font-size: $font-x-small;
+  }
+  &__item-share {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &__nav-item-share {
+    &--facebook {
+      background: url("/static/img/icons/rwanda/facebook-icon.png") no-repeat center/100%;
+    }
+    &--twitter {
+      background: url("/static/img/icons/rwanda/twitter-icon.png") no-repeat center /100%;
+    }
   }
   &__nav-item-text  {
     color: $color-cyan-fountain;
+    display: block;
+    font-size: $font-x-small;
+    text-decoration: none;
+    text-transform: uppercase;
+      &:active, &:hover, &:focus  {
+        text-decoration: underline;
+      }
     &--left {
-      padding: 0;
-      display: block;
-      padding: 0 $spacer-half;
-      text-decoration: none;
-      text-transform: capitalize;
-      font-weight: bold;
-      text-decoration: underline;
-      text-transform: uppercase;
-
+      padding: $spacer-half;
     }
     &--right {
       color: $color-yellow-gorse;
-      font-weight: bold;
       padding: 0;
-      text-transform: uppercase;
     }
     &--article-comments {
       color: $color-pink;
-      display: block;
-      font-weight: bold;
-      font-size: $font-x-small;
       padding: $spacer-half $spacer-mid;
-      text-decoration: underline;
-      text-transform: uppercase;
     }
     &--backToTop {
       color: #ffffff;
       display: block;
-      padding: $spacer-small $spacer-mid;
+      padding: $spacer-small $spacer-mid $spacer-half;
       &:active, &:hover, &:focus {
         color: #ffffff;
+        text-decoration: none;
       }
       &:before {
         background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
@@ -137,7 +147,7 @@ button,
       color: $color-yellow;
       font-weight: bold;
       padding: $spacer-half ($spacer-max + 5);
-      margin: $spacer-half auto;
+      margin: $spacer-half 0;
       &:active, &:hover, &:focus {
         color: $color-yellow;
         text-decoration: underline;
@@ -148,6 +158,7 @@ button,
   }
 }
 
+//ANCHOR FORCE
 a.call-to-action__button {
   display: inline-block;
 }

@@ -43,7 +43,13 @@
                       {% endif %}
                     </p>
                   {% else %}
-                      <p class="article-teaser__subtitle">{{page.subtitle}}</p>
+                      <p class="article-teaser__subtitle">
+                        {% if next_article.title.30 %}
+                          {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                        {% else %}
+                          {{ next_article.subtitle|smarttruncatechars:40|safe}}
+                        {% endif %}
+                      </p>
                   {% endif %}
                   <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
                     {% trans "Read more" %}
