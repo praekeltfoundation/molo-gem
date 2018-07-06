@@ -1,5 +1,6 @@
 .polls,
 .surveys__type--polls {
+  $block: unquote("#{&}");
   background-color: $color-cyan-fountain;
   color: #ffffff;
   overflow: auto;
@@ -63,8 +64,14 @@
       text-align: center;
     }
   }
-  &-separator {
 
+  &-results {
+    &-list {
+      padding: 0;
+      &__percent {
+        display: inline-block;
+      }
+    }
   }
   &-form,
   &__form {
@@ -113,6 +120,9 @@
       }
     }
   }
+  &__question {
+    padding: $spacer-small 0;
+  }
   &--results {
     p {
       font-size: $font-x-medium;
@@ -130,9 +140,15 @@
     }
   }
   //BRUTE FORCE
-  section {padding: 0 !important;}
+  section {padding: $spacer-multiple 0!important;}
   aside {
-    .surveys__item-thumb {width: 30% !important;}
+    .surveys__item-thumb {
+      width: 30% !important;
+      padding: $spacer-multiple 0  $spacer-half!important;
+    }
+  }
+  nav {
+    padding-bottom: $spacer-x-max;
   }
 }
 
@@ -146,7 +162,6 @@
     top: -15px;
   }
 }
-
 .surveys__type--polls-separator {
   background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/100%;
   content: " ";
