@@ -36,7 +36,6 @@ select[value="value"] {
   text-transform: capitalize;
 }
 input[type="search"] {
-  -webkit-appearance: textfield;
   display: block;
   margin: 0 auto;
   border-radius: 0;
@@ -45,6 +44,16 @@ input[type="search"] {
       width: 85%;
     }
 }
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 [type="checkbox"],
 [type="radio"] {
   margin: 0;
