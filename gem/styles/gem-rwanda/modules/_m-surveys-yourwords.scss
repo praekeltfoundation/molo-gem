@@ -1,153 +1,103 @@
-.yourwords {
+//CUSTOM
+//Surveys, Yourwords Homepage
+.yourwords,.surveys--homepage {
   background-color: $color-yellow-gorse;
+  margin-bottom: $spacer-small;
+}
+.yourwords {
+  text-align: center;
+  margin-bottom: 0;
+}
+.surveys__type--linked-surveys,
+.surveys__type--gcn-competition,
+.yourwords, .competition  {
+  $block: unquote("#{&}");
   color: $color-pink-hollywood;
   overflow: auto;
   padding: 0;
   position: relative;
-  .heading {
-    &--yourwords {
-      &-subtitle {}
-    }
-    &--hero-yourwords {}
-  }
-  .call-to-action {
-    &__nav-item {
-      &--login {
-        background-color: $color-pink-hollywood;
-        color: $color-yellow-gorse;
-        padding: $spacer-half $spacer-multiple;
-        text-transform: inherit;
-        display: inline-block;
-        margin: 10px auto;
-        font-weight: 700;
+  //Thumbnail
+  aside {
+      .surveys__item {
+        &-icon {
+          background: url("/static/img/icons/rwanda/write-us-con.png") no-repeat 0/ 100%;
+          margin: $spacer-multiple $spacer-multiple 0 0;
+        }
+        &-thumb {}
+      }
+    //GCN IMAGE
+    .surveys--page {
+      &__image {
+        width: 100%;
+        height: auto;
+        padding: 0;
       }
     }
   }
-}
-.competition {
-  &__title {
-    color: #000000;
-    &--description {
+  //Titles
+  .heading {
+    color: $color-pink-hollywood;
+    &__component {
       color: $color-pink-hollywood;
     }
-  }
-}
-
-
-.surveys {
-  $block: unquote("#{&}");
-  section { padding: 0 $spacer-mid;}
-  aside {
-    #{$block}__item {
-      &-icon {
-        background: url("/static/img/icons/rwanda/polls-con.png") no-repeat 0/ 100%;
-        width: 70px;
-        height: 65px;
-        float: right;
-        margin: $spacer-multiple;
-        vertical-align: middle;
-      }
-      &-thumb {
-        float: right;
-        width: 35%;
-        margin: 0 $spacer-multiple;
-        vertical-align: middle;
-      }
+    &__subheading {
+      color: #000000;
+      padding-top: 0;
+      font-weight: normal;
+    }
+    &--yourwords-subtitle {
+      color: $color-pink-hollywood;
+      font-size: $font-x-small;
+      text-align: left;
+    }
+    &--yourwords,
+    &--hero-yourwords {
+      color: #000000;
+      padding: $spacer-half $spacer-mid 0;
+      font-size: $font-x-small;
+      text-align: left;
     }
   }
-  nav {
-    text-align: center;
-  }
-  &__question-title {
-    font-size: 16px;
-    color: $color-gray-light;
-    text-align: center;
+  &__title {
+    padding: 0 $spacer-mid;
+    color: $color-pink-hollywood;
+    font-size: $font-large;
     text-transform: uppercase;
-    padding: ($spacer-half * 3) 0 0;
-  }
-  &__answers-counter-bar {
-    padding: 0 0 $spacer-half;
-  }
-  &__answers-counter {
-    background: #ffffff;
-    font-size: $font-xx-small;
-    display: inline-block;
-    vertical-align: middle;
-    padding: $spacer-half;
-  }
-  &__pagination {
-    padding: $spacer-mid $spacer-mid 0;
-    text-align: center;
-    &--multi-step {
     text-align: left;
-    }
-    &-title {
-    color: $color-gray;
-    font-size: $font-medium;
-    font-style: italic;
-    font-weight: bold;
+    &--description {
+      color: #000000;
+      text-align: left;
+      font-size: ($font-small - 1);
+      font-weight: normal;
+      padding: $spacer-half $spacer-mid;
     }
   }
-  &__page {
-    //Where is this located?
-    color: #4e5358; //?
-    font-style: italic;
-    font-size: $font-x-small;
-    &-number {
+  //YOURWORDS, COMPETITION: Pages
+  &__type--gcn-competition {}
+  &--entries {
+    background-color: transparent;
+    text-align: left;
+  }
+  &-form,
+  &__form {
+    padding: 0 $spacer-mid;
+  }
+  //Buttons
+  [type="button"],[type="reset"],[type="submit"],
+  .call-to-action__nav-item--login {
+    background-color: $color-pink-hollywood;
+    color: $color-yellow-gorse;
+    padding: $spacer-half $spacer-multiple;
+    text-transform: inherit;
+    display: inline-block;
+    margin: 10px auto;
+    font-weight: 700;
+  }
+  .call-to-action__nav-item--back-home {
+      color: $color-pink-hollywood;
+      display: inline-block;
+      margin: $spacer-half $spacer-multiple;
       font-weight: bold;
     }
-  }
-  &__type {
-    &--gcn-competition {}
-    &--polls {
-      .call-to-action__button--primary  {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-      }
-    }
-  }
-  &--page {
-    text-align: left;
-    &__image-wrapper {
-      overflow: hidden;
-      margin: 0 auto;
-      max-height: 300px;
-      text-align: center;
-    }
-    &__image {
-      width: 100%;
-      height: auto;
-      padding: 0 0 ($spacer-multiple + 5);
-    }
-    &__excerpt {
-      padding: 0 15px;
-      &-heading {
-      font-size: $font-x-large;
-      color: $color-gray;
-      margin: 0 0 $spacer-half;
-      }
-      &-description {
-        font-size: $font-small;
-      }
-    }
-    &__terms {
-      padding: $spacer-small $spacer-mid;
-      &-anchor {
-        color: #ffffff;
-        text-decoration: underline;
-      }
-    }
-    .heading__subheading {
-      text-align: left;
-    }
-  }
-  &--results {
-    background-color: $color-yellow-gorse;
-    padding: 0 $spacer-mid $spacer-multiple;
-    label {
-      text-align: left;
-      padding: 0 0 $spacer-small;
-    }
-  }
+  .call-to-action__nav-item--yourwords {}
 }
