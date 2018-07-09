@@ -1,3 +1,4 @@
+//CUSTOM
 .polls,
 .surveys__type--polls {
   $block: unquote("#{&}");
@@ -6,21 +7,19 @@
   overflow: auto;
   position: relative;
   padding: 0 $spacer-mid;
+  //TITLES
   .heading {
     padding: 0 0 $spacer-half;
     &__component {
       color: $color-yellow-gorse;
       font-size: $font-medium;
     }
+    &__subheading {
+      font-weight: normal;
+    }
   }
-  .error-list__item, .errors {
-    color: $color-yellow;
-    text-align: left;
-    margin-top: 0;
-  }
-  .call-to-action {
-    padding: 0 $spacer-mid;
-  }
+
+
   .poll-choice__submit,
   .call-to-action__button--primary,
   .poll-choice__submit {
@@ -162,12 +161,21 @@
     }
   }
   //BRUTE FORCE
-  section {padding: $spacer-multiple 0 0!important;}
   aside {
-    .surveys__item-thumb {
-      width: 30% !important;
-      padding: $spacer-multiple 0  $spacer-half!important;
+    .surveys__item {
+      &-icon {
+        background: url("/static/img/icons/rwanda/polls-con.png") no-repeat 0/ 100%;
+        width: 70px;
+        height: 65px;
+        float: right;
+        margin: $spacer-multiple;
+        vertical-align: middle;
+      }
+      &-thumb {}
     }
+  }
+  section {
+    padding: $spacer-multiple 0 0;
   }
   nav {
     padding-bottom: $spacer-x-max;

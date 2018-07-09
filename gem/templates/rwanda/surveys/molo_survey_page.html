@@ -2,7 +2,7 @@
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
-  <div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% endif %}">
+  <div class="surveys surveys__type--linked-surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% endif %}">
     <aside>
       {% if survey.image %}
         {% image survey.image width-165 as icon_small %}

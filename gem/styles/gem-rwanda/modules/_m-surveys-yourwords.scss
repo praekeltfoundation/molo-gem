@@ -1,63 +1,72 @@
-.yourwords {
+//CUSTOM
+.surveys__type--linked-surveys,
+.surveys__type--gcn-competition,
+.yourwords, .competition  {
+  $block: unquote("#{&}");
   background-color: $color-yellow-gorse;
   color: $color-pink-hollywood;
   overflow: auto;
   padding: 0;
   position: relative;
-  .heading {
-    &--yourwords {
-      &-subtitle {}
-    }
-    &--hero-yourwords {}
-  }
-  .call-to-action {
-    &__nav-item {
-      &--login {
-        background-color: $color-pink-hollywood;
-        color: $color-yellow-gorse;
-        padding: $spacer-half $spacer-multiple;
-        text-transform: inherit;
-        display: inline-block;
-        margin: 10px auto;
-        font-weight: 700;
-      }
-    }
-  }
-}
-.competition {
-  &__title {
-    color: #000000;
-    &--description {
-      color: $color-pink-hollywood;
-    }
-  }
-}
-
-
-.surveys {
-  $block: unquote("#{&}");
-  section { padding: 0 $spacer-mid;}
+  //Thumbnail
   aside {
-    #{$block}__item {
-      &-icon {
-        background: url("/static/img/icons/rwanda/polls-con.png") no-repeat 0/ 100%;
-        width: 70px;
-        height: 65px;
-        float: right;
-        margin: $spacer-multiple;
-        vertical-align: middle;
-      }
-      &-thumb {
-        float: right;
-        width: 35%;
-        margin: 0 $spacer-multiple;
-        vertical-align: middle;
+    //GCN IMAGE
+    .surveys--page {
+      &__image {
+        width: 100%;
+        height: auto;
+        padding: 0;
       }
     }
   }
+  //Content
+  section {}
   nav {
     text-align: center;
   }
+  //Titles
+  .heading {
+    color: $color-pink-hollywood;
+    &__component {
+      color: $color-pink-hollywood;
+    }
+    &__subheading {
+      color: #000000;
+    }
+    &--yourwords {
+      &-subtitle {
+        color: #000000;
+      }
+    }
+    &--hero-yourwords {}
+  }
+  &__title {
+    padding: 0 $spacer-mid;
+    color: $color-pink-hollywood;
+    &--description {
+      color: #000000;
+    }
+  }
+  //PAGES
+  &__type--gcn-competition {}
+  &--entries {}
+
+  //Buttons
+  .call-to-action__nav-item {
+    &--login {
+      background-color: $color-pink-hollywood;
+      color: $color-yellow-gorse;
+      padding: $spacer-half $spacer-multiple;
+      text-transform: inherit;
+      display: inline-block;
+      margin: 10px auto;
+      font-weight: 700;
+    }
+  }
+
+}
+
+.surveys {
   &__question-title {
     font-size: 16px;
     color: $color-gray-light;
@@ -97,16 +106,7 @@
       font-weight: bold;
     }
   }
-  &__type {
-    &--gcn-competition {}
-    &--polls {
-      .call-to-action__button--primary  {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-      }
-    }
-  }
+
   &--page {
     text-align: left;
     &__image-wrapper {
@@ -114,11 +114,6 @@
       margin: 0 auto;
       max-height: 300px;
       text-align: center;
-    }
-    &__image {
-      width: 100%;
-      height: auto;
-      padding: 0 0 ($spacer-multiple + 5);
     }
     &__excerpt {
       padding: 0 15px;
@@ -138,10 +133,8 @@
         text-decoration: underline;
       }
     }
-    .heading__subheading {
-      text-align: left;
-    }
   }
+
   &--results {
     background-color: $color-yellow-gorse;
     padding: 0 $spacer-mid $spacer-multiple;
