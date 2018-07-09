@@ -32,7 +32,7 @@
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
-        <div class="surveys surveys__type--gcn-competition">
+        <div class="surveys surveys--homepage surveys__type--gcn-competition">
           <aside>
             {% if survey.image %}
               {% image survey.image width-98 as tmp_photo_small %}
@@ -107,7 +107,7 @@
         <div class="surveys__type--polls-separator"></div>
       {% else %}
         {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-          <div class="surveys surveys__type--linked-surveys">
+          <div class="surveys surveys--homepage surveys__type--linked-surveys">
             <aside>
               {% if survey.image %}
                 {% image survey.image width-165 as icon_small %}
