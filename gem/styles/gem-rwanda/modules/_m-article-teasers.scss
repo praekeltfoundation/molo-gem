@@ -1,4 +1,5 @@
 .article-teaser {
+  // FOR ALL ARTICLES: #{$block}
   $block: unquote("#{&}");
   overflow: auto;
   &--related {
@@ -27,33 +28,21 @@
     &:nth-child(odd):before {
       background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     }
+    //HOMEPAGE ONLY
     .teaser-stacklist {
       &__item {
-        //SMARTPHONE
-        &:nth-child(even),
-        &:nth-child(odd) {
-          @media screen and (min-width: $smartphone) {
-            &:after {
-              content: "";
-              display: block;
-              height: 15px;
-              width: 100%;
-            }
-          }
+        &:nth-child(even):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
+          height: 15px;
         }
-        @media screen and (min-width: $smartphone) {
-          border-bottom: none;
-          &:nth-child(even):after {
-            background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
-          }
-          &:nth-child(odd):after {
-            background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
-          }
-          &:last-child:after {
-            background: transparent;
-          }
+        &:nth-child(odd):after {
+          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
+          height: 15px;
         }
-
+        &:last-child:after {
+          background: transparent;
+          height: auto;
+        }
       }
     }
 
@@ -78,19 +67,21 @@
   .highlight-description {}
 }
 
-// FOR ALL ARTICLES: #{$block}
 .teaser-stacklist {
   margin: 0;
   padding: 0;
   &__item {
-    border-bottom: 1px solid $color-gray-light;
     align-items: center;
-    &__content {
-      text-align: center;
+    &:after {
+      background: url("/static/img/patterns/rwanda/partten-line-grey.png") repeat-x 0 0/100%;
+      height: 10px;
+      content: "";
+      display: block;
+      width: 100%;
     }
   }
   &__wrapper {
-    padding: $spacer-half $spacer-mid;
+    padding: $spacer-small $spacer-mid;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -100,6 +91,7 @@
     margin-right: 5%;
   }
   &__content {
-    width: 50%;
+    width: 60%;
+    text-align: left;
   }
 }
