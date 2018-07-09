@@ -45,11 +45,12 @@
                   {{ next_article.subtitle|smarttruncatechars:40|safe}}
                 {% endif %}
               </p>
+            {% endif %}
               <a class="call-to-action__read-more" href="{% pageurl next_article.specific %}">
                 {% trans "Read more" %}
               </a>
-              {% load_tags_for_article next_article as tags %}
-              {% if tags %}
+                {% load_tags_for_article next_article as tags %}
+                {% if tags %}
                   <ul class="teaser-stacklist-tags">
                     {% for tag in tags %}
                     {% if not tag.title.20 %}
@@ -60,9 +61,17 @@
                       </li>
                       {% endif %}
                     {% endfor %}
+                  {% endif %}
+                    {% get_comment_count for next_article as comment_count %}
+                    {% if comment_count > 0 %}
+                    <li class="teaser-stacklist-tags__item">
+                      <a href="{% pageurl next_article.specific %}?#comments" class="comment-counter">
+                        <div class="comment-counter__icon"></div>
+                        <span class="comment-counter__numeral">{{comment_count}}</span>
+                      </a>
+                      </li>
+                    {% endif %}
                   </ul>
-              {% endif %}
-            {% endif %}
           </div>
         </div>
     </li>
