@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
 
 {% block content %}
   {% if search_results %}
@@ -101,6 +101,22 @@
         {% endif %}
       </div>
     </div>
+
+    <!--PAGINATION-->
+    {% if articles %}
+      <div class="pagination">
+      {% if articles_paginated.has_previous %}
+        <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous">&larr;</a>
+      {% endif %}
+        <span class="pagination__nav-item pagination__nav-item--current">
+          Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+        </span>
+      {% if articles_paginated.has_next %}
+        <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next">&rarr;</a>
+      {% endif %}
+      </div>
+    {% endif %}
+
   {% else %}
     <div class="heading">
         <h1 class="heading__micro">{% trans "Search" %}</h1>
