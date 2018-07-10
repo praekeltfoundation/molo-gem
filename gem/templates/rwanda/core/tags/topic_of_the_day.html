@@ -13,7 +13,7 @@
           {% if article.get_effective_image %}
             <div class="teaser-stacklist__thumbnail-wrap">
               <a href="{% pageurl article.specific %}" class="article-teaser__link">
-                {% image article.get_effective_image width-200 as teaser_thumbnail %}
+                {% image article.get_effective_image width-180 as teaser_thumbnail %}
                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
               </a>
             </div>
@@ -22,25 +22,25 @@
               <a href="{% pageurl article.specific %}" class="article-teaser__link">
                 {% if article.title_highlight %}
                   <h3 class="article-teaser__title article-teaser__title--highlight">
-                    {{ article.title_highlight|smarttruncatechars:45|safe}}
+                    {{ article.title_highlight|smarttruncatechars:25|safe}}
                   </h3>
                 {% else %}
                   <h3 class="article-teaser__title">
-                    {{ article.title|smarttruncatechars:45|safe}}
+                    {{ article.title|smarttruncatechars:25|safe}}
                   </h3>
                 {% endif %}
               </a>
                 {% if article.subtitle_highlight or article.body_highlight %}
                   <p class="article-teaser__subtitle highlight-description">
                     {% if article.subtitle_highlight %}
-                      {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                      {{article.subtitle_highlight|smarttruncatechars:30|safe}}
                     {% elif article.body_highlight %}
-                      {{article.body_highlight|smarttruncatechars:28|safe}}
+                      {{article.body_highlight|smarttruncatechars:30|safe}}
                     {% endif %}
                   </p>
                 {% elif article.subtitle %}
                   {% if article.title.30 %}
-                    <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:28|safe}}</p>
+                    <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:30|safe}}</p>
                   {% else %}
                     <p class="article-teaser__subtitle">{{ article.subtitle|smarttruncatechars:40|safe}}</p>
                   {% endif %}
