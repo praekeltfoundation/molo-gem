@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
+{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
 
 {% block content %}
   {% if search_results %}
@@ -19,7 +19,7 @@
             <div class="teaser-stacklist__wrapper">
               {% if article.image %}
                 <div class="teaser-stacklist__thumbnail-wrap">
-                  <a href="{% pageurl page.specific %}" class="article-teaser__link">
+                  <a href="{% pageurl article.specific %}" class="article-teaser__link">
                     {% image article.image width-200 as teaser_thumbnail %}
                     <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
                   </a>
@@ -101,22 +101,21 @@
         {% endif %}
       </div>
     </div>
-
-    <!--PAGINATION-->
-    {% if articles %}
-      <div class="pagination">
-      {% if articles_paginated.has_previous %}
-        <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous">&larr;</a>
+    <div class="pagination">
+      {% if search_results.previous %}
+        {% if search_results.previous.number == 1 and pagelink == request.path %}
+          <a href="/" class="pagination__nav-anchor-previous"></a>
+        {% else %}
+          <a href="{{ pagelink }}?page={{ search_results.previous.number }}" class="pagination__nav-anchor-previous"></a>
+        {% endif %}
       {% endif %}
-        <span class="pagination__nav-item pagination__nav-item--current">
-          Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+        <span class="pagination__current-page">
+          Page {{ search_results.current }} of {{ search_results|length }}
         </span>
-      {% if articles_paginated.has_next %}
-        <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next">&rarr;</a>
+      {% if pagelink.next %}
+        <a href="{{ pagelink }}?page={{ search_results.next.number }}" class="pagination__nav-anchor-next"></a>
       {% endif %}
-      </div>
-    {% endif %}
-
+    </div>
   {% else %}
     <div class="heading">
         <h1 class="heading__micro">{% trans "Search" %}</h1>
@@ -125,7 +124,7 @@
       <p class="no-search-results">{% trans "No search results for " %} <br/> `{{ search_query }}`</p>
       <form action="{% url 'search' %}" class="search__form" novalidate>
         <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
-        <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon">
+        <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon  call-to-action__item--with-icon-search">
       </form>
     </div>
   {% endif %}
