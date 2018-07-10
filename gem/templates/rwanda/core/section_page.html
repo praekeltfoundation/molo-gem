@@ -18,22 +18,23 @@
   {% for article in articles %}
       <li class="teaser-stacklist__item">
         <div class="teaser-stacklist__wrapper">
+          {% if article.image %}
           <div class="teaser-stacklist__thumbnail-wrap">
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-            {% if article.image %}
-              {% image article.image width-200 class="article-teaser__thumbnail" %}
-            {% endif %}
+              {% image article.image width-180 as teaser_thumbnail %}
+              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
             </a>
           </div>
+          {% endif %}
           <div class="teaser-stacklist__content">
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
               {% if article.title_highlight %}
                 <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ article.title_highlight|smarttruncatechars:45|safe}}
+                  {{ article.title_highlight|smarttruncatechars:25|safe}}
                 </h3>
               {% else %}
                 <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:45|safe}}
+                  {{ article.title|smarttruncatechars:25|safe}}
                 </h3>
               {% endif %}
             </a>
@@ -55,6 +56,29 @@
               </p>
             {% endif %}
             <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+            <ul class="teaser-stacklist-tags">
+              {% load_tags_for_article article as tags %}
+              {% if tags %}
+                {% for tag in tags %}
+                {% if not tag.title.20 %}
+                  <li class="teaser-stacklist-tags__item">
+                    <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+                      {{ tag.title }}
+                    </a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              {% get_comment_count for article as comment_count %}
+              {% if comment_count > 0 %}
+              <li class="teaser-stacklist-tags__item">
+                <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                  <div class="comment-counter__icon"></div>
+                  <span class="comment-counter__numeral">{{comment_count}}</span>
+                </a>
+                </li>
+              {% endif %}
+            </ul>
           </div>
         </div>
       </li>
@@ -75,5 +99,4 @@
       </div>
     {% endif %}
 </div>
-
 {% endblock %}

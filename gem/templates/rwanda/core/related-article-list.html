@@ -5,7 +5,7 @@
 <div class="article-teaser article-teaser--related">
   {% if next_article and self.get_parent_section.enable_next_section %}
   <div class="heading">
-    <h3 class="heading__subtitle">{% trans "Next up" %}</h3>
+    <h3 class="heading__micro">{% trans "Next up" %}</h3>
   </div>
   <ul class="teaser-stacklist">
     <li class="teaser-stacklist__item">
@@ -21,11 +21,11 @@
             <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
               {% if next_article.title_highlight %}
                 <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ next_article.title_highlight|smarttruncatechars:45|safe}}
+                  {{ next_article.title_highlight|smarttruncatechars:25|safe}}
                 </h3>
               {% else %}
                 <h3 class="article-teaser__title">
-                  {{ next_article.title|smarttruncatechars:45|safe}}
+                  {{ next_article.title|smarttruncatechars:25|safe}}
                 </h3>
               {% endif %}
             </a>
@@ -45,11 +45,12 @@
                   {{ next_article.subtitle|smarttruncatechars:40|safe}}
                 {% endif %}
               </p>
+            {% endif %}
               <a class="call-to-action__read-more" href="{% pageurl next_article.specific %}">
                 {% trans "Read more" %}
               </a>
-              {% load_tags_for_article next_article as tags %}
-              {% if tags %}
+                {% load_tags_for_article next_article as tags %}
+                {% if tags %}
                   <ul class="teaser-stacklist-tags">
                     {% for tag in tags %}
                     {% if not tag.title.20 %}
@@ -60,9 +61,17 @@
                       </li>
                       {% endif %}
                     {% endfor %}
+                  {% endif %}
+                    {% get_comment_count for next_article as comment_count %}
+                    {% if comment_count > 0 %}
+                    <li class="teaser-stacklist-tags__item">
+                      <a href="{% pageurl next_article.specific %}?#comments" class="comment-counter">
+                        <div class="comment-counter__icon"></div>
+                        <span class="comment-counter__numeral">{{comment_count}}</span>
+                      </a>
+                      </li>
+                    {% endif %}
                   </ul>
-              {% endif %}
-            {% endif %}
           </div>
         </div>
     </li>
@@ -76,7 +85,7 @@
   {% if recommended_articles %}
   <div class="article-teaser article-teaser--recommended">
     <div class="heading">
-      <h3 class="heading__subtitle">{% trans "Recommended" %}</h3>
+      <h3 class="heading__micro">{% trans "Recommended" %}</h3>
     </div>
     <ul class="teaser-stacklist">
       {% for article in recommended_articles %}
@@ -85,7 +94,7 @@
           {% if article.image %}
             <div class="teaser-stacklist__thumbnail-wrap">
               <a href="{% pageurl article.specific %}" class="article-teaser__link">
-                {% image article.image width-200 height-200 class="article-teaser__thumbnail" %}
+                {% image article.image width-200 width-180 class="article-teaser__thumbnail" %}
               </a>
             </div>
           {% endif %}
@@ -93,17 +102,17 @@
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
               {% if article.title_highlight %}
                 <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ article.title_highlight|smarttruncatechars:45|safe}}
+                  {{ article.title_highlight|smarttruncatechars:25|safe}}
                 </h3>
               {% else %}
                 <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:45|safe}}
+                  {{ article.title|smarttruncatechars:25|safe}}
                 </h3>
               {% endif %}
             </a>
             <p class="article-teaser__subtitle">
               {% if article.title.30 %}
-                {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                {{ next_article.subtitle|smarttruncatechars:30|safe}}
               {% else %}
                 {{ article.subtitle|smarttruncatechars:40|safe}}
               {% endif %}
