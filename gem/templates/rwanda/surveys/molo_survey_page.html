@@ -124,7 +124,6 @@
                 </div>
               </fieldset>
               {% endfor %}
-
               {% if survey.display_survey_directly %}
                 {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
                   {% trans "Vote" as defaultText %}
@@ -173,6 +172,7 @@
           </div>
         {% endif %}
       {% else %}
+      <nav>
         <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
           <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
             <span class="call-to-action__button-text call-to-action__button-text--primary">
@@ -181,6 +181,7 @@
             </span>
           </a>
         </div>
+      </nav>
     {% endif %}
 </div>
 {% if survey.display_survey_directly %}

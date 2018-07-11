@@ -7,6 +7,7 @@
   overflow: auto;
   position: relative;
   padding: 0 $spacer-mid;
+  position: relative;
   //Titles
   .heading {
     padding: 0 0 $spacer-half;
@@ -18,7 +19,6 @@
       font-weight: normal;
     }
   }
-
 
   .poll-choice__submit,
   .call-to-action__button--primary,
@@ -96,7 +96,7 @@
   &-form,
   &__form {
     background-color: $color-cyan-fountain;
-    padding: 0 0 $spacer-multiple;
+    padding: 0 0 $spacer-multiple !important; //Brute force on polls a{}
     fieldset {
       .input-group label {
         padding: 10px 0;
@@ -164,7 +164,8 @@
     .surveys__item {
       &-icon {
         background: url("/static/img/icons/rwanda/polls-con.png") no-repeat 0/ 100%;
-        margin: $spacer-multiple;
+        position: absolute;
+        right: 0;
       }
       &-thumb {}
     }
