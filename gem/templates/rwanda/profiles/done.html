@@ -12,30 +12,30 @@
   {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg or profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg or profile_settings.activate_gender and not profile_settings.capture_gender_on_reg or profile_settings.activate_location and not profile_settings.capture_location_on_reg or profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
     <h6 class="heading heading--subtitle">{% trans "Let us know more about yourself to get access to exclusive content." %}
     </h6>
-    <form method="post" action="{% url "molo.profiles:registration_done" %}" class="profiles__form">
+    <form method="post" action="{% url "molo.profiles:registration_done" %}" class="profiles__form" novalidate>
     {% csrf_token %}
       {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg %}
       <fieldset>
         <label for="date_of_birth">{% trans "Select Date Of Birth" %}</label>
-        {{ form.date_of_birth.errors}}
         {{ form.date_of_birth }}
+        {{ form.date_of_birth.errors}}
       </fieldset>
       {% endif %}
 
       {% if profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg %}
       <fieldset>
         <label for="alias">{% trans "Display Name" %}</label>
-          {{ form.alias.errors }}
-          {{ form.alias }}
-          <span class="input-hint">{% trans "We value your online security, therefore we hide your username and allow you to comment and interact with the site with a display name." %}</span>
+        {{ form.alias }}
+        {{ form.alias.errors }}
+        <span class="input-hint">{% trans "We value your online security, therefore we hide your username and allow you to comment and interact with the site with a display name." %}</span>
       </fieldset>
       {% endif %}
 
       {% if profile_settings.activate_gender and not profile_settings.capture_gender_on_reg %}
       <fieldset>
         <label for="gender">{% trans "I Identify My Gender As:" %}</label>
-        {{ form.gender.errors }}
         {{ form.gender }}
+        {{ form.gender.errors }}
         <span class="input-hint">{% trans "Only you will see this." %}</span>
       </fieldset>
       {% endif %}
@@ -43,8 +43,8 @@
       {% if profile_settings.activate_location and not profile_settings.capture_location_on_reg %}
       <fieldset>
         <label for="location">{% trans "Where Do You Live?" %}</label>
-        {{ form.location.errors }}
         {{ form.location }}
+        {{ form.location.errors }}
         <span class="input-hint">{% trans "Only you will see this." %}</span>
       </fieldset>
       {% endif %}
@@ -52,8 +52,8 @@
       {% if profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
       <fieldset>
         <label for="education_level">{% trans "What Is Your Highest Level Of Education?" %}</label>
-       {{ form.education_level.errors }}
-       {{ form.education_level }}
+        {{ form.education_level }}
+        {{ form.education_level.errors }}
        <span class="input-hint">{% trans "Only you will see this." %}</span>
       </fieldset>
       {% endif %}
