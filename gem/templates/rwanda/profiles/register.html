@@ -102,7 +102,7 @@
       {% for field in form %}
         {% if field in form.security_questions %}
           <fieldset>
-            <label for="id_email">{% trans field.label_tag %}</label>
+            {% trans field.label_tag %}
             {{ field }}
             {{ field.errors}}
           </fieldset>
