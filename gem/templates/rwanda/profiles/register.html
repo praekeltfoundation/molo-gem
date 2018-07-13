@@ -113,7 +113,7 @@
     <fieldset>
       {{ form.terms_and_conditions }}
       {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-      <label for="id_terms_and_conditions" class="profiles__terms"><a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}">{% trans "I accept the Terms and Conditions" %}</a></label>
+      <label for="id_terms_and_conditions" class="profiles__terms"><a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" class="profiles__terms--link">{% trans "I accept the Terms and Conditions" %}</a></label>
       {% else %}
       <label for="id_terms_and_conditions" class="profiles__terms">{% trans "I accept the Terms and Conditions" %}</label>
       {% endif %}
