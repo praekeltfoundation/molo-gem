@@ -44,20 +44,65 @@
     </fieldset>
     {% endif %}
 
+    {% if settings.profiles.UserProfilesSettings.activate_dob and settings.profiles.UserProfilesSettings.capture_dob_on_reg %}
+    <fieldset>
+      <label for="date_of_birth">{% trans "Select Date of Birth" %}</label>
+      {{ form.date_of_birth }}
+      {{ form.date_of_birth.errors}}
+      <span class="input-hint">{% trans "Let us know your birthday to get access to exclusive content." %}</span>
+    </fieldset>
+    {% endif %}
+
     {% if settings.profiles.UserProfilesSettings.activate_gender and settings.profiles.UserProfilesSettings.capture_gender_on_reg %}
     <fieldset>
       <label for="gender">{% trans "I Identify My Gender As:" %}</label>
       {{ form.gender }}
       {{ form.gender.errors}}
-      <span class="input-hint">{% trans "Only you will see this" %}</span>
+      <span class="input-hint">{% trans "Only you will see this." %}</span>
     </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.activate_location and settings.profiles.UserProfilesSettings.capture_location_on_reg %}
+    <fieldset>
+      <label for="location">{% trans "Where Do You Live?" %}</label>
+      {{ form.location }}
+      {{ form.location.errors}}
+      <span class="input-hint">{% trans "Only you will see this." %}</span>
+    </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+      <fieldset>
+        <label for="mobile_number">{% trans "Enter your mobile number" %}</label>
+        {{ form.mobile_number }}
+        {{ form.mobile_number.errors}}
+        <span class="input-hint">{% trans "(e.g. 0900000013)" %}</span>
+      </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.show_email_field %}
+      <fieldset>
+        <label for="id_email">{% trans "Enter your email address" %}</label>
+        {{ form.email }}
+        {{ form.email.errors}}
+        <span class="input-hint">{% trans "(e.g. example@foo.com)" %}</span>
+      </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.activate_education_level and settings.profiles.UserProfilesSettings.capture_education_level_on_reg %}
+      <fieldset>
+        <label for="education_level">{% trans "What is your highest level of education?" %}</label>
+        {{ form.education_level }}
+        {{ form.education_level.errors}}
+        <span class="input-hint">{% trans "Only you will see this." %}</span>
+      </fieldset>
     {% endif %}
 
     {% if settings.profiles.UserProfilesSettings.show_security_question_fields  %}
       {% for field in form %}
         {% if field in form.security_questions %}
           <fieldset>
-            <label for="id_email">{% trans field.label_tag %}</label>
+            <label for="{{ field.id_for_label }}">{% trans field.label_tag %}</label>
             {{ field }}
             {{ field.errors}}
           </fieldset>
@@ -68,7 +113,7 @@
     <fieldset>
       {{ form.terms_and_conditions }}
       {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-      <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" for="id_terms_and_conditions" class="profiles__terms">{% trans "I accept the Terms and Conditions" %}</a>
+      <label for="id_terms_and_conditions" class="profiles__terms"><a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions %}" class="profiles__terms--link">{% trans "I accept the Terms and Conditions" %}</a></label>
       {% else %}
       <label for="id_terms_and_conditions" class="profiles__terms">{% trans "I accept the Terms and Conditions" %}</label>
       {% endif %}
