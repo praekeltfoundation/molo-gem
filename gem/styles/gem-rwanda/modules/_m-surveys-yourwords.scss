@@ -1,0 +1,103 @@
+//CUSTOM
+//Surveys, Yourwords Homepage
+.yourwords,.surveys--homepage {
+  background-color: $color-yellow-gorse;
+  margin-bottom: $spacer-small;
+}
+.yourwords {
+  text-align: center;
+  margin-bottom: 0;
+}
+.surveys__type--linked-surveys,
+.surveys__type--gcn-competition,
+.yourwords, .competition  {
+  $block: unquote("#{&}");
+  color: $color-pink-hollywood;
+  overflow: auto;
+  //padding: 0;
+  position: relative;
+  //Thumbnail
+  aside {
+      .surveys__item {
+        &-icon {
+          background: url("/static/img/icons/rwanda/write-us-con.png") no-repeat 0/ 100%;
+          margin: $spacer-half $spacer-multiple 0 0;
+        }
+        &-thumb {}
+      }
+    //GCN IMAGE
+    .surveys--page {
+      &__image {
+        width: 100%;
+        height: auto;
+        padding: 0;
+      }
+    }
+  }
+  //Titles
+  .heading {
+    color: $color-pink-hollywood;
+    &__component {
+      color: $color-pink-hollywood;
+    }
+    &__subheading {
+      color: #000000;
+      padding-top: 0;
+      font-weight: normal;
+    }
+    &--yourwords-subtitle {
+      color: $color-pink-hollywood;
+      font-size: $font-x-small;
+      text-align: left;
+    }
+    &--yourwords,
+    &--hero-yourwords {
+      color: #000000;
+      padding: $spacer-half $spacer-mid 0;
+      font-size: $font-x-small;
+      text-align: left;
+    }
+  }
+  &__title {
+    padding: 0 $spacer-mid;
+    color: $color-pink-hollywood;
+    font-size: $font-large;
+    text-transform: uppercase;
+    text-align: left;
+    &--description {
+      color: #000000;
+      text-align: left;
+      font-size: ($font-small - 1);
+      font-weight: normal;
+      padding: $spacer-half $spacer-mid;
+    }
+  }
+  //YOURWORDS, COMPETITION: Pages
+  &__type--gcn-competition {}
+  &--entries {
+    background-color: transparent;
+    text-align: left;
+  }
+  &-form,
+  &__form {
+    padding: 0 $spacer-mid;
+  }
+  //Buttons
+  [type="button"],[type="reset"],[type="submit"],
+  .call-to-action__nav-item--login {
+    background-color: $color-pink-hollywood;
+    color: $color-yellow-gorse;
+    padding: $spacer-half $spacer-multiple;
+    text-transform: inherit;
+    display: inline-block;
+    margin: 10px auto;
+    font-weight: 700;
+  }
+  .call-to-action__nav-item--back-home {
+      color: $color-pink-hollywood;
+      display: inline-block;
+      margin: $spacer-half $spacer-multiple;
+      font-weight: bold;
+    }
+  .call-to-action__nav-item--yourwords {}
+}

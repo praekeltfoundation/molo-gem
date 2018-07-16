@@ -1,6 +1,30 @@
 .profiles {
   &__form {
     padding: 0 $spacer-mid;
+    & input {
+      border-radius: 0px;
+    }
+    & label {
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+    & ul.errorlist, & span.error {
+      display: block;
+      padding-left: 0px;
+      margin-top: 0px;
+      color: $color-pink;
+    }
+    .heading--subtitle {
+      font-size: $font-medium;
+      padding: 10px 0px 0px;
+      text-transform: capitalize;
+    }
+  }
+  &__terms {
+    display: block;
+    &--link {
+      color: $color-cyan-fountain;
+    }
   }
   &__account {
     padding: 0 $spacer-mid;
@@ -9,5 +33,27 @@
     font-size: $font-small;
     padding: 0 $spacer-mid 0 0;
     display: inline-block;
+  }
+  //Buttons
+  .call-to-action {
+    &__button {
+      &--secondary {
+        color: $color-cyan-fountain;
+        font-weight: 700;
+        padding: 0 15px 10px 15px;
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-size: 14px;
+        &:hover {
+          color: $color-pink;
+        }
+      }
+    }
+    &__nav-item-text--left {
+      padding: 5px 15px;
+      text-decoration: underline;
+      font-size: 14px;
+      font-weight: 700;
+    }
   }
 }

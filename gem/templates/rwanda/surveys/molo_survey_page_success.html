@@ -2,7 +2,7 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-<div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% endif %}">
+<div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% else %}surveys__type--linked-surveys{% endif %}">
   <aside>
     {% if self.image %}
       {% image self.image width-165 as icon_small %}
@@ -17,7 +17,7 @@
     </div>
     {# <!--  ENABLED RESULTS --> #}
     {% if self.show_results and results %}
-      <div class="heading">
+    <div class="heading">
         <h5 class="heading__micro">
           {% if self.your_words_competition %}
             {% with wordSetting='GCN competition' %}
@@ -38,7 +38,6 @@
               {% endblocktrans %}
             {% endwith %}
           {% endif %}
-
         </h5>
       </div>
       <ul class="polls-results-list">
@@ -113,6 +112,9 @@
     {% endif %}
   </section>
 </div>
+{% if survey.display_survey_directly %}
+  <div class="surveys__type--polls-separator"></div>
+{% endif %}
   <div class="call-to-action">
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
       {% trans "Back home" %}

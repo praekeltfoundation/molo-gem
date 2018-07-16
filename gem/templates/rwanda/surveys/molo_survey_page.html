@@ -2,7 +2,7 @@
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
-  <div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% endif %}">
+  <div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition{% elif self.display_survey_directly %}surveys__type--polls{% else %}surveys__type--linked-surveys{% endif %}">
     <aside>
       {% if survey.image %}
         {% image survey.image width-165 as icon_small %}
@@ -23,165 +23,168 @@
         </div>
       {% endif %}
     </section>
-
-{% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-    {% if self.description %}
-      <div class="surveys--page__excerpt">
-        {% for block in self.description %}
-          {% if forloop.counter %}
-            {% if block.block_type == 'heading' %}
-              <h4 class="surveys--page__excerpt-heading">
-                {{ block.value }}
-              </h4>
-            {% else %}
-              {{ block }}
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-    {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
-      <div class="surveys--page__terms">
-        {% trans "Read:" %}
-        <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="surveys--page__terms-anchor">
-          {{page.terms_and_conditions.first.terms_and_conditions.title}}
-        </a>
-      </div>
-    {% endif %}
-    {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="surveys__pagination surveys__pagination--multi-step">
-        <h6 class="surveys__pagination-title">
-          {% if self.your_words_competition %}
-            {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
-          {% elif not self.display_survey_directly %}
-              {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
-          {% endif %}
-        </h6>
-      </div>
-    {% endif %}
-    {% if form %}
-      <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
-        {% csrf_token %}
-          {% if not is_via_freebasics %}
-            {{ form.media }}
-          {% endif %}
-          {% for field in form %}
-          <fieldset>
-            <div class="input-group">
-              <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-              {% if field.help_text %}
-                {% if field|fieldtype == 'CharacterCountWidget' %}
-                  <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
+    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+        {% if self.description %}
+          <div class="surveys--page__excerpt">
+            {% for block in self.description %}
+              {% if forloop.counter %}
+                {% if block.block_type == 'heading' %}
+                  <h4 class="surveys--page__excerpt-heading">
+                    {{ block.value }}
+                  </h4>
                 {% else %}
-                  <p class="helptext">{{ field.help_text }}</p>
+                  {{ block }}
                 {% endif %}
               {% endif %}
-              {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-                {% for value, text in field.field.choices %}
-                  <div class="choice-group">
-                    <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                    <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                  </div>
-                {% endfor %}
-              {% elif field|fieldtype == 'RadioSelect' %}
-                {% for value, text in field.field.choices %}
-                  <div class="choice-group choice-group__radio">
-                    <input name="{{ field.name }}"
-                     id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                    <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-                  </div>
-                {% endfor %}
-              {% elif field|fieldtype == 'Select' %}
-                <div class="select-style">
-                  <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                  {% if field.value.0 %}
-                    <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                    {% for choice in field.field.choices %}
-                      <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                        {{choice.0}}
-                      </option>
-                    {% endfor %}
-                    {% elif not field.value.0  %}
-                      <option value selected="selected">Choose..</option>
-                      {% for choice in field.field.choices %}
-                      <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                        {{choice.0}}
-                      </option>
-                    {% endfor %}
-                  {% endif %}
-                  </select>
-                </div>
-              {% else %}
-                {{field}}
-              {% endif %}
-
-              {% if field.errors %}
-                <ul class="error-list errorlist">
-                {% for error in field.errors %}
-                  <li class="error-list__item">{{ error }}</li>
-                {% endfor %}
-                </ul>
-              {% endif %}
-            </div>
-          </fieldset>
-          {% endfor %}
-
-          {% if survey.display_survey_directly %}
-            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-              {% trans "Vote" as defaultText %}
-              <input type="submit" value="{{ survey.submit_text|default:defaultText }}" class="call-to-action__button call-to-action__button--primary" />
-            {% else %}
-              <div class="polls">
-                <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-                  <span class="call-to-action__button-text call-to-action__button-text--primary">
-                    {% trans "Log in to vote" %}
-                  </span>
-                </a>
-              </div>
-            {% endif %}
-          {% else %}
-            <input type="submit" value="{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
-          {% endif %}
-
-          {% if fields_step and fields_step.paginator.num_pages > 1 %}
-            <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__pagination">
-                <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page">
-                  {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                    {% trans "Page"  %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{page}}</span> {% trans "of" %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{pages}}</span>
-                  {% endwith %}
-                </p>
-            </div>
-          {% endif %}
-      </form>
-    {% else %}
-      <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
-        <p class="errors">{% trans 'You have already completed this ' %}
-          {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
-          {% endif %}.
-        </p>
-        {% if request.path == "/" %}
-          <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-            <span class="call-to-action__button-text call-to-action__button-text--primary">
-              {% trans "Show Results" %}
-            </span>
-          </a>
-        {% else %}
-          <div class="call-to-action call-to-action--wide-back">
-            <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-              {% trans "Back home" %}</a>
+            {% endfor %}
           </div>
         {% endif %}
-      </div>
-    {% endif %}
-  {% else %}
-    <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
-      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
-          {% endif %}.
-        </span>
-      </a>
-    </div>
-{% endif %}
+        {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
+          <div class="surveys--page__terms">
+            {% trans "Read:" %}
+            <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="surveys--page__terms-anchor">
+              {{page.terms_and_conditions.first.terms_and_conditions.title}}
+            </a>
+          </div>
+        {% endif %}
+        {% if fields_step and fields_step.paginator.num_pages > 1 %}
+          <div class="surveys__pagination surveys__pagination--multi-step">
+            <h6 class="surveys__pagination-title">
+              {% if self.your_words_competition %}
+                {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
+              {% elif not self.display_survey_directly %}
+                  {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
+              {% endif %}
+            </h6>
+          </div>
+        {% endif %}
+        {% if form %}
+          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
+            {% csrf_token %}
+              {% if not is_via_freebasics %}
+                {{ form.media }}
+              {% endif %}
+              {% for field in form %}
+              <fieldset>
+                <div class="input-group">
+                  <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+                  {% if field.help_text %}
+                    {% if field|fieldtype == 'CharacterCountWidget' %}
+                      <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
+                    {% else %}
+                      <p class="helptext">{{ field.help_text }}</p>
+                    {% endif %}
+                  {% endif %}
+                  {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+                    {% for value, text in field.field.choices %}
+                      <div class="choice-group">
+                        <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                        <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                      </div>
+                    {% endfor %}
+                  {% elif field|fieldtype == 'RadioSelect' %}
+                    {% for value, text in field.field.choices %}
+                      <div class="choice-group choice-group__radio">
+                        <input name="{{ field.name }}"
+                         id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                        <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                      </div>
+                    {% endfor %}
+                  {% elif field|fieldtype == 'Select' %}
+                    <div class="select-style">
+                      <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                      {% if field.value.0 %}
+                        <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                        {% for choice in field.field.choices %}
+                          <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                            {{choice.0}}
+                          </option>
+                        {% endfor %}
+                        {% elif not field.value.0  %}
+                          <option value selected="selected">Choose..</option>
+                          {% for choice in field.field.choices %}
+                          <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                            {{choice.0}}
+                          </option>
+                        {% endfor %}
+                      {% endif %}
+                      </select>
+                    </div>
+                  {% else %}
+                    {{field}}
+                  {% endif %}
 
+                  {% if field.errors %}
+                    <ul class="error-list errorlist">
+                    {% for error in field.errors %}
+                      <li class="error-list__item">{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </fieldset>
+              {% endfor %}
+              {% if survey.display_survey_directly %}
+                {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+                  {% trans "Vote" as defaultText %}
+                  <input type="submit" value="{{ survey.submit_text|default:defaultText }}" class="call-to-action__button call-to-action__button--primary" />
+                {% else %}
+                  <div class="polls">
+                    <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+                      <span class="call-to-action__button-text call-to-action__button-text--primary">
+                        {% trans "Log in to vote" %}
+                      </span>
+                    </a>
+                  </div>
+                {% endif %}
+              {% else %}
+                <input type="submit" value="{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+              {% endif %}
+
+              {% if fields_step and fields_step.paginator.num_pages > 1 %}
+                <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__pagination">
+                    <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page">
+                      {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                        {% trans "Page"  %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{page}}</span> {% trans "of" %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{pages}}</span>
+                      {% endwith %}
+                    </p>
+                </div>
+              {% endif %}
+          </form>
+        {% else %}
+          <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+            <p class="errors">{% trans 'You have already completed this ' %}
+              {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+              {% endif %}.
+            </p>
+            {% if request.path == "/" %}
+              <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                <span class="call-to-action__button-text call-to-action__button-text--primary">
+                  {% trans "Show Results" %}
+                </span>
+              </a>
+            {% else %}
+              <div class="call-to-action call-to-action--wide-back">
+                <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+                  {% trans "Back home" %}</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+      <nav>
+        <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+            <span class="call-to-action__button-text call-to-action__button-text--primary">
+              {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+              {% endif %}.
+            </span>
+          </a>
+        </div>
+      </nav>
+    {% endif %}
+</div>
+{% if survey.display_survey_directly %}
+  <div class="surveys__type--polls-separator"></div>
+{% endif %}
 {% endblock %}
