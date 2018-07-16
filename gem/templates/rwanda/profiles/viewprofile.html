@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n wagtailsettings_tags %}
+{% get_settings %}
+
+{% block content %}
+  <div class="heading">
+    <h1 class="heading__profiles">
+      {% trans "Hello " %} {{ user.profile.migrated_username|default:user.username }}
+    </h1>
+  </div>
+  <div class="profiles">
+    <div class="profiles__account"
+    <fieldset>
+      <label class="profiles__description--label">{% trans "When you type comments your name will appear as:" %}</label>
+      <p class="profiles__description">{{ user.profile.alias | default:" Anonymous " }}</p>
+    </fieldset>
+
+    {% trans "Not set." as defaultText %}
+    <fieldset>
+      <label class="profiles__description--label">{% trans "Date of Birth: " %}</label>
+      <p class="profiles__description">
+        {% if user.profile.date_of_birth %}
+          {{ user.profile.date_of_birth | date:"M d, Y" }}
+        {% else %}{{defaultText}}{% endif %}
+      </p>
+    </fieldset>
+
+    {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
+        <fieldset>
+       <label for="id_mobile_number" class="profiles__description--label">{% trans "Mobile number:" %}</label>
+       <p class="profiles__description">{{ user.profile.mobile_number | default:defaultText}}</p>
+    </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.activate_gender %}
+    <fieldset>
+      <label for="id_gender" class="profiles__description--label">{% trans "Gender:" %}</label>
+      <p class="profiles__description">
+        {{ user.profile.gender | default:defaultText }}
+      </p>
+    </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.activate_location %}
+    <fieldset>
+      <label for="id_location" class="profiles__description--label">{% trans "Location:" %}</label>
+      <p class="profiles__description">{{ user.profile.location | default:defaultText }}</p>
+    </fieldset>
+    {% endif %}
+
+    {% if settings.profiles.UserProfilesSettings.activate_education_level %}
+    <fieldset>
+      <label for="education_level" class="profiles__description--label">{% trans "Education Level:" %}</label>
+      <p class="profiles__description">{{ user.profile.education_level | default:defaultText }}</p>
+    </fieldset>
+    {% endif %}
+
+  <fieldset>
+    {% if settings.profiles.UserProfilesSettings.show_email_field %}
+      <label class="profiles__description--label">{% trans "Email Address:" %}</label>
+      <p class="profiles__description">
+        {{ user.email | default:defaultText }}</p>
+    {% endif %}
+  </fieldset>
+  <div class="call-to-action call-to-action--profiles">
+    <a href="{% url "molo.profiles:edit_my_profile" %}" class="call-to-action__button call-to-action__button--secondary">{% trans "Edit My Profile" %}</a>
+    <a href="{% url "molo.profiles:profile_password_change" %}" class="call-to-action__button call-to-action__button--secondary">{% trans "Change my pin" %}</a>
+    <a href="{% url "molo.profiles:auth_logout" %}" class="call-to-action__button call-to-action__button--primary">{% trans "log out" %}</a>
+  </div>
+</div>
+{% endblock %}

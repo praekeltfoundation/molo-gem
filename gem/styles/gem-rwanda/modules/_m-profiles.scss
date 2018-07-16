@@ -27,12 +27,19 @@
     }
   }
   &__account {
-    padding: 0 $spacer-mid;
+    padding: $spacer-small $spacer-mid;
+    .call-to-action{
+      padding: 0px 0px;
+    }
   }
   &__description {
     font-size: $font-small;
     padding: 0 $spacer-mid 0 0;
     display: inline-block;
+    font-weight: bold;
+    &--label {
+      text-transform: capitalize;
+    }
   }
   //Buttons
   .call-to-action {
@@ -40,10 +47,11 @@
       &--secondary {
         color: $color-cyan-fountain;
         font-weight: 700;
-        padding: 0 15px 10px 15px;
+        padding: 0 15px 10px 0px;
         text-decoration: underline;
         text-transform: uppercase;
         font-size: 14px;
+        display: flex;
         &:hover {
           color: $color-pink;
         }
