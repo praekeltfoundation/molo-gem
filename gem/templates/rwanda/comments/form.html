@@ -8,8 +8,10 @@
     {{ form.comment }}
     {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
   </div>
-  <input type="submit" name="submit" value="{% trans "Comment" %}" class="call-to-action__button call-to-action__button--primary">
-  <input type="submit" name="submit_anonymously" value="{% trans "Comment Anonymously" %}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+  <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary"> {% trans "Comment" %}</button>
+  <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+    {% trans "Comment Anonymously" %}
+  </button>
   {{ form.object_pk }}
   {{ form.content_type }}
   {{ form.timestamp }}

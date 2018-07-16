@@ -13,7 +13,7 @@
       padding: $spacer-half $spacer-mid;
       margin: $spacer-half 0;
       &--parent {
-        border-top: 1px solid $color-gray;
+        border-top: 1px solid $color-gray-light;
       }
       &--reply {
         background-color: $color-gray-light;
@@ -34,7 +34,6 @@
     text-transform: uppercase;
     &--author {}
   }
-
   &__staff {}
   &__description {}
   &__body-small {
@@ -44,7 +43,6 @@
     color: $color-gray;
     display: inline-block;
   }
-
   &__replies {
     &-title {
       color: $color-cyan-fountain;
@@ -56,7 +54,6 @@
       margin: 0;
     }
   }
-
   &__replied {
     &-link {
       display: block;
@@ -73,43 +70,47 @@
     }
     &-meta {
       clear: both;
-      display: flex;
-      flex-direction: row;
-      width: 100%;
       overflow: auto;
-      padding: $spacer-mid 0 0;
+      position: relative;
+      width: 100%;
     }
   }
 
   //COMMENTS ADJUSTMENTS + HIERARCHY
-  .call-to-action__button  {
-    margin:  $spacer-half $spacer-mid;
+  .call-to-action {
+    &__button  {
+      margin:  $spacer-half $spacer-mid;
+      padding: $spacer-half $spacer-x-max $spacer-half $spacer-half;
+      text-align: left;
+      &--primary {
+        &:before {
+          background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat 0 0/100%;
+          content: "";
+          display: inline-block;
+          height: 20px;
+          width: 25px;
+          vertical-align: middle;
+        }
+      }
+    }
   }
   .heading {
     padding:  $spacer-half $spacer-mid;
   }
   &__form {
     padding: 0 $spacer-mid;
-    //COMMENTS ADJUSTMENTS
-    .call-to-action__button  {
+    .call-to-action__button {
       margin: $spacer-half 0;
     }
   }
-
 }
 
-//SMARTPHONE
 .comment {
   &-counter {
     display: inline-block;
     color: $color-pink;
     vertical-align: text-top;
     margin: 0;
-    /*
-    position: absolute;
-    right: 35px;
-    bottom: 0;
-    */
     &:active, &:hover, &:focus {
       color: $color-yellow;
       .comment-counter__icon {
