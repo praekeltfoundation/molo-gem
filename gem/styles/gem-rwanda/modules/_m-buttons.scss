@@ -29,15 +29,11 @@ button,
   //BUTTONS
   &__item {
     &--with-icon {
-      //SMARTPHONE
-      @media screen and (min-width: $smartphone) {
-        text-indent: -99em;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
+      text-indent: -99em;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
-    //SEARCH CTA
     &--with-icon-search {right: 25px;}
     &--with-icon-search_footer {}
   }
@@ -47,18 +43,19 @@ button,
   //COMMENTS
   &__report {
     padding-right: $spacer-mid;
+    float: left;
   }
   &__response {
     color: $color-cyan-fountain;
     vertical-align: middle;
-    width: 50%;
+    float: left;
   }
   &__replies-counter {
     color: $color-cyan-fountain;
     margin: 0;
     vertical-align: middle;
     text-align: right;
-    width: 50%;
+    float: right;
   }
 
   //ARTICLES
@@ -68,6 +65,7 @@ button,
     font-weight: bold;
     text-decoration: underline;
     font-size: $font-x-small;
+    padding-right: $spacer-half;
   }
   &__item-share {
     height: 24px;
@@ -163,7 +161,7 @@ button,
   }
 }
 
-//ANCHOR FORCE
+//FORCE ANCHOR
 a.call-to-action__button {
   display: inline-block;
 }

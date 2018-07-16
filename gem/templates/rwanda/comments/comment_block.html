@@ -1,16 +1,20 @@
 {% load comments mptt_tags molo_commenting_tags gem_tags %}
 {% if self.is_commenting_enabled %}
 <div id="comments" class="comments">
-  {% if self.allow_commenting %}
+  {% get_comment_count for self as comment_count %}
+  {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
+  {% if comment_count > 1 %}
     <div class="heading">
-      <h2 class="heading__component">{% trans "Comments" %}</h2>
+      <h2 class=" heading__component">{% trans "Comments" %}</h2>
     </div>
+  {% endif %}
+
+  {% if self.allow_commenting %}
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Log in to comment" %}</span>
+        {% trans "Log in to comment" %}
       </a>
     {% endif %}
   {% else %}
@@ -21,13 +25,6 @@
     <div>
   {% endif %}
 
-  {% get_comment_count for self as comment_count %}
-  {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
-  {% if comment_count > 1 %}
-    <div class="heading">
-      <h2 class=" heading__component">{% trans "Comments" %}</h2>
-    </div>
-  {% endif %}
   <div id="comments-list" class="comments-list">
     {% for node in comment_list %}
       {% recursetree node %}
@@ -61,10 +58,7 @@
             {% trans "Read More"%}
           </a>
           {% endif %}
-
-            <span class="comments__publish-date">
-              {{node.submit_date|timesince}} {% trans "ago" %}
-            </span>
+          <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
           <div class="comments__reply-meta">
               {% if not node.user|is_in_admin_group %}
                 <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">

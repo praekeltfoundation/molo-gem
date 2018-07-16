@@ -34,10 +34,7 @@
   {% else %}
     <p class="comments__body-small">{{ node.comment }}</p>
   {% endif %}
-
-    <span class="comments__publish-date">
-      {{node.submit_date|timesince}} {% trans "ago" %}
-    </span>
+  <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
   <div class="comments__reply-meta">
       {% if not node.user|is_in_admin_group %}
         <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">

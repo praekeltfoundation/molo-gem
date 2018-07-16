@@ -4,7 +4,7 @@
   overflow: auto;
   &--related {
     background: $color-gray-light;
-    padding: $spacer-mid $spacer-mid 0;
+    padding: $spacer-small $spacer-mid;
     .heading {
       padding: $spacer-half $spacer-mid;
     }
@@ -32,7 +32,6 @@
     &:nth-child(odd):before {
       background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
     }
-    //HOMEPAGE ONLY
     .teaser-stacklist {
       &__item {
         &:nth-child(even):after {
@@ -43,14 +42,16 @@
           background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
           height: 15px;
         }
-        &:last-child:after {
-          background: transparent;
-          height: auto;
-        }
       }
     }
-
   }
+  .teaser-stacklist {
+    &__item:last-child:after {
+      background: transparent;
+      height: auto;
+    }
+  }
+
   &__thumbnail {
     width: 100%;
     height: auto;
