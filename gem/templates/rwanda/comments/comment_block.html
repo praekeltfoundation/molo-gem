@@ -1,14 +1,6 @@
 {% load comments mptt_tags molo_commenting_tags gem_tags %}
 {% if self.is_commenting_enabled %}
 <div id="comments" class="comments">
-  {% get_comment_count for self as comment_count %}
-  {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
-  {% if comment_count > 1 %}
-    <div class="heading">
-      <h2 class=" heading__component">{% trans "Comments" %}</h2>
-    </div>
-  {% endif %}
-
   {% if self.allow_commenting %}
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
@@ -24,7 +16,13 @@
       </h4>
     <div>
   {% endif %}
-
+  {% get_comment_count for self as comment_count %}
+  {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
+  {% if comment_count > 1 %}
+    <div class="heading">
+      <h2 class=" heading__component">{% trans "Comments" %}</h2>
+    </div>
+  {% endif %}
   <div id="comments-list" class="comments-list">
     {% for node in comment_list %}
       {% recursetree node %}
