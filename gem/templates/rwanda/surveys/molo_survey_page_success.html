@@ -42,9 +42,10 @@
       </div>
       <ul class="polls-results-list">
           {% for question, answers in results.items %}
-            <label class="polls__question">{{ question|capfirst }}</label>
+
             {% for answer, count in answers.items %}
             <li class="polls-results-list__item">
+              <label class="polls__question">{{ question|capfirst }}</label>
               {% if self.show_results_as_percentage %}
                 {{answer}}
                 <div class="polls-results-list__percent">

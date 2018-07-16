@@ -24,6 +24,7 @@
   .call-to-action__button--primary,
   .poll-choice__submit {
     background-color: $color-yellow;
+    border-radius: 0;
     padding: $spacer-half $spacer-multiple;
     font-weight: 700;
     display: block;
@@ -65,14 +66,15 @@
   }
   &-results {
     &-list {
-      padding: 0;
+      padding: 0 $spacer-mid;
+      margin: 0;
       &__item {
+        display: block;
+        padding: $spacer-half 0;
         label {
           display: block;
           padding-bottom: $spacer-half;
         }
-        display: block;
-        padding: $spacer-half 0;
       }
       &__percent {
         display: block;
@@ -106,22 +108,12 @@
         padding: 0;
       }
     }
-    input[type="text"],
-    input[type="number"],
-    input[type="password"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="search"],
-    input[type="week"],
-    input[type="date"],
-    input[type="month"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="url"],
+    input,
     select {
       background: $color-cyan-dark;
       color: #ffffff;
       border-color: $color-cyan-dark;
+      border-radius: 10px;
     }
     [type="checkbox"],
     [type="radio"] {

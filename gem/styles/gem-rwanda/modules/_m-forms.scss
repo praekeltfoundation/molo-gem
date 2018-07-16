@@ -13,7 +13,6 @@ input[type="url"],
 select {
   background-color: #ffffff;
   border: 1px #d6d6d6 solid;
-  border-radius: 10px;
   color: $color-cyan;
   font-size: $font-small;
   padding: $spacer-half;
@@ -115,9 +114,24 @@ label {
 }
 .input-group {
   .helptext {
-    font-style: italic;
+    font-size: $font-x-small;
+    margin: 0;
   }
   span {
     display: block;
+  }
+}
+
+.error-list,
+.errorlist {
+  display: block;
+  padding: 0;
+  margin-top: 0;
+  color: $color-pink;
+  &__item,
+  .errors {
+    color: $color-pink;
+    text-align: left;
+    margin-top: 0;
   }
 }

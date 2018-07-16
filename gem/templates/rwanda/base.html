@@ -14,13 +14,7 @@
     <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
-    {% comment %}
-      ++++++++++++++++++++++++++++
-        Set google-site-verification
-        Ninyampinga site description
-      ++++++++++++++++++++++++++++
-      <!--<meta name="google-site-verification" content="" />-->
-    {% endcomment %}
+    <meta name="google-site-verification" content="SLRnZR_sKyGn6hPNbkE6AYt11qERo-Sb4HjJYFt5C58" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
     <meta property="og:image:width" content="450" />
@@ -64,6 +58,9 @@
   </head>
   <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   {% wagtailuserbar %}
+  {% block google_analytics %}
+    {% include "patterns/components/ga_tag_manager.html" %}
+  {% endblock %}
   <header>
     <div id="header" class="header">
     <div class="logo-wrapper">
@@ -219,11 +216,5 @@
       {% endif %}
     </div>
   </footer>
-  {% wagtailuserbar %}
-
-    {% block facebook_analytics %}
-      {% include "core/facebook_analytics.html" %}
-    {% endblock %}
-
   </body>
 </html>
