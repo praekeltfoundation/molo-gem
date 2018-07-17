@@ -1,21 +1,15 @@
 .search {
-  padding: $spacer-small;
-    //SMARTPHONE
-    @media screen and (min-width: $smartphone) {
-      padding: 0 0 $spacer-small;
-    }
+  padding: 0 0 $spacer-small;
   &__form {
     position: relative;
   }
-  label {
+  &__item {
     font-weight: bold;
     text-decoration: underline;
     color: #ffffff;
     cursor: pointer;
     display: none;
     text-transform: uppercase;
-
-    //SMARTPHONE
     @media screen and (min-width: $smartphone) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
       background-repeat: no-repeat;
@@ -27,26 +21,39 @@
       text-indent: -1000px;
       width: 30px;
       right: 14px;
-      top: 13px;
+      top: 16px;
     }
-
   }
-  @media screen and (min-width: $smartphone) {
-    //SEARCH TOGGLE
-    .search__input {
-      visibility: hidden;
+  //SEARCH TOGGLE
+  .search__input {
+    visibility: hidden;
+    position: absolute;
+    right: $spacer-small;
+    top: 13px;
+  }
+  .search__input + * {
+    display: none;
+  }
+  .search__input:checked + * {
+    display: block;
+  }
+  .search__bar {
+    &:after {
+      content: " ";
+      background-color: $color-cyan;
+      background-image: url("/static/img/icons/rwanda/dismiss.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 55%;
+      height: 30px;
       position: absolute;
-      right: $spacer-small;
-      top: 13px;
-    }
-    .search__input + * {
-      display: none;
-    }
-    .search__input:checked + * {
-      display: block;
+      text-indent: -1000px;
+      width: 30px;
+      right: 17px;
+      top: 10px;
+      pointer-events: none;
     }
   }
-
   input[type="search"] {
     border-radius: 0;
   }
@@ -72,6 +79,10 @@
         width: 50px;
       }
   }
+}
+
+.header {
+
 }
 
 .footer {
