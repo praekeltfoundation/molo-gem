@@ -41,21 +41,18 @@
               {% endif %}
             {% endif %}
           <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
-
+          {% load_tags_for_article article as tags %}
           <ul class="teaser-stacklist-tags">
-            {% load_tags_for_article article as tags %}
-            {% if settings.core.SiteSettings.enable_tag_navigation %}
-              {% if tags %}
-                {% for tag in tags %}
+            {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
+              {% for tag in tags %}
                 {% if not tag.title.20 %}
                   <li class="teaser-stacklist-tags__item">
                     <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
                       {{ tag.title }}
                     </a>
                   </li>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
+                {% endif %}
+              {% endfor %}
             {% endif %}
             {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
