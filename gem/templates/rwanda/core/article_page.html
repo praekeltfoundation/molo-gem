@@ -125,13 +125,16 @@
     {% endfor %}
     </article>
     {% social_media_article %}
-    <div class="article-page__tag-cloud">
-      {% load_tags_for_article self as tags %}
-      {% if tags %}
+
+    {% load_tags_for_article self as tags %}
+    {% if tags %}
+    {% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags  %}
+      <div class="article-page__tag-cloud">
         <ul class="teaser-stacklist-tags">
           <div class="heading">
             <h4 class="heading__micro">{% trans "Read more about" %}:</h4>
           </div>
+    {% endif %}
           {% if settings.core.SiteSettings.enable_tag_navigation %}
             {% for tag in tags  %}
               <li class="teaser-stacklist-tags__item">
@@ -148,9 +151,11 @@
               </li>
             {% endfor %}
           {% endif %}
+    {% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags  %}
         </ul>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
+    {% endif %}
     {% include "comments/comment_block.html" %}
     {% include "core/related-article-list.html" %}
   </div>
