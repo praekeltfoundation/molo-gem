@@ -1,4 +1,23 @@
 //CUSTOM
+$classModifierList: (
+  surveys__type--gcn-competition,
+  competition,
+  yourwords,
+  surveys__type--linked-surveys
+);
+
+.surveys__type--polls-separator + div {
+  margin-top: -($spacer-multiple);
+}
+
+@each $name in $classModifierList {
+  @if $name {
+    .surveys__type--polls-separator + .#{$name} {
+      padding: $spacer-multiple 0 0;
+    }
+  }
+}
+
 .polls,
 .surveys__type--polls {
   $block: unquote("#{&}");
@@ -8,6 +27,7 @@
   position: relative;
   padding: 0 $spacer-mid;
   position: relative;
+
   //Titles
   .heading {
     padding: 0 0 $spacer-half;
@@ -66,7 +86,7 @@
   }
   &-results {
     &-list {
-      padding: 0 $spacer-mid;
+      padding: 0;
       margin: 0;
       &__item {
         display: block;
