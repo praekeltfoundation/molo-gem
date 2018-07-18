@@ -4,6 +4,9 @@
 {% block content %}
 {% get_translation self.get_parent_section as parent_section %}
 <div class="article-page {% if parent_section.get_effective_extra_style_hints %}article--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
+  <div class="heading {% if parent_section.get_effective_extra_style_hints %}heading--{{parent_section.get_effective_extra_style_hints}}{% else %} heading--background{% endif %}">
+    <h1 class="heading__section">{#{{parent_section.title}}#}</h1>
+  </div>
     <div class="heading">
       {% if page.title_highlight %}
         <h1 class="heading__article">
@@ -158,5 +161,8 @@
     {% endif %}
     {% include "comments/comment_block.html" %}
     {% include "core/related-article-list.html" %}
+    {% if parent_section.get_effective_extra_style_hints %}
+      <div class="linebreak__{{parent_section.get_effective_extra_style_hints}}"></div>
+    {% endif %}
   </div>
 {% endblock %}
