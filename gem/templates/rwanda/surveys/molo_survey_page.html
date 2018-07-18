@@ -49,13 +49,13 @@
         {% endif %}
         {% if fields_step and fields_step.paginator.num_pages > 1 %}
           <div class="surveys__pagination surveys__pagination--multi-step">
-            <h6 class="surveys__pagination-title">
+            <p class="surveys__pagination-title">
               {% if self.your_words_competition %}
                 {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
               {% elif not self.display_survey_directly %}
                   {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
               {% endif %}
-            </h6>
+            </p>
           </div>
         {% endif %}
         {% if form %}

@@ -4,9 +4,13 @@
 {% block content %}
 <div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% else %}surveys__type--linked-surveys{% endif %}">
   <aside>
-    {% if self.image %}
-      {% image self.image width-165 as icon_small %}
-      <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
+    {% if self.your_words_competition %}
+      {% if self.image %}
+        {% image self.image width-165 as icon_small %}
+        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
+      {% else %}
+        <div class="surveys__item-icon"></div>
+      {% endif %}
     {% else %}
       <div class="surveys__item-icon"></div>
     {% endif %}

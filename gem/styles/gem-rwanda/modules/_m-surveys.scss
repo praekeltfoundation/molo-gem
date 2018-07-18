@@ -35,8 +35,15 @@
   //Buttons
   .call-to-action {
     padding: 0 $spacer-mid;
+    &__nav-item-text--left {
+      padding: 0 0 $spacer-half;
+    }
   }
-  
+  .errors {
+    padding: 0 $spacer-mid;
+    font-size: $font-small;
+    color: $color-pink;
+  }
   &-form,
   &__form {
     padding: 0 $spacer-mid;
@@ -65,10 +72,9 @@
     text-align: left;
     }
     &-title {
-    color: $color-gray;
-    font-size: $font-medium;
-    font-style: italic;
-    font-weight: bold;
+    color: #000000;
+    font-size: $font-x-small;
+    margin: 0 0 $spacer-small;
     }
   }
   &__page {
@@ -88,14 +94,31 @@
         text-align: center;
       }
       &__excerpt {
-        padding: 0 15px;
+        //padding: 0 15px;
         &-heading {
+        color: #000000;
         font-size: $font-x-large;
-        color: $color-gray;
         margin: 0 0 $spacer-half;
+        padding: 0 $spacer-mid;
+        text-transform: capitalize;
         }
         &-description {
           font-size: $font-small;
+        }
+        p {
+          padding: 0 $spacer-mid;
+        }
+        a {
+          color: $color-cyan;
+          padding: 0 $spacer-mid;
+          text-decoration: underline;
+          &:active, &:hover, &:focus {
+            color: $color-pink;
+          }
+        }
+        img {
+          width: 100%;
+          height: auto;
         }
       }
       &__terms {
@@ -104,6 +127,7 @@
         &-anchor {
           color: $color-cyan-fountain;
           text-decoration: underline;
+          text-transform: none;
         }
       }
     }
