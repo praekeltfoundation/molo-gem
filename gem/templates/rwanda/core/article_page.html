@@ -39,10 +39,12 @@
 
     {% get_comment_count for self as comment_count %}
     {% if comment_count > 0 %}
+    <div class="article__comment-link">
       <a href="{% pageurl self %}#comments" class="call-to-action__nav-item-text call-to-action__nav-item-text--article-comments">
         {% trans "Your thoughts" %}
         ({{comment_count}})
       </a>
+    </div>
     {% endif %}
 
     {% if page.image %}

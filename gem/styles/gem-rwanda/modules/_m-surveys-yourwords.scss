@@ -8,13 +8,42 @@
 .yourwords {
   text-align: center;
   margin-bottom: 0;
+  //STYLE HTML TAGS
+  &--inner-content {
+    p, a, ul, ol {
+      margin: 0;
+      padding: $spacer-small $spacer-mid;
+    }
+    a {
+      color: $color-cyan;
+      text-decoration: underline;
+      &:active, &:hover, &:focus {
+        color: $color-pink;
+      }
+    }
+    ul, ol {
+      margin: $spacer-half 0;
+      li {
+       display: block;
+     }
+    }
+    ul li {
+      list-style-type: disc;
+    }
+    ol li {
+      list-style-type: decimal;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 .surveys__type--linked-surveys,
 .surveys__type--gcn-competition,
 .yourwords, .competition  {
   $block: unquote("#{&}");
   overflow: auto;
-  position: relative;
   aside {
       .surveys__item {
         &-icon {
@@ -33,10 +62,11 @@
     }
   }
   .heading {
-    color: $color-pink-hollywood;
-    &_micro,
     &__component {
       color: $color-pink-hollywood;
+    }
+    &__micro {
+      color: #000000;
     }
     &__subheading {
       color: #000000;
@@ -65,7 +95,7 @@
     &--description {
       color: #000000;
       text-align: left;
-      font-size: ($font-small - 1);
+      font-size: $font-x-small;
       font-weight: normal;
       padding: $spacer-half $spacer-mid;
     }
