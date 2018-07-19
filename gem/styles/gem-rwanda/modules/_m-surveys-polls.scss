@@ -130,9 +130,9 @@ $classModifierList: (
     input,
     select {
       background: $color-cyan-dark;
-      color: #ffffff;
       border-color: $color-cyan-dark;
       border-radius: 10px;
+      color: #ffffff;
     }
     [type="checkbox"],
     [type="radio"] {
@@ -145,8 +145,10 @@ $classModifierList: (
     }
     [type="checkbox"] {
       &:checked + label:before {
-        background: $color-yellow-gorse url("/static/img/icons/rwanda/check-box-cyan.png") center center / 65% no-repeat;
-        border-color: $color-yellow-gorse ;
+        background-image: url("/static/img/icons/rwanda/check-box-cyan.png");
+        background-position: center center;
+        background-size: 65%;
+        background-repeat: no-repeat;
         opacity: 1;
       }
     }
