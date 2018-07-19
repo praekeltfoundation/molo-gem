@@ -5,9 +5,11 @@
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
+    <div class="call-to-action">
       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         {% trans "Log in to comment" %}
       </a>
+    </div>
     {% endif %}
   {% else %}
     <div class="heading">
