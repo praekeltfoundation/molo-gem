@@ -60,7 +60,7 @@
       <a href="/" class="logo logo--left">
         {% get_site_static_prefix as site_prefix %}
         {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
-          <img src="{% static logo_url %}" width="auto" height="auto" alt="Girl Effect" />
+          <img src="{% static logo_url %}" width="335" height="58" alt="Girl Effect" />
         {% endwith %}
       </a>
     </div>
@@ -144,17 +144,18 @@
               {% trans "Categories" %}
             </b>
           </li>
-          <ul class="menu-list--sections">
-            {% load_sections as sections %}
-            {% for section in sections %}
-              <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                    {{section.title}}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-          {# FOOTER PAGES #}
+          <li class="menu-list__item">
+            <ul class="menu-list--sections">
+              {% load_sections as sections %}
+              {% for section in sections %}
+                <li class="menu-list__item">
+                  <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                      {{section.title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
           {% footer_page %}
           {% if not user.is_authenticated %}
             <li class="menu-list__item">
