@@ -126,6 +126,23 @@
     {% display_unread_notifications %}
     {% block content %}{% endblock %}
   </main>
+  {% load_tags as tags %}
+  {% if tags %}
+  <div class="tag-cloud">
+    <div class="heading">
+      <h4 class="heading__subheading">{% trans "Read stories about"%}:</h4>
+    </div>
+    <ul class="tag-cloud-list">
+      {% for tag in tags %}
+        <li class="tag-cloud-list__item">
+          <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
+            <span class="tag-cloud__title">{{tag.title}}<span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
   <footer>
   <div id="footer" class="footer">
     {% block search %}
