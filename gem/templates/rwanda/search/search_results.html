@@ -28,11 +28,11 @@
                 <a href="{% pageurl article.specific %}" class="article-teaser__link">
                   {% if article.title_highlight %}
                     <h3 class="article-teaser__title article-teaser__title--highlight">
-                      {{ article.title_highlight|smarttruncatechars:45|safe}}
+                      {{ article.title_highlight|smarttruncatechars:50|safe}}
                     </h3>
                   {% else %}
                     <h3 class="article-teaser__title">
-                      {{ article.title|smarttruncatechars:45|safe}}
+                      {{ article.title|smarttruncatechars:50|safe}}
                     </h3>
                   {% endif %}
                 </a>
@@ -47,9 +47,9 @@
                 {% else %}
                     <p class="article-teaser__subtitle">
                       {% if next_article.title.30 %}
-                        {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                        {{ next_article.subtitle|smarttruncatechars:30|safe}}
                       {% else %}
-                        {{ next_article.subtitle|smarttruncatechars:40|safe}}
+                        {{ next_article.subtitle|smarttruncatechars:50|safe}}
                       {% endif %}
                     </p>
                 {% endif %}

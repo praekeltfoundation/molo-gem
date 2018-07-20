@@ -5,11 +5,9 @@ $classModifierList: (
   yourwords,
   surveys__type--linked-surveys
 );
-
 .surveys__type--polls-separator + div {
   margin-top: -($spacer-multiple);
 }
-
 @each $name in $classModifierList {
   @if $name {
     .surveys__type--polls-separator + .#{$name} {
@@ -24,34 +22,17 @@ $classModifierList: (
   background-color: $color-cyan-fountain;
   color: #ffffff;
   overflow: auto;
+  margin-top: $spacer-small;
+  padding: 0 $spacer-mid $spacer-half;
   position: relative;
-  padding: 0 $spacer-mid;
-  position: relative;
-
-  //Titles
   .heading {
-    padding: 0 0 $spacer-half;
+    padding: 0 25% $spacer-half 0;
     &__component {
       color: $color-yellow-gorse;
-      font-size: $font-medium;
     }
     &__subheading {
       font-weight: normal;
     }
-  }
-
-  .poll-choice__submit,
-  .call-to-action__button--primary,
-  .poll-choice__submit {
-    background-color: $color-yellow;
-    border-radius: 0;
-    padding: $spacer-half $spacer-multiple;
-    font-weight: 700;
-    display: block;
-    margin: $spacer-half auto;
-    text-align: center;
-    color: $color-cyan-fountain !important; //Brute force on polls a{}
-    text-transform: inherit !important;
   }
   .poll {
     &__title {
@@ -59,15 +40,13 @@ $classModifierList: (
       font-size: $font-x-small;
       padding: $spacer-multiple 0 0;
     }
-    &__form-block {}
     &__question-title {
       color: $color-yellow-gorse;
       text-transform: uppercase;
-      padding: $spacer-half 0;
-      font-size: $font-medium;
+      padding: $spacer-small 0;
+      font-size: $font-x-medium;
     }
     &-choices {
-      padding: $spacer-half 0;
       &__item {
         padding: $spacer-half 0;
       }
@@ -83,6 +62,29 @@ $classModifierList: (
         }
       }
     }
+  }
+  .call-to-action__button--primary,
+  .poll-choice__submit {
+    background-color: $color-yellow;
+    border-radius: 0;
+    padding: $spacer-half $spacer-multiple;
+    font-weight: 700;
+    display: block;
+    margin: $spacer-half auto;
+    text-align: center;
+    color: $color-cyan-fountain !important; //Brute force on polls a{}
+    text-transform: inherit !important;
+  }
+  &__question {
+    padding: $spacer-small 0;
+  }
+  &-separator {
+    background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/100%;
+    content: "";
+    display: block;
+    height: 20px;
+    position: relative;
+    top: -15px;
   }
   &-results {
     &-list {
@@ -115,20 +117,9 @@ $classModifierList: (
       }
     }
   }
-  &-form,
-  &__form {
+  &-form, &__form {
     background-color: $color-cyan-fountain;
-    fieldset {
-      .input-group label {
-        padding: 10px 0;
-        display: block;
-      }
-      .choice-group label {
-        padding: 0;
-      }
-    }
-    input,
-    select {
+    input, select {
       background: $color-cyan-dark;
       border-color: $color-cyan-dark;
       border-radius: 10px;
@@ -152,9 +143,6 @@ $classModifierList: (
         opacity: 1;
       }
     }
-  }
-  &__question {
-    padding: $spacer-small 0;
   }
   &--results {
     .poll__question-title + p {
@@ -180,7 +168,6 @@ $classModifierList: (
         position: absolute;
         right: 0;
       }
-      &-thumb {}
     }
   }
   section {
@@ -189,12 +176,4 @@ $classModifierList: (
   nav {
     padding-bottom: $spacer-x-max;
   }
-}
-.surveys__type--polls-separator {
-  background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/100%;
-  content: "";
-  display: block;
-  height: 20px;
-  position: relative;
-  top: -15px;
 }

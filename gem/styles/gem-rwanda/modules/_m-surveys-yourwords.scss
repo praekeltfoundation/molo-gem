@@ -1,14 +1,12 @@
 //CUSTOM
 //Surveys, Yourwords Homepage
-.yourwords,
-.surveys--homepage {
+.yourwords, .surveys--homepage {
   background-color: $color-yellow-gorse;
   margin-bottom: $spacer-small;
 }
 .yourwords {
   text-align: center;
   margin-bottom: 0;
-  //STYLE HTML TAGS
   &--inner-content {
     p, a, ul, ol {
       margin: 0;
@@ -44,24 +42,8 @@
 .yourwords, .competition  {
   $block: unquote("#{&}");
   overflow: auto;
-  aside {
-      .surveys__item {
-        &-icon {
-          background: url("/static/img/icons/rwanda/write-us-con.png") no-repeat 0/ 100%;
-          margin: $spacer-half $spacer-multiple 0 0;
-        }
-        &-thumb {}
-      }
-    //GCN IMAGE
-    .surveys--page {
-      &__image {
-        width: 100%;
-        height: auto;
-        padding: 0;
-      }
-    }
-  }
   .heading {
+    padding: $spacer-small 25% 0 $spacer-mid;
     &__component {
       color: $color-pink-hollywood;
     }
@@ -86,10 +68,26 @@
       text-align: left;
     }
   }
+  aside {
+    .surveys__item {
+      &-icon {
+        background: url("/static/img/icons/rwanda/write-us-con.png") no-repeat 0/ 100%;
+        margin: $spacer-half $spacer-multiple 0 0;
+      }
+      &-thumb {}
+    }
+    .surveys--page {
+      &__image {
+        width: 100%;
+        height: auto;
+        padding: 0;
+      }
+    }
+  }
   &__title {
     padding: 0 $spacer-mid;
     color: $color-pink-hollywood;
-    font-size: $font-large;
+    font-size: $font-x-medium;
     text-transform: uppercase;
     text-align: left;
     &--description {
@@ -100,17 +98,13 @@
       padding: $spacer-half $spacer-mid;
     }
   }
-  //YOURWORDS, COMPETITION: Pages
-  &__type--gcn-competition {}
   &--entries {
     background-color: transparent;
     text-align: left;
   }
-  &-form,
-  &__form {
+  &-form, &__form {
     padding: 0 $spacer-mid;
   }
-  //Buttons
   [type="button"],[type="reset"],[type="submit"],
   .call-to-action__nav-item--login {
     background-color: $color-pink-hollywood;
@@ -122,10 +116,9 @@
     font-weight: 700;
   }
   .call-to-action__nav-item--back-home {
-      color: $color-pink-hollywood;
-      display: inline-block;
-      margin: $spacer-half $spacer-multiple;
-      font-weight: bold;
-    }
-  .call-to-action__nav-item--yourwords {}
+    color: $color-pink-hollywood;
+    display: inline-block;
+    margin: $spacer-half $spacer-multiple;
+    font-weight: bold;
+  }
 }

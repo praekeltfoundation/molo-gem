@@ -21,28 +21,28 @@
             <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
               {% if next_article.title_highlight %}
                 <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ next_article.title_highlight|smarttruncatechars:25|safe}}
+                  {{ next_article.title_highlight|smarttruncatechars:30|safe}}
                 </h3>
               {% else %}
                 <h3 class="article-teaser__title">
-                  {{ next_article.title|smarttruncatechars:25|safe}}
+                  {{ next_article.title|smarttruncatechars:30|safe}}
                 </h3>
               {% endif %}
             </a>
             {% if next_article.subtitle_highlight or next_article.body_highlight %}
               <p class="article-teaser__subtitle highlight-description">
                 {% if next_article.subtitle_highlight %}
-                  {{next_article.subtitle_highlight|smarttruncatechars:28|safe}}
+                  {{next_article.subtitle_highlight|smarttruncatechars:30|safe}}
                 {% elif next_article.body_highlight %}
-                  {{next_article.body_highlight|smarttruncatechars:28|safe}}
+                  {{next_article.body_highlight|smarttruncatechars:30|safe}}
                 {% endif %}
               </p>
             {% elif next_article.subtitle %}
               <p class="article-teaser__subtitle">
                 {% if next_article.title.30 %}
-                  {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                  {{ next_article.subtitle|smarttruncatechars:30|safe}}
                 {% else %}
-                  {{ next_article.subtitle|smarttruncatechars:40|safe}}
+                  {{ next_article.subtitle|smarttruncatechars:50|safe}}
                 {% endif %}
               </p>
             {% endif %}
@@ -104,11 +104,11 @@
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
               {% if article.title_highlight %}
                 <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ article.title_highlight|smarttruncatechars:25|safe}}
+                  {{ article.title_highlight|smarttruncatechars:30|safe}}
                 </h3>
               {% else %}
                 <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:25|safe}}
+                  {{ article.title|smarttruncatechars:30|safe}}
                 </h3>
               {% endif %}
             </a>
@@ -116,7 +116,7 @@
               {% if article.title.30 %}
                 {{ next_article.subtitle|smarttruncatechars:30|safe}}
               {% else %}
-                {{ article.subtitle|smarttruncatechars:40|safe}}
+                {{ article.subtitle|smarttruncatechars:50|safe}}
               {% endif %}
             </p>
             <a class="call-to-action__read-more" href="{% pageurl article.specific %}">

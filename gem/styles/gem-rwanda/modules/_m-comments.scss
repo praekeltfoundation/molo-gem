@@ -1,5 +1,4 @@
 .comments {
-  padding: 0  $spacer-mid;
   /*&:before {
     background: url("/static/img/patterns/rwanda/partten-line-grey.png") repeat-x 0 0/100%;
     content: "";
@@ -8,10 +7,12 @@
     width: 100%;
   }*/
   &-list {
-    font-size: $font-small;
+    font-size: $font-x-small;
     &__item {
-      padding: $spacer-half $spacer-mid;
-      margin: $spacer-half 0;
+      padding: $spacer-mid $spacer-mid $spacer-small;
+      &:first-child {
+        padding: 0 $spacer-mid
+      }
       &--parent {
         border-top: 1px solid $color-gray-light;
         &:first-child {
@@ -49,7 +50,7 @@
   &__replies {
     &-title {
       color: $color-cyan-fountain;
-      margin: $spacer-multiple 0 0;
+      margin: $spacer-mid 0 0;
       text-transform: uppercase;
       font-size: $font-small;
     }
@@ -82,7 +83,7 @@
   //COMMENTS ADJUSTMENTS + HIERARCHY
   .call-to-action {
     &__button  {
-      margin:  $spacer-half auto;
+      margin: $spacer-small auto;
       padding: $spacer-half $spacer-x-max $spacer-half $spacer-half;
       text-align: left;
       &--primary {
@@ -90,9 +91,10 @@
           background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat 0 0/100%;
           content: "";
           display: inline-block;
-          height: 20px;
-          width: 25px;
+          height: 15px;
+          width: 20px;
           vertical-align: middle;
+          margin-right: $spacer-small;
         }
       }
     }
@@ -112,7 +114,7 @@
   &-counter {
     display: inline-block;
     color: $color-pink;
-    vertical-align: text-top;
+    vertical-align: middle;
     margin: 0;
     &:active, &:hover, &:focus {
       color: $color-yellow;
@@ -124,7 +126,8 @@
       background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
       display: inline-block;
       height: 20px;
-      width: 20px;
+      width: 18px;
+      margin: $spacer-small 0 0;
     }
     &__numeral {
       display: inline-block;
@@ -144,7 +147,7 @@
     display: inline-block;
     margin-left: $spacer-small;
     height: 20px;
-    width: 20px;
+    width: 18px;
     vertical-align: middle;
   }
 }
