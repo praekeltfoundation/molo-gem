@@ -1,6 +1,11 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
 {% if articles %}
 <div class="article-teaser article-teaser--promo">
+  <div class="heading">
+    <h1 class=" heading__component">
+      {% trans "Latest stories" %}
+    </h1>
+  </div>
   <ul class="teaser-stacklist">
   {% for article in articles %}
     <li class="teaser-stacklist__item">
