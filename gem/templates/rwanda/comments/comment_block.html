@@ -52,7 +52,7 @@
             {% trans "This comment has been removed by the community. Please read our platform rules." %}
           </h6>
         {% else %}
-          <p class="comments__body-small">{{ node.comment|smarttruncatechars:100 }}</p>
+          <p class="comments__body-small">{{ node.comment|smarttruncatechars:115 }}</p>
           {% if node.comment.200 %}
           <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__read-more">
             {% trans "Read More"%}
