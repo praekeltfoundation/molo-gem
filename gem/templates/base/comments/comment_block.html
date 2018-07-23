@@ -10,7 +10,7 @@
     </h6>
     {% endif %}
     <div class="comment__form-post">
-    {% if requestuser.is_authenticated %}
+    {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
     {% else %}
       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
