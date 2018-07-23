@@ -9,54 +9,47 @@
 <!--[if gt IE 8]><!-->
   <html class="no-js" lang="{{LANGUAGE_CODE}}">
 <!--<![endif]-->
-  <head>
-    <meta charset="utf-8" />
-    <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="google-site-verification" content="SLRnZR_sKyGn6hPNbkE6AYt11qERo-Sb4HjJYFt5C58" />
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-    <meta property="og:image:width" content="450" />
-    <meta property="og:image:height" content="200" />
-    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
-    <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Ninyampinga{% endif %}" />
-    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
-    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-    <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-    {% image self.social_media_image fill-450x200 as tmp_photo %}
-    {% if self.get_effective_image %}
-      {% image self.get_effective_image fill-450x200 as article_photo %}
-    {% endif %}
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/logo_rwanda.png' %}{% endif %}"/>
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="google-site-verification" content="SLRnZR_sKyGn6hPNbkE6AYt11qERo-Sb4HjJYFt5C58" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <link href="{{ request.build_absolute_uri }}" rel="canonical" />
+  <meta property="og:image:width" content="450" />
+  <meta property="og:image:height" content="200" />
+  <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+  <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Ninyampinga{% endif %}" />
+  <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+  <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+  {% image self.social_media_image fill-450x200 as tmp_photo %}
+  {% if self.get_effective_image %}
+    {% image self.get_effective_image fill-450x200 as article_photo %}
+  {% endif %}
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/logo_rwanda.png' %}{% endif %}"/>
 
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{% static 'img/appicons/rwanda/NN_Favicon_WHITE.svg">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg">
-    {% comment %}
-      Redesign to be deployed to current base.
-      Have Springster activated features
-    {% endcomment %}
-    {% compress css %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/ninyampinga.css">
-    {% endcompress %}
-    {% if LANGUAGE_CODE|language_bidi == True %}
-    {% endif %}
-
-    <script type="text/javascript">
-      js = document.createElement('script');
-      js.src = '{{ STATIC_URL }}js/dest/menu-min.js';
-      js.async = true;
-      document.querySelector('script').parentNode.appendChild(js);
-    </script>
-  </head>
-  <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="msapplication-TileImage" content="{% static 'img/appicons/rwanda/NN_Favicon_WHITE.svg' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/ninyampinga.css" media="all">
+  {% endcompress %}
+  <script>
+    js = document.createElement('script');
+    js.src = '{{ STATIC_URL }}js/dest/menu-min.js';
+    js.async = true;
+    document.querySelector('script').parentNode.appendChild(js);
+  </script>
+</head>
+<body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   {% wagtailuserbar %}
   {% block google_analytics %}
     {% include "patterns/components/ga_tag_manager.html" %}
@@ -67,19 +60,19 @@
       <a href="/" class="logo logo--left">
         {% get_site_static_prefix as site_prefix %}
         {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
-          <img src="{% static logo_url %}" width="auto" height="auto" alt="Girl Effect" />
+          <img src="{% static logo_url %}" width="335" height="58" alt="Girl Effect" />
         {% endwith %}
       </a>
     </div>
     <div class="search">
-      <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
-      <input id="search_toggle" class="search__input" type="checkbox">
-      <div class="search__bar">
-        <form action="{% url 'search' %}" novalidate class="search__form">
-          <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
-        </form>
-      </div>
+    <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
+    <input id="search_toggle" class="search__input" type="checkbox">
+    <div class="search__bar">
+      <form action="{% url 'search' %}" novalidate class="search__form">
+        <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}" >
+        <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
+      </form>
+    </div>
     </div>
 
     <!-- DROP DOWN MENU-->
@@ -129,20 +122,37 @@
     </nav>
   </div>
   </header>
-  <main role="main">
+  <main>
     {% display_unread_notifications %}
     {% block content %}{% endblock %}
   </main>
+  {% load_tags as tags %}
+  {% if tags %}
+  <div class="tag-cloud">
+    <div class="heading">
+      <h4 class="heading__subheading">{% trans "Read stories about"%}:</h4>
+    </div>
+    <ul class="tag-cloud-list">
+      {% for tag in tags %}
+        <li class="tag-cloud-list__item">
+          <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
+            <span class="tag-cloud__title">{{tag.title}}<span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
   <footer>
-    <div id="footer" class="footer">
-      {% block search %}
-      <div class="search">
-        <form action="{% url 'search' %}" novalidate class="search__form">
-          <input id="input__none" name="q" type="search" placeholder="{% trans "Search" %}" >
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
-        </form>
-      </div>
-      {% endblock %}
+  <div id="footer" class="footer">
+    {% block search %}
+    <div class="search">
+    <form action="{% url 'search' %}" novalidate class="search__form">
+      <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
+      <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
+    </form>
+    </div>
+    {% endblock %}
 
       <div class="menu menu--footer">
         <ul class="menu-list">
@@ -151,17 +161,18 @@
               {% trans "Categories" %}
             </b>
           </li>
-          <ul class="menu-list--sections">
-            {% load_sections as sections %}
-            {% for section in sections %}
-              <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                    {{section.title}}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-          {# FOOTER PAGES #}
+          <li class="menu-list__item">
+            <ul class="menu-list--sections">
+              {% load_sections as sections %}
+              {% for section in sections %}
+                <li class="menu-list__item">
+                  <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                      {{section.title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
           {% footer_page %}
           {% if not user.is_authenticated %}
             <li class="menu-list__item">
@@ -216,5 +227,5 @@
       {% endif %}
     </div>
   </footer>
-  </body>
+</body>
 </html>

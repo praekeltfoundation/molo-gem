@@ -10,11 +10,11 @@
     <div class="heading">
       {% if page.title_highlight %}
         <h1 class="heading__article">
-          {{ page.title_highlight|smarttruncatechars:45|safe}}
+          {{ page.title_highlight|smarttruncatechars:50|safe}}
         </h1>
       {% else %}
         <h1 class="heading__article">
-          {{ page.title|smarttruncatechars:45|safe}}
+          {{ page.title|smarttruncatechars:50|safe}}
         </h1>
       {% endif %}
     </div>
@@ -22,15 +22,15 @@
     {% if page.subtitle_highlight or article.body_highlight %}
       <p class="article__subtitle highlight-description">
         {% if page.subtitle_highlight %}
-          {{page.subtitle_highlight|smarttruncatechars:28|safe}}
+          {{page.subtitle_highlight|smarttruncatechars:30|safe}}
         {% elif page.body_highlight %}
-          {{page.body_highlight|smarttruncatechars:28|safe}}
+          {{page.body_highlight|smarttruncatechars:30|safe}}
         {% endif %}
       </p>
     {% elif page.subtitle %}
       <p class="article__subtitle">
         {% if page.title.30 %}
-          {{ page.subtitle|smarttruncatechars:28|safe}}
+          {{ page.subtitle|smarttruncatechars:30|safe}}
         {% else %}
           {{ page.subtitle|smarttruncatechars:50|safe}}
         {% endif %}
@@ -66,7 +66,7 @@
               {% if is_via_freebasics %}
                 <div class="media-player__no-player">
                   <h4 class="title">{{media.title}}</h4>
-                  <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
+                  <a href="{{ media.youtube_link }}" target="_top" class="media-player__icon"></a>
                   <h4>{% trans "Media will be played externally in a new window" %}</h4>
                 </div>
               {% else %}
