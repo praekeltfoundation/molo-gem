@@ -25,21 +25,15 @@
         <h5 class="heading__micro">
           {% if self.your_words_competition %}
             {% with wordSetting='GCN competition' %}
-              {% blocktrans %}
-                Your {{wordSetting}} has been completed successfully.<br/> See results
-              {% endblocktrans %}
+              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
               {% endwith %}
           {% elif self.display_survey_directly %}
             {% with wordSetting='poll' %}
-              {% blocktrans %}
-                Your {{wordSetting}} has been completed successfully.<br/> See results
-              {% endblocktrans %}
+              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
               {% endwith %}
           {% else %}
             {% with wordSetting='survey' %}
-              {% blocktrans %}
-                Your {{wordSetting}} has been completed successfully.<br/> See results
-              {% endblocktrans %}
+              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
             {% endwith %}
           {% endif %}
         </h5>
@@ -76,37 +70,25 @@
             {% if self.your_words_competition %}
               {% with wordSetting='GCN competition' %}
                 {% if self.your_words_competition %}
-                    {% blocktrans %}
-                      Your {{wordSetting}} has been completed successfully!
-                    {% endblocktrans %}
+                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
                 {% else %}
-                    {% blocktrans %}
-                      Thank you for submitting this {{wordSetting}}!
-                    {% endblocktrans %}
+                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
                 {% endif %}
               {% endwith %}
             {% elif self.display_survey_directly %}
               {% with wordSetting='poll' %}
                 {% if self.your_words_competition %}
-                    {% blocktrans %}
-                      Your {{wordSetting}} has been completed successfully!
-                    {% endblocktrans %}
+                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
                 {% else %}
-                    {% blocktrans %}
-                      Thank you for submitting this {{wordSetting}}!
-                    {% endblocktrans %}
+                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
                 {% endif %}
               {% endwith %}
             {% else %}
               {% with wordSetting='survey' %}
                 {% if self.your_words_competition %}
-                    {% blocktrans %}
-                      Your {{wordSetting}} has been completed successfully!
-                    {% endblocktrans %}
+                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
                 {% else %}
-                    {% blocktrans %}
-                      Thank you for submitting this {{wordSetting}}!
-                    {% endblocktrans %}
+                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
                 {% endif %}
               {% endwith %}
             {% endif %}
