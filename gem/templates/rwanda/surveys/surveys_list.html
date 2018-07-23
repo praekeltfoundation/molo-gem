@@ -49,7 +49,7 @@
             {% if survey.homepage_introduction %}
               <div class="heading">
                 <h5 class="heading__subheading">
-                  {{survey.homepage_introduction|smarttruncatechars:100|safe}}
+                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
                 </h5>
               </div>
             {% endif %}
@@ -62,24 +62,18 @@
               </span>
             </a>
           </nav>
-      </div>
-
+        </div>
       {% elif survey.display_survey_directly %}
         <div class="surveys surveys__type--polls">
           <aside>
-            {% if survey.image %}
-              {% image survey.image width-165 as icon_small %}
-              <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
-            {% else %}
-              <div class="surveys__item-icon"></div>
-            {% endif %}
+            <div class="surveys__item-icon"></div>
           </aside>
           <section>
             <div class="heading">
               <h1 class="heading__component">{{survey.title}}</h1>
               {% if survey.homepage_introduction %}
                 <h5 class="heading__subheading">
-                  {{survey.homepage_introduction|smarttruncatechars:100|safe}}
+                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
                 </h5>
               {% endif %}
             </div>
@@ -116,12 +110,7 @@
         {% else %}
           <div class="surveys surveys--homepage surveys__type--linked-surveys">
           <aside>
-            {% if survey.image %}
-              {% image survey.image width-165 as icon_small %}
-              <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
-            {% else %}
-              <div class="surveys__item-icon"></div>
-            {% endif %}
+            <div class="surveys__item-icon"></div>
           </aside>
           <section>
             <div class="heading">
@@ -130,7 +119,7 @@
             {% if survey.homepage_introduction %}
               <div class="heading">
                 <h5 class="heading__subheading">
-                  {{survey.homepage_introduction|smarttruncatechars:100|safe}}
+                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
                 </h5>
               </div>
             {% endif %}

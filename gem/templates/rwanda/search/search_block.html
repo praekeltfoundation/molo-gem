@@ -1,9 +1,9 @@
 <div class="search">
+  <div class="heading">
+    <p class="heading__micro">{% trans "looking for something?" %}</p>
+  </div>
   <form action="{% url 'search' %}" class="search__form" novalidate>
-    <label>{% trans "looking for something?" %}</label>
-    <input placeholder="{% trans "Search" %}" name="q" type="search" value="{{ search_query }}">
-    <button type="submit" class="call-to-action__item call-to-action__item--with-icon  call-to-action__item--with-icon-search">
-      {% trans "Submit" %}
-    </button>
+    <input name="q" type="search" value="{{ search_query }}" aria-label="Search Input" placeholder="{% trans "Search" %}" >
+    <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon  call-to-action__item--with-icon-search">
   </form>
 </div>

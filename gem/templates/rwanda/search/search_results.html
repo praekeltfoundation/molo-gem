@@ -3,15 +3,14 @@
 
 {% block content %}
   {% if search_results %}
-  <div class="heading">
+    <div class="heading">
       <h1 class="heading__component">{% trans "Search" %}</h1>
       <p class="heading__micro">
         {{ search_results|length }} {% trans "results found for" %}:
         <strong>"{{search_query}}"</strong>
       </p>
-
-  </div>
-    {% include "search/search_block.html" %}
+    </div>
+  {% include "search/search_block.html" %}
     <div class="article-teaser">
       <ul class="teaser-stacklist">
         {% for article in search_results %}
@@ -29,11 +28,11 @@
                 <a href="{% pageurl article.specific %}" class="article-teaser__link">
                   {% if article.title_highlight %}
                     <h3 class="article-teaser__title article-teaser__title--highlight">
-                      {{ article.title_highlight|smarttruncatechars:45|safe}}
+                      {{ article.title_highlight|smarttruncatechars:50|safe}}
                     </h3>
                   {% else %}
                     <h3 class="article-teaser__title">
-                      {{ article.title|smarttruncatechars:45|safe}}
+                      {{ article.title|smarttruncatechars:50|safe}}
                     </h3>
                   {% endif %}
                 </a>
@@ -48,9 +47,9 @@
                 {% else %}
                     <p class="article-teaser__subtitle">
                       {% if next_article.title.30 %}
-                        {{ next_article.subtitle|smarttruncatechars:28|safe}}
+                        {{ next_article.subtitle|smarttruncatechars:30|safe}}
                       {% else %}
-                        {{ next_article.subtitle|smarttruncatechars:40|safe}}
+                        {{ next_article.subtitle|smarttruncatechars:50|safe}}
                       {% endif %}
                     </p>
                 {% endif %}
@@ -86,8 +85,6 @@
         {% endfor %}
       </ul>
     </div>
-
-
     <div class="search-result pagination">
       <div class="step-links">
         {% if search_results.has_previous %}
@@ -107,17 +104,14 @@
     </div>
     <div class="search">
       <div class="heading">
-        <p class="heading__micro">{% trans "No search results for" %}: <strong>"{{ search_query }}"</strong></p>
+        <p class="heading__micro">
+          {% trans "No search results for" %}: <strong>"{{ search_query }}"</strong>
+        </p>
       </div>
       <form action="{% url 'search' %}" class="search__form" novalidate>
-        <input placeholder="{% trans "I am looking for" %}" name="q" type="search">
+        <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "I am looking for" %}">
         <input type="submit" value="{% trans "Search"%}" class="call-to-action__item call-to-action__item--with-icon  call-to-action__item--with-icon-search">
       </form>
     </div>
-  {% endif %}
-{% endblock %}
-{% block search %}
-  {% if search_results %}
-      {% include "search/search_block.html" %}
   {% endif %}
 {% endblock %}

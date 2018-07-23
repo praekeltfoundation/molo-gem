@@ -8,13 +8,13 @@
     {% endif %}
       {% if settings.core.SiteSettings.facebook_sharing %}
         <li class="social-media-list__item">
-          <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--facebook {% if facebook %} call-to-action__nav-item-share-with-image {% endif %}">
+          <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_top" class="call-to-action__item-share call-to-action__nav-item-share--facebook {% if facebook %} call-to-action__nav-item-share-with-image {% endif %}">
           </a>
         </li>
       {% endif %}
       {% if settings.core.SiteSettings.twitter_sharing %}
         <li class="social-media-list__item">
-          <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--twitter {% if twitter %} call-to-action__nav-item-share-with-image {% endif %}">
+          <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_top" class="call-to-action__item-share call-to-action__nav-item-share--twitter {% if twitter %} call-to-action__nav-item-share-with-image {% endif %}">
           </a>
         </li>
       {% endif %}

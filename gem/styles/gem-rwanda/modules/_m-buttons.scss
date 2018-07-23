@@ -9,7 +9,7 @@ button,
   display: block;
   color: #ffffff;
   cursor: pointer;
-  font-size: $font-small;
+  font-size: $font-x-small;
   margin: $spacer-half auto;
   padding: $spacer-half;
   text-align: center;
@@ -20,11 +20,9 @@ button,
 }
 //CUSTOM
 .call-to-action {
-  //HEADINGS
   &--profile {
     padding: $spacer-half 0;
   }
-  //BUTTONS
   &__item {
     &--with-icon {
       text-indent: -99em;
@@ -33,12 +31,7 @@ button,
       top: 0;
     }
     &--with-icon-search {right: 25px;}
-    &--with-icon-search_footer {}
   }
-  &__button-text {
-    &--primary {}
-  }
-  //COMMENTS
   &__report {
     padding-right: $spacer-mid;
     float: left;
@@ -55,15 +48,14 @@ button,
     text-align: right;
     float: right;
   }
-
-  //ARTICLES
   .article-teaser__read-more,
   &__read-more {
     color: #000000;
     font-weight: bold;
-    text-decoration: underline;
-    font-size: $font-x-small;
+    font-size: $font-xx-small;
     padding-right: $spacer-half;
+    text-decoration: underline;
+    text-transform: capitalize;
   }
   &__item-share {
     height: 24px;
@@ -83,13 +75,12 @@ button,
     color: $color-cyan-fountain;
     display: block;
     font-size: $font-x-small;
-    text-decoration: none;
     text-transform: uppercase;
       &:active, &:hover, &:focus  {
         text-decoration: underline;
       }
     &--left {
-      padding: $spacer-half;
+      padding: $spacer-half $spacer-mid;
     }
     &--right {
       color: $color-yellow-gorse;
@@ -99,15 +90,12 @@ button,
       color: $color-pink;
       padding: $spacer-half $spacer-mid;
       font-weight: 600;
-      text-decoration: underline;
+      text-decoration: none;
+      display: inline-block;
       &:after {
-        background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
         content: "";
-        display: inline-block;
-        margin-left: $spacer-small; 
-        height: 20px;
-        width: 20px;
-        vertical-align: middle;
+        display: block;
+        border-bottom: 1px solid $color-pink;
       }
     }
     &--backToTop {

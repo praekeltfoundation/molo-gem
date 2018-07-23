@@ -24,26 +24,26 @@
                 <a href="{% pageurl article.specific %}" class="article-teaser__link">
                   {% if article.title_highlight %}
                     <h3 class="article-teaser__title article-teaser__title--highlight">
-                      {{ article.title_highlight|smarttruncatechars:25|safe}}
+                      {{ article.title_highlight|smarttruncatechars:30|safe}}
                     </h3>
                   {% else %}
                     <h3 class="article-teaser__title">
-                      {{ article.title|smarttruncatechars:25|safe}}
+                      {{ article.title|smarttruncatechars:30|safe}}
                     </h3>
                   {% endif %}
                 </a>
                 {% if article.subtitle_highlight or article.body_highlight %}
                   <p class="article-teaser__subtitle highlight-description">
                     {% if article.subtitle_highlight %}
-                      {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                      {{article.subtitle_highlight|smarttruncatechars:30|safe}}
                     {% elif article.body_highlight %}
-                      {{article.body_highlight|smarttruncatechars:28|safe}}
+                      {{article.body_highlight|smarttruncatechars:30|safe}}
                     {% endif %}
                   </p>
                 {% elif article.subtitle %}
                   <p class="article-teaser__subtitle">
                     {% if article.title.30 %}
-                      {{ article.subtitle|smarttruncatechars:28|safe}}
+                      {{ article.subtitle|smarttruncatechars:30|safe}}
                     {% else %}
                       {{ article.subtitle|smarttruncatechars:50|safe}}
                     {% endif %}
@@ -112,26 +112,26 @@
                <a href="{% pageurl article.specific %}" class="article-teaser__link">
                  {% if page.title_highlight %}
                    <h3 class="article-teaser__title article-teaser__title--highlight">
-                     {{ article.title_highlight|smarttruncatechars:25|safe}}
+                     {{ article.title_highlight|smarttruncatechars:30|safe}}
                    </h3>
                  {% else %}
                    <h3 class="article-teaser__title">
-                     {{ article.title|smarttruncatechars:25|safe}}
+                     {{ article.title|smarttruncatechars:30|safe}}
                    </h3>
                  {% endif %}
                </a>
                {% if article.subtitle_highlight or article.body_highlight %}
                  <p class="article-teaser__subtitle highlight-description">
                    {% if article.subtitle_highlight %}
-                     {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                     {{article.subtitle_highlight|smarttruncatechars:30|safe}}
                    {% elif article.body_highlight %}
-                     {{article.body_highlight|smarttruncatechars:28|safe}}
+                     {{article.body_highlight|smarttruncatechars:30|safe}}
                    {% endif %}
                  </p>
                {% elif article.subtitle %}
                  <p class="article-teaser__subtitle">
                    {% if article.title.30 %}
-                     {{ article.subtitle|smarttruncatechars:28|safe}}
+                     {{ article.subtitle|smarttruncatechars:30|safe}}
                    {% else %}
                      {{ article.subtitle|smarttruncatechars:50|safe}}
                    {% endif %}
