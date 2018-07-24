@@ -461,6 +461,12 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     '/api/',
     # PWA serviceworker
     '/serviceworker.js',
+    # sensitive informaiton
+    '/profiles/password-reset/',
+    # exclude trailing requests
+    '/manifest.json',
+    '/toast.min.js',
+    '/fcm.js',
 ]
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
