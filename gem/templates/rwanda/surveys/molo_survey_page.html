@@ -59,7 +59,7 @@
           </div>
         {% endif %}
         {% if form %}
-          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
+          <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__type--{% if self.your_words_competition %}gcn-competition{% elif self.display_survey_directly %}polls-form{% else %}surveys{% endif %} surveys__form {{self.get_effective_extra_style_hints}}" novalidate>
             {% csrf_token %}
               {% if not is_via_freebasics %}
                 {{ form.media }}
@@ -113,7 +113,6 @@
                   {% else %}
                     {{field}}
                   {% endif %}
-
                   {% if field.errors %}
                     <ul class="error-list errorlist">
                     {% for error in field.errors %}
@@ -150,7 +149,7 @@
                     </p>
                 </div>
               {% endif %}
-          </form>
+            </form>
         {% else %}
           <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
             <p class="errors">{% trans 'You have already completed this ' %}

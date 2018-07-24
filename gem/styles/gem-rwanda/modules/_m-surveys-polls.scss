@@ -16,11 +16,15 @@ $classModifierList: (
   }
 }
 
-.polls,
-.surveys__type--polls {
-  $block: unquote("#{&}");
+.polls, .surveys__type--polls-homepage {
   background-color: $color-cyan-fountain;
   color: #ffffff;
+    &-form, &__form {
+      background-color: $color-cyan-fountain;
+    }
+}
+.polls, .surveys__type--polls {
+  $block: unquote("#{&}");
   overflow: auto;
   margin-top: $spacer-small;
   padding: 0 $spacer-mid $spacer-half;
@@ -75,6 +79,12 @@ $classModifierList: (
     color: $color-cyan-fountain !important; //Brute force on polls a{}
     text-transform: inherit !important;
   }
+  .surveys--page__excerpt {
+    &-heading,&-description,
+    p, a, ul, ol  {
+      padding: 0;
+    }
+  }
   &__question {
     padding: $spacer-small 0;
   }
@@ -118,7 +128,7 @@ $classModifierList: (
     }
   }
   &-form, &__form {
-    background-color: $color-cyan-fountain;
+
     input, select {
       background: $color-cyan-dark;
       border-color: $color-cyan-dark;
