@@ -5,6 +5,8 @@ fieldset {
   padding: 0 10px;
   display: block;
   position: relative;
+  word-break: break-all;
+  word-wrap: break-word;
   &:last-of-type {
     padding-bottom: 0;
   }
@@ -167,12 +169,25 @@ input[type="radio"]  {
   position: initial;
   visibility: initial;
 }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 
 select {
     background: #fafafa;
     margin: 0 auto 10px;
     outline: none;
     height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
     &:focus,
     &:visited,
     &:active {
