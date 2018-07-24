@@ -196,9 +196,11 @@
       {% endif %}
     </form>
   {% else %}
+  <div class="call-to-action">
     <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary call-to-action__button--se">
       {% trans "Please log in to leave a comment." %}
     </a>
+  </div>
   {% endif %}
 </div>
 <div class="pagination">
