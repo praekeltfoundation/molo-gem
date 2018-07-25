@@ -1,4 +1,6 @@
 import time
+import re
+import urllib
 from django.utils.http import urlencode
 
 from django.conf import settings
@@ -82,12 +84,23 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         if not (response.status_code == 200 or response.status_code == 302):
             return response
 
+        # exclude requests that contain sensitive sensitive information(email)
+        if(request.get_full_path().find('/search/?q=') > -1):
+            try:
+                search_string = urllib.parse.unquote(
+                    request.get_full_path().replace('/search/?q=', ''))
+            except AttributeError:
+                search_string = urllib.unquote(
+                    request.get_full_path().replace('/search/?q=', ''))
+
+            if re.match(r'[^@]+@[^@]+\.[^@]+', search_string):
+                return response
+
         site_settings = SiteSettings.for_site(request.site)
         response = self.submit_to_local_account(
             request, response, site_settings)
         response = self.submit_to_global_account(
             request, response, site_settings)
-
         return response
 
 
