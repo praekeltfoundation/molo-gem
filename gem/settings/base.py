@@ -443,9 +443,6 @@ DEFAULT_FROM_EMAIL = environ.get(
     'DEFAULT_FROM_EMAIL', 'support@moloproject.org')
 
 GOOGLE_ANALYTICS = {}
-
-SERVICE_DIRECTORY_API_BASE_URL = environ.get(
-    'SERVICE_DIRECTORY_API_BASE_URL', '')
 GOOGLE_ANALYTICS_IGNORE_PATH = [
     # health check used by marathon
     '/health/',
