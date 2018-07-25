@@ -1,6 +1,6 @@
 import time
 import re
-import urllib
+from urllib.parse import unquote
 from django.utils.http import urlencode
 
 from django.conf import settings
@@ -86,7 +86,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
         # exclude requests that contain sensitive sensitive information(email)
         if(request.get_full_path().find('/search/?q=') > -1):
-            search_string = urllib.unquote(
+            search_string = unquote(
                 request.get_full_path().replace('/search/?q=', ''))
             if re.match(r'[^@]+@[^@]+\.[^@]+', search_string):
                 return response
