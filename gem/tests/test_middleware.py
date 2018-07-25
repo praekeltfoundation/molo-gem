@@ -89,3 +89,55 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code', request, self.response)
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga__ignored_info(self, mock_submit_tracking):
+        '''
+        Paths in GOOGLE_ANALYTICS_IGNORE_PATH should not invoke
+        a call to google analytics tracking
+        '''
+
+        request = RequestFactory().get(
+            '/profiles/password-reset/',
+            HTTP_HOST='localhost',
+        )
+        request.site = self.main.get_site()
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # test that the tracking method is not called with senstive info
+        mock_submit_tracking.assert_not_called()
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga__sensitive_info(self, mock_submit_tracking):
+        '''
+        Paths with sensitive information should not
+        be tracked on google analytics
+        '''
+
+        request = RequestFactory().get(
+            '/search/?q=user%40user.com',
+            HTTP_HOST='localhost',
+        )
+        request.site = self.main.get_site()
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # test that the tracking method is not called with senstive info
+        mock_submit_tracking.assert_not_called()
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga_valid_info(self, mock_submit_tracking):
+
+        request = RequestFactory().get(
+            '/search/?q=whatislife',
+            HTTP_HOST='localhost',
+        )
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # a normal response should activate GA tracking
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code', request, self.response)
