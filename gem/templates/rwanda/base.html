@@ -14,7 +14,7 @@
   <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="google-site-verification" content="SLRnZR_sKyGn6hPNbkE6AYt11qERo-Sb4HjJYFt5C58" />
+  <meta name="google-site-verification" content="1pHfu6F9poexdHOYO-8YohY4exchMmVOaNmiCLhoT9Q" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
   <meta property="og:image:width" content="450" />
@@ -54,6 +54,15 @@
   {% block google_analytics %}
     {% include "patterns/components/ga_tag_manager.html" %}
   {% endblock %}
+  {% if settings.core.SiteSettings.local_ga_tracking_code %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
+    </script>
+  {% endif %}
   <header>
     <div id="header" class="header">
     <div class="logo-wrapper">
