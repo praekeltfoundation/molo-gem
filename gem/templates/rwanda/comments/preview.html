@@ -3,6 +3,9 @@
 {% block content %}
 {% get_comments_content_object for form as self %}
 <div class="comments">
+  <div class="heading">
+    <h2 class=" heading__component">{% trans "Comments" %}</h2>
+  </div>
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
