@@ -66,7 +66,7 @@ if USE_OIDC_AUTHENTICATION:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ENABLE_GA_LOGGING = environ.get("ENABLE_GA_LOGGING", False)
+ENABLE_GA_LOGGING = environ.get("ENABLE_GA_LOGGING", '') == 'true'
 ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
