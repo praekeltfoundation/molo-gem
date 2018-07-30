@@ -108,6 +108,22 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         # test that the tracking method is not called with senstive info
         mock_submit_tracking.assert_not_called()
 
+        request = RequestFactory().get(
+            '/profiles/reset-success/',
+            HTTP_HOST='localhost',
+        )
+        middleware.process_response(
+            request, self.response)
+        mock_submit_tracking.assert_not_called()
+
+        request = RequestFactory().get(
+            '/profiles/reset-password/',
+            HTTP_HOST='localhost',
+        )
+        middleware.process_response(
+            request, self.response)
+        mock_submit_tracking.assert_not_called()
+
     @patch(submit_tracking_method)
     def test_submit_to_local_ga__sensitive_info(self, mock_submit_tracking):
         '''
@@ -123,7 +139,6 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
-        # test that the tracking method is not called with senstive info
         mock_submit_tracking.assert_not_called()
 
     @patch(submit_tracking_method)

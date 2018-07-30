@@ -463,6 +463,8 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     '/serviceworker.js',
     # sensitive informaiton
     '/profiles/password-reset/',
+    '/profiles/reset-password/',
+    '/profiles/reset-success/',
     # exclude trailing requests
     '/manifest.json',
     '/toast.min.js',
