@@ -17,12 +17,15 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from django.core.urlresolvers import reverse
 
+import debug_toolbar
+
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(
         pattern_name="oidc_authentication_init")),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'', include(wagtail_urls)),
+    url(r'^__debug__/', include(debug_toolbar.urls)),
 
 ]
 
