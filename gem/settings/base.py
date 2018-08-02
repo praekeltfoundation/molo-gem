@@ -136,6 +136,7 @@ INSTALLED_APPS = [
     'el_pagination',
     'import_export',
     'storages',
+    'debug_toolbar',
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -162,6 +163,7 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 if USE_OIDC_AUTHENTICATION:
@@ -557,3 +559,10 @@ AWS_S3_FILE_OVERWRITE = False
 PERSONALISATION_SEGMENTS_ADAPTER = (
     'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
 )
+
+
+def show_toolbar(request):
+    return True
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+}
