@@ -146,6 +146,7 @@ COMMENTS_HIDE_REMOVED = False
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -163,7 +164,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 if USE_OIDC_AUTHENTICATION:
@@ -559,10 +559,11 @@ AWS_S3_FILE_OVERWRITE = False
 PERSONALISATION_SEGMENTS_ADAPTER = (
     'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
 )
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 
 def show_toolbar(request):
-    return True
+    return DEBUG
 
 
 DEBUG_TOOLBAR_CONFIG = {

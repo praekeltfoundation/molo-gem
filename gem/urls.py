@@ -22,6 +22,7 @@ from gem.views import (
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView
 )
+import debug_toolbar
 
 urlpatterns = []
 if settings.USE_OIDC_AUTHENTICATION:
@@ -128,6 +129,7 @@ urlpatterns += [
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
+    url(r'^__debug__/', include(debug_toolbar.urls)),
 ]
 
 
@@ -140,12 +142,6 @@ if settings.DEBUG:
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
 
 if settings.MAINTENANCE_MODE:
     urlpatterns = [
