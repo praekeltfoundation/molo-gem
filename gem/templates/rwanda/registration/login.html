@@ -38,8 +38,6 @@
   <input type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">
   <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "molo.profiles:login_success" %}{% endif %}" class="call-to-action__button call-to-action__button--sprimary" />
   </form>
-  <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-    {% trans "Forgotten your pin?" %}
-  </a>
+  <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Forgot PIN" %}</a>
   </div>
 {% endblock %}
