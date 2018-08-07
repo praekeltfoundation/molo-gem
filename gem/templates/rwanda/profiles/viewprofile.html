@@ -51,13 +51,15 @@
       <p class="profiles__description">{{ user.profile.education_level | default:defaultText }}</p>
     </fieldset>
     {% endif %}
-    <fieldset>
+
     {% if settings.profiles.UserProfilesSettings.show_email_field %}
+    <fieldset>
       <label class="profiles__description--label">{% trans "Email Address:" %}</label>
       <p class="profiles__description">
         {{ user.email | default:defaultText }}</p>
+    </fieldset>
     {% endif %}
-  </fieldset>
+  </div>
   <div class="call-to-action call-to-action--profiles">
     <a href="{% url "molo.profiles:edit_my_profile" %}" class="call-to-action__button call-to-action__button--secondary">{% trans "Edit My Profile" %}</a>
     <a href="{% url "molo.profiles:profile_password_change" %}" class="call-to-action__button call-to-action__button--secondary">{% trans "Change my pin" %}</a>
