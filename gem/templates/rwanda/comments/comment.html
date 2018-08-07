@@ -49,18 +49,18 @@
           <p class="call-to-action__nav-item-text call-to-action__replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply" %}
+              {% trans "reply" %}
             {% else %}
-              {% trans "Replies" %}
+              {% trans "replies" %}
             {% endif %}
           </p>
         {% else %}
           <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply" %}
+              {% trans "reply" %}
             {% else %}
-              {% trans "Replies" %}
+              {% trans "replies" %}
             {% endif %}
           </a>
         {% endif %}
@@ -68,6 +68,6 @@
   </div>
 {% endif %}
 {% if node.parent == None and node.get_children.count != 0 %}
-  <h3 class="comments__replies-title">{% trans "Recent Replies"%}</h3>
+  <h3 class="comments__replies-title">{% trans "Recent replies"%}</h3>
 {% endif %}
 </div>
