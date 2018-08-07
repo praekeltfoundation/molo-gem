@@ -15,8 +15,8 @@
         <div class="media-player__embed-object">
           {% embed media.youtube_link %}
         </div>
-        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
-          <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+          <span>{% trans "Download Video" %}</span>
         </a>
     {% endif %}
     </div>
@@ -29,8 +29,8 @@
               <source src={{media.file.url}} type="video/mp4">
               Your browser does not support the video tag.
           </video>
-          <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
-            <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+          <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+            <span>{% trans "Download Video" %}</span>
           </a>
         </div>
       </div>
@@ -43,8 +43,8 @@
             type="audio/mpeg">Click here to download
             <a href={{media.file.url}}>{{media.title}}</a>
           </audio>
-          <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="btn" download>
-            <span class="call-to-action__button button">{% trans "Download Audio" %}</span>
+          <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+            <span>{% trans "Download Audio" %}</span>
           </a>
         </div>
       </div>
