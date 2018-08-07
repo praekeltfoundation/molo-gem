@@ -76,10 +76,10 @@
         {% endif %}
       </div>
       {% endif %}
+    </div>
       {% if node.parent == None and node.get_children.count != 0 %}
       <h3 class="comments__replies-title">{% trans "Recent replies"%}</h3>
       {% endif %}
-    </div>
   {% endwith %}
   {% if do_not_link_replies or node.get_children.count == 0 %}
   <div class="heading">
