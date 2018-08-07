@@ -2,13 +2,11 @@
   &__form {
     padding: 0 $spacer-mid;
     label {
-      text-transform: capitalize;
+      text-transform: inherit;
       font-weight: bold;
     }
-    .heading--subtitle {
-      font-size: $font-x-medium;
-      padding: 10px 0 0;
-      text-transform: capitalize;
+    .input-hint {
+      font-size: $font-x-small;
     }
   }
   &__terms {
@@ -25,32 +23,30 @@
   }
   &__description {
     font-size: $font-x-small;
-    padding: 0 $spacer-mid 0 0;
     display: inline-block;
     font-weight: bold;
+    margin: $spacer-small 0;
     &--label {
       text-transform: capitalize;
     }
   }
+  .heading--subtitle {
+    font-size: $font-small;
+    padding: $spacer-mid 0 $spacer-small;
+
+  }
   //Buttons
   .call-to-action {
+    &--profile, &--profiles {
+      padding: $spacer-multiple 0 0;
+    }
     &__button {
       &--secondary {
-        color: $color-cyan-fountain;
-        font-weight: 700;
-        padding: 0 15px 10px 0px;
-        text-decoration: underline;
-        text-transform: uppercase;
-        font-size: $font-x-small;
-        display: flex;
-        &:hover {
-          color: $color-pink;
-        }
+        display: block;
       }
     }
     &__nav-item-text--left {
       padding: 5px 15px;
-      text-decoration: underline;
       font-size: $font-x-small;
       font-weight: 700;
     }

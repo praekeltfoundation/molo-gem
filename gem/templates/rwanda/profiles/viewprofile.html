@@ -3,18 +3,19 @@
 {% get_settings %}
 
 {% block content %}
+<div class="profiles">
   <div class="heading">
     <h1 class="heading__profiles">
       {% trans "Hello " %} {{ user.profile.migrated_username|default:user.username }}
     </h1>
   </div>
-  <div class="profiles">
-    <div class="profiles__account"
+  <div class="profiles__account">
     <fieldset>
-      <label class="profiles__description--label">{% trans "When you type comments your name will appear as:" %}</label>
+      <label class="profiles__description--label">
+        {% trans "When you type comments your name will appear as:" %}
+      </label>
       <p class="profiles__description">{{ user.profile.alias | default:" Anonymous " }}</p>
     </fieldset>
-
     {% trans "Not set." as defaultText %}
     <fieldset>
       <label class="profiles__description--label">{% trans "Date of Birth: " %}</label>
@@ -24,14 +25,12 @@
         {% else %}{{defaultText}}{% endif %}
       </p>
     </fieldset>
-
     {% if settings.profiles.UserProfilesSettings.show_mobile_number_field and settings.profiles.UserProfilesSettings.country_code %}
-        <fieldset>
-       <label for="id_mobile_number" class="profiles__description--label">{% trans "Mobile number:" %}</label>
-       <p class="profiles__description">{{ user.profile.mobile_number | default:defaultText}}</p>
+    <fieldset>
+      <label for="id_mobile_number" class="profiles__description--label">{% trans "Mobile number:" %}</label>
+      <p class="profiles__description">{{ user.profile.mobile_number | default:defaultText}}</p>
     </fieldset>
     {% endif %}
-
     {% if settings.profiles.UserProfilesSettings.activate_gender %}
     <fieldset>
       <label for="id_gender" class="profiles__description--label">{% trans "Gender:" %}</label>
@@ -40,22 +39,19 @@
       </p>
     </fieldset>
     {% endif %}
-
     {% if settings.profiles.UserProfilesSettings.activate_location %}
     <fieldset>
       <label for="id_location" class="profiles__description--label">{% trans "Location:" %}</label>
       <p class="profiles__description">{{ user.profile.location | default:defaultText }}</p>
     </fieldset>
     {% endif %}
-
     {% if settings.profiles.UserProfilesSettings.activate_education_level %}
     <fieldset>
       <label for="education_level" class="profiles__description--label">{% trans "Education Level:" %}</label>
       <p class="profiles__description">{{ user.profile.education_level | default:defaultText }}</p>
     </fieldset>
     {% endif %}
-
-  <fieldset>
+    <fieldset>
     {% if settings.profiles.UserProfilesSettings.show_email_field %}
       <label class="profiles__description--label">{% trans "Email Address:" %}</label>
       <p class="profiles__description">

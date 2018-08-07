@@ -18,11 +18,13 @@ button,
   word-wrap: break-word;
   white-space: normal; //IMPORTANT INPUT WRAP
 }
+
+//FORCE ANCHOR
+a.call-to-action__button {
+  display: inline-block;
+}
 //CUSTOM
 .call-to-action {
-  &--profile {
-    padding: $spacer-half 0;
-  }
   &__item {
     &--with-icon {
       text-indent: -99em;
@@ -74,7 +76,7 @@ button,
   &__nav-item-text  {
     color: $color-cyan-fountain;
     display: block;
-    font-size: $font-x-small;
+    font-size: $font-small;
     text-transform: uppercase;
       &:active, &:hover, &:focus  {
         text-decoration: underline;
@@ -118,7 +120,6 @@ button,
     &--login {
       font-weight: bold;
       padding: 0 $spacer-mid;
-      text-decoration: underline;
       text-transform: uppercase;
     }
   }
@@ -154,11 +155,17 @@ button,
         text-decoration: underline;
       }
     }
-    &--secondary {}
+    &--secondary {
+      color: $color-cyan-fountain;
+      font-weight: 700;
+      padding: 0 15px 10px 0px;
+      text-transform: uppercase;
+      font-size: $font-x-small;
+      display: block;
+      text-align: left;
+      &:hover {
+        color: $color-pink;
+      }
+    }
   }
-}
-
-//FORCE ANCHOR
-a.call-to-action__button {
-  display: inline-block;
 }
