@@ -36,38 +36,37 @@
   {% endif %}
   <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
   <div class="comments__reply-meta">
-      {% if not node.user|is_in_admin_group %}
-        <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
-          {% trans "Report" %}
-        </a>
-      {% endif %}
-
-      {% if node.parent == None %}
+    {% if not node.user|is_in_admin_group %}
+      <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
+        {% trans "Report" %}
+      </a>
+    {% endif %}
+    {% if node.parent == None %}
         <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
         {% trans "Reply"%}</a>
         {% if do_not_link_replies or node.get_children.count == 0 %}
           <p class="call-to-action__nav-item-text call-to-action__replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply" %}
+              {% trans "reply" %}
             {% else %}
-              {% trans "Replies" %}
+              {% trans "replies" %}
             {% endif %}
           </p>
         {% else %}
           <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
             {{ node.get_children.count }}
             {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-              {% trans "Reply" %}
+              {% trans "reply" %}
             {% else %}
-              {% trans "Replies" %}
+              {% trans "replies" %}
             {% endif %}
           </a>
         {% endif %}
     {% endif %}
   </div>
 {% endif %}
-{% if node.parent == None and node.get_children.count != 0 %}
-  <h3 class="comments__replies-title">{% trans "Recent Replies"%}</h3>
-{% endif %}
 </div>
+{% if node.parent == None and node.get_children.count != 0 %}
+  <h3 class="comments__replies-title">{% trans "Recent replies"%}</h3>
+{% endif %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments molo_survey_tags %}
 
 {% block content %}
 {% get_translation self.get_parent_section as parent_section %}
@@ -145,4 +145,5 @@
       <div class="linebreak__{{parent_section.get_effective_extra_style_hints}}"></div>
     {% endif %}
   </div>
+  {% surveys_list_for_pages page=self %}
 {% endblock %}
