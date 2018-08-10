@@ -6,8 +6,8 @@
       {% render_comment_form for self %}
     {% else %}
     <div class="call-to-action">
-      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-        {% trans "Log in to comment" %}
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+        {% trans "Please log in to leave a comment" %}.
       </a>
     </div>
     {% endif %}
@@ -49,13 +49,13 @@
       </h5>
     {% if node.is_removed %}
       <h6 class="comments__description">
-        {% trans "This comment has been removed by the community. Please read our platform rules." %}
+        {% trans "This comment has been removed by the community. Please read our platform rules" %}.
       </h6>
     {% else %}
       <p class="comments__body-small">{{ node.comment|smarttruncatechars:115 }}</p>
       {% if node.comment.200 %}
       <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__read-more">
-        {% trans "Read More"%}
+        {% trans "Read more" %}
       </a>
       {% endif %}
       <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
@@ -93,7 +93,7 @@
     </div>
   </div>
     {% if node.parent == None and node.get_children.count != 0 %}
-      <h3 class="comments__replies-title">{% trans "Recent replies"%}</h3>
+      <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
     {% endif %}
     {{ children }}
     {% endrecursetree %}
