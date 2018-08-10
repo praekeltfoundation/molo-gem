@@ -11,9 +11,9 @@
         <h4 class="heading__micro">
           {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
           {% if number_unread_notifications == 1 %}
-            {% trans "reply"%}
+            {% trans "reply" %}
           {% else %}
-            {% trans "replies"%}
+            {% trans "replies" %}
           {% endif %}
         </h4>
       </div>
@@ -23,7 +23,7 @@
       {% endif %}
       {% if read_notifications %}
         <div class="heading">
-          <h4 class="heading__micro">{% trans "Read replies"%}:</h4>
+          <h4 class="heading__micro">{% trans "Read replies" %}:</h4>
         </div>
         {% for notice in read_notifications %}
           {% include 'notifications/notice.html' %}

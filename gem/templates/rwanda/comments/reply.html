@@ -53,7 +53,7 @@
           {% endif %}
           {% if node.parent == None %}
             <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
-            {% trans "Reply"%}</a>
+            {% trans "reply" %}</a>
             {% if do_not_link_replies or node.get_children.count == 0 %}
               <p class="call-to-action__nav-item-text call-to-action__replies-counter">
                 {{ node.get_children.count }}
@@ -138,7 +138,7 @@
           {% endif %}
           {% if node.parent == None %}
             <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
-            {% trans "Reply"%}</a>
+            {% trans "reply" %}</a>
             {% if do_not_link_replies or node.get_children.count == 0 %}
               <p class="call-to-action__nav-item-text call-to-action__replies-counter">
                 {{ node.get_children.count }}
