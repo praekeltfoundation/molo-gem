@@ -31,15 +31,15 @@
           {% endif %}
           </h5>
         {% if node.is_removed %}
-          <h6 class="comments__description">
-            {% trans "This comment has been removed by the community. Please read our platform rules." %}
-          </h6>
+        <h6 class="comments__description">
+        {% trans "This comment has been removed by the community. Please read our platform rules" %}.
+        </h6>
         {% else %}
           {% if truncate_comment %}
             <p class="comments__body-small">{{ node.comment|smarttruncatechars:115 }}</p>
             {% if node.comment.200 %}
             <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__readmore">
-            {% trans "Read More"%}</a>
+            {% trans "Read more" %}</a>
             {% endif %}
           {% else %}
             <p class="comments__body-small">{{ node.comment }}</p>
@@ -54,7 +54,7 @@
 
               {% if node.parent == None %}
                 <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
-                {% trans "Reply"%}</a>
+                {% trans "reply" %}</a>
                 {% if do_not_link_replies or node.get_children.count == 0 %}
                   <p class="call-to-action__nav-item-text call-to-action__replies-counter">
                     {{ node.get_children.count }}
@@ -79,9 +79,8 @@
         {% endif %}
       </div>
         {% if node.parent == None and node.get_children.count != 0 %}
-          <h3 class="comments__replies-title">{% trans "Recent replies"%}</h3>
+          <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
         {% endif %}
-
         {{ children }}
     {% endrecursetree %}
   {% endfor %}
