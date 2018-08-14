@@ -3,48 +3,60 @@
 
 {% if not is_via_freebasics %}
     {% if media.youtube_link %}
+    <div class="media-player">
       <div class="media-player__embed-object">
         <h4 class="title">{{media.title}}</h4>
         {% embed media.youtube_link %}
       </div>
+    </div>
   {% elif media.type == 'video'%}
-        <div class="media-player">
-          <div class="media-player__content">
+    <div class="media-player">
+      <div class="media-player">
+        <div class="media-player__content">
+          <h4 class="title">{{media.title}}</h4>
+          <video width="320" height="240" controls>
             <h4 class="title">{{media.title}}</h4>
-            <video width="320" height="240" controls>
-              <h4 class="title">{{media.title}}</h4>
-                <source src={{media.file.url}} type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-          </div>
+            <source src={{media.file.url}} type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
+      </div>
+    </div>
   {% elif media.type == 'audio'%}
-        <div class="media-player">
-          <div class="media-player__content">
-            <h4 class="title">{{media.title}}</h4>
-            <audio controls><source src={{media.file.url}}
-              type="audio/mpeg">Click here to download
-              <a href={{media.file.url}}>{{media.title}}</a>
-            </audio>
-          </div>
-        </div>
+    <div class="media-player">
+      <div class="media-player__content">
+        <h4 class="title">{{media.title}}</h4>
+        <audio controls><source src={{media.file.url}}
+          type="audio/mpeg">Click here to download
+          <a href={{media.file.url}}>{{media.title}}</a>
+        </audio>
+      </div>
+    </div>
     {% endif %}
   {% else %}
-          {% if media.youtube_link %}
-           <div class="media-player__no-player">
+      {% if media.youtube_link %}
+      <div class="media-player">
+        <div class="media-player__no-player">
           <h4 class="title">{{media.title}}</h4>
           <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
           <h4>{% trans "Youtube link will be played externally in a new window" %}</h4>
         </div>
+      </div>
       {% elif media.type == 'video'%}
+        <div class="media-player">
           <div class="media-player__no-player">
-          <h4 class="title">{{media.title}}</h4>
-          <a class="media-player__icon" ></a><h4>{% trans "Video files will not be played, you can download them" %}</h4>
+            <h4 class="title">{{media.title}}</h4>
+            <a class="media-player__icon" ></a>
+            <h4>{% trans "Video files will not be played, you can download them" %}</h4>
+          </div>
         </div>
       {% elif media.type == 'audio'%}
+        <div class="media-player">
           <div class="media-player__no-player">
-          <h4 class="title">{{media.title}}</h4>
-          <a class="media-player__icon" ></a><h4>{% trans "Audio files will not be played, you can download them" %}</h4>
+            <h4 class="title">{{media.title}}</h4>
+            <a class="media-player__icon" ></a>
+            <h4>{% trans "Audio files will not be played, you can download them" %}</h4>
+          </div>
         </div>
       {% endif %}
   {% endif %}
