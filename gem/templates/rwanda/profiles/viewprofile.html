@@ -14,11 +14,11 @@
       <label class="profiles__description--label">
         {% trans "When you type comments your name will appear as:" %}
       </label>
-      <p class="profiles__description">{{ user.profile.alias | default:" Anonymous " }}</p>
+      <p class="profiles__description">{{ user.profile.alias | default:"Anonymous" }}</p>
     </fieldset>
     {% trans "Not set." as defaultText %}
     <fieldset>
-      <label class="profiles__description--label">{% trans "Date of Birth: " %}</label>
+      <label class="profiles__description--label">{% trans "Date of Birth:" %}</label>
       <p class="profiles__description">
         {% if user.profile.date_of_birth %}
           {{ user.profile.date_of_birth | date:"M d, Y" }}
