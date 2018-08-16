@@ -1,23 +1,16 @@
-{% extends "base.html" %}
-{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
-
-{% block content %}
-  <div class="call-to-action call-to-action--wide-back">
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back home" %}
-    </a>
+  {% comment %}
+    <div class="call-to-action call-to-action--wide-back">
+      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        {% trans "Back home" %}
+      </a>
+    </div>
+    <div class="heading heading__component hash-tag">
+      <h1>{{tag.title}}</h1>
+    </div>
+  {% endcomment %}
+  <div class="endless_page_template">
+    {% include "core/article_tags_for_paging.html" %}
   </div>
-  <div class="heading heading__component hash-tag">
-    <h1>{{tag.title}}</h1>
-  </div>
-  {% paginate 10 object_list as articles %}
-  {% include "core/article_tags_for_paging.html" %}
-
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
-  <script>
-  $.endlessPaginate({
-        contentSelector: '#articles-more'
-    });
-  </script>
-{% endblock %}
+  <script>$.endlessPaginate();</script>
