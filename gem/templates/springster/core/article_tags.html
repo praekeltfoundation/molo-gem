@@ -1,16 +1,30 @@
-  {% comment %}
-    <div class="call-to-action call-to-action--wide-back">
-      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-        {% trans "Back home" %}
-      </a>
-    </div>
-    <div class="heading heading__component hash-tag">
-      <h1>{{tag.title}}</h1>
-    </div>
-  {% endcomment %}
-  <div class="endless_page_template">
+{% extends "base.html" %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags comments staticfiles el_pagination_tags %}
+
+{% block content %}
+  <div class="call-to-action call-to-action--wide-back">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    {% trans "Back home" %}
+  </a>
+  </div>
+  <div class="heading heading__component hash-tag">
+    <h1>{{tag.title}}</h1>
+  </div>
+
+  <div id="entries">
     {% include "core/article_tags_for_paging.html" %}
   </div>
+  <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.slug}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+    <span class="call-to-action__button-text call-to-action__button-text--primary">
+      {% trans "Load more" %}
+    </span>
+  </a>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
-  <script>$.endlessPaginate();</script>
+  <script>
+    $.endlessPaginate({
+      contentSelector: '#entries'
+    });
+  </script>
+
+{% endblock %}
