@@ -6,7 +6,7 @@
 <div class="profiles">
   <div class="heading">
     <h1 class="heading__profiles">
-      {% trans "Hello " %} {{ user.profile.migrated_username|default:user.username }}
+      {% trans "Hello" %} {{ user.profile.migrated_username|default:user.username }}
     </h1>
   </div>
   <div class="profiles__account">
@@ -18,7 +18,7 @@
     </fieldset>
     {% trans "Not set." as defaultText %}
     <fieldset>
-      <label class="profiles__description--label">{% trans "Date of Birth:" %}</label>
+      <label class="profiles__description--label">{% trans "Date of Birth: " %}</label>
       <p class="profiles__description">
         {% if user.profile.date_of_birth %}
           {{ user.profile.date_of_birth | date:"M d, Y" }}
