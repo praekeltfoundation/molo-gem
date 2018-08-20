@@ -92,6 +92,10 @@
       <a href="{{ pagelink }}?page={{ pages.next.number }}" class="pagination__nav-anchor-next"></a>
     {% endif %}
   </div>
-  <a id="more-link" href="#" data-next="{% url 'search_index' %}?page={{pages.next.number}}&section={{section.pk}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-    <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
-  </a>
+  {% if pages.next %}
+    <a id="more-link" href="#" data-next="{% url 'search_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+      <span class="call-to-action__button-text call-to-action__button-text--primary">
+        {% trans "Load more" %}
+      </span>
+    </a>
+  {% endif %}

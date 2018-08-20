@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags comments el_pagination_tags %}
 
 {% block body_class %}default-container{% endblock %}
 
@@ -17,9 +17,15 @@
     <h1>{% trans "Search" %}</h1>
   </div>
   {% if search_results %}
+  ==>Search results: {{ search_results|length }}<br/>
+  ==>Results: {{ results|length }}
+  <br/><br/>
+
+  {% comment %}
     <div class="heading heading__subheading">
       <h6>{{ results|length }} {% trans "results found for" %} "{{search_query}}".</h6>
     </div>
+  {% endcomment %}
   {% paginate 10 results as articles %}
   <div class="article-teaser">
   {% if articles %}
@@ -90,23 +96,27 @@
   </div>
   {% get_pages %}
     <div class="pagination">
-      {% if pages.previous %}
-        {% if pages.previous.number == 1 and pagelink == request.path %}
-          <a href="/" class="pagination__nav-anchor-previous"></a>
-        {% else %}
-          <a href="{{ pagelink }}?page={{ pages.previous.number }}" class="pagination__nav-anchor-previous"></a>
-        {% endif %}
+    {% if pages.previous %}
+      {% if pages.previous.number == 1 and pagelink == request.path %}
+        <a href="/" class="pagination__nav-anchor-previous"></a>
+      {% else %}
+        <a href="{{ pagelink }}?page={{ pages.previous.number }}" class="pagination__nav-anchor-previous"></a>
       {% endif %}
-        <span class="pagination__current-page">
-          Page {{ pages.current }} of {{ pages|length }}
+    {% endif %}
+      <span class="pagination__current-page">
+        Page {{ pages.current }} of {{ pages|length }}
+      </span>
+    {% if pages.next %}
+      <a href="{{ pagelink }}?page={{ pages.next.number }}" class="pagination__nav-anchor-next"></a>
+    {% endif %}
+  </div>
+    {% if pages.next %}
+      <a id="more-link" href="#" data-next="{% url 'search_index' %}?page={{pages.next.number}}&q={{search_query}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Load more" %}
         </span>
-      {% if pages.next %}
-        <a href="{{ pagelink }}?page={{ pages.next.number }}" class="pagination__nav-anchor-next"></a>
-      {% endif %}
-    </div>
-    <a id="more-link" href="#" data-next="{% url 'search_index' %}?page={{pages.next.number}}&q={{search_query}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-      <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
-    </a>
+      </a>
+    {% endif %}
   {% else %}
     <div class="heading heading__subheading">
       <h6>{% trans "No search results for " %}&quot;{{search_query}}&quot;.</h6>
