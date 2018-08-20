@@ -6,7 +6,7 @@
 <div class="profiles">
   <div class="heading">
     <h1 class="heading__profiles">
-      {% trans "Hello " %} {{ user.profile.migrated_username|default:user.username }}
+      {% trans "Hello" %} {{ user.profile.migrated_username|default:user.username }}
     </h1>
   </div>
   <div class="profiles__account">
@@ -14,7 +14,7 @@
       <label class="profiles__description--label">
         {% trans "When you type comments your name will appear as:" %}
       </label>
-      <p class="profiles__description">{{ user.profile.alias | default:" Anonymous " }}</p>
+      <p class="profiles__description">{{ user.profile.alias | default:"Anonymous" }}</p>
     </fieldset>
     {% trans "Not set." as defaultText %}
     <fieldset>
