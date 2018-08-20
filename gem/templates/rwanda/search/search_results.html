@@ -6,13 +6,10 @@
     <div class="heading">
       <h1 class="heading__component">{% trans "Search" %}</h1>
       <p class="heading__micro">
-        {{ search_results|length }} {% trans "results found for" %}:
+        {{results|length}} {% trans "results found for" %}:
         <strong>"{{search_query}}"</strong>
       </p>
     </div>
-    <br/><br/>
-      ==> {{search_results}}
-    <br/><br/>
   {% include "search/search_block.html" %}
     <div class="article-teaser">
       <ul class="teaser-stacklist">

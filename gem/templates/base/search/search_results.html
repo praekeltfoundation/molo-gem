@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
+{% load el_pagination_tags wagtailcore_tags wagtailimages_tags core_tags %}
 
 
 {% block body_class %}default-container{% endblock %}
@@ -10,7 +10,7 @@
   <div class="container">
     <div class="title search">
       <h3>{% trans "Search" %}</h3>
-      <p>{{ search_results|length }} {% trans "results found for" %} "{{search_query}}".</p>
+      <p>{{results|length}} {% trans "results found for" %} "{{search_query}}".</p>
       {% include "search/search_block.html" %}
     </div>
     <div class="search-results article-list">
