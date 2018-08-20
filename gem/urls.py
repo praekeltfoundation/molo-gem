@@ -123,6 +123,11 @@ urlpatterns += [
         core_views.section_index,
         name='section_index'
     ),
+    url(
+        r'^tag-index/$',
+        core_views.tag_index,
+        name='tag_index'
+    ),
     url(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
         '(?P<question_id>\d+)/vote/$',
         core_views.ReactionQuestionChoiceView.as_view(),
