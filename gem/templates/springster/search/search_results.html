@@ -17,15 +17,9 @@
     <h1>{% trans "Search" %}</h1>
   </div>
   {% if search_results %}
-  ==>Search results: {{ search_results|length }}<br/>
-  ==>Results: {{ results|length }}
-  <br/><br/>
-
-  {% comment %}
     <div class="heading heading__subheading">
       <h6>{{ results|length }} {% trans "results found for" %} "{{search_query}}".</h6>
     </div>
-  {% endcomment %}
   {% paginate 10 results as articles %}
   <div class="article-teaser">
   {% if articles %}
