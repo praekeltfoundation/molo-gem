@@ -86,7 +86,9 @@
   {% get_pages %}
   {% if pages.next %}
     <a id="more-link" data-next="{% url 'tag_index' %}?page={{pages.next.number}}&tag_name={{tag.slug}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-      <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Load more" %}</span>
+      <span class="call-to-action__button-text call-to-action__button-text--primary">
+        {% trans "Load more" %}
+      </span>
     </a>
   {% endif %}
 
@@ -150,9 +152,9 @@
        {% endfor %}
      </ul>
       <div class="call-to-action">
-        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
+        <a href="{% url 'tags_list' next_tag.slug %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
           {% trans "Read All" %} {{next_tag}}</a>
-      </div>
+        </div>
     {% endif %}
   </div>
   {% endif %}
