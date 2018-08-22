@@ -46,10 +46,10 @@
                   </p>
                 {% else %}
                     <p class="article-teaser__subtitle">
-                      {% if next_article.title.30 %}
-                        {{ next_article.subtitle|smarttruncatechars:30|safe}}
+                      {% if article.title.30 %}
+                        {{ article.subtitle|smarttruncatechars:30|safe}}
                       {% else %}
-                        {{ next_article.subtitle|smarttruncatechars:50|safe}}
+                        {{ article.subtitle|smarttruncatechars:50|safe}}
                       {% endif %}
                     </p>
                 {% endif %}
