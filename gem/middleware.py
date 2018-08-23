@@ -1,6 +1,8 @@
 import time
 import re
 import urllib
+import structlog
+
 from django.utils.http import urlencode
 
 from django.conf import settings
@@ -33,6 +35,13 @@ class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
+
+
+class LogHeaderInformationMiddleware(object):
+
+    def process_request(self, request):
+        log = structlog.get_logger()
+        log.msg(request.META.items())
 
 
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):

@@ -31,6 +31,9 @@ PROJECT_ROOT = join(BASE_DIR, 'gem')
 DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
+LOG_HEADER_DUMP = environ.get(
+    'LOG_HEADER_DUMP', '') == 'true'
+
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get(
     'USE_OIDC_AUTHENTICATION', '') == 'true'
@@ -164,6 +167,8 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
+if LOG_HEADER_DUMP:
+    MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE_CLASSES += [
         'gem.middleware.CustomSessionRefresh',
