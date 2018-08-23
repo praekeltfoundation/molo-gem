@@ -8,19 +8,9 @@
     {% elif block.block_type == 'media' %}
       <div class="media-player">
         <div class="media-player__content">
-          {% with block.value as media %}
-            {% if is_via_freebasics %}
-              <div class="media-player__no-player">
-                <span class="heading heading__subheading-alt"><h4>{{media.title}}</h4></span>
-                <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
-                <span class="heading heading__subheading-alt">
-                <h4>{% trans "Media will be played externally in a new window" %}</h4>
-                </span>
-              </div>
-            {% else %}
+            {% with block.value as media %}
               {% include "patterns/components/media/media-player.html" %}
-            {% endif %}
-          {% endwith %}
+            {% endwith %}
         </div>
       </div>
     {% elif block.block_type == 'numbered_list' %}
