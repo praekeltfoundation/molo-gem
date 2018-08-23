@@ -161,6 +161,7 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
+    'gem.middleware.LogHeaderInformationMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
