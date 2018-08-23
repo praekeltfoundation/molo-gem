@@ -6,7 +6,6 @@
   {% if not is_via_freebasics %}
     <div class="media-player__embed-object">
       {% embed media.youtube_link %}
-        <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download></a>
     </div>
   {% else %}
     <div class="media-player__no-player">
@@ -27,7 +26,6 @@
         {% trans "Your browser does not support the video tag." %}
       </span>
     </video>
-    <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download></a>
   {% else %}
     <div class="media-player__no-player">
       <h4 class="media-player__title">{{media.title}}</h4>
@@ -47,7 +45,6 @@
           {% trans "Your browser does not support the audio tag." %}
         </span>
     </audio>
-    <a alt="{% trans 'Click here to download audio' %}" href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button" download></a>
   {% else %}
     <div class="media-player__no-player">
       <h4 class="media-player__title">{{media.title}}</h4>
