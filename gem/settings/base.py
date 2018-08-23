@@ -168,7 +168,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 if LOG_HEADER_DUMP:
-    MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware']
+    MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE_CLASSES += [
         'gem.middleware.CustomSessionRefresh',
