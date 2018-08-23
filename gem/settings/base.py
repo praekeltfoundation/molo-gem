@@ -32,7 +32,7 @@ DEFAULT_SECRET_KEY = 'please-change-me'
 SECRET_KEY = environ.get('SECRET_KEY') or DEFAULT_SECRET_KEY
 
 LOG_HEADER_DUMP = environ.get(
-    'USE_OIDC_AUTHENTICATION', '') == 'true'
+    'LOG_HEADER_DUMP', '') == 'true'
 
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get(
