@@ -1,12 +1,18 @@
 .media-player {
   @include divider-combo-2;
   background-color: $springster-purple;
-  &__content {
-    padding: 20px;
+  color: $pale-lilac;
+  &__title {
+    font-size: $font-small;
+    text-transform: uppercase;
+  }
+  &__caption {
+    font-size: $font-x-small;
     text-align: center;
   }
   &__no-player {
     text-align: center;
+    padding: 10px 0;
     border: 1px solid #fff;
   }
   &__icon {
@@ -14,35 +20,85 @@
     background-image: url("/static/img/icons/play-button.svg"),
       linear-gradient(transparent, transparent);
     background-repeat: no-repeat;
-    background-position: center center;
-    padding: 2px 5px;
-    height: 61px;
+    background-position: center 15px;
+    padding: 85px 0 0;
     display: block;
+    color: $pale-lilac;
+    font-weight: bold;
+    text-decoration: underline;
   }
+
   &__embed-object {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-    height: 0;
+    margin: 10px auto 0;
+    height: auto;
     iframe, object, embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+      position: relative;
+      min-height: 220px;
+      min-width: 320px;
       height: 100%;
-      }
+      width: 100%;
+    }
   }
   video {
     display: block;
+    position: relative;
+    max-height: 220px;
+    max-width: 320px;
+    height: 100%;
     width: 100%;
+  }
+
+  &__content {
+    padding: 20px;
+    text-align: center;
+    .call-to-action__button--yellow {
+      margin: 18px 0 0;
+      max-width: inherit;
+    }
   }
   audio {
     display: block;
     margin: 0 auto;
-    width: auto;
+    width: 100%;
   }
   .call-to-action__button {
     padding: 10px 0;
     color: $pale-lilac;
   }
+}
+
+audio::-webkit-media-controls-panel,
+audio::-moz-media-controls-panel,
+audio::-o-media-controls-panel,
+audio::-ms-media-controls-panel,
+video::-webkit-media-controls-panel,
+video::-moz-media-controls-panel,
+video::-o-media-controls-panel,
+video::-ms-media-controls-panel {
+  background: rgba(#000,0.5) !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-moz-media-controls-play-button,
+audio::-o-media-controls-play-button,
+audio::-ms-media-controls-play-button,
+video::-webkit-media-controls-play-button,
+video::-moz-media-controls-play-button,
+video::-o-media-controls-play-button,
+video::-ms-media-controls-play-button,
+video::-webkit-media-controls-mute-button,
+video::-moz-media-controls-mute-button,
+video::-o-media-controls-mute-button,
+video::-ms-media-controls-mute-button,
+audio::-webkit-media-controls-mute-button,
+audio::-moz-media-controls-mute-button,
+audio::-o-media-controls-mute-button,
+audio::-ms-media-controls-mute-button {
+  cursor: pointer;
 }
