@@ -1,35 +1,112 @@
 .media-player {
+  background-color: $color-cyan;
+  margin: 5px auto;
   overflow: auto;
+  &__title {
+    color: #fff;
+    font-size: $font-x-small;
+    text-transform: uppercase;
+  }
+  &__subtitle {
+    color: #fff;
+    font-size: $font-x-small;
+    padding: 0 25px;
+  }
+  &__caption {
+    color: #fff;
+    font-size: $font-x-small;
+    text-align: center;
+  }
+  &__icon {
+    background-image: url("/static/img/icons/play-button.png");
+    background-image: url("/static/img/icons/play-button.svg"),
+      linear-gradient(transparent, transparent);
+    background-repeat: no-repeat;
+    background-position: center 15px;
+    color: $color-pink-hollywood;
+    padding: 85px 0 0;
+    display: block;
+    font-weight: bold;
+    text-decoration: underline;
+  }
   &__content {
-    audio {
-      background-color: $color-cyan;
-      display: block;
-      margin: 0 auto;
-      width: 95%;
-    }
-    video {
-      display: block;
-      margin: 0 auto;
-      width: 95%;
-    }
+    padding: 20px;
+    text-align: center;
+  }
+  &__no-player {
+    text-align: center;
+    padding: 10px 0;
+    border: 1px solid #fff;
   }
   &__embed-object {
-    iframe {
-      width: 100%;
+    position: relative;
+    margin: 10px auto 0;
+    height: auto;
+    overflow: auto;
+    iframe, object, embed {
+      position: relative;
+      min-height: 220px;
+      min-width: 320px;
       height: auto;
+      width: 100%;
     }
   }
   .call-to-action__button {
-    color: $color-cyan-dark;
+    color: $color-pink-hollywood;
     text-align: center;
     display: block;
+    margin: 5px 0 0;
     &:hover, &:active {
       text-decoration: underline;
     }
   }
+  video {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    max-height: 220px;
+    max-width: 320px;
+    height: 100%;
+    width: 95%;
+  }
+  audio {
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+  }
 }
 
+audio::-webkit-media-controls-panel,
+audio::-moz-media-controls-panel,
+audio::-o-media-controls-panel,
+audio::-ms-media-controls-panel,
 video::-webkit-media-controls-panel,
-audio::-webkit-media-controls-panel {
-  background-color: $color-cyan;
+video::-moz-media-controls-panel,
+video::-o-media-controls-panel,
+video::-ms-media-controls-panel {
+  background: rgba($color-cyan,0.5) !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-moz-media-controls-play-button,
+audio::-o-media-controls-play-button,
+audio::-ms-media-controls-play-button,
+video::-webkit-media-controls-play-button,
+video::-moz-media-controls-play-button,
+video::-o-media-controls-play-button,
+video::-ms-media-controls-play-button,
+video::-webkit-media-controls-mute-button,
+video::-moz-media-controls-mute-button,
+video::-o-media-controls-mute-button,
+video::-ms-media-controls-mute-button,
+audio::-webkit-media-controls-mute-button,
+audio::-moz-media-controls-mute-button,
+audio::-o-media-controls-mute-button,
+audio::-ms-media-controls-mute-button {
+  cursor: pointer;
 }

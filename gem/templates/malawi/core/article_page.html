@@ -74,6 +74,11 @@
                   {% trans "Video files will not be played, you can download them" %}
                 </h3>
               </div>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+                <span class="call-to-action__button-text  call-to-action__button-text--yellow">
+                  {% trans "Download Video" %}
+                </span>
+              </a>
             {% endif %}
           {% endwith %}
           </div>
@@ -104,6 +109,11 @@
                   {% trans "Audio files will not be played, you can download them" %}
                 </h3>
               </div>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+                <span class="call-to-action__button-text">
+                  {% trans "Download Audio" %}
+                </span>
+              </a>
             {% endif %}
           {% endwith %}
           </div>
