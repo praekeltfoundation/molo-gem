@@ -44,7 +44,9 @@
                 {% if not is_via_freebasics %}
                   <div class="media-player__embed-object">
                     {% embed media.youtube_link %}
-                    <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon">{% trans 'Click to watch on youtube!' %}</a>
+                    <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
+                      <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+                    </a>
                   </div>
                 {% else %}
                   <div class="media-player__no-player">
@@ -53,10 +55,13 @@
                     <h3 class="media-player__subtitle">
                       {% trans "Media will be played externally in a new window" %}
                     </h3>
+                    <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="btn" download>
+                      <span class="call-to-action__button button">{% trans "Download Video" %}</span>
+                    </a>
                   </div>
                 {% endif %}
-              </div>
             </div>
+          </div>
           {% endwith %}
         {% elif block.value.type == 'video'%}
           {% with block.value as media %}
@@ -69,6 +74,7 @@
                   {% trans "Your browser does not support the video tag." %}
                 </span>
               </video>
+              <a alt="{% trans 'Download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button media-player__icon" download></a>
             {% else %}
               <div class="media-player__no-player">
                 <h4 class="media-player__title">{{media.title}}</h4>
@@ -90,6 +96,7 @@
                     {% trans "Your browser does not support the audio tag." %}
                   </span>
               </audio>
+              <a alt="{% trans 'Download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button  media-player__icon" download></a>
             {% else %}
               <div class="media-player__no-player">
                 <h4 class="media-player__title">{{media.title}}</h4>

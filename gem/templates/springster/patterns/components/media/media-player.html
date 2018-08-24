@@ -1,7 +1,5 @@
 {% load wagtailcore_tags core_tags wagtailembeds_tags wagtailsettings_tags %}
 {% get_settings %}
-
-
 {% if media.youtube_link %}
   {% if not is_via_freebasics %}
     <div class="media-player__embed-object">
@@ -10,7 +8,7 @@
   {% else %}
     <div class="media-player__no-player">
       <h4 class="media-player__title">{{media.title}}</h4>
-      <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon"></a>
+      <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon">{% trans 'Click to watch on youtube!' %}</a>
       <h3 class="media-player__subtitle">
         {% trans "Media will be played externally in a new window" %}
       </h3>
@@ -55,19 +53,10 @@
     </div>
   {% endif %}
 {% endif %}
-  {% if media.title %}
-    {% if settings.core.SiteSettings.local_ga_tracking_code %}
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
-      </script>
-    {% endif %}
-    <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
-      <span class="call-to-action__button-text call-to-action__button-text--yellow">
-        {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}
-      </span>
-    </a>
+{% if media.title %}
+  <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
+    <span class="call-to-action__button-text call-to-action__button-text--yellow">
+      {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Videosss{% elif media.type == 'audio'%}Audio{% endif %}
+    </span>
+  </a>
 {% endif %}
