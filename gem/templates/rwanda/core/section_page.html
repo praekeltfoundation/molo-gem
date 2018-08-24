@@ -28,15 +28,13 @@
           {% endif %}
           <div class="teaser-stacklist__content">
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% if article.title_highlight %}
-                <h3 class="article-teaser__title article-teaser__title--highlight">
+              <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
+                {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:23|safe}}
-                </h3>
-              {% else %}
-                <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:23|safe}}
-                </h3>
-              {% endif %}
+                {% else %}
+                  {{ article.title|safe}}
+                {% endif %}
+              </h3>
             </a>
             {% if article.subtitle_highlight or article.body_highlight %}
               <p class="article-teaser__subtitle highlight-description">
