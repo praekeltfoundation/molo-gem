@@ -53,10 +53,12 @@
     </div>
   {% endif %}
 {% endif %}
-{% if media.title %}
-  <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
-    <span class="call-to-action__button-text call-to-action__button-text--yellow">
-      {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}
-    </span>
-  </a>
+{% if not is_via_freebasics %}
+  {% if media.title %}
+    <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
+      <span class="call-to-action__button-text call-to-action__button-text--yellow">
+        {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}
+      </span>
+    </a>
+  {% endif %}
 {% endif %}
