@@ -19,15 +19,13 @@
           {% endif %}
           <div class="teaser-stacklist__content">
             <a href="{% pageurl next_article.specific %}" class="article-teaser__link">
-              {% if next_article.title_highlight %}
-                <h3 class="article-teaser__title article-teaser__title--highlight">
-                  {{ next_article.title_highlight|smarttruncatechars:24|safe}}
-                </h3>
-              {% else %}
-                <h3 class="article-teaser__title">
-                  {{ next_article.title|smarttruncatechars:24|safe}}
-                </h3>
-              {% endif %}
+              <h3 class="article-teaser__title {% if next_article.title_highlight %}article-teaser__title--highlight{% endif %}">
+                {% if next_article.title_highlight %}
+                  {{ next_article.title_highlight|smarttruncatechars:23|safe}}
+                {% else %}
+                  {{ next_article.title|safe}}
+                {% endif %}
+              </h3>
             </a>
             {% if next_article.subtitle_highlight or next_article.body_highlight %}
               <p class="article-teaser__subtitle highlight-description">
@@ -102,15 +100,13 @@
           {% endif %}
           <div class="teaser-stacklist__content">
             <a href="{% pageurl article.specific %}" class="article-teaser__link">
-              {% if article.title_highlight %}
-                <h3 class="article-teaser__title article-teaser__title--highlight">
+              <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
+                {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:23|safe}}
-                </h3>
-              {% else %}
-                <h3 class="article-teaser__title">
-                  {{ article.title|smarttruncatechars:23|safe}}
-                </h3>
-              {% endif %}
+                {% else %}
+                  {{ article.title|safe}}
+                {% endif %}
+              </h3>
             </a>
             <p class="article-teaser__subtitle">
               {% if article.title.30 %}
