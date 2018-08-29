@@ -1,76 +1,64 @@
 {% load wagtailcore_tags core_tags wagtailembeds_tags wagtailsettings_tags %}
 {% get_settings %}
-
-{% if not is_via_freebasics %}
-    {% if media.youtube_link %}
-    <div class="media-player">
-      <div class="media-player__embed-object">
-        <h4 class="title">{{media.title}}</h4>
-        {% embed media.youtube_link %}
-      </div>
+{% if media.youtube_link %}
+  {% if not is_via_freebasics %}
+    <div class="media-player__embed-object">
+      {% embed media.youtube_link %}
     </div>
-  {% elif media.type == 'video'%}
-    <div class="media-player">
-      <div class="media-player">
-        <div class="media-player__content">
-          <h4 class="title">{{media.title}}</h4>
-          <video width="320" height="240" controls>
-            <h4 class="title">{{media.title}}</h4>
-            <source src={{media.file.url}} type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-  {% elif media.type == 'audio'%}
-    <div class="media-player">
-      <div class="media-player__content">
-        <h4 class="title">{{media.title}}</h4>
-        <audio controls><source src={{media.file.url}}
-          type="audio/mpeg">Click here to download
-          <a href={{media.file.url}}>{{media.title}}</a>
-        </audio>
-      </div>
-    </div>
-    {% endif %}
   {% else %}
-      {% if media.youtube_link %}
-      <div class="media-player">
-        <div class="media-player__no-player">
-          <h4 class="title">{{media.title}}</h4>
-          <a href="{{ media.youtube_link }}" target="_blank" class="media-player__icon"></a>
-          <h4>{% trans "Youtube link will be played externally in a new window" %}</h4>
-        </div>
-      </div>
-      {% elif media.type == 'video'%}
-        <div class="media-player">
-          <div class="media-player__no-player">
-            <h4 class="title">{{media.title}}</h4>
-            <a class="media-player__icon" ></a>
-            <h4>{% trans "Video files will not be played, you can download them" %}</h4>
-          </div>
-        </div>
-      {% elif media.type == 'audio'%}
-        <div class="media-player">
-          <div class="media-player__no-player">
-            <h4 class="title">{{media.title}}</h4>
-            <a class="media-player__icon" ></a>
-            <h4>{% trans "Audio files will not be played, you can download them" %}</h4>
-          </div>
-        </div>
-      {% endif %}
+    <div class="media-player__no-player">
+      <h4 class="media-player__title">{{media.title}}</h4>
+      <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon">{% trans 'Click to watch on youtube!' %}</a>
+      <h3 class="media-player__subtitle">
+        {% trans "Media will be played externally in a new window" %}
+      </h3>
+    </div>
   {% endif %}
+{% elif media.type == 'video'%}
+  {% if not is_via_freebasics %}
+    <video poster="/media/{{ media.thumbnail }}" controls>
+      <source src={{media.file.url}} type="video/mp4">
+      <source src={{media.file.url}} type="video/webm">
+      <source src={{media.file.url}} type="video/ogg">
+      <span class="media-player__caption">
+        {% trans "Your browser does not support the video tag." %}
+      </span>
+    </video>
+  {% else %}
+    <div class="media-player__no-player">
+      <h4 class="media-player__title">{{media.title}}</h4>
+      <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button media-player__icon" download></a>
+      <h3 class="media-player__subtitle">
+        {% trans "Video files will not be played, you can download them" %}
+      </h3>
+    </div>
+  {% endif %}
+{% elif media.type == 'audio'%}
+  {% if not is_via_freebasics %}
+    <audio controls>
+      <source src={{media.file.url}} type="audio/mpeg">
+      <source src={{media.file.url}} type="audio/ogg">
+      <source src={{media.file.url}} type="audio/wav">
+        <span class="media-player__caption">
+          {% trans "Your browser does not support the audio tag." %}
+        </span>
+    </audio>
+  {% else %}
+    <div class="media-player__no-player">
+      <h4 class="media-player__title">{{media.title}}</h4>
+      <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button  media-player__icon" download></a>
+      <h3 class="media-player__subtitle">
+        {% trans "Audio files will not be played, you can download them" %}
+      </h3>
+    </div>
+  {% endif %}
+{% endif %}
+{% if not is_via_freebasics %}
   {% if media.title %}
-    {% if settings.core.SiteSettings.local_ga_tracking_code %}
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
-      </script>
-    {% endif %}
     <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--yellow" download>
-      <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}</span>
+      <span class="call-to-action__button-text call-to-action__button-text--yellow">
+        {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}
+      </span>
     </a>
   {% endif %}
+{% endif %}

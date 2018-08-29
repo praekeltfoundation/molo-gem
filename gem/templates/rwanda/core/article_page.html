@@ -4,9 +4,9 @@
 {% block content %}
 {% get_translation self.get_parent_section as parent_section %}
 <div class="article-page {% if parent_section.get_effective_extra_style_hints %}article--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
-  <div class="heading {% if parent_section.get_effective_extra_style_hints %}heading--{{parent_section.get_effective_extra_style_hints}}{% else %} heading--background{% endif %}">
-    <h1 class="heading__section">{#{{parent_section.title}}#}</h1>
-  </div>
+    <div class="heading {% if parent_section.get_effective_extra_style_hints %}heading--{{parent_section.get_effective_extra_style_hints}}{% else %} heading--background{% endif %}">
+      <h1 class="heading__section">{% comment %}{{parent_section.title}}{% endcomment %}</h1>
+      </div>
     <div class="heading">
       <h1 class="heading__article">
         {{ page.title}}
@@ -38,53 +38,90 @@
         {% elif block.block_type == 'image' %}
           {% image block.value width-320 class="article-teaser__thumbnail" %}
         {% elif block.value.youtube_link %}
-          {% with block.value as media %}
+        {% with block.value as media %}
           <div class="media-player">
             <div class="media-player__content">
-              {% if is_via_freebasics %}
-                <div class="media-player__no-player">
-                  <h4 class="title">{{media.title}}</h4>
-                  <a href="{{ media.youtube_link }}" target="_top" class="media-player__icon"></a>
-                  <h4>{% trans "Media will be played externally in a new window" %}</h4>
-                </div>
-              {% else %}
+              {% if not is_via_freebasics %}
                 <div class="media-player__embed-object">
                   {% embed media.youtube_link %}
                 </div>
                 <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
-                  <span>{% trans "Download Video" %}</span>
+                  <span class="call-to-action__button-text call-to-action__button-text--yellow">
+                    {% trans "Download Video" %}
+                  </span>
                 </a>
+              {% else %}
+                <div class="media-player__no-player">
+                  <h4 class="media-player__title">{{media.title}}</h4>
+                  <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon">{% trans 'Click to watch on youtube!' %}</a>
+                  <h3 class="media-player__subtitle">
+                    {% trans "Media will be played externally in a new window" %}
+                  </h3>
+                </div>
               {% endif %}
-            </div>
           </div>
+        </div>
+        {% endwith %}
+      {% elif block.value.type == 'video'%}
+        <div class="media-player">
+          <div class="media-player__content">
+          {% with block.value as media %}
+            {% if not is_via_freebasics %}
+              <video poster="/media/{{ media.thumbnail }}" controls>
+                <source src={{media.file.url}} type="video/mp4">
+                <source src={{media.file.url}} type="video/webm">
+                <source src={{media.file.url}} type="video/ogg">
+                <span class="media-player__caption">
+                  {% trans "Your browser does not support the video tag." %}
+                </span>
+              </video>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+                <span class="call-to-action__button-text">
+                  {% trans "Download Video" %}
+                </span>
+              </a>
+            {% else %}
+              <div class="media-player__no-player">
+                <h4 class="media-player__title">{{media.title}}</h4>
+                <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button media-player__icon" download></a>
+                <h3 class="media-player__subtitle">
+                  {% trans "Video files will not be played, you can download them" %}
+                </h3>
+              </div>
+            {% endif %}
           {% endwith %}
-        {% elif block.value.type == 'video'%}
-        {% if not is_via_freebasics %}
-        <div class="media-player">
-          <div class="media-player__content">
-            <video width="320" height="240" controls>
-                <source src={{block.value.file.url}} type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{block.value.title}}');" class="call-to-action__button" download>
-              <span>{% trans "Download Video" %}</span>
-            </a>
           </div>
         </div>
-        {% endif %}
-        {% elif block.value.type == 'audio'%}
-        {% if not is_via_freebasics %}
+      {% elif block.value.type == 'audio'%}
         <div class="media-player">
           <div class="media-player__content">
-            <audio controls><source src={{block.value.file.url}}
-              type="audio/mpeg">
-            </audio>
-            <a href="{{block.value.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{block.value.title}}');" class="call-to-action__button" download>
-              <span>{% trans "Download Audio" %}</span>
-            </a>
+          {% with block.value as media %}
+            {% if not is_via_freebasics %}
+              <audio controls>
+                <source src={{media.file.url}} type="audio/mpeg">
+                <source src={{media.file.url}} type="audio/ogg">
+                <source src={{media.file.url}} type="audio/wav">
+                  <span class="media-player__caption">
+                    {% trans "Your browser does not support the audio tag." %}
+                  </span>
+              </audio>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button" download>
+                <span class="call-to-action__button-text">
+                  {% trans "Download Audio" %}
+                </span>
+              </a>
+            {% else %}
+              <div class="media-player__no-player">
+                <h4 class="media-player__title">{{media.title}}</h4>
+                <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button  media-player__icon" download></a>
+                <h3 class="media-player__subtitle">
+                  {% trans "Audio files will not be played, you can download them" %}
+                </h3>
+              </div>
+            {% endif %}
+          {% endwith %}
           </div>
         </div>
-        {% endif %}
         {% elif block.block_type == 'numbered_list' %}
         <ol class="ordered-list">
           {% for item in block.value %}
@@ -100,7 +137,6 @@
           {% endfor %}
         </ul>
         {% elif block.block_type == 'paragraph' %}
-        <!-- NO RICH TEXT -->
           <p class="article__paragraphs">{{block.value}}</p>
         {% else %}
           {{ block }}
