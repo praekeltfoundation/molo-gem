@@ -41,7 +41,7 @@ class LogHeaderInformationMiddleware(object):
 
     def process_request(self, request):
         log = structlog.get_logger()
-        log.msg(request.META.items())
+        log.msg(str(request.META))
 
 
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
