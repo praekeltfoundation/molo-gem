@@ -432,7 +432,7 @@ SECURITY_QUESTION_2 = environ.get(
 REGEX_PHONE = r'.*?(\(?\d{3})? ?[\.-]? ?\d{3} ?[\.-]? ?\d{4}.*?'
 REGEX_EMAIL = r'([\w\.-]+@[\w\.-]+)'
 
-
+USE_QS_TRANSLATIONS = environ.get('USE_QS_TRANSLATIONS', '') == 'true'
 ADMIN_LANGUAGE_CODE = environ.get('ADMIN_LANGUAGE_CODE', "en")
 
 FROM_EMAIL = environ.get('FROM_EMAIL', "support@moloproject.org")
