@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles competition_tag gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles competition_tag molo_survey_tags gem_tags %}
 
 {% block content %}
 <div class="section-page">
@@ -99,6 +99,6 @@
     {% if self.get_effective_extra_style_hints %}
       <div class="linebreak__{{self.get_effective_extra_style_hints}}"></div>
     {% endif %}
-  {% your_words_competition %}
+  {% your_words_competition_in_section self %}
 </div>
 {% endblock %}
