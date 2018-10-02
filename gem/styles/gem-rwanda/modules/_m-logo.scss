@@ -1,6 +1,10 @@
 .logo-wrapper {
   display: inline-block;
   padding: $spacer-half 0 0 $spacer-small;
+  @media screen and (min-width: $phablet) {
+    display: block;
+    padding: $spacer-half;
+  }
 }
 .logo {
   color: #ffffff;
@@ -9,12 +13,17 @@
   padding: $spacer-small $spacer-small 0;
   text-transform: uppercase;
   vertical-align: middle;
+  text-align: left;
+  @media screen and (min-width: $phablet) {
+    text-align: center;
+    padding: $spacer-small;
+  }
   img {
     max-width: 100%;
     height: auto;
     width: 130px;
-  }
-  &--left {
-    text-align: left;
+    @media screen and (min-width: $phablet) {
+      width: auto;
+    }
   }
 }

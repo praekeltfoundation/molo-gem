@@ -10,18 +10,30 @@
     cursor: pointer;
     display: none;
     text-transform: uppercase;
-    @media screen and (min-width: $smartphone) {
+    //SMARTPHONE
+    @media screen and (min-width: $smartPhone) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: 85%;
       display: block;
       height: 30px;
+      width: 30px;
       position: absolute;
       text-indent: -1000px;
-      width: 30px;
-      right: 14px;
+      right: 15px;
       top: 16px;
+    }
+    @media screen and (min-width: $phablet) {
+      background-image: none;
+      background-repeat: unset;
+      background-position: unset;
+      background-size: 0;
+
+      padding: 10px 5% 0 0;
+      text-indent: 0;
+      right: 0;
+      top: auto;
     }
   }
   //SEARCH TOGGLE
@@ -29,17 +41,23 @@
     visibility: hidden;
     position: absolute;
     right: $spacer-small;
-    top: 13px;
+    top: 10px;
+    @media screen and (min-width: $phablet) {
+      right: 0;
+    }
   }
-  .search__input + * {
-    display: none;
+  @media screen and (min-width: $smartPhone) and (max-width: $phablet) {
+    .search__input + * {
+      display: none;
+    }
+    .search__input:checked + * {
+      display: block;
+    }
   }
-  .search__input:checked + * {
-    display: block;
-  }
+
   .search__bar {
     &:after {
-      content: " ";
+      content: "";
       background-color: $color-cyan;
       background-image: url("/static/img/icons/rwanda/dismiss.png");
       background-repeat: no-repeat;
@@ -63,24 +81,28 @@
     padding: $spacer-half 0;
     text-decoration: underline;
       //SMARTPHONE
-      @media screen and (min-width: $smartphone) {
-        background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
-        background-repeat: no-repeat;
-        background-position: center 0;
-        background-size: 56%;
-        border-left: 2px solid $color-cyan-dark;
-        border-radius: 0;
-        height: auto;
-        margin: $spacer-half 0;
-        padding: 0;
-        width: 40px;
-      }
+      @media screen and (min-width: $smartPhone) {
+       background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
+       background-repeat: no-repeat;
+       background-position: center 0;
+       background-size: 56%;
+       border-left: 2px solid $color-cyan-dark;
+       border-radius: 0;
+       height: auto;
+       margin: $spacer-half 0;
+       padding: 0;
+       width: 40px;
+     }
+
+     @media screen and (min-width: $phablet) {
+       background-image: none;
+     }
   }
 }
 
-.header {
 
-}
+
+
 
 .footer {
   .search {
