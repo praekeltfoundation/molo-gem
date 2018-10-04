@@ -2,10 +2,9 @@
 .menu {
   display: block;
   $block: unquote("#{&}");
-  &-list {
+  /*&-list {
     padding: 0;
     margin: 0;
-    //SMARTPHONE
     &__label {
       color: #ffffff;
       font-size: $font-x-medium;
@@ -23,28 +22,25 @@
       }
     }
   }
-  //HEADER (DROPDOWN MENU)
+  */
   &--header {
-    background-color: $color-cyan;
+    order: 1; //FLEXBOX
+    /*background-color: $color-cyan;
     border-top: 2px solid #ffffff;
     color: #ffffff;
     overflow: auto;
     width: 100%;
 
     #{$block}-list {
-      //SMARTPHONE
       &__item {
         border-bottom: 1px solid $color-cyan-fountain;
-        //SMARTPHONE
       }
       &__anchor {
         display: block;
         padding: $spacer-half $spacer-small;
       }
-    }
+    }*/
   }
-
-  //FOOTER (MENU)
   &--footer {
     display: inline-block;
     #{$block}-list {
