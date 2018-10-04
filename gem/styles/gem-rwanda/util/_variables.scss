@@ -49,7 +49,6 @@ $spacer-multiple            :       20px;
 $spacer-x-max               :       30px;
 $spacer-max                 :       40px;
 
-//Breakpoints units
 @mixin for-size($range) {
   $smartphone_lower_boundary   :       20.000em;      // 320px
   $smartphone_portrait         :       22.500em;      // 360px
@@ -67,27 +66,18 @@ $spacer-max                 :       40px;
   $desktop_larger              :       100.000em;     // 1600px
   $desktop_upper_boundary      :       120.000em;     // 1920px
   @if $range == phone-only {
-    //#{  $smartphone_portrait - 1}
     @media (max-width: $smartphone_lower_boundary)
     { @content; }
-
   } @else if $range == tablet-portrait-up {
-
     @media (min-width: $smartphone_landscape)
     { @content; }
-
   } @else if $range == tablet-landscape-up {
-
     @media (min-width:  $tablet_lower_boundary)
     { @content; }
-
   } @else if $range == desktop-up {
-
     @media (min-width: $tablet_upper_boundary)
     { @content; }
-
   } @else if $range == big-desktop-up {
-
     @media (min-width:  $desktop_lower_boundary)
     { @content; }
   }
