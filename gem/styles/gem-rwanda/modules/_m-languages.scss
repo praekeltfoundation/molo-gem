@@ -2,11 +2,12 @@
   //padding: $spacer-half $spacer-half;
   padding: $spacer-half $spacer-mid;
   //SMARTPHONE
-  //@media screen and (min-width: $smartphone) {
-    //float: right;
-    //padding: 0 $spacer-mid 0;
-  //}
-
+  /*
+  @include for-size(tablet-portrait-up) {
+    float: right;
+    padding: 0 $spacer-mid 0;
+  }
+  */
   text-transform: uppercase;
   &__label {}
   &__anchor {
@@ -20,10 +21,9 @@
   .active {
     color: $color-pink;
     text-decoration: underline;
-      //SMARTPHONE
-      //@media screen and (min-width: $smartphone) {
-        //text-decoration: none;
-      //}
+    @include for-size(tablet-portrait-up) {
+      text-decoration: none;
+    }
   }
   &--footer {
     float: none;

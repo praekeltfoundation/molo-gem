@@ -64,28 +64,31 @@
     </script>
   {% endif %}
   <header>
-  <div id="header" class="header">
-    <div class="logo-wrapper">
-      <a href="/" class="logo">
-        {% get_site_static_prefix as site_prefix %}
-        {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
-          <img src="{% static logo_url %}" width="335" height="58" alt="Girl Effect" />
-        {% endwith %}
-      </a>
-    </div>
-    <div class="search">
-    <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
-    <input id="search_toggle" class="search__input" type="checkbox">
-    <div class="search__bar">
-      <form action="{% url 'search' %}" novalidate class="search__form">
-        <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}" >
-        <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
-      </form>
-    </div>
-    </div>
+    <div id="header" class="header">
+      <!-- LOGO -->
+      <div class="logo-wrapper">
+        <a href="/" class="logo">
+          {% get_site_static_prefix as site_prefix %}
+          {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
+            <img src="{% static logo_url %}" width="335" height="58" alt="Girl Effect" />
+          {% endwith %}
+        </a>
+      </div>
 
-    <!-- DROP DOWN MENU-->
-    <nav>
+      <!-- MENU -->
+      <div class="search">
+        <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
+        <input id="search_toggle" class="search__input" type="checkbox">
+        <div class="search__bar">
+          <form action="{% url 'search' %}" novalidate class="search__form">
+            <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}" >
+            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search">
+          </form>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <nav>
       <div class="nav nav--header">
         <ul class="nav-list">
           <li class="nav-list__item">
@@ -107,7 +110,6 @@
           </div>
         {% endif %}
         <input type="checkbox" name="toggle" id="nav_slide" class="nav-list__checkbox" />
-
         <div class="menu menu--header">
           <ul class="menu-list">
             <li class="menu-list__item">
@@ -126,44 +128,44 @@
             {% endfor %}
           </ul>
         </div>
-
       </div>
     </nav>
-  </div>
+    </div>
   </header>
+
+  <!-- MAIN -->
   <main>
     {% display_unread_notifications %}
     {% block content %}{% endblock %}
-
-  {% load_tags as tags %}
-  {% if tags %}
-  <div class="tag-cloud">
-    <div class="heading">
-      <h4 class="heading__subheading">{% trans "Read stories about"%}:</h4>
+    {% load_tags as tags %}
+    {% if tags %}
+    <div class="tag-cloud">
+      <div class="heading">
+        <h4 class="heading__subheading">{% trans "Read stories about"%}:</h4>
+      </div>
+      <ul class="tag-cloud-list">
+        {% for tag in tags %}
+          <li class="tag-cloud-list__item">
+            <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
+              <span class="tag-cloud__title">{{tag.title}}<span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-    <ul class="tag-cloud-list">
-      {% for tag in tags %}
-        <li class="tag-cloud-list__item">
-          <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
-            <span class="tag-cloud__title">{{tag.title}}<span>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-  <footer>
-  <div id="footer" class="footer">
-    {% block search %}
-    <div class="search">
-    <form action="{% url 'search' %}" novalidate class="search__form">
-      <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
-      <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
-    </form>
-    </div>
-    {% endblock %}
+    {% endif %}
+    <footer>
+      <div id="footer" class="footer">
+        {% block search %}
+        <div class="search">
+        <form action="{% url 'search' %}" novalidate class="search__form">
+          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
+          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--with-icon-search_footer">
+        </form>
+        </div>
+        {% endblock %}
 
-      <div class="menu menu--footer">
+        <div class="menu menu--footer">
         <ul class="menu-list">
           <li class="menu-list__item">
             <b class="menu-list__label">
@@ -203,17 +205,17 @@
           {% endif %}
         </ul>
       </div>
-      {% if languages|length > 1 %}
-      <div class="languages languages--footer">
-        <p class="languages__label">{% trans "Language" %}:<p>
-        {% for language in languages %}
-          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-        {% endfor %}
+        {% if languages|length > 1 %}
+          <div class="languages languages--footer">
+            <p class="languages__label">{% trans "Language" %}:<p>
+            {% for language in languages %}
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
-      {% endif %}
-    </div>
-    {% social_media_footer %}
-    <div class="copyright">
+      {% social_media_footer %}
+      <div class="copyright">
       <div class="call-to-action call-to-action--backToTop">
         <a href="#" class="call-to-action__nav-item-text call-to-action__nav-item-text--backToTop">
           {% trans "Back to Top" %}</a>
@@ -235,7 +237,7 @@
       </p>
       {% endif %}
     </div>
-  </footer>
+    </footer>
   </main>
 </body>
 </html>

@@ -21,14 +21,14 @@ $section6_theme: url('/static/img/patterns/rwanda/section-theme/inkurr-zanyu.png
 $section7_theme: url('/static/img/patterns/rwanda/section-theme/tumenye-nibi.png') repeat-x center center/100%;
 $section8_theme: url('/static/img/patterns/rwanda/section-theme/udukino.png')  repeat-x center center/100%;
 $sections_theme: (
-  section1                  :      $section1_theme,
-  section2                  :      $section2_theme,
-  section3                  :      $section3_theme,
-  section4                  :      $section4_theme,
-  section5                  :      $section5_theme,
-  section6                  :      $section6_theme,
-  section7                  :      $section7_theme,
-  section8                  :      $section8_theme
+  section1              :      $section1_theme,
+  section2              :      $section2_theme,
+  section3              :      $section3_theme,
+  section4              :      $section4_theme,
+  section5              :      $section5_theme,
+  section6              :      $section6_theme,
+  section7              :      $section7_theme,
+  section8              :      $section8_theme
 );
 
 //Fontsizes units
@@ -50,28 +50,45 @@ $spacer-x-max               :       30px;
 $spacer-max                 :       40px;
 
 //Breakpoints units
-$smartphone                 :       20.000em;      // 320px
-$smartphone_portrait        :       22.500em;      // 360px
-$smartphone_landscape       :       23.438em;      // 375px
-$phablet                    :       30.000em;      // 480px
-$tabletPortrait             :       48.000em;      // 768px
-$tabletLandscape            :       64.000em;      // 1024px
-$desktopSmaller             :       85.375em;      // 1366px
-$desktopLarger              :       100.000em;     // 1600px
-$desktop2XLarger            :       120.000em;     // 1920px
+@mixin for-size($range) {
+  $smartphone_lower_boundary   :       20.000em;      // 320px
+  $smartphone_portrait         :       22.500em;      // 360px
+  $smartphone_landscape        :       23.438em;      // 375px
+  $smartphone_upper_boundary   :       30.000em;      // 480px
 
-@mixin for-phone-only {
-  @media (max-width: 37.438em) { @content; } // 599
-}
-@mixin for-tablet-portrait-up {
-  @media (min-width: 45.000em) { @content; } // 720px
-}
-@mixin for-tablet-landscape-up {
-  @media (min-width: 62.000em) { @content; } // 992px
-}
-@mixin for-desktop-up {
-  @media (min-width: 80.000em) { @content; } //1280px
-}
-@mixin for-big-desktop-up {
-  @media (min-width: 90.000em) { @content; } //1440px
+  $tablet_lower_boundary       :       45.000em;      // 720px
+  $tablet_portrait             :       48.000em;      // 768px
+  $tablet_landscape            :       62.000em;      // 992px [?]
+  $tablet_upper_boundary       :       64.000em;      // 1024px
+
+  $desktop_lower_boundary      :       80.000em;      // 1280px
+  $desktop_smaller             :       85.375em;      // 1366px
+  $desktop_medium              :       90.000em;      // 1440px
+  $desktop_larger              :       100.000em;     // 1600px
+  $desktop_upper_boundary      :       120.000em;     // 1920px
+  @if $range == phone-only {
+    //#{  $smartphone_portrait - 1}
+    @media (max-width: $smartphone_lower_boundary)
+    { @content; }
+
+  } @else if $range == tablet-portrait-up {
+
+    @media (min-width: $smartphone_landscape)
+    { @content; }
+
+  } @else if $range == tablet-landscape-up {
+
+    @media (min-width:  $tablet_lower_boundary)
+    { @content; }
+
+  } @else if $range == desktop-up {
+
+    @media (min-width: $tablet_upper_boundary)
+    { @content; }
+
+  } @else if $range == big-desktop-up {
+
+    @media (min-width:  $desktop_lower_boundary)
+    { @content; }
+  }
 }
