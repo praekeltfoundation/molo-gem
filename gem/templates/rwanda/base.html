@@ -81,22 +81,18 @@
           <ul class="nav-list">
             <li class="nav-list__item">
               {% if not user.is_authenticated %}
-              <a href={{REGISTRATION_URL}} class="nav-list__anchor">{% trans "Sign up" %}</a>
+              <a href={{REGISTRATION_URL}} class="nav-list__anchor">
+                {% trans "Sign up" %}</a>
               {% else %}
-              <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">{% trans "Profile" %}</a>
+              <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">
+                {% trans "Profile" %}</a>
               {% endif %}
             </li>
           </ul>
           <label for="nav_slide" class="nav-list__label">
             <span>{% trans "Menu" %}</span>
           </label>
-          {% if languages|length > 1 %}
-            <div class="languages">
-              {% for language in languages %}
-                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
-              {% endfor %}
-            </div>
-          {% endif %}
+
           <input type="checkbox" name="toggle" id="nav_slide" class="nav-list__checkbox" />
           <div class="menu menu--header">
             <ul class="menu-list">
@@ -119,8 +115,16 @@
         </div>
       </nav>
 
+      {% if languages|length > 1 %}
+        <div class="languages">
+          {% for language in languages %}
+            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <!-- MENU -->
-      <div class="search search--">
+      <div class="search search--header">
         <label for="search_toggle" class="search__item">{% trans "Search" %}</label>
         <input id="search_toggle" class="search__input" type="checkbox">
         <div class="search__bar">
