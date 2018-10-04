@@ -1,3 +1,7 @@
+
+
+
+
 .search {
   padding: 0 0 $spacer-small;
   &__form {
@@ -11,7 +15,7 @@
     display: none;
     text-transform: uppercase;
     //SMARTPHONE
-    @media screen and (min-width: $smartPhone) {
+    @media screen and (min-width: $smartphone) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
       background-repeat: no-repeat;
       background-position: 0 0;
@@ -46,7 +50,7 @@
       right: 0;
     }
   }
-  @media screen and (min-width: $smartPhone) and (max-width: $phablet) {
+  @media screen and (min-width: $smartphone) and (max-width: $phablet) {
     .search__input + * {
       display: none;
     }
@@ -81,7 +85,7 @@
     padding: $spacer-half 0;
     text-decoration: underline;
       //SMARTPHONE
-      @media screen and (min-width: $smartPhone) {
+      @media screen and (min-width: $smartphone) {
        background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
        background-repeat: no-repeat;
        background-position: center 0;
@@ -93,22 +97,8 @@
        padding: 0;
        width: 40px;
      }
-
      @media screen and (min-width: $phablet) {
        background-image: none;
      }
-  }
-}
-
-
-
-
-
-.footer {
-  .search {
-    input[type="search"] {
-      margin: 0;
-      width: 100%;
-    }
   }
 }
