@@ -1,31 +1,41 @@
-.logo-wrapper {
-  display: inline-block;
-  padding: $spacer-half 0 0 $spacer-small;
-  @include for-size(tablet-portrait-up) {
-    order: 0; //FLEXBOX
-    display: block;
-    padding: $spacer-half;
-  }
-}
-
 .logo {
-  color: #ffffff;
+  background-color: rgba(230,1, 126, 100);
   display: block;
-  font-size: $font-xx-small;
-  padding: $spacer-small $spacer-small 0;
-  text-transform: uppercase;
-  vertical-align: middle;
-  text-align: left;
+  padding: $spacer-half 0 0 $spacer-small;
+  justify-content: center;
+
+  width: 315px;
+  height: 80px;
+
   @include for-size(tablet-portrait-up) {
-    text-align: center;
-    padding: $spacer-small;
+    order: 1; //FLEXBOX
+
+    //PARALLELOGRAM SHAPE - [LATER SETUP: BROWSER PREFIXES AUTOMATION]
+      -webkit-transform: skew(-20deg);
+      -moz-transform: skew(-20deg);
+      -o-transform: skew(-20deg);
   }
-  img {
+  &__anchor {
+    color: #ffffff;
+    display: block;
+    font-size: $font-xx-small;
+    padding: $spacer-small $spacer-small 0;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: left;
+    @include for-size(tablet-portrait-up) {
+      text-align: center;
+      padding: $spacer-small;
+
+      -webkit-transform: skew(20deg);
+      -moz-transform: skew(20deg);
+      -o-transform: skew(20deg);
+    }
+  }
+  &__image {
     max-width: 100%;
     height: auto;
-    width: 130px;
-    @include for-size(tablet-portrait-up) {
-      width: auto;
-    }
+    width: auto;
+    @include for-size(tablet-portrait-up) {}
   }
 }
