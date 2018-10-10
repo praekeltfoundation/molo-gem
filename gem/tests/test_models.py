@@ -3,7 +3,6 @@ import pytest
 
 from copy import deepcopy
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -11,7 +10,7 @@ from django.conf import settings
 from molo.core.models import SiteSettings
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
-from gem.models import GemSettings, GemUserProfile
+from gem.models import GemSettings
 from gem.tests.base import GemTestCaseMixin
 
 from os.path import join
@@ -116,17 +115,3 @@ class TestModels(TestCase, GemTestCaseMixin):
             soup = BeautifulSoup(response.content, 'html.parser')
             self.assertEquals(
                 soup.get_text().count(self.banner_message), 1)
-
-
-class TestGemUserProfile(TestCase, GemTestCaseMixin):
-    def test_security_questions_check(self):
-        self.main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
-        get_user_model().objects.create_user(
-            username='user', email='user@example.com', password='pass')
-        profile = GemUserProfile.objects.first()
-        profile.set_security_question_1_answer('Answer 1')
-        profile.set_security_question_2_answer('Answer 2')
-
-        self.assertTrue(profile.check_security_question_1_answer('Answer 1'))
-        self.assertTrue(profile.check_security_question_2_answer('Answer 2'))
