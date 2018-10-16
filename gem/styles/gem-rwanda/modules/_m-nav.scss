@@ -1,5 +1,10 @@
 .nav {
-  clear: both;
+  &--header {
+    @include for-size(tablet-portrait-up) {
+      order: 0; //FLEXBOX
+    }
+  }
+  /*clear: both;
   overflow: auto;
   position: relative;
   font-size: $font-x-small;
@@ -71,6 +76,5 @@
       background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
     }
   }
-  &__is-open {}
-  &--header {}
+  &__is-open {}*/
 }

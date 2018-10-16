@@ -1,13 +1,11 @@
 .languages {
-  padding: $spacer-half $spacer-half;
-  //SMARTPHONE
-  @media screen and (min-width: $smartphone) {
-    padding: $spacer-half $spacer-mid;
-    float: right;
-    padding: 0 $spacer-mid 0;
+  @include for-size(tablet-portrait-up) {
+    order: 2; //FLEXBOX
   }
-  text-transform: uppercase;
-  &__label {}
+  //padding: $spacer-half $spacer-mid;
+  //text-transform: uppercase;
+
+  /*&__label {}
   &__anchor {
     color: #ffffff;
     display: inline-block;
@@ -19,10 +17,6 @@
   .active {
     color: $color-pink;
     text-decoration: underline;
-      //SMARTPHONE
-      @media screen and (min-width: $smartphone) {
-        text-decoration: none;
-      }
   }
   &--footer {
     float: none;
@@ -31,5 +25,5 @@
       margin: 0;
       display: inline-block;
     }
-  }
+  }*/
 }

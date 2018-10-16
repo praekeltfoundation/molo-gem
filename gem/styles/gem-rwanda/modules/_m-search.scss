@@ -1,6 +1,9 @@
 .search {
   padding: 0 0 $spacer-small;
-  &__form {
+  @include for-size(tablet-portrait-up) {
+    order: 3; //FLEXBOX
+  }
+  /*&__form {
     position: relative;
   }
   &__item {
@@ -10,26 +13,28 @@
     cursor: pointer;
     display: none;
     text-transform: uppercase;
-    @media screen and (min-width: $smartphone) {
+    @include for-size(tablet-portrait-up) {
       background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: 85%;
       display: block;
       height: 30px;
+      width: 30px;
       position: absolute;
       text-indent: -1000px;
-      width: 30px;
-      right: 14px;
+      right: 15px;
       top: 16px;
     }
   }
-  //SEARCH TOGGLE
   .search__input {
     visibility: hidden;
     position: absolute;
     right: $spacer-small;
-    top: 13px;
+    top: 10px;
+    @include for-size(tablet-portrait-up) {
+      right: 0;
+    }
   }
   .search__input + * {
     display: none;
@@ -39,7 +44,7 @@
   }
   .search__bar {
     &:after {
-      content: " ";
+      content: "";
       background-color: $color-cyan;
       background-image: url("/static/img/icons/rwanda/dismiss.png");
       background-repeat: no-repeat;
@@ -62,31 +67,17 @@
     margin: 0;
     padding: $spacer-half 0;
     text-decoration: underline;
-      //SMARTPHONE
-      @media screen and (min-width: $smartphone) {
-        background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
-        background-repeat: no-repeat;
-        background-position: center 0;
-        background-size: 56%;
-        border-left: 2px solid $color-cyan-dark;
-        border-radius: 0;
-        height: auto;
-        margin: $spacer-half 0;
-        padding: 0;
-        width: 40px;
-      }
-  }
-}
-
-.header {
-
-}
-
-.footer {
-  .search {
-    input[type="search"] {
-      margin: 0;
-      width: 100%;
+    @include for-size(tablet-portrait-up) {
+      background-image: url("/static/img/icons/rwanda/search-icon-submit.svg");
+      background-repeat: no-repeat;
+      background-position: center 0;
+      background-size: 56%;
+      border-left: 2px solid $color-cyan-dark;
+      border-radius: 0;
+      height: auto;
+      margin: $spacer-half 0;
+      padding: 0;
+      width: 40px;
     }
-  }
+  }*/
 }
