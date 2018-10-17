@@ -1,25 +1,41 @@
 .nav {
-  &--header {
+  overflow: auto;
+  display: inline-block;
+  width: 33.333333333333%;
+  @include for-size(tablet-portrait-up) {}
+  &-wrapper {
+    background: #fff;
+    color: $color-cyan;
+    font-size: $font-x-small;
+    display: none;
     @include for-size(tablet-portrait-up) {
-      order: 0; //FLEXBOX
+      position: absolute;
+      top: 5%;
+      left: 0;
+      width: 100%;
+      height: auto;
     }
   }
-  /*clear: both;
-  overflow: auto;
-  position: relative;
-  font-size: $font-x-small;
-  &-list {
+  &--primary {
     display: inline-block;
-    padding: 0 $spacer-small 0;
-    margin: 0;
-    &__item {
+  }
+  &--secondary {
       display: inline-block;
+  }
+  &-list {
+    &__item {
+      display: block;
     }
     &__anchor {
-      color: #ffffff;
-      padding: $spacer-small;
+      color: $color-cyan;
       text-transform: uppercase;
     }
+  }
+
+  /*
+  &-list {
+
+
     &__label {
       color: #ffffff;
       cursor: pointer;

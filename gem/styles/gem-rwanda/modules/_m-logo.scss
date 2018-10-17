@@ -1,41 +1,24 @@
 .logo {
-  background-color: rgba(230,1, 126, 100);
-  display: block;
-  padding: $spacer-half 0 0 $spacer-small;
-  justify-content: center;
-
-  width: 315px;
-  height: 80px;
-
-  @include for-size(tablet-portrait-up) {
-    order: 1; //FLEXBOX
-
-    //PARALLELOGRAM SHAPE - [LATER SETUP: BROWSER PREFIXES AUTOMATION]
-      -webkit-transform: skew(-20deg);
-      -moz-transform: skew(-20deg);
-      -o-transform: skew(-20deg);
-  }
+  background-image: url('/static/img/logos/logo-bg.svg'), url('/static/img/logos/logo-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: ($spacer-multiple + 5) 0;
+  display: inline-block;
+  width: 33.333333333333%;
+  @include for-size(tablet-portrait-up) {}
   &__anchor {
     color: #ffffff;
     display: block;
     font-size: $font-xx-small;
-    padding: $spacer-small $spacer-small 0;
     text-transform: uppercase;
     vertical-align: middle;
-    text-align: left;
-    @include for-size(tablet-portrait-up) {
-      text-align: center;
-      padding: $spacer-small;
-
-      -webkit-transform: skew(20deg);
-      -moz-transform: skew(20deg);
-      -o-transform: skew(20deg);
-    }
+    text-align: center;
+    @include for-size(tablet-portrait-up) {}
   }
   &__image {
     max-width: 100%;
     height: auto;
-    width: auto;
+    width: 80%;
     @include for-size(tablet-portrait-up) {}
   }
 }
