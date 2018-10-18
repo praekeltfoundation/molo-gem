@@ -101,7 +101,6 @@
           {% endif %}
           </li>
         </ul>
-
         <ul class="nav-list nav--secondary">
           <li class="nav-list__item">
             <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
@@ -130,19 +129,26 @@
     </div>
     <div class="languageSearch-wrapper">
       <div class="languages">
-        <label for="language_accordion" class="language-accordion__label">
-          <p class="language-accordion__title">{% trans "Languages" %}</p>
+        <label for="languages_accordion" class="languages-accordion__label">
+          <p class="languages-accordion__title">{% trans "Languages" %}</p>
         </label>
-        <input type="checkbox" name="language_toggle" id="language_accordion" class="language-accordion__checkbox" />
-        {% if languages|length > 1 %}
-          <ul class="languages-list">
-          {% for language in languages %}
-            <li class="languages-list__item">
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
-            </li>
-          {% endfor %}
-          <ul>
-        {% endif %}
+        <input type="checkbox" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
+        <div class="languages-wrapper">
+          {% if languages|length > 1 %}
+            <ul class="languages-list">
+              <li class="languages-list__item">
+                <div class="languages-list__label">
+                  <h3 class="languages-list__title">{% trans "Languages" %}:</h3>
+                </div>
+              </li>
+            {% for language in languages %}
+              <li class="languages-list__item">
+                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor {% if LANGUAGE_CODE == language.locale %}languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+              </li>
+            {% endfor %}
+            <ul>
+          {% endif %}
+        </div>
       </div>
 
       <!-- MENU -->
