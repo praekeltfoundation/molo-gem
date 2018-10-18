@@ -2,23 +2,44 @@
   background-image: url('/static/img/logos/logo-bg.svg'), url('/static/img/logos/logo-bg.png');
   background-repeat: no-repeat;
   background-size: 100%;
-  padding: ($spacer-multiple + 5) 0;
-  display: inline-block;
-  width: 33.333333333333%;
-  @include for-size(tablet-portrait-up) {}
+  background-position: center 0px;
+  overflow: auto;
+  padding: $spacer-small;
+  @include for-size(tablet-portrait-up) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 27%;
+  }
+  &-wrapper {
+    width: 30%;
+    position: relative;
+      @include for-size(tablet-portrait-up) {
+        flex: 3 0px;
+        order: 2;
+      }
+  }
   &__anchor {
-    color: #ffffff;
+    color: #fff;
     display: block;
-    font-size: $font-xx-small;
+    font-size: 12px;
     text-transform: uppercase;
     vertical-align: middle;
     text-align: center;
-    @include for-size(tablet-portrait-up) {}
+    width: 100%;
+    margin: 0 auto;
+    padding: 5% 0;
+    @include for-size(tablet-portrait-up) {
+
+    }
   }
   &__image {
     max-width: 100%;
     height: auto;
     width: 80%;
-    @include for-size(tablet-portrait-up) {}
+    @include for-size(tablet-portrait-up) {
+
+    }
   }
 }
