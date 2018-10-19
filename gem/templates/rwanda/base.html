@@ -64,6 +64,16 @@
     </script>
   {% endif %}
   <div id="header" class="header">
+    <div class="logo-wrapper">
+      <div class="logo">
+        <a href="/" class="logo__anchor">
+          {% get_site_static_prefix as site_prefix %}
+          {% with "img/logos/nn-logo"|add:site_prefix|add:".png" as logo_url %}
+            <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
+          {% endwith %}
+        </a>
+      </div>
+    </div>
     <div class="nav">
       <div class="burger-menu">
         <label for="nav_accordion" class="burger-menu__label">
@@ -115,16 +125,6 @@
             </li>
         {% endfor %}
         </ul>
-      </div>
-    </div>
-    <div class="logo-wrapper">
-      <div class="logo">
-        <a href="/" class="logo__anchor">
-          {% get_site_static_prefix as site_prefix %}
-          {% with "img/logos/nn-logo"|add:site_prefix|add:".png" as logo_url %}
-            <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
-          {% endwith %}
-        </a>
       </div>
     </div>
     <div class="languageSearch-wrapper">
