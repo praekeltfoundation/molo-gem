@@ -2,12 +2,6 @@
   display: inline-block;
   padding: 0 0 $spacer-small;
   @include for-size(tablet-portrait-up) {}
-  &__title {
-    color: #000;
-    font-size: $font-medium;
-    text-transform: uppercase;
-    display: inline-block;
-  }
   &-accordion {
     &__label {
       color: #fff;
@@ -34,8 +28,27 @@
         visibility: hidden;
       }
     }
-    &__checkbox {}
-
+    &__checkbox {
+      left: 10%;
+      & + * {
+        visibility: hidden;
+        height: auto;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+      &:checked + * {
+        display: block;
+        visibility: visible;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+    }
   }
   &-wrapper {
     background: #fff;
@@ -51,18 +64,32 @@
       height: auto;
       width: 100%;
     }
-    & + * {
-      display: none;
-    }
-    &:checked + * {
-      display: block;
+  }
+  &__title {
+    color: #000;
+    font-size: $font-medium;
+    text-transform: uppercase;
+    display: inline-block;
+    font-style: italic;
+    &:before {
+      content: " ";
+      background-image: url('/static/img/icons/rwanda/search-icon_green.svg');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center 0;
+      display: inline-block;
+      height: 45px;
+      vertical-align: middle;
+      width: 45px;
     }
   }
-
   &__form {
     position: relative;
     input[type="search"] {
-      border: 2px solid $color-cyan;
+      border: 3px solid $color-cyan;
+      height: 45px;
+      margin: 0;
+      padding: $spacer-small 5% $spacer-small $spacer-small;
     }
     [type="button"],
     [type="reset"],
@@ -74,13 +101,13 @@
       @include for-size(tablet-portrait-up) {
         background-image: url("/static/img/icons/rwanda/search-icon.svg");
         background-repeat: no-repeat;
-        background-position: center 0;
-        background-size: 100%;
-        margin: $spacer-half 0;
+        background-position: center center;
+        background-size: 60%;
         padding: 0;
         height: 45px;
-        width: 45px;
-
+        width: 75px;
+        text-indent: -15em;
+        border-radius: 0;
         position: absolute;
         right: 0;
         top: 0;
