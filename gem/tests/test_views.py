@@ -23,6 +23,11 @@ from molo.profiles.models import (
     UserProfilesSettings,
 )
 
+from molo.yourwords.models import (
+    YourWordsCompetition,
+    YourWordsCompetitionIndexPage,
+)
+
 
 @override_settings(
     SECURITY_QUESTION_1='question_1',
@@ -609,3 +614,34 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
         self.assertEqual(view.get_extra_params(request), {
             'theme': 'springster', 'language': 'en'
         })
+
+
+class GemYourWordsViewTest(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.user = User.objects.create_superuser(
+            'testadmin', 'testadmin@example.org', 'testadmin')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.client.login(username='testadmin', password='testadmin')
+
+    def test_yourwords_wagtail_view_live(self):
+        '''
+            Test that the view live link for yourwords works
+        '''
+        # Create competition index page
+        self.competition_index = (YourWordsCompetitionIndexPage
+                                  .objects.child_of(self.main).first())
+
+        competition = YourWordsCompetition(
+            title='Test Competition',
+            description='This is the description',)
+        self.competition_index.add_child(instance=competition)
+        competition.save_revision().publish()
+
+        response = self.client.get(competition.url)
+
+        self.assertContains(response, competition.title)
+        self.assertEqual(response.status_code, 200)
+        # ensure that the correct url is in the view
+        self.assertContains(response, '/yourwords/entry/' + competition.slug)
