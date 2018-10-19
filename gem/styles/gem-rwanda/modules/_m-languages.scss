@@ -1,29 +1,113 @@
-.languages {
+.languageSearch-wrapper {
+  text-align: right;
   @include for-size(tablet-portrait-up) {
-    order: 2; //FLEXBOX
+    align-self: center;
+    flex: 1 auto;
+    order: 3;
   }
-  //padding: $spacer-half $spacer-mid;
-  //text-transform: uppercase;
+}
+.languages {
+  display: inline-block;
+  margin: 0 1em 0 0;
+  position: relative;
+  text-transform: uppercase;
+  @include for-size(tablet-portrait-up) {
 
-  /*&__label {}
-  &__anchor {
-    color: #ffffff;
-    display: inline-block;
-    padding-left: 5px;
-    &:first-child {
-      padding-left: 0;
+  }
+  &-wrapper {
+    background: #fff;
+    color: $color-cyan;
+    font-size: $font-x-small;
+    padding: 3em 10%;
+    text-align: left;
+    @include for-size(tablet-portrait-up) {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      height: auto;
+      width: 100%;
     }
   }
-  .active {
-    color: $color-pink;
-    text-decoration: underline;
-  }
-  &--footer {
-    float: none;
-    padding: $spacer-small;
-    p {
+  &-accordion {
+    &__label {
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      &:before {
+        content: " ";
+        display: inline-block;
+        background-image: url('/static/img/icons/rwanda/world-icon.svg'), url('/static/img/icons/rwanda/world-icon.svg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center 0;
+        height: 45px;
+        vertical-align: middle;
+        width: 45px;
+      }
+    }
+    &__title {
       margin: 0;
+      padding: 0 0 0 0.313em;
       display: inline-block;
     }
-  }*/
+    &__checkbox {
+      & + * {
+        visibility: hidden;
+        height: auto;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+      &:checked + * {
+        display: block;
+        visibility: visible;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+    }
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: inline-block;
+    }
+    &__label {
+      color: #000;
+      &:before {
+        content: " ";
+        display: inline-block;
+        background-image: url('/static/img/icons/rwanda/world-icon_green.svg'), url('/static/img/icons/rwanda/world-icon_green.svg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center 0;
+        height: 45px;
+        vertical-align: middle;
+        width: 45px;
+      }
+    }
+    &__title {
+      padding: 0 0 0 0.313em;
+      display: inline-block;
+    }
+    &__anchor {
+      color: $color-gray;
+      display: inline-block;
+      font-size: $font-x-medium;
+      padding-left: 0.313em;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &__active {
+      color: $color-pink;
+      text-decoration: underline;
+    }
+  }
 }

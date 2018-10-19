@@ -1,80 +1,56 @@
 .nav {
-  &--header {
+  $block: unquote("#{&}");
+  overflow: auto;
+  display: inline-block;
+  @include for-size(tablet-portrait-up) {
+    flex: 1 auto;
+    order: 1;
+    align-self: center;
+  }
+  &-wrapper {
+    background: #fff;
+    color: $color-cyan;
+    font-size: $font-x-small;
+    padding: 3em 10%;
     @include for-size(tablet-portrait-up) {
-      order: 0; //FLEXBOX
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      height: auto;
+      width: 100%;
     }
   }
-  /*clear: both;
-  overflow: auto;
-  position: relative;
-  font-size: $font-x-small;
   &-list {
-    display: inline-block;
-    padding: 0 $spacer-small 0;
+    padding: 0;
     margin: 0;
+    vertical-align: top;
     &__item {
-      display: inline-block;
+      display: block;
+      margin: 0.625em;
+    }
+    &__title {
+      color: #000;
+      font-size: $font-x-medium;
+      padding: 0 0 1em;
+      text-transform: uppercase;
     }
     &__anchor {
-      color: #ffffff;
-      padding: $spacer-small;
+      color: $color-cyan;
       text-transform: uppercase;
-    }
-    &__label {
-      color: #ffffff;
-      cursor: pointer;
-      text-transform: uppercase;
-      font-weight: bold;
-      padding-left: $spacer-half;
-      font-weight: normal;
-      float: left;
-      &:before {
-        content: '';
-        background: url("/static/img/icons/rwanda/dropdown-menu.png") no-repeat 0 0/100%;
-        display: inline-block;
-        height: 25px;
-        vertical-align: text-top;
-        margin: 0 $spacer-half 0 0;
-        width: 25px;
-      }
-      &:active, &:hover, &:focus {
-        color: $color-pink-hollywood;
-        &:before {
-          background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
-        }
-      }
-    }
-    &__checkbox {
-      visibility: hidden;
-      position: absolute;
-      left: 28%;
-      top: 5px;
-      & + * {
-        visibility: hidden;
-        height:0px;
-        -webkit-transition:height, 0.5s linear;
-        -moz-transition: height, 0.5s linear;
-        -ms-transition: height, 0.5s linear;
-        -o-transition: height, 0.5s linear;
-        transition: height, 0.5s linear;
-      }
-      &:checked + * {
-        display: block;
-        visibility: visible;
-        height: 270px;
-        -webkit-transition:height, 0.5s linear;
-        -moz-transition: height, 0.5s linear;
-        -ms-transition: height, 0.5s linear;
-        -o-transition: height, 0.5s linear;
-        transition: height, 0.5s linear;
-      }
+      font-size: $font-x-medium;
     }
   }
-  &__active {
-    color: $color-pink-hollywood;
-    &:before {
-      background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+  &--primary {
+    display: inline-block;
+    padding: 0 3.500em 0 0;
+    border-right: 3px solid #000;
+    #{$block}-list__anchor {
+      font-size: $font-large;
     }
   }
-  &__is-open {}*/
+  &--secondary {
+    display: inline-block;
+    padding: 0 0 0 3.500em;
+  }
 }

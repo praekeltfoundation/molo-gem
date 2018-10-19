@@ -1,0 +1,58 @@
+.burger-menu {
+  color: #fff;
+  display: block;
+  font-weight: bold;
+  position: relative;
+  &__label {
+    cursor: pointer;
+    display: inline-block;
+  }
+  &__title {
+    display: inline-block;
+    margin: 10px;
+  }
+  &__icon {
+    display: inline-block;
+    height: auto;
+    vertical-align: middle;
+    overflow: auto;
+    width: 45px;
+  }
+  &__bar {
+    background-color: #fff;
+    margin: 5px 0;
+    width: 100%;
+    height: 6px;
+    display: block;
+  }
+  &__checkbox {
+    left: 10%;
+    & + * {
+      visibility: hidden;
+      height: auto;
+      -webkit-transition:height, 0.5s linear;
+      -moz-transition: height, 0.5s linear;
+      -ms-transition: height, 0.5s linear;
+      -o-transition: height, 0.5s linear;
+      transition: height, 0.5s linear;
+    }
+    &:checked + * {
+      display: block;
+      visibility: visible;
+      -webkit-transition:height, 0.5s linear;
+      -moz-transition: height, 0.5s linear;
+      -ms-transition: height, 0.5s linear;
+      -o-transition: height, 0.5s linear;
+      transition: height, 0.5s linear;
+    }
+    &__active {
+      color: $color-pink-hollywood;
+      &:before {
+        background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
+      }
+    }
+    &__is-open {
+
+    }
+  }
+}

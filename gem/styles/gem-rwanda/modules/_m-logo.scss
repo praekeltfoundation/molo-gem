@@ -1,41 +1,45 @@
 .logo {
-  background-color: rgba(230,1, 126, 100);
-  display: block;
-  padding: $spacer-half 0 0 $spacer-small;
-  justify-content: center;
-
-  width: 315px;
-  height: 80px;
-
+  background-image: url('/static/img/logos/logo-bg.svg'), url('/static/img/logos/logo-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center 0px;
+  overflow: auto;
+  padding: $spacer-small;
   @include for-size(tablet-portrait-up) {
-    order: 1; //FLEXBOX
-
-    //PARALLELOGRAM SHAPE - [LATER SETUP: BROWSER PREFIXES AUTOMATION]
-      -webkit-transform: skew(-20deg);
-      -moz-transform: skew(-20deg);
-      -o-transform: skew(-20deg);
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 27%;
+  }
+  &-wrapper {
+    width: 30%;
+    position: relative;
+      @include for-size(tablet-portrait-up) {
+        flex: 3 0px;
+        order: 2;
+      }
   }
   &__anchor {
-    color: #ffffff;
+    color: #fff;
     display: block;
-    font-size: $font-xx-small;
-    padding: $spacer-small $spacer-small 0;
+    font-size: 12px;
     text-transform: uppercase;
     vertical-align: middle;
-    text-align: left;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 5% 0;
     @include for-size(tablet-portrait-up) {
-      text-align: center;
-      padding: $spacer-small;
 
-      -webkit-transform: skew(20deg);
-      -moz-transform: skew(20deg);
-      -o-transform: skew(20deg);
     }
   }
   &__image {
     max-width: 100%;
     height: auto;
-    width: auto;
-    @include for-size(tablet-portrait-up) {}
+    width: 80%;
+    @include for-size(tablet-portrait-up) {
+
+    }
   }
 }

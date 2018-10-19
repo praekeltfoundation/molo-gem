@@ -63,65 +63,93 @@
       ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
     </script>
   {% endif %}
-  <header>
-    <div id="header" class="header">
-      <!-- LOGO -->
+  <div id="header" class="header">
+    <div class="nav">
+      <div class="burger-menu">
+        <label for="nav_accordion" class="burger-menu__label">
+          <div class="burger-menu__icon">
+            <span class="burger-menu__bar"></span>
+            <span class="burger-menu__bar"></span>
+            <span class="burger-menu__bar"></span>
+          </div>
+          <p class="burger-menu__title">{% trans "Menu" %}</p>
+        </label>
+      </div>
+      <input type="checkbox" name="toggle" id="nav_accordion" class="burger-menu__checkbox" />
+      <div class="nav-wrapper">
+        <ul class="nav-list nav--primary">
+          <li class="nav-list__item">
+            <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
+              {% trans "Home" %}
+            </a>
+          </li>
+          <li class="nav-list__item">
+          {% if not user.is_authenticated %}
+            <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
+          {% else %}
+            <form method="post" action="{% url LOGOUT_URL %}">
+              {% csrf_token %}
+              <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
+            </form>
+          {% endif %}
+          </li>
+          <li class="nav-list__item">
+          {% if not user.is_authenticated %}
+            <a href={{REGISTRATION_URL}} class="nav-list__anchor">{% trans "Sign up" %}</a>
+          {% else %}
+            <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">{% trans "Profile" %}</a>
+          {% endif %}
+          </li>
+        </ul>
+        <ul class="nav-list nav--secondary">
+          <li class="nav-list__item">
+            <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
+          </li>
+        {% load_sections as sections %}
+        {% for section in sections %}
+          {% pageurl section.specific as section_path %}
+            <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
+              <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                {{section.title}}
+              </a>
+            </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="logo-wrapper">
       <div class="logo">
         <a href="/" class="logo__anchor">
           {% get_site_static_prefix as site_prefix %}
-          {% with "img/logos/logo_rwanda"|add:site_prefix|add:".png" as logo_url %}
+          {% with "img/logos/nn-logo"|add:site_prefix|add:".png" as logo_url %}
             <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
           {% endwith %}
         </a>
       </div>
-
-      <!-- MENU -->
-      <nav>
-        <div class="nav nav--header">
-          <ul class="nav-list">
-            <li class="nav-list__item">
-              {% if not user.is_authenticated %}
-              <a href={{REGISTRATION_URL}} class="nav-list__anchor">
-                {% trans "Sign up" %}</a>
-              {% else %}
-              <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">
-                {% trans "Profile" %}</a>
-              {% endif %}
-            </li>
-          </ul>
-          <label for="nav_slide" class="nav-list__label">
-            <span>{% trans "Menu" %}</span>
-          </label>
-
-          <input type="checkbox" name="toggle" id="nav_slide" class="nav-list__checkbox" />
-          <div class="menu menu--header">
-            <ul class="menu-list">
-              <li class="menu-list__item">
-                <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">
-                  {% trans "Home" %}
-                </a>
+    </div>
+    <div class="languageSearch-wrapper">
+      <div class="languages">
+        <label for="languages_accordion" class="languages-accordion__label">
+          <p class="languages-accordion__title">{% trans "Languages" %}</p>
+        </label>
+        <input type="checkbox" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
+        <div class="languages-wrapper">
+          {% if languages|length > 1 %}
+            <ul class="languages-list">
+              <li class="languages-list__item">
+                <div class="languages-list__label">
+                  <h3 class="languages-list__title">{% trans "Languages" %}:</h3>
+                </div>
               </li>
-              {% load_sections as sections %}
-              {% for section in sections %}
-                {% pageurl section.specific as section_path %}
-                  <li class="menu-list__item menu-list__item--{{section.get_effective_extra_style_hints}}">
-                    <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                      {{section.title}}
-                    </a>
-                  </li>
-              {% endfor %}
-            </ul>
-          </div>
+            {% for language in languages %}
+              <li class="languages-list__item">
+                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor {% if LANGUAGE_CODE == language.locale %}languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+              </li>
+            {% endfor %}
+            <ul>
+          {% endif %}
         </div>
-      </nav>
-
-      {% if languages|length > 1 %}
-        <div class="languages">
-          {% for language in languages %}
-            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{language.locale | language_name_local}}</a>
-          {% endfor %}
-        </div>
-      {% endif %}
+      </div>
 
       <!-- MENU -->
       <div class="search search--header">
@@ -135,8 +163,7 @@
         </div>
       </div>
     </div>
-  </header>
-
+  </div>
   <!-- MAIN -->
   <main>
     {% display_unread_notifications %}
