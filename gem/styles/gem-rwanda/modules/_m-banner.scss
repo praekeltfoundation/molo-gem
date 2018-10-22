@@ -3,6 +3,14 @@
   background: $color-gray-light;
   overflow: auto;
   position: relative;
+  @include for-size(desktop-up)  {
+    overflow: hidden;
+    max-height: 360px;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
   &__item-link {
     display: block;
     color: #000000;
@@ -13,6 +21,11 @@
     width: 100%;
     color: #000000;
     text-transform: uppercase;
+    &:before {
+      content: " ";
+      background-image: url('/Users/Admin/Sites/www/PROJECTS/molo-gem/gem/styles/gem-rwanda/modules/_m-banner.scss');
+      display: block;
+    }
   }
   &__text {
     background-color: $color-pink-hollywood;
@@ -45,8 +58,10 @@
     left: 0;
     right: 0;
     min-width: 400px;
-    top: 30%;
+    bottom: 0;
       @include for-size(desktop-up) {
+        bottom: auto;
+        top: 30%;
         right: 10%;
         left: auto;
       }
