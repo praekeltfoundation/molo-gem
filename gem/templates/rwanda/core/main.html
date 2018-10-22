@@ -2,24 +2,27 @@
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag gem_tags %}
 
 {% block content %}
-    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' %}
-      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host %}
-        <div class="freebasics-notification">
-          <p class="freebasics-notification__text">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a>
+    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
+      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
+        <div class="freebasics">
+          <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
           </p>
         </div>
       {% endif %}
     {% endwith %}
-    {% bannerpages %}
+    {% bannerpages position=0 %}
     {% gembannerpages %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
     {% media_listing_homepage %}
+    {% bannerpages position=1 %}
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
     {% surveys_list personalisable_survey=True %}
     {% surveys_list only_yourwords=True %}
     {% surveys_list only_linked_surveys=True %}
+    {% bannerpages position=2 %}
     {% your_words_competition %}
+    {% bannerpages position=3 %}
 {% endblock %}

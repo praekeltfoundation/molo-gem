@@ -1,17 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags gem_tags %}
  <div class="banner">
 {% if bannerpages %}
-
   {% for bannerpage in bannerpages %}
     {% if bannerpage.hide_on_freebasics %}
       {% if not is_via_freebasics %}
-      {# hide_on_freebasics is available for Gem text banner setting #}
          <div class="banner__text">
             <div class="heading">
-              <h3 class="heading__subheading">{{bannerpage.title|smarttruncatechars:115|safe}}</h3>
+              <h3 class="heading__subheading">
+                {{bannerpage.title|smarttruncatechars:115|safe}}
+              </h3>
             </div>
             {% if bannerpage.subtitle %}
-              <p class="banner__subtitle">{{ bannerpage.subtitle|smarttruncatechars:115|safe }}</p>
+              <p class="banner__subtitle">{
+                { bannerpage.subtitle|smarttruncatechars:115|safe }}
+              </p>
             {% endif %}
             {% if bannerpage.banner_link_page %}
               <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="call-to-action__button">
@@ -26,18 +28,22 @@
       {% endif %}
     {% else %}
       {% if bannerpage.banner %}
-          {% image bannerpage.banner width-1080 as tmp_photo %}
-          {% if bannerpage.banner_link_page %}
+        {% image bannerpage.banner width-1080 as tmp_photo %}
+        <div class="banner__content">
+          <h1 class="banner__title">{{ bannerpage.title }}</h1>
+          <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
+        </div>
+        {% if bannerpage.banner_link_page %}
            <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
              <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
            </a>
-          {% elif bannerpage.external_link %}
+        {% elif bannerpage.external_link %}
            <a href="{{ bannerpage.external_link }}" target="_top" class="banner__item-link">
              <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
            </a>
-          {% else %}
-            <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
-         {% endif %}
+        {% else %}
+          <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        {% endif %}
       {% else %}
          <div class="banner__text">
             <div class="heading">
@@ -59,6 +65,5 @@
       {% endif %}
     {% endif %}
   {% endfor %}
-
 {% endif %}
 </div>

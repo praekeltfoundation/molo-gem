@@ -2,6 +2,7 @@
   $block: unquote("#{&}");
   background: $color-gray-light;
   overflow: auto;
+  position: relative;
   &__item-link {
     display: block;
     color: #000000;
@@ -23,23 +24,31 @@
       margin: 0;
     }
   }
-}
 
-.freebasics-notification {
-  background: $color-gray-light url("/static/img/patterns/rwanda/pattern-banner.png") repeat 0 0/100%;
-  color: #000000;
-  padding: $spacer-mid;
-  overflow: auto;
-  text-align: center;
-  width: 100%;
-  &__text {
-    color: $color-yellow;
-  }
-  &__anchor {
-    color: #ffffff;
-    padding:0;
-    &:active, &:hover, &:focus  {
-      color: $color-yellow;
-    }
+
+ &__title {
+  color: #fff;
+  font-size: $font-x-large;
+  text-transform: uppercase;
+ }
+ &__subtitle {
+  color: #fff;
+  font-size: $font-large;
+  text-transform: uppercase;
+ }
+  &__content {
+    background: rgba(#000, 0.2);
+    border-radius: 5px;
+    padding: 1em;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    min-width: 400px;
+    top: 30%;
+      @include for-size(desktop-up) {
+        right: 10%;
+        left: auto;
+      }
   }
 }
