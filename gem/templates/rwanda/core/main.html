@@ -10,19 +10,27 @@
         </div>
       {% endif %}
     {% endwith %}
-    {% bannerpages position=0 %}
+    <div class="banner--main">
+      {% bannerpages position=0 %}
+    </div>
     {% gembannerpages %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
     {% media_listing_homepage %}
-    {% bannerpages position=1 %}
+    <div class="banner--first">
+      {% bannerpages position=1 %}
+    </div>
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
     {% surveys_list personalisable_survey=True %}
     {% surveys_list only_yourwords=True %}
     {% surveys_list only_linked_surveys=True %}
-    {% bannerpages position=2 %}
+    <div class="banner--second">
+      {% bannerpages position=2 %}
+    </div>
     {% your_words_competition %}
-    {% bannerpages position=3 %}
+    <div class="banner--third">
+      {% bannerpages position=3 %}
+    </div>
 {% endblock %}
