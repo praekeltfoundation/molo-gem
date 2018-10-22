@@ -1,54 +1,62 @@
 .banner {
   $block: unquote("#{&}");
-  background-color: $color-gray-light;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
+  margin: 0.4em auto 0;
   width: 100%;
-  margin: 0 auto;
+
+  &__content {
+    background-color: rgba($color-cyan-dark, 1);
+    text-align: center;
+  }
+
+  &__image {
+    display: inline-block;
+    width: 55%;
+    height: auto;
+    color: #000000;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
   &__caption {
+    display: inline-block;
     color: #fff;
     padding: 1em;
-    @include for-size(desktop-up) {
-      width: 445px;
-    }
+    width: 35%;
   }
-  &__title,
-   &__subtitle {
+  &__title {
    color: #fff;
-   font-size: $font-x-medium ;
+   font-size: $font-x-medium;
    text-transform: uppercase;
    @include for-size(desktop-up) {
      font-size: $font-xx-large;
    }
   }
+  &__subtitle {
+    color: #fff;
+    margin: 0;
+    font-size: $font-x-medium;
+    text-transform: uppercase;
+  }
+
   &__item-link {
     display: block;
     color: #000000;
     text-transform: uppercase;
   }
-  &__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: #000000;
-    text-transform: uppercase;
-  }
-  &__content {
-    background-color: rgba($color-cyan-dark, 1);
-    color: $color-yellow;
-    text-align: center;
-    padding: 2em 0;
-    margin: 0.4em auto 0;
-    #{$block}__subtitle {
-      font-size: $font-x-medium;
-      padding: 0 $spacer-mid;
-      margin: 0;
-    }
-  }
+
+
+
 
   &--main {
     max-height: 320px;
     overflow: hidden;
+    margin: 0 auto;
+    #{$block}__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
     #{$block}__caption {
       position: absolute;
       margin: 0 auto;
@@ -56,6 +64,7 @@
       right: 0;
       bottom: 0;
         @include for-size(desktop-up) {
+          width: 445px;
           bottom: auto;
           top: 10%;
           right: 10%;
@@ -64,16 +73,17 @@
     }
   }
 
-  &--first {
-    background: url('/static/img/lines/rwanda/banner_bg1.png') no-repeat center center / 100%;
+  &--first,  &--second, &--third, &--fourth  {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center -17px;
+    background-size: 100%;
+    padding: 1em 15%;
+    height: 245px;
   }
-  &--second {
-    background: url('/static/img/lines/rwanda/banner_bg2.png') no-repeat center center / 100%;
-  }
-  &--third {
-    background: url('/static/img/lines/rwanda/banner_bg3.png') no-repeat center center / 100%;
-  }
-  &--fourth {
-    background: url('/static/img/lines/rwanda/banner_bg4.png') no-repeat center center / 100%;
-  }
+
+  &--first { background-image: url("/static/img/lines/rwanda/banner_bg1.png"); }
+  &--second { background-image: url("/static/img/lines/rwanda/banner_bg2.png"); }
+  &--third { background-image: url("/static/img/lines/rwanda/banner_bg3.png"); }
+  &--fourth { background-image: url("/static/img/lines/rwanda/banner_bg4.png"); }
 }
