@@ -56,16 +56,17 @@
               {% endif %}
             </p>
           {% elif article.subtitle %}
-            {% if article.title.30 %}
-              <p class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:30|safe}}</p>
-            {% else %}
-              <p class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:50|safe}}</p>
-            {% endif %}
+            <p class="teaser-stacklist__subtitle">
+              {% if article.title.30 %}
+                {{ article.subtitle|smarttruncatechars:30|safe}}
+              {% else %}
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              {% endif %}
+            </p>
           {% endif %}
-
           {% with article.body|first as block %}
             {% if block.block_type == 'paragraph' %}
-              <p class="teaser-stacklist__para">{{block.value|smarttruncatechars:1000|safe}}</p>
+              <p class="teaser-stacklist__paragraph">{{block.value|smarttruncatechars:1000|safe}}</p>
             {% endif %}
           {% endwith %}
           <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
@@ -98,11 +99,11 @@
                 {% endif %}
                 {% get_comment_count for article as comment_count %}
                 {% if comment_count > 0 %}
-                <li class="teaser-stacklist-tags__item">
-                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                    <div class="comment-counter__icon"></div>
-                    <span class="comment-counter__numeral">{{comment_count}}</span>
-                  </a>
+                  <li class="teaser-stacklist-tags__item">
+                    <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                      <div class="comment-counter__icon"></div>
+                      <span class="comment-counter__numeral">{{comment_count}}</span>
+                    </a>
                   </li>
                 {% endif %}
               </ul>
