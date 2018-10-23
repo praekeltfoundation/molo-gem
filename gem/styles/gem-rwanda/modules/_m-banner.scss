@@ -20,9 +20,10 @@
     display: inline-block;
     color: #fff;
     padding: $spacer-half;
+
     @include for-size(desktop-up) {
       padding: 1em;
-      width: 35%;
+      width: 40%;
     }
   }
   &__title {
@@ -63,17 +64,46 @@
   }
 
   &--first,  &--second, &--third, &--fourth  {
-    background-color: transparent;
     background-repeat: no-repeat;
-    background-position: center -17px;
+    background-position: center center;
     background-size: 100%;
-    margin: 0.4em auto 0;
-    padding: 1em 15%;
-    height: 245px;
+    #{$block}__caption {
+      max-width: 40%;
+    }
+    @include for-size(desktop-up) {
+      background-position: center -17px;
+      margin: 0.4em auto 0;
+      padding: 1em 15%;
+      height: 300px;
+    }
   }
 
-  &--first { background-image: url("/static/img/lines/rwanda/banner_bg1.png"); }
-  &--second { background-image: url("/static/img/lines/rwanda/banner_bg2.png"); }
-  &--third { background-image: url("/static/img/lines/rwanda/banner_bg3.png"); }
-  &--fourth { background-image: url("/static/img/lines/rwanda/banner_bg4.png"); }
+  &--first {
+    background-color: $color-orange;
+    @include for-size(desktop-up) {
+      background-color: transparent;
+      background-image: url("/static/img/lines/rwanda/banner_bg1.png");
+    }
+  }
+  &--second {
+    background-color: $color-cyan-dark;
+    @include for-size(desktop-up) {
+      background-color: transparent;
+      background-image: url("/static/img/lines/rwanda/banner_bg2.png");
+    }
+  }
+  &--third {
+    background-color: $color-yellow;
+    @include for-size(desktop-up) {
+      background-color: transparent;
+      background-image: url("/static/img/lines/rwanda/banner_bg3.png");
+    }
+  }
+  &--fourth {
+    background-color: $color-pink-hollywood;
+    @include for-size(desktop-up) {
+      background-color: transparent;
+      background-image: url("/static/img/lines/rwanda/banner_bg4.png");
+    }
+  }
 }
