@@ -1,6 +1,7 @@
 .languageSearch-wrapper {
   text-align: right;
-  @include for-size(tablet-portrait-up) {
+  display: inline-block;
+  @include for-size(desktop-up) {
     align-self: flex-end;
     flex: 1 auto;
     order: 3;
@@ -11,16 +12,13 @@
   margin: 0 1em 0 0;
   position: relative;
   text-transform: uppercase;
-  @include for-size(tablet-portrait-up) {
-
-  }
   &-wrapper {
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
     padding: 3em 10%;
     text-align: left;
-    @include for-size(tablet-portrait-up) {
+    @include for-size(desktop-up) {
       position: fixed;
       top: 70px;
       left: 0;
@@ -41,9 +39,13 @@
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
-        height: 45px;
+        height: 30px;
         vertical-align: middle;
-        width: 45px;
+        width: 30px;
+        @include for-size(desktop-up) {
+            height: 45px;
+            width: 45px;
+        }
       }
     }
     &__title {
@@ -53,6 +55,7 @@
     }
     &__checkbox {
       & + * {
+        display: none;
         visibility: hidden;
         height: auto;
         -webkit-transition:height, 0.5s linear;
@@ -87,9 +90,13 @@
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
-        height: 45px;
+        height: 30px;
         vertical-align: middle;
-        width: 45px;
+        width: 30px;
+        @include for-size(desktop-up) {
+            height: 45px;
+            width: 45px;
+        }
       }
     }
     &__title {

@@ -2,8 +2,7 @@
 button,
 [type="button"],
 [type="reset"],
-[type="submit"],
-.call-to-action__item  {
+[type="submit"] {
   border: none;
   border-radius: 2px;
   display: block;
@@ -19,120 +18,87 @@ button,
   white-space: normal; //IMPORTANT INPUT WRAP
 }
 
-//FORCE ANCHOR
-a.call-to-action__button {
-  display: inline-block;
-}
 //CUSTOM
 .call-to-action {
   &__item {
-    /*
-    &--with-icon {
-      text-indent: -99em;
-      position: absolute;
-      right: 0;
-      top: 0;
-      &-search {right: 25px;}
-    }
-    */
-  }
-  &__report {
-    padding-right: $spacer-mid;
-    float: left;
-  }
-  &__response {
-    color: $color-cyan-fountain;
-    vertical-align: middle;
-    float: left;
-  }
-  &__replies-counter {
-    color: $color-cyan-fountain;
-    margin: 0;
-    vertical-align: middle;
-    text-align: right;
-    float: right;
-  }
-  .article-teaser__read-more,
-  &__read-more {
-    color: #000000;
-    font-weight: bold;
-    font-size: $font-xx-small;
-    text-decoration: underline;
-    text-transform: capitalize;
-  }
-  &__item-share {
-    height: 24px;
-    width: 24px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  &__nav-item-share {
-    &--facebook {
-      background: url("/static/img/icons/rwanda/facebook-icon.png") no-repeat center/100%;
-    }
-    &--twitter {
-      background: url("/static/img/icons/rwanda/twitter-icon.png") no-repeat center /100%;
-    }
-  }
-  &__nav-item-text  {
-    color: $color-cyan-fountain;
+    color: #fff;
+    border-radius: 0;
     display: block;
-    font-size: $font-small;
+    text-align: center;
     text-transform: uppercase;
-      &:active, &:hover, &:focus  {
-        text-decoration: underline;
-      }
-    &--left {
-      padding: $spacer-half $spacer-mid;
-    }
-    &--right {
-      color: $color-yellow-gorse;
-      padding: 0;
-    }
-    &--article-comments {
-      color: $color-pink;
-      padding: $spacer-half $spacer-mid;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      &:after {
-        content: "";
-        display: block;
-        border-bottom: 1px solid $color-pink;
-      }
-    }
-    &--backToTop {
-      color: #ffffff;
-      display: block;
-      padding: $spacer-small $spacer-mid $spacer-half;
-      &:active, &:hover, &:focus {
-        color: #ffffff;
-        text-decoration: none;
-      }
-      &:before {
-        background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
-        content: "";
-        display: block;
-        margin: 0 auto;
-        width: 22px;
-        height: 20px;
-      }
-    }
-    &--login {
-      font-weight: bold;
-      padding: 0 $spacer-mid;
+    padding: $spacer-half $spacer-mid;
+    &--button {}
+    &--button-text {
+      text-decoration: underline;
       text-transform: uppercase;
     }
+    //Should be enhancement class &--share
+    &-share {
+      height: 24px;
+      width: 24px;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
-  &--backToTop {
-    background: $color-cyan-fountain;
-    border-radius: 5px;
-    padding: 0;
-    margin: $spacer-mid 0;
-    text-align: center;
-    width: 60%;
-    &:active, &:hover, &:focus {
-      box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+
+  &__nav-item {
+    &-text  {
+      color: $color-cyan-fountain;
+      display: block;
+      font-size: $font-small;
+      text-transform: uppercase;
+        &:active, &:hover, &:focus  {
+          text-decoration: underline;
+        }
+      &--left {
+        padding: $spacer-half $spacer-mid;
+      }
+      &--right {
+        color: $color-yellow-gorse;
+        padding: 0;
+      }
+      &--article-comments {
+        color: $color-pink;
+        padding: $spacer-half $spacer-mid;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        &:after {
+          content: "";
+          display: block;
+          border-bottom: 1px solid $color-pink;
+        }
+      }
+      &--backToTop {
+        color: #ffffff;
+        display: block;
+        padding: $spacer-small $spacer-mid $spacer-half;
+        &:active, &:hover, &:focus {
+          color: #ffffff;
+          text-decoration: none;
+        }
+        &:before {
+          background: url("/static/img/icons/rwanda/up-arrow.svg") no-repeat;
+          content: "";
+          display: block;
+          margin: 0 auto;
+          width: 22px;
+          height: 20px;
+        }
+      }
+      &--login {
+        font-weight: bold;
+        padding: 0 $spacer-mid;
+        text-transform: uppercase;
+      }
+    }
+    &-share {
+      &--facebook {
+        background: url("/static/img/icons/rwanda/facebook-icon.png") no-repeat center/100%;
+      }
+      &--twitter {
+        background: url("/static/img/icons/rwanda/twitter-icon.png") no-repeat center /100%;
+      }
     }
   }
   &__button {
@@ -165,4 +131,43 @@ a.call-to-action__button {
       text-align: left;
     }
   }
+  &__report {
+    padding-right: $spacer-mid;
+    float: left;
+  }
+
+  &__response {
+    color: $color-cyan-fountain;
+    vertical-align: middle;
+    float: left;
+  }
+
+  &__replies-counter {
+    color: $color-cyan-fountain;
+    margin: 0;
+    vertical-align: middle;
+    text-align: right;
+    float: right;
+  }
+
+  &__read-more {
+    color: #000000;
+    font-weight: bold;
+    font-size: $font-xx-small;
+    text-decoration: underline;
+    text-transform: capitalize;
+  }
+
+  &--backToTop {
+    background: $color-cyan-fountain;
+    border-radius: 5px;
+    padding: 0;
+    margin: $spacer-mid 0;
+    text-align: center;
+    width: 60%;
+    &:active, &:hover, &:focus {
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    }
+  }
+
 }

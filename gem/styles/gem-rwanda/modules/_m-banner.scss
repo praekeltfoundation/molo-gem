@@ -1,45 +1,89 @@
 .banner {
   $block: unquote("#{&}");
-  background: $color-gray-light;
-  overflow: auto;
+  overflow: hidden;
+  position: relative;
+  margin: 0.4em auto 0;
+  width: 100%;
+
+  &__content {
+    background-color: rgba($color-cyan-dark, 1);
+    text-align: center;
+  }
+
+  &__image {
+    display: inline-block;
+    width: 55%;
+    height: auto;
+    color: #000000;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  &__caption {
+    display: inline-block;
+    color: #fff;
+    padding: 1em;
+    width: 35%;
+  }
+  &__title {
+   color: #fff;
+   font-size: $font-x-medium;
+   text-transform: uppercase;
+   @include for-size(desktop-up) {
+     font-size: $font-xx-large;
+   }
+  }
+  &__subtitle {
+    color: #fff;
+    margin: 0;
+    font-size: $font-x-medium;
+    text-transform: uppercase;
+  }
+
   &__item-link {
     display: block;
     color: #000000;
     text-transform: uppercase;
   }
-  &__image {
-    display: block;
-    width: 100%;
-    color: #000000;
-    text-transform: uppercase;
-  }
-  &__text {
-    background-color: $color-pink-hollywood;
-    color: $color-yellow;
-    text-align: center;
-    #{$block}__subtitle {
-      font-size: $font-x-medium;
-      padding: 0 $spacer-mid;
-      margin: 0;
-    }
-  }
-}
 
-.freebasics-notification {
-  background: $color-gray-light url("/static/img/patterns/rwanda/pattern-banner.png") repeat 0 0/100%;
-  color: #000000;
-  padding: $spacer-mid;
-  overflow: auto;
-  text-align: center;
-  width: 100%;
-  &__text {
-    color: $color-yellow;
-  }
-  &__anchor {
-    color: #ffffff;
-    padding:0;
-    &:active, &:hover, &:focus  {
-      color: $color-yellow;
+
+
+
+  &--main {
+    max-height: 320px;
+    overflow: hidden;
+    margin: 0 auto;
+    #{$block}__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #{$block}__caption {
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+        @include for-size(desktop-up) {
+          width: 445px;
+          bottom: auto;
+          top: 10%;
+          right: 10%;
+          left: auto;
+        }
     }
   }
+
+  &--first,  &--second, &--third, &--fourth  {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center -17px;
+    background-size: 100%;
+    padding: 1em 15%;
+    height: 245px;
+  }
+
+  &--first { background-image: url("/static/img/lines/rwanda/banner_bg1.png"); }
+  &--second { background-image: url("/static/img/lines/rwanda/banner_bg2.png"); }
+  &--third { background-image: url("/static/img/lines/rwanda/banner_bg3.png"); }
+  &--fourth { background-image: url("/static/img/lines/rwanda/banner_bg4.png"); }
 }

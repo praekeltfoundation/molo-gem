@@ -3,17 +3,18 @@
   padding: 0 5%;
   overflow: auto;
   width: 100%;
-
+  text-align: center;
   @include for-size(tablet-portrait-up) {
-    height: 70px;
-    position: fixed;
     padding: 0 10%;
+  }
+  @include for-size(desktop-up) {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    height: 70px;
+    position: fixed;
     z-index: 9999999999;
   }
-
   [type="checkbox"],
   [type="radio"] {
     visibility: hidden;

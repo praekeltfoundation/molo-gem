@@ -2,7 +2,8 @@
   $block: unquote("#{&}");
   overflow: auto;
   display: inline-block;
-  @include for-size(tablet-portrait-up) {
+  vertical-align: middle;
+  @include for-size(desktop-up) {
     flex: 1 auto;
     order: 1;
     align-self: center;
@@ -12,7 +13,7 @@
     color: $color-cyan;
     font-size: $font-x-small;
     padding: 3em 10%;
-    @include for-size(tablet-portrait-up) {
+    @include for-size(desktop-up) {
       position: fixed;
       top: 70px;
       left: 0;
@@ -25,6 +26,7 @@
     padding: 0;
     margin: 0;
     vertical-align: top;
+    text-align: left;
     &__item {
       display: block;
       margin: 0.625em;
@@ -36,9 +38,12 @@
       text-transform: uppercase;
     }
     &__anchor {
+      background: transparent;
       color: $color-cyan;
       text-transform: uppercase;
       font-size: $font-x-medium;
+      padding: $spacer-half 0;
+
     }
   }
   &--primary {
