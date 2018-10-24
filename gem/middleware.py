@@ -69,7 +69,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
         if hasattr(request, 'user') and hasattr(request.user, 'profile')\
                 and request.user.profile.uuid:
-            print("--------------------HERE--------------")
             custom_params.update({'cd2': request.user.profile.uuid})
 
         if bbm_ga_code and should_submit_to_bbm_account:
