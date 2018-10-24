@@ -27,7 +27,23 @@ button,
     text-align: center;
     text-transform: uppercase;
     padding: $spacer-half $spacer-mid;
-    &--button {}
+    &--button {
+      color: #ffffff;
+      display: inline-block;
+      font-weight: bold;
+      padding: $spacer-half $spacer-multiple;
+      margin: 1em auto;
+      text-transform: uppercase;
+      @include for-size(tablet-landscape-up) {
+          color: #ffffff;
+          display: block;
+          width: 50%;
+          text-decoration: none;
+      }
+      @include for-size(desktop-up) {
+        background-color: $color-cyan-fountain;
+      }
+    }
     &--button-text {
       text-decoration: underline;
       text-transform: uppercase;
