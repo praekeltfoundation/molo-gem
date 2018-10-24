@@ -59,6 +59,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         bbm_subdomain = gem_site_settings.bbm_ga_account_subdomain
         current_subdomain = request.get_host().split(".")[0]
         should_submit_to_bbm_account = False
+        custom_params = {}
 
         if current_subdomain == bbm_subdomain:
             should_submit_to_bbm_account = True
@@ -66,20 +67,38 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         if request.COOKIES.get('bbm', 'false') == 'true':
             should_submit_to_bbm_account = True
 
+        if hasattr(request, 'user') and hasattr(request.user, 'profile')\
+                and request.user.profile.uuid:
+            print("--------------------HERE--------------")
+            custom_params.update({'cd2': request.user.profile.uuid})
+
         if bbm_ga_code and should_submit_to_bbm_account:
-            return self.submit_tracking(bbm_ga_code, request, response)
+            return self.submit_tracking(
+                bbm_ga_code,
+                request,
+                response, custom_params)
         else:
             local_ga_account = site_settings.local_ga_tracking_code or \
                 settings.GOOGLE_ANALYTICS.get('google_analytics_id')
             if local_ga_account:
                 return self.submit_tracking(
-                    local_ga_account, request, response)
+                    local_ga_account,
+                    request,
+                    response,
+                    custom_params)
         return response
 
     def submit_to_global_account(self, request, response, site_settings):
+        custom_params = {}
         if site_settings.global_ga_tracking_code:
+            if hasattr(request, 'user') and hasattr(request.user, 'profile')\
+                    and request.user.profile.uuid:
+                custom_params.update({'cd2': request.user.profile.uuid})
             return self.submit_tracking(
-                site_settings.global_ga_tracking_code, request, response)
+                site_settings.global_ga_tracking_code,
+                request,
+                response,
+                custom_params)
         return response
 
     def process_response(self, request, response):

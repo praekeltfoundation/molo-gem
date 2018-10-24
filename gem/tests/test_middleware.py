@@ -5,7 +5,7 @@ from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
 
 from mock import patch
-
+from django.contrib.auth.models import User
 from molo.core.models import SiteSettings
 from gem.tests.base import GemTestCaseMixin
 
@@ -50,7 +50,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code', request, self.response)
+            'bbm_tracking_code', request, self.response, {})
 
     @patch(submit_tracking_method)
     def test_submit_to_bbm_analytics_if_cookie_set(self, mock_submit_tracking):
@@ -69,7 +69,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code', request, self.response)
+            'bbm_tracking_code', request, self.response, {})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account(self, mock_submit_tracking):
@@ -88,7 +88,38 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code', request, self.response)
+            'local_ga_tracking_code', request, self.response, {})
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga_account__custom_params(self,
+                                                       mock_submit_tracking):
+        '''
+        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
+        are set in Gem Settings, and the URL does not contain the
+        bbm_ga_account_subdomain, info should be sent to
+        the local GA account, not the additional GA account.
+        '''
+        # create a user with a profile
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
+        self.client.login(username='tester', password='tester')
+        self.user.profile.gender = 'f'
+        self.user.profile.save()
+
+        request = RequestFactory().get('/', HTTP_HOST='localhost')
+        request.site = self.main.get_site()
+        request.user = self.user
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.submit_to_local_account(
+            request, self.response, self.site_settings)
+
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request,
+            self.response,
+            {'cd2': self.user.profile.uuid})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga__ignored_info(self, mock_submit_tracking):
@@ -155,4 +186,4 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response)
         # a normal response should activate GA tracking
         mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code', request, self.response)
+            'local_ga_tracking_code', request, self.response, {})
