@@ -89,17 +89,19 @@
       <div class="nav-wrapper">
         <ul class="nav-list nav--primary">
           <li class="nav-list__item">
-            <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
+            <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
+              {% trans "Home" %}
+            </a>
           </li>
           <li class="nav-list__item">
-            {% if not user.is_authenticated %}
-              <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
-            {% else %}
-              <form method="post" action="{% url LOGOUT_URL %}">
-                {% csrf_token %}
-                <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
-              </form>
-            {% endif %}
+          {% if not user.is_authenticated %}
+            <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
+          {% else %}
+            <form method="post" action="{% url LOGOUT_URL %}">
+              {% csrf_token %}
+              <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
+            </form>
+          {% endif %}
           </li>
           <li class="nav-list__item">
           {% if not user.is_authenticated %}
@@ -185,64 +187,74 @@
     {% endif %}
   </main>
   <div id="footer" class="footer">
-    <div class="menu menu--footer">
-      <ul class="menu-list">
-        <li class="menu-list__item">
-          <b class="menu-list__label">
-            {% trans "Categories" %}
-          </b>
-        </li>
-        <li class="menu-list__item">
-          <ul class="menu-list--sections">
-            {% load_sections as sections %}
-            {% for section in sections %}
-              <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                    {{section.title}}
-                </a>
-              </li>
+    <div class="menu">
+      <div class="heading heading--hero">
+        <h3 class=" heading__subheading">
+          {% trans "Links" %}
+        </h3>
+      </div>
+      <div class="menu--wrapper">
+        <ul class="menu-list menu-list--column1">
+          <li class="menu-list__item">
+            <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
+          </li>
+          {% load_sections as sections %}
+          {% for section in sections %}
+            <li class="menu-list__item">
+              <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">{{section.title}}</a>
+            </li>
             {% endfor %}
-          </ul>
-        </li>
-      {% footer_page %}
-      {% if not user.is_authenticated %}
-        <li class="menu-list__item">
-          <a href={{REGISTRATION_URL}} class="menu-list__anchor">{% trans "Sign Up" %}</a>
-        </li>
-        <li class="menu-list__item">
-          <a href="{% url LOGIN_URL %}" class="menu-list__anchor">{% trans "Log in" %}</a>
-        </li>
-      {% else %}
-        <li class="menu-list__item">
-          <a href={{VIEW_PROFILE_URL}} class="menu-list__anchor">{% trans "Profile" %}</a>
-        </li>
-        <li class="menu-list__item">
-          <form method="post" action="{% url LOGOUT_URL %}">
-            {% csrf_token %}
-            <input class="menu-list__anchor" value="{% trans "Log out" %}" type="submit">
-          </form>
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-
+        </ul>
+        <ul class="menu-list menu-list--column2">
+          {% footer_page %}
+        </ul>
+        <ul class="menu-list menu-list--column3">
+          {% if not user.is_authenticated %}
+          <li class="menu-list__item">
+            <a href={{REGISTRATION_URL}} class="menu-list__anchor">
+              {% trans "Sign Up" %}</a>
+          </li>
+          <li class="menu-list__item">
+            <a href="{% url LOGIN_URL %}" class="menu-list__anchor">
+              {% trans "Log in" %}</a>
+          </li>
+          {% else %}
+          <li class="menu-list__item">
+            <a href={{VIEW_PROFILE_URL}} class="menu-list__anchor">
+              {% trans "Profile" %}</a>
+          </li>
+          <li class="menu-list__item">
+            <form method="post" action="{% url LOGOUT_URL %}">
+              {% csrf_token %}
+              <input class="menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+            </form>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
 
     <div class="social-media">
+      <div class="heading heading--hero">
+        <h3 class=" heading__subheading">
+          {% trans "Follow us" %}
+        </h3>
+      </div>
       {% social_media_footer %}
     </div>
     <div class="searchCopyright-wrapper">
       {% block search %}
-        <div class="search search--footer">
-          <div class="heading heading--hero">
-            <h3 class=" heading__subheading">
-              {% trans "Search" %}
-            </h3>
-          </div>
-          <form action="{% url 'search' %}" novalidate class="search__form">
-            <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
-            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--search">
-          </form>
+      <div class="search search--footer">
+        <div class="heading heading--hero">
+          <h3 class=" heading__subheading">
+            {% trans "Search" %}
+          </h3>
         </div>
+        <form action="{% url 'search' %}" novalidate class="search__form">
+          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
+          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--search">
+        </form>
+      </div>
       {% endblock %}
       <div class="copyright">
         <p class="copyright__disclaimer">
@@ -262,12 +274,12 @@
         {% endif %}
       </div>
       {% if languages|length > 1 %}
-        <div class="languages languages--footer">
-          <p class="languages__label">{% trans "Language" %}:<p>
-          {% for language in languages %}
-            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-          {% endfor %}
-        </div>
+      <div class="languages languages--footer">
+        <p class="languages__label">{% trans "Language" %}:<p>
+        {% for language in languages %}
+          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+        {% endfor %}
+      </div>
       {% endif %}
     </div>
   </div>
