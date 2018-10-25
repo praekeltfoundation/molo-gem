@@ -2,13 +2,7 @@
   font-size: $font-x-medium;
   padding: $spacer-small $spacer-mid;
   text-transform: uppercase;
-  @each $name, $theme_bg in $sections_theme {
-    &--#{$name} {
-      background: $theme_bg;
-      padding: $spacer-half;
-      max-height: 55px;
-    }
-  }
+
   &--hero {
     background-image: url('/static/img/icons/rwanda/hero-heading.svg'), url('/static/img/icons/rwanda/hero-heading.png');
     background-repeat: no-repeat;
@@ -30,21 +24,33 @@
     background: $color-gray-light;
   }
 
+  @each $name, $theme_bg in $sections_theme {
+    &--#{$name} {
+      background: $theme_bg;
+      padding: $spacer-half;
+      max-height: 55px;
+    }
+  }
   &__component {
     background-color: #000;
     color: #fff;
     padding: 0 $spacer-small;
     font-size: $font-large;
   }
-
+  &__subheading {
+    background-color: $color-yellow;
+    color: #000;
+    font-size: $font-large;
+    padding: 0 $spacer-small;
+    text-transform: uppercase;
+  }
+  &__micro {
+    margin: 0;
+    font-size: $font-x-small;
+  }
   &__subtitle {
     color: #000000;
     font-size: $font-small;
-    text-transform: uppercase;
-  }
-  &__subheading {
-    margin: 0;
-    font-size: $font-x-small;
     text-transform: uppercase;
   }
   &__section {
@@ -57,10 +63,6 @@
   &__article {
     color: $color-cyan-fountain;
     font-size: $font-x-medium;
-  }
-  &__micro {
-    margin: 0;
-    font-size: $font-x-small;
   }
   &__profiles {
     font-size: $font-medium;
