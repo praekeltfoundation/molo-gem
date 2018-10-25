@@ -58,9 +58,15 @@
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
-    padding: 3em 10%;
     text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999999999;
+    padding: 10% 5%;
     @include for-size(desktop-up) {
+      padding: 3em 10%;
       position: fixed;
       top: 70px;
       left: 0;
@@ -99,9 +105,10 @@
     [type="reset"],
     [type="submit"] {
       background-color: $color-cyan;
-      margin: 0;
-      padding: $spacer-half 0;
+      margin: $spacer-half 0;
+      padding: $spacer-half;
       text-decoration: underline;
+      font-weight: bold;
       @include for-size(tablet-portrait-up) {
         background-image: url("/static/img/icons/rwanda/search-icon.svg");
         background-repeat: no-repeat;
@@ -110,6 +117,7 @@
         padding: 0;
         height: 45px;
         width: 75px;
+        margin: 0;
         text-indent: -15em;
         border-radius: 0;
         position: absolute;

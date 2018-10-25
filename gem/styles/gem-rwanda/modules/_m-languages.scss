@@ -1,6 +1,11 @@
 .languageSearch-wrapper {
-  text-align: right;
-  display: inline-block;
+  text-align: left;
+  display: block;
+  @include for-size(phone-only) {
+    display: inline-block;
+    padding: 0;
+    text-align: right;
+  }
   @include for-size(desktop-up) {
     align-self: flex-end;
     flex: 1 auto;
@@ -9,16 +14,28 @@
 }
 .languages {
   display: inline-block;
-  margin: 0 1em 0 0;
-  position: relative;
   text-transform: uppercase;
+  @include for-size(phone-only) {
+    margin: 0 1em 0 0;
+  }
+  @include for-size(tablet-portrait-up) {
+    position: relative;
+  }
   &-wrapper {
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
-    padding: 3em 10%;
     text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999999999;
+
+    width: 100%;
+    padding: 10% 5%;
     @include for-size(desktop-up) {
+      padding: 3em 10%;
       position: fixed;
       top: 70px;
       left: 0;
@@ -32,6 +49,7 @@
       color: #fff;
       cursor: pointer;
       display: inline-block;
+      padding: 0 0 0 0.55em;
       &:before {
         content: " ";
         display: inline-block;
@@ -46,6 +64,9 @@
             height: 45px;
             width: 45px;
         }
+      }
+      @include for-size(desktop-up) {
+        padding: 0;
       }
     }
     &__title {
@@ -80,6 +101,9 @@
     padding: 0;
     &__item {
       display: inline-block;
+      @include for-size(desktop-up) {
+        padding: 0.35em 0;
+      }
     }
     &__label {
       color: #000;

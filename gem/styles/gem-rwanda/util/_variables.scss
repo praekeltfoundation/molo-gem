@@ -53,6 +53,7 @@ $spacer-max                 :       40px;
 
 //BREAKPOINTS
 @mixin for-size($range) {
+  $featurephone_boundary       :       16.875em;      // 270px
   $smartphone_lower_boundary   :       20.000em;      // 320px
   $smartphone_portrait         :       22.500em;      // 360px
   $smartphone_landscape        :       23.438em;      // 375px
@@ -68,8 +69,12 @@ $spacer-max                 :       40px;
   $desktop_medium              :       90.000em;      // 1440px
   $desktop_larger              :       100.000em;     // 1600px
   $desktop_upper_boundary      :       120.000em;     // 1920px
-  @if $range == phone-only {
-    @media (max-width: $smartphone_lower_boundary)
+
+  @if $range == feature-only {
+    @media (min-width: $featurephone_boundary)
+    { @content; }
+  }@else if $range == phone-only {
+    @media (min-width: $smartphone_lower_boundary)
     { @content; }
   } @else if $range == tablet-portrait-up {
     @media (min-width: $smartphone_landscape)
