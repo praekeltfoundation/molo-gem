@@ -75,33 +75,31 @@
       </div>
     </div>
     <div class="nav">
-      <div class="burger-menu">
-        <label for="nav_accordion" class="burger-menu__label">
-          <div class="burger-menu__icon">
-            <span class="burger-menu__bar"></span>
-            <span class="burger-menu__bar"></span>
-            <span class="burger-menu__bar"></span>
+      <div class="burger-nav">
+        <label for="nav_accordion" class="burger-nav__label">
+          <div class="burger-nav__icon">
+            <span class="burger-nav__bar"></span>
+            <span class="burger-nav__bar"></span>
+            <span class="burger-nav__bar"></span>
           </div>
-          <p class="burger-menu__title">{% trans "Menu" %}</p>
+          <p class="burger-nav__title">{% trans "Menu" %}</p>
         </label>
       </div>
-      <input type="checkbox" name="toggle" id="nav_accordion" class="burger-menu__checkbox" />
+      <input type="checkbox" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
       <div class="nav-wrapper">
         <ul class="nav-list nav--primary">
           <li class="nav-list__item">
-            <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
-              {% trans "Home" %}
-            </a>
+            <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
           </li>
           <li class="nav-list__item">
-          {% if not user.is_authenticated %}
-            <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
-          {% else %}
-            <form method="post" action="{% url LOGOUT_URL %}">
-              {% csrf_token %}
-              <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
-            </form>
-          {% endif %}
+            {% if not user.is_authenticated %}
+              <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
+            {% else %}
+              <form method="post" action="{% url LOGOUT_URL %}">
+                {% csrf_token %}
+                <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
+              </form>
+            {% endif %}
           </li>
           <li class="nav-list__item">
           {% if not user.is_authenticated %}
@@ -226,18 +224,12 @@
         </li>
       {% endif %}
     </ul>
+  </div>
+
+
+    <div class="social-media">
+      {% social_media_footer %}
     </div>
-
-    {% if languages|length > 1 %}
-      <div class="languages languages--footer">
-        <p class="languages__label">{% trans "Language" %}:<p>
-        {% for language in languages %}
-          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-        {% endfor %}
-      </div>
-    {% endif %}
-    {% social_media_footer %}
-
     <div class="searchCopyright-wrapper">
       {% block search %}
         <div class="search search--footer">
@@ -269,6 +261,14 @@
           </p>
         {% endif %}
       </div>
+      {% if languages|length > 1 %}
+        <div class="languages languages--footer">
+          <p class="languages__label">{% trans "Language" %}:<p>
+          {% for language in languages %}
+            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
   </body>
