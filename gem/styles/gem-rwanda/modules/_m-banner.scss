@@ -22,7 +22,7 @@
     padding: $spacer-half;
 
     @include for-size(desktop-up) {
-      padding: 1em;
+      padding: 0.55em 0 0;
       width: 40%;
     }
   }
@@ -31,9 +31,6 @@
    font-size: $font-x-medium;
    text-transform: uppercase;
    font-weight: bold;
-   @include for-size(desktop-up) {
-     font-size: $font-xx-large;
-   }
   }
   &__subtitle {
     color: #fff;
@@ -41,13 +38,16 @@
     font-size: $font-x-medium;
     font-weight: bold;
     text-transform: uppercase;
-    @include for-size(desktop-up) {
-      font-size: $font-xx-large;
-    }
   }
 
   &--main {
     overflow: hidden;
+    #{$block}__title,
+    #{$block}__subtitle {
+      @include for-size(desktop-up) {
+        font-size: $font-xx-large;
+      }
+    }
     #{$block}__image {
       display: block;
       max-height: 320px;
@@ -68,7 +68,10 @@
     }
   }
 
-  &--first,  &--second, &--third, &--fourth  {
+  &--position-one,
+  &--position-two,
+  &--position-three,
+  &--position-four  {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
@@ -76,35 +79,35 @@
       max-width: 40%;
     }
     @include for-size(desktop-up) {
-      background-position: center -30px;
+      background-position: center -10px;
       margin: 0.4em auto 0;
       padding: 1em 15%;
       height: 300px;
     }
   }
 
-  &--first {
+  &--position-one {
     background-color: $color-orange;
     @include for-size(desktop-up) {
       background-color: transparent;
       background-image: url("/static/img/lines/rwanda/banner_bg1.png");
     }
   }
-  &--second {
+  &--position-two {
     background-color: $color-cyan-dark;
     @include for-size(desktop-up) {
       background-color: transparent;
       background-image: url("/static/img/lines/rwanda/banner_bg2.png");
     }
   }
-  &--third {
+  &--position-three {
     background-color: $color-yellow;
     @include for-size(desktop-up) {
       background-color: transparent;
       background-image: url("/static/img/lines/rwanda/banner_bg3.png");
     }
   }
-  &--fourth {
+  &--position-four {
     background-color: $color-pink-hollywood;
     @include for-size(desktop-up) {
       background-color: transparent;
