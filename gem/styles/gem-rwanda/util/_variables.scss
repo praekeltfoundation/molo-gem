@@ -1,92 +1,99 @@
-
-// TYPOGRAPHY
-@import "gem/styles/gem/_fonts";
-$sans-serif                   :       "TwCenMT-Regular", ArialMT, Arial, sans-serif;
-$TwCentBold                   :       "TwCenMT-Bold", Arial-BoldMT, Arial, sans-serif;
-
-$Avenir-ot                    :       "Avenir", ArialMT, Arial, sans-serif;
-$AvenirBold                   :       "AvenirBold", Arial-BoldMT, Arial, sans-serif;
-
-$AvenirNextCondensed          :       "AvenirNextCondensed", Arial, sans-serif;;
-$AvenirNextCondensed-Medium   :       "AvenirNextCondensed-Medium", Arial-BoldMT, Arial, sans-serif;
-$AvenirNextCondensed-DemiBold :       "AvenirNextCondensed-DemiBold", Arial-BoldMT, Arial, sans-serif;
+//IMPORTS
+@import "gem/styles/gem/_fonts"; // TYPOGRAPHY
+@import "colors";// COLOR VARIABLES
 
 
-//Section theme images
-$section1_theme: url('/static/img/patterns/rwanda/section-theme/baza-shangaza.png') repeat-x center center/100%;
-$section2_theme: url('/static/img/patterns/rwanda/section-theme/duhitemo.png') repeat-x center center/100%;
-$section3_theme: url('/static/img/patterns/rwanda/section-theme/hirya-no-hino.png') repeat-x center center/100%;
-$section4_theme: url('/static/img/patterns/rwanda/section-theme/ibyamamare.png') repeat-x center center/100%;
-$section5_theme: url('/static/img/patterns/rwanda/section-theme/ikitrgererezo.png') repeat-x center center/100%;
-$section6_theme: url('/static/img/patterns/rwanda/section-theme/inkurr-zanyu.png') repeat-x center center/100%;
-$section7_theme: url('/static/img/patterns/rwanda/section-theme/tumenye-nibi.png') repeat-x center center/100%;
-$section8_theme: url('/static/img/patterns/rwanda/section-theme/udukino.png')  repeat-x center center/100%;
+$sans-serif                       :       "TwCenMT-Regular", ArialMT, Arial, sans-serif;
+$TwCentBold                       :       "TwCenMT-Bold", Arial-BoldMT, Arial, sans-serif;
+
+$Avenir-ot                        :       "Avenir", ArialMT, Arial, sans-serif;
+$AvenirBold                       :       "AvenirBold", Arial-BoldMT, Arial, sans-serif;
+
+$AvenirNextCondensed              :       "AvenirNextCondensed", Arial, sans-serif;
+
+$AvenirNextCondensed-Medium       :       "AvenirNextCondensed-Medium", Arial-BoldMT, Arial, sans-serif;
+
+$AvenirNextCondensed-DemiBold     :       "AvenirNextCondensed-DemiBold", Arial-BoldMT, Arial, sans-serif;
+
+
+//SECTION THEME PATTERNS
+//Find a better iterative way for this.
+$section1_theme:$color-pink url('/static/img/patterns/rwanda/section-theme/baza-shangaza.png') repeat-x center center/contain;
+
+$section2_theme:$color-yellow-gorse url('/static/img/patterns/rwanda/section-theme/duhitemo.png') repeat-x center center/contain;
+
+$section3_theme:$color-pink-hollywood url('/static/img/patterns/rwanda/section-theme/hirya-no-hino.png') repeat-x center center/contain;
+
+$section4_theme:$color-red url('/static/img/patterns/rwanda/section-theme/ibyamamare.png') repeat-x center center/contain;
+
+$section5_theme:$color-yellow-gorse url('/static/img/patterns/rwanda/section-theme/ikitrgererezo.png') repeat-x center center/contain;
+
+$section6_theme:$color-red url('/static/img/patterns/rwanda/section-theme/inkurr-zanyu.png') repeat-x center center/contain;
+
+$section7_theme:$color-pink url('/static/img/patterns/rwanda/section-theme/tumenye-nibi.png') repeat-x center center/contain;
+
+$section8_theme:#000 url('/static/img/patterns/rwanda/section-theme/udukino.png')  repeat-x center center/contain;
+
 $sections_theme: (
-  section1              :      $section1_theme,
-  section2              :      $section2_theme,
-  section3              :      $section3_theme,
-  section4              :      $section4_theme,
-  section5              :      $section5_theme,
-  section6              :      $section6_theme,
-  section7              :      $section7_theme,
-  section8              :      $section8_theme
+  section1                      :         $section1_theme,
+  section2                      :         $section2_theme,
+  section3                      :         $section3_theme,
+  section4                      :         $section4_theme,
+  section5                      :         $section5_theme,
+  section6                      :         $section6_theme,
+  section7                      :         $section7_theme,
+  section8                      :         $section8_theme
 );
 
 //FONTSIZE UNITS
-$font-xx-small              :       12px;
-$font-x-small               :       14px;
-$font-small                 :       16px;
-$font-x-medium              :       18px;
-$font-medium                :       20px;
-$font-large                 :       22px;
-$font-x-large               :       24px;
-$font-xx-large              :       32px;
+$font-xx-small                  :         12px;
+$font-x-small                   :         14px;
+$font-small                     :         16px;
+$font-x-medium                  :         18px;
+$font-medium                    :         20px;
+$font-large                     :         22px;
+$font-x-large                   :         24px;
+$font-xx-large                  :         32px;
 
 //SPACING UNITS
-$spacer-small               :       5px;
-$spacer-half                :       10px;
-$spacer-mid                 :       15px;
-$spacer-multiple            :       20px;
-$spacer-x-max               :       30px;
-$spacer-max                 :       40px;
+$spacer-small                   :         5px;
+$spacer-half                    :         10px;
+$spacer-mid                     :         15px;
+$spacer-multiple                :         20px;
+$spacer-x-max                   :         30px;
+$spacer-max                     :         40px;
 
 
 //BREAKPOINTS
 @mixin for-size($range) {
-  $featurephone_boundary       :       16.875em;      // 270px
-  $smartphone_lower_boundary   :       20.000em;      // 320px
-  $smartphone_portrait         :       22.500em;      // 360px
-  $smartphone_landscape        :       23.438em;      // 375px
-  $smartphone_upper_boundary   :       30.000em;      // 480px
+  $featurephone_boundary        :         16.875em;      // 270px
+  $smartphone_lower_boundary    :         20.000em;      // 320px
+  $smartphone_portrait          :         22.500em;      // 360px
+  $smartphone_landscape         :         23.438em;      // 375px
+  $smartphone_upper_boundary    :         30.000em;      // 480px
 
-  $tablet_lower_boundary       :       45.000em;      // 720px
-  $tablet_portrait             :       48.000em;      // 768px
-  $tablet_landscape            :       62.000em;      // 992px [?]
-  $tablet_upper_boundary       :       64.000em;      // 1024px
+  $tablet_lower_boundary        :         45.000em;      // 720px
+  $tablet_portrait              :         48.000em;      // 768px
+  $tablet_landscape             :         62.000em;      // 992px [?]
+  $tablet_upper_boundary        :         64.000em;      // 1024px
 
-  $desktop_lower_boundary      :       80.000em;      // 1280px
-  $desktop_smaller             :       85.375em;      // 1366px
-  $desktop_medium              :       90.000em;      // 1440px
-  $desktop_larger              :       100.000em;     // 1600px
-  $desktop_upper_boundary      :       120.000em;     // 1920px
+  $desktop_lower_boundary       :         80.000em;      // 1280px
+  $desktop_smaller              :         85.375em;      // 1366px
+  $desktop_medium               :         90.000em;      // 1440px
+  $desktop_larger               :         100.000em;     // 1600px
+  $desktop_upper_boundary       :         120.000em;     // 1920px
 
   @if $range == feature-only {
-    @media (min-width: $featurephone_boundary)
-    { @content; }
+    @media (min-width: $featurephone_boundary) { @content; }
   }@else if $range == phone-only {
-    @media (min-width: $smartphone_lower_boundary)
-    { @content; }
+    @media (min-width: $smartphone_lower_boundary) { @content; }
   } @else if $range == tablet-portrait-up {
-    @media (min-width: $smartphone_landscape)
-    { @content; }
+    @media (min-width: $smartphone_landscape) { @content; }
   } @else if $range == tablet-landscape-up {
-    @media (min-width:  $tablet_lower_boundary)
-    { @content; }
+    @media (min-width:  $tablet_lower_boundary) { @content; }
   } @else if $range == desktop-up {
-    @media (min-width: $tablet_upper_boundary)
-    { @content; }
+    @media (min-width: $tablet_upper_boundary) { @content; }
   } @else if $range == big-desktop-up {
-    @media (min-width:  $desktop_lower_boundary)
-    { @content; }
+    @media (min-width:  $desktop_lower_boundary) { @content; }
   }
 }
