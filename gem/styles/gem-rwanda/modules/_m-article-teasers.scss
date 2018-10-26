@@ -5,30 +5,79 @@
   @include for-size(desktop-up) {
     display: flex;
   }
-  &__wrapper {
+  &__latest-wrapper {
+    padding: 0 2em 0 10%;
+    @include for-size(desktop-up) {
+      order: 1;
+      width: 85%;
+    }
+  }
+  &__topicOfTheDay-wrapper {
+    background-color: $color-yellow-gorse;
+    padding: 0 2em;
+    @include for-size(desktop-up) {
+      order: 2;
+      width: 40%;
+    }
+  }
+  &__latestTopPublished {
     @include for-size(desktop-up) {
       display: flex;
       flex-wrap: wrap;
     }
   }
+  &__latestHero {
+    @include for-size(desktop-up) {
+      order: 1;
+      margin: 0 5% 0 0;
+      width: 60%;
+    }
+  }
   .teaser-stacklist {
     margin: 0;
     padding: 0;
-    @include for-size(desktop-up) {
-      order: 2;
-      width: 35%;
-    }
-    &--eventTopic {
+    &--latestHeroList {
+      overflow: auto;
       @include for-size(desktop-up) {
+        order: 2;
+        width: 35%;
+      }
+      .teaser-stacklist__item {
+        align-items: center;
+        margin: 0 0 2.5em;
+        width: auto;
+      }
+      .teaser-stacklist__images {
+        width: 100%;
+      }
+    }
+    &--latestGeneralList {
+      order: 3;
+      flex: 1 auto;
+    }
+    &--topicOfTheDay {
+      @include for-size(desktop-up) {
+        width: 100%;
+      }
+      .teaser-stacklist__item {
+        display: block;
+        align-items: center;
+        margin: 0 0 2.5em;
+        width: auto;
+      }
+      .teaser-stacklist__images {
         width: 100%;
       }
     }
     &__item {
-      align-items: center;
-      margin: 0 0 2.5em;
+      display: inline-block;
+      width: 30%;
+      vertical-align: top;
+      margin: 0 0.90em 1em;
     }
     &__images {
-      width: 80%;
+      width: 100%;
+      margin: 0 auto;
     }
     &__thumbnail {
       border: 3px solid $color-cyan;
@@ -37,7 +86,7 @@
     }
     &__title {
       text-transform: uppercase;
-      font-size: $font-x-large;
+      font-size: $font-small;
       margin: 0;
       word-wrap: break-word;
       word-break: initial;
@@ -45,49 +94,16 @@
     &__subtitle {
       margin: 0;
       text-align: left;
-      font-weight: bold;
     }
   }
-  &--latest {
-    padding: 0 2em 0 10%;
-    @include for-size(desktop-up) {
-      order: 1;
-      width: 85%;
-    }
-  }
-  &--eventTopic-wrapper {
-    background-color: $color-yellow-gorse;
-    padding: 0 2em;
-    @include for-size(desktop-up) {
-      order: 2;
-      width: 40%;
-    }
-  }
-
-  &--hero-story {
-    overflow: auto;
-    @include for-size(desktop-up) {
-      order: 1;
-      margin: 0 5% 0 0;
-      width: 60%;
-    }
-    .teaser-stacklist__images {
-      width: 100%;
-    }
+  &--featuredHomepage {
+    padding: 0 10%;
   }
 
   &--related {
-    background: $color-gray-light;
     padding: $spacer-small $spacer-mid;
-    .heading {
-      padding: $spacer-half $spacer-mid;
-    }
   }
   &--recommended {
-    background: $color-gray-light;
     padding: $spacer-mid $spacer-mid 0;
-    .heading {
-      padding: $spacer-half $spacer-mid;
-    }
   }
 }

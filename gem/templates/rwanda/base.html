@@ -105,9 +105,9 @@
           </li>
           <li class="nav-list__item">
           {% if not user.is_authenticated %}
-            <a href={{REGISTRATION_URL}} class="nav-list__anchor">{% trans "Sign up" %}</a>
+            <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
           {% else %}
-            <a href={{VIEW_PROFILE_URL}} class="nav-list__anchor">{% trans "Profile" %}</a>
+            <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
           {% endif %}
           </li>
         </ul>
@@ -209,9 +209,13 @@
           {% footer_page %}
         </ul>
         <ul class="menu-list menu-list--column3">
+          <li class="menu-list__item">
+            <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
+              {% trans "Sign Up" %}</a>
+          </li>
           {% if not user.is_authenticated %}
           <li class="menu-list__item">
-            <a href={{REGISTRATION_URL}} class="menu-list__anchor">
+            <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
               {% trans "Sign Up" %}</a>
           </li>
           <li class="menu-list__item">
@@ -220,7 +224,7 @@
           </li>
           {% else %}
           <li class="menu-list__item">
-            <a href={{VIEW_PROFILE_URL}} class="menu-list__anchor">
+            <a href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor">
               {% trans "Profile" %}</a>
           </li>
           <li class="menu-list__item">
