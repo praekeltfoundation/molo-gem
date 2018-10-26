@@ -257,6 +257,14 @@
       </div>
       {% endblock %}
       <div class="copyright">
+        {% if languages|length > 1 %}
+        <div class="languages languages--footer">
+          <p class="languages__label">{% trans "Language" %}:</p>
+          {% for language in languages %}
+            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
         <p class="copyright__disclaimer">
           &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
           {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
@@ -273,14 +281,6 @@
           </p>
         {% endif %}
       </div>
-      {% if languages|length > 1 %}
-      <div class="languages languages--footer">
-        <p class="languages__label">{% trans "Language" %}:<p>
-        {% for language in languages %}
-          <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
     </div>
   </div>
   </body>

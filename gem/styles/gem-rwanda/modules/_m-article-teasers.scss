@@ -3,22 +3,25 @@
   overflow: auto;
   position: relative;
   @include for-size(desktop-up) {
-    padding: 0 10%;
+    display: flex;
   }
   &__wrapper {
     @include for-size(desktop-up) {
-      //align-items: flex-start;
       display: flex;
       flex-wrap: wrap;
     }
   }
-
   .teaser-stacklist {
     margin: 0;
     padding: 0;
     @include for-size(desktop-up) {
       order: 2;
       width: 35%;
+    }
+    &--eventTopic {
+      @include for-size(desktop-up) {
+        width: 100%;
+      }
     }
     &__item {
       align-items: center;
@@ -43,6 +46,21 @@
       margin: 0;
       text-align: left;
       font-weight: bold;
+    }
+  }
+  &--latest {
+    padding: 0 2em 0 10%;
+    @include for-size(desktop-up) {
+      order: 1;
+      width: 85%;
+    }
+  }
+  &--eventTopic-wrapper {
+    background-color: $color-yellow-gorse;
+    padding: 0 2em;
+    @include for-size(desktop-up) {
+      order: 2;
+      width: 40%;
     }
   }
 
@@ -72,6 +90,4 @@
       padding: $spacer-half $spacer-mid;
     }
   }
-
-
 }

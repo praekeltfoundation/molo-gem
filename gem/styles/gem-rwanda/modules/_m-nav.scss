@@ -1,8 +1,14 @@
 .nav {
   $block: unquote("#{&}");
+  display: block;
   overflow: auto;
-  display: inline-block;
   vertical-align: middle;
+  padding: 0 5%;
+  text-align: left;
+  @include for-size(phone-only) {
+    display: inline-block;
+    padding: 0;
+  }
   @include for-size(desktop-up) {
     flex: 1 auto;
     order: 1;
@@ -12,8 +18,14 @@
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
-    padding: 3em 10%;
+    padding: 0 5%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999999999;
     @include for-size(desktop-up) {
+      padding: 3em 10%;
       position: fixed;
       top: 70px;
       left: 0;
@@ -29,33 +41,51 @@
     text-align: left;
     &__item {
       display: block;
-      margin: 0.625em;
+      @include for-size(desktop-up) {
+        margin: 0.625em;
+      }
     }
     &__title {
       color: #000;
       font-size: $font-x-medium;
-      padding: 0 0 1em;
       text-transform: uppercase;
+      @include for-size(desktop-up) {
+      padding: 0 0 1em;
+      }
     }
     &__anchor {
       background: transparent;
       color: $color-cyan;
-      text-transform: uppercase;
       font-size: $font-x-medium;
+      font-weight: bold;
+      text-decoration: underline;
+      text-transform: uppercase;
       padding: $spacer-half 0;
-
+      margin: 0;
+      @include for-size(desktop-up) {
+        font-weight: normal;
+      }
     }
   }
   &--primary {
-    display: inline-block;
-    padding: 0 3.500em 0 0;
-    border-right: 3px solid #000;
+    display: block;
+    padding: 5% 0 10%;
+    @include for-size(desktop-up) {
+      display: inline-block;
+      border-right: 3px solid #000;
+      padding: 0 3.500em 0 0;
+    }
     #{$block}-list__anchor {
-      font-size: $font-large;
+      @include for-size(desktop-up) {
+        font-size: $font-large;
+      }
     }
   }
   &--secondary {
-    display: inline-block;
-    padding: 0 0 0 3.500em;
+    display: block;
+    @include for-size(desktop-up) {
+      display: inline-block;
+      padding: 0 0 0 3.500em;
+    }
   }
 }
