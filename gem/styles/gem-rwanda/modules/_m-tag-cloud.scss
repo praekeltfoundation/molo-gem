@@ -1,18 +1,19 @@
 .tag-cloud {
-  background-color: $color-cyan;
+  background-color: #000;
+  color: #fff;
   text-align: center;
-  padding: $spacer-mid;
+  padding: 0 10%;
   &-list {
-    padding: 0;
+    padding: 0 25%;
+    margin: 0;
     &__item {
-      color: $color-yellow-gorse;
       display: inline-block;
       padding-right: $spacer-small;
     }
   }
   &__anchor {
-    color: $color-yellow-gorse;
-    font-size: $font-x-medium ;
+    color: $color-cyan-dark;
+    font-size: $font-large;
     &:before {
       content: "#";
       display: inline;
@@ -20,43 +21,5 @@
   }
   &__title {
     margin-left: -($spacer-small - 2);
-  }
-  .heading__subheading {
-    font-size: $font-medium;
-    color: #ffffff;
-    font-weight: normal;
-    &:after {
-      background: url("/static/img/patterns/rwanda/pattern-line-yellow.png") repeat-x 0 0/70%;
-      content: "";
-      display: block;
-      height: 15px;
-    }
-  }
-}
-
-.article-page__tag-cloud {
-  padding: 0 $spacer-x-max;
-}
-.teaser-stacklist-tags {
-  display: inline-block;
-  padding: 0;
-  &__item {
-    display: inline-block;
-    padding: 0 $spacer-small 0 0;
-  }
-  &__anchor {
-    color: $color-pink;
-    font-size: $font-xx-small;
-    font-weight: bold;
-      &:hover, &:focus, &:active {
-        color: $color-yellow;
-      }
-      &:before {
-        content: "#";
-        display: inline;
-      }
-  }
-  .heading {
-    padding: $spacer-half 0;
   }
 }

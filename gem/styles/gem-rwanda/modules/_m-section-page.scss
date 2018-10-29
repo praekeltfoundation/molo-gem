@@ -1,10 +1,14 @@
-.section {
-  &-page {
-    overflow: auto;
-    .heading {
-      background-color: $color-gray;
-      &__section {
-        padding: 0;
+.section-page {
+  overflow: auto;
+  &__wrapper {
+    padding: 0 5%;
+  }
+  &__theme {
+    @each $name, $theme_bg in $sections_theme {
+      &--#{$name} {
+        background: $theme_bg;
+        padding: 2em;
+        width: 100%;
       }
     }
   }

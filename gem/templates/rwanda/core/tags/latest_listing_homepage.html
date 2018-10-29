@@ -1,82 +1,158 @@
-{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
+{% load wagtailcore_tags core_tags wagtailimages_tags wagtailsettings_tags gem_tags staticfiles comments %}
+{% get_settings %}
 {% if articles %}
-  <div class="article-teaser--latest">
+  <div class="article-teaser__latest-wrapper">
     <div class="heading heading--hero">
       <h2 class=" heading__component">
         {% trans "Latest stories" %}
       </h2>
     </div>
     <div class="article-teaser__wrapper">
-      {% with articles|first as article %}
-        <div class="article-teaser--hero-story">
-          {% if article.get_effective_image %}
-            <div class="teaser-stacklist__images">
-              {% image article.get_effective_image width-1024 as teaser_thumbnail %}
-              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-            </div>
-          {% endif %}
-
-          {% load_tags_for_article article as tags %}
-          <ul class="teaser-stacklist-tags">
-            {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
-              {% for tag in tags %}
-                {% if not tag.title.20 %}
-                  <li class="teaser-stacklist-tags__item">
-                    <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
-                      {{ tag.title }}
-                    </a>
-                  </li>
-                {% endif %}
-              {% endfor %}
+      <div class="article-teaser__latestTopPublished">
+        {% with articles|first as article %}
+          <div class="article-teaser__latestHero">
+            {% if article.get_effective_image %}
+              <div class="teaser-stacklist__images">
+                {% image article.get_effective_image width-1024 as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+              </div>
             {% endif %}
-            {% get_comment_count for article as comment_count %}
-            {% if comment_count > 0 %}
+
+            {% load_tags_for_article article as tags %}
+            {% if tags %}
+            <ul class="teaser-stacklist-tags">
+              {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
+                {% for tag in tags %}
+                  {% if not tag.title.20 %}
+                    <li class="teaser-stacklist-tags__item">
+                      <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+                        <span class="teaser-stacklist-tags__title">
+                          {{ tag.title }}
+                        </span>
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              {% get_comment_count for article as comment_count %}
+              {% if comment_count > 0 %}
               <li class="teaser-stacklist-tags__item">
                 <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
                   <div class="comment-counter__icon"></div>
-                  <span class="comment-counter__numeral">{{comment_count}}</span>
+                  <span class="comment-counter__numeral">
+                    {{comment_count}}
+                  </span>
                 </a>
               </li>
+              {% endif %}
+            </ul>
             {% endif %}
-          </ul>
 
-          <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
-            {% if article.title_highlight %}
-              {{ article.title_highlight|smarttruncatechars:23|safe}}
-            {% else %}
-              {{ article.title|safe}}
+            <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+              {% if article.title_highlight %}
+                {{ article.title_highlight|smarttruncatechars:23|safe}}
+              {% else %}
+                {{ article.title|safe}}
+              {% endif %}
+            </h3>
+            {% if article.subtitle_highlight or article.body_highlight %}
+              <p class="teaser-stacklist__subtitle">
+              {% if article.subtitle_highlight %}
+                {{article.subtitle_highlight|smarttruncatechars:30|safe}}
+              {% elif article.body_highlight %}
+                {{article.body_highlight|smarttruncatechars:30|safe}}
+              {% endif %}
+              </p>
+            {% elif article.subtitle %}
+              <p class="teaser-stacklist__subtitle">
+              {% if article.title.30 %}
+                {{ article.subtitle|smarttruncatechars:30|safe}}
+              {% else %}
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              {% endif %}
+              </p>
             {% endif %}
-          </h3>
-          {% if article.subtitle_highlight or article.body_highlight %}
-          <p class="teaser-stacklist__subtitle">
-            {% if article.subtitle_highlight %}
-              {{article.subtitle_highlight|smarttruncatechars:30|safe}}
-            {% elif article.body_highlight %}
-              {{article.body_highlight|smarttruncatechars:30|safe}}
-            {% endif %}
-          </p>
-          {% elif article.subtitle %}
-          <p class="teaser-stacklist__subtitle">
-            {% if article.title.30 %}
-              {{ article.subtitle|smarttruncatechars:30|safe}}
-            {% else %}
-              {{ article.subtitle|smarttruncatechars:50|safe}}
-            {% endif %}
-          </p>
-          {% endif %}
-          {% with article.body|first as block %}
-            {% if block.block_type == 'paragraph' %}
-              <p class="teaser-stacklist__paragraph">
-                {{block.value|smarttruncatechars:1000|safe}}</p>
-            {% endif %}
-          {% endwith %}
-          <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
-            {% trans "Read more" %}
-          </a>
-        </div>
-      {% endwith %}
-      <ul class="teaser-stacklist">
-        {% for article in articles|slice:"1:" %}
+            {% with article.body|first as block %}
+              {% if block.block_type == 'paragraph' %}
+                <p class="teaser-stacklist__paragraph">
+                  {{block.value|smarttruncatechars:1000|safe}}
+                </p>
+              {% endif %}
+            {% endwith %}
+            <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+          </div>
+        {% endwith %}
+        {% with articles|slice:":3" as articleTopList %}
+          <ul class="teaser-stacklist teaser-stacklist--latestHeroList">
+            {% for article in articleTopList|slice:"1:" %}
+            <li class="teaser-stacklist__item">
+              {% if article.get_effective_image %}
+                <div class="teaser-stacklist__images">
+                  {% image article.get_effective_image width-180 as teaser_thumbnail %}
+                  <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                </div>
+              {% endif %}
+              {% load_tags_for_article article as tags %}
+              {% if tags %}
+              <ul class="teaser-stacklist-tags">
+                {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
+                  {% for tag in tags %}
+                    {% if not tag.title.20 %}
+                      <li class="teaser-stacklist-tags__item">
+                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
+                          <span class="teaser-stacklist-tags__title">
+                            {{ tag.title }}
+                          </span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% get_comment_count for article as comment_count %}
+                {% if comment_count > 0 %}
+                  <li class="teaser-stacklist-tags__item">
+                    <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                      <div class="comment-counter__icon"></div>
+                      <span class="comment-counter__numeral">
+                        {{comment_count}}
+                      </span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+                {% if article.title_highlight %}
+                  {{ article.title_highlight|smarttruncatechars:23|safe}}
+                {% else %}
+                  {{ article.title|safe}}
+                {% endif %}
+              </h3>
+              {% if article.subtitle_highlight or article.body_highlight %}
+                <p class="teaser-stacklist__subtitle">
+                {% if article.subtitle_highlight %}
+                  {{article.subtitle_highlight|smarttruncatechars:30|safe}}
+                {% elif article.body_highlight %}
+                  {{article.body_highlight|smarttruncatechars:30|safe}}
+                {% endif %}
+                </p>
+              {% elif article.subtitle %}
+                <p class="teaser-stacklist__subtitle">
+                {% if article.title.30 %}
+                  {{ article.subtitle|smarttruncatechars:30|safe}}
+                {% else %}
+                  {{ article.subtitle|smarttruncatechars:50|safe}}
+                {% endif %}
+                </p>
+              {% endif %}
+              <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
+              {% trans "Read more" %}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endwith %}
+        <ul class="teaser-stacklist teaser-stacklist--latestGeneralList">
+          {% for article in articles|slice:"4:" %}
           <li class="teaser-stacklist__item">
             {% if article.get_effective_image %}
               <div class="teaser-stacklist__images">
@@ -85,13 +161,16 @@
               </div>
             {% endif %}
             {% load_tags_for_article article as tags %}
+            {% if tags %}
             <ul class="teaser-stacklist-tags">
               {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
                 {% for tag in tags %}
                   {% if not tag.title.20 %}
                     <li class="teaser-stacklist-tags__item">
                       <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
-                        {{ tag.title }}
+                        <span class="teaser-stacklist-tags__title">
+                          {{ tag.title }}
+                        </span>
                       </a>
                     </li>
                   {% endif %}
@@ -102,11 +181,14 @@
                 <li class="teaser-stacklist-tags__item">
                   <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
                     <div class="comment-counter__icon"></div>
-                    <span class="comment-counter__numeral">{{comment_count}}</span>
+                    <span class="comment-counter__numeral">
+                      {{comment_count}}
+                    </span>
                   </a>
                 </li>
               {% endif %}
             </ul>
+            {% endif %}
             <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
               {% if article.title_highlight %}
                 {{ article.title_highlight|smarttruncatechars:23|safe}}
@@ -116,26 +198,27 @@
             </h3>
             {% if article.subtitle_highlight or article.body_highlight %}
               <p class="teaser-stacklist__subtitle">
-                {% if article.subtitle_highlight %}
-                  {{article.subtitle_highlight|smarttruncatechars:30|safe}}
-                {% elif article.body_highlight %}
-                  {{article.body_highlight|smarttruncatechars:30|safe}}
-                {% endif %}
+              {% if article.subtitle_highlight %}
+                {{article.subtitle_highlight|smarttruncatechars:30|safe}}
+              {% elif article.body_highlight %}
+                {{article.body_highlight|smarttruncatechars:30|safe}}
+              {% endif %}
               </p>
             {% elif article.subtitle %}
               <p class="teaser-stacklist__subtitle">
-                {% if article.title.30 %}
-                  {{ article.subtitle|smarttruncatechars:30|safe}}
-                {% else %}
-                  {{ article.subtitle|smarttruncatechars:50|safe}}
-                {% endif %}
+              {% if article.title.30 %}
+                {{ article.subtitle|smarttruncatechars:30|safe}}
+              {% else %}
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              {% endif %}
               </p>
             {% endif %}
             <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
-              {% trans "Read more" %}</a>
+            {% trans "Read more" %}</a>
           </li>
-        {% endfor %}
-      </ul>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
 {% endif %}

@@ -12,24 +12,8 @@
     padding: ($spacer-x-max + 5) $spacer-small;
     margin: $spacer-mid 0;
   }
-  &--subtitle {
-    color: #000000;
-    font-size: $font-small;
-    margin: 0;
-    text-transform: none;
-    padding: $spacer-half $spacer-mid 0;
-
-  }
-  &--background {
-    background: $color-gray-light;
-  }
-
-  @each $name, $theme_bg in $sections_theme {
-    &--#{$name} {
-      background: $theme_bg;
-      padding: $spacer-half;
-      max-height: 55px;
-    }
+  &--section {
+    display: inline-block;
   }
   &__component {
     background-color: #000;
@@ -53,7 +37,7 @@
     font-size: $font-small;
     text-transform: uppercase;
   }
-  &__section {
+  &__section-name {
     color: #ffffff;
     margin: 0;
     font-size: $font-x-medium;
