@@ -1,14 +1,35 @@
 .section-page {
+  $block: unquote("#{&}");
   overflow: auto;
   &__wrapper {
     padding: 0 5%;
   }
+  &__icon {
+    width: 100%;
+  }
+  &__title {
+    color: #ffffff;
+    margin: 0;
+    font-size: $font-x-medium;
+    text-align: center;
+    padding: $spacer-half 0;
+  }
   &__theme {
-    @each $name, $theme_bg in $sections_theme {
+    width: 100%;
+    padding: 2em;
+    @each $name, $theme in $sections_theme {
       &--#{$name} {
-        padding: 2em;
-        width: 100%;
+        background-color: $sectionColorTheme;
       }
     }
   }
+
+  @each $name, $theme in $sections_theme {
+    &__#{$name} {
+      #{$block}__title {
+        background-color: $sectionColorTheme;
+      }
+    }
+  }
+
 }

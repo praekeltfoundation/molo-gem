@@ -6,12 +6,12 @@
   {% load_child_sections_for_section self as sections %}
   <div class="section-page__theme {% if self.get_effective_extra_style_hints %}section-page__theme--{{self.get_effective_extra_style_hints}}{% endif %}"></div>
   <div class="section-page__wrapper">
-    <div class="heading heading--section">
+    <div class="heading heading--section {% if self.get_effective_extra_style_hints %}section-page__{{self.get_effective_extra_style_hints}}{% endif %}">
       {% if self.get_effective_image %}
         {% image self.get_effective_image fill-172x128 as section_photo %}
-          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="heading--section__thumbnail"/>
+          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section-page__icon"/>
       {% endif %}
-      <h1 class="heading__section-title">{{self.title}}</h1>
+      <h1 class="section-page__title">{{self.title}}</h1>
     </div>
     {% load_child_articles_for_section self as articles %}
     <ul class="teaser-stacklist">

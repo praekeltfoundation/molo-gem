@@ -36,8 +36,8 @@ $section8_theme:#000 url('/static/img/patterns/rwanda/section-theme/udukino.png'
 
 $sections_theme: (
   section1: (
-    background-image: url($section1_theme),
-    background-color: $color-pink
+    imageTheme: url($section1_theme),
+    colorTheme: $color-pink
   ),
   section2                      :         $section2_theme,
   section3                      :         $section3_theme,
@@ -47,9 +47,8 @@ $sections_theme: (
   section7                      :         $section7_theme,
   section8                      :         $section8_theme
 );
-
-$sectionOneImage                :     image(section1, background-image);
-$sectionOneColor                :     color(section1, background-color);
+$sectionImageTheme : map-deep-get($sections_theme, "section1", "imageTheme");
+$sectionColorTheme : map-deep-get($sections_theme, "section1" "colorTheme");
 
 
 
