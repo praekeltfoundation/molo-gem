@@ -1,29 +1,15 @@
-.article {
+.article-page {
   $block: unquote("#{&}");
-  &-page {
-    .heading {
-      padding: $spacer-half $spacer-x-max;
-    }
-    #{$block}__subtitle {
-      padding: 0 $spacer-x-max;
-      margin: 0;
-    }
-    .article-teaser__thumbnail {
-      width: 100%;
-      max-width: none;
-    }
-    .call-to-action__nav-item-text--article-comments {
-      padding: $spacer-half 0 0 $spacer-x-max;
-    }
-    .social-media {
-      &-list {
-        padding: 0 $spacer-half;
-        &__item {
-          display: inline-block;
-        }
-      }
-    }
+  padding: 0 5%;
+  @include for-size(desktop-up) {
+    padding: 0 10%;
   }
+
+  &__subtitle {
+    padding: 0 $spacer-x-max;
+    margin: 0;
+  }
+
   p {
     padding: 0 ($spacer-multiple + 5);
   }
