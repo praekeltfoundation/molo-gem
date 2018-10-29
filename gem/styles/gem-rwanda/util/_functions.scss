@@ -6,10 +6,11 @@
 /// @return {*} - Desired value
 
 @function map-deep-get($map, $keys...) {
-    @each $key in $keys {
-        $map: map-get($map, $key);
-    }
-    @return $map;
+  $value: $map;
+  @each $key in $keys {
+    $value: map-get($value, $key);
+  }
+  @return $value;
 }
 
 @function color($group, $color) {

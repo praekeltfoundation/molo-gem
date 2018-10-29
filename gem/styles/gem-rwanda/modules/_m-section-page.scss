@@ -17,19 +17,20 @@
   &__theme {
     width: 100%;
     padding: 2em;
-    @each $name, $theme in $sections_theme {
-      &--#{$name} {
-        background-color: $sectionColorTheme;
+    @each $name, $themeItem in $sectionThemes {
+      &--#{name} {
+        border: 1px solid green;
+        background-image: #{map-deep-get($sectionThemes,$name, imageTheme)};
+        background-color: #{map-deep-get($sectionThemes,$name, colorTheme)};
       }
     }
   }
 
-  @each $name, $theme in $sections_theme {
-    &__#{$name} {
+  @each $name, $themeItem in $sectionThemes {
+    &__#{name} {
       #{$block}__title {
-        background-color: $sectionColorTheme;
+        color: #{map-deep-get($sectionThemes,$name, colorTheme)}
       }
     }
   }
-
 }
