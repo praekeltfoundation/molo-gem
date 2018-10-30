@@ -111,19 +111,33 @@
           {% endif %}
           </li>
         </ul>
+        {% load_sections as sections %}
         <ul class="nav-list nav--secondary">
           <li class="nav-list__item">
             <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
           </li>
-        {% load_sections as sections %}
-        {% for section in sections %}
-          {% pageurl section.specific as section_path %}
-            <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
-              <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                {{section.title}}
-              </a>
-            </li>
-        {% endfor %}
+          <li class="nav-list__item">
+            <ul class="nav-inner">
+              {% for section in sections|slice:":3" %}
+                {% pageurl section.specific as section_path %}
+                <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
+                  <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                    {{section.title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+            <ul class="nav-inner">
+              {% for section in sections|slice:"3:" %}
+                {% pageurl section.specific as section_path %}
+                <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
+                  <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                    {{section.title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
