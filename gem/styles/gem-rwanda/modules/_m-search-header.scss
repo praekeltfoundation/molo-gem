@@ -1,7 +1,18 @@
+/*
+  STYLES APPLY TO HEADER SEARCH
+*/
+
 .search {
-  padding: 0 0 $spacer-small;
   &--header {
     display: inline-block;
+  }
+  &-wrapper {
+    background: #fff;
+    color: $color-cyan;
+    font-size: $font-x-small;
+    text-align: left;
+    padding: 1em;
+    @include fly-by();
   }
   &-accordion {
     &__label {
@@ -53,78 +64,6 @@
         -ms-transition: height, 0.5s linear;
         -o-transition: height, 0.5s linear;
         transition: height, 0.5s linear;
-      }
-    }
-  }
-  &-wrapper {
-    background: #fff;
-    color: $color-cyan;
-    font-size: $font-x-small;
-    text-align: left;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    z-index: 999999999;
-    padding: 1em;
-    @include for-size(desktop-up) {
-      padding: 3em 10%;
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      height: auto;
-      width: 100%;
-    }
-  }
-  &__title {
-    color: #000;
-    font-size: $font-medium;
-    text-transform: uppercase;
-    display: inline-block;
-    font-style: italic;
-    &:before {
-      content: " ";
-      background-image: url('/static/img/icons/rwanda/search-icon_green.svg');
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-position: center 0;
-      display: inline-block;
-      height: 45px;
-      vertical-align: middle;
-      width: 45px;
-    }
-  }
-  &__form {
-    position: relative;
-    input[type="search"] {
-      border: 3px solid $color-cyan;
-      height: 45px;
-      margin: 0;
-      padding: $spacer-small 5% $spacer-small $spacer-small;
-    }
-    [type="button"],
-    [type="reset"],
-    [type="submit"] {
-      background-color: $color-cyan;
-      margin: $spacer-half 0;
-      padding: $spacer-half;
-      text-decoration: underline;
-      font-weight: bold;
-      @include for-size(tablet-portrait-up) {
-        background-image: url("/static/img/icons/rwanda/search-icon.svg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 60%;
-        padding: 0;
-        height: 45px;
-        width: 75px;
-        margin: 0;
-        text-indent: -15em;
-        border-radius: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
       }
     }
   }
