@@ -2,27 +2,6 @@
   $block: unquote("#{&}");
   margin: 0;
   padding: 0;
-  &--topic-of-day {
-    #{$block}__item {
-      display: block;
-      margin: 0 0 2.5em;
-      width: auto;
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      @include for-size(desktop-up) {
-        width: 35%;
-      }
-      &--hero-story {
-        @include for-size(desktop-up) {
-          width: 55%;
-        }
-      }
-    }
-  }
-
   &__item {
     display: inline-block;
     width: 25%;
@@ -51,6 +30,28 @@
     margin: 0 0 10% 0;
     text-align: left;
   }
+
+  &--topic-of-day {
+    #{$block}__item {
+      display: block;
+      margin: 0 0 2.5em;
+      width: auto;
+    }
+  }
+  &--latest {
+    overflow: auto;
+    #{$block}__item {
+      @include for-size(desktop-up) {
+        width: 35%;
+      }
+      &--hero-story {
+        @include for-size(desktop-up) {
+          width: 55%;
+        }
+      }
+    }
+  }
+
   &-tags {
     display: inline-block;
     padding: 0 0 0.40em;

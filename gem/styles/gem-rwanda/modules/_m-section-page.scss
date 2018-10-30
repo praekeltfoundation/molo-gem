@@ -2,7 +2,7 @@
   $block: unquote("#{&}");
   overflow: auto;
   &__wrapper {
-    padding: 0 5%;
+    padding: 0 10%;
   }
   &__icon {
     width: 100%;
@@ -25,12 +25,31 @@
       }
     }
   }
-
   @each $name, $themeItem in $sectionThemes {
     &__#{name} {
       #{$block}__title {
         color: #{map-deep-get($sectionThemes,$name, colorTheme)}
       }
+    }
+  }
+
+/*
+  ARTICLE LIST OVERRIDE
+*/
+  .teaser-stacklist {
+    &__item {
+      display: block;
+      width: 100%;
+    }
+    &__images {
+      display: inline-block;
+      width: 50%;
+      margin: 0 2em 1em 0;
+      vertical-align: middle;
+    }
+    &__container {
+      display: inline-block;
+      width: 40%;
     }
   }
 }
