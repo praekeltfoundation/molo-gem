@@ -5,30 +5,36 @@
     padding: 0 10%;
   }
   &__icon {
-    width: 100%;
+    width: auto;
+  }
+  &__caption {
+    background-color: #000;
+    @include for-size(desktop-up) {
+      position: absolute;
+      left: 1em;
+      top: 35%;
+    }
   }
   &__title {
-    color: #ffffff;
-    margin: 0;
+    color: #fff;
     font-size: $font-x-medium;
-    text-align: center;
-    padding: $spacer-half 0;
+    padding: 0.313em 0.35em;
   }
   &__theme {
     width: 100%;
     padding: 2em;
-    @each $name, $themeItem in $sectionThemes {
-      &--#{name} {
-        border: 1px solid green;
-        background-image: #{map-deep-get($sectionThemes,$name, imageTheme)};
-        background-color: #{map-deep-get($sectionThemes,$name, colorTheme)};
-      }
-    }
   }
-  @each $name, $themeItem in $sectionThemes {
-    &__#{name} {
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &--#{$sectionModifier} {
+      #{$block}__theme {
+        background-image: url(map-get($styleElement, bgPattern));
+        background-color: map-get($styleElement, bgColor);
+      }
+      #{$block}__caption {
+        background-color: map-get($styleElement, bgColor);
+      }
       #{$block}__title {
-        color: #{map-deep-get($sectionThemes,$name, colorTheme)}
+        color: map-get($styleElement, textColor)
       }
     }
   }
