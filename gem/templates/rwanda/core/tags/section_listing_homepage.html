@@ -1,13 +1,11 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
+<div class="article-teaser article-teaser--featured-homepage">
 {% for section in sections %}
   {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
   {% if featured_articles %}
-  <div class="article-teaser article-teaser--featuredHomepage">
     <div class="article-teaser__wrapper">
       <div class="heading heading--hero">
-        <h2 class=" heading__component">
-          {% trans "Feature on Homepage" %}
-        </h2>
+        <h2 class=" heading__component">{{section}}</h2>
       </div>
       <ul class="teaser-stacklist">
         {% for article in featured_articles %}
@@ -76,6 +74,6 @@
         {% endfor %}
       </ul>
     </div>
-  </div>
   {% endif %}
 {% endfor %}
+</div>
