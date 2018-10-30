@@ -31,13 +31,13 @@ LOGGING = {
             'handlers': ['console'],
         },
         'django.template': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'handlers': ['console'],
         },
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
         }
     },
