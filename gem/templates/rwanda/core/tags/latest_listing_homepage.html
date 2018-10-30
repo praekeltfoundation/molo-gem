@@ -1,7 +1,7 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailsettings_tags gem_tags staticfiles comments %}
 {% get_settings %}
 {% if articles %}
-<div class="article-teaser--latest">
+<div class="article-teaser article-teaser--latest">
   <div class="heading heading--hero">
     <h2 class=" heading__component">
       {% trans "Latest stories" %}
@@ -17,9 +17,20 @@
           <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
         </div>
         {% endif %}
-        {% load_tags_for_article article as tags %}
-        {% if tags %}
+
         <ul class="teaser-stacklist-tags">
+          {% get_comment_count for article as comment_count %}
+          {% if comment_count > 0 %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+              <div class="comment-counter__icon"></div>
+              <span class="comment-counter__numeral">
+                {{comment_count}}
+              </span>
+            </a>
+          </li>
+          {% endif %}
+          {% load_tags_for_article article as tags %}
           {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
             {% for tag in tags %}
               {% if not tag.title.20 %}
@@ -33,19 +44,7 @@
               {% endif %}
             {% endfor %}
           {% endif %}
-          {% get_comment_count for article as comment_count %}
-          {% if comment_count > 0 %}
-          <li class="teaser-stacklist-tags__item">
-            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-              <div class="comment-counter__icon"></div>
-              <span class="comment-counter__numeral">
-                {{comment_count}}
-              </span>
-            </a>
-          </li>
-          {% endif %}
         </ul>
-        {% endif %}
         <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
           {% if article.title_highlight %}
             {{ article.title_highlight|smarttruncatechars:23|safe}}
@@ -89,9 +88,20 @@
             <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
           </div>
         {% endif %}
-        {% load_tags_for_article article as tags %}
-        {% if tags %}
+
         <ul class="teaser-stacklist-tags">
+          {% get_comment_count for article as comment_count %}
+          {% if comment_count > 0 %}
+            <li class="teaser-stacklist-tags__item">
+              <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                <div class="comment-counter__icon"></div>
+                <span class="comment-counter__numeral">
+                  {{comment_count}}
+                </span>
+              </a>
+            </li>
+          {% endif %}
+          {% load_tags_for_article article as tags %}
           {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
             {% for tag in tags %}
               {% if not tag.title.20 %}
@@ -105,19 +115,7 @@
               {% endif %}
             {% endfor %}
           {% endif %}
-          {% get_comment_count for article as comment_count %}
-          {% if comment_count > 0 %}
-            <li class="teaser-stacklist-tags__item">
-              <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                <div class="comment-counter__icon"></div>
-                <span class="comment-counter__numeral">
-                  {{comment_count}}
-                </span>
-              </a>
-            </li>
-          {% endif %}
         </ul>
-        {% endif %}
         <h3 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
           {% if article.title_highlight %}
             {{ article.title_highlight|smarttruncatechars:23|safe}}

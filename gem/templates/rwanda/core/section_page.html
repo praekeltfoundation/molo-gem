@@ -23,9 +23,17 @@
             <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
           </div>
         {% endif %}
-        {% load_tags_for_article article as tags %}
-        {% if tags %}
         <ul class="teaser-stacklist-tags">
+          {% get_comment_count for article as comment_count %}
+          {% if comment_count > 0 %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+              <div class="comment-counter__icon"></div>
+              <span class="comment-counter__numeral">{{comment_count}}</span>
+            </a>
+          </li>
+          {% endif %}
+          {% load_tags_for_article article as tags %}
           {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
             {% for tag in tags %}
               {% if not tag.title.20 %}
@@ -37,17 +45,7 @@
               {% endif %}
             {% endfor %}
           {% endif %}
-          {% get_comment_count for article as comment_count %}
-          {% if comment_count > 0 %}
-          <li class="teaser-stacklist-tags__item">
-            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-              <div class="comment-counter__icon"></div>
-              <span class="comment-counter__numeral">{{comment_count}}</span>
-            </a>
-            </li>
-          {% endif %}
         </ul>
-        {% endif %}
         <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
           {% if article.title_highlight %}
             {{ article.title_highlight|smarttruncatechars:23|safe}}

@@ -1,10 +1,12 @@
+.main-feature {
+  @include for-size(desktop-up) {
+    display: flex;
+  }
+}
 .article-teaser {
   $block: unquote("#{&}");
   overflow: auto;
   position: relative;
-  @include for-size(desktop-up) {
-    display: flex;
-  }
   &--latest {
     padding: 0 2em 0 10%;
     @include for-size(desktop-up) {
@@ -25,6 +27,8 @@
     padding: 0 10%;
     display: block;
   }
+  &--next-related {}
+  &--recommended {}
   &__thumbnail {
     border: 3px solid $color-cyan;
     width: 100%;
