@@ -2,14 +2,17 @@
 {% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags comments %}
 
 {% block content %}
+<div class="search">
 {% if search_results %}
+
   <div class="heading heading--hero">
     <h1 class="heading__component">{% trans "Search" %}</h1>
   </div>
-  <h4 class="heading__micro">{{results|length}} {% trans "results found for" %}:
+
+  <h3 class="heading__micro">{{results|length}} {% trans "results found for" %}:
     <span class="search__query-term">'{{search_query}}'</span>
-  </h4>
-  {% include "search/search_block.html" %}
+  </h3>
+  {% comment %}{% include "search/search_block.html" %}{% endcomment %}
   <div class="article-teaser">
     <ul class="teaser-stacklist">
     {% for article in search_results %}
@@ -85,6 +88,7 @@
       {% endif %}
     </div>
   </div>
+</div>
 {% else %}
   <div class="search">
     <div class="heading heading--hero">
