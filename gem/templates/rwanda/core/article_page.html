@@ -2,13 +2,13 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments molo_survey_tags %}
 
 {% block content %}
-{% get_translation self.get_parent_section as parent_section %}
-<div class="article-page {% if parent_section.get_effective_extra_style_hints %}article--{{ parent_section.get_effective_extra_style_hints }}{% endif %}">
-    <div class="heading heading--section {% if parent_section.get_effective_extra_style_hints %}heading--{{parent_section.get_effective_extra_style_hints}}{% endif %}">
-      <h1 class="section-page__title">
-        {% comment %}{{parent_section.title}}{% endcomment %}
-      </h1>
-    </div>
+{% get_translation self.get_parent_section as section %}
+  <div class="section-page {% if section.get_effective_extra_style_hints %}section-page--{{section.get_effective_extra_style_hints}}{% endif %}">
+    <div class="section-page__theme"></div>
+  </div>
+  {% breadcrumbs %}
+
+<div class="article-page">
     <div class="heading heading--hero">
       <h2 class="heading__component">{{ page.title}}</h2>
     </div>
