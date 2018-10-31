@@ -51,31 +51,30 @@
           </ul>
           <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
             {% if article.title_highlight %}
-              {{ article.title_highlight|smarttruncatechars:23|safe}}
+              {{ article.title_highlight|smarttruncatechars:50|safe}}
             {% else %}
               {{ article.title|safe}}
             {% endif %}
           </h3>
           {% if article.subtitle_highlight or article.body_highlight %}
-            <p class="article-teaser__subtitle">
+            <h6 class="article-teaser__subtitle">
               {% if article.subtitle_highlight %}
-                {{article.subtitle_highlight|smarttruncatechars:30|safe}}
+                {{article.subtitle_highlight|smarttruncatechars:50|safe}}
               {% elif article.body_highlight %}
-                {{article.body_highlight|smarttruncatechars:30|safe}}
+                {{article.body_highlight|smarttruncatechars:50|safe}}
               {% endif %}
-            </p>
+            </h6>
           {% elif article.subtitle %}
-            <p class="article-teaser__subtitle">
-              {% if article.title.30 %}
-                {{ article.subtitle|smarttruncatechars:30|safe}}
-              {% else %}
-                {{ article.subtitle|smarttruncatechars:50|safe}}
-              {% endif %}
-            </p>
+            <h6 class="article-teaser__subtitle">
+              {{ article.subtitle|smarttruncatechars:50|safe}}
+            </h6>
           {% endif %}
-          <a class="call-to-action__read-more" href="{% pageurl article.specific %}">
-            {% trans "Read more" %}
-          </a>
+          {% with article.body|first as block %}
+            {% if block.block_type == 'paragraph' %}
+              <p>{{block.value|smarttruncatechars:100|safe}}</p>
+            {% endif %}
+          {% endwith %}
+          <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
         </div>
     </li>
     {% endfor %}
