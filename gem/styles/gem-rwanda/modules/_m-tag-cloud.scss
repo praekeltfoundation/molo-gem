@@ -1,22 +1,25 @@
 .tag-cloud {
-  background-color: #000;
-  color: #fff;
+  background-color: rgba(0,0,0,.4);
   text-align: center;
-  padding: 0 10%;
+  padding: 1em 10% 5%;
+  border-bottom: 3px solid rgba(0,0,0,.5);
   &-list {
     padding: 0 25%;
     margin: 0;
     &__item {
       display: inline-block;
-      padding-right: $spacer-small;
+      padding: $spacer-small;
     }
   }
   &__anchor {
-    color: $color-cyan-dark;
+    color: #fff;
     font-size: $font-large;
     &:before {
       content: "#";
       display: inline;
+    }
+    &:hover {
+      color: $color-cyan-dark;
     }
   }
   &__title {

@@ -1,38 +1,34 @@
+.main-feature {
+  @include for-size(desktop-up) {
+    display: flex;
+  }
+}
 .article-teaser {
   $block: unquote("#{&}");
   overflow: auto;
   position: relative;
-  @include for-size(desktop-up) {
-    display: flex;
-  }
-  &__latest-wrapper {
+  &--latest {
     padding: 0 2em 0 10%;
     @include for-size(desktop-up) {
       order: 1;
       width: 85%;
     }
+    #{$block}__wrapper {}
   }
-  &__topicOfTheDay-wrapper {
+  &--topic-of-day {
     background-color: $color-yellow-gorse;
     padding: 0 2em;
     @include for-size(desktop-up) {
       order: 2;
-      width: 40%;
+      width: 35%;
     }
   }
-  &__latestTopPublished {
-    @include for-size(desktop-up) {
-      display: flex;
-      flex-wrap: wrap;
-    }
+  &--featured-homepage {
+    padding: 0 10%;
+    display: block;
   }
-  &__latestHero {
-    @include for-size(desktop-up) {
-      order: 1;
-      margin: 0 5% 0 0;
-      width: 60%;
-    }
-  }
+  &--next-related {}
+  &--recommended {}
   &__thumbnail {
     border: 3px solid $color-cyan;
     width: 100%;
@@ -48,14 +44,5 @@
   &__subtitle {
     margin: 0 0 5% 0;
     text-align: left;
-  }
-  &--featuredHomepage {
-    padding: 0 10%;
-  }
-  &--related {
-    padding: $spacer-small $spacer-mid;
-  }
-  &--recommended {
-    padding: $spacer-mid $spacer-mid 0;
   }
 }

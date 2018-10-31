@@ -19,20 +19,7 @@
     color: $color-cyan;
     font-size: $font-x-small;
     padding: 0 5%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    z-index: 999999999;
-    @include for-size(desktop-up) {
-      padding: 3em 10%;
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      height: auto;
-      width: 100%;
-    }
+    @include fly-by();
   }
   &-list {
     padding: 0;
@@ -42,7 +29,7 @@
     &__item {
       display: block;
       @include for-size(desktop-up) {
-        margin: 0.625em;
+        margin: 0.625em 0;
       }
     }
     &__title {
@@ -50,26 +37,31 @@
       font-size: $font-x-medium;
       text-transform: uppercase;
       @include for-size(desktop-up) {
-      padding: 0 0 1em;
+      padding: 0 0 0.4em;
       }
     }
     &__anchor {
       background: transparent;
       color: $color-cyan;
-      font-size: $font-x-medium;
       font-weight: bold;
+      margin: 0;
+      padding: $spacer-half 0;
       text-decoration: underline;
       text-transform: uppercase;
-      padding: $spacer-half 0;
-      margin: 0;
-      @include for-size(desktop-up) {
-        font-weight: normal;
-      }
+    }
+  }
+  &-inner {
+    margin: 0;
+    padding: 0;
+    @include for-size(desktop-up) {
+      margin: 0 10% 0 0;
+      display: inline-block;
+      vertical-align: top;
     }
   }
   &--primary {
     display: block;
-    padding: 5% 0 10%;
+    padding: 1em 0 1.5em;
     @include for-size(desktop-up) {
       display: inline-block;
       border-right: 3px solid #000;
@@ -77,15 +69,18 @@
     }
     #{$block}-list__anchor {
       @include for-size(desktop-up) {
-        font-size: $font-large;
+        font-size: $font-medium;
+
       }
     }
   }
   &--secondary {
     display: block;
+    padding: 0 0 1em;
     @include for-size(desktop-up) {
       display: inline-block;
       padding: 0 0 0 3.500em;
+      width: 60%;
     }
   }
 }

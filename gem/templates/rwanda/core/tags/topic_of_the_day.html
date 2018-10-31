@@ -1,15 +1,15 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailsettings_tags gem_tags staticfiles comments %}
 {% get_settings %}
 {% if articles %}
-  <div class="article-teaser__topicOfTheDay-wrapper">
+  <div class="article-teaser article-teaser--topic-of-day">
     <div class="heading heading--hero">
       <h2 class=" heading__component">
         {% trans "Events" %}
       </h2>
     </div>
     <div class="article-teaser__wrapper">
-      <ul class="teaser-stacklist teaser-stacklist--topicOfTheDay">
-        {% for article in articles|slice:":3" %}
+      <ul class="teaser-stacklist teaser-stacklist--topic-of-day">
+        {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
               {% if article.get_effective_image %}
                 <div class="teaser-stacklist__images">
@@ -17,9 +17,17 @@
                   <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
                 </div>
               {% endif %}
-              {% load_tags_for_article article as tags %}
-              {% if tags %}
               <ul class="teaser-stacklist-tags">
+              {% get_comment_count for article as comment_count %}
+              {% if comment_count > 0 %}
+                <li class="teaser-stacklist-tags__item">
+                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                    <div class="comment-counter__icon"></div>
+                    <span class="comment-counter__numeral">{{comment_count}}</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% load_tags_for_article article as tags %}
               {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
                 {% for tag in tags %}
                   {% if not tag.title.20 %}
@@ -33,17 +41,7 @@
                   {% endif %}
                 {% endfor %}
               {% endif %}
-              {% get_comment_count for article as comment_count %}
-              {% if comment_count > 0 %}
-                <li class="teaser-stacklist-tags__item">
-                  <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                    <div class="comment-counter__icon"></div>
-                    <span class="comment-counter__numeral">{{comment_count}}</span>
-                  </a>
-                </li>
-              {% endif %}
               </ul>
-              {% endif %}
               <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
                 {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:23|safe}}
@@ -70,7 +68,7 @@
               {% endif %}
               {% with article.body|first as block %}
                 {% if block.block_type == 'paragraph' %}
-                  <p class="teaser-stacklist__paragraph">
+                  <p class="teaser-stacklist__subtitle">
                     {{block.value|smarttruncatechars:1000|safe}}</p>
                 {% endif %}
               {% endwith %}
