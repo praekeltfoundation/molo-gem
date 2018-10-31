@@ -69,7 +69,7 @@ if USE_OIDC_AUTHENTICATION:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ENABLE_GA_LOGGING = environ.get("ENABLE_GA_LOGGING", '') == 'true'
+ENABLE_GA_LOGGING = True  # environ.get("ENABLE_GA_LOGGING", '') == 'true'
 ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
@@ -447,7 +447,7 @@ EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = environ.get(
     'DEFAULT_FROM_EMAIL', 'support@moloproject.org')
 
-GOOGLE_ANALYTICS = {}
+GOOGLE_ANALYTICS = {'google_analytics_id': 'bgufdg'}
 GOOGLE_ANALYTICS_IGNORE_PATH = [
     # health check used by marathon
     '/health/',
