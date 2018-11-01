@@ -9,10 +9,10 @@
   {% breadcrumbs %}
 
 <div class="article-page">
-    <div class="heading heading--hero">
-      <h2 class="heading__component">{{ page.title}}</h2>
-    </div>
-    <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
+  {% if page.image %}
+    {% image page.image width-360 class="article-teaser__thumbnail" %}
+  {% endif %}
+  <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
     {% load_tags_for_article self as tags %}
     {% if tags %}
       <ul class="teaser-stacklist-tags">
@@ -37,10 +37,6 @@
           </li>
         {% endif %}
       </ul>
-    {% endif %}
-
-    {% if page.image %}
-      {% image page.image width-360 class="article-teaser__thumbnail" %}
     {% endif %}
 
     <article class="article">
