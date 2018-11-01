@@ -13,6 +13,16 @@
       {% image page.image width-1080 class="article-teaser__thumbnail" %}
     {% endif %}
     <ul class="teaser-stacklist-tags">
+      {% get_comment_count for self as comment_count %}
+      {% if comment_count > 0 %}
+      <li class="teaser-stacklist-tags__item">
+        <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+          <div class="comment-counter__icon"></div>
+          <span class="comment-counter__numeral">{{comment_count}}</span>
+        </a>
+        </li>
+      {% endif %}
+
       {% load_tags_for_article self as tags %}
       {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
         {% for tag in tags %}
@@ -24,16 +34,14 @@
             </li>
           {% endif %}
         {% endfor %}
-      {% endif %}
-
-      {% get_comment_count for self as comment_count %}
-      {% if comment_count > 0 %}
-      <li class="teaser-stacklist-tags__item">
-        <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-          <div class="comment-counter__icon"></div>
-          <span class="comment-counter__numeral">{{comment_count}}</span>
-        </a>
-        </li>
+      {% elif settings.core.SiteSettings.enable_clickable_tags %}
+        {% for tag in self.tagsList %}
+          <li class="teaser-stacklist-tags__item">
+            <a href="{% url 'self.tagsList' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">
+              ==>{{tag}}
+            </a>
+          </li>
+        {% endfor %}
       {% endif %}
     </ul>
 
@@ -170,16 +178,6 @@
       {% social_media_article %}
     </div>
   </div>
-
-  {% if settings.core.SiteSettings.enable_clickable_tags %}
-    {% for tag in self.tags %}
-      <li class="teaser-stacklist-tags__item">
-        <a href="{% url 'self.tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">
-          {{tag}}
-        </a>
-      </li>
-    {% endfor %}
-  {% endif %}
 
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
