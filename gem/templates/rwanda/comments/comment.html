@@ -26,13 +26,13 @@
   </h6>
 {% else %}
   {% if truncate_comment %}
-    <p class="comments__body-small">{{ node.comment|smarttruncatechars:115 }}</p>
+    <p class="comments__content">{{ node.comment|smarttruncatechars:115 }}</p>
     {% if node.comment.200 %}
     <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__readmore">
     {% trans "Read more" %}</a>
     {% endif %}
   {% else %}
-    <p class="comments__body-small">{{ node.comment }}</p>
+    <p class="comments__content">{{ node.comment }}</p>
   {% endif %}
   <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
   <div class="comments__reply-meta">

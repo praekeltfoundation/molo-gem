@@ -1,4 +1,100 @@
 .comments {
+  &__alias {
+    color: #000000;
+    margin: 0;
+    text-transform: uppercase;
+    &--author {}
+  }
+  &__staff {}
+  &__description {}
+  &__content {
+    margin: $spacer-half 0;
+  }
+  &__publish-date {
+    color: $color-gray;
+    display: inline-block;
+  }
+  &__reply {
+    &-notification {
+      background-color: rgba($color-cyan-fountain, 0.5);
+      padding: $spacer-mid $spacer-mid;
+      color: $color-yellow;
+    }
+    &-meta {
+      clear: both;
+      overflow: auto;
+      position: relative;
+      width: 100%;
+    }
+  }
+  &__replies {
+    &-title {
+      color: $color-cyan-fountain;
+      margin: $spacer-x-max $spacer-mid 0;
+      text-transform: uppercase;
+      font-size: $font-small;
+    }
+    &-label {
+      margin: 0;
+    }
+  }
+  &__replied {
+    &-link {
+      display: block;
+      color: $color-cyan-fountain;
+      font-weight: bold;
+      padding: $spacer-half 0;
+    }
+  }
+
+
+
+    &-counter {
+      display: inline-block;
+      color: $color-pink;
+      vertical-align: middle;
+      margin: 0;
+      .speech-bubble {
+  	position: relative;
+  	background: #00aabb;
+  	border-radius: .4em;
+  }
+
+  .speech-bubble:after {
+  	content: '';
+  	position: absolute;
+  	bottom: 0;
+  	left: 50%;
+  	width: 0;
+  	height: 0;
+  	border: 20px solid transparent;
+  	border-top-color: #00aabb;
+  	border-bottom: 0;
+  	border-left: 0;
+  	margin-left: -10px;
+  	margin-bottom: -20px;
+  }
+      &:active, &:hover, &:focus {
+        color: $color-yellow;
+        .comment-counter__icon {
+          background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
+        }
+      }
+      &__icon {
+        background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
+        display: inline-block;
+        height: 20px;
+        width: 18px;
+        margin: $spacer-small 0 0;
+      }
+      &__numeral {
+        display: inline-block;
+        font-weight: bold;
+        vertical-align: super;
+        font-size: $font-xx-small;
+      }
+    }
+
   &-list {
     font-size: $font-x-small;
     &__item {
@@ -23,53 +119,6 @@
     padding: $spacer-half $spacer-mid;
     &__item {
       padding: $spacer-half 0;
-    }
-  }
-  &__alias {
-    color: #000000;
-    margin: 0;
-    text-transform: uppercase;
-    &--author {}
-  }
-  &__staff {}
-  &__description {}
-  &__body-small {
-    margin: $spacer-half 0;
-  }
-  &__publish-date {
-    color: $color-gray;
-    display: inline-block;
-  }
-  &__replies {
-    &-title {
-      color: $color-cyan-fountain;
-      margin: $spacer-x-max $spacer-mid 0;
-      text-transform: uppercase;
-      font-size: $font-small;
-    }
-    &-label {
-      margin: 0;
-    }
-  }
-  &__replied {
-    &-link {
-      display: block;
-      color: $color-cyan-fountain;
-      font-weight: bold;
-      padding: $spacer-half 0;
-    }
-  }
-  &__reply {
-    &-notification {
-      background-color: rgba($color-cyan-fountain, 0.5);
-      padding: $spacer-mid $spacer-mid;
-      color: $color-yellow;
-    }
-    &-meta {
-      clear: both;
-      overflow: auto;
-      position: relative;
-      width: 100%;
     }
   }
 
@@ -103,33 +152,7 @@
   }
 }
 
-.comment {
-  &-counter {
-    display: inline-block;
-    color: $color-pink;
-    vertical-align: middle;
-    margin: 0;
-    &:active, &:hover, &:focus {
-      color: $color-yellow;
-      .comment-counter__icon {
-        background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
-      }
-    }
-    &__icon {
-      background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
-      display: inline-block;
-      height: 20px;
-      width: 18px;
-      margin: $spacer-small 0 0;
-    }
-    &__numeral {
-      display: inline-block;
-      font-weight: bold;
-      vertical-align: super;
-      font-size: $font-xx-small;
-    }
-  }
-}
+
 
 .article__comment-link {
   display: inline-block;
