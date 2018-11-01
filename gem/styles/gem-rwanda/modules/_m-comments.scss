@@ -51,36 +51,35 @@
 
   &-counter {
     display: inline-block;
-    color: $color-pink;
+    color: #fff;
     vertical-align: middle;
     margin: 0;
     position: relative;
-    background: #00aabb;
-    border-radius: .4em;
+    background: $color-cyan;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: $spacer-small;
+    text-align: center;
     &:after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 50%;
       width: 0;
       height: 0;
-      border: 20px solid transparent;
-      border-top-color: #00aabb;
-      border-bottom: 0;
-      border-left: 0;
-      margin-left: -10px;
-      margin-bottom: -20px;
+      right: 0;
+      left: auto;
+      bottom: 0;
+      border: 6px solid;
+      border-color: $color-cyan $color-cyan transparent transparent;
+      margin-bottom: -($spacer-small - 1);
+      transform: rotate(-35deg);
     }
     &__icon {
-      display: inline-block;
-      height: 20px;
-      width: 18px;
-      margin: $spacer-small 0 0;
+      display: none;
+      visibility: hidden;
     }
     &__numeral {
-      display: inline-block;
       font-weight: bold;
-      vertical-align: super;
       font-size: $font-xx-small;
     }
   }
@@ -90,7 +89,7 @@
     &__item {
       padding: $spacer-mid $spacer-mid $spacer-small;
       &:first-child {
-        padding: 0 $spacer-mid
+        padding: 0 $spacer-mid;
       }
       &--parent {
         border-top: 1px solid $color-gray-light;
