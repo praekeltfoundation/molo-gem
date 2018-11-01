@@ -23,6 +23,7 @@
   &__theme {
     width: 100%;
     padding: 2em;
+    background-color: rgba(0,0,0,0.5);
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {
@@ -43,19 +44,29 @@
   ARTICLE LIST OVERRIDE
 */
   .teaser-stacklist {
+    @include for-size(desktop-up) {
+      padding: 0 5%;
+    }
     &__item {
       display: block;
+      margin: 0 0 0.313em;
       width: 100%;
     }
     &__images {
-      display: inline-block;
-      width: 50%;
-      margin: 0 2em 1em 0;
-      vertical-align: middle;
+      padding: 1em 1em 1em 0;
+      vertical-align: top;
+      @include for-size(desktop-up) {
+        display: inline-block;
+        width: 45%;
+      }
     }
     &__container {
-      display: inline-block;
-      width: 40%;
+      padding: 1em 1em 1em 0;
+      vertical-align: middle;
+      @include for-size(desktop-up) {
+        display: inline-block;
+        width: 40%;
+      }
     }
   }
 }

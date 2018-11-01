@@ -1,6 +1,6 @@
 {% load comments mptt_tags molo_commenting_tags gem_tags %}
 {% if self.is_commenting_enabled %}
-<div id="comments" class="comments">
+<div id="comments" class="comments comments__wrapper">
   {% if self.allow_commenting %}
     {% if request.user.is_authenticated %}
       {% render_comment_form for self %}
