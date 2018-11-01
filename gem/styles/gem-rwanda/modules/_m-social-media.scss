@@ -1,11 +1,37 @@
 .social-media {
-  padding: $spacer-mid $spacer-multiple;
   overflow: auto;
-  @include for-size(desktop-up) {
-    flex: 1 auto;
-    order: 2;
+  &__anchor {
+    color: #fff;
+    display: block;
+  }
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 4px 3px 0 0 $color-yellow-gorse;
+    height: 40px;
+    width: 40px;
+    &--facebook {
+      background: url("/static/img/icons/rwanda/fb.png") no-repeat center/100%;
+      display: block;
+    }
+    &--twitter {
+      background: url("/static/img/icons/rwanda/twitter.png") no-repeat center /100%;
+      display: block;
+    }
+  }
+  &__label {
+    color: #fff;
+    font-size: $font-x-small;
+    font-weight: bold;
+    padding: 0 0 0 $spacer-half;
   }
 
+  &--footer {
+    @include for-size(desktop-up) {
+      flex: 1 auto;
+      order: 2;
+    }
+  }
   &-list {
     margin: 0;
     padding: 0;
@@ -13,19 +39,5 @@
       padding: $spacer-small;
       display: block;
     }
-  }
-  &__anchor {
-    color: #fff;
-    display: block;
-  }
-  &__icon {
-    vertical-align: middle;
-    box-shadow: 4px 3px 0 0 $color-yellow-gorse;
-  }
-  &__label {
-    color: #fff;
-    font-size: $font-x-small;
-    font-weight: bold;
-    padding: 0 0 0 $spacer-half;
   }
 }

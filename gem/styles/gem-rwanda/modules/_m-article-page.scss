@@ -1,23 +1,28 @@
 .article-page {
   $block: unquote("#{&}");
-  padding: 0 5%;
-  @include for-size(desktop-up) {
-    padding: 0 10%;
+  &__content {
+    padding: 0 5%;
+    @include for-size(desktop-up) {
+      padding: 0 15%;
+    }
   }
-
-  &__subtitle {
-    padding: 0 $spacer-x-max;
-    margin: 0;
-  }
-
-  p {
-    padding: 0 ($spacer-multiple + 5);
-  }
-  a {
-    color: #000;
-    font-weight: bold;
-  }
-  &__subtitle {
-    padding: 0 $spacer-mid;
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &--#{$sectionModifier} {
+      .social-media {
+        border-top: 2px solid map-get($styleElement, bgColor);
+        margin: 5% 0 0;
+        padding: 5% 0 0;
+        text-align: center;
+        &-list__item {
+          display: inline-block;
+          padding: $spacer-mid $spacer-small;
+        }
+      }
+      .article-teaser  {
+        &__thumbnail {
+          border-color: map-get($styleElement, bgColor);
+        }
+      }
+    }
   }
 }
