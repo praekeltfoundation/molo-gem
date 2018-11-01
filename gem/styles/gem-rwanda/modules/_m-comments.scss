@@ -49,51 +49,41 @@
 
 
 
-    &-counter {
-      display: inline-block;
-      color: $color-pink;
-      vertical-align: middle;
-      margin: 0;
-      .speech-bubble {
-  	position: relative;
-  	background: #00aabb;
-  	border-radius: .4em;
-  }
-
-  .speech-bubble:after {
-  	content: '';
-  	position: absolute;
-  	bottom: 0;
-  	left: 50%;
-  	width: 0;
-  	height: 0;
-  	border: 20px solid transparent;
-  	border-top-color: #00aabb;
-  	border-bottom: 0;
-  	border-left: 0;
-  	margin-left: -10px;
-  	margin-bottom: -20px;
-  }
-      &:active, &:hover, &:focus {
-        color: $color-yellow;
-        .comment-counter__icon {
-          background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
-        }
-      }
-      &__icon {
-        background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
-        display: inline-block;
-        height: 20px;
-        width: 18px;
-        margin: $spacer-small 0 0;
-      }
-      &__numeral {
-        display: inline-block;
-        font-weight: bold;
-        vertical-align: super;
-        font-size: $font-xx-small;
-      }
+  &-counter {
+    display: inline-block;
+    color: $color-pink;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+    background: #00aabb;
+    border-radius: .4em;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 20px solid transparent;
+      border-top-color: #00aabb;
+      border-bottom: 0;
+      border-left: 0;
+      margin-left: -10px;
+      margin-bottom: -20px;
     }
+    &__icon {
+      display: inline-block;
+      height: 20px;
+      width: 18px;
+      margin: $spacer-small 0 0;
+    }
+    &__numeral {
+      display: inline-block;
+      font-weight: bold;
+      vertical-align: super;
+      font-size: $font-xx-small;
+    }
+  }
 
   &-list {
     font-size: $font-x-small;
