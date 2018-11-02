@@ -2,8 +2,7 @@
   $block: unquote("#{&}");
   //Wildcard
   article {
-    p, a,
-    ul, ol {
+    p, a {
       padding: 0 5%;
       display: inline-block;
       vertical-align: top;
@@ -28,9 +27,11 @@
     }
   }
   &__quote {
-    padding: 5% 25%;
+    padding: 3% 25%;
     font-weight: bold;
+    margin: 1em 0;
     text-align: center;
+    text-transform: uppercase;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {

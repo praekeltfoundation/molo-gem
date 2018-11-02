@@ -17,8 +17,10 @@
                   <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
                 </div>
               {% endif %}
-              <ul class="teaser-stacklist-tags">
               {% get_comment_count for article as comment_count %}
+              {% load_tags_for_article article as tags %}
+              {% if comment_count or tags %}
+              <ul class="teaser-stacklist-tags">
               {% if comment_count > 0 %}
                 <li class="teaser-stacklist-tags__item">
                   <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
@@ -27,7 +29,7 @@
                   </a>
                 </li>
               {% endif %}
-              {% load_tags_for_article article as tags %}
+
               {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
                 {% for tag in tags %}
                   {% if not tag.title.20 %}
@@ -42,6 +44,7 @@
                 {% endfor %}
               {% endif %}
               </ul>
+              {% endif %}
               <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
                 {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:23|safe}}

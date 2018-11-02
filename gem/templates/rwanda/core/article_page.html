@@ -12,8 +12,10 @@
     {% if page.image %}
       {% image page.image width-1080 class="article-teaser__thumbnail" %}
     {% endif %}
+    {% get_comment_count for self as comment_count %}
+    {% load_tags_for_article self as tags %}
+    {% if comment_count or tags %}
     <ul class="teaser-stacklist-tags">
-      {% get_comment_count for self as comment_count %}
       {% if comment_count > 0 %}
       <li class="teaser-stacklist-tags__item">
         <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
@@ -22,8 +24,6 @@
         </a>
         </li>
       {% endif %}
-
-      {% load_tags_for_article self as tags %}
       {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
         {% for tag in tags %}
           {% if not tag.title.20 %}
@@ -44,6 +44,7 @@
         {% endfor %}
       {% endif %}
     </ul>
+    {% endif %}
     <h1 class="heading__headline">{{ page.title}}</h1>
     <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
   </div>
@@ -51,9 +52,7 @@
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
         <div class="article-page__content">
-          <div class="heading">
-            <h3 class="heading__component">{{ block.value }}</h3>
-          </div>
+          <h3 class="heading__headline">{{ block.value }}</h3>
         </div>
       {% elif block.block_type == 'image' %}
         {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
