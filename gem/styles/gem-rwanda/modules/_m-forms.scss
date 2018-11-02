@@ -1,3 +1,41 @@
+fieldset {
+  clear: both;
+  border: none;
+  padding: $spacer-small 0;
+  margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+label {
+  text-transform: uppercase;
+}
+.choice-group {
+  padding: $spacer-small 0;
+}
+.input-group {
+  .helptext {
+    font-size: $font-xx-small;
+    margin: 0;
+  }
+  span {
+    display: block;
+    font-size: $font-xx-small;
+  }
+}
+
+.error-list, .errorlist {
+  display: block;
+  padding: 0;
+  margin-top: 0;
+  color: $color-pink;
+  &__item,
+  .errors {
+    color: $color-pink;
+    text-align: left;
+    margin-top: 0;
+  }
+}
+
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -19,23 +57,15 @@ select {
   margin: $spacer-small 0;
   width: 100%;
 }
-select {
-  height: 45px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  -webkit-border-radius: 0;
-  outline: none;
-  text-transform: capitalize;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-select[value="value"] {
-  font-size: $font-x-small;
-  text-transform: capitalize;
+[type="button"],
+[type="reset"],
+[type="submit"],
+button {
+  border: none;
+  cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
 }
 input[type="search"] {
   -webkit-appearance: none;
@@ -98,41 +128,21 @@ textarea {
   padding: $spacer-mid;
   width: 100%;
 }
-fieldset {
-  clear: both;
-  border: none;
-  padding: $spacer-small 0;
-  margin: 0;
-  word-break: break-word;
-  word-wrap: break-word;
+select {
+  height: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  -webkit-border-radius: 0;
+  outline: none;
+  text-transform: capitalize;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
-label {
-  text-transform: uppercase;
-}
-.choice-group {
-  padding: $spacer-small 0;
-}
-.input-group {
-  .helptext {
-    font-size: $font-xx-small;
-    margin: 0;
-  }
-  span {
-    display: block;
-    font-size: $font-xx-small;
-  }
-}
-
-.error-list,
-.errorlist {
-  display: block;
-  padding: 0;
-  margin-top: 0;
-  color: $color-pink;
-  &__item,
-  .errors {
-    color: $color-pink;
-    text-align: left;
-    margin-top: 0;
-  }
+select[value="value"] {
+  font-size: $font-x-small;
+  text-transform: capitalize;
 }
