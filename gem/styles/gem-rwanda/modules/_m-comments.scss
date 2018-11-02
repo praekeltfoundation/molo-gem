@@ -1,4 +1,23 @@
+@each $sectionModifier, $styleElement in $sectionThemes {
+  .article-page--#{$sectionModifier} {
+    .comments {
+      background: url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
+    }
+  }
+}
+
 .comments {
+  $block: unquote("#{&}");
+  padding: 0 5%;
+  overflow: auto;
+  @include for-size(desktop-up) {
+    padding: 0 15%;
+  }
+  &__wrapper {
+    background: #fff;
+    margin: 1em 0;
+    padding: 2em;
+  }
   &__alias {
     color: #000000;
     margin: 0;
@@ -46,9 +65,6 @@
       padding: $spacer-half 0;
     }
   }
-
-
-
   &-counter {
     display: inline-block;
     color: #fff;
@@ -57,9 +73,9 @@
     position: relative;
     background: $color-cyan;
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    padding: $spacer-small;
+    height: 27px;
+    width: 27px;
+    padding: ($spacer-small - 2);
     text-align: center;
     &:after {
       content: '';

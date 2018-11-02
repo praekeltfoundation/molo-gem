@@ -1,10 +1,36 @@
 .article-page {
   $block: unquote("#{&}");
+  //Wildcard
+  article {
+    p, a,
+    ul, ol {
+      padding: 0 5%;
+      display: inline-block;
+      vertical-align: top;
+        word-break: break-word;
+      @include for-size(desktop-up) {
+        padding: 0 15%;
+      }
+    }
+    .article-teaser__thumbnail {
+      &--inner {
+        width: 25%;
+        display: inline-block;
+        margin-left: 15%;
+        margin-right: 15%;
+      }
+    }
+  }
   &__content {
     padding: 0 5%;
     @include for-size(desktop-up) {
       padding: 0 15%;
     }
+  }
+  &__quote {
+    padding: 5% 25%;
+    font-weight: bold;
+    text-align: center;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {
@@ -22,6 +48,10 @@
         &__thumbnail {
           border-color: map-get($styleElement, bgColor);
         }
+      }
+      #{$block}__quote {
+        background: url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
+        color: map-get($styleElement, textColor);
       }
     }
   }

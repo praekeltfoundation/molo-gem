@@ -5,36 +5,37 @@
   <div class="banner banner--main">
     {% bannerpages position=0 %}
   </div>
-    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
-      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
-        <div class="freebasics">
-          <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
-          </p>
-        </div>
-      {% endif %}
-    {% endwith %}
-    <div class="banner">
-      {% gembannerpages %}
-    </div>
-    <div class="main-feature">
-      {% topic_of_the_day %}
-      {% latest_listing_homepage num_count=6 %}
-    </div>
-    {% media_listing_homepage %}
-    <div class="banner banner--position-one">
-      {% bannerpages position=1 %}
-    </div>
-    {% poll_page %}
-    {% section_listing_homepage %}
-    {% surveys_list only_direct_surveys=True %}
-    {% surveys_list personalisable_survey=True %}
-    {% surveys_list only_yourwords=True %}
-    {% surveys_list only_linked_surveys=True %}
-    <div class="banner banner--position-two">
-      {% bannerpages position=2 %}
-    </div>
-    {% your_words_competition %}
-    <div class="banner banner--position-three">
-      {% bannerpages position=3 %}
-    </div>
+  {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
+    {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
+      <div class="freebasics">
+        <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
+        </p>
+      </div>
+    {% endif %}
+  {% endwith %}
+  <div class="banner">
+    {% gembannerpages %}
+  </div>
+  <div class="main-feature">
+    {% topic_of_the_day %}
+    {% latest_listing_homepage num_count=6 %}
+  </div>
+  {% media_listing_homepage %}
+
+  <div class="banner banner--position-one">
+    {% bannerpages position=1 %}
+  </div>
+  {% poll_page %}
+  {% section_listing_homepage %}
+  {% surveys_list only_direct_surveys=True %}
+  {% surveys_list personalisable_survey=True %}
+  {% surveys_list only_yourwords=True %}
+  {% surveys_list only_linked_surveys=True %}
+  <div class="banner banner--position-two">
+    {% bannerpages position=2 %}
+  </div>
+  {% your_words_competition %}
+  <div class="banner banner--position-three">
+    {% bannerpages position=3 %}
+  </div>
 {% endblock %}

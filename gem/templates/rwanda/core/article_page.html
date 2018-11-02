@@ -38,13 +38,12 @@
         {% for tag in self.tagsList %}
           <li class="teaser-stacklist-tags__item">
             <a href="{% url 'self.tagsList' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-stacklist-tags__anchor">
-              ==>{{tag}}
+              {{tag}}
             </a>
           </li>
         {% endfor %}
       {% endif %}
     </ul>
-
     <h1 class="heading__headline">{{ page.title}}</h1>
     <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
   </div>
@@ -57,7 +56,7 @@
           </div>
         </div>
       {% elif block.block_type == 'image' %}
-        {% image block.value width-320 class="article-teaser__thumbnail" %}
+        {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
       {% elif block.value.youtube_link %}
           {% with block.value as media %}
           <div class="media-player">
@@ -164,9 +163,7 @@
           </ul>
         </div>
       {% else %}
-        <div class="article-page__content">
-          {{ block }}
-        </div>
+        {{ block }}
       {% endif %}
     {% endfor %}
   </article>

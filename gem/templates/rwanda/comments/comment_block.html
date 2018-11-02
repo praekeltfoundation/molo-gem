@@ -1,108 +1,120 @@
 {% load comments mptt_tags molo_commenting_tags gem_tags %}
 {% if self.is_commenting_enabled %}
-<div id="comments" class="comments comments__wrapper">
-  {% if self.allow_commenting %}
-    {% if request.user.is_authenticated %}
-      {% render_comment_form for self %}
-    {% else %}
-    <div class="call-to-action">
-      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
-        {% trans "Please log in to leave a comment" %}.
-      </a>
-    </div>
-    {% endif %}
-  {% else %}
-    <div class="heading">
-      <h4 class="heading__micro">
-        {% trans "Commenting on this article is currently disabled" %}
+<div id="comments" class="comments">
+  <div class="comments__wrapper">
+    <div class="heading heading--hero">
+      <h4 class="heading__component">
+        {% trans "Post a comment" %}
       </h4>
     </div>
-  {% endif %}
-  {% get_comment_count for self as comment_count %}
-  {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
-  {% if comment_count > 1 %}
-    <div class="heading">
-      <h2 class=" heading__component">{% trans "Comments" %}</h2>
-    </div>
-  {% endif %}
-  <div id="comments-list" class="comments-list">
-  {% for node in comment_list %}
-    {% recursetree node %}
-    <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--reply{% endif %}">
-      <h5 class="comments__alias comments__alias--author">
-      {% if node.user.is_staff %}
-          {% if settings.gem.GemSettings.moderator_name %}
-            {{settings.gem.GemSettings.moderator_name}}
-          {% else %}
-            {% trans "Big Sister" %}
-          {% endif %}
-          <span class="comments__staff">- {% trans "Moderator" %}</span>
-      {% elif node.user_name.lower == 'anonymous' %}
-        {% trans "Anonymous" %}
+
+    {% if self.allow_commenting %}
+      {% if request.user.is_authenticated %}
+        {% render_comment_form for self %}
       {% else %}
-        {% if not node.user.profile.alias %}
-          {% trans "Anonymous" %}
-        {% else %}
-          {{node.user.profile.alias}}
-        {% endif %}
+      <div class="call-to-action">
+        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
+          {% trans "Please log in to leave a comment" %}.
+        </a>
+      </div>
       {% endif %}
-      </h5>
-    {% if node.is_removed %}
-      <h6 class="comments__description">
-        {% trans "This comment has been removed by the community. Please read our platform rules" %}.
-      </h6>
     {% else %}
-      <p class="comments__content">{{ node.comment|smarttruncatechars:115 }}</p>
-      {% if node.comment.200 %}
-      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__read-more">
-        {% trans "Read more" %}
-      </a>
-      {% endif %}
-      <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
-      <div class="comments__reply-meta">
-        {% if not node.user|is_in_admin_group %}
-          <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
-            {% trans "Report" %}
-          </a>
-        {% endif %}
-        {% if node.parent == None %}
-            <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
-            {% trans "reply" %}</a>
-            {% if do_not_link_replies or node.get_children.count == 0 %}
-              <p class="call-to-action__nav-item-text call-to-action__replies-counter">
-                {{ node.get_children.count }}
-                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-                  {% trans "reply" %}
-                {% else %}
-                  {% trans "replies" %}
-                {% endif %}
-              </p>
-            {% else %}
-              <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
-                {{ node.get_children.count }}
-                {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-                  {% trans "reply" %}
-                {% else %}
-                  {% trans "replies" %}
-                {% endif %}
-              </a>
-            {% endif %}
-        {% endif %}
+      <div class="heading">
+        <h4 class="heading__micro">
+          {% trans "Commenting on this article is currently disabled" %}
+        </h4>
       </div>
     {% endif %}
-    </div>
-  </div>
-    {% if node.parent == None and node.get_children.count != 0 %}
-      <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
-    {% endif %}
-    {{ children }}
-    {% endrecursetree %}
-  {% endfor %}
 
-  {% if comment_count > 2 %}
-    <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left" {{attribute}}>
-        {% trans "Read more comments" %}
-    </a>
-  {% endif %}
+    {% get_comment_count for self as comment_count %}
+    {% get_molo_comments for self as comment_list limit 2 child_limit 2 %}
+    {% if comment_count > 1 %}
+      <div class="heading">
+        <h2 class=" heading__component">
+          {% trans "Comments" %}
+        </h2>
+      </div>
+    {% endif %}
+
+    <div id="comments-list" class="comments-list">
+    {% for node in comment_list %}
+      {% recursetree node %}
+      <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--reply{% endif %}">
+        <h5 class="comments__alias comments__alias--author">
+        {% if node.user.is_staff %}
+            {% if settings.gem.GemSettings.moderator_name %}
+              {{settings.gem.GemSettings.moderator_name}}
+            {% else %}
+              {% trans "Big Sister" %}
+            {% endif %}
+            <span class="comments__staff">- {% trans "Moderator" %}</span>
+        {% elif node.user_name.lower == 'anonymous' %}
+          {% trans "Anonymous" %}
+        {% else %}
+          {% if not node.user.profile.alias %}
+            {% trans "Anonymous" %}
+          {% else %}
+            {{node.user.profile.alias}}
+          {% endif %}
+        {% endif %}
+        </h5>
+      {% if node.is_removed %}
+        <h6 class="comments__description">
+          {% trans "This comment has been removed by the community. Please read our platform rules" %}.
+        </h6>
+      {% else %}
+        <p class="comments__content">{{ node.comment|smarttruncatechars:115 }}</p>
+        {% if node.comment.200 %}
+        <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__read-more">
+          {% trans "Read more" %}
+        </a>
+        {% endif %}
+        <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
+        <div class="comments__reply-meta">
+          {% if not node.user|is_in_admin_group %}
+            <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
+              {% trans "Report" %}
+            </a>
+          {% endif %}
+          {% if node.parent == None %}
+              <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
+              {% trans "reply" %}</a>
+              {% if do_not_link_replies or node.get_children.count == 0 %}
+                <p class="call-to-action__nav-item-text call-to-action__replies-counter">
+                  {{ node.get_children.count }}
+                  {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                    {% trans "reply" %}
+                  {% else %}
+                    {% trans "replies" %}
+                  {% endif %}
+                </p>
+              {% else %}
+                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
+                  {{ node.get_children.count }}
+                  {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                    {% trans "reply" %}
+                  {% else %}
+                    {% trans "replies" %}
+                  {% endif %}
+                </a>
+              {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+      </div>
+    </div>
+      {% if node.parent == None and node.get_children.count != 0 %}
+        <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
+      {% endif %}
+      {{ children }}
+      {% endrecursetree %}
+    {% endfor %}
+
+    {% if comment_count > 2 %}
+      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left" {{attribute}}>
+          {% trans "Read more comments" %}
+      </a>
+    {% endif %}
+  </div>
 </div>
 {% endif %}
