@@ -105,10 +105,10 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
         self.assertEqual(
             settings['VIEW_PROFILE_URL'],
             u'/profile/edit/?theme=springster&redirect_uri='
-            'http://example.url&client_id=client_id&language=en')
+            'http://example.url/&client_id=client_id&language=en')
         self.assertEqual(settings['EDIT_PROFILE_URL'],
                          u'/profile/edit/?theme=springster&redirect_uri='
-                         'http://example.url&client_id=client_id&language=en')
+                         'http://example.url/&client_id=client_id&language=en')
         self.assertEqual(
             settings['REGISTRATION_URL'],
             u'/registration/?theme=springster&hide=end-user&redirect_uri='
