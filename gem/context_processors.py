@@ -51,7 +51,7 @@ def compress_settings(request):
                 "%s/registration/?theme=%s&hide=end-user&redirect_uri=%s"
                 "&client_id=%s&language=%s" % (
                     settings.OIDC_OP, settings.THEME,
-                    request.site.root_url
+                    oidc_settings.wagtail_redirect_url[:-1]
                     + reverse('oidc_authentication_init'),
                     oidc_settings.oidc_rp_client_id, language))
             VIEW_PROFILE_URL = (
