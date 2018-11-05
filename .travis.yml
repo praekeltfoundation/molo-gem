@@ -73,6 +73,10 @@ jobs:
           on:
             tags: true
 
+      # build minified css & js files
+      after_deploy:
+      - gulp styles
+
       # Built steps inherited from the default stage that we don't want
       before_install: ignore
       after_success: []
