@@ -1,19 +1,22 @@
 .media-player {
-  background-color: $color-cyan;
-  margin: 5px auto;
+  padding: 0 5%;
   overflow: auto;
+  @include for-size(desktop-up) {
+    padding: 0 10%;
+  }
+  &__content {}
   &__title {
-    color: #fff;
+    color: #000;
     font-size: $font-x-small;
     text-transform: uppercase;
   }
   &__subtitle {
-    color: #fff;
+    color: #000;
     font-size: $font-x-small;
-    padding: 0 25px;
+    padding: 0 ($spacer-multiple + 5);
   }
   &__caption {
-    color: #fff;
+    color: #000;
     font-size: $font-x-small;
     text-align: center;
   }
@@ -29,50 +32,32 @@
     font-weight: bold;
     text-decoration: underline;
   }
-  &__content {
-    padding: 20px;
-    text-align: center;
-  }
   &__no-player {
     text-align: center;
-    padding: 10px 0;
-    border: 1px solid #fff;
+    padding: $spacer-half 0;
+    border: 1px solid $color-cyan;
   }
   &__embed-object {
     position: relative;
-    margin: 10px auto 0;
     height: auto;
     overflow: auto;
     iframe, object, embed {
       position: relative;
-      min-height: 220px;
-      min-width: 320px;
       height: auto;
-      width: 100%;
-    }
-  }
-  .call-to-action__button {
-    color: $color-pink-hollywood;
-    text-align: center;
-    display: block;
-    margin: 5px 0 0;
-    &:hover, &:active {
-      text-decoration: underline;
+      width: 35%;
     }
   }
   video {
     display: block;
     position: relative;
     margin: 0 auto;
-    max-height: 220px;
-    max-width: 320px;
-    height: 100%;
-    width: 95%;
+    height: auto;
+    width: 35%;
   }
   audio {
     display: block;
     margin: 0 auto;
-    width: 95%;
+    width: 35%;
   }
 }
 

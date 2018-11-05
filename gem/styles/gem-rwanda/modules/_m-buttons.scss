@@ -1,22 +1,14 @@
-//DEFAULTS
-button,
+/*button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-  border: none;
   border-radius: 2px;
   display: block;
   color: #ffffff;
-  cursor: pointer;
   font-size: $font-x-small;
   margin: $spacer-half auto;
   padding: $spacer-half;
-  text-align: center;
-  text-transform: uppercase;
-  word-break: break-all;
-  word-wrap: break-word;
-  white-space: normal; //IMPORTANT INPUT WRAP
-}
+}*/
 
 //CUSTOM
 .call-to-action {
@@ -49,7 +41,6 @@ button,
       text-transform: uppercase;
     }
   }
-
   &__nav-item {
     &-text  {
       color: $color-cyan-fountain;
@@ -85,47 +76,15 @@ button,
       }
     }
   }
-  &__button {
-    color: #fff;
-    border-radius: 0;
-    display: block;
-    text-align: center;
-    text-transform: uppercase;
-    padding: $spacer-half $spacer-mid;
-    &:active, &:hover, &:focus  {
-      color: $color-yellow-gorse;
-    }
-    &--primary {
-      background-color: $color-pink-hollywood;
-      color: $color-yellow;
-      font-weight: bold;
-      padding: $spacer-half ($spacer-max + 5);
-      margin: $spacer-half 0;
-      &:active, &:hover, &:focus {
-        color: $color-yellow;
-        text-decoration: underline;
-      }
-    }
-    &--secondary {
-      font-weight: 700;
-      padding: 0 15px 10px 0px;
-      text-transform: uppercase;
-      font-size: $font-x-small;
-      display: block;
-      text-align: left;
-    }
-  }
   &__report {
     padding-right: $spacer-mid;
     float: left;
   }
-
   &__response {
     color: $color-cyan-fountain;
     vertical-align: middle;
     float: left;
   }
-
   &__replies-counter {
     color: $color-cyan-fountain;
     margin: 0;
@@ -134,13 +93,15 @@ button,
     float: right;
   }
 
+  &__button,
   &__read-more {
     color: #000;
     display: line-block;
     font-weight: bold;
     font-size: $font-x-small;
-    padding: 1em;
+    padding: 0.800em 1em;
     text-transform: uppercase;
+    margin: 1em 1em 0 0;
     @include for-size(desktop-up) {
       color: #fff;
       background-color: $color-cyan;
@@ -165,11 +126,9 @@ button,
       }
     }
   }
-
 }
-
 //OVERRIDES
-.article-teaser__topicOfTheDay-wrapper {
+.article-teaser--topic-of-day {
   .call-to-action__read-more {
     @include for-size(desktop-up) {
       -webkit-box-shadow: 12px 12px 0 0 $color-pink-hollywood;

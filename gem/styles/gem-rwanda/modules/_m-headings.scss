@@ -2,6 +2,7 @@
   font-size: $font-x-medium;
   padding: $spacer-small $spacer-mid;
   text-transform: uppercase;
+  //WRAPPER DIVS
   &--hero {
     display: inline-block;
     padding: 1.10em 0.313em;
@@ -13,14 +14,24 @@
       background-size: contain;
     }
   }
-  &--section {
+  &--primary {
     position: relative;
   }
 
+  &--secondary {
+    display: inline-block;
+    padding: 1.10em 0.313em;
+    margin: 0.625em 0;
+    @include for-size(desktop-up) {
+      background: url('/static/img/icons/rwanda/shape5-yellow.png') no-repeat 0 0/contain;
+    }
+  }
+
+  //HEADING TAGS
   &__component {
     background-color: #000;
     color: #fff;
-    padding: 0 $spacer-small;
+    padding: ($spacer-small - 3) $spacer-small 0;
     font-size: $font-x-medium;
   }
   &__subheading {
@@ -39,13 +50,7 @@
   &__headline {
     color: #000;
     font-size: $font-xx-large;
-    text-transform: uppercase;
-  }
-  &__micro {
-    color: #000;
-    font-size: $font-x-medium;
-    padding: 1em $spacer-small;
-    text-transform: uppercase;
+    margin: $spacer-mid 0 0;
   }
   &__subtitle {
     color: #000;

@@ -6,7 +6,7 @@
   {% load_child_sections_for_section self as sections %}
   <div class="section-page__theme"></div>
   <div class="section-page__wrapper">
-    <div class="heading heading--section">
+    <div class="heading heading--primary">
       {% if self.get_effective_image %}
         {% image self.get_effective_image width-80 as section_photo %}
           <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section-page__icon"/>
@@ -30,9 +30,9 @@
             {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
             <li class="teaser-stacklist-tags__item">
-              <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                <div class="comment-counter__icon"></div>
-                <span class="comment-counter__numeral">{{comment_count}}</span>
+              <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
+                <div class="comments-counter__icon"></div>
+                <span class="comments-counter__numeral">{{comment_count}}</span>
               </a>
             </li>
             {% endif %}

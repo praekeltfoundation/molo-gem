@@ -1,29 +1,21 @@
-.comments {
-  &-list {
-    font-size: $font-x-small;
-    &__item {
-      padding: $spacer-mid $spacer-mid $spacer-small;
-      &:first-child {
-        padding: 0 $spacer-mid
-      }
-      &--parent {
-        border-top: 1px solid $color-gray-light;
-        &:first-child {
-          border: none;
-        }
-      }
-      &--reply {
-        background-color: $color-gray-light;
-      }
+@each $sectionModifier, $styleElement in $sectionThemes {
+  .article-page--#{$sectionModifier} {
+    .comments {
+      background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
     }
   }
-  &-replies-list {
-    background-color: $color-gray-light;
-    margin: 0;
-    padding: $spacer-half $spacer-mid;
-    &__item {
-      padding: $spacer-half 0;
-    }
+}
+.comments {
+  $block: unquote("#{&}");
+  padding: 0 5%;
+  overflow: auto;
+  @include for-size(desktop-up) {
+    padding: 0 15%;
+  }
+  &__wrapper {
+    background: #fff;
+    margin: 1em 0;
+    padding: 2em;
   }
   &__alias {
     color: #000000;
@@ -33,12 +25,25 @@
   }
   &__staff {}
   &__description {}
-  &__body-small {
+  &__content {
     margin: $spacer-half 0;
   }
   &__publish-date {
     color: $color-gray;
     display: inline-block;
+  }
+  &__reply {
+    &-notification {
+      background-color: rgba($color-cyan-fountain, 0.5);
+      padding: $spacer-mid $spacer-mid;
+      color: $color-yellow;
+    }
+    &-meta {
+      clear: both;
+      overflow: auto;
+      position: relative;
+      width: 100%;
+    }
   }
   &__replies {
     &-title {
@@ -59,74 +64,68 @@
       padding: $spacer-half 0;
     }
   }
-  &__reply {
-    &-notification {
-      background-color: rgba($color-cyan-fountain, 0.5);
-      padding: $spacer-mid $spacer-mid;
-      color: $color-yellow;
-    }
-    &-meta {
-      clear: both;
-      overflow: auto;
-      position: relative;
-      width: 100%;
-    }
-  }
-
-  //COMMENTS ADJUSTMENTS + HIERARCHY
-  .call-to-action {
-    &__button  {
-      margin: $spacer-small auto;
-      padding: $spacer-half $spacer-x-max $spacer-half $spacer-half;
-      text-align: left;
-      &--primary {
-        &:before {
-          background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat 0 0/100%;
-          content: "";
-          display: inline-block;
-          height: 15px;
-          width: 20px;
-          vertical-align: middle;
-          margin-right: $spacer-small;
-        }
-      }
-    }
-  }
-  .heading {
-    padding:  $spacer-half $spacer-mid;
-  }
   &__form {
-    padding: 0 $spacer-mid;
-    .call-to-action__button {
-      margin: $spacer-half 0;
-    }
+    padding: 0 1rem;
   }
-}
-
-.comment {
   &-counter {
     display: inline-block;
-    color: $color-pink;
+    color: #fff;
     vertical-align: middle;
     margin: 0;
-    &:active, &:hover, &:focus {
-      color: $color-yellow;
-      .comment-counter__icon {
-        background: url("/static/img/icons/rwanda/comments-yellow.png") no-repeat center center/ 100%;
-      }
+    position: relative;
+    background: $color-cyan;
+    border-radius: 50%;
+    height: 27px;
+    width: 27px;
+    padding: ($spacer-small - 2);
+    text-align: center;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: 0;
+      left: auto;
+      bottom: 0;
+      border: 6px solid;
+      border-color: $color-cyan $color-cyan transparent transparent;
+      margin-bottom: -($spacer-small - 1);
+      transform: rotate(-35deg);
     }
     &__icon {
-      background: url("/static/img/icons/rwanda/comments-pink.png") no-repeat center center/ 100%;
-      display: inline-block;
-      height: 20px;
-      width: 18px;
-      margin: $spacer-small 0 0;
+      display: none;
+      visibility: hidden;
     }
     &__numeral {
-      display: inline-block;
       font-weight: bold;
-      vertical-align: super;
       font-size: $font-xx-small;
+    }
+  }
+
+  &-list {
+    font-size: $font-x-small;
+    &__item {
+      padding: $spacer-mid $spacer-mid $spacer-small;
+      &:first-child {
+        padding: 0 $spacer-mid;
+      }
+      &--parent {
+        border-top: 1px solid $color-gray-light;
+        &:first-child {
+          border: none;
+        }
+      }
+      &--reply {
+        background-color: $color-gray-light;
+      }
+    }
+  }
+  &-replies-list {
+    background-color: $color-gray-light;
+    margin: 0;
+    padding: $spacer-half $spacer-mid;
+    &__item {
+      padding: $spacer-half 0;
     }
   }
 }
