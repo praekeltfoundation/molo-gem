@@ -13,8 +13,10 @@
             {% image next_article.image width-200 class="teaser-stacklist__thumbnail" %}
           </div>
         {% endif %}
+        {% get_comment_count for next_article as comment_count %}
+        {% load_tags_for_article next_article as tags %}
+        {% if comment_count or tags %}
         <ul class="teaser-stacklist-tags">
-          {% get_comment_count for next_article as comment_count %}
           {% if comment_count > 0 %}
             <li class="teaser-stacklist-tags__item">
               <a href="{% pageurl next_article.specific %}?#comments" class="comments-counter">
@@ -23,7 +25,6 @@
               </a>
             </li>
           {% endif %}
-          {% load_tags_for_article next_article as tags %}
           {% if settings.core.SiteSettings.enable_tag_navigation %}
             {% for tag in tags %}
               {% if not tag.title.20 %}
@@ -36,6 +37,7 @@
             {% endfor %}
           {% endif %}
         </ul>
+        {% endif %}
         <h3 class="article-teaser__title {% if next_article.title_highlight %}article-teaser__title--highlight{% endif %}">
           {% if next_article.title_highlight %}
             {{ next_article.title_highlight|smarttruncatechars:23|safe}}
@@ -81,8 +83,10 @@
               {% image article.image width-200 width-180 class="article-teaser__thumbnail" %}
             </div>
           {% endif %}
+          {% get_comment_count for article as comment_count %}
+          {% load_tags_for_article article as tags %}
+          {% if comment_count or tags %}
           <ul class="teaser-stacklist-tags">
-            {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
               <li class="teaser-stacklist-tags__item">
                 <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
@@ -91,7 +95,6 @@
                 </a>
               </li>
             {% endif %}
-            {% load_tags_for_article article as tags %}
             {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
               {% for tag in tags %}
                 {% if not tag.title.20 %}
@@ -104,6 +107,7 @@
               {% endfor %}
             {% endif %}
           </ul>
+          {% endif %}
           <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
             {% if article.title_highlight %}
               {{ article.title_highlight|smarttruncatechars:23|safe}}
