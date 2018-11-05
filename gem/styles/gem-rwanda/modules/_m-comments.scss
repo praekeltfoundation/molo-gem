@@ -1,7 +1,7 @@
 @each $sectionModifier, $styleElement in $sectionThemes {
   .article-page--#{$sectionModifier} {
     .comments {
-      background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
+      background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) repeat center center/100%;
     }
   }
 }
@@ -15,22 +15,34 @@
   &__wrapper {
     background: #fff;
     margin: 1em 0;
-    padding: 2em;
+    padding: 1em 2em;
+  }
+  &__form {
+    padding: 0 1rem 5%;
   }
   &__alias {
-    color: #000000;
+    color: #000;
+    font-size: $font-x-small;
     margin: 0;
     text-transform: uppercase;
     &--author {}
+    #{$block}__staff {
+      color: $color-cyan-fountain;
+    }
   }
-  &__staff {}
-  &__description {}
+
+  &__description {
+    font-weight: bold;
+  }
   &__content {
     margin: $spacer-half 0;
   }
   &__publish-date {
-    color: $color-gray;
+    color: #000;
     display: inline-block;
+    font-weight: bold;
+    font-size: $font-xx-small;
+    margin-bottom: 0;
   }
   &__reply {
     &-notification {
@@ -64,9 +76,7 @@
       padding: $spacer-half 0;
     }
   }
-  &__form {
-    padding: 0 1rem;
-  }
+
   &-counter {
     display: inline-block;
     color: #fff;
@@ -104,6 +114,7 @@
 
   &-list {
     font-size: $font-x-small;
+    padding: 1em 0;
     &__item {
       padding: $spacer-mid $spacer-mid $spacer-small;
       &:first-child {
