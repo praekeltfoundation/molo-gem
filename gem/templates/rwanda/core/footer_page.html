@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags wagtailembeds_tags core_tags %}
 {% block content %}
-  <div class="heading">
-    <h1 class="heading__article">{{self.title}}</h1>
-  </div>
   <div class="footer-page">
-    <article>
+    <h1 class="heading__headline">{{self.title}}</h1>
+    <article class="article">
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
-        <div class="heading">
-          <h3 class="heading__article">{{ block.value }}</h3>
-        </div>
+        <h3 class="heading__micro">{{ block.value }}</h3>
       {% elif block.block_type == 'image' %}
         {% image block.value width-320 alt=self.title %}
       {% elif block.value.youtube_link %}
@@ -96,6 +92,6 @@
         {{ block }}
       {% endif %}
     {% endfor %}
-  </article>
+    </article>
   </div>
 {% endblock %}
