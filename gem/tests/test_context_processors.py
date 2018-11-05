@@ -96,7 +96,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
         site.oidcsettings = OIDCSettings.objects.create(
             oidc_rp_client_id='client_id',
             oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
-            wagtail_redirect_url='http://example.url', site_id=site.id)
+            wagtail_redirect_url='http://example.url/', site_id=site.id)
         request.site = site
 
         # Check settings
@@ -112,7 +112,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
         self.assertEqual(
             settings['REGISTRATION_URL'],
             u'/registration/?theme=springster&hide=end-user&redirect_uri='
-            'http://main1-1.localhost/oidc/authenticate/&client_id=client_id&'
+            'http://example.url/oidc/authenticate/&client_id=client_id&'
             'language=en')
         self.assertEqual(settings['LOGOUT_URL'], 'molo.profiles:auth_logout')
         self.assertEqual(settings['ENV'], 'test_env')
