@@ -2,7 +2,7 @@
 {% if self.is_commenting_enabled %}
 <div id="comments" class="comments">
   <div class="comments__wrapper">
-    <div class="heading heading--hero">
+    <div class="heading heading--secondary">
       <h4 class="heading__component">
         {% trans "Post a comment" %}
       </h4>
@@ -12,9 +12,12 @@
       {% if request.user.is_authenticated %}
         {% render_comment_form for self %}
       {% else %}
-      <div class="call-to-action">
+      <div class="comments__inner">
+        <p class="comments__description">
+          {% trans "To post a comment you must log in or create an account." %}
+        </p>
         <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
-          {% trans "Please log in to leave a comment" %}.
+          {% trans "Please log in to comment" %}
         </a>
       </div>
       {% endif %}

@@ -1,7 +1,7 @@
 @each $sectionModifier, $styleElement in $sectionThemes {
   .article-page--#{$sectionModifier} {
     .comments {
-      background: url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
+      background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) no-repeat center center/cover;
     }
   }
 }
