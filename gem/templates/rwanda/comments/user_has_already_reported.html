@@ -1,16 +1,16 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
-<div class="comments">
-  <div class="heading">
-    <h2 class="heading__subtitle">{% trans "You have already reported this comment" %}</h2>
+<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="heading heading--secondary">
+    <h2 class="heading__basic">
+      {% trans "You have already reported this comment" %}
+    </h2>
   </div>
-  <p class="heading--subtitle">
+  <p class="heading__subtitle">
     {% trans "The comment will be reviewed by the moderation team and may be removed if it breaks our platform rules" %}.
   </p>
+  <a href="{% pageurl article %}" class="call-to-action__button call-to-action__button--primary">
+    {% trans "Back to article" %}</a>
 </div>
-  <div class="call-to-action">
-    <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back to article" %}</a>
-  </div>
 {% endblock %}

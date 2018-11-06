@@ -80,7 +80,6 @@
           {% trans "Read more" %}
         </a>
         {% endif %}
-
         <div class="comments__reply-meta">
           {% if not node.user|is_in_admin_group %}
             <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
@@ -114,15 +113,12 @@
       {% endif %}
         </div>
       </div>
-
         {% if node.parent == None and node.get_children.count != 0 %}
           <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
         {% endif %}
         {{ children }}
-      
       {% endrecursetree %}
     {% endfor %}
-
     {% if comment_count > 3 %}
       <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__button call-to-action__button--primary" {{attribute}}>
           {% trans "Read more comments" %}
