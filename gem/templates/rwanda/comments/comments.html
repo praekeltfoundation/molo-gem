@@ -1,6 +1,5 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags mptt_tags molo_commenting_tags gem_tags %}
-
 {% block content %}
 <div class="breadcrumbs breadcrumbs--comments">
   <ul class="breadcrumbs-list">
@@ -8,19 +7,19 @@
       <p class="breadcrumbs-list__label">{% trans "Breadcrumbs" %}:</p>
     </li>
     <li class="breadcrumbs-list__item">
-      <a href="{% pageurl self.get_parent_section.specific %}" class="breadcrumbs-list__anchor">
-        {{ self.get_parent_section }}
+      <a href="{% pageurl article.get_parent_section.specific %}" class="breadcrumbs-list__anchor">
+        {{ article.get_parent_section }}
       </a>
     </li>
     <li class="breadcrumbs-list__item">
-      <a href="{% pageurl self.specific %}" class="breadcrumbs-list__anchor">{{ self }}</a>
+      <a href="{% pageurl article.specific %}" class="breadcrumbs-list__anchor">{{ self }}</a>
     </li>
     <li class="breadcrumbs-list__item">
       <p class="breadcrumbs-list__current">{% trans "Comments" %}</p>
     </li>
   </ul>
 </div>
-<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments {% if article.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
     <h1 class="heading__headline">{{self.title}}</h1>
     <div class="heading heading--secondary">
@@ -100,7 +99,7 @@
       {% endrecursetree %}
     {% endfor %}
     </div>
-    <a href="{% pageurl self.specific %}" class="call-to-action__button">
+    <a href="{% pageurl self.specific %}" class="call-to-action__button call-to-action__button--secondary">
       {% trans "Back to article" %}
     </a>
 

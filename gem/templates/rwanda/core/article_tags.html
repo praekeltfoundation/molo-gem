@@ -79,7 +79,7 @@
       {% endif %}
   </div>
   <div class="call-to-action">
-      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
         {% trans "Back home" %}
       </a>
   </div>
@@ -150,10 +150,9 @@
          </li>
          {% endfor %}
        </ul>
-        <div class="call-to-action">
-          <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__nav-item-text">
-            {% trans "Read All" %} {{next_tag}}</a>
-        </div>
+        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__button call-to-action__button-secondary">
+          {% trans "Read All" %} {{next_tag}}
+        </a>
       {% endif %}
     </div>
     {% endif %}
