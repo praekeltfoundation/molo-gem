@@ -22,6 +22,12 @@
 </div>
 <div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
+    <h1 class="heading__headline">{{self.title}}</h1>
+    <div class="heading heading--secondary">
+      <h4 class="heading__component">
+        {% trans "Comments" %}
+      </h4>
+    </div>
     <div id="comments-list" class="comments-list">
     {% for node in comments %}
       {% recursetree node %}
