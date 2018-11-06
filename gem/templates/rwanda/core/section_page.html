@@ -26,8 +26,10 @@
           </div>
         {% endif %}
         <div class="teaser-stacklist__container">
+          {% get_comment_count for article as comment_count %}
+          {% load_tags_for_article article as tags %}
+          {% if comment_count or tags %}
           <ul class="teaser-stacklist-tags">
-            {% get_comment_count for article as comment_count %}
             {% if comment_count > 0 %}
             <li class="teaser-stacklist-tags__item">
               <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
@@ -49,6 +51,7 @@
               {% endfor %}
             {% endif %}
           </ul>
+          {% endif %}
           <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
             {% if article.title_highlight %}
               {{ article.title_highlight|smarttruncatechars:50|safe}}

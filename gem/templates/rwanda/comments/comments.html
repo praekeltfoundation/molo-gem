@@ -1,104 +1,127 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags mptt_tags molo_commenting_tags gem_tags %}
+
 {% block content %}
-<div class="call-to-action">
-  <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-    {% trans "Back to article" %}</a>
+<div class="breadcrumbs breadcrumbs--comments">
+  <ul class="breadcrumbs-list">
+    <li class="breadcrumbs-list__item">
+      <p class="breadcrumbs-list__label">{% trans "Breadcrumbs" %}:</p>
+    </li>
+    <li class="breadcrumbs-list__item">
+      <a href="{% pageurl self.get_parent_section.specific %}" class="breadcrumbs-list__anchor">
+        {{ self.get_parent_section }}
+      </a>
+    </li>
+    <li class="breadcrumbs-list__item">
+      <a href="{% pageurl self.specific %}" class="breadcrumbs-list__anchor">{{ self }}</a>
+    </li>
+    <li class="breadcrumbs-list__item">
+      <p class="breadcrumbs-list__current">{% trans "Comments" %}</p>
+    </li>
+  </ul>
 </div>
-<div class="comments">
-  <div id="comments-list" class="comments-list">
-  {% for node in comments %}
-    {% recursetree node %}
-        <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %}  {% if node.parent %}comments-list__item--reply{% endif %}">
-          <h5 class="comments__alias comments__alias-author">
-          {% if node.user.is_staff %}
-              {% if settings.gem.GemSettings.moderator_name %}
-                {{settings.gem.GemSettings.moderator_name}}
-              {% else %}
-                {% trans "Big Sister" %}
-              {% endif %}
-              <span class="comments__staff">
-                - {% trans "Moderator" %}
-              </span>
-          {% elif node.user_name.lower == 'anonymous' %}
+<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="comments__wrapper">
+    <div id="comments-list" class="comments-list">
+    {% for node in comments %}
+      {% recursetree node %}
+      <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %}  {% if node.parent %}comments-list__item--reply{% endif %}">
+        <h5 class="comments__alias comments__alias-author">
+        {% if node.user.is_staff %}
+            {% if settings.gem.GemSettings.moderator_name %}
+              {{settings.gem.GemSettings.moderator_name}}
+            {% else %}
+              {% trans "Big Sister" %}
+            {% endif %}
+            <span class="comments__staff">
+              - {% trans "Moderator" %}
+            </span>
+        {% elif node.user_name.lower == 'anonymous' %}
+          {% trans "Anonymous" %}
+        {% else %}
+          {% if not node.user.profile.alias %}
             {% trans "Anonymous" %}
           {% else %}
-            {% if not node.user.profile.alias %}
-              {% trans "Anonymous" %}
-            {% else %}
-              {{node.user.profile.alias}}
-            {% endif %}
+            {{node.user.profile.alias}}
           {% endif %}
-          </h5>
+        {% endif %}
+        </h5>
         {% if node.is_removed %}
         <h6 class="comments__description">
-        {% trans "This comment has been removed by the community. Please read our platform rules" %}.
+          {% trans "This comment has been removed by the community. Please read our platform rules" %}.
         </h6>
         {% else %}
           {% if truncate_comment %}
-            <p class="comments__content">{{ node.comment|smarttruncatechars:115 }}</p>
+            <p class="comments__content">
+              {{ node.comment|smarttruncatechars:115 }}
+            </p>
             {% if node.comment.200 %}
-            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__nav-item-text call-to-action__readmore">
-            {% trans "Read more" %}</a>
+            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more">
+              {% trans "Read more" %}
+            </a>
             {% endif %}
           {% else %}
             <p class="comments__content">{{ node.comment }}</p>
           {% endif %}
-          <span class="comments__publish-date">({{node.submit_date|timesince}} {% trans "ago" %})</span>
+          <span class="comments__publish-date">
+            ({{node.submit_date|timesince}} {% trans "ago" %})
+          </span>
           <div class="comments__reply-meta">
-              {% if not node.user|is_in_admin_group %}
-                <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
-                  {% trans "Report" %}
+            {% if not node.user|is_in_admin_group %}
+              <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__report">
+                {% trans "Report" %}
+              </a>
+            {% endif %}
+
+            {% if node.parent == None %}
+              <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
+              {% trans "reply" %}</a>
+              {% if do_not_link_replies or node.get_children.count == 0 %}
+                <p class="call-to-action__nav-item-text call-to-action__replies-counter">
+                  {{ node.get_children.count }}
+                  {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                    {% trans "reply" %}
+                  {% else %}
+                    {% trans "replies" %}
+                  {% endif %}
+                </p>
+              {% else %}
+                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
+                  {{ node.get_children.count }}
+                  {% if node.get_children.count == 0 or node.get_children.count == 1 %}
+                    {% trans "reply" %}
+                  {% else %}
+                    {% trans "replies" %}
+                  {% endif %}
                 </a>
               {% endif %}
-
-              {% if node.parent == None %}
-                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__response">
-                {% trans "reply" %}</a>
-                {% if do_not_link_replies or node.get_children.count == 0 %}
-                  <p class="call-to-action__nav-item-text call-to-action__replies-counter">
-                    {{ node.get_children.count }}
-                    {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-                      {% trans "reply" %}
-                    {% else %}
-                      {% trans "replies" %}
-                    {% endif %}
-                  </p>
-                {% else %}
-                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__replies-counter">
-                    {{ node.get_children.count }}
-                    {% if node.get_children.count == 0 or node.get_children.count == 1 %}
-                      {% trans "reply" %}
-                    {% else %}
-                      {% trans "replies" %}
-                    {% endif %}
-                  </a>
-                {% endif %}
             {% endif %}
           </div>
         {% endif %}
-      </div>
         {% if node.parent == None and node.get_children.count != 0 %}
-          <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
+          <h3 class="comments__replies-title">
+            {% trans "Recent replies" %}
+          </h3>
         {% endif %}
         {{ children }}
-    {% endrecursetree %}
-  {% endfor %}
-  </div>
-  <div class="pagination">
-    {% if page.has_previous %}
-      <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
-    {% endif %}
-    <span class="pagination__nav-item pagination__nav-item--current">
-      Page {{ page.number }} of {{ page.paginator.num_pages }}
-    </span>
-    {% if page.has_next %}
-      <a href="?p={{ page.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next"></a>
-    {% endif %}
-  </div>
-  <div class="call-to-action call-to-action--wide-back">
-    <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back to article" %}</a>
-  </div>
+        </div>
+      {% endrecursetree %}
+    {% endfor %}
+    </div>
+    <a href="{% pageurl self.specific %}" class="call-to-action__button call-to-action__button--primary">
+      {% trans "Back to article" %}
+    </a>
+
+    <div class="pagination">
+      {% if page.has_previous %}
+        <a href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--previous"></a>
+      {% endif %}
+      <span class="pagination__nav-item pagination__nav-item--current">
+        Page {{ page.number }} of {{ page.paginator.num_pages }}
+      </span>
+      {% if page.has_next %}
+        <a href="?p={{ page.next_page_number }}" class="call-to-action__button call-to-action__button--next"></a>
+      {% endif %}
+    </div>
 </div>
 {% endblock %}

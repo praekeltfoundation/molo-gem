@@ -1,7 +1,6 @@
 /*
   STYLES APPLY TO HEADER SEARCH
 */
-
 .search {
   &--header {
     display: inline-block;
@@ -13,6 +12,7 @@
     text-align: left;
     padding: 1em;
     @include fly-by();
+    z-index: -999;
   }
   &-accordion {
     &__label {
@@ -26,12 +26,16 @@
         background-size: 100%;
         background-position: center 0;
         display: inline-block;
-        height: 30px;
         vertical-align: middle;
-        width: 30px;
+        height: 25px;
+        width: 25px;
+        @include for-size(tablet-portrait-up) {
+          height: 30px;
+          width: 30px;
+        }
         @include for-size(desktop-up) {
-            height: 45px;
-            width: 45px;
+          height: 42px;
+          width: 42px;
         }
       }
     }
@@ -39,8 +43,11 @@
       margin: 0;
       padding: 0 0 0 0.313em;
       display: inline-block;
+      font-size: $font-x-small;
+      font-weight: bold;
       @include for-size(tablet-portrait-up) {
         display: none;
+        font-size: $font-small;
         visibility: hidden;
       }
     }
@@ -64,6 +71,7 @@
         -ms-transition: height, 0.5s linear;
         -o-transition: height, 0.5s linear;
         transition: height, 0.5s linear;
+        label[for=search_accordion] { background-color: #000; }
       }
     }
   }

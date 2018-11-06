@@ -9,24 +9,35 @@
   }
   &__title {
     display: inline-block;
-    margin: 10px;
+    margin: 5px;
+    font-size: $font-x-small;
+    font-weight: bold;
+    @include for-size(tablet-portrait-up) {
+      margin: 10px;
+    }
   }
   &__icon {
     display: inline-block;
     height: auto;
     vertical-align: middle;
     overflow: auto;
-    width: 30px;
+    width: 15px;
+    @include for-size(tablet-portrait-up) {
+      width: 35px;
+    }
     @include for-size(desktop-up) {
-      width: 45px;
+      width: 42px;
     }
   }
   &__bar {
     background-color: #fff;
-    margin: 5px 0;
+    margin: 3px 0;
     width: 100%;
-    height: 5px;
+    height: 4px;
     display: block;
+    @include for-size(tablet-portrait-up) {
+      height: 5px;
+    }
     @include for-size(desktop-up)  {
       height: 6px;
     }

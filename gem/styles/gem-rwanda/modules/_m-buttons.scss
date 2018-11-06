@@ -41,39 +41,37 @@
       text-transform: uppercase;
     }
   }
-  &__nav-item {
-    &-text  {
-      color: $color-cyan-fountain;
-      display: block;
-      font-size: $font-small;
+  &__nav-item-text {
+    color: $color-cyan-fountain;
+    display: block;
+    font-size: $font-small;
+    text-transform: uppercase;
+      &:active, &:hover, &:focus  {
+        text-decoration: underline;
+      }
+    &--left {
+      padding: $spacer-half $spacer-mid;
+    }
+    &--right {
+      color: $color-yellow-gorse;
+      padding: 0;
+    }
+    &--article-comments {
+      color: $color-pink;
+      padding: $spacer-half $spacer-mid;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      &:after {
+        content: "";
+        display: block;
+        border-bottom: 1px solid $color-pink;
+      }
+    }
+    &--login {
+      font-weight: bold;
+      padding: 0 $spacer-mid;
       text-transform: uppercase;
-        &:active, &:hover, &:focus  {
-          text-decoration: underline;
-        }
-      &--left {
-        padding: $spacer-half $spacer-mid;
-      }
-      &--right {
-        color: $color-yellow-gorse;
-        padding: 0;
-      }
-      &--article-comments {
-        color: $color-pink;
-        padding: $spacer-half $spacer-mid;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-block;
-        &:after {
-          content: "";
-          display: block;
-          border-bottom: 1px solid $color-pink;
-        }
-      }
-      &--login {
-        font-weight: bold;
-        padding: 0 $spacer-mid;
-        text-transform: uppercase;
-      }
     }
   }
   &__report {
@@ -83,14 +81,20 @@
   &__response {
     color: $color-cyan-fountain;
     vertical-align: middle;
+    font-size: $font-xx-small;
     float: left;
+    font-weight: bold;
+    text-transform: capitalize;
   }
   &__replies-counter {
     color: $color-cyan-fountain;
     margin: 0;
     vertical-align: middle;
     text-align: right;
+    font-size: $font-xx-small;
     float: right;
+    font-weight: bold;
+    text-transform: capitalize;
   }
 
   &__button,
@@ -99,9 +103,12 @@
     display: line-block;
     font-weight: bold;
     font-size: $font-x-small;
-    padding: 0.800em 1em;
+    padding: 0.800em 0;
     text-transform: uppercase;
     margin: 1em 1em 0 0;
+    @include for-size(tablet-portrait-up) {
+      padding: 0.800em 1em;
+    }
     @include for-size(desktop-up) {
       color: #fff;
       background-color: $color-cyan;
