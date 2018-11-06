@@ -1,5 +1,4 @@
 {% load molo_commenting_tags gem_tags %}
-<div class="comments-list__item {% if node.parent == None %}comments-list__item--parent-comment{% endif %} {% if node.parent %}comments-list__item--reply{% endif %}">
   <h5 class="comments__alias comments__alias-author">
   {% if node.user.is_staff %}
       {% if settings.gem.GemSettings.moderator_name %}
@@ -66,7 +65,8 @@
     {% endif %}
   </div>
 {% endif %}
-</div>
 {% if node.parent == None and node.get_children.count != 0 %}
-  <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
+  <h3 class="comments__replies-title">
+    {% trans "Recent replies" %}
+  </h3>
 {% endif %}
