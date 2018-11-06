@@ -1,7 +1,7 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags gem_tags %}
 {% block content %}
-<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="heading heading--secondary">
     <h4 class="heading__component">
       {% trans "Please let us know why you are reporting this comment" %}

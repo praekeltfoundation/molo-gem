@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
 {% csrf_token %}
-  <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+  <div class="input-group {% if form.comment.errors %}input-error{% endif %}">
     {% if form.errors %}
       <p class="errors">{% trans "Please correct the error below" %}</p>
     {% endif %}

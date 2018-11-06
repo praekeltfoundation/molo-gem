@@ -8,18 +8,18 @@
     </li>
     <li class="breadcrumbs-list__item">
       <a href="{% pageurl self.get_parent_section.specific %}" class="breadcrumbs-list__anchor">
-        {{ self.get_parent_section }}
+        {{ article.get_parent_section }}
       </a>
     </li>
     <li class="breadcrumbs-list__item">
-      <a href="{% pageurl self.specific %}" class="breadcrumbs-list__anchor">{{ self }}</a>
+      <a href="{% pageurl self.specific %}" class="breadcrumbs-list__anchor">{{ article }}</a>
     </li>
     <li class="breadcrumbs-list__item">
       <p class="breadcrumbs-list__current">{% trans "Comments" %}</p>
     </li>
   </ul>
 </div>
-<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
 {% get_comments_content_object for form as self %}
 {% pageurl self as the_url %}
   <div class="comments__wrapper">
