@@ -1,13 +1,14 @@
 .languageSearch-wrapper {
   text-align: left;
   display: block;
+  z-index: -999;
   @include for-size(phone-only) {
     display: inline-block;
     padding: 0;
     text-align: right;
   }
   @include for-size(desktop-up) {
-    align-self: flex-end;
+    align-self: center;
     flex: 1 auto;
     order: 3;
   }
@@ -18,6 +19,7 @@
   $block: unquote("#{&}");
   @include for-size(desktop-up) {
     position: relative;
+    padding: 0 5% 0;
   }
   &-wrapper {
     background: #fff;
@@ -31,7 +33,9 @@
       color: #fff;
       cursor: pointer;
       display: inline-block;
-      padding: 0 0 0 0.55em;
+      @include for-size(tablet-portrait-up) {
+        padding: 0 0 0 0.55em;
+      }
       &:before {
         content: " ";
         display: inline-block;
@@ -39,12 +43,16 @@
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
-        height: 30px;
         vertical-align: middle;
-        width: 30px;
+        height: 25px;
+        width: 25px;
+        @include for-size(tablet-portrait-up) {
+          height: 30px;
+          width: 30px;
+        }
         @include for-size(desktop-up) {
-            height: 45px;
-            width: 45px;
+          height: 42px;
+          width: 42px;
         }
       }
       @include for-size(desktop-up) {
@@ -53,8 +61,12 @@
     }
     &__title {
       margin: 0;
-      padding: 0 0 0 0.313em;
+      font-size: $font-x-small;
+      font-weight: bold;
       display: inline-block;
+      @include for-size(tablet-portrait-up) {
+        font-size: $font-small;
+      }
     }
     &__checkbox {
       & + * {
@@ -96,12 +108,16 @@
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
-        height: 30px;
         vertical-align: middle;
-        width: 30px;
+        height: 25px;
+        width: 25px;
+        @include for-size(tablet-portrait-up) {
+          height: 30px;
+          width: 30px;
+        }
         @include for-size(desktop-up) {
-            height: 45px;
-            width: 45px;
+            height: 42px;
+            width: 42px;
         }
       }
     }

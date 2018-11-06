@@ -103,9 +103,12 @@
     display: line-block;
     font-weight: bold;
     font-size: $font-x-small;
-    padding: 0.800em 1em;
+    padding: 0.800em 0;
     text-transform: uppercase;
     margin: 1em 1em 0 0;
+    @include for-size(tablet-portrait-up) {
+      padding: 0.800em 1em;
+    }
     @include for-size(desktop-up) {
       color: #fff;
       background-color: $color-cyan;

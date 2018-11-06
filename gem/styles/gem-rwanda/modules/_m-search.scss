@@ -12,16 +12,24 @@
       background-size: 100%;
       background-position: center 0;
       display: inline-block;
-      height: 45px;
       vertical-align: middle;
-      width: 45px;
+      height: 25px;
+      width: 25px;
+      @include for-size(tablet-portrait-up) {
+        height: 30px;
+        width: 30px;
+      }
+      @include for-size(desktop-up) {
+        height: 42px;
+        width: 42px;
+      }
     }
   }
   &__form {
     position: relative;
     input[type="search"] {
       border: 3px solid $color-cyan;
-      height: 45px;
+      height: 42px;
       margin: 0;
       padding: $spacer-small 5% $spacer-small $spacer-small;
     }
@@ -37,10 +45,10 @@
         background-image: url("/static/img/icons/rwanda/search-icon.svg");
         background-repeat: no-repeat;
         background-position: center center;
-        background-size: 60%;
+        background-size: 50%;
         padding: 0;
-        height: 45px;
-        width: 75px;
+        height: 42px;
+        width: 65px;
         margin: 0;
         text-indent: -15em;
         border-radius: 0;
