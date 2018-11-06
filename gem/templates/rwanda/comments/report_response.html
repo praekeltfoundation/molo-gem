@@ -1,19 +1,21 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
-<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
-  <div class="heading heading--secondary">
-    <h2 class="heading__component">{% trans "Thanks" %}!</h2>
+<div class="comments {% if article.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="comments__wrapper">
+    <div class="heading heading--secondary">
+      <h2 class="heading__component">{% trans "Thanks" %}!</h2>
+    </div>
+    <h3 class="heading__subtitle">
+      {% trans "This comment has been reported" %}.
+    </h3>
+    </div>
+    <p class="heading__subtitle">
+      {% trans "It will be reviewed by the moderation team and may be removed if it breaks our platform rules" %}.
+    </p>
+    <a href="{% pageurl article %}" class="call-to-action__button call-to-action__button--primary">
+      {% trans "Back to article" %}
+    </a>
   </div>
-  <h3 class="heading__basic">
-    {% trans "This comment has been reported" %}.
-  </h3>
-  </div>
-  <p class="heading__subtitle">
-    {% trans "It will be reviewed by the moderation team and may be removed if it breaks our platform rules" %}.
-  </p>
-  <a href="{% pageurl article %}" class="call-to-action__button call-to-action__button--primary">
-    {% trans "Back to article" %}
-  </a>
 </div>
 {% endblock %}

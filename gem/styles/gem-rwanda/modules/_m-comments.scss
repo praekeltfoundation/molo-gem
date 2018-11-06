@@ -16,7 +16,18 @@
     padding: 0 0 5%;
   }
   &__form {
-    padding: 0 1rem 5%;
+    padding: 1em 0;
+    .input-group {
+      padding: $spacer-small 10%;
+    }
+    .choice-group {
+      padding: $spacer-small 10%;
+      [type="checkbox"],
+      [type="radio"] {
+        display: none;
+        visibility: hidden;
+      }
+    }
   }
   &__alias {
     color: #000;
@@ -28,12 +39,11 @@
       color: $color-cyan-fountain;
     }
   }
-
   &__description {
-    font-weight: bold;
     font-size: $font-x-small;
-    padding: 0 5% 1em;
-    text-transform: uppercase;
+    padding: 1em 10% 1em;
+    margin: 0;
+    font-weight: normal;
   }
   &__content {
     margin: $spacer-half 0;
