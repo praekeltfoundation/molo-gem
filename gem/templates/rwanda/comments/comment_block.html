@@ -34,7 +34,8 @@
     <div id="comments-list" class="comments-list">
     {% for node in comment_list %}
       {% recursetree node %}
-      <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--reply{% endif %}">
+      <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--replies{% endif %}">
+      {% if node.parent %}<div class="comments__replies--wrapper">{% endif %}
         <h5 class="comments__alias comments__alias--author">
           {% if node.user.is_staff %}
             {% if settings.gem.GemSettings.moderator_name %}
@@ -75,21 +76,26 @@
               {% if do_not_link_replies or node.get_children.count == 0 %}
               <p class="comments__feedback comments__feedback--reply-count">
                 {{ node.get_children.count }}
-                {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}{% else %}{% trans "replies" %}{% endif %}
+                {% if node.get_children.count == 0 or node.get_children.count == 1 %} {% trans "reply" %}{% else %}{% trans "replies" %}{% endif %}
               </p>
               {% else %}
               <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply-count">
-                {{ node.get_children.count }}{% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}
+                {{ node.get_children.count }}{% if node.get_children.count == 0 or node.get_children.count == 1 %} {% trans "reply" %}
                 {% else %}{% trans "replies" %}{% endif %}
               </a>
               {% endif %}
             {% endif %}
           </div>
         {% endif %}
+      {% if node.parent %}</div>{% endif %}
       </div>
-      {% if node.parent == None and node.get_children.count != 0 %}
-        <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
-      {% endif %}
+      <div class="comments__replies-label">
+        <div class="comments__replies--wrapper">
+          {% if node.parent == None and node.get_children.count != 0 %}
+            <h3 class="comments__replies-title">{% trans "Recent replies" %}</h3>
+          {% endif %}
+        </div>
+      </div>
       {{ children }}
       {% endrecursetree %}
     {% endfor %}

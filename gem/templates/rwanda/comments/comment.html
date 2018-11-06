@@ -38,13 +38,13 @@
           {% if do_not_link_replies or node.get_children.count == 0 %}
             <p class="comments__feedback comments__feedback--reply-count">
               {{ node.get_children.count }}
-              {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}{% else %}{% trans "replies" %}
+              {% if node.get_children.count == 0 or node.get_children.count == 1 %} {% trans "reply" %}{% else %}{% trans "replies" %}
               {% endif %}
             </p>
           {% else %}
             <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply">
               {{ node.get_children.count }}
-              {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}{% else %}{% trans "replies" %}{% endif %}
+              {% if node.get_children.count == 0 or node.get_children.count == 1 %} {% trans "reply" %}{% else %}{% trans "replies" %}{% endif %}
             </a>
           {% endif %}
       {% endif %}
