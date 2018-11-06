@@ -13,6 +13,7 @@
   &__wrapper {
     background: #fff;
     margin: 1em 0;
+    padding: 0 0 5%;
   }
   &__form {
     padding: 0 1rem 5%;
@@ -30,6 +31,9 @@
 
   &__description {
     font-weight: bold;
+    font-size: $font-small;
+    padding: 0 5% 1em;
+    text-transform: uppercase;
   }
   &__content {
     margin: $spacer-half 0;
@@ -40,7 +44,10 @@
     font-weight: bold;
     font-size: $font-xx-small;
     margin-bottom: 0;
+    text-transform: capitalize;
   }
+
+
   &__reply {
     &-notification {
       background-color: rgba($color-cyan-fountain, 0.5);
@@ -54,6 +61,7 @@
       width: 100%;
     }
   }
+
   &__replies {
     &-title {
       color: $color-cyan-fountain;
@@ -71,6 +79,28 @@
       color: $color-cyan-fountain;
       font-weight: bold;
       padding: $spacer-half 0;
+    }
+  }
+  &__feedback {
+    color: $color-cyan-fountain;
+    font-size: $font-x-small;
+    font-weight: bold;
+    text-transform: capitalize;
+    vertical-align: middle;
+    text-decoration: underline;
+    display: block;
+    @include for-size(desktop-up) {
+      display: inline-block;
+      float: left;
+    }
+    &--report {
+      padding-right: 5%;
+    }
+    &--reply-count {
+      float: right;
+      margin: 0;
+      text-decoration: none;
+      color: #000;
     }
   }
 
@@ -110,9 +140,8 @@
   }
   &-list {
     font-size: $font-x-small;
-    padding: 1em 0 0;
     &__item {
-      padding: 2em;
+      padding: 1em 10%;
       &--reply {
         background-color: rgba($color-cyan,0.2);
       }
@@ -126,9 +155,12 @@
       padding: $spacer-half 0;
     }
   }
-  .heading--secondary,
+
+  .heading--secondary {
+    margin: 1em 2em 0;
+  }
   .call-to-action__button {
-    margin: 1em 2em;
+    margin: 1em 10%;
   }
 }
 .article__comment-link {
