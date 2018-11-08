@@ -188,13 +188,13 @@
     </a>
     <div class="pagination">
       {% if replies.has_previous %}
-        <a href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--previous"></a>
+        <a href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Previous" %}</a>
       {% endif %}
-      <span class="call-to-action__nav-item call-to-action__nav-item--current">
+      <span class="call-to-action__item call-to-action__item--text-current">
         {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
       </span>
       {% if replies.has_next %}
-        <a href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--previous"></a>
+        <a href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Newer" %}</a>
       {% endif %}
     </div>
   </div>

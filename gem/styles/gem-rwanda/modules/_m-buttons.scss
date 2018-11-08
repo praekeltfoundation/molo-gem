@@ -27,6 +27,17 @@
       text-decoration: underline;
       text-transform: uppercase;
     }
+    &--text {
+      color: $color-cyan-fountain;
+      display: inline-block;
+      font-size: $font-small;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 0;
+      &-current {
+        padding: 0 5%;
+      }
+    }
   }
   &__nav-item-text {
     color: $color-cyan-fountain;
@@ -104,6 +115,9 @@
     &--previous,
     &--next {
       @include for-size(desktop-up) {
+        color: #fff;
+        background-color: $color-cyan;
+        padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-pink-hollywood;
         box-shadow: 12px 12px 0 0 $color-pink-hollywood;
       }
@@ -114,5 +128,19 @@
         }
       }
     }
+
+    &--next {
+      &:after {
+        content: " ";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-left: 10px solid #fff;
+        border-bottom: 5px solid transparent;
+        margin: 0 0 0 1em;
+      }
+    }
+
   }
 }
