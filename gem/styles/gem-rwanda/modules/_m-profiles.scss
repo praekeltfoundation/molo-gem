@@ -6,7 +6,7 @@
   &__wrapper {
     background-color: #fff;
     @include for-size(tablet-portrait-up) {
-      padding: 0 5%;
+      padding: 5%;
     }
   }
   &__form {
@@ -28,6 +28,7 @@
     margin: $spacer-small 0;
     &--label {
       text-transform: capitalize;
+      font-size: $font-small;
     }
   }
   &--inner {
@@ -35,5 +36,14 @@
   }
   .call-to-action__button {
     display: inline-block;
+    &--previous {
+      display: block;
+      width: 70%;
+      margin: 1em 0 0;
+      @include for-size(tablet-portrait-up) {
+        width: 30%;
+        margin: 2em 0 0;
+      }
+    }
   }
 }
