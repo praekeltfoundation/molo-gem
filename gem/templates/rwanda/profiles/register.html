@@ -4,29 +4,26 @@
 
 {% block content %}
 <div class="profiles">
-  <div class="heading">
-    <h1 class="heading__profiles">{% trans "Register" %}</h1>
-  </div>
-  <div class="call-to-action call-to-action--profile">
-    <div class="heading">
-      <h3 class="heading__subheading">
-        {% trans "Already a member?" %}
-      </h3>
+  <div class="profiles__wrapper">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans "Register" %}</h1>
     </div>
-    <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--login">{% trans "Login" %}</a>
-    <div class="heading">
-      <h4 class="heading--subtitle">
-        {% trans "Not a member yet?" %} {% trans "Join us by signing up below." %}
-      </h4>
-    </div>
-  </div>
+    <h3 class="heading__subheading">{% trans "Already a member?" %}</h3>
+    <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__button call-to-action__button--primary">
+      {% trans "Login" %}
+    </a>
+    <h4 class="heading__subtitle">
+      {% trans "Not a member yet?" %} {% trans "Join us by signing up below." %}
+    </h4>
     <form method="post" action="{% url "molo.profiles:user_register" %}" class="profiles__form" novalidate>
     {% csrf_token %}
     <fieldset>
       <label for="id_username">{% trans "Choose A Username" %}</label>
       {{ form.username }}
       {{ form.username.errors}}
-      <span class="input-hint">{% trans "This name you will use to log in and won't appear to other users. Only you will see this" %}.</span>
+      <span class="input-hint">
+        {% trans "This name you will use to log in and won't appear to other users. Only you will see this" %}.
+      </span>
     </fieldset>
     <fieldset>
       <label for="id_password">{% trans "Choose A 4-Digit PIN" %}</label>
@@ -117,7 +114,8 @@
       {% endif %}
     </fieldset>
     <input type="submit" value="{% trans "Register" %}" class="call-to-action__button call-to-action__button--primary"/>
-    <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}" class="call-to-action__button call-to-action__button--secondary"/>
+    <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}" class="call-to-action__button call-to-action__button--primary"/>
   </form>
+  </div>
 </div>
 {% endblock %}
