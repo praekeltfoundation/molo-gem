@@ -5,11 +5,11 @@
   vertical-align: middle;
   padding: 0 5%;
   text-align: left;
-  @include for-size(phone-only) {
+  @include for-size(tablet-landscape-up) {
     display: inline-block;
     padding: 0;
   }
-  @include for-size(desktop-up) {
+  @include for-size(tablet-landscape-up) {
     flex: 1 auto;
     order: 1;
     align-self: center;
@@ -20,7 +20,9 @@
     font-size: $font-x-small;
     padding: 0 5%;
     @include fly-by();
-    z-index: -999;
+    @include for-size(desktop-up) {
+       z-index: -9999999999;
+     }
   }
   &-list {
     padding: 0;
@@ -29,7 +31,7 @@
     text-align: left;
     &__item {
       display: block;
-      @include for-size(desktop-up) {
+      @include for-size(tablet-landscape-up) {
         margin: 0.625em 0;
       }
     }
@@ -37,7 +39,7 @@
       color: #000;
       font-size: $font-x-medium;
       text-transform: uppercase;
-      @include for-size(desktop-up) {
+      @include for-size(tablet-landscape-up) {
       padding: 0 0 0.4em;
       }
     }
@@ -54,7 +56,7 @@
   &-inner {
     margin: 0;
     padding: 0;
-    @include for-size(desktop-up) {
+    @include for-size(tablet-landscape-up) {
       margin: 0 10% 0 0;
       display: inline-block;
       vertical-align: top;
@@ -63,13 +65,13 @@
   &--primary {
     display: block;
     padding: 1em 0 1.5em;
-    @include for-size(desktop-up) {
+    @include for-size(tablet-landscape-up) {
       display: inline-block;
       border-right: 3px solid #000;
       padding: 0 3.500em 0 0;
     }
     #{$block}-list__anchor {
-      @include for-size(desktop-up) {
+      @include for-size(tablet-landscape-up) {
         font-size: $font-medium;
 
       }
@@ -78,7 +80,7 @@
   &--secondary {
     display: block;
     padding: 0 0 1em;
-    @include for-size(desktop-up) {
+    @include for-size(tablet-landscape-up) {
       display: inline-block;
       padding: 0 0 0 3.500em;
       width: 60%;
