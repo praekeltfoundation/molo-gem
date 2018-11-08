@@ -76,7 +76,11 @@
 
 
   &__button, &__read-more {
-    color: #000;
+    @include for-size(feature-only) {
+      color: #000;
+    }
+    color: #fff;
+    background-color: $color-cyan;
     display: inline-block;
     font-weight: bold;
     font-size: $font-x-small;
@@ -84,6 +88,7 @@
     text-transform: uppercase;
     margin: 1em 1em 0 0;
     @include for-size(tablet-portrait-up) {
+      color: #fff;
       padding: 0.800em 1em;
     }
     &--primary {
@@ -98,8 +103,6 @@
         margin: 0 0 0 1em;
       }
       @include for-size(tablet-landscape-up) {
-        color: #fff;
-        background-color: $color-cyan;
         padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
         box-shadow: 12px 12px 0 0 $color-yellow-gorse;

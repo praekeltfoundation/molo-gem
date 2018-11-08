@@ -1,8 +1,32 @@
-.section-page {
+.section {
   $block: unquote("#{&}");
-  overflow: auto;
-  &__wrapper {
-    padding: 0 10%;
+  &-page {
+    overflow: auto;
+    &__wrapper {
+      padding: 0 10%;
+    }
+    @each $sectionModifier, $styleElement in $sectionThemes {
+      &--#{$sectionModifier} {
+        #{$block}__theme {
+          background-image: url(map-get($styleElement, bgPattern));
+          background-color: map-get($styleElement, bgColor);
+          background-position: 0 0;
+          background-repeat: repeat;
+          background-size: 100%;
+        }
+        #{$block}__caption {
+          background-color: map-get($styleElement, bgColor);
+        }
+        #{$block}__title {
+          color: map-get($styleElement, textColor);
+        }
+      }
+    }
+  }
+  &__theme {
+    width: 100%;
+    padding: 2em;
+    background-color: rgba(0,0,0,0.5);
   }
   &__icon {
     width: 20%;
@@ -28,27 +52,5 @@
     color: #fff;
     font-size: $font-x-medium;
     padding: 0.313em 0.35em;
-  }
-  &__theme {
-    width: 100%;
-    padding: 2em;
-    background-color: rgba(0,0,0,0.5);
-  }
-  @each $sectionModifier, $styleElement in $sectionThemes {
-    &--#{$sectionModifier} {
-      #{$block}__theme {
-        background-image: url(map-get($styleElement, bgPattern));
-        background-color: map-get($styleElement, bgColor);
-        background-position: 0 0;
-        background-repeat: repeat;
-        background-size: 100%;
-      }
-      #{$block}__caption {
-        background-color: map-get($styleElement, bgColor);
-      }
-      #{$block}__title {
-        color: map-get($styleElement, textColor)
-      }
-    }
   }
 }
