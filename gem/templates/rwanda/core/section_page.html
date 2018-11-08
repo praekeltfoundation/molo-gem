@@ -4,15 +4,15 @@
 {% block content %}
 <div class="section-page {% if self.get_effective_extra_style_hints %}section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
   {% load_child_sections_for_section self as sections %}
-  <div class="section-page__theme"></div>
+  <div class="section__theme"></div>
   <div class="section-page__wrapper">
     <div class="heading heading--primary">
       {% if self.get_effective_image %}
         {% image self.get_effective_image width-80 as section_photo %}
-          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section-page__icon"/>
+          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section__icon"/>
       {% endif %}
-      <div class="section-page__caption">
-        <h1 class="section-page__title">{{self.title}}</h1>
+      <div class="section__caption">
+        <h1 class="section__title">{{self.title}}</h1>
       </div>
     </div>
     {% load_child_articles_for_section self as articles %}

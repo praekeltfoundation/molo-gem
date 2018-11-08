@@ -13,12 +13,16 @@
       </div>
     {% endif %}
   {% endwith %}
-  <div class="banner">
-    {% gembannerpages %}
-  </div>
+  {% with gembannerpages  as gemTextBanner %}
+    {% if gemTextBanner %}
+      <div class="banner">
+       {{gemTextBanner}}
+      </div>
+    {% endif %}
+  {% endwith %}
   <div class="main-feature">
-    {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
+    {% topic_of_the_day %}
   </div>
   {% media_listing_homepage %}
 
