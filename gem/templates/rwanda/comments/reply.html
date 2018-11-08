@@ -39,7 +39,7 @@
               {{ node.comment|smarttruncatechars:115 }}
             </p>
             {% if node.comment.200 %}
-            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--secondary">
+            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--primary">
               {% trans "Read more" %}
             </a>
             {% endif %}
@@ -111,7 +111,7 @@
             {{ node.comment|smarttruncatechars:115 }}
           </p>
           {% if node.comment.200 %}
-          <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--secondary">
+          <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--primary">
             {% trans "Read more" %}
           </a>
           {% endif %}
