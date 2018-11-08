@@ -9,7 +9,7 @@
         {{ user.profile.migrated_username|default:user.username }}
       </h1>
     </div>
-    <div class="profiles__account">
+    <div class="profiles__inner">
       <fieldset>
         <label class="profiles__description--label">
           {% trans "When you type comments your name will appear as:" %}
@@ -66,16 +66,16 @@
           {{ user.email | default:defaultText }}</p>
       </fieldset>
       {% endif %}
+      <a href="{% url "molo.profiles:edit_my_profile" %}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Edit My Profile" %}
+      </a>
+      <a href="{% url "molo.profiles:profile_password_change" %}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Change my pin" %}
+      </a>
+      <a href="{% url "molo.profiles:auth_logout" %}" class="call-to-action__button call-to-action__button--secondary">
+        {% trans "log out" %}
+      </a>
     </div>
-    <a href="{% url "molo.profiles:edit_my_profile" %}" class="call-to-action__button call-to-action__button--secondary">
-      {% trans "Edit My Profile" %}
-    </a>
-    <a href="{% url "molo.profiles:profile_password_change" %}" class="call-to-action__button call-to-action__button--secondary">
-      {% trans "Change my pin" %}
-    </a>
-    <a href="{% url "molo.profiles:auth_logout" %}" class="call-to-action__button call-to-action__button--primary">
-      {% trans "log out" %}
-    </a>
   </div>
 </div>
 {% endblock %}
