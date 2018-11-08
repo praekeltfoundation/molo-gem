@@ -70,7 +70,8 @@
             {% endif %}
           </p>
         {% endif %}
-        <a href="{% pageurl article.specific %}" class="call-to-action__read-more" >{% trans "Read more" %}</a>
+        <a href="{% pageurl article.specific %}" class="call-to-action__read-more call-to-action__read-more--primary">
+          {% trans "Read more" %}</a>
       </li>
     {% endfor %}
     </ul>
@@ -78,13 +79,13 @@
   <div class="search-result pagination">
     <div class="step-links">
       {% if search_results.has_previous %}
-          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="pagination__nav-item pagination__nav-anchor-previous">&larr;</a>
+          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--primary">{% trans "Previous" %}</a>
       {% endif %}
-      <span class="pagination__nav-item pagination__nav-item--current">
-          Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
+      <span class="call-to-action__item--text call-to-action__item--text-current">
+          {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}
       </span>
       {% if search_results.has_next %}
-          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="pagination__nav-item pagination__nav-anchor-next">&rarr;</a>
+          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Newer</a>
       {% endif %}
     </div>
   </div>

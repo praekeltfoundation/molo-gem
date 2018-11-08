@@ -1,14 +1,16 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags gem_tags %}
 {% block content %}
-<div class="call-to-action">
-  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-    {% trans "Back to article" %}</a>
-</div>
-<div class="comments">
-    <div class="heading">
-      <h4 class="heading__subheading">{% trans "Please let us know why you are reporting this comment" %}</h4>
+<div class="comments {% if article.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="comments__wrapper">
+    <div class="heading heading--secondary">
+      <h4 class="heading__component">
+        {% trans "Report comment" %}
+      </h4>
     </div>
+    <h3 class="heading__subtitle">
+      {% trans "Please let us know why you are reporting this comment" %}.
+    </h3>
     <form method="post" class="comments__form comments__form--report" novalidate>
     {% csrf_token %}
     {% for field in form %}
@@ -35,9 +37,9 @@
     {% endfor %}
     <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
     </form>
-</div>
-<div class="call-to-action">
-  <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-    {% trans "Back to article" %}</a>
+    <a href="{% pageurl article %}" class="call-to-action__button call-to-action__button--secondary">
+      {% trans "Back to article" %}
+    </a>
+  </div>
 </div>
 {% endblock %}

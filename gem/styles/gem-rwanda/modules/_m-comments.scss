@@ -13,9 +13,21 @@
   &__wrapper {
     background: #fff;
     margin: 1em 0;
+    padding: 0 0 5%;
   }
   &__form {
-    padding: 0 1rem 5%;
+    padding: 1em 0;
+    .input-group {
+      padding: $spacer-small 10%;
+    }
+    .choice-group {
+      padding: $spacer-small 10%;
+      [type="checkbox"],
+      [type="radio"] {
+        display: none;
+        visibility: hidden;
+      }
+    }
   }
   &__alias {
     color: #000;
@@ -27,9 +39,11 @@
       color: $color-cyan-fountain;
     }
   }
-
   &__description {
-    font-weight: bold;
+    font-size: $font-x-small;
+    padding: 1em 10% 1em;
+    margin: 0;
+    font-weight: normal;
   }
   &__content {
     margin: $spacer-half 0;
@@ -40,6 +54,7 @@
     font-weight: bold;
     font-size: $font-xx-small;
     margin-bottom: 0;
+    text-transform: capitalize;
   }
   &__reply {
     &-notification {
@@ -54,17 +69,6 @@
       width: 100%;
     }
   }
-  &__replies {
-    &-title {
-      color: $color-cyan-fountain;
-      margin: $spacer-x-max $spacer-mid 0;
-      text-transform: uppercase;
-      font-size: $font-small;
-    }
-    &-label {
-      margin: 0;
-    }
-  }
   &__replied {
     &-link {
       display: block;
@@ -73,7 +77,56 @@
       padding: $spacer-half 0;
     }
   }
-
+  &__feedback {
+    color: $color-cyan-fountain;
+    font-size: $font-x-small;
+    font-weight: bold;
+    text-transform: capitalize;
+    vertical-align: middle;
+    text-decoration: underline;
+    display: block;
+    @include for-size(desktop-up) {
+      display: inline-block;
+      float: left;
+    }
+    &--report {
+      padding-right: 5%;
+    }
+    &--reply-count {
+      float: right;
+      margin: 0;
+      text-decoration: none;
+      color: #000;
+    }
+  }
+  &__replies {
+    &--wrapper {
+      padding: 0 5%;
+      border-left: 2px solid $color-cyan;
+    }
+    &-label {
+      background-color: rgba($color-cyan,0.2);
+      font-size: $font-medium;
+      padding: 0 15%;
+    }
+    &-title {
+      color: $color-gray;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: $font-small;
+      padding: 1em 0;
+    }
+  }
+  &-list {
+    font-size: $font-x-small;
+    &__item {
+      padding: 1em 10%;
+      &--replies {
+        background-color: rgba($color-cyan,0.2);
+        padding: 0 15% 5%;
+      }
+    }
+  }
   &-counter {
     display: inline-block;
     color: #fff;
@@ -108,32 +161,41 @@
       font-size: $font-xx-small;
     }
   }
-  &-list {
-    font-size: $font-x-small;
-    padding: 1em 0 0;
-    &__item {
-      padding: 2em;
-      &--reply {
-        background-color: rgba($color-cyan,0.2);
-      }
+  .heading {
+    &--secondary {
+      margin: 1em 2em 0;
+    }
+    &__headline {
+      padding: 5% 5% 0;
+    }
+    &__subtitle {
+      padding: 0 10%;
     }
   }
-  &-replies-list {
-    background-color: $color-gray-light;
-    margin: 0;
-    padding: $spacer-half $spacer-mid;
-    &__item {
-      padding: $spacer-half 0;
+  .call-to-action {
+    &__button {
+      margin: 1em 10%;
     }
-  }
-  .heading--secondary,
-  .call-to-action__button {
-    margin: 1em 2em;
+    &__response {
+      color: $color-cyan-fountain;
+      vertical-align: middle;
+      font-size: $font-xx-small;
+      float: left;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+    &__replies-counter {
+      color: $color-cyan-fountain;
+      margin: 0;
+      vertical-align: middle;
+      text-align: right;
+      font-size: $font-xx-small;
+      float: right;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
   }
 }
-
-
-
 .article__comment-link {
   display: inline-block;
   padding-bottom: $spacer-half;

@@ -1,17 +1,5 @@
-/*button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  border-radius: 2px;
-  display: block;
-  color: #ffffff;
-  font-size: $font-x-small;
-  margin: $spacer-half auto;
-  padding: $spacer-half;
-}*/
-
-//CUSTOM
 .call-to-action {
+  $block: unquote("#{&}");
   &__item {
     color: #fff;
     border-radius: 0;
@@ -39,6 +27,17 @@
     &--button-text {
       text-decoration: underline;
       text-transform: uppercase;
+    }
+    &--text {
+      color: $color-cyan-fountain;
+      display: inline-block;
+      font-size: $font-small;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 0;
+      &-current {
+        padding: 0 5%;
+      }
     }
   }
   &__nav-item-text {
@@ -74,33 +73,11 @@
       text-transform: uppercase;
     }
   }
-  &__report {
-    padding-right: $spacer-mid;
-    float: left;
-  }
-  &__response {
-    color: $color-cyan-fountain;
-    vertical-align: middle;
-    font-size: $font-xx-small;
-    float: left;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-  &__replies-counter {
-    color: $color-cyan-fountain;
-    margin: 0;
-    vertical-align: middle;
-    text-align: right;
-    font-size: $font-xx-small;
-    float: right;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
 
-  &__button,
-  &__read-more {
+
+  &__button, &__read-more {
     color: #000;
-    display: line-block;
+    display: inline-block;
     font-weight: bold;
     font-size: $font-x-small;
     padding: 0.800em 0;
@@ -109,43 +86,78 @@
     @include for-size(tablet-portrait-up) {
       padding: 0.800em 1em;
     }
-    @include for-size(desktop-up) {
-      color: #fff;
-      background-color: $color-cyan;
-      padding: 1em 5%;
-      -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
-      box-shadow: 12px 12px 0 0 $color-yellow-gorse;
-    }
-    &:after {
-      content: " ";
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-top: 5px solid transparent;
-      border-left: 10px solid #fff;
-      border-bottom: 5px solid transparent;
-      margin: 0 0 0 1em;
-    }
-    &:active, &:hover, &:focus {
-      color: $color-yellow-gorse;
+    &--primary {
       &:after {
-        border-left-color: $color-yellow-gorse;
+        content: " ";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-left: 10px solid #fff;
+        border-bottom: 5px solid transparent;
+        margin: 0 0 0 1em;
+      }
+      @include for-size(desktop-up) {
+        color: #fff;
+        background-color: $color-cyan;
+        padding: 1em 5%;
+        -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
+        box-shadow: 12px 12px 0 0 $color-yellow-gorse;
+      }
+      &:active, &:hover, &:focus {
+        color: $color-yellow-gorse;
+        &:after {
+          border-left-color: $color-yellow-gorse;
+        }
       }
     }
-  }
-}
-//OVERRIDES
-.article-teaser--topic-of-day {
-  .call-to-action__read-more {
-    @include for-size(desktop-up) {
-      -webkit-box-shadow: 12px 12px 0 0 $color-pink-hollywood;
-      box-shadow: 12px 12px 0 0 $color-pink-hollywood;
-    }
-    &:active, &:hover, &:focus {
-      color: $color-pink-hollywood;
+    &--secondary,
+    &--next,
+    &--previous {
       &:after {
-        border-left-color: $color-pink-hollywood;
+        content: " ";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-left: 10px solid #fff;
+        border-bottom: 5px solid transparent;
+        margin: 0 0 0 1em;
+      }
+      @include for-size(desktop-up) {
+        color: #fff;
+        background-color: $color-cyan;
+        padding: 1em 5%;
+        -webkit-box-shadow: 12px 12px 0 0 $color-pink-hollywood;
+        box-shadow: 12px 12px 0 0 $color-pink-hollywood;
+      }
+      &:active, &:hover, &:focus {
+        color: $color-pink-hollywood;
+        &:after {
+          border-left-color: $color-pink-hollywood;
+        }
       }
     }
+
+    &--previous {
+      #{$block}__item--text {
+        vertical-align: bottom;
+      }
+      &:before {
+        content: " ";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-right: 10px solid #fff;
+        border-bottom: 5px solid transparent;
+        margin: 0 1em 0 0;
+      }
+      &:after {
+        display: none;
+        visibility: hidden;
+      }
+    }
+
   }
 }
