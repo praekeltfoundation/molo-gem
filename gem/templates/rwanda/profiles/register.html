@@ -8,14 +8,14 @@
     <div class="heading heading--hero">
       <h1 class="heading__component">{% trans "Register" %}</h1>
     </div>
-    <h3 class="heading__subheading">{% trans "Already a member?" %}</h3>
-    <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__button call-to-action__button--primary">
-      {% trans "Login" %}
-    </a>
-    <h4 class="heading__subtitle">
-      {% trans "Not a member yet?" %} {% trans "Join us by signing up below." %}
-    </h4>
     <div class="profiles__inner">
+      <h3 class="heading__subtitle">{% trans "Already a member?" %}</h3>
+      <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__item--text">{% trans "Login" %}</a>
+      <h2 class="heading__headline">{% trans "Not a member yet?" %}</h2>
+      <h3 class="heading__subtitle">
+        {% trans "Join us by signing up below." %}
+      </h3>
+
       <form method="post" action="{% url "molo.profiles:user_register" %}" class="profiles__form" novalidate>
       {% csrf_token %}
         <fieldset>

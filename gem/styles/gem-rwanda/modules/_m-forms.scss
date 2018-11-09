@@ -58,6 +58,10 @@ input[type="search"] {
 [type="radio"] {
   margin: 0;
   opacity: 0.9;
+
+  visibility: hidden;
+  position: absolute;
+
   & ~ label {
     background-color: transparent;
     cursor: pointer;
@@ -66,7 +70,7 @@ input[type="search"] {
     margin: 0;
     &:before {
       content: " ";
-      border: 1px solid $color-gray;
+      border: 2px solid $color-cyan;
       opacity: 0.9;
       display: inline-block;
       width: 25px;
@@ -78,8 +82,8 @@ input[type="search"] {
 }
 [type="checkbox"] {
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
@@ -88,8 +92,8 @@ input[type="search"] {
     border-radius: 50%;
   }
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
