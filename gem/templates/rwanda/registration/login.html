@@ -5,9 +5,12 @@
     <div class="heading heading--hero">
       <h1 class="heading__component">{% trans "Log in" %}</h1>
     </div>
+
     <div class="profiles__inner">
-      <h2 class="heading__headline">{% trans "Not a member yet?" %}</h2>
-      <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__item--text">{% trans "Register" %}</a>
+      <div class="profiles__cta-caption">
+        <h2 class="heading__headline">{% trans "Not a member yet?" %}</h2>
+        <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__item--text">{% trans "Register" %}</a>
+      </div>
       <h3 class="heading__subtitle">
         {% trans "Login by signing in below." %}</h3>
 
