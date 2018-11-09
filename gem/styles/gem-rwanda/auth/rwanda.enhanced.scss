@@ -1,0 +1,271 @@
+/*
+RESET AUTH CORE STYLES
+STYLE RWANDA (NINYAMPINGA)
+*/
+
+@import "../util/_variables";
+@import "../util/colors";
+body, html {
+  @include for-size(tablet-portrait-up) {
+    background: #03b8ad url("/static/authentication_service/rwanda/images/pattern-cyan.png") repeat center center/ 100%;
+  }
+}
+@media (min-width: 40em) {
+  body { margin: 0 0 0 0;}
+  .Container {
+    background: transparent;
+    margin: 0 auto;
+    width: 100%;
+    max-width:100%;
+    padding: 0;
+  }
+}
+
+.Header {
+  margin: 0;
+}
+.Header-branding {
+  width: 330px;
+  height: 90px;
+  margin: 0 auto 0;
+}
+.Header-branding-image {
+  width: 27%;
+}
+.Header-title {
+  background: #fff;
+  margin: 1em 15% 0;
+  text-align: left;
+  padding: 1em 5%;
+}
+.Header-title h1 {
+  //Need an extra DIV
+  /*background-image: url('/static/authentication_service/rwanda/images/shape1-cyan.png') ;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: contain;*/
+  font-size: $font-x-large;
+  color: #fff;
+  background-color: #000;
+  display: inline-block;
+  margin: 0;
+  font-size: 30px;
+  padding: 0 0.313em;
+}
+
+.Content {
+  padding: 0 15%;
+}
+
+.List {
+  list-style: none;
+  padding: 0;
+  li {
+    margin: $spacer-mid 0 0;
+  }
+}
+.QR {
+  text-align: center;
+  &-image {
+    border: 3px solid  #000;
+  }
+}
+.Tokens {
+  border: 1px solid #000;
+  margin: $spacer-small $spacer-mid;
+  padding: 0 $spacer-mid $spacer-mid;
+  li {
+    float: left;
+    width: 50%;
+  }
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+.Form {
+  .Field {
+    margin-top: $spacer-multiple;
+    &-message {
+      margin-top: $spacer-small;
+    }
+    &-label {
+      font-size: $font-medium;
+      font-weight: normal;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      color: #000;
+      font-weight: normal;
+      padding: $spacer-small;
+      border-width: 1px;
+      &:focus {
+        border: 1px  #000 solid;
+      }
+    }
+
+    .Textarea {
+      height: 100px;
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    &::after {
+      border-style: solid;
+      border-width: 1px;
+      color:  #000;
+      content: '';
+      display: inline-block;
+      height: .65em;
+      pointer-events: none;
+      position: absolute;
+      right: $spacer-mid;
+      top: 44px;
+      transform: rotate(135deg);
+      width: .65em;
+    }
+
+    .Select {
+      appearance: none;
+      background-color: #fff;
+      border-radius: 0;
+      color: #000;
+      min-height: 41px;
+      outline: none;
+      padding: $spacer-small;
+      width: 100%;
+      border: 1px solid  #000;
+      &:focus {
+        border-color:  #000;
+      }
+    }
+  }
+
+  .BooleanField {
+    display: table;
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .Field-label {
+      display: table-cell;
+      padding-right: $spacer-small;
+      text-align: right;
+      vertical-align: middle;
+      width: 60%;
+    }
+
+    .Field-item {
+      text-align: left;
+      vertical-align: middle;
+
+      .CheckboxInput {
+        appearance: none;
+        border: 2px solid  #000;
+        display: block;
+        height: $spacer-multiple;
+        outline: none;
+        padding: $spacer-mid;
+        width: $spacer-multiple;
+
+        &:checked {
+          background-color:  #000;
+          border-color:  #000;
+
+          &::after {
+            color: #fff;
+            content: '\2714';
+            font-size: $spacer-multiple;
+            left: -($spacer-small);
+            line-height: $spacer-multiple;
+            position: relative;
+            top: -($spacer-small);
+          }
+        }
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: red;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-bottom: $spacer-multiple;
+  }
+}
+
+.Messages {
+  .Message {}
+}
+.errorlist {
+  margin-top: $spacer-multiple;
+}
+.Button {
+  &--warning {
+    background: orange;
+  }
+}
+.Additional-text {
+  text-align: center;
+  padding: $spacer-multiple 0 0;
+}
+
+.Menu {
+  margin: 0;
+  &-title {
+    background:  #000;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+
+    h1 {
+      color: #fff;
+      font-size: 1.2em;
+    }
+  }
+
+  &-list {
+    padding-top: $spacer-half;
+  }
+
+  &-item {
+    margin: $spacer-mid 0;
+    a {
+      display: inline-block;
+      &:hover {
+        border: 0;
+      }
+    }
+  }
+}
+@media (min-width: 40em) {
+  .Menu {
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+.Footer {
+  margin: 0 11%;
+  text-align: left;
+}

@@ -1,0 +1,300 @@
+@import '../variables/*';
+
+body,
+html {
+  background: $colorFourth;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+select,
+textarea {
+  color: #000;
+  font-family: $font-family-default;
+  font-size: $font-x-medium;
+}
+
+a {
+  color: $colorFirst;
+  font-weight: bold;
+
+  &:hover {
+    color: $colorFirst;
+  }
+}
+
+h1 {
+  font-size: $font-large;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: $font-medium;
+  margin: $spacer 0;
+}
+
+p,
+ul {
+  margin: $spacer 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $colorFourth;
+  height: 0;
+  margin: $spacer 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.Container {
+  background: #fff;
+  padding: 0;
+
+  .Intro {
+    color: #000;
+    padding: 0 $spacer-mid;
+    text-align: center;
+  }
+}
+
+.Header {
+  text-align: center;
+  overflow: auto;
+  &-title {
+    background: #fff;
+    margin: 0;
+    h1 {
+      color: #000;
+    }
+  }
+
+  &-branding {
+    background-color: $colorFirst;
+    margin: 0;
+    padding: $spacer-mid;
+    overflow: auto;
+    &-image {
+      background: url('/static/authentication_service/images/logo_rwanda.png') no-repeat;
+      background-position: 0 0;
+      background-size: 119px;
+      display: block;
+      height: 28px;
+      padding-left: 100%;
+      width: 100%;
+      vertical-align: middle;
+      font-size: 14px;
+      text-transform: uppercase;
+      line-height: 42px;
+      text-align: right;
+    }
+  }
+}
+
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  p, .center {
+    padding: 0 $spacer-mid;
+  }
+}
+
+
+.Form {
+  background: #ececec;
+  margin: $spacer $spacer-mid;
+  padding: $spacer $spacer-mid;
+  .Field {
+    margin-top: $spacer;
+    text-align: left;
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+
+    &-label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+
+    &-message {
+      color: #000;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      border: 1px #d6d6d6 solid;
+      font-size: 1em;
+      height: 40px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+      border-width: 1px;
+      &:focus {
+        border: 1px $colorGrey solid;
+      }
+    }
+
+    .Textarea {
+      height: 60px;
+    }
+
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $colorYellow;
+      }
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    .Select {
+      border: 1px solid $colorGrey;
+      &:focus {
+        border-color: $colorPink;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRed;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer;
+  }
+}
+.Messages {
+  margin: $spacer 0;
+
+  .Message {
+    color: #fff;
+    padding: $spacer;
+
+    &--success {
+      background: $colorFirst;
+    }
+
+    &--error,
+    &--warning {
+      background: $colorRed;
+    }
+  }
+}
+
+.errorlist {
+  color: $colorRed;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+
+.Additional-text {
+  text-align: center;
+  padding: $spacer-multiple 0 0;
+}
+
+.Button {
+  background: $colorPink;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+
+  &:hover {
+    background: $colorPink;
+    color: #fff;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  &--warning {
+    background: $colorOrange;
+    &:hover {
+      background: $colorOrange;
+    }
+  }
+}
+
+.Back-to-top {
+  padding: $spacer 0 $spacer-multiple;
+  &--link {
+    font-weight: normal;
+  }
+}
+
+.Menu {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  &-title {
+    display: none;
+  }
+
+  &-item {
+    a {
+      font-weight: normal;
+      font-size: $font-medium;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}
+
+
+.Footer {
+  background: #ececec;
+  border: 0;
+  color: #5c5c5c;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
+  a {
+    font-size: 22px;
+    color: #5c5c5c;
+  }
+  p {
+    color: #a3a3a3;
+  }
+}
