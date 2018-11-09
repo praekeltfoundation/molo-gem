@@ -14,13 +14,13 @@
       padding: $spacer-small $spacer-multiple;
       margin: 0.55em auto 0;
       text-transform: uppercase;
-      @include for-size(tablet-landscape-up) {
+      @include for-size(phone-only) {
           color: #ffffff;
           display: block;
           width: 50%;
           text-decoration: none;
       }
-      @include for-size(tablet-landscape-up) {
+      @include for-size(phone-only) {
         background-color: $color-cyan-fountain;
       }
     }
@@ -74,8 +74,6 @@
       text-transform: uppercase;
     }
   }
-
-
   &__button, &__read-more {
     @include for-size(feature-only) {
       color: #000;
@@ -87,8 +85,8 @@
     font-size: $font-x-small;
     padding: 0.800em 0;
     text-transform: uppercase;
-    margin: 1em 1em 0 0;
-    @include for-size(tablet-portrait-up) {
+    margin: 2em 0;
+    @include for-size(phone-only) {
       color: #fff;
       padding: 0.800em 1em;
     }
@@ -103,7 +101,7 @@
         border-bottom: 5px solid transparent;
         margin: 0 0 0 1em;
       }
-      @include for-size(tablet-landscape-up) {
+      @include for-size(phone-only) {
         padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
         box-shadow: 12px 12px 0 0 $color-yellow-gorse;
@@ -128,7 +126,7 @@
         border-bottom: 5px solid transparent;
         margin: 0 0 0 1em;
       }
-      @include for-size(tablet-landscape-up) {
+      @include for-size(phone-only) {
         color: #fff;
         background-color: $color-cyan;
         padding: 1em 5%;
@@ -162,6 +160,5 @@
         visibility: hidden;
       }
     }
-
   }
 }

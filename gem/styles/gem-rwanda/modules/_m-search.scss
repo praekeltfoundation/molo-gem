@@ -1,10 +1,12 @@
 .search {
   &__title {
     color: #000;
-    font-size: $font-medium;
     text-transform: uppercase;
     display: inline-block;
     font-style: italic;
+    @include for-size(phone-only) {
+      font-size: $font-medium;
+    }
     &:before {
       content: " ";
       background-image: url('/static/img/icons/rwanda/search-icon_green.svg');
