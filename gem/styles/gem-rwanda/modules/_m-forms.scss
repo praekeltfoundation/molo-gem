@@ -1,41 +1,14 @@
 fieldset {
   clear: both;
   border: none;
-  padding: $spacer-small 0;
   margin: 0;
   word-break: break-word;
   word-wrap: break-word;
 }
 label {
-  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $font-x-small;
 }
-.choice-group {
-  padding: $spacer-small 0;
-}
-.input-group {
-  .helptext {
-    font-size: $font-xx-small;
-    margin: 0;
-  }
-  span {
-    display: block;
-    font-size: $font-xx-small;
-  }
-}
-
-.error-list, .errorlist {
-  display: block;
-  padding: 0;
-  margin-top: 0;
-  color: $color-pink;
-  &__item,
-  .errors {
-    color: $color-pink;
-    text-align: left;
-    margin-top: 0;
-  }
-}
-
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -50,7 +23,7 @@ input[type="datetime-local"],
 input[type="url"],
 select {
   background-color: #ffffff;
-  border: 1px #d6d6d6 solid;
+  border: 2px $color-cyan solid;
   color: $color-cyan;
   font-size: $font-x-small;
   padding: $spacer-half;
@@ -85,6 +58,10 @@ input[type="search"] {
 [type="radio"] {
   margin: 0;
   opacity: 0.9;
+
+  visibility: hidden;
+  position: absolute;
+
   & ~ label {
     background-color: transparent;
     cursor: pointer;
@@ -93,7 +70,7 @@ input[type="search"] {
     margin: 0;
     &:before {
       content: " ";
-      border: 1px solid $color-gray;
+      border: 2px solid $color-cyan;
       opacity: 0.9;
       display: inline-block;
       width: 25px;
@@ -105,8 +82,8 @@ input[type="search"] {
 }
 [type="checkbox"] {
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
@@ -115,8 +92,8 @@ input[type="search"] {
     border-radius: 50%;
   }
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
@@ -145,4 +122,36 @@ select {
 select[value="value"] {
   font-size: $font-x-small;
   text-transform: capitalize;
+}
+
+
+.input-hint {
+  font-size: $font-xx-small;
+  font-weight: bold;
+  font-style: italic;
+}
+.choice-group {
+  padding: $spacer-small 0;
+}
+.input-group {
+  .helptext {
+    font-size: $font-xx-small;
+    margin: 0;
+  }
+  span {
+    display: block;
+    font-size: $font-xx-small;
+  }
+}
+.error-list, .errorlist {
+  display: block;
+  padding: 0;
+  margin-top: 0;
+  color: $color-pink;
+  &__item,
+  .errors {
+    color: $color-pink;
+    text-align: left;
+    margin-top: 0;
+  }
 }

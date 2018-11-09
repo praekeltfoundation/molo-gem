@@ -20,7 +20,7 @@
           width: 50%;
           text-decoration: none;
       }
-      @include for-size(desktop-up) {
+      @include for-size(tablet-landscape-up) {
         background-color: $color-cyan-fountain;
       }
     }
@@ -34,7 +34,8 @@
       font-size: $font-small;
       text-transform: uppercase;
       font-weight: bold;
-      margin: 0;
+      text-decoration: underline;
+      margin: 1em 0;
       &-current {
         padding: 0 5%;
       }
@@ -76,7 +77,11 @@
 
 
   &__button, &__read-more {
-    color: #000;
+    @include for-size(feature-only) {
+      color: #000;
+    }
+    color: #fff;
+    background-color: $color-cyan;
     display: inline-block;
     font-weight: bold;
     font-size: $font-x-small;
@@ -84,6 +89,7 @@
     text-transform: uppercase;
     margin: 1em 1em 0 0;
     @include for-size(tablet-portrait-up) {
+      color: #fff;
       padding: 0.800em 1em;
     }
     &--primary {
@@ -97,9 +103,7 @@
         border-bottom: 5px solid transparent;
         margin: 0 0 0 1em;
       }
-      @include for-size(desktop-up) {
-        color: #fff;
-        background-color: $color-cyan;
+      @include for-size(tablet-landscape-up) {
         padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
         box-shadow: 12px 12px 0 0 $color-yellow-gorse;
@@ -124,7 +128,7 @@
         border-bottom: 5px solid transparent;
         margin: 0 0 0 1em;
       }
-      @include for-size(desktop-up) {
+      @include for-size(tablet-landscape-up) {
         color: #fff;
         background-color: $color-cyan;
         padding: 1em 5%;
