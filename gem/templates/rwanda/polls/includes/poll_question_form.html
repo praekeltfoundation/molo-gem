@@ -26,7 +26,7 @@
     {% can_vote question as user_can_vote %}
     {% if user_can_vote %}
       {% for choice in choices %}
-        <div class="polls-choices__item">
+        <fieldset>
           {% if question.get_main_language_page.allow_multiple_choice %}
             <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
             <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
@@ -34,7 +34,7 @@
             <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.get_main_language_page.id}}" />
             <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
           {% endif %}
-        </div>
+        </fieldset>
       {% endfor %}
       <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary" />
     {% elif question.get_main_language_page.show_results %}

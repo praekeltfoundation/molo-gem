@@ -6,6 +6,7 @@
 {% endif %}
 <form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
   {% csrf_token %}
+    <fieldset>
     {% if request.user.is_authenticated %}
       {% can_vote question as user_can_vote %}
       {% if user_can_vote %}
@@ -20,6 +21,7 @@
           {% trans "Thank you! Your response has already been submitted." %}
         </h3>
       {% endif %}
+    </fieldset>
     {% else %}
       <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         {% trans "Log in to vote" %}
