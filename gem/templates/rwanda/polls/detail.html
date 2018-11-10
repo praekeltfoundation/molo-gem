@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static core_tags i18n poll_votings %}
+
+{% block content %}
+<div class="polls">
+  <div class="polls__wrapper">
+    <div class="heading heading--hero">
+      <h3 class="heading__component">{% trans "Quiz" %}</h3>
+    </div>
+    {% if form.choice.errors %}
+      <ul class="error-list">
+        <li class="error-list__item">{{form.choice.errors|join:", " }}</li>
+      </ul>
+    {% endif %}
+    <h2 class="heading__headline">{{ question.title }}</h2>
+    <form class="polls__form" action="{% url 'molo.polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+      <div class="polls-choices-list">
+        {% load_choices_for_poll_page question as choices %}
+        {% for choice in choices %}
+          <div class="polls-choices-list__item">
+            {% if question.allow_multiple_choice%}
+              <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+              <label for="choice{{ forloop.counter }}" class="polls__choices-title">{{ choice.title }}</label>
+            {% else %}
+              <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
+              <label for="choice{{ forloop.counter }}" class="polls__choices-title">{{ choice.title }}</label>
+            {% endif %}
+          <div>
+        {% endfor %}
+        <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary"/>
+      </div>
+    </form>
+    <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Home" %}</a>
+  </div>
+</div>
+{% endblock %}

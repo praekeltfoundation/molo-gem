@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static core_tags i18n %}
+{% block content %}
+<div class="polls">
+  <div class="polls__wrapper">
+    <div class="heading heading--hero">
+      <h3 class="heading__component">
+        {% trans "Quiz" %}
+      </h3>
+    </div>
+    <h2 class="heading__headline">{{ self.title }}</h2>
+    {% if self.freetextquestion %}
+      {% include 'polls/includes/poll_free_text_form.html' with question=self %}
+    {% else %}
+      {% include 'polls/includes/poll_question_form.html' with question=self %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
