@@ -4,13 +4,11 @@
     {% for question in questions %}
       <div class="polls">
         <div class="polls__wrapper">
-          {% if forloop.first %}
-            <div class="heading heading--hero">
-              <h3 class="heading__component">
-                {% trans "What's your opinion?" %}
-              </h3>
-            </div>
-          {% endif %}
+          <div class="heading heading--hero">
+            <h3 class="heading__component">
+              {% trans "Quiz" %}
+            </h3>
+          </div>
           <h2 class="heading__headline">{{ question.title }}</h2>
           {% if question.freetextquestion %}
             {% include 'polls/includes/poll_free_text_form.html'%}

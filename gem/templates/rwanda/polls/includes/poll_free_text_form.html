@@ -1,30 +1,28 @@
 {% load i18n static poll_votings %}
-<div class="polls">
-  <div class="polls__wrapper">
-    {% if error_message %}
-      <ul class="error-list">
-        <li class="error-list__item">{{ error_message }}</li>
-      </ul>
-    {% endif %}
-    <form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
-      {% csrf_token %}
-        {% if request.user.is_authenticated %}
-          {% can_vote question as user_can_vote %}
-          {% if user_can_vote %}
-            {% if question.freetextquestion.get_main_language_page.numerical %}
-              <input type="number" name="answer" id="id_answer" value="" />
-            {% else %}
-              <input type="text" name="answer" id="id_answer" value="" />
-            {% endif%}
-            <input type="submit" value="{% trans "Submit" %}" class="call-to-action__button call-to-action__button--primary"/>
-          {% else %}
-            <h3 class="heading__subtitle">
-              {% trans "Thank you! Your response has already been submitted." %}
-            </h3>
-          {% endif %}
+{% if error_message %}
+  <ul class="error-list">
+    <li class="error-list__item">{{ error_message }}</li>
+  </ul>
+{% endif %}
+<form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
+  {% csrf_token %}
+    {% if request.user.is_authenticated %}
+      {% can_vote question as user_can_vote %}
+      {% if user_can_vote %}
+        {% if question.freetextquestion.get_main_language_page.numerical %}
+          <input type="number" name="answer" id="id_answer" value="" />
         {% else %}
-          <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Log in to vote" %}
-          </a>
-        {% endif %}
-    </form>
+          <input type="text" name="answer" id="id_answer" value="" />
+        {% endif%}
+        <input type="submit" value="{% trans "Submit" %}" class="call-to-action__button call-to-action__button--primary"/>
+      {% else %}
+        <h3 class="heading__subtitle">
+          {% trans "Thank you! Your response has already been submitted." %}
+        </h3>
+      {% endif %}
+    {% else %}
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Log in to vote" %}
+      </a>
+    {% endif %}
+</form>

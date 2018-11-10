@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
-
 {% block content %}
-  <div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition{% elif self.display_survey_directly %}surveys__type--polls{% else %}surveys__type--linked-surveys{% endif %}">
+<div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+  <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__wrapper">
     <aside>
       {% if survey.image %}
         {% image survey.image width-165 as icon_small %}
@@ -182,8 +182,6 @@
         </div>
       </nav>
     {% endif %}
+  </div>
 </div>
-{% if survey.display_survey_directly %}
-  <div class="surveys__type--polls-separator"></div>
-{% endif %}
 {% endblock %}

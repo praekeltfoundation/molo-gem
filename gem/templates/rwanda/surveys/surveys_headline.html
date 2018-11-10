@@ -2,13 +2,13 @@
 
 {% block content %}
 {% for survey in surveys %}
-    <li class="menu-list__item  menu-list__item--survey">
-        <a href="{% pageurl survey %}" class="footer-link">
-          <div class="footer-link__thumbnail-icon">
-            <img src="{% static 'img/clipboard.png' %}" class="menu-list__item--icon" />
-          </div>
-          <span class="footer-link__title">{{ survey.title }}</span>
-        </a>
-    </li>
+  <li class="menu-list__item  menu-list__item--survey">
+    <a href="{% pageurl survey %}" class="footer-link">
+      <div class="footer-link__thumbnail-icon">
+        <img src="{% static 'img/clipboard.png' %}" class="menu-list__item--icon" />
+      </div>
+      <span class="footer-link__title">{{ survey.title }}</span>
+    </a>
+  </li>
 {% endfor %}
 {% endblock %}

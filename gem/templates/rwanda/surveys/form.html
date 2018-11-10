@@ -1,68 +1,68 @@
 {% load wagtailcore_tags core_tags gem_tags %}
-<form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="surveys__form  surveys__type--{{surveytypeClass}}-form" novalidate>
+<form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__form" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
   {% endif %}
   {% for field in form %}
-  <fieldset>
-    <div class="input-group">
-      <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-      {% if field.help_text %}
-        {% if field|fieldtype == 'CharacterCountWidget' %}
-          <p class="helptext helptext--counter">{{ field.help_text }}</p>
-        {% else %}
-          <p class="helptext">{{ field.help_text }}</p>
+    <fieldset>
+      <div class="input-group">
+        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+        {% if field.help_text %}
+          {% if field|fieldtype == 'CharacterCountWidget' %}
+            <p class="helptext helptext--counter">{{ field.help_text }}</p>
+          {% else %}
+            <p class="helptext">{{ field.help_text }}</p>
+          {% endif %}
         {% endif %}
-      {% endif %}
-      {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+        {% if field|fieldtype == 'CheckboxSelectMultiple' %}
           {% for value, text in field.field.choices %}
-              <div class="choice-group">
-                  <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                  <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-              </div>
+            <div class="choice-group">
+                <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
           {% endfor %}
-      {% elif field|fieldtype == 'RadioSelect' %}
+        {% elif field|fieldtype == 'RadioSelect' %}
           {% for value, text in field.field.choices %}
-              <div class="choice-group choice-group__radio">
-                  <input name="{{ field.name }}"
-                   id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                   <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-              </div>
+            <div class="choice-group choice-group__radio">
+              <input name="{{ field.name }}"
+               id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+               <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+            </div>
           {% endfor %}
-          {% elif field|fieldtype == 'Select' %}
-              <div class="select-style">
-                   <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-                       {% if field.value.0 %}
-                           <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-                           {% for choice in field.field.choices %}
-                               <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                   {{choice.0}}
-                               </option>
-                           {% endfor %}
-                       {% elif not field.value.0  %}
-                           <option value selected="selected">Choose..</option>
-                           {% for choice in field.field.choices %}
-                               <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                                   {{choice.0}}
-                               </option>
-                           {% endfor %}
-                       {% endif %}
-                   </select>
-              </div>
-      {% else %}
-        {{field}}
-      {% endif %}
+        {% elif field|fieldtype == 'Select' %}
+          <div class="select-style">
+          <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+             {% if field.value.0 %}
+               <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+               {% for choice in field.field.choices %}
+                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                     {{choice.0}}
+                 </option>
+               {% endfor %}
+             {% elif not field.value.0  %}
+               <option value selected="selected">Choose..</option>
+                 {% for choice in field.field.choices %}
+                 <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                     {{choice.0}}
+                  </option>
+                 {% endfor %}
+             {% endif %}
+          </select>
+          </div>
+        {% else %}
+          {{field}}
+        {% endif %}
 
-      {% if field.errors %}
-        <ul class="error-list errorlist">
-        {% for error in field.errors %}
-          <li class="error-list__item">{{ error }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-  </fieldset>
+        {% if field.errors %}
+          <ul class="error-list">
+          {% for error in field.errors %}
+            <li class="error-list__item">{{ error }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </fieldset>
   {% endfor %}
 
   {% trans "Submit" as text %}
@@ -73,22 +73,17 @@
       <input type="submit" value="{{ survey.submit_text|default:polltext }}" class="call-to-action__button call-to-action__button--primary" />
     {% else %}
       <a href="{% url LOGIN_URL %}?next=request.path" class="call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Log in to vote" %}
-        </span>
+        {% trans "Log in to vote" %}
       </a>
     {% endif %}
   {% else %}
-      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+    <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
   {% endif %}
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
     <div class="pagination">
-        <p class="pagination__page">
-          {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-            {% trans Page %} <span class="pagination__page-number">{{ page }}</span>
-            {% trans of %} <span class="pagination__page-number">{{ pages }}</span>
-          {% endwith %}
-        </p>
+      {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+        <p class="call-to-action__item call-to-action__item--current">{% trans Page %} {{ page }} {% trans of %} {{ pages }}</p>
+      {% endwith %}
     </div>
   {% endif %}
 </form>

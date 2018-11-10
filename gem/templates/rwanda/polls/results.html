@@ -1,36 +1,34 @@
 {% extends "base.html" %}
 {% load i18n static core_tags %}
 {% block content %}
-<div class="polls">
+<div class="polls polls--results">
   <div class="polls__wrapper">
-    <div class="polls__results">
-      <div class="heading heading--hero">
-        <h3 class="heading__component">
-          {% trans "Quiz" %}
-        </h3>
-      </div>
-      {% if question.show_results and not question.freetextquestion %}
-        <h2 class="heading__headline">{{ question.title }}</h2>
-        <p class="polls__caption">{% trans "Your answers:" %}</p>
-        {% for choice in choices %}
-          <h6 class="polls__choices-title">{{ choice.title }}</h6>
-          {% if question.result_as_percentage %}
-            <p class="polls__choices-percentage">
-              {{ choice.percentage }}%
-            </p>
-          {% else %}
-            <p class="polls__choices-caption">
-              {{ choice.votes }} vote{{ choice.votes|pluralize }}
-            </p>
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        <h4 class="heading__subtitle">{% trans "Thank you for voting!" %}</h4>
-      {% endif %}
-        <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--secondary">
-          {% trans "Home" %}
-        </a>
+    <div class="heading heading--hero">
+      <h3 class="heading__component">
+        {% trans "Quiz" %}
+      </h3>
     </div>
+    {% if question.show_results and not question.freetextquestion %}
+      <h2 class="heading__headline">{{ question.title }}</h2>
+      <p class="polls__caption">{% trans "Your answers:" %}</p>
+      {% for choice in choices %}
+        <h6 class="polls__choices-title">{{ choice.title }}</h6>
+        {% if question.result_as_percentage %}
+          <p class="polls__choices-percentage">
+            {{ choice.percentage }}%
+          </p>
+        {% else %}
+          <p class="polls__choices-caption">
+            {{ choice.votes }} vote{{ choice.votes|pluralize }}
+          </p>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <h4 class="heading__subtitle">{% trans "Thank you for voting!" %}</h4>
+    {% endif %}
+      <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--secondary">
+        {% trans "Home" %}
+      </a>
   </div>
 </div>
 {% endblock %}
