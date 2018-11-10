@@ -71,35 +71,37 @@
             <div class="heading heading--hero">
               <h1 class="heading__component">{% trans 'Quiz' %}</h1>
             </div>
-            <aside>
+            <div class="polls__inner">
               {% if survey.image %}
+              <aside>
                 {% image survey.image width-480 as tmp_photo %}
                 <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="polls__image" />
+              </aside>
               {% endif %}
-            </aside>
-            <section>
-              <h2 class="heading__headline">{{survey.title}}</h2>
-              {% if survey.homepage_introduction %}
-                <h4 class="heading__subtitle">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h4>
+              <section>
+                <h2 class="heading__headline">{{survey.title}}</h2>
+                {% if survey.homepage_introduction %}
+                  <h4 class="heading__subtitle">
+                    {{survey.homepage_introduction|smarttruncatechars:115|safe}}
+                  </h4>
+                {% endif %}
+                {% if form %}
+                  {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
+                {% else %}
+                <p class="error-list__item">
+                  {% trans 'You have already completed this poll' %}.</p>
+                {% if request.path == "/" %}
+                  <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                    {% trans "Show results" %}
+                  </a>
+                {% else %}
+                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
+                    {% trans "Back home" %}
+                  </a>
+                {% endif %}
               {% endif %}
-              {% if form %}
-                {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
-              {% else %}
-              <p class="error-list__item">
-                {% trans 'You have already completed this poll' %}.</p>
-              {% if request.path == "/" %}
-                <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-                  {% trans "Show results" %}
-                </a>
-              {% else %}
-                <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
-                  {% trans "Back home" %}
-                </a>
-              {% endif %}
-            {% endif %}
-            </section>
+              </section>
+            </div>
           </div>
         </div>
       {% else %}

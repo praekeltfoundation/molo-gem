@@ -11,4 +11,27 @@
       padding: 5%;
     }
   }
+  &__inner {
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+    aside {
+    display: inline-block;
+    overflow: auto;
+    margin: 0 5% 0 0;
+    width: 110%;
+      @include for-size(tablet-landscape-up) {
+        order: 1;
+      }
+    }
+    section {
+      display: inline-block;
+      @include for-size(tablet-landscape-up) {
+        order: 2;
+      }
+    }
+  }
+  &__image {
+    width: 100%;
+  }
 }
