@@ -31,13 +31,19 @@
     &--text {
       color: $color-cyan-fountain;
       display: inline-block;
-      font-size: $font-small;
+      font-size: ($font-xx-small - 2);
       text-transform: uppercase;
       font-weight: bold;
       text-decoration: underline;
-      margin: 1em 0;
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-small;
+        margin: 1em 0;
+      }
       &-current {
-        padding: 0 5%;
+        padding: 0 0 0 10px;
+        @include for-size(tablet-landscape-up) {
+          padding: 0 5%;
+        }
       }
     }
   }
@@ -82,12 +88,16 @@
     background-color: $color-cyan;
     display: inline-block;
     font-weight: bold;
-    font-size: $font-x-small;
-    padding: 0.800em 0;
+    font-size: ($font-xx-small - 2);
+    padding: 10px;
     text-transform: uppercase;
-    margin: 2em 0;
+    margin: 1em 0;
     @include for-size(phone-only) {
       color: #fff;
+    }
+    @include for-size(tablet-landscape-up) {
+      margin: 2em 0;
+      font-size: $font-x-small;
       padding: 0.800em 1em;
     }
     &--primary {
@@ -102,6 +112,10 @@
         margin: 0 0 0 1em;
       }
       @include for-size(phone-only) {
+        -webkit-box-shadow: 8px 8px 0 0 $color-yellow-gorse;
+        box-shadow: 8px 8px 0 0 $color-yellow-gorse;
+      }
+      @include for-size(tablet-landscape-up) {
         padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-yellow-gorse;
         box-shadow: 12px 12px 0 0 $color-yellow-gorse;
@@ -129,6 +143,10 @@
       @include for-size(phone-only) {
         color: #fff;
         background-color: $color-cyan;
+        -webkit-box-shadow: 8px 8px 0 0 $color-pink-hollywood;
+        box-shadow: 8px 8px 0 0 $color-pink-hollywood;
+      }
+      @include for-size(tablet-landscape-up) {
         padding: 1em 5%;
         -webkit-box-shadow: 12px 12px 0 0 $color-pink-hollywood;
         box-shadow: 12px 12px 0 0 $color-pink-hollywood;
