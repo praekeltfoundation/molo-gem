@@ -1,28 +1,26 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags %}
-
 {% block content %}
-<div class="surveys {% if self.your_words_competition %}surveys__type--gcn-competition {% elif self.display_survey_directly %}surveys__type--polls{% else %}surveys__type--linked-surveys{% endif %}">
-  <aside>
-    {% if self.your_words_competition %}
-      {% if self.image %}
-        {% image self.image width-165 as icon_small %}
-        <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
+<div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+  <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__wrapper">
+    <aside>
+      {% if self.your_words_competition %}
+        {% if self.image %}
+          {% image self.image width-165 as icon_small %}
+          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
+        {% else %}
+          <div class="surveys__item-icon"></div>
+        {% endif %}
       {% else %}
         <div class="surveys__item-icon"></div>
       {% endif %}
-    {% else %}
-      <div class="surveys__item-icon"></div>
-    {% endif %}
-  </aside>
-  <section>
-    <div class="heading">
-      <h1 class="heading__component">{{self.title}}</h1>
-    </div>
-    {# <!--  ENABLED RESULTS --> #}
-    {% if self.show_results and results %}
-    <div class="heading">
-        <h5 class="heading__micro">
+    </aside>
+    <section>
+      <div class="heading heading--hero">
+        <h1 class="heading__component">{{self.title}}</h1>
+      </div>
+      {% if self.show_results and results %}
+        <h3 class="heading__headline">
           {% if self.your_words_competition %}
             {% with wordSetting='GCN competition' %}
               {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
@@ -36,13 +34,12 @@
               {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
             {% endwith %}
           {% endif %}
-        </h5>
-      </div>
-      <ul class="polls-results-list">
+        </h3>
+        <ul class="polls-results">
           {% for question, answers in results.items %}
             {% for answer, count in answers.items %}
-            <li class="polls-results-list__item">
-              <label class="polls__question">{{ question|capfirst }}</label>
+            <li class="polls-results__item">
+              <label class="polls__title">{{ question|capfirst }}</label>
               {% if self.show_results_as_percentage %}
                 {{answer}}
                 <div class="polls-results-list__percent">
@@ -59,14 +56,13 @@
             {% endfor %}
           {% endfor %}
         </ul>
-    {% else %}
-      {% if self.thank_you_text %}
-        <div class="heading">
-          <h3 class="heading__subheading">{{self.thank_you_text}}</h3>
-        </div>
       {% else %}
-        <div class="heading">
-          <h4 class="heading__micro">
+        {% if self.thank_you_text %}
+          <div class="heading heading--hero">
+            <h3 class="heading__subheading">{{self.thank_you_text}}</h3>
+          </div>
+        {% else %}
+          <h3 class="heading__headline">
             {% if self.your_words_competition %}
               {% with wordSetting='GCN competition' %}
                 {% if self.your_words_competition %}
@@ -92,18 +88,13 @@
                 {% endif %}
               {% endwith %}
             {% endif %}
-          </h4>
-        </div>
+          </h3>
+        {% endif %}
       {% endif %}
-    {% endif %}
-  </section>
-</div>
-{% if survey.display_survey_directly %}
-  <div class="surveys__type--polls-separator"></div>
-{% endif %}
-  <div class="call-to-action">
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back home" %}
-    </a>
+    </section>
   </div>
+</div>
+  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
+    {% trans "Back home" %}
+  </a>
 {% endblock %}
