@@ -44,23 +44,19 @@
               {% endif %}
             </aside>
             <section>
-              <div class="heading">
+              <div class="heading heading--hero">
                 <h1 class="heading__component">{{survey.title}}</h1>
               </div>
               {% if survey.homepage_introduction %}
-                <div class="heading">
-                  <h5 class="heading__micro">
-                    {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                  </h5>
-                </div>
+                <h3 class="heading__subtitle">
+                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
+                </h3>
               {% endif %}
             </section>
             <nav>
               <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-                <span class="call-to-action__button-text call-to-action__button-text--primary">
-                  {% trans "Take GCN competition" as defaultTextGCN %}
-                  {{ survey.homepage_button_text|default:defaultTextGCN}}
-                </span>
+                {% trans "Take GCN competition" as defaultTextGCN %}
+                {{ survey.homepage_button_text|default:defaultTextGCN}}
               </a>
             </nav>
           </div>
@@ -113,30 +109,28 @@
             </div>
           {% endcomment %}
         {% else %}
-          <div class="surveys surveys--homepage surveys__type--linked-surveys">
-          <aside>
-            <div class="surveys__item-icon"></div>
-          </aside>
-          <section>
-            <div class="heading">
-              <h1 class="heading__component">{{survey.title}}</h1>
+          <div class="surveys">
+            <div class="surveys__wrapper">
+              <aside>
+                <div class="surveys__item-icon"></div>
+              </aside>
+              <section>
+                <div class="heading heading--hero">
+                  <h1 class="heading__component">{{survey.title}}</h1>
+                </div>
+                {% if survey.homepage_introduction %}
+                  <h3 class="heading__subtitle">
+                    {{survey.homepage_introduction|smarttruncatechars:115|safe}}
+                  </h3>
+                {% endif %}
+              </section>
+              <nav>
+                <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                  {% trans "Take the survey" as defaultText %}
+                  {{ survey.homepage_button_text|default:defaultText }}
+                </a>
+              </nav>
             </div>
-            {% if survey.homepage_introduction %}
-              <div class="heading">
-                <h5 class="heading__micro">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h5>
-              </div>
-            {% endif %}
-          </section>
-          <nav>
-            <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-              <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {% trans "Take the survey" as defaultText %}
-                {{ survey.homepage_button_text|default:defaultText }}
-              </span>
-            </a>
-          </nav>
           </div>
         {% endif %}
       {% endif %}

@@ -3,11 +3,21 @@
 /*.yourwords, .surveys--homepage {
   background-color: $color-yellow-gorse;
   margin-bottom: $spacer-small;
-}
+}*/
 .yourwords {
-  text-align: center;
-  margin-bottom: 0;
-  &--inner-content {
+  $block: unquote("#{&}");
+  background-color: $color-cyan-dark ;
+  @include for-size(tablet-portrait-up) {
+    padding: 5% 15%;
+  }
+  &__wrapper {
+    background-color: #fff;
+    padding: 0 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 5%;
+    }
+  }
+  /*&--inner-content {
     p, a, ul, ol {
       margin: 0;
       padding: $spacer-small $spacer-mid;
@@ -122,5 +132,5 @@
     display: inline-block;
     margin: $spacer-half $spacer-multiple;
     font-weight: bold;
-  }
-}*/
+  }*/
+}

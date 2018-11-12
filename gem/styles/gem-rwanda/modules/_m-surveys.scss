@@ -1,7 +1,16 @@
-//GENERIC
 .surveys {
   $block: unquote("#{&}");
-  //Thumbnail
+  background-color: $color-cyan-dark ;
+  @include for-size(tablet-portrait-up) {
+    padding: 5% 15%;
+  }
+  &__wrapper {
+    background-color: #fff;
+    padding: 0 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 5%;
+    }
+  }
   aside {
     #{$block}__item {
       &-icon {
