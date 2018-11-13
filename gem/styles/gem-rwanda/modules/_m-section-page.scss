@@ -3,7 +3,10 @@
   &-page {
     overflow: auto;
     &__wrapper {
-      padding: 0 10%;
+      padding: 0 5%;
+      @include for-size(phone-only ) {
+        padding: 0 10%;
+      }
     }
     @each $sectionModifier, $styleElement in $sectionThemes {
       &--#{$sectionModifier} {
