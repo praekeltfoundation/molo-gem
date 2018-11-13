@@ -2,6 +2,13 @@
 @import "../util/colors";
 @import "_normalize";
 
+body, html {
+  @include for-size(tablet-portrait-up) {
+    background: #fff;
+    color: #000;
+  }
+}
+
 //PAGE WRAPPER
 .Login {}
 .Container {
@@ -66,8 +73,12 @@
 .Content {
   background: #fff;
   color: #000;
-  padding: 0 15%;
   overflow: auto;
+  padding: 1em 15% 5%;
+  margin: 0 15%;
+  p {
+    text-align: left;
+  }
 }
 
 //FORM
@@ -160,15 +171,16 @@
   width: auto;
   &:active, &:hover, &:focus {
     color: #f9e435;
-    &:after {
-      border-left-color: #f9e435;
-    }
   }
 }
 .Button--warning {
-  background: orange;
+  background: #03b8ad !important;
+  margin: 1em !important;
+  color: #fff;
+  -webkit-box-shadow: 12px 12px 0 0 #ed018c;
+  box-shadow: 12px 12px 0 0 #ed018c;
   &:hover {
-    background: orange;
+    color: #ed018c;
   }
 }
 
@@ -256,9 +268,9 @@
   border: 0;
   color: #fff;
   font-size: $font-xx-small;
-  padding: 1em 5% 2em;
+  padding: 1em 15%;
   text-align: left;
-  margin: 0 10%;
+  margin: 0;
   a {
     font-size: $font-xx-small;
     color: #fff;
