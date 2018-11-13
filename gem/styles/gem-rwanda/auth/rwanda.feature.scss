@@ -2,20 +2,22 @@
 @import "../util/colors";
 @import "_normalize";
 
-.Login {
-
-}
+//PAGE WRAPPER
+.Login {}
 .Container {
   background: #fff;
   padding: 0;
 
   .Intro {
+    background: #fff;
     color: #000;
-    padding: 0 $spacer-mid;
-    text-align: center;
+    padding: 2em 10% 0;
+    text-align: left;
+    margin: 0;
   }
 }
 
+//HEADER
 .Header {
   text-align: center;
   overflow: auto;
@@ -52,142 +54,137 @@
   text-align: left;
   padding: 1em 5%;
   a {
-    color: $color-cyan;
+    color: #03b8ad;
+    border-bottom: 1px solid #03b8ad;
+    &:active, &:hover, &:focus {
+      color: #02938A;
+    }
   }
 }
 
-//CONTENT BODY
+//BODY
 .Content {
+  background: #fff;
+  color: #000;
   padding: 0 15%;
   overflow: auto;
-  p, .center {
-    padding: 0 $spacer-mid;
-  }
 }
+
+//FORM
 .Form {
   background: #fff;
   margin: 0;
   padding: 1em 10%;
-  .Field {
-    margin: $spacer-small 0;
-    text-align: left;
-    &-label {
-      display: inline-block;
-      font-weight: bold;
-      margin-bottom: $spacer-small;
-    }
-    &-item {
-      color: #000;
-      display: inline-block;
-      margin: $spacer-half 0;
-      font-size: $font-x-small;
-    }
-    &-message {
-      color: #000;
-      font-size: $font-small;
-      margin-top: $spacer-half;
-      text-align: center;
-    }
-    .DateInput,
-    .EmailInput,
-    .NumberInput,
-    .PasswordInput,
-    .TextInput,
-    .Textarea,
-    .vDateField {
-      border: 2px $color-cyan solid;
-      font-size: 1em;
-      height: 40px;
-      outline: none;
-      padding: $spacer-small;
-      width: 100%;
-      border-width: 2px;
-      &:focus {
-        border: 2px $color-cyan-dark solid;
-      }
-    }
-    .Textarea {
-      height: 60px;
-    }
-    .ClearableFileInput {
-      display: block;
-    }
-    &--required {
-      input {
-        border-color: red;
-      }
-    }
+  position: relative;
+}
+.Form .Field {
+  margin: $spacer-small 0;
+  text-align: left;
+}
+.Form .Field-label {
+  color: #000;
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: $spacer-small;
+  vertical-align: middle;
+}
+.Form .Field-item {
+  color: #000;
+  display: inline-block;
+  margin: $spacer-half 0;
+  font-size: $font-x-small;
+}
+.Form .Field-message {
+  color: #9b9fa2;
+  font-size: $font-small;
+  margin-top: $spacer-half;
+  text-align: left;
+}
+.Form .Field .TextInput,
+.Form .Field .PasswordInput,
+.Form .Field .EmailInput,
+.Form .Field .DateInput,
+.Form .Field .vDateField,
+.Form .Field .NumberInput,
+.Form .Field .Textarea {
+  border: 2px #03b8ad solid;
+  font-size: 1em;
+  height: 40px;
+  outline: none;
+  padding: $spacer-small;
+  width: 100%;
+  border-width: 2px;
+  &:focus {
+    border: 2px #02938A solid;
   }
-  .ModelChoiceField,
-  .TypedChoiceField {
-    .Select {
-      border: 2px solid $color-cyan;
-      &:focus {
-        border-color: $color-cyan-dark;
-      }
-    }
-  }
-  .Field-message--error {
-    &.Field--required {
-      .Field-item {
-        input {
-          border-color: $color-cyan-dark;
-        }
-      }
-    }
-  }
-  &-buttons {
-    margin-top: $spacer-small;
-    .Button {
-      color: #fff;
-      background-color: $color-cyan;
-      display: inline-block;
-      font-weight: bold;
-      font-size: ($font-xx-small - 2);
-      padding: 10px;
-      text-transform: uppercase;
-      margin: 1em 0;
-      -webkit-box-shadow: 8px 8px 0 0 $color-yellow-gorse;
-      box-shadow: 8px 8px 0 0 $color-yellow-gorse;
-      &:after {
-        content: " ";
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-top: 5px solid transparent;
-        border-left: 10px solid #fff;
-        border-bottom: 5px solid transparent;
-        margin: 0 0 0 1em;
-      }
-      
-      &:active, &:hover, &:focus {
-        color: $color-yellow-gorse;
-        &:after {
-          border-left-color: $color-yellow-gorse;
-        }
-      }
-      &--warning {
-        background: orange;
-        &:hover {
-          background: orange;
-        }
-      }
+}
+.Form .Textarea {
+  height: 60px;
+}
+.Form .ClearableFileInput {
+  display: block;
+}
+.Form .Form--required {}
+.Form .Form--required input {
+  border-color: red;
+}
+.Form .ModelChoiceField,
+.Form .TypedChoiceField {
+  .Select {
+    border: 2px solid #03b8ad;
+    &:focus {
+      border-color: #02938A;
     }
   }
 }
-.Messages {
-  margin: $spacer-small 0;
-  .Message {
-    color: #fff;
-    padding: $spacer-small;
-    &--success {
-      background: #000;
-    }
-    &--error,
-    &--warning {
-      background: #000;
+.Form .Field-message--error,
+.Form .Field-message--error .Field--required {
+  .Field-item input {
+    border-color: #02938A;
+  }
+}
+.Form .Form-buttons {
+    margin-top: $spacer-small;
+}
+.Button {
+  color: #fff;
+  background-color: #03b8ad;
+  display: block;
+  font-weight: bold;
+  font-size: $font-small;
+  padding: 15px 10px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  -webkit-box-shadow: 12px 12px 0 0 #f9e435;
+  box-shadow: 12px 12px 0 0 #f9e435;
+  width: auto;
+  &:active, &:hover, &:focus {
+    color: #f9e435;
+    &:after {
+      border-left-color: #f9e435;
     }
   }
+}
+.Button--warning {
+  background: orange;
+  &:hover {
+    background: orange;
+  }
+}
+
+.Messages {
+  margin: $spacer-small 0;
+}
+.Message {
+  color: #fff;
+  padding: $spacer-small;
+}
+.Message--success {
+  background: #000;
+}
+.Message--error,
+.Message--warning {
+  background: #000;
 }
 
 .errorlist {
@@ -201,47 +198,75 @@
 }
 
 .Additional-text {
-  text-align: center;
-  padding: $spacer-multiple 0 0;
+  background: #fff;
+  color: #000;
+  text-align: left;
+  padding: 0 10% 1em;
+  margin: 0;
+  a {
+    color: #03b8ad;
+    border-bottom: 1px solid #03b8ad;
+      &:active, &:hover, &:focus {
+        color: #f9e435;
+      }
+  }
 }
 
+//MENU
 .Menu {
   padding: 0;
   margin-top: 0;
   margin-bottom: 0;
-  &-title {
-    display: none;
-  }
-
-  &-item {
-    a {
-      font-weight: normal;
-      font-size: $font-medium;
+}
+.Menu-title {
+  display: none;
+}
+.Menu-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+}
+.Menu-item {
+  margin: 10px 0;
+  a {
+    color: #03b8ad;
+    text-decoration: underline;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: $font-xx-small;
+    border-bottom: 1px solid #fff;
+    &:active, &:hover, &:focus {
+      color: #f9e435;
     }
-  }
-
-  &-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
   }
 }
 
+//FOOTER
+.Back-to-top {
+  padding: 0 5%;
+}
+.Back-to-top--link {
+  text-transform: uppercase;
+  font-size: $font-xx-small;
+  border-bottom: 1px solid #fff;
+}
 .Footer {
-  background: #ececec;
+  background: #000;
   border: 0;
-  color: #5c5c5c;
-  font-size: $font-x-small;
-  padding: $spacer-small 0;
+  color: #fff;
+  font-size: $font-xx-small;
+  padding: 1em 5% 2em;
   text-align: left;
-  margin: 0 11%;
-
+  margin: 0 10%;
   a {
-    font-size: 22px;
-    color: #5c5c5c;
+    font-size: $font-xx-small;
+    color: #fff;
+    border-bottom: 1px solid #fff;
   }
   p {
-    color: #a3a3a3;
+    color: #fff;
+    padding: 1em 0 0;
+    text-align: right;
   }
 }
