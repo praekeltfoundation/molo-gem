@@ -47,9 +47,13 @@
 }
 .Header-links {
   background: #fff;
+  color: #000;
   margin: 0 15% 0 15%;
   text-align: left;
   padding: 1em 5%;
+  a {
+    color: $color-cyan;
+  }
 }
 
 //CONTENT BODY
@@ -65,16 +69,18 @@
   margin: 0;
   padding: 1em 10%;
   .Field {
-    margin-top: $spacer-small;
+    margin: $spacer-small 0;
     text-align: left;
-    &-item {
-      display: contents;
-      margin-top: $spacer-half;
-    }
     &-label {
       display: inline-block;
       font-weight: bold;
       margin-bottom: $spacer-small;
+    }
+    &-item {
+      color: #000;
+      display: inline-block;
+      margin: $spacer-half 0;
+      font-size: $font-x-small;
     }
     &-message {
       color: #000;
@@ -89,18 +95,17 @@
     .TextInput,
     .Textarea,
     .vDateField {
-      border: 1px #d6d6d6 solid;
+      border: 2px $color-cyan solid;
       font-size: 1em;
       height: 40px;
       outline: none;
       padding: $spacer-small;
       width: 100%;
-      border-width: 1px;
+      border-width: 2px;
       &:focus {
-        border: 1px #000 solid;
+        border: 2px $color-cyan-dark solid;
       }
     }
-
     .Textarea {
       height: 60px;
     }
@@ -109,16 +114,16 @@
     }
     &--required {
       input {
-        border-color: #000;
+        border-color: red;
       }
     }
   }
   .ModelChoiceField,
   .TypedChoiceField {
     .Select {
-      border: 1px solid #000;
+      border: 2px solid $color-cyan;
       &:focus {
-        border-color: #000;
+        border-color: $color-cyan-dark;
       }
     }
   }
@@ -126,22 +131,55 @@
     &.Field--required {
       .Field-item {
         input {
-          border-color: #000;
+          border-color: $color-cyan-dark;
         }
       }
     }
   }
   &-buttons {
     margin-top: $spacer-small;
+    .Button {
+      color: #fff;
+      background-color: $color-cyan;
+      display: inline-block;
+      font-weight: bold;
+      font-size: ($font-xx-small - 2);
+      padding: 10px;
+      text-transform: uppercase;
+      margin: 1em 0;
+      -webkit-box-shadow: 8px 8px 0 0 $color-yellow-gorse;
+      box-shadow: 8px 8px 0 0 $color-yellow-gorse;
+      &:after {
+        content: " ";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-left: 10px solid #fff;
+        border-bottom: 5px solid transparent;
+        margin: 0 0 0 1em;
+      }
+      
+      &:active, &:hover, &:focus {
+        color: $color-yellow-gorse;
+        &:after {
+          border-left-color: $color-yellow-gorse;
+        }
+      }
+      &--warning {
+        background: orange;
+        &:hover {
+          background: orange;
+        }
+      }
+    }
   }
 }
 .Messages {
   margin: $spacer-small 0;
-
   .Message {
     color: #fff;
     padding: $spacer-small;
-
     &--success {
       background: #000;
     }
@@ -165,41 +203,6 @@
 .Additional-text {
   text-align: center;
   padding: $spacer-multiple 0 0;
-}
-
-.Button {
-  background: pink;
-  color: #fff;
-  display: block;
-  font-size: 1em;
-  margin-bottom: $spacer-small;
-  max-width: 100%;
-  padding: $spacer-small $spacer-half;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  width: 100%;
-
-  &:hover {
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-    opacity: .8;
-  }
-
-  &--warning {
-    background: orange;
-    &:hover {
-      background: orange;
-    }
-  }
-}
-
-.Back-to-top {
-  padding: $spacer-small 0 $spacer-multiple;
-  &--link {
-    font-weight: normal;
-  }
 }
 
 .Menu {

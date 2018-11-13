@@ -52,6 +52,13 @@ body, html {
   font-size: 30px;
   padding: 0 0.313em;
 }
+.Header-links {
+  @media (min-width: 62.000em) {
+    position: absolute;
+    right: 0;
+    top: 30%;
+  }
+}
 
 .Content {
   padding: 0 15%;
@@ -87,13 +94,16 @@ body, html {
 
 .Form {
   .Field {
-    margin-top: $spacer-multiple;
-    &-message {
-      margin-top: $spacer-small;
+    margin-top: $spacer-multiple 0;
+    &-item {
+      width: 75%;
     }
     &-label {
       font-size: $font-medium;
-      font-weight: normal;
+      width: 20%;
+    }
+    &-message {
+      margin-top: $spacer-small;
     }
     .DateInput,
     .EmailInput,
@@ -105,12 +115,11 @@ body, html {
       color: #000;
       font-weight: normal;
       padding: $spacer-small;
-      border-width: 1px;
+      border-width: 2px;
       &:focus {
-        border: 1px  #000 solid;
+        border: 2px  $color-cyan-dark solid;
       }
     }
-
     .Textarea {
       height: 100px;
     }
@@ -124,7 +133,7 @@ body, html {
 
     &::after {
       border-style: solid;
-      border-width: 1px;
+      border-width: 2px;
       color:  #000;
       content: '';
       display: inline-block;
@@ -197,7 +206,6 @@ body, html {
       }
     }
   }
-
   .Field-message--error {
     &.Field--required {
       .Field-item {
@@ -207,9 +215,13 @@ body, html {
       }
     }
   }
-
   &-buttons {
     margin-bottom: $spacer-multiple;
+    .Button {
+      &--warning {
+        background: orange;
+      }
+    }
   }
 }
 
@@ -218,11 +230,6 @@ body, html {
 }
 .errorlist {
   margin-top: $spacer-multiple;
-}
-.Button {
-  &--warning {
-    background: orange;
-  }
 }
 .Additional-text {
   text-align: center;
