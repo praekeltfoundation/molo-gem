@@ -15,7 +15,7 @@ def provider_logout_url(request):
     if not hasattr(site, "oidcsettings"):
         raise RuntimeError("Site {} has no settings configured.".format(site))
     parameters = {
-        "post_logout_redirect_uri": request.site.root_url + '/'
+        "post_logout_redirect_uri": site.oidcsettings.wagtail_redirect_url
     }
     # The OIDC_STORE_ID_TOKEN setting must be set to true if we want
     # to be able to read
