@@ -333,6 +333,7 @@ hr {
   .Field {
     margin-top: $spacer-multiple;
     &-message {
+      text-align: left;
       margin-top: $spacer;
     }
     &-label {
@@ -424,18 +425,19 @@ hr {
   }
 
   .BooleanField {
-    display: table;
+    display: inline-block;
     margin: 0;
     position: relative;
     width: 100%;
+    vertical-align: middle;
     .Field-label {
-      display: table-cell;
+      display: inline-block;
       padding-right: $spacer;
-      text-align: right;
-      vertical-align: middle;
-      width: 60%;
+      text-align: left;
+      width: auto;
     }
     .Field-item {
+      display: inline-block;
       text-align: left;
       vertical-align: middle;
       .CheckboxInput {
