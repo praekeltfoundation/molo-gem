@@ -45,9 +45,16 @@
     @include for-size(desktop-up) {
       padding: 0 9%;
     }
-    .call-to-action__button--previous {
-      @include for-size(desktop-up) {
-        display: table;
+    .call-to-action {
+      &__button {
+        @include for-size(phone-only) {
+          margin: 1em;
+        }
+        &--previous {
+          @include for-size(desktop-up) {
+            display: table;
+          }
+        }
       }
     }
   }
@@ -58,9 +65,11 @@
           margin: 2em 26% 0;
         }
       }
-      &__button--previous {
-        @include for-size(desktop-up) {
-          margin: 1em 1em 0 26%;
+      &__button {
+        &--previous {
+          @include for-size(desktop-up) {
+            margin: 1em 1em 0 26%;
+          }
         }
       }
     }
