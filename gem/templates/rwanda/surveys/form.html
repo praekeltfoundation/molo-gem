@@ -82,7 +82,8 @@
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
     <div class="pagination">
       {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-        <p class="call-to-action__item call-to-action__item--current">{% trans Page %} {{ page }} {% trans of %} {{ pages }}</p>
+        <p class="call-to-action__item--text call-to-action__item--text-current">
+          {% trans Page %} {{ page }} {% trans of %} {{ pages }}</p>
       {% endwith %}
     </div>
   {% endif %}

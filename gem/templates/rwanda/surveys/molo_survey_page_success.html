@@ -3,98 +3,95 @@
 {% block content %}
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__wrapper">
-    <aside>
-      {% if self.your_words_competition %}
-        {% if self.image %}
-          {% image self.image width-165 as icon_small %}
-          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys__item-thumb" />
-        {% else %}
-          <div class="surveys__item-icon"></div>
-        {% endif %}
-      {% else %}
-        <div class="surveys__item-icon"></div>
+    <div class="heading heading--secondary">
+      <h1 class="heading__title">{% trans 'Quiz' %}</h1>
+    </div>
+    <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
+      {% if self.image %}
+        <aside>
+          {% image self.image width-480 as tmp_photo %}
+          <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
+        </aside>
       {% endif %}
-    </aside>
-    <section>
-      <div class="heading heading--hero">
-        <h1 class="heading__component">{{self.title}}</h1>
-      </div>
-      {% if self.show_results and results %}
-        <h3 class="heading__headline">
-          {% if self.your_words_competition %}
-            {% with wordSetting='GCN competition' %}
-              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
-              {% endwith %}
-          {% elif self.display_survey_directly %}
-            {% with wordSetting='poll' %}
-              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
-              {% endwith %}
-          {% else %}
-            {% with wordSetting='survey' %}
-              {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
-            {% endwith %}
-          {% endif %}
-        </h3>
-        <ul class="polls-results">
-          {% for question, answers in results.items %}
-            {% for answer, count in answers.items %}
-            <li class="polls-results__item">
-              <label class="polls__title">{{ question|capfirst }}</label>
-              {% if self.show_results_as_percentage %}
-                {{answer}}
-                <div class="polls-results-list__percent">
-                  <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
-                    <span class="choice-percentage">{{ count }}%</span>
-                  </div>
-                </div>
-              {% else %}
-                <h4 class="polls__answers-counter">
-                  {{answer}} -
-                  {{ count }} vote{{ count|pluralize }}</h4>
-              {% endif %}
-            </li>
-            {% endfor %}
-          {% endfor %}
-        </ul>
-      {% else %}
-        {% if self.thank_you_text %}
-          <div class="heading heading--hero">
-            <h3 class="heading__subheading">{{self.thank_you_text}}</h3>
-          </div>
-        {% else %}
-          <h3 class="heading__headline">
+      <section>
+        <h2 class="heading__headline">{{self.title}}</h2>
+        {% if self.show_results and results %}
+          <h3 class="heading__subtitle">
             {% if self.your_words_competition %}
               {% with wordSetting='GCN competition' %}
-                {% if self.your_words_competition %}
-                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                {% else %}
-                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                {% endif %}
-              {% endwith %}
+                {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
+                {% endwith %}
             {% elif self.display_survey_directly %}
               {% with wordSetting='poll' %}
-                {% if self.your_words_competition %}
-                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                {% else %}
-                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                {% endif %}
-              {% endwith %}
+                {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
+                {% endwith %}
             {% else %}
               {% with wordSetting='survey' %}
-                {% if self.your_words_competition %}
-                  {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                {% else %}
-                  {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                {% endif %}
+                {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
               {% endwith %}
             {% endif %}
           </h3>
+          <ul class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__results">
+            {% for question, answers in results.items %}
+              {% for answer, count in answers.items %}
+              <li class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results__item">
+                <label class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__title">{{ question|capfirst }}</label>
+                {% if self.show_results_as_percentage %}
+                  {{answer}}
+                  <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent">
+                    <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent-bar" style="width:{{ count }}%">
+                      <span class="choice-percentage">{{ count }}%</span>
+                    </div>
+                  </div>
+                {% else %}
+                  <h4 class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__answers-counter">
+                    {{answer}} -
+                    {{ count }} vote{{ count|pluralize }}</h4>
+                {% endif %}
+              </li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          {% if self.thank_you_text %}
+            <h3 class="heading__subtitle">{{self.thank_you_text}}</h3>
+          {% else %}
+            <h3 class="heading__subtitle">
+              {% if self.your_words_competition %}
+                {% with wordSetting='GCN competition' %}
+                  {% if self.your_words_competition %}
+                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
+                  {% else %}
+                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
+                  {% endif %}
+                {% endwith %}
+              {% elif self.display_survey_directly %}
+                {% with wordSetting='poll' %}
+                  {% if self.your_words_competition %}
+                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
+                  {% else %}
+                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                {% with wordSetting='survey' %}
+                  {% if self.your_words_competition %}
+                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
+                  {% else %}
+                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
+                  {% endif %}
+                {% endwith %}
+              {% endif %}
+            </h3>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    </section>
+        <nav>
+          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+            {% trans "Back home" %}
+          </a>
+        </nav>
+      </section>
+    </div>
   </div>
 </div>
-  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
-    {% trans "Back home" %}
-  </a>
 {% endblock %}

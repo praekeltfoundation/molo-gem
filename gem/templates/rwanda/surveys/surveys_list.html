@@ -12,11 +12,13 @@
       {% with survey=survey.molo_survey_page %}
           {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
-              <div class="profiles-join-banner">
-                <div class="profiles-join-banner__icon"></div>
-                <div class="profiles-join-banner__content">
-                  <div class="heading">
-                    <h4 class="heading__subheading  heading__subheading-alt">{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
+              <div class="profiles-join">
+                <div class="profiles-join__icon"></div>
+                <div class="profiles-join__content">
+                  <div class="heading heading--hero">
+                    <h1 class="heading__headline">
+                      {% trans "Share your opinions and stories, take polls, win fun prizes." %}
+                    </h1>
                   </div>
                   <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
                 </div>
@@ -27,22 +29,17 @@
     {% endwith %}
   {% endif %}
 
-
-  {# <!-- SURVEYS SETTINGS --> #}
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
         <div class="yourwords">
           <div class="yourwords__wrapper">
-            <aside>
-              {% if survey.image %}
-                {% image survey.image width-98 as tmp_photo_small %}
-                {% image survey.image width-320 as tmp_photo_large %}
-                <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
-              {% else %}
-                <div class="surveys__item-icon"></div>
-              {% endif %}
-            </aside>
+            {% if survey.image %}
+              <aside>
+                {% image survey.image width-480 as tmp_photo %}
+                <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
+              </aside>
+            {% endif %}
             <section>
               <div class="heading heading--hero">
                 <h1 class="heading__component">{{survey.title}}</h1>
@@ -65,7 +62,7 @@
         <div class="polls">
           <div class="polls__wrapper">
             <div class="heading heading--hero">
-              <h1 class="heading__plugin">{% trans 'Quiz' %}</h1>
+              <h1 class="heading__title">{% trans 'Quiz' %}</h1>
             </div>
             <div class="polls__inner">
               {% if survey.image %}
@@ -91,7 +88,7 @@
                     {% trans "Show results" %}
                   </a>
                 {% else %}
-                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
+                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
                     {% trans "Back home" %}
                   </a>
                 {% endif %}
@@ -102,19 +99,18 @@
         </div>
       {% else %}
         {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
-          {% comment %}
-            <div class="heading heading--hero">
-              <h1 class="heading__plugin">
-                SETTING ABOVE| Do not show survey - just show join banner<h1>
-            </div>
-          {% endcomment %}
+          <div class="heading heading--hero">
+            <h1 class="heading__title">
+              Join Banner -
+            <h1>
+          </div>
         {% else %}
           <div class="surveys">
             <div class="surveys__wrapper">
               <div class="heading heading--secondary">
-                <h1 class="heading__plugin">{% trans 'Quiz' %}</h1>
+                <h1 class="heading__title">{% trans 'Quiz' %}</h1>
               </div>
-              <div class="polls__inner">
+              <div class="surveys__inner">
                 {% if survey.image %}
                   <aside>
                     {% image survey.image width-480 as tmp_photo %}
