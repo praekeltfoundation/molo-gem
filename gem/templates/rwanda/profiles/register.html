@@ -93,7 +93,9 @@
           {% for field in form %}
             {% if field in form.security_questions %}
               <fieldset>
-                <label for="{{ field.id_for_label }}">{% trans field.label_tag %}</label>
+                <label for="{{ field.id_for_label }}">
+                  {% trans field.label_tag %}
+                </label>
                 {{ field }}
                 {{ field.errors}}
               </fieldset>
@@ -113,9 +115,9 @@
             </label>
           {% endif %}
           {% if form.terms_and_conditions.errors %}
-            <span class="error">
+            <p class="errorlist__item">
               {% trans "Please accept the T&amp;Cs in order to complete the registration" %}
-            </span>
+            </p>
           {% endif %}
         </fieldset>
         <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Register" %}</button>

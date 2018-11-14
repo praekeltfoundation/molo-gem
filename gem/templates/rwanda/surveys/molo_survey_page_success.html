@@ -14,9 +14,8 @@
         </aside>
       {% endif %}
       <section>
-        <h2 class="heading__headline">{{self.title}}</h2>
         {% if self.show_results and results %}
-          <h3 class="heading__subtitle">
+          <h2 class="heading__headline">
             {% if self.your_words_competition %}
               {% with wordSetting='GCN competition' %}
                 {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
@@ -30,23 +29,24 @@
                 {% blocktrans %}Your {{wordSetting}} has been completed successfully. See results{% endblocktrans %}
               {% endwith %}
             {% endif %}
-          </h3>
-          <ul class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__results">
+          </h2>
+          <ul class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results">
             {% for question, answers in results.items %}
               {% for answer, count in answers.items %}
               <li class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results__item">
-                <label class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__title">{{ question|capfirst }}</label>
+                <label class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__choices-title">{{ question|capfirst }}</label>
                 {% if self.show_results_as_percentage %}
                   {{answer}}
-                  <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent">
-                    <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}-results-list__percent-bar" style="width:{{ count }}%">
-                      <span class="choice-percentage">{{ count }}%</span>
+                  <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__choices-percentage">
+                    <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__choices-bar" style="width:{{ count }}%">
+                      <p class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__choices-subtitle">{{ count }}%</p>
                     </div>
                   </div>
                 {% else %}
-                  <h4 class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__answers-counter">
+                  <p class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__answers">
                     {{answer}} -
-                    {{ count }} vote{{ count|pluralize }}</h4>
+                    {{ count }} vote{{ count|pluralize }}
+                  </p>
                 {% endif %}
               </li>
               {% endfor %}
@@ -54,9 +54,9 @@
           </ul>
         {% else %}
           {% if self.thank_you_text %}
-            <h3 class="heading__subtitle">{{self.thank_you_text}}</h3>
+            <h2 class="heading__headline">{{self.thank_you_text}}</h2>
           {% else %}
-            <h3 class="heading__subtitle">
+            <h2 class="heading__headline">
               {% if self.your_words_competition %}
                 {% with wordSetting='GCN competition' %}
                   {% if self.your_words_competition %}
@@ -82,7 +82,7 @@
                   {% endif %}
                 {% endwith %}
               {% endif %}
-            </h3>
+            </h2>
           {% endif %}
         {% endif %}
         <nav>

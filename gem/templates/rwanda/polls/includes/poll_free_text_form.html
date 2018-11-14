@@ -17,9 +17,10 @@
         {% endif%}
         <input type="submit" value="{% trans "Submit" %}" class="call-to-action__button call-to-action__button--primary"/>
       {% else %}
-        <h3 class="heading__subtitle">
-          {% trans "Thank you! Your response has already been submitted." %}
-        </h3>
+        <h3 class="heading__subtitle">{% trans "Thank you!" %}</h3>
+        <p class="error-list__item">
+          {% trans "Your response has already been submitted." %}
+        </p>
       {% endif %}
     </fieldset>
     {% else %}

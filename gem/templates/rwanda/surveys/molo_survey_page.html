@@ -147,8 +147,7 @@
             {% else %}
               <p class="error-list__item">
                 {% trans 'You have already completed this ' %}
-                {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
-                {% endif %}.
+                {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}.
               </p>
               {% if request.path == "/" %}
                 <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
