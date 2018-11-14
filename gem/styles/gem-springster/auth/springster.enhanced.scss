@@ -384,6 +384,14 @@ hr {
     display: block;
     position: relative;
     width: 100%;
+    .no-js,
+    .no-js .lt-ie9 .lt-ie8 .lt-ie7 {
+      &::after {
+        display: none;
+        visibility: hidden;
+      }
+    }
+
     &::after {
       border-style: solid;
       border-width: .15em .15em 0 0;
@@ -398,6 +406,7 @@ hr {
       transform: rotate(135deg);
       width: .65em;
     }
+
     .Select {
       appearance: none;
       background-color: transparent;
