@@ -11,9 +11,6 @@
       padding: 5%;
     }
   }
-  &__terms {
-    display: block;
-  }
   &__description {
     font-size: $font-x-small;
     display: inline-block;
@@ -24,13 +21,8 @@
       font-size: $font-small;
     }
   }
-  &__account {
-    padding: $spacer-small $spacer-mid;
-    .call-to-action {
-      padding: 0;
-    }
-  }
-  &__cta-caption {
+
+  &__caption {
     @include for-size(tablet-landscape-up) {
       font-size: 12px;
       text-align: right;
@@ -40,54 +32,47 @@
     }
     .heading__subtitle {
       display: inline-block;
-      text-transform: inherit;
     }
     .call-to-action__item--text {
-      text-transform: capitalize;
-      margin: 0;
+      text-transform: inherit;
       @include for-size(desktop-up) {
         margin: 1em 0;
       }
     }
   }
+
   &__inner {
-    .heading__subtitle {
-      text-transform: inherit;
-    }
     @include for-size(desktop-up) {
       padding: 0 9%;
     }
-    .call-to-action__item--text  {
+    .call-to-action__button--previous {
       @include for-size(desktop-up) {
-        margin: 1em 26%;
+        display: table;
       }
     }
   }
-  .call-to-action__button {
-    display: inline-block;
-    &--primary {
-      margin: 0 1em 0 0;
-    }
-    &--previous {
-      display: block;
-      width: 70%;
-      margin: 1em 0 0;
-      @include for-size(phone-only) {
-        width: 30%;
-        margin: 2em 0 0;
-      }
-    }
-  }
-
   &__form {
+    .call-to-action {
+      &__item--text  {
+        @include for-size(desktop-up) {
+          margin: 2em 26% 0;
+        }
+      }
+      &__button--previous {
+        @include for-size(desktop-up) {
+          margin: 1em 1em 0 26%;
+        }
+      }
+    }
+
+    //Apply to Submit tags only*
     [type="button"],
     [type="reset"],
-    [type="submit"] {
+    [type="submit"], {
       @include for-size(desktop-up) {
-        margin: 1em 26%;
+        margin: 1em 1em 0 26%;
       }
     }
-
     [type="checkbox"],
     [type="radio"] {
       & ~ label {
@@ -96,30 +81,34 @@
         }
       }
     }
-
-  }
-  input[type="text"],
-  input[type="number"],
-  input[type="password"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="search"],
-  input[type="week"],
-  input[type="date"],
-  input[type="month"],
-  input[type="datetime"],
-  input[type="datetime-local"],
-  input[type="url"],
-  select {
-    @include for-size(desktop-up) {
-      width: 73%;
-      display: inline-block;
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="search"],
+    input[type="week"],
+    input[type="date"],
+    input[type="month"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="url"],
+    select {
+      @include for-size(desktop-up) {
+        width: 73%;
+        display: inline-block;
+      }
+    }
+    .input-hint, .input-group .helptext {
+      @include for-size(desktop-up) {
+        padding: 0 5% 0 25%;
+      }
     }
   }
-  .input-hint,
-  .input-group .helptext {
-    @include for-size(desktop-up) {
-      padding: 0 5% 0 25%;
-    }
+  &__terms {
+    display: block;
+  }
+  .heading__subtitle {
+    text-transform: inherit;
   }
 }

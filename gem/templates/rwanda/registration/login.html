@@ -5,7 +5,7 @@
     <div class="heading heading--hero">
       <h1 class="heading__component">{% trans "Log in" %}</h1>
     </div>
-    <div class="profiles__cta-caption">
+    <div class="profiles__caption">
       <h3 class="heading__subtitle">{% trans "Not a member yet?" %}</h3>
       <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__item--text">{% trans "Register" %}</a>
     </div>
@@ -31,10 +31,10 @@
           {{ form.password.errors}}
           <span class="input-hint">({% trans "Eg.: 2086" %})</span>
         </fieldset>
-        <input type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">
+        <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Log in" %}</button>
         <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "molo.profiles:login_success" %}{% endif %}" class="call-to-action__button call-to-action__button--primary" />
+        <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__item--text">{% trans "Forgot PIN" %}</a>
       </form>
-      <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__item--text">{% trans "Forgot PIN" %}</a>
     </div>
   </div>
 </div>
