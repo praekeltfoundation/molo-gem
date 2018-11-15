@@ -1,13 +1,46 @@
 .media-player {
-  padding: 0 5%;
+  padding: 1em 5%;
   overflow: auto;
   @include for-size(tablet-landscape-up) {
-    padding: 0 10%;
+    padding: 1em 10%;
   }
-  &__content {}
+  video, audio, iframe {
+    width: 100%;
+    object-fit: cover;
+  }
+  &__wrapper {
+    position: relative;
+    overflow: auto;
+    margin: 0 0 1em;
+    @include for-size(phone-only) {
+      display: flex;
+    }
+  }
+  &__excerpt {
+    display: inline-block;
+    @include for-size(phone-only) {
+      order: 1;
+      width: 35%;
+    }
+  }
+  &__embed {
+    display: inline-block;
+    margin: 0 0 0 1em;
+    vertical-align: middle;
+    @include for-size(phone-only) {
+      order: 2;
+      width: 80%;
+    }
+  }
+
+  &__content {
+    text-align: center;
+    padding: $spacer-half 0;
+    border: 1px solid $color-cyan;
+  }
   &__title {
     color: #000;
-    font-size: $font-x-small;
+    font-size: $font-medium;
     text-transform: uppercase;
   }
   &__subtitle {
@@ -31,33 +64,6 @@
     display: block;
     font-weight: bold;
     text-decoration: underline;
-  }
-  &__no-player {
-    text-align: center;
-    padding: $spacer-half 0;
-    border: 1px solid $color-cyan;
-  }
-  &__embed-object {
-    position: relative;
-    height: auto;
-    overflow: auto;
-    iframe, object, embed {
-      position: relative;
-      height: auto;
-      width: 35%;
-    }
-  }
-  video {
-    display: block;
-    position: relative;
-    margin: 0 auto;
-    height: auto;
-    width: 35%;
-  }
-  audio {
-    display: block;
-    margin: 0 auto;
-    width: 35%;
   }
 }
 

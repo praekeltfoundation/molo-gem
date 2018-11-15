@@ -9,7 +9,6 @@
     @include for-size(tablet-landscape-up) {
       width: 25%;
       display: inline-block;
-      margin: 0 0.90em 3em;
     }
     .article-page__quote {
       padding: 0;
@@ -19,11 +18,13 @@
     }
   }
   &__images {
+    border: 3px solid $color-cyan;
     width: 100%;
     margin: 0 auto;
+    overflow: hidden;
+    max-height: 175px;
   }
   &__thumbnail {
-    border: 3px solid $color-cyan;
     width: 100%;
     height: auto;
   }
@@ -50,6 +51,9 @@
         width: 35%;
       }
       &--hero-story {
+        #{$block}__images {
+          max-height: auto;
+        }
         @include for-size(tablet-landscape-up) {
           width: 55%;
         }
