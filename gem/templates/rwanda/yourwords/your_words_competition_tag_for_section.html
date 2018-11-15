@@ -1,37 +1,35 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% block content %}
-{% if competitions %}
-  {% for competition in competitions %}
-  {% if forloop.first %}
-  <div class="yourwords yourwords{{section.get_effective_extra_style_hints}}">
-    {% comment %}
-      <h1 class="heading heading--yourwords heading--hero-yourwords">
-        {% trans "Competition" %}
-      </h1>
-    {% endcomment %}
-
-    {% if competition.thank_you_page.get_parent_page.get_effective_image %}
-      {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 as tmp_photo_small %}
-      {% image competition.thank_you_page.get_parent_page.get_effective_image width-320 as tmp_photo_large %}
-       <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ competition.get_parent_page.get_effective_image.title }}"/>
-    {% endif %}
-        <h2 class="heading heading--yourwords-subtitle">
-          {% trans "Share your story" %}
-        </h2>
-    {% endif %}
-
-    <h3 class="competition__title">{{competition.title}}</h3>
-    <h4 class="competition__title competition__title--description">{{competition.description}}</h4>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__nav-item call-to-action__nav-item--login">
-          {% trans "Enter" %}</a>
-    {% else %}
-        <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__nav-item call-to-action__nav-item--login">
-          {% trans "Log in to Enter" %}</a>
-    {% endif %}
+<div class="yourwords">
+  <div class="yourwords__wrapper">
+  {% if competitions %}
+    {% for competition in competitions %}
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans 'Share your story' %}</h1>
+    </div>
+    <div class="yourwords__inner">
+      {% if competition.thank_you_page.get_parent_page.get_effective_image %}
+        <aside>
+          {% image competition.thank_you_page.get_parent_page.get_effective_image width-480 as tmp_photo %}
+           <img src="{{ tmp_photo_small.url }}" alt="{{ competition.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
+         </aside>
+      {% endif %}
+      <section>
+        <h2 class="heading__headline">{{competition.title}}</h2>
+        <h3 class="heading__subtitle">{{competition.description}}</h3>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Enter" %}
+          </a>
+        {% else %}
+          <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' competition.slug %}" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Log in to Enter" %}
+          </a>
+        {% endif %}
+      </section>
+    </div>
+    {% endfor %}
+  {% endif %}
   </div>
-  {% if not forloop.last %}<hr>{% endif %}
-  {% endfor %}
-{% endif %}
+</div>
 {% endblock %}
