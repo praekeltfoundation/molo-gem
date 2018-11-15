@@ -17,9 +17,9 @@
       <form method="post" action="" class="profiles__form" novalidate>
       {% csrf_token %}
         {% if form.errors %}
-        <span class="error">
+        <p class="errorlist__item">
         {% trans "Your username and pin do not match. Please try again." %}
-        </span>
+        </p>
         {% endif %}
         <fieldset>
           <label for="id_username">{% trans "Username" %}</label>

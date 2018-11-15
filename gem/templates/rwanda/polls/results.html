@@ -2,8 +2,8 @@
 {% block content %}
 <div class="polls polls--results">
   <div class="polls__wrapper">
-    <div class="heading heading--hero">
-      <h3 class="heading__component">
+    <div class="heading heading--secondary">
+      <h3 class="heading__title">
         {% trans "Quiz" %}
       </h3>
     </div>
@@ -13,9 +13,11 @@
       {% for choice in choices %}
         <h6 class="polls__choices-title">{{ choice.title }}</h6>
         {% if question.result_as_percentage %}
-          <p class="polls__choices-percentage">
-            {{ choice.percentage }}%
-          </p>
+          <div class="polls__choices-percentage">
+            <div class="polls__choices-bar" style="width:{{ choice.percentage }}%">
+              <p class="polls__choices-subtitle">{{ choice.percentage }}%</p>
+            </div>
+          </div>
         {% else %}
           <p class="polls__choices-caption">
             {{ choice.votes }} vote{{ choice.votes|pluralize }}
@@ -23,7 +25,7 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      <h4 class="heading__subtitle">{% trans "Thank you for voting!" %}</h4>
+      <h2 class="heading__headline">{% trans "Thank you for voting!" %}</h2>
     {% endif %}
       <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--secondary">
         {% trans "Home" %}

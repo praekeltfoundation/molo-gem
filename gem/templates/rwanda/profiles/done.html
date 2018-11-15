@@ -19,7 +19,9 @@
         {% csrf_token %}
           {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg %}
           <fieldset>
-            <label for="date_of_birth">{% trans "Select Date Of Birth" %}</label>
+            <label for="date_of_birth">
+              {% trans "Select Date Of Birth" %}
+            </label>
             {{ form.date_of_birth }}
             {{ form.date_of_birth.errors}}
           </fieldset>
