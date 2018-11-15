@@ -34,28 +34,33 @@
       {% if survey.your_words_competition %}
         <div class="yourwords">
           <div class="yourwords__wrapper">
-            {% if survey.image %}
-              <aside>
-                {% image survey.image width-480 as tmp_photo %}
-                <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
-              </aside>
-            {% endif %}
-            <section>
-              <div class="heading heading--hero">
-                <h1 class="heading__component">{{survey.title}}</h1>
-              </div>
-              {% if survey.homepage_introduction %}
-                <h3 class="heading__subtitle">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h3>
+            <div class="heading heading--hero">
+              <h1 class="heading__component">
+                {% trans "Share your story" %}
+              </h1>
+            </div>
+            <div class="yourwords__inner">
+              {% if survey.image %}
+                <aside>
+                  {% image survey.image width-480 as tmp_photo %}
+                  <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
+                </aside>
               {% endif %}
-            </section>
-            <nav>
-              <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-                {% trans "Take GCN competition" as defaultTextGCN %}
-                {{ survey.homepage_button_text|default:defaultTextGCN}}
-              </a>
-            </nav>
+              <section>
+                <h1 class="heading__headline">{{survey.title}}</h1>
+                {% if survey.homepage_introduction %}
+                  <h3 class="heading__subtitle">
+                    {{survey.homepage_introduction|smarttruncatechars:115|safe}}
+                  </h3>
+                {% endif %}
+                <nav>
+                  <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                    {% trans "Take GCN competition" as defaultTextGCN %}
+                    {{ survey.homepage_button_text|default:defaultTextGCN}}
+                  </a>
+                </nav>
+              </section>
+            </div>
           </div>
         </div>
       {% elif survey.display_survey_directly %}
@@ -81,17 +86,19 @@
                 {% if form %}
                   {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
                 {% else %}
-                <p class="error-list__item">
-                  {% trans 'You have already completed this poll' %}.</p>
-                {% if request.path == "/" %}
-                  <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-                    {% trans "Show results" %}
-                  </a>
-                {% else %}
-                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
-                    {% trans "Back home" %}
-                  </a>
-                {% endif %}
+                  <p class="error-list__item">
+                    {% trans 'You have already completed this poll' %}.</p>
+                    <nav>
+                      {% if request.path == "/" %}
+                        <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                          {% trans "Show results" %}
+                        </a>
+                      {% else %}
+                        <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                          {% trans "Back home" %}
+                        </a>
+                      {% endif %}
+                    </nav>
               {% endif %}
               </section>
             </div>
