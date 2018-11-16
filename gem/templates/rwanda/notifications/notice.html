@@ -19,13 +19,13 @@
             {% endif %}
           {% endif %}
         </h5>
+        <h6 class="comments__publish-date">
+          {{ notice.timesince }} {% trans "ago" %}
+        </h6>
         <p class="comments__description">
         {% trans "replied to your comment on: " %}</p>
         <a href="{% pageurl article.specific %}" class="call-to-action__item call-to-action__item--text">
           {{ article.title }}</a>
-        <h6 class="comments__publish-date">
-          {{ notice.timesince }} {% trans "ago" %}
-        </h6>
       {% endwith %}
     {% endwith %}
     <ul class="comments-replyList">
