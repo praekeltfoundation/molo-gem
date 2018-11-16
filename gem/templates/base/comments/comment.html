@@ -1,10 +1,5 @@
 {% load molo_commenting_tags %}
-<div class="comment comment__body comment__body{{self.get_parent_section.get_effective_extra_style_hints}} {% if node.user.is_staff %}staff{% endif %}
-  {% if node.parent %}
-    comment__admin-reply
-  {% else %}
-    comment__user-reply
-  {% endif %}">
+<div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--replies{% endif %}">
   <p class="comment__alias comment__alias{{self.get_parent_section.get_effective_extra_style_hints}} by">
     <strong>
     {% if node.user.is_staff %}

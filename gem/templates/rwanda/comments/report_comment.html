@@ -2,7 +2,7 @@
 {% load wagtailcore_tags gem_tags %}
 <!--Self vs Article -->
 {% block content %}
-<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments {% if article.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
     <div class="heading heading--secondary">
       <h4 class="heading__component">
@@ -36,9 +36,9 @@
         {% endif %}
         </fieldset>
     {% endfor %}
-    <input type="submit" value="{% trans "Report Comment" %}" class="call-to-action__button call-to-action__button--primary">
+    <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Report Comment" %}</button>
     </form>
-    <a href="{% pageurl self %}" class="call-to-action__button call-to-action__button--secondary">
+    <a href="{% pageurl article %}" class="call-to-action__button call-to-action__button--previous">
       {% trans "Back to article" %}
     </a>
   </div>
