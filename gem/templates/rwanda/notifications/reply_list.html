@@ -2,45 +2,40 @@
 {% load wagtailcore_tags %}
 {% block content %}
 <div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
-
-  {% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply {% endif %}
-  
   <div class="comments__wrapper">
-    <h2 class="heading__headline">
+    <h1 class="heading__headline">
       {% with notice.target as article %}
         {% with notice.action_object as comment %}
           {{ article.title }}
           {{article.get_parent_section.get_effective_extra_style_hints}}
         {% endwith %}
       {% endwith %}
-    </h2>
+    </h1>
     <div class="heading heading--secondary">
-      <h4 class="heading__component">
+      <h2 class="heading__component">
         {% trans "Comment replies" %}
-      </h4>
+      </h2>
     </div>
     <div class="comments-list">
       {% if unread_notifications %}
-        <h4 class="heading__subtitle">
-          {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
-          {% if number_unread_notifications == 1 %}
-            {% trans "reply" %}
-          {% else %}
-            {% trans "replies" %}
-          {% endif %}
-        </h4>
+        <h3 class="heading__subtitle">
+          {% trans "You have"%} {{number_unread_notifications}}
+          {% trans "unread"%}
+          {% if number_unread_notifications == 1 %} {% trans "reply" %}
+          {% else %} {% trans "replies" %} {% endif %}
+        </h3>
         {% for notice in unread_notifications %}
           {% include 'notifications/notice.html' %}
         {% endfor %}
       {% endif %}
         {% if read_notifications %}
-          <h4 class="heading__subtitle">{% trans "Read replies" %}:</h4>
+          <h3 class="heading__subtitle">{% trans "Read replies" %}:</h3>
           {% for notice in read_notifications %}
             {% include 'notifications/notice.html' %}
           {% endfor %}
         {% endif %}
     </div>
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--primary">
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
       {% trans "Back home" %}
     </a>
   </div>
