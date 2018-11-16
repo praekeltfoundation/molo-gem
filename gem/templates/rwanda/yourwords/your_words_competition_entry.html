@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags %}
+{% block content %}
+<div class="yourwords">
+  <div class="yourwords__wrapper">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans 'Share your story' %}</h1>
+    </div>
+    <div class="yourwords__inner">
+      {% if competition.thank_you_page.get_parent_page.get_effective_image %}
+        <aside>
+          {% image competition.thank_you_page.get_parent_page.get_effective_image width-480 as tmp_photo %}
+           <img src="{{ tmp_photo_small.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
+        </aside>
+      {% endif %}
+      <section>
+        <h3 class="heading__headline">{{competition.title}}</h3>
+        <h4 class="heading__subtitle">{{competition.description}}</h4>
+        <article>
+          {% for block in competition.content %}
+              {% if block.block_type == 'heading' %}
+                <h1 class="heading heading__subtitle">
+                  {{ block.value }}
+                </h1>
+              {% elif block.block_type == 'image' %}
+                {% image block.value width-480 %}
+              {% elif block.block_type == 'numbered_list' %}
+                <ol class="ordered-list">
+                  {% for item in block.value %}
+                    <li class="ordered-list__item">
+                      {{ item|handle_markdown }}</li>
+                  {% endfor %}
+                </ol>
+              {% elif block.block_type == 'list' %}
+                <ul class="inordered-list">
+                  {% for item in block.value %}
+                    <li class="inordered-list__item">
+                      {{ item|handle_markdown }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                  {{ block }}
+              {% endif %}
+          {% endfor %}
+        </article>
+        <form method="post" class="yourwords-form">
+        {% csrf_token %}
+            <fieldset>
+              <label>{% trans "Title of your story (max 60 characters)" %}</label>
+              {{ form.story_name }}
+               {% if form.story_name.errors %}
+                <p class="error-list__item">* {{form.story_name.errors|join:' '}}</p>
+              {% endif %}
+            </fieldset>
+            <fieldset>
+              <label for="">{% trans "Tell us your story here" %}</label>
+              {{ form.story_text }}
+              {% if form.story_text.errors %}
+                <p class="error-list__item">* {{form.story_text.errors|join:' '}}</p>
+              {% endif %}
+            </fieldset>
+            <fieldset>
+               {{ form.terms_or_conditions_approved }}
+               <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
+               {% if form.terms_or_conditions_approved.errors %}
+               <p class="error-list__item">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
+              {% endif %}
+            </fieldset>
+            <fieldset>
+              {{ form.hide_real_name }}
+              <label>{% trans "Share my story anonymously" %}</label>
+            </fieldset>
+            <input type="submit" value="Submit Your Story" class="call-to-action__button call-to-action__button--primary" />
+        </form>
+        <nav>
+          <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">{% trans "Home" %}</a>
+        </nav>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

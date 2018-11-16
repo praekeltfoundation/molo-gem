@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags competition_tag %}
+{% block content %}
+<div class="yourwords">
+  <div class="yourwords__wrapper">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans 'Share your story' %}</h1>
+    </div>
+    <div class="yourwords__inner">
+      {% if competition.thank_you_page.get_parent_page.get_effective_image %}
+        <aside>
+          {% image competition.thank_you_page.get_parent_page.get_effective_image width-480 as tmp_photo %}
+           <img src="{{ tmp_photo_small.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
+        </aside>
+      {% endif %}
+      <section>
+        {% load_thank_you_page_for_competition competition as thank_you_pages %}
+          {% if thank_you_pages %}
+          {% for page in thank_you_pages %}
+            <h2 class="heading heading__headline">{{page.title}}</h2>
+            {% if page.subtitle %}
+              <h3 class="heading heading__subtitle">{{page.subtitle}}</h3>
+            {% endif %}
+            {% if page.body %}
+              {% for block in page.body %}
+                {% if block.block_type == 'heading' %}
+                    <h2 class="heading heading__headline">
+                      {{ block.value }}
+                    </h2>
+                {% elif block.block_type == 'image' %}
+                  {% image block.value width-240 %}
+                {% elif block.block_type == 'numbered_list' %}
+                  <ol class="ordered-list">
+                    {% for item in block.value %}
+                      <li class="ordered-list__item">
+                        {{ item|handle_markdown }}
+                      </li>
+                    {% endfor %}
+                  </ol>
+                {% elif block.block_type == 'list' %}
+                  <ul class="inordered-list">
+                    {% for item in block.value %}
+                      <li class="inordered-list__item">
+                        {{ item|handle_markdown }}</li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  {{ block }}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <h2 class="heading heading__headline">{% trans 'Thank you!' %}</h2>
+          <h3 class="heading heading__subtitle">
+            {% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}
+          </h3>
+        {% endif %}
+        <nav>
+          <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">
+            {% trans "Home" %}
+          </a>
+        </nav>
+      </section>
+      </div>
+    </div>
+</div>
+{% endblock %}
