@@ -80,7 +80,7 @@
                   {% endif %}
                 </p>
               {% else %}
-                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply">
+                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply-count">
                   {{ node.get_children.count }}
                   {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}{% else %}{% trans "replies" %}
                   {% endif %}
