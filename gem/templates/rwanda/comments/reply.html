@@ -3,6 +3,11 @@
 {% block content %}
 <div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
+    <div class="heading heading--secondary">
+      <h4 class="heading__component">
+        {% trans "Comments" %}
+      </h4>
+    </div>
     {% get_comments_content_object for form as self %}
     {% pageurl self as the_url %}
     <div id="comments-list" class="comments-list">
@@ -160,52 +165,13 @@
             {% endif %}
           </div>
           {% if node.parent == None and node.get_children.count != 0 %}
-            <h3 class="comments__replies-title">
+            <h3 class="comments__replies-label">
               {% trans "Recent --replies" %}
             </h3>
           {% endif %}
         </div>
       {% endfor %}
-
-        <h2 class="comments__replies-title">
-          {% trans "Add your reply" %}
-        </h2>
-      {% if request.user.is_authenticated %}
-        <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
-        {% csrf_token %}
-          <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
-            {% if form.errors %}
-              <p class="errors">{% trans "Please correct the error below" %}</p>
-            {% endif %}
-            {{ form.comment }}
-            {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
-          </div>
-          <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Comment" %}
-          </button>
-          <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Comment anonymously" %}
-          </button>
-          {{ form.object_pk }}
-          {{ form.content_type }}
-          {{ form.timestamp }}
-          {{ form.security_hash }}
-          <input type="hidden" name="next" value="{% pageurl self %}" />
-          {% if comment.id %}
-          <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
-          {% endif %}
-        </form>
-      {% else %}
-        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Please log in to comment" %}
-        </a>
-      {% endif %}
-      </div>
-      <a href="{{the_url}}" class="call-to-action__button call-to-action__button--previous">
-        {% trans "Back to article" %}
-      </a>
     </div>
-
     <div class="pagination">
       {% if replies.has_previous %}
         <a href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Previous" %}</a>
@@ -217,6 +183,46 @@
         <a href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Newer" %}</a>
       {% endif %}
     </div>
+  </div>
+  <div class="comments__wrapper">
+    <div class="heading heading--secondary">
+      <h4 class="heading__component">
+        {% trans "Add your reply" %}
+      </h4>
+    </div>
+    {% if request.user.is_authenticated %}
+      <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
+      {% csrf_token %}
+        <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+          {% if form.errors %}
+            <p class="errors">{% trans "Please correct the error below" %}</p>
+          {% endif %}
+          {{ form.comment }}
+          {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+        </div>
+        <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
+          {% trans "Comment" %}
+        </button>
+        <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
+          {% trans "Comment anonymously" %}
+        </button>
+        {{ form.object_pk }}
+        {{ form.content_type }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input type="hidden" name="next" value="{% pageurl self %}" />
+        {% if comment.id %}
+        <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+        {% endif %}
+      </form>
+    {% else %}
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Please log in to comment" %}
+      </a>
+    {% endif %}
+    <a href="{{the_url}}" class="call-to-action__button call-to-action__button--previous">
+      {% trans "Back to article" %}
+    </a>
   </div>
 </div>
 {% endblock %}
