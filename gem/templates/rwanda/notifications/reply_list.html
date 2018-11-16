@@ -1,9 +1,25 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
 {% block content %}
 <div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+
+  {% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply {% endif %}
+  
   <div class="comments__wrapper">
+    <h2 class="heading__headline">
+      {% with notice.target as article %}
+        {% with notice.action_object as comment %}
+          {{ article.title }}
+          {{article.get_parent_section.get_effective_extra_style_hints}}
+        {% endwith %}
+      {% endwith %}
+    </h2>
+    <div class="heading heading--secondary">
+      <h4 class="heading__component">
+        {% trans "Comment replies" %}
+      </h4>
+    </div>
     <div class="comments-list">
-      <h2 class="heading__headline">{% trans "Comment replies" %}</h2>
       {% if unread_notifications %}
         <h4 class="heading__subtitle">
           {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}

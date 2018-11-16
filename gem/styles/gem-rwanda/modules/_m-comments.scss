@@ -57,11 +57,6 @@
     text-transform: capitalize;
   }
   &__reply {
-    &-notification {
-      background-color: rgba($color-cyan-fountain, 0.5);
-      padding: $spacer-mid $spacer-mid;
-      color: $color-yellow;
-    }
     &-meta {
       clear: both;
       overflow: auto;
@@ -117,6 +112,53 @@
       padding: 1em 0;
     }
   }
+  &-notifications {
+    padding: 0 5%;
+    text-transform: capitalize;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+    &__counter {
+      background-color: $color-pink;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 100%;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      vertical-align: middle;
+      padding: 5px;
+      margin: 0 10px 0 0;
+      @include for-size(feature-only) {
+        background-color: inherit;
+        color: #000;
+      }
+      @include for-size(phone-only) {
+        background-color: $color-pink;
+        color: #fff;
+      }
+    }
+    &__anchor {
+      color: $color-cyan;
+      display: block;
+      padding: 1em;
+      font-size: $font-x-small;
+      font-weight: bold;
+      &:active, &:hover, &:focus {
+        color: $color-pink;
+        &:after {
+          color: $color-pink;
+        }
+      }
+      &:after {
+        content: " ≫ ";
+        color: $color-cyan;
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+  }
   &-list {
     font-size: $font-x-small;
     &__item {
@@ -135,8 +177,8 @@
     position: relative;
     background: $color-cyan;
     border-radius: 50%;
-    height: 27px;
-    width: 27px;
+    height: 30px;
+    width: 30px;
     padding: ($spacer-small - 2);
     text-align: center;
     &:after {
