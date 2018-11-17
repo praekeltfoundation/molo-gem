@@ -13,15 +13,13 @@
           {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
               <div class="profiles-join">
-                <div class="profiles-join__icon"></div>
                 <div class="profiles-join__content">
-                  <div class="heading heading--hero">
                     <h1 class="heading__headline">
                       {% trans "Share your opinions and stories, take polls, win fun prizes." %}
                     </h1>
-                  </div>
                   <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
                 </div>
+                <div class="profiles-join__icon"></div>
               </div>
             {% endif %}
         {% endif %}
@@ -106,11 +104,9 @@
         </div>
       {% else %}
         {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
-          <div class="heading heading--hero">
-            <h1 class="heading__title">
-              Join Banner -
-            <h1>
-          </div>
+          {% comment %}
+            <h3>Test what happens here</h3>
+          {% endcomment %}
         {% else %}
           <div class="surveys">
             <div class="surveys__wrapper">
