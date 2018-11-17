@@ -8,41 +8,45 @@
     }
   }
   &--primary {
+    margin: 0 0 1em 0;
     @include for-size(tablet-landscape-up) {
       display: inline-grid;
       grid-template-rows: repeat(2, auto);
-      grid-template-columns: repeat(3, auto);
+      grid-template-columns: repeat(2, auto);
       grid-auto-flow: column;
       justify-items: start;
-      grid-column-gap: 10px;
-      grid-row-gap: 15px;
+      grid-column-gap: 15%;
+      grid-row-gap: 1em;
       align-items: start;
-      justify-content: start;
+      justify-content: end;
     }
     #{$block}__item {
       &:nth-child(1) {
         @include for-size(tablet-landscape-up) {
-          width: auto;
+          width: 125%;
           grid-row: span 2;
         }
       }
       &:nth-child(2),
       &:nth-child(3) {
         @include for-size(tablet-landscape-up) {
-          width: auto;
+          width: 80%;
           grid-row: span 1;
         }
         #{$block}__images {
-          width: 75%;
+          width: auto;
+          margin: 0;
         }
-        /*#{$block}__paragraph {
+        #{$block}__paragraph {
           @include for-size(tablet-landscape-up) {
-            white-space: nowrap;
+            display: none;
+            visibility: hidden;
+            /*white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 55%;
+            height: 55%;*/
           }
-        }*/
+        }
       }
     }
   }
@@ -51,7 +55,7 @@
     #{$block}__item {
       display: inline-block;
       @include for-size(tablet-landscape-up) {
-        width: 35%;
+        width: 30%;
       }
     }
   }
@@ -61,7 +65,7 @@
     vertical-align: top;
     margin: 0 0 0 1em;
     @include for-size(tablet-landscape-up) {
-      width: 35%;
+      width: 30%;
       display: inline-block;
     }
     .article-page__quote {
@@ -78,6 +82,7 @@
     overflow: hidden;
   }
   &__thumbnail {
+    display: block;
     width: 100%;
     height: auto;
   }
@@ -86,16 +91,17 @@
     font-size: $font-small;
     word-wrap: break-word;
     word-break: initial;
+    margin: 5px 0 10px;
   }
   &__subtitle {
-    margin: 0 0 10% 0;
+    margin: 0 0 10px;
   }
   &-tags {
     display: inline-block;
     padding: 0;
     margin: 0;
     @include for-size(tablet-portrait-up) {
-      padding: 10px 0 1.4em;
+      padding: 7px 0;
     }
     &__item {
       display: inline-block;

@@ -73,7 +73,7 @@
         {% with article.body|first as block %}
         {% if block.block_type == 'paragraph' %}
         <p class="teaser-stacklist__paragraph">
-        {{block.value|smarttruncatechars:100|safe}}
+        {{block.value|smarttruncatechars:1000|safe}}
         </p>
         {% endif %}
         {% endwith %}
