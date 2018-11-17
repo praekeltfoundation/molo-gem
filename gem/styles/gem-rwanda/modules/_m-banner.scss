@@ -41,6 +41,7 @@
   }
   &--main {
     overflow: hidden;
+    max-height: 260px;
     #{$block}__title,
     #{$block}__subtitle {
       text-shadow: 1px 2px 8px #000;
@@ -50,7 +51,6 @@
     }
     #{$block}__image {
       display: block;
-      max-height: 320px;
       height: 100%;
       width: 100%;
     }
@@ -61,11 +61,10 @@
       right: 0;
       padding: 1em 10%;
         @include for-size(tablet-landscape-up) {
-          width: 445px;
           top: 10%;
           right: 10%;
           left: auto;
-          padding: 5% 0 0;
+          padding: 1em 0 0;
         }
     }
   }

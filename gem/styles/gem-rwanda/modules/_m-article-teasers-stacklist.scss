@@ -2,12 +2,66 @@
   $block: unquote("#{&}");
   margin: 0;
   padding: 0;
+  &--topic-of-day {
+    #{$block}__item {
+      width: auto;
+    }
+  }
+  &--primary {
+    @include for-size(tablet-landscape-up) {
+      display: inline-grid;
+      grid-template-rows: repeat(2, auto);
+      grid-template-columns: repeat(3, auto);
+      grid-auto-flow: column;
+      justify-items: start;
+      grid-column-gap: 10px;
+      grid-row-gap: 15px;
+      align-items: start;
+      justify-content: start;
+    }
+    #{$block}__item {
+      &:nth-child(1) {
+        @include for-size(tablet-landscape-up) {
+          width: auto;
+          grid-row: span 2;
+        }
+      }
+      &:nth-child(2),
+      &:nth-child(3) {
+        @include for-size(tablet-landscape-up) {
+          width: auto;
+          grid-row: span 1;
+        }
+        #{$block}__images {
+          width: 75%;
+        }
+        /*#{$block}__paragraph {
+          @include for-size(tablet-landscape-up) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 55%;
+          }
+        }*/
+      }
+    }
+  }
+  &--latest {
+    overflow: auto;
+    #{$block}__item {
+      display: inline-block;
+      @include for-size(tablet-landscape-up) {
+        width: 35%;
+      }
+    }
+  }
+
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 0 0.90em 1em;
+    margin: 0 0 0 1em;
     @include for-size(tablet-landscape-up) {
-      width: 25%;
+      width: 35%;
       display: inline-block;
     }
     .article-page__quote {
@@ -36,30 +90,6 @@
   &__subtitle {
     margin: 0 0 10% 0;
   }
-  &--topic-of-day {
-    #{$block}__item {
-      display: block;
-      margin: 0 0 2.5em;
-      width: auto;
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      @include for-size(tablet-landscape-up) {
-        width: 35%;
-      }
-      &--hero-story {
-        #{$block}__images {
-          max-height: auto;
-        }
-        @include for-size(tablet-landscape-up) {
-          width: 55%;
-        }
-      }
-    }
-  }
-
   &-tags {
     display: inline-block;
     padding: 0;
