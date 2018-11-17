@@ -7,27 +7,6 @@
     text-align: center;
     text-transform: uppercase;
     padding: $spacer-half $spacer-mid;
-    &--button {
-      color: #ffffff;
-      display: inline-block;
-      font-weight: bold;
-      padding: $spacer-small $spacer-multiple;
-      margin: 0.55em auto 0;
-      text-transform: uppercase;
-      @include for-size(phone-only) {
-          color: #ffffff;
-          display: block;
-          width: 50%;
-          text-decoration: none;
-      }
-      @include for-size(phone-only) {
-        background-color: $color-cyan-fountain;
-      }
-    }
-    &--button-text {
-      text-decoration: underline;
-      text-transform: uppercase;
-    }
     &--text {
       color: $color-cyan-fountain;
       display: inline-block;
@@ -55,40 +34,7 @@
       font-weight: bold;
     }
   }
-  &__nav-item-text {
-    color: $color-cyan-fountain;
-    display: block;
-    font-size: $font-small;
-    text-transform: uppercase;
-      &:active, &:hover, &:focus  {
-        text-decoration: underline;
-      }
-    &--left {
-      padding: $spacer-half $spacer-mid;
-    }
-    &--right {
-      color: $color-yellow-gorse;
-      padding: 0;
-    }
-    &--article-comments {
-      color: $color-pink;
-      padding: $spacer-half $spacer-mid;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      &:after {
-        content: "";
-        display: block;
-        border-bottom: 1px solid $color-pink;
-      }
-    }
-    &--login {
-      font-weight: bold;
-      padding: 0 $spacer-mid;
-      text-transform: uppercase;
-    }
-  }
-  &__button, &__read-more {
+  &__button {
     @include for-size(feature-only) {
       color: #000;
     }

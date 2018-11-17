@@ -70,25 +70,24 @@
             {% endif %}
           </p>
         {% endif %}
-        <a href="{% pageurl article.specific %}" class="call-to-action__read-more call-to-action__read-more--primary">
+        <a href="{% pageurl article.specific %}" class="call-to-action__button call-to-action__button--primary">
           {% trans "Read more" %}</a>
       </li>
     {% endfor %}
     </ul>
   </div>
-  <div class="search-result pagination">
-    <div class="step-links">
+  {% if search_results.paginator.num_pages > 1 %}
+    <div class="pagination">
       {% if search_results.has_previous %}
-          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--primary">{% trans "Previous" %}</a>
+        <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Previous" %}</a>
       {% endif %}
-      <span class="call-to-action__item--text call-to-action__item--text-current">
-          {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}
-      </span>
+      <p class="call-to-action__item--text call-to-action__item--text-current">
+        {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}</p>
       {% if search_results.has_next %}
-          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Newer</a>
+        <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Newer</a>
       {% endif %}
     </div>
-  </div>
+  {% endif %}
 </div>
 {% else %}
   <div class="search">
@@ -100,7 +99,7 @@
     </h4>
     <form action="{% url 'search' %}" class="search__form" novalidate>
       <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "I am looking for" %}">
-      <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--search">
+      <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
     </form>
   </div>
 {% endif %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments molo_survey_tags %}
-
 {% block content %}
 {% get_translation self.get_parent_section as section %}
 <div class="section-page {% if section.get_effective_extra_style_hints %}section-page--{{section.get_effective_extra_style_hints}}{% endif %}">
@@ -64,10 +63,8 @@
                 <div class="media-player__embed-object">
                   {% embed media.youtube_link %}
                 </div>
-                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
-                  <span class="call-to-action__button-text call-to-action__button-text--yellow">
-                    {% trans "Download Video" %}
-                  </span>
+                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__item call-to-action__item--text" download>
+                  {% trans "Download Video" %}
                 </a>
               {% else %}
                 <div class="media-player__no-player">
@@ -96,15 +93,13 @@
                   {% trans "Your browser does not support the video tag." %}
                 </span>
               </video>
-              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button" download>
-                <span class="call-to-action__button-text">
-                  {% trans "Download Video" %}
-                </span>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__item call-to-action__item--text" download>
+                {% trans "Download Video" %}
               </a>
             {% else %}
               <div class="media-player__no-player">
                 <h4 class="media-player__title">{{media.title}}</h4>
-                <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button media-player__icon" download></a>
+                <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__item call-to-action__item--text" download></a>
                 <h3 class="media-player__subtitle">
                   {% trans "Video files will not be played, you can download them" %}
                 </h3>
@@ -126,10 +121,8 @@
                     {% trans "Your browser does not support the audio tag." %}
                   </span>
               </audio>
-              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button" download>
-                <span class="call-to-action__button-text">
-                  {% trans "Download Audio" %}
-                </span>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__item call-to-action__item--text" download>
+                {% trans "Download Audio" %}
               </a>
             {% else %}
               <div class="media-player__no-player">

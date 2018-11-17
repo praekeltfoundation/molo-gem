@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
-
 {% block content %}
   {% get_translation tag as translated_tag %}
   <div class="article-teaser">
@@ -47,7 +46,7 @@
                     {% endif %}
                   </p>
                 {% endif %}
-                <a class="call-to-action__read-more call-to-action__read-more--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
                 {% load_tags_for_article article as tags %}
                 <ul class="teaser-stacklist-tags">
                   {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
@@ -78,11 +77,9 @@
         </ul>
       {% endif %}
   </div>
-  <div class="call-to-action">
-      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--secondary">
-        {% trans "Back home" %}
-      </a>
-  </div>
+  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+    {% trans "Back home" %}
+  </a>
   {% comment %}
     {% get_next_tag tag as next_tag %}
     {% get_articles_for_tag next_tag as articles %}
@@ -150,7 +147,7 @@
          </li>
          {% endfor %}
        </ul>
-        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__button call-to-action__button-secondary">
+        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__button call-to-action__button-primary">
           {% trans "Read All" %} {{next_tag}}
         </a>
       {% endif %}

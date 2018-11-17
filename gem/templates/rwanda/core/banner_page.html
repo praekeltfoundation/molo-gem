@@ -29,16 +29,12 @@
           <p class="banner__subtitle">{{ self.subtitle|smarttruncatechars:115|safe }}</p>
         {% endif %}
         {% if self.external_link %}
-          <a href="{{ self.external_link }}" class="call-to-action__button call-to-action__button--hyperlink">
-            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">
-              {% trans "Click Here" %}
-            </span>
+          <a href="{{ self.external_link }}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
           </a>
         {% elif self.banner_link_page %}
-          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__button call-to-action__button--hyperlink">
-            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">
-              {% trans "Click Here" %}
-            </span>
+          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
           </a>
         {% endif %}
     </div>

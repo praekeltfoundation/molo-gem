@@ -44,7 +44,7 @@
               {{ node.comment|smarttruncatechars:115 }}
             </p>
               {% if node.comment.200 %}
-              <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--primary">
+              <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__item call-to-action__item--reveal">
                 {% trans "Read more" %}
               </a>
               {% endif %}
@@ -132,7 +132,7 @@
                   {{ node.comment|smarttruncatechars:115 }}
                 </p>
                 {% if node.comment.200 %}
-                  <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--primary">
+                  <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__item call-to-action__item--reveal">
                     {% trans "Read more" %}
                   </a>
                 {% endif %}
@@ -149,12 +149,12 @@
                   <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply">
                   {% trans "reply" %}</a>
                   {% if do_not_link_replies or node.get_children.count == 0 %}
-                    <p class="comments__feedback comments__feedback--report-counter">
+                    <p class="comments__feedback comments__feedback--reply-counter">
                       {{ node.get_children.count }}
                       {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}{% else %}{% trans "replies" %}{% endif %}
                     </p>
                   {% else %}
-                    <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__feedback call-to-action__feedback--reply">
+                    <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="comments__feedback comments__feedback--reply">
                       {{ node.get_children.count }}
                       {% if node.get_children.count == 0 or node.get_children.count == 1 %}{% trans "reply" %}
                       {% else %}{% trans "replies" %}{% endif %}
@@ -172,17 +172,19 @@
         </div>
       {% endfor %}
     </div>
-    <div class="pagination">
-      {% if replies.has_previous %}
-        <a href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Previous" %}</a>
-      {% endif %}
-      <span class="call-to-action__item call-to-action__item--text-current">
-        {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
-      </span>
-      {% if replies.has_next %}
-        <a href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Newer" %}</a>
-      {% endif %}
-    </div>
+    {% if replies.paginator.num_pages > 1 %}
+      <div class="pagination">
+        {% if replies.has_previous %}
+          <a href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Previous" %}</a>
+        {% endif %}
+        <span class="call-to-action__item call-to-action__item--text-current">
+          {% trans "Page" %} {{ replies.number }} {% trans "of" %} {{ replies.paginator.num_pages }}
+        </span>
+        {% if replies.has_next %}
+          <a href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--previous">{% trans "Newer" %}</a>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
   <div class="comments__wrapper">
     <div class="heading heading--secondary">
@@ -200,12 +202,14 @@
           {{ form.comment }}
           {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
         </div>
-        <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment" %}
-        </button>
-        <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment anonymously" %}
-        </button>
+        <div class="call-to-action--group">
+          <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment" %}
+          </button>
+          <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment anonymously" %}
+          </button>
+        </div>
         {{ form.object_pk }}
         {{ form.content_type }}
         {{ form.timestamp }}

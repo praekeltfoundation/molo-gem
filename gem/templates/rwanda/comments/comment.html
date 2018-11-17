@@ -18,7 +18,7 @@
     {% if truncate_comment %}
       <p class="comments__content">{{ node.comment|smarttruncatechars:115 }}</p>
       {% if node.comment.200 %}
-      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__read-more call-to-action__read-more--primary">
+      <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__item call-to-action__item--reveal">
         {% trans "Read more" %}
       </a>
       {% endif %}

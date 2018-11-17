@@ -14,9 +14,9 @@
       <form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
       {% csrf_token %}
         {{form.answer}}
-        <input type="submit" value="{% trans "Vote" %}"  class="call-to-action__button call-to-action__button--primary"/>
-        <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Home" %}</a>
+        <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
       </form>
+      <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">{% trans "Home" %}</a>
     </div>
   </div>
 {% endblock %}

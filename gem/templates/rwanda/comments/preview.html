@@ -28,12 +28,14 @@
           {{ form.comment }}
           {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
         </div>
-        <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment" %}
-        </button>
-        <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment anonymously" %}
-        </button>
+        <div class="call-to-action--group">
+          <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment" %}
+          </button>
+          <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment anonymously" %}
+          </button>
+        </div>
         {{ form.object_pk }}
         {{ form.content_type }}
         {{ form.timestamp }}

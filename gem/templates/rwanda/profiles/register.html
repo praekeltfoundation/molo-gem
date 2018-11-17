@@ -10,7 +10,7 @@
     </div>
     <div class="profiles__caption">
       <h3 class="heading__subtitle">{% trans "Already a member?" %}</h3>
-      <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__item--text">{% trans "Login" %}</a>
+      <a href="{% url "molo.profiles:auth_login" %}" class="call-to-action__item call-to-action__item--text">{% trans "Login" %}</a>
     </div>
     <div class="profiles__inner">
       <h2 class="heading__headline">{% trans "Not a member yet?" %}</h2>
@@ -121,7 +121,7 @@
           {% endif %}
         </fieldset>
         <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Register" %}</button>
-        <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}" class="call-to-action__button call-to-action__button--primary"/>
+        <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}"/>
       </form>
     </div>
   </div>

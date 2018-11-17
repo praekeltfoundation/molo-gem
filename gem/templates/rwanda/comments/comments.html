@@ -87,22 +87,24 @@
         {% endrecursetree %}
       {% endfor %}
       </div>
-      <div class="pagination">
-        {% if page.has_previous %}
-          <a href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">
-            {% trans "Previous" %}
-          </a>
-        {% endif %}
-        <p class="call-to-action__item--text call-to-action__item--text-current">
-          {% trans "Page" %} {{ page.number }} {% trans "of" %}
-          {{ page.paginator.num_pages }}
-        </p>
-        {% if page.has_next %}
-          <a href="?p={{ page.next_page_number }}" class="call-to-action__button call-to-action__button--next">
-            {% trans "Newer" %}
-          </a>
-        {% endif %}
-      </div>
+      {% if page.paginator.num_pages > 1 %}
+        <div class="pagination">
+          {% if page.has_previous %}
+            <a href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">
+              {% trans "Previous" %}
+            </a>
+          {% endif %}
+          <p class="call-to-action__item--text call-to-action__item--text-current">
+            {% trans "Page" %} {{ page.number }} {% trans "of" %}
+            {{ page.paginator.num_pages }}
+          </p>
+          {% if page.has_next %}
+            <a href="?p={{ page.next_page_number }}" class="call-to-action__button call-to-action__button--next">
+              {% trans "Newer" %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
       <a href="{% pageurl self.specific %}" class="call-to-action__button call-to-action__button--previous">
         {% trans "Back to article" %}
       </a>
