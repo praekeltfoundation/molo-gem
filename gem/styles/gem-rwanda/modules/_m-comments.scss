@@ -50,7 +50,10 @@
   }
   &__content {
     margin: 0;
-    padding: 5px 1.6em;
+    padding: 5px 0;
+  }
+  &__description {
+    padding: 1em 10%;
   }
   &__caption {
     display: inline-block;
@@ -89,7 +92,6 @@
   &__feedback {
     color: $color-cyan-fountain;
     font-size: $font-x-small;
-    font-weight: bold;
     text-transform: capitalize;
     vertical-align: middle;
     text-decoration: underline;
@@ -99,7 +101,7 @@
       float: left;
     }
     &--report {
-      padding-right: 5%;
+      padding-right: 1em;
       color: $color-cyan-fountain;
       font-size: $font-x-small;
     }
@@ -107,7 +109,6 @@
       float: right;
       margin: 0;
       text-decoration: none;
-      color: #000;
     }
   }
   &__replies {
@@ -119,6 +120,7 @@
       background-color: rgba($color-cyan,0.2);
       font-size: $font-medium;
       padding: 0 15%;
+      //margin: 0 10% 0; // Replies page
     }
     &-title {
       color: $color-gray;
@@ -158,7 +160,7 @@
     &__anchor {
       color: $color-cyan;
       display: block;
-      padding: 1em;
+      padding: 1em 0;
       font-size: $font-x-small;
       font-weight: bold;
       &:active, &:hover, &:focus {
@@ -238,26 +240,8 @@
     }
   }
   .call-to-action {
-    &__button {
-      margin: 1em 10%;
-    }
-    &__response {
-      color: $color-cyan-fountain;
-      vertical-align: middle;
-      font-size: $font-xx-small;
-      float: left;
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-    &__replies-counter {
-      color: $color-cyan-fountain;
-      margin: 0;
-      vertical-align: middle;
-      text-align: right;
-      font-size: $font-xx-small;
-      float: right;
-      font-weight: bold;
-      text-transform: capitalize;
+    &--group {
+      padding: 0 10%;
     }
   }
 }

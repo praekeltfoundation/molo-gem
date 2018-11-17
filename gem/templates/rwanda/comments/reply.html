@@ -12,7 +12,7 @@
     {% pageurl self as the_url %}
     <div id="comments-list" class="comments-list">
       {% with comment as node %}
-        <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent-comment{% endif %} {% if node.parent %} comments-list__item--reply {% endif %}">
+        <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply {% endif %}">
           <h5 class="comments__alias comments__alias-author">
           {% if node.user.is_staff %}
             {% if settings.gem.GemSettings.moderator_name %}
@@ -220,13 +220,17 @@
         {% endif %}
       </form>
     {% else %}
+    <div class="call-to-action--group">
       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         {% trans "Please log in to comment" %}
       </a>
+    </div>
     {% endif %}
-    <a href="{{the_url}}" class="call-to-action__button call-to-action__button--previous">
-      {% trans "Back to article" %}
-    </a>
+    <div class="call-to-action--group">
+      <a href="{{the_url}}" class="call-to-action__button call-to-action__button--previous">
+        {% trans "Back to article" %}
+      </a>
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -30,7 +30,7 @@
       <div id="comments-list" class="comments-list">
       {% for node in comments %}
         {% recursetree node %}
-        <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--replies{% endif %}">
+        <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent{% endif %}{% if node.parent %} comments-list__item--replies{% endif %}">
           {% if node.parent %}<div class="comments__replies--wrapper">{% endif %}
             <h5 class="comments__alias comments__alias-author">
             {% if node.user.is_staff %}
@@ -105,9 +105,11 @@
           {% endif %}
         </div>
       {% endif %}
-      <a href="{% pageurl self.specific %}" class="call-to-action__button call-to-action__button--previous">
-        {% trans "Back to article" %}
-      </a>
+      <div class="call-to-action--group">
+        <a href="{% pageurl self.specific %}" class="call-to-action__button call-to-action__button--previous">
+          {% trans "Back to article" %}
+        </a>
+      </div>
     </div>
   </div>
 {% endblock %}

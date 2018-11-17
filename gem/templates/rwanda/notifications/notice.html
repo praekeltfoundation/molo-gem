@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
-  <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--replies{% endif %}">
+  <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent{% endif %}{% if node.parent %} comments-list__item--replies{% endif %}">
     {% if node.parent %}<div class="comments__replies--wrapper">{% endif %}
       {% with notice.target as article %}
         {% with notice.action_object as comment %}

@@ -2,86 +2,62 @@
   background-color: $color-cyan;
   @include for-size(tablet-portrait-up) {
     background: $color-cyan url("/static/img/patterns/rwanda/section-theme/pattern-cyan.png") repeat center center/ 100%;
-    padding: 5% 15%;
+    padding: 2.5em 15%;
   }
   &__wrapper {
     background-color: #fff;
-    padding: 0 1em;
-    @include for-size(tablet-landscape-up) {
-      padding: 5%;
-    }
+    padding: 1em 1em 2em;
   }
   &__description {
     font-size: $font-x-small;
     display: inline-block;
-    font-weight: bold;
     margin: $spacer-small 0;
     &--label {
       text-transform: capitalize;
       font-size: $font-small;
     }
   }
-
   &__caption {
     @include for-size(tablet-landscape-up) {
       font-size: 12px;
       text-align: right;
       display: inline-block;
       float: right;
-      margin: 2em 0;
+      margin: 1em 0;
     }
-    /*.heading__subtitle {
+    .heading__subtitle {
       display: inline-block;
-    }*/
-
-    /*.call-to-action__item--text {
+    }
+    .call-to-action__item--text {
       text-transform: inherit;
       @include for-size(desktop-up) {
         margin: 1em 0;
+        padding: 0 1em 0 0;
       }
-    }*/
-
+    }
   }
-
   &__inner {
     @include for-size(desktop-up) {
       padding: 0 9%;
     }
-
-    /*.call-to-action {
-      &__button {
-        @include for-size(phone-only) {
-          margin: 1em;
-        }
-        &--previous {
-          @include for-size(desktop-up) {
-            display: table;
-          }
-        }
+    .call-to-action__button {
+      @include for-size(phone-only) {
+        margin: 1em;
       }
-    }*/
-
+    }
   }
   &__form {
-    .call-to-action {
-
-      /*&__item--text  {
-        @include for-size(desktop-up) {
-          margin: 2em 26% 0;
-        }
+    .call-to-action__item--text  {
+      @include for-size(desktop-up) {
+        margin: 2em 26% 0;
       }
-      &__button {
-        &--previous {
-          @include for-size(desktop-up) {
-            margin: 1em 1em 0 26%;
-          }
-        }
-      }*/
-
     }
-
-    //Apply to Submit tags only*
-    /*[type="button"],
+    ~ .call-to-action__button--previous {
+      @include for-size(desktop-up) {
+        margin: 1em 1em 0 26%;
+      }
+    }
+    [type="button"],
     [type="reset"],
     [type="submit"], {
       @include for-size(desktop-up) {
@@ -94,6 +70,12 @@
         @include for-size(desktop-up) {
           padding: 0 0 0 26%;
         }
+      }
+    }
+    .input-hint, .input-group,
+    .helptext, .errorlist, .error-list {
+      @include for-size(desktop-up) {
+        padding: 0 5% 0 25%;
       }
     }
     input[type="text"],
@@ -114,11 +96,6 @@
         display: inline-block;
       }
     }
-    .input-hint, .input-group .helptext {
-      @include for-size(desktop-up) {
-        padding: 0 5% 0 25%;
-      }
-    }*/
   }
   &__terms {
     display: block;

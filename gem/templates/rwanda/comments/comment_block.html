@@ -37,7 +37,7 @@
         <div id="comments-list" class="comments-list">
           {% for node in comment_list %}
             {% recursetree node %}
-            <div class="comments-list__item {% if node.parent == None %}comments-list__item--parent{% endif %} {% if node.parent %}comments-list__item--replies{% endif %}">
+            <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent{% endif %}{% if node.parent %} comments-list__item--replies{% endif %}">
               {% if node.parent %}<div class="comments__replies--wrapper">{% endif %}
                 <h5 class="comments__alias comments__alias--author">{% if node.user.is_staff %}{% if settings.gem.GemSettings.moderator_name %}{{settings.gem.GemSettings.moderator_name}}{% else %}{% trans "Big Sister" %}{% endif %} - <span class="comments__staff">{% trans "Moderator" %}</span>{% elif node.user_name.lower == 'anonymous' %}{% trans "Anonymous" %} {% else %}{% if not node.user.profile.alias %} {% trans "Anonymous" %}{% else %}{{node.user.profile.alias}}{% endif %}{% endif %}</h5>
                 <h6 class="comments__publish-date">
@@ -89,7 +89,9 @@
           {% endfor %}
         </div>
         {% if comment_count > 2 %}
-          <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__button call-to-action__button--primary {{attribute}}"> {% trans "Read more comments" %}</a>
+          <div class="call-to-action--group">
+            <a href="{% url 'molo.commenting:more-comments' self.pk %}" class="call-to-action__button call-to-action__button--primary {{attribute}}"> {% trans "Read more comments" %}</a>
+          </div>
         {% endif %}
       </div>
     {% endif %}
