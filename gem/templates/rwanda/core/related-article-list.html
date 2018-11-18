@@ -15,7 +15,6 @@
         {% endif %}
         {% get_comment_count for next_article as comment_count %}
         {% load_tags_for_article next_article as tags %}
-        {% if comment_count or tags %}
         <ul class="teaser-stacklist-tags">
           {% if comment_count > 0 %}
             <li class="teaser-stacklist-tags__item">
@@ -37,7 +36,6 @@
             {% endfor %}
           {% endif %}
         </ul>
-        {% endif %}
         <h3 class="article-teaser__title {% if next_article.title_highlight %}article-teaser__title--highlight{% endif %}">
           {% if next_article.title_highlight %}
             {{ next_article.title_highlight|smarttruncatechars:23|safe}}
@@ -80,12 +78,11 @@
         <li class="teaser-stacklist__item">
           {% if article.image %}
             <div class="teaser-stacklist__images">
-              {% image article.image width-200 width-180 class="article-teaser__thumbnail" %}
+              {% image article.image width-480 class="article-teaser__thumbnail" %}
             </div>
           {% endif %}
           {% get_comment_count for article as comment_count %}
           {% load_tags_for_article article as tags %}
-          {% if comment_count or tags %}
           <ul class="teaser-stacklist-tags">
             {% if comment_count > 0 %}
               <li class="teaser-stacklist-tags__item">
@@ -107,7 +104,6 @@
               {% endfor %}
             {% endif %}
           </ul>
-          {% endif %}
           <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
             {% if article.title_highlight %}
               {{ article.title_highlight|smarttruncatechars:23|safe}}

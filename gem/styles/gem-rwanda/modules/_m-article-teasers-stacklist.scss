@@ -3,35 +3,35 @@
   margin: 0;
   padding: 0;
   &--topic-of-day {
+    .comments-counter {
+      box-shadow: 3px 4px 0 0 $color-pink ;
+    }
     #{$block}__item {
+      margin: 0;
       width: auto;
     }
   }
   &--primary {
-    margin: 0 0 1em 0;
-    @include for-size(tablet-landscape-up) {
-      display: inline-grid;
-      grid-template-rows: repeat(2, auto);
-      grid-template-columns: repeat(2, auto);
-      grid-auto-flow: column;
-      justify-items: start;
-      grid-column-gap: 15%;
-      grid-row-gap: 1em;
-      align-items: start;
-      justify-content: end;
-    }
+    margin: 0 1em 0 0; //If Topic of Day exists
+    clear: both;
     #{$block}__item {
       &:nth-child(1) {
         @include for-size(tablet-landscape-up) {
-          width: 125%;
-          grid-row: span 2;
+          width: 65%;
+          float: left;
+          margin: 0;
+        }
+        #{$block}__images {
+          height: 280px;
         }
       }
       &:nth-child(2),
       &:nth-child(3) {
+        margin: 0;
         @include for-size(tablet-landscape-up) {
-          width: 80%;
-          grid-row: span 1;
+          width: 30%;
+          float: right;
+          margin: 0 1em 2em;
         }
         #{$block}__images {
           width: auto;
@@ -39,12 +39,9 @@
         }
         #{$block}__paragraph {
           @include for-size(tablet-landscape-up) {
-            display: none;
-            visibility: hidden;
-            /*white-space: nowrap;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 55%;*/
           }
         }
       }
@@ -55,15 +52,14 @@
     #{$block}__item {
       display: inline-block;
       @include for-size(tablet-landscape-up) {
-        width: 30%;
+        width: 35%;
       }
     }
   }
-
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 0 0 0 1em;
+    margin: 1em;
     @include for-size(tablet-landscape-up) {
       width: 30%;
       display: inline-block;
@@ -76,15 +72,18 @@
     }
   }
   &__images {
+    background-color: $color-gray-light;
     border: 3px solid $color-cyan;
     width: 100%;
-    margin: 0 auto;
+    height: 200px;
+    margin: 0 auto 10px;
     overflow: hidden;
   }
   &__thumbnail {
     display: block;
-    width: 100%;
+    min-height: 100%;
     height: auto;
+    width: 100%;
   }
   &__title {
     text-transform: uppercase;
@@ -95,6 +94,7 @@
   }
   &__subtitle {
     margin: 0 0 10px;
+    font-weight: bold;
   }
   &-tags {
     display: inline-block;

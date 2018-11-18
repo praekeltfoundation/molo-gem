@@ -203,24 +203,36 @@
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    padding: ($spacer-small - 2);
+    padding: 5px;
     text-align: center;
+    z-index: 100;
     &:after {
+      content: "";
+      box-shadow: 3px 4px 0 0 $color-yellow;
+    }
+    &__icon {
       content: '';
       position: absolute;
       width: 0;
       height: 0;
-      right: 0;
+      right: -5px;
       left: auto;
       bottom: 0;
-      border: 6px solid;
-      border-color: $color-cyan $color-cyan transparent transparent;
-      margin-bottom: -($spacer-small - 1);
-      transform: rotate(-35deg);
-    }
-    &__icon {
-      display: none;
-      visibility: hidden;
+      border-top-color: $color-cyan;
+      border-top-style: solid;
+      border-top-width: 15px;
+      border-right-color: transparent;
+      border-right-style: solid;
+      border-right-width: 6px;
+      border-bottom-color: transparent;
+      border-bottom-style: solid;
+      border-bottom-width: 6px;
+      border-left-color: transparent;
+      border-left-style: solid;
+      border-left-width: 6px;
+      margin-bottom: -8px;
+      transform: rotate(-55deg);
+      z-index: -99;
     }
     &__numeral {
       font-weight: bold;

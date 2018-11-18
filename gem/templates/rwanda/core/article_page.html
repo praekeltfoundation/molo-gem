@@ -13,7 +13,6 @@
     {% endif %}
     {% get_comment_count for self as comment_count %}
     {% load_tags_for_article self as tags %}
-    {% if comment_count or tags %}
     <ul class="teaser-stacklist-tags">
       {% if comment_count > 0 %}
       <li class="teaser-stacklist-tags__item">
@@ -43,7 +42,6 @@
         {% endfor %}
       {% endif %}
     </ul>
-    {% endif %}
     <h1 class="heading__headline">{{ page.title}}</h1>
     <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
   </div>
