@@ -14,7 +14,7 @@
   {% endwith %}
   {% with gembannerpages  as gemTextBanner %}
     {% if gemTextBanner %}
-      <div class="banner">
+      <div class="banner banner--text">
        {{gemTextBanner}}
       </div>
     {% endif %}
@@ -23,19 +23,19 @@
     {% latest_listing_homepage num_count=3 %}
     {% topic_of_the_day %}
   </div>
-  <div class="banner banner--position-one">
+  <div class="banner">
     {% bannerpages position=1 %}
   </div>
-  {% section_listing_homepage %}
-  {% media_listing_homepage %}
   {% surveys_list personalisable_survey=True %}
   {% surveys_list only_linked_surveys=True %}
   {% surveys_list only_direct_surveys=True %}
   {% poll_page %}
-  <div class="banner banner--position-two">
+  <div class="banner">
     {% bannerpages position=2 %}
   </div>
-  <div class="banner banner--position-three">
+  {% section_listing_homepage %}
+  {% media_listing_homepage %}
+  <div class="banner">
     {% bannerpages position=3 %}
   </div>
   {% surveys_list only_yourwords=True %}

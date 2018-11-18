@@ -30,7 +30,7 @@
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
-        <div class="yourwords">
+        <div class="yourwords yourwords--homepage">
           <div class="yourwords__wrapper">
             <div class="heading heading--hero">
               <h1 class="heading__component">
@@ -38,12 +38,14 @@
               </h1>
             </div>
             <div class="yourwords__inner">
+              {% comment %}
               {% if survey.image %}
                 <aside>
                   {% image survey.image width-480 as tmp_photo %}
                   <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
                 </aside>
               {% endif %}
+              {% endcomment %}
               <section>
                 <h1 class="heading__headline">{{survey.title}}</h1>
                 {% if survey.homepage_introduction %}

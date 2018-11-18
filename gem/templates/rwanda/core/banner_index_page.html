@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load core_tags gem_tags %}
 {% block content %}
+<div class="banner__content">
   <div class="heading heading--hero">
-    <h1 class="heading__compoents">{% trans "Banner index page" %}</h1>
+    <h2 class="heading__component">{{self.title}}</h2>
   </div>
-  <h2 class="heading__headline">{{self.title}}</h2>
   {% bannerpages %}
   {% gembannerpages %}
+</div>
 {% endblock %}

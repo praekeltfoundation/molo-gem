@@ -59,7 +59,7 @@
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 1em;
+    margin: 0 $spacer-small 2em $spacer-small;
     @include for-size(tablet-landscape-up) {
       width: 30%;
       display: inline-block;
@@ -76,8 +76,12 @@
     border: 3px solid $color-cyan;
     width: 100%;
     height: 200px;
-    margin: 0 auto 10px;
+    margin: 0 auto $spacer-half;
     overflow: hidden;
+
+    display: grid;
+    align-items: stretch;
+    justify-content: stretch;
   }
   &__thumbnail {
     display: block;
@@ -90,10 +94,10 @@
     font-size: $font-small;
     word-wrap: break-word;
     word-break: initial;
-    margin: 5px 0 10px;
+    margin: $spacer-small 0 $spacer-half;
   }
   &__subtitle {
-    margin: 0 0 10px;
+    margin: 0 0 $spacer-half;
     font-weight: bold;
   }
   &-tags {
@@ -101,7 +105,7 @@
     padding: 0;
     margin: 0;
     @include for-size(tablet-portrait-up) {
-      padding: 7px 0;
+      padding: ($spacer-half - 2) 0;
     }
     &__item {
       display: inline-block;
@@ -121,7 +125,7 @@
     }
     &__title {
       display: inline;
-      margin-left: -2px;
+      margin-left: ($spacer-small - 7);
     }
   }
 }

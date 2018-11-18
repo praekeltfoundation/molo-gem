@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags gem_tags %}
 {% block content %}
-  <div class="banner__caption">
-    <h1 class="banner__title">{{self.title}}</h1>
-    {% if self.subtitle %}
-    <p class="banner__subtitle">{{self.subtitle}}</p>
-    {% endif %}
+<div class="banner__content">
+  <div class="heading heading--hero">
+    <h2 class="heading__component">{{self.title}}</h2>
   </div>
     {% if self.banner %}
       {% image self.banner width-1080 as tmp_photo %}
@@ -38,5 +36,12 @@
           </a>
         {% endif %}
     </div>
+    <div class="banner__caption">
+      <h1 class="banner__title">{{self.title}}</h1>
+      {% if self.subtitle %}
+      <p class="banner__subtitle">{{self.subtitle}}</p>
+      {% endif %}
+    </div>
   {% endif %}
+</div>
 {% endblock %}

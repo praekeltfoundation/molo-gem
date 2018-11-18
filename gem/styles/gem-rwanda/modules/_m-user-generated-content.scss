@@ -17,18 +17,22 @@ $ugcPages: (
   .#{$page} {
     @include for-size(tablet-portrait-up) {
       background: map-get($styleElement, themeColor)  url(map-get($styleElement, themePattern)) repeat center center/ 100%;
-      padding: 2em 7%;
+      padding: 1em 7% 2em;
+      &:nth-child(1) {
+        padding: 2em 7%;
+      }
     }
     &__inner {
       @include for-size(tablet-landscape-up) {
         display: flex;
       }
       aside {
-      display: inline-block;
-      overflow: auto;
-      margin: 0 5% 0 0;
-      width: 110%;
+      width: 70%;
+      height: 300px;
+      border: 3px solid $color-cyan;
+      overflow: hidden;
         @include for-size(tablet-landscape-up) {
+          margin: 0 2em 0 0;
           order: 1;
         }
       }
@@ -40,7 +44,8 @@ $ugcPages: (
       }
     }
     &__image {
-      border: 3px solid $color-cyan;
+      display: block;
+      height: auto;
       width: 100%;
     }
     &__choices {
