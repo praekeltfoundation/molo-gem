@@ -36,7 +36,7 @@
           {% endif %}
         </fieldset>
       {% endfor %}
-      <input type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary" />
+      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
     {% elif question.get_main_language_page.show_results %}
       <a href="{% url 'molo.polls:results' question.id %}" class="call-to-action__button call-to-action__button--primary">
         {% trans "Show Results" %}

@@ -1,14 +1,8 @@
 {% if user.is_authenticated and number_unread_notifications > 0 %}
-<a href="{% url 'molo.commenting:reply_list' %}">
-  <div class="comments__reply-notification">
-    <span class="call-to-action__nav-item-text call-to-action__nav-item-text--right">
-        {{ number_unread_notifications }} {% trans "New" %}
-        {% if number_unread_notifications == 1 %}
-          {% trans "reply" %}
-        {% else %}
-          {% trans "replies" %}
-        {% endif %}
-    </span>
-  </div>
-</a>
+<div class="comments-notifications">
+  <a href="{% url 'molo.commenting:reply_list' %}" class="comments-notifications__anchor">
+    <p class="comments-notifications__counter">{{ number_unread_notifications }}</p>
+    {% trans "New" %} {% if number_unread_notifications == 1 %} {% trans "reply" %} {% else %} {% trans "replies" %} {% endif %}
+  </a>
+</div>
 {% endif %}

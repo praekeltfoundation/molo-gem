@@ -13,15 +13,13 @@
           {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
               <div class="profiles-join">
-                <div class="profiles-join__icon"></div>
                 <div class="profiles-join__content">
-                  <div class="heading heading--hero">
                     <h1 class="heading__headline">
                       {% trans "Share your opinions and stories, take polls, win fun prizes." %}
                     </h1>
-                  </div>
                   <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
                 </div>
+                <div class="profiles-join__icon"></div>
               </div>
             {% endif %}
         {% endif %}
@@ -32,7 +30,7 @@
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
-        <div class="yourwords">
+        <div class="yourwords yourwords--homepage">
           <div class="yourwords__wrapper">
             <div class="heading heading--hero">
               <h1 class="heading__component">
@@ -40,12 +38,14 @@
               </h1>
             </div>
             <div class="yourwords__inner">
+              {% comment %}
               {% if survey.image %}
                 <aside>
                   {% image survey.image width-480 as tmp_photo %}
                   <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
                 </aside>
               {% endif %}
+              {% endcomment %}
               <section>
                 <h1 class="heading__headline">{{survey.title}}</h1>
                 {% if survey.homepage_introduction %}
@@ -106,11 +106,9 @@
         </div>
       {% else %}
         {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
-          <div class="heading heading--hero">
-            <h1 class="heading__title">
-              Join Banner -
-            <h1>
-          </div>
+          {% comment %}
+            <h3>Test what happens here</h3>
+          {% endcomment %}
         {% else %}
           <div class="surveys">
             <div class="surveys__wrapper">

@@ -95,19 +95,19 @@
           </li>
           <li class="nav-list__item">
           {% if not user.is_authenticated %}
+            <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
+          {% else %}
+            <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
+          {% endif %}
+          </li>
+          <li class="nav-list__item">
+          {% if not user.is_authenticated %}
             <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
           {% else %}
             <form method="post" action="{% url LOGOUT_URL %}">
               {% csrf_token %}
               <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
             </form>
-          {% endif %}
-          </li>
-          <li class="nav-list__item">
-          {% if not user.is_authenticated %}
-            <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
-          {% else %}
-            <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
           {% endif %}
           </li>
         </ul>
@@ -148,20 +148,20 @@
         </label>
         <input type="checkbox" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
         <div class="languages-wrapper">
-          {% if languages|length > 1 %}
-            <ul class="languages-list">
-              <li class="languages-list__item">
-                <div class="languages-list__label">
-                  <h3 class="languages-list__title">{% trans "Languages" %}:</h3>
-                </div>
-              </li>
+          <ul class="languages-list">
+            <li class="languages-list__item">
+              <div class="languages-list__label">
+                <h3 class="languages-list__title">{% trans "Languages" %}:</h3>
+              </div>
+            </li>
+            {% if languages|length > 1 %}
             {% for language in languages %}
               <li class="languages-list__item">
                 <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor {% if LANGUAGE_CODE == language.locale %}languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
               </li>
             {% endfor %}
-            <ul>
-          {% endif %}
+            {% endif %}
+          <ul>
         </div>
       </div>
       <div class="search search--header">
@@ -173,7 +173,7 @@
           <h3 class="search__title">{% trans "Search" %}:</h3>
           <form action="{% url 'search' %}" novalidate class="search__form">
             <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
-            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--search">
+            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
           </form>
         </div>
       </div>
@@ -267,7 +267,7 @@
         </div>
         <form action="{% url 'search' %}" novalidate class="search__form">
           <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--search">
+          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
         </form>
       </div>
       {% endblock %}

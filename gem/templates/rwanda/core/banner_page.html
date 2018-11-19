@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags gem_tags %}
 {% block content %}
-  <div class="banner__caption">
-    <h1 class="banner__title">{{self.title}}</h1>
-    {% if self.subtitle %}
-    <p class="banner__subtitle">{{self.subtitle}}</p>
-    {% endif %}
+<div class="banner__content">
+  <div class="heading heading--hero">
+    <h2 class="heading__component">{{self.title}}</h2>
   </div>
     {% if self.banner %}
       {% image self.banner width-1080 as tmp_photo %}
@@ -29,18 +27,21 @@
           <p class="banner__subtitle">{{ self.subtitle|smarttruncatechars:115|safe }}</p>
         {% endif %}
         {% if self.external_link %}
-          <a href="{{ self.external_link }}" class="call-to-action__button call-to-action__button--hyperlink">
-            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">
-              {% trans "Click Here" %}
-            </span>
+          <a href="{{ self.external_link }}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
           </a>
         {% elif self.banner_link_page %}
-          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__button call-to-action__button--hyperlink">
-            <span class="call-to-action__button-text call-to-action__button-text--hyperlink">
-              {% trans "Click Here" %}
-            </span>
+          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
           </a>
         {% endif %}
     </div>
+    <div class="banner__caption">
+      <h1 class="banner__title">{{self.title}}</h1>
+      {% if self.subtitle %}
+      <p class="banner__subtitle">{{self.subtitle}}</p>
+      {% endif %}
+    </div>
   {% endif %}
+</div>
 {% endblock %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag gem_tags %}
-
 {% block content %}
   <div class="banner banner--main">
     {% bannerpages position=0 %}
@@ -15,28 +14,28 @@
   {% endwith %}
   {% with gembannerpages  as gemTextBanner %}
     {% if gemTextBanner %}
-      <div class="banner">
+      <div class="banner banner--text">
        {{gemTextBanner}}
       </div>
     {% endif %}
   {% endwith %}
   <div class="main-feature">
-    {% latest_listing_homepage num_count=6 %}
+    {% latest_listing_homepage num_count=3 %}
     {% topic_of_the_day %}
   </div>
-  {% media_listing_homepage %}
-  <div class="banner banner--position-one">
+  <div class="banner">
     {% bannerpages position=1 %}
   </div>
   {% surveys_list personalisable_survey=True %}
   {% surveys_list only_linked_surveys=True %}
   {% surveys_list only_direct_surveys=True %}
   {% poll_page %}
-  {% section_listing_homepage %}
-  <div class="banner banner--position-two">
+  <div class="banner">
     {% bannerpages position=2 %}
   </div>
-  <div class="banner banner--position-three">
+  {% section_listing_homepage %}
+  {% media_listing_homepage %}
+  <div class="banner">
     {% bannerpages position=3 %}
   </div>
   {% surveys_list only_yourwords=True %}

@@ -19,7 +19,6 @@
               {% endif %}
               {% get_comment_count for article as comment_count %}
               {% load_tags_for_article article as tags %}
-              {% if comment_count or tags %}
               <ul class="teaser-stacklist-tags">
               {% if comment_count > 0 %}
                 <li class="teaser-stacklist-tags__item">
@@ -29,7 +28,6 @@
                   </a>
                 </li>
               {% endif %}
-
               {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
                 {% for tag in tags %}
                   {% if not tag.title.20 %}
@@ -44,7 +42,6 @@
                 {% endfor %}
               {% endif %}
               </ul>
-              {% endif %}
               <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
                 {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:23|safe}}
@@ -71,11 +68,11 @@
               {% endif %}
               {% with article.body|first as block %}
                 {% if block.block_type == 'paragraph' %}
-                  <p class="teaser-stacklist__subtitle">
+                  <p class="teaser-stacklist__paragraph">
                     {{block.value|smarttruncatechars:1000|safe}}</p>
                 {% endif %}
               {% endwith %}
-              <a class="call-to-action__read-more call-to-action__read-more--secondary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+              <a class="call-to-action__button call-to-action__button--secondary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
           </li>
         {% endfor %}
       </ul>

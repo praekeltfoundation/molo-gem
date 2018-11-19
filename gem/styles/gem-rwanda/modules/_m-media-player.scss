@@ -1,8 +1,18 @@
 .media-player {
   padding: 1em 5%;
   overflow: auto;
+  margin: 0 auto;
   @include for-size(tablet-landscape-up) {
-    padding: 1em 10%;
+    padding: 1em 7%;
+  }
+  &:before {
+    content: "";
+    display: block;
+    margin: 0 auto 1em;
+    padding: 0 7% 0;
+    background-color: $color-cyan;
+    height: 3px;
+    width: 100%;
   }
   video, audio, iframe {
     width: 100%;
@@ -11,28 +21,25 @@
   &__wrapper {
     position: relative;
     overflow: auto;
-    margin: 0 0 1em;
-    @include for-size(phone-only) {
-      display: flex;
+    margin: 0 0 2em;
+  }
+  &__embed {
+    video {
+      width: 70%;
+      display: block;
+    }
+    audio {
+      display: inline-block;
+      width: 30%;
+      float: left;
+      margin: 0 1em 0;
     }
   }
   &__excerpt {
-    display: inline-block;
-    @include for-size(phone-only) {
-      order: 1;
-      width: 35%;
-    }
+    display: block;
+    width: 45%;
+    margin: 1em 0 0;
   }
-  &__embed {
-    display: inline-block;
-    margin: 0 0 0 1em;
-    vertical-align: middle;
-    @include for-size(phone-only) {
-      order: 2;
-      width: 80%;
-    }
-  }
-
   &__content {
     text-align: center;
     padding: $spacer-half 0;
@@ -40,8 +47,7 @@
   }
   &__title {
     color: #000;
-    font-size: $font-medium;
-    text-transform: uppercase;
+    font-size: $font-small;
   }
   &__subtitle {
     color: #000;

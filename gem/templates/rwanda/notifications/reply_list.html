@@ -1,32 +1,37 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
+    <div class="heading heading--secondary">
+      <h2 class="heading__component">
+        {% trans "Comment replies" %}
+      </h2>
+    </div>
     <div class="comments-list">
-      <h2 class="heading__headline">{% trans "Comment replies" %}</h2>
       {% if unread_notifications %}
-        <h4 class="heading__subtitle">
-          {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
-          {% if number_unread_notifications == 1 %}
-            {% trans "reply" %}
-          {% else %}
-            {% trans "replies" %}
-          {% endif %}
-        </h4>
+        <h3 class="heading__subtitle">
+          {% trans "You have"%} {{number_unread_notifications}}
+          {% trans "unread"%}
+          {% if number_unread_notifications == 1 %} {% trans "reply" %}
+          {% else %} {% trans "replies" %} {% endif %}
+        </h3>
         {% for notice in unread_notifications %}
           {% include 'notifications/notice.html' %}
         {% endfor %}
       {% endif %}
-        {% if read_notifications %}
-          <h4 class="heading__subtitle">{% trans "Read replies" %}:</h4>
-          {% for notice in read_notifications %}
-            {% include 'notifications/notice.html' %}
-          {% endfor %}
-        {% endif %}
+      {% if read_notifications %}
+        <h3 class="heading__subtitle">{% trans "Read replies" %}:</h3>
+        {% for notice in read_notifications %}
+          {% include 'notifications/notice.html' %}
+        {% endfor %}
+      {% endif %}
     </div>
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--primary">
-      {% trans "Back home" %}
-    </a>
+    <div class="call-to-action--group">
+      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+        {% trans "Back home" %}
+      </a>
+    </div>
   </div>
 </div>
 {% endblock %}

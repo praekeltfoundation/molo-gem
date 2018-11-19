@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags gem_tags %}
 {% if bannerpages %}
-  {% for bannerpage in bannerpages %}
+  {% for bannerpage in bannerpages|slice:":1" %}
     {% if bannerpage.hide_on_freebasics %}
       {% if not is_via_freebasics %}
-        <div class="banner__gem-text">
+        <div class="banner--text">
           <div class="banner__caption">
             <h2 class="banner__title">
               {{bannerpage.title|smarttruncatechars:115|safe}}
@@ -15,12 +15,12 @@
             {% endif %}
           </div>
             {% if bannerpage.banner_link_page %}
-              <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="call-to-action__button">
-                 <span class="call-to-action__button--text">{% trans "Click Here" %}</span>
+              <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="call-to-action__item">
+                 <span class="call-to-action__item--text">{% trans "Click Here" %}</span>
               </a>
             {% elif bannerpage.external_link %}
-             <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
-               <span class="call-to-action__button--text">{% trans "Click Here" %}</span>
+             <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__item">
+               <span class="call-to-action__item--text">{% trans "Click Here" %}</span>
              </a>
             {% endif %}
         </div>
@@ -28,10 +28,6 @@
     {% else %}
       {% if bannerpage.banner %}
         {% image bannerpage.banner width-1080 as tmp_photo %}
-        <div class="banner__caption">
-          <h2 class="banner__title">{{ bannerpage.title }}</h2>
-          <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
-        </div>
         {% if bannerpage.banner_link_page %}
            <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
              <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
@@ -43,8 +39,12 @@
         {% else %}
           <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
         {% endif %}
+        <div class="banner__caption">
+          <h2 class="banner__title">{{ bannerpage.title }}</h2>
+          <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
+        </div>
       {% else %}
-         <div class="banner__content">
+         <div class="banner--text">
           <div class="banner__caption">
             <h2 class="banner__title">
               {{bannerpage.title|smarttruncatechars:115|safe}}
@@ -56,15 +56,13 @@
             {% endif %}
           </div>
             {% if bannerpage.banner_link_page %}
-              <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="call-to-action__button">
-                 <span class="call-to-action__button--text">{% trans "Click Here" %}</span>
+              <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="call-to-action__item call-to-action__item--text">
+                {% trans "Click Here" %}
               </a>
             {% elif bannerpage.external_link %}
-             <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
-               <span class="call-to-action__button--text">
-                 {% trans "Click Here" %}
-               </span>
-             </a>
+              <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__item call-to-action__item--text">
+                {% trans "Click Here" %}
+              </a>
             {% endif %}
           </div>
       {% endif %}

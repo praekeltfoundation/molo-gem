@@ -2,12 +2,66 @@
   $block: unquote("#{&}");
   margin: 0;
   padding: 0;
+  &--topic-of-day {
+    .comments-counter {
+      box-shadow: 3px 4px 0 0 $color-pink ;
+    }
+    #{$block}__item {
+      margin: 0;
+      width: auto;
+    }
+  }
+  &--primary {
+    margin: 0 1em 0 0; //If Topic of Day exists
+    clear: both;
+    #{$block}__item {
+      &:nth-child(1) {
+        @include for-size(tablet-landscape-up) {
+          width: 65%;
+          float: left;
+          margin: 0;
+        }
+        #{$block}__images {
+          height: 280px;
+        }
+      }
+      &:nth-child(2),
+      &:nth-child(3) {
+        margin: 0;
+        @include for-size(tablet-landscape-up) {
+          width: 30%;
+          float: right;
+          margin: 0 1em 2em;
+        }
+        #{$block}__images {
+          width: auto;
+          margin: 0;
+        }
+        #{$block}__paragraph {
+          @include for-size(tablet-landscape-up) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+  &--latest {
+    overflow: auto;
+    #{$block}__item {
+      display: inline-block;
+      @include for-size(tablet-landscape-up) {
+        width: 35%;
+      }
+    }
+  }
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 0 0.90em 1em;
+    margin: 0 $spacer-small 2em $spacer-small;
     @include for-size(tablet-landscape-up) {
-      width: 25%;
+      width: 30%;
       display: inline-block;
     }
     .article-page__quote {
@@ -18,55 +72,40 @@
     }
   }
   &__images {
+    background-color: $color-gray-light;
     border: 3px solid $color-cyan;
     width: 100%;
-    margin: 0 auto;
+    height: 200px;
+    margin: 0 auto $spacer-half;
     overflow: hidden;
-    max-height: 175px;
+
+    display: grid;
+    align-items: stretch;
+    justify-content: stretch;
   }
   &__thumbnail {
-    width: 100%;
+    display: block;
+    min-height: 100%;
     height: auto;
+    width: 100%;
   }
   &__title {
     text-transform: uppercase;
     font-size: $font-small;
     word-wrap: break-word;
     word-break: initial;
+    margin: $spacer-small 0 $spacer-half;
   }
   &__subtitle {
-    margin: 0 0 10% 0;
+    margin: 0 0 $spacer-half;
+    font-weight: bold;
   }
-  &--topic-of-day {
-    #{$block}__item {
-      display: block;
-      margin: 0 0 2.5em;
-      width: auto;
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      @include for-size(tablet-landscape-up) {
-        width: 35%;
-      }
-      &--hero-story {
-        #{$block}__images {
-          max-height: auto;
-        }
-        @include for-size(tablet-landscape-up) {
-          width: 55%;
-        }
-      }
-    }
-  }
-
   &-tags {
     display: inline-block;
     padding: 0;
     margin: 0;
     @include for-size(tablet-portrait-up) {
-      padding: 10px 0 1.4em;
+      padding: ($spacer-half - 2) 0;
     }
     &__item {
       display: inline-block;
@@ -86,7 +125,7 @@
     }
     &__title {
       display: inline;
-      margin-left: -2px;
+      margin-left: ($spacer-small - 7);
     }
   }
 }

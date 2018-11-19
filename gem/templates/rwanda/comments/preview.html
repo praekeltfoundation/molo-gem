@@ -2,7 +2,7 @@
 {% load molo_commenting_tags wagtailcore_tags %}
 {% block content %}
 {% get_comments_content_object for form as self %}
-<div class="comments {% if article.get_parent_section.get_effective_extra_style_hints %}comments--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="comments__wrapper">
     <div class="heading heading--secondary">
       <h4 class="heading__component">
@@ -28,12 +28,14 @@
           {{ form.comment }}
           {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
         </div>
-        <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment" %}
-        </button>
-        <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Comment anonymously" %}
-        </button>
+        <div class="call-to-action--group">
+          <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment" %}
+          </button>
+          <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Comment anonymously" %}
+          </button>
+        </div>
         {{ form.object_pk }}
         {{ form.content_type }}
         {{ form.timestamp }}
@@ -44,9 +46,11 @@
         {% endif %}
       </form>
     {% else %}
+    <div class="call-to-action--group">
       <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
-        {% trans "Please log in to comment" %}.
+        {% trans "Please log in to comment" %}
       </a>
+    </div>
     {% endif %}
   </div>
 </div>

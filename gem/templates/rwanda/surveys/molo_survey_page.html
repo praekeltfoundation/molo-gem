@@ -41,7 +41,7 @@
             {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
               <h4 class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__terms">
                 {% trans "Read:" %}
-                <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="call-to-action__item-text">
+                <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="call-to-action__item call-to-action__item-text">
                   {{page.terms_and_conditions.first.terms_and_conditions.title}}
                 </a>
               </h4>
@@ -126,14 +126,14 @@
                   {% if survey.display_survey_directly %}
                     {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
                       {% trans "Vote" as defaultText %}
-                      <input type="submit" value="{{ survey.submit_text|default:defaultText }}" class="call-to-action__button call-to-action__button--primary" />
+                      <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ survey.submit_text|default:defaultText }}</button>
                     {% else %}
                       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
                         {% trans "Log in to vote" %}
                       </a>
                     {% endif %}
                   {% else %}
-                    <input type="submit" value="{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}" class="call-to-action__button call-to-action__button--primary"/>
+                    <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
                   {% endif %}
 
                   {% if fields_step and fields_step.paginator.num_pages > 1 %}
