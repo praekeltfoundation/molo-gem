@@ -26,8 +26,9 @@
       padding: 1em 7% 0 2em;
     }
   }
-  &--next-related {}
-  &--recommended {}
+  &-related {
+    padding: 0 7%;
+  }
   &--featured-homepage {
     padding: 0 7%;
     display: block;
@@ -46,6 +47,11 @@
       }
       .section__title {
         color: map-get($styleElement, textColor)
+      }
+    }
+    &-related--#{$sectionModifier} {
+      .heading__component {
+        background-color: map-get($styleElement, bgColor);
       }
     }
   }
