@@ -1,8 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
-<div class="yourwords">
+{% if competitions %}
+<div class="yourwords yourwords--standalone">
   <div class="yourwords__wrapper">
-  {% if competitions %}
     {% for competition in competitions %}
     <div class="heading heading--hero">
       <h1 class="heading__component">{% trans 'Share your story' %}</h1>
@@ -29,7 +29,7 @@
       </section>
     </div>
     {% endfor %}
-  {% endif %}
   </div>
 </div>
+{% endif %}
 {% endblock %}
