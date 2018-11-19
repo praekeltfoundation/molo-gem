@@ -28,6 +28,11 @@
   }
   &-related {
     padding: 0 7%;
+    .teaser-stacklist {
+      @include for-size(tablet-landscape-up) {
+        padding: 1em 5%;
+      }
+    }
   }
   &--featured-homepage {
     padding: 0 7%;
@@ -50,7 +55,7 @@
       }
     }
     &-related--#{$sectionModifier} {
-      .heading__component {
+      .section__caption {
         background-color: map-get($styleElement, bgColor);
       }
     }
