@@ -12,6 +12,7 @@
       }
     }
     .article-teaser__thumbnail {
+      border: 2px solid $color-cyan;
       &--inner {
         width: 25%;
         display: inline-block;
@@ -47,7 +48,15 @@
       }
       .article-teaser  {
         &__thumbnail {
-          border-color: map-get($styleElement, bgColor);
+          border: 2px solid map-get($styleElement, bgColor);
+        }
+      }
+      .media-player {
+        &:before {
+          background-color: map-get($styleElement, bgColor);
+        }
+        video, audio, iframe  {
+          border: 2px solid map-get($styleElement, bgColor);
         }
       }
       #{$block}__quote {
