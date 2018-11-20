@@ -61,14 +61,18 @@
             </fieldset>
             <fieldset>
                {{ form.terms_or_conditions_approved }}
-               <label for="id_terms_or_conditions_approved">{% trans "I accept the Terms and Conditions" %}</label>
+               <label for="id_terms_or_conditions_approved">
+                 {% trans "I accept the Terms and Conditions" %}
+               </label>
                {% if form.terms_or_conditions_approved.errors %}
                <p class="error-list__item">* {{form.terms_or_conditions_approved.errors|join:' '}}</p>
               {% endif %}
             </fieldset>
             <fieldset>
               {{ form.hide_real_name }}
-              <label>{% trans "Share my story anonymously" %}</label>
+              <label for="id_hide_real_name">
+                {% trans "Share my story anonymously" %}
+              </label>
             </fieldset>
             <input type="submit" value="Submit Your Story" class="call-to-action__button call-to-action__button--primary" />
         </form>
