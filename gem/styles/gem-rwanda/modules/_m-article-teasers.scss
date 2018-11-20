@@ -1,6 +1,7 @@
 .main-feature {
   @include for-size(tablet-landscape-up) {
     display: flex;
+    padding: 0 0 0 7%;
   }
 }
 .article-teaser {
@@ -12,7 +13,7 @@
     @include for-size(tablet-landscape-up) {
       order: 1;
       //If Topic of Day exists
-      padding: 1em 0 0 7%;
+      padding: 1em 0;
       width: 75%;
     }
     #{$block}__wrapper {}
@@ -26,8 +27,14 @@
       padding: 1em 7% 0 2em;
     }
   }
-  &--next-related {}
-  &--recommended {}
+  &-related {
+    padding: 0 7%;
+    .teaser-stacklist {
+      @include for-size(tablet-landscape-up) {
+        padding: 1em 5%;
+      }
+    }
+  }
   &--featured-homepage {
     padding: 0 7%;
     display: block;
@@ -46,6 +53,11 @@
       }
       .section__title {
         color: map-get($styleElement, textColor)
+      }
+    }
+    &-related--#{$sectionModifier} {
+      .section__caption {
+        background-color: map-get($styleElement, bgColor);
       }
     }
   }

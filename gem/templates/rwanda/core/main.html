@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag gem_tags %}
 {% block content %}
-  <div class="banner banner--main">
+  <div class="banner--main">
     {% bannerpages position=0 %}
   </div>
   {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
@@ -14,30 +14,22 @@
   {% endwith %}
   {% with gembannerpages  as gemTextBanner %}
     {% if gemTextBanner %}
-      <div class="banner banner--text">
        {{gemTextBanner}}
-      </div>
     {% endif %}
   {% endwith %}
   <div class="main-feature">
     {% latest_listing_homepage num_count=3 %}
     {% topic_of_the_day %}
   </div>
-  <div class="banner">
-    {% bannerpages position=1 %}
-  </div>
+  {% bannerpages position=1 %}
   {% surveys_list personalisable_survey=True %}
   {% surveys_list only_linked_surveys=True %}
   {% surveys_list only_direct_surveys=True %}
   {% poll_page %}
-  <div class="banner">
-    {% bannerpages position=2 %}
-  </div>
+  {% bannerpages position=2 %}
   {% section_listing_homepage %}
   {% media_listing_homepage %}
-  <div class="banner">
-    {% bannerpages position=3 %}
-  </div>
+  {% bannerpages position=3 %}
   {% surveys_list only_yourwords=True %}
   {% your_words_competition %}
 {% endblock %}

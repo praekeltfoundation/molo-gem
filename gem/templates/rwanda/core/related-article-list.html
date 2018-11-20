@@ -2,9 +2,17 @@
 {% get_translation self.get_parent_section as section %}
 {% get_next_article self as next_article %}
 {% if next_article and self.get_parent_section.enable_next_section %}
-  <div class="article-teaser article-teaser--next-related">
-    <div class="heading heading--hero">
-      <h2 class=" heading__component">{% trans "Article in category" %}</h2>
+  <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
+    <div class="heading heading--primary">
+      {% if section.get_effective_image %}
+        {% image section.get_effective_image width-80 as section_photo %}
+          <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__icon"/>
+      {% endif %}
+      <div class="section__caption">
+        <h2 class="section__title">
+          {% trans "Article in category" %}
+        </h2>
+      </div>
     </div>
     <ul class="teaser-stacklist">
       <li class="teaser-stacklist__item">
@@ -69,9 +77,17 @@
 {% if self.get_parent_section.enable_recommended_section %}
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
-    <div class="article-teaser article-teaser--recommended">
-      <div class="heading heading--hero">
-        <h2 class=" heading__component">{% trans "Recommended articles" %}</h2>
+    <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
+      <div class="heading heading--primary">
+        {% if section.get_effective_image %}
+          {% image section.get_effective_image width-80 as section_photo %}
+            <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__icon"/>
+        {% endif %}
+        <div class="section__caption">
+          <h2 class="section__title">
+            {% trans "Recommended articles" %}
+          </h2>
+        </div>
       </div>
       <ul class="teaser-stacklist">
         {% for article in recommended_articles %}

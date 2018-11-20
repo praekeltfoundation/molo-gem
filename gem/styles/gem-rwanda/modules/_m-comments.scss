@@ -3,7 +3,7 @@
   padding: 0 5%;
   overflow: auto;
   @include for-size(tablet-landscape-up) {
-    padding: 0 7%;
+    padding: 0 15%;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {
@@ -13,7 +13,6 @@
   &__wrapper {
     background: #fff;
     margin: 1em 0;
-    padding: 0 0 5%;
   }
   &__form {
     padding: 1em 0;
@@ -44,9 +43,12 @@
   &__notice {
     color: $color-cyan;
     font-size: $font-x-small;
-    padding: 0 1em;
+    padding: 0 5%;
     font-weight: bold;
     text-transform: uppercase;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 10%;
+    }
   }
   &__content {
     margin: 0;
@@ -189,7 +191,7 @@
       padding: 1em 10% 0;
       &--replies {
         background-color: rgba($color-cyan,0.2);
-        padding: 0 7% 0;
+        padding: 0 10%;
       }
     }
   }

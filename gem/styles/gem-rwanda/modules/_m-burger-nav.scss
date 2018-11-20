@@ -1,4 +1,5 @@
 .burger-nav {
+  $block: unquote("#{&}");
   color: #fff;
   display: block;
   font-weight: bold;
@@ -49,27 +50,30 @@
       display: none;
       visibility: hidden;
       height: auto;
-      -webkit-transition:height, 0.5s linear;
-      -moz-transition: height, 0.5s linear;
-      -ms-transition: height, 0.5s linear;
-      -o-transition: height, 0.5s linear;
-      transition: height, 0.5s linear;
+      -webkit-transition:height, 0.9s linear;
+      -moz-transition: height, 0.9s linear;
+      -ms-transition: height, 0.9s linear;
+      -o-transition: height, 0.9s linear;
+      transition: height, 0.9s linear;
     }
     &:checked + * {
       display: block;
       visibility: visible;
-      -webkit-transition:height, 0.5s linear;
-      -moz-transition: height, 0.5s linear;
-      -ms-transition: height, 0.5s linear;
-      -o-transition: height, 0.5s linear;
-      transition: height, 0.5s linear;
+      -webkit-transition:height, 0.9s linear;
+      -moz-transition: height, 0.9s linear;
+      -ms-transition: height, 0.9s linear;
+      -o-transition: height, 0.9s linear;
+      transition: height, 0.9s linear;
+      #{$block}__label {
+        border: 2px solid red;
+      }
     }
     &__active {
+      border: 2px solid red;
       color: $color-pink-hollywood;
       &:before {
         background: url("/static/img/icons/rwanda/dropdown-menu-active.png") no-repeat 0 0/100%;
       }
     }
-    &__is-open {}
   }
 }
