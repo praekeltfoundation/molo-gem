@@ -21,9 +21,14 @@ a {
   word-break: break-word;
   word-wrap: break-word;
   font-weight: normal;
-  outline: none;
   &:active, &:hover, &:focus {
     color: $color-pink-hollywood;
+  }
+}
+
+a, button {
+  @include for-size(desktop-up) {
+    outline: none;
   }
   &:visited {
     @include for-size(desktop-up) {
@@ -31,6 +36,8 @@ a {
     }
   }
 }
+
+
 
 main {
   color: #000;

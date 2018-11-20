@@ -2,16 +2,25 @@
   STYLES APPLY TO HEADER SEARCH
 */
 .search {
+  $block: unquote("#{&}");
   &--header {
     display: inline-block;
+    #{$block}__form {
+      position: relative;
+      display: inline-block;
+      width: 75%;
+    }
   }
   &-wrapper {
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
     text-align: left;
-    padding: 1em;
     @include fly-by();
+    padding: 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
   }
   &-accordion {
     &__label {

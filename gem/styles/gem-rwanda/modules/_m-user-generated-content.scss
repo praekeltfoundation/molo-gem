@@ -27,18 +27,19 @@ $ugcPages: (
         display: flex;
       }
       aside {
-      width: 70%;
-      height: 300px;
-      border: 3px solid $color-cyan;
-      overflow: hidden;
-        @include for-size(tablet-landscape-up) {
-          margin: 0 2em 0 0;
-          order: 1;
-        }
+        border: 3px solid $color-cyan;
+        width: 45%;
+        height: 100%;
+        overflow: hidden;
+          @include for-size(tablet-landscape-up) {
+            margin: 0 2em 0 0;
+            order: 1;
+          }
       }
       section {
-        display: inline-block;
         @include for-size(tablet-landscape-up) {
+          display: inline-block;
+          //width: 50%;
           order: 2;
         }
       }
@@ -48,8 +49,22 @@ $ugcPages: (
       height: auto;
       width: 100%;
     }
+    &__terms {
+      .call-to-action__item-text {
+        color: $color-cyan;
+        text-align: left;
+        text-transform: uppercase;
+        text-decoration: underline;
+        display: inline-block;
+        padding: $spacer-small;
+        &:active, &:hover, &:focus {
+          color: $color-pink-hollywood;
+        }
+      }
+    }
     &__choices {
       &-title {
+        display: block;
         font-size: $font-x-medium;
       }
       &-percentage {
@@ -60,13 +75,18 @@ $ugcPages: (
       }
       &-bar {
         background: $color-yellow-gorse; //Does this color need to be custom?
-        border-radius: 20px;
+        border-radius: $spacer-multiple;
       }
       &-subtitle {
         font-size: $font-x-small;
         display: block;
         vertical-align: middle;
         padding: $spacer-small $spacer-half;
+      }
+    }
+    &-results {
+      &__item {
+        list-style-type: none;
       }
     }
   }

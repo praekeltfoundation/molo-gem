@@ -56,7 +56,8 @@
           </ul>
         {% else %}
           {% if self.thank_you_text %}
-            <h2 class="heading__headline">{{self.thank_you_text}}</h2>
+            <h2 class="heading__headline">{% trans "Thank you" %}</h2>
+            <h3 class="heading__subtitle">{{self.thank_you_text}}</h3>
           {% else %}
             <h2 class="heading__headline">
               {% if self.your_words_competition %}
