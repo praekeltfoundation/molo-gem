@@ -6,38 +6,6 @@
   @include for-size(desktop-up) {
     margin: -4em 0;
   }
-  &--main {
-    overflow: hidden;
-    max-height: 260px;
-    margin: 0;
-    #{$block}__title,
-    #{$block}__subtitle {
-      color: #fff;
-      text-shadow: 1px 2px 8px #000;
-      @include for-size(tablet-landscape-up) {
-        font-size: $font-xx-large;
-      }
-    }
-    #{$block}__caption {
-      visibility: visible;
-      top: 2em;
-        @include for-size(tablet-landscape-up) {
-          display: block;
-          float: right;
-          top: 20%;
-          left: 20%;
-        }
-        @include for-size(desktop-up)  {
-          top: 30%;
-          left: 50%;
-        }
-    }
-  }
-  &--text {
-    background-color: rgba($color-cyan-dark, 1);
-    text-align: center;
-    padding: 0 0 $spacer-half;
-  }
   &__content {
     padding: 1em 5%;
     @include for-size(tablet-landscape-up) {
@@ -86,5 +54,37 @@
     @include for-size(tablet-landscape-up) {
       font-size: $font-x-medium;
     }
+  }
+  &--main {
+    overflow: hidden;
+    max-height: 260px;
+    margin: 0;
+    #{$block}__title,
+    #{$block}__subtitle {
+      color: #fff;
+      text-shadow: 1px 2px 8px #000;
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
+      }
+    }
+    #{$block}__caption {
+      visibility: visible;
+      top: 2em;
+        @include for-size(tablet-landscape-up) {
+          display: block;
+          float: right;
+          top: 20%;
+          left: 20%;
+        }
+        @include for-size(desktop-up)  {
+          top: 30%;
+          left: 50%;
+        }
+    }
+  }
+  &--text {
+    background-color: rgba($color-cyan-dark, 1);
+    text-align: center;
+    padding: 0 0 $spacer-half;
   }
 }

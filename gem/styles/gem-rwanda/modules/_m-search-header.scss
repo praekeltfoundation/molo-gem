@@ -3,14 +3,6 @@
 */
 .search {
   $block: unquote("#{&}");
-  &--header {
-    display: inline-block;
-    #{$block}__form {
-      position: relative;
-      display: inline-block;
-      width: 75%;
-    }
-  }
   &-wrapper {
     background: #fff;
     color: $color-cyan;
@@ -81,6 +73,19 @@
         transition: height, 0.5s linear;
         label[for=search_accordion] { background-color: #000; }
       }
+    }
+  }
+  &--header {
+    display: inline-block;
+    #{$block}__wrapper {
+      @include for-size(tablet-landscape-up) {
+        padding: 3em 25%;
+      }
+    }
+    #{$block}__form {
+      position: relative;
+      display: inline-block;
+      width: 75%;
     }
   }
 }
