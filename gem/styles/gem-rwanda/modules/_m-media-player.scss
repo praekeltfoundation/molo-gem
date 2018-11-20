@@ -52,8 +52,25 @@
   audio::-ms-media-controls-mute-button {
     cursor: pointer;
   }
-  video, audio, iframe  {
+  audio {
+    display: inline-block;
+    float: left;
+    margin: 0 1em 0;
     object-fit: cover;
+    width: 30%;
+  }
+  video {
+    border: 2px solid $color-cyan;
+    display: block;
+    object-fit: cover;
+    width: 80%;
+    max-height: 480px;
+  }
+  iframe {
+    border: 2px solid $color-cyan;
+    display: block;
+    max-height: 480px;
+    width: 80%;
   }
   &__wrapper {
     position: relative;
@@ -65,24 +82,6 @@
   }
   &__content {
     padding: $spacer-half 0;
-    video {
-      width: 80%;
-      display: block;
-      max-height: 480px;
-      border: 2px solid $color-cyan;
-    }
-    iframe {
-     width: 80%;
-     display: block;
-     max-height: 480px;
-     border: 2px solid $color-cyan;
-   }
-    audio {
-      display: inline-block;
-      width: 30%;
-      float: left;
-      margin: 0 1em 0;
-    }
   }
   &__excerpt {
     display: block;
