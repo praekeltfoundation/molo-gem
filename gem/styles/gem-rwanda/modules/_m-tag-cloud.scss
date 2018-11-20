@@ -1,11 +1,17 @@
 .tag-cloud {
   background-color: #F4F5F5;
   text-align: center;
-  padding: 2em 10% 3em;
+  padding: 2em 5% 3em;
+  @include for-size(tablet-portrait-up) {
+    padding: 2em 10% 3em;
+  }
   &-list {
     border-bottom: 1px solid #95989C;
-    padding: 0 25% 2em;
+    padding: 0 5% 2em;
     margin: 0;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 25% 2em;
+    }
     &__item {
       display: inline-block;
       padding: $spacer-small;

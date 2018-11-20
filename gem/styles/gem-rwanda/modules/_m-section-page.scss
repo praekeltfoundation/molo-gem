@@ -31,14 +31,20 @@
   }
   &__theme {
     width: 100%;
-    padding: 2em;
+    padding: 1em;
     background-color: rgba(0,0,0,0.5);
+    @include for-size(tablet-portrait-up) {
+      padding: 2em;
+    }
   }
   &__icon {
-    width: 20%;
+    width: 30px;
     vertical-align: middle;
     display: inline-block;
     @include for-size(tablet-portrait-up) {
+      width: 20%;
+    }
+    @include for-size(tablet-landscape-up) {
       width: 50px;
     }
   }
