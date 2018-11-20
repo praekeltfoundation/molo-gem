@@ -14,9 +14,11 @@
           <p class="comments__notice">
             {% trans "To post a comment you must log in or create an account" %}.
           </p>
-          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Please log in to comment" %}
-          </a>
+          <div class="call-to-action--group">
+            <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+              {% trans "Please log in to comment" %}
+            </a>
+          </div>
         {% endif %}
       {% else %}
         <p class="comments__notice">
