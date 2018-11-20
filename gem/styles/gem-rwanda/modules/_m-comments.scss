@@ -5,9 +5,13 @@
   @include for-size(tablet-landscape-up) {
     padding: 0 15%;
   }
-  @each $sectionModifier, $styleElement in $sectionThemes {
-    &--#{$sectionModifier} {
-      background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) repeat center center/100%;
+  &__container {
+    padding: 2em 0;
+    background: $color-red url('/static/img/patterns/rwanda/section-theme/pattern-red_third.png') repeat center center/100%;
+    @each $sectionModifier, $styleElement in $sectionThemes {
+      &--#{$sectionModifier} {
+        background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPattern)) repeat center center/100%;
+      }
     }
   }
   &__wrapper {
@@ -188,7 +192,7 @@
   &-list {
     font-size: $font-x-small;
     &__item {
-      padding: 1em 10% 0;
+      padding: 1em 10%;
       &--replies {
         background-color: rgba($color-cyan,0.2);
         padding: 0 10%;
@@ -196,6 +200,7 @@
     }
   }
   &-counter {
+    box-shadow: 1px 2px 0 0 $color-yellow;
     display: inline-block;
     color: #fff;
     vertical-align: middle;
@@ -208,10 +213,6 @@
     padding: 5px;
     text-align: center;
     z-index: 100;
-    &:after {
-      content: "";
-      box-shadow: 3px 4px 0 0 $color-yellow;
-    }
     &__icon {
       content: '';
       position: absolute;
