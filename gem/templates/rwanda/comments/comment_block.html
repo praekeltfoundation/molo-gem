@@ -1,6 +1,7 @@
 {% load comments mptt_tags molo_commenting_tags gem_tags %}
 {% if self.is_commenting_enabled %}
-  <div id="comments" class="comments {% if self.get_parent_section.get_effective_extra_style_hints %}comments--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+<div class="comments__container {% if self.get_parent_section.get_effective_extra_style_hints %}comments__container--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div id="comments" class="comments">
     <div class="comments__wrapper">
       <div class="heading heading--secondary">
         <h4 class="heading__component">
@@ -98,4 +99,5 @@
       </div>
     {% endif %}
   </div>
+</div>
 {% endif %}
