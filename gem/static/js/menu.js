@@ -7,19 +7,14 @@
   var menuToggle = function() {
       var menuListLabel     = document.getElementById('burger_nav_label');
       var menuListLabelOpen = document.querySelector('.is__open');
-      //Traverse the entire page to look for this specific class
         menuListLabel.addEventListener('click', function(e) {
-          if (e.target) {
-            menuListLabel.classList.add('is__open');
-            //menuListLabel.classList.remove("is__open");
+          if(e.target.classList.contains('is__open')) {
+            e.target.classList.remove('is__open');
+            console.log('Class exists!');
+          } else {
+            menuListLabel.classList.remove('is__open');
+            e.target.classList.add('is__open');
           }
-        var $label = e.target;
-          console.log($label);
-      }, false);
-      menuListLabelOpen.addEventListener('click', function(e) {
-        if (e.target) {
-          menuListLabelOpen.classList.remove("is__open");
-        }
       }, false);
   }
   domReady(function() {
