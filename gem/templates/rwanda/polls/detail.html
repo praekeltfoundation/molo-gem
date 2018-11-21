@@ -17,7 +17,7 @@
       {% load_choices_for_poll_page question as choices %}
       {% for choice in choices %}
         <fieldset>
-          {% if question.allow_multiple_choice%}
+          {% if question.allow_multiple_choice %}
             <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
             <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
           {% else %}
@@ -26,7 +26,9 @@
           {% endif %}
         </<fieldset>
       {% endfor %}
-      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
+      <div class="call-to-action--group">
+        <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
+      </div>
     </form>
     <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">{% trans "Home" %}</a>
   </div>
