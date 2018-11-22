@@ -54,23 +54,18 @@
     &__checkbox {
       left: 10%;
       & + * {
-        display: none;
-        visibility: hidden;
         height: auto;
-        -webkit-transition:height, 0.5s linear;
-        -moz-transition: height, 0.5s linear;
-        -ms-transition: height, 0.5s linear;
-        -o-transition: height, 0.5s linear;
-        transition: height, 0.5s linear;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0s, opacity 0.5s ease-out;
+        -moz-transition: visibility 0s, opacity 0.5s ease-out;
+        -ms-transition: visibility 0s, opacity 0.5s ease-out;
+        -o-transition: visibility 0s, opacity 0.5s ease-out;
+        transition: visibility 0s, opacity 0.5s ease-out;
       }
       &:checked + * {
-        display: block;
+        opacity: 1;
         visibility: visible;
-        -webkit-transition:height, 0.5s linear;
-        -moz-transition: height, 0.5s linear;
-        -ms-transition: height, 0.5s linear;
-        -o-transition: height, 0.5s linear;
-        transition: height, 0.5s linear;
         label[for=search_accordion] { background-color: #000; }
       }
     }
