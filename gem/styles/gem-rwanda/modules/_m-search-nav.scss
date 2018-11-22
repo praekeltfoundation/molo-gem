@@ -19,9 +19,19 @@
       color: #fff;
       cursor: pointer;
       display: inline-block;
+      margin: 0 10px 0 0;
+      padding: 0 0 0 0.313em;
+      font-size: $font-x-small;
+      text-transform: uppercase;
+      span {
+        @include for-size(tablet-landscape-up) {
+          display: none;
+          visibility: hidden;
+        }
+      }
       &:before {
         content: " ";
-        background-image: url('/static/img/icons/rwanda/search-icon.png'), url('/static/img/icons/rwanda/search-icon.svg');
+        background-image: url('/static/img/icons/rwanda/search-icon.png');
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
@@ -29,26 +39,15 @@
         vertical-align: middle;
         height: 25px;
         width: 25px;
+        margin: 0 1em 0 0;
         @include for-size(tablet-portrait-up) {
           height: 30px;
           width: 30px;
         }
         @include for-size(tablet-landscape-up) {
-          height: 42px;
-          width: 42px;
+          height: 40px;
+          width: 40px;
         }
-      }
-    }
-    &__title {
-      margin: 0;
-      padding: 0 0 0 0.313em;
-      display: inline-block;
-      font-size: $font-x-small;
-      font-weight: bold;
-      @include for-size(tablet-portrait-up) {
-        display: none;
-        font-size: $font-small;
-        visibility: hidden;
       }
     }
     &__checkbox {

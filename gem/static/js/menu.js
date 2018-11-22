@@ -5,17 +5,17 @@
   };
 
   var menuToggle = function() {
-      var menuListLabel     = document.getElementById('burger_nav_label');
-      var menuListLabelOpen = document.querySelector('.is__open');
-        menuListLabel.addEventListener('click', function(e) {
-          if(e.target.classList.contains('is__open')) {
-            e.target.classList.remove('is__open');
-            console.log('Class exists!');
-          } else {
-            menuListLabel.classList.remove('is__open');
-            e.target.classList.add('is__open');
-          }
-      }, false);
+    var menuListLabel = document.getElementsByClassName('toggle-nav'),
+      menuClassIndex;
+      for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
+          menuListLabel[menuClassIndex].addEventListener('click', function(e) {
+            if(e.target.classList.contains('is__open')) {
+              e.target.classList.remove('is__open');
+            } else {
+              e.target.classList.add('is__open');
+            }
+        }, false);
+      }
   }
   domReady(function() {
     menuToggle();

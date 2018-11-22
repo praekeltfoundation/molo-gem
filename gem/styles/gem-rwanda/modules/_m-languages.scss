@@ -40,41 +40,30 @@
       color: #fff;
       cursor: pointer;
       display: inline-block;
+      margin: 0;
+      font-size: $font-x-small;
       @include for-size(tablet-portrait-up) {
-        padding: 0 0 0 0.55em;
+        padding: 8% 1em;
       }
       &:before {
         content: " ";
         display: inline-block;
-        background-image: url('/static/img/icons/rwanda/world-icon.svg'), url('/static/img/icons/rwanda/world-icon.svg');
+        background-image: url('/static/img/icons/rwanda/world-icon.png');
         background-repeat: no-repeat;
         background-size: 100%;
         background-position: center 0;
         vertical-align: middle;
         height: 25px;
         width: 25px;
-        @include for-size(tablet-portrait-up) {
+        margin: 0 $spacer-small 0 0;
+        @include for-size(tablet-landscape-up) {
           height: 30px;
           width: 30px;
         }
-        @include for-size(tablet-landscape-up) {
-          height: 42px;
-          width: 42px;
-        }
       }
-      @include for-size(tablet-landscape-up) {
-        padding: 0;
-      }
-    }
-    &__title {
-      margin: 0;
-      font-size: $font-x-small;
-      font-weight: bold;
-      display: inline-block;
     }
     &__checkbox {
       & + * {
-        //height: auto;
         opacity: 0;
         visibility: hidden;
         -webkit-transition: visibility 0.2s, opacity 0.5s ease-out;
