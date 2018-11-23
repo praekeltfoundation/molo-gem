@@ -1,1 +1,0 @@
-!function(r){console.log("modeladmin/index.js"),r(function(){var e=r("input:checkbox.user");e.each(function(e,n){var t=r(n),c=t.attr("name"),i=r(".field-id").filter(function(){return r(this).text().startsWith(c+"\n")}),o=t.clone();i.prepend(o),o.change(function(){t.prop("checked",o.is(":checked"))})}),e.hide()})}(jQuery);

@@ -24,7 +24,10 @@ var gulp              =   require('gulp'),
         'gem/styles/gem/base_style.scss',
         'gem/styles/gem/base_style-rtl.scss',
         'gem/styles/gem-malawi/malawi.scss',
-        'gem/styles/gem-rwanda/ninyampinga.scss',
+
+        'gem/styles/gem-rwanda/nn.scss',
+        'gem/styles/gem-rwanda/enhanced-nn.scss',
+
         'gem/styles/maintenance.scss',
 
         'gem/styles/gem-springster/01_springster.s+(a|c)ss',
@@ -50,56 +53,53 @@ var gulp              =   require('gulp'),
          auth: 'gem/styles/auth-compiled'
     };
 
+    function styles(env) {
+      var s = gulp.src(env === 'auth' ? authSassPaths : sassPaths);
+      var isDev = env === 'dev';
+      if (isDev)
+        s = s
+            .pipe(sourcemaps.init());
+        s = s
+        .pipe(sassGlob())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(bless())
+        .pipe(cleanCSSMinify())
+        .pipe(pixrem());
+        if (isDev)
+        s = s
+        .pipe(sourcemaps.write('/maps'));
+        return s
+        .pipe(gutil.env.type !== 'ci' ? notify({ message: `Styles task complete: ${env}` }) : gutil.noop())
+        .pipe(gulp.dest(env === 'auth' ? authSassDest[env] : sassDest[env]));
+    }
+    gulp.task('styles:prd', function() {
+      return styles('prd');
+    });
+    gulp.task('styles:dev', function() {
+      return styles('dev');
+    });
+    gulp.task('styles:auth', function() {
+      return styles('auth');
+    });
 
-function styles(env) {
-  var s = gulp.src(env === 'auth' ? authSassPaths : sassPaths);
-  var isDev = env === 'dev';
-  if (isDev)
-    s = s
-        .pipe(sourcemaps.init());
-    s = s
-    .pipe(sassGlob())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(bless())
-    .pipe(cleanCSSMinify())
-    .pipe(pixrem());
-    if (isDev)
-    s = s
-    .pipe(sourcemaps.write('/maps'));
-    return s
-    .pipe(gutil.env.type !== 'ci' ? notify({ message: `Styles task complete: ${env}` }) : gutil.noop())
-    .pipe(gulp.dest(env === 'auth' ? authSassDest[env] : sassDest[env]));
-}
-gulp.task('styles:prd', function() {
-  return styles('prd');
-});
-gulp.task('styles:dev', function() {
-  return styles('dev');
-});
-gulp.task('styles:auth', function() {
-  return styles('auth');
-});
+    // Minify JS
+    gulp.task('compress', function() {
+      return gulp.src([
+          'gem/static/js/springster.js',
+          'gem/static/js/menu.js',
+          'gem/static/js/modeladmin/index.js'
+        ])
+        .pipe(rename({
+          suffix: "-min",
+          extname: ".js"
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('gem/static/js/dest'))
+    });
 
-// Minify JS
-gulp.task('compress', function() {
-  return gulp.src([
-      'gem/static/js/springster.js',
-      'gem/static/js/menu.js',
-      'gem/static/js/modeladmin/index.js'
-    ])
-    .pipe(rename({
-      suffix: "-min",
-      extname: ".js"
-    }))
-    .pipe(uglify())
-    .pipe(gulp.dest('gem/static/js/dest'))
-});
-
-
-gulp.task('watch', function() {
-    livereload.listen();
-    gulp.watch(['gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
-});
-
-gulp.task('styles', ['styles:dev', 'styles:prd', 'styles:auth']);
-gulp.task('default', ['styles', 'compress']);
+  gulp.task('watch', function() {
+      livereload.listen();
+      gulp.watch(['gem/styles/**/*.scss',' gem/static/js/springster.js'], ['styles']);
+  });
+  gulp.task('styles', ['styles:dev', 'styles:prd', 'styles:auth']);
+  gulp.task('default', ['styles', 'compress']);
