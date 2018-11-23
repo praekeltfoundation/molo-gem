@@ -4,6 +4,10 @@
     width: 65%;
   }
   &__label {
+    @include for-size(tablet-portrait-up) {
+      padding: 1.2em 1em;
+    }
+
     &:before {
       @include for-size(tablet-portrait-up) {
         margin: 0 1em 0 0;
@@ -27,9 +31,5 @@
   .is__open {
     background: #fff;
     color: #000;
-    &:before {
-      height: 25px;
-      width: 25px;
-    }
   }
 }
