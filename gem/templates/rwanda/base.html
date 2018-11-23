@@ -33,12 +33,12 @@
 
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
-  <meta name="msapplication-TileImage" content="{% static 'img/appicons/rwanda/NN_Favicon_WHITE.svg' %}">
+  <meta name="msapplication-TileImage" content="{% static 'img/appicons/rwanda/NN_Favicon_WHITE.png' %}">
   <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
   <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="39x49" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
   {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" media="all">
@@ -49,11 +49,19 @@
     var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
     var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-    var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/enhanced-nn.css" media="screen and (min-width: 360px)">';
-      js = document.createElement('script');
-      js.src = '{{ STATIC_URL }}js/dest/menu-min.js';
-      js.async = true;
-      document.querySelector('script').parentNode.appendChild(js);
+    var smartStylesLarge = '<link rel="stylesheet" href="{{ STATIC_URL }}css/{{ ENV }}/enhanced-nn.css" type="text/css" media="screen and (min-width: 360px)">';
+      if (cutsTheMustard === true) {
+        if (smartDevice && raf) {
+            raf(function() {
+              var smartStylesLargeDefer = document.querySelector('[rel="stylesheet"]');
+              window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
+            });
+          js = document.createElement('script');
+          js.src = '{{ STATIC_URL }}js/dest/menu-min.js';
+          js.async = true;
+          document.querySelector('script').parentNode.appendChild(js);
+        }
+      }
   </script>
   {% endcompress %}
   {% molo_pwa_meta %}

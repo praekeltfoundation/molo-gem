@@ -1,0 +1,75 @@
+.search {
+  $block: unquote("#{&}");
+  &-wrapper {
+    @include fly-byEnhanced();
+    @include for-size(tablet-potrait-up) {
+      padding: 1em;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
+  }
+  &-accordion {
+    &__label {
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 10px 0 0;
+      padding: 0 0 0 0.313em;
+      font-size: $font-x-small;
+      text-transform: uppercase;
+      span {
+        @include for-size(tablet-landscape-up) {
+          display: none;
+          visibility: hidden;
+        }
+      }
+      &:before {
+        content: " ";
+        background-image: url('/static/img/icons/rwanda/search-icon.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center 0;
+        display: inline-block;
+        vertical-align: middle;
+        height: 25px;
+        width: 25px;
+        margin: 0 1em 0 0;
+        @include for-size(tablet-landscape-up) {
+          height: 35px;
+          width: 35px;
+        }
+      }
+    }
+    &__checkbox {
+      left: 10%;
+      & + * {
+        height: auto;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -moz-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -ms-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -o-transition: visibility 0.2s, opacity 0.5s ease-out;
+        transition: visibility 0.2s, opacity 0.5s ease-out;
+      }
+      &:checked + * {
+        opacity: 1;
+        visibility: visible;
+        label[for=search_accordion] { background-color: #000; }
+      }
+    }
+  }
+  &--header {
+    display: inline-block;
+    #{$block}-wrapper {
+      @include for-size(tablet-landscape-up) {
+        padding: 3em 25%;
+      }
+    }
+    #{$block}__form {
+      display: inline-block;
+      width: 75%;
+    }
+  }
+}

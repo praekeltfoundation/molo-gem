@@ -1,0 +1,35 @@
+.burger-nav {
+  $block: unquote("#{&}");
+  @include for-size(tablet-portrait-up) {
+    width: 65%;
+  }
+  &__label {
+    &:before {
+      @include for-size(tablet-portrait-up) {
+        margin: 0 1em 0 0;
+        height: 25px;
+        width: 25px;
+      }
+      @include for-size(tablet-landscape-up) {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+  &__icon {
+    @include for-size(tablet-portrait-up) {
+      width: 35px;
+    }
+    @include for-size(tablet-landscape-up) {
+      width: 42px;
+    }
+  }
+  .is__open {
+    background: #fff;
+    color: #000;
+    &:before {
+      height: 25px;
+      width: 25px;
+    }
+  }
+}
