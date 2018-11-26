@@ -35,7 +35,7 @@
           {% else %}
             <div class="media-player__content">
               <h4 class="media-player__title">{{media.title}}</h4>
-              <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download></a>
+              <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
               <h3 class="media-player__subtitle">
                 {% trans "Video files will not be played, you can download them" %}
               </h3>
@@ -56,7 +56,7 @@
           {% else %}
             <div class="media-player__content">
               <h4 class="media-player__title">{{media.title}}</h4>
-              <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button  call-to-action__button--primary" download></a>
+              <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
               <h3 class="media-player__subtitle">
                 {% trans "Audio files will not be played, you can download them" %}
               </h3>
@@ -67,7 +67,7 @@
           <div class="media-player__excerpt">
             {% if media.title %}
               <h3 class="media-player__title">{{media.title}}</h3>
-              <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__item call-to-action__item--text" download>
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                 {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}
               </a>
             {% endif %}

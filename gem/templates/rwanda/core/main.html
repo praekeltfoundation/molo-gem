@@ -4,14 +4,16 @@
   <div class="banner--main">
     {% bannerpages position=0 %}
   </div>
-  {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
-    {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
-      <div class="freebasics">
-        <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
-        </p>
-      </div>
-    {% endif %}
-  {% endwith %}
+  {% if not is_via_freebasics %}
+    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
+      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
+        <div class="freebasics">
+          <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
+          </p>
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endif %}
   {% with gembannerpages  as gemTextBanner %}
     {% if gemTextBanner %}
        {{gemTextBanner}}

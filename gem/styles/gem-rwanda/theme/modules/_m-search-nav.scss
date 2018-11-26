@@ -1,32 +1,29 @@
 .search {
   $block: unquote("#{&}");
   &-wrapper {
-    background: #fff;
-    color: $color-cyan;
-    font-size: $font-x-small;
-    text-align: left;
-    @include fly-by();
-    padding: $spacer-small;
+    @include fly-byEnhanced();
+    @include for-size(tablet-potrait-up) {
+      padding: 1em;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
   }
   &-accordion {
     &__label {
-      color: #fff;
-      cursor: pointer;
-      display: inline-block;
-      font-size: $font-x-small;
-      text-transform: uppercase;
-      padding: 1.2em;
+      span {
+        @include for-size(tablet-landscape-up) {
+          display: none;
+          visibility: hidden;
+        }
+      }
       &:before {
         content: " ";
-        background-image: url('/static/img/icons/rwanda/search-icon.png');
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center 0;
-        display: inline-block;
-        vertical-align: middle;
-        height: 20px;
-        width: 20px;
-        margin: 0 $spacer-small 0 0;
+        @include for-size(tablet-landscape-up) {
+          margin: 0 1em 0 0;
+          height: 30px;
+          width: 30px;
+        }
       }
     }
     &__checkbox {
