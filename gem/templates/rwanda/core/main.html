@@ -5,8 +5,6 @@
     {% bannerpages position=0 %}
   </div>
   {% if not is_via_freebasics %}
-    Not Freebasics
-  {% endif %}
     {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
       {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
         <div class="freebasics">
@@ -15,7 +13,7 @@
         </div>
       {% endif %}
     {% endwith %}
-
+  {% endif %}
   {% with gembannerpages  as gemTextBanner %}
     {% if gemTextBanner %}
        {{gemTextBanner}}
