@@ -1,0 +1,52 @@
+.banner {
+  $block: unquote("#{&}");
+  @include for-size(desktop-up) {
+    margin: -4em 0;
+  }
+  &__content {
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 7%;
+    }
+  }
+  &__caption {
+    @include for-size(tablet-landscape-up) {
+      background: transparent;
+      visibility: hidden;
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 30%;
+      right: 0;
+      padding: 1em 7%;
+    }
+  }
+  &__title {
+   @include for-size(tablet-landscape-up) {
+     font-size: $font-xx-large;
+   }
+  }
+  &__subtitle {
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-medium;
+    }
+  }
+  &--main {
+    #{$block}__title,
+    #{$block}__subtitle {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
+      }
+    }
+    #{$block}__caption {
+        @include for-size(tablet-landscape-up) {
+          display: block;
+          float: right;
+          top: 2em;
+          left: 20%;
+        }
+        @include for-size(desktop-up)  {
+          left: 50%;
+        }
+    }
+  }
+}
