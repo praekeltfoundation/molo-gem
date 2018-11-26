@@ -1,10 +1,8 @@
 .media-player {
+  $block: unquote("#{&}");
   padding: 1em 5%;
   overflow: auto;
   margin: 0 auto;
-  @include for-size(tablet-landscape-up) {
-    padding: 1em 7%;
-  }
   &:before {
     content: "";
     display: block;
@@ -14,6 +12,85 @@
     height: 3px;
     width: 15%;
   }
+  &__wrapper {
+    position: relative;
+    overflow: auto;
+    margin: 1em 0;
+  }
+  &__embed {
+    display: block;
+    vertical-align: middle;
+    width: 100%;
+  }
+  &__excerpt {
+    display: block;
+    margin: 1em 0 0;
+    vertical-align: middle;
+    width: 100%;
+  }
+  &__content {
+    background: $color-cyan;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    padding: $spacer-half;
+    #{$block}__title,
+    #{$block}__subtitle,
+    #{$block}__caption {
+      color: #fff;
+    }
+  }
+  &__title {
+    color: #000;
+    padding: 1em 0;
+    font-size: $font-medium;
+  }
+  &__subtitle {
+    color: #000;
+    font-size: $font-x-small;
+    padding: 0 ($spacer-multiple + 5);
+  }
+  &__caption {
+    color: #000;
+    font-size: $font-x-small;
+    text-align: center;
+  }
+  &__icon {
+    background-image: url("/static/img/icons/play-button.png");
+    background-image: url("/static/img/icons/play-button.svg"),
+      linear-gradient(transparent, transparent);
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: $color-yellow;
+    padding: 85px 0 0;
+    display: block;
+    font-weight: bold;
+    text-decoration: underline;
+    &:active, &:hover, &:focus {
+      color: #fff;
+    }
+  }
+  audio {
+    display: inline-block;
+    float: left;
+    margin: 0 1em 0 0;
+    object-fit: cover;
+    width: 100%;
+  }
+  video {
+    border: 2px solid $color-cyan;
+    display: block;
+    object-fit: cover;
+    max-height: 580px;
+    width: 100%;
+  }
+  iframe {
+    border: 2px solid $color-cyan;
+    display: block;
+    max-height: 580px;
+    width: 100%;
+  }
+
   .call-to-action__item--text {
     padding: 0;
     margin: 1em 0;
@@ -33,7 +110,6 @@
     -ms-border-radius: 0 !important;
     border-radius: 0 !important;
   }
-
   audio::-webkit-media-controls-play-button,
   audio::-moz-media-controls-play-button,
   audio::-o-media-controls-play-button,
@@ -51,66 +127,5 @@
   audio::-o-media-controls-mute-button,
   audio::-ms-media-controls-mute-button {
     cursor: pointer;
-  }
-  audio {
-    display: inline-block;
-    float: left;
-    margin: 0 1em 0 0;
-    object-fit: cover;
-    width: 50%;
-  }
-  video {
-    border: 2px solid $color-cyan;
-    display: block;
-    object-fit: cover;
-    width: 80%;
-    max-height: 480px;
-  }
-  iframe {
-    border: 2px solid $color-cyan;
-    display: block;
-    max-height: 480px;
-    width: 80%;
-  }
-  &__wrapper {
-    position: relative;
-    overflow: auto;
-    margin: 0 0 2em;
-  }
-  &__embed {
-    width: 80%;
-  }
-  &__content {
-    padding: $spacer-half 0;
-  }
-  &__excerpt {
-    display: block;
-    margin: 1em 0 0;
-  }
-  &__title {
-    color: #000;
-    font-size: $font-small;
-  }
-  &__subtitle {
-    color: #000;
-    font-size: $font-x-small;
-    padding: 0 ($spacer-multiple + 5);
-  }
-  &__caption {
-    color: #000;
-    font-size: $font-x-small;
-    text-align: center;
-  }
-  &__icon {
-    background-image: url("/static/img/icons/play-button.png");
-    background-image: url("/static/img/icons/play-button.svg"),
-      linear-gradient(transparent, transparent);
-    background-repeat: no-repeat;
-    background-position: center 15px;
-    color: $color-pink-hollywood;
-    padding: 85px 0 0;
-    display: block;
-    font-weight: bold;
-    text-decoration: underline;
   }
 }
