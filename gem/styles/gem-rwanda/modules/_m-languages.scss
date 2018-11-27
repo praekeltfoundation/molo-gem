@@ -92,7 +92,71 @@
     padding: 0 5% 0 0;
     #{$block}__label {
       margin: 0;
+      padding: 0 0 0 0.313em;
       display: inline-block;
+    }
+    &__checkbox {
+      & + * {
+        display: none;
+        visibility: hidden;
+        height: auto;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+      &:checked + * {
+        display: block;
+        visibility: visible;
+        -webkit-transition:height, 0.5s linear;
+        -moz-transition: height, 0.5s linear;
+        -ms-transition: height, 0.5s linear;
+        -o-transition: height, 0.5s linear;
+        transition: height, 0.5s linear;
+      }
+    }
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: inline-block;
+    }
+    &__label {
+      color: #000;
+      &:before {
+        content: " ";
+        display: inline-block;
+        background-image: url('/static/img/icons/rwanda/world-icon_green.svg'), url('/static/img/icons/rwanda/world-icon_green.svg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center 0;
+        height: 30px;
+        vertical-align: middle;
+        width: 30px;
+        @include for-size(desktop-up) {
+            height: 45px;
+            width: 45px;
+        }
+      }
+    }
+    &__title {
+      padding: 0 0 0 0.313em;
+      display: inline-block;
+    }
+    &__anchor {
+      color: $color-gray;
+      display: inline-block;
+      font-size: $font-x-medium;
+      padding-left: 0.313em;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &__active {
+      color: $color-pink;
+      text-decoration: underline;
     }
     #{$block}__anchor {
       color: #fff;
