@@ -4,12 +4,7 @@ from .base import *  # noqa
 ALLOWED_HOSTS = [
     'localhost',
     '.localhost',
-    '127.0.0.1',
-<<<<<<< Updated upstream
-    '172.30.1.3'
-=======
-    '192.168.101.251'
->>>>>>> Stashed changes
+    '127.0.0.1'
 ]
 
 DEBUG = True
