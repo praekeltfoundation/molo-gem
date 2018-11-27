@@ -1,0 +1,20 @@
+.article-page {
+  $block: unquote("#{&}");
+  article {
+    p, a {
+      @include for-size(tablet-landscape-up) {
+        padding: 0 15%;
+      }
+    }
+  }
+  .media-player {
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 15%;
+    }
+  }
+  &__content {
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+  }
+}

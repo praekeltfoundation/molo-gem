@@ -9,7 +9,9 @@
 <div class="article-page {% if section.get_effective_extra_style_hints %}article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
   <div class="article-page__content">
     {% if page.image %}
-      {% image page.image width-1080 class="article-teaser__thumbnail" %}
+      <div class="article-page__images">
+        {% image page.image width-1080 class="article-teaser__thumbnail" %}
+      </div>
     {% endif %}
     {% get_comment_count for self as comment_count %}
     {% load_tags_for_article self as tags %}
@@ -52,7 +54,9 @@
           <h3 class="heading__headline">{{ block.value }}</h3>
         </div>
       {% elif block.block_type == 'image' %}
-        {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+        <div class="article-page__images--inner">
+          {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+        </div>
       {% elif block.value.youtube_link %}
           {% with block.value as media %}
           <div class="media-player">

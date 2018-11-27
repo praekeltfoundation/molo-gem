@@ -2,35 +2,25 @@
   $block: unquote("#{&}");
   //Wildcard
   article {
-    p, a {
+    p {
+      padding: 0 5%;
+      vertical-align: top;
+      word-break: break-word;
+    }
+    a {
       padding: 0 5%;
       display: inline-block;
       vertical-align: top;
       word-break: break-word;
-      @include for-size(tablet-landscape-up) {
-        padding: 0 15%;
-      }
     }
     .article-teaser__thumbnail {
-      border: 2px solid $color-cyan;
       &--inner {
-        width: 25%;
         display: inline-block;
-        margin-left: 15%;
-        margin-right: 15%;
       }
-    }
-  }
-  .media-player {
-    @include for-size(tablet-landscape-up) {
-      padding: 1em 15%;
     }
   }
   &__content {
     padding: 0 5%;
-    @include for-size(tablet-landscape-up) {
-      padding: 0 15%;
-    }
   }
   &__quote {
     padding: 3% 25%;
@@ -39,6 +29,28 @@
     text-align: center;
     text-transform: uppercase;
   }
+  &__images {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border: 3px solid $color-cyan;
+    @include for-size(tablet-landscape-up) {
+      max-height: 450.75px;
+    }
+    &--inner {
+      border: 3px solid $color-cyan;
+      overflow: auto;
+      height: auto;
+      display: inline-block;
+      margin: 1em;
+      float: left;
+      @include for-size(tablet-landscape-up) {
+        max-height: 252px;
+        margin: 1em 1em 1em 15%;
+      }
+    }
+  }
+
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {
       .social-media {
@@ -51,17 +63,15 @@
           padding: $spacer-mid $spacer-small;
         }
       }
-      .article-teaser  {
-        &__thumbnail {
-          border: 2px solid map-get($styleElement, bgColor);
-        }
+      #{$block}__images {
+        border: 3px solid map-get($styleElement, bgColor);
       }
       .media-player {
         &:before {
           background-color: map-get($styleElement, bgColor);
         }
         video, iframe  {
-          border: 2px solid map-get($styleElement, bgColor);
+          border: 3px solid map-get($styleElement, bgColor);
         }
       }
       #{$block}__quote {
