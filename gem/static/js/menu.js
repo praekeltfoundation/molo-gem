@@ -16,7 +16,18 @@
             }
         }, false);
       }
+    var searchLabel = document.getElementById('search_nav');
+    console.log(searchLabel);
+    searchLabel.addEventListener('click', function(e) {
+      if(e.target.classList.contains('is__active')) {
+        e.target.classList.remove('is__active');
+      } else {
+        e.target.classList.add('is__active');
+      }
+  }, false);
   }
+
+
   domReady(function() {
     menuToggle();
   });

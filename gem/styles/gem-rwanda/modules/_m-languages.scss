@@ -1,12 +1,12 @@
 .languageSearch-wrapper {
   text-align: center;
-  display: block;
+  display: inline-block;
 }
 .languages {
   $block: unquote("#{&}");
   display: inline-block;
   text-transform: uppercase;
-  padding: 0 $spacer-half 0 0;
+  overflow: auto;
   &-wrapper {
     background: #fff;
     color: $color-cyan;
@@ -21,7 +21,7 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-small;
-      padding: 1.2em;
+      padding: 0 0 1.2em 0;
       &:before {
         content: " ";
         display: inline-block;

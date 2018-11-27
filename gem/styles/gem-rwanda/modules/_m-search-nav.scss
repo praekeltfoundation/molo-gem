@@ -15,13 +15,10 @@
       display: inline-block;
       font-size: $font-x-small;
       text-transform: uppercase;
-      padding: 1.2em;
+      padding: 0 0 1.2em 0;
       &:before {
         content: " ";
-        background-image: url('/static/img/icons/rwanda/search-icon.png');
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center 0;
+        background: url('/static/img/icons/rwanda/search-icon.png') no-repeat center 0/ 100%;
         display: inline-block;
         vertical-align: middle;
         height: 20px;
@@ -50,6 +47,7 @@
   }
   &--header {
     display: inline-block;
+    overflow: auto;
     #{$block}-wrapper {
       @include for-size(tablet-landscape-up) {
         padding: 3em 25%;
@@ -58,6 +56,13 @@
     #{$block}__form {
       display: inline-block;
       width: 75%;
+    }
+  }
+  .is__active {
+    background: #fff;
+    &:before {
+      content: " ";
+      background: url('/static/img/icons/rwanda/search-icon_green.svg') no-repeat center 0/ 100%;
     }
   }
 }
