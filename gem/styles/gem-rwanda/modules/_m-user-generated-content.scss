@@ -1,21 +1,21 @@
 $ugcPages: (
     polls: (
-      themePattern: "/static/img/patterns/rwanda/section-theme/pattern-red_third.png",
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-TREES-RED-001.jpg",
       themeColor: $color-red
     ),
     surveys: (
-      themePattern: "/static/img/patterns/rwanda/section-theme/pattern-red_third.png",
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-TREES-RED-001.jpg",
       themeColor: $color-red
     ),
     yourwords: (
-      themePattern: "/static/img/patterns/rwanda/section-theme/pattern-orange_secondary.png",
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-MOUNTAINS-ORANGE-001.jpg",
       themeColor: $color-orange
     ),
 );
 @each $page, $styleElement in $ugcPages {
   .#{$page} {
     @include for-size(tablet-portrait-up) {
-      background: map-get($styleElement, themeColor)  url(map-get($styleElement, themePattern)) repeat center center/ 100%;
+      background: map-get($styleElement, themeColor)  url(map-get($styleElement, themePattern)) repeat center center/ auto;
       padding: 1em 7% 2em;
       &:nth-child(1) {
         padding: 2em 7%;
