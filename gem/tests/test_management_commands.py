@@ -445,7 +445,6 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         # test that the article still refers to the deleted tag
         self.assertEqual(article.nav_tags.count(), 2)
         self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag')
-        # test that an error is raised when trying to save the article
 
         call_command(
             'remove_empty_nav_tags',
