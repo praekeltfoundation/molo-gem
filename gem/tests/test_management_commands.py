@@ -15,8 +15,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage, SectionIndexPage,
-                              BannerIndexPage, TagIndexPage,
-                              ArticlePageTags, Tag)
+                              BannerIndexPage, TagIndexPage, Tag)
 from os.path import join
 
 
