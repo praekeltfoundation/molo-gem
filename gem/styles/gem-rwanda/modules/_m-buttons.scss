@@ -31,9 +31,6 @@
   }
   //USE OF !important TO ENFORCE ARTICLE WILD* STYLE TAGS
   &__button {
-    @include for-size(feature-only) {
-      color: #000 !important;
-    }
     color: #fff !important;
     background-color: $color-cyan;
     display: inline-block;
@@ -42,6 +39,10 @@
     padding: 5px !important;
     text-transform: uppercase;
     margin: 0;
+    vertical-align: middle;
+    @include for-size(feature-only) {
+      color: #000 !important;
+    }
     @include for-size(phone-only) {
       color: #fff !important;
       font-size: $font-xx-small;

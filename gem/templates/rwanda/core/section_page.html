@@ -72,7 +72,7 @@
           {% endif %}
           {% with article.body|first as block %}
             {% if block.block_type == 'paragraph' %}
-              <p>{{block.value|smarttruncatechars:100|safe}}</p>
+              <p>{{block.value|smarttruncatechars:150|safe}}</p>
             {% endif %}
           {% endwith %}
           <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
