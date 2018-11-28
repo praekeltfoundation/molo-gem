@@ -451,6 +451,6 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
             'remove_empty_nav_tags',
         )
         article = ArticlePage.objects.get(pk=article.pk)
-        # test that the article still refers to the tag
+        # test that the article only points to existing tags
         self.assertEqual(article.nav_tags.count(), 1)
         self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
