@@ -9,7 +9,7 @@
   {% load_choices_for_poll_page question as choices %}
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
-      <fieldset>
+      <fieldset class="choice-fieldset">
         {% if question.get_main_language_page.allow_multiple_choice %}
           <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
           <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
@@ -28,7 +28,7 @@
     {% can_vote question as user_can_vote %}
     {% if user_can_vote %}
       {% for choice in choices %}
-        <fieldset>
+        <fieldset class="choice-fieldset">
           {% if question.get_main_language_page.allow_multiple_choice %}
             <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
             <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>

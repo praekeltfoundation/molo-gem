@@ -16,7 +16,7 @@
     {% csrf_token %}
       {% load_choices_for_poll_page question as choices %}
       {% for choice in choices %}
-        <fieldset>
+        <fieldset class="choice-fieldset">
           {% if question.allow_multiple_choice %}
             <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.get_main_language_page.id }}" />
             <label for="choice{{ forloop.counter }}">{{ choice.title }}</label>
