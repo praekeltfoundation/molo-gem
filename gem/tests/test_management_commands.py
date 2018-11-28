@@ -419,7 +419,7 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         """
             Test that deleted navigation tags are removed
             from articles
-            """
+        """
         main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         tag_index = TagIndexPage.objects.child_of(main).first()
