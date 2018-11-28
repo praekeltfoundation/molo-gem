@@ -6,7 +6,10 @@
   }
   &__wrapper {
     background-color: #fff;
-    padding: 1em 1em 2em;
+    padding: 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 1em 2em;
+    }
   }
   &__description {
     font-size: $font-x-small;
@@ -24,9 +27,6 @@
       display: inline-block;
       float: right;
       margin: 1em 0;
-    }
-    .heading__subtitle {
-      display: inline-block;
     }
     .call-to-action__item--text {
       text-transform: inherit;
@@ -52,11 +52,10 @@
         margin: 1em 1em 0 26%;
       }
     }
-    [type="button"],
-    [type="reset"],
-    [type="submit"], {
+    .call-to-action--group {
       @include for-size(desktop-up) {
-        margin: 1em 1em 0 26%;
+        margin: 0 26% 1em;
+        padding: 0;
       }
     }
     [type="checkbox"],
@@ -96,6 +95,7 @@
     display: block;
   }
   .heading__subtitle {
+    display: inline-block;
     text-transform: inherit;
   }
 }

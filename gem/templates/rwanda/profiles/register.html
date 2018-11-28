@@ -120,8 +120,10 @@
             </p>
           {% endif %}
         </fieldset>
-        <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Register" %}</button>
-        <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}"/>
+        <div class="call-to-action--group">
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Register" %}</button>
+          <input type="hidden" name="next" value="{% url "molo.profiles:registration_done" %}"/>
+        </div>
       </form>
     </div>
   </div>

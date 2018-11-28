@@ -66,12 +66,12 @@
            <span class="input-hint">{% trans "Only you will see this" %}.</span>
           </fieldset>
           {% endif %}
-          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Save" %}</button>
-          <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Profile" %}
-          </a>
+          <div class="call-to-action--group">
+            <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Save" %}</button>
+            <a href="{% url "molo.profiles:view_my_profile" %}" class="call-to-action__button call-to-action__button--primary">{% trans "Profile" %}</a>
+          </div>
         </form>
-        <a href="/" class="call-to-action__button call-to-action__button--previous">{% trans "Home Page" %}</a>
+          <a href="/" class="call-to-action__button call-to-action__button--previous">{% trans "Home Page" %}</a>
         {% endif %}
       {% endwith %}
     </div>

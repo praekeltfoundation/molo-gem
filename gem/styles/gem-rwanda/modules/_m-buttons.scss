@@ -5,7 +5,10 @@
     border-radius: 0;
     display: block;
     text-align: center;
-    padding: $spacer-half $spacer-mid;
+    vertical-align: middle;
+    @include for-size(tablet-landscape-up) {
+      padding: $spacer-half $spacer-mid;
+    }
     &--text {
       color: $color-cyan-fountain;
       display: inline-block;
@@ -153,7 +156,9 @@
     text-decoration: underline;
     text-transform: capitalize;
   }
-
+  &--group {
+    padding: 0 0 1em;
+  }
   &--backToTop {
     background: $color-cyan-fountain;
     border-radius: 5px;
