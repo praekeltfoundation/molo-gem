@@ -8,12 +8,16 @@
         {% if self.your_words_competition %}{% trans 'Share your story' %} {% else %}{% trans 'Quiz' %}{% endif %}
       </h1>
     </div>
+
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
-      {% if self.image %}
-        <aside>
-          {% image self.image width-480 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
-        </aside>
+      <!-- TEST FEATURE -->
+      {% if self.your_words_competition or self.display_survey_directly %}
+        {% if self.image %}
+          <aside>
+            {% image self.image width-480 as tmp_photo %}
+            <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
+          </aside>
+        {% endif %}
       {% endif %}
       <section>
         {% if self.show_results and results %}

@@ -9,11 +9,14 @@
       </h1>
     </div>
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
-      {% if survey.image %}
-        <aside>
-          {% image survey.image width-480 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
-        </aside>
+      <!-- TEST FEATURE -->
+      {% if self.your_words_competition or self.display_survey_directly %}
+        {% if survey.image %}
+          <aside>
+            {% image survey.image width-480 as tmp_photo %}
+            <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
+          </aside>
+        {% endif %}
       {% endif %}
       <section>
         <h2 class="heading__headline">{{self.title}}</h2>
@@ -123,19 +126,20 @@
                     </div>
                   </fieldset>
                   {% endfor %}
-                  {% if survey.display_survey_directly %}
-                    {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-                      {% trans "Vote" as defaultText %}
-                      <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ survey.submit_text|default:defaultText }}</button>
+                  <div class="call-to-action--group">
+                    {% if survey.display_survey_directly %}
+                      {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+                        {% trans "Vote" as defaultText %}
+                        <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ survey.submit_text|default:defaultText }}</button>
+                      {% else %}
+                        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+                          {% trans "Log in to vote" %}
+                        </a>
+                      {% endif %}
                     {% else %}
-                      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-                        {% trans "Log in to vote" %}
-                      </a>
+                      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
                     {% endif %}
-                  {% else %}
-                    <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
-                  {% endif %}
-
+                  </div>
                   {% if fields_step and fields_step.paginator.num_pages > 1 %}
                     <div class="pagination">
                       <p class="call-to-action__item--text call-to-action__item--text-current">
@@ -151,22 +155,26 @@
                 {% trans 'You have already completed this ' %}
                 {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}.
               </p>
-              {% if request.path == "/" %}
-                <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-                  {% trans "Show Results" %}
-                </a>
-              {% else %}
-                <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
-                  {% trans "Back home" %}
-                </a>
-              {% endif %}
+              <div class="call-to-action--group">
+                {% if request.path == "/" %}
+                  <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                    {% trans "Show Results" %}
+                  </a>
+                {% else %}
+                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                    {% trans "Back home" %}
+                  </a>
+                {% endif %}
+              </div>
             {% endif %}
           {% else %}
             <nav>
-              <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-                  {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
-                  {% endif %}
-              </a>
+              <div class="call-to-action--group">
+                <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+                    {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+                    {% endif %}
+                </a>
+              </div>
             </nav>
           {% endif %}
         </section>

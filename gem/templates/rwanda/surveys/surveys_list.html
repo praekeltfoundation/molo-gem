@@ -14,10 +14,12 @@
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
               <div class="profiles-join">
                 <div class="profiles-join__content">
-                    <h1 class="heading__headline">
-                      {% trans "Share your opinions and stories, take polls, win fun prizes." %}
-                    </h1>
-                  <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
+                  <h1 class="heading__headline">
+                    {% trans "Share your opinions and stories, take polls, win fun prizes." %}
+                  </h1>
+                  <div class="call-to-action--group">
+                    <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
+                  </div>
                 </div>
                 <div class="profiles-join__icon"></div>
               </div>
@@ -54,10 +56,12 @@
                   </h3>
                 {% endif %}
                 <nav>
-                  <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-                    {% trans "Take GCN competition" as defaultTextGCN %}
-                    {{ survey.homepage_button_text|default:defaultTextGCN}}
-                  </a>
+                  <div class="call-to-action--group">
+                    <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                      {% trans "Take GCN competition" as defaultTextGCN %}
+                      {{ survey.homepage_button_text|default:defaultTextGCN}}
+                    </a>
+                  </div>
                 </nav>
               </section>
             </div>
@@ -70,12 +74,6 @@
               <h1 class="heading__title">{% trans 'Quiz' %}</h1>
             </div>
             <div class="polls__inner">
-              {% if survey.image %}
-              <aside>
-                {% image survey.image width-480 as tmp_photo %}
-                <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="polls__image" />
-              </aside>
-              {% endif %}
               <section>
                 <h2 class="heading__headline">{{survey.title}}</h2>
                 {% if survey.homepage_introduction %}
@@ -89,15 +87,17 @@
                   <p class="error-list__item">
                     {% trans 'You have already completed this poll' %}.</p>
                     <nav>
-                      {% if request.path == "/" %}
-                        <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-                          {% trans "Show results" %}
-                        </a>
-                      {% else %}
-                        <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
-                          {% trans "Back home" %}
-                        </a>
-                      {% endif %}
+                      <div class="call-to-action--group">
+                        {% if request.path == "/" %}
+                          <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                            {% trans "Show results" %}
+                          </a>
+                        {% else %}
+                          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                            {% trans "Back home" %}
+                          </a>
+                        {% endif %}
+                      </div>
                     </nav>
               {% endif %}
               </section>
@@ -130,10 +130,12 @@
                     </h3>
                   {% endif %}
                   <nav>
-                    <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-                      {% trans "Take the survey" as defaultText %}
-                      {{ survey.homepage_button_text|default:defaultText }}
-                    </a>
+                    <div class="call-to-action--group">
+                      <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                        {% trans "Take the survey" as defaultText %}
+                        {{ survey.homepage_button_text|default:defaultText }}
+                      </a>
+                    </div>
                   </nav>
                 </section>
               </div>

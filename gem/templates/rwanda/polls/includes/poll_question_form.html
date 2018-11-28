@@ -19,9 +19,11 @@
         {% endif %}
       </fieldset>
     {% endfor %}
-    <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-      {% trans "Log in to vote" %}
-    </a>
+    <div class="call-to-action--group">
+      <a href="{% url 'molo.profiles:auth_login' %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Log in to vote" %}
+      </a>
+    </div>
   {% else %}
     {% can_vote question as user_can_vote %}
     {% if user_can_vote %}
