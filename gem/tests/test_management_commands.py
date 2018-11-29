@@ -17,6 +17,7 @@ from molo.core.models import (SiteLanguageRelation, Languages,
                               ArticlePage, BannerPage, SectionIndexPage,
                               BannerIndexPage, TagIndexPage, Tag)
 from os.path import join
+from django.db import IntegrityError
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
@@ -452,3 +453,16 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         # test that the article only points to existing tags
         self.assertEqual(article.nav_tags.count(), 1)
         self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
+
+        site = main.sites_rooted_here.all().first()
+        # deelte the second tag and the main's site
+        tag2.delete()
+        site.delete()
+
+        cmd = main.sites_rooted_here.all().first()
+        cmd = call_command('remove_empty_nav_tags',)
+        # test that an integrity error is thrown
+        self.assertEqual(
+            cmd,
+            "IntegrityError: Only articles with sites can be saved",
+        )
