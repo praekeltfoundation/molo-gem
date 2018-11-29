@@ -9,11 +9,10 @@
       </h1>
     </div>
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
-      <!-- TEST FEATURE -->
-      {% if self.your_words_competition or self.display_survey_directly %}
-        {% if survey.image %}
+      {% if not self.display_survey_directly %}
+        {% if self.image %}
           <aside>
-            {% image survey.image width-480 as tmp_photo %}
+            {% image self.image width-480 as tmp_photo %}
             <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
           </aside>
         {% endif %}
@@ -64,30 +63,21 @@
             {% if form %}
               <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__form--{{self.get_effective_extra_style_hints}}" novalidate>
                 {% csrf_token %}
-                  {% if not is_via_freebasics %}
-                    {{ form.media }}
-                  {% endif %}
-                  {% for field in form %}
-                  <fieldset>
-                    <div class="input-group">
-                      <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-                      {% if field.help_text %}
-                        {% if field|fieldtype == 'CharacterCountWidget' %}
-                          <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
-                        {% else %}
-                          <p class="input-hint">{{ field.help_text }}</p>
-                        {% endif %}
-                      {% endif %}
-                  </fieldset>
-                  <fieldset class="choice-fieldset">
-                    {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+                {% if not is_via_freebasics %}
+                  {{ form.media }}
+                {% endif %}
+                {% for field in form %}
+                  {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+                    <fieldset class="{% if self.display_survey_directly %}choice-fieldset{% endif %}">
                       {% for value, text in field.field.choices %}
                         <div class="choice-group">
                           <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
                           <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                         </div>
                       {% endfor %}
+                    </fieldset>
                     {% elif field|fieldtype == 'RadioSelect' %}
+                    <fieldset class="{% if self.display_survey_directly %}choice-fieldset{% endif %}">
                       {% for value, text in field.field.choices %}
                         <div class="choice-group choice-group__radio">
                           <input name="{{ field.name }}"
@@ -95,7 +85,9 @@
                           <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
                         </div>
                       {% endfor %}
+                    </fieldset>
                     {% elif field|fieldtype == 'Select' %}
+                    <fieldset class="{% if self.display_survey_directly %}choice-fieldset{% endif %}">
                       <div class="select-group">
                         <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
                         {% if field.value.0 %}
@@ -117,16 +109,27 @@
                       </div>
                     </fieldset>
                     {% else %}
-                      <fieldset>{{field}}</fieldset>
+                      <fieldset>
+                        <div class="input-group">
+                          <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+                          {% if field.help_text %}
+                            {% if field|fieldtype == 'CharacterCountWidget' %}
+                              <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
+                            {% else %}
+                              <p class="input-hint">{{ field.help_text }}</p>
+                            {% endif %}
+                          {% endif %}
+                          {{field}}
+                        </div>
+                      </fieldset>
                     {% endif %}
-                      {% if field.errors %}
-                        <ul class="error-list">
-                        {% for error in field.errors %}
-                          <li class="error-list__item">{{ error }}</li>
-                        {% endfor %}
-                        </ul>
-                      {% endif %}
-                    </div> <!--What div is this closing? -->
+                    {% if field.errors %}
+                      <ul class="error-list">
+                      {% for error in field.errors %}
+                        <li class="error-list__item">{{ error }}</li>
+                      {% endfor %}
+                      </ul>
+                    {% endif %}
                   {% endfor %}
                   <div class="call-to-action--group">
                     {% if survey.display_survey_directly %}

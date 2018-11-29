@@ -10,8 +10,7 @@
     </div>
 
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
-      <!-- TEST FEATURE -->
-      {% if self.your_words_competition or self.display_survey_directly %}
+      {% if not self.display_survey_directly %}
         {% if self.image %}
           <aside>
             {% image self.image width-480 as tmp_photo %}
