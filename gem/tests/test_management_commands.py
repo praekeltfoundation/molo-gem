@@ -17,7 +17,6 @@ from molo.core.models import (SiteLanguageRelation, Languages,
                               ArticlePage, BannerPage, SectionIndexPage,
                               BannerIndexPage, TagIndexPage, Tag)
 from os.path import join
-from django.db import IntegrityError
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
