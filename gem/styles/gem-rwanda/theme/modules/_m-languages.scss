@@ -23,6 +23,14 @@
   @include for-size(tablet-landscape-up) {
     padding: 0 5%;
   }
+  &--footer {
+    @include for-size(tablet-portrait-up) {
+      padding: 0 1em 0 0;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 0 5% 0 0;
+    }
+  }
   &-wrapper {
     @include fly-byEnhanced();
     @include for-size(tablet-portrait-up) {
@@ -83,6 +91,10 @@
         @include for-size(tablet-landscape-up) {
           height: 40px;
           width: 40px;
+        }
+        @include for-size(desktop-up) {
+            height: 45px;
+            width: 45px;
         }
       }
     }
