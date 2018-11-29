@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments molo_survey_tags %}
+{% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments molo_survey_tags %}
+{% get_settings %}
 {% block content %}
 {% get_translation self.get_parent_section as section %}
 <div class="section-page {% if section.get_effective_extra_style_hints %}section-page--{{section.get_effective_extra_style_hints}}{% endif %}">
@@ -50,9 +51,7 @@
   <article class="article">
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
-        <div class="article-page__content">
-          <h3 class="heading__headline">{{ block.value }}</h3>
-        </div>
+        <h3 class="heading__headline">{{ block.value }}</h3>
       {% elif block.block_type == 'image' %}
         <div class="article-page__images--inner">
           {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
@@ -171,17 +170,16 @@
       {% endif %}
     {% endfor %}
   </article>
-  {% if social_media_article %}
-    something here
-  {% endif %}
-  <div class="article-page__content">
-    <div class="social-media">
-      <h3 class=" heading__subtitle">
-      {% trans "Share article" %}
-      </h3>
-      {% social_media_article %}
+  {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+    <div class="article-page__content">
+      <div class="social-media">
+        <h3 class=" heading__subtitle">
+        {% trans "Share article" %}
+        </h3>
+        {% social_media_article %}
+      </div>
     </div>
-  </div>
+  {% endif %}
 
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
