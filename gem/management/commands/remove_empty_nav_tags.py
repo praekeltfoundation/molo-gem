@@ -18,6 +18,7 @@ class Command(BaseCommand):
                             article.save_revision().publish()
                         else:
                             article.save_revision()
+                        print("nothing raised")
                     except IntegrityError:
-                            print("IntegrityError: Articles that belong sites "
-                                  "taht are not used cannot be saved")
+                            return ("IntegrityError: Only articles with sites "
+                                    "can be saved")
