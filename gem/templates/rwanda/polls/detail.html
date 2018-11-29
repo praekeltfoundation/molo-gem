@@ -12,7 +12,7 @@
       </ul>
     {% endif %}
     <h2 class="heading__headline">{{ question.title }}</h2>
-    <form class="polls__form" action="{% url 'molo.polls:vote' question.id %}" method="post">
+    <form class="polls__form" action="{% url 'molo.polls:vote' question.id %}" method="post" novalidate>
     {% csrf_token %}
       {% load_choices_for_poll_page question as choices %}
       {% for choice in choices %}

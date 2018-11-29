@@ -4,7 +4,7 @@
     <li class="error-list__item">{{ error_message }}</li>
   </ul>
 {% endif %}
-<form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post">
+<form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" novalidate>
   {% csrf_token %}
     {% if request.user.is_authenticated %}
       {% can_vote question as user_can_vote %}

@@ -118,7 +118,7 @@
           {% if not user.is_authenticated %}
             <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
           {% else %}
-            <form method="post" action="{% url LOGOUT_URL %}">
+            <form method="post" action="{% url LOGOUT_URL %}" novalidate>
               {% csrf_token %}
               <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit">
             </form>
@@ -182,7 +182,7 @@
         <input id="search_accordion" class="search-accordion__checkbox" type="checkbox">
         <div class="search-wrapper">
           <h3 class="search__title">{% trans "Search" %}:</h3>
-          <form action="{% url 'search' %}" novalidate class="search__form">
+          <form action="{% url 'search' %}" novalidate class="search__form" novalidate>
             <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
             <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
           </form>
@@ -249,7 +249,7 @@
               {% trans "Profile" %}</a>
           </li>
           <li class="menu-list__item">
-            <form method="post" action="{% url LOGOUT_URL %}">
+            <form method="post" action="{% url LOGOUT_URL %}" novalidate>
               {% csrf_token %}
               <input class="menu-list__anchor" value="{% trans "Log out" %}" type="submit">
             </form>
@@ -276,7 +276,7 @@
             {% trans "Search" %}
           </h3>
         </div>
-        <form action="{% url 'search' %}" novalidate class="search__form">
+        <form action="{% url 'search' %}" novalidate class="search__form" novalidate>
           <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
           <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
         </form>
