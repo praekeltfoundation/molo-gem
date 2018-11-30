@@ -19,5 +19,6 @@ class Command(BaseCommand):
                         else:
                             article.save()
                     except IntegrityError:
-                            return ("IntegrityError: Only articles with sites "
-                                    "can be saved")
+                            return ("IntegrityError: The article pk=" +
+                                    article.pk + "cannot be saved "
+                                    "because it does not belong to a site")
