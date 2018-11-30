@@ -17,7 +17,7 @@ class Command(BaseCommand):
                         if article.live:
                             article.save_revision().publish()
                         else:
-                            article.save_revision()
+                            article.save()
                     except IntegrityError:
                             return ("IntegrityError: Only articles with sites "
                                     "can be saved")
