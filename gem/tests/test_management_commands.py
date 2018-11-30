@@ -454,7 +454,7 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
 
         site = main.sites_rooted_here.all().first()
-        # deelte the second tag and the main's site
+        # delete the second tag and the main's site
         tag2.delete()
         site.delete()
 
