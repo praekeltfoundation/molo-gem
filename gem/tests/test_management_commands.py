@@ -458,11 +458,9 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         tag2.delete()
         site.delete()
 
-        cmd = main.sites_rooted_here.all().first()
-        cmd = call_command('remove_empty_nav_tags',)
         # test that an integrity error is thrown
         self.assertEqual(
-            cmd,
+            call_command('remove_empty_nav_tags',),
             "IntegrityError: Only articles with sites can be saved",
         )
 
