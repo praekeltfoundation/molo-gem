@@ -502,4 +502,3 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
 
         self.assertEqual(article.nav_tags.count(), 1)
         self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
-
