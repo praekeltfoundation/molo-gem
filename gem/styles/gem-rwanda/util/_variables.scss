@@ -41,12 +41,12 @@ $spacer-max                     :         40px;
   }@else if $range == phone-only {
     @media (min-width: $smartphone_lower_boundary) { @content; }
   } @else if $range == tablet-portrait-up {
-    @media (min-width: $smartphone_landscape) { @content; }
+    @media (min-width: $tablet_lower_boundary) { @content; }
   } @else if $range == tablet-landscape-up {
-    @media (min-width:  $tablet_lower_boundary) { @content; }
+    @media (min-width:  $tablet_upper_boundary) { @content; }
   } @else if $range == desktop-up {
-    @media (min-width: $tablet_upper_boundary) { @content; }
-  } @else if $range == big-desktop-up {
     @media (min-width:  $desktop_lower_boundary) { @content; }
+  } @else if $range == big-desktop-up {
+    @media (min-width:  $desktop_medium) { @content; }
   }
 }

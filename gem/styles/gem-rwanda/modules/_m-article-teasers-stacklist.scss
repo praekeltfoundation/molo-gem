@@ -82,6 +82,17 @@
       margin: 0;
       width: auto;
     }
+    #{$block}__images {
+      margin: 0 0 $spacer-half;
+      /*@include for-size(tablet-landscape-up) {
+        height: 270px;
+        width: 65%;
+      }
+      @include for-size(big-desktop-up) {
+        height: 153px;
+        width: 100%;
+      }*/
+    }
   }
   &--primary {
     margin: 0 1em 0 0;
@@ -91,7 +102,8 @@
         @include for-size(tablet-landscape-up) {
           width: 65%;
           float: left;
-          margin: 0;
+        }
+        @include for-size(big-desktop-up) {
           height: 950px;
         }
         #{$block}__images {
@@ -103,11 +115,9 @@
       }
       &:nth-child(2),
       &:nth-child(3) {
-        margin: 0;
         @include for-size(tablet-landscape-up) {
           width: 30%;
           float: right;
-          margin: 0 1em 2em;
         }
         #{$block}__images {
           width: auto;
