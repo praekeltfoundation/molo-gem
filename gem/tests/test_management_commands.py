@@ -17,6 +17,7 @@ from molo.core.models import (SiteLanguageRelation, Languages,
                               ArticlePage, BannerPage, SectionIndexPage,
                               BannerIndexPage, TagIndexPage, Tag)
 from os.path import join
+from django.db import IntegrityError
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
@@ -458,13 +459,11 @@ class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
         tag2.delete()
         site.delete()
 
-        # test that an integrity error is thrown
-        self.assertEqual(
-            call_command('remove_empty_nav_tags',),
-            ("IntegrityError: The article pk=" +
-                str(article.pk) + "cannot be saved " +
-                "because it does not belong to a site"),
-        )
+        # test that an integrity error is not thrown
+        try:
+            call_command('remove_empty_nav_tags',)
+        except IntegrityError:
+            self.fail("Management command raised an IntegrityError")
 
     def test_command_works_with_unpublished_articles(self):
         """
