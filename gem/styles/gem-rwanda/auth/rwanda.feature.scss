@@ -1,12 +1,18 @@
 @import "../util/_variables";
 @import "../util/colors";
-@import "_normalize";
+@import "../_normalize";
 
 body, html {
+  font-size: 16px;
   @include for-size(tablet-portrait-up) {
     background: #fff;
     color: #000;
   }
+}
+
+a:hover, a:active, a:visited {
+  color:  #eb018c;
+  text-decoration: none;
 }
 
 //PAGE WRAPPER
@@ -51,9 +57,19 @@ body, html {
   margin: 1em 5% 0 5% !important;
   padding: 1em 5%;
   text-align: left;
+  position: relative;
+  &:before {
+    background: url('/static/authentication_service/rwanda/images/hero-heading.png') no-repeat 20px center/contain;
+    content: "";
+    display: inline-block;
+    height: 60px;
+    width: 135px;
+  }
 }
 .Header-title h1 {
-  font-size: $font-x-large;
+  position: relative;
+  text-transform: uppercase;
+  font-size: $font-x-medium;
 }
 .Header-links {
   background: #fff;
@@ -99,6 +115,8 @@ body, html {
   font-weight: bold;
   margin-bottom: $spacer-small;
   vertical-align: middle;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 .Form .Field-item {
   color: #000;
@@ -156,11 +174,11 @@ body, html {
   }
 }
 .Form .Form-buttons {
-    margin-top: $spacer-small;
+  margin-top: 1em;
 }
 .Button {
-  color: #fff;
   background-color: #03b8ad;
+  color: #fff !important;
   display: block;
   font-weight: bold;
   font-size: $font-small;
@@ -171,7 +189,8 @@ body, html {
   box-shadow: 12px 12px 0 0 #f9e435;
   width: auto;
   &:active, &:hover, &:focus {
-    color: #f9e435;
+    background-color: #03b8ad;
+    color: #f9e435 !important;
   }
 }
 .Button--warning {
@@ -211,16 +230,19 @@ body, html {
 }
 
 .Additional-text {
-  background: #fff;
   color: #000;
   text-align: left;
-  padding: 0 10% 1em;
+  padding: 1em 10% 0;
   margin: 0;
+  font-size: 16px;
   a {
-    color: #03b8ad;
-    border-bottom: 1px solid #03b8ad;
+    color: #eb018c;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 1px solid #eb018c;
       &:active, &:hover, &:focus {
-        color: #f9e435;
+        color: #03b8ad;
+        border-bottom: 1px solid #03b8ad;
       }
   }
 }
@@ -244,7 +266,7 @@ body, html {
   margin: 10px 0;
   a {
     color: #03b8ad;
-    text-decoration: underline;
+    text-decoration: none;
     font-weight: normal;
     text-transform: uppercase;
     font-size: $font-xx-small;

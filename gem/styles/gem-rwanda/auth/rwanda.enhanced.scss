@@ -9,6 +9,7 @@ STYLE RWANDA (NINYAMPINGA)
 body, html {
   background: #03b8ad;
   color: #000;
+  font-size: 16px;
   @include for-size(tablet-landscape-up) {
     background: #03b8ad url("/static/authentication_service/rwanda/images/pattern-cyan.png") repeat center center/ 100%;
   }
@@ -36,8 +37,8 @@ body {
   }
 }
 .Header-branding {
-  width: 210px;
-  height: 60px;
+  width: 265px;
+  height: 70px;
   margin: 0 auto 0;
 }
 .Header-branding-image {
@@ -46,23 +47,21 @@ body {
 .Header-title {
   background: #fff;
   text-align: left;
+  position: relative;
   @include for-size(tablet-landscape-up) {
     margin: 1em 0 0 0 !important;
   }
 }
 .Header-title h1 {
-  //Need an extra DIV
-  /*background-image: url('/static/authentication_service/rwanda/images/shape1-cyan.png') ;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: contain;*/
-  font-size: $font-x-large;
+  font-size: $font-x-medium;
   color: #fff;
   background-color: #000;
   display: inline-block;
   margin: 0;
-  font-size: 30px;
   padding: 0 0.313em;
+  position: absolute;
+  left: 3.9em;
+  top: 1.9em;
 }
 .Header-links {
   @include for-size(tablet-landscape-up) {
@@ -76,7 +75,7 @@ body {
 //BODY
 .Content {
   @include for-size(tablet-landscape-up) {
-    padding: 3em 10% 5%;
+    padding: 0 10% 1em;
     margin: 0 15%;
   }
 }
@@ -114,6 +113,10 @@ body {
 .Form .Field {
   padding: 0;
   margin: 0;
+  a {
+    color: #03b8ad;
+    border-bottom: 1px solid #03b8ad;
+  }
 }
 .Form .Field-label {
   font-size: $font-x-small;
@@ -195,17 +198,31 @@ body {
   }
 }
 .Form .BooleanField {
-  display: table;
+  display: inline-block;
   margin: 0;
   position: relative;
   width: 100%;
+  @include for-size(tablet-landscape-up) {
+    width: auto;
+    margin: 0 0 0 9em;
+  }
 }
 .Form .BooleanField .Field-label {
-  display: table-cell;
-  padding-right: $spacer-small;
+  display: inline-block;
+  padding: 5px;
   text-align: right;
   vertical-align: middle;
-  width: 60%;
+  width: auto;
+}
+.Form .BooleanField .Field-item {
+  display: inline-block;
+  width: auto;
+}
+.Form .BooleanField .Field-message {
+  margin: 0;
+}
+.Form .BooleanField .Field-item .CheckboxInput {
+  border: 2px solid #03b8ad;
 }
 
 .Form .Field-item .CheckboxInput {
@@ -237,17 +254,19 @@ body {
     border-color: red;
   }
 }
-
 .Form .Form-buttons {
-  margin-bottom: $spacer-multiple;
+  margin-top: 1em;
 }
+.Form .Button {
+  @include for-size(tablet-landscape-up) {
+    margin: 1em 5% 0 24%;
+  }
+}
+.Form .Form-buttons .Button {}
 .Button {
   display: inline-block;
   padding: 15px 30px;
   margin: 1em 0;
-  @include for-size(tablet-landscape-up) {
-    margin: 1em 5% 0 24%;
-  }
 }
 
 .Messages {}
@@ -259,10 +278,10 @@ body {
 
 .Additional-text {
   text-align: left;
-  padding: 0 10% 1em;
+  padding: 1em 10% 0;
   margin: 0;
   @include for-size(tablet-landscape-up) {
-    padding: 0 24% 1em;
+    padding: 1em 1em 0 24%;
   }
 }
 
