@@ -5,12 +5,22 @@
   display: inline-block;
   text-align: left;
   margin: -($spacer-small) 0 0;
+  @include for-size(tablet-landscape-up) {
+    flex: 1 auto;
+    order: 1;
+    align-self: flex-start;
+    width: 30%;
+  }
+
   &-wrapper {
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-small;
     padding: 0 1em;
     @include fly-by();
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
   }
   &-list {
     padding: 0;
@@ -19,11 +29,17 @@
     text-align: left;
     &__item {
       display: block;
+      @include for-size(tablet-landscape-up) {
+        margin: 0.625em 0;
+      }
     }
     &__title {
       color: #000;
       font-size: $font-x-medium;
       text-transform: uppercase;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 0 0.4em;
+      }
     }
     &__anchor {
       background: transparent;

@@ -1,7 +1,7 @@
 .burger-nav {
   $block: unquote("#{&}");
   color: #fff;
-  display: block;
+  display: inline-block;
   font-weight: bold;
   position: relative;
   &__label {
@@ -9,17 +9,21 @@
     display: block;
     font-size: $font-x-small;
     font-weight: bold;
-    padding: $spacer-small;
     text-transform: uppercase;
     padding: 5px 5px 1.2em 5px;
+    @include for-size(tablet-portrait-up) {
+      padding: 1.2em 1em;
+    }
     &:before {
       background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 0/ 80%;
       content: "";
       display: inline-block;
-      margin: 0 $spacer-small 0 0;
       vertical-align: middle;
       width: 40px;
       height: 30px;
+      @include for-size(tablet-portrait-up) {
+        background-size: 85px;
+      }
     }
   }
   &__icon {
@@ -53,8 +57,7 @@
     background: #fff;
     color: #000;
     &:before {
-      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 150px;
-      height: 45px;
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 100px;
     }
   }
 }

@@ -2,6 +2,11 @@
   text-align: center;
   display: inline-block;
   vertical-align: middle;
+  @include for-size(tablet-landscape-up) {
+    align-self: flex-start;
+    order: 3;
+    width: 30%;
+  }
 }
 .languages {
   $block: unquote("#{&}");
@@ -29,6 +34,12 @@
     text-align: left;
     padding: 1em;
     @include fly-by();
+    @include for-size(tablet-portrait-up) {
+      padding: 2em;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
   }
   &-accordion {
     &__label {
@@ -42,12 +53,11 @@
         display: inline-block;
         background-image: url('/static/img/icons/rwanda/iconsSprite.png');
         background-repeat: no-repeat;
-        background-size: 85px;
+        background-size: 70px;
         background-position: 0 22.5%;
         vertical-align: middle;
-        margin: 0 $spacer-small 0 0;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 45px;
       }
     }
     &__checkbox {
@@ -79,11 +89,11 @@
         display: inline-block;
         background-image: url('/static/img/icons/rwanda/world-icon_green.svg'), url('/static/img/icons/rwanda/world-icon_green.png');
         background-repeat: no-repeat;
-        background-size: 100px;
+        background-size: 80px;
         background-position: center 0;
         vertical-align: middle;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 45px;
       }
     }
     &__title {
@@ -143,12 +153,10 @@
     background: #fff;
     color: #000;
     @include for-size(tablet-landscape-up) {
-      height: 65px;
+      padding: .5em 1em;
     }
     &:before {
-      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 150px;
-      height: 45px;
-      width: 40px;
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 100px;
     }
   }
 }

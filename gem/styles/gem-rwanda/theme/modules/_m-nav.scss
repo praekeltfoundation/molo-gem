@@ -2,33 +2,12 @@
   $block: unquote("#{&}");
   @include for-size(tablet-landscape-up) {
     margin: 0;
-    display: block;
-    flex: 1 auto;
-    order: 1;
-    align-self: flex-start;
   }
   &-wrapper {
     @include fly-byEnhanced();
-    @include for-size(tablet-landscape-up) {
-      padding: 3em 7%;
-    }
     @include for-size(desktop-up) {
        z-index: -9999999999;
      }
-  }
-  &-list {
-    &__item {
-      display: block;
-      @include for-size(tablet-landscape-up) {
-        margin: 0.625em 0;
-      }
-    }
-    &__title {
-      @include for-size(tablet-landscape-up) {
-      padding: 0 0 0.4em;
-      }
-    }
-    &__anchor {}
   }
   &-inner {
     @include for-size(tablet-landscape-up) {

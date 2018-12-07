@@ -7,6 +7,12 @@
     text-align: left;
     @include fly-by();
     padding: $spacer-small;
+    @include for-size(tablet-potrait-up) {
+      padding: 1em;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 7%;
+    }
   }
   &-accordion {
     &__label {
@@ -16,14 +22,23 @@
       font-size: $font-x-small;
       text-transform: uppercase;
       padding: 5px 5px 1.2em 5px;
+      @include for-size(tablet-landscape-up) {
+        padding: 1em 1em 1.5em;
+      }
       &:before {
         content: " ";
-        background: url('/static/img/icons/rwanda/search-icon_white.svg') no-repeat center 0/ 100%;
+        background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 32.2%/ 130px;
         display: inline-block;
         vertical-align: middle;
-        height: 20px;
-        width: 20px;
+        height: 30px;
+        width: 40px;
         margin: 0 $spacer-small 0 0;
+      }
+      span {
+        @include for-size(tablet-landscape-up) {
+          display: none;
+          visibility: hidden;
+        }
       }
     }
     &__checkbox {
@@ -62,7 +77,7 @@
     background: #fff;
     &:before {
       content: " ";
-      background: url('/static/img/icons/rwanda/search-icon_green.svg') no-repeat center 0/ 100%;
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 35.7%/110px;
     }
   }
 }

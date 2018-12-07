@@ -6,23 +6,12 @@
   @include for-size(tablet-portrait-up) {
     text-align: right;
   }
-  @include for-size(tablet-landscape-up) {
-    align-self: flex-start;
-    flex: 1 auto;
-    order: 3;
-  }
  @include for-size(desktop-up) {
     z-index: -9999999999;
   }
 }
 .languages {
   $block: unquote("#{&}");
-  @include for-size(tablet-portrait-up) {
-    padding: 0 1em 0 0;
-  }
-  @include for-size(tablet-landscape-up) {
-    padding: 0 5%;
-  }
   &--footer {
     @include for-size(tablet-portrait-up) {
       padding: 0 1em 0 0;
@@ -33,23 +22,11 @@
   }
   &-wrapper {
     @include fly-byEnhanced();
-    @include for-size(tablet-portrait-up) {
-      padding: 2em;
-    }
-    @include for-size(tablet-landscape-up) {
-      padding: 3em 7%;
-    }
   }
   &-accordion {
     &__label {
       @include for-size(tablet-landscape-up) {
-        padding: 1em 1em 0;
-      }
-      &:before {
-        content: " ";
-        @include for-size(tablet-portrait-up) {
-          margin: 0 1em 0 0;
-        }
+        padding: .9em 1em;
       }
     }
     &__checkbox {

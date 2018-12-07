@@ -1,8 +1,5 @@
 .logo {
-  background-image: url('/static/img/logos/logo-bg.svg'), url('/static/img/logos/logo-bg.png');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center 0px;
+  background: url('/static/img/logos/logo-bg.svg') no-repeat center 0px/ 100%;
   overflow: auto;
   padding: $spacer-small;
   @include for-size(tablet-landscape-up) {
@@ -10,18 +7,16 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 27%;
+    width: 26%;
   }
   &-wrapper {
-    width: 70%;
+    width: 40%;
     position: relative;
     margin: 0 auto;
-      @include for-size(tablet-landscape-up) {
-        width: 30%;
-        flex: 3 0px;
-        order: 2;
-        z-index: 9999;
-      }
+    @include for-size(tablet-landscape-up) {
+      order: 2;
+      z-index: 9999;
+    }
   }
   &__anchor {
     color: #fff;
@@ -38,5 +33,6 @@
     max-width: 100%;
     height: auto;
     width: 80%;
+    background-color: #E60073;
   }
 }

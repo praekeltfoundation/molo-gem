@@ -5,6 +5,14 @@
   width: 100%;
   text-align: center;
   overflow: inherit;
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 4em;
+    position: fixed;
+    z-index: 9999999999;
+  }
   [type="checkbox"],
   [type="radio"] {
     visibility: hidden;
