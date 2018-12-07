@@ -79,38 +79,61 @@
   &-list {
     margin: 0;
     padding: 0;
+    text-align: center;
     &__item {
       display: inline-block;
+      vertical-align: middle;
+      padding: 0 1em 0 0;
     }
     &__label {
       color: #000;
       &:before {
         content: " ";
         display: inline-block;
-        background-image: url('/static/img/icons/rwanda/world-icon_green.svg'), url('/static/img/icons/rwanda/world-icon_green.png');
-        background-repeat: no-repeat;
-        background-size: 80px;
-        background-position: center 0;
+        background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 27.5%/ 70px;
         vertical-align: middle;
         height: 40px;
-        width: 45px;
+        width: 35px;
       }
     }
     &__title {
       display: inline-block;
       padding: 0 0 0 0.313em;
+      font-style: italic;
     }
     &__anchor {
       color: $color-gray;
       display: inline-block;
       font-size: $font-x-medium;
       padding-left: 0.313em;
-      &:hover {
+      font-weight: bold;
+      &:active, &:hover, &:focus {
+        color: $color-pink-hollywood;
         text-decoration: underline;
+      }
+      &:lang(en) {
+        &:before {
+          content: "";
+          background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 73.5%/ 70px;
+          display: inline-block;
+          vertical-align: middle;
+          height: 40px;
+          width: 40px;
+        }
+      }
+      &:lang(sw) {
+        &:before {
+          content: "";
+          background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 69.5%/ 70px;
+          display: inline-block;
+          vertical-align: middle;
+          height: 40px;
+          width: 40px;
+        }
       }
     }
     &__active {
-      color: $color-pink;
+      color: $color-cyan;
       text-decoration: underline;
     }
     #{$block}__anchor {
@@ -153,7 +176,7 @@
     background: #fff;
     color: #000;
     @include for-size(tablet-landscape-up) {
-      padding: .5em 1em;
+      padding: 1.07em 1em;
     }
     &:before {
       background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 100px;
