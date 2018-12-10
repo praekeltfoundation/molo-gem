@@ -15,9 +15,8 @@ from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage, SectionIndexPage,
-                              BannerIndexPage, TagIndexPage, Tag)
+                              BannerIndexPage)
 from os.path import join
-from django.db import IntegrityError
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
