@@ -139,7 +139,7 @@
     padding: 0 5%;
     text-transform: capitalize;
     @include for-size(tablet-landscape-up) {
-      padding: 0 7%;
+      padding: 0 8%;
     }
     &__counter {
       background-color: $color-pink;
@@ -200,42 +200,22 @@
     }
   }
   &-counter {
-    box-shadow: 1px 2px 0 0 $color-yellow;
-    display: inline-block;
+    background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 86.7%/ 100%;
     color: #fff;
-    vertical-align: middle;
-    margin: $spacer-small 0;
+    height: 35px;
+    width: 35px;
+    display: inline-block;
     position: relative;
-    background: $color-cyan;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    padding: 5px;
+    padding: $spacer-small;
     text-align: center;
-    z-index: 100;
+    vertical-align: bottom;
+    &:active, &:hover, &:focus {
+      color: #fff;
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 99.7%/ 100%;
+    }
     &__icon {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 0;
-      right: -5px;
-      left: auto;
-      bottom: 0;
-      border-top-color: $color-cyan;
-      border-top-style: solid;
-      border-top-width: 15px;
-      border-right-color: transparent;
-      border-right-style: solid;
-      border-right-width: 6px;
-      border-bottom-color: transparent;
-      border-bottom-style: solid;
-      border-bottom-width: 6px;
-      border-left-color: transparent;
-      border-left-style: solid;
-      border-left-width: 6px;
-      margin-bottom: -8px;
-      transform: rotate(-55deg);
-      z-index: -99;
+      display: none;
+      visibility: hidden;
     }
     &__numeral {
       font-weight: bold;
