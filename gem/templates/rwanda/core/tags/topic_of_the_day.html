@@ -42,25 +42,25 @@
                 {% endfor %}
               {% endif %}
               </ul>
-              <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
+              <h3 class="article-teaser__title{% if article.title_highlight %} article-teaser__title--highlight{% endif %}">
                 {% if article.title_highlight %}
-                  {{ article.title_highlight|smarttruncatechars:23|safe}}
+                  {{ article.title_highlight|smarttruncatechars:45|safe}}
                 {% else %}
-                  {{ article.title|safe}}
+                  {{ article.title|smarttruncatechars:45|safe}}
                 {% endif %}
               </h3>
               {% if article.subtitle_highlight or article.body_highlight %}
                 <p class="teaser-stacklist__subtitle">
                   {% if article.subtitle_highlight %}
-                    {{article.subtitle_highlight|smarttruncatechars:30|safe}}
+                    {{article.subtitle_highlight|smarttruncatechars:50|safe}}
                   {% elif article.body_highlight %}
-                    {{article.body_highlight|smarttruncatechars:30|safe}}
+                    {{article.body_highlight|smarttruncatechars:50|safe}}
                   {% endif %}
                 </p>
               {% elif article.subtitle %}
                 <p class="teaser-stacklist__subtitle">
                 {% if article.title.30 %}
-                  {{ article.subtitle|smarttruncatechars:30|safe}}
+                  {{ article.subtitle|smarttruncatechars:50|safe}}
                 {% else %}
                   {{ article.subtitle|smarttruncatechars:50|safe}}
                 {% endif %}
