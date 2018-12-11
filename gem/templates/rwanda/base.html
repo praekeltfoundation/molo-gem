@@ -171,7 +171,7 @@
             {% if languages|length > 1 %}
               {% for language in languages %}
                 <li class="languages-list__item">
-                  <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+                  <a rel="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
                 </li>
               {% endfor %}
             {% endif %}
