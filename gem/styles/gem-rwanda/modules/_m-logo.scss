@@ -1,21 +1,18 @@
 .logo {
-  background: url('/static/img/logos/logo-bg.svg') no-repeat center 0px/ 87%;
+  background: url('/static/img/logos/logo-bg.svg') no-repeat center 0/ 100%;
   overflow: auto;
-  @include for-size(tablet-landscape-up) {
-    position: fixed;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 26%;
-    height: 100px;
-  }
+  margin: 0 auto;
+  width: 320px;
+  height: 100px;
   &-wrapper {
-    width: 40%;
     position: relative;
     margin: 0 auto;
     @include for-size(tablet-landscape-up) {
       order: 2;
       z-index: 9999;
+    }
+    @include for-size(tablet-landscape-up) {
+      width: 40%;
     }
   }
   &__anchor {

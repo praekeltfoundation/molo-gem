@@ -21,23 +21,22 @@
       display: inline-block;
       font-size: $font-x-small;
       text-transform: uppercase;
-      padding: 5px 5px 1.2em 5px;
+      padding: 5px 1em;
+      @include for-size(tablet-portrait-up) {
+        padding: 5px 5px 1.2em 5px;
+      }
       @include for-size(tablet-landscape-up) {
-        padding: 1em 1em 1.5em;
+        padding: 1.1em 1em;
       }
       &:before {
         content: " ";
-        background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 32.2%/ 130px;
+        background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 32.3%/ 140px;
         display: inline-block;
         vertical-align: middle;
-        height: 35px;
-        width: 40px;
-        margin: 0 $spacer-small 0 0;
-      }
-      span {
+        height: 40px;
+        width: 45px;
         @include for-size(tablet-landscape-up) {
-          display: none;
-          visibility: hidden;
+          margin: 0 $spacer-small 0 0;
         }
       }
     }

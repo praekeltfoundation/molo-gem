@@ -1,11 +1,16 @@
 .languageSearch-wrapper {
-  text-align: center;
+  text-align: right;
   display: inline-block;
   vertical-align: middle;
   @include for-size(tablet-landscape-up) {
-    align-self: flex-start;
     order: 3;
     width: 30%;
+  }
+  &__label-inner {
+    @include for-size(phone-only) {
+      display: none;
+      visibility: hidden;
+    }
   }
 }
 .languages {
@@ -15,6 +20,12 @@
   overflow: auto;
   @include for-size(tablet-landscape-up) {
     margin: 0 3em 0 0;
+  }
+  .languageSearch-wrapper__label-inner {
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      visibility: visible;
+    }
   }
   &__anchor {
     color: #fff;
@@ -50,8 +61,13 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-small;
-      padding: 5px 5px 1.2em 5px;
-      font-weight: normal;
+      padding: 5px 1em;
+      @include for-size(tablet-portrait-up) {
+        padding: 5px 5px 1.2em 5px;
+      }
+      @include for-size(tablet-landscape-up) {
+        padding: 1.1em 1em;
+      }
       &:before {
         content: " ";
         display: inline-block;

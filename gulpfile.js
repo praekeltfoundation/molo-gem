@@ -86,7 +86,7 @@ var gulp              =   require('gulp'),
     gulp.task('compress', function() {
       return gulp.src([
           'gem/static/js/springster.js',
-          'gem/static/js/menu.js',
+          'gem/static/js/nn.js',
           'gem/static/js/modeladmin/index.js'
         ])
         .pipe(rename({

@@ -1,11 +1,4 @@
 .languageSearch-wrapper {
-  @include for-size(phone-only) {
-    display: inline-block;
-    padding: 0;
-  }
-  @include for-size(tablet-portrait-up) {
-    text-align: right;
-  }
  @include for-size(desktop-up) {
     z-index: -9999999999;
   }
@@ -22,28 +15,6 @@
   }
   &-wrapper {
     @include fly-byEnhanced();
-  }
-  &-accordion {
-    &__label {
-      @include for-size(tablet-landscape-up) {
-        padding: .9em 1em;
-      }
-    }
-    &__checkbox {
-      & + * {
-        opacity: 0;
-        visibility: hidden;
-        -webkit-transition: visibility 0.2s, opacity 0.5s ease-out;
-        -moz-transition: visibility 0.2s, opacity 0.5s ease-out;
-        -ms-transition: visibility 0.2s, opacity 0.5s ease-out;
-        -o-transition: visibility 0.2s, opacity 0.5s ease-out;
-        transition: visibility 0.2s, opacity 0.5s ease-out;
-      }
-      &:checked + * {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
   }
   &-list {
     &__item {

@@ -60,7 +60,7 @@
               window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
             });
           js = document.createElement('script');
-          js.src = '{{ STATIC_URL }}js/dest/menu-min.js';
+          js.src = '{{ STATIC_URL }}js/dest/nn-min.js';
           js.async = true;
           document.querySelector('script').parentNode.appendChild(js);
         }
@@ -157,7 +157,9 @@
     </div>
     <div class="languageSearch-wrapper">
       <div class="languages">
-        <label for="languages_accordion" class="languages-accordion__label toggle-nav">{% trans "Languages" %}</label>
+        <label for="languages_accordion" class="languages-accordion__label toggle-nav">
+          <span class="languageSearch-wrapper__label-inner">{% trans "Languages" %}
+        </label>
         <input type="checkbox" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
         <div class="languages-wrapper">
           <ul class="languages-list">
@@ -178,7 +180,8 @@
       </div>
       <div class="search search--header">
         <label for="search_accordion" id="search_nav" class="search-accordion__label">
-          <span>{% trans "Search" %}</span></label>
+          <span class="languageSearch-wrapper__label-inner">{% trans "Search" %}</span>
+        </label>
         <input id="search_accordion" class="search-accordion__checkbox" type="checkbox" />
         <div class="search-wrapper">
           <h3 class="search__title">{% trans "Search" %}:</h3>
@@ -303,5 +306,5 @@
       </div>
     </div>
   </div>
-  </body>
+</body>
 </html>
