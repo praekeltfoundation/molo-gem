@@ -3,19 +3,23 @@
   //Wildcard
   article {
     overflow: auto;
-    p {
-      padding: 0 5%;
-      vertical-align: top;
-      word-break: break-word;
-    }
     h3 {
       padding: 0 15%;
     }
+    p {
+      vertical-align: top;
+      word-break: break-word;
+    }
     a {
-      padding: 0 5%;
       display: inline-block;
       vertical-align: top;
       word-break: break-word;
+    }
+    p, a {
+      padding: 0 5%;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 20%;
+      }
     }
     .article-teaser__thumbnail--inner {
       display: inline-block;
@@ -23,6 +27,9 @@
   }
   &__content {
     padding: 0 5%;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 20%;
+    }
   }
   &__quote {
     color: #000;
@@ -44,7 +51,6 @@
     width: 100%;
     border: 3px solid $color-cyan;
     @include for-size(tablet-landscape-up) {
-      width: 87%;
       max-height: 450.75px;
     }
     &--inner {
@@ -104,5 +110,8 @@
   }
   .media-player {
     clear: both;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 20%;
+    }
   }
 }
