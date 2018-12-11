@@ -193,118 +193,120 @@
       </div>
     </div>
   </div>
-  <main>
-    {% display_unread_notifications %}
-    {% block content %}{% endblock %}
+  <section class="content-wrapper">
+    <main>
+      {% display_unread_notifications %}
+      {% block content %}{% endblock %}
 
-    {% if settings.core.SiteSettings.enable_tag_navigation %}
-    {% load_tags as tags %}
-    {% if tags %}
-      <div class="tag-cloud">
-        <div class="heading heading--hero">
-          <h2 class=" heading__subheading">{% trans "Read stories about"%}:</h2>
-        </div>
-        <ul class="tag-cloud-list">
-          {% for tag in tags %}
-            <li class="tag-cloud-list__item">
-              <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
-                <span class="tag-cloud__title">{{tag.title}}<span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  {% endif %}
-  </main>
-  <div id="footer" class="footer">
-    <div class="menu">
-      <div class="heading heading--hero">
-        <h3 class=" heading__basic">
-          {% trans "Links" %}
-        </h3>
-      </div>
-      <div class="menu--wrapper">
-        <ul class="menu-list menu-list--column1">
-          <li class="menu-list__item">
-            <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
-          </li>
-          {% load_sections as sections %}
-          {% for section in sections %}
-            <li class="menu-list__item">
-              <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">{{section.title}}</a>
-            </li>
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+      {% load_tags as tags %}
+      {% if tags %}
+        <div class="tag-cloud">
+          <div class="heading heading--hero">
+            <h2 class=" heading__subheading">{% trans "Read stories about"%}:</h2>
+          </div>
+          <ul class="tag-cloud-list">
+            {% for tag in tags %}
+              <li class="tag-cloud-list__item">
+                <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
+                  <span class="tag-cloud__title">{{tag.title}}<span>
+                </a>
+              </li>
             {% endfor %}
-        </ul>
-        <ul class="menu-list menu-list--column2">
-          {% footer_page %}
-        </ul>
-        <ul class="menu-list menu-list--column3">
-          {% if not user.is_authenticated %}
-          <li class="menu-list__item">
-            <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
-              {% trans "Sign Up" %}</a>
-          </li>
-          <li class="menu-list__item">
-            <a href="{% url LOGIN_URL %}" class="menu-list__anchor">
-              {% trans "Log in" %}</a>
-          </li>
-          {% else %}
-          <li class="menu-list__item">
-            <a href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor">
-              {% trans "Profile" %}</a>
-          </li>
-          <li class="menu-list__item">
-            <form method="post" action="{% url LOGOUT_URL %}" novalidate>
-              {% csrf_token %}
-              <input class="menu-list__anchor" value="{% trans "Log out" %}" type="submit">
-            </form>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-    {% social_media_footer %}
-    <div class="searchCopyright-wrapper">
-      {% block search %}
-      <div class="search">
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+    </main>
+    <div id="footer" class="footer">
+      <div class="menu">
         <div class="heading heading--hero">
           <h3 class=" heading__basic">
-            {% trans "Search" %}
+            {% trans "Links" %}
           </h3>
         </div>
-        <form action="{% url 'search' %}" novalidate class="search__form" novalidate>
-          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
-        </form>
-      </div>
-      {% endblock %}
-      <div class="copyright">
-        {% if languages|length > 1 %}
-        <div class="languages languages--footer">
-          <p class="languages__label">{% trans "Language" %}:</p>
-          {% for language in languages %}
-            <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-          {% endfor %}
+        <div class="menu--wrapper">
+          <ul class="menu-list menu-list--column1">
+            <li class="menu-list__item">
+              <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
+            </li>
+            {% load_sections as sections %}
+            {% for section in sections %}
+              <li class="menu-list__item">
+                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">{{section.title}}</a>
+              </li>
+              {% endfor %}
+          </ul>
+          <ul class="menu-list menu-list--column2">
+            {% footer_page %}
+          </ul>
+          <ul class="menu-list menu-list--column3">
+            {% if not user.is_authenticated %}
+            <li class="menu-list__item">
+              <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
+                {% trans "Sign Up" %}</a>
+            </li>
+            <li class="menu-list__item">
+              <a href="{% url LOGIN_URL %}" class="menu-list__anchor">
+                {% trans "Log in" %}</a>
+            </li>
+            {% else %}
+            <li class="menu-list__item">
+              <a href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor">
+                {% trans "Profile" %}</a>
+            </li>
+            <li class="menu-list__item">
+              <form method="post" action="{% url LOGOUT_URL %}" novalidate>
+                {% csrf_token %}
+                <input class="menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+              </form>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-        {% endif %}
-        <p class="copyright__disclaimer">
-          &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
-          {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-            <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
-              {% trans "Terms &amp; Conditions" %}
-              </a>
+      </div>
+      {% social_media_footer %}
+      <div class="searchCopyright-wrapper">
+        {% block search %}
+        <div class="search">
+          <div class="heading heading--hero">
+            <h3 class=" heading__basic">
+              {% trans "Search" %}
+            </h3>
+          </div>
+          <form action="{% url 'search' %}" novalidate class="search__form" novalidate>
+            <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search" %}">
+            <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
+          </form>
+        </div>
+        {% endblock %}
+        <div class="copyright">
+          {% if languages|length > 1 %}
+          <div class="languages languages--footer">
+            <p class="languages__label">{% trans "Language" %}:</p>
+            {% for language in languages %}
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+            {% endfor %}
+          </div>
           {% endif %}
-        </p>
-        {% if settings.gem.GemSettings.show_partner_credit %}
           <p class="copyright__disclaimer">
-            <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link">
-              {{settings.gem.GemSettings.partner_credit_description}}
-            </a>
+            &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
+            {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+              <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
+                {% trans "Terms &amp; Conditions" %}
+                </a>
+            {% endif %}
           </p>
-        {% endif %}
+          {% if settings.gem.GemSettings.show_partner_credit %}
+            <p class="copyright__disclaimer">
+              <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link">
+                {{settings.gem.GemSettings.partner_credit_description}}
+              </a>
+            </p>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </body>
 </html>
