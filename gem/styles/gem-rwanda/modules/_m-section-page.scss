@@ -18,9 +18,15 @@
           background-size: auto; //contain
         }
         #{$block}__caption {
-          background-color: map-get($styleElement, bgColor);
+          background-color: transparent;
+          background-image: url('/static/img/icons/rwanda/ShapesSprites.png');
+          background-repeat: no-repeat;
+          background-position: map-get($styleElement, sectionTitleImagePosition);
+          background-size: 85%;
+          min-width: 95px;
         }
         #{$block}__title {
+          background-color: map-get($styleElement, bgColor);
           color: map-get($styleElement, textColor);
         }
       }
@@ -47,7 +53,10 @@
   }
   &__caption {
     background-color: #000;
+    color: #fff;
     display: inline-block;
+    padding: 1em .313em;
+    margin: 1em 0 5px;
   }
   &__title {
     color: #fff;

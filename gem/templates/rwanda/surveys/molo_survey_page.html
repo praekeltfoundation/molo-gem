@@ -5,7 +5,7 @@
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__wrapper">
     <div class="heading {% if self.your_words_competition %}heading--hero {% else %}heading--secondary{% endif %}">
       <h1 class="{% if self.your_words_competition %}heading__component {% else %}heading__title{% endif %}">
-        {% if self.your_words_competition %}{% trans 'Share your story' %} {% else %}{% trans 'Quiz' %}{% endif %}
+        {% if self.your_words_competition %}{% trans 'Share your story' %}{% elif self.display_survey_directly %}{% trans 'Vote' %}{% else %}{% trans 'Quiz' %}{% endif %}
       </h1>
     </div>
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__inner">
