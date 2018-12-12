@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_prometheus',
 
     'taggit',
     'modelcluster',
@@ -148,6 +149,7 @@ COMMENTS_HIDE_REMOVED = False
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -174,6 +176,9 @@ if USE_OIDC_AUTHENTICATION:
         'gem.middleware.CustomSessionRefresh',
     ]
 
+MIDDLEWARE_CLASSES += [
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+]
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` , `springster` or `rwanda`
@@ -226,8 +231,14 @@ SESSION_SAVE_EVERY_REQUEST = True
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 # SQLite (simplest install)
-DATABASES = {'default': dj_database_url.config(
-    default='sqlite:///%s' % (join(BASE_DIR, 'db.sqlite3'),))}
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///%s' % (join(PROJECT_ROOT, 'db.sqlite3')),
+        engine='django_prometheus.db.backends.sqlite3')
+ }
+
+DATABASES['default']['TEST'] = {}
+DATABASES['default']['TEST']['NAME'] = join(PROJECT_ROOT, 'db.sqlite3')
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
