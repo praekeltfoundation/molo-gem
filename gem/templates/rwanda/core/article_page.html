@@ -15,7 +15,7 @@
       </div>
     {% endif %}
     {% get_comment_count for self as comment_count %}
-    {% load_tags_for_article self as tags %}
+    {% load_tags_for_article self as navigation_tags %}
     <ul class="teaser-stacklist-tags">
       {% if comment_count > 0 %}
       <li class="teaser-stacklist-tags__item">
@@ -25,8 +25,8 @@
         </a>
         </li>
       {% endif %}
-      {% if settings.core.SiteSettings.enable_tag_navigation and tags %}
-        {% for tag in tags %}
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+        {% for tag in navigation_tags %}
           {% if not tag.title.20 %}
             <li class="teaser-stacklist-tags__item">
               <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">

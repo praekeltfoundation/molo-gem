@@ -1,6 +1,7 @@
 .social-media {
   overflow: auto;
   text-align: center;
+  $block: unquote("#{&}");
   &__anchor {
     color: #fff;
     display: block;
@@ -11,8 +12,8 @@
   &__icon {
     display: inline-block;
     vertical-align: middle;
-    max-height: 50px;
-    max-width: 50px;
+    height: 50px;
+    width: 50px;
     &--facebook {
       background: url('/static/img/icons/rwanda/iconsSprite.png')  no-repeat 0 60%/90px;
     }
@@ -35,6 +36,13 @@
       flex: 1 auto;
       order: 2;
     }
+    #{$block}__icon {
+      height: auto;
+      width: auto;
+      max-width: 50px;
+      max-height: 50px;
+    }
+
   }
   &-list {
     margin: 0;
