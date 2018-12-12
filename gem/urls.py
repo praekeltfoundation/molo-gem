@@ -128,7 +128,7 @@ urlpatterns += [
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-    url('', include('django_prometheus.urls')),
+    url(r'', include('django_prometheus.urls')),
 ]
 
 
