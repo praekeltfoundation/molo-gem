@@ -52,5 +52,35 @@
   domReady(function() {
     stickyHeader();
     menuToggle();
+    var surveysClass =  document.getElementsByClassName('surveys');
+    var pollsClass   =  document.getElementsByClassName('polls');
+    var lastSurveysClass = surveysClass[surveysClass.length-1];
+    var lastPollsClass = pollsClass[pollsClass.length-1];
+    if (surveysClass.length > 0 && pollsClass.length > 0 ) {
+        surveysClass[0].classList.add("first");
+        lastPollsClass.classList.add("last");
+    }
+    if (surveysClass.length <= 0 && pollsClass.length > 0) {
+      console.log('Survey is not here and Polls is here');
+      if (pollsClass.length == 1) {
+        pollsClass[0].classList.add('only');
+      } else {
+        pollsClass[0].classList.add('first');
+      }
+      if (pollsClass.length > 1) {
+        lastPollsClass.classList.add("last");
+      }
+    }
+    if (pollsClass.length <= 0 && surveysClass.length > 0) {
+      console.log('Polls is not here and Surveys is here');
+      if (surveysClass.length == 1) {
+        surveysClass[0].classList.add('only');
+      } else {
+        surveysClass[0].classList.add('first');
+      }
+      if (surveysClass.length > 1) {
+        lastSurveysClass.classList.add("last");
+      }
+    }
   });
 })();
