@@ -1,5 +1,8 @@
 .yourwords {
   $block: unquote("#{&}");
+  @include for-size(tablet-landscape-up) {
+    padding: 5em 7%;
+  }
   &--homepage {
     text-align: center;
     section {
@@ -10,7 +13,7 @@
     background-color: $color-orange;
     padding: 1em;
     @include for-size(tablet-landscape-up) {
-      padding: 1em 2em;
+      padding: 3em 2em;
     }
   }
   .call-to-action__item--text {
