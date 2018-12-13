@@ -15,9 +15,8 @@ from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage, SectionIndexPage,
-                              BannerIndexPage, TagIndexPage, Tag)
+                              BannerIndexPage)
 from os.path import join
-from django.db import IntegrityError
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
@@ -412,94 +411,3 @@ class AddImagesToSectionsTest(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         call_command('add_images_to_sections', 'en')
-
-
-class RemoveEmptyNavigationTags(TestCase, GemTestCaseMixin):
-    def test_command_works(self):
-        """
-            Test that deleted navigation tags are removed
-            from articles
-        """
-        main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
-        tag_index = TagIndexPage.objects.child_of(main).first()
-        yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(main).first(),
-            title='Your mind')
-        article = self.mk_article(
-            parent=yourmind, title='first_main_article')
-        tag = Tag(title='New tag')
-        tag_index.add_child(instance=tag)
-        tag.save_revision().publish()
-        tag2 = Tag(title='New tag 2')
-        tag_index.add_child(instance=tag2)
-        tag2.save_revision().publish()
-        article.nav_tags.create(tag=tag)
-        article.nav_tags.create(tag=tag2)
-        article.save_revision().publish()
-        self.assertTrue(article.nav_tags.get(tag=tag).tag)
-        self.assertTrue(article.nav_tags.get(tag=tag2).tag)
-        self.assertEqual(article.nav_tags.count(), 2)
-        # delete the first tag
-        tag.delete()
-        # test that the article still refers to the deleted tag
-        self.assertEqual(article.nav_tags.count(), 2)
-        self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag')
-
-        call_command(
-            'remove_empty_nav_tags',
-        )
-        article = ArticlePage.objects.get(pk=article.pk)
-        # test that the article only points to existing tags
-        self.assertEqual(article.nav_tags.count(), 1)
-        self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
-
-        site = main.sites_rooted_here.all().first()
-        # delete the second tag and the main's site
-        tag2.delete()
-        site.delete()
-
-        # test that an integrity error is not thrown
-        try:
-            call_command('remove_empty_nav_tags',)
-        except IntegrityError:
-            self.fail("Management command raised an IntegrityError")
-
-    def test_command_works_with_unpublished_articles(self):
-        """
-            Test that deleted navigation tags are removed
-            from articles
-        """
-        main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
-        tag_index = TagIndexPage.objects.child_of(main).first()
-        yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(main).first(),
-            title='Your mind')
-        article = self.mk_article(
-            parent=yourmind, title='first_main_article')
-        tag = Tag(title='New tag')
-        tag_index.add_child(instance=tag)
-        tag.save_revision()
-        tag2 = Tag(title='New tag 2')
-        tag_index.add_child(instance=tag2)
-        tag2.save()
-        article.nav_tags.create(tag=tag)
-        article.nav_tags.create(tag=tag2)
-        article.save()
-        self.assertTrue(article.nav_tags.get(tag=tag).tag)
-        self.assertTrue(article.nav_tags.get(tag=tag2).tag)
-        self.assertEqual(article.nav_tags.count(), 2)
-        # delete the first tag
-        tag.delete()
-        # test that the article still refers to the deleted tag
-        self.assertEqual(article.nav_tags.count(), 2)
-
-        call_command(
-            'remove_empty_nav_tags',
-        )
-        article = ArticlePage.objects.get(pk=article.pk)
-        # test that the article only points to existing tags
-
-        self.assertEqual(article.nav_tags.count(), 1)
-        self.assertEqual(article.nav_tags.all()[0].tag.title, 'New tag 2')
