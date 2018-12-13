@@ -181,12 +181,11 @@
     </div>
   {% endif %}
   {% include "comments/comment_block.html" %}
+  {% bannerpages position=3 %}
   {% include "core/related-article-list.html" %}
-
   {% if parent_section.get_effective_extra_style_hints %}
     <div class="linebreak__{{parent_section.get_effective_extra_style_hints}}">
     </div>
   {% endif %}
   </div>
-  {% surveys_list_for_pages page=self %}
 {% endblock %}
