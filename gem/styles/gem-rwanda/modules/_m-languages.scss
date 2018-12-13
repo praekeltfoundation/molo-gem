@@ -6,12 +6,6 @@
     order: 3;
     width: 30%;
   }
-  &__label-inner {
-    @include for-size(phone-only) {
-      display: none;
-      visibility: hidden;
-    }
-  }
 }
 .languages {
   $block: unquote("#{&}");
@@ -61,12 +55,13 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-small;
+      height: 64px;
       padding: 5px 1em;
       @include for-size(tablet-portrait-up) {
         padding: 5px 5px 1.2em 5px;
       }
       @include for-size(tablet-landscape-up) {
-        padding: 1.1em 1em;
+        padding: 0.9em 1em;
       }
       &:before {
         content: " ";
@@ -198,9 +193,6 @@
   .is__open {
     background: #fff;
     color: #000;
-    @include for-size(tablet-landscape-up) {
-      padding: 1.07em 1em;
-    }
     &:before {
       background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 100px;
     }
