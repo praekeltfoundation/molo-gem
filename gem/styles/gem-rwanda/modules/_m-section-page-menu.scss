@@ -1,0 +1,49 @@
+.section-page-menu {
+
+  padding: 1em 5%;
+  @include for-size(tablet-landscape-up) {
+    padding: 5em 7%;
+  }
+  &-list {
+    padding: 0;
+    margin: 0;
+    $block: unquote("#{&}");
+    &__anchor {
+      color: #000;
+      display: block;
+      font-size: $font-large;
+      text-transform: uppercase;
+      max-height: 155px;
+      overflow: auto;
+      @include for-size(tablet-landscape-up) {
+        padding: 3em 1em 1em 1em;
+        height: 155px;
+      }
+    }
+    &__desc {
+      color: #000;
+      text-align: center;
+    }
+    &__item {
+      background: $color-gray-light;
+      display: block;
+      margin: 1em;
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        width: 20%;
+      }
+      @each $sectionModifier, $styleElement in $sectionThemes {
+        &--#{$sectionModifier} {
+          background-image: url(map-get($styleElement, bgPatterns));
+          background-color: map-get($styleElement, bgColor);
+          background-position: 0 0;
+          background-repeat: repeat;
+          background-size: auto;
+        }
+        #{$block}__anchor {
+          color: map-get($styleElement, textColor);
+        }
+      }
+    }
+  }
+}
