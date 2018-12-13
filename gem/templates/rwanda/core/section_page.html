@@ -112,13 +112,15 @@
       <!--- IF SELF | EXCLUDE SELF -->
     {% endcomment %}
     {% for section in sections %}
-      <li class="section-page-menu-list__item {% if section.get_effective_extra_style_hints %}section-page-menu-list__item--{{section.get_effective_extra_style_hints}}{% endif %}">
-        <a href="{% pageurl section.specific %}" class="section-page-menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-          {{section.title}}
-        </a>
+      <li class="section-page-menu-list__item">
+        <div class="section-page-menu-list__container {% if section.get_effective_extra_style_hints %}section-page-menu-list__container--{{section.get_effective_extra_style_hints}}{% endif %}">
+          <a href="{% pageurl section.specific %}" class="section-page-menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+            {{section.title}}
+          </a>
+        </div>
+        <p class="section-page-menu-list__desc">{{section.description}}</p>
       </li>
     {% endfor %}
-    <p class="section-page-menu-list__desc">{{section.subtitle}}</p>
   </ul>
 </div>
 {% bannerpages position=2 %}

@@ -8,11 +8,19 @@
     padding: 0;
     margin: 0;
     $block: unquote("#{&}");
+    &__item  {
+      display: block;
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        width: 20%;
+      }
+    }
     &__anchor {
       color: #000;
       display: block;
       font-size: $font-large;
       text-transform: uppercase;
+      font-weight: bold;
       max-height: 155px;
       overflow: auto;
       @include for-size(tablet-landscape-up) {
@@ -23,15 +31,15 @@
     &__desc {
       color: #000;
       text-align: center;
+      height: 40px;
+      overflow: auto;
+      margin: 0;
+      padding: 0 1.5em;
     }
-    &__item {
+    &__container {
       background: $color-gray-light;
       display: block;
       margin: 1em;
-      @include for-size(tablet-landscape-up) {
-        display: inline-block;
-        width: 20%;
-      }
       @each $sectionModifier, $styleElement in $sectionThemes {
         &--#{$sectionModifier} {
           background-image: url(map-get($styleElement, bgPatterns));
