@@ -9,7 +9,9 @@
     <div class="heading heading--primary">
       {% if self.get_effective_image %}
         {% image self.get_effective_image width-80 as section_photo %}
-          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section__icon"/>
+          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section__image"/>
+      {% else %}
+        <span class="section__icon"></span>
       {% endif %}
       <div class="section__caption">
         <h1 class="section__title">{{self.title}}</h1>
