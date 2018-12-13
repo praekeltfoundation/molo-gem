@@ -86,6 +86,8 @@
         {% if section.get_effective_image %}
           {% image section.get_effective_image width-80 as section_photo %}
             <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
+        {% else %}
+          <span class="section__icon"></span>
         {% endif %}
         <div class="section__caption">
           <h2 class="section__title">
