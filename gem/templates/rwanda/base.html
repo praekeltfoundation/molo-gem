@@ -58,7 +58,6 @@
             raf(function() {
               var smartStylesLargeDefer =
               document.getElementsByTagName('style')[0];
-              //document.querySelector('[rel="stylesheet"]');
               window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
             });
           js = document.createElement('script');
@@ -69,7 +68,6 @@
       }
   </script>
   {% endcompress %}
-
   {% molo_pwa_meta %}
 </head>
 <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
