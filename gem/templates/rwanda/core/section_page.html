@@ -82,23 +82,22 @@
     </li>
     {% endfor %}
     </ul>
-      <!--PAGINATION-->
-      {% if articles and articles_paginated.paginator.num_pages > 1 %}
-        <div class="pagination">
-        {% if articles_paginated.has_previous %}
-          <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">
-            {% trans "Previous" %}</a>
-        {% endif %}
-          <p class="call-to-action__item--text call-to-action__item--text-current">
-            Page {{ articles_paginated.number }} of {{articles_paginated.paginator.num_pages }}
-          </p>
-        {% if articles_paginated.has_next %}
-          <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--next">
-            {% trans "Newer" %}</a>
-        {% endif %}
-        </div>
+    {% if articles and articles_paginated.paginator.num_pages > 1 %}
+      <div class="pagination">
+      {% if articles_paginated.has_previous %}
+        <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--previous">
+          {% trans "Previous" %}</a>
       {% endif %}
-    {% your_words_competition_in_section self %}
+        <p class="call-to-action__item--text call-to-action__item--text-current">
+          Page {{ articles_paginated.number }} of {{articles_paginated.paginator.num_pages }}
+        </p>
+      {% if articles_paginated.has_next %}
+        <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--next">
+          {% trans "Newer" %}</a>
+      {% endif %}
+      </div>
+    {% endif %}
   </div>
 </div>
+{% your_words_competition_in_section self %}
 {% endblock %}
