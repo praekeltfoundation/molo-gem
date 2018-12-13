@@ -61,7 +61,8 @@
     display: block;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
-    &--#{$sectionModifier} {
+    &--#{$sectionModifier},
+    &-related--#{$sectionModifier} {
       .section__theme {
         background-image: url(map-get($styleElement, bgPatterns));
         background-color: map-get($styleElement, bgColor);
