@@ -1,14 +1,19 @@
 .pagination {
-  padding: 1em 5%;
-  text-align: center;
-  margin: 1em 0;
+  text-align: left;
+  @include for-size(tablet-landscape-up) {
+    padding: 1em 5%;
+    text-align: center;
+    margin: 1em 0;
+  }
   &--multi-step {
     text-align: left;
     padding: 0;
     border-top: none;
   }
   .call-to-action__item--text-current {
-    margin: 1em 0;
-    @include for-size(tablet-landscape-up) {}
+    margin: 0;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 5%;
+    }
   }
 }
