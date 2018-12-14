@@ -31,9 +31,8 @@
     text-align: left;
     &__item {
       display: block;
-      @include for-size(tablet-landscape-up) {
-        margin: 0.625em 0;
-      }
+      margin: 0.625em 0;
+      @include for-size(tablet-landscape-up) {}
     }
     &__title {
       color: #000;
@@ -55,9 +54,12 @@
   &-outer {
     margin: 0;
     padding: 0;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 5em 0 0;
+    }
   }
   &-inner {
-    margin: 0;
+    margin: 1em 0;
     padding: 0;
     @include for-size(tablet-landscape-up) {
       margin: 0 2em 0 0;
@@ -78,6 +80,7 @@
       }
     }
   }
+  //!!Caution: Extreme us of Nesting - Same class names
   &--secondary {
     display: block;
     padding: 0 0 1em;
@@ -87,8 +90,21 @@
       padding: 0 0 0 3.500em;
     }
     #{$block}-list__item {
-      display: inline-block;
       vertical-align: top;
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+      }
+      &:last-child {
+        .nav-outer {
+          #{$block}-list__item:last-child {
+            .nav-inner {
+              @include for-size(tablet-landscape-up) {
+                margin: 0 4em 0 0;
+              }
+            }
+          }
+        }
+      }
     }
     .nav-outer {
       #{$block}-list__item {
