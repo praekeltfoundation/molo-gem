@@ -22,12 +22,12 @@
       font-size: $font-x-small;
       text-transform: uppercase;
       padding: 5px 1em;
-      text-indent: -4.4em;
+      text-indent: -4.5em;
       @include for-size(tablet-portrait-up) {
         padding: 5px 5px 1.2em 5px;
       }
       @include for-size(tablet-landscape-up) {
-        padding: 1.1em 1em; //?
+        padding: 1.1em 1em;
       }
       &:after {
         content: " ";
@@ -75,8 +75,10 @@
   }
   .is__active {
     background: #fff;
+    &:before {
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 12px 35.7%/130px;
+    }
     &:after {
-      content: " ";
       background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 12px 35.7%/130px;
     }
   }

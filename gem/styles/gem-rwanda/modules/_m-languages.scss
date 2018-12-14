@@ -55,17 +55,19 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-small;
-      height: 64px;
       padding: 5px 1em;
+      text-indent: -6.6em;
       @include for-size(tablet-portrait-up) {
         padding: 5px 5px 1.2em 5px;
       }
       @include for-size(tablet-landscape-up) {
         padding: 0.6em 1em;
+        text-indent: 0;
+        //height: 64px;
       }
+      &:after,
       &:before {
-        content: " ";
-        display: inline-block;
+        content: "";
         background-image: url('/static/img/icons/rwanda/iconsSprite.png');
         background-repeat: no-repeat;
         background-size: 70px;
@@ -73,6 +75,22 @@
         vertical-align: middle;
         height: 40px;
         width: 45px;
+      }
+      &:after {
+        display: inline-block;
+        visibility: visible;
+        @include for-size(tablet-landscape-up) {
+          display: none;
+          visibility: hidden;
+        }
+      }
+      &:before {
+        display: none;
+        visibility: hidden;
+        @include for-size(tablet-landscape-up) {
+          display: inline-block;
+          visibility: visible;
+        }
       }
     }
     &__checkbox {
