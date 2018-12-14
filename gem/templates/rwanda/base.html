@@ -99,6 +99,11 @@
       <div class="burger-nav">
         <label for="nav_accordion" class="burger-nav__label toggle-nav">{% trans "Menu" %}</label>
       </div>
+      {% if  user.is_authenticated %}
+        <div class="nav-logged">
+          <a href="{{VIEW_PROFILE_URL}}" class="nav-logged__anchor">{% trans "Profile" %}</a>
+        </div>
+      {% endif %}
       <input type="checkbox" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
       <div class="nav-wrapper">
         <ul class="nav-list nav--primary">
