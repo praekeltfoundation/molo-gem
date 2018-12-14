@@ -125,32 +125,66 @@
             {% endif %}
           </li>
         </ul>
-        {% load_sections as sections %}
+        {% comment %}
+          <!-- What Feature is meant by this?
+          Are they tags? Subsection?
+         -->
+        {% endcomment %}
         <ul class="nav-list nav--secondary">
           <li class="nav-list__item">
-            <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
+            {% if settings.core.SiteSettings.enable_tag_navigation %}
+            {% load_tags as tags %}
+              {% if tags %}
+                <ul class="nav-outer">
+                  <li class="nav-list__item">
+                    <h3 class="nav-list__title">{% trans "Featured" %}:</h3>
+                  </li>
+                  <li class="nav-list__item">
+                    <ul class="nav-inner">
+                      {% for tag in tags|slice:":3" %}
+                        <li class="nav-list__item">
+                          <a href="{% url 'tags_list' tag.slug %}" class="nav-list__anchor">
+                            {{tag.title}}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                </ul>
+              {% endif %}
+            {% endif %}
           </li>
           <li class="nav-list__item">
-            <ul class="nav-inner">
-              {% for section in sections|slice:":3" %}
-                {% pageurl section.specific as section_path %}
-                <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
-                  <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                    {{section.title}}
-                  </a>
-                </li>
-              {% endfor %}
+          {% load_sections as sections %}
+          {% if sections %}
+            <ul class="nav-outer">
+              <li class="nav-list__item">
+                <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
+              </li>
+              <li class="nav-list__item">
+                <ul class="nav-inner">
+                  {% for section in sections|slice:":3" %}
+                    {% pageurl section.specific as section_path %}
+                    <li class="nav-list__item">
+                      <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                        {{section.title}}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+                <ul class="nav-inner">
+                  {% for section in sections|slice:"3:" %}
+                    {% pageurl section.specific as section_path %}
+                    <li class="nav-list__item">
+                      <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                        {{section.title}}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
             </ul>
-            <ul class="nav-inner">
-              {% for section in sections|slice:"3:" %}
-                {% pageurl section.specific as section_path %}
-                <li class="nav-list__item nav-list__item--{{section.get_effective_extra_style_hints}}">
-                  <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                    {{section.title}}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
+          {% endif %}
           </li>
         </ul>
       </div>
@@ -193,26 +227,6 @@
     <main>
       {% display_unread_notifications %}
       {% block content %}{% endblock %}
-
-      {% if settings.core.SiteSettings.enable_tag_navigation %}
-      {% load_tags as tags %}
-      {% if tags %}
-        <div class="tag-cloud">
-          <div class="heading heading--hero">
-            <h2 class=" heading__subheading">{% trans "Read stories about"%}:</h2>
-          </div>
-          <ul class="tag-cloud-list">
-            {% for tag in tags %}
-              <li class="tag-cloud-list__item">
-                <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
-                  <span class="tag-cloud__title">{{tag.title}}<span>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-    {% endif %}
     </main>
     <div id="footer" class="footer">
       <div class="menu">
