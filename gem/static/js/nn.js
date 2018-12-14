@@ -7,6 +7,8 @@
     var menuListLabel = document.getElementsByClassName('toggle-nav'),
       menuClassIndex;
       for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
+          //menuListLabel[menuClassIndex].nextSibling.getElementsByTagName('input['checkbox']').checked;
+          console.log(menuListLabel[menuClassIndex].nextSibling.innerHTML);
           menuListLabel[menuClassIndex].addEventListener('click', function(e) {
             if(e.target.classList.contains('is__open')) {
               e.target.classList.remove('is__open');
@@ -15,6 +17,7 @@
             }
         }, false);
       }
+
     var searchLabel = document.getElementById('search_nav');
     searchLabel.addEventListener('click', function(e) {
       if(e.target.classList.contains('is__active')) {
