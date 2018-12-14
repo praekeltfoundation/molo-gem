@@ -75,6 +75,14 @@
         vertical-align: middle;
         height: 40px;
         width: 45px;
+        @include for-size(tablet-portrait-up) {
+          background-position: 15px 22.5%;
+          width: 55px;
+        }
+        @include for-size(tablet-landscape-up) {
+          background-position: 0 22.5%;
+          width: 45px;
+        }
       }
       &:after {
         display: inline-block;
@@ -211,8 +219,10 @@
   .is__open {
     background: #fff;
     color: #000;
-    &:before {
-      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 15.3%/ 100px;
+    &:before,
+    &:after {
+      background-position: 0 15.3%;
+      background-size: 100px;
     }
   }
 }
