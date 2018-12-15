@@ -21,34 +21,35 @@
       display: inline-block;
       font-size: $font-x-small;
       text-transform: uppercase;
-      padding: 5px 1em;
       text-indent: -4.5em;
+
+      /*padding: 5px 1em;
       @include for-size(tablet-portrait-up) {
         padding: 5px 5px 1.2em 5px;
-      }
+      }*/
       @include for-size(tablet-landscape-up) {
-        padding: 0.9em 1em;
+        display: inline-flex;
+        padding: 0.9em 0;
       }
       &:after {
         content: " ";
         background-image: url('/static/img/icons/rwanda/iconsSprite.png');
         background-repeat: no-repeat;
-        background-position: 5px 32.3%;
+        //background-position: 5px 32.3%;
         background-size: 140px;
         display: inline-block;
         vertical-align: middle;
         height: 40px;
-        width: 55px;
+        padding: 0 3em;
+        //width: 55px;
         @include for-size(tablet-portrait-up) {
-          background-position: 15px 32.3%;
-          width: 60px;
+          //background-position: 15px 32.3%;
+          //width: 60px;
         }
         @include for-size(tablet-landscape-up) {
-          background-position: 5px 32.3%;
-          margin: 0 $spacer-small;
-          width: 50px;
+          background-position: -45% 32.3%;
+        //  width: 75px;
         }
-
       }
     }
     &__checkbox {
@@ -86,7 +87,7 @@
   .is__active {
     background: #fff;
     &:after {
-      background-position: 12px 35.7%;
+      background-position: -45% 35.7%;
       background-size: 130px;
     }
   }
