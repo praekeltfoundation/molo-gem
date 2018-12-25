@@ -3,12 +3,13 @@
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
+
   var menuToggle = function() {
-    var menuListLabel = document.getElementsByClassName('toggle-nav'),
-      menuClassIndex;
+    var menuListLabel = document.getElementsByClassName('toggle-nav');
+    var menuClassIndex;
       for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
           //menuListLabel[menuClassIndex].nextSibling.getElementsByTagName('input['checkbox']').checked;
-          console.log(menuListLabel[menuClassIndex].nextSibling.innerHTML);
+          console.log(menuListLabel[menuClassIndex].nextElementSibling);
           menuListLabel[menuClassIndex].addEventListener('click', function(e) {
             if(e.target.classList.contains('is__open')) {
               e.target.classList.remove('is__open');
@@ -27,6 +28,7 @@
         }
     }, false);
   }
+
   var stickyHeader = function() {
     var header = document.getElementById("header");
     var content = document.getElementById("content_wrapper");
@@ -51,7 +53,6 @@
       this.y = window.pageYOffset;
     });
   };
-
   domReady(function() {
     stickyHeader();
     menuToggle();
