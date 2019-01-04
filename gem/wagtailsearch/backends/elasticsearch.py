@@ -8,7 +8,7 @@ from django.utils.crypto import get_random_string
 from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
-from wagtail.wagtailsearch.index import (
+from wagtail.search.index import (
     FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 
 from .base import BaseSearchBackend, BaseSearchQuery, BaseSearchResults

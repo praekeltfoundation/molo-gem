@@ -9,7 +9,7 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.six import StringIO
-from wagtail.wagtailimages.tests.utils import Image, get_test_image_file
+from wagtail.images.tests.utils import Image, get_test_image_file
 from molo.commenting.models import MoloComment
 from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Languages,

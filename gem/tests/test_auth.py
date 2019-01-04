@@ -13,8 +13,8 @@ from gem.tests.base import GemTestCaseMixin
 from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
     CustomAuthenticationRequestView)
-from wagtail.wagtailcore import urls as wagtail_urls
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
 from django.core.urlresolvers import reverse
 
 urlpatterns = [
