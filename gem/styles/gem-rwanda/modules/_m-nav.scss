@@ -1,10 +1,9 @@
-.nav {
-  $block: unquote("#{&}");
-  overflow: auto;
-  vertical-align: middle;
+.NavLogged-wrapper {
   display: inline-block;
-  text-align: left;
   margin: 0 15% 0 0;
+  vertical-align: middle;
+  overflow: auto;
+  text-align: left;
   @include for-size(tablet-landscape-up) {
     flex: 1 auto;
     order: 1;
@@ -12,6 +11,10 @@
     width: 30%;
     margin: 0;
   }
+}
+.nav {
+  $block: unquote("#{&}");
+  display: inline-block;
   &-wrapper {
     background: #fff;
     color: $color-cyan;

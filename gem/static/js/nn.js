@@ -4,18 +4,14 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   var menuToggle = function() {
-    var menuListLabel = document.getElementsByClassName('toggle-nav');
-    var menuClassIndex;
-    for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
-      var checkboxElements = menuListLabel[menuClassIndex].nextElementSibling;
-      checkboxElements.onclick = function(e) {
-        e.target.checked = true;
-        if(e.target.checked = true) {
-          checkboxElements.checked = false;
-        } else {
-          e.target.checked = true;
-        }
-      }
+    var checkboxLabel = document.getElementsByClassName('toggle-nav');
+    for (var i = 0; i < checkboxLabel.length; i++) {
+      var checkboxElem = checkboxLabel[i].nextElementSibling;
+      checkboxElem.addEventListener('click', function(e) {
+        checkboxElem.checked = !(checkboxElem.checked);
+        console.log(this.checked,' == ', checkboxElem.checked);
+        //console.log(!this.checked, ' == ', !checkboxElem.checked);
+      }, false);
     }
   }
   var stickyHeader = function() {
