@@ -21,6 +21,7 @@ after_success:
 jobs:
   include:
     - stage: test
+      python: "3.6"
     - language: node_js
       node_js: '8' # LTS version
       env: []
@@ -33,7 +34,7 @@ jobs:
         - travis_retry npm install
       script:
         - gulp --type=ci
-      python: "2.7"
+      python: "3.6"
     - python: "3.6"
       # Clear unused build steps
       services: []

@@ -5,7 +5,7 @@ from django.db import migrations
 
 from molo.profiles.models import UserProfilesSettings
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 def set_site_settings(apps, schema_editor):

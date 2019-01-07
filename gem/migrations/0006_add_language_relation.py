@@ -6,7 +6,7 @@ from django.db import migrations
 
 def add_language_relation(apps, schema_editor):
     from molo.core.models import SiteLanguage, LanguageRelation
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
     if not (SiteLanguage.objects.filter(is_main_language=True)).exists():
         from molo.core.models import LanguagePage

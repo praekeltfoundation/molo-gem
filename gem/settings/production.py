@@ -1,6 +1,6 @@
 import os
 from .base import *  # noqa
-from base import USE_OIDC_AUTHENTICATION
+from .base import USE_OIDC_AUTHENTICATION
 
 # Disable debug mode
 

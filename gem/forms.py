@@ -7,7 +7,7 @@ from gem.models import GemSettings
 from molo.profiles.forms import RegistrationForm, EditProfileForm, DoneForm
 from gem.settings import REGEX_EMAIL, REGEX_PHONE
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 def validate_no_email_or_phone(input):

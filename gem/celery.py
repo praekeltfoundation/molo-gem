@@ -35,13 +35,13 @@ def ensure_search_index_updated(sender, instance, **kwargs):
     Run update_index when celery starts
     '''
     try:
-        from wagtail.wagtailsearch.backends.db import DBSearch
+        from wagtail.search.backends.db import DBSearch
         backend = DBSearch
     except ImportError:
-        from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
+        from wagtail.search.backends.db import DatabaseSearchBackend
         backend = DatabaseSearchBackend
 
-    from wagtail.wagtailsearch.backends import get_search_backend
+    from wagtail.search.backends import get_search_backend
 
     if not isinstance(get_search_backend(), backend):
         call_command('update_index')
