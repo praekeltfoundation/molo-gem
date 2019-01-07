@@ -3,32 +3,21 @@
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
-
   var menuToggle = function() {
     var menuListLabel = document.getElementsByClassName('toggle-nav');
     var menuClassIndex;
-      for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
-          //menuListLabel[menuClassIndex].nextSibling.getElementsByTagName('input['checkbox']').checked;
-          console.log(menuListLabel[menuClassIndex].nextElementSibling);
-          menuListLabel[menuClassIndex].addEventListener('click', function(e) {
-            if(e.target.classList.contains('is__open')) {
-              e.target.classList.remove('is__open');
-            } else {
-              e.target.classList.add('is__open');
-            }
-        }, false);
-      }
-
-    var searchLabel = document.getElementById('search_nav');
-    searchLabel.addEventListener('click', function(e) {
-      if(e.target.classList.contains('is__active')) {
-          e.target.classList.remove('is__active');
+    for (menuClassIndex = 0; menuClassIndex < menuListLabel.length; menuClassIndex++) {
+      var checkboxElements = menuListLabel[menuClassIndex].nextElementSibling;
+      checkboxElements.onclick = function(e) {
+        e.target.checked = true;
+        if(e.target.checked = true) {
+          checkboxElements.checked = false;
         } else {
-          e.target.classList.add('is__active');
+          e.target.checked = true;
         }
-    }, false);
+      }
+    }
   }
-
   var stickyHeader = function() {
     var header = document.getElementById("header");
     var content = document.getElementById("content_wrapper");
@@ -53,9 +42,7 @@
       this.y = window.pageYOffset;
     });
   };
-  domReady(function() {
-    stickyHeader();
-    menuToggle();
+  var pluginsSpacingStyle = function () {
     var surveysClass =  document.getElementsByClassName('surveys');
     var pollsClass   =  document.getElementsByClassName('polls');
     var lastSurveysClass = surveysClass[surveysClass.length-1];
@@ -86,5 +73,10 @@
         lastSurveysClass.classList.add("last");
       }
     }
+  }
+  domReady(function() {
+    stickyHeader();
+    menuToggle();
+    pluginsSpacingStyle();
   });
 })();

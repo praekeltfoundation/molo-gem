@@ -94,6 +94,7 @@ var gulp              =   require('gulp'),
           extname: ".js"
         }))
         .pipe(uglify())
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(gulp.dest('gem/static/js/dest'))
     });
 

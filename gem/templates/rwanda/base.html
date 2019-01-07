@@ -96,13 +96,13 @@
       </div>
     </div>
     <div class="nav">
-      <label for="nav_accordion" class="burger-nav__label toggle-nav">{% trans "Menu" %}</label>
       {% if  user.is_authenticated %}
         <div class="nav-logged">
           <a href="{{VIEW_PROFILE_URL}}" class="nav-logged__anchor">{% trans "Profile" %}</a>
         </div>
       {% endif %}
-      <input type="checkbox" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
+      <label for="nav_accordion" class="burger-nav__label toggle-nav">{% trans "Menu" %}</label>
+      <input type="checkbox" value="toggles" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
       <div class="nav-wrapper">
         <ul class="nav-list nav--primary">
           <li class="nav-list__item">
@@ -111,25 +111,24 @@
             </a>
           </li>
           <li class="nav-list__item">
-          {% if not user.is_authenticated %}
-            <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
-          {% else %}
-            <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
-          {% endif %}
+            {% if not user.is_authenticated %}
+              <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
+            {% else %}
+              <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
+            {% endif %}
           </li>
           <li class="nav-list__item">
             {% if not user.is_authenticated %}
               <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
             {% else %}
-              <form method="post" action="{% url LOGOUT_URL %}" novalidate>
-              {% csrf_token %}
-                <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit" />
+              <form method="post" action="{% url LOGOUT_URL %}" novalidate>{% csrf_token %}
+                <input class="nav-list__anchor" value="{% trans "Log out" %}" type="submit"/>
               </form>
             {% endif %}
           </li>
         </ul>
         {% comment %}
-          <!-- What Feature is meant by this?
+          <!-- What Feature is meant here?
           Are they tags? Subsection?
          -->
         {% endcomment %}
@@ -195,7 +194,7 @@
     <div class="languageSearch-wrapper">
       <div class="languages">
         <label for="languages_accordion" class="languages-accordion__label toggle-nav">{% trans "Languages" %}</label>
-        <input type="checkbox" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
+        <input type="checkbox" value="toggles" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
         <div class="languages-wrapper">
           <ul class="languages-list">
             <li class="languages-list__item">
@@ -214,8 +213,8 @@
         </div>
       </div>
       <div class="search search--header">
-        <label for="search_accordion" id="search_nav" class="search-accordion__label">{% trans "Search" %}</label>
-        <input id="search_accordion" class="search-accordion__checkbox" type="checkbox" />
+        <label for="search_accordion" id="search_nav" class="search-accordion__label toggle-nav">{% trans "Search" %}</label>
+        <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="search-accordion__checkbox" />
         <div class="search-wrapper">
           <h3 class="search__title">{% trans "Search" %}:</h3>
           <form action="{% url 'search' %}" novalidate class="search__form" novalidate>
