@@ -1,4 +1,6 @@
-{% load gravatar gem_tags %}
+{% load gem_tags %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
 <nav class="nav-main">
     <ul>
         {{ menu_html }}
@@ -6,24 +8,27 @@
         <li class="footer" id="footer">
             <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
                 <span class="avatar square avatar-on-dark">
-                    <img src="{% gravatar_url request.user.email 25 %}" />
+                    <img src="{% avatar_url request.user size=50 %}" />
                 </span>
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
             </div>
+            {% comment %}
+            BEGIN CUSTOM TEMPLATE LOGIC
+            Enable admin logout to redirect to OIDC provider
+            {% endcomment %}
             {% oidc_logout_url as LOGOUT_URL %}
+            {# END CUSTOM TEMPLATE LOGIC #}
             <ul class="footer-submenu">
+                <li><a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">{% trans "Account settings" %}</a></li>
                 <li>
-                  <a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">
-                    {% trans "Account settings" %}
-                  </a>
-                </li>
-                <li>
+                  {# BEGIN CUSTOM TEMPLATE LOGIC #}
                   <form method="post" action="{% url LOGOUT_URL %}">
                     {% csrf_token %}
                     <span class="icon-logout_wrapper">
                       <input class="icon icon-logout" value="{% trans "Log out" %}" type="submit">
                     </span>
                   </form>
+                  {# END CUSTOM TEMPLATE LOGIC #}
               </li>
             </ul>
 
