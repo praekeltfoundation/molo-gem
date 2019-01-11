@@ -7,7 +7,7 @@
     vertical-align: top;
     margin: 0 $spacer-small 2em $spacer-small;
     @include for-size(tablet-landscape-up) {
-      width: 21%;
+      width: 25%;
       display: inline-block;
     }
     .article-page__quote {
@@ -23,11 +23,12 @@
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
-    display: grid;
-    align-items: stretch;
-    justify-content: stretch;
-    @include for-size(tablet-landscape-up) {
-      height: 173px;
+    //display: grid;
+    //align-items: stretch;
+    //justify-content: stretch;
+    @include for-size(desktop-up) {
+      height: 165.94px;
+      //height: 173px;
     }
   }
   &__thumbnail {
@@ -80,7 +81,7 @@
     }
     #{$block}__item {
       margin: 0;
-      width: auto;
+      width: 100%;
     }
   }
   &--primary {
@@ -89,13 +90,12 @@
     #{$block}__item {
       &:nth-child(1) {
         @include for-size(tablet-landscape-up) {
-          width: 65%;
+          width: 67%;
           float: left;
         }
         #{$block}__images {
-          max-height: 365px;
-          @include for-size(tablet-landscape-up) {
-            height: 365px;
+          @include for-size(desktop-up) {
+            height: 361.69px;
           }
         }
       }
@@ -123,7 +123,7 @@
     #{$block}__item {
       display: inline-block;
       @include for-size(tablet-landscape-up) {
-        width: 35%;
+        width: 34%;
       }
     }
   }
