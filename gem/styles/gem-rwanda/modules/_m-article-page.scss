@@ -28,7 +28,7 @@
   &__content {
     padding: 0 5%;
     @include for-size(tablet-landscape-up) {
-      padding: 0 20%;
+      padding: 0 19%;
     }
   }
   &__quote {
@@ -48,30 +48,31 @@
     height: auto;
     overflow: hidden;
     margin: 0 auto;
-    width: 100%;
+    width: 98%;
     border: 3px solid $color-cyan;
     @include for-size(tablet-landscape-up) {
-      max-height: 450.75px;
+      height: 491.63px;
     }
     &--inner {
       border: 3px solid $color-cyan;
-      overflow: auto;
+      overflow: hidden;
       height: auto;
       display: inline-block;
       margin: 1em;
-      @include for-size(tablet-landscape-up) {
-        max-height: 252px;
+      @include for-size(desktop-up) {
+        width: 29%;
+        height: 236.81px;
       }
       &:nth-child(even) {
-        @include for-size(tablet-landscape-up) {
+        @include for-size(desktop-up) {
           float: left;
-          margin: 1em 2em 1em 15%;
+          margin: 1em 1em 1em 20%;
         }
       }
       &:nth-child(odd) {
-        @include for-size(tablet-landscape-up) {
+        @include for-size(desktop-up) {
           float: right;
-          margin: 1em 15% 1em 2em;
+          margin: 1em 20% 1em 1em;
         }
       }
     }
@@ -110,7 +111,7 @@
   }
   .media-player {
     clear: both;
-    @include for-size(tablet-landscape-up) {
+    @include for-size(desktop-up) {
       padding: 1em 20%;
     }
   }
