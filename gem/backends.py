@@ -9,7 +9,7 @@ from datetime import datetime
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Group
 from molo.profiles.models import UserProfile
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 USERNAME_FIELD = "username"

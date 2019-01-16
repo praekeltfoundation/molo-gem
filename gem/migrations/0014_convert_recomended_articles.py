@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from molo.core.models import ArticlePage, ArticlePageRecommendedSections
-from wagtail.wagtailcore.blocks import StreamValue
+from wagtail.core.blocks import StreamValue
 
 
 def create_recomended_articles(main_article, article_list):

@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from molo.core.models import (
     Languages, ReactionQuestion, ReactionQuestionChoice,
     ReactionQuestionIndexPage, PageTranslation, Main)
-from wagtail.wagtailimages.tests.utils import Image
+from wagtail.images.tests.utils import Image
 
 
 class Command(BaseCommand):

@@ -4,15 +4,15 @@ from django.db import models
 from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
     PageChooserPanel,
 )
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class OIDCSettings(models.Model):
