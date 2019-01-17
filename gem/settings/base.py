@@ -167,6 +167,7 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'csp.middleware.CSPMiddleware',
 ]
 
 if LOG_HEADER_DUMP:
@@ -573,3 +574,4 @@ AWS_S3_FILE_OVERWRITE = False
 PERSONALISATION_SEGMENTS_ADAPTER = (
     'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
 )
+CSP_FRAME_ANCESTORS = 'self' '*.example.com' 'https://tableau.ie.gehosting.org'
