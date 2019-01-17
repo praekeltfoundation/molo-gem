@@ -167,7 +167,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'csp.middleware.CSPMiddleware',
 ]
 
 if LOG_HEADER_DUMP:
@@ -577,4 +576,3 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
-CSP_FRAME_ANCESTORS = 'self' 'https://tableau.ie.gehosting.org'
