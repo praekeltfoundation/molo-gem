@@ -1,7 +1,7 @@
 .main-feature {
   @include for-size(tablet-landscape-up) {
     display: flex;
-    padding: 0 0 0 7%;
+    padding: 0 0 0 $spacer-inner;
   }
 }
 .article-teaser {
@@ -9,7 +9,7 @@
   overflow: auto;
   position: relative;
   &-related {
-    padding: 0 7%;
+    padding: 0 $spacer-inner;
     .teaser-stacklist {
       @include for-size(tablet-landscape-up) {
         padding: 1em 5%;
@@ -53,11 +53,11 @@
     @include for-size(tablet-landscape-up) {
       order: 2;
       width: 35%;
-      padding: 1em 9% 0 2em;
+      padding: 1em 8% 0 2em;
     }
   }
   &--featured-homepage {
-    padding: 3em 7% 1em;
+    padding: 3em $spacer-inner 1em;
     display: block;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
