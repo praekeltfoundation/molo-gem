@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
 )

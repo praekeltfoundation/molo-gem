@@ -1,4 +1,4 @@
-ARG MOLO_VERSION=6
+ARG MOLO_VERSION=7
 FROM praekeltfoundation/molo-bootstrap:${MOLO_VERSION}-onbuild
 
 ENV DJANGO_SETTINGS_MODULE=gem.settings.docker \

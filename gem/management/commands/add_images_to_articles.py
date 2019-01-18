@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import csv
 from django.core.management.base import BaseCommand
-from wagtail.wagtailimages.tests.utils import Image
+from wagtail.images.tests.utils import Image
 from molo.core.models import Languages, ArticlePage, Main, SectionIndexPage
 
 

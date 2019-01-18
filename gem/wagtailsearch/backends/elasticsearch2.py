@@ -5,7 +5,7 @@ import inspect
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from wagtail.wagtailsearch.index import FilterField, RelatedFields, SearchField
+from wagtail.search.index import FilterField, RelatedFields, SearchField
 
 from .elasticsearch import (
     ElasticsearchIndex, ElasticsearchMapping, ElasticsearchSearchBackend, ElasticsearchSearchQuery,

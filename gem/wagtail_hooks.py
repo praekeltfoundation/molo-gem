@@ -1,6 +1,6 @@
 from gem.admin import GemCommentModelAdmin
 from wagtail.contrib.modeladmin.options import modeladmin_register
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 modeladmin_register(GemCommentModelAdmin)
 

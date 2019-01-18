@@ -35,7 +35,7 @@ from molo.profiles.views import (
 )
 from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 def report_response(request, comment_pk):

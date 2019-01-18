@@ -109,22 +109,22 @@ INSTALLED_APPS = [
     'fcm_django',
     'mote',
 
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailforms',
+    'wagtail.core',
+    'wagtail.admin',
+    'wagtail.documents',
+    'wagtail.snippets',
+    'wagtail.users',
+    'wagtail.sites',
+    'wagtail.images',
+    'wagtail.embeds',
+    'wagtail.search',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
     'wagtailmedia',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
     'wagtailsurveys',
-    'wagtail.contrib.wagtailsitemaps',
+    'wagtail.contrib.sitemaps',
     'wagtail_personalisation',
     'wagtailfontawesome',
 
@@ -159,14 +159,15 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'csp.middleware.CSPMiddleware',
 ]
 
 if LOG_HEADER_DUMP:
@@ -401,6 +402,7 @@ if ES_HOST and ES_SELECTED_INDEX:
 # cropping - requires OpenCV
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 IMAGE_COMPRESSION_QUALITY = 85
+
 
 # This setting lets you override the maximum upload size for images (in bytes).
 # If omitted, Wagtail will fall back to using its 10MB default value.
