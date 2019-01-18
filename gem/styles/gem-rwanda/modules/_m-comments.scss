@@ -7,12 +7,7 @@
   }
   &__container {
     padding: 2em 0;
-    background: $color-red url('/static/img/patterns/rwanda/NN_PATTERN-TREES-RED-001.svg') repeat center center/auto;
-    @each $sectionModifier, $styleElement in $sectionThemes {
-      &--#{$sectionModifier} {
-        background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPatterns)) repeat center center/auto;
-      }
-    }
+    background: $color-cyan;
   }
   &__wrapper {
     background: #fff;
@@ -203,24 +198,25 @@
   &-counter {
     background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 86.7%/ 100%;
     color: #fff;
-    height: 35px;
-    width: 35px;
     display: inline-block;
+    height: 30px;
     position: relative;
     padding: $spacer-small;
     text-align: center;
+    text-decoration: none;
     vertical-align: bottom;
+    width: 30px;
     &:active, &:hover, &:focus {
-      color: #fff;
       background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 100%/ 100%;
+      color: #fff;
     }
     &__icon {
       display: none;
       visibility: hidden;
     }
     &__numeral {
-      font-weight: bold;
-      font-size: $font-x-medium;
+      display: block;
+      font-size: $font-x-small;
     }
   }
   .heading {

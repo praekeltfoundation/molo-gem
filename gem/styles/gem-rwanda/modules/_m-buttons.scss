@@ -33,49 +33,42 @@
   }
   //USE OF !important TO ENFORCE ARTICLE WILD* STYLE TAGS
   &__button {
-    color: #fff !important;
     background-color: $color-cyan;
+    color: #000;
     display: inline-block;
-    font-weight: bold;
-    font-size: $font-x-small;
-    padding: 5px !important;
+    font-size: $font-x-medium;
+    padding: 5px;
     text-transform: uppercase;
-    margin: 0;
+    text-decoration: none;
     vertical-align: middle;
-    font-weight: bold;
-    @include for-size(feature-only) {
-      color: #000 !important;
-    }
     @include for-size(phone-only) {
-      color: #fff !important;
-      font-size: $font-x-small;
-      padding: 10px !important;
+      color: #fff;
+      padding: 10px;
       margin: 5px 1em 1em 0;
     }
     @include for-size(tablet-landscape-up) {
-      font-size: $font-x-small;
-      padding: 0.6em 1em !important;
+      margin: 0;
+      padding: 0.5em 0.8em;
     }
     &--primary {
       &:after {
-        content: " ";
         display: inline-block;
-        width: 0;
+        border-top: 7px solid transparent;
+        border-left: 15px solid #fff;
+        border-bottom: 7px solid transparent;
+        content: " ";
         height: 0;
-        border-top: 5px solid transparent;
-        border-left: 10px solid #fff;
-        border-bottom: 5px solid transparent;
-        margin: 0 0 0 1em;
+        margin: 0 0 0 0.5em;
+        position: inherit;
+        top: 1px;
+        width: 0;
       }
       @include for-size(phone-only) {
         -webkit-box-shadow: 9px 9px 0 0 $color-yellow-gorse;
         box-shadow: 9px 9px 0 0 $color-yellow-gorse;
       }
-      @include for-size(tablet-landscape-up) {
-        padding: 1em 5%;
-      }
       &:active, &:hover, &:focus {
-        color: $color-yellow-gorse !important;
+        color: $color-yellow-gorse;
         &:after {
           border-left-color: $color-yellow-gorse;
         }
@@ -100,11 +93,8 @@
         -webkit-box-shadow: 9px 9px 0 0 $color-pink-hollywood;
         box-shadow: 9px 9px 0 0 $color-pink-hollywood;
       }
-      @include for-size(tablet-landscape-up) {
-        padding: 1em 5%;
-      }
       &:active, &:hover, &:focus {
-        color: $color-pink-hollywood !important;
+        color: $color-pink-hollywood;
         &:after {
           border-left-color: $color-pink-hollywood;
         }

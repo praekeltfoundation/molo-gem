@@ -4,7 +4,7 @@
 <div class="article-teaser article-teaser--latest">
   <div class="heading heading--hero">
     <h2 class=" heading__component">
-      {% trans "Latest stories" %}
+      {% trans "Latest articles" %}
     </h2>
   </div>
   <div class="article-teaser__wrapper">
@@ -75,7 +75,9 @@
             </p>
           {% endif %}
         {% endwith %}
-        <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+        <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+          {% trans "Read article" %}
+        </a>
         </li>
       {% endfor %}
     </ul>
@@ -137,7 +139,7 @@
             </p>
             {% endif %}
           <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
-          {% trans "Read more" %}</a>
+          {% trans "Read article" %}</a>
         </li>
       {% endfor %}
     </ul>

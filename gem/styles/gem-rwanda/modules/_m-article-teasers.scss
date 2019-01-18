@@ -6,7 +6,7 @@
 }
 .article-teaser {
   $block: unquote("#{&}");
-  overflow: auto;
+  //overflow: auto;
   position: relative;
   &-related {
     padding: 0 $spacer-inner;
@@ -25,11 +25,11 @@
     height: auto;
   }
   &__title {
-    text-transform: uppercase;
-    font-size: $font-x-medium;
+    line-height: 1;
+    font-size: $font-x-large;
+    margin: $spacer-half 0;
     word-wrap: break-word;
     word-break: initial;
-    margin: $spacer-small 0;
   }
   &__subtitle {
     margin: 0;
@@ -57,7 +57,7 @@
     }
   }
   &--featured-homepage {
-    padding: 3em $spacer-inner 1em;
+    padding: 3em $spacer-inner 0;
     display: block;
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
