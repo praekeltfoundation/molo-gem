@@ -167,7 +167,6 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'csp.middleware.CSPMiddleware',
 ]
 
 if LOG_HEADER_DUMP:
