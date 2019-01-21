@@ -3,124 +3,16 @@
   margin: 0;
   padding: 0;
   &__item {
+    display: block;
+    margin: 0;
+    width: 100%;
     list-style: none;
     vertical-align: top;
     margin: 0 $spacer-small 2em $spacer-small;
     @include for-size(tablet-landscape-up) {
-      width: 25%;
-      display: inline-block;
-    }
-    .article-page__quote {
-      padding: 0;
-      font-weight: inherit;
-      text-align: inherit;
-      text-transform: inherit;
-    }
-  }
-  &__images {
-    background-color: $color-gray-light;
-    border: 3px solid $color-cyan;
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    @include for-size(desktop-up) {
-      height: 165.94px;
-    }
-  }
-  &__thumbnail {
-    display: block;
-    height: auto;
-    width: 100%;
-  }
-  &__title {
-    font-size: $font-x-large;
-    line-height: 1;
-    margin: $spacer-half 0;
-    text-transform: uppercase;
-    word-wrap: break-word;
-    word-break: initial;
-  }
-  &__subtitle {
-    font-family: $TwCenMTBold;
-    margin: 0 0 $spacer-half;
-  }
-  &-tags {
-    display: block;
-    height: 35px;
-    margin: 0;
-    padding: 5px 0 0;
-    overflow: hidden;
-    &__item {
-      display: inline-block;
-      padding: 0 $spacer-small 0 0;
-    }
-    &__anchor {
-      color: $color-cyan;
-      font-size: $font-x-small;
-      text-decoration: underline;
-        &:hover, &:focus, &:active {
-          text-decoration: underline;
-        }
-        &:before {
-          content: "#";
-          display: inline;
-        }
-    }
-    &__title {
-      display: inline;
-      margin-left: ($spacer-small - 7);
-    }
-  }
-  &--topic-of-day {
-    .comments-counter {
-      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 100%/100%;
-    }
-    #{$block}__item {
-      margin: 0;
-      width: 100%;
-    }
-  }
-  &--primary {
-    margin: 0 0.5em 0 0;
-    clear: both;
-    #{$block}__item {
-      &:nth-child(1) {
-        @include for-size(tablet-landscape-up) {
-          width: 66%;
-          float: left;
-        }
-        #{$block}__images {
-          @include for-size(desktop-up) {
-            height: 361.69px;
-          }
-        }
-      }
-      &:nth-child(2),
-      &:nth-child(3) {
-        @include for-size(tablet-landscape-up) {
-          width: 30%;
-          float: right;
-        }
-        #{$block}__images {
-          width: auto;
-          margin: 0;
-        }
-        #{$block}__paragraph {
-          height: 0;
-          overflow: hidden;
-          display: none;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      display: inline-block;
-      @include for-size(tablet-landscape-up) {
-        width: 34%;
-      }
+      align-items: flex-start;
+      display: flex;
+      justify-content: center;
     }
   }
 }

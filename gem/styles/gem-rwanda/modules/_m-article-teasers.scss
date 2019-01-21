@@ -1,23 +1,42 @@
-.main-feature {
-  @include for-size(tablet-landscape-up) {
-    display: flex;
-    padding: 0 0 0 $spacer-inner;
+/*.article-teaser-related {
+  padding: 0 $spacer-inner;
+  .teaser-stacklist {
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 5%;
+    }
   }
-}
+}*/
+
 .article-teaser {
   $block: unquote("#{&}");
   overflow: auto;
   position: relative;
-  &-related {
-    padding: 0 $spacer-inner;
-    .teaser-stacklist {
-      @include for-size(tablet-landscape-up) {
-        padding: 1em 5%;
-      }
-    }
-  }
   &__wrapper {
     clear: both;
+  }
+  &__images {
+    background-color: $color-gray-light;
+    border: 3px solid $color-cyan;
+    margin: 0 auto;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 100%;
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      height: 236.81px;
+      width: 63%;
+    }
+  }
+  &__container {
+    padding: 0;
+    vertical-align: middle;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 5% 1em 1em;
+    }
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      width: 100%;
+    }
   }
   &__thumbnail {
     width: 100%;
