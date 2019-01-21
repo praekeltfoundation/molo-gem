@@ -17,8 +17,10 @@
         <li class="teaser-stacklist__item">
           {% if article.image %}
             <div class="teaser-stacklist__images">
-              {% image article.image width-200 as teaser_thumbnail %}
-              <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                {% image article.image width-200 as teaser_thumbnail %}
+                <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+              </a>
             </div>
           {% endif %}
           <ul class="teaser-stacklist-tags">
@@ -69,7 +71,7 @@
             </p>
           {% endif %}
           <a href="{% pageurl article.specific %}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Read more" %}</a>
+            {% trans "Read article" %}</a>
         </li>
       {% endfor %}
       </ul>
@@ -77,12 +79,16 @@
     {% if search_results.paginator.num_pages > 1 %}
       <div class="pagination">
         {% if search_results.has_previous %}
-          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Previous" %}</a>
+          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">
+            {% trans "Previous" %}
+          </a>
         {% endif %}
         <p class="call-to-action__item--text call-to-action__item--text-current">
           {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}</p>
         {% if search_results.has_next %}
-          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">{% trans "Newer</a>
+          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">
+            {% trans "Newer" %}
+          </a>
         {% endif %}
       </div>
     {% endif %}

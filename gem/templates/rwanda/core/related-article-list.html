@@ -12,7 +12,7 @@
       {% endif %}
       <div class="section__caption">
         <h2 class="section__title">
-          {% trans "Read next..." %}
+          {% trans "Read next" %}...
         </h2>
       </div>
     </div>
@@ -20,7 +20,9 @@
       <li class="teaser-stacklist__item">
         {% if next_article.image %}
           <div class="teaser-stacklist__images">
-            {% image next_article.image width-200 class="teaser-stacklist__thumbnail" %}
+            <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+              {% image next_article.image width-200 class="teaser-stacklist__thumbnail" %}
+            </a>
           </div>
         {% endif %}
         <div class="teaser-stacklist__container">
@@ -71,7 +73,9 @@
               {% endif %}
             </p>
           {% endif %}
-          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">{% trans "Read more" %}</a>
+          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+            {% trans "Read article" %}
+          </a>
         </div>
       </li>
     </ul>
@@ -100,7 +104,9 @@
         <li class="teaser-stacklist__item">
           {% if article.image %}
             <div class="teaser-stacklist__images">
-              {% image article.image width-480 class="article-teaser__thumbnail" %}
+              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                {% image article.image width-480 class="article-teaser__thumbnail" %}
+              </a>
             </div>
           {% endif %}
           <div class="teaser-stacklist__container">
@@ -141,7 +147,9 @@
                 {{ article.subtitle|smarttruncatechars:50|safe}}
               {% endif %}
             </p>
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+              {% trans "Read article" %}
+            </a>
           </div>
         </li>
         {% endfor %}

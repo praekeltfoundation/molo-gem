@@ -23,8 +23,10 @@
       <li class="teaser-stacklist__item">
         {% if article.image %}
           <div class="teaser-stacklist__images">
-            {% image article.image width-480 as teaser_thumbnail %}
-            <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail"/>
+            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+              {% image article.image width-480 as teaser_thumbnail %}
+              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail"/>
+            </a>
           </div>
         {% endif %}
         <div class="teaser-stacklist__container">
@@ -77,7 +79,9 @@
               <p>{{block.value|smarttruncatechars:150|safe}}</p>
             {% endif %}
           {% endwith %}
-          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+            {% trans "Read article" %}
+          </a>
         </div>
     </li>
     {% endfor %}

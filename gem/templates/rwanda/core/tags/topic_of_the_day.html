@@ -13,8 +13,10 @@
           <li class="teaser-stacklist__item">
               {% if article.get_effective_image %}
                 <div class="teaser-stacklist__images">
-                  {% image article.get_effective_image width-1024 as teaser_thumbnail %}
-                  <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                  <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                    {% image article.get_effective_image width-1024 as teaser_thumbnail %}
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                  </a>
                 </div>
               {% endif %}
               {% get_comment_count for article as comment_count %}
@@ -72,7 +74,9 @@
                     {{block.value|smarttruncatechars:1000|safe}}</p>
                 {% endif %}
               {% endwith %}
-              <a class="call-to-action__button call-to-action__button--secondary" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
+              <a class="call-to-action__button call-to-action__button--secondary" href="{% pageurl article.specific %}">
+                {% trans "Read article" %}
+              </a>
           </li>
         {% endfor %}
       </ul>
