@@ -1,8 +1,24 @@
 {% load wagtailcore_tags %}
-{% if footers %}
-  {% for page in footers %}
-    <li class="menu-list__item">
-      <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
-    </li>
-  {% endfor %}
-{% endif %}
+{% comment %}
+  <!-- NOTE:: Fragmented Markup -->
+{% endcomment %}
+  {% if footers %}
+    {% for page in footers|slice:":3" %}
+      <li class="menu-list__item">
+        <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>
+<ul class="menu-list menu-list--column3">
+  <li class="menu-list__item">
+    <a href="mailto:mitso@praekelt.org?Subject=Reaching Out to Ni Nyampinga" class="menu-list__anchor">
+      {% trans "Contact us" %}</a>
+  </li>
+  {% if footers %}
+    {% for page in footers|slice:"3:" %}
+      <li class="menu-list__item">
+        <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
+      </li>
+    {% endfor %}
+  {% endif %}
