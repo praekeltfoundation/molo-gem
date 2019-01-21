@@ -1,16 +1,9 @@
-/*.article-teaser-related {
-  padding: 0 $spacer-inner;
-  .teaser-stacklist {
-    @include for-size(tablet-landscape-up) {
-      padding: 1em 5%;
-    }
-  }
-}*/
-
+//WHAT ELSE IS THE ARTICLE TEASER?
 .article-teaser {
   $block: unquote("#{&}");
   overflow: auto;
   position: relative;
+  padding: 0 $spacer-inner;
   &__wrapper {
     clear: both;
   }
@@ -39,23 +32,21 @@
     }
   }
   &__thumbnail {
-    width: 100%;
     height: auto;
+    vertical-align: middle;
+    width: 100%;
   }
   &__title {
-    line-height: 1;
     font-size: $font-x-large;
+    line-height: 1;
     margin: $spacer-half 0;
+    text-transform: uppercase;
     word-wrap: break-word;
     word-break: initial;
   }
   &__subtitle {
-    margin: 0;
+    font-family: $TwCenMTBold;
     text-align: left;
-    font-size: $font-x-medium;
-    @include for-size(tablet-portrait-up) {
-      margin: 0 0 1.1em 0;
-    }
   }
   &--latest {
     padding: 1em 5%;

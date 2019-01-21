@@ -3,8 +3,8 @@
 
 {% block content %}
 {% get_translation tag as translated_tag %}
-<div class="article-tags-page">
-  <div class="article-tags-page__wrapper">
+<div class="tags-page">
+  <div class="tags-page__wrapper">
     <div class="heading heading--hero">
       <h1 class="heading__component">{{translated_tag.title}}</h1>
     </div>
@@ -77,8 +77,8 @@
       </ul>
     {% endif %}
   </div>
-  {% comment %}
-  <div class="article-tags-page__wrapper">
+  {% comment %}  {% endcomment %}
+  <div class="tags-page__wrapper">
   {% get_next_tag tag as next_tag %}
   {% get_articles_for_tag next_tag as articles %}
   {% if next_tag %}
@@ -90,14 +90,13 @@
         {% for article in articles %}
         <li class="teaser-grid__item">
           {% if article.get_effective_image %}
-          <div class="article-teaser__images">
+          <div class="teaser-grid__images">
             <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
               {% image article.get_effective_image width-180 as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
             </a>
           </div>
           {% endif %}
-          <div class="article-teaser__container">
             {% get_comment_count for article as comment_count %}
             {% load_tags_for_article article as tags %}
             <ul class="teaser-tags">
@@ -145,7 +144,6 @@
                 {% endif %}
               </p>
             {% endif %}
-          </div>
         </li>
         {% endfor %}
       </ul>
@@ -155,7 +153,6 @@
     {% endif %}
   {% endif %}
   </div>
-  {% endcomment %}
   <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
     {% trans "Back home" %}
   </a>
