@@ -248,6 +248,7 @@
     </div>
   </div>
     <div id="footer" class="footer">
+      {% load_sections as sections %}
       <div class="menu">
         <div class="heading heading--hero">
           <h3 class=" heading__basic">
@@ -259,22 +260,32 @@
             <li class="menu-list__item">
               <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
             </li>
-            {% for section in sections|slice:":4" %}
-              <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                  {{section.title}}
-                </a>
-              </li>
-            {% endfor %}
+            {% if sections %}
+              {% for section in sections|slice:":4" %}
+                {% pageurl section.specific as section_path %}
+                  {% if section_path != '/sections/events/' %}
+                    <li class="menu-list__item">
+                      <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                        {{section.title}}
+                      </a>
+                    </li>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           </ul>
           <ul class="menu-list menu-list--column2">
-            {% for section in sections|slice:"4:" %}
-              <li class="menu-list__item">
-                <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                  {{section.title}}
-                </a>
-              </li>
-            {% endfor %}
+            {% if sections %}
+              {% for section in sections|slice:"4:" %}
+                {% pageurl section.specific as section_path %}
+                {% if section_path != '/sections/events/' %}
+                  <li class="menu-list__item">
+                    <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                      {{section.title}}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           {% comment %}<!--NOTE:: Fragmented Markup-->{% endcomment %}
           {% footer_page %}
           {% if not user.is_authenticated %}

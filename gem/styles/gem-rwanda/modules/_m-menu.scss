@@ -16,6 +16,7 @@
     padding: 0 1em 0 0;
     margin: 0;
     display: inline-block;
+    max-width: 250px;
     &__item {
       display: block;
       padding: $spacer-small;
@@ -29,8 +30,8 @@
         padding: 0;
         text-decoration: underline;
         &:active, &:hover, &:focus {
-          color: $color-pink-hollywood;
-
+          color: $color-cyan;
+          font-weight: 400;
           outline: none;
         }
         &:visited {
@@ -40,9 +41,10 @@
     }
     &__anchor {
       color: #fff;
-      word-wrap: break-word;
       font-size: $font-x-medium;
       text-transform: uppercase;
+      word-wrap: break-word;
+      word-break: initial;
       &--selected {
         color: $color-cyan;
         font-weight: 600;

@@ -3,7 +3,7 @@
   <!-- NOTE:: Fragmented Markup -->
 {% endcomment %}
   {% if footers %}
-    {% for page in footers|slice:":3" %}
+    {% for page in footers|slice:":2" %}
       <li class="menu-list__item">
         <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
       </li>
@@ -16,7 +16,7 @@
       {% trans "Contact us" %}</a>
   </li>
   {% if footers %}
-    {% for page in footers|slice:"3:" %}
+    {% for page in footers|slice:"2:" %}
       <li class="menu-list__item">
         <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
       </li>

@@ -5,6 +5,7 @@
   &__anchor {
     color: #fff;
     display: block;
+    text-decoration: none;
     &:active, &:hover, &:focus {
       color: #fff;
     }
@@ -29,11 +30,12 @@
   }
   &__label {
     color: #fff;
+    display: inline;
     font-size: $font-x-medium;
     font-weight: bold;
-    padding: 0 0 0 $spacer-half;
     margin: 0;
-    display: inline;
+    padding: 0 0 0 $spacer-half;
+    text-decoration: underline;
   }
   &--footer {
     margin: 0 0 1em;
@@ -53,6 +55,9 @@
   &-list {
     margin: 0;
     padding: 0;
+    @include for-size(desktop-up) {
+      padding: 0 3em 0 0;
+    }
     &__item {
       padding: $spacer-small;
       display: block;

@@ -103,26 +103,29 @@
   </div>
 </div>
 {% bannerpages position=4 %}
-<div class="section-page-menu">
+<div class="section-nav">
   <div class="heading heading--hero">
     <h2 class=" heading__component">
       {% trans "Article categories" %}
     </h2>
   </div>
   {% load_sections as sections %}
-  <ul class="section-page-menu-list">
+  <ul class="section-nav-list">
     {% comment %}
       <!--- IF SELF | EXCLUDE SELF -->
     {% endcomment %}
     {% for section in sections %}
-      <li class="section-page-menu-list__item">
-        <div class="section-page-menu-list__container {% if section.get_effective_extra_style_hints %}section-page-menu-list__container--{{section.get_effective_extra_style_hints}}{% endif %}">
-          <a href="{% pageurl section.specific %}" class="section-page-menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-            {{section.title}}
-          </a>
-        </div>
-        <p class="section-page-menu-list__desc">{{section.description}}</p>
-      </li>
+      {% pageurl section.specific as section_path %}
+        {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+          <li class="section-nav-list__item">
+            <div class="section-nav__container {% if section.get_effective_extra_style_hints %}section-nav__container--{{section.get_effective_extra_style_hints}}{% endif %}">
+              <a href="{% pageurl section.specific %}" class="section-nav__anchor">
+                <h2 class="section-nav__label">{{section.title}}</h2>
+              </a>
+            </div>
+            <p class="section-nav__desc">{{section.description}}</p>
+          </li>
+        {% endif %}
     {% endfor %}
   </ul>
 </div>
