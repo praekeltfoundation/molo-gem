@@ -141,32 +141,30 @@
               {% endif %}
             </li>
           </ul>
+          {% if sections %}
           <ul class="nav-list nav--secondary">
             <li class="nav-list__item">
-              {% if settings.core.SiteSettings.enable_tag_navigation %}
-              {% load_tags as tags %}
-                {% if tags %}
-                  <ul class="nav-outer">
-                    <li class="nav-list__item">
-                      <h3 class="nav-list__title">{% trans "Featured" %}:</h3>
-                    </li>
-                    <li class="nav-list__item">
-                      <ul class="nav-inner">
-                        {% for tag in tags|slice:":3" %}
-                          <li class="nav-list__item">
-                            <a href="{% url 'tags_list' tag.slug %}" class="nav-list__anchor">
-                              {{tag.title}}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    </li>
+              <ul class="nav-outer">
+                <li class="nav-list__item">
+                  <h3 class="nav-list__title">{% trans "Featured" %}:</h3>
+                </li>
+                <li class="nav-list__item">
+                  <ul class="nav-inner">
+                  {% for section_page in sections %}
+                  {% pageurl section_page.specific as section_path %}
+                    {% if section_path == '/sections/sakwe/' or section_path == '/sections/radio-show/' or section_path == '/sections/myth/' %}
+                      <li class="nav-list__item">
+                        <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                          {{section_page.title}}
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
                   </ul>
-                {% endif %}
-              {% endif %}
+                </li>
+              </ul>
             </li>
             <li class="nav-list__item">
-            {% if sections %}
               <ul class="nav-outer">
                 <li class="nav-list__item">
                   <h3 class="nav-list__title">{% trans "News and stories" %}</h3>
@@ -175,28 +173,32 @@
                   <ul class="nav-inner">
                     {% for section in sections|slice:":3" %}
                       {% pageurl section.specific as section_path %}
-                      <li class="nav-list__item">
-                        <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                          {{section.title}}
-                        </a>
-                      </li>
+                      {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+                        <li class="nav-list__item">
+                          <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                            {{section.title}}
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
                   <ul class="nav-inner">
                     {% for section in sections|slice:"3:" %}
                       {% pageurl section.specific as section_path %}
-                      <li class="nav-list__item">
-                        <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                          {{section.title}}
-                        </a>
-                      </li>
+                      {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+                        <li class="nav-list__item">
+                          <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                            {{section.title}}
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
                 </li>
               </ul>
-            {% endif %}
             </li>
           </ul>
+          {% endif %}
         </div>
       </div>
       {% if user.is_authenticated %}
