@@ -87,13 +87,19 @@
     <div class="logo-wrapper">
       <div class="logo">
         <a href="/" class="logo__anchor">
-          {% get_site_static_prefix as site_prefix %}
-          {% with "img/logos/nn-logo"|add:site_prefix|add:".png" as logo_url %}
-            <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
-          {% endwith %}
+          {% if settings.core.SiteSettings.logo %}
+            {% image settings.core.SiteSettings.logo width-340 as logo_image %}
+            <img src="{% static logo_image %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
+          {% else %}
+            {% get_site_static_prefix as site_prefix %}
+            {% with "img/logos/nn-logo"|add:site_prefix|add:".png" as logo_url %}
+              <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
+            {% endwith %}
+          {% endif %}
         </a>
       </div>
     </div>
+    {% load_sections as sections %}
     <div class="navLogged-wrapper">
       <div class="nav">
         <label for="nav_accordion" class="burger-nav__label toggle-nav">{% trans "Menu" %}</label>
@@ -105,6 +111,18 @@
                 {% trans "Home" %}
               </a>
             </li>
+            {% if sections %}
+            <li class="nav-list__item">
+              {% for section_page in sections %}
+                {% pageurl section_page.specific as section_path %}
+                {% if section_path == '/sections/events/' %}
+                  <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                    {{section_page.title}}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </li>
+            {% endif %}
             <li class="nav-list__item">
               {% if not user.is_authenticated %}
                 <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
@@ -148,7 +166,6 @@
               {% endif %}
             </li>
             <li class="nav-list__item">
-            {% load_sections as sections %}
             {% if sections %}
               <ul class="nav-outer">
                 <li class="nav-list__item">
