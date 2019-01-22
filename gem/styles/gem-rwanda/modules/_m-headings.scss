@@ -1,7 +1,9 @@
 .heading {
   font-size: $font-medium;
-  padding: $spacer-small $spacer-mid;
   text-transform: uppercase;
+  @include for-size(tablet-landscape-up) {
+    padding: $spacer-small $spacer-mid;
+  }
   &--hero {
     display: inline-block;
     padding: $spacer-multiple $spacer-small;
@@ -16,7 +18,9 @@
   }
   &--primary {
     position: relative;
-    margin: $spacer-half 0 $spacer-small;
+    @include for-size(tablet-landscape-up) {
+      margin: $spacer-half 0 $spacer-small;
+    }
   }
   &--secondary {
     display: inline-block;

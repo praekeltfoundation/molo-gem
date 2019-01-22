@@ -67,8 +67,11 @@
     }
   }
   &--featured-homepage {
-    padding: 3em $spacer-inner 0;
+    padding: 1em $spacer-inner 0;
     display: block;
+    @include for-size(tablet-landscape-up) {
+      padding: 3em $spacer-inner 0;
+    }
   }
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier},
