@@ -7,10 +7,24 @@
     padding: 1em $spacer-inner 4em;
   }
   &__wrapper {
+    margin: 1em;
     position: relative;
-    display: inline-block;
-    margin: 1em 5em 0 0;
-    width: 40%;
+    vertical-align: top;
+    width: 45%;
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+    }
+    &--audio {
+      @include for-size(tablet-landscape-up) {
+        width: 30%;
+        margin: 1em 5em 1em 1em;
+      }
+    }
+    &--video {
+      @include for-size(tablet-landscape-up) {
+        width: 40%;
+      }
+    }
   }
   &__embed {
     display: block;

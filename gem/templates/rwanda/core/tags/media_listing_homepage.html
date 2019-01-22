@@ -3,7 +3,7 @@
 {% if media %}
   <div class="media-player">
   {% for media in media %}
-    <div class="media-player__wrapper">
+    <div class="media-player__wrapper media-player__wrapper--{% if  media.type == 'audio' %}audio{% else %}video{% endif %}">
       {% if media.youtube_link %}
         {% if not is_via_freebasics %}
           <div class="media-player__embed">
@@ -20,7 +20,7 @@
             </h4>
           </div>
         {% endif %}
-      {% elif media.type == 'video'%}
+      {% elif media.type == 'video' %}
         {% if not is_via_freebasics %}
         <div class="media-player__embed">
           <video poster="/media/{{ media.thumbnail }}" controls>
@@ -41,7 +41,7 @@
             </h3>
           </div>
         {% endif %}
-      {% elif media.type == 'audio'%}
+      {% elif media.type == 'audio' %}
         {% if not is_via_freebasics %}
         <div class="media-player__embed">
           <audio controls>

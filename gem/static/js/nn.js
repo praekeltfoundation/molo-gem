@@ -4,7 +4,6 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   domReady(function() {
-
     var checkboxLabel = document.getElementsByClassName('toggle-nav');
     var menuToggle = function() {
       for (var i = 0; i < checkboxLabel.length; i++) {

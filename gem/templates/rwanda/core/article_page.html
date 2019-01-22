@@ -58,7 +58,7 @@
       {% elif block.value.youtube_link %}
         {% with block.value as media %}
           <div class="media-player">
-            <div class="media-player__wrapper">
+            <div class="media-player__wrapper media-player__wrapper--video">
               {% if not is_via_freebasics %}
                 <div class="media-player__embed">
                   {% embed media.youtube_link %}
@@ -85,7 +85,7 @@
       {% elif block.value.type == 'video'%}
         {% with block.value as media %}
           <div class="media-player">
-            <div class="media-player__wrapper">
+            <div class="media-player__wrapper media-player__wrapper--video">
               {% if not is_via_freebasics %}
                 <div class="media-player__embed">
                   <video poster="/media/{{ media.thumbnail }}" controls>
@@ -117,7 +117,7 @@
       {% elif block.value.type == 'audio'%}
         {% with block.value as media %}
           <div class="media-player">
-            <div class="media-player__wrapper">
+            <div class="media-player__wrapper media-player__wrapper--audio">
               {% if not is_via_freebasics %}
               <div class="media-player__embed">
                 <audio controls>
