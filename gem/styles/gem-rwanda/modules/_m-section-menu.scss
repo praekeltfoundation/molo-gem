@@ -8,17 +8,35 @@
     padding: 0;
     margin: 0;
     &__item  {
+      color: #000;
       display: block;
+      margin: 1em;
+      vertical-align: middle;
+      max-height: 200px;
+      overflow: hidden;
       @include for-size(tablet-landscape-up) {
         display: inline-block;
-        width: 20%;
+        width: 22.3%;
       }
     }
   }
-  &__container {
-    background: $color-gray-light;
+
+  &__anchor {
+    background: #000;
+    color: #fff;
     display: block;
-    margin: 1em;
+    font-size: $font-x-medium;
+    height: 160px;
+    overflow: hidden;
+    padding: 1.9em 1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    @include for-size(desktop-up) {
+      padding: 2.5em 1em;
+    }
     @each $sectionModifier, $styleElement in $sectionThemes {
       &--#{$sectionModifier} {
         background-image: url(map-get($styleElement, bgPatterns));
@@ -26,37 +44,58 @@
         background-position: 0 0;
         background-repeat: repeat;
         background-size: auto;
-      }
-      #{$block}__anchor {
-        color: map-get($styleElement, textColor);
+        #{$block}__shadow {
+          box-shadow:  12px 12px 0 0 map-get($styleElement, bgColor);
+          -webkit-box-shadow:  12px 12px 0 0 map-get($styleElement, bgColor);
+        }
       }
     }
   }
   &__label {
-    background-image: url('');
-    border-bottom: 100px solid $color-cyan;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    height: 0;
-    width: 100px;
-  }
-  &__anchor {
-    color: #000;
-    display: block;
-    font-size: $font-x-large;
-    text-transform: uppercase;
-    overflow: auto;
+    background: $color-cyan;
+    position: relative;
+    padding: 0.3em;
+    box-shadow: 8px 8px 0 0 green;
     @include for-size(desktop-up) {
-      //padding: 3em 1em 1em 1em;
-      height: 160px;
+      background: transparent;
+      box-shadow: none;
+      padding: 0.5em 0;
+      z-index: 999;
+    }
+    &:before {
+      @include for-size(desktop-up) {
+        content: "";
+        display: block;
+        border-top: 70px solid $color-cyan;
+        border-left: 15px solid transparent;
+        border-right: 10px solid transparent;
+        position: absolute;
+        transform: skew(-5deg) rotate(2deg);
+        top: 0;
+        z-index: -999;
+        width: 100%;
+      }
     }
   }
+  &__shadow {
+    background: transparent;
+    display: none;
+    visibility: hidden;
+    @include for-size(desktop-up) {
+      display: block;
+      visibility: visible;
+      transform: skew(-15deg) rotate(2deg);
+      padding: 2.8em 0 0;
+      position: absolute;
+      width: 80%;
+      top: 40%;
+      left: 11%;
+    }
+  }
+
   &__desc {
     color: #000;
     text-align: center;
-    height: 40px;
     overflow: auto;
-    margin: 0;
-    padding: 0 1.5em;
   }
 }
