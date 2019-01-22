@@ -1,5 +1,6 @@
-ARG MOLO_VERSION=6
-FROM praekeltfoundation/molo-bootstrap:${MOLO_VERSION}-onbuild
+ARG MOLO_VERSION=7
+ARG PYTHON_VERSION=py2.7
+FROM praekeltfoundation/molo-bootstrap:${MOLO_VERSION}-${PYTHON_VERSION}-onbuild
 
 ENV DJANGO_SETTINGS_MODULE=gem.settings.docker \
     CELERY_APP=gem
