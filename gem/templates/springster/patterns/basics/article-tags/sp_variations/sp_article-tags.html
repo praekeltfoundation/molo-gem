@@ -2,7 +2,7 @@
   {% load_tags as tags %}
   <ul class="tag-cloud__block">
   {% for tag in tags %}
-    {% if tag %}
+    {% if tag and tag.feature_in_homepage%}
       <li class="tag-cloud__item">
         <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
             <span class="tag-cloud__item-title">{{tag.title}}</span>

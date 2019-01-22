@@ -143,11 +143,13 @@
     </div>
     <ul class="tag-cloud-list">
       {% for tag in tags %}
+        {% if tag and tag.feature_in_homepage%}
         <li class="tag-cloud-list__item">
           <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
             <span class="tag-cloud__title">{{tag.title}}<span>
           </a>
         </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
