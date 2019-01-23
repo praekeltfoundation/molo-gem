@@ -16,33 +16,35 @@
     {% endif %}
   </div>
   {% get_comment_count for self as comment_count %}
-  {% load_tags_for_article self as navigation_tags %}
+  {% load_tags_for_article self as tags %}
   <ul class="teaser-tags">
     {% if comment_count > 0 %}
-    <li class="teaser-tags__item">
-      <a href="{% pageurl self.specific %}?#comments" class="comments-counter">
-        <span class="comments-counter__numeral">{{comment_count}}</span>
-      </a>
+      <li class="teaser-tags__item">
+        <a href="{% pageurl self.specific %}?#comments" class="comments-counter">
+          <span class="comments-counter__numeral">{{comment_count}}</span>
+        </a>
       </li>
     {% endif %}
-    {% if settings.core.SiteSettings.enable_tag_navigation %}
-      {% for tag in navigation_tags %}
-        {% if not tag.title.20 %}
+    {% if tags %}
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+        {% for tag in tags %}
+          {% if not tag.title.20 %}
+            <li class="teaser-tags__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                <span class="teaser-tags__title">{{ tag.title }}</span>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% elif settings.core.SiteSettings.enable_clickable_tags %}
+        {% for tag in self.tags_list %}
           <li class="teaser-tags__item">
-            <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-              <span class="teaser-tags__title">{{ tag.title }}</span>
+            <a href="{% url 'self.tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-tags__anchor">
+              <span class="teaser-tags__title">{{tag}}</span>
             </a>
           </li>
-        {% endif %}
-      {% endfor %}
-    {% elif settings.core.SiteSettings.enable_clickable_tags %}
-      {% for tag in self.tagsList %}
-        <li class="teaser-tags__item">
-          <a href="{% url 'self.tagsList' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-tags__anchor">
-            <span class="teaser-tags__title">{{tag}}</span>
-          </a>
-        </li>
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     {% endif %}
   </ul>
   <h1 class="heading__headline">{{ page.title}}</h1>
