@@ -125,10 +125,12 @@
           </a>
         </li>
       {% endfor %}
-    {% elif settings.core.SiteSettings.enable_clickable_tags %}
+      {% endif %}
+    {% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags %}
+
       {% for tag in self.tags_list %}
         <li class="tag-cloud__item">
-          <a href="{% url 'tags_list' tag.specific %}" class="tag-cloud__anchor">
+          <a  class="tag-cloud__anchor">
               <span class="tag-cloud__item-title">{{tag}}</span>
           </a>
         </li>
