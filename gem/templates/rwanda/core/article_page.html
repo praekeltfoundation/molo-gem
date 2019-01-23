@@ -39,9 +39,7 @@
       {% elif settings.core.SiteSettings.enable_clickable_tags %}
         {% for tag in self.tags_list %}
           <li class="teaser-tags__item">
-            <a href="{% url 'self.tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-tags__anchor">
-              <span class="teaser-tags__title">{{tag}}</span>
-            </a>
+            <span class="teaser-tags__title">{{tag}}</span>
           </li>
         {% endfor %}
       {% endif %}
