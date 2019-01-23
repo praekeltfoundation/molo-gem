@@ -33,16 +33,18 @@
       background-size: 100px;
     }
   }
-
   //HEADING TAGS
   &__component {
     background-color: #000;
     color: #fff;
-    font-size: $font-x-large;
+    font-size: $font-large;
     font-family: $TwCenMTRegular;
     font-weight: normal;
     margin: 0 0 0 $spacer-small;
     padding: 0 $spacer-mid;
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-large;
+    }
   }
   &__subheading {
     background-color: $color-yellow;

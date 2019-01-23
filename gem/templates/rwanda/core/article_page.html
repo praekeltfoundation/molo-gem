@@ -8,45 +8,45 @@
 </div>
 {% breadcrumbs %}
 <div class="article-page {% if section.get_effective_extra_style_hints %}article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
-  <div class="article-page__content">
+  <div class="article-page__images-wrapper">
     {% if page.image %}
       <div class="article-page__images">
         {% image page.image width-1080 class="article-teaser__thumbnail" %}
       </div>
     {% endif %}
-    {% get_comment_count for self as comment_count %}
-    {% load_tags_for_article self as navigation_tags %}
-    <ul class="teaser-tags">
-      {% if comment_count > 0 %}
-      <li class="teaser-tags__item">
-        <a href="{% pageurl self.specific %}?#comments" class="comments-counter">
-          <span class="comments-counter__numeral">{{comment_count}}</span>
-        </a>
-        </li>
-      {% endif %}
-      {% if settings.core.SiteSettings.enable_tag_navigation %}
-        {% for tag in navigation_tags %}
-          {% if not tag.title.20 %}
-            <li class="teaser-tags__item">
-              <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                <span class="teaser-tags__title">{{ tag.title }}</span>
-              </a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      {% elif settings.core.SiteSettings.enable_clickable_tags %}
-        {% for tag in self.tagsList %}
+  </div>
+  {% get_comment_count for self as comment_count %}
+  {% load_tags_for_article self as navigation_tags %}
+  <ul class="teaser-tags">
+    {% if comment_count > 0 %}
+    <li class="teaser-tags__item">
+      <a href="{% pageurl self.specific %}?#comments" class="comments-counter">
+        <span class="comments-counter__numeral">{{comment_count}}</span>
+      </a>
+      </li>
+    {% endif %}
+    {% if settings.core.SiteSettings.enable_tag_navigation %}
+      {% for tag in navigation_tags %}
+        {% if not tag.title.20 %}
           <li class="teaser-tags__item">
-            <a href="{% url 'self.tagsList' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-tags__anchor">
-              <span class="teaser-tags__title">{{tag}}</span>
+            <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+              <span class="teaser-tags__title">{{ tag.title }}</span>
             </a>
           </li>
-        {% endfor %}
-      {% endif %}
-    </ul>
-    <h1 class="heading__headline">{{ page.title}}</h1>
-    <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
-  </div>
+        {% endif %}
+      {% endfor %}
+    {% elif settings.core.SiteSettings.enable_clickable_tags %}
+      {% for tag in self.tagsList %}
+        <li class="teaser-tags__item">
+          <a href="{% url 'self.tagsList' tag.specific %}?next={{request.path}}&tag={{tag}}" class="teaser-tags__anchor">
+            <span class="teaser-tags__title">{{tag}}</span>
+          </a>
+        </li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+  <h1 class="heading__headline">{{ page.title}}</h1>
+  <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
   <article class="article">
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
@@ -147,44 +147,34 @@
           </div>
         {% endwith %}
       {% elif block.block_type == 'numbered_list' %}
-        <div class="article-page__content">
-          <ol class="ordered-list">
-            {% for item in block.value %}
-              <li class="ordered-list__item">{{ item|handle_markdown }}</li>
-            {% endfor %}
-          </ol>
-        </div>
-      {% elif block.block_type == 'list' %}
-        <div class="article-page__content">
-          <ul class="unordered-list">
+        <ol class="ordered-list">
           {% for item in block.value %}
-            <li class="unordered-list__item">
-              {{ item|handle_markdown }}
-            </li>
+            <li class="ordered-list__item">{{ item|handle_markdown }}</li>
           {% endfor %}
-          </ul>
-        </div>
+        </ol>
+      {% elif block.block_type == 'list' %}
+        <ul class="unordered-list">
+        {% for item in block.value %}
+          <li class="unordered-list__item">
+            {{ item|handle_markdown }}
+          </li>
+        {% endfor %}
+        </ul>
       {% else %}
         {{ block }}
       {% endif %}
     {% endfor %}
   </article>
   {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
-    <div class="article-page__content">
-      <div class="social-media">
-        <h3 class=" heading__subtitle">
-        {% trans "Share article" %}
-        </h3>
-        {% social_media_article %}
-      </div>
+    <div class="social-media">
+      <h3 class=" heading__subtitle">
+      {% trans "Share article" %}
+      </h3>
+      {% social_media_article %}
     </div>
   {% endif %}
   {% include "comments/comment_block.html" %}
   {% bannerpages position=6 %}
   {% include "core/related-article-list.html" %}
-  {% if parent_section.get_effective_extra_style_hints %}
-    <div class="linebreak__{{parent_section.get_effective_extra_style_hints}}">
-    </div>
-  {% endif %}
   </div>
 {% endblock %}

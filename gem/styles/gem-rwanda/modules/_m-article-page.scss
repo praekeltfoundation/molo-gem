@@ -1,10 +1,15 @@
 .article-page {
   $block: unquote("#{&}");
-  //Wildcard
   article {
     overflow: auto;
-    h3 {
-      padding: 0 15%;
+    h1, h2, h3, h4, h5, h6, p, a {
+      padding: 0 $spacer-inner;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 15%;
+      }
+      @include for-size(desktop-up) {
+        padding: 0 20%;
+      }
     }
     p {
       vertical-align: top;
@@ -15,22 +20,10 @@
       vertical-align: top;
       word-break: break-word;
     }
-    p, a {
-      padding: 0 5%;
-      @include for-size(tablet-landscape-up) {
-        padding: 0 20%;
-      }
-    }
-  }
-  &__content {
-    padding: 0 5%;
-    @include for-size(tablet-landscape-up) {
-      padding: 0 19%;
-    }
   }
   &__quote {
     color: #000;
-    padding: 3% 25%;
+    padding: 2em 15%;
     font-weight: bold;
     margin: 1em 0;
     text-align: center;
@@ -38,40 +31,46 @@
     text-transform: uppercase;
     width: 100%;
     @include for-size(tablet-landscape-up) {
+      padding: 2em 25%;
       font-size: $font-large;
     }
-    //TO BE IGNORED BY ARTICLE TEASER
-    /*padding: 0;
-    font-weight: inherit;
-    text-align: inherit;
-    text-transform: inherit;*/
   }
   &__images {
-    height: auto;
-    overflow: hidden;
-    margin: 0 auto;
-    width: 98%;
     border: 3px solid $color-cyan;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
     @include for-size(desktop-up) {
       height: 491.63px;
     }
+    &-wrapper {
+      padding: 0 $spacer-inner;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 15%;
+      }
+      @include for-size(desktop-up) {
+        padding: 0 20%;
+      }
+    }
     &--inner {
       border: 3px solid $color-cyan;
-      overflow: auto;
+      overflow: hidden;
       height: auto;
-      margin: 0 5%;
+      margin: 0 $spacer-inner;
       @include for-size(tablet-landscape-up) {
-        margin: 0 20%;
+        margin: 0 15%;
       }
       @include for-size(desktop-up) {
         display: inline-block;
         height: 236.81px;
+        margin: 0 20%;
         width: 29%;
       }
       &:nth-child(even) {
-        margin: 0 5%;
+        margin: 0 $spacer-inner;
         @include for-size(tablet-landscape-up) {
-          margin: 0 20%;
+          margin: 0 15%;
         }
         @include for-size(desktop-up) {
           float: left;
@@ -79,9 +78,9 @@
         }
       }
       &:nth-child(odd) {
-        margin: 0 5%;
+        margin: 0 $spacer-inner;
         @include for-size(tablet-landscape-up) {
-          margin: 0 20%;
+          margin: 0 15%;
         }
         @include for-size(desktop-up) {
           float: right;
@@ -94,13 +93,6 @@
     &--#{$sectionModifier} {
       .social-media {
         border-top: 2px solid map-get($styleElement, bgColor);
-        margin: 5% 0 0;
-        padding: 5% 0 0;
-        text-align: center;
-        &-list__item {
-          display: inline-block;
-          padding: $spacer-mid $spacer-small;
-        }
       }
       #{$block}__images {
         border: 3px solid map-get($styleElement, bgColor);
@@ -122,10 +114,43 @@
       }
     }
   }
+  .social-media {
+    margin: 5% 0 0;
+    //padding: 5% 0 0; //?
+    padding: 0 $spacer-inner;
+    text-align: center;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+    @include for-size(desktop-up) {
+      padding: 0 20%;
+    }
+    &-list__item {
+      display: inline-block;
+      padding: $spacer-mid $spacer-small;
+    }
+  }
   .media-player {
     clear: both;
+    padding: 0 $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
     @include for-size(desktop-up) {
       padding: 1em 20%;
+    }
+  }
+  .heading__headline,
+  .heading__subtitle,
+  .teaser-tags,
+  .ordered-list,
+  .unordered-list {
+    padding: 0 $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+    @include for-size(desktop-up) {
+      padding: 0 20%;
     }
   }
 }
