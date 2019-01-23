@@ -4,19 +4,18 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   domReady(function() {
-    var checkboxLabel = document.getElementsByClassName('toggle-nav');
+    /*var checkboxLabel = document.getElementsByClassName('toggle-nav');
     var menuToggle = function() {
       for (var i = 0; i < checkboxLabel.length; i++) {
-        /*if(this.parentElement.parentElement.classList.contains('active')) {
+        if(this.parentElement.parentElement.classList.contains('active')) {
           this.parentElement.parentElement.classList.remove('active')
         } else {
           this.parentElement.parentElement.classList.add('active')
-        }*/
+        }
         checkboxLabel[i].classList.remove('active');
       }
     }
-    checkboxLabel.addEventListener('click', menuToggle())
-
+    checkboxLabel.addEventListener('click', menuToggle())*/
     function stickyHeader() {
       var header = document.getElementById("header");
       var content = document.getElementById("content_wrapper");
@@ -73,3 +72,28 @@
     }
   });
 })();
+
+jQuery(document).ready(function (e) {
+  function t(t) {
+    e(t).bind("click", function (t) {
+      t.preventDefault();
+      e(this).parent().fadeOut();
+    })
+  }
+  e(".dropdown-toggle").click(function () {
+      var t = e(this).parents(".dropdown").children(".dropdown-menu").is(":hidden");
+      e(".dropdown .dropdown-menu").hide();
+      e(".dropdown .dropdown-toggle").removeClass("open");
+      if (t) {
+        e(this).parents(".dropdown").children(".dropdown-menu").toggle().parents(".dropdown").children(".dropdown-toggle").addClass("open")
+      }
+  });
+  e(document).bind("click", function (t) {
+      var n = e(t.target);
+      if (!n.parents().hasClass("dropdown")) e(".dropdown .dropdown-menu").hide();
+  });
+  e(document).bind("click", function (t) {
+      var n = e(t.target);
+      if (!n.parents().hasClass("dropdown")) e(".dropdown .dropdown-toggle").removeClass("open");
+  })
+});

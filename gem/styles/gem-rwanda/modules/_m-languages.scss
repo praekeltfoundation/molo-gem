@@ -17,12 +17,6 @@
   @include for-size(tablet-landscape-up) {
     margin: 0 3em 0 0;
   }
-  .languageSearch-wrapper__label-inner {
-    @include for-size(tablet-landscape-up) {
-      display: inline-block;
-      visibility: visible;
-    }
-  }
   &__anchor {
     color: #fff;
     display: inline-block;
@@ -56,40 +50,11 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-medium;
-      text-indent: -6.6em;
       padding: 0 5px 0 0;
       @include for-size(tablet-landscape-up) {
         padding: 0.9em 1em;
-        text-indent: 0;
       }
-      &:after,
-      &:before {
-        content: "";
-        background-image: url('/static/img/icons/rwanda/iconsSprite.png');
-        background-repeat: no-repeat;
-        background-size: 70px;
-        background-position: 0 22.5%;
-        vertical-align: middle;
-        height: 40px;
-        width: 45px;
-        @include for-size(tablet-portrait-up) {
-          background-position: 15px 22.5%;
-          width: 55px;
-        }
-        @include for-size(tablet-landscape-up) {
-          background-position: 0 22.5%;
-          width: 45px;
-        }
-      }
-      &:after {
-        display: inline-block;
-        visibility: visible;
-        @include for-size(tablet-landscape-up) {
-          display: none;
-          visibility: hidden;
-        }
-      }
-      &:before {
+      span {
         display: none;
         visibility: hidden;
         @include for-size(tablet-landscape-up) {
@@ -97,8 +62,19 @@
           visibility: visible;
         }
       }
+      &:before {
+        background-image: url('/static/img/icons/rwanda/iconsSprite.png');
+        background-repeat: no-repeat;
+        background-size: 70px;
+        background-position: 0 22.5%;
+        content: "";
+        display: inline-block;
+        height: 40px;
+        vertical-align: middle;
+        width: 45px;
+      }
     }
-    &__checkbox {
+    /*&__checkbox {
       & + * {
         opacity: 0;
         visibility: hidden;
@@ -112,7 +88,7 @@
         opacity: 1;
         visibility: visible;
       }
-    }
+    }*/
   }
   &-list {
     margin: 0;
@@ -184,6 +160,20 @@
       font-size: $font-x-medium;
     }
   }
+  .languageSearch-wrapper__label-inner {
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      visibility: visible;
+    }
+  }
+  .open {
+    background-color: #fff;
+    color: $color-cyan;
+    &:before {
+      background-position: -15% 15.2%;
+      background-size: 115px;
+    }
+  }
   &--footer {
     //Describe --Footer accordion
     font-size: $font-x-medium;
@@ -194,7 +184,8 @@
       display: inline-block;
       vertical-align: middle;
     }
-    &__checkbox {
+    //Which one is this?
+    /*&__checkbox {
       & + * {
         display: none;
         visibility: hidden;
@@ -214,6 +205,6 @@
         -o-transition: height, 0.5s linear;
         transition: height, 0.5s linear;
       }
-    }
+    }*/
   }
 }
