@@ -155,16 +155,15 @@
           {% if settings.core.SiteSettings.enable_tag_navigation %}
             {% for tag in tags  %}
               <li class="teaser-stacklist-tags__item">
-                <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">
-                  {{ tag.title }}
+                <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}
                 </a>
               </li>
             {% endfor %}
-          {% elif settings.core.SiteSettings.enable_clickable_tags %}
+            {% endif %}
+          {% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags %}
             {% for tag in self.tags_list %}
               <li class="teaser-stacklist-tags__item">
-                <a href="{#{% url 'self.tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}#}" class="teaser-stacklist-tags__anchor"></a>
-                  {{tag}}
+                <a class="teaser-stacklist-tags__anchor"></a>{{tag}}
               </li>
             {% endfor %}
           {% endif %}
