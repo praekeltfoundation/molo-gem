@@ -51,7 +51,6 @@
           lastPollsClass.classList.add("last");
       }
       if (surveysClass.length <= 0 && pollsClass.length > 0) {
-        console.log('Survey is not here and Polls is here');
         if (pollsClass.length == 1) {
           pollsClass[0].classList.add('only');
         } else {
@@ -62,7 +61,6 @@
         }
       }
       if (pollsClass.length <= 0 && surveysClass.length > 0) {
-        console.log('Polls is not here and Surveys is here');
         if (surveysClass.length == 1) {
           surveysClass[0].classList.add('only');
         } else {
