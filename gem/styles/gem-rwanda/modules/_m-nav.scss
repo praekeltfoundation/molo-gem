@@ -1,9 +1,11 @@
 .navLogged-wrapper {
   display: inline-block;
-  margin: 0 15% 0 0;
   vertical-align: middle;
   overflow: auto;
   text-align: left;
+  @include for-size(tablet-portrait-up) {
+    margin: 0 15% 0 0;
+  }
   @include for-size(tablet-landscape-up) {
     flex: 1 auto;
     order: 1;
@@ -22,9 +24,10 @@
     padding: 0 1em;
     @include fly-by();
     @include for-size(tablet-landscape-up) {
-      padding: 3em 0 3em 20%;
+      padding: 1.5em 10.5%;
     }
     @include for-size(desktop-up) {
+      padding: 3em 0 3em 20%;
        z-index: -9999999999;
      }
   }
@@ -86,7 +89,10 @@
   &-outer {
     margin: 0;
     padding: 0;
-    @include for-size(tablet-landscape-up) {
+    @include for-size(tablet-portrait-up) {
+      margin: 0 1em 0 0;
+    }
+    @include for-size(desktop-up) {
       margin: 0 5em 0 0;
     }
   }
@@ -101,10 +107,15 @@
   }
   &--primary {
     display: block;
-    padding: 1em 0 1.5em;
-    @include for-size(tablet-landscape-up) {
+    padding: 1em 1.5em;
+    @include for-size(tablet-portrait-up) {
       display: inline-block;
-      padding: 0 3.500em 0 0;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 0 1.5em 0 0;
+    }
+    @include for-size(desktop-up) {
+      padding: 0 3.5em 0 0;
     }
     #{$block}-list__anchor {
       @include for-size(tablet-landscape-up) {
@@ -112,18 +123,24 @@
       }
     }
   }
+
   //!!Caution: Extreme us of Nesting - Same class names
   &--secondary {
     display: block;
     padding: 0 0 1em;
+    @include for-size(tablet-portrait-up) {
+      display: inline-block;
+    }
     @include for-size(tablet-landscape-up) {
       border-left: 3px solid #000;
-      display: inline-block;
-      padding: 0 0 0 3.500em;
+      padding: 0 0 0 1.5em;
+    }
+    @include for-size(desktop-up) {
+        padding: 0 0 0 3.5em;
     }
     #{$block}-list__item {
       vertical-align: top;
-      @include for-size(tablet-landscape-up) {
+      @include for-size(tablet-portrait-up) {
         display: inline-block;
       }
       &:last-child {
@@ -131,6 +148,9 @@
           #{$block}-list__item:last-child {
             .nav-inner {
               @include for-size(tablet-landscape-up) {
+                margin: 0 1em 0 0;
+              }
+              @include for-size(desktop-up) {
                 margin: 0 4em 0 0;
               }
             }

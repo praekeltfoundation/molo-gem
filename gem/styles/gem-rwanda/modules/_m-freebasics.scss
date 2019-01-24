@@ -1,15 +1,28 @@
 .freebasics {
-  background: rgba($color-cyan-dark, 1);
+  background: rgba($color-cyan-dark, 1) url('/static/img/patterns/rwanda/NN_PATTERN-BLACK-001.svg') repeat 0 0/cover;
+  display: block;
+  padding: 0 5%;
   overflow: auto;
   text-align: center;
+  visibility: visible;
   width: 100%;
+  @include for-size(tablet-landscape-up) {
+    display: none;
+    visibility: hidden;
+    padding: 0 $spacer-inner;
+  }
   &__banner {
     color: #ffffff;
     font-size: $font-medium;
+    color: #ffffff;
+    font-size: $font-x-medium;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
   }
   &__anchor {
     color: #ffffff;
-    padding:0;
+    padding: 0;
     font-weight: bold;
     text-decoration: underline;
     &:active, &:hover, &:focus  {
