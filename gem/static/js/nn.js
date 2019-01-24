@@ -4,18 +4,6 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   domReady(function() {
-    /*var checkboxLabel = document.getElementsByClassName('toggle-nav');
-    var menuToggle = function() {
-      for (var i = 0; i < checkboxLabel.length; i++) {
-        if(this.parentElement.parentElement.classList.contains('active')) {
-          this.parentElement.parentElement.classList.remove('active')
-        } else {
-          this.parentElement.parentElement.classList.add('active')
-        }
-        checkboxLabel[i].classList.remove('active');
-      }
-    }
-    checkboxLabel.addEventListener('click', menuToggle())*/
     function stickyHeader() {
       var header = document.getElementById("header");
       var content = document.getElementById("content_wrapper");
