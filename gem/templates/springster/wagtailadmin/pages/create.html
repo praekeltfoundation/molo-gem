@@ -36,7 +36,14 @@
                                     <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
                                 </li>
                             {% endif %}
-                            <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                            {% comment %}
+                            BEGIN CUSTOM TEMPLATE LOGIC
+                            Commenting out the code to submit for moderation.
+                            THIS SHOULD BE TEMPORARY!!
+                            When the moderation is fixed this whole file must be removed
+                            {% endcomment %}
+                            <!-- <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li> -->
+                            {# END CUSTOM TEMPLATE LOGIC #}
                         </ul>
                     </div>
                 </li>
