@@ -27,12 +27,12 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
+                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
                             {% if parent_page_perms.can_publish_subpage %}
                                 <li>
-                                    <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
+                                    <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
                                 </li>
                             {% endif %}
                             {% comment %}
@@ -65,6 +65,8 @@
                         {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
                     {% endif %}
                 </li>
+                {% block extra_footer_actions %}
+                {% endblock %}
             </ul>
         </footer>
     </form>
@@ -74,14 +76,26 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
 {% endblock %}
+
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
+    {% comment %}
+        Additional js from widgets media. Allows for custom widgets in admin panel.
+    {% endcomment %}
+    {{ edit_handler.form.media.js }}
+
+    {% comment %}
+        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't Javascript, but it will generally be data that exists for Javascript to work with...)
+    {% endcomment %}
+    {{ edit_handler.html_declarations }}
+
     <script>
         $(function(){
-            $('#page-edit-form .tab-content section.active input').first().focus();
+            $('#page-edit-form .tab-content section.active input').first().trigger('focus');
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
