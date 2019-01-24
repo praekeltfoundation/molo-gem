@@ -2,6 +2,7 @@
 {% load wagtailadmin_tags %}
 {% load i18n %}
 {% load l10n %}
+{% load core_tags %}
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
 
@@ -39,7 +40,7 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
+                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
                         {% if not page.locked %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
@@ -48,11 +49,22 @@
                                     <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
                                 {% if not is_revision and page_perms.can_delete %}
-                                    <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
+                                    {% comment %}
+                                    BEGIN CUSTOM TEMPLATE LOGIC
+                                    Do not add delete button if Page should not be deleted
+                                    This applies to all Pages that inherit from PreventDeleteMixin
+                                    {% endcomment %}
+                                    {% should_hide_delete_button page as delete_hidden %}
+                                    {% if not delete_hidden %}
+                                    {# END CUSTOM TEMPLATE LOGIC #}
+                                        <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
+                                    {# BEGIN CUSTOM TEMPLATE LOGIC #}
+                                    {% endif %}
+                                    {# END CUSTOM TEMPLATE LOGIC #}
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li>
-                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
+                                        <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Publishing...' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Publish this revision' %}{% else %}{% trans 'Publish' %}{% endif %}</em></button>
                                     </li>
                                 {% endif %}
                                 {% comment %}
