@@ -126,6 +126,8 @@
         </li>
       {% endfor %}
       {% endif %}
+      {% endif %}
+
     {% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags %}
 
       {% for tag in self.tags_list %}
@@ -138,7 +140,6 @@
     {% endif %}
     </ul>
   </div>
-  {% endif %}
 
   {% include "comments/comment_block.html" %}
   {#{% include "patterns/basics/articles/sp_variations/related-article-teasers_up-next.html" %}#}
