@@ -22,10 +22,12 @@
   }
 
   &__anchor {
+    align-items: center;
     background: #000;
     color: #fff;
-    display: block;
+    display: flex;
     font-size: $font-x-medium;
+    justify-content: center;
     height: 160px;
     overflow: hidden;
     padding: 1.9em 1em;
@@ -35,7 +37,7 @@
     position: relative;
     width: 100%;
     @include for-size(desktop-up) {
-      padding: 20% 1em;
+      padding: 15% 1em;
     }
     @each $sectionModifier, $styleElement in $sectionThemes {
       &--#{$sectionModifier} {
@@ -44,9 +46,9 @@
         background-position: 0 0;
         background-repeat: repeat;
         background-size: auto;
-        #{$block}__label {
-          box-shadow:  12px 12px 0 0 map-get($styleElement, textBoxShadow);
-          -webkit-box-shadow:  12px 12px 0 0 map-get($styleElement, textBoxShadow);
+        #{$block}__shadow {
+          border-right: 35px solid map-get($styleElement, textBoxShadow);
+          border-bottom: 15px solid map-get($styleElement, textBoxShadow);
         }
       }
     }
@@ -54,18 +56,35 @@
   &__label {
     background: $color-cyan;
     position: relative;
-    padding: 0.3em;
-    font-size: $font-x-large;
-
-    border-bottom: 100px solid $color-cyan;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-
-
+    padding: 0.2em 2px;
+    font-size: $font-large;
+    &::before {
+      background: $color-cyan;
+      content: "";
+      position: absolute;
+      top: -4%;
+      bottom: -11%;
+      left: -3%;
+      right: -3%;
+      -webkit-transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+      transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+      z-index: -1;
+    }
     @include for-size(desktop-up) {
-      transform: skew(-5deg) rotate(2deg);
+      background: 0 0;
       z-index: 999;
     }
+  }
+  &__shadow {
+    display: block;
+    padding: 12px;
+    -webkit-transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+    transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+    width: 100%;
+    position: absolute;
+    bottom: -0.6em;
+    right: -8%;
+    z-index: -11;
   }
   &__desc {
     color: #000;

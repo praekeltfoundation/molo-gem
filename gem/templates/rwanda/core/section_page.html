@@ -124,8 +124,11 @@
         {% if section_path != self_path and section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
           <li class="section-nav-list__item">
             <a href="{% pageurl section.specific %}" class="section-nav__anchor  {% if section.get_effective_extra_style_hints %}section-nav__anchor--{{section.get_effective_extra_style_hints}}{% endif %}">
-              <h2 class="section-nav__label">{{section.title}}</h2>
-              <div class="section-nav__shadow"></div>
+              <h2 class="section-nav__label">
+                {{section.title}}
+                <span class="section-nav__shadow"></span>
+              </h2>
+
             </a>
             <p class="section-nav__desc">{{section.description}}</p>
           </li>
