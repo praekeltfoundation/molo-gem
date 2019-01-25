@@ -24,9 +24,11 @@
           </a>
         {% else %}
         <nav>
-          <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' self.slug %}" class="call-to-action__button call-to-action__button--primary">
-          {% trans "Log in to Enter" %}
-          </a>
+          <div class="call-to-action--group">
+            <a href="{% url 'molo.profiles:auth_login' %}?next={% url 'molo.yourwords:competition_entry' self.slug %}" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Log in to Enter" %}
+            </a>
+          </div>
         </nav>
         {% endif %}
       </section>

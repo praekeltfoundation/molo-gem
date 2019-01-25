@@ -40,9 +40,11 @@
           {% endif %}
         {% endfor %}
         <nav>
-          <a href="{% url 'molo.yourwords:competition_entry' self.get_parent_page.slug %}" class="call-to-action__button call-to-action__button--previous">
-            {% trans "Back" %}
-          </a>
+          <div class="call-to-action--group">
+            <a href="{% url 'molo.yourwords:competition_entry' self.get_parent_page.slug %}" class="call-to-action__button call-to-action__button--previous">
+              {% trans "Back" %}
+            </a>
+          </div>
         </nav>
       </section>
     </div>

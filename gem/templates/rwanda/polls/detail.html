@@ -30,7 +30,11 @@
         <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
       </div>
     </form>
-    <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">{% trans "Home" %}</a>
+    <div class="call-to-action--group">
+      <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">
+        {% trans "Home" %}
+      </a>
+    </div>
   </div>
 </div>
 {% endblock %}
