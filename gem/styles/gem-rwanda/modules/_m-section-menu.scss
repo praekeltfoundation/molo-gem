@@ -56,6 +56,7 @@
     position: relative;
     padding: 0.3em;
     box-shadow: 8px 8px 0 0 green;
+    font-size: $font-x-large;;
     @include for-size(desktop-up) {
       background: transparent;
       box-shadow: none;
@@ -66,9 +67,12 @@
       @include for-size(desktop-up) {
         content: "";
         display: block;
-        border-top: 70px solid $color-cyan;
+        border-top: 85px solid $color-cyan;
+        border-left: 0 solid transparent;
+        border-right: 0 solid transparent;
+        /*border-top: 70px solid $color-cyan;
         border-left: 15px solid transparent;
-        border-right: 10px solid transparent;
+        border-right: 10px solid transparent;*/
         position: absolute;
         transform: skew(-5deg) rotate(2deg);
         top: 0;
@@ -84,11 +88,16 @@
     @include for-size(desktop-up) {
       display: block;
       visibility: visible;
-      transform: skew(-15deg) rotate(2deg);
       padding: 2.8em 0 0;
       position: absolute;
-      width: 80%;
+      /*width: 80%;
       top: 40%;
+      left: 11%;
+      transform: skew(-15deg) rotate(2deg);*/
+      transform: skew(-10deg) rotate(1deg);
+      position: absolute;
+      width: 81%;
+      top: 28%;
       left: 11%;
     }
   }
