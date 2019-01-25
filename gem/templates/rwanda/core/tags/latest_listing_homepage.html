@@ -78,7 +78,7 @@
         {% with article.body|first as block %}
           {% if block.block_type == 'paragraph' %}
             <p class="teaser-grid__paragraph">
-              {{block.value|smarttruncatechars:1500|safe}}
+              {{block.value|smarttruncatechars:800|safe}}
             </p>
           {% endif %}
         {% endwith %}
