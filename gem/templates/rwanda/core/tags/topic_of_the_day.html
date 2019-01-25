@@ -74,12 +74,11 @@
                 </p>
               {% endif %}
               {% with article.body|first as block %}
-                <p class="teaser-grid__paragraph">
-                  {{block|smarttruncatechars:540}}
-                </p>
-                {% comment %}
-                  {% if block.block_type == 'paragraph' %}{% endif %}
-                {% endcomment %}
+                {% if block.block_type == 'paragraph' %}
+                  <p class="teaser-grid__paragraph">
+                    {{block.value|smarttruncatechars:500|safe}}
+                  </p>
+                {% endif %}
               {% endwith %}
               <a class="call-to-action__button call-to-action__button--secondary" href="{% pageurl article.specific %}">
                 {% trans "Read article" %}
