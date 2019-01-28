@@ -9,11 +9,11 @@
     window.addEventListener('scroll', function() {
       var scrollAmount = this.y - window.pageYOffset;
       var scrollPos = window.scrollY;
-      var headerHeight = document.getElementById('header').clientHeight;
+      var headerHeight = (document.getElementById('header').clientHeight) + 366.66;
       if (scrollPos > 0 && window.innerWidth > 768 ) {
        header.classList.add("header--fixed");
       }
-      if (scrollAmount > 0 && scrollPos > headerHeight && window.innerWidth > 768 ) {
+      if (scrollAmount > 0 && scrollPos > headerHeight  && window.innerWidth > 768 ) {
         header.style.transform = "translate3d(0px, 0px, 0px)";
         header.style.position = "fixed";
       }
@@ -22,7 +22,8 @@
         header.style.position = "absolute";
       }
       else if (scrollAmount < 0 || scrollPos < headerHeight) {
-        header.style.transform = "translate3d(0px, 0px, 0px)";
+        //header.style.transform = "translate3d(0px, 0px, 0px)";
+        header.style.position = "relative";
       }
       this.y = window.pageYOffset;
     });
