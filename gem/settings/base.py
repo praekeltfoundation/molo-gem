@@ -456,8 +456,9 @@ EMAIL_HOST = environ.get('EMAIL_HOST', 'localhost')
 EMAIL_PORT = environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = environ.get('EMAIL_USE_TLS', 'false').lower() == 'true'
 DEFAULT_FROM_EMAIL = environ.get(
-    'DEFAULT_FROM_EMAIL', 'support@moloproject.org')
+    'DEFAULT_FROM_EMAIL', 'no-reply@gehosting.org')
 
 GOOGLE_ANALYTICS = {'google_analytics_id': 'bgufdg'}
 GOOGLE_ANALYTICS_IGNORE_PATH = [
