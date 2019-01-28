@@ -36,12 +36,6 @@
             </li>
           {% endif %}
         {% endfor %}
-      {% elif settings.core.SiteSettings.enable_clickable_tags %}
-        {% for tag in self.tags_list %}
-          <li class="teaser-tags__item">
-            <span class="teaser-tags__title">{{tag}}</span>
-          </li>
-        {% endfor %}
       {% endif %}
     {% endif %}
   </ul>
@@ -165,6 +159,16 @@
       {% endif %}
     {% endfor %}
   </article>
+  {% if settings.core.SiteSettings.enable_clickable_tags %}
+    <ul class="teaser-tags teaser-tags--non-click">
+      {% for tag in self.tags_list %}
+        <li class="teaser-tags__item">
+          <span class="teaser-tags__title">{{tag}}</span>
+        </li>
+      {% endfor %}
+
+    </ul>
+  {% endif %}
   {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
     <div class="social-media">
       <h3 class=" heading__subtitle">

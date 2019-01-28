@@ -1,4 +1,5 @@
 .teaser-tags {
+  $block: unquote("#{&}");
   display: block;
   height: 35px;
   margin: 0;
@@ -25,5 +26,16 @@
     color: $color-cyan;
     font-size: $font-small;
     text-decoration: underline;
+  }
+  &--non-click {
+    height: auto;
+    #{$block}__item {
+      background: $color-gray-light;
+      border-radius: $spacer-small;
+      padding: $spacer-half;
+    }
+    #{$block}__title {
+      text-decoration: none;
+    }
   }
 }
