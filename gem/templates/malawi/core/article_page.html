@@ -121,20 +121,39 @@
 
   </article>
 </div>
+{% load_tags_for_article self as tags %}
+{% if settings.core.SiteSettings.enable_clickable_tags %}
+  <div class="tags">
+    <ul class="tags-list">
+      {% for tag in self.tags_list %}
+        <li class="tag-list__item">
+          {% comment %}
+            {% url 'tags_list' tag.specific %}?next={{request.path}}&tag={{tag}}
+          {% endcomment %}
+            <span class="tag__item-title">{{tag}}</span>
+
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+{% if settings.core.SiteSettings.enable_tag_navigation %}
+  <div class="tags">
+    <ul class="tags-list">
+      {% for tag in tags %}
+      {% if not tag.title.20 %}
+        <li class="tag-list__item">
+          <a href="{% url 'tags_list' tag.slug %}" class="tag__item-anchor">
+            {{ tag.title }}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
-
-{% if settings.core.SiteSettings.enable_tag_navigation or settings.core.SiteSettings.enable_clickable_tags %}
-    <div class="tags">
-      <ul class="tags-list">
-        {% for tag in self.tags_list %}
-          <li class="tag-list__item">
-            <a href="{% url 'tags_list' tag %}?next={{request.path}}&tag={{tag}}" class="tag__item-anchor">{{tag}}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-{% endif %}
-{% surveys_list_for_pages page=self %}
+  {% surveys_list_for_pages page=self %}
 
 {% endblock %}
