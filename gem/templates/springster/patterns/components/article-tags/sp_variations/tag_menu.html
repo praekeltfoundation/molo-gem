@@ -1,3 +1,9 @@
-{% block tag_menu_homepage %}
-    {% include "patterns/basics/article-tags/sp_article-tag.html" %}
-{% endblock %}
+{% load core_tags %}
+{% load_tags as tags %}
+{% if tags %}
+  {% if settings.core.SiteSettings.enable_tag_navigation %}
+    {% block tag_menu_homepage %}
+      {% include "patterns/basics/article-tags/sp_article-tag.html" %}
+    {% endblock %}
+  {% endif %}
+{% endif %}

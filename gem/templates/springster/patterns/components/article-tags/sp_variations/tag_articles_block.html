@@ -41,6 +41,7 @@
         </p>
       {% endif %}
       {% load_tags_for_article article as tags %}
+      {% if tags %}
         {% if settings.core.SiteSettings.enable_tag_navigation %}
           <div class="teaser-stacklist-tags-container">
             <ul class="teaser-stacklist-tags">
@@ -54,6 +55,7 @@
             </ul>
           </div>
         {% endif %}
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

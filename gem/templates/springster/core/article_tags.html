@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
-
 {% block content %}
 {% get_translation tag as translated_tag %}
 <div class="call-to-action call-to-action--wide-back">
@@ -71,13 +70,13 @@
             </div>
           {% endif %}
         {% endif %}
-          {% get_comment_count for article as comment_count %}
-          {% if comment_count > 0 %}
-            <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-              <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-              <span class="comment-counter__numeral">{{comment_count}}</span>
-            </a>
-          {% endif %}
+        {% get_comment_count for article as comment_count %}
+        {% if comment_count > 0 %}
+          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+            <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+            <span class="comment-counter__numeral">{{comment_count}}</span>
+          </a>
+        {% endif %}
       </div>
     </li>
     {% endfor %}
@@ -139,13 +138,29 @@
                      {{ article.subtitle|smarttruncatechars:45|safe}}
                  </p>
                {% endif %}
-                 {% get_comment_count for article as comment_count %}
-                 {% if comment_count > 0 %}
-                   <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                     <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-                     <span class="comment-counter__numeral">{{comment_count}}</span>
-                   </a>
+               {% load_tags_for_article article as tags %}
+               {% if tags %}
+                 {% if settings.core.SiteSettings.enable_tag_navigation %}
+                   <div class="teaser-stacklist-tags-container">
+                     <ul class="teaser-stacklist-tags">
+                       {% for tag in tags %}
+                       {% if not tag.title.20 %}
+                         <li class="teaser-stacklist-tags__item">
+                           <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+                         </li>
+                         {% endif %}
+                       {% endfor %}
+                     </ul>
+                   </div>
                  {% endif %}
+               {% endif %}
+               {% get_comment_count for article as comment_count %}
+               {% if comment_count > 0 %}
+                 <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
+                   <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+                   <span class="comment-counter__numeral">{{comment_count}}</span>
+                 </a>
+               {% endif %}
              </div>
            </div>
          </div>
