@@ -1,0 +1,114 @@
+$ugcPages: (
+    polls: (
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-TREES-RED-001.svg",
+      themeColor: $color-red
+    ),
+    surveys: (
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-TREES-RED-001.svg",
+      themeColor: $color-red
+    ),
+    yourwords: (
+      themePattern: "/static/img/patterns/rwanda/NN_PATTERN-MOUNTAINS-ORANGE-001.svg",
+      themeColor: $color-orange
+    ),
+);
+@each $page, $styleElement in $ugcPages {
+  .#{$page} {
+    background: map-get($styleElement, themeColor)  url(map-get($styleElement, themePattern)) repeat center center/ auto;
+    padding: 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em $spacer-inner 2em;
+    }
+    &__wrapper {
+      @include for-size(tablet-landscape-up) {
+        margin: 0 auto;
+        width: 85%;
+      }
+    }
+    &__inner {
+      @include for-size(tablet-landscape-up) {
+        display: flex;
+      }
+      aside {
+        border: 3px solid $color-cyan;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+          @include for-size(tablet-landscape-up) {
+            margin: 0 2em 0 0;
+            order: 1;
+          }
+      }
+      section {
+        width: 100%;
+        input {
+          width: 100%;
+        }
+        [type="button"],
+        [type="reset"],
+        [type="submit"],
+        button {
+          width: auto;
+        }
+        @include for-size(tablet-landscape-up) {
+          display: inline-block;
+          order: 2;
+        }
+      }
+    }
+    &__image {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+    &__terms {
+      .call-to-action__item-text {
+        color: $color-cyan;
+        text-align: left;
+        text-transform: uppercase;
+        text-decoration: underline;
+        display: inline-block;
+        padding: $spacer-small;
+        &:active, &:hover, &:focus {
+          color: $color-pink-hollywood;
+        }
+      }
+    }
+    &__choices {
+      &-title {
+        display: block;
+        font-size: $font-x-medium;
+      }
+      &-percentage {
+        display: block;
+        background: $color-gray-light;
+        border-radius: 20px;
+        margin: $spacer-half 0 0;
+      }
+      &-bar {
+        background: $color-yellow-gorse;
+        border-radius: $spacer-multiple;
+      }
+      &-subtitle {
+        font-size: $font-x-medium;
+        display: block;
+        vertical-align: middle;
+        padding: $spacer-small $spacer-half;
+      }
+    }
+    &-results {
+      &__item {
+        list-style-type: none;
+      }
+    }
+  }
+}
+.first {
+  padding: 3em $spacer-inner 2em;
+}
+.last {
+  padding: 1em $spacer-inner 3em;
+}
+.only {
+  padding: 3em $spacer-inner;
+}

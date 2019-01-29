@@ -1,20 +1,34 @@
-.logo-wrapper {
-  display: inline-block;
-  padding: $spacer-half 0 0 $spacer-small;
-}
 .logo {
-  color: #ffffff;
-  display: block;
-  font-size: $font-xx-small;
-  padding: $spacer-small $spacer-small 0;
-  text-transform: uppercase;
-  vertical-align: middle;
-  img {
-    max-width: 100%;
-    height: auto;
-    width: 130px;
+  background: url('/static/img/logos/logo-bg.svg') no-repeat center 0/ 100%;
+  height: 100px;
+  margin: 0 auto;
+  overflow: auto;
+  width: 320px;
+  @include for-size(tablet-portrait-up) {
+    width: 360px;
   }
-  &--left {
-    text-align: left;
+  &-wrapper {
+    position: relative;
+    margin: 0 auto;
+    @include for-size(tablet-landscape-up) {
+      order: 2;
+      z-index: 999999999999;
+      width: 40%;
+    }
+  }
+  &__anchor {
+    color: #fff;
+    display: block;
+    font-size: $font-x-medium;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    width: 80%;
+    margin: 1.5em auto;
+  }
+  &__image {
+    max-width: 300px;
+    height: auto;
+    width: 80%;
   }
 }

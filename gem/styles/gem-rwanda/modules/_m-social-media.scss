@@ -1,0 +1,66 @@
+.social-media {
+  overflow: auto;
+  text-align: center;
+  $block: unquote("#{&}");
+  &__anchor {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    &:active, &:hover, &:focus {
+      color: #fff;
+    }
+  }
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    width: 50px;
+    &--facebook,
+    &--twitter {
+      background-image: url('/static/img/icons/rwanda/iconsSprite.png');
+      background-repeat: no-repeat;
+      background-size: 90px;
+    }
+    &--facebook {
+      background-position:0 60%;
+    }
+    &--twitter {
+      background-position: 0 55%
+    }
+  }
+  &__label {
+    color: #fff;
+    display: inline;
+    font-size: $font-x-medium;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 0 $spacer-half;
+    text-decoration: underline;
+  }
+  &--footer {
+    margin: 0 0 1em;
+    text-align: left;
+    @include for-size(tablet-landscape-up) {
+      flex: 1 auto;
+      order: 2;
+    }
+    #{$block}__icon {
+      height: auto;
+      width: auto;
+      max-width: 50px;
+      max-height: 50px;
+    }
+
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    @include for-size(desktop-up) {
+      padding: 0 3em 0 0;
+    }
+    &__item {
+      padding: $spacer-small;
+      display: block;
+    }
+  }
+}

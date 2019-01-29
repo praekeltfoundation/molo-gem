@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="polls">
+    <div class="polls__wrapper">
+      <div class="heading heading--secondary">
+        <h3 class="heading__title">{% trans "Vote" %}</h3>
+      </div>
+      <h2 class="heading__headline">{{ question.title }}</h2>
+      {% if form.answer.errors %}
+      <ul class="error-list">
+        <li class="error-list__item">{{form.answer.errors|join:", " }}</li>
+      </ul>
+      {% endif %}
+      <form class="polls__form" action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" novalidate>
+      {% csrf_token %}
+        {{form.answer}}
+        <div class="call-to-action--group">
+          <button type="submit" class="call-to-action__button   call-to-action__button--primary">{% trans "Vote" %}</button>
+        </div>
+      </form>
+      <div class="call-to-action--group">
+        <a href="{{request.site.root_page.url}}" class="call-to-action__button call-to-action__button--previous">
+          {% trans "Home" %}
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

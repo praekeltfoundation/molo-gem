@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags %}
+{% block content %}
+<div class="yourwords yourwords--standalone">
+  <div class="yourwords__wrapper">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans 'Share your story' %}</h1>
+    </div>
+    <div class="yourwords__inner">
+      {% if self.get_parent_page.get_effective_image %}
+        <aside>
+          {% image self.get_parent_page.get_effective_image width-480 as tmp_photo %}
+           <img src="{{ tmp_photo_small.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
+        </aside>
+      {% endif %}
+      <section>
+        <h2 class="heading heading__headline">{{self.title}}</h2>
+        <h1 class="heading heading__subtitle">{{self.subtitle}}</h1>
+        {% for block in self.body %}
+          {% if block.block_type == 'heading' %}
+            <h2 class="heading heading__headline">
+              {{ block.value }}
+            </h2>
+          {% elif block.block_type == 'image' %}
+            {% image block.value width-240 %}
+          {% elif block.block_type == 'numbered_list' %}
+            <ol class="ordered-list">
+              {% for item in block.value %}
+                <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+              {% endfor %}
+            </ol>
+          {% elif block.block_type == 'list' %}
+            <ul class="inordered-list">
+            {% for item in block.value %}
+               <li class="inordered-list__item">{{ item|handle_markdown }}</li>
+            {% endfor %}
+            </ul>
+          {% else %}
+              {{ block }}
+          {% endif %}
+        {% endfor %}
+        <nav>
+          <div class="call-to-action--group">
+            <a href="{% url 'molo.yourwords:competition_entry' self.get_parent_page.slug %}" class="call-to-action__button call-to-action__button--previous">
+              {% trans "Back" %}
+            </a>
+          </div>
+        </nav>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

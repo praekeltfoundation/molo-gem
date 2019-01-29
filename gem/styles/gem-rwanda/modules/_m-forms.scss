@@ -1,22 +1,37 @@
-input[type="text"],
-input[type="number"],
-input[type="password"],
-input[type="email"],
-input[type="tel"],
-input[type="search"],
-input[type="week"],
-input[type="date"],
-input[type="month"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="url"],
-select {
-  background-color: #ffffff;
-  border: 1px #d6d6d6 solid;
-  color: $color-cyan;
-  font-size: $font-x-small;
-  padding: $spacer-half;
-  margin: $spacer-small 0;
+form {
+  position: relative;
+  overflow: auto;
+  vertical-align: middle;
+}
+fieldset {
+  clear: both;
+  border: none;
+  margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
+  & > label {
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      width: 25%;
+    }
+  }
+  span {
+    display: block;
+    font-size: $font-small;
+  }
+}
+label {
+  font-weight: bold;
+  font-size: $font-x-medium;
+  vertical-align: middle;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+textarea {
+  background-color: $color-gray-light;
+  border: 2px $color-cyan solid;
+  margin: 0 auto;
+  padding: 1em;
   width: 100%;
 }
 select {
@@ -34,43 +49,102 @@ select {
   text-overflow:ellipsis;
 }
 select[value="value"] {
-  font-size: $font-x-small;
+  font-size: $font-x-medium;
   text-transform: capitalize;
 }
-input[type="search"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: block;
-  margin: 0 auto;
-  border-radius: 0;
-  width: 90%;
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select {
+  background-color: #ffffff;
+  border: 2px $color-cyan solid;
+  color: $color-cyan;
+  font-size: $font-small;
+  padding: $spacer-half;
+  margin: $spacer-small 0;
+  width: 100%;
+  @include for-size(tablet-landscape-up) {
+    width: 60%;
+  }
+  &:focus, &:active, &:visited {
+    outline: none;
+  }
 }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
+#id_date_of_birth_month,
+#id_date_of_birth_day,
+#id_date_of_birth_year {
+  margin: $spacer-small 0;
+ @include for-size(desktop-up) {
+   width: 23%;
+   display: inline-block;
+   margin: 0 1em 0 0;
+ }
+ //SPECIAL CASE
+ @media (max-width: 65.313em) and (min-width: 64.000em) {
+    width: 22%;
+ }
+}
+#id_date_of_birth_year  {
+  @include for-size(desktop-up) {
+    margin: 0;
+  }
+}
+[type="button"],
+[type="reset"],
+[type="submit"],
+button {
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: top;
+  font-weight: bold;
+}
+input[type="search"] {
+  width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }
 
 [type="checkbox"],
 [type="radio"] {
   margin: 0;
+  opacity: 0.9;
   visibility: hidden;
   position: absolute;
-  opacity: 0.9;
   & ~ label {
     background-color: transparent;
     cursor: pointer;
     position: relative;
     padding: 0;
     margin: 0;
+    width: 100%;
     &:before {
+      background-color: #fff;
       content: " ";
-      border: 1px solid $color-gray;
+      border: 2px solid $color-cyan;
       opacity: 0.9;
       display: inline-block;
       width: 25px;
@@ -82,8 +156,8 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 [type="checkbox"] {
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/check-box-yellow.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url('/static/img/icons/rwanda/iconsSprite.png') 5px 12.5%/90px no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
@@ -92,54 +166,41 @@ input[type="search"]::-webkit-search-results-decoration {
     border-radius: 50%;
   }
   &:checked + label:before {
-    background: $color-pink url("/static/img/icons/rwanda/radio-icon-active.png") center center / 65% no-repeat;
-    border-color: $color-pink;
+    background: $color-cyan url('/static/img/icons/rwanda/iconsSprite.png')3px 8% /90px no-repeat;
+    border-color: $color-cyan;
     opacity: 1;
   }
 }
-textarea {
-  background-color: $color-gray-light;
-  border: none;
-  margin: 0 auto;
-  max-height: 140px;
-  padding: $spacer-mid;
-  width: 100%;
-}
-fieldset {
-  clear: both;
-  border: none;
-  padding: $spacer-small 0;
-  margin: 0;
-  word-break: break-word;
-  word-wrap: break-word;
-}
-label {
-  text-transform: uppercase;
+.input-hint {
+  font-size: $font-small;
+  font-style: italic;
+  display: block;
 }
 .choice-group {
   padding: $spacer-small 0;
 }
 .input-group {
   .helptext {
-    font-size: $font-xx-small;
+    font-size: $font-small;
     margin: 0;
+    font-style: italic;
+    display: block;
   }
   span {
     display: block;
-    font-size: $font-xx-small;
+    font-size: $font-small;
   }
 }
-
 .error-list,
 .errorlist {
   display: block;
   padding: 0;
-  margin-top: 0;
-  color: $color-pink;
-  &__item,
-  .errors {
-    color: $color-pink;
-    text-align: left;
-    margin-top: 0;
-  }
+  color: $color-red;
+  list-style-type: none;
+}
+.error-list__item,
+.errorlist__item,
+.error {
+  color: $color-red;
+  text-align: left;
 }

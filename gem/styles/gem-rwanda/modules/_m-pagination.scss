@@ -1,24 +1,19 @@
 .pagination {
-  padding: $spacer-half $spacer-mid;
-  text-align: center;
-  .step-links {}
-  &__nav-item {
-    font-size: $font-small;
-    font-weight: bold;
-    &--current {}
+  text-align: left;
+  @include for-size(tablet-landscape-up) {
+    padding: 1em 5%;
+    text-align: center;
+    margin: 1em 0;
   }
-  &__nav-anchor {
-    color: $color-pink;
-    font-weight: bold;
-    display: inline-block;
-    &-next,
-    &-previous {
-      font-size: $font-x-large;
-      color: $color-pink;
-      padding: 0 $spacer-half 0 $spacer-half;
-      &:active, &:hover, &:focus {
-        color: $color-cyan;
-      }
+  &--multi-step {
+    text-align: left;
+    padding: 0;
+    border-top: none;
+  }
+  .call-to-action__item--text-current {
+    margin: 0;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 5%;
     }
   }
 }

@@ -1,25 +1,37 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag gem_tags %}
-
 {% block content %}
-    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' %}
-      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host %}
-        <div class="freebasics-notification">
-          <p class="freebasics-notification__text">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics-notification__anchor">freebasics.com</a>
+  <div class="banner--main">
+    {% bannerpages position=0 %}
+  </div>
+  {% if not is_via_freebasics %}
+    {% with ninyampingaHost='ninyampinga.com' qaHost='ninyampinga-rwanda.qa-hub.ie.gehosting.org' localHost='localhost:8000' %}
+      {% if ninyampingaHost in request.get_host  or qaHost in request.get_host or localHost in request.get_host %}
+        <div class="freebasics">
+          <p class="freebasics__banner">{% blocktrans %}This site is free for all MTN subscribers. If you are an Airtel or TIGO subscriber, you can access this site for free by going to{% endblocktrans %} <a href="http://www.freebasics.com" target="_blank" class="freebasics__anchor">freebasics.com</a>
           </p>
         </div>
       {% endif %}
     {% endwith %}
-    {% bannerpages %}
-    {% gembannerpages %}
+  {% endif %}
+  {% with gembannerpages  as gemTextBanner %}
+    {% if gemTextBanner %}
+       {{gemTextBanner}}
+    {% endif %}
+  {% endwith %}
+  <div class="featured-wrapper">
+    {% latest_listing_homepage num_count=3 %}
     {% topic_of_the_day %}
-    {% latest_listing_homepage num_count=6 %}
-    {% section_listing_homepage %}
-    {% media_listing_homepage %}
-    {% poll_page %}
-    {% surveys_list only_direct_surveys=True %}
-    {% surveys_list personalisable_survey=True %}
-    {% surveys_list only_yourwords=True %}
-    {% surveys_list only_linked_surveys=True %}
-    {% your_words_competition %}
+  </div>
+  {% bannerpages position=1 %}
+  {% surveys_list personalisable_survey=True %}
+  {% surveys_list only_linked_surveys=True %}
+  {% surveys_list only_direct_surveys=True %}
+  {% poll_page %}
+  {% bannerpages position=2 %}
+  {% section_listing_homepage %}
+  {% media_listing_homepage %}
+  {% bannerpages position=3 %}
+  {% surveys_list only_yourwords=True %}
+  {% your_words_competition %}
 {% endblock %}

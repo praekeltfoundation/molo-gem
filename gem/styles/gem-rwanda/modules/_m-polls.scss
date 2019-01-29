@@ -1,0 +1,28 @@
+.polls {
+  $block: unquote("#{&}");
+  &__wrapper {
+    background-color: #fff;
+    padding: 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 15% 2em 1em;
+    }
+  }
+  &__answers {
+    margin: 0.313em 0;
+  }
+  &__form {
+    .choice-fieldset {
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        margin: 0 1em 1em 0;
+      }
+    }
+  }
+  &--homepage {
+    #{$block}__wrapper {
+      @include for-size(tablet-landscape-up) {
+        width: 80%;
+      }
+    }
+  }
+}

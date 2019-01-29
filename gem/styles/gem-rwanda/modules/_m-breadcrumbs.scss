@@ -1,0 +1,42 @@
+.breadcrumbs {
+  padding: 1em $spacer-inner;
+  &-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    &__item {
+      display: inline-block;
+      vertical-align: middle;
+      &:first-child {
+        color: #b4b4b4;
+        display: inline-block;
+        margin: 0;
+        font-size: $font-x-medium;
+        text-transform: capitalize;
+      }
+    }
+    &__anchor {
+      color: $color-cyan;
+      font-size: $font-x-medium;
+      margin: 0;
+      text-decoration: underline;
+      text-transform: capitalize;
+      &:after {
+        content: " ≫ ";
+        color: $color-cyan;
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+    &__current {
+      color: $color-cyan;
+      display: inline-block;
+      margin: 0;
+      font-size: $font-x-medium;
+    }
+  }
+  &--comments {
+    background-color: #fff;
+    width: 100%;
+  }
+}

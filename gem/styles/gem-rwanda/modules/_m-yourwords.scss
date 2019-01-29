@@ -1,0 +1,31 @@
+.yourwords {
+  $block: unquote("#{&}");
+  @include for-size(tablet-landscape-up) {
+    padding: 5em $spacer-inner;
+  }
+  &__wrapper {
+    background-color: $color-orange;
+    padding: 1em;
+    margin: 0 auto;
+    @include for-size(tablet-landscape-up) {
+      padding: 3em 2em;
+    }
+  }
+  &--homepage {
+    text-align: center;
+    section {
+      margin: 0 auto;
+    }
+    #{$block}__wrapper {
+      @include for-size(tablet-landscape-up) {
+        width: 50%;
+      }
+    }
+  }
+  .call-to-action__item--text {
+    color: #000;
+  }
+  .heading--hero {
+    text-align: center;
+  }
+}

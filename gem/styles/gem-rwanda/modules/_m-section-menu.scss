@@ -1,0 +1,94 @@
+.section-nav {
+  $block: unquote("#{&}");
+  padding: 1em 5%;
+  @include for-size(tablet-landscape-up) {
+    padding: 5em $spacer-inner;
+  }
+  &-list {
+    padding: 0;
+    margin: 0;
+    &__item  {
+      color: #000;
+      display: block;
+      margin: 1em 0.3em 0.3em;
+      vertical-align: middle;
+      max-height: 200px;
+      overflow: hidden;
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        width: 22.3%;
+      }
+    }
+  }
+
+  &__anchor {
+    align-items: center;
+    background: #000;
+    color: #fff;
+    display: flex;
+    font-size: $font-x-medium;
+    justify-content: center;
+    height: 160px;
+    overflow: hidden;
+    padding: 1.9em 1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    @include for-size(desktop-up) {
+      padding: 15% 1em;
+    }
+    @each $sectionModifier, $styleElement in $sectionThemes {
+      &--#{$sectionModifier} {
+        background-image: url(map-get($styleElement, bgPatterns));
+        background-color: map-get($styleElement, bgColor);
+        background-position: 0 0;
+        background-repeat: repeat;
+        background-size: auto;
+        #{$block}__shadow {
+          border-right: 35px solid map-get($styleElement, textBoxShadow);
+          border-bottom: 15px solid map-get($styleElement, textBoxShadow);
+        }
+      }
+    }
+  }
+  &__label {
+    background: $color-cyan;
+    position: relative;
+    padding: 0.2em 2px;
+    font-size: $font-large;
+    &::before {
+      background: $color-cyan;
+      content: "";
+      position: absolute;
+      top: -4%;
+      bottom: -11%;
+      left: -3%;
+      right: -3%;
+      -webkit-transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+      transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+      z-index: -1;
+    }
+    @include for-size(desktop-up) {
+      background: 0 0;
+      z-index: 999;
+    }
+  }
+  &__shadow {
+    display: block;
+    padding: 12px;
+    -webkit-transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+    transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
+    width: 100%;
+    position: absolute;
+    bottom: -0.6em;
+    right: -8%;
+    z-index: -11;
+  }
+  &__desc {
+    color: #000;
+    text-align: center;
+    overflow: auto;
+  }
+}

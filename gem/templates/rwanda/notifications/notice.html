@@ -1,38 +1,30 @@
 {% load wagtailcore_tags %}
-<div class="comments-list__item {% if node.parent == None %}comments-list__item--parent-comment{% endif %} {% if node.parent %}comments-list__item--reply {% endif %}">
-  {% with notice.target as article %}
-    {% with notice.action_object as comment %}
-      <p class="comments__body-small">
-        {% if comment.user.is_staff %}
-          {% if settings.gem.GemSettings.moderator_name %}
-            {{settings.gem.GemSettings.moderator_name}}
-          {% else %}
-            {% trans "Big Sister" %}
-          {% endif %}
-        {% elif comment.user_name.lower == 'anonymous' %}
-          {{comment.user_name}}
-        {% else %}
-          {% if not comment.user.profile.alias %}
-            {% trans "Anonymous" %}
-          {% else %}
-            {{comment.user.profile.alias}}
-          {% endif %}
-        {% endif %}
-        {% trans "replied to your comment on: " %}
-        <a href="{% pageurl article.specific %}" class="comments__replied-link">
-          {{ article.title }}</a>
-      </p>
-      <span class="comments__publish-date">{{ notice.timesince }} {% trans "ago" %}</span>
-    {% endwith %}
-  {% endwith %}
-</div>
-  <ul class="comments-replies-list">
-    <li class="comments-replies-list__item">
-      <h3 class="comments__replies-label">{% trans "Your comment" %}:</h3>
-      <p class="comments__body-small">{{ notice.action_object.parent.comment }}</p>
-    </li>
-    <li class="comments-replies-list__item">
-      <h3 class="comments__replies-label">{% trans "A reply" %}:</h3>
-      <p class="comments__body-small">{{ notice.action_object.comment }}</p>
-    </li>
-  </ul>
+  <div class="comments-list__item {% if node.parent == None %} comments-list__item--parent{% endif %}{% if node.parent %} comments-list__item--replies{% endif %}">
+    {% if node.parent %}<div class="comments__replies--wrapper">{% endif %}
+      {% with notice.target as article %}
+        {% with notice.action_object as comment %}
+          <h5 class="comments__alias comments__alias--author-notication">
+            {% if comment.user.is_staff %}{% if settings.gem.GemSettings.moderator_name %}{{settings.gem.GemSettings.moderator_name}}{% else %}{% trans "Big Sister" %}{% endif %}{% elif comment.user_name.lower == 'anonymous' %}{{comment.user_name}}{% else %}{% if not comment.user.profile.alias %}{% trans "Anonymous" %}{% else %}{{comment.user.profile.alias}}{% endif %}{% endif %}
+          </h5>
+          <p class="comments__caption">{% trans "replied to your comment on: " %}</p>
+          <a href="{% pageurl article.specific %}" class="comments__article-title">
+            {{ article.title }}</a>
+          <h6 class="comments__publish-date">{{ notice.timesince }} {% trans "ago" %}</h6>
+        {% endwith %}
+      {% endwith %}
+      <ul class="comments-replyList">
+        <li class="comments-replyList__item">
+          <h3 class="comments-replyList-label">{% trans "Your comment" %}:</h3>
+          <p class="comments__content">
+            {{ notice.action_object.parent.comment }}
+          </p>
+        </li>
+        <li class="comments-replyList__item">
+          <h3 class="comments-replyList-label">{% trans "A reply" %}:</h3>
+          <p class="comments__content">
+            {{ notice.action_object.comment }}
+          </p>
+        </li>
+      </ul>
+    {% if node.parent %}</div>{% endif %}
+  </div>

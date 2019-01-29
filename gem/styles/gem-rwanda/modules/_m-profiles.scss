@@ -1,66 +1,102 @@
 .profiles {
-  &__form {
-    label {
+  background-color: $color-cyan;
+  @include for-size(tablet-portrait-up) {
+    background: $color-cyan url("/static/img/patterns/rwanda/NN_PATTERN-HILLS-AQUA-001.svg") repeat center center/ auto;
+    padding: 2.5em 7%;
+  }
+  &__wrapper {
+    background-color: #fff;
+    padding: 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 1em 2em;
+    }
+  }
+  &__description {
+    font-size: $font-x-medium;
+    display: inline-block;
+    margin: $spacer-small 0;
+    &--label {
+      text-transform: capitalize;
+      font-size: $font-x-medium;
+    }
+  }
+  &__caption {
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-medium;
+      text-align: right;
+      display: inline-block;
+      float: right;
+      margin: 1em 0;
+    }
+    .call-to-action__item--text {
       text-transform: inherit;
-      font-weight: bold;
+      @include for-size(desktop-up) {
+        margin: 1em 0;
+        padding: 0 1em 0 0;
+      }
     }
-    fieldset {
-      padding: 0 $spacer-mid $spacer-half;
+  }
+  &__inner {
+    @include for-size(desktop-up) {
+      padding: 0 9%;
     }
-    .input-hint {
-      font-size: $font-x-small;
-      word-break: break-word;
-      word-wrap: break-word;
+  }
+  &__form {
+    .call-to-action__item--text  {
+      @include for-size(desktop-up) {
+        margin: 2em 26% 0;
+      }
+    }
+    ~ .call-to-action__button--previous {
+      @include for-size(desktop-up) {
+        margin: 1em 1em 0 26%;
+      }
+    }
+    .call-to-action--group {
+      @include for-size(desktop-up) {
+        margin: 0 26% 1em;
+        padding: 0;
+      }
+    }
+    [type="checkbox"],
+    [type="radio"] {
+      & ~ label {
+        @include for-size(desktop-up) {
+          padding: 0 0 0 26%;
+        }
+      }
+    }
+    .input-hint, .input-group,
+    .helptext, .errorlist, .error-list {
+      @include for-size(desktop-up) {
+        padding: 0 5% 0 25%;
+      }
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="search"],
+    input[type="week"],
+    input[type="date"],
+    input[type="month"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="url"],
+    select {
+      @include for-size(desktop-up) {
+        width: 73%;
+        display: inline-block;
+      }
     }
   }
   &__terms {
     display: block;
-    &--link {
-      color: $color-cyan-fountain;
-    }
   }
-  &__account {
-    padding: $spacer-small $spacer-mid;
-    .call-to-action {
-      padding: 0;
-    }
-  }
-  &__description {
-    font-size: $font-x-small;
+  .heading__subtitle {
     display: inline-block;
-    font-weight: bold;
-    margin: $spacer-small 0;
-    &--label {
-      text-transform: capitalize;
-    }
-  }
-  .heading--subtitle {
-    font-size: $font-small;
-    padding: $spacer-mid 0 $spacer-small;
-
-  }
-  //Buttons
-  .call-to-action {
-    &--profile, &--profiles {
-      padding: $spacer-multiple 0 0;
-    }
-    &__button {
-      &--secondary {
-        display: block;
-        margin-left: $spacer-mid;
-        color: $color-cyan-fountain;
-        &:active, &:hover, &:focus {
-          color: $color-pink;
-        }
-      }
-      &--primary {
-        margin-left: $spacer-mid;
-      }
-    }
-    &__nav-item-text--left {
-      padding: 5px 15px;
-      font-size: $font-x-small;
-      font-weight: 700;
-    }
+    text-transform: inherit;
+    vertical-align: middle;
   }
 }

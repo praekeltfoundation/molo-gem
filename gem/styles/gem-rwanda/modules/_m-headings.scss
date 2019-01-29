@@ -1,0 +1,79 @@
+.heading {
+  font-size: $font-medium;
+  text-transform: uppercase;
+  @include for-size(tablet-landscape-up) {
+    padding: $spacer-small $spacer-mid;
+  }
+  &--hero {
+    display: inline-block;
+    padding: $spacer-multiple $spacer-small;
+    margin: 0 0 $spacer-small;
+    text-align: center;
+    @include for-size(phone-only) {
+      background-image: url('/static/img/icons/rwanda/ShapesSprites.png');
+      background-repeat: no-repeat;
+      background-position: -30px 83.3%;
+      background-size: 120px;
+    }
+  }
+  &--primary {
+    position: relative;
+    @include for-size(tablet-landscape-up) {
+      margin: $spacer-half 0 $spacer-small;
+    }
+  }
+  &--secondary {
+    display: inline-block;
+    padding: $spacer-half $spacer-small;
+    margin: $spacer-half;
+    @include for-size(phone-only) {
+      background: url('/static/img/icons/rwanda/ShapesSprites.png');
+      background-repeat: no-repeat;
+      background-position: 0 3.3%;
+      background-size: 100px;
+    }
+  }
+  //HEADING TAGS
+  &__component {
+    background-color: #000;
+    color: #fff;
+    font-size: $font-large;
+    font-family: $TwCenMTRegular;
+    font-weight: normal;
+    margin: 0 0 0 $spacer-small;
+    padding: 0 $spacer-mid;
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-large;
+    }
+  }
+  &__subheading {
+    background-color: $color-yellow;
+    color: #000;
+    font-size: $font-x-medium;
+    padding: 0 $spacer-half;
+    text-transform: uppercase;
+  }
+  &__basic {
+    color: #000;
+    background-color: $color-yellow;
+    font-size: $font-x-large;
+    padding: 0 $spacer-mid;
+    margin: ($spacer-half - 3) 0 0 $spacer-small;
+  }
+  &__title {
+    background-color: $color-red;
+    color: #fff;
+    font-size: $font-x-large;
+    padding: 0 $spacer-half;
+    margin: $spacer-small 0;
+  }
+  &__headline {
+    color: #000;
+    font-size: $font-x-large;
+    margin: $spacer-mid 0;
+  }
+  &__subtitle {
+    color: #000;
+    font-size: $font-x-medium;
+  }
+}

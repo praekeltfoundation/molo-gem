@@ -1,0 +1,55 @@
+.burger-nav {
+  $block: unquote("#{&}");
+  color: #fff;
+  display: inline-block;
+  font-weight: bold;
+  position: relative;
+  vertical-align: top;
+  &__label {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $font-x-medium;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px 1em;
+    @include for-size(tablet-portrait-up) {
+      padding: .9em 1em .9em 0;
+    }
+    &:before {
+      background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 5px/ 95px;
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 45px;
+      height: 40px;
+    }
+  }
+  &__icon {
+    display: inline-block;
+    height: auto;
+    vertical-align: middle;
+    overflow: auto;
+    width: 25px;
+  }
+  /*&__checkbox {
+    left: 10%;
+    & + * {
+      height: auto;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: visibility 0.2s, opacity 0.5s ease-out;
+      -moz-transition: visibility 0.2s, opacity 0.5s ease-out;
+      -ms-transition: visibility 0.2s, opacity 0.5s ease-out;
+      -o-transition: visibility 0.2s, opacity 0.5s ease-out;
+      transition: visibility 0.2s, opacity 0.5s ease-out;
+    }
+    &:checked + * {
+      visibility: visible;
+      opacity: 1;
+      #{$block}__label {
+        border: 2px solid red;
+      }
+    }
+  }*/
+}

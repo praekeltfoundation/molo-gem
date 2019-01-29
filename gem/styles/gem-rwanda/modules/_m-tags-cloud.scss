@@ -1,0 +1,34 @@
+.tag-cloud {
+  background-color: #F4F5F5;
+  text-align: center;
+  padding: 2em 5% 3em;
+  @include for-size(tablet-portrait-up) {
+    padding: 2em 10% 3em;
+  }
+  &-list {
+    border-bottom: 1px solid #95989C;
+    padding: 0 5% 2em;
+    margin: 0;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 25% 2em;
+    }
+    &__item {
+      display: inline-block;
+      padding: $spacer-small;
+    }
+  }
+  &__anchor {
+    color: $color-cyan;
+    font-size: $font-large;
+    &:before {
+      content: "#";
+      display: inline;
+    }
+    &:hover {
+      color: $color-cyan-dark;
+    }
+  }
+  &__title {
+    margin-left: -($spacer-small - 2);
+  }
+}

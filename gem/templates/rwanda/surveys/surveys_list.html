@@ -12,127 +12,135 @@
       {% with survey=survey.molo_survey_page %}
           {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
-              <div class="profiles-join-banner">
-                    <div class="profiles-join-banner__icon"></div>
-                    <div class="profiles-join-banner__content">
-                      <div class="heading">
-                        <h4 class="heading__subheading  heading__subheading-alt">{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
-                      </div>
-                      <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
-                    </div>
+              <div class="profiles-join">
+                <div class="profiles-join__content">
+                  <h1 class="heading__headline">
+                    {% trans "Share your opinions and stories, take polls, win fun prizes." %}
+                  </h1>
+                  <div class="call-to-action--group">
+                    <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
                   </div>
+                </div>
+                <div class="profiles-join__icon"></div>
+              </div>
             {% endif %}
         {% endif %}
       {% endwith %}
     {% endwith %}
   {% endif %}
 
-
-  {# <!-- SURVEYS SETTINGS --> #}
   {% for survey in filtered_surveys %}
     {% with survey=survey.molo_survey_page form=survey.form %}
       {% if survey.your_words_competition %}
-        <div class="surveys surveys--homepage surveys__type--gcn-competition">
-          <aside>
-            {% if survey.image %}
-              {% image survey.image width-98 as tmp_photo_small %}
-              {% image survey.image width-320 as tmp_photo_large %}
-              <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
-            {% else %}
-              <div class="surveys__item-icon"></div>
-            {% endif %}
-          </aside>
-          <section>
-            <div class="heading">
-              <h1 class="heading__component">{{survey.title}}</h1>
+        <div class="yourwords yourwords--homepage">
+          <div class="yourwords__wrapper">
+            <div class="heading heading--hero">
+              <h1 class="heading__component">
+                {% trans "Share your story" %}
+              </h1>
             </div>
-            {% if survey.homepage_introduction %}
-              <div class="heading">
-                <h5 class="heading__micro">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h5>
-              </div>
-            {% endif %}
-          </section>
-          <nav>
-            <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-              <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {% trans "Take GCN competition" as defaultTextGCN %}
-                {{ survey.homepage_button_text|default:defaultTextGCN}}
-              </span>
-            </a>
-          </nav>
+            <div class="yourwords__inner">
+              {% comment %}
+              {% if survey.image %}
+                <aside>
+                  {% image survey.image width-480 as tmp_photo %}
+                  <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
+                </aside>
+              {% endif %}
+              {% endcomment %}
+              <section>
+                <h1 class="heading__headline">{{survey.title}}</h1>
+                {% if survey.homepage_introduction %}
+                  <h3 class="heading__subtitle">
+                    {{survey.homepage_introduction|smarttruncatechars:215|safe}}
+                  </h3>
+                {% endif %}
+                <nav>
+                  <div class="call-to-action--group">
+                    <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                      {% trans "Take GCN competition" as defaultTextGCN %}
+                      {{ survey.homepage_button_text|default:defaultTextGCN}}
+                    </a>
+                  </div>
+                </nav>
+              </section>
+            </div>
+          </div>
         </div>
       {% elif survey.display_survey_directly %}
-        <div class="surveys surveys__type--polls  surveys__type--polls-homepage">
-          <aside>
-            <div class="surveys__item-icon"></div>
-          </aside>
-          <section>
-            <div class="heading">
-              <h1 class="heading__component">{{survey.title}}</h1>
-              {% if survey.homepage_introduction %}
-                <h5 class="heading__micro">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h5>
-              {% endif %}
+        <div class="polls polls--homepage">
+          <div class="polls__wrapper">
+            <div class="heading heading--secondary">
+              <h1 class="heading__title">{% trans 'Vote' %}</h1>
             </div>
-          </section>
-            {% if form %}
-              {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
-            {% else %}
-            <nav>
-              <p class="errors">{% trans 'You have already completed this poll' %}.</p>
-              {% if request.path == "/" %}
-                <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
-                  <span class="call-to-action__button-text call-to-action__button-text--primary">
-                    {% trans "Show results" %}
-                  </span>
-                </a>
-              {% else %}
-                <div class="call-to-action call-to-action--wide-back">
-                  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-                    {% trans "Back home" %}</a>
-                </div>
+            <div class="polls__inner">
+              <section>
+                <h2 class="heading__headline">{{survey.title}}</h2>
+                {% if survey.homepage_introduction %}
+                  <h4 class="heading__subtitle">
+                    {{survey.homepage_introduction|smarttruncatechars:215|safe}}
+                  </h4>
+                {% endif %}
+                {% if form %}
+                  {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls" %}
+                {% else %}
+                  <p class="error-list__item">
+                    {% trans 'You have already completed this poll' %}.</p>
+                    <nav>
+                      <div class="call-to-action--group">
+                        {% if request.path == "/" %}
+                          <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+                            {% trans "Show results" %}
+                          </a>
+                        {% else %}
+                          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                            {% trans "Back home" %}
+                          </a>
+                        {% endif %}
+                      </div>
+                    </nav>
               {% endif %}
-            </nav>
-          {% endif %}
+              </section>
+            </div>
+          </div>
         </div>
-        <div class="surveys__type--polls-separator"></div>
       {% else %}
         {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
           {% comment %}
-            <div class="heading">
-              <h1 class="heading__component">
-                SETTING ABOVE| Do not show survey - just show join banner<h1>
-            </div>
+            <h3>Test what happens here</h3>
           {% endcomment %}
         {% else %}
-          <div class="surveys surveys--homepage surveys__type--linked-surveys">
-          <aside>
-            <div class="surveys__item-icon"></div>
-          </aside>
-          <section>
-            <div class="heading">
-              <h1 class="heading__component">{{survey.title}}</h1>
-            </div>
-            {% if survey.homepage_introduction %}
-              <div class="heading">
-                <h5 class="heading__micro">
-                  {{survey.homepage_introduction|smarttruncatechars:115|safe}}
-                </h5>
+          <div class="surveys surveys--homepage">
+            <div class="surveys__wrapper">
+              <div class="heading heading heading--secondary">
+                <h1 class="heading__title">{% trans 'Quiz' %}</h1>
               </div>
-            {% endif %}
-          </section>
-          <nav>
-            <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
-              <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {% trans "Take the survey" as defaultText %}
-                {{ survey.homepage_button_text|default:defaultText }}
-              </span>
-            </a>
-          </nav>
-        </div>
+              <div class="surveys__inner">
+                {% if survey.image %}
+                  <aside>
+                    {% image survey.image width-480 as tmp_photo %}
+                    <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="surveys__image" />
+                  </aside>
+                {% endif %}
+                <section>
+                  <h2 class="heading__headline">{{survey.title}}</h2>
+                  {% if survey.homepage_introduction %}
+                    <h3 class="heading__subtitle">
+                      {{survey.homepage_introduction|smarttruncatechars:215|safe}}
+                    </h3>
+                  {% endif %}
+                  <nav>
+                    <div class="call-to-action--group">
+                      <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
+                        {% trans "Take the survey" as defaultText %}
+                        {{ survey.homepage_button_text|default:defaultText }}
+                      </a>
+                    </div>
+                  </nav>
+                </section>
+              </div>
+            </div>
+          </div>
         {% endif %}
       {% endif %}
     {% endwith %}

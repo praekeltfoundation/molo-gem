@@ -1,103 +1,106 @@
+//WHAT ELSE IS THE ARTICLE TEASER?
 .article-teaser {
-  // FOR ALL ARTICLES: #{$block}
   $block: unquote("#{&}");
   overflow: auto;
-  &--related {
-    background: $color-gray-light;
-    padding: $spacer-small $spacer-mid;
-    .heading {
-      padding: $spacer-half $spacer-mid;
+  position: relative;
+  padding: 0 $spacer-inner;
+  &__wrapper {
+    clear: both;
+  }
+  &__images {
+    background-color: $color-gray-light;
+    border: 3px solid $color-cyan;
+    margin: 0 auto;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 100%;
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      height: 236.81px;
+      width: 63%;
     }
   }
-  &--recommended {
-    background: $color-gray-light;
-    padding: $spacer-mid $spacer-mid 0;
-    .heading {
-      padding: $spacer-half $spacer-mid;
+  &__container {
+    padding: 0;
+    vertical-align: middle;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 5% 1em 1em;
     }
-  }
-  &--promo {
-    &:before {
-      content: "";
-      display: block;
-      height: 20px;
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
       width: 100%;
-        @media screen and (min-width: $smartphone) {
-          height: 40px;
-        }
-    }
-    &:nth-child(even):before  {
-      background: url("/static/img/patterns/rwanda/pattern-breaker1.png") repeat 0 0 / 100%;
-    }
-    &:nth-child(odd):before {
-      background: url("/static/img/patterns/rwanda/pattern-breaker.png") repeat 0 0 / 100%;
-    }
-    .teaser-stacklist {
-      &__item {
-        &:nth-child(even):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-cyan.png") repeat-x 0 0/70%;
-          height: 15px;
-        }
-        &:nth-child(odd):after {
-          background: url("/static/img/patterns/rwanda/pattern-line-pink.png") repeat-x 0 0/100%;
-          height: 15px;
-        }
-      }
     }
   }
   &__thumbnail {
-    width: auto;
     height: auto;
-    max-width: 118px;
+    vertical-align: middle;
+    width: 100%;
   }
   &__title {
+    font-size: $font-x-large;
+    line-height: 1;
+    margin: $spacer-half 0;
     text-transform: uppercase;
-    font-size: $font-x-small;
-    margin: 0;
     word-wrap: break-word;
     word-break: initial;
-    overflow: hidden;
   }
   &__subtitle {
-    margin: 0;
+    font-family: $TwCenMTBold;
+    font-size: $font-x-medium;
     text-align: left;
   }
-  &__link {
-    color: #000000;
-    cursor: pointer;
+  &--latest {
+    padding: 1em 5%;
+    @include for-size(tablet-landscape-up) {
+      order: 1;
+      padding: 1em 0;
+      width: 75%;
+    }
+  }
+  &--topic-of-day {
+    background-color: $color-yellow-gorse;
+    padding: 1em 5%;
+    @include for-size(tablet-landscape-up) {
+      order: 2;
+      width: 35%;
+      padding: 1em $spacer-inner 0 1em;
+    }
+    @include for-size(desktop-up) {
+      padding: 1em 8% 0 2em;
+    }
+  }
+  &--featured-homepage {
+    padding: 1em $spacer-inner 0;
     display: block;
-  }
-  .highlight-description {}
-}
-
-.teaser-stacklist {
-  margin: 0;
-  padding: 0;
-  &__item {
-    align-items: center;
-    &:after {
-      background: url("/static/img/patterns/rwanda/partten-line-grey.png") repeat-x 0 0/100%;
-      height: 10px;
-      content: "";
-      display: block;
-      width: 100%;
-    }
-    &:last-child:after {
-      content: none;
+    @include for-size(tablet-landscape-up) {
+      padding: 3em $spacer-inner 0;
     }
   }
-  &__wrapper {
-    padding: $spacer-small $spacer-mid;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-  }
-  &__thumbnail-wrap {
-    width: 45%;
-    margin-right: 5%;
-  }
-  &__content {
-    width: 60%;
-    text-align: left;
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &--#{$sectionModifier},
+    &-related--#{$sectionModifier} {
+      .section__theme {
+        background-image: url(map-get($styleElement, bgPatterns));
+        background-color: map-get($styleElement, bgColor);
+        background-position: 0 0;
+        background-repeat: repeat;
+        background-size: auto;
+      }
+      .section__icon {
+          background-color: transparent;
+          background-image: url('/static/img/icons/rwanda/ShapesSprites.png');
+          background-repeat: no-repeat;
+          background-position: map-get($styleElement, sectionTitleImagePosition);
+      }
+      .section__title {
+        background-color: map-get($styleElement, bgColor);
+        color: map-get($styleElement, textColor)
+      }
+    }
+    &-related--#{$sectionModifier} {
+      .section__title {
+        background-color: map-get($styleElement, bgColor);
+      }
+    }
   }
 }

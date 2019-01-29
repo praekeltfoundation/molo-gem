@@ -1,11 +1,71 @@
 .section {
+  $block: unquote("#{&}");
   &-page {
     overflow: auto;
-    .heading {
-      background-color: $color-gray;
-      &__section {
-        padding: 0;
+    &__wrapper {
+      padding: 0 5%;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 $spacer-inner;
       }
+    }
+    @each $sectionModifier, $styleElement in $sectionThemes {
+      &--#{$sectionModifier} {
+        #{$block}__theme {
+          background-image: url(map-get($styleElement, bgPatterns));
+          background-color: map-get($styleElement, bgColor);
+          background-position: 0 0;
+          background-repeat: repeat;
+          background-size: auto;
+        }
+        #{$block}__icon {
+            background-color: transparent;
+            background-image: url('/static/img/icons/rwanda/ShapesSprites.png');
+            background-repeat: no-repeat;
+            background-position: map-get($styleElement, sectionTitleImagePosition);
+        }
+        #{$block}__title {
+          background-color: map-get($styleElement, bgColor);
+          color: map-get($styleElement, textColor);
+        }
+      }
+    }
+  }
+  &__theme {
+    width: 100%;
+    padding: 1em;
+    background-color: rgba(0,0,0,0.5);
+    @include for-size(tablet-portrait-up) {
+      padding: 1.2em;
+    }
+  }
+  &__thumbnail {
+    width: 50px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  &__icon {
+    background-size: 100%;
+    display: inline-block;
+    width: 100px;
+    height: 65px;
+  }
+  &__caption {
+    color: #fff;
+    position: absolute;
+    top: $spacer-half;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 $spacer-half;
+    }
+  }
+  &__title {
+    background-color: #000;
+    color: #fff;
+    font-family: $TwCenMTRegular;
+    font-size: $font-large;
+    padding: 0 $spacer-mid;
+    margin: $spacer-half 0;
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-large;
     }
   }
 }

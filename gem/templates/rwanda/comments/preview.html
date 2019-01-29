@@ -2,49 +2,58 @@
 {% load molo_commenting_tags wagtailcore_tags %}
 {% block content %}
 {% get_comments_content_object for form as self %}
-<div class="comments">
-  <div class="heading">
-    <h2 class=" heading__component">{% trans "Comments" %}</h2>
-  </div>
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% if request.user.is_authenticated %}
-    <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
-    {% csrf_token %}
-      <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
-        {% if form.errors %}
-          <p class="errors">{% trans "Please correct the error below" %}</p>
-        {% endif %}
-        {{ form.comment }}
-        {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+<div class="comments__container {% if self.get_parent_section.get_effective_extra_style_hints %}comments__container--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="comments">
+    <div class="comments__wrapper">
+      <div class="heading heading--secondary">
+        <h4 class="heading__component">
+          {% trans "Comments" %}
+        </h4>
       </div>
-      <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
-        {% trans "Comment" %}
-      </button>
-      <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
-        {% trans "Comment anonymously" %}
-      </button>
-      {{ form.object_pk }}
-      {{ form.content_type }}
-      {{ form.timestamp }}
-      {{ form.security_hash }}
-      <input type="hidden" name="next" value="{% pageurl self %}" />
-      {% if comment.id %}
-      <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+      {% if messages %}
+      <ul class="comments-messages">
+        {% for message in messages %}
+          <li class="comments-messages__item {% if message.tags %} {{ message.tags }}{% endif %}">
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
       {% endif %}
-    </form>
-  {% else %}
-    <div class="heading">
-      <p class="heading__micro">
-        <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">
-          {% trans "Please log in to leave a comment" %}.</a>
-      </p>
+      {% if request.user.is_authenticated %}
+        <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
+        {% csrf_token %}
+          <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+            {% if form.errors %}
+              <p class="errors">{% trans "Please correct the error below" %}</p>
+            {% endif %}
+            {{ form.comment }}
+            {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+          </div>
+          <div class="call-to-action--group">
+            <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">
+              {% trans "Comment" %}
+            </button>
+            <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary">
+              {% trans "Comment anonymously" %}
+            </button>
+          </div>
+          {{ form.object_pk }}
+          {{ form.content_type }}
+          {{ form.timestamp }}
+          {{ form.security_hash }}
+          <input type="hidden" name="next" value="{% pageurl self %}" />
+          {% if comment.id %}
+          <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+          {% endif %}
+        </form>
+      {% else %}
+      <div class="call-to-action--group">
+        <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
+          {% trans "Please log in to comment" %}
+        </a>
+      </div>
+      {% endif %}
     </div>
-  {% endif %}
+  </div>
 </div>
 {% endblock %}

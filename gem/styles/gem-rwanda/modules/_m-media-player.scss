@@ -1,112 +1,102 @@
 .media-player {
-  background-color: $color-cyan;
-  margin: 5px auto;
+  $block: unquote("#{&}");
+  padding: 1em 5%;
   overflow: auto;
-  &__title {
+  margin: 0 auto;
+  @include for-size(tablet-landscape-up) {
+    padding: 1em $spacer-inner 4em;
+  }
+  &__wrapper {
+    margin: 1em;
+    position: relative;
+    vertical-align: top;
+    @include for-size(tablet-portrait-up) {
+      display: inline-block;
+      width: 45%;
+    }
+    &--audio {
+      @include for-size(tablet-landscape-up) {
+        width: 30%;
+        margin: 1em 5em 1em 1em;
+      }
+    }
+    &--video {
+      @include for-size(tablet-landscape-up) {
+        width: 40%;
+      }
+    }
+  }
+  &__embed {
+    display: block;
+    vertical-align: middle;
+    width: 100%;
+  }
+  &__excerpt {
+    display: block;
+    vertical-align: middle;
+    width: 100%;
+  }
+  &__content {
+    background: $color-cyan;
     color: #fff;
-    font-size: $font-x-small;
-    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    padding: $spacer-half;
+    #{$block}__title,
+    #{$block}__subtitle,
+    #{$block}__caption {
+      color: #fff;
+    }
+  }
+  &__title {
+    color: #000;
+    padding: 1em 0 0;
+    font-size: $font-medium;
   }
   &__subtitle {
-    color: #fff;
-    font-size: $font-x-small;
-    padding: 0 25px;
+    color: #000;
+    font-size: $font-x-medium;
+    padding: 0 ($spacer-multiple + 5);
   }
   &__caption {
-    color: #fff;
-    font-size: $font-x-small;
+    color: #000;
+    font-size: $font-small;
     text-align: center;
   }
   &__icon {
-    background-image: url("/static/img/icons/play-button.png");
-    background-image: url("/static/img/icons/play-button.svg"),
-      linear-gradient(transparent, transparent);
-    background-repeat: no-repeat;
-    background-position: center 15px;
-    color: $color-pink-hollywood;
+    background: url('/static/img/icons/rwanda/iconsSprite.png') no-repeat 0 65%/100px;
+    color: $color-yellow;
     padding: 85px 0 0;
     display: block;
     font-weight: bold;
     text-decoration: underline;
-  }
-  &__content {
-    padding: 20px;
-    text-align: center;
-  }
-  &__no-player {
-    text-align: center;
-    padding: 10px 0;
-    border: 1px solid #fff;
-  }
-  &__embed-object {
-    position: relative;
-    margin: 10px auto 0;
-    height: auto;
-    overflow: auto;
-    iframe, object, embed {
-      position: relative;
-      min-height: 220px;
-      min-width: 320px;
-      height: auto;
-      width: 100%;
+    &:active, &:hover, &:focus {
+      color: #fff;
     }
-  }
-  .call-to-action__button {
-    color: $color-pink-hollywood;
-    text-align: center;
-    display: block;
-    margin: 5px 0 0;
-    &:hover, &:active {
-      text-decoration: underline;
-    }
-  }
-  video {
-    display: block;
-    position: relative;
-    margin: 0 auto;
-    max-height: 220px;
-    max-width: 320px;
-    height: 100%;
-    width: 95%;
   }
   audio {
-    display: block;
-    margin: 0 auto;
-    width: 95%;
+    display: inline-block;
+    float: left;
+    margin: 0 1em 0 0;
+    object-fit: cover;
+    width: 100%;
   }
-}
+  video {
+    border: 2px solid $color-cyan;
+    display: block;
+    object-fit: cover;
+    max-height: 580px;
+    width: 100%;
+  }
+  iframe {
+    border: 2px solid $color-cyan;
+    display: block;
+    max-height: 580px;
+    width: 100%;
+  }
 
-audio::-webkit-media-controls-panel,
-audio::-moz-media-controls-panel,
-audio::-o-media-controls-panel,
-audio::-ms-media-controls-panel,
-video::-webkit-media-controls-panel,
-video::-moz-media-controls-panel,
-video::-o-media-controls-panel,
-video::-ms-media-controls-panel {
-  background: rgba($color-cyan,0.5) !important;
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  -o-border-radius: 0 !important;
-  -ms-border-radius: 0 !important;
-  border-radius: 0 !important;
-}
-
-audio::-webkit-media-controls-play-button,
-audio::-moz-media-controls-play-button,
-audio::-o-media-controls-play-button,
-audio::-ms-media-controls-play-button,
-video::-webkit-media-controls-play-button,
-video::-moz-media-controls-play-button,
-video::-o-media-controls-play-button,
-video::-ms-media-controls-play-button,
-video::-webkit-media-controls-mute-button,
-video::-moz-media-controls-mute-button,
-video::-o-media-controls-mute-button,
-video::-ms-media-controls-mute-button,
-audio::-webkit-media-controls-mute-button,
-audio::-moz-media-controls-mute-button,
-audio::-o-media-controls-mute-button,
-audio::-ms-media-controls-mute-button {
-  cursor: pointer;
+  .call-to-action__item--text {
+    padding: 0;
+    margin: 1em 0;
+  }
 }

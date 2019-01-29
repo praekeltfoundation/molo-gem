@@ -1,0 +1,18 @@
+.teaser-stacklist {
+  $block: unquote("#{&}");
+  margin: 0;
+  padding: 0;
+  &__item {
+    display: block;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+    vertical-align: top;
+    margin: 0 $spacer-small 2em $spacer-small;
+    @include for-size(tablet-landscape-up) {
+      align-items: flex-start;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

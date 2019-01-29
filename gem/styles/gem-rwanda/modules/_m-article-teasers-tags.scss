@@ -1,0 +1,41 @@
+.teaser-tags {
+  $block: unquote("#{&}");
+  display: block;
+  height: 35px;
+  margin: 0;
+  padding: 5px 0 0;
+  overflow: hidden;
+  &__item {
+    display: inline-block;
+    padding: 0 $spacer-small 0 0;
+  }
+  &__anchor {
+    color: $color-cyan;
+    font-size: $font-small;
+    text-decoration: underline;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+      }
+      &:before {
+        content: "#";
+        display: inline;
+      }
+  }
+  &__title {
+    display: inline;
+    color: $color-cyan;
+    font-size: $font-small;
+    text-decoration: underline;
+  }
+  &--non-click {
+    height: auto;
+    #{$block}__item {
+      background: $color-gray-light;
+      border-radius: $spacer-small;
+      padding: $spacer-half;
+    }
+    #{$block}__title {
+      text-decoration: none;
+    }
+  }
+}

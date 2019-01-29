@@ -1,5 +1,28 @@
 .header {
   background-color: $color-cyan;
-  overflow: auto;
-  position: relative;
+  padding: 0 1em;
+  overflow: inherit;
+  width: 100%;
+  text-align: center;
+  @include for-size(desktop-up) {
+    padding: 0 $spacer-inner;
+  }
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 4em;
+    z-index: 9999;
+    position: fixed;
+    box-sizing: border-box;
+    transform: translate3d(0, 0, 0);
+    transition: transform 300ms ease 1ms;
+    animation: qs-timer 300ms;
+  }
+  [type="checkbox"],
+  [type="radio"] {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+  }
 }

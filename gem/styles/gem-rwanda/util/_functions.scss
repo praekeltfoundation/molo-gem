@@ -4,21 +4,15 @@
 /// @param {Map} $map - Map
 /// @param {Arglist} $keys - Key chain
 /// @return {*} - Desired value
+
 @function map-deep-get($map, $keys...) {
-    @each $key in $keys {
-        $map: map-get($map, $key);
-    }
-    @return $map;
+  $value: $map;
+  @each $key in $keys {
+    $value: map-get($value, $key);
+  }
+  @return $value;
 }
 @function color($group, $color) {
     $clr: map-deep-get($color_group, $group, $color);
     @return $clr;
-}
-
-// Line height helper
-@function get-value($n) {
-    @return $n / ($n * 0 + 1);
-}
-@function get-line-height($font-size, $line-height) {
-   @return get-value($line-height / $font-size);
 }

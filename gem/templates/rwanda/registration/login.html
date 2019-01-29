@@ -1,43 +1,46 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="profiles">
-  <div class="heading">
-    <h1 class="heading__profiles">{% trans "Log in" %}</h1>
-  </div>
-  <div class="call-to-action call-to-action--profiles">
-    <div class="heading">
-      <h3 class="heading__subheading">
-        {% trans "Not a member yet?" %}
-      </h3>
+  <div class="profiles__wrapper">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans "Log in" %}</h1>
     </div>
-    <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--login">{% trans "Register" %}</a>
-    <div class="heading">
-      <h4 class="heading--subtitle">
-          Login by signing in below.
-      </h4>
+    <div class="profiles__caption">
+      <h3 class="heading__subtitle">{% trans "Not a member yet?" %}</h3>
+      <a href="{% url "molo.profiles:user_register" %}" class="call-to-action__item call-to-action__item--text">
+        {% trans "Register" %}
+      </a>
+    </div>
+    <div class="profiles__inner">
+      <h2 class="heading__headline">
+        {% trans "Login" %}
+      </h2>
+      <h3 class="heading__subtitle">{% trans "By signing in below." %}</h3>
+      <form method="post" action="" class="profiles__form" novalidate>
+      {% csrf_token %}
+        {% if form.errors %}
+        <p class="error-list__item">
+        {% trans "Your username and pin do not match. Please try again." %}
+        </p>
+        {% endif %}
+        <fieldset>
+          <label for="id_username">{% trans "Username" %}</label>
+          {{form.username}}
+        </fieldset>
+        <fieldset>
+          <label for="id_password">{% trans "4-digit pin" %}</label>
+          {{ form.password }}
+          {{ form.password.errors}}
+          <span class="input-hint">({% trans "Eg.: 2086" %})</span>
+        </fieldset>
+        <div class="call-to-action--group">
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Log in" %}</button>
+          <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "molo.profiles:login_success" %}{% endif %}"/>
+          <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__button call-to-action__button--primary ">
+            {% trans "Forgot PIN" %}</a>
+        </div>
+      </form>
     </div>
   </div>
-  <form method="post" action="" class="profiles__form" novalidate>
-  {% csrf_token %}
-  {% if form.errors %}
-  <span class="error">
-  {% trans "Your username and pin do not match. Please try again." %}
-  </span>
-  {% endif %}
-  <fieldset>
-    <label for="id_username">{% trans "Username" %}</label>
-    {{form.username}}
-  </fieldset>
-  <fieldset>
-    <label for="id_password">{% trans "4-digit pin" %}</label>
-    {{ form.password }}
-    {{ form.password.errors}}
-    <span class="input-hint">({% trans "Eg.: 2086" %})</span>
-  </fieldset>
-  <input type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">
-  <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "molo.profiles:login_success" %}{% endif %}" class="call-to-action__button call-to-action__button--sprimary" />
-  </form>
-  <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Forgot PIN" %}</a>
-  </div>
+</div>
 {% endblock %}

@@ -1,53 +1,65 @@
 .banner {
   $block: unquote("#{&}");
-  background: $color-gray-light;
-  overflow: auto;
-  &__item-link {
-    display: block;
-    color: #000000;
-    text-transform: uppercase;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  &__content {
+    padding: 1em $spacer-inner;
   }
   &__image {
     display: block;
+    height: auto;
     width: 100%;
-    color: #000000;
-    text-transform: uppercase;
+    @include for-size(tablet-landscape-up) {
+      color: #000;
+      display: inline-block;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
   }
-  &__text {
-    background-color: $color-pink-hollywood;
-    color: $color-yellow;
+  &__caption {
+    color: $color-cyan;
+    display: block;
+    margin: 0 auto;
+    padding: 1em 5%;
     text-align: center;
-    #{$block}__subtitle {
-      font-size: $font-x-medium;
-      padding: 0 $spacer-mid;
-      margin: 0;
-      //SMARTPHONE
-      @media screen and (min-width: $smartphone) {
-        margin: auto;
+  }
+  &__title {
+   color: $color-cyan;
+   text-transform: uppercase;
+  }
+  &__subtitle {
+    color: $color-cyan;
+    margin: 0;
+  }
+  &--main {
+    overflow: hidden;
+    max-height: 400px;
+    margin: 0;
+    .banner { margin: 0; }
+    #{$block}__caption {
+      background: $color-cyan;
+      text-align: left;
+      visibility: visible;
+      top: 1em;
+      @include for-size(tablet-landscape-up) {
+        background: transparent;
       }
     }
-  }
-}
-
-.freebasics-notification {
-  background: $color-gray-light url("/static/img/patterns/rwanda/pattern-banner.png") repeat 0 0/100%;
-  color: #000000;
-  padding: $spacer-mid;
-  overflow: auto;
-  text-align: center;
-  width: 100%;
-    //SMARTPHONE
-    @media screen and (min-width: $smartphone) {
-      padding: $spacer-multiple;
+    #{$block}__title,
+    #{$block}__subtitle {
+      color: #fff;
+      text-align: right;
+      text-shadow: 1px 2px 8px #4A4A4A;
     }
-  &__text {
-    color: $color-yellow;
-  }
-  &__anchor {
-    color: #ffffff;
-    padding:0;
-    &:active, &:hover, &:focus  {
-      color: $color-yellow;
+    #{$block}__subtitle  {
+      display: none;
+      visibility: hidden;
     }
+  }
+  &--text {
+    background-color: rgba($color-cyan-dark, 1);
+    text-align: center;
+    padding: 0 0 $spacer-half;
   }
 }

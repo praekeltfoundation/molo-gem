@@ -1,0 +1,79 @@
+.search {
+  $block: unquote("#{&}");
+  &-wrapper {
+    background: #fff;
+    color: $color-cyan;
+    font-size: $font-x-medium;
+    text-align: left;
+    @include fly-by();
+    padding: 1em $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 3.3em $spacer-inner;
+    }
+  }
+  &-accordion {
+    &__label {
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-size: $font-x-medium;
+      text-transform: uppercase;
+      text-indent: -4.5em;
+      @include for-size(tablet-landscape-up) {
+        display: inline-flex;
+        padding: 0.9em 0;
+      }
+      &:after {
+        content: " ";
+        background-color: $color-cyan;
+        background-image: url('/static/img/icons/rwanda/iconsSprite.png');
+        background-repeat: no-repeat;
+        background-position: -5% 32.3%;
+        background-size: 140px;
+        display: inline-block;
+        vertical-align: middle;
+        height: 40px;
+        width: 55px;
+      }
+    }
+    /*&__checkbox {
+      & + * {
+        height: auto;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -moz-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -ms-transition: visibility 0.2s, opacity 0.5s ease-out;
+        -o-transition: visibility 0.2s, opacity 0.5s ease-out;
+        transition: visibility 0.2s, opacity 0.5s ease-out;
+      }
+      &:checked + * {
+        opacity: 1;
+        visibility: visible;
+        label[for=search_accordion] { background-color: #000; }
+      }
+    }*/
+  }
+  .open {
+    background-color: #fff;
+    color: $color-cyan;
+    &:after {
+      background-color: #fff;
+      background-position: -5% 35.6%;
+      background-size: 130px;
+    }
+  }
+  &--header {
+    display: inline-block;
+    overflow: auto;
+    #{$block}-wrapper {
+      @include for-size(tablet-landscape-up) {
+        padding: 3.3em 25%;
+      }
+    }
+    #{$block}__form {
+      display: inline-block;
+      width: 75%;
+    }
+  }
+}

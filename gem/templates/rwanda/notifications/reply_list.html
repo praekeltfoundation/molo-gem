@@ -1,37 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="comments-list">
-    <div class="heading">
-      <h2 class="heading__component">
-        {% trans "Comment replies" %}
-      </h2>
-    </div>
-      {% if unread_notifications %}
-      <div class="heading">
-        <h4 class="heading__micro">
-          {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
-          {% if number_unread_notifications == 1 %}
-            {% trans "reply" %}
-          {% else %}
-            {% trans "replies" %}
-          {% endif %}
-        </h4>
+<div class="comments__container {% if self.get_parent_section.get_effective_extra_style_hints %}comments__container--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="comments">
+    <div class="comments__wrapper">
+      <div class="heading heading--secondary">
+        <h2 class="heading__component">
+          {% trans "Comment replies" %}
+        </h2>
       </div>
-        {% for notice in unread_notifications %}
-          {% include 'notifications/notice.html' %}
-        {% endfor %}
-      {% endif %}
-      {% if read_notifications %}
-        <div class="heading">
-          <h4 class="heading__micro">{% trans "Read replies" %}:</h4>
-        </div>
-        {% for notice in read_notifications %}
-          {% include 'notifications/notice.html' %}
-        {% endfor %}
-      {% endif %}
+      <div class="comments-list">
+        {% if unread_notifications %}
+          <h3 class="heading__subtitle">
+            {% trans "You have"%} {{number_unread_notifications}}
+            {% trans "unread"%}
+            {% if number_unread_notifications == 1 %} {% trans "reply" %}
+            {% else %} {% trans "replies" %} {% endif %}
+          </h3>
+          {% for notice in unread_notifications %}
+            {% include 'notifications/notice.html' %}
+          {% endfor %}
+        {% endif %}
+        {% if read_notifications %}
+          <h3 class="heading__subtitle">{% trans "Read replies" %}:</h3>
+          {% for notice in read_notifications %}
+            {% include 'notifications/notice.html' %}
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="call-to-action--group">
+        <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+          {% trans "Back home" %}
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="call-to-action">
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back home" %}</a>
-  </div>
+</div>
 {% endblock %}
