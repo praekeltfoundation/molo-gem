@@ -83,15 +83,15 @@
     {% social_media_article page=self %}
   {% endif %}
 
-  {% load_reaction_question article as question %}
+  {% load_reaction_question self as question %}
   {% if question %}
   <div class="reaction-questions__block">
     <div class="heading heading__subheading">
       <h3>{{question.title}}</h3>
     </div>
-      {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
+      {% load_user_can_vote_on_reaction_question question self.pk as user_can_vote%}
         {% if user_can_vote %}
-          <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+          <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" method="post" novalidate>
             {% csrf_token %}
             <div class="reaction-questions__list">
               {% load_choices_for_reaction_question question as choices %}
