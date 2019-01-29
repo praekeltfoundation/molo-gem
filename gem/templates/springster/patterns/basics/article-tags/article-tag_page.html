@@ -1,9 +1,11 @@
 {% load core_tags %}
 {% load_tags_for_article article as tags %}
-<ul class="teaser-stacklist-tags">
-  {% for tag in tags %}
-  <li class="teaser-stacklist-tags__item">
-    <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
-  </li>
-  {% endfor %}
-</ul>
+{% if settings.core.SiteSettings.enable_tag_navigation %}
+  <ul class="teaser-stacklist-tags">
+    {% for tag in tags %}
+    <li class="teaser-stacklist-tags__item">
+      <a href="{% url 'tags_list' tag.slug %}" class="teaser-stacklist-tags__anchor">{{ tag.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -1,4 +1,5 @@
-{% load core_tags %}
+{% load core_tags wagtailsettings_tags %}
+{% get_settings %}
 {% load_tags_for_article self as navigation_tags %}
 {% if navigation_tags %}
 <div class="article-page-tag-cloud">
@@ -16,7 +17,7 @@
   {% elif settings.core.SiteSettings.enable_clickable_tags %}
     {% for tag in self.tags_list %}
       <li class="tag-cloud__item">
-        <a href="{% url 'tags_list' tag.specific %}" class="tag-cloud__anchor">
+        <a href="#" class="tag-cloud__anchor">
             <span class="tag-cloud__item-title">{{tag}}</span>
         </a>
       </li>
