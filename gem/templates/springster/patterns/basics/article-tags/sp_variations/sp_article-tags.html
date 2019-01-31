@@ -1,13 +1,11 @@
-{% load core_tags %}
-  {% load_tags as tags %}
-  <ul class="tag-cloud__block">
+<ul class="tag-cloud__block">
   {% for tag in tags %}
-    {% if tag and tag.feature_in_homepage%}
+    {% if tag and tag.feature_in_homepage %}
       <li class="tag-cloud__item">
         <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
-            <span class="tag-cloud__item-title">{{tag.title}}</span>
+          <span class="tag-cloud__item-title">{{tag.title}}</span>
         </a>
       </li>
       {% endif %}
-    {% endfor %}
-  </ul>
+  {% endfor %}
+</ul>
