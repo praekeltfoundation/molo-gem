@@ -30,14 +30,15 @@
     justify-content: center;
     height: 160px;
     overflow: hidden;
-    padding: 1.9em 1em;
+    //padding: 1.9em 1em;
+    padding: 15% 1em;
     text-transform: uppercase;
     text-align: center;
     text-decoration: none;
     position: relative;
     width: 100%;
     @include for-size(desktop-up) {
-      padding: 15% 1em;
+
     }
     @each $sectionModifier, $styleElement in $sectionThemes {
       &--#{$sectionModifier} {
@@ -54,10 +55,12 @@
     }
   }
   &__label {
-    background: $color-cyan;
+    //background: $color-cyan;
     position: relative;
-    padding: 0.2em 2px;
+    padding: 0.5em 2px;
     font-size: $font-large;
+    background: 0 0;
+    z-index: 999;
     &::before {
       background: $color-cyan;
       content: "";
@@ -71,8 +74,7 @@
       z-index: -1;
     }
     @include for-size(desktop-up) {
-      background: 0 0;
-      z-index: 999;
+
     }
   }
   &__shadow {
