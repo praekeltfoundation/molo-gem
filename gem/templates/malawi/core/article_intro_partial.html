@@ -1,6 +1,7 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags %}
-<div class="article-preview">
+{% load wagtailsettings_tags wagtailcore_tags wagtailimages_tags core_tags %}
+{% get_settings %}
 
+<div class="article-preview">
   {% if article.image %}
   <a href="{% pageurl article.specific %}" class="image">
     {% if square_image %}
@@ -29,6 +30,22 @@
 
     <h3><a href="{% pageurl article.specific %}">{{ article.title }}</a></h3>
     <p>{{ article.subtitle }}</p>
+    {% load_tags_for_article article as tags %}
+    {% if settings.core.SiteSettings.enable_tag_navigation %}
+      <div class="tags">
+        <ul class="tags-list">
+          {% for tag in tags %}
+          {% if not tag.title.20 %}
+            <li class="tag-list__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="tag__item-anchor">
+                {{ tag.title }}
+              </a>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
     <a class="read-more" href="{% pageurl article.specific %}">{% trans "Read more" %}</a>
   </div>
 </div>
