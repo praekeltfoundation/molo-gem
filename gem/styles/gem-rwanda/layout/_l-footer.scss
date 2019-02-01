@@ -28,9 +28,13 @@
       max-height: 50px;
     }
     &-list {
-      padding: 0 3em 0 3em;
-      @include for-size(desktop-up) {
+      @include for-size(tablet-portrait-up)  {
+        padding: 0 3em 0 3em;
+      }
+      @include for-size(tablet-landscape-up) {
         padding: 0;
+      }
+      @include for-size(desktop-up) {
         text-align: center;
       }
       &__item {
