@@ -3,97 +3,99 @@
 
 {% block content %}
 {% if search_results %}
-  <div class="search search-page">
+  <div class="search search-page {% if self.get_effective_extra_style_hints %}search-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     <div class="heading heading--hero">
       <h1 class="heading__component">{% trans "Search" %}</h1>
     </div>
-    <h3 class="heading__micro">{{results|length}} {% trans "results found for" %}:
+    <h3 class="heading__headline">{{results|length}} {% trans "results found for" %}:
       <span class="search__query-term">'{{search_query}}'</span>
     </h3>
     {% comment %}{% include "search/search_block.html" %}{% endcomment %}
-    <div class="article-teaser">
-      <ul class="teaser-stacklist">
+    <ul class="teaser-stacklist">
       {% for article in search_results %}
         <li class="teaser-stacklist__item">
           {% if article.image %}
             <div class="article-teaser__images">
               <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
-                {% image article.image width-200 as teaser_thumbnail %}
-                <img src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
+                {% image article.image width-480 as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail"/>
               </a>
             </div>
           {% endif %}
-          <ul class="teaser-tags">
+          <div class="article-teaser__container">
             {% get_comment_count for article as comment_count %}
             {% load_tags_for_article article as tags %}
-            {% if comment_count > 0 %}
-            <li class="teaser-tags__item">
-              <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
-                <span class="comments-counter__numeral">{{comment_count}}</span>
-              </a>
-            </li>
-            {% endif %}
-            {% if tags %}
-              {% if settings.core.SiteSettings.enable_tag_navigation %}
-                {% for tag in tags %}
-                  {% if not tag.title.20 %}
+            <ul class="teaser-tags">
+              {% if comment_count > 0 %}
+              <li class="teaser-tags__item">
+                <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
+                  <span class="comments-counter__numeral">{{comment_count}}</span>
+                </a>
+              </li>
+              {% endif %}
+              {% if tags %}
+                {% if settings.core.SiteSettings.enable_tag_navigation %}
+                  {% for tag in tags %}
+                    {% if not tag.title.20 %}
+                      <li class="teaser-tags__item">
+                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                          <span class="teaser-tags__title">{{ tag.title }}</span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% elif settings.core.SiteSettings.enable_clickable_tags %}
+                  {% for tag in article.tags_list %}
                     <li class="teaser-tags__item">
-                      <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                        <span class="teaser-tags__title">{{ tag.title }}</span>
-                      </a>
+                      <span class="teaser-tags__title">{{tag}}</span>
                     </li>
-                  {% endif %}
-                {% endfor %}
-              {% elif settings.core.SiteSettings.enable_clickable_tags %}
-                {% for tag in article.tags_list %}
-                  <li class="teaser-tags__item">
-                    <span class="teaser-tags__title">{{tag}}</span>
-                  </li>
-                {% endfor %}
+                  {% endfor %}
+                {% endif %}
               {% endif %}
-            {% endif %}
-          </ul>
-          <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
-            {% if article.title_highlight %}
-              {{ article.title_highlight|smarttruncatechars:23|safe}}
-            {% else %}
-              {{ article.title|safe}}
-            {% endif %}
-          </h3>
-          {% if article.subtitle_highlight or page.body_highlight %}
-            <p class="article-teaser__subtitle">
-              {% if article.subtitle_highlight %}
-                {{page.subtitle_highlight|safe}}
-              {% elif article.body_highlight %}
-                {{article.body_highlight|safe}}
-              {% endif %}
-            </p>
-          {% else %}
-            <p class="article-teaser__subtitle">
-              {% if article.title.30 %}
-                {{ article.subtitle|smarttruncatechars:30|safe}}
+            </ul>
+            <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
+              {% if article.title_highlight %}
+                {{ article.title_highlight|smarttruncatechars:50|safe}}
               {% else %}
-                {{ article.subtitle|smarttruncatechars:50|safe}}
+                {{ article.title|safe}}
               {% endif %}
-            </p>
-          {% endif %}
-          <a href="{% pageurl article.specific %}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Read article" %}</a>
+            </h3>
+            {% if article.subtitle_highlight or article.body_highlight %}
+              <h6 class="article-teaser__subtitle">
+                {% if article.subtitle_highlight %}
+                  {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+                {% elif article.body_highlight %}
+                  {{article.body_highlight|smarttruncatechars:50|safe}}
+                {% endif %}
+              </h6>
+            {% elif article.subtitle %}
+              <h6 class="article-teaser__subtitle">
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              </h6>
+            {% endif %}
+            {% with article.body|first as block %}
+              {% if block.block_type == 'paragraph' %}
+                <p>{{block.value|smarttruncatechars:150|safe}}</p>
+              {% endif %}
+            {% endwith %}
+            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+              {% trans "Read article" %}
+            </a>
+          </div>
         </li>
       {% endfor %}
-      </ul>
-    </div>
+    </ul>
     {% if search_results.paginator.num_pages > 1 %}
       <div class="pagination">
         {% if search_results.has_previous %}
-          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">
+          <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--previous">
             {% trans "Previous" %}
           </a>
         {% endif %}
         <p class="call-to-action__item--text call-to-action__item--text-current">
           {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}</p>
         {% if search_results.has_next %}
-          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--secondary">
+          <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--next">
             {% trans "Newer" %}
           </a>
         {% endif %}
