@@ -14,8 +14,12 @@
     margin: 0 0 1em;
     text-align: left;
     @include for-size(tablet-landscape-up) {
+      width: 20%;
       flex: 1 auto;
       order: 2;
+    }
+    @include for-size(desktop-up) {
+      text-align: center;
     }
     &__icon {
       height: auto;
@@ -23,12 +27,23 @@
       max-width: 50px;
       max-height: 50px;
     }
+    &-list {
+      padding: 0 3em 0 3em;
+      @include for-size(desktop-up) {
+        padding: 0;
+        text-align: center;
+      }
+      &__item {
+        padding: $spacer-small;
+        display: block;
+      }
+    }
   }
   .searchCopyright-wrapper {
     display: inline-block;
     margin: 0 0 1em;
     @include for-size(tablet-landscape-up) {
-      width: 25%;
+      width: 20%;
       flex: 1 auto;
       order: 3;
     }
