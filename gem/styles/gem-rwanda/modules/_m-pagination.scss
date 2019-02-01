@@ -1,19 +1,34 @@
 .pagination {
+  margin: 1em 0;
   text-align: left;
+  width: 100%;
   @include for-size(tablet-landscape-up) {
+    margin: 0 0 2em;
     padding: 1em 5%;
     text-align: center;
-    margin: 1em 0;
   }
   &--multi-step {
     text-align: left;
     padding: 0;
     border-top: none;
   }
-  .call-to-action__item--text-current {
-    margin: 0;
-    @include for-size(tablet-landscape-up) {
-      padding: 0 5%;
+  .call-to-action {
+    &__button {
+      font-size: $font-small;
+      margin: 0;
+      @include for-size(tablet-portrait-up) {
+        font-size: $font-x-medium;
+        margin: 5px 1em 1em 0;
+      }
+    }
+    &__item {
+      &--text-current {
+        margin: 0;
+        padding: 0 0.9em;
+        @include for-size(tablet-portrait-up) {
+          padding: 0 2em;
+        }
+      }
     }
   }
 }
