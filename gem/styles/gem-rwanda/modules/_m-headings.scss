@@ -6,7 +6,7 @@
   }
   &--hero {
     display: inline-block;
-    padding: $spacer-multiple $spacer-small;
+    padding: 0 $spacer-small;
     margin: 1em 0 1em;
     text-align: center;
     @include for-size(phone-only) {
@@ -14,9 +14,12 @@
       background-repeat: no-repeat;
       background-position: -30px 83.3%;
       background-size: 120px;
-      padding: 0 $spacer-small;
       height: 75px;
     }
+    @include for-size(tablet-landscape-up) {
+      padding: $spacer-multiple $spacer-small;
+    }
+    @include for-size(desktop-up) {}
   }
   &--primary {
     position: relative;
