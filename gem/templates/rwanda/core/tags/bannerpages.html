@@ -6,9 +6,9 @@
       {% if not is_via_freebasics %}
         <div class="banner--text">
           <div class="banner__caption">
-            <h2 class="banner__title">
+            <h1 class="banner__title">
               {{bannerpage.title|smarttruncatechars:115|safe}}
-            </h2>
+            </h1>
             {% if bannerpage.subtitle %}
               <p class="banner__subtitle">{
                 { bannerpage.subtitle|smarttruncatechars:115|safe }}
@@ -41,15 +41,17 @@
           <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
         {% endif %}
         <div class="banner__caption">
-          <h2 class="banner__title">{{ bannerpage.title }}</h2>
-          <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
+          <h1 class="banner__title">{{ bannerpage.title }}</h1>
+          {% if bannerpage.subtitle %}
+            <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
+          {% endif %}
         </div>
       {% else %}
          <div class="banner--text">
           <div class="banner__caption">
-            <h2 class="banner__title">
+            <h1 class="banner__title">
               {{bannerpage.title|smarttruncatechars:115|safe}}
-            </h2>
+            </h1>
             {% if bannerpage.subtitle %}
               <p class="banner__subtitle">
                 {{ bannerpage.subtitle|smarttruncatechars:115|safe }}
