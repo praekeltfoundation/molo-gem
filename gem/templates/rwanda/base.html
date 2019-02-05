@@ -12,8 +12,8 @@
 <head>
   <meta charset="utf-8" />
   <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="google-site-verification" content="1pHfu6F9poexdHOYO-8YohY4exchMmVOaNmiCLhoT9Q" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
@@ -49,36 +49,40 @@
     {% molo_pwa_meta %}
     molo_pwa
   {% endcomment %}
-  <script src="https://code.jquery.com/jquery-2.0.3.min.js" integrity="sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=" crossorigin="anonymous"></script>
   {% compress js inline %}
-    <script>
-    var domReady = document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
-    console.log(domReady);
-
-    domReady(function() {
+  <script>
     !function(a){var b=/iPhone/i,c=/iPod/i,d=/iPad/i,e=/(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,f=/Android/i,g=/(?=.*\bAndroid\b)(?=.*\bSD4930UR\b)/i,h=/(?=.*\bAndroid\b)(?=.*\b(?:KFOT|KFTT|KFJWI|KFJWA|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|KFARWI|KFASWI|KFSAWI|KFSAWA)\b)/i,i=/IEMobile/i,j=/(?=.*\bWindows\b)(?=.*\bARM\b)/i,k=/BlackBerry/i,l=/BB10/i,m=/Opera Mini/i,n=/(CriOS|Chrome)(?=.*\bMobile\b)/i,o=/(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,p=new RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)","i"),q=function(a,b){return a.test(b)},r=function(a){var r=a||navigator.userAgent,s=r.split("[FBAN");return"undefined"!=typeof s[1]&&(r=s[0]),s=r.split("Twitter"),"undefined"!=typeof s[1]&&(r=s[0]),this.apple={phone:q(b,r),ipod:q(c,r),tablet:!q(b,r)&&q(d,r),device:q(b,r)||q(c,r)||q(d,r)},this.amazon={phone:q(g,r),tablet:!q(g,r)&&q(h,r),device:q(g,r)||q(h,r)},this.android={phone:q(g,r)||q(e,r),tablet:!q(g,r)&&!q(e,r)&&(q(h,r)||q(f,r)),device:q(g,r)||q(h,r)||q(e,r)||q(f,r)},this.windows={phone:q(i,r),tablet:q(j,r),device:q(i,r)||q(j,r)},this.other={blackberry:q(k,r),blackberry10:q(l,r),opera:q(m,r),firefox:q(o,r),chrome:q(n,r),device:q(k,r)||q(l,r)||q(m,r)||q(o,r)||q(n,r)},this.seven_inch=q(p,r),this.any=this.apple.device||this.android.device||this.windows.device||this.other.device||this.seven_inch,this.phone=this.apple.phone||this.android.phone||this.windows.phone,this.tablet=this.apple.tablet||this.android.tablet||this.windows.tablet,"undefined"==typeof window?this:void 0},s=function(){var a=new r;return a.Class=r,a};"undefined"!=typeof module&&module.exports&&"undefined"==typeof window?module.exports=r:"undefined"!=typeof module&&module.exports&&"undefined"!=typeof window?module.exports=s():"function"==typeof define&&define.amd?define("isMobile",[],a.isMobile=s()):a.isMobile=s()}(this);
+    document.addEventListener('DOMContentLoaded', function() {
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
       var smartStylesLarge = '<link href="{{ STATIC_URL }}css/{{ ENV }}/enhanced-nn.css" rel="stylesheet" media="screen and (min-width: 360px)">';
-
-
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             raf(function() {
               var smartStylesLargeDefer =
               document.getElementsByTagName('style')[0];
               window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
-              js = document.createElement('script');
-              js.src = '{{ STATIC_URL }}js/dest/nn-min.js';
-              js.async = false;
-              document.querySelector('script').parentNode.appendChild(js);
+
+              var jsScripts = [
+                "https://code.jquery.com/jquery-2.0.3.min.js",
+                "{{ STATIC_URL }}js/dest/nn-min.js"
+              ];
+              for (var i = 0; i < jsScripts.length; i++) {
+                var script = document.createElement('script');
+                if (i === 0 ) {
+                  script.crossOrigin = "anonymous";
+                  script.integrity = "sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=";
+                }
+                script.src = jsScripts[i];
+                script.async = false;
+                document.querySelector('script').parentNode.appendChild(script);
+              }
             });
           }
         }
-
       });
-    </script>
+  </script>
   {% endcompress %}
 </head>
 <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
