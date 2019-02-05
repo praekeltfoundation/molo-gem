@@ -9,7 +9,7 @@
   &--wrapper {
     @include for-size(tablet-landscape-up) {
       display: flex;
-      flex-flow: row wrap;
+      flex-flow: row;
       justify-content: space-evenly;
     }
   }
@@ -18,13 +18,16 @@
     margin: 0;
     padding: 0 0 0 3em;
     vertical-align: top;
+    @include for-size(tablet-portrait-up) {
+      max-width: 250px;
+      padding: 0;
+    }
     @include for-size(tablet-landscape-up) {
       margin: 0 1em 1em;
       padding: 0 1em 0 0;
     }
     @include for-size(desktop-up) {
       margin: 0;
-      max-width: 250px;
     }
     &__item {
       display: block;
