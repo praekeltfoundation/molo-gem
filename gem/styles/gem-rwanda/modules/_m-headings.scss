@@ -7,30 +7,38 @@
   &--hero {
     display: inline-block;
     padding: $spacer-multiple $spacer-small;
-    margin: 0 0 1em;
+    margin: 1em 0 1em;
     text-align: center;
     @include for-size(phone-only) {
       background-image: url('/static/img/icons/rwanda/ShapesSprites.png');
       background-repeat: no-repeat;
       background-position: -30px 83.3%;
       background-size: 120px;
+      padding: 0 $spacer-small;
+      height: 75px;
     }
   }
   &--primary {
     position: relative;
+    margin: 1em 0;
     @include for-size(tablet-landscape-up) {
       margin: $spacer-half 0 1em;
     }
   }
   &--secondary {
     display: inline-block;
-    padding: $spacer-mid $spacer-small;
-    margin: $spacer-half $spacer-half 1em;
+    padding: 0 $spacer-small;
+    margin: 1em $spacer-half 1em;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 $spacer-small;
+      margin: $spacer-half $spacer-half 1em;
+    }
     @include for-size(phone-only) {
       background: url('/static/img/icons/rwanda/ShapesSprites.png');
       background-repeat: no-repeat;
       background-position: 0 3.3%;
       background-size: 100px;
+      height: 75px;
     }
   }
   //HEADING TAGS
@@ -40,10 +48,11 @@
     font-size: $font-large;
     font-family: $TwCenMTRegular;
     font-weight: normal;
-    margin: 0 0 0 0.5em;
+    margin: 1em 0 1em 0.5em;
     padding: 0 $spacer-mid;
     @include for-size(tablet-landscape-up) {
       font-size: $font-x-large;
+      margin: 0 0 0 0.5em;
     }
   }
   &__subheading {
@@ -51,29 +60,46 @@
     color: #000;
     font-size: $font-x-medium;
     padding: 0 $spacer-half;
+    margin: 1em 0;
     text-transform: uppercase;
+    @include for-size(tablet-landscape-up) {
+      margin: 0;
+    }
   }
   &__basic {
     color: #000;
     background-color: $color-yellow;
     font-size: $font-x-large;
     padding: 0 $spacer-mid;
-    margin: ($spacer-half - 3) 0 0 1em;
+    margin: 1em 0 0 1em;
+    @include for-size(tablet-landscape-up) {
+      margin: ($spacer-half - 3) 0 0 1em;
+    }
   }
   &__title {
     background-color: $color-red;
     color: #fff;
     font-size: $font-x-large;
     padding: 0 $spacer-half;
-    margin: $spacer-small 0;
+    margin: 1em 0;
+    @include for-size(tablet-landscape-up) {
+      margin: $spacer-small 0;
+    }
   }
   &__headline {
     color: #000;
     font-size: $font-x-large;
-    margin: $spacer-mid 0 1em;
+    margin: 1em 0 1em;
+    @include for-size(tablet-landscape-up) {
+      margin: $spacer-mid 0 1em;
+    }
   }
   &__subtitle {
     color: #000;
     font-size: $font-x-medium;
+    margin: 1em 0;
+    @include for-size(tablet-landscape-up) {
+      margin: 0;
+    }
   }
 }

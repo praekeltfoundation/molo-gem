@@ -21,7 +21,7 @@
         <h2 class="heading__headline">{{self.title}}</h2>
         {% if self.introduction %}
           <p class="heading__subtitle">
-            {{page.introduction|smarttruncatechars:500|safe}}
+            {{page.introduction|smarttruncatechars:550|safe}}
           </p>
         {% endif %}
         {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
