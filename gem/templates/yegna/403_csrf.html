@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body_class %}default-container{% endblock %}
+{% block content %}
+<div class="server-error">
+  <h1 class="heading heading--title">{% trans "Unable to Login" %}</h1>
+  <h3 class="heading heading--subtitle">
+    {% trans "Hi Girl" %},</h3>
+  <p>{% trans "Sorry, you are having trouble accessing this feature! Due to a temporary technical issue, log in and registrations are not available on the Free Basics app for now. To login or register for a profile, visit our free mobisite through your mobile browser at" %}
+  {# Change the URL to GEM #}
+  <a href= {{ freebasics_url }} target="_blank">{{ freebasics_url }}</a>.<br/>
+  {% trans " We're working hard to get this problem resolved. Thank you." %}</p>
+  <br/>
+  <p>{% trans "XO" %},<br/>
+    {% trans "Springster" %}
+  </p>
+</div>
+{% endblock %}

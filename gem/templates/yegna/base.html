@@ -1,0 +1,379 @@
+{% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
+{% load core_tags staticfiles compress gem_tags molo_commenting_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_settings %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+{% spaceless %}
+<html class="no-js" lang="{{LANGUAGE_CODE}}">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="google-site-verification" content="1pHfu6F9poexdHOYO-8YohY4exchMmVOaNmiCLhoT9Q" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:type" content="The type" />
+  <meta property="og:image:width" content="450" />
+  <meta property="og:image:height" content="200" />
+  <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+  <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Ninyampinga{% endif %}" />
+  <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+  <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+  {% image self.social_media_image fill-450x200 as tmp_photo %}
+  {% if self.get_effective_image %}
+    {% image self.get_effective_image fill-450x200 as article_photo %}
+  {% endif %}
+  <link href="{{ request.build_absolute_uri }}" rel="canonical" />
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/logo_rwanda.png' %}{% endif %}"/>
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="msapplication-TileImage" content="{% static 'img/appicons/rwanda/NN_Favicon_WHITE.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="icon" type="image/png" sizes="39x49" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/rwanda/NN_Favicon_GREEN.svg' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/rwanda/favicon.ico' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/rwanda/favicon.ico' %}">
+  {% compress css inline %}
+  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
+  {% endcompress %}
+  {% comment %}
+    {% molo_pwa_meta %}
+    molo_pwa
+  {% endcomment %}
+  {% compress js inline %}
+  <script>
+    !function(a){var b=/iPhone/i,c=/iPod/i,d=/iPad/i,e=/(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,f=/Android/i,g=/(?=.*\bAndroid\b)(?=.*\bSD4930UR\b)/i,h=/(?=.*\bAndroid\b)(?=.*\b(?:KFOT|KFTT|KFJWI|KFJWA|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|KFARWI|KFASWI|KFSAWI|KFSAWA)\b)/i,i=/IEMobile/i,j=/(?=.*\bWindows\b)(?=.*\bARM\b)/i,k=/BlackBerry/i,l=/BB10/i,m=/Opera Mini/i,n=/(CriOS|Chrome)(?=.*\bMobile\b)/i,o=/(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,p=new RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)","i"),q=function(a,b){return a.test(b)},r=function(a){var r=a||navigator.userAgent,s=r.split("[FBAN");return"undefined"!=typeof s[1]&&(r=s[0]),s=r.split("Twitter"),"undefined"!=typeof s[1]&&(r=s[0]),this.apple={phone:q(b,r),ipod:q(c,r),tablet:!q(b,r)&&q(d,r),device:q(b,r)||q(c,r)||q(d,r)},this.amazon={phone:q(g,r),tablet:!q(g,r)&&q(h,r),device:q(g,r)||q(h,r)},this.android={phone:q(g,r)||q(e,r),tablet:!q(g,r)&&!q(e,r)&&(q(h,r)||q(f,r)),device:q(g,r)||q(h,r)||q(e,r)||q(f,r)},this.windows={phone:q(i,r),tablet:q(j,r),device:q(i,r)||q(j,r)},this.other={blackberry:q(k,r),blackberry10:q(l,r),opera:q(m,r),firefox:q(o,r),chrome:q(n,r),device:q(k,r)||q(l,r)||q(m,r)||q(o,r)||q(n,r)},this.seven_inch=q(p,r),this.any=this.apple.device||this.android.device||this.windows.device||this.other.device||this.seven_inch,this.phone=this.apple.phone||this.android.phone||this.windows.phone,this.tablet=this.apple.tablet||this.android.tablet||this.windows.tablet,"undefined"==typeof window?this:void 0},s=function(){var a=new r;return a.Class=r,a};"undefined"!=typeof module&&module.exports&&"undefined"==typeof window?module.exports=r:"undefined"!=typeof module&&module.exports&&"undefined"!=typeof window?module.exports=s():"function"==typeof define&&define.amd?define("isMobile",[],a.isMobile=s()):a.isMobile=s()}(this);
+    document.addEventListener('DOMContentLoaded', function() {
+      var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
+      var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+      var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
+      var smartStylesLarge = '<link href="{{ STATIC_URL }}css/{{ ENV }}/enhanced-nn.css" rel="stylesheet" media="screen and (min-width: 360px)">';
+        if (cutsTheMustard === true) {
+          if (smartDevice && raf) {
+            raf(function() {
+              var smartStylesLargeDefer =
+              document.getElementsByTagName('style')[0];
+              window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
+
+              var jsScripts = [
+                "https://code.jquery.com/jquery-2.0.3.min.js",
+                "{{ STATIC_URL }}js/dest/nn-min.js"
+              ];
+              for (var i = 0; i < jsScripts.length; i++) {
+                var script = document.createElement('script');
+                if (i === 0 ) {
+                  script.crossOrigin = "anonymous";
+                  script.integrity = "sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=";
+                }
+                script.src = jsScripts[i];
+                script.async = false;
+                document.querySelector('script').parentNode.appendChild(script);
+              }
+            });
+          }
+        }
+      });
+  </script>
+  {% endcompress %}
+</head>
+<body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+  {% wagtailuserbar %}
+  {% block google_analytics %}
+   {% include "patterns/components/ga_tag_manager.html" %}
+  {% endblock %}
+  {% if settings.core.SiteSettings.local_ga_tracking_code %}
+   <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+     ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
+   </script>
+  {% endif %}
+    <div id="header" class="header">
+      <div class="logo-wrapper">
+        <div class="logo">
+          <a href="/" class="logo__anchor">
+            {% if settings.core.SiteSettings.logo %}
+              {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+              <img src="{{logo_image.url}}" width="334" height="57" alt="Girl Effect" class="logo__image" />
+            {% else %}
+              {% with "img/logos/nn-logo"|add:".png" as logo_url %}
+                <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
+              {% endwith %}
+            {% endif %}
+          </a>
+        </div>
+      </div>
+      {% load_sections as sections %}
+      <div class="navLogged-wrapper">
+        <div class="nav dropdown">
+          <label for="nav_accordion" class="burger-nav__label dropdown-toggle">{% trans "Menu" %}</label>
+          <input type="checkbox" value="toggles" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
+          <div class="nav-wrapper dropdown-menu">
+            <ul class="nav-list nav--primary">
+              <li class="nav-list__item">
+                <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
+                  {% trans "Home" %}
+                </a>
+              </li>
+              {% if sections %}
+              <li class="nav-list__item">
+                {% for section_page in sections %}
+                  {% pageurl section_page.specific as section_path %}
+                  {% if section_path == '/sections/events/' %}
+                    <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                      {{section_page.title}}
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </li>
+              {% endif %}
+              <li class="nav-list__item">
+                {% if not user.is_authenticated %}
+                  <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
+                {% else %}
+                  <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
+                {% endif %}
+              </li>
+              <li class="nav-list__item">
+                {% if not user.is_authenticated %}
+                  <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
+                {% else %}
+                  <form action="{% url LOGOUT_URL %}"  method="post" novalidate>
+                  {% csrf_token %}
+                    <input class="nav-list__anchor" value="{% trans 'Log out' %}" type="submit"/>
+                  </form>
+                {% endif %}
+              </li>
+            </ul>
+            {% if sections %}
+            <ul class="nav-list nav--secondary">
+              <li class="nav-list__item">
+                <ul class="nav-outer">
+                  <li class="nav-list__item">
+                    <h1 class="nav-list__title">{% trans "Featured" %}:</h1>
+                  </li>
+                  <li class="nav-list__item">
+                    <ul class="nav-inner">
+                    {% for section_page in sections %}
+                    {% pageurl section_page.specific as section_path %}
+                      {% if section_path == '/sections/sakwe/' or section_path == '/sections/radio-show/' or section_path == '/sections/myth/' %}
+                        <li class="nav-list__item">
+                          <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                            {{section_page.title}}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-list__item">
+                <ul class="nav-outer">
+                  <li class="nav-list__item">
+                    <h1 class="nav-list__title">{% trans "News and stories" %}:</h1>
+                  </li>
+                  <li class="nav-list__item">
+                    <ul class="nav-inner">
+                      {% for section in sections|slice:":3" %}
+                        {% pageurl section.specific as section_path %}
+                        {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+                          <li class="nav-list__item">
+                            <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                              {{section.title}}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                    <ul class="nav-inner">
+                      {% for section in sections|slice:"3:" %}
+                        {% pageurl section.specific as section_path %}
+                        {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+                          <li class="nav-list__item">
+                            <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                              {{section.title}}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+          <div class="nav-logged">
+            <a href="{{VIEW_PROFILE_URL}}" class="nav-logged__anchor">{% trans "Profile" %}</a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="languageSearch-wrapper">
+        <div class="languages dropdown">
+          <label for="languages_accordion" class="languages-accordion__label dropdown-toggle">
+            <span>{% trans "Languages" %}</span>
+          </label>
+          <input type="checkbox" value="toggles" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
+          {% if languages|length > 1 %}
+          <div class="languages-wrapper dropdown-menu">
+            <ul class="languages-list">
+              <li class="languages-list__item">
+                <div class="languages-list__label">
+                  <h1 class="languages-list__title">{% trans "Languages" %}:</h1>
+                </div>
+              </li>
+              {% for language in languages %}
+                <li class="languages-list__item">
+                  <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+        <div class="search search--header dropdown">
+          <label for="search_accordion" id="search_nav" class="search-accordion__label dropdown-toggle">{% trans "Search" %}</label>
+          <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="search-accordion__checkbox" />
+          <div class="search-wrapper dropdown-menu">
+            <h1 class="search__title">{% trans "Search" %}:</h1>
+            <form action="{% url 'search' %}" class="search__form" novalidate>
+              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container" class="content-wrapper">
+      <div class="inner-content">
+        {% display_unread_notifications %}
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+      <div id="footer" class="footer">
+        {% load_sections as sections %}
+        <div class="menu">
+          <div class="heading heading--hero">
+            <h3 class=" heading__basic">
+              {% trans "Links" %}
+            </h3>
+          </div>
+          <div class="menu--wrapper">
+            <ul class="menu-list menu-list--column1">
+              <li class="menu-list__item">
+                <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
+              </li>
+              {% if sections %}
+                {% for section in sections|slice:":4" %}
+                  {% pageurl section.specific as section_path %}
+                    {% if section_path != '/sections/events/' %}
+                      <li class="menu-list__item">
+                        <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                          {{section.title}}
+                        </a>
+                      </li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </ul>
+            <ul class="menu-list menu-list--column2">
+              {% if sections %}
+                {% for section in sections|slice:"4:" %}
+                  {% pageurl section.specific as section_path %}
+                  {% if section_path != '/sections/events/' %}
+                    <li class="menu-list__item">
+                      <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                        {{section.title}}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% comment %}<!--NOTE:: Fragmented Markup-->{% endcomment %}
+            {% footer_page %}
+            {% if not user.is_authenticated %}
+            <li class="menu-list__item">
+              <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
+                {% trans "Join us" %}</a>
+            </li>
+            <li class="menu-list__item">
+              <a href="{% url LOGIN_URL %}" class="menu-list__anchor">
+                {% trans "Log in" %}
+              </a>
+            </li>
+            {% else %}
+            <li class="menu-list__item">
+              <a href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor">
+                {% trans "Profile" %}
+              </a>
+            </li>
+            <li class="menu-list__item">
+              <form method="post" action="{% url LOGOUT_URL %}" novalidate>
+                {% csrf_token %}
+                <input class="menu-list__anchor" value="{% trans 'Log out' %}" type="submit">
+              </form>
+            </li>
+            {% endif %}
+          </ul>
+          </div>
+        </div>
+        {% social_media_footer %}
+        <div class="searchCopyright-wrapper">
+          {% block search %}
+          <div class="search">
+            <div class="heading heading--hero">
+              <h3 class=" heading__basic">
+                {% trans "Search" %}
+              </h3>
+            </div>
+            <form action="{% url 'search' %}" class="search__form" novalidate>
+              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
+            </form>
+          </div>
+          {% endblock %}
+          <div class="copyright">
+            {% if languages|length > 1 %}
+            <div class="languages languages--footer">
+              <p class="languages__label">{% trans "Language" %}:</p>
+              {% for language in languages %}
+                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <p class="copyright__disclaimer">
+              &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
+              {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+                <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
+                  {% trans "Terms &amp; Conditions" %}
+                  </a>
+              {% endif %}
+            </p>
+            {% if settings.gem.GemSettings.show_partner_credit %}
+              <p class="copyright__disclaimer">
+                <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link">
+                  {{settings.gem.GemSettings.partner_credit_description}}
+                </a>
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+</body>
+</html>
+{% endspaceless %}
