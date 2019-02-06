@@ -7,7 +7,7 @@
     <div class="article-teaser__wrapper">
       <div class="heading heading--primary">
         {% if section.get_effective_image %}
-          {% image section.get_effective_image width-150 as section_photo %}
+          {% image section.get_effective_image width-200 as section_photo %}
             <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
         {% else %}
           <span class="section__icon"></span>
@@ -22,7 +22,7 @@
             {% if article.get_effective_image %}
             <div class="teaser-grid__images">
               <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-                {% image article.get_effective_image width-1080 as teaser_thumbnail %}
+                {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
               </a>
             </div>

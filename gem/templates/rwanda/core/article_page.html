@@ -11,7 +11,7 @@
   <div class="article-page__images-wrapper">
     {% if page.image %}
       <div class="article-page__images">
-        {% image page.image width-1080 class="article-teaser__thumbnail" %}
+        {% image page.image width-1080 format-jpeg class="article-teaser__thumbnail" %}
       </div>
     {% endif %}
   </div>
@@ -47,7 +47,7 @@
         <h3 class="heading__headline">{{ block.value }}</h3>
       {% elif block.block_type == 'image' %}
         <div class="article-page__images--inner">
-          {% image block.value width-320 class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+          {% image block.value width-480 format-jpeg class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
         </div>
       {% elif block.value.youtube_link %}
         {% with block.value as media %}

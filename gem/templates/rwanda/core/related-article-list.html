@@ -5,7 +5,7 @@
   <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
     <div class="heading heading--primary">
       {% if section.get_effective_image %}
-        {% image section.get_effective_image width-80 as section_photo %}
+        {% image section.get_effective_image width-200 as section_photo %}
           <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
       {% else %}
         <span class="section__icon"></span>
@@ -21,7 +21,7 @@
         {% if next_article.image %}
           <div class="article-teaser__images">
             <a href="{% pageurl next_article.specific %}" class="article-teaser__anchor">
-              {% image next_article.image width-200 class="article-teaser__thumbnail" %}
+              {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
             </a>
           </div>
         {% endif %}
@@ -91,7 +91,7 @@
     <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
       <div class="heading heading--primary">
         {% if section.get_effective_image %}
-          {% image section.get_effective_image width-80 as section_photo %}
+          {% image section.get_effective_image width-200 as section_photo %}
             <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
         {% else %}
           <span class="section__icon"></span>
@@ -108,7 +108,7 @@
           {% if article.image %}
             <div class="article-teaser__images">
               <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
-                {% image article.image width-480 class="article-teaser__thumbnail" %}
+                {% image article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
               </a>
             </div>
           {% endif %}
