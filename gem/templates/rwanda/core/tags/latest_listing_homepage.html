@@ -3,9 +3,9 @@
 {% if articles %}
 <div class="article-teaser article-teaser--latest">
   <div class="heading heading--hero">
-    <h2 class=" heading__component">
+    <h1 class=" heading__component">
       {% trans "Latest articles" %}
-    </h2>
+    </h1>
   </div>
   <div class="article-teaser__wrapper">
     <ul class="teaser-grid teaser-grid--latest teaser-grid--primary">
@@ -14,7 +14,7 @@
         {% if article.get_effective_image %}
           <div class="teaser-grid__images">
             <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-              {% image article.get_effective_image width-1024 as teaser_thumbnail %}
+              {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
               <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
             </a>
           </div>
@@ -51,13 +51,13 @@
             {% endif %}
           {% endif %}
         </ul>
-        <h3 class="teaser-grid__title{% if article.title_highlight %} teaser-grid__title--highlight{% endif %}">
+        <h1 class="teaser-grid__title{% if article.title_highlight %} teaser-grid__title--highlight{% endif %}">
           {% if article.title_highlight %}
             {{ article.title_highlight|smarttruncatechars:45|safe}}
           {% else %}
             {{ article.title|smarttruncatechars:45|safe}}
           {% endif %}
-        </h3>
+        </h1>
         {% if article.subtitle_highlight or article.body_highlight %}
           <p class="teaser-grid__subtitle">
             {% if article.subtitle_highlight %}
@@ -95,7 +95,7 @@
           {% if article.get_effective_image %}
             <div class="teaser-grid__images">
               <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-                {% image article.get_effective_image width-480 as teaser_thumbnail %}
+                {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
               </a>
             </div>
@@ -131,13 +131,13 @@
                 {% endif %}
               {% endif %}
             </ul>
-            <h3 class="teaser-grid__title{% if article.title_highlight %} teaser-grid__title--highlight{% endif %}">
+            <h1 class="teaser-grid__title{% if article.title_highlight %} teaser-grid__title--highlight{% endif %}">
               {% if article.title_highlight %}
                 {{ article.title_highlight|smarttruncatechars:50|safe}}
               {% else %}
                 {{ article.title|smarttruncatechars:50|safe}}
               {% endif %}
-            </h3>
+            </h1>
             {% if article.subtitle_highlight or article.body_highlight %}
               <p class="teaser-grid__subtitle">
               {% if article.subtitle_highlight %}

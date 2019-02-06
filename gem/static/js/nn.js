@@ -57,7 +57,6 @@
     }
   }
   domReady(function() {
-
     stickyHeader();
     pluginsSpacingStyle ();
   });

@@ -1,5 +1,6 @@
 .yourwords {
   $block: unquote("#{&}");
+  padding: 2em $spacer-inner;
   @include for-size(tablet-landscape-up) {
     padding: 5em $spacer-inner;
   }
@@ -17,15 +18,24 @@
       margin: 0 auto;
     }
     #{$block}__wrapper {
-      @include for-size(tablet-landscape-up) {
-        width: 50%;
+      @include for-size(desktop-up) {
+        width: 60%;
       }
     }
   }
-  .call-to-action__item--text {
-    color: #000;
+  .call-to-action {
+    &__item {
+      &--text {
+        color: #000;
+      }
+    }
   }
-  .heading--hero {
-    text-align: center;
+  .heading {
+    &--hero {
+      text-align: center;
+    }
+    &__subtitle {
+      margin: 0 0 1em;
+    }
   }
 }

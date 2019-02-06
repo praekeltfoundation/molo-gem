@@ -8,7 +8,7 @@
       {% if block.block_type == 'heading' %}
         <h3 class="heading__micro">{{ block.value }}</h3>
       {% elif block.block_type == 'image' %}
-        {% image block.value width-320 alt=self.title %}
+        {% image block.value width-480 format-jpeg alt=self.title %}
       {% elif block.value.youtube_link %}
       {% with block.value as media %}
         <div class="media-player">
