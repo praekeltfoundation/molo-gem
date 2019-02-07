@@ -68,7 +68,7 @@
           {% if media.title %}
             <h3 class="media-player__title">{{media.title}}</h3>
             <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-              {% blocktrans %}Download {% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}{% endblocktrans %}
+              {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}{% trans "Video" %}{% elif media.type == 'audio'%}{% trans "Audio" %}{% endif %}
             </a>
           {% endif %}
         </div>
