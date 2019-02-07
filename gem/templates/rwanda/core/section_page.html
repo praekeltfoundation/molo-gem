@@ -99,7 +99,7 @@
           {% trans "Previous" %}</a>
       {% endif %}
         <p class="call-to-action__item--text call-to-action__item--text-current">
-          Page {{ articles_paginated.number }} of {{articles_paginated.paginator.num_pages }}
+          {% trans "Page" %} {{ articles_paginated.number }} {% trans "of" %} {{articles_paginated.paginator.num_pages }}
         </p>
       {% if articles_paginated.has_next %}
         <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--next">
