@@ -4,9 +4,13 @@
 <div class="comments__container {% if self.get_parent_section.get_effective_extra_style_hints %}comments__container--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="breadcrumbs breadcrumbs--comments">
     <ul class="breadcrumbs-list">
-      <li class="breadcrumbs-list__item">
-        <p class="breadcrumbs-list__label">{% trans "Breadcrumbs" %}:</p>
-      </li>
+      {% comment %}
+        <!--
+        <li class="breadcrumbs-list__item">
+          <p class="breadcrumbs-list__label">{% trans "Breadcrumbs" %}:</p>
+        </li>
+        -->
+      {% endcomment %}
       <li class="breadcrumbs-list__item">
         <a href="{% pageurl self.get_parent_section.specific %}" class="breadcrumbs-list__anchor">
           {{ self.get_parent_section }}

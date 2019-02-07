@@ -350,7 +350,7 @@
           <div class="copyright">
             {% if languages|length > 1 %}
             <div class="languages languages--footer">
-              <p class="languages__label">{% trans "Language" %}:</p>
+              <p class="languages__label">{% trans "Languages" %}:</p>
               {% for language in languages %}
                 <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
               {% endfor %}
