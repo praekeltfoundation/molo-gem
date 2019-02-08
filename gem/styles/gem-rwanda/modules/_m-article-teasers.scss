@@ -59,11 +59,14 @@
   }
   &--topic-of-day {
     background-color: $color-yellow-gorse;
-    padding: 1em 5%;
+    padding: 1em 5% 10%;
+    @include for-size(tablet-portrait-up) {
+      padding: 1em 5% 2em;
+    }
     @include for-size(tablet-landscape-up) {
       order: 2;
       width: 35%;
-      padding: 1em $spacer-inner 0 1em;
+      padding: 1em $spacer-inner 0 2em;
     }
     @include for-size(desktop-up) {
       padding: 1em 8% 0 2em;

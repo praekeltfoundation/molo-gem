@@ -3,7 +3,10 @@
   overflow: hidden;
   position: relative;
   width: 100%;
-  margin: -5% 0;
+  margin: -10% 0;
+  @include for-size(tablet-portrait-up) {
+    margin: -5% 0;
+  }
   @include for-size(tablet-landscape-up) {
     margin: -3em 0;
   }
@@ -16,7 +19,10 @@
   &__image {
     display: block;
     height: auto;
-    width: 100%;
+    width: 205%;
+    @media screen and (min-width: 45.000em) {
+      width: 100%;
+    }
     @include for-size(tablet-landscape-up) {
       color: #000;
       display: inline-block;
@@ -95,5 +101,12 @@
     background-color: rgba($color-cyan-dark, 1);
     text-align: center;
     padding: 0 0 $spacer-half;
+  }
+}
+
+.section-page,
+.article-page {
+  ~ .banner {
+    margin: 0;
   }
 }
