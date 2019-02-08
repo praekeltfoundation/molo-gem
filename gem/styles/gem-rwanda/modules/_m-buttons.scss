@@ -31,7 +31,7 @@
       font-weight: bold;
     }
   }
-  //USE OF !important TO ENFORCE ARTICLE WILD* STYLE TAGS
+
   &__button {
     background-color: $color-cyan;
     color: #000;
@@ -115,6 +115,12 @@
       &:after {
         display: none;
         visibility: hidden;
+      }
+      &:active, &:hover, &:focus {
+        color: $color-pink-hollywood;
+        &:before {
+          border-right-color: $color-pink-hollywood;
+        }
       }
     }
   }
