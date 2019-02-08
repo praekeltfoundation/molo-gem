@@ -7,6 +7,9 @@
     text-align: left;
     @include fly-by();
     padding: 1em $spacer-inner;
+    @include for-size(tablet-portrait-up) {
+      @include fly-byEnhanced();
+    }
     @include for-size(tablet-landscape-up) {
       padding: 3.3em $spacer-inner;
     }
@@ -20,6 +23,7 @@
       text-transform: uppercase;
       text-indent: -4.5em;
       @include for-size(tablet-landscape-up) {
+        display: -webkit-inline-flex;
         display: inline-flex;
         padding: 0.9em 0;
       }
