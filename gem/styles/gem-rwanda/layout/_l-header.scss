@@ -1,20 +1,17 @@
 .header {
   background-color: $color-cyan;
-  padding: 0 1em;
+  display: flex;
+  flex-flow: wrap;
   overflow: inherit;
   width: 100%;
-  text-align: left;
   z-index: 9999;
-  @include for-size(tablet-landscape-up) {
-    text-align: center;
-  }
   @include for-size(desktop-up) {
     padding: 0 $spacer-inner;
   }
   @include for-size(tablet-landscape-up) {
-    display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
     justify-content: center;
+    align-items: center;
     height: 4em;
     position: fixed;
     box-sizing: border-box;

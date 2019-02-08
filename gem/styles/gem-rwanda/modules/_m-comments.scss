@@ -6,21 +6,35 @@
     padding: 0 15%;
   }
   &__container {
-    padding: 2em 0;
     background: $color-cyan;
+    @include for-size(tablet-landscape-up) {
+      padding: 2em 0;
+    }
   }
   &__wrapper {
     background: #fff;
-    padding: 1em 0;
-    margin: 2em auto 3em;
+    margin: 1em auto;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 0;
+      margin: 2em auto 3em;
+    }
   }
   &__form {
-    padding: 1em 0;
+    padding: 0.5em 0;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em 0;
+    }
     .input-group {
-      padding: $spacer-small 10% 1em;
+      padding: $spacer-small 1em;
+      @include for-size(tablet-landscape-up) {
+        padding: $spacer-small 10% 1em;
+      }
     }
     .choice-group {
-      padding: $spacer-small 10%;
+      padding: $spacer-small 1em;
+      @include for-size(tablet-landscape-up) {
+        padding: $spacer-small 10%;
+      }
       [type="checkbox"],
       [type="radio"] {
         display: none;
@@ -49,7 +63,7 @@
   }
   &__content {
     margin: 0;
-    padding: 5px 0;
+    padding: $spacer-small 0;
   }
   &__description {
     padding: 1em 10%;
@@ -77,7 +91,10 @@
       overflow: auto;
       position: relative;
       width: 100%;
-      padding: 0 0 1em;
+      padding: 0.5em 0;
+      @include for-size(tablet-portrait-up) {
+        padding: 1em 0;
+      }
     }
   }
   &__replied {
@@ -94,11 +111,7 @@
     text-transform: capitalize;
     vertical-align: middle;
     text-decoration: underline;
-    display: block;
-    @include for-size(tablet-landscape-up) {
-      display: inline-block;
-      float: left;
-    }
+    display: inline-block;
     &--report {
       padding-right: 1em;
       color: $color-cyan-fountain;
@@ -118,7 +131,10 @@
     &-label {
       background-color: rgba($color-cyan,0.2);
       font-size: $font-medium;
-      padding: 0 10%;
+      padding: 0 5%;
+      @include for-size(tablet-portrait-up) {
+        padding: 0 10%;
+      }
     }
     &-title {
       color: $color-gray;
@@ -141,8 +157,8 @@
       height: 30px;
       text-align: center;
       vertical-align: middle;
-      padding: 5px;
-      margin: 0 10px 0 0;
+      padding: $spacer-small;
+      margin: 0 $spacer-half 0 0;
       @include for-size(feature-only) {
         background-color: inherit;
         color: #000;
@@ -168,7 +184,7 @@
         content: " ≫ ";
         color: $color-cyan;
         display: inline-block;
-        padding: 0 5px;
+        padding: 0 $spacer-small;
       }
     }
   }
@@ -182,10 +198,16 @@
   &-list {
     font-size: $font-x-medium;
     &__item {
-      padding: 1em 10%;
+      padding: 1em 5%;
+      @include for-size(tablet-portrait-up) {
+        padding: 1em 10%;
+      }
       &--replies {
         background-color: rgba($color-cyan,0.2);
-        padding: 0 10%;
+        padding: 0 5%;
+        @include for-size(tablet-portrait-up) {
+          padding: 0 10%;
+        }
       }
     }
   }
@@ -211,17 +233,26 @@
   }
   .heading {
     &--secondary {
-      margin: 1em 2em 0;
+      margin: 0.5em;
       background-position: 0 10%;
+      @include for-size(tablet-landscape-up) {
+        margin: 1em 2em 0;
+      }
     }
     &__headline {
       padding: 5% 5% 0;
     }
     &__subtitle {
-      padding: 0 10%;
+      padding: 0 5%;
+      @include for-size(tablet-portrait-up) {
+        padding: 0 10%;
+      }
     }
   }
   .call-to-action--group {
-    padding: 0 9.5% 1em;
+    padding: 0 5.5% 1em;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 9.5% 1em;
+    }
   }
 }
