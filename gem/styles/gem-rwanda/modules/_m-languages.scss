@@ -8,6 +8,9 @@
     order: 3;
     width: 30%;
   }
+  @include for-size(desktop-up) {
+     z-index: -9999999999;
+   }
 }
 .languages {
   $block: unquote("#{&}");
@@ -40,6 +43,7 @@
     padding: 1em;
     @include fly-by();
     @include for-size(tablet-portrait-up) {
+      @include fly-byEnhanced();
       padding: 2em;
     }
     @include for-size(tablet-landscape-up) {
@@ -96,6 +100,9 @@
       display: inline-block;
       vertical-align: middle;
       padding: 0 1em 0 0;
+      @include for-size(desktop-up) {
+        padding: 0.35em $spacer-small 0;
+      }
     }
     &__label {
       color: #000;
@@ -114,6 +121,9 @@
       padding: 0 0 0 0.313em;
       font-style: italic;
       font-size: $font-large;
+      @include for-size(tablet-portrait-up) {
+        padding: 0 0 0 0.313em;
+      }
     }
     &__anchor {
       color: $color-cyan;
@@ -123,6 +133,9 @@
       font-weight: bold;
       opacity: 1;
       text-decoration: underline;
+      @include for-size(tablet-portrait-up) {
+        font-size: $font-small;
+      }
       &:active, &:hover, &:focus {
         color: $color-pink-hollywood;
         opacity: 0.7;
@@ -173,6 +186,12 @@
     }
   }
   &--footer {
+    @include for-size(tablet-portrait-up) {
+      padding: 0 1em 0 0;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 0 5% 0 0;
+    }
     font-size: $font-x-medium;
     padding: 0 5% 0 0;
     #{$block}__label {
