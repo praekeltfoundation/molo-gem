@@ -92,7 +92,10 @@
   &__headline {
     color: #000;
     font-size: $font-x-large;
-    margin: 1em 0 1em;
+    margin: 1em 0 0;
+    @include for-size(tablet-portrait-up) {
+      margin: 1em 0 1em;
+    }
     @include for-size(tablet-landscape-up) {
       margin: $spacer-mid 0 1em;
     }
