@@ -1,16 +1,20 @@
 .media-player {
   $block: unquote("#{&}");
-  padding: 1em 5%;
+  padding: 1em;
   overflow: auto;
   margin: 0 auto;
+  @include for-size(tablet-portrait-up) {
+    padding: 1em 5%;
+  }
   @include for-size(tablet-landscape-up) {
     padding: 1em $spacer-inner 4em;
   }
   &__wrapper {
-    margin: 1em;
+    margin: 0 0 1em;
     position: relative;
     vertical-align: top;
     @include for-size(tablet-portrait-up) {
+      margin: 1em;
       display: inline-block;
       width: 45%;
     }

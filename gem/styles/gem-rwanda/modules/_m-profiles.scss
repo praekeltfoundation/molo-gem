@@ -2,12 +2,17 @@
   background-color: $color-cyan;
   @include for-size(phone-only) {
     background: $color-cyan url("/static/img/patterns/rwanda/NN_PATTERN-HILLS-AQUA-001.svg") repeat center center/ auto;
+    padding: 1em 0;
+  }
+  @include for-size(tablet-portrait-up) {
     padding: 2.5em 7%;
   }
   &__wrapper {
     background-color: #fff;
     padding: 1em;
-    padding: 1em 1em 2em;
+    @include for-size(tablet-portrait-up) {
+      padding: 1em 1em 2em;
+    }
   }
   &__description {
     font-size: $font-x-medium;
@@ -31,7 +36,7 @@
     }
     .call-to-action__item--text {
       text-transform: inherit;
-      padding: 0 .5em 0 .5em;
+      padding: 0 .5em;
       @include for-size(tablet-portrait-up) {
         margin: 1em 0;
         padding: 0 1em 0 .5em;
@@ -39,7 +44,10 @@
     }
   }
   &__inner {
-    padding: 0 10%;
+    padding: 0 1em;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 10%;
+    }
   }
   &__form {
     .call-to-action__item--text  {
