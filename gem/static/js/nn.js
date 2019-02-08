@@ -84,5 +84,9 @@ jQuery(document).ready(function (e) {
   e(document).bind("click", function (t) {
       var n = e(t.target);
       if (!n.parents().hasClass("dropdown")) e(".dropdown .dropdown-toggle").removeClass("open");
-  })
+  });
+
+  if ( $.browser.webkit || $.browser.safari ) {
+      console.log( 'This is a Webkit Engine Browser (Apple Safari or Google Chrome) with version ' + $.browser.version.substr(0, 1) );
+    }
 });

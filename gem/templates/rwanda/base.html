@@ -58,6 +58,7 @@
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
       var smartStylesLarge = '<link href="{{ STATIC_URL }}css/{{ ENV }}/enhanced-nn.css" rel="stylesheet" media="screen and (min-width: 360px)">';
+
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             raf(function() {
@@ -82,6 +83,7 @@
             });
           }
         }
+
       });
   </script>
   {% endcompress %}
