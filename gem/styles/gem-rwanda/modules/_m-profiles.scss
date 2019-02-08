@@ -12,13 +12,16 @@
   &__description {
     font-size: $font-x-medium;
     display: inline-block;
-    margin: $spacer-small 0;
+    margin: $spacer-small;
     &--label {
-      text-transform: capitalize;
+      display: inline-block;
       font-size: $font-x-medium;
+      text-transform: capitalize;
+      vertical-align: baseline;
     }
   }
   &__caption {
+    padding: 0 5%;
     @include for-size(tablet-landscape-up) {
       font-size: $font-x-medium;
       text-align: right;
@@ -28,10 +31,8 @@
     }
     .call-to-action__item--text {
       text-transform: inherit;
-      @include for-size(desktop-up) {
-        margin: 1em 0;
-        padding: 0 1em 0 0;
-      }
+      margin: 1em 0;
+      padding: 0 1em 0 .5em;
     }
   }
   &__inner {
