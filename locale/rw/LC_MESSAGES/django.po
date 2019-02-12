@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-04 12:44+0200\n"
-"PO-Revision-Date: 2017-07-13 09:28+0000\n"
-"Last-Translator: Lisa <lisa@praekelt.org>\n"
+"PO-Revision-Date: 2019-02-06 15:35+0000\n"
+"Last-Translator: Agnes <agnes.kaminska@girleffect.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: kin_RW\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1499938114.167026\n"
+"X-POOTLE-MTIME: 1549467350.075067\n"
 
 #: gem/constants.py:6 gem/constants.py:9
 msgid "male"
@@ -31,6 +31,9 @@ msgid "don't want to answer"
 msgstr "Ndifashe"
 
 #: gem/forms.py:35
+#: gem/forms.py:93
+#: temp/temp_ve/profiles/forms.py:253
+#: temp/temp_ve/profiles/forms.py:284 temp/temp_ve/profiles/forms.py:452
 msgid ""
 "Sorry, but that is an invalid display name. Please don't use your email "
 "address or phone number in your display name."
@@ -55,6 +58,11 @@ msgstr "Igitsina"
 #: gem/forms.py:80 gem/forms.py:128 gem/templates/rwanda/profiles/done.html:32
 #: temp/temp_ve/profiles/forms.py:157 temp/temp_ve/profiles/forms.py:300
 #: temp/temp_ve/profiles/forms.py:369
+#: temp/temp_ve/surveys/rules.py:76
+#: gem/templates/base/profiles/register.html:35
+#: gem/templates/springster/profiles/done.html:31
+#: gem/templates/springster/profiles/register.html:60
+#: temp/temp_ve/profiles/templates/profiles/done.html:27
 msgid "Display Name"
 msgstr "Garagaza izina"
 
@@ -62,14 +70,6 @@ msgstr "Garagaza izina"
 #: temp/temp_ve/profiles/forms.py:545
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "Ibi bikwiriye kugirwa n'inyuguti, imibare ndetse na underscrores"
-
-#: gem/forms.py:93
-msgid ""
-"Sorry, but that is an invalid username. Please don't use your email address "
-"or phone number in your username."
-msgstr ""
-"Ihangane! Iri zina rigaragara si ryo. Wikoresha email cyangwa nimero ya "
-"telefoni ahagenewe izina rigaragara"
 
 #: gem/forms.py:155
 msgid "Spam"
@@ -106,12 +106,6 @@ msgstr ""
 #: gem/rules.py:83
 msgid "Equal"
 msgstr ""
-
-#: gem/rules.py:84
-#, fuzzy
-#| msgid "Not set"
-msgid "Not equal"
-msgstr "Ntabiriho."
 
 #: gem/rules.py:85
 msgid "Older than"
@@ -159,8 +153,6 @@ msgid "Profile Data Rule"
 msgstr ""
 
 #: gem/rules.py:141
-#, fuzzy
-#| msgid "This field is required."
 msgid "This field is required"
 msgstr "Aha hagomba kuzuzwa"
 
@@ -203,22 +195,7 @@ msgstr ""
 msgid "equals"
 msgstr ""
 
-#: gem/rules.py:386 temp/temp_ve/commenting/rules.py:25
-#: temp/temp_ve/surveys/rules.py:88 temp/temp_ve/surveys/rules.py:422
-#, fuzzy
-#| msgid "Moderator"
-msgid "operator"
-msgstr "Ushinzwe urubuga"
-
-#: gem/rules.py:401
-#, fuzzy
-#| msgid "Comment replies"
-msgid "Comment count rule"
-msgstr "Igitekerezo"
-
 #: gem/rules.py:424
-#, fuzzy
-#| msgid "Your comment"
 msgid "These users commented"
 msgstr "Garagaza ko igitekerezo gifite ikibazo"
 
@@ -304,7 +281,8 @@ msgstr "Watoye"
 
 #: gem/settings/base.py:422
 msgid "Name of the city you were born in"
-msgstr "Izina ry'umujyi/akarere wavukiyemo"
+msgstr "Akarere wavukiyemo"
+#msgstr "Izina ry'umujyi/akarere wavukiyemo"
 
 #: gem/settings/base.py:423
 msgid "Name of your primary school"
@@ -312,7 +290,7 @@ msgstr "Izina ry'aho wize amashuri abanza"
 
 #: gem/settings/base.py:424 gem/templates/springster/profiles/register.html:32
 msgid "Please complete this form to join"
-msgstr ""
+msgstr "Uzuza iyi fomu kugirango winjire"
 
 #: gem/templates/base/403_csrf.html:8 gem/templates/malawi/403_csrf.html:8
 #: gem/templates/rwanda/403_csrf.html:4
@@ -518,7 +496,8 @@ msgstr "Uburenganzira burihariye."
 #: gem/templates/springster/comments/reply.html:102
 #: gem/templates/springster/notifications/notice.html:10
 msgid "Big Sister"
-msgstr "Mukuru wawe"
+msgstr "Iyandikishe"
+#msgstr "Mukuru wawe"
 
 #: gem/templates/base/comments/comment.html:12
 #: gem/templates/base/comments/comment.html:15
@@ -594,52 +573,6 @@ msgstr "kera"
 #: temp/temp_ve/commenting/templates/comments/comment.html:26
 msgid "Report"
 msgstr "Bimenyeshe"
-
-#: gem/templates/base/comments/comment.html:38
-#: gem/templates/base/comments/comment.html:42
-#: gem/templates/base/comments/comment.html:46
-#: gem/templates/springster/comments/comment.html:50
-#: gem/templates/springster/comments/comment.html:55
-#: gem/templates/springster/comments/comment.html:64
-#: gem/templates/springster/comments/comment_block.html:76
-#: gem/templates/springster/comments/comment_block.html:81
-#: gem/templates/springster/comments/comment_block.html:90
-#: gem/templates/springster/comments/comments.html:60
-#: gem/templates/springster/comments/comments.html:65
-#: gem/templates/springster/comments/comments.html:74
-#: gem/templates/springster/comments/reply.html:58
-#: gem/templates/springster/comments/reply.html:63
-#: gem/templates/springster/comments/reply.html:72
-#: gem/templates/springster/comments/reply.html:142
-#: gem/templates/springster/comments/reply.html:147
-#: gem/templates/springster/comments/reply.html:156
-#: gem/templates/springster/notifications/reply_list.html:11
-#: gem/templates/springster/notifications/tags/notification_banner.html:6
-#: temp/temp_ve/commenting/templates/comments/comment.html:41
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:11
-msgid "Reply"
-msgstr "Subiza"
-
-#: gem/templates/base/comments/comment.html:42
-#: gem/templates/base/comments/comment.html:46
-#: gem/templates/springster/comments/comment.html:57
-#: gem/templates/springster/comments/comment.html:66
-#: gem/templates/springster/comments/comment_block.html:83
-#: gem/templates/springster/comments/comment_block.html:92
-#: gem/templates/springster/comments/comments.html:67
-#: gem/templates/springster/comments/comments.html:76
-#: gem/templates/springster/comments/reply.html:65
-#: gem/templates/springster/comments/reply.html:74
-#: gem/templates/springster/comments/reply.html:149
-#: gem/templates/springster/comments/reply.html:158
-#: gem/templates/springster/notifications/reply_list.html:13
-#: gem/templates/springster/notifications/tags/notification_banner.html:8
-#: temp/temp_ve/commenting/templates/comments/comment.html:32
-#: temp/temp_ve/commenting/templates/comments/comment.html:36
-#: temp/temp_ve/commenting/templates/comments/comment.html:43
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:13
-msgid "Replies"
-msgstr "Ibisubizo"
 
 #: gem/templates/base/comments/comment_block.html:9
 #: gem/templates/springster/patterns/basics/comment-counter/centered-comment-counter.html:8
@@ -761,23 +694,10 @@ msgstr "injira"
 msgid " to leave a comment."
 msgstr "gusiga igitekerezo"
 
-#: gem/templates/base/comments/reply.html:14
-#: gem/templates/rwanda/comments/comment_block.html:117
-#: gem/templates/rwanda/comments/comments.html:80
-#: gem/templates/rwanda/comments/reply.html:89
-#: gem/templates/springster/comments/reply.html:89
-#: temp/temp_ve/commenting/templates/comments/reply.html:13
-msgid "Recent replies"
-msgstr "Ibisubizo bishya"
-
-#: gem/templates/base/comments/reply.html:16
-#: gem/templates/springster/comments/reply.html:91
-#: temp/temp_ve/commenting/templates/comments/reply.html:15
-msgid "Earlier replies"
-msgstr "Ibisubizo byaje mbere"
 
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/rwanda/comments/comments.html:99
+#: gem/templates/rwanda/core/section_page.html:102
 #: gem/templates/rwanda/comments/reply.html:182
 #: gem/templates/rwanda/search/search_results.html:97
 #: gem/templates/rwanda/surveys/molo_survey_page.html:152
@@ -792,6 +712,7 @@ msgstr "Page"
 #: gem/templates/base/comments/reply.html:28
 #: gem/templates/rwanda/comments/comments.html:99
 #: gem/templates/rwanda/comments/reply.html:182
+#: gem/templates/rwanda/core/section_page.html:102
 #: gem/templates/rwanda/search/search_results.html:97
 #: gem/templates/rwanda/surveys/molo_survey_page.html:152
 #: gem/templates/springster/comments/reply.html:175
@@ -801,8 +722,8 @@ msgstr "Page"
 #: temp/temp_ve/core/templates/patterns/basics/pagination/pagination-comments.html:7
 msgid "of"
 msgstr "ya"
-
 # msgstr "wa"
+
 #: gem/templates/base/comments/report_comment.html:7
 #: gem/templates/springster/comments/report_comment.html:10
 msgid "Please let us know why you are reporting this comment?"
@@ -811,6 +732,7 @@ msgstr "Tubwire impamvu ugaragaje ko iki gitekerezo gifite ikibazo!"
 #: gem/templates/base/comments/report_comment.html:14
 #: gem/templates/rwanda/comments/report_comment.html:40
 #: gem/templates/springster/comments/report_comment.html:32
+#: gem/templates/rwanda/comments/report_comment.html:9
 msgid "Report Comment"
 msgstr "Garagaza ko igitekerezo gifite ikibazo"
 
@@ -857,8 +779,14 @@ msgstr ""
 #: gem/templates/rwanda/comments/comments.html:54
 #: gem/templates/rwanda/comments/reply.html:49
 #: gem/templates/rwanda/comments/reply.html:137
+#: gem/templates/springster/comments/comment.html:32
+#: gem/templates/springster/comments/comment_block.html:61
+#: gem/templates/springster/comments/comments.html:42
+#: gem/templates/springster/comments/reply.html:42
+#: gem/templates/springster/comments/reply.html:126
 msgid "Read more"
-msgstr "Soma ibindi"
+msgstr "Komeza Usome"
+#msgstr "Soma ibindi"
 
 #: gem/templates/base/core/article_page.html:30
 #: gem/templates/base/core/article_page.html:60
@@ -870,6 +798,10 @@ msgstr "Soma ibindi"
 #: gem/templates/rwanda/core/footer_page.html:56
 msgid "Download Video"
 msgstr "kora downlod ya Video"
+
+#: gem/templates/rwanda/base.html:215 gem/templates/rwanda/base.html:223
+msgid "Languages"
+msgstr "Indimi"
 
 #: gem/templates/base/core/article_page.html:36
 #: gem/templates/base/core/tags/media_listing_homepage.html:16
@@ -884,7 +816,7 @@ msgstr "kora downlod ya Video"
 #: gem/templates/springster/patterns/components/media/media-player.html:11
 #: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:12
 msgid "Click to watch on youtube!"
-msgstr ""
+msgstr "Kanda urebere kuri YouTube"
 
 #: gem/templates/base/core/article_page.html:38
 #: gem/templates/base/core/tags/media_listing_homepage.html:18
@@ -907,7 +839,7 @@ msgstr "Ibyo ushaka urabyumvira mu rindi dirishya"
 #: gem/templates/springster/patterns/components/media/media-player.html:24
 #: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:16
 msgid "Your browser does not support the video tag."
-msgstr ""
+msgstr "Urubuga ukoresha ntirubasha kwakira videwo."
 
 #: gem/templates/base/core/article_page.html:66
 #: gem/templates/base/core/tags/media_listing_homepage.html:35
@@ -918,7 +850,7 @@ msgstr ""
 #: gem/templates/springster/core/tags/media_listing_homepage.html:35
 #: gem/templates/springster/patterns/components/media/media-player.html:30
 msgid "Click here to download video"
-msgstr ""
+msgstr "Kanda hano ukore download"
 
 #: gem/templates/base/core/article_page.html:68
 #: gem/templates/base/core/tags/media_listing_homepage.html:37
@@ -929,7 +861,7 @@ msgstr ""
 #: gem/templates/springster/core/tags/media_listing_homepage.html:37
 #: gem/templates/springster/patterns/components/media/media-player.html:32
 msgid "Video files will not be played, you can download them"
-msgstr ""
+msgstr "Ntushobora kureba videwo, ahubwo ushobora kuzikuraho"
 
 #: gem/templates/base/core/article_page.html:85
 #: gem/templates/base/core/tags/media_listing_homepage.html:48
@@ -940,7 +872,7 @@ msgstr ""
 #: gem/templates/springster/core/tags/media_listing_homepage.html:48
 #: gem/templates/springster/patterns/components/media/media-player.html:43
 msgid "Your browser does not support the audio tag."
-msgstr ""
+msgstr "Urubuga ukoresha ntirubasha kwakira amajwi."
 
 #: gem/templates/base/core/article_page.html:90
 #: gem/templates/malawi/core/article_page.html:88
@@ -958,7 +890,7 @@ msgstr "kora downlod ya Audio"
 #: gem/templates/springster/core/tags/media_listing_homepage.html:54
 #: gem/templates/springster/patterns/components/media/media-player.html:49
 msgid "Click here to download audio"
-msgstr ""
+msgstr "Kanda hano ukore download"
 
 #: gem/templates/base/core/article_page.html:98
 #: gem/templates/base/core/tags/media_listing_homepage.html:56
@@ -969,7 +901,7 @@ msgstr ""
 #: gem/templates/springster/core/tags/media_listing_homepage.html:56
 #: gem/templates/springster/patterns/components/media/media-player.html:51
 msgid "Audio files will not be played, you can download them"
-msgstr ""
+msgstr "Ntabwo wabasha kumva amajwi, ariko ushobora kuyakuraho"
 
 #: gem/templates/base/core/language_block.html:3
 #: gem/templates/rwanda/base.html:340 gem/templates/springster/base.html:245
@@ -1002,6 +934,8 @@ msgstr "Ikurikira"
 #: temp/temp_ve/commenting/test_templates/article_page.html:63
 #: temp/temp_ve/core/templates/patterns/basics/articles/related-article-list-recommended.html:5
 #: temp/temp_ve/core/templates/patterns/components/article-teasers/latest-promoted_variations/articles_general.html:2
+#: mote/projects/gem/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
+#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
 msgid "Recommended"
 msgstr "Turayigushishikarije"
 
@@ -1010,7 +944,7 @@ msgstr "Turayigushishikarije"
 #: gem/templates/springster/core/tags/media_listing_homepage.html:65
 #: gem/templates/springster/patterns/components/media/media-player.html:60
 msgid "Download"
-msgstr ""
+msgstr "Kora ya"
 
 #: gem/templates/base/polls/free_text_detail.html:5
 #: gem/templates/base/polls/poll_page.html:8
@@ -1206,22 +1140,14 @@ msgstr "Subiza ibibazo birebana n'umutekano bikurikira"
 
 #: gem/templates/base/profiles/register.html:13
 msgid "Not a member yet? Join us by signing up below."
-msgstr "Nturaba umunyamuryango- Iyandikishe hasi aha kugira ngo winjire"
+msgstr "Iyandikishe hasi aha kugira ngo winjire"
+#msgstr "Nturaba umunyamuryango - Iyandikishe hasi aha kugira ngo winjire"
+
 
 #: gem/templates/base/profiles/register.html:20
 #: gem/templates/springster/profiles/register.html:44
 msgid "Please correct the indicated errors."
 msgstr "Kosora ikosa bakweretse"
-
-#: gem/templates/base/profiles/register.html:25
-msgid "Choose a username"
-msgstr "Hitamo izina ryo gukoresha"
-
-#: gem/templates/base/profiles/register.html:35
-#: gem/templates/springster/profiles/done.html:31
-#: gem/templates/springster/profiles/register.html:60
-msgid "Display name"
-msgstr "Garagaza izina"
 
 #: gem/templates/base/profiles/register.html:36
 #: gem/templates/rwanda/profiles/register.html:41
@@ -1235,11 +1161,6 @@ msgstr ""
 "ukoresha ndetse tukakwemerera gutanga igitekerezo nk'umuntu utazwi. Niba "
 "wifuza kuganira n'inshuti zawe ugashaka ko bakubona, hindura izina ryawe "
 "hano. "
-
-#: gem/templates/base/profiles/register.html:43
-#: gem/templates/springster/profiles/register.html:69
-msgid "Choose a 4-digit pin"
-msgstr "Hitamo ijambo rigizwe n’inyuguti cyangwa imibare ine"
 
 #: gem/templates/base/profiles/register.html:50
 msgid "I identify my gender as"
@@ -1272,6 +1193,9 @@ msgstr "Ni wowe wenyine uzabona ibi"
 #: gem/templates/rwanda/profiles/register.html:46
 #: gem/templates/springster/profiles/done.html:42
 #: gem/templates/springster/profiles/register.html:78
+#: temp/temp_ve/profiles/templates/profiles/done.html:19
+#: temp/temp_ve/profiles/templates/profiles/register.html:49
+#: gem/templates/rwanda/profiles/done.html:23
 msgid "Select Date of Birth"
 msgstr "Itariki y amavuko"
 
@@ -1296,7 +1220,8 @@ msgstr "Shyiramo email"
 #: gem/templates/springster/profiles/done.html:65
 #: gem/templates/springster/profiles/register.html:100
 msgid "What is your highest level of education?"
-msgstr "Urwego rw'amashuri wize"
+msgstr "Icyiciro cy'amashuri wize"
+#msgstr "Urwego rw'amashuri wize"
 
 #: gem/templates/base/profiles/register.html:89
 #: gem/templates/springster/profiles/done.html:69
@@ -1398,7 +1323,10 @@ msgstr "Komeza winjire"
 msgid "Hello"
 msgstr "Muraho"
 
+# Combined Translation
+#: gem/rules.py:84
 #: gem/templates/base/profiles/viewprofile.html:20
+#: temp/temp_ve/core/templates/versions.html:22
 msgid "Not set"
 msgstr "Ntabiriho."
 
@@ -1533,7 +1461,8 @@ msgstr "Hari icyo uru gushaka?"
 #: temp/temp_ve/core/templates/search/search_results.html:59
 #: temp/temp_ve/core/templates/search/search_results.html:65
 msgid "Search"
-msgstr "Shakisha"
+msgstr "Ishakiro"
+#msgstr "Shakisha"
 
 #: gem/templates/base/search/search_results.html:13
 #: gem/templates/rwanda/search/search_results.html:10
@@ -1660,6 +1589,7 @@ msgstr "Urakoze gutora!"
 
 #: gem/templates/base/surveys/molo_survey_page_success.html:57
 #: temp/temp_ve/surveys/templates/surveys/molo_survey_page_success.html:12
+#: temp/temp_ve/surveys/rules.py:308
 msgid "Survey Results"
 msgstr "Ibyavuye mu bushakashatsi"
 
@@ -1669,7 +1599,7 @@ msgstr "Urakoze gutora!"
 
 #: gem/templates/base/surveys/molo_survey_page_success.html:67
 msgid "Your survey has been completed successfully."
-msgstr ""
+msgstr "Urangije ubushakashatsi bwawe."
 
 #: gem/templates/base/surveys/surveys_list.html:20
 #: gem/templates/base/yourwords/your_words_competition_tag.html:18
@@ -1696,10 +1626,6 @@ msgstr "Injira"
 #: gem/templates/base/surveys/surveys_list.html:66
 msgid "Start"
 msgstr "Tangira"
-
-#: gem/templates/base/yourwords/terms_and_conditions.html:48
-msgid "BACK"
-msgstr "Subirayo"
 
 #: gem/templates/base/yourwords/thank_you.html:13
 #: gem/templates/malawi/yourwords/thank_you.html:11
@@ -1798,27 +1724,22 @@ msgstr ""
 
 #: gem/templates/rwanda/base.html:151
 msgid "Featured"
-msgstr ""
+msgstr "Inyandiko Zihoraho"
 
 #: gem/templates/rwanda/base.html:172
-#, fuzzy
-#| msgid "Latest stories"
 msgid "News and stories"
 msgstr "Iziheruka"
 
-#: gem/templates/rwanda/base.html:215 gem/templates/rwanda/base.html:223
-msgid "Languages"
-msgstr "Imvugo"
-
 #: gem/templates/rwanda/base.html:259
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: gem/templates/rwanda/base.html:299 gem/templates/springster/base.html:209
 #: gem/templates/springster/patterns/basics/menu/sp_variations/menu-column.html:20
 #: temp/temp_ve/core/templates/patterns/basics/menu/sp_variations/menu-column.html:20
 msgid "Join us"
-msgstr "Dusange"
+msgstr "Iyandikishe"
+#msgstr "Dusange"
 
 #: gem/templates/rwanda/base.html:350 gem/templates/springster/base.html:315
 #: gem/templates/springster/patterns/basics/copyright/copyright-terms.html:7
@@ -1826,6 +1747,8 @@ msgstr "Dusange"
 msgid "Terms &amp; Conditions"
 msgstr "Nemeye amategeko n'amabwiriza"
 
+#: gem/rules.py:386 temp/temp_ve/commenting/rules.py:25
+#: temp/temp_ve/surveys/rules.py:88 temp/temp_ve/surveys/rules.py:422
 #: gem/templates/rwanda/comments/comment.html:5
 #: gem/templates/rwanda/comments/comment_block.html:55
 #: gem/templates/rwanda/comments/comments.html:39
@@ -1838,15 +1761,6 @@ msgstr "Nemeye amategeko n'amabwiriza"
 #: gem/templates/springster/comments/reply.html:105
 msgid "Moderator"
 msgstr "Ushinzwe urubuga"
-
-#: gem/templates/rwanda/comments/comment.html:15
-#: gem/templates/rwanda/comments/reply.html:40
-#: gem/templates/rwanda/comments/reply.html:128
-msgid ""
-"This comment has been removed by the community. Please read our platform "
-"rules"
-msgstr ""
-"Iki gitekerezo cyakuweho. Mugerageze musome amabwiriza agenga uru rubuga."
 
 #: gem/templates/rwanda/comments/comment.html:36
 #: gem/templates/rwanda/comments/comment.html:41
@@ -1885,15 +1799,24 @@ msgstr "subiza"
 msgid "replies"
 msgstr "ibisubizo"
 
+#: gem/templates/base/comments/reply.html:14
+#: gem/templates/rwanda/comments/comment_block.html:117
+#: gem/templates/rwanda/comments/comments.html:80
+#: gem/templates/rwanda/comments/reply.html:89
+#: gem/templates/springster/comments/reply.html:89
+#: temp/temp_ve/commenting/templates/comments/reply.html:13
 #: gem/templates/rwanda/comments/comment.html:55
-#, fuzzy
-#| msgid "Recent replies"
-msgid "Recent replies --"
-msgstr "Ibisubizo bishya"
+#: gem/templates/rwanda/comments/reply.html:101
+#: gem/templates/rwanda/comments/reply.html:170
+#: gem/templates/springster/comments/comment.html:74
+#: gem/templates/springster/comments/comment_block.html:100
+#: gem/templates/springster/comments/comments.html:84
+#: gem/templates/springster/comments/reply.html:82
+#: gem/templates/springster/comments/reply.html:166
+msgid "Recent replies"
+msgstr "Ibisubizo bishya "
 
 #: gem/templates/rwanda/comments/comment_block.html:8
-#, fuzzy
-#| msgid "Your comment"
 msgid "Post a comment"
 msgstr "Garagaza ko igitekerezo gifite ikibazo"
 
@@ -1904,10 +1827,8 @@ msgstr ""
 #: gem/templates/rwanda/comments/comment_block.html:20
 #: gem/templates/rwanda/comments/preview.html:52
 #: gem/templates/rwanda/comments/reply.html:226
-#, fuzzy
-#| msgid "Please log in to leave a comment"
 msgid "Please log in to comment"
-msgstr "Gusiga igitekerezo"
+msgstr "Injira utange igitekerezo cyawe"
 
 #: gem/templates/rwanda/comments/comment_block.html:40
 #: gem/templates/rwanda/comments/form.html:12
@@ -1921,27 +1842,24 @@ msgid "Comment"
 msgstr "Igitekerezo"
 
 #: gem/templates/rwanda/comments/comment_block.html:70
-#, fuzzy
-#| msgid ""
-#| "This comment has been removed by the community. Please read our platform "
-#| "rules"
+
+#: gem/templates/rwanda/comments/comment.html:15
+#: gem/templates/rwanda/comments/reply.html:40
+#: gem/templates/rwanda/comments/reply.html:128
 msgid ""
-"\n"
-"                      This comment has been removed by the community.\n"
-"                      Please read our platform rules\n"
-"                    "
+"This comment has been removed by the community. Please read our platform "
+"rules"
 msgstr ""
 "Iki gitekerezo cyakuweho. Mugerageze musome amabwiriza agenga uru rubuga."
+#msgstr ""
+#"Iki gitekerezo cyakuweho n'abasoma uru rubuga. Kanda hano usome amategeko "
+#"n'amabwiriza"
 
 #: gem/templates/rwanda/comments/comment_block.html:79
-#, fuzzy
-#| msgid "Read more"
 msgid "See more"
 msgstr "Soma ibindi"
 
 #: gem/templates/rwanda/comments/comment_block.html:131
-#, fuzzy
-#| msgid "Share a Comment"
 msgid "See all comments"
 msgstr "gusiga igitekerezo"
 
@@ -1954,14 +1872,14 @@ msgstr ""
 #: gem/templates/rwanda/core/section_page.html:99
 #: gem/templates/rwanda/search/search_results.html:93
 msgid "Previous"
-msgstr ""
+msgstr "Subira Inyuma"
 
 #: gem/templates/rwanda/comments/comments.html:104
 #: gem/templates/rwanda/comments/reply.html:185
 #: gem/templates/rwanda/core/section_page.html:106
 #: gem/templates/rwanda/search/search_results.html:100
 msgid "Newer"
-msgstr ""
+msgstr "Sura Paji Ikurikira"
 
 #: gem/templates/rwanda/comments/form.html:14
 #: gem/templates/rwanda/comments/preview.html:37
@@ -1969,34 +1887,18 @@ msgstr ""
 msgid "Comment anonymously"
 msgstr "Andika mw'ibanga"
 
-#: gem/templates/rwanda/comments/reply.html:101
-#, fuzzy
-#| msgid "Recent replies"
-msgid "Recent-- replies"
-msgstr "Ibisubizo bishya"
-
+#: gem/templates/base/comments/reply.html:16
+#: gem/templates/springster/comments/reply.html:91
+#: temp/temp_ve/commenting/templates/comments/reply.html:15
 #: gem/templates/rwanda/comments/reply.html:103
-#, fuzzy
-#| msgid "Earlier replies"
-msgid "Earlier-- replies"
+msgid "Earlier replies"
 msgstr "Ibisubizo byaje mbere"
-
-#: gem/templates/rwanda/comments/reply.html:170
-#, fuzzy
-#| msgid "Recent replies"
-msgid "Recent --replies"
-msgstr "Ibisubizo bishya"
 
 #: gem/templates/rwanda/comments/reply.html:193
 #: gem/templates/springster/comments/reply.html:183
 msgid "Add your reply"
 msgstr "Ongeraho igisubizo"
 
-#: gem/templates/rwanda/comments/report_comment.html:9
-#, fuzzy
-#| msgid "Report Comment"
-msgid "Report comment"
-msgstr "Garagaza ko igitekerezo gifite ikibazo"
 
 #: gem/templates/rwanda/comments/report_comment.html:13
 msgid "Please let us know why you are reporting this comment"
@@ -2019,8 +1921,6 @@ msgstr ""
 "amabwiriza y’uru rubuga"
 
 #: gem/templates/rwanda/comments/user_has_already_reported.html:9
-#, fuzzy
-#| msgid "Report Comment"
 msgid "Reported comment"
 msgstr "Garagaza ko igitekerezo gifite ikibazo"
 
@@ -2033,10 +1933,8 @@ msgstr ""
 "dusanze kinyuranije n'amahame agenga imbuga zacu"
 
 #: gem/templates/rwanda/core/article_page.html:175
-#, fuzzy
-#| msgid "Back to article"
 msgid "Share article"
-msgstr "Gusubira ku nkuru"
+msgstr "Sangiza Inkuru"
 
 #: gem/templates/rwanda/core/article_tags.html:79
 #: gem/templates/rwanda/core/related-article-list.html:84
@@ -2046,10 +1944,8 @@ msgstr "Gusubira ku nkuru"
 #: gem/templates/rwanda/core/tags/section_listing_homepage.html:85
 #: gem/templates/rwanda/core/tags/topic_of_the_day.html:84
 #: gem/templates/rwanda/search/search_results.html:83
-#, fuzzy
-#| msgid "Back to article"
 msgid "Read article"
-msgstr "Gusubira ku nkuru"
+msgstr "Soma Inkuru"
 
 #: gem/templates/rwanda/core/article_tags.html:166
 #: gem/templates/springster/core/article_tags.html:172
@@ -2066,7 +1962,8 @@ msgstr "Gusubira ku nkuru"
 #: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-dir-arrow_reaction-button.html:4
 #: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-dir-arrow_button.html:4
 msgid "Read All"
-msgstr "Soma ibindi"
+msgstr "Komeza Usome"
+#msgstr "Soma ibindi"
 
 #: gem/templates/rwanda/core/banner_page.html:31
 #: gem/templates/rwanda/core/banner_page.html:35
@@ -2091,40 +1988,34 @@ msgstr ""
 "cyangwa TIGO, ushobora kurusura ku buntu, unyuze kuri "
 
 #: gem/templates/rwanda/core/related-article-list.html:15
-#, fuzzy
-#| msgid "Read more"
 msgid "Read next"
-msgstr "Soma ibindi"
+msgstr "Ibindi wasoma"
 
 #: gem/templates/rwanda/core/related-article-list.html:105
-#, fuzzy
-#| msgid "Recommended"
 msgid "Recommended stories"
 msgstr "Turayigushishikarije"
 
 #: gem/templates/rwanda/core/section_page.html:116
-#, fuzzy
-#| msgid "Categories"
 msgid "Article categories"
 msgstr "Ibice bigize urubuga"
 
 #: gem/templates/rwanda/core/tags/footerpage.html:16
 msgid "Contact us"
-msgstr ""
+msgstr "Twandikire"
 
 #: gem/templates/rwanda/core/tags/latest_listing_homepage.html:7
-#, fuzzy
-#| msgid "Latest stories"
 msgid "Latest articles"
-msgstr "Iziheruka"
+msgstr "Inkuru Nshya"
+#msgstr "Inkuru Ziheruka"
 
 #: gem/templates/rwanda/core/tags/social_media_footer.html:6
 msgid "Follow us"
-msgstr ""
+msgstr "Dukurikire"
 
 #: gem/templates/rwanda/core/tags/topic_of_the_day.html:7
 msgid "Events"
-msgstr ""
+msgstr "Ibibera ino"
+#msgstr "Ibiriho"
 
 #: gem/templates/rwanda/notifications/notice.html:9
 #: gem/templates/springster/notifications/notice.html:21
@@ -2140,10 +2031,6 @@ msgstr "Garagaza ko igitekerezo gifite ikibazo"
 #: gem/templates/rwanda/notifications/notice.html:23
 msgid "A reply"
 msgstr "Subiza"
-
-#: gem/templates/rwanda/notifications/reply_list.html:8
-msgid "Comment replies"
-msgstr "Igitekerezo"
 
 #: gem/templates/rwanda/notifications/reply_list.html:14
 #: gem/templates/springster/notifications/reply_list.html:9
@@ -2172,7 +2059,7 @@ msgstr "Nshya"
 #: gem/templates/rwanda/polls/results.html:12
 #: temp/temp_ve/polls/templates/polls/results.html:8
 msgid "Your answers:"
-msgstr ""
+msgstr "Igisubizo cyawe:"
 
 #: gem/templates/rwanda/profiles/change_password.html:6
 #: gem/templates/springster/profiles/change_password.html:52
@@ -2218,10 +2105,6 @@ msgid "Let us know more about yourself to get access to exclusive content."
 msgstr ""
 "Tubwire umunsi wawe w’amavuko kugira ngo ubashe kubona amakuru ahambaye"
 
-#: gem/templates/rwanda/profiles/done.html:23
-msgid "Select Date Of Birth"
-msgstr "Itariki y amavuko"
-
 #: gem/templates/rwanda/profiles/done.html:35
 #: gem/templates/rwanda/profiles/editprofile.html:18
 #: temp/temp_ve/profiles/templates/profiles/done.html:30
@@ -2248,7 +2131,8 @@ msgstr "Utuye he?"
 
 #: gem/templates/rwanda/profiles/done.html:62
 msgid "What Is Your Highest Level Of Education?"
-msgstr "Urwego rw'amashuri wize"
+msgstr "Icyiciro cy'amashuri wize"
+#msgstr "Urwego rw'amashuri wize"
 
 #: gem/templates/rwanda/profiles/done.html:74
 #: gem/templates/rwanda/profiles/login_success.html:11
@@ -2296,7 +2180,8 @@ msgstr "Turakwakiriye nanone!"
 #: temp/temp_ve/profiles/templates/profiles/register.html:127
 #: temp/temp_ve/profiles/templates/registration/login.html:13
 msgid "Register"
-msgstr "Mukuru wawe"
+msgstr "Iyandikishe"
+#msgstr "Mukuru wawe"
 
 #: gem/templates/rwanda/profiles/register.html:12
 #: temp/temp_ve/profiles/templates/profiles/register.html:12
@@ -2320,11 +2205,7 @@ msgstr "Nturaba umunyamuryango?"
 #: gem/templates/rwanda/profiles/register.html:18
 #: temp/temp_ve/profiles/templates/profiles/register.html:18
 msgid "Join us by signing up below."
-msgstr "Nturaba umunyamuryango- Iyandikishe hasi aha kugira ngo winjire"
-
-#: gem/templates/rwanda/profiles/register.html:23
-msgid "Choose A Username"
-msgstr "Hitamo izina ryo gukoresha"
+msgstr "Iyandikishe hasi aha kugira ngo winjire"
 
 #: gem/templates/rwanda/profiles/register.html:27
 msgid ""
@@ -2334,7 +2215,10 @@ msgstr ""
 "Iri zina uzarikoresha kugira ngo winjire. Abandi ntibazaribona. Ni wowe "
 "wenyine uzabona"
 
+#: gem/templates/base/profiles/register.html:43
+#: gem/templates/springster/profiles/register.html:69
 #: gem/templates/rwanda/profiles/register.html:31
+#: temp/temp_ve/profiles/templates/profiles/register.html:32
 msgid "Choose A 4-Digit PIN"
 msgstr "Hitamo ijambo rigizwe n’inyuguti cyangwa imibare ine"
 
@@ -2387,13 +2271,12 @@ msgid "log out"
 msgstr "Sohoka"
 
 #: gem/templates/rwanda/registration/login.html:18
-#, fuzzy
-#| msgid "Join us by signing up below."
 msgid "By signing in below."
-msgstr "Nturaba umunyamuryango- Iyandikishe hasi aha kugira ngo winjire"
+msgstr "Iyandikishe hasi aha kugira ngo winjire"
 
 #: gem/templates/rwanda/registration/login.html:23
 #: temp/temp_ve/profiles/templates/registration/login.html:24
+#: temp/temp_ve/core/templates/modeladmin/includes/result_list.html:25
 msgid "Your username and pin do not match. Please try again."
 msgstr "PIN ebyiri ushyizemo ntizihuye. Ongera ugerageze."
 
@@ -2410,7 +2293,7 @@ msgstr "Nta kibasha kuboneka ku byerekeye"
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:8
 #: gem/templates/rwanda/surveys/surveys_list.html:119
 msgid "Quiz"
-msgstr ""
+msgstr "Tyaza Ubwenge"
 
 #: gem/templates/rwanda/surveys/molo_survey_page.html:45
 #: gem/templates/springster/surveys/molo_survey_page.html:72
@@ -2418,11 +2301,8 @@ msgid "Read:"
 msgstr "Yasomwe:"
 
 #: gem/templates/rwanda/surveys/molo_survey_page.html:55
-#, fuzzy, python-format
-#| msgid "This competition has %(pages)s pages "
-msgid ""
-"\n"
-"                    This competition has %(pages)s pages "
+#, python-format
+msgid "This competition has %(pages)s pages "
 msgstr "Iri rushanwa rifite %(pages)s pages irushanwa"
 
 #: gem/templates/rwanda/surveys/molo_survey_page.html:145
@@ -2469,31 +2349,27 @@ msgstr "Injira utore"
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:26
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:30
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:34
-#, fuzzy, python-format
-#| msgid "Your %(wordSetting)s has been completed successfully. See results"
+#, python-format
 msgid "Your %(wordSetting)s has been completed successfully. See results"
-msgstr "Usoje gusubiza ibibazo by'ubushakashatsi. Reba ibyavuyemo hasi aha."
+msgstr "Usoje %(wordSetting)s gusubiza ibibazo by'ubushakashatsi. Reba ibyavuyemo hasi aha."
 
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:62
-#, fuzzy
-#| msgid "Thank you!"
 msgid "Thank you"
-msgstr "Urakoze!"
+msgstr "Urakoze"
 
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:69
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:77
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:85
 #, python-format
 msgid "Your %(wordSetting)s has been completed successfully!"
-msgstr ""
+msgstr "%(wordSetting)s y'amagambo yawe byasojwe neza!"
 
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:71
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:79
 #: gem/templates/rwanda/surveys/molo_survey_page_success.html:87
-#, fuzzy, python-format
-#| msgid "Thank you for submitting this %(wordSetting)s!"
+#, python-format
 msgid "Thank you for submitting this %(wordSetting)s!"
-msgstr "Urakoze gutora!"
+msgstr "Urakoze gutora! %(wordSetting)s!"
 
 #: gem/templates/rwanda/surveys/surveys_list.html:19
 #: gem/templates/springster/patterns/components/banners/join-banner.html:9
@@ -2534,6 +2410,7 @@ msgstr "Tanga ibitekerezo ku bushakashatsi"
 #: gem/templates/springster/patterns/basics/buttons/sp_variations/text-tag-back_button.html:3
 #: temp/temp_ve/core/templates/patterns/basics/buttons/sp_variations/text-tag-back_button.html:4
 #: temp/temp_ve/yourwords/templates/yourwords/terms_and_conditions.html:46
+#: gem/templates/base/yourwords/terms_and_conditions.html:48
 msgid "Back"
 msgstr "Subirayo"
 
@@ -2547,7 +2424,7 @@ msgstr "Subirayo"
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag.html:28
 #: temp/temp_ve/yourwords/templates/yourwords/your_words_competition_tag_for_section.html:28
 msgid "Enter"
-msgstr ""
+msgstr "Injira"
 
 #: gem/templates/rwanda/yourwords/your_words_competition_entry.html:49
 #: gem/templates/springster/yourwords/your_words_competition_entry.html:46
@@ -2561,22 +2438,6 @@ msgstr "Umutwe w’inkuru yawe"
 #: temp/temp_ve/core/templates/patterns/basics/images/sp_variations/logo.html:6
 msgid "Springster"
 msgstr "Mukuru wawe"
-
-#: gem/templates/springster/comments/comment.html:32
-#: gem/templates/springster/comments/comment_block.html:61
-#: gem/templates/springster/comments/comments.html:42
-#: gem/templates/springster/comments/reply.html:42
-#: gem/templates/springster/comments/reply.html:126
-msgid "Read More"
-msgstr "Soma ibindi"
-
-#: gem/templates/springster/comments/comment.html:74
-#: gem/templates/springster/comments/comment_block.html:100
-#: gem/templates/springster/comments/comments.html:84
-#: gem/templates/springster/comments/reply.html:82
-#: gem/templates/springster/comments/reply.html:166
-msgid "Recent Replies"
-msgstr "Ibisubizo bishya"
 
 #: gem/templates/springster/comments/comment_block.html:6
 msgid "Share your thoughts"
@@ -2612,13 +2473,14 @@ msgstr "Wamaze kugaragaza ko iki kitekerezo gifite ikibazo"
 #: gem/templates/springster/patterns/basics/article-tags/sp_article-page-tag.html:8
 #: temp/temp_ve/core/templates/patterns/basics/article-tags/sp_variations/sp_article-tags_with-title.html:7
 msgid "Read more about"
-msgstr "Soma ibindi"
+msgstr "Komeza Usome"
+#msgstr "Soma ibindi"
 
 #: gem/templates/springster/core/article_page.html:223
 #: gem/templates/springster/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
 #: temp/temp_ve/core/templates/patterns/basics/articles/sp_variations/related-article-teasers_might-like.html:6
 msgid "You might like"
-msgstr ""
+msgstr "Ushobora gukunda"
 
 #: gem/templates/springster/core/article_tags.html:90
 #: gem/templates/springster/core/article_tags_for_paging.html:78
@@ -2649,14 +2511,9 @@ msgstr "Wadusanga"
 msgid "A Reply"
 msgstr "Subiza"
 
-#: gem/templates/springster/notifications/reply_list.html:5
-#: temp/temp_ve/commenting/templates/notifications/reply_list.html:6
-msgid "Comment Replies"
-msgstr "Igitekerezo"
-
 #: gem/templates/springster/patterns/basics/surveys/surveys-list_generic.html:25
 msgid "Take Survey"
-msgstr ""
+msgstr "Subiza ubushakashatsi"
 
 #: gem/templates/springster/patterns/basics/surveys/surveys-list_polls.html:6
 #: gem/templates/springster/polls/detail.html:11
@@ -2674,7 +2531,7 @@ msgstr "Tora"
 #: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys-results.html:5
 #: gem/templates/springster/patterns/basics/surveys/surveys-modules/surveys-results.html:37
 msgid "Your "
-msgstr ""
+msgstr "Yawe"
 
 #: gem/templates/springster/patterns/components/article-tags/sp_variations/sp_tags-menu.html:11
 #: temp/temp_ve/core/templates/patterns/components/article-tags/sp_variations/sp_tags-menu.html:7
@@ -2684,7 +2541,7 @@ msgstr "Soma inkuru ku byerekeye"
 #: gem/templates/springster/polls/includes/poll_free_text_form.html:20
 #: temp/temp_ve/polls/templates/polls/includes/poll_free_text_form.html:15
 msgid "Thank you! Your response has already been submitted."
-msgstr ""
+msgstr "Igisubizo cyawe cyatwanzwe"
 
 #: gem/templates/springster/profiles/change_password.html:6
 #: gem/templates/springster/profiles/viewprofile.html:99
@@ -2694,12 +2551,12 @@ msgstr "Hindura ijambo ryawe ry’ibanga"
 #: gem/templates/springster/profiles/change_password.html:33
 #: gem/templates/springster/profiles/viewprofile.html:116
 msgid "Old Pin:"
-msgstr ""
+msgstr "Umubare w'ibanga usanganwe"
 
 #: gem/templates/springster/profiles/change_password.html:40
 #: gem/templates/springster/profiles/viewprofile.html:121
 msgid "New Pin:"
-msgstr ""
+msgstr "Umubare w'ibanga mushya"
 
 #: gem/templates/springster/profiles/change_password.html:47
 msgid "Confirm New Pin:"
@@ -2721,12 +2578,12 @@ msgstr ""
 #: gem/templates/springster/profiles/done.html:52
 #: gem/templates/springster/profiles/register.html:88
 msgid "I identify as"
-msgstr ""
+msgstr "Ndigaragaza nka"
 
 #: gem/templates/springster/profiles/done.html:57
 #: gem/templates/springster/profiles/register.html:93
 msgid "Only you will see this, but it's not mandatory to tell us"
-msgstr ""
+msgstr "Ni wowe wenyine uribubone ibi, ariko si ngombwa kubi tubw ira"
 
 #: gem/templates/springster/profiles/done.html:78
 msgid ""
@@ -2745,7 +2602,8 @@ msgstr "Garagaza izina"
 
 #: gem/templates/springster/profiles/register.html:9
 msgid "Join Springster"
-msgstr "Mukuru wawe"
+msgstr "Emeza"
+#msgstr "Mukuru wawe"
 
 #: gem/templates/springster/profiles/register.html:18
 #: gem/templates/springster/profiles/register.html:150
@@ -2786,13 +2644,13 @@ msgstr "Iyandikishe"
 
 #: gem/templates/springster/registration/password_reset_complete.html:4
 msgid "Your password has been set. You may go ahead and log in now."
-msgstr ""
+msgstr "Umubare wawe w'ibanga watunganye. Ubu ushobora kwinjira. "
 
 #: gem/templates/springster/registration/password_reset_confirm.html:5
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr ""
+msgstr "Injiza ijambo ry'ibanga kabiri. kugira ngo umen ye ko wan dit se neza"
 
 #: gem/templates/springster/registration/password_reset_confirm.html:10
 msgid "New password:"
@@ -2811,18 +2669,24 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
+"Link y'ijambo ry'ibanga ntabwo yakunze. Birasho boka ko y ako re shejwe. "
+"Saba guhindurirwa ijambo ry'ibanga"
 
 #: gem/templates/springster/registration/password_reset_done.html:6
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
+"Twakoherereje kuri email amabwiriza yo guhinduka umubare w'ibanga, niba "
+"email watanze iriho koko. Ubutumwa burakugeraho bidatinze. "
 
 #: gem/templates/springster/registration/password_reset_done.html:10
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
+"Niba email itakugezeho, reba neza niba washyizemo email waduhaye "
+"wiyandikisha, ndetse urebere muri spam."
 
 #: gem/templates/springster/registration/password_reset_form.html:4
 msgid "Forgotten your password?"
@@ -2833,6 +2697,8 @@ msgid ""
 "Enter your email address below, and we'll email instructions for setting a "
 "new one."
 msgstr ""
+"Injiza email yawe habo hepfo, tureakoherereza a mabwi riza yo g ushyiramo "
+"indi"
 
 #: gem/templates/springster/registration/password_reset_form.html:12
 msgid "Email address:"
@@ -2845,7 +2711,7 @@ msgstr "Ijambo Ry ibanga rishya"
 #: gem/templates/springster/surveys/molo_survey_page_success.html:44
 #: gem/templates/springster/surveys/molo_survey_page_success.html:75
 msgid "Your"
-msgstr ""
+msgstr "Yawe"
 
 #: gem/templates/springster/surveys/molo_survey_page_success.html:44
 #: gem/templates/springster/surveys/molo_survey_page_success.html:75
@@ -2905,11 +2771,6 @@ msgstr "Soma"
 msgid "Next up in [category]:"
 msgstr "Ikurira [category]:"
 
-#: mote/projects/gem/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
-#: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/article-list/variations/up-next-and-recommended/element.html:12
-msgid "Recommended:"
-msgstr "Turayigushishikarije"
-
 #: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
 #: mote/projects/gem/website/src/patterns/basics/languages/variations/language-list-dropdown_footer/element.html:8
 #: temp/temp_ve/core/cookiecutter/scaffold/{{cookiecutter.directory}}/mote/projects/{{cookiecutter.app_name}}/website/src/patterns/basics/languages/variations/language-list-dropdown/element.html:11
@@ -2958,10 +2819,12 @@ msgid ""
 "matches a part of a comment."
 msgstr ""
 
+#: gem/rules.py:401
+#: gem/templates/rwanda/notifications/reply_list.html:8
+#: gem/templates/springster/notifications/reply_list.html:5
+#: temp/temp_ve/commenting/templates/notifications/reply_list.html:6
 #: temp/temp_ve/commenting/rules.py:38
-#, fuzzy
-#| msgid "Comment replies"
-msgid "comment data rule"
+msgid "Comment replies"
 msgstr "Igitekerezo"
 
 #: temp/temp_ve/commenting/rules.py:59
@@ -3015,7 +2878,7 @@ msgstr "Imenyesha:"
 
 #: temp/temp_ve/commenting/views.py:31
 msgid "Reporting comment replies is not allowed."
-msgstr ""
+msgstr "Kugaragaza ko iki gitekerezo ari ikibazo ntibishoboka"
 
 #: temp/temp_ve/commenting/views.py:34
 msgid "The comment has been reported."
@@ -3023,7 +2886,7 @@ msgstr "Iki gitekerezo cyagaragajwe nk’ikitishimiwe"
 
 #: temp/temp_ve/commenting/views.py:111
 msgid "Reply successfully created."
-msgstr ""
+msgstr "Igisubizo cyawe cyakiriwe"
 
 #: temp/temp_ve/core/admin.py:111 temp/temp_ve/core/templates/versions.html:11
 msgid "Status"
@@ -3067,7 +2930,7 @@ msgstr ""
 
 #: temp/temp_ve/core/forms.py:11 temp/temp_ve/polls/forms.py:21
 msgid "You didn't select a choice"
-msgstr ""
+msgstr "Ntacyo wahisemo"
 
 #: temp/temp_ve/core/templates/403.html:8
 msgid "Access Denied"
@@ -3099,11 +2962,11 @@ msgstr ""
 
 #: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:10
 msgid "Click to Download!"
-msgstr ""
+msgstr "Kanda hano ukore download"
 
 #: temp/temp_ve/core/templates/core/tags/media_listing_homepage.html:21
 msgid "Click here to download"
-msgstr ""
+msgstr "Kanda hano ukore download"
 
 #: temp/temp_ve/core/templates/core/tags/nav_tags_section_listing_homepage.html:21
 #: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection_with-bg.html:30
@@ -3118,12 +2981,6 @@ msgid ""
 "        By %(filter_title)s\n"
 "    </h3>\n"
 msgstr ""
-
-#: temp/temp_ve/core/templates/modeladmin/includes/result_list.html:25
-#, fuzzy
-#| msgid "Your username and pin do not match. Please try again."
-msgid "Sorry, we didn't find an article with that name. Please try again."
-msgstr "PIN ebyiri ushyizemo ntizihuye. Ongera ugerageze."
 
 #: temp/temp_ve/core/templates/patterns/basics/article-teasers/homepage-promoted_variations/homepage-articles-subsection-child_with-bg.html:27
 msgid "View More"
@@ -3148,9 +3005,7 @@ msgid "Latest"
 msgstr "Iziheruka"
 
 #: temp/temp_ve/core/templates/patterns/components/article-teasers/latest-promoted_variations/articles_column.html:2
-#, fuzzy
-#| msgid "Latest stories"
-msgid "Fresh Stories"
+msgid "Latest stories"
 msgstr "Iziheruka"
 
 #: temp/temp_ve/core/templates/patterns/components/article-teasers/topic-of-day_variations/articles_default.html:3
@@ -3172,12 +3027,6 @@ msgstr ""
 #: temp/temp_ve/core/templates/versions.html:19
 msgid "UpToDate"
 msgstr ""
-
-#: temp/temp_ve/core/templates/versions.html:22
-#, fuzzy
-#| msgid "Not set"
-msgid "Not installed"
-msgstr "Ntabiriho."
 
 #: temp/temp_ve/core/templates/versions.html:24
 msgid "Compare"
@@ -3224,6 +3073,7 @@ msgstr ""
 
 #: temp/temp_ve/profiles/forms.py:149 temp/temp_ve/profiles/forms.py:519
 #: temp/temp_ve/profiles/forms.py:587 temp/temp_ve/profiles/forms.py:604
+#: temp/temp_ve/profiles/forms.py:488 temp/temp_ve/profiles/forms.py:503
 msgid "This value must contain only numbers."
 msgstr "Ibi bikwiriye kugirwa n'imibare gusa"
 
@@ -3239,41 +3089,11 @@ msgstr "Amashuri wize"
 
 #: temp/temp_ve/profiles/forms.py:248
 msgid "Username already exists."
-msgstr ""
-
-#: temp/temp_ve/profiles/forms.py:253
-#, fuzzy, python-format
-#| msgid ""
-#| "Sorry, but that is an invalid username. Please don't use your email "
-#| "address or phone number in your username."
-msgid ""
-"Sorry, but that is an invalid username. Please don't use your %s in your "
-"username."
-msgstr ""
-"Ihangane! Iri zina rigaragara si ryo. Wikoresha email cyangwa nimero ya "
-"telefoni ahagenewe izina rigaragara"
-
-#: temp/temp_ve/profiles/forms.py:284 temp/temp_ve/profiles/forms.py:452
-#, fuzzy, python-format
-#| msgid ""
-#| "Sorry, but that is an invalid display name. Please don't use your email "
-#| "address or phone number in your display name."
-msgid ""
-"Sorry, but that is an invalid display name. Please don't use your %s in your "
-"display name."
-msgstr ""
-"Ihangane! Iri zina rigaragara si ryo. Wikoresha email cyangwa nimero ya "
-"telefoni ahagenewe izina rigaragara"
-
-#: temp/temp_ve/profiles/forms.py:488 temp/temp_ve/profiles/forms.py:503
-#, fuzzy
-#| msgid "This value must contain only numbers."
-msgid "This value must contain only           numbers."
-msgstr "Ibi bikwiriye kugirwa n'imibare gusa"
+msgstr "Izina ukoresha n'umubare w'ibangantibihura"
 
 #: temp/temp_ve/profiles/forms.py:490
 msgid "Old Password"
-msgstr " Ijambo Ry ibanga usanganwe "
+msgstr "Ijambo Ry ibanga usanganwe "
 
 #: temp/temp_ve/profiles/forms.py:505
 msgid "New Password"
@@ -3284,19 +3104,9 @@ msgid "Confirm Password"
 msgstr "Emeza ijambo ry’ibanga"
 
 #: temp/temp_ve/profiles/forms.py:531
-#, fuzzy
 #| msgid "New password:"
 msgid "New passwords do not match."
 msgstr "Ijambo Ry ibanga rishya"
-
-#: temp/temp_ve/profiles/templates/profiles/done.html:19
-#: temp/temp_ve/profiles/templates/profiles/register.html:49
-msgid "SELECT DATE OF BIRTH"
-msgstr "Itariki y amavuko"
-
-#: temp/temp_ve/profiles/templates/profiles/done.html:27
-msgid "DISPLAY NAME"
-msgstr "Garagaza izina"
 
 #: temp/temp_ve/profiles/templates/profiles/done.html:36
 #: temp/temp_ve/profiles/templates/profiles/register.html:58
@@ -3311,11 +3121,15 @@ msgstr "Utuye he?"
 #: temp/temp_ve/profiles/templates/profiles/done.html:54
 #: temp/temp_ve/profiles/templates/profiles/register.html:76
 msgid "WHAT IS YOUR HIGHEST LEVEL OF EDUCATION?"
-msgstr "Urwego rw'amashuri wize"
+msgstr "Icyiciro cy'amashuri wize"
+#msgstr "Urwego rw'amashuri wize"
 
+#: gem/templates/rwanda/profiles/register.html:23
+#: gem/templates/base/profiles/register.html:25
 #: temp/temp_ve/profiles/templates/profiles/register.html:25
-msgid "CHOOSE A USERNAME"
-msgstr "Hitamo izina ryo gukoresha"
+msgid "Choose A Username"
+msgstr "Hitamo Izina"
+#msgstr "Hitamo izina ryo gukoresha"
 
 #: temp/temp_ve/profiles/templates/profiles/register.html:28
 msgid ""
@@ -3324,10 +3138,6 @@ msgid ""
 msgstr ""
 "Iri zina uzarikoresha kugira ngo winjire. Abandi ntibazaribona. Ni wowe "
 "wenyine uzabona"
-
-#: temp/temp_ve/profiles/templates/profiles/register.html:32
-msgid "CHOOSE A 4-DIGIT PIN"
-msgstr "Hitamo ijambo rigizwe n’inyuguti cyangwa imibare ine"
 
 #: temp/temp_ve/profiles/templates/profiles/register.html:40
 msgid "CHOOSE A DISPLAY NAME"
@@ -3342,8 +3152,6 @@ msgid "ENTER YOUR EMAIL ADDRESS"
 msgstr "Shyiramo email"
 
 #: temp/temp_ve/profiles/templates/profiles/viewprofile.html:8
-#, fuzzy
-#| msgid "Hello"
 msgid "Hello "
 msgstr "Muraho"
 
@@ -3377,8 +3185,6 @@ msgid "Please select at least one category or service"
 msgstr ""
 
 #: temp/temp_ve/servicedirectory/views.py:194
-#, fuzzy
-#| msgid "Please select a question."
 msgid "Please select a location"
 msgstr "Subiza ibibazo birebana n'umutekano bikurikira"
 
@@ -3390,6 +3196,8 @@ msgstr ""
 msgid ""
 "Checkbox must include only 2 Answer Options. True and False in that order."
 msgstr ""
+"Agasanduku k'ibisubizo gatanga amahitamo y'ibisubizo 2 gusa, Yego cyangwa "
+"Oya. "
 
 #: temp/temp_ve/surveys/blocks.py:95
 msgid "Next default question"
@@ -3417,11 +3225,11 @@ msgstr "Subiza ibibazo birebana n'umutekano bikurikira"
 
 #: temp/temp_ve/surveys/blocks.py:163
 msgid "And"
-msgstr ""
+msgstr "Na"
 
 #: temp/temp_ve/surveys/blocks.py:164
 msgid "Or"
-msgstr ""
+msgstr "Cyangwa"
 
 #: temp/temp_ve/surveys/forms.py:30
 #, python-brace-format
@@ -3430,7 +3238,7 @@ msgstr ""
 
 #: temp/temp_ve/surveys/forms.py:43
 msgid "No limit"
-msgstr ""
+msgstr "Nta mupaka"
 
 #: temp/temp_ve/surveys/forms.py:54
 #, python-brace-format
@@ -3488,12 +3296,6 @@ msgstr ""
 msgid "Cannot select a survey with a different segment."
 msgstr ""
 
-#: temp/temp_ve/surveys/rules.py:76
-#, fuzzy
-#| msgid "Display name"
-msgid "field name"
-msgstr "Garagaza izina"
-
 #: temp/temp_ve/surveys/rules.py:77
 msgid ""
 "Field's label. For possible choices please input any text and save, so it "
@@ -3538,12 +3340,6 @@ msgstr ""
 #, python-format
 msgid "%s - %s  \"%s\""
 msgstr ""
-
-#: temp/temp_ve/surveys/rules.py:308
-#, fuzzy
-#| msgid "Survey Results"
-msgid "Survey response rule"
-msgstr "Ibyavuye mu bushakashatsi"
 
 #: temp/temp_ve/surveys/rules.py:331
 msgid "Based on responses to surveys."
@@ -3634,11 +3430,11 @@ msgstr "Ongeraho igisubizo"
 
 #: temp/temp_ve/surveys/templates/modeladmin/create.html:49
 msgid "Saving..."
-msgstr ""
+msgstr "Kubika..."
 
 #: temp/temp_ve/surveys/templates/modeladmin/create.html:58
 msgid "counting..."
-msgstr ""
+msgstr "Iri kubara"
 
 #: temp/temp_ve/surveys/templates/modeladmin/create.html:59
 msgid "count matching users"
@@ -3676,7 +3472,7 @@ msgstr ""
 
 #: temp/temp_ve/surveys/views.py:174
 msgid "Edit"
-msgstr ""
+msgstr "Hindura"
 
 #: temp/temp_ve/surveys/views.py:180
 msgid "The group could not be created due to errors."

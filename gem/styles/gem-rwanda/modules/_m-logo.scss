@@ -1,23 +1,24 @@
 .logo {
   background: url('/static/img/logos/logo-bg.svg') no-repeat center 0/ 100%;
-  height: 100px;
   margin: 0 auto;
+  max-height: 100px;
   overflow: auto;
-  width: 320px;
-  @include for-size(tablet-portrait-up) {
+  width: 100%;
+  @media screen and (min-width: 25.000em) {
     width: 360px;
+  }
+  @include for-size(tablet-portrait-up) {
+    height: 100px;
   }
   &-wrapper {
     position: relative;
-    margin: 0 auto;
+    margin: 0 1em;
+    flex: 1 1 100%;
     @include for-size(tablet-landscape-up) {
+      flex: 1 auto;
+      margin: 0 auto;
       order: 2;
       z-index: 999999999999;
-      width: 35%;
-    }
-    //Padding issues at 1366px(85.375em) - 1389px(86.813em)
-    @media screen and (min-width: 86.813em) {
-      width: 40%;
     }
   }
   &__anchor {

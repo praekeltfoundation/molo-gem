@@ -27,6 +27,7 @@ var gulp              =   require('gulp'),
 
         'gem/styles/gem-rwanda/nn.scss',
         'gem/styles/gem-rwanda/enhanced-nn.scss',
+        'gem/styles/gem-rwanda/browsers/nn-safari.scss',
 
         'gem/styles/maintenance.scss',
 

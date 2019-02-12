@@ -23,8 +23,9 @@ fieldset {
 label {
   font-weight: bold;
   font-size: $font-x-medium;
+  padding: 0 .5em 0 0;
   vertical-align: middle;
-  word-break: break-all;
+  word-break: break-word;
   word-wrap: break-word;
 }
 textarea {
@@ -81,10 +82,13 @@ select {
 #id_date_of_birth_day,
 #id_date_of_birth_year {
   margin: $spacer-small 0;
+  @include for-size(tablet-landscape-up) {
+    display: inline-block;
+    margin: 0 $spacer-small;
+    width: 20%;
+  }
  @include for-size(desktop-up) {
    width: 23%;
-   display: inline-block;
-   margin: 0 1em 0 0;
  }
  //SPECIAL CASE
  @media (max-width: 65.313em) and (min-width: 64.000em) {
@@ -112,14 +116,6 @@ button {
 input[type="search"] {
   width: 100%;
   appearance: none;
-  /*&::-webkit-search-decoration,
-  &::-webkit-search-cancel-button,
-  &::-webkit-search-results-button,
-  &::-webkit-search-results-decoration {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }*/
 }
 
 [type="checkbox"],
@@ -189,10 +185,15 @@ input[type="search"] {
   padding: 0;
   color: $color-red;
   list-style-type: none;
+  &__item {
+    color: $color-red;
+    text-align: left;
+    padding: 0 1em;
+  }
 }
-.error-list__item,
-.errorlist__item,
+
 .error {
   color: $color-red;
   text-align: left;
+  padding: 0 1em;
 }
