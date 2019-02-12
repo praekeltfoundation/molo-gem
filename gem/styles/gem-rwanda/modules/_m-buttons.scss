@@ -31,12 +31,13 @@
       font-weight: bold;
     }
   }
-  //USE OF !important TO ENFORCE ARTICLE WILD* STYLE TAGS
+
   &__button {
     background-color: $color-cyan;
     color: #000;
     display: inline-block;
     font-size: $font-x-medium;
+    font-weight: bold;
     padding: 5px;
     text-transform: uppercase;
     text-decoration: none;
@@ -47,7 +48,6 @@
       margin: 5px 1em 1em 0;
     }
     @include for-size(tablet-landscape-up) {
-      margin: 0;
       padding: 0.5em 0.8em;
     }
     &--primary {
@@ -116,6 +116,12 @@
       &:after {
         display: none;
         visibility: hidden;
+      }
+      &:active, &:hover, &:focus {
+        color: $color-pink-hollywood;
+        &:before {
+          border-right-color: $color-pink-hollywood;
+        }
       }
     }
   }

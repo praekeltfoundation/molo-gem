@@ -1,11 +1,16 @@
 .languageSearch-wrapper {
-  text-align: right;
-  display: inline-block;
   vertical-align: middle;
-  @include for-size(tablet-landscape-up) {
-    order: 3;
-    width: 30%;
+  padding: 5px;
+  @media screen and (min-width: 22.500em) {
+    padding: 5px 1em;
   }
+  @include for-size(tablet-landscape-up) {
+    padding: 0;
+    order: 3;
+  }
+  @include for-size(desktop-up) {
+    z-index: -9999999999;
+   }
 }
 .languages {
   $block: unquote("#{&}");
@@ -13,9 +18,11 @@
   text-transform: uppercase;
   overflow: auto;
   vertical-align: top;
-  margin: 0 1em 0 0;
-  @include for-size(tablet-landscape-up) {
-    margin: 0 3em 0 0;
+  @include for-size(tablet-portrait-up) {
+    margin: 0 1em 0 0;
+  }
+  @include for-size(desktop-up) {
+    margin: 0 5em;
   }
   &__anchor {
     color: #fff;
@@ -38,6 +45,7 @@
     padding: 1em;
     @include fly-by();
     @include for-size(tablet-portrait-up) {
+      @include fly-byEnhanced();
       padding: 2em;
     }
     @include for-size(tablet-landscape-up) {
@@ -50,9 +58,9 @@
       cursor: pointer;
       display: inline-block;
       font-size: $font-x-medium;
-      padding: 0 5px 0 0;
+      padding: 0 5px;
       @include for-size(tablet-landscape-up) {
-        padding: 0.9em 1em;
+        padding: 1.1em 1em;
       }
       span {
         display: none;
@@ -66,12 +74,12 @@
         background-image: url('/static/img/icons/rwanda/iconsSprite.png');
         background-repeat: no-repeat;
         background-size: 70px;
-        background-position: 0 22.5%;
+        background-position: 0.4em 22.3%;
         content: "";
         display: inline-block;
         height: 40px;
         vertical-align: middle;
-        width: 45px;
+        width: 50px;
       }
     }
     /*&__checkbox {
@@ -89,11 +97,16 @@
   &-list {
     margin: 0;
     padding: 0;
-    text-align: center;
+    @include for-size(tablet-portrait-up) {
+      text-align: center;
+    }
     &__item {
       display: inline-block;
       vertical-align: middle;
       padding: 0 1em 0 0;
+      @include for-size(desktop-up) {
+        padding: 0.35em $spacer-small 0;
+      }
     }
     &__label {
       color: #000;
@@ -112,6 +125,9 @@
       padding: 0 0 0 0.313em;
       font-style: italic;
       font-size: $font-large;
+      @include for-size(tablet-portrait-up) {
+        padding: 0 0 0 0.313em;
+      }
     }
     &__anchor {
       color: $color-cyan;
@@ -121,6 +137,9 @@
       font-weight: bold;
       opacity: 1;
       text-decoration: underline;
+      @include for-size(tablet-portrait-up) {
+        font-size: $font-small;
+      }
       &:active, &:hover, &:focus {
         color: $color-pink-hollywood;
         opacity: 0.7;
@@ -165,34 +184,34 @@
   .open {
     background-color: #fff;
     color: $color-cyan;
+    border-top-right-radius: 3px;
     &:before {
       background-position: -15% 15.2%;
       background-size: 115px;
+      @include for-size(tablet-landscape-up) {
+        background-position: -20% 15.3%;
+        background-size: 120px;
+      }
     }
   }
   &--footer {
-    //Describe --Footer accordion
     font-size: $font-x-medium;
     padding: 0 5% 0 0;
+    margin: 0;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 1em 0 0;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 0 5% 0 0;
+    }
     #{$block}__label {
       margin: 0;
-      padding: 0 0 0 0.313em;
+      padding: 0 .313em 0 0;
       display: inline-block;
       vertical-align: middle;
     }
-    //Which one is this?
-    /*&__checkbox {
-      & + * {
-        display: none;
-        visibility: hidden;
-        height: auto;
-        transition: height, 0.5s linear;
-      }
-      &:checked + * {
-        display: block;
-        visibility: visible;
-        transition: height, 0.5s linear;
-      }
-    }*/
+    #{$block}__anchor {
+      padding: 0 .313em 0 0;
+    }
   }
 }

@@ -15,7 +15,7 @@ $ugcPages: (
 @each $page, $styleElement in $ugcPages {
   .#{$page} {
     background: map-get($styleElement, themeColor)  url(map-get($styleElement, themePattern)) repeat center center/ auto;
-    padding: 1em;
+    padding: 1em 0;
     @include for-size(tablet-landscape-up) {
       padding: 1em $spacer-inner 2em;
     }
@@ -104,11 +104,26 @@ $ugcPages: (
   }
 }
 .first {
-  padding: 3em $spacer-inner 2em;
+  padding: 15% 0 2em;
+  @include for-size(tablet-portrait-up) {
+    margin: -15% auto 0;
+  }
+  @include for-size(tablet-landscape-up) {
+    padding: 15% $spacer-inner 2em;
+  }
 }
 .last {
-  padding: 1em $spacer-inner 3em;
+  padding: 1em 0 3em;
+  @include for-size(tablet-landscape-up) {
+    padding: 1em $spacer-inner 3em;
+  }
 }
 .only {
-  padding: 3em $spacer-inner;
+  padding: 15% 0 3em;
+  @include for-size(tablet-portrait-up) {
+    margin: -15% auto 0;
+  }
+  @include for-size(tablet-landscape-up) {
+    padding: 15% $spacer-inner 3em;
+  }
 }

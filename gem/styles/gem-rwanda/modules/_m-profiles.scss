@@ -1,26 +1,32 @@
 .profiles {
   background-color: $color-cyan;
-  @include for-size(tablet-portrait-up) {
+  @include for-size(phone-only) {
     background: $color-cyan url("/static/img/patterns/rwanda/NN_PATTERN-HILLS-AQUA-001.svg") repeat center center/ auto;
+    padding: 1em 0;
+  }
+  @include for-size(tablet-portrait-up) {
     padding: 2.5em 7%;
   }
   &__wrapper {
     background-color: #fff;
     padding: 1em;
-    @include for-size(tablet-landscape-up) {
+    @include for-size(tablet-portrait-up) {
       padding: 1em 1em 2em;
     }
   }
   &__description {
     font-size: $font-x-medium;
     display: inline-block;
-    margin: $spacer-small 0;
+    margin: $spacer-small;
     &--label {
-      text-transform: capitalize;
+      display: inline-block;
       font-size: $font-x-medium;
+      text-transform: capitalize;
+      vertical-align: baseline;
     }
   }
   &__caption {
+    padding: 0 5%;
     @include for-size(tablet-landscape-up) {
       font-size: $font-x-medium;
       text-align: right;
@@ -30,15 +36,17 @@
     }
     .call-to-action__item--text {
       text-transform: inherit;
-      @include for-size(desktop-up) {
+      padding: 0 .5em;
+      @include for-size(tablet-portrait-up) {
         margin: 1em 0;
-        padding: 0 1em 0 0;
+        padding: 0 1em 0 .5em;
       }
     }
   }
   &__inner {
-    @include for-size(desktop-up) {
-      padding: 0 9%;
+    padding: 0 1em;
+    @include for-size(tablet-portrait-up) {
+      padding: 0 10%;
     }
   }
   &__form {

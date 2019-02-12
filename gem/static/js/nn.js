@@ -84,5 +84,5 @@ jQuery(document).ready(function (e) {
   e(document).bind("click", function (t) {
       var n = e(t.target);
       if (!n.parents().hasClass("dropdown")) e(".dropdown .dropdown-toggle").removeClass("open");
-  })
+  });
 });

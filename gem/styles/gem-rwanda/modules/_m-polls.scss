@@ -1,5 +1,17 @@
 .polls {
   $block: unquote("#{&}");
+  .heading__headline {
+    padding: 0 1em .5em;
+    margin: 0;
+  }
+  .call-to-action__button--next,
+  .call-to-action__button--previous,
+  .call-to-action__button--secondary {
+    margin: 0 1em;
+    @include for-size(tablet-landscape-up) {
+
+    }
+  }
   &__wrapper {
     background-color: #fff;
     padding: 1em;
@@ -10,7 +22,17 @@
   &__answers {
     margin: 0.313em 0;
   }
+  &__inner {
+    padding: 0 1em;
+    section {
+      .heading__headline {
+        padding: 0;
+      }
+    }
+  }
+
   &__form {
+    padding: 0 1em;
     .choice-fieldset {
       @include for-size(tablet-landscape-up) {
         display: inline-block;
@@ -23,6 +45,11 @@
       @include for-size(tablet-landscape-up) {
         width: 80%;
       }
+    }
+  }
+  &--results {
+    .heading__headline {
+      padding: 0;
     }
   }
 }

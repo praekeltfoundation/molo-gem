@@ -3,13 +3,27 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+  margin: -10% 0;
+  @include for-size(tablet-portrait-up) {
+    margin: -5% 0;
+  }
+  @include for-size(tablet-landscape-up) {
+    margin: -3em 0;
+  }
   &__content {
     padding: 1em $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 1em $spacer-inner;
+    }
   }
   &__image {
     display: block;
     height: auto;
-    width: 100%;
+    width: 205%;
+    overflow: hidden;
+    @media screen and (min-width: 45.000em) {
+      width: 100%;
+    }
     @include for-size(tablet-landscape-up) {
       color: #000;
       display: inline-block;
@@ -19,18 +33,35 @@
   }
   &__caption {
     color: $color-cyan;
-    display: block;
+    display: none;
+    visibility: hidden;
     margin: 0 auto;
     padding: 1em 5%;
     text-align: center;
+    @include for-size(tablet-landscape-up) {
+      background: transparent;
+      visibility: hidden;
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 30%;
+      right: 0;
+      padding: 1em $spacer-inner;
+    }
   }
   &__title {
    color: $color-cyan;
    text-transform: uppercase;
+   @include for-size(tablet-landscape-up) {
+     font-size: $font-xx-large;
+   }
   }
   &__subtitle {
     color: $color-cyan;
     margin: 0;
+    @include for-size(tablet-landscape-up) {
+      font-size: $font-x-medium;
+    }
   }
   &--main {
     overflow: hidden;
@@ -44,15 +75,25 @@
       top: 1em;
       @include for-size(tablet-landscape-up) {
         background: transparent;
+        display: block;
+        float: right;
+        top: 4em;
+      }
+      @include for-size(desktop-up)  {
+        left: 45%;
       }
     }
+
     #{$block}__title,
     #{$block}__subtitle {
       color: #fff;
       text-align: right;
       text-shadow: 1px 2px 8px #4A4A4A;
+      @include for-size(tablet-landscape-up) {
+        font-size: 2.813em;
+      }
     }
-    #{$block}__subtitle  {
+    #{$block}__title  {
       display: none;
       visibility: hidden;
     }
@@ -61,5 +102,12 @@
     background-color: rgba($color-cyan-dark, 1);
     text-align: center;
     padding: 0 0 $spacer-half;
+  }
+}
+
+.section-page,
+.article-page {
+  ~ .banner {
+    margin: 0;
   }
 }
