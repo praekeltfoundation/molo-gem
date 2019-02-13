@@ -7,12 +7,11 @@
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!-->
-{% spaceless %}
 <html class="no-js" lang="{{LANGUAGE_CODE}}">
 <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
-  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <title>Yagna | {% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
   <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="twitter:card" content="summary_large_image"/>
@@ -77,180 +76,167 @@
      ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
    </script>
   {% endif %}
-  <!--
-    HEADER MODULE - BG
-      1. LANGUAGES
-      2. LOGO
-      3. ICON SECTION, SUBSECTION, LAST SUBSECTION MENU
-      4. SHARE BUTTONS
-      5. SEARCH FORM
-  -->
-    <div id="header" class="header">
-      <div class="logo-wrapper">
-        <div class="logo">
-          <a href="/" class="logo__anchor">
-            {% if settings.core.SiteSettings.logo %}
-              {% image settings.core.SiteSettings.logo width-350 as logo_image %}
-              <img src="{{logo_image.url}}" width="334" height="57" alt="Girl Effect" class="logo__image" />
-            {% else %}
-              {% with "img/logos/nn-logo"|add:".png" as logo_url %}
-                <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect" class="logo__image" />
-              {% endwith %}
-            {% endif %}
-          </a>
-        </div>
-      </div>
-      {% load_sections as sections %}
-      <div class="navLogged-wrapper">
-        <div class="nav dropdown">
-          <label for="nav_accordion" class="burger-nav__label dropdown-toggle">{% trans "Menu" %}</label>
-          <input type="checkbox" value="toggles" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
-          <div class="nav-wrapper dropdown-menu">
-            <ul class="nav-list nav--primary">
-              <li class="nav-list__item">
-                <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
-                  {% trans "Home" %}
+  <div id="header" class="header">
+    {% if languages|length > 1 %}
+      <div class="languages">
+        <div class="languages--wrapper">
+          <ul class="languages-list">
+            {% for language in languages %}
+              <li class="languages-list__item">
+                <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__anchor--active{% endif %}">
+                  {{language.locale | language_name_local}}
                 </a>
               </li>
-              {% if sections %}
-              <li class="nav-list__item">
-                {% for section_page in sections %}
-                  {% pageurl section_page.specific as section_path %}
-                  {% if section_path == '/sections/events/' %}
-                    <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
-                      {{section_page.title}}
-                    </a>
-                  {% endif %}
-                {% endfor %}
-              </li>
-              {% endif %}
-              <li class="nav-list__item">
-                {% if not user.is_authenticated %}
-                  <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
-                {% else %}
-                  <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
-                {% endif %}
-              </li>
-              <li class="nav-list__item">
-                {% if not user.is_authenticated %}
-                  <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
-                {% else %}
-                  <form action="{% url LOGOUT_URL %}"  method="post" novalidate>
-                  {% csrf_token %}
-                    <input class="nav-list__anchor" value="{% trans 'Log out' %}" type="submit"/>
-                  </form>
-                {% endif %}
-              </li>
-            </ul>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+    <div class="header__inner">
+    <div class="logo">
+      <a href="/" class="logo__anchor">
+        {% if settings.core.SiteSettings.logo %}
+          {% image settings.core.SiteSettings.logo width-125 as logo_image %}
+          <img src="{{logo_image.url}}" width="125" height="125" alt="Girl Effect Yegna" class="logo__image" />
+        {% else %}
+          {% with "img/logos/yegna-logo"|add:".svg" as logo_url %}
+            <img src="{% static logo_url %}" width="125" height="125" alt="Girl Effect Yegna" class="logo__image" />
+          {% endwith %}
+        {% endif %}
+      </a>
+    </div>
+    {% load_sections as sections %}
+    <div class="navLogged-wrapper">
+      <div class="nav dropdown">
+        <label for="nav_accordion" class="burger-nav__label dropdown-toggle">{% trans "Menu" %}</label>
+        <input type="checkbox" value="toggles" name="toggle" id="nav_accordion" class="burger-nav__checkbox" />
+        <div class="nav-wrapper dropdown-menu">
+          <ul class="nav-list nav--primary">
+            <li class="nav-list__item">
+              <a href="/" class="nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
+                {% trans "Home" %}
+              </a>
+            </li>
             {% if sections %}
-            <ul class="nav-list nav--secondary">
-              <li class="nav-list__item">
-                <ul class="nav-outer">
-                  <li class="nav-list__item">
-                    <h1 class="nav-list__title">{% trans "Featured" %}:</h1>
-                  </li>
-                  <li class="nav-list__item">
-                    <ul class="nav-inner">
-                    {% for section_page in sections %}
-                    {% pageurl section_page.specific as section_path %}
-                      {% if section_path == '/sections/sakwe/' or section_path == '/sections/radio-show/' or section_path == '/sections/myth/' %}
+            <li class="nav-list__item">
+              {% for section_page in sections %}
+                {% pageurl section_page.specific as section_path %}
+                {% if section_path == '/sections/events/' %}
+                  <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                    {{section_page.title}}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </li>
+            {% endif %}
+            <li class="nav-list__item">
+              {% if not user.is_authenticated %}
+                <a href="{{REGISTRATION_URL}}" class="nav-list__anchor">{% trans "Sign up" %}</a>
+              {% else %}
+                <a href="{{VIEW_PROFILE_URL}}" class="nav-list__anchor">{% trans "Profile" %}</a>
+              {% endif %}
+            </li>
+            <li class="nav-list__item">
+              {% if not user.is_authenticated %}
+                <a href="{% url LOGIN_URL %}" class="nav-list__anchor">{% trans "Log in" %}</a>
+              {% else %}
+                <form action="{% url LOGOUT_URL %}"  method="post" novalidate>
+                {% csrf_token %}
+                  <input class="nav-list__anchor" value="{% trans 'Log out' %}" type="submit"/>
+                </form>
+              {% endif %}
+            </li>
+          </ul>
+          {% if sections %}
+          <ul class="nav-list nav--secondary">
+            <li class="nav-list__item">
+              <ul class="nav-outer">
+                <li class="nav-list__item">
+                  <h1 class="nav-list__title">{% trans "Featured" %}:</h1>
+                </li>
+                <li class="nav-list__item">
+                  <ul class="nav-inner">
+                  {% for section_page in sections %}
+                  {% pageurl section_page.specific as section_path %}
+                    {% if section_path == '/sections/sakwe/' or section_path == '/sections/radio-show/' or section_path == '/sections/myth/' %}
+                      <li class="nav-list__item">
+                        <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                          {{section_page.title}}
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-list__item">
+              <ul class="nav-outer">
+                <li class="nav-list__item">
+                  <h1 class="nav-list__title">{% trans "News and stories" %}:</h1>
+                </li>
+                <li class="nav-list__item">
+                  <ul class="nav-inner">
+                    {% for section in sections|slice:":3" %}
+                      {% pageurl section.specific as section_path %}
+                      {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
                         <li class="nav-list__item">
-                          <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
-                            {{section_page.title}}
+                          <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                            {{section.title}}
                           </a>
                         </li>
                       {% endif %}
                     {% endfor %}
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-list__item">
-                <ul class="nav-outer">
-                  <li class="nav-list__item">
-                    <h1 class="nav-list__title">{% trans "News and stories" %}:</h1>
-                  </li>
-                  <li class="nav-list__item">
-                    <ul class="nav-inner">
-                      {% for section in sections|slice:":3" %}
-                        {% pageurl section.specific as section_path %}
-                        {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
-                          <li class="nav-list__item">
-                            <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                              {{section.title}}
-                            </a>
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                    <ul class="nav-inner">
-                      {% for section in sections|slice:"3:" %}
-                        {% pageurl section.specific as section_path %}
-                        {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
-                          <li class="nav-list__item">
-                            <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                              {{section.title}}
-                            </a>
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-        {% if user.is_authenticated %}
-          <div class="nav-logged">
-            <a href="{{VIEW_PROFILE_URL}}" class="nav-logged__anchor">{% trans "Profile" %}</a>
-          </div>
-        {% endif %}
-      </div>
-      <div class="languageSearch-wrapper">
-        <div class="languages dropdown">
-          <label for="languages_accordion" class="languages-accordion__label dropdown-toggle">
-            <span>{% trans "Languages" %}</span>
-          </label>
-          <input type="checkbox" value="toggles" name="languages_toggle" id="languages_accordion" class="languages-accordion__checkbox" />
-          {% if languages|length > 1 %}
-          <div class="languages-wrapper dropdown-menu">
-            <ul class="languages-list">
-              <li class="languages-list__item">
-                <div class="languages-list__label">
-                  <h1 class="languages-list__title">{% trans "Languages" %}:</h1>
-                </div>
-              </li>
-              {% for language in languages %}
-                <li class="languages-list__item">
-                  <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+                  </ul>
+                  <ul class="nav-inner">
+                    {% for section in sections|slice:"3:" %}
+                      {% pageurl section.specific as section_path %}
+                      {% if section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
+                        <li class="nav-list__item">
+                          <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                            {{section.title}}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
                 </li>
-              {% endfor %}
-            </ul>
-          </div>
+              </ul>
+            </li>
+          </ul>
           {% endif %}
         </div>
-        <div class="search search--header dropdown">
-          <label for="search_accordion" id="search_nav" class="search-accordion__label dropdown-toggle">{% trans "Search" %}</label>
-          <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="search-accordion__checkbox" />
-          <div class="search-wrapper dropdown-menu">
-            <h1 class="search__title">{% trans "Search" %}:</h1>
-            <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
-              <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
-            </form>
-          </div>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="nav-logged">
+          <a href="{{VIEW_PROFILE_URL}}" class="nav-logged__anchor">{% trans "Profile" %}</a>
+        </div>
+      {% endif %}
+    </div>
+    <div class="languageSearch-wrapper">
+
+      <div class="search search--header dropdown">
+        <label for="search_accordion" id="search_nav" class="search-accordion__label dropdown-toggle">{% trans "Search" %}</label>
+        <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="search-accordion__checkbox" />
+        <div class="search-wrapper dropdown-menu">
+          <h1 class="search__title">{% trans "Search" %}:</h1>
+          <form action="{% url 'search' %}" class="search__form" novalidate>
+            <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+            <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="container" class="content-wrapper">
-      <div class="inner-content">
-        {% display_unread_notifications %}
-        {% block content %}{% endblock %}
+  {% spaceless %}
+    {% comment "Container & Footer Modules" %}
+      <div id="container" class="content-wrapper">
+        <div class="inner-content">
+          {% display_unread_notifications %}
+          {% block content %}{% endblock %}
+        </div>
       </div>
-    </div>
       <div id="footer" class="footer">
         {% load_sections as sections %}
         <div class="menu">
@@ -290,7 +276,6 @@
                   {% endif %}
                 {% endfor %}
               {% endif %}
-            {% comment %}<!--NOTE:: Fragmented Markup-->{% endcomment %}
             {% footer_page %}
             {% if not user.is_authenticated %}
             <li class="menu-list__item">
@@ -360,6 +345,7 @@
           </div>
         </div>
       </div>
+    {% endcomment %}
+  {% endspaceless %}
 </body>
 </html>
-{% endspaceless %}
