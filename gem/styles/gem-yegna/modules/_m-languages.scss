@@ -1,9 +1,10 @@
 .languages {
+  $block: unquote("#{&}");
   background: #fff;
   color: #000;
   text-align: center;
   @include for-size(tablet-landscape-up) {
-    background: $color-green;
+    background: transparent;
     text-align: right;
   }
   &--wrapper {
@@ -17,20 +18,28 @@
     @include for-size(tablet-landscape-up) {
       padding: $spacer-half;
     }
-    &__anchor {
-      color: #000;
-      display: block;
-      text-decoration: none;
-      font-size: 1.4em;
-      @include for-size(tablet-landscape-up) {
-        color: $color-dark-green;
-        font-size: 1em;
-      }
+    &__item {
+      display: inline-block;
       &:after {
         display: inline-block;
         color: #000;
         content: " | ";
         padding: 0 $spacer-small;
+      }
+      &:last-child {
+        .languages-list__anchor:after {
+          display: none;
+        }
+      }
+    }
+    &__anchor {
+      color: #000;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 1.4em;
+      @include for-size(tablet-landscape-up) {
+        color: $color-dark-green;
+        font-size: 1em;
       }
       &--active {
         color: $color-violet;
@@ -47,14 +56,6 @@
       &:visited {
         @include for-size(tablet-landscape-up) {
           outline: none;
-        }
-      }
-    }
-    &__item {
-      display: inline-block;
-      &:last-child {
-        .languages-list__anchor:after {
-          display: none;
         }
       }
     }
