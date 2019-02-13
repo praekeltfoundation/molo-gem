@@ -1,0 +1,44 @@
+.nav-menu {
+  &-list {
+    $block: unquote("#{&}");
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: inline-block;
+      padding: 0 1em;
+    }
+    &__anchor {
+      color: #000;
+      text-transform: capitalize;
+      text-decoration: none;
+      opacity: 1;
+      &:active, &:hover, &:focus {
+        opacity: 0.7;
+        transition: opacity .6s;
+      }
+      &:before {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: auto;
+        content: "";
+        display: inline-block;
+        height: 33px;
+        margin: 0 $spacer-small 0 0;
+        vertical-align: middle;
+        width: 37px;
+      }
+    }
+  }
+  #menu:before {
+    background-image: url('/static/img/icons/yegna/icon-burger.svg');
+  }
+  #watch:before {
+    background-image: url('/static/img/icons/yegna/icon-watch.svg');
+  }
+  #cast:before {
+    background-image: url('/static/img/icons/yegna/icon-cast.svg');
+  }
+  #listen:before {
+    background-image: url('/static/img/icons/yegna/icon-listen.svg');
+  }
+}

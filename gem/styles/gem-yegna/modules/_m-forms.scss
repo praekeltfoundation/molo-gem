@@ -1,0 +1,166 @@
+form {
+  position: relative;
+  overflow: auto;
+  vertical-align: middle;
+}
+fieldset {
+  clear: both;
+  border: none;
+  margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+label {
+  font-weight: bold;
+  font-size: $font-x-medium;
+  padding: 0 .5em 0 0;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+textarea {
+  background-color: $color-gray-light;
+  border: 2px $color-gray solid;
+  margin: 0 auto;
+  padding: 1em;
+  width: 100%;
+}
+select {
+  height: 45px;
+  appearance: none;
+  border-radius: 0;
+  outline: none;
+  text-transform: capitalize;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+select[value="value"] {
+  font-size: $font-x-medium;
+  text-transform: capitalize;
+}
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select {
+  background-color: #ffffff;
+  border: none;
+  color: #000;
+  font-size: $font-small;
+  padding: $spacer-half;
+  margin: $spacer-small 0;
+  width: 100%;
+  &:focus, &:active, &:visited {
+    outline: none;
+  }
+}
+[type="button"],
+[type="reset"],
+[type="submit"],
+button {
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: top;
+  font-weight: bold;
+}
+input[type="search"] {
+  width: 100%;
+  appearance: none;
+}
+
+[type="checkbox"],
+[type="radio"] {
+  margin: 0;
+  opacity: 0.9;
+  visibility: hidden;
+  position: absolute;
+  & ~ label {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    &:before {
+      background-color: #fff;
+      content: " ";
+      border: none;
+      opacity: 0.9;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      vertical-align: middle;
+      margin-right: $spacer-half;
+    }
+  }
+}
+[type="checkbox"] {
+  &:checked + label:before {
+    background: $color-gray-light url('/static/img/icons/rwanda/iconsSprite.png') 5px 12.5%/90px no-repeat;
+    opacity: 1;
+  }
+}
+[type="radio"] {
+  & ~ label:before {
+    border-radius: 50%;
+  }
+  &:checked + label:before {
+    background: $color-gray-light url('/static/img/icons/rwanda/iconsSprite.png')3px 8% /90px no-repeat;
+    opacity: 1;
+  }
+}
+
+//TEMPLATE SPECIFIC
+.input-hint {
+  font-size: $font-small;
+  font-style: italic;
+  display: block;
+}
+
+.choice-group {
+  padding: $spacer-small 0;
+}
+
+.input-group {
+  .helptext {
+    font-size: $font-small;
+    margin: 0;
+    font-style: italic;
+    display: block;
+  }
+  span {
+    display: block;
+    font-size: $font-small;
+  }
+}
+
+.error-list,
+.errorlist {
+  display: block;
+  padding: 0;
+  color: $color-red;
+  list-style-type: none;
+  &__item {
+    color: $color-red;
+    text-align: left;
+    padding: 0 1em;
+  }
+}
+.error {
+  color: $color-red;
+  text-align: left;
+  padding: 0 1em;
+}
