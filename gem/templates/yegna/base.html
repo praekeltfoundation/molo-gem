@@ -120,75 +120,53 @@
           {% endif %}
         </a>
       </div>
+      {% load_sections as sections %}
+      {% if sections %}
       <div class="nav">
-
         <div class="nav-menu ">
           <ul class="nav-menu-list">
             <li class="nav-menu-list__item dropdown">
               <label for="nav-menu_accordion"  id="menu" class="nav-menu-list__anchor dropdown-toggle">{% trans "Menu" %}</label>
               <input type="checkbox" value="toggles" name="toggle" id="nav-menu_accordion" class="nav-menu-list__checkbox" />
-              {% comment %}
-                <!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->
-              {% endcomment %}
-              <div class="nav-menu-columns">
-                <div class="nav-menu-columns__one">
-                  Footer pages
-                </div>
-                <div class="nav-menu-columns__two">
-                  Watch category & subcategories
-                  {% comment %}
-                  {% load_sections as sections %}
-                  {% if sections %}
-                    {% for section_page in sections %}
-                      {% pageurl section_page.specific as section_path %}
-                      {% if section_path == '/sections/watch/' %}
-                        <a href="{% pageurl section_page.specific %}" class="nav-menu-list__anchor">
-                          {{section_page.title}}
+              {% comment %}<!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->{% endcomment %}
+              <div class="nav-menu-columns dropdown-menu">
+                <ul class="nav-menu-columns-list">
+                  {% for section in sections %}
+                    <li class="nav-menu-columns-list__item">
+                      {% pageurl section.specific as section_type %}
+                        <a href="{% pageurl section.specific %}" class="nav-menu-columns-list__anchor">
+                          {{section.title}}
                         </a>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-                  {% endcomment %}
-                </div>
-                <div class="nav-menu-columns__three">
-                  Cast link
-                </div>
-                <div class="nav-menu-columns__four">
-                  Listen category & subcategories
-                  {% comment %}
-                  {% load_sections as sections %}
-                  {% if sections %}
-                    {% for section_page in sections %}
-                      {% pageurl section_page.specific as section_path %}
-                      {% if section_path == '/sections/listen/' %}
-                        <a href="{% pageurl section_page.specific %}" class="nav-menu-list__anchor">
-                          {{section_page.title}}
-                        </a>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-                  {% endcomment %}
-                </div>
-                <div class="nav-menu-columns__five">
-                  News link
-                </div>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
             </li>
-            {% load_sections as sections %}
-            {% if sections %}
-              <li class="nav-menu-list__item">
-                {% for section_page in sections %}
-                  {% pageurl section_page.specific as section_path %}
-                  {% if section_path == '/sections/watch/' %}
-                    <a href="{% pageurl section_page.specific %}" id="watch" class="nav-menu-list__anchor">
-                      {{section_page.title}}
-                    </a>
-                  {% endif %}
-                {% endfor %}
-              </li>
-            {% endif %}
+            {% for section_page in sections %}
+            {% pageurl section_page.specific as section_path %}
+              {% if section_path == '/sections/watch/' %}
+                <li class="nav-menu-list__item">
+                  <a href="{% pageurl section_page.specific %}" id="watch" class="nav-menu-list__anchor">
+                    {{section_page.title}}
+                  </a>
+                </li>
+              {% elif section_path == '/sections/cast/' %}
+                <li class="nav-menu-list__item">
+                  <a href="{% pageurl section_page.specific %}" id="cast" class="nav-menu-list__anchor">
+                    {{section_page.title}}
+                  </a>
+                </li>
+              {% elif section_path == '/sections/listen/' %}
+                <li class="nav-menu-list__item">
+                  <a href="{% pageurl section_page.specific %}" id="listen" class="nav-menu-list__anchor">
+                    {{section_page.title}}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </div>
+        {% endif %}
         <div class="nav-social">
           {% social_media_footer %}
         </div>
