@@ -1,7 +1,13 @@
 .nav {
   $block: unquote("#{&}");
-  display: flex;
-  justify-content: space-between;
-  width: 85%;
-  @include for-size(tablet-landscape-up) {}
+  overflow: auto;
+  position: relative;
+  text-align: center;
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+    justify-content: space-between;
+    position: inherit;
+    text-align: inherit;
+    width: 85%;
+  }
 }

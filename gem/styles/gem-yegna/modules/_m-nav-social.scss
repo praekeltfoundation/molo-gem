@@ -1,4 +1,10 @@
 .nav-social {
+  display: none;
+  visibility: hidden;
+  @include for-size(tablet-portrait-up) {
+    display: block;
+    visibility: visible;
+  }
   &-list {
     $block: unquote("#{&}");
     margin: 0;
@@ -23,7 +29,6 @@
     }
     &__icon {
       vertical-align: middle;
-      @include for-size(tablet-landscape-up) {}
     }
     &__label {
       display: none;

@@ -16,27 +16,6 @@ label {
   word-break: break-word;
   word-wrap: break-word;
 }
-textarea {
-  background-color: $color-gray-light;
-  border: 2px $color-gray solid;
-  margin: 0 auto;
-  padding: 1em;
-  width: 100%;
-}
-select {
-  height: 45px;
-  appearance: none;
-  border-radius: 0;
-  outline: none;
-  text-transform: capitalize;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-select[value="value"] {
-  font-size: $font-x-medium;
-  text-transform: capitalize;
-}
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -53,7 +32,6 @@ select {
   background-color: #ffffff;
   border: none;
   color: #000;
-  font-size: $font-small;
   padding: $spacer-half;
   margin: $spacer-small 0;
   width: 100%;
@@ -61,24 +39,14 @@ select {
     outline: none;
   }
 }
-[type="button"],
-[type="reset"],
-[type="submit"],
-button {
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  word-break: break-all;
-  word-wrap: break-word;
-  white-space: normal;
-  vertical-align: top;
-  font-weight: bold;
-}
 input[type="search"] {
-  width: 100%;
-  appearance: none;
+  border:1px solid #000;
+  color: #000;
+  vertical-align: middle;
+  @include for-size(tablet-portrait-up) {
+    width: 90%;
+  }
 }
-
 [type="checkbox"],
 [type="radio"] {
   margin: 0;
@@ -119,6 +87,39 @@ input[type="search"] {
     background: $color-gray-light url('/static/img/icons/rwanda/iconsSprite.png')3px 8% /90px no-repeat;
     opacity: 1;
   }
+}
+textarea {
+  background-color: $color-gray-light;
+  border: 2px $color-gray solid;
+  margin: 0 auto;
+  padding: 1em;
+  width: 100%;
+}
+select {
+  height: 45px;
+  appearance: none;
+  border-radius: 0;
+  outline: none;
+  text-transform: capitalize;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+select[value="value"] {
+  font-size: $font-x-medium;
+  text-transform: capitalize;
+}
+[type="button"],
+[type="reset"],
+[type="submit"],
+button {
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
 }
 
 //TEMPLATE SPECIFIC

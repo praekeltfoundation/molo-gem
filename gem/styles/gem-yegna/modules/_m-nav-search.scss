@@ -1,27 +1,36 @@
 .nav-search {
   $block: unquote("#{&}");
+  display: inline-block;
+  padding: 5px 1em;
+  @include for-size(tablet-portrait-up) {
+    padding: 0;
+  }
   &__wrapper {
+    background: #fff;
+    color:#000;
     position: absolute;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    width: 100%;
-    z-index: 999999999;
-    top: 4em;
+    margin: 1em auto;
+    padding: $spacer-half 5%;
     height: auto;
+    width: 100%;
+    @include for-size(tablet-portrait-up) {
+      padding: $spacer-mid 5% $spacer-mid 19.5%;
+    }
   }
-  &__title {
-    display: inline-block;
-    font-size: $font-x-medium;
-    font-style: italic;
-    font-weight: 400;
-  }
-
   &__label {
-
-  }
-  &__form {
     display: inline-block;
+    &:before {
+      background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/auto;
+      content: "";
+      display: inline-block;
+      height: 33px;
+      margin: 0 $spacer-small 0 0;
+      vertical-align: middle;
+      width: 37px;
+    }
   }
+  &__form {}
   &__checkbox {}
 }

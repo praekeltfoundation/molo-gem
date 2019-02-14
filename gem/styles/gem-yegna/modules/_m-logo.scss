@@ -1,5 +1,22 @@
 .logo {
   $block: unquote("#{&}");
-  width: 15%;
   text-align: center;
+  z-index: 999999;
+  padding: 1em 0;
+  @include for-size(tablet-landscape-up) {
+    padding: 0;
+    position: relative;
+    top: -4em;
+    width: 15%;
+  }
+  &__anchor {
+    display: block;
+  }
+  &__image {
+    width: 30%;
+    height: auto;
+    @include for-size(tablet-portrait-up) {
+      width: auto;
+    }
+  }
 }

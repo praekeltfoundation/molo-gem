@@ -1,17 +1,27 @@
 .nav-menu {
+  display: inline-block;
+  @include for-size(tablet-landscape-up) {
+    width: 70%;
+  }
   &-list {
     $block: unquote("#{&}");
     margin: 0;
     padding: 0;
     &__item {
       display: inline-block;
-      padding: 0 1em;
+      padding: $spacer-small 1em;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 1em;
+      }
     }
     &__anchor {
       color: #000;
+      cursor: pointer;
+      display: block;
       text-transform: capitalize;
       text-decoration: none;
       opacity: 1;
+
       &:active, &:hover, &:focus {
         opacity: 0.7;
         transition: opacity .6s;
