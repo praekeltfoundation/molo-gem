@@ -1,19 +1,16 @@
 .nav-search {
   $block: unquote("#{&}");
   display: inline-block;
-  padding: 5px 1em;
-  @include for-size(tablet-portrait-up) {
-    padding: 0;
-  }
   &__wrapper {
     background: #fff;
     color:#000;
+    display: none;
+    height: auto;
     position: absolute;
     left: 0;
-    right: 0;
-    margin: 1em auto;
+    margin: 0 auto;
     padding: $spacer-half 5%;
-    height: auto;
+    right: 0;
     top: 0;
     width: 100%;
     @include for-size(tablet-landscape-up) {
@@ -22,7 +19,9 @@
     }
   }
   &__label {
+    cursor: pointer;
     display: inline-block;
+    padding: $spacer-half 1em;
     &:before {
       background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/auto;
       content: "";
@@ -35,4 +34,8 @@
   }
   &__form {}
   &__checkbox {}
+  .open {
+    background: #fff;
+    display: block;
+  }
 }

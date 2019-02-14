@@ -55,7 +55,22 @@
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
-            raf(function() {});
+            raf(function() {
+              var jsScripts = [
+                 "https://code.jquery.com/jquery-2.0.3.min.js",
+                 "{% static 'js/dest/nn-min.js' %}"
+               ];
+              for (var i = 0; i < jsScripts.length; i++) {
+                var script = document.createElement('script');
+                if (i === 0 ) {
+                  script.crossOrigin = "anonymous";
+                  script.integrity = "sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=";
+                }
+                script.src = jsScripts[i];
+                script.async = false;
+                document.querySelector('script').parentNode.appendChild(script);
+              }
+            });
           }
         }
       });
@@ -143,7 +158,7 @@
         <div class="nav-social">
           {% social_media_footer %}
         </div>
-        <div class="nav-search">
+        <div class="nav-search dropdown">
           <label for="search_accordion" id="nav_search" class="nav-search__label dropdown-toggle">{% trans "Search" %}</label>
           <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
           <div class="nav-search__wrapper dropdown-menu">
