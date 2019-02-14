@@ -1,6 +1,9 @@
 .nav-menu {
   display: inline-block;
-  @include for-size(tablet-landscape-up) {
+  @media screen and (min-width: 65.938em)  {
+    width: 65%;
+  }
+  @include for-size(desktop-up) {
     width: 70%;
   }
   &-list {
@@ -11,6 +14,10 @@
       display: inline-block;
       padding: $spacer-small 1em;
       @include for-size(tablet-landscape-up) {
+        padding: $spacer-small $spacer-half;
+      }
+      @media screen and (min-width: 65.313em) {}
+      @include for-size(desktop-up) {
         padding: 0 1em;
       }
     }
