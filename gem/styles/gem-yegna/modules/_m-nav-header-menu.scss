@@ -1,15 +1,13 @@
 .nav-menu {
-  display: inline-block;
-  @media screen and (min-width: 65.938em)  {
+  display: inline;
+  @media screen and (min-width: 73.938em)  {
     width: 65%;
-  }
-  @include for-size(desktop-up) {
-    width: 70%;
   }
   &-list {
     $block: unquote("#{&}");
     margin: 0;
     padding: 0;
+    display: inline; //*
     &__item {
       display: inline-block;
     }
@@ -20,23 +18,22 @@
       text-transform: capitalize;
       text-decoration: none;
       padding: 11px $spacer-small;
-      @include for-size(tablet-landscape-up) {
-        padding: $spacer-small $spacer-half;
-      }
-      @media screen and (min-width: 65.313em) {}
-      @include for-size(desktop-up) {
+      @include for-size(tablet-portrait-up) {
         padding: 11px 1em;
       }
       &:before {
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: auto;
         content: "";
         display: inline-block;
-        height: 33px;
+        height: 27px;
         margin: 0 $spacer-small 0 0;
         vertical-align: middle;
-        width: 37px;
+        width: 27px;
+        @include for-size(tablet-portrait-up) {
+          height: 33px;
+          width: 37px;
+        }
       }
     }
     .open {
@@ -45,44 +42,30 @@
   }
   #menu:before {
     background-image: url('/static/img/icons/yegna/icon-burger.svg');
+    background-size: 100%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #watch:before {
     background-image: url('/static/img/icons/yegna/icon-watch.svg');
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #cast:before {
     background-image: url('/static/img/icons/yegna/icon-cast.svg');
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #listen:before {
     background-image: url('/static/img/icons/yegna/icon-listen.svg');
-  }
-
-  &-columns {
-    background: #fff;
-    color: #000;
-    left: 0;
-    margin: 0 auto;
-    position: absolute;
-    right: 0;
-    width: 100%;
-    display: none;
-    @include for-size(tablet-landscape-up) {
-      padding: 1em 8% 1em 22%;
-      top: 7em;
-    }
-    &-list {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: space-between;
-      &__item {
-        display: inline-block;
-      }
-      &__anchor {
-        color: $color-violet;
-        font-size: $font-x-medium;
-        padding: $spacer-half;
-        text-decoration: none;
-      }
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
     }
   }
 }
