@@ -1,10 +1,15 @@
 .copyright {
-  color: #000;
+  color: $color-gray;
   font-size: $font-x-small;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
-  padding: $spacer-half 1em;
+  padding: 1.5em 1em;
   clear: both;
+  @include for-size(tablet-portrait-up) {
+    color: #000;
+    padding: $spacer-half 1em;
+    text-align: left;
+  }
   @include for-size(tablet-landscape-up) {
     padding: $spacer-half 8%;
   }
@@ -19,8 +24,13 @@
       color: $color-violet;
     }
     &--credit {
-      float: right;
-      text-align: right;
+      color: $color-gray;
+      text-align: center;
+      @include for-size(tablet-portrait-up) {
+        color: #000;
+        float: right;
+        text-align: right;
+      }
     }
   }
 }
