@@ -3,7 +3,7 @@
   FOOTER PAGES: MENU LIST
 */
 //HEADER
-.menu {
+.nav-menu-dropdown {
   &-list {
     $block: unquote("#{&}");
     padding: 0;
@@ -29,7 +29,14 @@
 
 //FOOTER
 .footer {
-  .menu-list__item {
-    display: inline-block;
+  .nav-menu-dropdown {
+    @media screen and (min-width: 45.000em) {
+      order: 1;
+    }
+    &-list {
+      &__item {
+        display: inline-block;
+      }
+    }
   }
 }

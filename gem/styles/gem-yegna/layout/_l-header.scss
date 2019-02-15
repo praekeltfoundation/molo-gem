@@ -1,15 +1,19 @@
 .header {
-  background-color: #76f013;
-  background-image: url('/static/img/patterns/yegna/navbar-top.svg');
-  background-repeat: no-repeat;
+  background-image: url('/static/img/patterns/yegna/bg.svg');
+  background-repeat: repeat;
   background-position: center top;
-  background-size: auto;
+  background-size: 100%;
   vertical-align: middle;
   position: relative;
   width: 100%;
   margin: 0 auto;
   z-index: 9999999;
+  @include for-size(tablet-portrait-up) {
+    background-image: url('/static/img/patterns/yegna/navbar-top.svg');
+    background-repeat: no-repeat;
+  }
   @include for-size(tablet-landscape-up) {
+    background-size: auto;
     height: 160px;
     position: fixed;
     transform: translate3d(0, 0, 0);
