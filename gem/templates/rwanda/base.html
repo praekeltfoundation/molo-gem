@@ -61,15 +61,16 @@
         if (cutsTheMustard === true) {
           if (devices && raf) {
             raf(function() {
-              var jsScripts = [
-                 "https://code.jquery.com/jquery-2.0.3.min.js",
-                 "{% static 'js/dest/nn-min.js' %}"
-               ];
               if(isMobile.apple.browser === true) {
                 var safari = '<link href="{{ STATIC_URL }}css/{{ ENV }}/nn-safari.css" rel="stylesheet" media="all">',
                     styles = document.getElementsByTagName('style')[0];
                 window.setTimeout(styles.insertAdjacentHTML('afterend', safari), 0);
               }
+              
+              var jsScripts = [
+                 "https://code.jquery.com/jquery-2.0.3.min.js",
+                 "{% static 'js/dest/nn-min.js' %}"
+               ]
               for (var i = 0; i < jsScripts.length; i++) {
                 var script = document.createElement('script');
                 if (i === 0 ) {

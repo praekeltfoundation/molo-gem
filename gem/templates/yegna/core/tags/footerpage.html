@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+{% if footers %}
+  {% for page in footers %}
+      <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
+  {% endfor %}
+{% endif %}

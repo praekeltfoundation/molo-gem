@@ -1,0 +1,55 @@
+//FONTSIZE UNITS
+$font-xx-small                  :         0.667em; //12px - 0.750em
+$font-x-small                   :         0.778em; //14px - 0.875em
+$font-small                     :         0.889em; //16px - 1.000em
+$font-x-medium                  :         1.000em; //18px - 1.125em
+$font-medium                    :         1.111em; //20px - 1.250em
+$font-large                     :         1.222em; //22px - 1.375em
+$font-x-large                   :         1.333em; //24px - 1.500em
+//$font-x-large                   :         1.556em; //28px - 1.750em
+$font-xx-large                  :         1.778em; //32px - 2.000em
+
+//SPACING UNITS
+$spacer-small                   :         5px;
+$spacer-half                    :         10px;
+$spacer-mid                     :         15px;
+$spacer-multiple                :         20px;
+$spacer-x-max                   :         30px;
+$spacer-max                     :         40px;
+$spacer-inner                   :         5.5%;
+
+
+//BREAKPOINTS: Using base unit 16px NOT 18px
+@mixin for-size($range) {
+  $featurephone_boundary        :         16.875em;      // 270px
+  $smartphone_lower_boundary    :         20.000em;      // 320px
+  $smartphone_portrait          :         22.500em;      // 360px
+  $smartphone_landscape         :         23.438em;      // 375px
+  $smartphone_upper_boundary    :         30.000em;      // 480px
+
+  $tablet_lower_boundary        :         45.000em;      // 720px
+  $tablet_portrait              :         48.000em;      // 768px
+  $tablet_landscape             :         62.000em;      // 992px [?]
+  $tablet_upper_boundary        :         64.000em;      // 1024px
+
+  $desktop_lower_boundary       :         80.000em;      // 1280px
+  $desktop_smaller              :         85.375em;      // 1366px
+  $desktop_mid_smaller          :         86.813em;      // 1389px
+  $desktop_medium               :         90.000em;      // 1440px
+  $desktop_larger               :         100.000em;     // 1600px
+  $desktop_upper_boundary       :         120.000em;     // 1920px
+
+  @if $range == feature-only {
+    @media (min-width: $featurephone_boundary) { @content; }
+  }@else if $range == phone-only {
+    @media (min-width: $smartphone_lower_boundary) { @content; }
+  } @else if $range == tablet-portrait-up {
+    @media (min-width: $tablet_lower_boundary) { @content; }
+  } @else if $range == tablet-landscape-up {
+    @media (min-width:  $tablet_upper_boundary) { @content; }
+  } @else if $range == desktop-up {
+    @media (min-width:  $desktop_lower_boundary) { @content; }
+  } @else if $range == big-desktop-up {
+    @media (min-width:  $desktop_medium) { @content; }
+  }
+}

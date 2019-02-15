@@ -29,6 +29,8 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-rwanda/enhanced-nn.scss',
         'gem/styles/gem-rwanda/browsers/nn-safari.scss',
 
+        'gem/styles/gem-yegna/yegna.scss',
+
         'gem/styles/maintenance.scss',
 
         'gem/styles/gem-springster/01_springster.s+(a|c)ss',

@@ -1,0 +1,24 @@
+.logo {
+  $block: unquote("#{&}");
+  text-align: center;
+  z-index: 999999;
+  padding: 1em 0;
+  order: 1;
+  @include for-size(tablet-landscape-up) {
+    bottom: -2em;
+    left: 8%;
+    padding: 0;
+    position: absolute;
+    width: 15%;
+  }
+  &__anchor {
+    display: block;
+  }
+  &__image {
+    width: 30%;
+    height: auto;
+    @include for-size(tablet-portrait-up) {
+      width: auto;
+    }
+  }
+}
