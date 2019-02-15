@@ -6,6 +6,16 @@
   background-size: auto;
   vertical-align: middle;
   position: relative;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 9999999;
+  @include for-size(tablet-landscape-up) {
+    height: 160px;
+    position: fixed;
+    transform: translate3d(0, 0, 0);
+    transition: transform 300ms ease 1ms;
+    animation: qs-timer 300ms;
+  }
   &__inner {
     position: relative;
     @include for-size(tablet-landscape-up) {
