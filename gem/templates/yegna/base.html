@@ -191,6 +191,13 @@
       </div>
     </div>
   </div>
+  {% spaceless %}
+  <div id="container" class="content-wrapper">
+    <div class="inner-content">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+  {% endspaceless %}
 
   <div id="footer" class="footer">
     <div class="menu">
@@ -211,17 +218,5 @@
       </a>
     {% endif %}
   </div>
-
-
-  {% spaceless %}
-    {% comment "Container & Footer Modules" %}
-      <div id="container" class="content-wrapper">
-        <div class="inner-content">
-          {% display_unread_notifications %}
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    {% endcomment %}
-  {% endspaceless %}
 </body>
 </html>
