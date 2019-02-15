@@ -1,5 +1,5 @@
 .nav-menu {
-  display: inline-block;
+  display: inline;
   @media screen and (min-width: 65.938em)  {
     width: 65%;
   }
@@ -10,6 +10,7 @@
     $block: unquote("#{&}");
     margin: 0;
     padding: 0;
+    display: inline; //*
     &__item {
       display: inline-block;
     }
@@ -30,13 +31,16 @@
       &:before {
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: auto;
         content: "";
         display: inline-block;
-        height: 33px;
+        height: 27px;
         margin: 0 $spacer-small 0 0;
         vertical-align: middle;
-        width: 37px;
+        width: 27px;
+        @include for-size(tablet-portrait-up) {
+          height: 33px;
+          width: 37px;
+        }
       }
     }
     .open {
@@ -45,14 +49,30 @@
   }
   #menu:before {
     background-image: url('/static/img/icons/yegna/icon-burger.svg');
+    background-size: 100%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #watch:before {
     background-image: url('/static/img/icons/yegna/icon-watch.svg');
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #cast:before {
     background-image: url('/static/img/icons/yegna/icon-cast.svg');
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
   #listen:before {
     background-image: url('/static/img/icons/yegna/icon-listen.svg');
+    background-size: 90%;
+    @include for-size(tablet-portrait-up) {
+      background-size: auto;
+    }
   }
 }

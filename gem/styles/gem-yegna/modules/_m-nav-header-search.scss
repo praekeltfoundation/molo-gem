@@ -1,6 +1,6 @@
 .nav-search {
   $block: unquote("#{&}");
-  display: inline-block;
+  display: inline;
   &__wrapper {
     background: #fff;
     color:#000;
@@ -23,13 +23,18 @@
     display: inline-block;
     padding: $spacer-half 1em;
     &:before {
-      background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/auto;
+      background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/100%;
       content: "";
       display: inline-block;
-      height: 33px;
+      height: 27px;
       margin: 0 $spacer-small 0 0;
       vertical-align: middle;
-      width: 37px;
+      width: 27px;
+      @include for-size(tablet-portrait-up) {
+        background-size: auto;
+        height: 33px;
+        width: 37px;
+      }
     }
   }
   &__form {}
