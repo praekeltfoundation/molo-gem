@@ -1,15 +1,18 @@
 .logo {
   $block: unquote("#{&}");
-  text-align: center;
   z-index: 999999;
   padding: 1em 0;
+  text-align: center;
   @include for-size(tablet-landscape-up) {
     bottom: -2em;
     left: 8%;
     order: 1;
     padding: 0;
     position: absolute;
-    width: 15%;
+    text-align: left;
+  }
+  @include for-size(desktop) {
+    width: 10%;
   }
   &__anchor {
     display: block;

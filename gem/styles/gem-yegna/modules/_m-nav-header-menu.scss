@@ -1,10 +1,7 @@
 .nav-menu {
   display: inline;
-  @media screen and (min-width: 65.938em)  {
+  @media screen and (min-width: 73.938em)  {
     width: 65%;
-  }
-  @include for-size(desktop-up) {
-    width: 70%;
   }
   &-list {
     $block: unquote("#{&}");
@@ -21,11 +18,7 @@
       text-transform: capitalize;
       text-decoration: none;
       padding: 11px $spacer-small;
-      @include for-size(tablet-landscape-up) {
-        padding: $spacer-small $spacer-half;
-      }
-      @media screen and (min-width: 65.313em) {}
-      @include for-size(desktop-up) {
+      @include for-size(tablet-portrait-up) {
         padding: 11px 1em;
       }
       &:before {
