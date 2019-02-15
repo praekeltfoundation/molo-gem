@@ -14,12 +14,15 @@
   }
   @include for-size(tablet-landscape-up) {
     background-size: auto;
-    height: 160px;
     position: fixed;
     transform: translate3d(0, 0, 0);
     transition: transform 300ms ease 1ms;
     animation: qs-timer 300ms;
   }
+  @include for-size(desktop-up) {
+    height: 160px;
+  }
+
   &__inner {
     position: relative;
     @include for-size(tablet-landscape-up) {
