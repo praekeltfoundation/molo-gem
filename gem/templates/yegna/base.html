@@ -123,18 +123,22 @@
       {% load_sections as sections %}
       {% if sections %}
       <div class="nav">
-        <div class="nav-menu ">
+        <div class="nav-menu">
           <ul class="nav-menu-list">
             <li class="nav-menu-list__item dropdown">
               <label for="nav-menu_accordion"  id="menu" class="nav-menu-list__anchor dropdown-toggle">{% trans "Menu" %}</label>
               <input type="checkbox" value="toggles" name="toggle" id="nav-menu_accordion" class="nav-menu-list__checkbox" />
-              {% comment %}<!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->{% endcomment %}
-              <div class="nav-menu-columns dropdown-menu">
-                <ul class="nav-menu-columns-list">
+              {% comment %}
+                <!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->
+                <!-- STATE HIGHTLIGHT: Active section / footer link -->
+              {% endcomment %}
+              <div class="nav-menu-dropdown dropdown-menu">
+                <ul class="nav-menu-dropdown-list">
+                  {% footer_page %}
                   {% for section in sections %}
-                    <li class="nav-menu-columns-list__item">
+                    <li class="nav-menu-dropdown-list__item">
                       {% pageurl section.specific as section_type %}
-                        <a href="{% pageurl section.specific %}" class="nav-menu-columns-list__anchor">
+                        <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">
                           {{section.title}}
                         </a>
                     </li>
@@ -142,6 +146,10 @@
                 </ul>
               </div>
             </li>
+            {% comment %}
+              <!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->
+              <!-- STATE HIGHTLIGHT: Active section -->
+            {% endcomment %}
             {% for section_page in sections %}
             {% pageurl section_page.specific as section_path %}
               {% if section_path == '/sections/watch/' %}
@@ -181,7 +189,29 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
+
+  <div id="footer" class="footer">
+    <div class="menu">
+      {% footer_page %}
+    </div>
+    {% social_media_footer %}
+  </div>
+  <div class="copyright">
+    <p class="copyright__content">&copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}</p>
+    {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
+      <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
+        {% trans "Terms &amp; Conditions" %}
+      </a>
+    {% endif %}
+    {% if settings.gem.GemSettings.show_partner_credit %}
+      <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link copyright__link--credit">
+        {{settings.gem.GemSettings.partner_credit_description}}
+      </a>
+    {% endif %}
+  </div>
+
 
   {% spaceless %}
     {% comment "Container & Footer Modules" %}
@@ -189,114 +219,6 @@
         <div class="inner-content">
           {% display_unread_notifications %}
           {% block content %}{% endblock %}
-        </div>
-      </div>
-      <div id="footer" class="footer">
-        {% load_sections as sections %}
-        <div class="menu">
-          <div class="heading heading--hero">
-            <h3 class=" heading__basic">
-              {% trans "Links" %}
-            </h3>
-          </div>
-          <div class="menu--wrapper">
-            <ul class="menu-list menu-list--column1">
-              <li class="menu-list__item">
-                <a href="/" class="menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
-              </li>
-              {% if sections %}
-                {% for section in sections|slice:":4" %}
-                  {% pageurl section.specific as section_path %}
-                    {% if section_path != '/sections/events/' %}
-                      <li class="menu-list__item">
-                        <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                          {{section.title}}
-                        </a>
-                      </li>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            </ul>
-            <ul class="menu-list menu-list--column2">
-              {% if sections %}
-                {% for section in sections|slice:"4:" %}
-                  {% pageurl section.specific as section_path %}
-                  {% if section_path != '/sections/events/' %}
-                    <li class="menu-list__item">
-                      <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                        {{section.title}}
-                      </a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            {% footer_page %}
-            {% if not user.is_authenticated %}
-            <li class="menu-list__item">
-              <a href="{{REGISTRATION_URL}}" class="menu-list__anchor">
-                {% trans "Join us" %}</a>
-            </li>
-            <li class="menu-list__item">
-              <a href="{% url LOGIN_URL %}" class="menu-list__anchor">
-                {% trans "Log in" %}
-              </a>
-            </li>
-            {% else %}
-            <li class="menu-list__item">
-              <a href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor">
-                {% trans "Profile" %}
-              </a>
-            </li>
-            <li class="menu-list__item">
-              <form method="post" action="{% url LOGOUT_URL %}" novalidate>
-                {% csrf_token %}
-                <input class="menu-list__anchor" value="{% trans 'Log out' %}" type="submit">
-              </form>
-            </li>
-            {% endif %}
-          </ul>
-          </div>
-        </div>
-        {% social_media_footer %}
-        <div class="searchCopyright-wrapper">
-          {% block search %}
-          <div class="search">
-            <div class="heading heading--hero">
-              <h3 class=" heading__basic">
-                {% trans "Search" %}
-              </h3>
-            </div>
-            <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
-              <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
-            </form>
-          </div>
-          {% endblock %}
-          <div class="copyright">
-            {% if languages|length > 1 %}
-            <div class="languages languages--footer">
-              <p class="languages__label">{% trans "Language" %}:</p>
-              {% for language in languages %}
-                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
-              {% endfor %}
-            </div>
-            {% endif %}
-            <p class="copyright__disclaimer">
-              &copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}
-              {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}
-                <a href="{% pageurl settings.profiles.UserProfilesSettings.terms_and_conditions.specific %}" class="copyright__link">
-                  {% trans "Terms &amp; Conditions" %}
-                  </a>
-              {% endif %}
-            </p>
-            {% if settings.gem.GemSettings.show_partner_credit %}
-              <p class="copyright__disclaimer">
-                <a href="{{settings.gem.GemSettings.partner_credit_link}}" class="copyright__link">
-                  {{settings.gem.GemSettings.partner_credit_description}}
-                </a>
-              </p>
-            {% endif %}
-          </div>
         </div>
       </div>
     {% endcomment %}
