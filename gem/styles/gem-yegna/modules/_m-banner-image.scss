@@ -1,0 +1,25 @@
+.banner {
+  $block: unquote("#{&}");
+  background: url('/static/img/patterns/yegna/cloud_bg.svg') repeat 0 0/auto;
+  color: $color-purple;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  &__item {
+    display: block;
+    &-link {
+
+    }
+  }
+  &__image {
+    display: block;
+    height: auto;
+    width: 100%;
+    overflow: auto;
+    @include for-size(tablet-landscape-up) {
+      display: inline-block;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+  }
+}
