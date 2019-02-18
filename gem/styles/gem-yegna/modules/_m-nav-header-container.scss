@@ -1,11 +1,14 @@
 .nav {
   $block: unquote("#{&}");
   overflow: auto;
-  text-align: center;
-  @include for-size(tablet-landscape-up) {
+  @media screen and (min-width: 40.000em) {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @include for-size(tablet-landscape-up) {
     order: 2;
+    justify-content: space-between;
     text-align: inherit;
   }
   @media screen and (min-width: 65.938em) {

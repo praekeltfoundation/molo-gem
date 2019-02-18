@@ -1,37 +1,64 @@
+/*
+  NOTE:
+  FOOTER PAGES: NAV MENU DROPDOWN LIST
+*/
+//HEADER
 .nav-menu-dropdown {
-    background: #fff;
-    color: #000;
-    left: 0;
-    margin: 0 auto;
-    position: absolute;
-    right: 0;
-    width: 100%;
-    display: none;
-    @include for-size(tablet-landscape-up) {
-      padding: 1em 8% 1em 22%;
-      top: 7em;
+  background: #fff;
+  color: #000;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  display: none;
+  padding: 1em;
+  @include for-size(tablet-portrait-up) {
+    padding: 1em 5%;
+  }
+  @include for-size(tablet-landscape-up) {
+    padding: 2em 8% 2em 19.5%;
+    top: 6em;
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    &__item {
+      display: inline-block;
     }
-    &-list {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: space-between;
-      &__item {
-        display: inline-block;
+    &__anchor {
+      color: #000;
+      font-size: $font-x-medium;
+      padding: $spacer-half;
+      text-decoration: none;
+      &:active, &:hover, &:focus {
+        color: $color-violet;
       }
-      &__anchor {
-        color: #000;
-        font-size: $font-x-medium;
-        padding: $spacer-half;
-        text-decoration: none;
-        &:active, &:hover, &:focus {
-          color: $color-violet;
-        }
-        &:visited {
-          @include for-size(tablet-landscape-up) {
-            outline: none;
-          }
+      &:visited {
+        @include for-size(tablet-landscape-up) {
+          outline: none;
         }
       }
     }
   }
+}
+
+//FOOTER
+.footer {
+  .nav-menu-dropdown  {
+    @media screen and (min-width: 45.000em) {
+      order: 1;
+    }
+    &-list {
+      display: block;
+      @media screen and (min-width: 45.000em) {
+        display: inline-block;
+      }
+      &__item {
+        display: block;
+      }
+    }
+  }
+}

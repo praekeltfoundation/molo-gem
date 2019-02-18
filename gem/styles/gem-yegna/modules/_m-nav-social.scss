@@ -1,0 +1,94 @@
+/*
+  NOTE:
+  HEADER & FOOTER: SOCIAL LIST
+*/
+
+//HEADER
+.nav-social {
+  display: none;
+  visibility: hidden;
+  order: 3;
+  @include for-size(tablet-portrait-up) {
+    order: 2;
+    display: block;
+    visibility: visible;
+  }
+  &-list {
+    $block: unquote("#{&}");
+    margin: 0;
+    padding: $spacer-half 0;
+    @include for-size(tablet-portrait-up) {
+      padding: $spacer-half;
+    }
+    @include for-size(desktop-up) {
+      padding: $spacer-half 1em;
+    }
+    &__item {
+      display: inline-block;
+      border-right: 1px solid #000;
+      padding: 0 $spacer-half;
+      vertical-align: middle;
+      //APPLIED TO MAX NO. 4
+      &:nth-child(3) {
+        border-right: none;
+      }
+      &:last-child {
+        border-right: none;
+      }
+      &--back-to-top {
+        display: none;
+        visibility: hidden;
+      }
+    }
+    &__anchor {
+      color: #000;
+      display: inline-block;
+      text-decoration: none;
+      opacity: 1;
+      &:active, &:hover, &:focus {
+        opacity: 0.7;
+        transition: opacity .6s;
+      }
+    }
+    &__icon {
+      vertical-align: middle;
+    }
+    &__label {
+      display: none;
+      visibility: hidden;
+      margin: 0;
+    }
+  }
+}
+
+
+//FOOTER
+.footer {
+  .nav-social-list {
+    background: url('/static/img/patterns/yegna/bg.svg') repeat 0 0 / 100%;
+    padding: 1em;
+    margin: 1em auto;
+    @media screen and (min-width: 45.000em) {
+      background: none;
+      margin: 0 -1.5em 0 0;
+      order: 2;
+    }
+    &__item {
+      //APPLIED TO MAX NO. 4
+      &:nth-child(3) {
+        border-right: 1px solid #000;
+        @media screen and (min-width: 45.000em) {
+          border-right: none;
+        }
+      }
+      &--back-to-top {
+        display: inline-block;
+        visibility: visible;
+        @media screen and (min-width: 45.000em) {
+          display: none;
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}

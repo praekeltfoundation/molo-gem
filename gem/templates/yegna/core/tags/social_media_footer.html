@@ -1,13 +1,18 @@
 {% load wagtailimages_tags %}
-{% if social_media %}
-  <ul class="nav-social-list">
-    {% for site in social_media %}
-      <li class="nav-social-list__item">
-        <a href="https://{{ site.value.link }}" class="nav-social-list__anchor">
-          {% image site.value.image width-150 class="nav-social-list__icon"%}
-          <p class="nav-social-list__label">{{ site.value.title }}</p>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
+<ul class="nav-social-list">
+  {% if social_media %}
+  {% for site in social_media %}
+    <li class="nav-social-list__item">
+      <a href="https://{{ site.value.link }}" class="nav-social-list__anchor">
+        {% image site.value.image width-150 class="nav-social-list__icon"%}
+        <p class="nav-social-list__label">{{ site.value.title }}</p>
+      </a>
+    </li>
+  {% endfor %}
+  {% endif %}
+  <li class="nav-social-list__item nav-social-list__item--back-to-top">
+    <a href="#" class="call-to-action__item call-to-action__item--back-to-top">
+      {% trans "Back to Top" %}
+    </a>
+  </li>
+</ul>

@@ -1,12 +1,16 @@
 .footer {
-  background: #76f013 url('/static/img/patterns/yegna/bg.svg') repeat 0 0 / 100%;
-  display: flex;
   width: 100%;
-  padding: 2em;
   margin: 0 auto;
-  @include for-size(tablet-landscape-up) {
+  text-align: center;
+  @media screen and (min-width: 40.000em) {}
+  @media screen and (min-width: 45.000em) {
+    background: url('/static/img/patterns/yegna/bg.svg') repeat 0 0 / 100%;
+    padding: 2em 1em;
+    display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  @include for-size(tablet-landscape-up) {
     padding: 3em 8%;
   }
 }
