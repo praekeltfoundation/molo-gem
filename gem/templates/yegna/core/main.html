@@ -11,39 +11,43 @@
 
 {% block content %}
   {% cache 900 main_banners_top request.site locale_code %}
-    {% gembannerpages %}
+    {% gembannerpages  %}
     {% bannerpages position=0 %}
   {% endcache %}
 
-  {% if not settings.core.SiteSettings.enable_tag_navigation %}
-    {% topic_of_the_day %}
-    {% latest_listing_homepage num_count=6 %}
-    {% section_listing_homepage %}
-    {% media_listing_homepage %}
-  {% else %}
+  <!--TOPIC OF DAY: HERO - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
+  {% topic_of_the_day %}
+
+  <!-- LATEST LISTING HOMEPAGE: LATEST - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
+  {% latest_listing_homepage num_count=1 %}
+
+  <!-- GENERAL MEDIA: VIDEO / AUDIO FEATURED ON HOMEPAGE - STANDALONE  -->
+  {% media_listing_homepage %}
+
+  <!-- GENERAL: ARTICLE TEASERS - FEATURED ON HOMEPAGE  -->
+  {% section_listing_homepage %}
+  
+  {% comment "Homepage Tags Not Used" %}
+    {% bannerpages position=1 %}
+    {% bannerpages position=2 %}
+    {% bannerpages position=3 %}
+    {% surveys_list only_direct_surveys=True %}
+    {% surveys_list only_yourwords=True %}
+    {% surveys_list only_linked_surveys=True %}
+    {% surveys_list personalisable_survey=True %}
+    {% your_words_competition %}
+    {% poll_page %}
+
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
-    {% surveys_list personalisable_survey=True %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
 
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
 
-    {% media_listing_homepage %}
-
-    {% bannerpages position=1 %}
-
-    {% poll_page %}
-    {% surveys_list only_direct_surveys=True %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
 
-    {% bannerpages position=2 %}
-    {% surveys_list only_yourwords=True %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
-
-    {% surveys_list only_linked_surveys=True %}
 
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
 
@@ -51,11 +55,7 @@
 
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
 
-    {% bannerpages position=3 %}
-    {% your_words_competition %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
-
     {% get_pages %}
     {% if pages.next %}
       {% if articles %}
@@ -75,5 +75,5 @@
         <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
       </a>
     {% endif %}
-  {% endif %}
+  {% endcomment %}
 {% endblock %}
