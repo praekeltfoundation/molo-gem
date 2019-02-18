@@ -32,10 +32,7 @@
     {% section_listing_homepage %}
 
     {% get_tag_articles tag_count=4 as tag_nav_data %}
-    <br/>
-      ---->
-    <br/>
-    {{tag_nav_data}}
+
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles %}
     {% get_pages %}
