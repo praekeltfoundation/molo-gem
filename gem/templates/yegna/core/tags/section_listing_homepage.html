@@ -2,7 +2,6 @@
 {% for section in sections %}
 {% if section %}
   {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
-  =>{{featured_articles}}
   {% if featured_articles %}
   <div class="article-teaser article-teaser--featured-homepage {% if section.get_effective_extra_style_hints %}article-teaser--{{section.get_effective_extra_style_hints}}{% endif %}">
     <div class="article-teaser__wrapper">
