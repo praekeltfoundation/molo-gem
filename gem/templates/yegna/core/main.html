@@ -1,19 +1,23 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags %}
-
-{% block meta %}
-    <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
-    <meta name="keywords" content="{{ self.seo_title }}" />
-    <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-    <meta property="og:description" content="{{ self.search_description }}"/>
-    <meta property="og:image" content="{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}"/>
-{% endblock %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles  gem_tags %}
 
 {% block content %}
+  {% block meta %}
+      <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
+      <meta name="keywords" content="{{ self.seo_title }}" />
+      <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+      <meta property="og:description" content="{{ self.search_description }}"/>
+      <meta property="og:image" content="{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}"/>
+  {% endblock %}
+
+  {% gembannerpages  %}
+  {% bannerpages position=0 %}
+
+  {% comment 'Banner cache' %}
   {% cache 900 main_banners_top request.site locale_code %}
-    {% gembannerpages  %}
-    {% bannerpages position=0 %}
+    <!-- Banner content-->
   {% endcache %}
+  {% endcomment %}
 
   <!--TOPIC OF DAY: HERO - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
   {% topic_of_the_day %}
@@ -26,54 +30,4 @@
 
   <!-- GENERAL: ARTICLE TEASERS - FEATURED ON HOMEPAGE  -->
   {% section_listing_homepage %}
-  
-  {% comment "Homepage Tags Not Used" %}
-    {% bannerpages position=1 %}
-    {% bannerpages position=2 %}
-    {% bannerpages position=3 %}
-    {% surveys_list only_direct_surveys=True %}
-    {% surveys_list only_yourwords=True %}
-    {% surveys_list only_linked_surveys=True %}
-    {% surveys_list personalisable_survey=True %}
-    {% your_words_competition %}
-    {% poll_page %}
-
-    {% get_tag_articles tag_count=4 as tag_nav_data %}
-    {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
-
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
-
-    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
-
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
-
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
-
-    {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
-
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
-
-    {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
-
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
-    {% get_pages %}
-    {% if pages.next %}
-      {% if articles %}
-      <div class="pagination">
-      {% if articles_paginated.has_previous %}
-      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
-      {% endif %}
-      <span class="pagination__current-page">
-      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-      </span>
-      {% if articles_paginated.has_next %}
-      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
-      {% endif %}
-      </div>
-      {% endif %}
-      <a id="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
-      </a>
-    {% endif %}
-  {% endcomment %}
 {% endblock %}
