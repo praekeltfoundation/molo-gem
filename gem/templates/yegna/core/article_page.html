@@ -169,12 +169,43 @@
 
     </ul>
   {% endif %}
-  {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+  {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
     <div class="social-media">
       <h3 class=" heading__subtitle">
       {% trans "Share article" %}
       </h3>
       {% social_media_article %}
+      <ul class="social-media-list">
+        {% if facebook %}
+          <li class="social-media-list__item">
+            <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--facebook {% if facebook %} call-to-action__nav-item-share-with-image {% endif %}"></a>
+          </li>>
+        {% endif %}
+        
+        {% if twitter %}
+          <li class="social-media-list__item">
+            <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--twitter {% if twitter %} call-to-action__nav-item-share-with-image {% endif %}"></a>
+          </li>
+        {% endif %}
+
+        {% if whatsapp %}
+          <li class="social-media-list__item">
+            <a href="whatsapp://send?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--whatsapp {% if whatsapp %} call-to-action__nav-item-share-with-image {% endif %}" data-action="share/whatsapp/share">Share via Whatsapp</a>
+          </li>>
+        {% endif %}
+
+        {% if telegram %}
+          <li class="social-media-list__item">
+             <a  href="https://telegram.me/share/url?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--telegram {% if telegram %} call-to-action__nav-item-share-with-image {% endif %}"&text="Share"></a>
+          </li>>
+        {% endif %}
+
+        {% if viber %}
+          <li class="social-media-list__item">
+            <a  href="viber://forward?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--viber {% if viber %} call-to-action__nav-item-share-with-image {% endif %}"></a>
+          </li>>
+        {% endif %}
+      </ul>
     </div>
   {% endif %}
   {% include "comments/comment_block.html" %}
