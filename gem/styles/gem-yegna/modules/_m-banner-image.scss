@@ -1,6 +1,6 @@
 .banner {
   $block: unquote("#{&}");
-  background: #c3fbfc url('/static/img/patterns/yegna/cloud_bg.png') no-repeat 0 0/auto;
+  background: #c3fbfc url('/static/img/patterns/yegna/cloud_bg.png') repeat 0 0/auto;
   color: $color-violet;
   font-size: $font-medium;
   overflow: hidden;
@@ -10,6 +10,11 @@
     display: block;
     &-link {
       color: $color-violet;
+      text-decoration: none;
+      &--text {
+        color: $color-violet;
+        text-decoration: none;
+      }
     }
   }
   &__image {
@@ -27,5 +32,4 @@
     display: none;
     visibility: hidden;
   }
-  &__content {}
 }

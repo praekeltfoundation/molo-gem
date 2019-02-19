@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles gem_tags comments %}
+{% get_settings %}
+{% block content %}
+{% get_translation self.get_parent_section as section %}
+<div class="section-page {% if section.get_effective_extra_style_hints %}section-page--{{section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="section__theme"></div>
+</div>
+{% breadcrumbs %}
+<div class="article-page {% if section.get_effective_extra_style_hints %}article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="article-page__images-wrapper">
+    {% if page.image %}
+      <div class="article-page__images">
+        {% image page.image width-1080 format-jpeg class="article-teaser__thumbnail" %}
+      </div>
+    {% endif %}
+  </div>
+  {% get_comment_count for self as comment_count %}
+  {% load_tags_for_article self as tags %}
+  <ul class="teaser-tags">
+    {% if comment_count > 0 %}
+      <li class="teaser-tags__item">
+        <a href="{% pageurl self.specific %}?#comments" class="comments-counter">
+          <span class="comments-counter__numeral">{{comment_count}}</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if tags %}
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+        {% for tag in tags %}
+          {% if not tag.title.20 %}
+            <li class="teaser-tags__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                <span class="teaser-tags__title">{{ tag.title }}</span>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  </ul>
+  <h1 class="heading__headline">{{ page.title}}</h1>
+  <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
+  <article class="article">
+    {% for block in self.body %}
+      {% if block.block_type == 'heading' %}
+        <h3 class="heading__headline">{{ block.value }}</h3>
+      {% elif block.block_type == 'image' %}
+        <div class="article-page__images--inner">
+          {% image block.value width-480 format-jpeg class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+        </div>
+      {% elif block.value.youtube_link %}
+        {% with block.value as media %}
+          <div class="media-player">
+            <div class="media-player__wrapper media-player__wrapper--video">
+              {% if not is_via_freebasics %}
+                <div class="media-player__embed">
+                  {% embed media.youtube_link %}
+                </div>
+                <div class="media-player__excerpt">
+                  <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                    {% trans "Download Video" %}
+                  </a>
+                </div>
+              {% else %}
+                <div class="media-player__content">
+                  <h4 class="media-player__title">{{media.title}}</h4>
+                  <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon" download>
+                    {% trans 'Click to watch on youtube!' %}
+                  </a>
+                  <h3 class="media-player__subtitle">
+                  {% trans "Media will be played externally in a new window" %}
+                  </h3>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endwith %}
+      {% elif block.value.type == 'video'%}
+        {% with block.value as media %}
+          <div class="media-player">
+            <div class="media-player__wrapper media-player__wrapper--video">
+              {% if not is_via_freebasics %}
+                <div class="media-player__embed">
+                  <video poster="/media/{{ media.thumbnail }}" controls>
+                    <source src={{media.file.url}} type="video/mp4">
+                    <source src={{media.file.url}} type="video/webm">
+                    <source src={{media.file.url}} type="video/ogg">
+                    <span class="media-player__caption">
+                      {% trans "Your browser does not support the video tag." %}
+                    </span>
+                  </video>
+                </div>
+                <div class="media-player__excerpt">
+                  <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                    {% trans "Download Video" %}
+                  </a>
+                </div>
+              {% else %}
+                <div class="media-player__content">
+                  <h4 class="media-player__title">{{media.title}}</h4>
+                  <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
+                  <h3 class="media-player__subtitle">
+                    {% trans "Video files will not be played, you can download them" %}
+                  </h3>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endwith %}
+      {% elif block.value.type == 'audio'%}
+        {% with block.value as media %}
+          <div class="media-player">
+            <div class="media-player__wrapper media-player__wrapper--audio">
+              {% if not is_via_freebasics %}
+              <div class="media-player__embed">
+                <audio controls>
+                  <source src={{media.file.url}} type="audio/mpeg">
+                  <source src={{media.file.url}} type="audio/ogg">
+                  <source src={{media.file.url}} type="audio/wav">
+                    <span class="media-player__caption">
+                      {% trans "Your browser does not support the audio tag." %}
+                    </span>
+                </audio>
+              </div>
+              <div class="media-player__excerpt">
+                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                  {% trans "Download Audio" %}
+                </a>
+              </div>
+              {% else %}
+                <div class="media-player__content">
+                  <h4 class="media-player__title">{{media.title}}</h4>
+                  <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
+                  <h3 class="media-player__subtitle">
+                    {% trans "Audio files will not be played, you can download them" %}
+                  </h3>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endwith %}
+      {% elif block.block_type == 'numbered_list' %}
+        <ol class="ordered-list">
+          {% for item in block.value %}
+            <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+          {% endfor %}
+        </ol>
+      {% elif block.block_type == 'list' %}
+        <ul class="unordered-list">
+        {% for item in block.value %}
+          <li class="unordered-list__item">
+            {{ item|handle_markdown }}
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        {{ block }}
+      {% endif %}
+    {% endfor %}
+  </article>
+  {% if settings.core.SiteSettings.enable_clickable_tags %}
+    <ul class="teaser-tags teaser-tags--non-click">
+      {% for tag in self.tags_list %}
+        <li class="teaser-tags__item">
+          <span class="teaser-tags__title">{{tag}}</span>
+        </li>
+      {% endfor %}
+
+    </ul>
+  {% endif %}
+  {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+    <div class="social-media">
+      <h3 class=" heading__subtitle">
+      {% trans "Share article" %}
+      </h3>
+      {% social_media_article %}
+    </div>
+  {% endif %}
+  {% include "comments/comment_block.html" %}
+  {% bannerpages position=6 %}
+  {% include "core/related-article-list.html" %}
+  </div>
+{% endblock %}

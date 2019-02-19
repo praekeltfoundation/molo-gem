@@ -9,16 +9,9 @@
       <meta property="og:description" content="{{ self.search_description }}"/>
       <meta property="og:image" content="{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}"/>
   {% endblock %}
-
-  {% gembannerpages  %}
+  {% gembannerpages %}
   {% bannerpages position=0 %}
 
-  {% comment 'Banner cache' %}
-  {% cache 900 main_banners_top request.site locale_code %}
-    <!-- Banner content-->
-  {% endcache %}
-  {% endcomment %}
-  <div>
     <!--TOPIC OF DAY: HERO - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
     {% topic_of_the_day %}
 
@@ -30,29 +23,5 @@
 
     <!-- GENERAL: ARTICLE TEASERS - FEATURED ON HOMEPAGE  -->
     {% section_listing_homepage %}
-
-    {% get_tag_articles tag_count=4 as tag_nav_data %}
-
-    {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
-    {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles %}
-    {% get_pages %}
-    {% if pages.next %}
-      {% if articles %}
-      <div class="pagination">
-      {% if articles_paginated.has_previous %}
-      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
-      {% endif %}
-      <span class="pagination__current-page">
-      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-      </span>
-      {% if articles_paginated.has_next %}
-      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
-      {% endif %}
-      </div>
-      {% endif %}
-      <a id="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
-      </a>
-    {% endif %}
 
 {% endblock %}
