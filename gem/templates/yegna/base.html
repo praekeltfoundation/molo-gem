@@ -121,7 +121,9 @@
           {% endif %}
         </a>
       </div>
+
       {% load_sections as sections %}
+
       {% if sections %}
       <div class="nav">
         <div class="nav-menu">
@@ -148,10 +150,22 @@
               </div>
             </li>
             {% comment %}
+            {% for section in sections %}
+              ==>{{section}}<br/>
+                {% load_child_sections_for_section section=section as sec_sections %}
+                  {% for sec_section in sec_sections %}
+                    -> {{sec_section}}<br/>
+                        {% load_child_sections_for_section section=sec_section as third_sections %}
+                        {% for minisection in third_sections %}
+                          ++> {{minisection}}<br/>
+                        {% endfor %}
+                  {% endfor %}
+            {% endfor %}
               <!-- WHAT WERE THE DESIGNER'S INTENTIONS&ASSUMPTIONS HERE -->
               <!-- STATE HIGHTLIGHT: Active section -->
             {% endcomment %}
             {% for section_page in sections %}
+            {{section_page}}
             {% pageurl section_page.specific as section_path %}
               {% if section_path == '/sections/watch/' %}
                 <li class="nav-menu-list__item">

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags gem_tags %}
+{% block content %}
+<div class="banner__content">
+  <div class="heading heading--hero">
+    <h2 class="heading__component">{{self.title}}</h2>
+  </div>
+    {% if self.banner %}
+      {% image self.banner width-1080 as tmp_photo %}
+      {% if self.banner_link_page %}
+        <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        </a>
+      {% elif self.external_link %}
+        <a href="{{ self.external_link }}" target="_top" class="banner__item-link">
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        </a>
+      {% else %}
+        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+      {% endif %}
+    {% else %}
+      <div class="banner__block">
+        <div class="heading heading__subheading">
+          <h3>{{self.title|smarttruncatechars:115|safe}}</h3>
+        </div>
+        {% if self.subtitle %}
+          <p class="banner__subtitle">{{ self.subtitle|smarttruncatechars:115|safe }}</p>
+        {% endif %}
+        {% if self.external_link %}
+          <a href="{{ self.external_link }}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
+          </a>
+        {% elif self.banner_link_page %}
+          <a href="{% pageurl self.banner_link_page.specific %}" class="call-to-action__item call-to-action__item--text">
+            {% trans "Click Here" %}
+          </a>
+        {% endif %}
+    </div>
+    <div class="banner__caption">
+      <h1 class="banner__title">{{self.title}}</h1>
+      {% if self.subtitle %}
+        <p class="banner__subtitle">{{self.subtitle}}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

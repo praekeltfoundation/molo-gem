@@ -1,0 +1,69 @@
+{% load wagtailcore_tags wagtailimages_tags gem_tags %}
+{% if bannerpages %}
+<div class="banner">
+  {% for bannerpage in bannerpages %}
+    {% if bannerpage.hide_on_freebasics %}
+      {% if not is_via_freebasics %}
+      {% if bannerpage.banner_link_page %}
+        <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link banner__item-link--text">
+      {% elif bannerpage.external_link %}
+        <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="banner__item-link banner__item-link--text">
+      {% endif %}
+          <div class="banner--text">
+            <div class="banner__caption">
+              <h1 class="banner__title">
+                {{bannerpage.title|smarttruncatechars:115|safe}}
+              </h1>
+              {% if bannerpage.subtitle %}
+                <p class="banner__subtitle">{
+                  { bannerpage.subtitle|smarttruncatechars:115|safe }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      {% endif %}
+    {% else %}
+      {% if bannerpage.banner %}
+        {% image bannerpage.banner width-1080 as tmp_photo %}
+        {% if bannerpage.banner_link_page %}
+          <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
+            <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+          </a>
+        {% elif bannerpage.external_link %}
+          <a href="{{ bannerpage.external_link }}" target="_top" class="banner__item-link">
+            <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+          </a>
+        {% else %}
+          <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        {% endif %}
+        <div class="banner__caption">
+          <h1 class="banner__title">{{ bannerpage.title }}</h1>
+          {% if bannerpage.subtitle %}
+            <p class="banner__subtitle">{{bannerpage.subtitle}}</p>
+          {% endif %}
+        </div>
+      {% else %}
+      {% if bannerpage.banner_link_page %}
+        <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link banner__item-link--text">
+      {% elif bannerpage.external_link %}
+        <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="banner__item-link banner__item-link--text">
+      {% endif %}
+          <div class="banner--text">
+            <div class="banner__caption">
+              <h1 class="banner__title">
+                {{bannerpage.title|smarttruncatechars:115|safe}}
+              </h1>
+              {% if bannerpage.subtitle %}
+                <p class="banner__subtitle">
+                  {{ bannerpage.subtitle|smarttruncatechars:115|safe }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
