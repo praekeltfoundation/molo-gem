@@ -1,0 +1,82 @@
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
+{% for section in sections %}
+{% if section %}
+  {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
+  {% if articles %}
+  <div class="article-teaser article-teaser--featured-homepage {% if section.get_effective_extra_style_hints %}article-teaser--{{section.get_effective_extra_style_hints}}{% endif %}">
+    <div class="article-teaser__wrapper">
+      <div class="heading heading--primary">
+        {% if section.get_effective_image %}
+          {% image section.get_effective_image width-200 as section_photo %}
+            <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
+        {% else %}
+          <span class="section__icon"></span>
+        {% endif %}
+        <div class="section__caption">
+          <h2 class="section__title">{{section}}</h2>
+        </div>
+      </div>
+      <ul class="teaser-grid">
+        {% for article in articles %}
+          <li class="teaser-grid__item">
+            {% if article.get_effective_image %}
+            <div class="teaser-grid__images">
+              <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
+              </a>
+            </div>
+            {% endif %}
+            {% load_tags_for_article article as tags %}
+            <ul class="teaser-tags">
+              {% if tags %}
+                {% if settings.core.SiteSettings.enable_tag_navigation %}
+                  {% for tag in tags %}
+                    {% if not tag.title.20 %}
+                      <li class="teaser-tags__item">
+                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                          <span class="teaser-tags__title">{{ tag.title }}</span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% elif settings.core.SiteSettings.enable_clickable_tags %}
+                  {% for tag in article.tags_list %}
+                    <li class="teaser-tags__item">
+                      <span class="teaser-tags__title">{{tag}}</span>
+                    </li>
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+            </ul>
+            <h1 class="teaser-grid__title {% if article.title_highlight %}teaser-grid__title--highlight{% endif %}">
+              {% if article.title_highlight %}
+                {{ article.title_highlight|smarttruncatechars:50|safe}}
+              {% else %}
+                {{ article.title|safe}}
+              {% endif %}
+            </h1>
+            {% if article.subtitle_highlight or article.body_highlight %}
+              <p class="teaser-grid__subtitle">
+                {% if article.subtitle_highlight %}
+                  {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+                {% elif article.body_highlight %}
+                  {{article.body_highlight|smarttruncatechars:50|safe}}
+                {% endif %}
+              </p>
+            {% elif article.subtitle %}
+              <p class="teaser-grid__subtitle">
+                {{ article.subtitle|smarttruncatechars:50|safe}}
+              </p>
+            {% endif %}
+              <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+                {% trans "Read article" %}
+              </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% endfor %}

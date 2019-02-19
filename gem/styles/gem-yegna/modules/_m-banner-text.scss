@@ -1,22 +1,29 @@
 .banner {
+  $block: unquote("#{&}");
   &--text {
     text-align: center;
     padding: 1em;
     @include for-size(tablet-landscape-up) {
       padding: 1em 20%;
     }
-  }
-  &__caption {
-    padding: 0 1em;
-  }
-  &__title {
-    font-size: $font-x-medium;
-    @include for-size(tablet-landscape-up) {
-      font-size: $font-x-largest;
+    #{$block}__caption {
+      display: block;
+      visibility: visible;
+      padding: 0 1em;
     }
-  }
-  &__subtitle {
-    display: none;
-    visibility: hidden;
+    #{$block}__title {
+      font-size: $font-x-medium;
+      @include for-size(tablet-landscape-up) {
+        font-size: 1.40em;
+      }
+    }
+    #{$block}__subtitle {
+      display: none;
+      visibility: hidden;
+    }
+    //CLASS OVER-RIDES
+    .call-to-action__item--text {
+      color: $color-violet;
+    }
   }
 }
