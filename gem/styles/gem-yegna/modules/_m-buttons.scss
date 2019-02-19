@@ -1,4 +1,14 @@
 .call-to-action {
+  $block: unquote("#{&}");
+  &__button {
+    padding: 10px;
+    text-decoration: none;
+    &--primary {
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
   &__item {
     color: #000;
     &--text {
@@ -28,6 +38,26 @@
         margin: 0 auto;
         width: 21px;
       }
+    }
+  }
+  &--media-download {
+    #{$block}__button {
+      &:before {
+        background: url('/static/img/icons/yegna/icon-download.svg') no-repeat center center/auto;
+        content: "";
+        display: inline-block;
+        margin: 0 10px 0 0;
+        height: 30px;
+        width: 30px;
+      }
+      &--primary {
+        background: #000;
+        color: #fff;
+      }
+    }
+    #{$block}--text {
+      color: #fff;
+      display: inline-block;
     }
   }
 }
