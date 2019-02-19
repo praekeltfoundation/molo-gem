@@ -27,16 +27,8 @@
               </a>
             </div>
             {% endif %}
-            {% get_comment_count for article as comment_count %}
             {% load_tags_for_article article as tags %}
             <ul class="teaser-tags">
-              {% if comment_count > 0 %}
-                <li class="teaser-tags__item">
-                  <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
-                    <span class="comments-counter__numeral">{{comment_count}}</span>
-                  </a>
-                </li>
-              {% endif %}
               {% if tags %}
                 {% if settings.core.SiteSettings.enable_tag_navigation %}
                   {% for tag in tags %}
