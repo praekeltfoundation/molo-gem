@@ -13,4 +13,19 @@
         </a>
       </li>
     {% endif %}
+    {% if settings.core.SiteSettings.whatsapp_sharing %}
+      <li class="social-media-list__item">
+        <a href="whatsapp://send?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--whatsapp {% if whatsapp %} call-to-action__nav-item-share-with-image {% endif %}" data-action="share/whatsapp/share">Share via Whatsapp</a>
+      </li>
+    {% endif %}
+    {% if settings.core.SiteSettings.telegram_sharing %}
+      <li class="social-media-list__item">
+          <a  href="https://telegram.me/share/url?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--telegram {% if telegram %} call-to-action__nav-item-share-with-image {% endif %}"&text="Share"></a>
+      </li>
+    {% endif %}
+    {% if settings.core.SiteSettings.viber_sharing %}
+      <li class="social-media-list__item">
+        <a  href="viber://forward?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="call-to-action__item-share call-to-action__nav-item-share--viber {% if viber %} call-to-action__nav-item-share-with-image {% endif %}"></a>
+      </li>
+    {% endif %}
   </ul>
