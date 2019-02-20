@@ -2,26 +2,16 @@
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles el_pagination_tags gem_tags %}
 
 {% block content %}
-  {% block meta %}
-      <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
-      <meta name="keywords" content="{{ self.seo_title }}" />
-      <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-      <meta property="og:description" content="{{ self.search_description }}"/>
-      <meta property="og:image" content="{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}"/>
-  {% endblock %}
   {% gembannerpages %}
   {% bannerpages position=0 %}
-
-    <!--TOPIC OF DAY: HERO - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
-    {% topic_of_the_day %}
-
-    <!-- LATEST LISTING HOMEPAGE: LATEST - VIDEO ARTICLE / AUDIO ARTICLE / GENERAL ARTICLE TEASER -->
-    {% latest_listing_homepage num_count=1 %}
-
-    <!-- GENERAL MEDIA: VIDEO / AUDIO FEATURED ON HOMEPAGE - STANDALONE  -->
-    {% media_listing_homepage %}
-
-    <!-- GENERAL: ARTICLE TEASERS - FEATURED ON HOMEPAGE  -->
-    {% section_listing_homepage %}
-
+  {# <!-- OPEM landing-page DIV -->#}
+  <div class="landing-page">
+    {# <!-- OPEN landing-page__first-column DIV -->#}
+    <div class="landing-page__first-column">
+      {% topic_of_the_day %}
+      {% latest_listing_homepage num_count=1 %}
+      {% media_listing_homepage %}
+      {# <!-- FRAGMENTED DIVS PAGE -->#}
+      {% section_listing_homepage %}
+  </div>
 {% endblock %}

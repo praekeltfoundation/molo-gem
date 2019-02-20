@@ -1,5 +1,6 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailsettings_tags gem_tags %}
 {% get_settings %}
+
 {% if articles %}
 <div class="article-teaser article-teaser--latest">
   <div class="heading heading--hero">
@@ -11,7 +12,6 @@
     <ul class="teaser-stacklist teaser-stacklist--latest">
       {% for article in articles|slice:":3" %}
         <li class="teaser-stacklist__item">
-          
         {% if article.get_effective_image %}
           <div class="teaser-stacklist__images">
             <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
@@ -67,7 +67,6 @@
               {% endif %}
             </p>
           {% endif %}
-          <!-- DOWNLOAD BUTTON -->
           </div>
         </li>
         {% endfor %}
