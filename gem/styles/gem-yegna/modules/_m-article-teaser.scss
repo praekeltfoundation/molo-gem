@@ -1,7 +1,22 @@
 .article-teaser {
   display: block;
-  &--topic-of-day {}
-  &--latest {}
+  $block: unquote("#{&}");
+  &__wrapper {}
+  &--topic-of-day {
+    .teaser-stacklist__container {
+      background: $color-aqua;
+    }
+  }
+  &--latest {
+    .teaser-stacklist {
+      &__item {
+        background-color: $color-gray-light;
+      }
+      &__container {
+        background: $color-red-light;
+      }
+    }
+  }
   &--general-featured {
     .teaser-stacklist__item {
       @media screen and (min-width: 45.000em) {
@@ -9,9 +24,29 @@
       }
     }
   }
-  &--sidebar-featured {}
-  &__wrapper {}
-  &__container {
-    align-self: center;
+  &--sidebar-featured {
+    .call-to-action__item--text {
+      margin: 1.5em 0 0;
+      text-align: right;
+      display: block;
+      text-decoration: none;
+      &:active, &:hover, &:focus {
+        color: $color-violet;
+      }
+      &:visited {
+        @include for-size(tablet-landscape-up) {
+          outline: none;
+        }
+      }
+      &:after {
+        background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
+        content: "";
+        display: inline-block;
+        height: 15px;
+        margin: 0 0 0 1em;
+        vertical-align: middle;
+        width: 25px;
+      }
+    }
   }
 }
