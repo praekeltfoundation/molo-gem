@@ -6,12 +6,20 @@
 .menu-list {
   $block: unquote("#{&}");
   padding: 0;
+  margin: 0;
+  text-align: left;
+  @include for-size(tablet-landscape-up) {
+    text-align: left;
+  }
   &__anchor {
     color: #000;
     font-size: $font-x-medium;
-    padding: $spacer-small 0;
+    padding: $spacer-small;
     text-decoration: none;
     display: block;
+    @include for-size(tablet-landscape-up) {
+      padding: $spacer-small 0;
+    }
     &:active, &:hover, &:focus {
       color: $color-violet;
     }
@@ -27,6 +35,10 @@
     &:first-child {
       #{$block}__anchor {
         color: $color-violet;
+        padding: 0 0 $spacer-half;
+        @include for-size(tablet-landscape-up) {
+          padding: 0 0 $spacer-small;
+        }
       }
     }
   }
@@ -35,12 +47,16 @@
 //FOOTER
 .footer {
   .menu-list {
+    text-align: center;
+    @include for-size(tablet-landscape-up) {
+      text-align: left;
+    }
     &__anchor {
       color: #000 !important;
+      padding: $spacer-small;
     }
     &__item {
       display: block;
-      padding: $spacer-small;
       @media screen and (min-width: 45.000em) {
         padding: $spacer-small $spacer-half $spacer-small 0;
         display: inline-block;
