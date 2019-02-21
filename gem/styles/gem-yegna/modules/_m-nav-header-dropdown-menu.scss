@@ -22,10 +22,17 @@
   &-list {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: space-between;
+    display: block;
+    text-align: left;
+    @include for-size(tablet-portrait-up) {
+      display: flex;
+      justify-content: space-between;
+    }
     &__item {
-      display: inline-block;
+      display: block;
+      @include for-size(tablet-portrait-up) {
+        display: inline-block;
+      }
     }
     &__anchor {
       color: #000;

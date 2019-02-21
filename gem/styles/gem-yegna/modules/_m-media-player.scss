@@ -1,34 +1,11 @@
 .media-player {
   $block: unquote("#{&}");
-  padding: 1em;
   overflow: auto;
   margin: 0 auto;
-  @include for-size(tablet-portrait-up) {
-    padding: 1em 5%;
-  }
-  @include for-size(tablet-landscape-up) {
-    padding: 1em $spacer-inner 4em;
-  }
   &__wrapper {
     margin: 0 0 1em;
     position: relative;
     vertical-align: top;
-    @include for-size(tablet-portrait-up) {
-      margin: 1em;
-      display: inline-block;
-      width: 45%;
-    }
-    &--audio {
-      @include for-size(tablet-landscape-up) {
-        width: 30%;
-        margin: 1em 5em 1em 1em;
-      }
-    }
-    &--video {
-      @include for-size(tablet-landscape-up) {
-        width: 40%;
-      }
-    }
   }
   &__embed {
     display: block;
@@ -87,15 +64,14 @@
 
 audio {
   display: block;
-  object-fit: cover;
   width: 100%;
 }
+
+iframe,
 video {
   display: block;
-  object-fit: cover;
-  width: 100%;
-}
-iframe {
-  display: block;
+  height: auto;
+  min-height: 290px;
+  max-height: 422px;
   width: 100%;
 }
