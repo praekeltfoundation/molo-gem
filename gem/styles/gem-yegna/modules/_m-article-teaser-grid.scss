@@ -8,15 +8,21 @@
     display: block;
     margin: 1em 0;
     padding: 1.5em;
+    text-align: center;
   }
-  &__container {}
+  &__container {
+    text-align: left;
+  }
   &__anchor {
     display: block;
   }
   &__images {
-    max-width: 270px;
+    margin: 0 auto;
     height: auto;
     width: 100%;
+    @include for-size(tablet-portrait-up) {
+      max-width: 270px;
+    }
   }
   &__thumbnail {
     height: auto;
