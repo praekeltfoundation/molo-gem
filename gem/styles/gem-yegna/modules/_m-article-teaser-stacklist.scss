@@ -19,10 +19,20 @@
     width: auto;
   }
   &__container {
-    margin: $spacer-small 0;
+    margin: $spacer-small 0 0;
+    padding: 1em;
     @include for-size(tablet-landscape-up)  {
+      margin: 1em 0 0;
+    }
+    &--audio {
+      margin: 0 0 $spacer-small;
       padding: 1em;
-      margin: 1em 0;
+      @include for-size(tablet-landscape-up)  {
+        margin: 0 0 1em;
+      }
+    }
+    .section__title {
+      font-size: $font-small;
     }
   }
   &__title {

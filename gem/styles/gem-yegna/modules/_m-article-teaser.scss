@@ -10,10 +10,26 @@
   &--latest {
     .teaser-stacklist {
       &__item {
-        background-color: $color-gray-light;
+        &--inner {
+          background-color: $color-gray-light;
+          @include for-size(tablet-landscape-up) {
+            padding: 1.5em;
+            display: flex;
+          }
+          .teaser-stacklist__thumbnail {
+            @include for-size(tablet-landscape-up) {
+              max-width: 175px;
+            }
+          }
+        }
       }
       &__container {
-        background: $color-red-light;
+        &--audio {
+          background: $color-red-light;
+        }
+        .section__title {
+          color: $color-red-light;
+        }
       }
     }
   }
