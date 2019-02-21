@@ -16,25 +16,29 @@
       color: #000;
       cursor: pointer;
       display: block;
-      text-transform: capitalize;
+      padding: $spacer-half $spacer-small;
+      text-align: center;
       text-decoration: none;
-      padding: 11px $spacer-small;
+      text-transform: capitalize;
       @include for-size(tablet-portrait-up) {
-        padding: 11px;
+        text-align: inherit;
+        padding: $spacer-half;
       }
       @include for-size(desktop-up) {
-        padding: 11px 1em;
+        padding: $spacer-half 1em;
       }
       &:before {
         background-position: center center;
         background-repeat: no-repeat;
         content: "";
-        display: inline-block;
+        display: block;
         height: 27px;
-        margin: 0 $spacer-small 0 0;
+        margin: 0 auto;
         vertical-align: middle;
         width: 27px;
         @include for-size(tablet-portrait-up) {
+          display: inline-block;
+          margin: 0 $spacer-small 0 0;
           height: 33px;
           width: 37px;
         }
@@ -53,21 +57,21 @@
   }
   #watch:before {
     background-image: url('/static/img/icons/yegna/icon-watch.svg');
-    background-size: 90%;
+    background-size: 70%;
     @include for-size(tablet-portrait-up) {
       background-size: auto;
     }
   }
   #cast:before {
     background-image: url('/static/img/icons/yegna/icon-cast.svg');
-    background-size: 90%;
+    background-size: 100%;
     @include for-size(tablet-portrait-up) {
       background-size: auto;
     }
   }
   #listen:before {
     background-image: url('/static/img/icons/yegna/icon-listen-black.svg');
-    background-size: 90%;
+    background-size: 100%;
     @include for-size(tablet-portrait-up) {
       background-size: auto;
     }

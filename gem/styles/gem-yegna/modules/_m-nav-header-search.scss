@@ -1,8 +1,9 @@
 .nav-search {
   $block: unquote("#{&}");
-  display: inline;
+  display: inline-block;
   order: 2;
   @include for-size(tablet-portrait-up) {
+    display: inline;
     order: 3;
   }
   &__wrapper {
@@ -23,9 +24,10 @@
   }
   &__label {
     cursor: pointer;
-    display: inline-block;
+    display: block;
     padding: $spacer-half $spacer-small;
     @include for-size(tablet-portrait-up) {
+      display: inline-block;
       margin: 0 -1em 0 0;
       padding: $spacer-half;
     }
@@ -33,16 +35,20 @@
       padding: $spacer-half 1em;
     }
     &:before {
-      background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/100%;
+      background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/90%;
       content: "";
-      display: inline-block;
+      display: block;
       height: 27px;
-      margin: 0 $spacer-small 0 0;
       vertical-align: middle;
+      margin: 0 auto;
       width: 27px;
+      text-align: center;
       @include for-size(tablet-portrait-up) {
         background-size: auto;
+        display: inline-block;
+        margin: 0 $spacer-small 0 0;
         height: 33px;
+        text-align: inherit;
         width: 37px;
       }
     }
