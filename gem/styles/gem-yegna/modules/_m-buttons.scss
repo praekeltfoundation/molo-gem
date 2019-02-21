@@ -42,6 +42,30 @@
         width: 21px;
       }
     }
+    &--paginate {
+      margin: 1.5em 0;
+      text-align: right;
+      display: block;
+      text-decoration: none;
+      padding: 0 2em;
+      &:active, &:hover, &:focus {
+        color: $color-violet;
+      }
+      &:visited {
+        @include for-size(tablet-landscape-up) {
+          outline: none;
+        }
+      }
+      &:after {
+        background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
+        content: "";
+        display: inline-block;
+        height: 15px;
+        margin: 0 0 0 1em;
+        vertical-align: middle;
+        width: 25px;
+      }
+    }
   }
   &--media-download {
     overflow: auto;
