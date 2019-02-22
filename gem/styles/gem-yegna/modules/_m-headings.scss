@@ -12,23 +12,16 @@
       background-size: auto;
     }
   }
-  &--hero {}
-  &__component {
-    color: $color-violet;
-    display: inline-block;
-    font-size: 1.30em;
+  &--hero {
+    text-align: center;
     &:before {
-      background: url("/static/img/icons/yegna/icon-heading.svg") no-repeat center center / 100%;
+      background: none;
       content: "";
-      display: inline-block;
-      height: 20px;
-      vertical-align: middle;
-      width: 30px;
+      display: block;
     }
   }
   //Watch Category
-  //FILL COLORS
-  &--topic-of-day {
+  &--video {
     #{$block}__component:before {
       background: url("/static/img/icons/yegna/icon-tv.svg") no-repeat center center / 100%;
       width: 15px;
@@ -47,7 +40,7 @@
       background: url("/static/img/icons/yegna/icon-heading.svg") no-repeat center center / 100%;
     }
   }
-  //
+  //Cast Category
   &--sidebar-featured {
     #{$block}__component:before {
       height: 30px;
@@ -56,6 +49,25 @@
         fill: black;
       }
     }
+  }
+  &__component {
+    color: $color-violet;
+    display: inline-block;
+    font-size: 1.30em;
+    &:before {
+      background: url("/static/img/icons/yegna/icon-heading.svg") no-repeat center center / 100%;
+      content: "";
+      display: inline-block;
+      margin: 0 0.5em 0 0;
+      height: 20px;
+      vertical-align: middle;
+      width: 30px;
+    }
+  }
+  &__title {
+    color: $color-violet;
+    display: inline-block;
+    font-size: 1.30em;
   }
 }
 
