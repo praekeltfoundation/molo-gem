@@ -1,0 +1,24 @@
+.teaser-breadcrumb {
+  $block: unquote("#{&}");
+  &-list {
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: inline-block;
+      &:after {
+        content: " - ";
+        display: inline-block;
+        padding: 0 $spacer-small;
+      }
+      &:last-child {
+        &:after {
+          content: " ";
+        }
+      }
+    }
+    &__anchor {
+      color: #000;
+      font-size: $font-xx-small;
+    }
+  }
+}
