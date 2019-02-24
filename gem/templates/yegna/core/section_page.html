@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
-{% comment %}
-  <!-- SINGLE SECTION FOR VIDEO, AUDIO, IMAGE, TEXT-->
-{% endcomment %}
 
 {% block content %}
   <div class="section-page">
@@ -11,126 +8,40 @@
         <h1 class="heading__title">{{self.title}}</h1>
       </div>
     </div>
-  <!--
-    ON SECTION LEVEL
-      * Loads children sections of self
-  -->
-  {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
-    {% if ancestor %}
-      {{ancestor}}
-      {% load_child_sections_for_section ancestor as sections %}
-    {% elif parent %}
-      {% load_child_sections_for_section parent as sections %}
-      {{parent}}
-    {% elif self %}
-      {% load_child_sections_for_section self as sections %}
-      {{self}}
-    {% endif %}
+    {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
+      {% if ancestor.specific %}{% pageurl ancestor.specific as section_path %}
+      {% elif parent.specific %}{% pageurl parent.specific as section_path %}
+      {% elif self.specific %}{% pageurl self.specific as section_path %}{% endif %}
+      <hr/>
+      {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
+      {% elif parent %}{% load_child_sections_for_section parent as sections %}
+      {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
 
-
-    {% for section in sections %}
-      <div class="heading heading--video">
-        <h1 class="heading__component">
-          {{section}}<br/>
-        </h1>
-      </div>
-    {% endfor %}
-
-
-  {% endwith %}
-
-
-
-  {% comment %}
-    <!--
-      WHAT I NEED:
-        1. PRINT OUT A SECTION
-          a). ARTICLE PAGES ON <section>
-          2. PRINT OUT A SUBSECTION ON SECTION
-            a). ARTICLE PAGES ON <subsection>
-            3. PRINT OUT A SUB-SUBSECTION ON SECTION
-              a). ARTICLE PAGES ON sub-subsection
-
-        SECTION LEVEL | SUBSECTION LEVEL | SUB-SUBSECTION LEVEL
-          SHOW: 1, 1a,2, 2a ,3, 3a
-
-        ON SECTION LEVEL
-          - SECTION LEVEL = self                  (me)
-          - SUBSECTION LEVEL = child              (children)
-          - SUB-SUBSECTION LEVEL = grand-child    (grandchildren)
-        ON SUBSECTION LEVEL
-          - SECTION LEVEL = parent                (parent)
-          - SUBSECTION LEVEL = self               (me)
-          - SUB-SUBSECTION LEVEL = child          (children)
-        ON SUB-SUBSECTION LEVEL
-          - SECTION LEVEL = ancestor              (grand-parent)
-          - SUBSECTION LEVEL = parent             (parent)
-          - SUB-SUBSECTION LEVEL = self           (me)
-    -->
-    <!--PRINT CHILD ARTICLES -->
-    {% load_descendant_articles_for_section section as section_articles %}
-      <!--THIS PRINTS OUT ARTICLES OF A SECTION AND SUBSECTIONS AND SUB-SUBSECTIONS-->
-      {% for section_article in section_articles %}
-        <p class="section-page__label">Articles in current section::</p>{{section_article}}<br/><br/>
+      {% comment %}
+        {% load_descendant_articles_for_section section as section_articles %}
+        {% load_descendant_articles_for_section self as child_articles %}
+        {% load_descendant_articles_for_section self featured_in_section=True as ancestor_featured_sectionpage_articles %}
+        {% load_child_articles_for_section section as section_articles %}
+      {% endcomment %}
+      {% for section in sections %}
+        {% load_descendant_articles_for_section section count=1 featured_in_section=True as section_articles %}
+        {% for section_article in section_articles %}
+          <p class="section-page__label">Grandchildren Articles of section:</p>
+          <ul>
+            <li>{{section_article}}</li>
+          </ul>
+        {% endfor %}
       {% endfor %}
       <hr/>
-    {% load_child_sections_for_section section=section as sec_sections %}
-      {% for sec_section in sec_sections %}
-        <h1 class="heading__title">
-          {{sec_section}}<br/>
-        </h1>
-        <!--PRINT CHILD ARTICLES -->
-        {% load_descendant_articles_for_section section as section_articles %}
-          <!--THIS PRINTS OUT ARTICLES OF A SECTION AND SUBSECTIONS AND SUB-SUBSECTIONS-->
-          {% for section_article in section_articles %}
-            <p class="section-page__label">Articles in current section::</p>{{section_article}}<br/><br/>
-          {% endfor %}
-          <hr/>
-      {% endfor %}
 
-
-      {% load_descendant_articles_for_section self as child_articles %}
-        {% for child_article in child_articles %}
-          <p class="section-page__label">Child articles of section::</p>{{child_article}}<br/><br/>
-        {% endfor %}
-        <hr/>
-
-      {% load_descendant_articles_for_section self featured_in_section=True as ancestor_featured_sectionpage_articles %}
-        {% for ancestor_featured_sectionpage_article in ancestor_featured_sectionpage_articles %}
-          <p class="section-page__label">Child articles of section::</p>{{ancestor_featured_sectionpage_article}}<br/><br/>
-        {% endfor %}
-        <hr/>
-
-      {% load_child_articles_for_section section as the_articles %}
-        {% for the_article in the_articles %}
-          <p class="section-page__label">Articles in parent section::</p>{{the_article}}<br/><br/>
-        {% endfor %}
-        <hr/>
-
-      {% load_child_articles_for_section self as self_articles %}
-        {% for self_article in self_articles %}
-          <p class="section-page__label">Articles in self section::</p>{{self_article}}<br/><br/>
-        {% endfor %}
-        <hr/>
-  {% endcomment %}
-
-
-    {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
-      {% if ancestor.specific %}
-        {% pageurl ancestor.specific as section %}
-      {% elif parent.specific %}
-        {% pageurl parent.specific as section %}
-      {% elif self.specific %}
-        {% pageurl self.specific as section %}
-      {% endif %}
-
-        {% if section == '/sections/watch/' %}
+        {% if section_path == '/sections/watch/' %}
         <div class="section-page__columns">
           <div class="section-page__first-column">
             <div class="heading heading--video">
               <h1 class="heading__component">{% trans "Featured episode" %}</h1>
             </div>
             <div class="article-teaser__wrapper">
+              {% comment %}
               <ul class="teaser-stacklist">
                 {% for article in child_articles|slice:":1" %}
                   {% if article.homepage_media %}
@@ -142,32 +53,42 @@
                   {% endif %}
                 {% endfor %}
               </ul>
+              {% endcomment %}
             </div>
           </div>
           <div class="section-page__second-column">
-            <!--
-            Load all subsections articles
-            -->
-
             {% for section in sections %}
+              <div class="heading heading--video">
+                <h1 class="heading__component">
+                  {{section}}
+                </h1>
+              </div>
 
-                <div class="heading heading--video">
-                  <h1 class="heading__component">
-                    {{section}}<br/>
-                  </h1>
-                </div>
+              {% load_child_articles_for_section section as articles %}
+                {% for article in articles %}
+                  <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
+                {% endfor %}
 
+                {% load_child_sections_for_section section=section as sec_sections %}
+                  {% for sec_section in sec_sections %}
+                    <h1 class="heading__title">{{sec_section}}</h1>
+                    {% load_child_articles_for_section sec_section as articles %}
+                      {% for article in articles %}
+                        <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
+                      {% endfor %}
 
+                  {% endfor %}
             {% endfor %}
           </div>
         </div>
-        {% elif section == '/sections/listen/' %}
+        {% elif section_path == '/sections/listen/' %}
         <div class="section-page__columns">
           <div class="section-page__first-column">
             <div class="heading heading--latest">
               <h1 class="heading__component">{% trans "Featured episode" %}</h1>
             </div>
             <div class="article-teaser__wrapper">
+              {% comment %}
               <ul class="teaser-stacklist">
                 {% for article in child_articles|slice:":1" %}
                   {% if article.homepage_media %}
@@ -179,32 +100,59 @@
                   {% endif %}
                 {% endfor %}
               </ul>
+              {% endcomment %}
             </div>
           </div>
           <div class="section-page__second-column">
+              {% for section in sections %}
+                <div class="heading heading--video">
+                  <h1 class="heading__component">
+                    {{section}}
+                  </h1>
+                </div>
+
+                {% load_child_articles_for_section section as articles %}
+                  {% for article in articles %}
+                    <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
+                  {% endfor %}
+
+                  {% load_child_sections_for_section section=section as sec_sections %}
+                    {% for sec_section in sec_sections %}
+                      <h1 class="heading__title">{{sec_section}}</h1>
+                      {% load_child_articles_for_section sec_section as articles %}
+                        {% for article in articles %}
+                          <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
+                        {% endfor %}
+                    {% endfor %}
+
+              {% endfor %}
           </div>
         </div>
-        {% elif section == '/sections/cast/' %}
+        {% elif section_path == '/sections/cast/' %}
           <div class="section-page__wrapper">
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
+                {% comment %}
                 <ul class="teaser-grid">
                   {% for article in child_articles %}
                     {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
                   {% endfor %}
                 </ul>
+                {% endcomment %}
               </div>
             </div>
           </div>
-        {% elif section == '/sections/news/' %}
+        {% elif section_path == '/sections/news/' %}
           <div class="section-page__wrapper">
             <div class="article-teaser article-teaser--general">
               <div class="article-teaser__wrapper">
+                {% comment %}
                 <ul class="teaser-stacklist">
                   {% for article in child_articles %}
                     {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
                   {% endfor %}
                 </ul>
+                {% endcomment %}
               </div>
             </div>
           </div>
