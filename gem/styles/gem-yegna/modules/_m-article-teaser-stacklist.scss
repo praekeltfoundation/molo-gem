@@ -1,4 +1,5 @@
 .teaser-stacklist {
+  $block: unquote("#{&}");
   margin: 0;
   padding: 0;
   &__item {
@@ -44,5 +45,35 @@
     color: #000;
     font-size: $font-small;
     margin: 0.67em 0;
+  }
+  &--topic-of-day {
+    #{$block}__container {
+      background: $color-aqua;
+    }
+  }
+  &--latest {
+    #{$block}__item {
+      &--inner {
+        background-color: $color-gray-light;
+        padding: 1em;
+        @include for-size(tablet-landscape-up) {
+          padding: 1.5em;
+          display: flex;
+        }
+        .teaser-stacklist__thumbnail {
+          @include for-size(tablet-landscape-up) {
+            max-width: 175px;
+          }
+        }
+      }
+    }
+    #{$block}__container {
+      &--audio {
+        background: $color-red-light;
+      }
+      .section__title {
+        color: $color-red-light;
+      }
+    }
   }
 }

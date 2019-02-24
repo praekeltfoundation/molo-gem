@@ -1,38 +1,8 @@
 .article-teaser {
   display: block;
   $block: unquote("#{&}");
-  &--topic-of-day {
-    .teaser-stacklist__container {
-      background: $color-aqua;
-    }
-  }
-  &--latest {
-    .teaser-stacklist {
-      &__item {
-        &--inner {
-          background-color: $color-gray-light;
-          padding: 1em;
-          @include for-size(tablet-landscape-up) {
-            padding: 1.5em;
-            display: flex;
-          }
-          .teaser-stacklist__thumbnail {
-            @include for-size(tablet-landscape-up) {
-              max-width: 175px;
-            }
-          }
-        }
-      }
-      &__container {
-        &--audio {
-          background: $color-red-light;
-        }
-        .section__title {
-          color: $color-red-light;
-        }
-      }
-    }
-  }
+  &--topic-of-day {}
+  &--latest {}
   &--general {
     .teaser-stacklist__item {
       @include for-size(tablet-landscape-up) {

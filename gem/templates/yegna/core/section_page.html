@@ -29,7 +29,7 @@
                 <div class="article-teaser__wrapper">
                   {% load_descendant_articles_for_section section count=1 featured_in_section=True as articles %}
                   {% if articles %}
-                    <ul class="teaser-stacklist">
+                    <ul class="teaser-stacklist teaser-stacklist--topic-of-day">
                     {% for article in articles %}
                       {% if article.homepage_media %}
                         {% for block in article.homepage_media %}
