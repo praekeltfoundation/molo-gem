@@ -11,13 +11,37 @@
         <h1 class="heading__title">{{self.title}}</h1>
       </div>
     </div>
-{% load_child_sections_for_section self as sections %}
-  {% for section in sections %}
-    <div class="heading heading--video">
-      <h1 class="heading__component">
-        {{section}}<br/>
-      </h1>
-    </div>
+  <!--
+    ON SECTION LEVEL
+      * Loads children sections of self
+  -->
+  {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
+    {% if ancestor %}
+      {{ancestor}}
+      {% load_child_sections_for_section ancestor as sections %}
+    {% elif parent %}
+      {% load_child_sections_for_section parent as sections %}
+      {{parent}}
+    {% elif self %}
+      {% load_child_sections_for_section self as sections %}
+      {{self}}
+    {% endif %}
+
+
+    {% for section in sections %}
+      <div class="heading heading--video">
+        <h1 class="heading__component">
+          {{section}}<br/>
+        </h1>
+      </div>
+    {% endfor %}
+
+
+  {% endwith %}
+
+
+
+  {% comment %}
     <!--
       WHAT I NEED:
         1. PRINT OUT A SECTION
@@ -64,7 +88,7 @@
           <hr/>
       {% endfor %}
 
-    {% comment %}
+
       {% load_descendant_articles_for_section self as child_articles %}
         {% for child_article in child_articles %}
           <p class="section-page__label">Child articles of section::</p>{{child_article}}<br/><br/>
@@ -88,8 +112,7 @@
           <p class="section-page__label">Articles in self section::</p>{{self_article}}<br/><br/>
         {% endfor %}
         <hr/>
-    {% endcomment %}
-  {% endfor %}
+  {% endcomment %}
 
 
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
