@@ -4,7 +4,6 @@
   padding: 0;
   &__item {
     display: block;
-    margin: 0 $spacer-small 2em $spacer-small;
     width: 100%;
     list-style: none;
     vertical-align: top;
@@ -14,7 +13,9 @@
   &__anchor {
     display: block;
   }
-  &__images {}
+  &__images {
+    position: relative;
+  }
   &__thumbnail {
     height: auto;
     width: auto;
@@ -22,6 +23,7 @@
   &__container {
     margin: $spacer-small 0 0;
     padding: 1em;
+    position: relative;
     @include for-size(tablet-landscape-up)  {
       margin: 1em 0 0;
     }
@@ -46,7 +48,7 @@
     font-size: $font-small;
     margin: 0.67em 0;
   }
-  &--topic-of-day {
+  &--watch {
     #{$block}__container {
       background: $color-aqua;
     }

@@ -2,14 +2,14 @@
 {% get_settings %}
 
 {% if articles %}
-<div class="article-teaser article-teaser--topic-of-day">
+<div class="article-teaser article-teaser--watch">
   <div class="heading heading--video">
     <h1 class=" heading__component">
       {% trans "Introducing the new Yegna" %}
     </h1>
   </div>
   <div class="article-teaser__wrapper">
-    <ul class="teaser-stacklist teaser-stacklist--topic-of-day">
+    <ul class="teaser-stacklist teaser-stacklist--watch">
       {% for article in articles|slice:":1" %}
         {% for block in article.homepage_media %}
           {% with block.value as media %}

@@ -29,7 +29,7 @@
                 <div class="article-teaser__wrapper">
                   {% load_descendant_articles_for_section section count=1 featured_in_section=True as articles %}
                   {% if articles %}
-                    <ul class="teaser-stacklist teaser-stacklist--topic-of-day">
+                    <ul class="teaser-stacklist teaser-stacklist--watch">
                     {% for article in articles %}
                       {% if article.homepage_media %}
                         {% for block in article.homepage_media %}
@@ -46,26 +46,68 @@
             </div>
             <div class="section-page__second-column">
               {% for section in sections %}
-                <div class="heading heading--video">
-                  <h1 class="heading__component">
+                <div class="heading">
+                  <h1 class="heading__subheading">
                     {{section}}
                   </h1>
                 </div>
-
                 {% load_child_articles_for_section section as articles %}
+                  {% if articles %}
+                  <ul class="teaser-stacklist teaser-stacklist--watch">
                   {% for article in articles %}
-                    <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
+                    {% if article.homepage_media %}
+                      {% for block in article.homepage_media %}
+                        {% with block.value as media %}
+                          {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                        {% endwith %}
+                      {% endfor %}
+                    {% endif %}
                   {% endfor %}
+                  </ul>
+                {% endif %}
 
-                  {% load_child_sections_for_section section=section as sec_sections %}
+                {% load_child_sections_for_section section=section as sec_sections %}
+                {% if sec_sections %}
+                  <ul class="teaser-accordion-list">
                     {% for sec_section in sec_sections %}
-                      <h1 class="heading__title">{{sec_section}}</h1>
+                    <li class="teaser-accordion-list__item">
+                      <!-- INLINE CSS -->
+                      {% spaceless %}
+                        <style media="screen">
+                          .teaser-accordion-list__{{sec_section|slugify}} + * {
+                            height: auto;
+                            opacity: 0;
+                            display: none;
+                            visibility: hidden;
+                            transition: visibility 0.2s, opacity 0.5s ease-out;
+                          }
+                          .teaser-accordion-list__{{sec_section|slugify}}:checked + * {
+                            display: block;
+                            visibility: visible;
+                            opacity: 1;
+                          }
+                        </style>
+                      {% endspaceless %}
+                      <label for="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
+                      <input type="checkbox" value="accordion" name="accordion" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
+                      {% if articles %}
+                      <ul class="teaser-stacklist teaser-stacklist--watch">
                         {% for article in articles %}
-                          <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
+                          {% if article.homepage_media %}
+                            {% for block in article.homepage_media %}
+                              {% with block.value as media %}
+                                {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                              {% endwith %}
+                            {% endfor %}
+                          {% endif %}
                         {% endfor %}
-
+                      </ul>
+                      {% endif %}
+                    </li>
                     {% endfor %}
+                  </ul>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -97,13 +139,14 @@
           </div>
           <div class="section-page__second-column">
               {% for section in sections %}
-                <div class="heading heading--video">
-                  <h1 class="heading__component">
+                <div class="heading">
+                  <h1 class="heading__subheading">
                     {{section}}
                   </h1>
                 </div>
 
                 {% load_child_articles_for_section section as articles %}
+                {% if articles %}
                   {% for article in articles %}
                     <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
                   {% endfor %}
@@ -116,7 +159,7 @@
                           <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
                         {% endfor %}
                     {% endfor %}
-
+                {% endif %}
               {% endfor %}
           </div>
         </div>
@@ -126,13 +169,11 @@
           <div class="section-page__wrapper">
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
-                {% comment %}
                 <ul class="teaser-grid">
-                  {% for article in child_articles %}
+                  {% for article in articles %}
                     {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
                   {% endfor %}
                 </ul>
-                {% endcomment %}
               </div>
             </div>
           </div>
@@ -140,13 +181,11 @@
           <div class="section-page__wrapper">
             <div class="article-teaser article-teaser--general">
               <div class="article-teaser__wrapper">
-                {% comment %}
                 <ul class="teaser-stacklist">
-                  {% for article in child_articles %}
+                  {% for article in articles %}
                     {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
                   {% endfor %}
                 </ul>
-                {% endcomment %}
               </div>
             </div>
           </div>
