@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags compress %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags %}
 
 {% block content %}
   <div class="section-page">
@@ -109,7 +109,6 @@
                     {% for sec_section in sec_sections %}
                     <li class="teaser-accordion-list__item">
                       <!-- INLINE CSS -->
-                      {% compress css %}
                       {% spaceless %}
                         <style media="screen">
                           .teaser-accordion-list__{{sec_section|slugify}} + * {
@@ -126,7 +125,6 @@
                           }
                         </style>
                       {% endspaceless %}
-                      {% endcompress %}
                       <label for="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
                       <input type="checkbox" value="accordion" name="accordion" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
@@ -218,7 +216,6 @@
                     {% for sec_section in sec_sections %}
                     <li class="teaser-accordion-list__item">
                       <!-- INLINE CSS -->
-                      {% compress css %}
                       {% spaceless %}
                         <style media="screen">
                           .teaser-accordion-list__{{sec_section|slugify}} + * {
@@ -235,7 +232,6 @@
                           }
                         </style>
                       {% endspaceless %}
-                      {% endcompress %}
                       <label for="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
                       <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
