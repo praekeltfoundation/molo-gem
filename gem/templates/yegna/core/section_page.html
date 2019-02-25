@@ -223,26 +223,29 @@
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
                 <ul class="teaser-grid">
-                  <!--
-                    LOAD CHILD SECTION FOR SELF AGAIN:
-
-                  -->
+                  <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
                   {% load_child_articles_for_section self as articles %}
-                  {% for article in articles %}
-                    {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
-                  {% endfor %}
+                  {% if articles %}
+                    {% for article in articles %}
+                      {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
+                    {% endfor %}
+                  {% endif %}
                 </ul>
               </div>
             </div>
           </div>
         {% elif section_path == '/sections/news/' %}
-          <div class="section-page__wrapper">
+          <div class="section-page--general section-page__wrapper">
             <div class="article-teaser article-teaser--general">
               <div class="article-teaser__wrapper">
                 <ul class="teaser-stacklist">
-                  {% for article in articles %}
-                    {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
-                  {% endfor %}
+                  <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
+                  {% load_child_articles_for_section self as articles %}
+                  {% if articles %}
+                    {% for article in articles %}
+                      {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
+                    {% endfor %}
+                  {% endif %}
                 </ul>
               </div>
             </div>

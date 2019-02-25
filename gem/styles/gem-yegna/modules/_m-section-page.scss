@@ -1,6 +1,12 @@
 .section-page {
   &__wrapper {
-    @include pages();
+    padding: 1.5em 1em 1.5em 2em;
+    @include for-size(tablet-portrait-up) {
+      padding: 1.5em 1em 1.5em 4em;
+    }
+    @include for-size(tablet-landscape-up) {
+      padding: 2.5em 5% 1em 15%;
+    }
   }
   &__columns {
     padding: 1em;
@@ -47,9 +53,6 @@
   }
 
   &--characters {
-    @include for-size(tablet-landscape-up) {
-      padding: 2.5em 5% 1em;
-    }
     .teaser-grid {
       @include for-size(tablet-landscape-up) {
         display: flex;
@@ -57,9 +60,32 @@
       }
       &__item {
         background-color: transparent;
+        padding: 0;
       }
       &__thumbnail {
         width: auto;
+        max-width: 360px;
+        max-height: 240px;
+      }
+    }
+  }
+  &--general {
+    .teaser-stacklist {
+      &__item {
+        @include for-size(tablet-landscape-up) {
+          margin: 1em 0 2em;
+        }
+      }
+      &__images {
+        @include for-size(tablet-landscape-up) {
+          margin: 0 1.5em 0 0;
+          width: 30%;
+        }
+      }
+      &__thumbnail {
+        @include for-size(tablet-landscape-up) {
+          width: 100%;
+        }
       }
     }
   }
