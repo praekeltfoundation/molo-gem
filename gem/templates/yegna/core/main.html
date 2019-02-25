@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles el_pagination_tags gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles el_pagination_tags gem_tags forms_tags %}
 
 {% block content %}
   {% gembannerpages %}
@@ -13,5 +13,8 @@
       {% media_listing_homepage %}
       {# <!-- FRAGMENTED DIVS PAGE -->#}
       {% section_listing_homepage %}
+
+      <!-- WHAT DOES THIS DO? -->
+      {% forms_list %}
   </div>
 {% endblock %}
