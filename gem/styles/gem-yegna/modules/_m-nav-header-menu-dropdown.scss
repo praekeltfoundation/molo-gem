@@ -20,6 +20,7 @@
     padding: 2em 8% 2em 19.5%;
   }
   &-list {
+    $block: unquote("#{&}");
     margin: 0;
     padding: 0;
     display: block;
@@ -33,12 +34,28 @@
       @include for-size(tablet-portrait-up) {
         display: inline-block;
       }
+      &--footer {
+        .menu-list__item {
+          &:first-child {
+            .menu-list__anchor {
+              color: $color-violet;
+              padding: 0 0 $spacer-half;
+              @include for-size(tablet-landscape-up) {
+                padding: 0 0 $spacer-small;
+              }
+            }
+          }
+        }
+      }
     }
     &__anchor {
       color: #000;
       font-size: $font-x-medium;
-      padding: $spacer-half;
+      padding: $spacer-half 0;
       text-decoration: none;
+      @include for-size(tablet-landscape-up) {
+        padding: $spacer-small 0;
+      }
       &:first-child {
         color: $color-violet;
       }
