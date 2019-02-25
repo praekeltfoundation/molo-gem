@@ -1,14 +1,14 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailsettings_tags gem_tags staticfiles comments %}
 {% get_settings %}
 {% if articles %}
-  <div class="article-teaser article-teaser--topic-of-day">
+  <div class="article-teaser article-teaser--hero-article">
     <div class="heading heading--hero">
       <h1 class=" heading__component">
         {% trans "Events" %}
       </h1>
     </div>
     <div class="article-teaser__wrapper">
-      <ul class="teaser-grid teaser-grid--topic-of-day">
+      <ul class="teaser-grid teaser-grid--hero-article">
         {% for article in articles|slice:":1" %}
           <li class="teaser-grid__item">
               {% if article.get_effective_image %}
