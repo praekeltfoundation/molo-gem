@@ -12,19 +12,15 @@
         <div class="heading">
           <h2 class="heading__title">{{ page.intro }}</h2>
         </div>
-          {#{% include_block page.body %}{{ page.body|richtext }}#}
-          <form action="{% pageurl page.specific %}" method="POST" class="contact__form" novalidate>
-              {% csrf_token %}
-              {{ form.as_p }}
-              <input type="submit" class="call-to-action__item call-to-action__item--primary">
-          </form>
+        <h3 class="heading__subtitle">{{ page.search_description }}</h3>
+        <form action="{% pageurl page.specific %}" method="POST" class="contact__form" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="call-to-action__item call-to-action__item--primary">
+        </form>
       </div>
       <div class="contact-page__second-column">
-        {% for block in self.body %}
-          {% if block.block_type == 'paragraph' %}
-            {% firstof block.value %}<br/>
-          {% endif %}
-        {% endfor %}
+        {% include_block page.body %}
       </div>
     </div>
   </div>
