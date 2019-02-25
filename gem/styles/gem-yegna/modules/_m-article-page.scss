@@ -1,3 +1,37 @@
 .article-page {
-  @include pages();
+  &__wrapper {
+    @include pages();
+  }
+  &__images {
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 0 2.5em;
+      max-height: 425px;
+    }
+  }
+  &__thumbnail {
+    height: auto;
+    width: auto;
+    @include for-size(tablet-landscape-up) {
+      width: 860px;
+    }
+  }
+  .social-media {
+    background: $color-gray-light;
+    padding: 1em;
+    float: none;
+    width: 100%;
+    &-list__item {
+      @include for-size(tablet-landscape-up)  {
+        float: right;
+      }
+      &:first-child {
+        @include for-size(tablet-landscape-up)  {
+          float: left;
+        }
+      }
+    }
+  }
 }
