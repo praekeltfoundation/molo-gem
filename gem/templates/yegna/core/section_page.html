@@ -166,63 +166,68 @@
           </div>
 
         {% elif section_path == '/sections/listen/' %}
-        <div class="section-page__columns">
-          <div class="section-page__first-column">
-            <div class="heading heading--latest">
-              <h1 class="heading__component">{% trans "Featured episode" %}</h1>
-            </div>
-            <div class="article-teaser__wrapper">
-              {% for section in sections %}
-                {% load_descendant_articles_for_section section count=2 featured_in_section=True as articles %}
-                {% if articles %}
-                  <ul class="teaser-stacklist">
-                  {% for article in articles %}
-                    {% if article.homepage_media %}
-                      {% for block in article.homepage_media %}
-                        {% with block.value as media %}
-                          {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                        {% endwith %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-          <div class="section-page__second-column">
-              {% for section in sections %}
-                <div class="heading">
-                  <h1 class="heading__subheading">
-                    {{section}}
-                  </h1>
-                </div>
-
-                {% load_child_articles_for_section section as articles %}
-                {% if articles %}
-                  {% for article in articles %}
-                    <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
-                  {% endfor %}
-
-                  {% load_child_sections_for_section section=section as sec_sections %}
-                    {% for sec_section in sec_sections %}
-                      <h1 class="heading__title">{{sec_section}}</h1>
-                      {% load_child_articles_for_section sec_section as articles %}
-                        {% for article in articles %}
-                          <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
+          <div class="section-page__columns">
+            <div class="section-page__first-column">
+              <div class="heading heading--latest">
+                <h1 class="heading__component">{% trans "Featured episode" %}</h1>
+              </div>
+              <div class="article-teaser__wrapper">
+                {% for section in sections %}
+                  {% load_descendant_articles_for_section section count=2 featured_in_section=True as articles %}
+                  {% if articles %}
+                    <ul class="teaser-stacklist">
+                    {% for article in articles %}
+                      {% if article.homepage_media %}
+                        {% for block in article.homepage_media %}
+                          {% with block.value as media %}
+                            {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                          {% endwith %}
                         {% endfor %}
+                      {% endif %}
                     {% endfor %}
-                {% endif %}
-              {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <div class="section-page__second-column">
+                {% for section in sections %}
+                  <div class="heading">
+                    <h1 class="heading__subheading">
+                      {{section}}
+                    </h1>
+                  </div>
+
+                  {% load_child_articles_for_section section as articles %}
+                  {% if articles %}
+                    {% for article in articles %}
+                      <p class="section-page__label">Articles in parent section::</p>{{article}}<br/><br/>
+                    {% endfor %}
+
+                    {% load_child_sections_for_section section=section as sec_sections %}
+                      {% for sec_section in sec_sections %}
+                        <h1 class="heading__title">{{sec_section}}</h1>
+                        {% load_child_articles_for_section sec_section as articles %}
+                          {% for article in articles %}
+                            <p class="section-page__label">Articles in current section::</p>{{article}}<br/><br/>
+                          {% endfor %}
+                      {% endfor %}
+                  {% endif %}
+                {% endfor %}
+            </div>
           </div>
-        </div>
 
         <!-- START OTHER -->
         {% elif section_path == '/sections/cast/' %}
-          <div class="section-page__wrapper">
+          <div class="section-page__wrapper section-page--characters">
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
                 <ul class="teaser-grid">
+                  <!--
+                    LOAD CHILD SECTION FOR SELF AGAIN:
+
+                  -->
+                  {% load_child_articles_for_section self as articles %}
                   {% for article in articles %}
                     {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
                   {% endfor %}

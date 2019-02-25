@@ -45,4 +45,22 @@
     margin: 0;
     text-transform: uppercase;
   }
+
+  &--characters {
+    @include for-size(tablet-landscape-up) {
+      padding: 2.5em 5% 1em;
+    }
+    .teaser-grid {
+      @include for-size(tablet-landscape-up) {
+        display: flex;
+        flex-wrap: nowrap;
+      }
+      &__item {
+        background-color: transparent;
+      }
+      &__thumbnail {
+        width: auto;
+      }
+    }
+  }
 }
