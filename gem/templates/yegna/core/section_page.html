@@ -32,11 +32,38 @@
                     <ul class="teaser-stacklist teaser-stacklist--watch">
                     {% for article in articles %}
                       {% if article.homepage_media %}
-                        {% for block in article.homepage_media %}
-                          {% with block.value as media %}
-                            {% include "core/section_page-partials/section_video-article-teaser.html" %}
-                          {% endwith %}
-                        {% endfor %}
+                        <li class="teaser-stacklist__item">
+                          {% for block in article.homepage_media %}
+                            {% with block.value as media %}
+                              <div class="teaser-stacklist__images">
+                                {% if block.value.youtube_link %}
+                                  {% embed media.youtube_link %}
+                                {% elif block.value.type == 'video' %}
+                                  <div class="media-player__embed">
+                                    <video poster="/media/{{ media.thumbnail }}" controls>
+                                      <source src={{media.file.url}} type="video/mp4">
+                                      <source src={{media.file.url}} type="video/webm">
+                                      <source src={{media.file.url}} type="video/ogg">
+                                      <span class="media-player__caption">
+                                        {% trans "Your browser does not support the video tag." %}
+                                      </span>
+                                    </video>
+                                  </div>
+                                {% else %}
+                                  {% if article.get_effective_image %}
+                                  <div class="teaser-stacklist__images">
+                                    <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                    </a>
+                                  </div>
+                                  {% endif %}
+                                {% endif %}
+                              </div>
+                              {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                            {% endwith %}
+                          {% endfor %}
+                        </li>
                       {% endif %}
                     {% endfor %}
                     </ul>
@@ -57,9 +84,21 @@
                   {% for article in articles %}
                     {% if article.homepage_media %}
                       {% for block in article.homepage_media %}
-                        {% with block.value as media %}
-                          {% include "core/section_page-partials/section_video-article-teaser.html" %}
-                        {% endwith %}
+                        <li class="teaser-stacklist__item">
+                          {% with block.value as media %}
+                            <div class="teaser-stacklist__images">
+                              {% if article.get_effective_image %}
+                                <div class="teaser-stacklist__images">
+                                  <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                    {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                  </a>
+                                </div>
+                              {% endif %}
+                            </div>
+                            {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                          {% endwith %}
+                        </li>
                       {% endfor %}
                     {% endif %}
                   {% endfor %}
@@ -98,9 +137,21 @@
                         {% for article in articles %}
                           {% if article.homepage_media %}
                             {% for block in article.homepage_media %}
-                              {% with block.value as media %}
-                                {% include "core/section_page-partials/section_video-article-teaser.html" %}
-                              {% endwith %}
+                              <li class="teaser-stacklist__item">
+                                {% with block.value as media %}
+                                  <div class="teaser-stacklist__images">
+                                    {% if article.get_effective_image %}
+                                      <div class="teaser-stacklist__images">
+                                        <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                        </a>
+                                      </div>
+                                    {% endif %}
+                                  </div>
+                                  {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                                {% endwith %}
+                              </li>
                             {% endfor %}
                           {% endif %}
                         {% endfor %}
@@ -193,7 +244,6 @@
           </div>
         {% endif %}
         <!-- END OTHER -->
-
 
     {% endwith %}
   </div>
