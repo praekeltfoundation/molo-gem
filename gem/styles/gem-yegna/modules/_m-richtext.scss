@@ -1,0 +1,55 @@
+//Rich Text Markup
+.rich-text {
+  text-align: center;
+  h2 {
+    color: $color-violet;
+    font-size: 1.30em;
+    &:before {
+      background: url("/static/img/lines/yegna/divider.png") no-repeat center center / 100%;
+      content: "";
+      display: block;
+      padding: 1em;
+      @include for-size(tablet-landscape-up)  {
+        background-position: left center;
+        background-size: auto;
+      }
+    }
+    b {
+      color: $color-violet;
+      font-size: 1.30em;
+    }
+  }
+
+  h3, h4 {
+    font-size: $font-x-medium;
+  }
+
+  b {
+    font-weight: bold;
+    font-size: $font-medium;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: $color-violet;
+    &:active, &:hover, &:focus {
+      color: $color-purple;
+    }
+    &:visited {
+      @include for-size(tablet-landscape-up) {
+        outline: none;
+      }
+    }
+  }
+
+  ol, ul {
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+  }
+
+
+}
