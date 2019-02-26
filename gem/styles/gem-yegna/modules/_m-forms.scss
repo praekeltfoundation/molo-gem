@@ -30,7 +30,7 @@ input[type="datetime-local"],
 input[type="url"],
 select {
   background-color: #ffffff;
-  border: none;
+  border: 2px solid #000;
   color: #000;
   padding: $spacer-half;
   margin: $spacer-small 0;
@@ -89,22 +89,34 @@ input[type="search"] {
   }
 }
 textarea {
-  background-color: $color-gray-light;
-  border: 2px $color-gray-light solid;
+  background: #fff;
+  border: 2px solid #000;
   margin: 0 auto;
   padding: 1em;
   width: 100%;
 }
 select {
   height: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
   appearance: none;
   border-radius: 0;
   outline: none;
   text-transform: capitalize;
   overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: #fafafa url("/static/img/icons/yegna/icon-dropdown.svg") 98% 50%/20px no-repeat;
+  padding: 10px 30px 10px 5px;
+  &:focus,
+  &:visited,
+  &:active {
+      outline: none;
+  }
 }
+
 select[value="value"] {
   font-size: $font-x-medium;
   text-transform: capitalize;
@@ -133,17 +145,17 @@ button {
   padding: $spacer-small 0;
 }
 
-.input-group {
-  .helptext {
-    font-size: $font-small;
-    margin: 0;
-    font-style: italic;
-    display: block;
-  }
-  span {
-    display: block;
-    font-size: $font-small;
-  }
+.input-group .helptext,
+.helptext {
+  color: $color-gray;
+  font-size: $font-x-small;
+  font-style: italic;
+  margin: 0;
+  display: block;
+}
+.input-group span {
+  display: block;
+  font-size: $font-x-small;
 }
 
 .error-list,
