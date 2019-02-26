@@ -27,22 +27,23 @@
       {% with parent=self.get_parent_section %}
         <ul class="teaser-breadcrumb-list">
           <li class="teaser-breadcrumb-list__item">
-            <a class="teaser-breadcrumb-list__anchor">{{parent}}</a>
+            <span class="teaser-breadcrumb-list__anchor">{{parent}}</span>
           </li>
           <li class="teaser-breadcrumb-list__item">
-            <a class="teaser-breadcrumb-list__anchor">{{self}}</a>
+            <a href="{% pageurl self.specific %}" class="teaser-breadcrumb-list__anchor">{{self}}</a>
           </li>
         </ul>
       {% endwith %}
     </div>
-
-    <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
-      {% if article.title_highlight %}
-        {{ article.title_highlight|smarttruncatechars:50|safe}}
-      {% else %}
-        {{ article.title|smarttruncatechars:50|safe}}
-      {% endif %}
-    </h1>
+    <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+      <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
+        {% if article.title_highlight %}
+          {{ article.title_highlight|smarttruncatechars:50|safe}}
+        {% else %}
+          {{ article.title|smarttruncatechars:50|safe}}
+        {% endif %}
+      </h1>
+    </a>
     {% if article.subtitle_highlight or article.body_highlight %}
       <p class="teaser-stacklist__subtitle">
         {% if article.subtitle_highlight %}
