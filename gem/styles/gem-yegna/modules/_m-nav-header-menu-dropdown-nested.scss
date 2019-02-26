@@ -42,14 +42,6 @@
     @include for-size(tablet-landscape-up) {
       text-align: left;
     }
-    &__anchor {
-      color: #000 !important;
-      padding: $spacer-small;
-    }
-    span a {
-      color: #000 !important;
-      padding: $spacer-small;
-    }
     &__item {
       display: block;
       @media screen and (min-width: 45.000em) {
@@ -59,6 +51,22 @@
       &:active, &:hover, &:focus {
         color: #000;
         text-decoration: underline;
+      }
+    }
+    &__anchor {
+      color: #000 !important;
+      padding: $spacer-small;
+    }
+    span {
+      &:active, &:hover, &:focus {
+        text-decoration: none;
+      }
+      a {
+        color: #000 !important;
+        padding: $spacer-small;
+        &:active, &:hover, &:focus {
+          text-decoration: underline;
+        }
       }
     }
   }
