@@ -3,39 +3,23 @@
 {% get_next_article self as next_article %}
 {% if next_article and self.get_parent_section.enable_next_section %}
   <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-    <div class="heading heading--primary">
-      {% if section.get_effective_image %}
-        {% image section.get_effective_image width-200 as section_photo %}
-          <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
-      {% else %}
-        <span class="section__icon"></span>
-      {% endif %}
-      <div class="section__caption">
-        <h2 class="section__title">
-          {% trans "Read next" %}...
-        </h2>
+    <div class="banner">
+      <div class="heading heading--hero">
+        <h1 class="heading__title">{% trans "Watch next" %}</h1>
       </div>
     </div>
     <ul class="teaser-stacklist">
       <li class="teaser-stacklist__item">
         {% if next_article.image %}
           <div class="article-teaser__images">
-            <a href="{% pageurl next_article.specific %}" class="article-teaser__anchor">
+            <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
               {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
             </a>
           </div>
         {% endif %}
-        <div class="article-teaser__container">
-          {% get_comment_count for next_article as comment_count %}
+        <div class="teaser-stacklist__container">
           {% load_tags_for_article next_article as tags %}
           <ul class="teaser-tags">
-            {% if comment_count > 0 %}
-              <li class="teaser-tags__item">
-                <a href="{% pageurl next_article.specific %}?#comments" class="comments-counter">
-                  <span class="comments-counter__numeral">{{comment_count}}</span>
-                </a>
-              </li>
-            {% endif %}
             {% if tags %}
               {% if settings.core.SiteSettings.enable_tag_navigation %}
                 {% for tag in tags %}
@@ -56,15 +40,17 @@
               {% endif %}
             {% endif %}
           </ul>
-          <h3 class="article-teaser__title {% if next_article.title_highlight %}article-teaser__title--highlight{% endif %}">
-            {% if next_article.title_highlight %}
-              {{ next_article.title_highlight|smarttruncatechars:50|safe}}
-            {% else %}
-              {{ next_article.title|smarttruncatechars:50|safe}}
-            {% endif %}
-          </h3>
+          <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+            <h3 class="teaser-stacklist__title {% if next_article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+              {% if next_article.title_highlight %}
+                {{ next_article.title_highlight|smarttruncatechars:50|safe}}
+              {% else %}
+                {{ next_article.title|smarttruncatechars:50|safe}}
+              {% endif %}
+            </h3>
+          </a>
           {% if next_article.subtitle_highlight or next_article.body_highlight %}
-            <p class="article-teaser__subtitle">
+            <p class="teaser-stacklist__subtitle">
               {% if next_article.subtitle_highlight %}
                 {{next_article.subtitle_highlight|smarttruncatechars:50|safe}}
               {% elif next_article.body_highlight %}
@@ -72,12 +58,12 @@
               {% endif %}
             </p>
           {% elif next_article.subtitle %}
-            <p class="article-teaser__subtitle">
+            <p class="teaser-stacklist__subtitle">
               {{ next_article.subtitle|smarttruncatechars:50|safe}}
             </p>
           {% endif %}
-          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-            {% trans "Read article" %}
+          <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl next_article.specific %}">
+            {% trans "Read more" %}
           </a>
         </div>
       </li>
@@ -89,40 +75,24 @@
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
     <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-      <div class="heading heading--primary">
-        {% if section.get_effective_image %}
-          {% image section.get_effective_image width-200 as section_photo %}
-            <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
-        {% else %}
-          <span class="section__icon"></span>
-        {% endif %}
-        <div class="section__caption">
-          <h2 class="section__title">
-            {% trans "Recommended stories" %}
-          </h2>
+      <div class="banner">
+        <div class="heading heading--hero">
+          <h1 class="heading__title">{% trans "Recommended" %}</h1>
         </div>
       </div>
       <ul class="teaser-stacklist">
         {% for article in recommended_articles %}
         <li class="teaser-stacklist__item">
           {% if article.image %}
-            <div class="article-teaser__images">
-              <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
+            <div class="teaser-stacklist__images">
+              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
                 {% image article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
               </a>
             </div>
           {% endif %}
-          <div class="article-teaser__container">
-            {% get_comment_count for article as comment_count %}
+          <div class="teaser-stacklist__container">
             {% load_tags_for_article article as tags %}
             <ul class="teaser-tags">
-              {% if comment_count > 0 %}
-                <li class="teaser-tags__item">
-                  <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
-                    <span class="comments-counter__numeral">{{comment_count}}</span>
-                  </a>
-                </li>
-              {% endif %}
               {% if tags %}
                 {% if settings.core.SiteSettings.enable_tag_navigation %}
                   {% for tag in tags %}
@@ -143,18 +113,20 @@
                 {% endif %}
               {% endif %}
             </ul>
-            <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
-              {% if article.title_highlight %}
-                {{ article.title_highlight|smarttruncatechars:50|safe}}
-              {% else %}
-                {{ article.title|smarttruncatechars:50|safe}}
-              {% endif %}
-            </h3>
-            <p class="article-teaser__subtitle">
+            <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+              <h2 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+                {% if article.title_highlight %}
+                  {{ article.title_highlight|smarttruncatechars:50|safe}}
+                {% else %}
+                  {{ article.title|smarttruncatechars:50|safe}}
+                {% endif %}
+              </h2>
+            </a>
+            <p class="teaser-stacklist__subtitle">
               {{ article.subtitle|smarttruncatechars:50|safe}}
             </p>
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
-              {% trans "Read article" %}
+            <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl article.specific %}">
+              {% trans "Read more" %}
             </a>
           </div>
         </li>

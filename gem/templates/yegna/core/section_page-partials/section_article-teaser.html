@@ -33,13 +33,15 @@
       </ul>
       {% endif %}
 
-      <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
-        {% if article.title_highlight %}
-          {{ article.title_highlight|smarttruncatechars:50|safe}}
-        {% else %}
-          {{ article.title|smarttruncatechars:50|safe}}
-        {% endif %}
-      </h1>
+      <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+        <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
+          {% if article.title_highlight %}
+            {{ article.title_highlight|smarttruncatechars:50|safe}}
+          {% else %}
+            {{ article.title|smarttruncatechars:50|safe}}
+          {% endif %}
+        </h1>
+      </a>
       {% if article.subtitle_highlight or article.body_highlight %}
         <p class="teaser-{{teaser_type}}__subtitle">
           {% if article.subtitle_highlight %}

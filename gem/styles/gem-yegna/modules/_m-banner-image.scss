@@ -1,19 +1,29 @@
 .banner {
   $block: unquote("#{&}");
-  background: #fff url('/static/img/patterns/yegna/cloudy_bg.png') repeat center/100%;
-  color: $color-violet;
+  background: #6cf8fc;
+  color: #000;
   font-size: $font-medium;
   overflow: hidden;
   position: relative;
   width: 100%;
+  @include for-size(tablet-portrait-up) {
+    background: #fff url('/static/img/patterns/yegna/cloudy_bg.png') repeat center/100%;
+    color: $color-violet;
+  }
   &__item {
     display: block;
     &-link {
-      color: $color-violet;
+      color: #000;
       text-decoration: none;
-      &--text {
+      @include for-size(tablet-portrait-up) {
         color: $color-violet;
+      }
+      &--text {
+        color: #000;
         text-decoration: none;
+        @include for-size(tablet-portrait-up) {
+          color: $color-violet;
+        }
       }
     }
   }

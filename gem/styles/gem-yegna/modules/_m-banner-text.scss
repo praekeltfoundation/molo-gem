@@ -2,25 +2,35 @@
   $block: unquote("#{&}");
   &--text {
     text-align: center;
-    padding: 1em;
+    padding: 0.5em ;
+    @media screen and (min-width: 40.000em) {
+      padding: 1em;
+    }
     @include for-size(tablet-landscape-up) {
       padding: 1em 20%;
     }
     #{$block}__caption {
       display: block;
       visibility: visible;
-      padding: 0 1em;
+      padding: 0 $spacer-half;
+      @media screen and (min-width: 40.000em) {
+        padding: 0 1em;
+      }
     }
     #{$block}__title {
-      color: $color-violet;
+      color: #000;
       font-size: $font-x-small;
       @include for-size(tablet-landscape-up) {
+        color: $color-violet;
         font-size: 1.40em;
       }
     }
     #{$block}__subtitle {
-      color: $color-violet;
+      color: #000;
       font-size: $font-small;
+      @include for-size(tablet-landscape-up) {
+        color: $color-violet;
+      }
     }
   }
 }
