@@ -9,9 +9,15 @@
     </div>
     <div class="contact-page__columns">
       <div class="contact-page__first-column">
-        <div class="heading">
-          <h2 class="heading__subtitle">{{ page.thank_you_text }}</h2>
-        </div>
+        {% if page.thank_you_text %}
+          <div class="heading">
+            <h2 class="heading__subtitle">{{ page.thank_you_text }}</h2>
+          </div>
+        {% else %}
+          <div class="heading">
+            <h2 class="heading__subtitle">{% trans "Thank you, your email has been sent successfully" %}.</h2>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
