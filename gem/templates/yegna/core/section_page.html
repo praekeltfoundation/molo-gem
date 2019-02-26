@@ -111,22 +111,22 @@
                       <!-- INLINE CSS -->
                       {% spaceless %}
                         <style media="screen">
-                          .teaser-accordion-list__{{sec_section|slugify}} + * {
+                          .teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}} + * {
                             height: auto;
                             opacity: 0;
                             display: none;
                             visibility: hidden;
                             transition: visibility 0.2s, opacity 0.5s ease-out;
                           }
-                          .teaser-accordion-list__{{sec_section|slugify}}:checked + * {
+                          .teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}}:checked + * {
                             display: block;
                             visibility: visible;
                             opacity: 1;
                           }
                         </style>
                       {% endspaceless %}
-                      <label for="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
-                      <input type="checkbox" value="accordion" name="accordion" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
+                      <label for="teaser_accordion_{{section|slugify}}-{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
+                      <input type="checkbox" value="accordion" name="accordion" id="teaser_accordion_{{section|slugify}}-{{sec_section|slugify}}" class="teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
                       {% if articles %}
                       <ul class="teaser-stacklist teaser-stacklist--watch">
@@ -218,22 +218,22 @@
                       <!-- INLINE CSS -->
                       {% spaceless %}
                         <style media="screen">
-                          .teaser-accordion-list__{{sec_section|slugify}} + * {
+                          .teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}} + * {
                             height: auto;
                             opacity: 0;
                             display: none;
                             visibility: hidden;
                             transition: visibility 0.2s, opacity 0.5s ease-out;
                           }
-                          .teaser-accordion-list__{{sec_section|slugify}}:checked + * {
+                          .teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}}:checked + * {
                             display: block;
                             visibility: visible;
                             opacity: 1;
                           }
                         </style>
                       {% endspaceless %}
-                      <label for="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
-                      <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
+                      <label for="teaser_accordion_{{section|slugify}}-{{sec_section|slugify}}" class="teaser-accordion-list__anchor">{{sec_section}}</label>
+                      <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{section|slugify}}-{{sec_section|slugify}}" class="teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
                       {% if articles %}
                         <ul class="teaser-stacklist teaser-stacklist--latest">
