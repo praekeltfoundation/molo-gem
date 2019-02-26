@@ -236,17 +236,17 @@
                       <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{sec_section|slugify}}" class="teaser-accordion-list__{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
                       {% if articles %}
-                      <ul class="teaser-stacklist teaser-stacklist--latest">
-                        {% for article in articles %}
-                          {% if article.homepage_media %}
-                            {% for block in article.homepage_media %}
-                              {% with block.value as media %}
-                                {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                              {% endwith %}
-                            {% endfor %}
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
+                        <ul class="teaser-stacklist teaser-stacklist--latest">
+                          {% for article in articles %}
+                            {% if article.homepage_media %}
+                              {% for block in article.homepage_media %}
+                                {% with block.value as media %}
+                                  {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                                {% endwith %}
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
                       {% endif %}
                     </li>
                     {% endfor %}
