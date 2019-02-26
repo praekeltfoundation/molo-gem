@@ -3,14 +3,14 @@
 {% get_settings %}
 
 {% if articles %}
-<div class="article-teaser article-teaser--latest">
-  <div class="heading heading--latest">
+<div class="article-teaser article-teaser--listen">
+  <div class="heading heading--listen">
     <h1 class=" heading__component">
       {% trans "Listen to the Latest episode" %}
     </h1>
   </div>
   <div class="article-teaser__wrapper">
-    <ul class="teaser-stacklist teaser-stacklist--latest">
+    <ul class="teaser-stacklist teaser-stacklist--listen">
       {% for article in articles|slice:":1" %}
         {% for block in article.homepage_media %}
           {% with block.value as media %}

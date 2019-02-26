@@ -18,7 +18,7 @@
       {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
 
         {% if section_path == '/sections/watch/' %}
-          <div class="section-page__columns">
+          <div class="section-page__columns section-page__columns--watch">
             <div class="section-page__first-column">
               <div class="heading heading--video">
                 <h1 class="heading__component">{% trans "Featured episode" %}</h1>
@@ -105,7 +105,7 @@
 
                 {% load_child_sections_for_section section=section as sec_sections %}
                 {% if sec_sections %}
-                  <ul class="teaser-accordion-list">
+                  <ul class="teaser-accordion-list teaser-accordion-list--watch">
                     {% for sec_section in sec_sections %}
                     <li class="teaser-accordion-list__item">
                       <!-- INLINE CSS -->
@@ -161,9 +161,9 @@
             </div>
           </div>
         {% elif section_path == '/sections/listen/' %}
-          <div class="section-page__columns">
-            <div class="section-page__first-column">
-              <div class="heading heading--latest">
+          <div class="section-page__columns section-page__columns--listen">
+            <div class="section-page__first-column section-page__first-column--listen">
+              <div class="heading heading--listen">
                 <h1 class="heading__component">{% trans "Featured episode" %}</h1>
               </div>
               <!--CAN LOAD CHILD PAGES HERE IF PROMOTED VIA SECTION -->
@@ -172,7 +172,7 @@
                 <div class="article-teaser__wrapper">
                   {% load_descendant_articles_for_section section count=1 featured_in_section=True as articles %}
                   {% if articles %}
-                    <ul class="teaser-stacklist teaser-stacklist--latest">
+                    <ul class="teaser-stacklist teaser-stacklist--listen">
                       {% for article in articles %}
                         {% if article.homepage_media %}
                           {% for block in article.homepage_media %}
@@ -187,32 +187,33 @@
                 </div>
               {% endfor %}
             </div>
-            <div class="section-page__second-column">
+            <div class="section-page__second-column section-page__second-column--listen">
               {% for section in sections %}
-                <div class="heading">
-                  <h1 class="heading__subheading">{{section}}</h1>
-                </div>
-                <!--CAN LOAD CHILD SECTION PAGES HERE IF PROMOTED VIA SECTION -->
-                <div class="article-teaser__wrapper">
-                  {% load_descendant_articles_for_section section as articles %}
-                  {% if articles %}
-                    <ul class="teaser-stacklist teaser-stacklist--latest">
-                      {% for article in articles %}
-                        {% if article.homepage_media %}
-                          {% for block in article.homepage_media %}
-                            {% with block.value as media %}
-                              {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                            {% endwith %}
-                          {% endfor %}
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
+                {% load_descendant_articles_for_section section as articles %}
+                {% if articles %}
+                  <div class="heading">
+                    <h1 class="heading__subheading">{{section}}</h1>
+                  </div>
+                  <!--CAN LOAD CHILD SECTION PAGES HERE IF PROMOTED VIA SECTION -->
+                  <div class="article-teaser__wrapper">
+                      <ul class="teaser-stacklist teaser-stacklist--listen">
+                        {% for article in articles %}
+                        <!-- HOMEPAGE MEDIA DOES NOT SEEM TO WORK -->
+                          {% if article.homepage_media %}
+                            {% for block in article.homepage_media %}
+                              {% with block.value as media %}
+                                {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                              {% endwith %}
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                  </div>
+                {% endif %}
 
                 {% load_child_sections_for_section section=section as sec_sections %}
                 {% if sec_sections %}
-                  <ul class="teaser-accordion-list">
+                  <ul class="teaser-accordion-list teaser-accordion-list--listen">
                     {% for sec_section in sec_sections %}
                     <li class="teaser-accordion-list__item">
                       <!-- INLINE CSS -->
@@ -236,7 +237,7 @@
                       <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{section|slugify}}-{{sec_section|slugify}}" class="teaser-accordion-list__{{section|slugify}}-{{sec_section|slugify}}" />
                       {% load_child_articles_for_section sec_section as articles %}
                       {% if articles %}
-                        <ul class="teaser-stacklist teaser-stacklist--latest">
+                        <ul class="teaser-stacklist teaser-stacklist--listen">
                           {% for article in articles %}
                             {% if article.homepage_media %}
                               {% for block in article.homepage_media %}

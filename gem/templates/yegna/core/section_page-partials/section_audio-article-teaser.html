@@ -14,9 +14,11 @@
         <div class="teaser-breadcrumb">
           {% with parent=self.get_parent_section %}
             <ul class="teaser-breadcrumb-list">
-              <li class="teaser-breadcrumb-list__item">
-                <a href="{% pageurl parent.specific %}" class="teaser-breadcrumb-list__anchor">{{parent}}</a>
-              </li>
+              {% if parent != None %}
+                <li class="teaser-breadcrumb-list__item">
+                  <span class="teaser-breadcrumb-list__anchor">{{parent}}</span>
+                </li>
+              {% endif %}
               <li class="teaser-breadcrumb-list__item">
                 <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{self}}</a>
               </li>
