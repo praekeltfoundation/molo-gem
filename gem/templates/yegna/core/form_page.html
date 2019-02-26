@@ -16,7 +16,7 @@
         <form action="{% pageurl page.specific %}" method="POST" class="contact__form" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" class="call-to-action__item call-to-action__item--primary">
+            <input type="submit" value="{% trans 'Submit Message' %}" class="call-to-action__item call-to-action__item--primary">
         </form>
       </div>
       <div class="contact-page__second-column">

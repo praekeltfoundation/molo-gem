@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags forms_tags %}
 {% if footers %}
   <li class="nav-menu-dropdown-list__item  nav-menu-dropdown-list__item--footer">
     <ul class="menu-list">
@@ -7,6 +7,8 @@
         <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
       </li>
       {% endfor %}
+      <li class="menu-list__item">
+        <span class="menu-list__anchor">{% forms_list %}</span></li>
     </ul>
   </li>
 {% endif %}
