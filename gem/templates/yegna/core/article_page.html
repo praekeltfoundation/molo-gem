@@ -13,30 +13,31 @@
 
   <div class="article-page__wrapper">
     {% if page.homepage_media %}
-      {{page.homepage_media}}
-      {% with block.value as media %}
-        <div class="teaser-stacklist__images">
-          {% if block.value.youtube_link %}
-            {% embed media.youtube_link %}
-          {% elif block.value.type == 'video' %}
-            <div class="media-player__embed">
-              <video poster="/media/{{ media.thumbnail }}" controls>
-                <source src={{media.file.url}} type="video/mp4">
-                <source src={{media.file.url}} type="video/webm">
-                <source src={{media.file.url}} type="video/ogg">
-                <span class="media-player__caption">
-                  {% trans "Your browser does not support the video tag." %}
-                </span>
-              </video>
-            </div>
-          {% else %}
-              {% if self.get_effective_image %}
-                {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-              {% endif %}
-          {% endif %}
-        </div>
-      {% endwith %}
+      {% for block in page.homepage_media %}
+        {% with block.value as media %}
+          <div class="teaser-stacklist__images">
+            {% if block.value.youtube_link %}
+              {% embed media.youtube_link %}
+            {% elif block.value.type == 'video' %}
+              <div class="media-player__embed">
+                <video poster="/media/{{ media.thumbnail }}" controls>
+                  <source src={{media.file.url}} type="video/mp4">
+                  <source src={{media.file.url}} type="video/webm">
+                  <source src={{media.file.url}} type="video/ogg">
+                  <span class="media-player__caption">
+                    {% trans "Your browser does not support the video tag." %}
+                  </span>
+                </video>
+              </div>
+            {% else %}
+                {% if self.get_effective_image %}
+                  {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                  <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                {% endif %}
+            {% endif %}
+          </div>
+        {% endwith %}
+      {% endfor %}
     {% endif %}
 
     {% load_tags_for_article self as tags %}
