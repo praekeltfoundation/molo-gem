@@ -10,8 +10,10 @@
       <h1 class="heading__title">{{self.title}}</h1>
     </div>
   </div>
+
   <div class="article-page__wrapper">
     {% if page.homepage_media %}
+      {{page.homepage_media}}
       {% with block.value as media %}
         <div class="teaser-stacklist__images">
           {% if block.value.youtube_link %}
@@ -28,19 +30,10 @@
               </video>
             </div>
           {% else %}
-            {% if page.image %}
-              <div class="article-page__images">
-                {% image page.image width-1080 class="article-page__thumbnail" %}
-              </div>
-            {% endif %}
-            {% if article.get_effective_image %}
-            <div class="teaser-stacklist__images">
-              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-              </a>
-            </div>
-            {% endif %}
+              {% if self.get_effective_image %}
+                {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+              {% endif %}
           {% endif %}
         </div>
       {% endwith %}
@@ -65,6 +58,7 @@
     <h1 class="heading__title">{{ page.title}}</h1>
     <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
     <article class="article">
+
       {% for block in self.body %}
         {% if block.block_type == 'heading' %}
           <h3 class="heading__headline">{{ block.value }}</h3>

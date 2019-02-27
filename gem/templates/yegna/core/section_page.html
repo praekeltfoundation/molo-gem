@@ -9,15 +9,28 @@
       </div>
     </div>
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
-      {% if ancestor.specific %}{% pageurl ancestor.specific as section_path %}
-      {% elif parent.specific %}{% pageurl parent.specific as section_path %}
-      {% elif self.specific %}{% pageurl self.specific as section_path %}{% endif %}
+      {% comment %}
+        {% if ancestor.specific %}{% pageurl ancestor.specific as section_path %}
+        {% elif parent.specific %}{% pageurl parent.specific as section_path %}
+        {% elif self.specific %}{% pageurl self.specific as section_path %}{% endif %}
+      {% endcomment %}
 
       {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
       {% elif parent %}{% load_child_sections_for_section parent as sections %}
       {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
 
-        {% if section_path == '/sections/watch/' %}
+        {{ancestor.get_main_language_page.title}}<br/>
+        {{parent.get_main_language_page.title}}<br/>
+        {{self.get_main_language_page.title}}<br/>
+
+        {% for section in sections %}
+          <br/>
+
+          ==>{{section.get_main_language_page.title}}
+
+
+        {% if section.get_main_language_page.title == "Watch" %}
+
           <div class="section-page__columns section-page__columns--watch">
             <div class="section-page__first-column">
               <div class="heading heading--video">
@@ -76,6 +89,8 @@
                 <div class="heading">
                   <h1 class="heading__subheading">{{section}}</h1>
                 </div>
+
+
                 {% load_child_articles_for_section section as articles %}
                   {% if articles %}
                   <ul class="teaser-stacklist teaser-stacklist--watch">
@@ -160,7 +175,7 @@
               {% endfor %}
             </div>
           </div>
-        {% elif section_path == '/sections/listen/' %}
+        {% elif section.get_main_language_page.title == "Listen" %}
           <div class="section-page__columns section-page__columns--listen">
             <div class="section-page__first-column section-page__first-column--listen">
               <div class="heading heading--listen">
@@ -258,7 +273,7 @@
             </div>
           </div>
         <!-- START OTHER -->
-        {% elif section_path == '/sections/cast/' %}
+        {% elif section.get_main_language_page.title == "Cast" %}
           <div class="section-page__wrapper section-page--characters">
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
@@ -274,7 +289,7 @@
               </div>
             </div>
           </div>
-        {% elif section_path == '/sections/news/' %}
+        {% elif section.get_main_language_page.title == "News" %}
           <div class="section-page--general section-page__wrapper">
             <div class="article-teaser article-teaser--general">
               <div class="article-teaser__wrapper">
@@ -292,6 +307,7 @@
           </div>
         {% endif %}
         <!-- END OTHER -->
+        {% endfor %}
 
     {% endwith %}
   </div>
