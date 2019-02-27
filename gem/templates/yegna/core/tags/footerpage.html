@@ -1,7 +1,17 @@
 {% load wagtailcore_tags forms_tags %}
 {% if footers %}
   <li class="nav-menu-dropdown-list__item  nav-menu-dropdown-list__item--footer">
-    <ul class="menu-list">
+    <ul class="menu-list menu-list--header">
+      {% for page in footers %}
+      {% if page.show_in_menus == True %}
+        <li class="menu-list__item">
+          <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <ul class="menu-list menu-list--footer">
       {% for page in footers %}
       <li class="menu-list__item">
         <a href="{% pageurl page.specific %}" class="menu-list__anchor">{{page.title}}</a>
