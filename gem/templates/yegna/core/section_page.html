@@ -9,15 +9,24 @@
       </div>
     </div>
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
+
       {% if ancestor.specific %}{% pageurl ancestor.specific as section_path %}
       {% elif parent.specific %}{% pageurl parent.specific as section_path %}
       {% elif self.specific %}{% pageurl self.specific as section_path %}{% endif %}
 
+
       {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
       {% elif parent %}{% load_child_sections_for_section parent as sections %}
       {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
+      {% comment %}
+        {% for section in sections %}
+          {% if section_path.get_main_language_page.title == "Watch" %}
+          {% endif %}
+        {% endfor %}
+      {% endcomment %}
 
-        {% if section_path == '/sections/watch/' %}
+        {% if section_path == "/sections/watch/" %}
+
           <div class="section-page__columns section-page__columns--watch">
             <div class="section-page__first-column">
               <div class="heading heading--video">
@@ -76,6 +85,7 @@
                 <div class="heading">
                   <h1 class="heading__subheading">{{section}}</h1>
                 </div>
+
                 {% load_child_articles_for_section section as articles %}
                   {% if articles %}
                   <ul class="teaser-stacklist teaser-stacklist--watch">
@@ -160,7 +170,7 @@
               {% endfor %}
             </div>
           </div>
-        {% elif section_path == '/sections/listen/' %}
+        {% elif section_path == "/sections/listen/" %}
           <div class="section-page__columns section-page__columns--listen">
             <div class="section-page__first-column section-page__first-column--listen">
               <div class="heading heading--listen">
@@ -257,8 +267,10 @@
               {% endfor %}
             </div>
           </div>
+
         <!-- START OTHER -->
-        {% elif section_path == '/sections/cast/' %}
+        {% elif section_path == "/sections/cast/" %}
+
           <div class="section-page__wrapper section-page--characters">
             <div class="article-teaser article-teaser--sidebar">
               <div class="article-teaser__wrapper">
@@ -274,22 +286,27 @@
               </div>
             </div>
           </div>
-        {% elif section_path == '/sections/news/' %}
+
+        {% elif section_path == "/sections/news/" %}
+
           <div class="section-page--general section-page__wrapper">
             <div class="article-teaser article-teaser--general">
               <div class="article-teaser__wrapper">
-                <ul class="teaser-stacklist">
-                  <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
-                  {% load_child_articles_for_section self as articles %}
-                  {% if articles %}
-                    {% for article in articles %}
-                      {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
-                    {% endfor %}
-                  {% endif %}
-                </ul>
+
+                  <ul class="teaser-stacklist">
+                    <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
+                    {% load_child_articles_for_section self as articles %}
+                    {% if articles %}
+                      {% for article in articles %}
+                        {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
+                      {% endfor %}
+                    {% endif %}
+                  </ul>
+
               </div>
             </div>
           </div>
+
         {% endif %}
         <!-- END OTHER -->
 

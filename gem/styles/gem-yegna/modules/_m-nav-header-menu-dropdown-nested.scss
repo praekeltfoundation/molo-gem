@@ -11,6 +11,10 @@
   @include for-size(tablet-landscape-up) {
     text-align: left;
   }
+  span.menu-list__anchor {
+    display: none;
+    visibility: none;
+  }
   &__anchor {
     color: #000;
     font-size: $font-x-medium;
@@ -32,42 +36,5 @@
   //LISTED HERE TO CASCADE
   &__item {
     display: block;
-  }
-}
-
-//FOOTER MENU
-.footer {
-  .menu-list {
-    text-align: center;
-    @include for-size(tablet-landscape-up) {
-      text-align: left;
-    }
-    &__item {
-      display: block;
-      @media screen and (min-width: 45.000em) {
-        padding: $spacer-small $spacer-half $spacer-small 0;
-        display: inline-block;
-      }
-      &:active, &:hover, &:focus {
-        color: #000;
-        text-decoration: underline;
-      }
-    }
-    &__anchor {
-      color: #000 !important;
-      padding: $spacer-small;
-    }
-    span {
-      &:active, &:hover, &:focus {
-        text-decoration: none;
-      }
-      a {
-        color: #000 !important;
-        padding: $spacer-small;
-        &:active, &:hover, &:focus {
-          text-decoration: underline;
-        }
-      }
-    }
   }
 }

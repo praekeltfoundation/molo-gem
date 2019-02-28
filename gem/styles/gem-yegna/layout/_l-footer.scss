@@ -13,4 +13,35 @@
     justify-content: space-between;
     padding: 3em 8%;
   }
+
+  //FOOTER MENU
+  .menu-list {
+    &--header {
+      display: none;
+      visibility: hidden;
+    }
+    &--footer {
+      display: block;
+      visibility: visible;
+    }
+    text-align: center;
+    @include for-size(tablet-landscape-up) {
+      text-align: left;
+    }
+    &__item {
+      display: block;
+      @media screen and (min-width: 45.000em) {
+        padding: $spacer-small $spacer-half $spacer-small 0;
+        display: inline-block;
+      }
+    }
+    &__anchor {
+      color: #000 !important;
+      padding: $spacer-small;
+      &:active, &:hover, &:focus {
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+  }
 }
