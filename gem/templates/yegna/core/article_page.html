@@ -3,15 +3,63 @@
 {% get_settings %}
 
 {% block content %}
+{% get_translation self.get_parent_section.get_parent_section.get_parent_section as ancestor %}
+{% get_translation self.get_parent_section.get_parent_section as parent %}
 {% get_translation self.get_parent_section as section %}
 <div class="article-page">
   <div class="banner">
     <div class="heading heading--hero">
-      <h1 class="heading__title">{{self.title}}</h1>
+      <h1 class="heading__title">{{section.title}}</h1>
     </div>
   </div>
 
   <div class="article-page__wrapper">
+    {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+      <div class="teaser-breadcrumb">
+        <ul class="teaser-breadcrumb-list">
+          {% if parent != None %}
+            <li class="teaser-breadcrumb-list__item">
+              <span class="teaser-breadcrumb-list__anchor">{{parent}}</span>
+            </li>
+          {% endif %}
+          {% if section != None %}
+            <li class="teaser-breadcrumb-list__item">
+              <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{section}}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      <h1 class="heading__subheading heading__subheading--watch">{{ page.title}}</h1>
+      <div class="call-to-action call-to-action--watch call-to-action--media-download">
+        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+          {% trans "Download Video" %}
+          <span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+        </a>
+      </div>
+    {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+      <div class="teaser-breadcrumb">
+        <ul class="teaser-breadcrumb-list">
+          {% if parent != None %}
+            <li class="teaser-breadcrumb-list__item">
+              <span class="teaser-breadcrumb-list__anchor">{{parent}}</span>
+            </li>
+          {% endif %}
+          {% if section != None %}
+            <li class="teaser-breadcrumb-list__item">
+              <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{section}}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      <h1 class="heading__subheading heading__subheading--listen">{{ page.title}}</h1>
+      <div class="call-to-action call-to-action--listen call-to-action--media-download">
+        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+          {% trans "Download Audio" %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+        </a>
+        <div class="social-media">{% social_media_article %}</div>
+      </div>
+    {% endif %}
+
     {% if page.homepage_media %}
       {% for block in page.homepage_media %}
         {% with block.value as media %}
@@ -29,15 +77,22 @@
                   </span>
                 </video>
               </div>
-            {% else %}
-                {% if self.get_effective_image %}
-                  {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                  <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-                {% endif %}
             {% endif %}
           </div>
         {% endwith %}
       {% endfor %}
+    {% else %}
+      {% if self.get_effective_image %}
+        {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+        <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+      {% endif %}
+    {% endif %}
+
+    {% if section.get_main_language_page.title == "News" or section.get_main_language_page.title == "Cast" %}
+      <div class="heading heading--macro">
+        <h1 class="heading__title">{{ page.title}}</h1>
+      </div>
+      <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
     {% endif %}
 
     {% load_tags_for_article self as tags %}
@@ -56,10 +111,8 @@
         {% endif %}
       {% endif %}
     </ul>
-    <h1 class="heading__title">{{ page.title}}</h1>
-    <h3 class="heading__subtitle">{{ page.subtitle}}</h3>
-    <article class="article">
 
+    <article class="article">
       {% for block in self.body %}
         {% if block.block_type == 'heading' %}
           <h3 class="heading__headline">{{ block.value }}</h3>
@@ -75,7 +128,7 @@
                   <div class="media-player__embed">
                     {% embed media.youtube_link %}
                   </div>
-                  <div class="media-player__excerpt">
+                  <div class="media-player__download">
                     <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                       {% trans "Download Video" %}
                     </a>
@@ -109,7 +162,7 @@
                       </span>
                     </video>
                   </div>
-                  <div class="media-player__excerpt">
+                  <div class="media-player__download">
                     <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                       {% trans "Download Video" %}
                     </a>
@@ -141,7 +194,7 @@
                       </span>
                   </audio>
                 </div>
-                <div class="media-player__excerpt">
+                <div class="media-player__download">
                   <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                     {% trans "Download Audio" %}
                   </a>

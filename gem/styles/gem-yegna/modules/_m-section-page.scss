@@ -1,4 +1,5 @@
 .section-page {
+  $block: unquote("#{&}");
   &__wrapper {
     padding: 1.5em 1em 1.5em 2em;
     @include for-size(tablet-portrait-up) {
@@ -51,7 +52,7 @@
     &--listen {
       .teaser-stacklist--listen {
         .teaser-stacklist__item {
-          background-color: $color-gray-light;
+          background-color: $color-light-gray;
           &--inner {
             background-color: #fff;
             clear: both;
@@ -126,6 +127,22 @@
       &__thumbnail {
         @include for-size(tablet-landscape-up) {
           width: 100%;
+        }
+      }
+    }
+  }
+  @each $name, $color in $color_loop {
+    &--#{$name} {
+      #{$block}__first-column,
+      #{$block}__second-column {
+        .teaser-stacklist--watch .teaser-stacklist__container {
+          background-color: $color;
+        }
+        .teaser-accordion-list--watch .teaser-accordion-list__anchor,
+        .teaser-accordion-list--listen .teaser-accordion-list__anchor {
+          &:active, &:hover, &:focus {
+            background-color: $color;
+          }
         }
       }
     }
