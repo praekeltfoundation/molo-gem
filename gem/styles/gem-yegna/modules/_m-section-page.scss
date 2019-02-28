@@ -133,9 +133,16 @@
   }
   @each $name, $color in $color_loop {
     &--#{$name} {
-      #{$block}__first-column {
+      #{$block}__first-column,
+      #{$block}__second-column {
         .teaser-stacklist--watch .teaser-stacklist__container {
           background-color: $color;
+        }
+        .teaser-accordion-list--watch .teaser-accordion-list__anchor,
+        .teaser-accordion-list--listen .teaser-accordion-list__anchor {
+          &:active, &:hover, &:focus {
+            background-color: $color;
+          }
         }
       }
     }

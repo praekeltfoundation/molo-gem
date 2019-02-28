@@ -17,7 +17,7 @@
               <div class="media-player__embed">
                 {% embed media.youtube_link %}
               </div>
-              <div class="media-player__excerpt">
+              <div class="media-player__download">
                 <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                   {% trans "Download Video" %}
                 </a>
@@ -51,7 +51,7 @@
                   </span>
                 </video>
               </div>
-              <div class="media-player__excerpt">
+              <div class="media-player__download">
                 <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                   {% trans "Download Video" %}
                 </a>
@@ -83,7 +83,7 @@
                   </span>
               </audio>
             </div>
-            <div class="media-player__excerpt">
+            <div class="media-player__download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                 {% trans "Download Audio" %}
               </a>
@@ -117,6 +117,6 @@
       {% endif %}
     {% endfor %}
     </article>
-    
+
   </div>
 {% endblock %}

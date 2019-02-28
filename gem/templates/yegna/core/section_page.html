@@ -76,9 +76,9 @@
                 {% load_child_articles_for_section section as articles %}
                   <ul class="teaser-stacklist teaser-stacklist--watch">
                     {% for article in articles %}
-                      {% if article.homepage_media %}
-                        {% for block in article.homepage_media %}
-                          <li class="teaser-stacklist__item">
+                      <li class="teaser-stacklist__item">
+                        {% if article.homepage_media %}
+                          {% for block in article.homepage_media %}
                             {% with block.value as media %}
                               <div class="teaser-stacklist__images">
                                 {% if article.get_effective_image %}
@@ -90,15 +90,22 @@
                                   </div>
                                 {% endif %}
                               </div>
-                              {% include "core/section_page-partials/section_video-article-teaser.html" %}
                             {% endwith %}
-                          </li>
-                        {% endfor %}
-                      {% endif %}
+                          {% endfor %}
+                        {% elif article.get_effective_image %}
+                          <div class="teaser-stacklist__images">
+                            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                              {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                      </li>
                     {% endfor %}
                   </ul>
                 {% load_child_sections_for_section section=section as inner_sections %}
-                    <ul class="teaser-accordion-list teaser-accordion-list--watch">
+                  <ul class="teaser-accordion-list teaser-accordion-list--watch">
                       {% for inner_section in inner_sections %}
                         <li class="teaser-accordion-list__item">
                           <!-- INLINE CSS -->
@@ -124,10 +131,9 @@
                           {% if articles %}
                             <ul class="teaser-stacklist teaser-stacklist--watch">
                               {% for article in articles %}
-                              {{article}}
-                                {% if article.homepage_media %}
-                                  {% for block in article.homepage_media %}
-                                    <li class="teaser-stacklist__item">
+                                <li class="teaser-stacklist__item">
+                                  {% if article.homepage_media %}
+                                    {% for block in article.homepage_media %}
                                       {% with block.value as media %}
                                         <div class="teaser-stacklist__images">
                                           {% if article.get_effective_image %}
@@ -139,17 +145,24 @@
                                             </div>
                                           {% endif %}
                                         </div>
-                                        {% include "core/section_page-partials/section_video-article-teaser.html" %}
                                       {% endwith %}
-                                    </li>
-                                  {% endfor %}
-                                {% endif %}
+                                    {% endfor %}
+                                  {% elif article.get_effective_image %}
+                                      <div class="teaser-stacklist__images">
+                                        <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                        </a>
+                                      </div>
+                                  {% endif %}
+                                  {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                                </li>
                               {% endfor %}
                             </ul>
                           {% endif %}
                         </li>
                       {% endfor %}
-                    </ul>
+                  </ul>
             {% endfor %}
           </div>
         </div>
