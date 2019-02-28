@@ -51,7 +51,7 @@
     &--listen {
       .teaser-stacklist--listen {
         .teaser-stacklist__item {
-          background-color: $color-gray-light;
+          background-color: $color-light-gray;
           &--inner {
             background-color: #fff;
             clear: both;
@@ -127,6 +127,16 @@
         @include for-size(tablet-landscape-up) {
           width: 100%;
         }
+      }
+    }
+  }
+
+
+
+  @each $name, $color in $color_loop {
+    &--#{$name} {
+      .teaser-stacklist--watch .teaser-stacklist__container {
+        background-color: $color;
       }
     }
   }

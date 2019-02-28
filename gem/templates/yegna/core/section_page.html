@@ -2,12 +2,16 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags %}
 
 {% block content %}
-  <div class="section-page">
+  <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     <div class="banner">
       <div class="heading heading--hero">
         <h1 class="heading__title">{{self.title}}</h1>
       </div>
     </div>
+    {% load_child_sections_for_section self as sections %}
+
+    {{sections}}
+
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
 
       {% if ancestor.specific %}{% pageurl ancestor.specific as section_path %}
