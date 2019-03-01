@@ -28,21 +28,15 @@ jQuery(document).ready(function (e) {
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
-var stickyHeader = function() {
+  var stickyHeader = function() {
   var header = document.getElementById("header");
-  var content = document.getElementById("content_wrapper");
-
-  console.log(document.getElementById('header').y - window.pageYOffset);
-  console.log(window.scrollY);
-  console.log((document.getElementById('header').clientHeight) + 366.66);
-  console.log(window.innerWidth);
+  var content = document.getElementById("content");
 
   window.addEventListener('scroll', function() {
     var scrollAmount = this.y - window.pageYOffset;
     var scrollPos = window.scrollY;
     var headerHeight = (document.getElementById('header').clientHeight) + 366.66;
-
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 1024) {
       if (scrollAmount > 0 && scrollPos > headerHeight) {
         header.style.transform = "translate3d(0px, 0px, 0px)";
         header.style.position = "fixed";
@@ -60,6 +54,5 @@ var stickyHeader = function() {
 };
 domReady(function() {
   stickyHeader();
-  pluginsSpacingStyle ();
 });
 })();
