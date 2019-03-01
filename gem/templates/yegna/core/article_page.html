@@ -261,9 +261,30 @@
           </ul>
         {% endif %}
         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
-          <div class="social-media">
-            {% social_media_article %}
-          </div>
+          {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+            <div class="social-media social-media--watch">
+              <div class="call-to-action call-to-action--watch call-to-action--media-download">
+                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                  {% trans "Download Video" %}
+                  <span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                </a>
+              </div>
+              {% social_media_article %}
+            </div>
+          {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+            <div class="social-media social-media--listen">
+              <div class="call-to-action call-to-action--listen call-to-action--media-download">
+                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                  {% trans "Download Audio" %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                </a>
+              </div>
+              {% social_media_article %}
+            </div>
+          {% else %}
+            <div class="social-media">
+              {% social_media_article %}
+            </div>
+          {% endif %}
         {% endif %}
         <a href="{{request.GET.next}}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
