@@ -23,8 +23,6 @@
     @include for-size(tablet-landscape-up) {
       padding: 2.5em 8% 0;
     }
-    &--watch {}
-    &--listen {}
   }
   &__first-column {
     width: 100%;
@@ -52,7 +50,6 @@
     @include for-size(tablet-landscape-up) {
       width: 30%;
     }
-    &--watch {}
     &--listen {
       .teaser-stacklist--listen {
         .teaser-stacklist__item {
@@ -139,7 +136,8 @@
     &--#{$name} {
       #{$block}__first-column,
       #{$block}__second-column {
-        .teaser-stacklist--watch .teaser-stacklist__container {
+        .teaser-stacklist--watch .teaser-stacklist__container,
+        .teaser-stacklist--listen .teaser-stacklist__elem-audio {
           background-color: $color;
         }
         .teaser-accordion-list--watch .teaser-accordion-list__anchor,

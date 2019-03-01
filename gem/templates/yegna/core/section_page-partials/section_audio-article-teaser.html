@@ -78,7 +78,7 @@
     </div>
     {% for block in article.homepage_media %}
       {% with block.value as media %}
-        <div class="teaser-stacklist__container--audio">
+        <div class="teaser-stacklist__elem-audio">
           {% if block.value.youtube_link %}
             {% embed media.youtube_link %}
           {% elif block.value.type == 'audio' %}
