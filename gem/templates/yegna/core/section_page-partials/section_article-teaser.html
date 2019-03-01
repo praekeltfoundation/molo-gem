@@ -1,88 +1,64 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
 
-<div class="teaser-stacklist__item--inner">
-  {% if article.get_effective_image %}
-    <div class="teaser-stacklist__images">
-      <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-        {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-        <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+<li class="teaser-{{teaser_type}}__item">
+  <div class="teaser-{{teaser_type}}__item--inner">
+    {% if article.get_effective_image %}
+      <div class="teaser-{{teaser_type}}__images">
+        <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
+        </a>
+      </div>
+    {% endif %}
+
+    <div class="teaser-{{teaser_type}}__container">
+      <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+        <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
+          {% if article.title_highlight %}
+            {{ article.title_highlight|smarttruncatechars:50|safe}}
+          {% else %}
+            {{ article.title|smarttruncatechars:50|safe}}
+          {% endif %}
+        </h1>
+      </a>
+      {% if article.subtitle_highlight or article.body_highlight %}
+        <p class="teaser-{{teaser_type}}__subtitle">
+          {% if article.subtitle_highlight %}
+            {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+          {% elif article.body_highlight %}
+            {{article.body_highlight|smarttruncatechars:50|safe}}
+          {% endif %}
+        </p>
+      {% elif article.subtitle %}
+        <p class="teaser-{{teaser_type}}__subtitle">
+          {{ article.subtitle|smarttruncatechars:50|safe}}
+        </p>
+      {% endif %}
+      {% load_tags_for_article article as tags %}
+      {% if tags %}
+      <ul class="teaser-tags">
+        {% if settings.core.SiteSettings.enable_tag_navigation %}
+          {% for tag in tags %}
+            {% if not tag.title.20 %}
+              <li class="teaser-tags__item">
+                <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                  <span class="teaser-tags__title">{{ tag.title }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% elif settings.core.SiteSettings.enable_clickable_tags %}
+          {% for tag in article.tags_list %}
+            <li class="teaser-tags__item">
+              <span class="teaser-tags__title">{{tag}}</span>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      {% endif %}
+      <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl article %}">
+        {% trans "View all" %}
       </a>
     </div>
-  {% endif %}
-
-  <div class="teaser-{{teaser_type}}__container">
-    <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
-      <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
-        {% if article.title_highlight %}
-          {{ article.title_highlight|smarttruncatechars:50|safe}}
-        {% else %}
-          {{ article.title|smarttruncatechars:50|safe}}
-        {% endif %}
-      </h1>
-    </a>
-    {% if article.subtitle_highlight or article.body_highlight %}
-      <p class="teaser-{{teaser_type}}__subtitle">
-        {% if article.subtitle_highlight %}
-          {{article.subtitle_highlight|smarttruncatechars:50|safe}}
-        {% elif article.body_highlight %}
-          {{article.body_highlight|smarttruncatechars:50|safe}}
-        {% endif %}
-      </p>
-    {% elif article.subtitle %}
-      <p class="teaser-{{teaser_type}}__subtitle">
-        {{ article.subtitle|smarttruncatechars:50|safe}}
-      </p>
-    {% endif %}
-    {% load_tags_for_article article as tags %}
-    {% if tags %}
-    <ul class="teaser-tags">
-      {% if settings.core.SiteSettings.enable_tag_navigation %}
-        {% for tag in tags %}
-          {% if not tag.title.20 %}
-            <li class="teaser-tags__item">
-              <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                <span class="teaser-tags__title">{{ tag.title }}</span>
-              </a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      {% elif settings.core.SiteSettings.enable_clickable_tags %}
-        {% for tag in article.tags_list %}
-          <li class="teaser-tags__item">
-            <span class="teaser-tags__title">{{tag}}</span>
-          </li>
-        {% endfor %}
-      {% endif %}
-    </ul>
-    {% endif %}
-    {% for block in article.homepage_media %}
-      {% with block.value as media %}
-        <div class="teaser-stacklist__container--audio">
-          {% if block.value.youtube_link %}
-            {% embed media.youtube_link %}
-          {% elif block.value.type == 'audio' %}
-          <div class="media-player__embed">
-            <audio controls>
-             <source src={{media.file.url}} type="audio/mpeg">
-             <source src={{media.file.url}} type="audio/ogg">
-             <source src={{media.file.url}} type="audio/wav">
-               <span class="media-player__caption">
-                 {% trans "Your browser does not support the audio tag." %}
-               </span>
-             </audio>
-           </div>
-          {% endif %}
-          <div class="call-to-action call-to-action--media-download">
-            <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-              {% trans "Download Audio" %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
-            </a>
-            <div class="social-media">{% social_media_article %}</div>
-          </div>
-        </div>
-      {% endwith %}
-    {% endfor %}
-    <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl article %}">
-      {% trans "View all" %}
-    </a>
   </div>
-</div>
+</li>
