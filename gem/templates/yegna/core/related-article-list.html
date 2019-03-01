@@ -4,7 +4,7 @@
 {% get_next_article self as next_article %}
 
 {% if next_article and self.get_parent_section.enable_next_section %}
-  <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
+  <div class="article-teaser article-teaser--related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
     <div class="heading">
       <h1 class="heading__subheading">{% trans "Watch next" %}</h1>
     </div>
@@ -74,7 +74,7 @@
 {% if self.get_parent_section.enable_recommended_section %}
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
-    <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
+    <div class="article-teaser article-teaser--related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
       <div class="heading">
         <h1 class="heading__subheading">{% trans "Recommended" %}</h1>
       </div>
