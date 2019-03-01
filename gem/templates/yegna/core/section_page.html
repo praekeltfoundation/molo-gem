@@ -275,41 +275,6 @@
           </div>
         </div>
       {% endif %}
-
-
-      <!-- LOD CHILD SECTION OF THE CURRENT SECTION: -->
-      {% if ancestor %}
-        {% load_child_sections_for_section ancestor as sections %}
-        {% for section in sections %}
-          {#{{section}}#}
-              {% load_child_sections_for_section section=section as inner_sections %}
-              {% for inner_section in inner_sections %}
-                {#{{inner_section}}#}
-              {% endfor %}
-        {% endfor %}
-      {% endif %}
-
-      {% if parent %}
-        {% load_child_sections_for_section parent as sections %}
-        {% for section in sections %}
-            {#{{section}}#}
-              {% load_child_sections_for_section section=section as inner_sections %}
-              {% for inner_section in inner_sections %}
-                {#{{inner_section}}#}
-              {% endfor %}
-        {% endfor %}
-      {% endif %}
-
-      {% if self %}
-        {% load_child_sections_for_section self as sections %}
-        {% for section in sections %}
-          {#{{section}}#}
-            {% load_child_sections_for_section section=section as inner_sections %}
-            {% for inner_section in inner_sections %}
-              {#{{inner_section}}#}
-            {% endfor %}
-        {% endfor %}
-      {% endif %}
     {% endwith %}
   </div>
 {% endblock %}

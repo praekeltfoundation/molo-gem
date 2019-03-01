@@ -6,13 +6,12 @@
 {% get_translation self.get_parent_section.get_parent_section.get_parent_section as ancestor %}
 {% get_translation self.get_parent_section.get_parent_section as parent %}
 {% get_translation self.get_parent_section as section %}
-<div class="article-page">
+<div class="article-page{% if section.get_effective_extra_style_hints %} article-page --{{section.get_effective_extra_style_hints}}{% endif %}">
   <div class="banner">
     <div class="heading heading--hero">
       <h1 class="heading__title">{{section.title}}</h1>
     </div>
   </div>
-
   <div class="article-page__wrapper">
     {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
       <div class="teaser-breadcrumb">
@@ -76,14 +75,27 @@
                   </span>
                 </video>
               </div>
+            {% elif block.value.type == 'audio' %}
+              <div class="media-player__embed">
+                <audio controls>
+                 <source src={{media.file.url}} type="audio/mpeg">
+                 <source src={{media.file.url}} type="audio/ogg">
+                 <source src={{media.file.url}} type="audio/wav">
+                   <span class="media-player__caption">
+                     {% trans "Your browser does not support the audio tag." %}
+                   </span>
+                 </audio>
+               </div>
             {% endif %}
           </div>
         {% endwith %}
       {% endfor %}
     {% else %}
       {% if self.get_effective_image %}
-        {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-        <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+        <div class="teaser-stacklist__images">
+          {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+          <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+        </div>
       {% endif %}
     {% endif %}
 
@@ -95,154 +107,179 @@
     {% endif %}
 
     {% load_tags_for_article self as tags %}
+    {% if tags %}
     <ul class="teaser-tags">
-      {% if tags %}
-        {% if settings.core.SiteSettings.enable_tag_navigation %}
-          {% for tag in tags %}
-            {% if not tag.title.20 %}
-              <li class="teaser-tags__item">
-                <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                  <span class="teaser-tags__title">{{ tag.title }}</span>
-                </a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      {% endif %}
-    </ul>
-
-    <article class="article">
-      {% for block in self.body %}
-        {% if block.block_type == 'heading' %}
-          <h3 class="heading__headline">{{ block.value }}</h3>
-        {% elif block.block_type == 'image' %}
-          <div class="article-page__images--inner">
-            {% image block.value width-480 format-jpeg class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
-          </div>
-        {% elif block.value.youtube_link %}
-          {% with block.value as media %}
-            <div class="media-player">
-              <div class="media-player__wrapper media-player__wrapper--video">
-                {% if not is_via_freebasics %}
-                  <div class="media-player__embed">
-                    {% embed media.youtube_link %}
-                  </div>
-                  <div class="media-player__download">
-                    <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                      {% trans "Download Video" %}
-                    </a>
-                  </div>
-                {% else %}
-                  <div class="media-player__content">
-                    <h4 class="media-player__title">{{media.title}}</h4>
-                    <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon" download>
-                      {% trans 'Click to watch on youtube!' %}
-                    </a>
-                    <h3 class="media-player__subtitle">
-                    {% trans "Media will be played externally in a new window" %}
-                    </h3>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          {% endwith %}
-        {% elif block.value.type == 'video'%}
-          {% with block.value as media %}
-            <div class="media-player">
-              <div class="media-player__wrapper media-player__wrapper--video">
-                {% if not is_via_freebasics %}
-                  <div class="media-player__embed">
-                    <video poster="/media/{{ media.thumbnail }}" controls>
-                      <source src={{media.file.url}} type="video/mp4">
-                      <source src={{media.file.url}} type="video/webm">
-                      <source src={{media.file.url}} type="video/ogg">
-                      <span class="media-player__caption">
-                        {% trans "Your browser does not support the video tag." %}
-                      </span>
-                    </video>
-                  </div>
-                  <div class="media-player__download">
-                    <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                      {% trans "Download Video" %}
-                    </a>
-                  </div>
-                {% else %}
-                  <div class="media-player__content">
-                    <h4 class="media-player__title">{{media.title}}</h4>
-                    <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
-                    <h3 class="media-player__subtitle">
-                      {% trans "Video files will not be played, you can download them" %}
-                    </h3>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          {% endwith %}
-        {% elif block.value.type == 'audio'%}
-          {% with block.value as media %}
-            <div class="media-player">
-              <div class="media-player__wrapper media-player__wrapper--audio">
-                {% if not is_via_freebasics %}
-                <div class="media-player__embed">
-                  <audio controls>
-                    <source src={{media.file.url}} type="audio/mpeg">
-                    <source src={{media.file.url}} type="audio/ogg">
-                    <source src={{media.file.url}} type="audio/wav">
-                      <span class="media-player__caption">
-                        {% trans "Your browser does not support the audio tag." %}
-                      </span>
-                  </audio>
-                </div>
-                <div class="media-player__download">
-                  <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                    {% trans "Download Audio" %}
-                  </a>
-                </div>
-                {% else %}
-                  <div class="media-player__content">
-                    <h4 class="media-player__title">{{media.title}}</h4>
-                    <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
-                    <h3 class="media-player__subtitle">
-                      {% trans "Audio files will not be played, you can download them" %}
-                    </h3>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          {% endwith %}
-        {% elif block.block_type == 'numbered_list' %}
-          <ol class="ordered-list">
-            {% for item in block.value %}
-              <li class="ordered-list__item">{{ item|handle_markdown }}</li>
-            {% endfor %}
-          </ol>
-        {% elif block.block_type == 'list' %}
-          <ul class="unordered-list">
-          {% for item in block.value %}
-            <li class="unordered-list__item">
-              {{ item|handle_markdown }}
+      {% if settings.core.SiteSettings.enable_tag_navigation %}
+        {% for tag in tags %}
+          {% if not tag.title.20 %}
+            <li class="teaser-tags__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                <span class="teaser-tags__title">{{ tag.title }}</span>
+              </a>
             </li>
-          {% endfor %}
-          </ul>
-        {% else %}
-          {{ block }}
-        {% endif %}
-      {% endfor %}
-    </article>
-    {% if settings.core.SiteSettings.enable_clickable_tags %}
-      <ul class="teaser-tags teaser-tags--non-click">
-        {% for tag in self.tags_list %}
-          <li class="teaser-tags__item">
-            <span class="teaser-tags__title">{{tag}}</span>
-          </li>
+          {% endif %}
         {% endfor %}
+      {% endif %}
       </ul>
     {% endif %}
-    {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
-      <div class="social-media">
-        {% social_media_article %}
-      </div>
+
+    {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+        First Columns
+      <div class="article-page__columns">
+        <div class="article-page__first-column">
+    {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+        Second Columns
+      <div class="article-page__columns">
+        <div class="article-page__first-column">
     {% endif %}
-    <a href="{{request.GET.next}}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
+
+        <article class="article">
+          {% for block in self.body %}
+            {% if block.block_type == 'heading' %}
+              <h3 class="heading__headline">{{ block.value }}</h3>
+            {% elif block.block_type == 'image' %}
+              <div class="article-page__images--inner">
+                {% image block.value width-480 format-jpeg class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+              </div>
+            {% elif block.value.youtube_link %}
+              {% with block.value as media %}
+                <div class="media-player">
+                  <div class="media-player__wrapper media-player__wrapper--video">
+                    {% if not is_via_freebasics %}
+                      <div class="media-player__embed">
+                        {% embed media.youtube_link %}
+                      </div>
+                      <div class="media-player__download">
+                        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                          {% trans "Download Video" %}
+                        </a>
+                      </div>
+                    {% else %}
+                      <div class="media-player__content">
+                        <h4 class="media-player__title">{{media.title}}</h4>
+                        <a alt="{% trans 'Click to watch on youtube!' %}" href="{{ media.youtube_link }}" target="_top" class="media-player__icon" download>
+                          {% trans 'Click to watch on youtube!' %}
+                        </a>
+                        <h3 class="media-player__subtitle">
+                        {% trans "Media will be played externally in a new window" %}
+                        </h3>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endwith %}
+            {% elif block.value.type == 'video'%}
+              {% with block.value as media %}
+                <div class="media-player">
+                  <div class="media-player__wrapper media-player__wrapper--video">
+                    {% if not is_via_freebasics %}
+                      <div class="media-player__embed">
+                        <video poster="/media/{{ media.thumbnail }}" controls>
+                          <source src={{media.file.url}} type="video/mp4">
+                          <source src={{media.file.url}} type="video/webm">
+                          <source src={{media.file.url}} type="video/ogg">
+                          <span class="media-player__caption">
+                            {% trans "Your browser does not support the video tag." %}
+                          </span>
+                        </video>
+                      </div>
+                      <div class="media-player__download">
+                        <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                          {% trans "Download Video" %}
+                        </a>
+                      </div>
+                    {% else %}
+                      <div class="media-player__content">
+                        <h4 class="media-player__title">{{media.title}}</h4>
+                        <a alt="{% trans 'Click here to download video' %}" href="{{media.file.url}}" target="_top" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
+                        <h3 class="media-player__subtitle">
+                          {% trans "Video files will not be played, you can download them" %}
+                        </h3>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endwith %}
+            {% elif block.value.type == 'audio'%}
+              {% with block.value as media %}
+                <div class="media-player">
+                  <div class="media-player__wrapper media-player__wrapper--audio">
+                    {% if not is_via_freebasics %}
+                    <div class="media-player__embed">
+                      <audio controls>
+                        <source src={{media.file.url}} type="audio/mpeg">
+                        <source src={{media.file.url}} type="audio/ogg">
+                        <source src={{media.file.url}} type="audio/wav">
+                          <span class="media-player__caption">
+                            {% trans "Your browser does not support the audio tag." %}
+                          </span>
+                      </audio>
+                    </div>
+                    <div class="media-player__download">
+                      <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                        {% trans "Download Audio" %}
+                      </a>
+                    </div>
+                    {% else %}
+                      <div class="media-player__content">
+                        <h4 class="media-player__title">{{media.title}}</h4>
+                        <a alt="{% trans 'Click here to download audio' %}"  href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="media-player__icon" download></a>
+                        <h3 class="media-player__subtitle">
+                          {% trans "Audio files will not be played, you can download them" %}
+                        </h3>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endwith %}
+            {% elif block.block_type == 'numbered_list' %}
+              <ol class="ordered-list">
+                {% for item in block.value %}
+                  <li class="ordered-list__item">{{ item|handle_markdown }}</li>
+                {% endfor %}
+              </ol>
+            {% elif block.block_type == 'list' %}
+              <ul class="unordered-list">
+              {% for item in block.value %}
+                <li class="unordered-list__item">
+                  {{ item|handle_markdown }}
+                </li>
+              {% endfor %}
+              </ul>
+            {% else %}
+              {{ block }}
+            {% endif %}
+          {% endfor %}
+        </article>
+        {% if settings.core.SiteSettings.enable_clickable_tags %}
+          <ul class="teaser-tags teaser-tags--non-click">
+            {% for tag in self.tags_list %}
+              <li class="teaser-tags__item">
+                <span class="teaser-tags__title">{{tag}}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
+          <div class="social-media">
+            {% social_media_article %}
+          </div>
+        {% endif %}
+        <a href="{{request.GET.next}}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
+      {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+          </div>
+          <div class="article-page__second-column">
+            {% include "core/related-article-list.html" %}
+          </div>
+        </div>
+      {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+          </div>
+          <div class="article-page__second-column">
+            {% include "core/related-article-list.html" %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
   </div>
+</div>
 {% endblock %}

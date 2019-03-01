@@ -4,163 +4,40 @@
 {% block content %}
 {% get_translation tag as translated_tag %}
 <div class="tags-page">
-  <div class="tags-page__wrapper">
+  <div class="banner">
     <div class="heading heading--hero">
-      <h1 class="heading__component">{{translated_tag.title}}</h1>
+      <h1 class="heading__title">{{translated_tag.title}}</h1>
     </div>
+  </div>
+  <div class="tags-page__wrapper">
     {% if object_list %}
       <ul class="teaser-stacklist">
         {% for article in object_list %}
-        <li class="teaser-stacklist__item">
-          {% if article.get_effective_image %}
-            <div class="article-teaser__images">
-              <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
-                {% image article.image width-480 format-jpeg as teaser_thumbnail %}
-                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail"/>
-              </a>
-            </div>
-          {% endif %}
-          <div class="article-teaser__container">
-            {% get_comment_count for article as comment_count %}
-            {% load_tags_for_article article as tags %}
-            <ul class="teaser-tags">
-              {% if comment_count > 0 %}
-              <li class="teaser-tags__item">
-                <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
-                  <span class="comments-counter__numeral">{{comment_count}}</span>
-                </a>
-              </li>
-              {% endif %}
-              {% if tags %}
-                {% if settings.core.SiteSettings.enable_tag_navigation %}
-                  {% for tag in tags %}
-                    {% if not tag.title.20 %}
-                      <li class="teaser-tags__item">
-                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                          <span class="teaser-tags__title">{{ tag.title }}</span>
-                        </a>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-                {% elif settings.core.SiteSettings.enable_clickable_tags %}
-                  {% for tag in self.tags_list %}
-                    <li class="teaser-tags__item">
-                      <span class="teaser-tags__title">{{tag}}</span>
-                    </li>
-                  {% endfor %}
-                {% endif %}
-              {% endif %}
-            </ul>
-            <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
-              {% if article.title_highlight %}
-                {{ article.title_highlight|smarttruncatechars:50|safe}}
-              {% else %}
-                {{ article.title|safe}}
-              {% endif %}
-            </h3>
-            {% if article.subtitle_highlight or article.body_highlight %}
-              <p class="article-teaser__subtitle highlight-description">
-                {% if article.subtitle_highlight %}
-                  {{article.subtitle_highlight|smarttruncatechars:50|safe}}
-                {% elif article.body_highlight %}
-                  {{article.body_highlight|smarttruncatechars:50|safe}}
-                {% endif %}
-              </p>
-            {% elif article.subtitle %}
-              <p class="article-teaser__subtitle">
-                {{ article.subtitle|smarttruncatechars:50|safe}}
-              </p>
-            {% endif %}
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
-              {% trans "Read article" %}
-            </a>
-          </div>
-        </li>
+          {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
         {% endfor %}
       </ul>
     {% endif %}
-  </div>
-  {% comment %}  {% endcomment %}
-  <div class="tags-page__wrapper">
-  {% get_next_tag tag as next_tag %}
-  {% get_articles_for_tag next_tag as articles %}
-  {% if next_tag %}
-    {% if articles %}
-      <div class="heading heading--hero">
-        <h1 class="heading__component">{{next_tag.title}}</h1>
-      </div>
-      <ul class="teaser-grid">
-        {% for article in articles %}
-        <li class="teaser-grid__item">
-          {% if article.get_effective_image %}
-          <div class="teaser-grid__images">
-            <a href="{% pageurl article.specific %}" class="article-teaser__anchor">
-              {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-teaser__thumbnail" />
-            </a>
-          </div>
-          {% endif %}
-            {% get_comment_count for article as comment_count %}
-            {% load_tags_for_article article as tags %}
-            <ul class="teaser-tags">
-              {% if comment_count > 0 %}
-              <li class="teaser-tags__item">
-                <a href="{% pageurl article.specific %}?#comments" class="comments-counter">
-                  <span class="comments-counter__numeral">{{comment_count}}</span>
-                </a>
-              </li>
-              {% endif %}
-              {% if tags %}
-                {% if settings.core.SiteSettings.enable_tag_navigation %}
-                  {% for tag in tags %}
-                    {% if not tag.title.20 %}
-                      <li class="teaser-tags__item">
-                        <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                          <span class="teaser-tags__title">{{ tag.title }}</span>
-                        </a>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-                {% elif settings.core.SiteSettings.enable_clickable_tags %}
-                  {% for tag in article.tags_list %}
-                    <li class="teaser-tags__item">
-                      <span class="teaser-tags__title">{{tag}}</span>
-                    </li>
-                  {% endfor %}
-                {% endif %}
-              {% endif %}
-            </ul>
-            <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
-              {% if article.title_highlight %}
-                {{ article.title_highlight|smarttruncatechars:50|safe}}
-              {% else %}
-                {{ article.title|safe}}
-              {% endif %}
-            </h3>
-            {% if article.subtitle_highlight or article.body_highlight %}
-              <p class="article-teaser__subtitle highlight-description">
-                {% if article.subtitle_highlight %}
-                  {{article.subtitle_highlight|smarttruncatechars:50|safe}}
-                {% elif article.body_highlight %}
-                  {{article.body_highlight|smarttruncatechars:50|safe}}
-                {% endif %}
-              </p>
-            {% elif article.subtitle %}
-              <p class="article-teaser__subtitle">
-                {{ article.subtitle|smarttruncatechars:50|safe}}
-              </p>
-            {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-      <a href="{% url 'tags_list' tag.slug %}" class="call-to-action__button call-to-action__button--primary">
-        {% trans "Read All" %} {{next_tag}}
-      </a>
+
+    {% get_next_tag tag as next_tag %}
+    {% get_articles_for_tag next_tag as articles %}
+    {% if next_tag %}
+      {% if articles %}
+        <div class="heading">
+          <h1 class="heading__component">{{next_tag.title}}</h1>
+        </div>
+        <ul class="teaser-grid">
+          {% for article in articles %}
+              {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
+          {% endfor %}
+        </ul>
+        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action_item call-to-action__item--paginate">
+          {% trans "Read All" %} {{next_tag}}
+        </a>
+      {% endif %}
     {% endif %}
-  {% endif %}
+    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--nav-back">
+      {% trans "Back home" %}
+    </a>
   </div>
-  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
-    {% trans "Back home" %}
-  </a>
 </div>
 {% endblock %}
