@@ -55,18 +55,15 @@
                   {% endfor %}
                   </ul>
                 {% endif %}
+
                 {% comment %}
                 <!--
                 TAG DOES NOT SUPPORT FEATURED_IN_SECTION ARGUMENT
                 'load_child_articles_for_section' received unexpected keyword argument 'featured_in_section'
-
-
                 {% get_next_article next_article as other_next_articles %}
                 {{other_next_articles}}>
-
                 -->
                 {% endcomment %}
-
                 {% load_descendant_articles_for_section self count=2 featured_in_section=True as next_articles %}
                 {% if self.get_parent_section.enable_next_section == True and next_articles %}
                   <div class="article-teaser article-teaser--related">
@@ -74,7 +71,6 @@
                       <h1 class="heading__title">{% trans "Watch next" %}</h1>
                     </div>
                     {% for next_article in next_articles %}
-
                       <ul class="teaser-stacklist">
                         <li class="teaser-stacklist__item">
                           {% if next_article.image %}
@@ -130,7 +126,7 @@
                                 </p>
                               {% endif %}
                               <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-                                {% trans "Read more" %}
+                                {% trans "Watch video" %}
                               </a>
                           </div>
                         </li>
@@ -244,12 +240,12 @@
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
         <div class="section-page__columns section-page__columns--listen">
           <div class="section-page__first-column section-page__first-column--listen">
-            <div class="heading heading--listen">
-              <h1 class="heading__component">{% trans "Featured episode" %}</h1>
-            </div>
-            {% load_child_articles_for_section self count=1 as articles %}
-            {% if articles %}
-              <div class="article-teaser__wrapper">
+            <div class="article-teaser__wrapper">
+              <div class="heading heading--listen">
+                <h1 class="heading__component">{% trans "Featured episode" %}</h1>
+              </div>
+              {% load_child_articles_for_section self count=1 as articles %}
+              {% if articles %}
                   <ul class="teaser-stacklist teaser-stacklist--listen">
                     {% for article in articles %}
                       <li class="teaser-stacklist__item">
@@ -257,8 +253,23 @@
                       </li>
                     {% endfor %}
                   </ul>
-              </div>
-            {% endif %}
+              {% endif %}
+              {% load_descendant_articles_for_section self count=2 featured_in_section=True as articles %}
+              {% if self.get_parent_section.enable_next_section == True and articles %}
+                <div class="article-teaser article-teaser--related">
+                  <div class="heading">
+                    <h1 class="heading__title">{% trans "Listen next" %}</h1>
+                  </div>
+                  <ul class="teaser-stacklist teaser-stacklist--listen">
+                    {% for article in articles %}
+                      <li class="teaser-stacklist__item">
+                        {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
           </div>
           <div class="section-page__second-column section-page__second-column--listen">
             {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
@@ -330,6 +341,23 @@
                       {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="stacklist" %}
                     {% endfor %}
                 </ul>
+                {% if articles and articles_paginated.paginator.num_pages > 1 %}
+                  <div class="pagination">
+                    {% if articles_paginated.has_previous %}
+                      <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                        {% trans "Previous" %}
+                      </a>
+                    {% endif %}
+                    <p class="call-to-action__item call-to-action__item--text">
+                      {% trans "Page" %} {{ articles_paginated.number }} {% trans "of" %} {{articles_paginated.paginator.num_pages }}
+                    </p>
+                    {% if articles_paginated.has_next %}
+                      <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                        {% trans "Newer" %}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
               {% endif %}
             </div>
           </div>
