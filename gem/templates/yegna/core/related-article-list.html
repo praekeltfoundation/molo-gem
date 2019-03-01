@@ -1,12 +1,12 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags comments gem_tags %}
+
 {% get_translation self.get_parent_section as section %}
 {% get_next_article self as next_article %}
+
 {% if next_article and self.get_parent_section.enable_next_section %}
   <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-    <div class="banner">
-      <div class="heading heading--hero">
-        <h1 class="heading__title">{% trans "Watch next" %}</h1>
-      </div>
+    <div class="heading">
+      <h1 class="heading__subheading">{% trans "Watch next" %}</h1>
     </div>
     <ul class="teaser-stacklist">
       <li class="teaser-stacklist__item">
@@ -62,7 +62,7 @@
               {{ next_article.subtitle|smarttruncatechars:50|safe}}
             </p>
           {% endif %}
-          <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl next_article.specific %}">
+          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
             {% trans "Read more" %}
           </a>
         </div>
@@ -75,10 +75,8 @@
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
     <div class="article-teaser article-teaser-related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-      <div class="banner">
-        <div class="heading heading--hero">
-          <h1 class="heading__title">{% trans "Recommended" %}</h1>
-        </div>
+      <div class="heading">
+        <h1 class="heading__subheading">{% trans "Recommended" %}</h1>
       </div>
       <ul class="teaser-stacklist">
         {% for article in recommended_articles %}
@@ -113,7 +111,7 @@
                 {% endif %}
               {% endif %}
             </ul>
-            <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
               <h2 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
                 {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:50|safe}}
@@ -125,7 +123,7 @@
             <p class="teaser-stacklist__subtitle">
               {{ article.subtitle|smarttruncatechars:50|safe}}
             </p>
-            <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl article.specific %}">
+            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
               {% trans "Read more" %}
             </a>
           </div>

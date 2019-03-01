@@ -1,4 +1,55 @@
 .article-page {
+  $block: unquote("#{&}");
+  .social-media {
+    background: $color-light-gray;
+    padding: 1em;
+    float: none;
+    width: 100%;
+    &-list__item {
+      @include for-size(tablet-landscape-up)  {
+        float: right;
+      }
+      &:first-child {
+        @include for-size(tablet-landscape-up)  {
+          float: left;
+        }
+      }
+    }
+    &--watch, &--listen {
+      display: inline-block;
+      .social-media-list {
+        display: inline-block;
+        @include for-size(tablet-landscape-up)  {
+          float: right;
+          margin: 0.5em 0 0;
+        }
+      }
+    }
+    .call-to-action--media-download {
+      display: inline-block;
+      margin: 0;
+    }
+  }
+  .heading__subheading--watch,
+  .heading__subheading--listen  {
+    color: #000;
+  }
+
+  .teaser-breadcrumb {
+    text-align: center;
+    padding: 1em 0 2em;
+    &-list__anchor {
+      font-size: $font-small;
+    }
+  }
+  .teaser-stacklist__images {
+    margin: 1em 0 0;
+  }
+  .call-to-action--watch,
+  .call-to-action--listen, {
+    text-align: center;
+    margin: 1em 0 2em;
+  }
   &__wrapper {
     @include pages();
   }
@@ -18,40 +69,36 @@
       width: 860px;
     }
   }
-  .social-media {
-    background: $color-light-gray;
-    padding: 1em;
-    float: none;
-    width: 100%;
-    &-list__item {
-      @include for-size(tablet-landscape-up)  {
-        float: right;
+  &__columns {
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+    #{$block}__first-column {
+      @include for-size(tablet-landscape-up) {
+        width: 100%;
+        margin: 0 5% 0 0;
       }
-      &:first-child {
-        @include for-size(tablet-landscape-up)  {
-          float: left;
+    }
+    #{$block}__second-column {
+      @include for-size(tablet-landscape-up) {
+        width: 35%;
+      }
+      .teaser-stacklist__images {
+        margin: 1em 0 0;
+      }
+      .teaser-stacklist__container {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  @each $name, $color in $color_loop {
+    &--#{$name} {
+      #{$block}__second-column {
+        .teaser-stacklist__container {
+          background-color: $color;
         }
       }
     }
-  }
-  .heading__subheading--watch,
-  .heading__subheading--listen  {
-    color: #000;
-  }
-
-  .teaser-breadcrumb {
-    text-align: center;
-    padding: 1em 0 2em;
-    &-list__anchor {
-      font-size: $font-small;
-    }
-  }
-  .teaser-stacklist__images {
-    margin: 1em 0;
-  }
-  .call-to-action--watch,
-  .call-to-action--listen, {
-    text-align: center;
-    margin: 1em 0 2em;
   }
 }

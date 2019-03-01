@@ -1,3 +1,21 @@
 .tags-page {
-  @include pages();
+  &__wrapper {
+    @include for-size(tablet-landscape-up) {
+      @include pages();
+    }
+  }
+  .teaser-stacklist__item--inner {
+    @include for-size(tablet-landscape-up) {
+      padding: 1.5em;
+      display: flex;
+    }
+  }
+  .teaser-grid {
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+    &__item {
+      background-color: transparent;
+    }
+  }
 }
