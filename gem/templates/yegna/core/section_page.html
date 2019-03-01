@@ -182,19 +182,14 @@
               <div class="heading">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
-              {% load_descendant_articles_for_section section as articles %}
+              {% load_child_articles_for_section section as articles %}
               {% if articles %}
                 <div class="article-teaser__wrapper">
                     <ul class="teaser-stacklist teaser-stacklist--listen">
                       {% for article in articles %}
-                      <!-- HOMEPAGE MEDIA DOES NOT SEEM TO WORK -->
-                        {% if article.homepage_media %}
-                          {% for block in article.homepage_media %}
-                            {% with block.value as media %}
-                              {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                            {% endwith %}
-                          {% endfor %}
-                        {% endif %}
+                      <li class="teaser-stacklist__item">
+                        {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="stacklist" %}
+                      </li>
                       {% endfor %}
                     </ul>
                 </div>
@@ -226,13 +221,7 @@
                       {% if articles %}
                         <ul class="teaser-stacklist teaser-stacklist--listen">
                           {% for article in articles %}
-                            {% if article.homepage_media %}
-                              {% for block in article.homepage_media %}
-                                {% with block.value as media %}
-                                  {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                                {% endwith %}
-                              {% endfor %}
-                            {% endif %}
+                            {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="grid" %}
                           {% endfor %}
                         </ul>
                       {% endif %}

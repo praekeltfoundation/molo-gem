@@ -12,8 +12,6 @@
   <div class="article-teaser__wrapper">
     <ul class="teaser-stacklist teaser-stacklist--listen">
       {% for article in articles|slice:":1" %}
-        {% for block in article.homepage_media %}
-          {% with block.value as media %}
           <li class="teaser-stacklist__item">
             <div class="teaser-stacklist__item--inner">
               {% if article.get_effective_image %}
@@ -29,7 +27,6 @@
                     {% get_translation article.get_parent_section as section %}
                     <h3 class="section__title">{{section}}</h3>
                   </div>
-                  {% spaceless %}
                   <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
                     <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
                       {% if article.title_highlight %}
@@ -56,7 +53,6 @@
                     {% endif %}
                   </p>
                 {% endif %}
-                {% endspaceless %}
 
                 {% load_tags_for_article article as tags %}
                 {% if tags %}
@@ -82,32 +78,33 @@
                 {% endif %}
               </div>
             </div>
-              {% comment %} <!-- IF MEDIA | AUDIO | YOUTUBE --> {% endcomment %}
-              <div class="teaser-stacklist__container--audio">
-                {% if block.value.youtube_link %}
-                  {% embed media.youtube_link %}
-                {% elif block.value.type == 'audio' %}
-                <div class="media-player__embed">
-                  <audio controls>
-                   <source src={{media.file.url}} type="audio/mpeg">
-                   <source src={{media.file.url}} type="audio/ogg">
-                   <source src={{media.file.url}} type="audio/wav">
-                     <span class="media-player__caption">
-                       {% trans "Your browser does not support the audio tag." %}
-                     </span>
-                   </audio>
-                 </div>
-                {% endif %}
-                <div class="call-to-action call-to-action--media-download">
-                  <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                    {% trans "Download Audio" %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
-                  </a>
-                  <div class="social-media">{% social_media_article %}</div>
+            {% for block in article.homepage_media %}
+              {% with block.value as media %}
+                <div class="teaser-stacklist__container--audio">
+                  {% if block.value.youtube_link %}
+                    {% embed media.youtube_link %}
+                  {% elif block.value.type == 'audio' %}
+                  <div class="media-player__embed">
+                    <audio controls>
+                     <source src={{media.file.url}} type="audio/mpeg">
+                     <source src={{media.file.url}} type="audio/ogg">
+                     <source src={{media.file.url}} type="audio/wav">
+                       <span class="media-player__caption">
+                         {% trans "Your browser does not support the audio tag." %}
+                       </span>
+                     </audio>
+                   </div>
+                  {% endif %}
+                  <div class="call-to-action call-to-action--media-download">
+                    <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                      {% trans "Download Audio" %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                    </a>
+                    <div class="social-media">{% social_media_article %}</div>
+                  </div>
                 </div>
-              </div>
+              {% endwith %}
+            {% endfor %}
           </li>
-          {% endwith %}
-        {% endfor %}
       {% endfor %}
     </ul>
   </div>
