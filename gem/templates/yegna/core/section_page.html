@@ -238,6 +238,28 @@
         </div>
 
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
+      {% if self.get_main_language_page.title == "Listen" %}
+        {% load_child_sections_for_section self as subsections %}
+          <div class="section-nav">
+            <ul class="section-nav-list">
+              {% for subsection in subsections %}
+                <li class="section-nav-list__item">
+                  <a href="{% pageurl subsection.specific %}" class="section-nav-list__anchor">
+                    {% if subsection.get_effective_image %}
+                      <div class="section-nav-list__images">
+                        {% image subsection.get_effective_image width-480 format-jpeg as subsection_thumbnail %}
+                        <img alt="{{ subsection.title }}" src="{{ subsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
+                      </div>
+                    {% else %}
+                      <div class="section-nav-list__images section-nav-list__images--{{subsection.title|slugify}}"></div>
+                    {% endif %}
+                    <h2 class="section-nav__label">{{subsection.title}}</h2>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+      {% else %}
         <div class="section-page__columns section-page__columns--listen">
           <div class="section-page__first-column section-page__first-column--listen">
             <div class="article-teaser__wrapper">
@@ -265,6 +287,34 @@
                       <li class="teaser-stacklist__item">
                         {% include "core/section_page-partials/section_audio-article-teaser.html" %}
                       </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+            {% load_child_sections_for_section parent as siblingsections %}
+              {% if siblingsections %}
+                <div class="section-nav section-nav--related">
+                  <div class="heading">
+                    <h1 class="heading__title">{% trans "More to listen" %}</h1>
+                  </div>
+                  <ul class="section-nav-list">
+                    {% for siblingsection in siblingsections %}
+                      {% if siblingsection != self %}
+                        <li class="section-nav-list__item">
+                          <a href="{% pageurl siblingsection.specific %}" class="section-nav-list__anchor">
+                            {% if siblingsection.get_effective_image %}
+                              <div class="section-nav-list__images">
+                                {% image siblingsection.get_effective_image width-480 format-jpeg as siblingsection_thumbnail %}
+                                <img alt="{{ siblingsection.title }}" src="{{ siblingsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
+                              </div>
+                            {% else %}
+                              <div class="section-nav-list__images section-nav-list__images--{{siblingsection.title|slugify}}"></div>
+                            {% endif %}
+                            <h2 class="section-nav__label">{{siblingsection.title}}</h2>
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
                 </div>
@@ -328,6 +378,7 @@
             {% endfor %}
           </div>
         </div>
+      {% endif %}
 
       {% elif self.get_main_language_page.title == "News" %}
         <div class="section-page--general section-page__wrapper">
