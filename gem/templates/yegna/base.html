@@ -131,64 +131,31 @@
               <input type="checkbox" value="toggles" name="toggle" id="nav-menu_accordion" class="nav-menu-list__checkbox" />
               <div class="nav-menu-dropdown dropdown-menu">
                 <ul class="nav-menu-dropdown-list">
-                  {% if sections %}
-                    {% for section in sections %}
-                      {% if section %}
-                      <li class="nav-menu-dropdown-list__item">
-                        {% pageurl section.specific as section_type %}
-                        <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
-                        {% load_child_sections_for_section section=section as sec_sections %}
-                        <ul class="menu-list">
-                          {% for sec_section in sec_sections %}
-                            {% if sec_section %}
-                              <li class="menu-list__item">
-                                {% pageurl sec_section.specific as subsection_path %}
-                                <a href="{% pageurl sec_section.specific %}" class="menu-list__anchor">{{sec_section}}</a>
-                              </li>
-                            {% endif %}
-                          {% endfor %}
-                          </ul>
-                            {% if section_path == '/sections/news/' %}
-                             News Section <br/>
-                            {% elif section_path == '/sections/cast/' %}
-                             Cast Section <br/>
-                            {% endif %}
-                      </li>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-                  {% comment %}
-                    {% for section in sections %}
-                      <li class="nav-menu-dropdown-list__item">
-                        {% pageurl section.specific as section_type %}
-                          <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">
-                            {{section.title}}
-                          </a>
-                      </li>
-                    {% endfor %}
-                  {% endcomment %}
+                  {% for section in sections %}
+                    {% if section %}
+                    <li class="nav-menu-dropdown-list__item">
+                      <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
+                      {% load_child_sections_for_section section=section as sec_sections %}
+                      <ul class="menu-list state-list">
+                        {% for sec_section in sec_sections %}
+                          {% if sec_section %}
+                            <li class="menu-list__item state-list__item">
+                              <a href="{% pageurl sec_section.specific %}" class="menu-list__anchor state-list__anchor">{{sec_section}}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
                   {% footer_page %}
                 </ul>
               </div>
             </li>
-            {# IDEALLY THIS NEEDS TO PULL THROUGH VIA: COMMON PAGE CONFIGURATION | Show in menus: #}
             {% for section_page in sections %}
-            {% pageurl section_page.specific as section_path %}
-              {% if section_path == '/sections/watch/' %}
+              {% if section_page.show_in_menus == True %}
                 <li class="nav-menu-list__item">
-                  <a href="{% pageurl section_page.specific %}" id="watch" class="nav-menu-list__anchor">
-                    {{section_page.title}}
-                  </a>
-                </li>
-              {% elif section_path == '/sections/cast/' %}
-                <li class="nav-menu-list__item">
-                  <a href="{% pageurl section_page.specific %}" id="cast" class="nav-menu-list__anchor">
-                    {{section_page.title}}
-                  </a>
-                </li>
-              {% elif section_path == '/sections/listen/' %}
-                <li class="nav-menu-list__item">
-                  <a href="{% pageurl section_page.specific %}" id="listen" class="nav-menu-list__anchor">
+                  <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
                     {{section_page.title}}
                   </a>
                 </li>

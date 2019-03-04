@@ -6,7 +6,7 @@
   &__item {
     background-color: $color-light-gray;
     display: block;
-    margin: 1em 0;
+    margin: 0 0 2em;
     padding: 1.5em;
     text-align: center;
   }
@@ -20,9 +20,12 @@
   &__images {
     margin: 0 auto;
     height: auto;
+    max-width: 270px;
+    overflow: hidden;
     width: 100%;
     @include for-size(tablet-portrait-up) {
-      max-width: 270px;
+      width: 270px;
+      height: 270px;
     }
   }
   &__thumbnail {

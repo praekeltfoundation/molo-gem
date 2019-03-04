@@ -3,30 +3,28 @@
   font-size: $font-large;
   padding: 0  0 1.5em;
   &:before {
-    background: url("/static/img/lines/yegna/divider.png") no-repeat center center / 100%;
+    background: url("/static/img/lines/yegna/divider.png") no-repeat 0 0 / 100%;
     content: "";
     display: block;
-    padding: 1em;
-    @include for-size(tablet-landscape-up)  {
-      background-position: left center;
-      background-size: auto;
-    }
+    margin: 1em 0;
+    height: 15px;
+    width: 100%;
   }
 
   &--hero {
     text-align: center;
+    padding: 1em 0;
     &:before {
-      background: none;
-      content: "";
-      display: block;
+      display: none;
+      visibility: hidden;
     }
   }
   &--macro {
     text-align: left;
+    padding: 1em 0;
     &:before {
-      background: none;
-      content: "";
-      display: block;
+      display: none;
+      visibility: hidden;
     }
   }
   //Watch Category
@@ -51,6 +49,12 @@
   }
   //Cast Category
   &--sidebar-featured {
+    &:before {
+      @include for-size(tablet-landscape-up) {
+        background-position: 0 -35px;
+        background-size: 180%;
+      }
+    }
     #{$block}__component:before {
       height: 30px;
       background: url("/static/img/icons/yegna/icon-characters.svg") no-repeat center center / 100%;
@@ -101,9 +105,9 @@
 
 .banner {
   .heading {
-    padding: 0 1.5em;
+    padding: 1em 1.5em;
     @include for-size(tablet-landscape-up) {
-      padding: 0 15%;
+      padding: 1em 15%;
     }
   }
 }

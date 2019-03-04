@@ -6,7 +6,7 @@
       padding: 1.5em 1em 1.5em 4em;
     }
     @include for-size(tablet-landscape-up) {
-      padding: 2.5em 5% 1em 15%;
+      padding: 2.5em 5% 1em 10%;
     }
   }
   &__columns {
@@ -115,36 +115,56 @@
     .teaser-grid {
       @include for-size(tablet-landscape-up) {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
       }
       &__item {
         background-color: transparent;
         padding: 0;
-      }
-      &__thumbnail {
-        width: auto;
+        margin: 0 1.5em 1em;
         max-width: 360px;
-        max-height: 240px;
+        @include for-size(tablet-portrait-up) {
+          width: 360px;
+        }
+      }
+      &__images {
+        max-width: 360px;
+        @include for-size(tablet-portrait-up) {
+          height: 240px;
+          width: 360px;
+        }
       }
     }
   }
   &--general {
-    .teaser-stacklist {
-      &__item {
+    .teaser-stacklist__item {
+      @include for-size(tablet-landscape-up) {
+        margin: 0 0 3em;
+      }
+      &--inner {
+        width: 100%;
+        overflow: auto;
         @include for-size(tablet-landscape-up) {
-          margin: 1em 0 2em;
+          display: flex;
         }
       }
-      &__images {
-        @include for-size(tablet-landscape-up) {
-          margin: 0 1.5em 0 0;
-          width: 30%;
-        }
+    }
+    .teaser-stacklist__images {
+      @include for-size(tablet-landscape-up) {
+        height: 305px;
+        width: 61%;
       }
-      &__thumbnail {
-        @include for-size(tablet-landscape-up) {
-          width: 100%;
-        }
+    }
+    .teaser-stacklist__thumbnail {
+      width: 460px;
+      max-width: 100%;
+    }
+    .teaser-stacklist__container {
+      @include for-size(tablet-landscape-up) {
+        width: 85%;
+      }
+      .call-to-action__item--paginate {
+        text-align: left;
+        padding: 1em 0;
       }
     }
   }

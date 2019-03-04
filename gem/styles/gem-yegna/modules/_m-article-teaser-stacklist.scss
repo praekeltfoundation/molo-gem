@@ -9,6 +9,7 @@
     vertical-align: top;
     overflow: auto;
     align-items: center;
+    margin: .8em 0;
   }
   &__anchor {
     display: block;
@@ -49,11 +50,21 @@
     margin: 0.67em 0;
   }
   &--watch {
+    iframe,video {
+      @include for-size(tablet-landscape-up) {
+        height: 422px;
+      }
+    }
     #{$block}__thumbnail {
       width: 100%;
     }
     #{$block}__container {
       background: $color-aqua;
+      @each $name, $color in $color_loop {
+        &--#{$name} {
+          background: $color;
+        }
+      }
     }
   }
   &--listen {
@@ -65,19 +76,27 @@
           padding: 1.5em;
           display: flex;
         }
-        .teaser-stacklist__thumbnail {
-          @include for-size(tablet-landscape-up) {
-            max-width: 175px;
-          }
-        }
+      }
+    }
+    #{$block}__images {
+      max-width: 175px;
+      overflow: hidden;
+      @include for-size(tablet-landscape-up) {
+        height: 175px;
+        width: 175px;
       }
     }
     #{$block}__container {
-      &--audio {
-        background: $color-light-red;
-      }
       .section__title {
         color: $color-light-red;
+      }
+    }
+    #{$block}__elem-audio {
+      background: $color-light-red;
+      @each $name, $color in $color_loop {
+        &--#{$name} {
+          background: $color;
+        }
       }
     }
     .teaser-breadcrumb-list__anchor {

@@ -27,9 +27,6 @@
       @include for-size(desktop-up) {
         padding: $spacer-half 1em;
       }
-      &:active, &:hover, &:focus {
-        opacity: 0.8;
-      }
       &:before {
         background-position: center center;
         background-repeat: no-repeat;
@@ -46,9 +43,27 @@
           width: 37px;
         }
       }
+      &:active, &:hover, &:focus {
+        color: $color-dark-green;
+        &:before {
+          opacity: 0.5;
+        }
+      }
+    }
+    .active {
+      color: $color-dark-green;
+      &:before {
+        opacity: 0.5;
+      }
     }
     .open {
       background: #fff;
+      &:active, &:hover, &:focus {
+        color: #000;
+        &:before {
+          opacity: 1;
+        }
+      }
     }
   }
   #menu:before {

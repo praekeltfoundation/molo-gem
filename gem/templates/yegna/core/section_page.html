@@ -236,7 +236,6 @@
             {% endfor %}
           </div>
         </div>
-
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
       {% if self.get_main_language_page.title == "Listen" %}
         {% load_child_sections_for_section self as subsections %}
@@ -381,7 +380,7 @@
       {% endif %}
 
       {% elif self.get_main_language_page.title == "News" %}
-        <div class="section-page--general section-page__wrapper">
+        <div class="section-page__wrapper section-page--general ">
           <div class="article-teaser article-teaser--general">
             <div class="article-teaser__wrapper">
               {% load_child_articles_for_section self as articles %}
