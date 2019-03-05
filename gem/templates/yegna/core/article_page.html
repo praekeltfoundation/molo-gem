@@ -29,15 +29,17 @@
         </ul>
       </div>
       <h1 class="heading__subheading heading__subheading--watch">{{ page.title}}</h1>
-      {% for block in page.homepage_media %}
-        {% with block.value as media %}
-          <div class="call-to-action call-to-action--watch call-to-action--media-download">
-            <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-              {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-            </a>
-          </div>
-      {% endwith %}
-    {% endfor %}
+      {% if page.homepage_media %}
+        {% for block in page.homepage_media %}
+          {% with block.value as media %}
+            <div class="call-to-action call-to-action--watch call-to-action--media-download">
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                {% trans "Download Video" %}
+              </a>
+            </div>
+          {% endwith %}
+        {% endfor %}
+      {% endif %}
     {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
       <div class="teaser-breadcrumb">
         <ul class="teaser-breadcrumb-list">
@@ -54,15 +56,17 @@
         </ul>
       </div>
       <h1 class="heading__subheading heading__subheading--listen">{{ page.title}}</h1>
-      {% for block in page.homepage_media %}
-        {% with block.value as media %}
-          <div class="call-to-action call-to-action--listen call-to-action--media-download">
-            <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-              {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-            </a>
-          </div>
+      {% if page.homepage_media %}
+        {% for block in page.homepage_media %}
+          {% with block.value as media %}
+            <div class="call-to-action call-to-action--listen call-to-action--media-download">
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                {% trans "Download Audio" %}
+              </a>
+            </div>
         {% endwith %}
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     {% endif %}
 
     {% if page.homepage_media %}
@@ -155,7 +159,7 @@
                       </div>
                       <div class="media-player__download">
                         <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                          {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                          {% trans "Download Video" %}
                         </a>
                       </div>
                     {% else %}
@@ -189,7 +193,7 @@
                       </div>
                       <div class="media-player__download">
                         <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                          {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                          {% trans "Download Video" %}
                         </a>
                       </div>
                     {% else %}
@@ -221,7 +225,7 @@
                     </div>
                     <div class="media-player__download">
                       <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                        {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>
+                        {% trans "Download Audio" %}
                       </a>
                     </div>
                     {% else %}
@@ -267,20 +271,32 @@
         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
           {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
             <div class="social-media social-media--watch">
-              <div class="call-to-action call-to-action--watch call-to-action--media-download">
-                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                  {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-                </a>
-              </div>
+              {% if page.homepage_media %}
+                {% for block in page.homepage_media %}
+                  {% with block.value as media %}
+                    <div class="call-to-action call-to-action--watch call-to-action--media-download">
+                      <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                        {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                      </a>
+                    </div>
+                  {% endwith %}
+                {% endfor %}
+              {% endif %}
               {% social_media_article %}
             </div>
           {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
             <div class="social-media social-media--listen">
-              <div class="call-to-action call-to-action--listen call-to-action--media-download">
-                <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                  {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-                </a>
-              </div>
+              {% if page.homepage_media %}
+                {% for block in page.homepage_media %}
+                  {% with block.value as media %}
+                    <div class="call-to-action call-to-action--listen call-to-action--media-download">
+                      <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                        {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                      </a>
+                    </div>
+                  {% endwith %}
+                {% endfor %}
+              {% endif %}
               {% social_media_article %}
             </div>
           {% else %}
