@@ -3,11 +3,11 @@
 
 {% block content %}
   <div class="footer-page">
-    <h1 class="heading__headline">{{self.title}}</h1>
+    <h1 class="heading__title">{{self.title}}</h1>
     <article class="article">
     {% for block in self.body %}
       {% if block.block_type == 'heading' %}
-        <h3 class="heading__micro">{{ block.value }}</h3>
+        <h3 class="heading__subtitle">{{ block.value }}</h3>
       {% elif block.block_type == 'image' %}
         {% image block.value width-480 format-jpeg alt=self.title %}
       {% elif block.value.youtube_link %}

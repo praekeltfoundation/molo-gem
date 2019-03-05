@@ -1,9 +1,9 @@
 .section-page {
   $block: unquote("#{&}");
   &__wrapper {
-    padding: 1.5em 1em 1.5em 2em;
+    padding: 1.5em 2em;
     @include for-size(tablet-portrait-up) {
-      padding: 1.5em 1em 1.5em 4em;
+      padding: 1.5em 4em;
     }
     @include for-size(tablet-landscape-up) {
       padding: 2.5em 5% 1em 10%;
@@ -39,12 +39,13 @@
           }
           .teaser-stacklist__images {
             width: 70%;
+            @media screen and (min-width: 40.000em) {
+              //Fixed sizes
+              max-height: 260px;
+              max-width: 460px;
+            }
             @include for-size(tablet-portrait-up) {
               margin: 0 2em 0 0;
-              max-width: 70%;
-              //Fixed sizes
-              height: 260px;
-              width: 460px;
             }
           }
         }
@@ -52,8 +53,8 @@
     }
   }
   &__first-column {
-    width: 100%;
     @media screen and (min-width: 45.000em) {
+      width: 100%;
       margin: 0 1em 0 0;
     }
     @include for-size(tablet-landscape-up) {
@@ -66,7 +67,7 @@
           //Hero container
           min-height: 290px;
           max-height: 422px;
-          height: 422px;
+          //height: 422px;
         }
       }
       //FIRST COLUMN OVERRIDE
@@ -80,17 +81,18 @@
     }
   }
   &__second-column {
-    @media screen and (min-width: 45.000em) {}
-    @include for-size(tablet-landscape-up) {
-      width: 30%;
+    @media screen and (min-width: 45.000em) {
+      width: 35%;
     }
+
     .teaser-stacklist--watch {
       .teaser-stacklist__images  {
+        min-width: 290px;
         @include for-size(tablet-landscape-up)  {
           //Fixed sizes
-          max-width: 290px;
-          height: 163.13px;
-          width: 290px;
+          //max-width: 290px;
+          max-height: 163.13px;
+          //width: 290px;
         }
       }
       .teaser-stacklist__container {
@@ -118,8 +120,8 @@
                 //Fixed sizes
                 float: left;
                 max-width: 90px;
-                height: 90px;
-                width: 90px;
+                //height: 90px;
+                max-width: 90px;
               }
             }
             .teaser-stacklist__thumbnail {
@@ -146,64 +148,7 @@
     margin: 0;
     text-transform: uppercase;
   }
-  &--characters {
-    .teaser-grid {
-      @include for-size(tablet-landscape-up) {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      &__item {
-        background-color: transparent;
-        padding: 0;
-        margin: 0 1.5em 1em;
-        max-width: 360px;
-        @include for-size(tablet-portrait-up) {
-          width: 360px;
-        }
-      }
-      &__images {
-        @include for-size(tablet-portrait-up) {
-          max-width: 360px;
-          height: 240px;
-          width: 360px;
-        }
-      }
-    }
-  }
-  &--general {
-    .teaser-stacklist__item {
-      @include for-size(tablet-landscape-up) {
-        margin: 0 0 3em;
-      }
-      &--inner {
-        width: 100%;
-        overflow: auto;
-        @include for-size(tablet-landscape-up) {
-          display: flex;
-        }
-      }
-    }
-    .teaser-stacklist__images {
-      @include for-size(tablet-landscape-up) {
-        //Fixed sizes
-        height: 305px;
-        max-width: 460px;
-        width: 61%;
-      }
-    }
-    .teaser-stacklist__thumbnail {
-      max-width: 100%;
-    }
-    .teaser-stacklist__container {
-      @include for-size(tablet-landscape-up) {
-        width: 85%;
-      }
-      .call-to-action__item--paginate {
-        text-align: left;
-        padding: 1em 0;
-      }
-    }
-  }
+
   @each $name, $color in $color_loop {
     &--#{$name} {
       #{$block}__first-column,
