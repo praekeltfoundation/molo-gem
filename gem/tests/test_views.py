@@ -570,10 +570,6 @@ class TestKaiOSRedirectView(TestCase, GemTestCaseMixin):
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
 
-    def test_it_sets_cookie_for_kaios(self):
-        response = self.client.get('/kaios/')
-        self.assertEqual(response.cookies['kaios'].value, 'true')
-
     def test_it_redirects_to_homepage(self):
         response = self.client.get('/kaios/')
         self.assertEqual(response.status_code, 302)
