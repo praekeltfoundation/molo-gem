@@ -68,10 +68,12 @@
         <div class="media-player__download">
           {% if media.title %}
             <h3 class="media-player__title">{{media.title}}</h3>
-            <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-              {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}{% trans "Video" %}{% elif media.type == 'audio'%}{% trans "Audio" %}{% endif %}
-              {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-            </a>
+            <div class="call-to-action call-to-action--watch call-to-action--media-download">
+              <a href="{{media.file.url}}" onclick="ga('send', 'event', '{% if media.youtube_link or media.type == 'video'%}Video{% elif media.type == 'audio'%}Audio{% endif %}', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
+                {% trans "Download" %} {% if media.youtube_link or media.type == 'video'%}{% trans "Video" %}{% elif media.type == 'audio'%}{% trans "Audio" %}{% endif %}
+                {% if media.file.size %} <span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+              </a>
+            </div>
           {% endif %}
         </div>
       {% endif %}
