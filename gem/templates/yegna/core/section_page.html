@@ -17,6 +17,7 @@
               </div>
               <div class="article-teaser__wrapper">
                 {% load_child_articles_for_section self count=1 as articles %}
+
                 {% if articles %}
                   <ul class="teaser-stacklist teaser-stacklist--watch">
                   {% for article in articles %}
@@ -58,10 +59,10 @@
 
                 {% comment %}
                 <!--
-                TAG DOES NOT SUPPORT FEATURED_IN_SECTION ARGUMENT
-                'load_child_articles_for_section' received unexpected keyword argument 'featured_in_section'
-                {% get_next_article next_article as other_next_articles %}
-                {{other_next_articles}}>
+                  TAG DOES NOT SUPPORT FEATURED_IN_SECTION ARGUMENT
+                  'load_child_articles_for_section' received unexpected keyword argument 'featured_in_section'
+                  {% get_next_article next_article as other_next_articles %}
+                  {{other_next_articles}}>
                 -->
                 {% endcomment %}
                 {% load_descendant_articles_for_section self count=2 featured_in_section=True as next_articles %}
