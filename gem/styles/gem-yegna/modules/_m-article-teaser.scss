@@ -1,8 +1,6 @@
 .article-teaser {
   display: block;
   $block: unquote("#{&}");
-  &--watch {}
-  &--listen {}
   &--general {
     .teaser-stacklist__item {
       @include for-size(tablet-landscape-up) {
@@ -13,13 +11,8 @@
       overflow: hidden;
       @include for-size(tablet-landscape-up) {
         height: 175.33px;
+        max-width: 265px;
         width: 55%;
-      }
-    }
-    .teaser-stacklist__thumbnail {
-      @include for-size(tablet-landscape-up) {
-        max-width: 320px;
-        width: 263px;
       }
     }
     .teaser-stacklist__container {

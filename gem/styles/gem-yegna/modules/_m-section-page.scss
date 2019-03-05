@@ -40,14 +40,11 @@
           .teaser-stacklist__images {
             width: 70%;
             @include for-size(tablet-portrait-up) {
-              max-width: 70%;
-              height: 259px;
               margin: 0 2em 0 0;
-            }
-          }
-          .teaser-stacklist__thumbnail {
-            @include for-size(tablet-portrait-up) {
-              width: 459px;
+              max-width: 70%;
+              //Fixed sizes
+              height: 260px;
+              width: 460px;
             }
           }
         }
@@ -72,11 +69,6 @@
           height: 422px;
         }
       }
-      .teaser-stacklist__thumbnail {
-        @include for-size(tablet-landscape-up) {
-          height: 422px;
-        }
-      }
       //FIRST COLUMN OVERRIDE
       .call-to-action--media-download {
         @include for-size(tablet-landscape-up) {
@@ -95,8 +87,9 @@
     .teaser-stacklist--watch {
       .teaser-stacklist__images  {
         @include for-size(tablet-landscape-up)  {
-          height: 163.13px;
+          //Fixed sizes
           max-width: 290px;
+          height: 163.13px;
           width: 290px;
         }
       }
@@ -122,16 +115,16 @@
             .teaser-stacklist__images {
               margin: 0 1em 0 0;
               @include for-size(tablet-landscape-up) {
-                max-width: 90px;
-                width: 90px;
-                height: 90px;
+                //Fixed sizes
                 float: left;
+                max-width: 90px;
+                height: 90px;
+                width: 90px;
               }
             }
             .teaser-stacklist__thumbnail {
               @include for-size(tablet-landscape-up) {
                 margin: 0.5em 1em 0 0;
-                width: 90px;
               }
             }
             .teaser-stacklist__container {
@@ -192,12 +185,13 @@
     }
     .teaser-stacklist__images {
       @include for-size(tablet-landscape-up) {
+        //Fixed sizes
         height: 305px;
+        max-width: 460px;
         width: 61%;
       }
     }
     .teaser-stacklist__thumbnail {
-      width: 460px;
       max-width: 100%;
     }
     .teaser-stacklist__container {
