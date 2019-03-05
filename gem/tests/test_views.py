@@ -542,7 +542,7 @@ class TestKaiOSManifestView(TestCase):
     def test_returns_correct_manifest_data(self):
         request = self.request_factory.get('/manifest.webapp')
 
-        self.assertContains(request, {"url": self.request.get_host()})
+        self.assertContains(request, {"url": request.get_host()})
 
 
 class TestBbmRedirectView(TestCase, GemTestCaseMixin):
