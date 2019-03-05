@@ -41,12 +41,11 @@
             width: 70%;
             @media screen and (min-width: 40.000em) {
               //Fixed sizes
-              height: 260px;
-              width: 460px;
+              max-height: 260px;
+              max-width: 460px;
             }
             @include for-size(tablet-portrait-up) {
               margin: 0 2em 0 0;
-              max-width: 70%;
             }
           }
         }
@@ -54,8 +53,8 @@
     }
   }
   &__first-column {
-    width: 100%;
     @media screen and (min-width: 45.000em) {
+      width: 100%;
       margin: 0 1em 0 0;
     }
     @include for-size(tablet-landscape-up) {
@@ -68,7 +67,7 @@
           //Hero container
           min-height: 290px;
           max-height: 422px;
-          height: 422px;
+          //height: 422px;
         }
       }
       //FIRST COLUMN OVERRIDE
@@ -82,17 +81,18 @@
     }
   }
   &__second-column {
-    @media screen and (min-width: 45.000em) {}
-    @include for-size(tablet-landscape-up) {
-      width: 30%;
+    @media screen and (min-width: 45.000em) {
+      width: 35%;
     }
+
     .teaser-stacklist--watch {
       .teaser-stacklist__images  {
+        min-width: 290px;
         @include for-size(tablet-landscape-up)  {
           //Fixed sizes
-          max-width: 290px;
-          height: 163.13px;
-          width: 290px;
+          //max-width: 290px;
+          max-height: 163.13px;
+          //width: 290px;
         }
       }
       .teaser-stacklist__container {
@@ -120,8 +120,8 @@
                 //Fixed sizes
                 float: left;
                 max-width: 90px;
-                height: 90px;
-                width: 90px;
+                //height: 90px;
+                max-width: 90px;
               }
             }
             .teaser-stacklist__thumbnail {
@@ -148,7 +148,6 @@
     margin: 0;
     text-transform: uppercase;
   }
-
 
   @each $name, $color in $color_loop {
     &--#{$name} {
