@@ -65,7 +65,7 @@
                   {{other_next_articles}}>
                 -->
                 {% endcomment %}
-                {% load_descendant_articles_for_section self count=2 featured_in_section=True as next_articles %}
+                {% load_child_articles_for_section self count=2 featured_in_section=True as next_articles %}
                 {% if self.get_parent_section.enable_next_section == True and next_articles %}
                   <div class="article-teaser article-teaser--related">
                     <div class="heading">
