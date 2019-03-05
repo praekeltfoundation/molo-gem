@@ -308,7 +308,8 @@ class KaiOSManifestView(View):
                     "description": "An app providing information to girls"
                 }
             },
-            "default_locale": "en"
+            "default_locale": "en",
+            "cursor": true
         }
         response = HttpResponse(json.dumps(manifest))
         response.headers['Content-Type'] = 'application/x-web-app-manifest+json'
