@@ -289,8 +289,8 @@ class KaiOSManifestView(View):
             "description": "An app providing information to girls",
             "launch_path": "/",
             "icons": {
-                "56": "/gem/statc/img/icons/next.png",
-                "112": "/gem/statc/img/icons/next.png"
+                "56": "/statc/img/icons/next.png",
+                "112": "/statc/img/icons/next.png"
             },
             "developer": {
                 "name": "Praekelt.org",
