@@ -313,7 +313,8 @@ class KaiOSManifestView(View):
         }
         response = HttpResponse(
             json.dumps(manifest),
-            content_type='application/x-web-app-manifest+json', charset='utf-8')
+            content_type='application/x-web-app-manifest+json',
+            charset='utf-8')
         return response
 
 
