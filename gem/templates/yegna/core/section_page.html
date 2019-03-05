@@ -71,13 +71,13 @@
                     <div class="heading">
                       <h1 class="heading__title">{% trans "Watch next" %}</h1>
                     </div>
-                    {% for next_article in next_articles %}
-                      <ul class="teaser-stacklist">
+                    <ul class="teaser-stacklist">
+                      {% for next_article in next_articles %}
                         <li class="teaser-stacklist__item">
                           {% if next_article.image %}
-                            <div class="article-teaser__images">
+                            <div class="teaser-stacklist__images">
                               <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-                                {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+                                {% image next_article.image width-480 format-jpeg class="teaser-stacklist__thumbnail" %}
                               </a>
                             </div>
                           {% endif %}
@@ -131,8 +131,8 @@
                               </a>
                           </div>
                         </li>
-                      </ul>
-                    {% endfor %}
+                      {% endfor %}
+                    </ul>
                   </div>
                 {% endif %}
 

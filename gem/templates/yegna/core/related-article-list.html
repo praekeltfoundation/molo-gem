@@ -11,9 +11,9 @@
     <ul class="teaser-stacklist">
       <li class="teaser-stacklist__item">
         {% if next_article.image %}
-          <div class="article-teaser__images">
+          <div class="teaser-stacklist__images">
             <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-              {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+              {% image next_article.image width-480 format-jpeg class="teaser-stacklist__thumbnail" %}
             </a>
           </div>
         {% endif %}
@@ -84,7 +84,7 @@
           {% if article.image %}
             <div class="teaser-stacklist__images">
               <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                {% image article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+                {% image article.image width-480 format-jpeg class="teaser-stacklist__thumbnail" %}
               </a>
             </div>
           {% endif %}
