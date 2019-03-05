@@ -34,7 +34,7 @@
           {% with block.value as media %}
             <div class="call-to-action call-to-action--watch call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                {% trans "Download Video" %}
+                {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
               </a>
             </div>
           {% endwith %}
@@ -61,7 +61,7 @@
           {% with block.value as media %}
             <div class="call-to-action call-to-action--listen call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                {% trans "Download Audio" %}
+                {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
               </a>
             </div>
         {% endwith %}

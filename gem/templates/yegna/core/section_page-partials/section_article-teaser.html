@@ -15,9 +15,9 @@
       <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
         <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
           {% if article.title_highlight %}
-            {{ article.title_highlight|smarttruncatechars:150|safe}}
+            {{ article.title_highlight|smarttruncatechars:100|safe}}
           {% else %}
-            {{ article.title|smarttruncatechars:150|safe}}
+            {{ article.title|smarttruncatechars:100|safe}}
           {% endif %}
         </h1>
       </a>

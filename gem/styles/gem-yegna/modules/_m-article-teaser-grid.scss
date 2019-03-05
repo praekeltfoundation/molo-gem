@@ -1,13 +1,15 @@
 .teaser-grid {
   margin: 0;
   padding: 0;
-  &--listen {}
-  &--primary {}
   &__item {
     display: block;
-    margin: 0 0 2em;
-    padding: 1.5em;
+    margin: 0 0 1em;
+    padding: 0.8em;
     text-align: center;
+    @media screen and (min-width: 64.000em) {
+      padding: 1.5em;
+      margin: 0 0 2em;
+    }
   }
   &__container {
     text-align: left;
@@ -28,8 +30,11 @@
   }
   &__title {
     color: #000;
-    font-size: $font-medium;
+    font-size: $font-x-medium;
     margin: 0.67em 0;
+    @media screen and (min-width: 65.313em) {
+      font-size: $font-medium;
+    }
   }
   &__subtitle {
     font-size: $font-small;

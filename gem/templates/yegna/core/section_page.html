@@ -99,23 +99,23 @@
                               <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
                                 <h3 class="teaser-stacklist__title {% if next_article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
                                   {% if next_article.title_highlight %}
-                                    {{ next_article.title_highlight|smarttruncatechars:50|safe}}
+                                    {{ next_article.title_highlight|smarttruncatechars:100|safe}}
                                   {% else %}
-                                    {{ next_article.title|smarttruncatechars:50|safe}}
+                                    {{ next_article.title|smarttruncatechars:100|safe}}
                                   {% endif %}
                                 </h3>
                               </a>
                               {% if next_article.subtitle_highlight or next_article.body_highlight %}
                                 <p class="teaser-stacklist__subtitle">
                                   {% if next_article.subtitle_highlight %}
-                                    {{next_article.subtitle_highlight|smarttruncatechars:50|safe}}
+                                    {{next_article.subtitle_highlight|smarttruncatechars:150|safe}}
                                   {% elif next_article.body_highlight %}
-                                    {{next_article.body_highlight|smarttruncatechars:50|safe}}
+                                    {{next_article.body_highlight|smarttruncatechars:150|safe}}
                                   {% endif %}
                                 </p>
                               {% elif next_article.subtitle %}
                                 <p class="teaser-stacklist__subtitle">
-                                  {{ next_article.subtitle|smarttruncatechars:50|safe}}
+                                  {{ next_article.subtitle|smarttruncatechars:150|safe}}
                                 </p>
                               {% endif %}
                               <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
