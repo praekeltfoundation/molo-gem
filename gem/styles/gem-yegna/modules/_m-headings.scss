@@ -69,8 +69,11 @@
     color: $color-violet;
     display: inline-block;
     font-size: $font-x-medium;
-    @include for-size(tablet-portrait-up) {
-        font-size: 1.30em;
+    @media screen and (min-width: 62.000em) {
+      font-size:   $font-medium;
+    }
+    @media screen and (min-width: 64.000em) {
+      font-size: 1.30em;
     }
     &:before {
       background: url("/static/img/icons/yegna/icon-heading.svg") no-repeat center center / 100%;
@@ -87,16 +90,22 @@
     display: block;
     text-align: center;
     font-size: $font-x-medium;
-    @include for-size(tablet-portrait-up) {
-        font-size: 1.30em;
+    @media screen and (min-width: 62.000em) {
+      font-size:   $font-medium;
+    }
+    @media screen and (min-width: 64.000em) {
+      font-size: 1.30em;
     }
   }
   &__title {
     color: $color-violet;
     display: inline-block;;
     font-size: $font-x-medium;
-    @include for-size(tablet-portrait-up) {
-        font-size: 1.30em;
+    @media screen and (min-width: 62.000em) {
+      font-size:   $font-medium;
+    }
+    @media screen and (min-width: 64.000em) {
+      font-size: 1.30em;
     }
   }
   &__subtitle {
@@ -109,7 +118,7 @@
   .heading {
     padding: 1em 1.5em;
     @include for-size(tablet-landscape-up) {
-      padding: 1em 15%;
+      padding: 1em 15%; //?
     }
   }
 }
