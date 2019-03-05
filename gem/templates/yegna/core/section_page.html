@@ -17,6 +17,7 @@
               </div>
               <div class="article-teaser__wrapper">
                 {% load_child_articles_for_section self count=1 as articles %}
+
                 {% if articles %}
                   <ul class="teaser-stacklist teaser-stacklist--watch">
                   {% for article in articles %}
@@ -58,10 +59,10 @@
 
                 {% comment %}
                 <!--
-                TAG DOES NOT SUPPORT FEATURED_IN_SECTION ARGUMENT
-                'load_child_articles_for_section' received unexpected keyword argument 'featured_in_section'
-                {% get_next_article next_article as other_next_articles %}
-                {{other_next_articles}}>
+                  TAG DOES NOT SUPPORT FEATURED_IN_SECTION ARGUMENT
+                  'load_child_articles_for_section' received unexpected keyword argument 'featured_in_section'
+                  {% get_next_article next_article as other_next_articles %}
+                  {{other_next_articles}}>
                 -->
                 {% endcomment %}
                 {% load_descendant_articles_for_section self count=2 featured_in_section=True as next_articles %}
@@ -70,13 +71,13 @@
                     <div class="heading">
                       <h1 class="heading__title">{% trans "Watch next" %}</h1>
                     </div>
-                    {% for next_article in next_articles %}
-                      <ul class="teaser-stacklist">
+                    <ul class="teaser-stacklist">
+                      {% for next_article in next_articles %}
                         <li class="teaser-stacklist__item">
                           {% if next_article.image %}
-                            <div class="article-teaser__images">
+                            <div class="teaser-stacklist__images">
                               <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-                                {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+                                {% image next_article.image width-480 format-jpeg class="teaser-stacklist__thumbnail" %}
                               </a>
                             </div>
                           {% endif %}
@@ -130,8 +131,8 @@
                               </a>
                           </div>
                         </li>
-                      </ul>
-                    {% endfor %}
+                      {% endfor %}
+                    </ul>
                   </div>
                 {% endif %}
 
@@ -142,7 +143,7 @@
             {% elif parent %}{% load_child_sections_for_section parent as sections %}
             {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
             {% for section in sections %}
-              <div class="heading">
+              <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
                 {% load_child_articles_for_section section as articles %}
@@ -236,7 +237,6 @@
             {% endfor %}
           </div>
         </div>
-
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
       {% if self.get_main_language_page.title == "Listen" %}
         {% load_child_sections_for_section self as subsections %}
@@ -326,7 +326,7 @@
             {% elif parent %}{% load_child_sections_for_section parent as sections %}
             {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
             {% for section in sections %}
-              <div class="heading">
+              <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
               {% load_child_articles_for_section section as articles %}
@@ -381,7 +381,7 @@
       {% endif %}
 
       {% elif self.get_main_language_page.title == "News" %}
-        <div class="section-page--general section-page__wrapper">
+        <div class="section-page__wrapper section-page--general ">
           <div class="article-teaser article-teaser--general">
             <div class="article-teaser__wrapper">
               {% load_child_articles_for_section self as articles %}

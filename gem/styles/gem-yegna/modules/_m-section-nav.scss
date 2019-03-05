@@ -15,17 +15,21 @@
     margin: 0;
     padding: 0;
     text-align: center;
-    @include for-size(tablet-portrait-up) {
+    @include for-size(tablet-portrait-up) {}
+    @include for-size(tablet-landscape-up) {
       display: flex;
     }
-    @include for-size(tablet-landscape-up) {}
     &__item {
       display: inline-block;
       text-align: center;
-      margin: 0 1.5em 0 0;
+      margin: 1em 1.5em 2em;
+      @include for-size(tablet-landscape-up) {
+        margin: 0 1.5em 0 0;
+      }
     }
     &__anchor {
       text-align: center;
+      display: inline-block;
       &:active, &:hover, &:focus {
         #{$block}__label {
           color: $color-blue ;
@@ -35,19 +39,25 @@
     &__images {
       &--music, &--radio-drama, &--radio-talk  {
         background: url("/static/img/patterns/yegna/subsections-bg.svg") no-repeat 0 0/ cover;
-        height: 240px;
-        width: 360px;
+        @include for-size(tablet-landscape-up) {
+          height: 240px;
+          width: 360px;
+        }
       }
       &--music {
-        background-position: center -275px;
+        @include for-size(tablet-landscape-up) {
+          background-position: center -275px;
+        }
       }
       &--radio-talk {
-        background-position: center -550px;
+        @include for-size(tablet-landscape-up) {
+          background-position: center -550px;
+        }
       }
     }
     &__thumbnail {
-      height: 240px;
-      width: 360px;
+      height: auto;
+      width: 100%;
     }
   }
   &--related {
@@ -56,14 +66,20 @@
       &__images {
         &--music, &--radio-drama, &--radio-talk  {
           background: url("/static/img/patterns/yegna/subsections-bg2.svg") no-repeat 0 0/ cover;
-          height: 240px;
-          width: 360px;
+          @include for-size(tablet-landscape-up) {
+            height: 240px;
+            width: 360px;
+          }
         }
         &--music {
-          background-position: center -540px;
+          @include for-size(tablet-landscape-up) {
+            background-position: center -540px;
+          }
         }
         &--radio-talk {
-          background-position: center -270px;
+          @include for-size(tablet-landscape-up) {
+            background-position: center -270px;
+          }
         }
       }
     }

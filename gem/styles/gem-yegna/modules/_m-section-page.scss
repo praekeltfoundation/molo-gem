@@ -6,7 +6,7 @@
       padding: 1.5em 1em 1.5em 4em;
     }
     @include for-size(tablet-landscape-up) {
-      padding: 2.5em 5% 1em 15%;
+      padding: 2.5em 5% 1em 10%;
     }
   }
   &__columns {
@@ -24,17 +24,28 @@
       padding: 2.5em 8% 0;
     }
     &--watch {
-      .article-teaser--related {
-        margin: 2em 0 1em;
-        .teaser-stacklist {
-          &__item {
+      #{$block}__first-column {
+        .article-teaser--related {
+          margin: 2em 0 1em;
+          .teaser-stacklist__item {
             @include for-size(tablet-landscape-up) {
               display: flex;
               align-items: center;
+              margin: 0 0 2em;
             }
           }
-          &__container {
+          .teaser-stacklist__container {
             margin: 1em 0;
+          }
+          .teaser-stacklist__images {
+            width: 70%;
+            @include for-size(tablet-portrait-up) {
+              margin: 0 2em 0 0;
+              max-width: 70%;
+              //Fixed sizes
+              height: 260px;
+              width: 460px;
+            }
           }
         }
       }
@@ -47,10 +58,17 @@
     }
     @include for-size(tablet-landscape-up) {
       margin: 0px 10% 0 0;
-      width: 75%;
-
+      width: 85%;
     }
     .teaser-stacklist--watch {
+      .teaser-stacklist__images {
+        @include for-size(tablet-landscape-up) {
+          //Hero container
+          min-height: 290px;
+          max-height: 422px;
+          height: 422px;
+        }
+      }
       //FIRST COLUMN OVERRIDE
       .call-to-action--media-download {
         @include for-size(tablet-landscape-up) {
@@ -66,6 +84,19 @@
     @include for-size(tablet-landscape-up) {
       width: 30%;
     }
+    .teaser-stacklist--watch {
+      .teaser-stacklist__images  {
+        @include for-size(tablet-landscape-up)  {
+          //Fixed sizes
+          max-width: 290px;
+          height: 163.13px;
+          width: 290px;
+        }
+      }
+      .teaser-stacklist__container {
+        margin: 0;
+      }
+    }
     &--listen {
       .teaser-stacklist--listen {
         .teaser-stacklist__item {
@@ -74,7 +105,7 @@
             background-color: #fff;
             clear: both;
             display: block;
-            margin: 1em;
+            margin: 1.5em;
             padding: 1em;
             .teaser-stacklist__anchor {
               @include for-size(tablet-landscape-up) {
@@ -82,14 +113,18 @@
               }
             }
             .teaser-stacklist__images {
+              margin: 0 1em 0 0;
               @include for-size(tablet-landscape-up) {
+                //Fixed sizes
                 float: left;
+                max-width: 90px;
+                height: 90px;
+                width: 90px;
               }
             }
             .teaser-stacklist__thumbnail {
               @include for-size(tablet-landscape-up) {
                 margin: 0.5em 1em 0 0;
-                max-width: 95px;
               }
             }
             .teaser-stacklist__container {
@@ -115,36 +150,57 @@
     .teaser-grid {
       @include for-size(tablet-landscape-up) {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
       }
       &__item {
         background-color: transparent;
         padding: 0;
-      }
-      &__thumbnail {
-        width: auto;
+        margin: 0 1.5em 1em;
         max-width: 360px;
-        max-height: 240px;
+        @include for-size(tablet-portrait-up) {
+          width: 360px;
+        }
+      }
+      &__images {
+        @include for-size(tablet-portrait-up) {
+          max-width: 360px;
+          height: 240px;
+          width: 360px;
+        }
       }
     }
   }
   &--general {
-    .teaser-stacklist {
-      &__item {
+    .teaser-stacklist__item {
+      @include for-size(tablet-landscape-up) {
+        margin: 0 0 3em;
+      }
+      &--inner {
+        width: 100%;
+        overflow: auto;
         @include for-size(tablet-landscape-up) {
-          margin: 1em 0 2em;
+          display: flex;
         }
       }
-      &__images {
-        @include for-size(tablet-landscape-up) {
-          margin: 0 1.5em 0 0;
-          width: 30%;
-        }
+    }
+    .teaser-stacklist__images {
+      @include for-size(tablet-landscape-up) {
+        //Fixed sizes
+        height: 305px;
+        max-width: 460px;
+        width: 61%;
       }
-      &__thumbnail {
-        @include for-size(tablet-landscape-up) {
-          width: 100%;
-        }
+    }
+    .teaser-stacklist__thumbnail {
+      max-width: 100%;
+    }
+    .teaser-stacklist__container {
+      @include for-size(tablet-landscape-up) {
+        width: 85%;
+      }
+      .call-to-action__item--paginate {
+        text-align: left;
+        padding: 1em 0;
       }
     }
   }

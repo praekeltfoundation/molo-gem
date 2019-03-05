@@ -22,6 +22,30 @@ jQuery(document).ready(function (e) {
       var n = e(t.target);
       if (!n.parents().hasClass("dropdown")) e(".dropdown .dropdown-toggle").removeClass("open");
   });
+
+  e('.nav-menu-list__anchor').bind('click', function() {
+    var current_anchor = $(this);
+    var current_item = current_anchor.parent(".nav-menu-list__item");
+    if (current_item.hasClass("active")) {
+         current_item.removeClass("active").children(".nav-menu-list__anchor").removeClass("active");
+     } else {
+         current_item.addClass("active").children(".nav-menu-list__anchor").addClass("active");
+     }
+     if (current_item.children(".nav-menu-list").length > 0) {
+      var href = current_anchor.attr("href");
+      current_anchor.attr("href", "#");
+      setTimeout(function () {
+          current_anchor.attr("href", href);
+      }, 300);
+      e.preventDefault();
+    }
+  }).each(function() {
+    var current_anchor = $(this);
+    if (current_anchor.get(0).href === location.href) {
+        current_anchor.addClass("active").parents("li").addClass("active");
+        return false;
+    }
+  });
 });
 
 (function() {

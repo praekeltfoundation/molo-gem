@@ -34,16 +34,12 @@
   .heading__subheading--listen  {
     color: #000;
   }
-
   .teaser-breadcrumb {
     text-align: center;
     padding: 1em 0 2em;
     &-list__anchor {
       font-size: $font-small;
     }
-  }
-  .teaser-stacklist__images {
-    margin: 1em 0 0;
   }
   .call-to-action--watch,
   .call-to-action--listen, {
@@ -52,22 +48,6 @@
   }
   &__wrapper {
     @include pages();
-  }
-  &__images {
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    @include for-size(tablet-landscape-up) {
-      margin: 0 0 2.5em;
-      max-height: 425px;
-    }
-  }
-  &__thumbnail {
-    height: auto;
-    width: auto;
-    @include for-size(tablet-landscape-up) {
-      width: 860px;
-    }
   }
   &__columns {
     @include for-size(tablet-landscape-up) {
@@ -81,7 +61,7 @@
     }
     #{$block}__second-column {
       @include for-size(tablet-landscape-up) {
-        width: 35%;
+        //width: 35%;
       }
       .teaser-stacklist__images {
         margin: 1em 0 0;
@@ -91,6 +71,34 @@
         padding: 0;
       }
     }
+  }
+  &__images {
+    margin: 1em 0 0;
+    overflow: hidden;
+    max-height: 422px;
+    &-hero {
+      .media-player__embed {
+        @include for-size(tablet-landscape-up) {
+          //Hero container
+          min-height: 290px;
+          max-height: 422px;
+          height: 422px;
+        }
+        &--audio {
+          height: auto;
+          min-height: auto;
+          min-width: 100%;
+        }
+      }
+    }
+    &--inner {
+      height: auto;
+      width: 100%;
+    }
+  }
+  &__thumbnail {
+    height: auto;
+    width: 100%;
   }
   @each $name, $color in $color_loop {
     &--#{$name} {

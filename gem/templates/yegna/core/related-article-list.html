@@ -8,16 +8,16 @@
     <div class="heading">
       <h1 class="heading__subheading">{% trans "Watch next" %}</h1>
     </div>
-    <ul class="teaser-stacklist">
-      <li class="teaser-stacklist__item">
+    <ul class="teaser-{{teaser_type}}">
+      <li class="teaser-{{teaser_type}}__item">
         {% if next_article.image %}
-          <div class="article-teaser__images">
-            <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-              {% image next_article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+          <div class="teaser-{{teaser_type}}__images">
+            <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
+              {% image next_article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
             </a>
           </div>
         {% endif %}
-        <div class="teaser-stacklist__container">
+        <div class="teaser-{{teaser_type}}__container">
           {% load_tags_for_article next_article as tags %}
           <ul class="teaser-tags">
             {% if tags %}
@@ -40,8 +40,8 @@
               {% endif %}
             {% endif %}
           </ul>
-          <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-            <h3 class="teaser-stacklist__title {% if next_article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+          <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
+            <h3 class="teaser-{{teaser_type}}__title {% if next_article.title_highlight %}teaser-{{teaser_type}}__title--highlight{% endif %}">
               {% if next_article.title_highlight %}
                 {{ next_article.title_highlight|smarttruncatechars:50|safe}}
               {% else %}
@@ -50,7 +50,7 @@
             </h3>
           </a>
           {% if next_article.subtitle_highlight or next_article.body_highlight %}
-            <p class="teaser-stacklist__subtitle">
+            <p class="teaser-{{teaser_type}}__subtitle">
               {% if next_article.subtitle_highlight %}
                 {{next_article.subtitle_highlight|smarttruncatechars:50|safe}}
               {% elif next_article.body_highlight %}
@@ -58,7 +58,7 @@
               {% endif %}
             </p>
           {% elif next_article.subtitle %}
-            <p class="teaser-stacklist__subtitle">
+            <p class="teaser-{{teaser_type}}__subtitle">
               {{ next_article.subtitle|smarttruncatechars:50|safe}}
             </p>
           {% endif %}
@@ -78,17 +78,17 @@
       <div class="heading">
         <h1 class="heading__subheading">{% trans "Recommended" %}</h1>
       </div>
-      <ul class="teaser-stacklist">
+      <ul class="teaser-{{teaser_type}}">
         {% for article in recommended_articles %}
-        <li class="teaser-stacklist__item">
+        <li class="teaser-{{teaser_type}}__item">
           {% if article.image %}
-            <div class="teaser-stacklist__images">
-              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                {% image article.image width-480 format-jpeg class="article-teaser__thumbnail" %}
+            <div class="teaser-{{teaser_type}}__images">
+              <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+                {% image article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
               </a>
             </div>
           {% endif %}
-          <div class="teaser-stacklist__container">
+          <div class="teaser-{{teaser_type}}__container">
             {% load_tags_for_article article as tags %}
             <ul class="teaser-tags">
               {% if tags %}
@@ -111,8 +111,8 @@
                 {% endif %}
               {% endif %}
             </ul>
-            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-              <h2 class="teaser-stacklist__title {% if article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+            <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+              <h2 class="teaser-{{teaser_type}}__title {% if article.title_highlight %}teaser-{{teaser_type}}__title--highlight{% endif %}">
                 {% if article.title_highlight %}
                   {{ article.title_highlight|smarttruncatechars:50|safe}}
                 {% else %}
@@ -120,7 +120,7 @@
                 {% endif %}
               </h2>
             </a>
-            <p class="teaser-stacklist__subtitle">
+            <p class="teaser-{{teaser_type}}__subtitle">
               {{ article.subtitle|smarttruncatechars:50|safe}}
             </p>
             <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
