@@ -20,9 +20,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSRedirect
-)
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView)
 
 urlpatterns = []
 if settings.USE_OIDC_AUTHENTICATION:
@@ -45,11 +43,8 @@ urlpatterns += [
         template_name='robots.txt', content_type='text/plain')),
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
-
     url(r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
-    url(r'^kaios/(?P<redirect_path>.*)$',
-        KaiOSRedirect.as_view(), name='kaios_redirect'),
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),

@@ -2,6 +2,23 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 
+def detect_kaios(request):
+    '''
+    Detect whether a request has come from KaiOS.
+
+    KaiOS requests will come from a subdomain prefix of kaios
+    '''
+
+    is_via_kaios = False
+
+    if 'kaios.' in request.get_host():
+        is_via_kaios = True
+
+    return{
+        'is_via_kaios': is_via_kaios
+    }
+
+
 def detect_bbm(request):
     '''
     Detect whether a request has come from BBM. BBM directs users to a /bbm/
