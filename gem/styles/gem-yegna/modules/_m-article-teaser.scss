@@ -8,7 +8,6 @@
       }
     }
     .teaser-stacklist__images {
-      overflow: hidden;
       @include for-size(tablet-landscape-up) {
         height: 175.33px;
         max-width: 265px;
@@ -22,6 +21,21 @@
     }
   }
   &--sidebar {
+    .teaser-grid {
+      &__item {
+        background-color: $color-light-gray;
+      }
+      &__images {
+        @include for-size(tablet-portrait-up) {
+          max-width: 270px;
+          width: 270px;
+          height: 270px;
+        }
+      }
+      &__title {
+        color: $color-violet;
+      }
+    }
     .call-to-action__item--text {
       margin: 1.5em 0 0;
       text-align: right;
@@ -43,6 +57,13 @@
         margin: 0 0 0 1em;
         vertical-align: middle;
         width: 25px;
+      }
+    }
+  }
+  &--related {
+    .teaser-stacklist__container {
+      @include for-size(tablet-landscape-up) {
+        width: 35%;
       }
     }
   }

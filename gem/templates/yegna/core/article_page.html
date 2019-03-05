@@ -72,7 +72,7 @@
     {% if page.homepage_media %}
       {% for block in page.homepage_media %}
         {% with block.value as media %}
-          <div class="teaser-stacklist__images">
+          <div class="article-page__images-hero">
             {% if block.value.youtube_link %}
               {% embed media.youtube_link %}
             {% elif block.value.type == 'video' %}
@@ -87,7 +87,7 @@
                 </video>
               </div>
             {% elif block.value.type == 'audio' %}
-              <div class="media-player__embed">
+              <div class="media-player__embed media-player__embed--audio">
                 <audio controls>
                  <source src={{media.file.url}} type="audio/mpeg">
                  <source src={{media.file.url}} type="audio/ogg">
@@ -103,9 +103,9 @@
       {% endfor %}
     {% else %}
       {% if self.get_effective_image %}
-        <div class="teaser-stacklist__images">
-          {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-          <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+        <div class="article-page__images">
+          {% image self.get_effective_image width-480 format-jpeg as article_thumbnail %}
+          <img alt="{{ self.title }}" src="{{ article_thumbnail.url }}" class="article-page__thumbnail" />
         </div>
       {% endif %}
     {% endif %}
@@ -147,7 +147,7 @@
               <h3 class="heading__headline">{{ block.value }}</h3>
             {% elif block.block_type == 'image' %}
               <div class="article-page__images--inner">
-                {% image block.value width-480 format-jpeg class="article-teaser__thumbnail article-teaser__thumbnail--inner" %}
+                {% image block.value width-480 format-jpeg class="article-page__thumbnail--inner" %}
               </div>
             {% elif block.value.youtube_link %}
               {% with block.value as media %}
@@ -309,13 +309,13 @@
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
           </div>
           <div class="article-page__second-column">
-            {% include "core/related-article-list.html" %}
+            {% include "core/related-article-list.html" with teaser_type="grid" %}
           </div>
         </div>
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
           </div>
           <div class="article-page__second-column">
-            {% include "core/related-article-list.html" %}
+            {% include "core/related-article-list.html"  with teaser_type="grid" %}
           </div>
         </div>
       {% endif %}
