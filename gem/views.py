@@ -1,10 +1,15 @@
 import re
 import json
 
+
 from django import forms
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseRedirect,
+    HttpResponse
+)
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.feedgenerator import Atom1Feed
@@ -282,6 +287,7 @@ class AlreadyReportedCommentView(TemplateView):
 
 
 class KaiOSManifestView(View):
+
     def get(self, request):
         manifest = {
             "version": "1.0.0",
@@ -304,7 +310,9 @@ class KaiOSManifestView(View):
             },
             "default_locale": "en"
         }
-        return json.dumps(manifest)
+        response = HttpResponse(json.dumps(manifest))
+        response.headers['Content-Type'] = 'application/x-web-app-manifest+json'
+        return response
 
 
 class BbmRedirect(View):
