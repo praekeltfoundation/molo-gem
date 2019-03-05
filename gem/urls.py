@@ -20,7 +20,8 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
+    KaiOSManifestView
 )
 
 urlpatterns = []
@@ -44,10 +45,10 @@ urlpatterns += [
         template_name='robots.txt', content_type='text/plain')),
     url(r'^sitemap\.xml$', sitemap_views.sitemap),
     url(r'^documents/', include(wagtaildocs_urls)),
-
+    url(r'^manifest.webapp', KaiOSManifestView.as_view(),
+        name='kaios_manifest'),
     url(r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
-
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
