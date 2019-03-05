@@ -312,7 +312,6 @@ class KaiOSManifestView(View):
             "cursor": true
         }
         response = HttpResponse(json.dumps(manifest))
-        response.headers['Content-Type'] = 'application/x-web-app-manifest+json'
         return response
 
 
