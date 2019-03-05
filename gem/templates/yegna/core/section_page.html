@@ -143,7 +143,7 @@
             {% elif parent %}{% load_child_sections_for_section parent as sections %}
             {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
             {% for section in sections %}
-              <div class="heading">
+              <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
                 {% load_child_articles_for_section section as articles %}
@@ -326,7 +326,7 @@
             {% elif parent %}{% load_child_sections_for_section parent as sections %}
             {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
             {% for section in sections %}
-              <div class="heading">
+              <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
               {% load_child_articles_for_section section as articles %}

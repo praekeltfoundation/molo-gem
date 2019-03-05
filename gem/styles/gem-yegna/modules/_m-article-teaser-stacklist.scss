@@ -9,13 +9,19 @@
     vertical-align: top;
     overflow: auto;
     align-items: center;
-    margin: .8em 0;
+    margin: 0 0 1em;
   }
   &__anchor {
     display: block;
   }
   &__images {
+    overflow: hidden;
     position: relative;
+    max-width: 290px;
+    @include for-size(tablet-landscape-up)  {
+      height: 163.13px;
+      width: 290px;
+    }
   }
   &__thumbnail {
     height: auto;

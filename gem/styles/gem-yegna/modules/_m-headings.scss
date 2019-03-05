@@ -10,7 +10,14 @@
     height: 15px;
     width: 100%;
   }
-
+  &--sidebar {
+    &:before {
+      @include for-size(tablet-landscape-up) {
+        background-position: 0 -35px;
+        background-size: 180%;
+      }
+    }
+  }
   &--hero {
     text-align: center;
     padding: 1em 0;
@@ -49,12 +56,6 @@
   }
   //Cast Category
   &--sidebar-featured {
-    &:before {
-      @include for-size(tablet-landscape-up) {
-        background-position: 0 -35px;
-        background-size: 180%;
-      }
-    }
     #{$block}__component:before {
       height: 30px;
       background: url("/static/img/icons/yegna/icon-characters.svg") no-repeat center center / 100%;
