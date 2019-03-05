@@ -294,6 +294,19 @@ class BbmRedirect(View):
         return response
 
 
+class KaiOSRedirect(View):
+    def get(self, request, redirect_path):
+        destination = request.build_absolute_uri('/{0}'.format(redirect_path))
+        allowed_hosts = [request.get_host()]
+
+        if is_safe_url(destination, allowed_hosts=allowed_hosts):
+            response = HttpResponseRedirect(destination)
+        else:
+            response = HttpResponseBadRequest('Redirect URL is unsafe')
+
+        return response
+
+
 class MaintenanceView(TemplateView):
     template_name = 'maintenance.html'
 

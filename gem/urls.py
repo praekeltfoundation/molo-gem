@@ -20,7 +20,8 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView
+    BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
+    KaiOSRedirect
 )
 
 urlpatterns = []
@@ -47,7 +48,8 @@ urlpatterns += [
 
     url(r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
-
+    url(r'^kaios/(?P<redirect_path>.*)$',
+        KaiOSRedirect.as_view(), name='kaios_redirect'),
     url(r'', include('molo.pwa.urls')),
     url(r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
