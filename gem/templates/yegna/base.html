@@ -54,6 +54,7 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
+      window.onresize = function(event) {
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             raf(function() {
@@ -75,6 +76,7 @@
           }
         }
       });
+    }
   </script>
   {% endcompress %}
 </head>
