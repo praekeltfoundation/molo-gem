@@ -11,7 +11,7 @@
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or self.get_main_language_page.title == "Watch" %}
         <div class="section-page__columns section-page__columns--watch">
-          <div class="section-page__first-column">
+          <div class="section-page__first-column section-page__first-column--watch">
               <div class="heading heading--video">
                 <h1 class="heading__component">{% trans "Featured episode" %}</h1>
               </div>
@@ -51,7 +51,7 @@
                             </a>
                           </div>
                         {% endif %}
-                        {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                        {% include "core/section_page-partials/section_video-article-teaser.html" with teaser_type="stacklist" %}
                       </li>
                   {% endfor %}
                   </ul>
@@ -130,7 +130,7 @@
 
               </div>
           </div>
-          <div class="section-page__second-column">
+          <div class="section-page__second-column section-page__second-column--watch">
             {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
             {% elif parent %}{% load_child_sections_for_section parent as sections %}
             {% elif self %}{% load_child_sections_for_section self as sections %}{% endif %}
@@ -140,18 +140,18 @@
               </div>
               {% comment %}
                 {% load_child_articles_for_section section featured_in_section=True as articles %}
-                  <ul class="teaser-stacklist teaser-stacklist--watch">
+                  <ul class="teaser-grid teaser-grid--watch">
                     {% for article in articles %}
-                      <li class="teaser-stacklist__item">
+                      <li class="teaser-grid__item">
                         {% if article.homepage_media %}
                           {% for block in article.homepage_media %}
                             {% with block.value as media %}
-                              <div class="teaser-stacklist__images">
+                              <div class="teaser-grid__images">
                                 {% if article.get_effective_image %}
-                                  <div class="teaser-stacklist__images">
-                                    <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                  <div class="teaser-grid__images">
+                                    <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                                       {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                                     </a>
                                   </div>
                                 {% endif %}
@@ -159,14 +159,14 @@
                             {% endwith %}
                           {% endfor %}
                         {% elif article.get_effective_image %}
-                          <div class="teaser-stacklist__images">
-                            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                          <div class="teaser-grid__images">
+                            <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                               {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                             </a>
                           </div>
                         {% endif %}
-                      {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                      {% include "core/section_page-partials/section_video-article-teaser.html" with teaser_type="grid" %}
                       </li>
                     {% endfor %}
                   </ul>
@@ -194,33 +194,31 @@
                           <input type="checkbox" value="accordion" name="accordion" id="teaser_accordion_{{section|slugify}}-{{inner_section|slugify}}" class="teaser-accordion-list__{{section|slugify}}-{{inner_section|slugify}}" />
                           {% load_child_articles_for_section inner_section as articles %}
                           {% if articles %}
-                            <ul class="teaser-stacklist teaser-stacklist--watch">
+                            <ul class="teaser-grid teaser-grid--watch">
                               {% for article in articles %}
-                                <li class="teaser-stacklist__item">
+                                <li class="teaser-grid__item">
                                   {% if article.homepage_media %}
                                     {% for block in article.homepage_media %}
                                       {% with block.value as media %}
-                                        <div class="teaser-stacklist__images">
                                           {% if article.get_effective_image %}
-                                            <div class="teaser-stacklist__images">
-                                              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                            <div class="teaser-grid__images">
+                                              <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                                                 {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                                                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                                               </a>
                                             </div>
                                           {% endif %}
-                                        </div>
                                       {% endwith %}
                                     {% endfor %}
                                   {% elif article.get_effective_image %}
-                                      <div class="teaser-stacklist__images">
-                                        <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                                      <div class="teaser-grid__images">
+                                        <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                                           {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                                         </a>
                                       </div>
                                   {% endif %}
-                                  {% include "core/section_page-partials/section_video-article-teaser.html" %}
+                                  {% include "core/section_page-partials/section_video-article-teaser.html" with teaser_type="grid" %}
                                 </li>
                               {% endfor %}
                             </ul>

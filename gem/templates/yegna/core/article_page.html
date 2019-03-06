@@ -6,7 +6,7 @@
 {% get_translation self.get_parent_section.get_parent_section.get_parent_section as ancestor %}
 {% get_translation self.get_parent_section.get_parent_section as parent %}
 {% get_translation self.get_parent_section as section %}
-<div class="article-page{% if section.get_effective_extra_style_hints %} article-page --{{section.get_effective_extra_style_hints}}{% endif %}">
+<div class="article-page{% if section.get_effective_extra_style_hints %} article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
   <div class="banner">
     <div class="heading heading--hero">
       <h1 class="heading__title">{{section.title}}</h1>
@@ -32,9 +32,10 @@
       {% if page.homepage_media %}
         {% for block in page.homepage_media %}
           {% with block.value as media %}
+            <p class="media-player__duration">({{media.duration}})</p>
             <div class="call-to-action call-to-action--watch call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
               </a>
             </div>
           {% endwith %}
@@ -276,7 +277,7 @@
                   {% with block.value as media %}
                     <div class="call-to-action call-to-action--watch call-to-action--media-download">
                       <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                        {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                        {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
                       </a>
                     </div>
                   {% endwith %}
@@ -315,7 +316,7 @@
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
           </div>
           <div class="article-page__second-column">
-            {% include "core/related-article-list.html"  with teaser_type="grid" %}
+            {% include "core/related-article-list.html" with teaser_type="grid" %}
           </div>
         </div>
       {% endif %}

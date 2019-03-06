@@ -7,34 +7,6 @@
       display: flex;
       justify-content: space-between;
     }
-    &--watch {
-      #{$block}__first-column {
-        .article-teaser--related {
-          margin: 2em 0 1em;
-          .teaser-stacklist__item {
-            @include for-size(tablet-landscape-up) {
-              display: flex;
-              align-items: center;
-              margin: 0 0 2em;
-            }
-          }
-          .teaser-stacklist__container {
-            margin: 1em 0;
-          }
-          .teaser-stacklist__images {
-            width: 70%;
-            @media screen and (min-width: 40.000em) {
-              //Fixed sizes
-              max-height: 260px;
-              max-width: 460px;
-            }
-            @include for-size(tablet-portrait-up) {
-              margin: 0 2em 0 0;
-            }
-          }
-        }
-      }
-    }
   }
   &__first-column {
     @media screen and (min-width: 45.000em) {
@@ -47,41 +19,84 @@
     @media screen and (min-width: 65.313em) {
       margin-right: 3em;
     }
-    .teaser-stacklist--watch {
-      .teaser-stacklist__images {
-        @include for-size(tablet-landscape-up) {
-          //Hero container
-          min-height: 290px;
-          max-height: 422px;
-          //height: 422px;
+    &--watch {
+      .teaser-stacklist--watch {
+        .teaser-stacklist__images {
+          @include for-size(tablet-landscape-up) {
+            min-height: 290px;
+            max-height: 422px;
+            //height: 422px;
+          }
+        }
+        //FIRST COLUMN OVERRIDE
+        .call-to-action--video-media {
+          @include for-size(tablet-landscape-up) {
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
         }
       }
-      //FIRST COLUMN OVERRIDE
-      .call-to-action--video-media {
-        @include for-size(tablet-landscape-up) {
-          position: absolute;
-          top: 0;
-          right: 0;
+      .article-teaser--related {
+        margin: 2em 0 1em;
+        .teaser-stacklist__item {
+          @include for-size(tablet-landscape-up) {
+            display: flex;
+            align-items: center;
+            margin: 0 0 2em;
+          }
+        }
+        .teaser-stacklist__container {
+          margin: 1em 0;
+        }
+        .teaser-stacklist__images {
+          width: 70%;
+          @media screen and (min-width: 40.000em) {
+            //Fixed sizes
+            max-height: 260px;
+            max-width: 460px;
+          }
+          @include for-size(tablet-portrait-up) {
+            margin: 0 2em 0 0;
+          }
         }
       }
     }
+
   }
   &__second-column {
     @media screen and (min-width: 62.000em) {
       width: 35%;
     }
-    .teaser-stacklist--watch {
-      .teaser-stacklist__images  {
-        min-width: 290px;
-        @include for-size(tablet-landscape-up)  {
-          //Fixed sizes
-          //max-width: 290px;
-          max-height: 163.13px;
-          //width: 290px;
+    &--watch {
+      .teaser-grid--watch {
+        .teaser-grid__item {
+          @include for-size(tablet-landscape-up) {
+            max-width: 338.797px;
+          }
         }
-      }
-      .teaser-stacklist__container {
-        margin: 0;
+        .teaser-grid__images  {
+          min-width: 290px;
+          @include for-size(tablet-landscape-up)  {
+            max-height: 163.13px;
+          }
+        }
+        .teaser-grid__container {
+          padding: 1em;
+        }
+        .teaser-grid__subtitle {
+          /*white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          word-break: break-word;*/
+          //height: 3.6em; /* exactly three lines */
+          text-overflow: -o-ellipsis-lastline;
+
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
       }
     }
     &--listen {
@@ -128,7 +143,7 @@
   }
   &__label {
     font-style: italic;
-    font-size: 12px;
+    font-size: $font-xx-small;
     font-weight: bold;
     margin: 0;
     text-transform: uppercase;
@@ -139,6 +154,7 @@
       #{$block}__first-column,
       #{$block}__second-column {
         .teaser-stacklist--watch .teaser-stacklist__container,
+        .teaser-grid--watch .teaser-grid__container,
         .teaser-stacklist--listen .teaser-stacklist__elem-audio {
           background-color: $color;
         }

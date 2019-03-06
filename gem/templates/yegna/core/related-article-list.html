@@ -13,7 +13,8 @@
         {% if next_article.image %}
           <div class="teaser-{{teaser_type}}__images">
             <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
-              {% image next_article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
+              {% image next_article.image width-480 format-jpeg as teaser_thumbnail %}
+              <img alt="{{ next_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
             </a>
           </div>
         {% endif %}
@@ -62,12 +63,36 @@
               {{ next_article.subtitle|smarttruncatechars:150|safe}}
             </p>
           {% endif %}
-          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-            {% trans "Read more" %}
-          </a>
-        </div>
-      </li>
-    </ul>
+          {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
+          {% get_translation next_article.get_parent_section.get_parent_section as parent %}
+          {% get_translation next_article.get_parent_section as section %}
+            {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+                  <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                    {% trans "Watch video" %}
+                  </a>
+                </div>
+              </li>
+            </ul>
+          <div class="call-to-action">
+            <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl section.get_parent_section.specific %}">
+              {% trans "More episodes" %}
+            </a>
+          </div>
+          {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+                  <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                    {% trans "Watch video" %}
+                  </a>
+                </div>
+              </li>
+            </ul>
+          {% else %}
+              <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                {% trans "Read more" %}
+              </a>
+            </div>
+          </li>
+        </ul>
+      {% endif %}
   </div>
 {% endif %}
 
@@ -84,7 +109,8 @@
           {% if article.image %}
             <div class="teaser-{{teaser_type}}__images">
               <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
-                {% image article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
+                {% image article.image width-480 format-jpeg as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
               </a>
             </div>
           {% endif %}
@@ -123,9 +149,18 @@
             <p class="teaser-{{teaser_type}}__subtitle">
               {{ article.subtitle|smarttruncatechars:150|safe}}
             </p>
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
-              {% trans "Read more" %}
-            </a>
+            {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
+            {% get_translation next_article.get_parent_section.get_parent_section as parent %}
+            {% get_translation next_article.get_parent_section as section %}
+              {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+
+              {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+
+              {% else %}
+                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+                  {% trans "Read more" %}
+                </a>
+              {% endif %}
           </div>
         </li>
         {% endfor %}
