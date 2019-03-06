@@ -2,6 +2,7 @@
 {% load core_tags staticfiles compress %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_settings %}
+{% spaceless %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
@@ -166,9 +167,7 @@
             {% for section_page in sections %}
               {% if section_page.show_in_menus == True %}
                 <li class="nav-menu-list__item">
-                  <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
-                    {{section_page.title}}
-                  </a>
+                  <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">{{section_page.title}}</a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -216,3 +215,4 @@
   </div>
 </body>
 </html>
+{% endspaceless %}
