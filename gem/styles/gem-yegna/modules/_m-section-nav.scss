@@ -1,35 +1,42 @@
 .section-nav {
   $block: unquote("#{&}");
-  padding: 1.5em 1em 1.5em 2em;
-  @include for-size(tablet-portrait-up) {
-    padding: 1.5em 1em 1.5em 4em;
-  }
-  @include for-size(tablet-landscape-up) {
-    padding: 2.5em 5% 1em 15%;
+  @include pages();
+  @media screen and (min-width: 64.000em) {
+    overflow-y: scroll;
   }
   &__label {
     color: #000;
+    display: inline-block;
     font-size: $font-medium;
+    @include for-size(tablet-landscape-up) {
+      display: block;
+    }
   }
   &-list {
     margin: 0;
     padding: 0;
-    text-align: center;
-    @include for-size(tablet-portrait-up) {}
-    @include for-size(tablet-landscape-up) {
+    @media screen and (min-width: 27.813em) {
+      text-align: center;
+    }
+    @media screen and (min-width: 62.000em) {
       display: flex;
+      justify-content: center;
     }
     &__item {
-      display: inline-block;
-      text-align: center;
-      margin: 1em 1.5em 2em;
-      @include for-size(tablet-landscape-up) {
-        margin: 0 1.5em 0 0;
+      display: block;
+      margin: 1em 0.5em;
+      @media screen and (min-width: 27.813em) {
+        display: inline-block;
+        margin: 0.5em 1.5em 0;
+        text-align: center;
       }
     }
     &__anchor {
-      text-align: center;
-      display: inline-block;
+      display: block;
+      @media screen and (min-width: 27.813em) {
+        text-align: center;
+        display: inline-block;
+      }
       &:active, &:hover, &:focus {
         #{$block}__label {
           color: $color-blue ;
@@ -37,20 +44,31 @@
       }
     }
     &__images {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 0.5em 0 0;
+      @media screen and (min-width: 27.813em) {
+        margin: 0;
+        display: block;
+      }
       &--music, &--radio-drama, &--radio-talk  {
-        background: url("/static/img/patterns/yegna/subsections-bg.svg") no-repeat 0 0/ cover;
-        @include for-size(tablet-landscape-up) {
+        background: url("/static/img/patterns/yegna/subsections-bg.svg") no-repeat 0 0/ 100%;
+        height: 70px;
+        width: 100px;
+        @media screen and (min-width: 27.813em) {
           height: 240px;
           width: 360px;
         }
       }
       &--music {
-        @include for-size(tablet-landscape-up) {
+        background-position: center -75px;
+        @media screen and (min-width: 27.813em) {
           background-position: center -275px;
         }
       }
       &--radio-talk {
-        @include for-size(tablet-landscape-up) {
+        background-position: center -152px;
+        @media screen and (min-width: 27.813em) {
           background-position: center -550px;
         }
       }
@@ -65,19 +83,23 @@
     #{$block}-list {
       &__images {
         &--music, &--radio-drama, &--radio-talk  {
-          background: url("/static/img/patterns/yegna/subsections-bg2.svg") no-repeat 0 0/ cover;
-          @include for-size(tablet-landscape-up) {
+          background: url("/static/img/patterns/yegna/subsections-bg2.svg") no-repeat 0 0/ 100%;
+          height: 70px;
+          width: 100px;
+          @media screen and (min-width: 27.813em) {
             height: 240px;
             width: 360px;
           }
         }
         &--music {
-          @include for-size(tablet-landscape-up) {
+          background-position: center -147px;
+          @media screen and (min-width: 27.813em) {
             background-position: center -540px;
           }
         }
         &--radio-talk {
-          @include for-size(tablet-landscape-up) {
+          background-position: center -74px;
+          @media screen and (min-width: 27.813em) {
             background-position: center -270px;
           }
         }

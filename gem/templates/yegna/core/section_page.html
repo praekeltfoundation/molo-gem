@@ -2,6 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
 
 {% block content %}
+{% spaceless %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     <div class="banner">
       <div class="heading heading--hero">
@@ -232,6 +233,7 @@
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
       {% if self.get_main_language_page.title == "Listen" %}
         {% load_child_sections_for_section self as subsections %}
+        {% if subsections %}
           <div class="section-nav">
             <ul class="section-nav-list">
               {% for subsection in subsections %}
@@ -251,6 +253,7 @@
               {% endfor %}
             </ul>
           </div>
+        {% endif %}
       {% else %}
         <div class="section-page__columns section-page__columns--listen">
           <div class="section-page__first-column section-page__first-column--listen">
@@ -263,7 +266,7 @@
                   <ul class="teaser-stacklist teaser-stacklist--listen">
                     {% for article in articles %}
                       <li class="teaser-stacklist__item">
-                        {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                        {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="stacklist" %}
                       </li>
                     {% endfor %}
                   </ul>
@@ -277,7 +280,7 @@
                   <ul class="teaser-stacklist teaser-stacklist--listen">
                     {% for article in articles %}
                       <li class="teaser-stacklist__item">
-                        {% include "core/section_page-partials/section_audio-article-teaser.html" %}
+                        {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="stacklist" %}
                       </li>
                     {% endfor %}
                   </ul>
@@ -324,11 +327,9 @@
               {% load_child_articles_for_section section as articles %}
               {% if articles %}
                 <div class="article-teaser__wrapper">
-                    <ul class="teaser-stacklist teaser-stacklist--listen">
+                    <ul class="teaser-grid teaser-grid--listen">
                       {% for article in articles %}
-                        <li class="teaser-stacklist__item">
-                          {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                        </li>
+                        {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="grid" %}
                       {% endfor %}
                     </ul>
                 </div>
@@ -356,11 +357,9 @@
                       <input type="checkbox" value="accordion_audio" name="accordion_audio" id="teaser_accordion_{{section|slugify}}-{{inner_section|slugify}}" class="teaser-accordion-list__{{section|slugify}}-{{inner_section|slugify}}" />
                       {% load_child_articles_for_section inner_section as articles %}
                       {% if articles %}
-                        <ul class="teaser-stacklist teaser-stacklist--listen">
+                        <ul class="teaser-grid teaser-grid--listen">
                           {% for article in articles %}
-                            <li class="teaser-stacklist__item">
-                              {% include "core/section_page-partials/section_audio-article-teaser.html" %}
-                            </li>
+                              {% include "core/section_page-partials/section_audio-article-teaser.html" with teaser_type="grid" %}
                           {% endfor %}
                         </ul>
                       {% endif %}
@@ -425,4 +424,5 @@
       {% endif %}
     {% endwith %}
   </div>
+{% endspaceless %}
 {% endblock %}

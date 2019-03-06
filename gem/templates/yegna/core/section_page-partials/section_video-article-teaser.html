@@ -39,13 +39,16 @@
 
     <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
       <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
-        {% if article.title_highlight %}
-          {{ article.title_highlight|smarttruncatechars:100|safe}}
-        {% else %}
-          {{ article.title|smarttruncatechars:100|safe}}
-        {% endif %}
-      </h1>
+        {% if article.title_highlight %}{{ article.title_highlight|smarttruncatechars:100|safe}}
+        {% else %}{{ article.title|smarttruncatechars:100|safe}}{% endif %}</h1>
     </a>
+    {% if article.homepage_media %}
+      {% for block in article.homepage_media %}
+        {% with block.value as media %}
+          <p class="teaser-{{teaser_type}}__duration">({{media.duration}})</p>
+        {% endwith %}
+      {% endfor %}
+    {% endif %}
     {% if article.subtitle_highlight or article.body_highlight %}
       <p class="teaser-{{teaser_type}}__subtitle">
         {% if article.subtitle_highlight %}

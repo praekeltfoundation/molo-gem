@@ -10,6 +10,12 @@
     background: #fff url('/static/img/patterns/yegna/cloudy-bg.png') repeat center/100%;
     color: $color-violet;
   }
+  @include for-size(tablet-landscape-up) {
+    height: 120px;
+  }
+  &--image-type {
+    height: auto;
+  }
   &__item {
     display: block;
     &-link {
@@ -29,9 +35,13 @@
   }
   &__image {
     display: block;
-    height: auto;
-    width: 100%;
+    width: auto;
     overflow: auto;
+    height: 242.35px;
+    @media screen and (min-width: 27.813em) {
+      height: auto;
+      width: 100%;
+    }
     @include for-size(tablet-landscape-up) {
       display: inline-block;
       text-transform: uppercase;
@@ -41,5 +51,10 @@
   &__caption {
     display: none;
     visibility: hidden;
+  }
+  .heading {
+    @include for-size(tablet-portrait-up) {
+      padding: 2em 0.5em;
+    }
   }
 }

@@ -1,16 +1,15 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
-
-  <li class="teaser-stacklist__item">
-    <div class="teaser-stacklist__item--inner">
+  <li class="teaser-{{teaser_type}}__item">
+    <div class="teaser-{{teaser_type}}__item--inner">
       {% if article.get_effective_image %}
-        <div class="teaser-stacklist__images">
-          <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+        <div class="teaser-{{teaser_type}}__images">
+          <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
             {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-            <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+            <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
           </a>
         </div>
       {% endif %}
-      <div class="teaser-stacklist__container">
+      <div class="teaser-{{teaser_type}}__container">
         <div class="teaser-breadcrumb">
           {% with parent=self.get_parent_section %}
             <ul class="teaser-breadcrumb-list">
@@ -25,8 +24,8 @@
             </ul>
           {% endwith %}
         </div>
-          <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-            <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
+          <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
+            <h1 class="teaser-{{teaser_type}}__title{% if article.title_highlight %} teaser-{{teaser_type}}__title--highlight{% endif %}">
               {% if article.title_highlight %}
                 {{ article.title_highlight|smarttruncatechars:100|safe}}
               {% else %}
@@ -35,7 +34,7 @@
             </h1>
           </a>
         {% if article.subtitle_highlight or article.body_highlight %}
-          <p class="teaser-stacklist__subtitle">
+          <p class="teaser-{{teaser_type}}__subtitle">
             {% if article.subtitle_highlight %}
               {{article.subtitle_highlight|smarttruncatechars:150|safe}}
             {% elif article.body_highlight %}
@@ -43,7 +42,7 @@
             {% endif %}
           </p>
         {% elif article.subtitle %}
-          <p class="teaser-stacklist__subtitle">
+          <p class="teaser-{{teaser_type}}__subtitle">
             {% if article.title.30 %}
               {{ article.subtitle|smarttruncatechars:150|safe}}
             {% else %}
@@ -78,7 +77,7 @@
     </div>
     {% for block in article.homepage_media %}
       {% with block.value as media %}
-        <div class="teaser-stacklist__elem-audio">
+        <div class="teaser-{{teaser_type}}__elem-audio">
           {% if block.value.youtube_link %}
             {% embed media.youtube_link %}
           {% elif block.value.type == 'audio' %}

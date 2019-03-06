@@ -12,12 +12,19 @@
     margin: 0 0 1em;
   }
   &__anchor {
-    display: block;
+    display: inline-block;
   }
   &__images {
     overflow: hidden;
     position: relative;
     display: inline-block;
+  }
+  &__duration {
+    color: #000;
+    display: inline-block;
+    margin: 0;
+    padding: 0 $spacer-small;
+    font-size: $font-small;
   }
   &__thumbnail {
     height: auto;
@@ -25,8 +32,10 @@
   }
   &__container {
     margin: $spacer-small 0;
-    padding: 1em;
     position: relative;
+    @media screen and (min-width: 45.000em) {
+      padding: 1em;
+    }
     @include for-size(tablet-landscape-up)  {
       margin: 1em 0 0;
     }
@@ -43,13 +52,25 @@
   }
   &__title {
     color: #000;
-    font-size: $font-large;
-    margin: 0.67em 0;
+    display: inline-block;
+    font-size: $font-x-medium;
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    @media screen and (min-width: 65.313em) {
+      font-size: $font-medium;
+    }
   }
   &__subtitle {
     color: #000;
-    font-size: $font-small;
-    margin: 0.67em 0;
+    font-size: $font-x-small;
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   &--watch {
     iframe,video {
@@ -61,15 +82,18 @@
     #{$block}__images {
       display: block;
     }
-    #{$block}__thumbnail {
-      width: 100%;
-    }
     #{$block}__container {
       background: $color-aqua;
+      padding: 1em;
       @each $name, $color in $color_loop {
         &--#{$name} {
           background: $color;
         }
+      }
+    }
+    #{$block}__title {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
       }
     }
   }
@@ -86,14 +110,27 @@
     }
     #{$block}__images {
       @media screen and (min-width: 62.000em) {
-        max-width: 270px;
+        max-width: 170px;
+        width: 170px;
+        height: 170px;
       }
+    }
+    #{$block}__thumbnail {
+      min-height: 170px;
     }
     #{$block}__container {
       margin: 0 0 $spacer-small;
-      padding: 0 1em;
+      @media screen and (min-width: 45.000em) {
+        padding: 0 1em;
+        width: 77%;
+      }
       .section__title {
         color: $color-light-red;
+      }
+    }
+    #{$block}__title {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
       }
     }
     #{$block}__elem-audio {
