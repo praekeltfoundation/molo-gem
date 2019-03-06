@@ -69,8 +69,11 @@
     &--watch {
       .teaser-grid--watch {
         .teaser-grid__item {
-          @include for-size(tablet-landscape-up) {
-            min-width: 315px;
+          @media screen and (min-width: 40.000em) {
+            width: 275px;
+          }
+          @media screen and (min-width: 80.000em) {
+            width: 337px;
           }
         }
         .teaser-grid__images  {
@@ -80,6 +83,7 @@
           }
         }
         .teaser-grid__container {
+          background: $color-aqua;
           padding: 1em;
         }
         .teaser-grid__duration {
@@ -89,6 +93,27 @@
       }
     }
     &--listen {
+      .teaser-grid {
+        &__item--inner {
+          padding: 0 1em 1em 1em;
+        }
+        &__images {
+          margin: 0 1em 0 0;
+          @include for-size(tablet-landscape-up) {
+            float: left;
+            width: 90px;
+            height: 90px;
+          }
+        }
+        &__thumbnail {
+          @include for-size(tablet-landscape-up) {
+            margin: 0 1em 0 0;
+          }
+        }
+        &__container {
+          padding: 1em .5em 0 0;
+        }
+      }
       .call-to-action__button {
         padding: $spacer-small;
       }
