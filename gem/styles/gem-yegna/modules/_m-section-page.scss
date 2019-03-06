@@ -83,48 +83,14 @@
           padding: 1em;
         }
         .teaser-grid__duration {
-          padding: 0 $spacer-small ;
+          padding: 0 $spacer-small;
           font-size: $font-xx-small;
         }
       }
     }
     &--listen {
-      .teaser-stacklist--listen {
-        .teaser-stacklist__item {
-          background-color: $color-light-gray;
-          &--inner {
-            background-color: #fff;
-            clear: both;
-            display: block;
-            margin: 1.5em;
-            padding: 1em;
-            .teaser-stacklist__anchor {
-              @include for-size(tablet-landscape-up) {
-                display: inline-block;
-              }
-            }
-            .teaser-stacklist__images {
-              margin: 0 1em 0 0;
-              @include for-size(tablet-landscape-up) {
-                float: left;
-                max-width: 90px;
-                max-width: 90px;
-              }
-            }
-            .teaser-stacklist__thumbnail {
-              @include for-size(tablet-landscape-up) {
-                margin: 0.5em 1em 0 0;
-              }
-            }
-            .teaser-stacklist__container {
-              @include for-size(tablet-landscape-up) {
-                margin: 5px 0 0;
-                padding: 0.5em 0 0;
-                position: relative;
-              }
-            }
-          }
-        }
+      .call-to-action__button {
+        padding: $spacer-small;
       }
     }
   }
@@ -142,7 +108,8 @@
       #{$block}__second-column {
         .teaser-stacklist--watch .teaser-stacklist__container,
         .teaser-grid--watch .teaser-grid__container,
-        .teaser-stacklist--listen .teaser-stacklist__elem-audio {
+        .teaser-stacklist--listen .teaser-stacklist__elem-audio,
+        .teaser-grid--listen .teaser-grid__elem-audio {
           background-color: $color;
         }
         .teaser-accordion-list--watch .teaser-accordion-list__anchor,
@@ -151,6 +118,9 @@
             background-color: $color;
           }
         }
+      }
+      .teaser-grid--listen .teaser-breadcrumb-list__anchor {
+        color: $color;
       }
     }
   }

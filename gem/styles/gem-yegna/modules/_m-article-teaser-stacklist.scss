@@ -51,18 +51,16 @@
   &__title {
     color: #000;
     display: inline-block;
-    font-size: $font-large;
+    font-size: $font-x-medium;
+    @media screen and (min-width: 65.313em) {
+      font-size: $font-medium;
+    }
   }
   &__subtitle {
     color: #000;
-    font-size: $font-small;
+    font-size: $font-x-small;
   }
   &--watch {
-    #{$block}__title {
-      @include for-size(tablet-landscape-up) {
-        font-size: $font-xx-large;
-      }
-    }
     iframe,video {
       @include for-size(tablet-landscape-up) {
         height: 422px;
@@ -83,6 +81,11 @@
         }
       }
     }
+    #{$block}__title {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
+      }
+    }
   }
   &--listen {
     #{$block}__item {
@@ -97,7 +100,9 @@
     }
     #{$block}__images {
       @media screen and (min-width: 62.000em) {
-        max-width: 270px;
+        max-width: 170px;
+        width: 170px;
+        height: 170px;
       }
     }
     #{$block}__container {
@@ -105,6 +110,11 @@
       padding: 0 1em;
       .section__title {
         color: $color-light-red;
+      }
+    }
+    #{$block}__title {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
       }
     }
     #{$block}__elem-audio {

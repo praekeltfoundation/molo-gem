@@ -1,19 +1,9 @@
 .teaser-grid {
+  $block: unquote("#{&}");
   margin: 0;
   padding: 0;
-  &__item {
-    background-color: $color-light-gray;
-    display: inline-block;
-    margin: 0 0.5em 1em;
-    padding: 0.8em;
-    text-align: center;
-    @media screen and (min-width: 45.000em) {
-      vertical-align: top;
-    }
-    @media screen and (min-width: 64.000em) {
-      padding: 1.4em;
-      margin: 0 0 2em;
-    }
+  &__elem-audio {
+    padding: 1em;
   }
   &__container {
     text-align: left;
@@ -54,14 +44,53 @@
   &__subtitle {
     font-size: $font-x-small;
     overflow: hidden;
-    //text-overflow: ellipsis;
     text-overflow: -o-ellipsis-lastline;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    /*white-space: nowrap;
+    /*text-overflow: ellipsis;
+    white-space: nowrap;
     overflow-wrap: break-word;
     word-break: break-word;*/
     //height: 3.6em; /* exactly three lines */
+  }
+  &__item {
+    background-color: $color-light-gray;
+    display: inline-block;
+    margin: 0 0.5em 1em;
+    padding: 0.8em;
+    text-align: center;
+    @media screen and (min-width: 45.000em) {
+      vertical-align: top;
+    }
+    @media screen and (min-width: 64.000em) {
+      padding: 1.4em;
+      margin: 0 0 2em;
+    }
+
+    //FOR AUDIO
+    &--inner  {
+      background-color: #fff;
+      clear: both;
+      display: block;
+      padding: 0 1em 1em 1em;
+      overflow: auto;
+      #{$block}__images {
+        margin: 0 1em 0 0;
+        @include for-size(tablet-landscape-up) {
+          float: left;
+          width: 90px;
+          height: 90px;
+        }
+      }
+      #{$block}__thumbnail {
+        @include for-size(tablet-landscape-up) {
+          margin: 0 1em 0 0;
+        }
+      }
+      #{$block}__container {
+        padding: 1em .5em 0 0;
+      }
+    }
   }
 }
