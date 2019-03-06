@@ -12,12 +12,19 @@
     margin: 0 0 1em;
   }
   &__anchor {
-    display: block;
+    display: inline-block;
   }
   &__images {
     overflow: hidden;
     position: relative;
     display: inline-block;
+  }
+  &__duration {
+    color: #000;
+    display: inline-block;
+    margin: 0;
+    padding: 0 $spacer-small;
+    font-size: $font-small;
   }
   &__thumbnail {
     height: auto;
@@ -43,15 +50,19 @@
   }
   &__title {
     color: #000;
+    display: inline-block;
     font-size: $font-large;
-    margin: 0.67em 0;
   }
   &__subtitle {
     color: #000;
     font-size: $font-small;
-    margin: 0.67em 0;
   }
   &--watch {
+    #{$block}__title {
+      @include for-size(tablet-landscape-up) {
+        font-size: $font-xx-large;
+      }
+    }
     iframe,video {
       @include for-size(tablet-landscape-up) {
         height: 422px;

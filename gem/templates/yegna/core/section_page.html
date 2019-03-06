@@ -2,6 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
 
 {% block content %}
+{% spaceless %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     <div class="banner">
       <div class="heading heading--hero">
@@ -425,4 +426,5 @@
       {% endif %}
     {% endwith %}
   </div>
+{% endspaceless %}
 {% endblock %}
