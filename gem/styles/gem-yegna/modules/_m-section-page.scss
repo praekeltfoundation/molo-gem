@@ -25,7 +25,6 @@
           @include for-size(tablet-landscape-up) {
             min-height: 290px;
             max-height: 422px;
-            //height: 422px;
           }
         }
         //FIRST COLUMN OVERRIDE
@@ -52,7 +51,6 @@
         .teaser-stacklist__images {
           width: 70%;
           @media screen and (min-width: 40.000em) {
-            //Fixed sizes
             max-height: 260px;
             max-width: 460px;
           }
@@ -72,7 +70,7 @@
       .teaser-grid--watch {
         .teaser-grid__item {
           @include for-size(tablet-landscape-up) {
-            max-width: 338.797px;
+            min-width: 315px;
           }
         }
         .teaser-grid__images  {
@@ -83,6 +81,10 @@
         }
         .teaser-grid__container {
           padding: 1em;
+        }
+        .teaser-grid__duration {
+          padding: 0 $spacer-small ;
+          font-size: $font-xx-small;
         }
       }
     }
@@ -104,10 +106,8 @@
             .teaser-stacklist__images {
               margin: 0 1em 0 0;
               @include for-size(tablet-landscape-up) {
-                //Fixed sizes
                 float: left;
                 max-width: 90px;
-                //height: 90px;
                 max-width: 90px;
               }
             }
