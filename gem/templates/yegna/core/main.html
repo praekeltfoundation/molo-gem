@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles el_pagination_tags gem_tags %}
-
+{% block body_class %}class="{{ self.get_verbose_name|slugify }}-page" {% endblock %}
 {% block content %}
   {% gembannerpages %}
   {% bannerpages position=0 %}

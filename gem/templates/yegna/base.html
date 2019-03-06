@@ -78,7 +78,7 @@
   </script>
   {% endcompress %}
 </head>
-<body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+<body {% block body_class %}{% endblock %} {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
