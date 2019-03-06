@@ -17,6 +17,7 @@
   &__images {
     overflow: hidden;
     position: relative;
+    display: inline-block;
   }
   &__thumbnail {
     height: auto;
@@ -57,6 +58,9 @@
         max-height: 422px;
       }
     }
+    #{$block}__images {
+      display: block;
+    }
     #{$block}__thumbnail {
       width: 100%;
     }
@@ -81,13 +85,13 @@
       }
     }
     #{$block}__images {
-      overflow: hidden;
-      @include for-size(tablet-landscape-up) {
-        max-width: 175px;
-        max-height: 175px;
+      @media screen and (min-width: 62.000em) {
+        max-width: 270px;
       }
     }
     #{$block}__container {
+      margin: 0 0 $spacer-small;
+      padding: 0 1em;
       .section__title {
         color: $color-light-red;
       }
@@ -97,11 +101,11 @@
       @each $name, $color in $color_loop {
         &--#{$name} {
           background: $color;
+          .teaser-breadcrumb-list__anchor {
+            color: $color;
+          }
         }
       }
-    }
-    .teaser-breadcrumb-list__anchor {
-      color: $color-light-red;
     }
   }
 }

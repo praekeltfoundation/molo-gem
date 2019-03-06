@@ -36,27 +36,27 @@
         </ul>
       {% endwith %}
     </div>
-    
+
     <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
       <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
         {% if article.title_highlight %}
-          {{ article.title_highlight|smarttruncatechars:50|safe}}
+          {{ article.title_highlight|smarttruncatechars:100|safe}}
         {% else %}
-          {{ article.title|smarttruncatechars:50|safe}}
+          {{ article.title|smarttruncatechars:100|safe}}
         {% endif %}
       </h1>
     </a>
     {% if article.subtitle_highlight or article.body_highlight %}
       <p class="teaser-stacklist__subtitle">
         {% if article.subtitle_highlight %}
-          {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+          {{article.subtitle_highlight|smarttruncatechars:150|safe}}
         {% elif article.body_highlight %}
-          {{article.body_highlight|smarttruncatechars:50|safe}}
+          {{article.body_highlight|smarttruncatechars:150|safe}}
         {% endif %}
       </p>
     {% elif article.subtitle %}
       <p class="teaser-stacklist__subtitle">
-        {{ article.subtitle|smarttruncatechars:50|safe}}
+        {{ article.subtitle|smarttruncatechars:150|safe}}
       </p>
     {% endif %}
     {% for block in article.homepage_media %}
