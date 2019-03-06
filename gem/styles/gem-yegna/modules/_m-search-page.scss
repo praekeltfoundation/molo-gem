@@ -6,8 +6,25 @@
     font-style: italic;
   }
   .teaser-stacklist__item {
+    margin: 0 0 2em;
     @include for-size(tablet-landscape-up) {
       display: flex;
+    }
+  }
+  .teaser-stacklist__images {
+    width: 70%;
+    @media screen and (min-width: 40.000em) {
+      //Fixed sizes
+      max-height: 305px;
+      max-width: 460px;
+    }
+    @include for-size(tablet-portrait-up) {
+      margin: 0 2em 0 0;
+    }
+  }
+  .teaser-stacklist__container {
+    @media screen and (min-width: 62.000em) {
+      width: 55%;
     }
   }
 }

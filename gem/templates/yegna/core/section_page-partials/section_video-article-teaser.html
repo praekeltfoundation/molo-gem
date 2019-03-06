@@ -59,13 +59,9 @@
         {{ article.subtitle|smarttruncatechars:150|safe}}
       </p>
     {% endif %}
-    {% for block in article.homepage_media %}
-      {% with block.value as media %}
-        <div class="call-to-action call-to-action--media-download">
-          <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-            {% trans "Download Video" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
-          </a>
-        </div>
-      {% endwith %}
-    {% endfor %}
+    <div class="call-to-action call-to-action--video-media">
+      <a href="{% pageurl article.specific%}" class="call-to-action__button call-to-action__button--primary">
+        {% trans "Watch video" %}
+      </a>
+    </div>
   </div>
