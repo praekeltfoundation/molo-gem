@@ -62,7 +62,7 @@
           {% with block.value as media %}
             <div class="call-to-action call-to-action--listen call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
               </a>
             </div>
         {% endwith %}
@@ -160,7 +160,7 @@
                       </div>
                       <div class="media-player__download">
                         <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                          {% trans "Download Video" %}
+                          {% trans "Download" %}
                         </a>
                       </div>
                     {% else %}
@@ -194,7 +194,7 @@
                       </div>
                       <div class="media-player__download">
                         <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                          {% trans "Download Video" %}
+                          {% trans "Download" %}
                         </a>
                       </div>
                     {% else %}
@@ -226,7 +226,7 @@
                     </div>
                     <div class="media-player__download">
                       <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                        {% trans "Download Audio" %}
+                        {% trans "Download" %}
                       </a>
                     </div>
                     {% else %}
@@ -292,7 +292,7 @@
                   {% with block.value as media %}
                     <div class="call-to-action call-to-action--listen call-to-action--media-download">
                       <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                        {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                        {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
                       </a>
                     </div>
                   {% endwith %}
