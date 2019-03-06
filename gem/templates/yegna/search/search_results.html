@@ -104,11 +104,16 @@
   </div>
   {% else %}
     <div class="search-page">
-      <div class="search-page__wrapper">
+      <div class="banner">
         <div class="heading heading--hero">
-          <h1 class="heading__component">{% trans "Search" %}</h1>
+          <h1 class="heading__title">{% trans "Search" %}</h1>
         </div>
+      </div>
+      <div class="search-page__wrapper">
         <div class="heading">
+          <h1 class="heading__title">{% trans "Search" %}</h1>
+        </div>
+        <div class="heading  heading--macro">
           <h4 class="heading__title">{% trans "No search results for" %}: <span class="search-page__query-term">'{{ search_query }}'</span></h4>
           <p class="heading__subtitle">
             {% trans "Please check spelling or insert another word" %}. <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--text">
