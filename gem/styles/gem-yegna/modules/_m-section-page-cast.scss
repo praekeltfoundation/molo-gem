@@ -8,16 +8,21 @@
   .teaser-grid {
     @include for-size(tablet-landscape-up) {
       display: flex;
+    }
+    @media screen and (min-width: 65.313em) {
       flex-wrap: wrap;
     }
     &__item {
       background-color: transparent;
       padding: 0;
-      margin: 0 1.5em 1em;
-      max-width: 360px;
+      margin: 0 0.5em 1em;
+      @media screen and (min-width: 64.000em) {
+        margin: 0 1.5em 1em;
+        max-width: 360px;
+      }
     }
     &__images {
-      @include for-size(tablet-portrait-up) {
+      @media screen and (min-width: 64.000em) {
         max-width: 360px;
         max-height: 240px;
       }
