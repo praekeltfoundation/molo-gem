@@ -78,7 +78,7 @@
                   {% endif %}
                 {% endwith %}
                 <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl article.specific %}">
-                  {% trans "Read article" %}</a>
+                  {% trans "Read more" %}</a>
               </div>
             </li>
           {% endfor %}
@@ -104,18 +104,26 @@
   </div>
   {% else %}
     <div class="search-page">
-      <div class="search-page__wrapper">
+      <div class="banner">
         <div class="heading heading--hero">
-          <h1 class="heading__component">{% trans "Search" %}</h1>
+          <h1 class="heading__title">{% trans "Search" %}</h1>
         </div>
+      </div>
+      <div class="search-page__wrapper">
         <div class="heading">
-          <h4 class="heading__title">{% trans "No search results for" %}:
-            <span class="search__query-term">'{{ search_query }}'</span>
-          </h4>
+          <h1 class="heading__title">{% trans "Search" %}</h1>
+        </div>
+        <div class="heading  heading--macro">
+          <h4 class="heading__title">{% trans "No search results for" %}: <span class="search-page__query-term">'{{ search_query }}'</span></h4>
+          <p class="heading__subtitle">
+            {% trans "Please check spelling or insert another word" %}. <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--text">
+              {% trans "Go to homepage" %}
+            </a>
+          </p>
         </div>
         <form action="{% url 'search' %}" class="search-page__form" novalidate>
-          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "I am looking for" %}">
-          <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
+          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search Yegna" %}">
+          <input type="submit" value="{% trans "Go" %}" class="call-to-action__item call-to-action__item--text">
         </form>
       </div>
     </div>

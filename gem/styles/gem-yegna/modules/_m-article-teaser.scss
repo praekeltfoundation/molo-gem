@@ -35,9 +35,6 @@
   }
   &--sidebar {
     .teaser-grid {
-      &__item {
-        background-color: $color-light-gray;
-      }
       &__images {
         @include for-size(tablet-portrait-up) {
           max-width: 270px;
@@ -53,14 +50,6 @@
       text-align: right;
       display: block;
       text-decoration: none;
-      &:active, &:hover, &:focus {
-        color: $color-violet;
-      }
-      &:visited {
-        @include for-size(tablet-landscape-up) {
-          outline: none;
-        }
-      }
       &:after {
         background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
         content: "";
@@ -74,7 +63,6 @@
   }
   &--related {
     .teaser-stacklist__container {
-      border: 1px solid red;
       @include for-size(tablet-landscape-up) {
         width: 45%;
       }

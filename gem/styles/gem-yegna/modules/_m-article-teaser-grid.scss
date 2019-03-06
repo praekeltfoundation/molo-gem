@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   &__item {
+    background-color: $color-light-gray;
     display: block;
     margin: 0 0 1em;
     padding: 0.8em;
@@ -13,6 +14,7 @@
   }
   &__container {
     text-align: left;
+    padding: 0.5em;
   }
   &__anchor {
     display: block;
@@ -31,13 +33,23 @@
   &__title {
     color: #000;
     font-size: $font-x-medium;
-    margin: 0.67em 0;
+    margin: 0.67em 0 0;
     @media screen and (min-width: 65.313em) {
       font-size: $font-medium;
     }
   }
   &__subtitle {
     font-size: $font-small;
-    margin: 0.67em 0;
+    margin: 0 0 0.67em;
+    overflow: hidden;
+    //text-overflow: ellipsis;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    /*white-space: nowrap;
+    overflow-wrap: break-word;
+    word-break: break-word;*/
+    //height: 3.6em; /* exactly three lines */
   }
 }
