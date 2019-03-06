@@ -20,10 +20,13 @@
         @include for-size(tablet-landscape-up) {
           max-height: 175.33px;
           max-width: 265px;
-          width: 65%;
+          width: 60%;
         }
       }
       &__container {
+        @media screen and (min-width: 62.000em) {
+          margin: 1em 0 0 1em;
+        }
         @include for-size(tablet-landscape-up) {
           width: 100%;
         }
@@ -71,6 +74,7 @@
   }
   &--related {
     .teaser-stacklist__container {
+      border: 1px solid red;
       @include for-size(tablet-landscape-up) {
         width: 45%;
       }

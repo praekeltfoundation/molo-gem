@@ -2,8 +2,7 @@
 
     {% for section in sections %}
       {% if section %}
-        {% pageurl section.specific as section_path %}
-        {% if section_path == '/sections/news/' %}
+        {% if section.get_main_language_page.title == "News"  %}
           {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
           {% if articles %}
             <div class="article-teaser article-teaser--general">
@@ -69,9 +68,6 @@
                             {{ article.subtitle|smarttruncatechars:150|safe}}
                           </p>
                         {% endif %}
-                          <a class="call-to-action__item call-to-action__item--text" href="{% pageurl article.specific %}">
-                            {% trans "Read article" %}
-                          </a>
                         </div>
                       </li>
                     {% endfor %}
@@ -85,11 +81,10 @@
         {% endif %}
       {% endif %}
     {% endfor %}
-  {# <!-- CLOSE landing-page__first-column DIV -->#}</div>
+  </div>
     {% for section in sections %}
       {% if section %}
-        {% pageurl section.specific as section_path %}
-        {% if section_path == '/sections/cast/' %}
+        {% if section.get_main_language_page.title == "Cast" %}
           <div class="landing-page__second-column">
             {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
             {% if articles %}
