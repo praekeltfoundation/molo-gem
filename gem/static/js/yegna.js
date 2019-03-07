@@ -46,6 +46,14 @@ jQuery(document).ready(function (e) {
         return false;
     }
   });
+
+  e("#yegna-music").on("canplaythrough", function(t) {
+    var n = e(t.target);
+    var seconds = n.currentTarget.duration;
+    var duration = moment.duration(seconds, "seconds");
+   var time = time + duration.minutes() + ":" + duration.seconds();
+    console.log('Audio',seconds);
+  });
 });
 
 (function() {

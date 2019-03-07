@@ -85,7 +85,7 @@
                     {% embed media.youtube_link %}
                   {% elif block.value.type == 'audio' %}
                   <div class="media-player__embed">
-                    <audio controls>
+                    <audio id="{{media|slugify}}" controls>
                      <source src={{media.file.url}} type="audio/mpeg">
                      <source src={{media.file.url}} type="audio/ogg">
                      <source src={{media.file.url}} type="audio/wav">
