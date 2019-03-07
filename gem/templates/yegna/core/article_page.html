@@ -9,7 +9,28 @@
 <div class="article-page{% if section.get_effective_extra_style_hints %} article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
   <div class="banner">
     <div class="heading heading--hero">
-      <h1 class="heading__title">{{ancestor.title}}</h1>
+      {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+        {% if ancestor %}
+          <h1 class="heading__title">{{ancestor.title}}</h1>
+        {% elif parent %}
+          <h1 class="heading__title">{{parent.title}}</h1>
+        {% else %}
+          <h1 class="heading__title">{{section.title}}</h1>
+        {% endif %}
+
+      {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+        {% if ancestor %}
+          <h1 class="heading__title">{{ancestor.title}}</h1>
+        {% elif parent %}
+          <h1 class="heading__title">{{parent.title}}</h1>
+        {% else %}
+          <h1 class="heading__title">{{section.title}}</h1>
+        {% endif %}
+
+      {% else %}
+        <h1 class="heading__title">{{section.title}}</h1>
+      {% endif %}
+
     </div>
   </div>
   <div class="article-page__wrapper">
