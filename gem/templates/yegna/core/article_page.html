@@ -306,7 +306,7 @@
             </div>
           {% endif %}
         {% endif %}
-        <a href="{{request.GET.next}}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
+        <a href="{% pageurl section.specific %}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
           </div>
           <div class="article-page__second-column">

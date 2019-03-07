@@ -67,6 +67,7 @@
     color: #000;
     font-size: $font-x-small;
     overflow: hidden;
+    margin: 0;
     text-overflow: -o-ellipsis-lastline;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -95,6 +96,12 @@
       @include for-size(tablet-landscape-up) {
         font-size: $font-xx-large;
       }
+    }
+    #{$block}__anchor {
+      vertical-align: middle;
+    }
+    #{$block}__duration {
+      vertical-align: sub;
     }
   }
   &--listen {
