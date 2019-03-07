@@ -25,10 +25,14 @@
     &__item {
       display: block;
       margin: 1em 0.5em;
+      @media screen and (min-width: 25.000em) {
+        width: 320px;
+      }
       @media screen and (min-width: 27.813em) {
         display: inline-block;
         margin: 0.5em 1.5em 0;
         text-align: center;
+        width: 360px;
       }
     }
     &__anchor {
@@ -47,18 +51,17 @@
       display: inline-block;
       vertical-align: middle;
       margin: 0 0.5em 0 0;
+      height: 70px;
+      width: 100px;
+      overflow: auto;
       @media screen and (min-width: 27.813em) {
         margin: 0;
         display: block;
+        height: 240px;
+        width: 360px;
       }
       &--music, &--radio-drama, &--radio-talk  {
         background: url("/static/img/patterns/yegna/subsections-bg.svg") no-repeat 0 0/ 100%;
-        height: 70px;
-        width: 100px;
-        @media screen and (min-width: 27.813em) {
-          height: 240px;
-          width: 360px;
-        }
       }
       &--music {
         background-position: center -75px;
@@ -76,6 +79,7 @@
     &__thumbnail {
       height: auto;
       width: 100%;
+      max-width: 360px;
     }
   }
   &--related {
@@ -84,12 +88,6 @@
       &__images {
         &--music, &--radio-drama, &--radio-talk  {
           background: url("/static/img/patterns/yegna/subsections-bg2.svg") no-repeat 0 0/ 100%;
-          height: 70px;
-          width: 100px;
-          @media screen and (min-width: 27.813em) {
-            height: 240px;
-            width: 360px;
-          }
         }
         &--music {
           background-position: center -147px;
