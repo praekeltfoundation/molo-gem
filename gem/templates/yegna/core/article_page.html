@@ -32,7 +32,7 @@
       {% if page.homepage_media %}
         {% for block in page.homepage_media %}
           {% with block.value as media %}
-            <p class="media-player__duration">({{media.duration}})</p>
+            <p class="media-player__duration">({{media.duration|localize}})</p>
             <div class="call-to-action call-to-action--watch call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                 {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
