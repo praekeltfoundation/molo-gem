@@ -1,12 +1,12 @@
 .heading {
   $block: unquote("#{&}");
   font-size: $font-large;
-  padding: 0 0 0.5em;
+  padding: 0 0 1em;
   &:before {
     background: url("/static/img/lines/yegna/divider.svg") no-repeat 0 0 / auto;
     content: "";
     display: block;
-    margin: 1em 0;
+    margin: 1em 0 0;
     padding: 1em;
     width: 100%;
     border-top-right-radius: 10px;
@@ -60,9 +60,6 @@
     #{$block}__component:before {
       height: 30px;
       background: url("/static/img/icons/yegna/icon-characters.svg") no-repeat center center / 100%;
-      .cast {
-        fill: black;
-      }
     }
   }
   &__component {
@@ -114,7 +111,8 @@
   }
 }
 
-
-.section__title {
-  font-size: $font-medium;
+.section {
+  &__title {
+    font-size: $font-medium;
+  }
 }
