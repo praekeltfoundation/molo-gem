@@ -416,7 +416,7 @@
         <div class="section-page__wrapper section-page--general ">
           <div class="article-teaser article-teaser--general">
             <div class="article-teaser__wrapper">
-              {% load_child_articles_for_section self as articles %}
+              {% load_child_articles_for_section self count=4 as articles %}
               {% if articles %}
                 <ul class="teaser-stacklist">
                   <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
@@ -450,7 +450,7 @@
         <div class="section-page__wrapper section-page--characters">
           <div class="article-teaser article-teaser--sidebar">
             <div class="article-teaser__wrapper">
-              {% load_child_articles_for_section self as articles %}
+              {% load_child_articles_for_section self count=15 as articles %}
               {% if articles %}
                 <ul class="teaser-grid">
                   <!-- LOAD CHILD SECTION FOR SELF AGAIN:  -->
