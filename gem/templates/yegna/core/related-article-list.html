@@ -13,7 +13,7 @@
         {% if next_article.image %}
           <div class="teaser-{{teaser_type}}__images">
             <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
-              {% image next_article.image width-480 format-jpeg as teaser_thumbnail %}
+              {% image next_article.image width-1080 format-jpeg as teaser_thumbnail %}
               <img alt="{{ next_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
             </a>
           </div>
@@ -109,7 +109,7 @@
           {% if article.image %}
             <div class="teaser-{{teaser_type}}__images">
               <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
-                {% image article.image width-480 format-jpeg as teaser_thumbnail %}
+                {% image article.image width-1080 format-jpeg as teaser_thumbnail %}
                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
               </a>
             </div>
