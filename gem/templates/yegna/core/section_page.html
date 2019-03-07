@@ -458,6 +458,23 @@
                       {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
                     {% endfor %}
                 </ul>
+                {% if articles and articles_paginated.paginator.num_pages > 1 %}
+                  <div class="pagination">
+                    {% if articles_paginated.has_previous %}
+                      <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                        {% trans "Previous" %}
+                      </a>
+                    {% endif %}
+                    <p class="call-to-action__item call-to-action__item--text">
+                      {% trans "Page" %} {{ articles_paginated.number }} {% trans "of" %} {{articles_paginated.paginator.num_pages }}
+                    </p>
+                    {% if articles_paginated.has_next %}
+                      <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                        {% trans "Newer" %}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
               {% endif %}
             </div>
           </div>
