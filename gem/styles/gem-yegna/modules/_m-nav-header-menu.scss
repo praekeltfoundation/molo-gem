@@ -20,6 +20,7 @@
       text-align: center;
       text-decoration: none;
       text-transform: capitalize;
+      position: relative;
       @include for-size(tablet-portrait-up) {
         text-align: inherit;
         padding: $spacer-half;
@@ -43,21 +44,39 @@
           width: 37px;
         }
       }
+      &:after {
+        content: "";
+        display: block;
+        border-bottom-left-radius: 5px;
+        border-radius: 10%;
+        background: transparent;
+        width: 90%;
+        height: 3px;
+        position: absolute;
+        right: 5px;
+          @include for-size(tablet-landscape-up) {
+            width: 50%;
+          }
+      }
       &:active, &:hover, &:focus {
         opacity: 1;
-        text-decoration: underline;
         &:before {
           opacity: 1;
           text-decoration: none;
+        }
+        &:after {
+          background: #000;
         }
       }
     }
     .active {
       opacity: 1;
-      text-decoration: underline;
       &:before {
         opacity: 1;
         text-decoration: none;
+      }
+      &:after {
+        background: #000;
       }
     }
     .open {
