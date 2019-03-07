@@ -11,9 +11,7 @@
     </div>
     <div class="search-page__wrapper">
       <div class="heading">
-        <h3 class="heading__title">{{results|length}} {% trans "Results found for" %}:
-          <span class="search-page__query-term">'{{search_query}}'</span>
-        </h3>
+        <h3 class="heading__title">{{results|length}} {% trans "Results found for" %}: <span class="search-page__query-term">'{{search_query}}'</span></h3>
       </div>
       <div class="article-teaser__wrapper">
         <ul class="teaser-stacklist">
@@ -22,7 +20,7 @@
               {% if article.image %}
                 <div class="teaser-stacklist__images">
                   <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                    {% image article.image width-480 format-jpeg as teaser_thumbnail %}
+                    {% image article.image width-1080 format-jpeg as teaser_thumbnail %}
                     <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                   </a>
                 </div>

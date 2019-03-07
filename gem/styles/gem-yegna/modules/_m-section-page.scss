@@ -1,5 +1,7 @@
 .section-page {
   $block: unquote("#{&}");
+  overflow: auto;
+  position: relative;
   &__columns {
     @include pages();
     width: 100%;
@@ -14,10 +16,13 @@
     }
     @media screen and (min-width: 62.000em) {
       margin-right: 2em;
-      width: 85%;
+      width: 65%;
     }
-    @media screen and (min-width: 65.313em) {
-      margin-right: 3em;
+    @media screen and (min-width: 64.000em) {
+      margin-right: 5%;
+    }
+    @media screen and (min-width: 80.00em) {
+      margin-right: 10%;
     }
     &--watch {
       .teaser-stacklist--watch {
@@ -58,6 +63,10 @@
             margin: 0 2em 0 0;
           }
         }
+        .teaser-stacklist__thumbnail {
+            max-width: 460px;
+            width: 460px;
+        }
       }
     }
 
@@ -69,18 +78,25 @@
     &--watch {
       .teaser-grid--watch {
         .teaser-grid__item {
-          @media screen and (min-width: 40.000em) {
+          @media screen and (min-width: 27.813em) {
             width: 275px;
           }
-          @media screen and (min-width: 80.000em) {
+          @media screen and (min-width: 40.000em) {
             width: 337px;
           }
+          @media screen and (min-width: 80.000em) {}
         }
         .teaser-grid__images  {
-          min-width: 290px;
-          @include for-size(tablet-landscape-up)  {
-            max-height: 163.13px;
+          width: 290px;
+          @media screen and (min-width: 27.813em) {
+            width: 290px;
           }
+          @include for-size(tablet-landscape-up)  {
+            height: 163.13px;
+          }
+        }
+        &teaser-grid__thumbnail {
+          max-width: 290px;
         }
         .teaser-grid__container {
           background: $color-aqua;
@@ -106,6 +122,7 @@
           }
         }
         &__thumbnail {
+          max-width: 90px;
           @include for-size(tablet-landscape-up) {
             margin: 0 1em 0 0;
           }

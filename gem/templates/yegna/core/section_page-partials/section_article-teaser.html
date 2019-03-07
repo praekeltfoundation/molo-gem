@@ -5,7 +5,7 @@
     {% if article.get_effective_image %}
       <div class="teaser-{{teaser_type}}__images">
         <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
-          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+          {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
           <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
         </a>
       </div>

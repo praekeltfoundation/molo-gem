@@ -32,7 +32,7 @@
       {% if page.homepage_media %}
         {% for block in page.homepage_media %}
           {% with block.value as media %}
-            <p class="media-player__duration">({{media.duration}})</p>
+            <p class="media-player__duration">({{media.duration|time:"i:s"}})</p>
             <div class="call-to-action call-to-action--watch call-to-action--media-download">
               <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Video', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
                 {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
@@ -105,7 +105,7 @@
     {% else %}
       {% if self.get_effective_image %}
         <div class="article-page__images">
-          {% image self.get_effective_image width-480 format-jpeg as article_thumbnail %}
+          {% image self.get_effective_image width-1080 format-jpeg as article_thumbnail %}
           <img alt="{{ self.title }}" src="{{ article_thumbnail.url }}" class="article-page__thumbnail" />
         </div>
       {% endif %}
@@ -148,7 +148,7 @@
               <h3 class="heading__title">{{ block.value }}</h3>
             {% elif block.block_type == 'image' %}
               <div class="article-page__images--inner">
-                {% image block.value width-480 format-jpeg class="article-page__thumbnail--inner" %}
+                {% image block.value width-720 format-jpeg class="article-page__thumbnail--inner" %}
               </div>
             {% elif block.value.youtube_link %}
               {% with block.value as media %}
@@ -306,7 +306,7 @@
             </div>
           {% endif %}
         {% endif %}
-        <a href="{{request.GET.next}}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
+        <a href="{% pageurl section.specific %}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
           </div>
           <div class="article-page__second-column">

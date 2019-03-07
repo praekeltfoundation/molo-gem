@@ -7,17 +7,19 @@
         <h1 class="heading__title">{{ page.title }}</h1>
       </div>
     </div>
-    <div class="contact-page__columns">
-      <div class="contact-page__first-column">
-        {% if page.thank_you_text %}
-          <div class="heading">
-            <h2 class="heading__subtitle">{{ page.thank_you_text }}</h2>
-          </div>
-        {% else %}
-          <div class="heading">
-            <h2 class="heading__subtitle">{% trans "Thank you, your email has been sent successfully" %}.</h2>
-          </div>
-        {% endif %}
+    <div class="contact-page__wrapper">
+      <div class="contact-page__columns">
+        <div class="contact-page__first-column">
+          {% if page.thank_you_text %}
+            <div class="heading">
+              <h2 class="heading__subtitle">{{ page.thank_you_text }}</h2>
+            </div>
+          {% else %}
+            <div class="heading">
+              <h2 class="heading__subtitle">{% trans "Thank you, your email has been sent successfully" %}.</h2>
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

@@ -23,9 +23,8 @@
       @media screen and (min-width: 62.000em) {
         width: 35%;
       }
-      .teaser-grid__images {
-        margin: 1em 0 0;
-        height: 25vh;
+      .teaser-grid__container {
+        background: #fff;
       }
     }
   }
@@ -69,17 +68,9 @@
   .social-media {
     background: $color-light-gray;
     padding: 1em;
-    float: none;
     width: 100%;
-    &-list__item {
-      @include for-size(tablet-landscape-up)  {
-        float: right;
-      }
-      &:first-child {
-        @include for-size(tablet-landscape-up)  {
-          float: left;
-        }
-      }
+    &-list {
+      text-align: right;
     }
     &--watch,
     &--listen {
@@ -116,7 +107,6 @@
   }
   .teaser-grid {
     &__item {
-      background: 0 0;
       @include for-size(tablet-landscape-up) {
         max-width: 338.797px;
       }
