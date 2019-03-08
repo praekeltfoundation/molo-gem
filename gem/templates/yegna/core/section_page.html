@@ -342,6 +342,7 @@
               <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
+              {% comment %}
               {% load_child_articles_for_section section as articles %}
               {% if articles %}
                 <div class="article-teaser__wrapper">
@@ -363,6 +364,7 @@
                     </ul>
                 </div>
               {% endif %}
+              {% endcomment %}
               {% load_child_sections_for_section section=section as inner_sections %}
                 <ul class="teaser-accordion-list teaser-accordion-list--listen">
                   {% for inner_section in inner_sections %}
@@ -444,7 +446,6 @@
             </div>
           </div>
         </div>
-
       {% elif self.get_main_language_page.title == "Cast" %}
         <div class="section-page__wrapper section-page--characters">
           <div class="article-teaser article-teaser--sidebar">
