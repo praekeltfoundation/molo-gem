@@ -1,4 +1,7 @@
 {% load wagtailcore_tags forms_tags %}
+{% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
+{% load core_tags staticfiles compress %}
+
 {% if footers %}
   <li class="nav-menu-dropdown-list__item  nav-menu-dropdown-list__item--footer">
     <ul class="menu-list menu-list--header state-list">
@@ -9,6 +12,19 @@
         </li>
         {% endif %}
       {% endfor %}
+      {% comment %}
+      {% load_sections as sections %}
+      {% for section in sections %}
+        {% if section %}
+          {% get_translation section as footer_section %}
+            {% if footer_section.title == "Cast" or footer_section.title == "News" %}
+              <li class="menu-list__item state-list__item">
+                <a href="{% pageurl footer_section.specific %}" class="menu-list__anchor state-list__anchor">{{footer_section}}</a>
+              </li>
+            {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% endcomment %}
     </ul>
 
     <ul class="menu-list menu-list--footer state-list">

@@ -28,14 +28,20 @@
     padding: 0;
     display: block;
     text-align: left;
-    @include for-size(tablet-portrait-up) {
+    @media screen and (min-width: 45.000em) {
       display: flex;
       justify-content: space-between;
     }
+    @media screen and (min-width: 62.000em) {
+      justify-content: flex-start;
+    }
     &__item {
       display: block;
-      @include for-size(tablet-portrait-up) {
-        display: inline-block;
+      @media screen and (min-width: 45.000em) {
+        display: inline-block;  
+      }
+      @media screen and (min-width: 62.000em) {
+        margin: 0 10% 0 0;
       }
       &--footer {
         .menu-list__item {
