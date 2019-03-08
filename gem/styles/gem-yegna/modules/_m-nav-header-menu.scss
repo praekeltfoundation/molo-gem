@@ -39,24 +39,25 @@
         width: 27px;
         @include for-size(tablet-portrait-up) {
           display: inline-block;
-          margin: 0 $spacer-small 0 0;
+          margin: 0 $spacer-half 0 0;
           height: 33px;
           width: 37px;
         }
       }
-      &:after {
-        content: "";
-        display: block;
-        border-bottom-left-radius: 5px;
-        border-radius: 10%;
-        background: transparent;
-        width: 90%;
-        height: 3px;
-        position: absolute;
-        right: 5px;
-          @include for-size(tablet-landscape-up) {
-            width: 50%;
-          }
+      span {
+        position: relative;
+        &:after {
+          content: "";
+          display: block;
+          border-radius: 10%;
+          background: transparent;
+          width: 100%;
+          height: 3px;
+          position: absolute;
+          margin: -5px auto;
+          right: 0;
+          left: 0;
+        }
       }
       &:active, &:hover, &:focus {
         opacity: 1;
@@ -64,7 +65,7 @@
           opacity: 1;
           text-decoration: none;
         }
-        &:after {
+        span:after {
           background: #000;
         }
       }
@@ -75,7 +76,7 @@
         opacity: 1;
         text-decoration: none;
       }
-      &:after {
+      span:after {
         background: #000;
       }
     }
@@ -89,6 +90,7 @@
       }
     }
   }
+
   #menu:before {
     background-image: url('/static/img/icons/yegna/icon-burger.svg');
     background-size: 100%;

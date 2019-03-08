@@ -138,7 +138,9 @@
         <div class="nav-menu">
           <ul class="nav-menu-list">
             <li class="nav-menu-list__item dropdown">
-              <label for="nav-menu_accordion"  id="menu" class="nav-menu-list__anchor dropdown-toggle">{% trans "Menu" %}</label>
+              <label for="nav-menu_accordion"  id="menu" class="nav-menu-list__anchor dropdown-toggle">
+                <span>{% trans "Menu" %}</span>
+              </label>
               <input type="checkbox" value="toggles" name="toggle" id="nav-menu_accordion" class="nav-menu-list__checkbox" />
               <div class="nav-menu-dropdown dropdown-menu">
                 <ul class="nav-menu-dropdown-list">
@@ -160,14 +162,15 @@
                     </li>
                     {% endif %}
                   {% endfor %}
-
                 </ul>
               </div>
             </li>
             {% for section_page in sections %}
               {% if section_page.show_in_menus == True %}
                 <li class="nav-menu-list__item">
-                  <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">{{section_page.title}}</a>
+                  <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
+                    <span>{{section_page.title}}</span>
+                  </a>
                 </li>
               {% endif %}
             {% endfor %}
