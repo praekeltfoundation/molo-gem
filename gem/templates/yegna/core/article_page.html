@@ -111,6 +111,12 @@
                 </video>
               </div>
             {% elif block.value.type == 'audio' %}
+              {% if self.get_effective_image %}
+                <div class="article-page__images">
+                  {% image self.get_effective_image width-1080 format-jpeg as article_thumbnail %}
+                  <img alt="{{ self.title }}" src="{{ article_thumbnail.url }}" class="article-page__thumbnail" />
+                </div>
+              {% endif %}
               <div class="media-player__embed media-player__embed--audio">
                 <audio controls>
                  <source src={{media.file.url}} type="audio/mpeg">
