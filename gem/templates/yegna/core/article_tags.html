@@ -20,20 +20,18 @@
 
     {% get_next_tag tag as next_tag %}
     {% get_articles_for_tag next_tag as articles %}
-    {% if next_tag %}
-      {% if articles %}
-        <div class="heading">
-          <h1 class="heading__component">{{next_tag.title}}</h1>
-        </div>
-        <ul class="teaser-grid">
-          {% for article in articles %}
-              {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
-          {% endfor %}
-        </ul>
-        <a href="{% url 'tags_list' tag.slug %}" class="call-to-action_item call-to-action__item--paginate">
-          {% trans "View all" %} {{next_tag}}
-        </a>
-      {% endif %}
+    {% if articles %}
+      <div class="heading">
+        <h1 class="heading__component">{{next_tag.title}}</h1>
+      </div>
+      <ul class="teaser-grid">
+        {% for article in articles %}
+            {% include "core/section_page-partials/section_article-teaser.html" with teaser_type="grid" %}
+        {% endfor %}
+      </ul>
+      <a href="{% url 'tags_list' next_tag.slug %}" class="call-to-action_item call-to-action__item--paginate">
+        {% trans "View all" %} {{next_tag}}
+      </a>
     {% endif %}
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--nav-back">
       {% trans "Back home" %}

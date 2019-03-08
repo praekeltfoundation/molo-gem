@@ -1,21 +1,99 @@
 .tags-page {
   &__wrapper {
-    @include for-size(tablet-landscape-up) {
-      @include pages();
+    padding: 1em;
+    @media screen and (min-width: 64.000em) {
+      padding: 1em 2em;
+    }
+    @media screen and (min-width: 65.313em) {
+      padding: 1em 4%;
+    }
+    @media screen and (min-width: 86.813em ) {
+      padding: 1em 8%;
     }
   }
-  .teaser-stacklist__item--inner {
-    @include for-size(tablet-landscape-up) {
-      padding: 1.5em;
-      display: flex;
+  .teaser-stacklist {
+    &__item--inner {
+      @media screen and (min-width: 40.000em) {
+        display: flex;
+      }
+      @include for-size(tablet-landscape-up) {
+        margin: 0 0 3em;
+        max-width: 1042px;
+      }
+    }
+    &__images {
+      display: inline-block;
+      vertical-align: top;
+      @media screen and (min-width: 40.000em) {
+        margin: 0 3em 0 0;
+        max-width: 460px;
+        width: 100%;
+      }
+      @media screen and (min-width: 45.000em) {
+        height: 306px;
+      }
+    }
+    &__thumbnail {
+      @media screen and (min-width: 40.000em) {
+        max-width: 460px;
+      }
+      @media screen and (min-width: 45.000em) {
+        width: 460px;
+      }
+    }
+    &__container {
+      margin: 0;
+      display: inline-block;
+      .call-to-action__item--paginate {
+        text-align: left;
+        padding: 1em 0;
+      }
+    }
+    &__title {
+      font-size: $font-x-largest;
     }
   }
   .teaser-grid {
-    @include for-size(tablet-landscape-up) {
+    text-align: center;
+    @media screen and (min-width: 62.000em)  {
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media screen and (min-width: 80.000em) {
+      justify-content: flex-start;
     }
     &__item {
       background-color: transparent;
+      padding: 0;
+      margin: 0;
+      margin: 0 1em 1em;
+      @media screen and (min-width: 40.000em) {
+        width: 360px;
+      }
+      &--inner {
+        padding: 0;
+      }
     }
+    &__images {
+      @media screen and (min-width: 40em) {
+        width: 360px;
+        max-width: 360px;
+        height: 240px;
+      }
+    }
+    &__thumbnail {
+      max-width: 360px;
+    }
+    &__title {
+      color: $color-purple;
+      @media screen and (min-width: 64.000em) {
+        font-size: $font-xx-large;
+        margin: 0.5em 0;
+      }
+    }
+  }
+  .call-to-action__item--paginate {
+    padding: 1em 7%;
   }
 }
