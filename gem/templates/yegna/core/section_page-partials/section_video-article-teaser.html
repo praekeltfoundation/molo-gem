@@ -45,7 +45,9 @@
     {% if article.homepage_media %}
       {% for block in article.homepage_media %}
         {% with block.value as media %}
-          <p class="teaser-{{teaser_type}}__duration">({{media.duration|time:"i:s"}})</p>
+          {% if media.duration %}
+            <p class="teaser-{{teaser_type}}__duration">({{media.duration}})</p>
+          {% endif %}
         {% endwith %}
       {% endfor %}
     {% endif %}

@@ -73,7 +73,9 @@
               {% if article.homepage_media %}
                 {% for block in article.homepage_media %}
                   {% with block.value as media %}
-                    <p class="teaser-stacklist__duration">({{media.duration}})</p>
+                    {% if media.duration %}
+                      <p class="teaser-stacklist__duration">({{media.duration}})</p>
+                    {% endif %}
                   {% endwith %}
                 {% endfor %}
               {% endif %}
