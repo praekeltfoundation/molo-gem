@@ -146,21 +146,21 @@
                 <ul class="nav-menu-dropdown-list">
                   {% footer_page %}
                   {% for section in sections %}
-                    {% if section %}
                     <li class="nav-menu-dropdown-list__item">
-                      <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
-                      {% load_child_sections_for_section section=section as sec_sections %}
-                      <ul class="menu-list state-list">
-                        {% for sec_section in sec_sections %}
-                          {% if sec_section %}
-                            <li class="menu-list__item state-list__item">
-                              <a href="{% pageurl sec_section.specific %}" class="menu-list__anchor state-list__anchor">{{sec_section}}</a>
-                            </li>
-                          {% endif %}
-                        {% endfor %}
+                      {% if section and not section.title == "Cast" and not  section.title == "News" %}
+                        <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
+                        {% load_child_sections_for_section section=section as sec_sections %}
+                        <ul class="menu-list state-list">
+                          {% for sec_section in sec_sections %}
+                            {% if sec_section %}
+                              <li class="menu-list__item state-list__item">
+                                <a href="{% pageurl sec_section.specific %}" class="menu-list__anchor state-list__anchor">{{sec_section}}</a>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
                         </ul>
+                      {% endif %}
                     </li>
-                    {% endif %}
                   {% endfor %}
                 </ul>
               </div>
