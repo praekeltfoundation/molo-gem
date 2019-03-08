@@ -1,6 +1,4 @@
-{% load wagtailcore_tags forms_tags %}
-{% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
-{% load core_tags staticfiles compress %}
+{% load wagtailcore_tags forms_tags  core_tags %}
 
 {% if footers %}
   <li class="nav-menu-dropdown-list__item  nav-menu-dropdown-list__item--footer">
@@ -12,7 +10,7 @@
         </li>
         {% endif %}
       {% endfor %}
-      {% comment %}
+
       {% load_sections as sections %}
       {% for section in sections %}
         {% if section %}
@@ -24,7 +22,6 @@
             {% endif %}
         {% endif %}
       {% endfor %}
-      {% endcomment %}
     </ul>
 
     <ul class="menu-list menu-list--footer state-list">
