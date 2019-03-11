@@ -73,16 +73,16 @@
                 </div>
               </li>
             </ul>
-          <div class="call-to-action">
-            <a class="call-to-action__item call-to-action__item--paginate" href="{% pageurl section.get_parent_section.specific %}">
-              {% trans "More episodes" %}
-            </a>
-          </div>
+            <div class="call-to-action">
+              <a class="call-to-action__item call-to-action__item--paginate" href="{% if ancestor %}{% pageurl ancestor.specific %}{% elif parent %}{% pageurl parent.specific %}{% else %}{% pageurl section.specific %}{% endif %}">
+                {% trans "More episodes" %}
+              </a>
+            </div>
           {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
-                  <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-                    {% trans "Watch video" %}
-                  </a>
-                </div>
+                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                  {% trans "Listen next" %}
+                </a>
+              </div>
               </li>
             </ul>
           {% else %}
