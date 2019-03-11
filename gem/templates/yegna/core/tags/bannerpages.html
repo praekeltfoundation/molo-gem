@@ -40,7 +40,12 @@
               <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
             </a>
           {% else %}
-            <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
+            {% comment %}
+              <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
+            {% endcomment %}
+            <div id="pictures-demo">
+              <img src="{{tmp_photo_1x.url}}">
+            </div>
           {% endif %}
           <div class="banner__caption">
             <h1 class="banner__title">{{ bannerpage.title }}</h1>

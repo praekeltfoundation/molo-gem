@@ -5,7 +5,7 @@
       {% for page in footers %}
       {% if page.show_in_menus == True %}
         <li class="menu-list__item state-list__item">
-          <a href="{% pageurl page.specific %}" class="menu-list__anchor state-list__anchor">{{page.title}}</a>
+          <a href="{% pageurl page.specific %}" class="menu-list__anchor state-list__anchor"><span>{{page.title}}</span></a>
         </li>
         {% endif %}
       {% endfor %}
@@ -17,7 +17,7 @@
         {% get_translation section as footer_section %}
           {% if footer_section.title == "Cast" or footer_section.title == "News" %}
             <li class="menu-list__item state-list__item">
-              <a href="{% pageurl footer_section.specific %}" class="menu-list__anchor state-list__anchor">{{footer_section}}</a>
+              <a href="{% pageurl footer_section.specific %}" class="menu-list__anchor state-list__anchor"><span>{{footer_section}}</span></a>
             </li>
           {% endif %}
       {% endif %}
@@ -30,8 +30,7 @@
         <a href="{% pageurl page.specific %}" class="menu-list__anchor state-list__anchor">{{page.title}}</a>
       </li>
       {% endfor %}
-      <li class="menu-list__item state-list__item">
-        <span class="menu-list__anchor state-list__anchor">{% forms_list %}</span></li>
+      <li class="menu-list__item state-list__item">{% forms_list %}</li>
     </ul>
   {% endif %}
 </li>

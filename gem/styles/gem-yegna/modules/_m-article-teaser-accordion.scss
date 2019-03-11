@@ -2,7 +2,7 @@
   $block: unquote("#{&}");
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
   @media screen and (min-width: 62.000em) {
     width: 333px;
     max-width: 333px;
@@ -24,12 +24,14 @@
     text-decoration: none;
     &:active, &:hover, &:focus {
       background-color: $color-aqua;
+      transition: background-color 500ms ease-in-out;
     }
   }
   &--watch {
     #{$block}__anchor {
       &:active, &:hover, &:focus {
         background-color: $color-aqua;
+        transition: background-color 500ms ease-in-out;
       }
     }
   }
@@ -37,6 +39,7 @@
     #{$block}__anchor {
       &:active, &:hover, &:focus {
         background-color: $color-light-red;
+        transition: background-color 500ms ease-in-out;
       }
     }
   }

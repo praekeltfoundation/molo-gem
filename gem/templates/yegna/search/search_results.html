@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
+{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
 
 {% block content %}
 {% if search_results %}
@@ -90,7 +90,7 @@
             </a>
           {% endif %}
           <p class="call-to-action__item--text call-to-action__item--text-current">
-            {% trans "Page" %} {{ search_results.number }} {% trans "of" %} {{ search_results.paginator.num_pages }}</p>
+            {% trans "Pages" %} <span class="call-to-action__counter">{{ search_results.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{ search_results.paginator.num_pages }}</span></p>
           {% if search_results.has_next %}
             <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="call-to-action__button call-to-action__button--next">
               {% trans "Newer" %}
