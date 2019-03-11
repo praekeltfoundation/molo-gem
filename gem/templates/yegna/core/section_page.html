@@ -5,130 +5,133 @@
 {% spaceless %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
+      {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or self.get_main_language_page.title == "Watch" %}
       <div class="banner">
         <div class="heading heading--hero">
           {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
         </div>
-      </div>
-      {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or self.get_main_language_page.title == "Watch" %}
-        <div class="section-page__columns section-page__columns--watch">
+      </div>  
+      <div class="section-page__columns section-page__columns--watch">
           <div class="section-page__first-column section-page__first-column--watch">
+            {% load_child_articles_for_section self count=1 featured_in_section=True as articles %}
+            {% if articles %}
               <div class="heading heading--video">
                 <h1 class="heading__component">{% trans "Featured episode" %}</h1>
               </div>
               <div class="article-teaser__wrapper">
-                {% load_child_articles_for_section self count=1 featured_in_section=True as articles %}
-                {% if articles %}
-                  <ul class="teaser-stacklist teaser-stacklist--watch">
-                  {% for article in articles %}
-                      <li class="teaser-stacklist__item">
-                        {% if article.homepage_media %}
-                          {% for block in article.homepage_media %}
-                            {% with block.value as media %}
-                              <div class="teaser-stacklist__images">
-                                {% if block.value.youtube_link %}
-                                  {% embed media.youtube_link %}
-                                {% elif block.value.type == 'video' %}
-                                  <div class="media-player__embed">
-                                    <video poster="/media/{{ media.thumbnail }}" controls>
-                                      <source src={{media.file.url}} type="video/mp4">
-                                      <source src={{media.file.url}} type="video/webm">
-                                      <source src={{media.file.url}} type="video/ogg">
-                                      <span class="media-player__caption">
-                                        {% trans "Your browser does not support the video tag." %}
-                                      </span>
-                                    </video>
-                                  </div>
-                                {% endif %}
-                              </div>
-                            {% endwith %}
-                          {% endfor %}
-                        {% elif article.get_effective_image %}
-                          <div class="teaser-stacklist__images">
-                            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                              {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-                            </a>
-                          </div>
-                        {% endif %}
-                        {% include "core/section_page-partials/section_video-article-teaser.html" with teaser_type="stacklist" %}
-                      </li>
-                  {% endfor %}
-                  </ul>
-                {% endif %}
-                {% load_child_articles_for_section self count=1 as next_articles %}
-                {% if self.enable_next_section == True or parent.enable_next_section == True or ancestor.enable_next_section == True and next_articles %}
-                  {% if next_articles %}
-                    <div class="article-teaser article-teaser--related">
-                      <div class="heading">
-                        <h1 class="heading__title">{% trans "Watch next" %}</h1>
-                      </div>
-                      <ul class="teaser-stacklist">
-                        {% for next_article in next_articles %}
-                          <li class="teaser-stacklist__item">
-                            {% if next_article.image %}
-                              <div class="teaser-stacklist__images">
-                                <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-                                  {% image next_article.image width-1080 format-jpeg class="teaser-stacklist__thumbnail" %}
-                                </a>
-                              </div>
-                            {% endif %}
-                            <div class="teaser-stacklist__container">
-                              {% load_tags_for_article next_article as tags %}
-                                <ul class="teaser-tags">
-                                  {% if tags %}
-                                    {% if settings.core.SiteSettings.enable_tag_navigation %}
-                                      {% for tag in tags %}
-                                        {% if not tag.title.20 %}
-                                          <li class="teaser-tags__item">
-                                            <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
-                                              <span class="teaser-tags__title">{{ tag.title }}</span>
-                                            </a>
-                                          </li>
-                                        {% endif %}
-                                      {% endfor %}
-                                    {% elif settings.core.SiteSettings.enable_clickable_tags %}
-                                      {% for tag in next_article.tags_list %}
-                                        <li class="teaser-tags__item">
-                                          <span class="teaser-tags__title">{{tag}}</span>
-                                        </li>
-                                      {% endfor %}
-                                    {% endif %}
-                                  {% endif %}
-                                </ul>
-                                <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
-                                  <h3 class="teaser-stacklist__title {% if next_article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
-                                    {% if next_article.title_highlight %}
-                                      {{ next_article.title_highlight|smarttruncatechars:100|safe}}
-                                    {% else %}
-                                      {{ next_article.title|smarttruncatechars:100|safe}}
-                                    {% endif %}
-                                  </h3>
-                                </a>
-                                {% if next_article.subtitle_highlight or next_article.body_highlight %}
-                                  <p class="teaser-stacklist__subtitle">
-                                    {% if next_article.subtitle_highlight %}
-                                      {{next_article.subtitle_highlight|smarttruncatechars:150|safe}}
-                                    {% elif next_article.body_highlight %}
-                                      {{next_article.body_highlight|smarttruncatechars:150|safe}}
-                                    {% endif %}
-                                  </p>
-                                {% elif next_article.subtitle %}
-                                  <p class="teaser-stacklist__subtitle">
-                                    {{ next_article.subtitle|smarttruncatechars:150|safe}}
-                                  </p>
-                                {% endif %}
-                                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-                                  {% trans "Watch video" %}
-                                </a>
+                <ul class="teaser-stacklist teaser-stacklist--watch">
+                {% for article in articles %}
+                    <li class="teaser-stacklist__item">
+                      {% if article.homepage_media %}
+                        {% for block in article.homepage_media %}
+                          {% with block.value as media %}
+                            <div class="teaser-stacklist__images">
+                              {% if block.value.youtube_link %}
+                                {% embed media.youtube_link %}
+                              {% elif block.value.type == 'video' %}
+                                <div class="media-player__embed">
+                                  <video poster="/media/{{ media.thumbnail }}" controls>
+                                    <source src={{media.file.url}} type="video/mp4">
+                                    <source src={{media.file.url}} type="video/webm">
+                                    <source src={{media.file.url}} type="video/ogg">
+                                    <span class="media-player__caption">
+                                      {% trans "Your browser does not support the video tag." %}
+                                    </span>
+                                  </video>
+                                </div>
+                              {% endif %}
                             </div>
-                          </li>
+                          {% endwith %}
                         {% endfor %}
-                      </ul>
-                    </div>
-                  {% endif %}
-                {% endif %}
+                      {% elif article.get_effective_image %}
+                        <div class="teaser-stacklist__images">
+                          <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                            {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                            <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                          </a>
+                        </div>
+                      {% endif %}
+                      {% include "core/section_page-partials/section_video-article-teaser.html" with teaser_type="stacklist" %}
+                    </li>
+                {% endfor %}
+                </ul>
               </div>
+              {% endif %}
+              {% load_child_articles_for_section self count=1 as next_articles %}
+              {% if self.enable_next_section == True or parent.enable_next_section == True or ancestor.enable_next_section == True and next_articles %}
+                {% if next_articles %}
+                <div class="article-teaser__wrapper">
+                  <div class="article-teaser article-teaser--related">
+                    <div class="heading">
+                      <h1 class="heading__title">{% trans "Watch next" %}</h1>
+                    </div>
+                    <ul class="teaser-stacklist">
+                      {% for next_article in next_articles %}
+                        <li class="teaser-stacklist__item">
+                          {% if next_article.image %}
+                            <div class="teaser-stacklist__images">
+                              <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+                                {% image next_article.image width-1080 format-jpeg class="teaser-stacklist__thumbnail" %}
+                              </a>
+                            </div>
+                          {% endif %}
+                          <div class="teaser-stacklist__container">
+                            {% load_tags_for_article next_article as tags %}
+                              <ul class="teaser-tags">
+                                {% if tags %}
+                                  {% if settings.core.SiteSettings.enable_tag_navigation %}
+                                    {% for tag in tags %}
+                                      {% if not tag.title.20 %}
+                                        <li class="teaser-tags__item">
+                                          <a href="{% url 'tags_list' tag.slug %}" class="teaser-tags__anchor">
+                                            <span class="teaser-tags__title">{{ tag.title }}</span>
+                                          </a>
+                                        </li>
+                                      {% endif %}
+                                    {% endfor %}
+                                  {% elif settings.core.SiteSettings.enable_clickable_tags %}
+                                    {% for tag in next_article.tags_list %}
+                                      <li class="teaser-tags__item">
+                                        <span class="teaser-tags__title">{{tag}}</span>
+                                      </li>
+                                    {% endfor %}
+                                  {% endif %}
+                                {% endif %}
+                              </ul>
+                              <a href="{% pageurl next_article.specific %}" class="teaser-stacklist__anchor">
+                                <h3 class="teaser-stacklist__title {% if next_article.title_highlight %}teaser-stacklist__title--highlight{% endif %}">
+                                  {% if next_article.title_highlight %}
+                                    {{ next_article.title_highlight|smarttruncatechars:100|safe}}
+                                  {% else %}
+                                    {{ next_article.title|smarttruncatechars:100|safe}}
+                                  {% endif %}
+                                </h3>
+                              </a>
+                              {% if next_article.subtitle_highlight or next_article.body_highlight %}
+                                <p class="teaser-stacklist__subtitle">
+                                  {% if next_article.subtitle_highlight %}
+                                    {{next_article.subtitle_highlight|smarttruncatechars:150|safe}}
+                                  {% elif next_article.body_highlight %}
+                                    {{next_article.body_highlight|smarttruncatechars:150|safe}}
+                                  {% endif %}
+                                </p>
+                              {% elif next_article.subtitle %}
+                                <p class="teaser-stacklist__subtitle">
+                                  {{ next_article.subtitle|smarttruncatechars:150|safe}}
+                                </p>
+                              {% endif %}
+                              <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                                {% trans "Watch video" %}
+                              </a>
+                          </div>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                {% endif %}
+              {% endif %}
+              
           </div>
           <div class="section-page__second-column section-page__second-column--watch">
             {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
@@ -230,6 +233,11 @@
           </div>
         </div>
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
+        <div class="banner">
+            <div class="heading heading--hero">
+              {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
+            </div>
+        </div>  
         {% if self.get_main_language_page.title == "Listen" %}
           {% load_child_sections_for_section self as subsections %}
           {% if subsections %}
@@ -258,11 +266,11 @@
             {% if not ancestor %}
               <div class="section-page__first-column section-page__first-column--listen">
                 <div class="article-teaser__wrapper">
-                  <div class="heading heading--listen">
-                    <h1 class="heading__component">{% trans "Featured episode" %}</h1>
-                  </div>
                   {% load_child_articles_for_section self count=1 featured_in_section=True as articles %}
                   {% if articles %}
+                    <div class="heading heading--listen">
+                      <h1 class="heading__component">{% trans "Featured episode" %}</h1>
+                    </div>
                     <ul class="teaser-stacklist teaser-stacklist--listen">
                       {% for article in articles %}
                         <li class="teaser-stacklist__item">
@@ -423,6 +431,11 @@
           </div>
         {% endif %}
       {% elif self.get_main_language_page.title == "News" %}
+        <div class="banner">
+          <div class="heading heading--hero">
+              {% trans "Latest" %} <span class="banner__section-name">{{self.title}}</span>
+          </div>
+        </div>
         <div class="section-page__wrapper section-page--general">
           <div class="article-teaser article-teaser--general">
             <div class="article-teaser__wrapper">
@@ -456,6 +469,11 @@
           </div>
         </div>
       {% elif self.get_main_language_page.title == "Cast" %}
+        <div class="banner">
+          <div class="heading heading--hero">
+              {% trans "Meet the Yegna" %} <span class="banner__section-name">{{self.title}}</span>
+          </div>
+        </div>
         <div class="section-page__wrapper section-page--characters">
           <div class="article-teaser article-teaser--sidebar">
             <div class="article-teaser__wrapper">
