@@ -11,22 +11,22 @@
     <div class="heading heading--hero">
       {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
         {% if ancestor %}
-          <h1 class="heading__title">{{ancestor.title}}</h1>
+          <h1 class="heading__title">{{ancestor.title}} {{parent.title}} </h1>
         {% elif parent %}
-          <h1 class="heading__title">{{parent.title}}</h1>
+          <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
         {% else %}
-          <h1 class="heading__title">{{section.title}}</h1>
+          <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
         {% endif %}
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
         {% if ancestor %}
-          <h1 class="heading__title">{{ancestor.title}}</h1>
+          <h1 class="heading__title">{{ancestor.title}} {{parent.title}} </h1>
         {% elif parent %}
-          <h1 class="heading__title">{{parent.title}}</h1>
+          <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
         {% else %}
-          <h1 class="heading__title">{{section.title}}</h1>
+          <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
         {% endif %}
       {% else %}
-        <h1 class="heading__title">{{section.title}}</h1>
+        <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
       {% endif %}
 
     </div>
