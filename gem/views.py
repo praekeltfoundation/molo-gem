@@ -311,7 +311,10 @@ class KaiOSManifestView(View):
             "default_locale": "en",
             "cursor": True
         }
-        response = HttpResponse(json.dumps(manifest))
+        response = HttpResponse(
+            json.dumps(manifest),
+            content_type='application/x-web-app-manifest+json',
+            charset='utf-8')
         return response
 
 
