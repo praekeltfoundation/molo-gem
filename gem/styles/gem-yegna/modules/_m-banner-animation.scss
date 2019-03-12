@@ -1,6 +1,6 @@
 $items: 2;
-$animation-time: 6s;
-$transition-time: 0.3s;
+$animation-time: 25s;
+$transition-time: 0.5s;
 $scale: 20%;
 $total-time: ($animation-time * $items);
 $scale-base-1: (1 + $scale / 100%);
@@ -18,24 +18,21 @@ $scale-base-1: (1 + $scale / 100%);
     height: 335px;
     background-size: 100%;
   }
-  @media screen and (min-width: 65.313em) {
-    //height: 395px;
-  }
-  @media screen and (min-width: 80.000em) {
-    //height: 395px;
-  }
   &-image {
     position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: no-repeat 50% 50%;
-    background-size: 100%;
+    background: no-repeat center 0;
     animation-name: kenburns;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-duration: $total-time;
     opacity: 1;
     transform: scale($scale-base-1);
+    @media screen and (min-width: 64.000em) {
+      background-size: 100%;
+    }
   
     @for $i from 1 through $items {
       &:nth-child(#{$i}) {

@@ -30,21 +30,25 @@
 
           {% if bannerpage.banner_link_page %}
             <a href="{% pageurl bannerpage.banner_link_page.specific %}" target="_top" class="banner__item-link">
-              <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
+              <div class="slideshow" style="background-image: url('{{tmp_photo_1x.url}}');">
+                <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
+                <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
+              </div>
             </a>
           {% elif bannerpage.external_link %}
             <a href="{{ bannerpage.external_link }}" target="_top" class="banner__item-link">
-              <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
+              <div class="slideshow" style="background-image: url('{{tmp_photo_1x.url}}');">
+                <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
+                <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
+              </div>
             </a>
           {% else %}
             {% comment %}
               <img alt="{{ bannerpage.title }}" srcset="{{tmp_photo.url}} 720w, {{tmp_photo_1x.url}} 960w, {{tmp_photo_1x.url}} 1455w" sizes="(max-width: 45.000em) 480px, (max-width: 80.000em) 1080px, 1455px" src="{{tmp_photo_1x.url}}" class="banner__image"/>
             {% endcomment %}
             <div class="slideshow" style="background-image: url('{{tmp_photo_1x.url}}');">
-                {% comment %}
               <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
               <div class="slideshow-image" style="background-image: url('{{tmp_photo_1x.url}}')"></div>
-              {% endcomment %}
             </div>
           {% endif %}
           <div class="banner__caption">
