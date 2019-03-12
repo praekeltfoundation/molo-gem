@@ -40,10 +40,18 @@
   &__image {
     display: block;
     overflow: hidden;
-    @include for-size(tablet-landscape-up) {
-      display: inline-block;
-      text-transform: uppercase;
-      vertical-align: middle;
+    width: 100%;
+    //display: inline-block;
+    text-transform: uppercase;  
+    background-repeat: no-repeat; 
+    background-position: center 0;
+    height: 185px;
+    @media screen and (min-width: 40.000em) {
+      height: 300px;
+    }
+    @media screen and (min-width: 64.000em) {
+      height: 335px;
+      background-size: 100%;
     }
   }
   &__caption {
