@@ -1,0 +1,14 @@
+ 
+{% extends "base.html" %}
+{% load i18n %}
+{% block body_class %}template-404{% endblock %}
+{% block content %}
+    <div class="server-error">
+        <div class="heading">
+            <h1 class="heading--title">{% trans "Access Denied" %}</h1>
+            <h2 class="heading--subtitle">{% trans "You do not have permission to access this site." %}</h2>
+        </div>
+        <a href="{% url 'wagtailadmin_logout' %}?next={% url 'wagtailadmin_login' %}">Retry</a>
+    </div>
+{% endblock %}
+ 
