@@ -231,7 +231,7 @@
                   </ul>
             {% endfor %}
           </div>
-        </div>
+      </div>
       {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or self.get_main_language_page.title == "Listen" %}
         <div class="banner">
             <div class="heading heading--hero">
@@ -455,7 +455,7 @@
                       </a>
                     {% endif %}
                     <p class="call-to-action__item call-to-action__item--text">
-                      {% trans "Page" %} {{ articles_paginated.number }} {% trans "of" %} {{articles_paginated.paginator.num_pages }}
+                      {% trans "Pages" %} <span class="call-to-action__counter">{{ articles_paginated.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{articles_paginated.paginator.num_pages }}</span>
                     </p>
                     {% if articles_paginated.has_next %}
                       <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
@@ -493,7 +493,7 @@
                       </a>
                     {% endif %}
                     <p class="call-to-action__item call-to-action__item--text">
-                      {% trans "Page" %} {{ articles_paginated.number }} {% trans "of" %} {{articles_paginated.paginator.num_pages }}
+                      {% trans "Pages" %} <span class="call-to-action__counter">{{ articles_paginated.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{articles_paginated.paginator.num_pages }}</span>
                     </p>
                     {% if articles_paginated.has_next %}
                       <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
