@@ -537,7 +537,7 @@ class GemReportCommentViewTest(TestCase, GemTestCaseMixin):
 
 class TestKaiOSManifestView(TestCase):
     def setup():
-        self.request_factory = RequestFactory()
+        request_factory = RequestFactory()
 
     def test_returns_correct_manifest_data(self):
         request = self.request_factory.get('/manifest.webapp')
