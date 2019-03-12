@@ -25,10 +25,19 @@
         {% else %}
           <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
         {% endif %}
+      {% elif section.get_main_language_page.title == "News" %}
+        <h1 class="heading__title">
+          {% trans "Latest" %} <span class="banner__section-name">{{section.title}}</span>
+        </h1>
+        <h3 class="heading__subtitle">{{self.title}}</h3>
+      {% elif section.get_main_language_page.title == "Cast" %}
+        <h1 class="heading__title">
+          {% trans "Meet the Yegna" %} <span class="banner__section-name">{{section.title}}</span>
+        </h1>
+        <h3 class="heading__subtitle">{{self.title}}</h3>
       {% else %}
         <h1 class="heading__title">{{parent.title}} {{section.title}}</h1>
       {% endif %}
-
     </div>
   </div>
   <div class="article-page__wrapper">
