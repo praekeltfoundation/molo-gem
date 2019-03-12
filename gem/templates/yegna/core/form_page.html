@@ -7,20 +7,22 @@
         <h1 class="heading__title">{{ page.title }}</h1>
       </div>
     </div>
-    <div class="contact-page__columns">
-      <div class="contact-page__first-column">
-        <div class="heading">
-          <h2 class="heading__title">{{ page.intro }}</h2>
-        </div>
-        <h3 class="heading__subtitle">{{ page.search_description }}</h3>
-        <form action="{% pageurl page.specific %}" method="POST" class="contact__form" novalidate>
-            {% csrf_token %}
+    <div class="contact-page__wrapper">
+      <div class="contact-page__columns">
+        <div class="contact-page__first-column">
+          <div class="heading">
+            <h2 class="heading__title">{{ page.intro }}</h2>
+          </div>
+          <h3 class="heading__subtitle">{{ page.search_description }}</h3>
+          <form action="{% pageurl page.specific %}" method="POST" class="contact-page__form" novalidate>
+          {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="{% trans 'Submit Message' %}" class="call-to-action__item call-to-action__item--primary">
-        </form>
-      </div>
-      <div class="contact-page__second-column">
-        {% include_block page.body %}
+          </form>
+        </div>
+        <div class="contact-page__second-column">
+          {% include_block page.body %}
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,50 @@
+.section-page--general {
+  @include pages();
+  text-align: center;
+  .article-teaser--general {
+    text-align: left;
+    display: inline-block;
+    .teaser-stacklist {
+      &__item--inner {
+        @media screen and (min-width: 40.000em) {
+          display: flex;
+        }
+        @include for-size(tablet-landscape-up) {
+          margin: 0 0 3em;
+          max-width: 1042px;
+        }
+      }
+      &__images {
+        display: inline-block;
+        vertical-align: top;
+        @media screen and (min-width: 40.000em) {
+          margin: 0 3em 0 0;
+          max-width: 460px;
+          width: 100%;
+        }
+        @media screen and (min-width: 45.000em) {
+          height: 306px;
+        }
+      }
+      &__thumbnail {
+        @media screen and (min-width: 40.000em) {
+          max-width: 460px;
+        }
+        @media screen and (min-width: 45.000em) {
+          width: 460px;
+        }
+      }
+      &__container {
+        margin: 0;
+        display: inline-block;
+        .call-to-action__item--paginate {
+          text-align: left;
+          padding: 1em 0;
+        }
+      }
+      &__title {
+        font-size: $font-x-largest;
+      }
+    }
+  }
+}

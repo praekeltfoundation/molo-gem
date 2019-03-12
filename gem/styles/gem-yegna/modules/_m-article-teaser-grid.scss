@@ -1,20 +1,27 @@
 .teaser-grid {
+  $block: unquote("#{&}");
   margin: 0;
   padding: 0;
-  &--listen {}
-  &--primary {}
-  &__item {
-    display: block;
-    margin: 0 0 2em;
-    padding: 1.5em;
-    text-align: center;
+  &__elem-audio {
+    padding: 1em;
   }
   &__container {
     text-align: left;
+    padding: 0.5em;
+    &__anchor {
+      display: inline-block;
+    }
   }
   &__anchor {
-    display: block;
     overflow: auto;
+    vertical-align: middle;
+  }
+  &__duration {
+    color: #000;
+    display: inline-block;
+    margin: 0;
+    padding: $spacer-small 0;
+    font-size: $font-x-small;
   }
   &__images {
     margin: 0 auto;
@@ -28,11 +35,46 @@
   }
   &__title {
     color: #000;
-    font-size: $font-medium;
-    margin: 0.67em 0;
+    font-size: $font-x-medium;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    @media screen and (min-width: 65.313em) {
+      font-size: $font-medium;
+    }
   }
   &__subtitle {
-    font-size: $font-small;
-    margin: 0.67em 0;
+    font-size: $font-x-small;
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  &__item {
+    background-color: $color-light-gray;
+    display: inline-block;
+    margin: 0 0.5em 1em;
+    padding: 0.8em;
+    text-align: center;
+    @media screen and (min-width: 45.000em) {
+      vertical-align: top;
+    }
+    @media screen and (min-width: 64.000em) {
+      padding: 1.4em;
+      margin: 0 0 2em;
+      max-width: 333px;
+    }
+
+    //FOR AUDIO
+    &--inner  {
+      background-color: #fff;
+      clear: both;
+      display: block;
+      overflow: auto;
+    }
   }
 }

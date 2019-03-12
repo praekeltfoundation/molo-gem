@@ -1,21 +1,86 @@
 .article-page {
   $block: unquote("#{&}");
-  .social-media {
-    background: $color-light-gray;
-    padding: 1em;
-    float: none;
-    width: 100%;
-    &-list__item {
-      @include for-size(tablet-landscape-up)  {
-        float: right;
+  &__wrapper {
+    @include pages();
+  }
+  &__columns {
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+    #{$block}__first-column {
+      @media screen and (min-width: 45.000em) {
+        margin: 0 1em 0 0;
       }
-      &:first-child {
-        @include for-size(tablet-landscape-up)  {
-          float: left;
+      @media screen and (min-width: 62.000em) {
+        margin-right: 2em;
+        width: 85%;
+      }
+      @media screen and (min-width: 65.313em) {
+        margin-right: 3em;
+      }
+    }
+    #{$block}__second-column {
+      @media screen and (min-width: 62.000em) {
+        width: 35%;
+      }
+      .teaser-grid__container {
+        background: #fff;
+      }
+    }
+  }
+  &__images {
+    margin: 1em 0 0;
+    overflow: hidden;
+    max-height: 422px;
+    &-hero {
+      text-align: center;
+      margin: 0 auto;
+      iframe, video {
+        width: 100%;
+        @include for-size(tablet-landscape-up) {
+          height: 642px;
+          max-width: 1140px;
+        }
+      }
+      .media-player__embed {
+        margin: 0 0 1em;
+        @include for-size(tablet-landscape-up) {
+          min-height: 290px;
+          max-height: 422px;
+          height: 422px;
+        }
+        &--audio {
+          height: auto;
+          min-height: auto;
+          min-width: 100%;
+          background-color: $color-light-gray;
+          padding: 1.5em;
+          margin: 0 0 1em;
         }
       }
     }
-    &--watch, &--listen {
+    &--inner {
+      height: auto;
+      width: 100%;
+      max-width: 480px;
+    }
+  }
+  &__thumbnail {
+    height: auto;
+    width: 100%;
+  }
+  .banner .heading__title {
+    color: $color-purple;
+  }
+  .social-media {
+    background: $color-light-gray;
+    padding: 1em;
+    width: 100%;
+    &-list {
+      text-align: right;
+    }
+    &--watch,
+    &--listen {
       display: inline-block;
       .social-media-list {
         display: inline-block;
@@ -31,14 +96,15 @@
     }
   }
   .heading__subheading--watch,
-  .heading__subheading--listen  {
+  .heading__subheading--listen,
+  .heading__title  {
     color: #000;
   }
   .teaser-breadcrumb {
     text-align: center;
-    padding: 1em 0 2em;
+    padding: 1em 0 0;
     &-list__anchor {
-      font-size: $font-small;
+      font-size: $font-x-small;
     }
   }
   .call-to-action--watch,
@@ -46,64 +112,31 @@
     text-align: center;
     margin: 1em 0 2em;
   }
-  &__wrapper {
-    @include pages();
-  }
-  &__columns {
-    @include for-size(tablet-landscape-up) {
-      display: flex;
-    }
-    #{$block}__first-column {
+  .teaser-grid {
+    &__item {
       @include for-size(tablet-landscape-up) {
-        width: 100%;
-        margin: 0 5% 0 0;
+        max-width: 338.797px;
       }
     }
-    #{$block}__second-column {
-      @include for-size(tablet-landscape-up) {
-        //width: 35%;
-      }
-      .teaser-stacklist__images {
-        margin: 1em 0 0;
-      }
-      .teaser-stacklist__container {
-        margin: 0;
-        padding: 0;
+    &__images {
+      min-width: 290px;
+      @include for-size(tablet-landscape-up)  {
+        max-height: 163.13px;
       }
     }
-  }
-  &__images {
-    margin: 1em 0 0;
-    overflow: hidden;
-    max-height: 422px;
-    &-hero {
-      .media-player__embed {
-        @include for-size(tablet-landscape-up) {
-          //Hero container
-          min-height: 290px;
-          max-height: 422px;
-          height: 422px;
-        }
-        &--audio {
-          height: auto;
-          min-height: auto;
-          min-width: 100%;
-        }
-      }
+    &__container {
+      padding: 1em;
     }
-    &--inner {
-      height: auto;
-      width: 100%;
-    }
-  }
-  &__thumbnail {
-    height: auto;
-    width: 100%;
   }
   @each $name, $color in $color_loop {
     &--#{$name} {
       #{$block}__second-column {
-        .teaser-stacklist__container {
+        .teaser-grid__container {
+          background-color: $color;
+        }
+      }
+      #{$block}__images-hero {
+        .media-player__embed--audio {
           background-color: $color;
         }
       }

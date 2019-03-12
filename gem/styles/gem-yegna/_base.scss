@@ -3,7 +3,7 @@ html, body {
   height: auto;
 }
 body {
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Noto Sans', Arial, sans-serif;
   font-weight: normal;
   margin: 0 auto;
@@ -11,15 +11,25 @@ body {
   overflow: auto;
   position: relative;
   width: 100%;
-  @include for-size(tablet-landscape-up) {
-    font-size: 16px;
-  }
 }
 h1, h2, h3, h4, h5, h6  {
   margin: 0;
 }
 
-
 a {
   text-decoration: none;
+  &:active, &:hover, &:focus {
+    opacity: 0.7;
+  }
+  &:visited {
+    @include for-size(tablet-landscape-up) {
+      outline: none;
+    }
+  }
+}
+
+.main-page {
+  @media screen and (min-width: 62.000em) {
+    background: url("/static/img/patterns/yegna/home-bg.svg") no-repeat center/100%;
+  }
 }

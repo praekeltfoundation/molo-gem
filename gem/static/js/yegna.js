@@ -53,28 +53,28 @@ jQuery(document).ready(function (e) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   var stickyHeader = function() {
-  var header = document.getElementById("header");
-  var content = document.getElementById("content");
+    var header = document.getElementById("header");
+    var content = document.getElementById("content");
 
-  window.addEventListener('scroll', function() {
-    var scrollAmount = this.y - window.pageYOffset;
-    var scrollPos = window.scrollY;
-    var headerHeight = (document.getElementById('header').clientHeight) + 366.66;
-    if (window.innerWidth > 1024) {
-      if (scrollAmount > 0 && scrollPos > headerHeight) {
-        header.style.transform = "translate3d(0px, 0px, 0px)";
-        header.style.position = "fixed";
+    window.addEventListener('scroll', function() {
+      var scrollAmount = this.y - window.pageYOffset;
+      var scrollPos = window.scrollY;
+      var headerHeight = (document.getElementById('header').clientHeight) + 366.66;
+      if (window.innerWidth > 1024) {
+        if (scrollAmount > 0 && scrollPos > headerHeight) {
+          header.style.transform = "translate3d(0px, 0px, 0px)";
+          header.style.position = "fixed";
+        }
+        else if (scrollPos > headerHeight) {
+          header.style.transform = "translate3d(0px, "+ -headerHeight + "px, 0px)";
+          header.style.position = "absolute";
+        }
+        else if (scrollAmount < 0 || scrollPos < headerHeight) {
+          header.style.transform = "translate3d(0px, 0px, 0px)";
+        }
       }
-      else if (scrollPos > headerHeight) {
-        header.style.transform = "translate3d(0px, "+ -headerHeight + "px, 0px)";
-        header.style.position = "absolute";
-      }
-      else if (scrollAmount < 0 || scrollPos < headerHeight) {
-        header.style.transform = "translate3d(0px, 0px, 0px)";
-      }
-    }
-    this.y = window.pageYOffset;
-  });
+      this.y = window.pageYOffset;
+    });
 };
 domReady(function() {
   stickyHeader();

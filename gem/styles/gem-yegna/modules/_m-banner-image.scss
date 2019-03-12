@@ -1,38 +1,54 @@
 .banner {
   $block: unquote("#{&}");
-  background: #6cf8fc;
+  background: rgba(0, 255, 255, 0.1);
   color: #000;
   font-size: $font-medium;
   overflow: hidden;
   position: relative;
   width: 100%;
   @include for-size(tablet-portrait-up) {
-    background: #fff url('/static/img/patterns/yegna/cloudy-bg.png') repeat center/100%;
-    color: $color-violet;
+    background: #fff url('/static/img/patterns/yegna/cloudy-bg.svg') repeat center/100%;
+    color: $color-purple;
   }
-
+  @include for-size(tablet-landscape-up) {
+    height: 120px;
+  }
+  &--image-type {
+    height: auto;
+  }
   &__item {
     display: block;
     &-link {
       color: #000;
       text-decoration: none;
       @include for-size(tablet-portrait-up) {
-        color: $color-violet;
+        color: $color-purple;
       }
       &--text {
         color: #000;
         text-decoration: none;
         @include for-size(tablet-portrait-up) {
-          color: $color-violet;
+          color: $color-purple;
         }
       }
     }
   }
   &__image {
     display: block;
-    height: auto;
-    width: 100%;
+    width: 185%;
     overflow: auto;
+    @media screen and (min-width: 45.000em) {
+      max-height: 461px;
+      width: 100%;
+    }
+    @media screen and (min-width: 64.000em) {
+      max-height: 483px;
+      height: auto;
+    }
+    @media screen and (min-width: 80.000em) {
+      max-height: 536px;
+    }
+
     @include for-size(tablet-landscape-up) {
       display: inline-block;
       text-transform: uppercase;
@@ -42,5 +58,10 @@
   &__caption {
     display: none;
     visibility: hidden;
+  }
+  .heading {
+    @include for-size(tablet-portrait-up) {
+      padding: 2em 0.5em;
+    }
   }
 }
