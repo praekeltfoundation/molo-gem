@@ -2,19 +2,47 @@
   margin: 1em auto;
   text-align: center;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   @include for-size(tablet-landscape-up) {
     margin: 0 0 2em;
-    padding: 1em 2em;
   }
   .call-to-action {
+    &__button {
+      text-transform: uppercase;
+      &--secondary {
+        padding:  0.5em 1em;
+      }
+    }
+    &__counter {
+      font-weight: bold;
+      color: #000;
+      font-weight: bold;
+      padding: 0 $spacer-small;
+      font-weight: 700;
+    }
     &__item {
+      text-decoration: none;
+      font-size: $font-x-small;
       &--text {
-        margin: 0;
+        color: #000;
+        margin: 0 auto;
         padding: 0 0.9em;
         display: inline-block;
+        //text-transform: uppercase;
+        font-weight: 400;
         @include for-size(tablet-portrait-up) {
           padding: 0 2em;
         }
+        &:active, &:hover, &:focus {
+          color: #000;
+          transition: color 100ms ease-in-out;
+        }
+      }
+      &:active, &:hover, &:focus {
+        color: #000;
+        transition: color 100ms ease-in-out;
       }
     }
   }
