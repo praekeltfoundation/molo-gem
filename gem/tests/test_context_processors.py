@@ -20,7 +20,7 @@ class TestDetectKaiOS(TestCase):
 
     def test_returns_true_for_requests_with_kaios_subdomain(self):
         request = self.request_factory.get('/', HTTP_HOST='kaios.localhost:80')
-        self.assertEqual(detect_bbm(request), {'is_via_kaios': True})
+        self.assertEqual(detect_kaios(request), {'is_via_kaios': True})
 
 
 class TestDetectBbm(TestCase):
