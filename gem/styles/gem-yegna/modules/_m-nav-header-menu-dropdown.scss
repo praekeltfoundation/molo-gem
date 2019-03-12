@@ -13,6 +13,9 @@
   width: 100%;
   display: none;
   padding: 1em;
+  -webkit-box-shadow: -1px 3px 8px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: -1px 3px 8px 0px rgba(0,0,0,0.5);
+  box-shadow: -1px 3px 8px 0px rgba(0,0,0,0.5);
   @include for-size(tablet-portrait-up) {
     padding: 1em 5%;
   }
@@ -25,21 +28,31 @@
     padding: 0;
     display: block;
     text-align: left;
-    @include for-size(tablet-portrait-up) {
+    @media screen and (min-width: 45.000em) {
       display: flex;
       justify-content: space-between;
     }
+    @media screen and (min-width: 62.000em) {
+      justify-content: flex-start;
+    }
     &__item {
       display: block;
-      @include for-size(tablet-portrait-up) {
-        display: inline-block;
+      @media screen and (min-width: 45.000em) {
+        display: inline-block;  
+      }
+      @media screen and (min-width: 62.000em) {
+        margin: 0 10% 0 0;
       }
       &--footer {
         .menu-list__item {
           &:first-child {
             .menu-list__anchor {
-              color: $color-violet;
+              color: $color-purple;
               padding: 0 0 $spacer-half;
+              margin: 0 0 0 -1em;
+              @media screen and (min-width: 45.000em) {
+                margin: 0;
+              }
               @include for-size(tablet-landscape-up) {
                 padding: 0 0 $spacer-small;
               }
@@ -57,10 +70,10 @@
         padding: $spacer-small 0;
       }
       &:first-child {
-        color: $color-violet;
+        color: $color-purple;
       }
       &:active, &:hover, &:focus {
-        color: $color-violet;
+        color: $color-purple;
       }
       &:visited {
         @include for-size(tablet-landscape-up) {

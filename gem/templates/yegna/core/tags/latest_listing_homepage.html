@@ -6,7 +6,7 @@
 <div class="article-teaser article-teaser--listen">
   <div class="heading heading--listen">
     <h1 class=" heading__component">
-      {% trans "Listen to the Latest episode" %}
+      {% trans "Listen to the latest episode" %}
     </h1>
   </div>
   <div class="article-teaser__wrapper">
@@ -17,7 +17,7 @@
               {% if article.get_effective_image %}
                 <div class="teaser-stacklist__images">
                   <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                    {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                    {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
                     <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
                   </a>
                 </div>
@@ -30,26 +30,26 @@
                   <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
                     <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
                       {% if article.title_highlight %}
-                        {{ article.title_highlight|smarttruncatechars:45|safe}}
+                        {{ article.title_highlight|smarttruncatechars:100|safe}}
                       {% else %}
-                        {{ article.title|smarttruncatechars:45|safe}}
+                        {{ article.title|smarttruncatechars:100|safe}}
                       {% endif %}
                     </h1>
                   </a>
                 {% if article.subtitle_highlight or article.body_highlight %}
                   <p class="teaser-stacklist__subtitle">
                     {% if article.subtitle_highlight %}
-                      {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+                      {{article.subtitle_highlight|smarttruncatechars:150|safe}}
                     {% elif article.body_highlight %}
-                      {{article.body_highlight|smarttruncatechars:50|safe}}
+                      {{article.body_highlight|smarttruncatechars:150|safe}}
                     {% endif %}
                   </p>
                 {% elif article.subtitle %}
                   <p class="teaser-stacklist__subtitle">
                     {% if article.title.30 %}
-                      {{ article.subtitle|smarttruncatechars:50|safe}}
+                      {{ article.subtitle|smarttruncatechars:150|safe}}
                     {% else %}
-                      {{ article.subtitle|smarttruncatechars:50|safe}}
+                      {{ article.subtitle|smarttruncatechars:150|safe}}
                     {% endif %}
                   </p>
                 {% endif %}
@@ -85,7 +85,7 @@
                     {% embed media.youtube_link %}
                   {% elif block.value.type == 'audio' %}
                   <div class="media-player__embed">
-                    <audio controls>
+                    <audio id="{{media|slugify}}" controls>
                      <source src={{media.file.url}} type="audio/mpeg">
                      <source src={{media.file.url}} type="audio/ogg">
                      <source src={{media.file.url}} type="audio/wav">
@@ -97,7 +97,7 @@
                   {% endif %}
                   <div class="call-to-action call-to-action--media-download">
                     <a href="{{media.file.url}}" onclick="ga('send', 'event', 'Audio', 'Download', '{{media.title}}');" class="call-to-action__button call-to-action__button--primary" download>
-                      {% trans "Download Audio" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
+                      {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
                     </a>
                     <div class="social-media">{% social_media_article %}</div>
                   </div>

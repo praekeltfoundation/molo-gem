@@ -4,9 +4,23 @@ from gem.context_processors import (
     compress_settings,
     detect_bbm,
     detect_freebasics,
+    detect_kaios,
 )
 from gem.models import OIDCSettings
 from gem.tests.base import GemTestCaseMixin
+
+
+class TestDetectKaiOS(TestCase):
+    def setUp(self):
+        self.request_factory = RequestFactory()
+
+    def test_returns_false_for_requests_without_kaios_subdomain(self):
+        request = self.request_factory.get('/')
+        self.assertEqual(detect_kaios(request), {'is_via_kaios': False})
+
+    def test_returns_true_for_requests_with_kaios_subdomain(self):
+        request = self.request_factory.get('/', HTTP_HOST='kaios.localhost:80')
+        self.assertEqual(detect_kaios(request), {'is_via_kaios': True})
 
 
 class TestDetectBbm(TestCase):

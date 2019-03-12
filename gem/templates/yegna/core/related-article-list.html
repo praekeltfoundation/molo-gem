@@ -5,7 +5,7 @@
 
 {% if next_article and self.get_parent_section.enable_next_section %}
   <div class="article-teaser article-teaser--related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-    <div class="heading">
+    <div class="heading heading--sidebar">
       <h1 class="heading__subheading">{% trans "Watch next" %}</h1>
     </div>
     <ul class="teaser-{{teaser_type}}">
@@ -13,7 +13,8 @@
         {% if next_article.image %}
           <div class="teaser-{{teaser_type}}__images">
             <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
-              {% image next_article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
+              {% image next_article.image width-1080 format-jpeg as teaser_thumbnail %}
+              <img alt="{{ next_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
             </a>
           </div>
         {% endif %}
@@ -43,31 +44,55 @@
           <a href="{% pageurl next_article.specific %}" class="teaser-{{teaser_type}}__anchor">
             <h3 class="teaser-{{teaser_type}}__title {% if next_article.title_highlight %}teaser-{{teaser_type}}__title--highlight{% endif %}">
               {% if next_article.title_highlight %}
-                {{ next_article.title_highlight|smarttruncatechars:50|safe}}
+                {{ next_article.title_highlight|smarttruncatechars:100|safe}}
               {% else %}
-                {{ next_article.title|smarttruncatechars:50|safe}}
+                {{ next_article.title|smarttruncatechars:100|safe}}
               {% endif %}
             </h3>
           </a>
           {% if next_article.subtitle_highlight or next_article.body_highlight %}
             <p class="teaser-{{teaser_type}}__subtitle">
               {% if next_article.subtitle_highlight %}
-                {{next_article.subtitle_highlight|smarttruncatechars:50|safe}}
+                {{next_article.subtitle_highlight|smarttruncatechars:150|safe}}
               {% elif next_article.body_highlight %}
-                {{next_article.body_highlight|smarttruncatechars:50|safe}}
+                {{next_article.body_highlight|smarttruncatechars:150|safe}}
               {% endif %}
             </p>
           {% elif next_article.subtitle %}
             <p class="teaser-{{teaser_type}}__subtitle">
-              {{ next_article.subtitle|smarttruncatechars:50|safe}}
+              {{ next_article.subtitle|smarttruncatechars:150|safe}}
             </p>
           {% endif %}
-          <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
-            {% trans "Read more" %}
-          </a>
-        </div>
-      </li>
-    </ul>
+          {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
+          {% get_translation next_article.get_parent_section.get_parent_section as parent %}
+          {% get_translation next_article.get_parent_section as section %}
+            {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+                  <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                    {% trans "Watch video" %}
+                  </a>
+                </div>
+              </li>
+            </ul>
+            <div class="call-to-action">
+              <a class="call-to-action__item call-to-action__item--paginate" href="{% if ancestor %}{% pageurl ancestor.specific %}{% elif parent %}{% pageurl parent.specific %}{% else %}{% pageurl section.specific %}{% endif %}">
+                {% trans "More episodes" %}
+              </a>
+            </div>
+          {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                  {% trans "Listen next" %}
+                </a>
+              </div>
+              </li>
+            </ul>
+          {% else %}
+              <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
+                {% trans "Read more" %}
+              </a>
+            </div>
+          </li>
+        </ul>
+      {% endif %}
   </div>
 {% endif %}
 
@@ -75,7 +100,7 @@
   {% get_recommended_articles self as recommended_articles %}
   {% if recommended_articles %}
     <div class="article-teaser article-teaser--related {% if section.get_effective_extra_style_hints %}article-teaser-related--{{section.get_effective_extra_style_hints}}{% endif %}">
-      <div class="heading">
+      <div class="heading heading--sidebar">
         <h1 class="heading__subheading">{% trans "Recommended" %}</h1>
       </div>
       <ul class="teaser-{{teaser_type}}">
@@ -84,7 +109,8 @@
           {% if article.image %}
             <div class="teaser-{{teaser_type}}__images">
               <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
-                {% image article.image width-480 format-jpeg class="teaser-{{teaser_type}}__thumbnail" %}
+                {% image article.image width-1080 format-jpeg as teaser_thumbnail %}
+                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-{{teaser_type}}__thumbnail" />
               </a>
             </div>
           {% endif %}
@@ -114,18 +140,27 @@
             <a href="{% pageurl article.specific %}" class="teaser-{{teaser_type}}__anchor">
               <h2 class="teaser-{{teaser_type}}__title {% if article.title_highlight %}teaser-{{teaser_type}}__title--highlight{% endif %}">
                 {% if article.title_highlight %}
-                  {{ article.title_highlight|smarttruncatechars:50|safe}}
+                  {{ article.title_highlight|smarttruncatechars:100|safe}}
                 {% else %}
-                  {{ article.title|smarttruncatechars:50|safe}}
+                  {{ article.title|smarttruncatechars:100|safe}}
                 {% endif %}
               </h2>
             </a>
             <p class="teaser-{{teaser_type}}__subtitle">
-              {{ article.subtitle|smarttruncatechars:50|safe}}
+              {{ article.subtitle|smarttruncatechars:150|safe}}
             </p>
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
-              {% trans "Read more" %}
-            </a>
+            {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
+            {% get_translation next_article.get_parent_section.get_parent_section as parent %}
+            {% get_translation next_article.get_parent_section as section %}
+              {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+
+              {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+
+              {% else %}
+                <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
+                  {% trans "Read more" %}
+                </a>
+              {% endif %}
           </div>
         </li>
         {% endfor %}

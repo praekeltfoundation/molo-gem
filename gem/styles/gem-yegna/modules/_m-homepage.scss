@@ -1,28 +1,23 @@
 .landing-page {
-  padding: 1em;
-  @media screen and (min-width: 40.000em) {
-    padding: 1em 1.5em;
-  }
-  @media screen and (min-width: 45.000em) {
-    padding: 1.5em 1em 0;
+  @include pages();
+  @media screen and (min-width: 62.000em) {
     display: flex;
-  }
-  @include for-size(tablet-landscape-up) {
-    padding: 2.5em 8% 0;
   }
   &__first-column {
     @media screen and (min-width: 45.000em) {
       margin: 0 1em 0 0;
     }
-    @include for-size(tablet-landscape-up) {
-      margin: 0px 10% 0 0;
-      width: 85%;
+    @media screen and (min-width: 62.000em) {
+      margin-right: 2em;
+      width: 65%;
+    }
+    @media screen and (min-width: 65.313em) {
+      margin-right: 10%;
     }
   }
   &__second-column {
-    @media screen and (min-width: 45.000em) {}
-    @include for-size(tablet-landscape-up) {
-      width: 30%;
+    @media screen and (min-width: 62.000em) {
+      width: 35%;
     }
   }
 }

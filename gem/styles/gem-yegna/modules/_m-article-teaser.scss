@@ -1,39 +1,78 @@
 .article-teaser {
   display: block;
   $block: unquote("#{&}");
+
+  //LISTEN HOMEPAGE
+  &--listen {
+    @include for-size(tablet-landscape-up) {
+      margin: 3em 0 0;
+    }
+  }
+  //GENERAL HOMEPAGE
   &--general {
-    .teaser-stacklist__item {
-      @include for-size(tablet-landscape-up) {
-        display: flex;
-      }
+    @include for-size(tablet-landscape-up) {
+      margin: 3em 0 0;
     }
-    .teaser-stacklist__images {
-      @include for-size(tablet-landscape-up) {
-        height: 175.33px;
+    .teaser-stacklist {
+      &__item {
+        @media screen and (min-width: 45.000em) {
+          display: flex;
+        }
+      }
+      &__images {
+        @media screen and (min-width: 25.000em) {
+          height: 175.33px;
+          max-width: 265px;
+          width: 100%;
+        }
+      }
+      &__thumbnail {
         max-width: 265px;
-        width: 55%;
       }
-    }
-    .teaser-stacklist__container {
-      @include for-size(tablet-landscape-up) {
-        width: 100%;
+      &__container {
+        @media screen and (min-width: 62.000em) {
+          margin: 1em 0 0 1em;
+        }
       }
     }
   }
+
+  //SIDEBAR HOMEPAGE
   &--sidebar {
+    #{$block}__wrapper {
+      text-align: center;
+    }
     .teaser-grid {
+      @media screen and (min-width: 40.000em) and (max-width: 62.000em) {
+        display: flex;
+        flex-flow: wrap;
+        justify-content: center;
+      }
       &__item {
-        background-color: $color-light-gray;
+        @media screen and (min-width: 40.000em) and (max-width: 62.000em) {
+          width: 290px;
+          max-width: 290px;
+        }
+        @media screen and (max-width: 62.000em) {
+          max-width: 333px;
+        }
       }
       &__images {
-        @include for-size(tablet-portrait-up) {
-          max-width: 270px;
+        @media screen and (min-width: 45.000em) {
           width: 270px;
           height: 270px;
         }
       }
+      &__thumbnail {
+        width: auto;
+        max-width: 480px;
+        @media screen and (min-width: 45.000em) {
+          max-width: 270px;
+          width: 100%;
+        }
+      }
       &__title {
-        color: $color-violet;
+        color: $color-purple;
       }
     }
     .call-to-action__item--text {
@@ -41,14 +80,6 @@
       text-align: right;
       display: block;
       text-decoration: none;
-      &:active, &:hover, &:focus {
-        color: $color-violet;
-      }
-      &:visited {
-        @include for-size(tablet-landscape-up) {
-          outline: none;
-        }
-      }
       &:after {
         background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
         content: "";
@@ -63,7 +94,7 @@
   &--related {
     .teaser-stacklist__container {
       @include for-size(tablet-landscape-up) {
-        width: 35%;
+        width: 45%;
       }
     }
   }
