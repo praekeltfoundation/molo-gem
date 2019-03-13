@@ -35,9 +35,15 @@
         padding: $spacer-small $spacer-half $spacer-small 0;
         display: inline-block;
       }
+      &:first-child {
+        .menu-list__anchor {
+          padding: $spacer-small !important; //Override Header Footer Styles
+          margin: 0 !important; //Override Header Footer Styles
+        }
+      }
     }
     a, &__anchor {
-      color: #000 !important;
+      color: #000 !important; //Override Header Footer Styles
       padding: $spacer-small;
       font-size: $font-small;
       position: relative;
@@ -46,12 +52,15 @@
         display: block;
         border-radius: 10%;
         background: transparent;
-        //width: 100%;
+        width: 35%;
         height: 3px;
         position: absolute;
-        margin: -5px auto;
+        margin: -3px auto;
         right: 0;
         left: 0;
+        @include for-size(tablet-landscape-up) {
+          width: 100%;
+        }
       }
       &:active, &:hover, &:focus {
         color: #000;
