@@ -16,11 +16,12 @@
     margin: 0;
     padding: 0;
     @media screen and (min-width: 27.813em) {
-      text-align: center;
+
     }
     @media screen and (min-width: 62.000em) {
       display: flex;
       justify-content: center;
+      text-align: center;
     }
     &__item {
       display: block;
@@ -31,6 +32,8 @@
       @media screen and (min-width: 27.813em) {
         display: inline-block;
         margin: 0.5em 1.5em 0;
+      }
+      @media screen and (min-width: 72.188em) {
         text-align: center;
         width: 360px;
       }
@@ -58,6 +61,10 @@
       @media screen and (min-width: 27.813em) {
         margin: 0;
         display: block;
+        height: 190px;
+        width: 320px;
+      }
+      @media screen and (min-width: 72.188em) {
         height: 240px;
         width: 360px;
       }
@@ -65,22 +72,19 @@
         background: url("/static/img/patterns/yegna/subsections-bg.svg") no-repeat 0 0/ 100%;
       }
       &--music {
-        background-position: center -75px;
-        @media screen and (min-width: 27.813em) {
-          background-position: center -275px;
-        }
+        background-position: center 50%;
       }
       &--radio-talk, &--radio-talk-show {
-        background-position: center -152px;
-        @media screen and (min-width: 27.813em) {
-          background-position: center -550px;
-        }
+        background-position: center 100%;
       }
     }
     &__thumbnail {
       height: auto;
       width: 100%;
-      max-width: 360px;
+      max-width: 320px;
+      @media screen and (min-width: 72.188em) {
+          max-width: 360px;
+      }
     }
   }
   &--related {
@@ -91,16 +95,10 @@
           background: url("/static/img/patterns/yegna/subsections-bg2.svg") no-repeat 0 0/ 100%;
         }
         &--music {
-          background-position: center -147px;
-          @media screen and (min-width: 27.813em) {
-            background-position: center -540px;
-          }
+          background-position: center 50%;
         }
         &--radio-talk, &--radio-talk-show {
-          background-position: center -74px;
-          @media screen and (min-width: 27.813em) {
-            background-position: center -270px;
-          }
+          background-position: center 100%;
         }
       }
     }

@@ -17,10 +17,10 @@
     @media screen and (min-width: 62.000em) {
       margin-right: 2em;
       width: 65%;
-      min-width: 786.25px;
     }
-    @media screen and (min-width: 64.000em) {
+    @media screen and (min-width: 72.188em) {
       margin-right: 5%;
+      min-width: 786.25px;
     }
     @media screen and (min-width: 80.00em) {
       margin-right: 10%;
@@ -44,29 +44,41 @@
       }
       .article-teaser--related {
         margin: 2em 0 1em;
-        .teaser-stacklist__item {
-          @include for-size(tablet-landscape-up) {
-            display: flex;
-            align-items: center;
-            margin: 0 0 2em;
+        .teaser-stacklist {
+          &__item {
+            @include for-size(tablet-landscape-up) {
+              display: flex;
+              align-items: center;
+              margin: 0 0 2em;
+            }
           }
-        }
-        .teaser-stacklist__container {
-          margin: 1em 0;
-        }
-        .teaser-stacklist__images {
-          width: 70%;
-          @media screen and (min-width: 40.000em) {
-            max-height: 260px;
+          &__container {
+            margin: 1em 0;
+          }
+          &__images {
+            display: block;
+            @media screen and (min-width: 40.000em) {
+              max-height: 260px;
+              max-width: 460px;
+            }
+            @media screen and (min-width: 45.000em) {
+              display: inline-block;
+              margin: 0 2em 0 0;
+              width: 70%;
+            }
+          }
+          &__thumbnail {
             max-width: 460px;
+            @media screen and (min-width: 45.000em) {
+              width: 460px;
+            }
           }
-          @include for-size(tablet-portrait-up) {
-            margin: 0 2em 0 0;
+          &__anchor {
+            display: block;
+            @media screen and (min-width: 45.000em) {
+              display: inline-block;
+            }
           }
-        }
-        .teaser-stacklist__thumbnail {
-            max-width: 460px;
-            width: 460px;
         }
       }
     }
@@ -80,17 +92,18 @@
       .teaser-grid--watch {
         .teaser-grid__item {
           @media screen and (min-width: 27.813em) {
-            width: 275px;
+            //width: 275px;
           }
           @media screen and (min-width: 40.000em) {
             width: 337px;
           }
-          @media screen and (min-width: 80.000em) {}
+          @media screen and (min-width: 80.000em) {
+
+          }
         }
         .teaser-grid__images  {
-          width: 292px;
           @media screen and (min-width: 27.813em) {
-            width: 292px;
+            width: 286px;
           }
           @include for-size(tablet-landscape-up)  {
             height: 163.13px;
