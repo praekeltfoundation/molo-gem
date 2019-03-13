@@ -152,6 +152,7 @@
                 <ul class="nav-menu-dropdown-list">
                   {% footer_page %}
                   {% for section in sections %}
+                    {% get_translation section as section %}
                     <li class="nav-menu-dropdown-list__item">
                       {% if section and not section.title == "Cast" and not  section.title == "News" %}
                         <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
@@ -172,6 +173,7 @@
               </div>
             </li>
             {% for section_page in sections %}
+              {% get_translation section as section %}
               {% if section_page.show_in_menus == True %}
                 <li class="nav-menu-list__item">
                   <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
