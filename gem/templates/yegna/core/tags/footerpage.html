@@ -3,12 +3,16 @@
   <ul class="menu-list menu-list--header state-list">
     {% if footers %}
       {% for page in footers %}
-      {% if page.show_in_menus == True %}
-        <li class="menu-list__item state-list__item">
-          <a href="{% pageurl page.specific %}" class="menu-list__anchor state-list__anchor"><span>{{page.title}}</span></a>
-        </li>
+        {% if page.show_in_menus == True %}
+          <li class="menu-list__item state-list__item">
+            <a href="{% pageurl page.specific %}" class="menu-list__anchor state-list__anchor">
+              <span>{{page.title}}</span>
+            </a>
+          </li>
         {% endif %}
       {% endfor %}
+      {{forms_list}}
+      <li class="menu-list__item state-list__item">{% forms_list %}</li>
     {% endif %}
 
     {% load_sections as sections %}
