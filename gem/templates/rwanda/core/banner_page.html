@@ -6,17 +6,17 @@
     <h2 class="heading__component">{{self.title}}</h2>
   </div>
     {% if self.banner %}
-      {% image self.banner width-1080 as tmp_photo %}
+      {% image self.banner width-1080 as tmp_photo_1x %}
       {% if self.banner_link_page %}
         <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
-        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+          <div title="{{ self.title }}" class="banner__image" style="background-image: url('{{tmp_photo_1x.url}}');"></div>
         </a>
       {% elif self.external_link %}
         <a href="{{ self.external_link }}" target="_top" class="banner__item-link">
-        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+          <div title="{{ self.title }}" class="banner__image" style="background-image: url('{{tmp_photo_1x.url}}');"></div>
         </a>
       {% else %}
-        <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        <div title="{{ self.title }}" class="banner__image" style="background-image: url('{{tmp_photo_1x.url}}');"></div>
       {% endif %}
     {% else %}
       <div class="banner__block">
