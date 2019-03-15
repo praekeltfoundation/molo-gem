@@ -3,13 +3,15 @@
   overflow: hidden;
   position: relative;
   width: 100%;
-  margin: -10% 0;
+
+  /*margin: -10% 0;
   @include for-size(tablet-portrait-up) {
     margin: -5% 0;
   }
   @include for-size(tablet-landscape-up) {
     margin: -3em 0;
-  }
+  }*/
+
   &__content {
     padding: 1em $spacer-inner;
     @include for-size(tablet-landscape-up) {
@@ -19,11 +21,10 @@
   &__image {
     display: block;
     height: auto;
-    width: 205%;
+    width: 100%;
     overflow: hidden;
-    @media screen and (min-width: 45.000em) {
-      width: 100%;
-    }
+    background-repeat: no-repeat;
+    background-position: center 0;
     @include for-size(tablet-landscape-up) {
       color: #000;
       display: inline-block;
@@ -96,6 +97,20 @@
     #{$block}__title  {
       display: none;
       visibility: hidden;
+    }
+    #{$block}__image {
+      background-size: cover;
+      min-height: 195px;
+      max-height: 400px;
+      @media screen and (min-width: 40.000em) {
+        height: 200px;
+      }
+      @media screen and (min-width: 45.000em) {
+        height: 270px;
+      }
+      @media screen and (min-width: 64.000em) {
+        height: 400px;
+      }
     }
   }
   &--text {
