@@ -63,10 +63,6 @@
 })();
 
 jQuery(document).ready(function (e) {
-  /* ƒ (e,n) {
-      return new x.fn.init(e,n,t)
-    }
-  */
   function t(t) {
     e(t).bind("click", function (t) {
       t.preventDefault();

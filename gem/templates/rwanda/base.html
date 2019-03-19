@@ -139,11 +139,11 @@
                 </li>
                 {% if sections %}
                 <li class="nav-list__item">
-                  {% for section_page in sections %}
-                    {% pageurl section_page.specific as section_path %}
-                    {% if section_path == '/sections/events/' %}
-                      <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
-                       {{section_page.title}}
+                  {% for section_cat in sections %}
+                    {% get_translation section_cat as section %}
+                    {% if section.title == 'Ibibera Ino' or section.title == 'Events' %}
+                      <a href="{% pageurl section.specific %}" class="nav-list__anchor">
+                       {{section.title}}
                       </a>
                     {% endif %}
                   {% endfor %}
@@ -188,7 +188,7 @@
                 <h1 class="nav-list__title">{% trans "News and stories" %}:</h1>
                 <ul class="nav-list-inner">
                   {% for section in sections %}
-                    {% if not section_page.show_in_menus %}
+                    {% if section.show_in_menus == False %}
                       <li class="nav-list-inner__item">
                         <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
                           {{section.title}}
