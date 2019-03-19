@@ -77,6 +77,11 @@
           visibility: hidden;
         }
       }
+      &:active, &:hover, &:focus {
+        color: #fff;
+        text-decoration: underline;
+        text-underline-position: under;
+      }
     }
   }
   &-list {
@@ -119,12 +124,9 @@
     }
   }
   &-primary {
-    margin: 0;
+    padding: 0 5% 0 0;
     display: inline-block;
     vertical-align: top;
-    @media screen and (min-width: 64.000em) {
-      padding: 0 5% 0 0;
-    }
     #{$block}-list__anchor {
       @include for-size(tablet-landscape-up) {
         font-size: $font-large;
@@ -134,14 +136,17 @@
   &-secondary {
     display: inline-block;
     vertical-align: top;
+    @media screen and (min-width: 45.000em) {
+      width: 75%;
+    }
     @media screen and (min-width: 64.000em) {
       padding: 0 0 0 5%;
       border-left: 3px solid #000;
-      width: 75%;
     }
     &__item {
       vertical-align: top;
       display: inline-block;
+      padding: 0 1.5em 0 0;
       @media screen and (min-width: 64.000em) {
         padding: 0 5em 0 0;
       }

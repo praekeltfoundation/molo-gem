@@ -22,11 +22,11 @@
       font-size: $font-x-medium;
       text-transform: uppercase;
       text-indent: -4.5em;
-      padding: 0 1em;
+      //padding: 0 1em;
       @include for-size(tablet-landscape-up) {
         display: -webkit-inline-flex;
         display: inline-flex;
-        padding: 1.1em .2em;
+        padding: 1.4em .2em 1em;
       }
       &:after {
         content: " ";
@@ -43,6 +43,10 @@
           background-position: 0.7em 32.2%;
           width: 65px;
         }
+      }
+      &:active, &:hover, &:focus {
+        opacity: 0.5px;
+        transition: opacity 100ms ease-in-out;
       }
     }
     /*&__checkbox {
