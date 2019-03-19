@@ -11,6 +11,10 @@
   .call-to-action {
     &__button {
       text-transform: uppercase;
+      display: block;
+      @media screen and (min-width: 40.000em) {
+        display: inline-block;
+      }
       &--secondary {
         padding:  0.5em 1em;
       }
@@ -28,10 +32,12 @@
       &--text {
         color: #000;
         margin: 0 auto;
-        padding: 0 0.9em;
-        display: inline-block;
-        //text-transform: uppercase;
+        padding: 2em;
+        display: block;
         font-weight: 400;
+        @media screen and (min-width: 40.000em) {
+          display: inline-block;
+        }
         @include for-size(tablet-portrait-up) {
           padding: 0 2em;
         }
