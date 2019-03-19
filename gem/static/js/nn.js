@@ -63,12 +63,17 @@
 })();
 
 jQuery(document).ready(function (e) {
+  /* ƒ (e,n) {
+      return new x.fn.init(e,n,t)
+    }
+  */
   function t(t) {
     e(t).bind("click", function (t) {
       t.preventDefault();
       e(this).parent().fadeOut();
     })
   }
+
   e(".dropdown-toggle").click(function () {
       var t = e(this).parents(".dropdown").children(".dropdown-menu").is(":hidden");
       e(".dropdown .dropdown-menu").hide();
