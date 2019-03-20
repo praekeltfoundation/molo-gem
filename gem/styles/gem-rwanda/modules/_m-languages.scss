@@ -2,8 +2,8 @@
   vertical-align: middle;
   padding: 5px;
   text-align: right;
-  @media screen and (min-width: 30.000em) {
-    padding: 5px 1em;
+  @media screen and (min-width: 40.000em) {
+    padding: 1em 1em 0;
     text-align: left;
   }
   @include for-size(tablet-landscape-up) {
@@ -32,6 +32,7 @@
     font-size: $font-x-medium;
     vertical-align: middle;
     text-decoration: underline;
+    text-underline-position: under;
     &:hover {
       color: $color-cyan;
     }
@@ -62,7 +63,7 @@
       font-size: $font-x-medium;
       padding: 0 5px;
       @include for-size(tablet-landscape-up) {
-        padding: 1.1em 1em;
+        padding: 1.4em 1em 1em;
       }
       span {
         display: none;
@@ -82,6 +83,12 @@
         height: 40px;
         vertical-align: middle;
         width: 50px;
+      }
+      &:active, &:hover, &:focus {
+        span {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
       }
     }
     /*&__checkbox {
@@ -139,6 +146,7 @@
       font-weight: bold;
       opacity: 1;
       text-decoration: underline;
+      text-underline-position: under;
       @include for-size(tablet-portrait-up) {
         font-size: $font-small;
       }
@@ -146,6 +154,7 @@
         color: $color-pink-hollywood;
         opacity: 0.7;
         text-decoration: underline;
+        text-underline-position: under;
       }
       &[hreflang="English"] {
         &:before {

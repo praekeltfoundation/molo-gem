@@ -1,11 +1,11 @@
 .pagination {
   margin: 1em 0;
-  text-align: left;
+  text-align: center;
   width: 100%;
   @include for-size(tablet-landscape-up) {
     margin: 0 0 2em;
     padding: 1em 5%;
-    text-align: center;
+
   }
   &--multi-step {
     text-align: left;
@@ -16,6 +16,10 @@
     &__button {
       font-size: $font-small;
       margin: 0;
+      display: block;
+      @media screen and (min-width: 40.000em) {
+        display: inline-block;
+      }
       @include for-size(tablet-portrait-up) {
         font-size: $font-x-medium;
         margin: 5px 1em 1em 0;
@@ -24,7 +28,11 @@
     &__item {
       &--text-current {
         margin: 0;
-        padding: 0 0.9em;
+        padding: 2em;
+        display: block;
+        @media screen and (min-width: 40.000em) {
+          display: inline-block;
+        }
         @include for-size(tablet-portrait-up) {
           padding: 0 2em;
         }

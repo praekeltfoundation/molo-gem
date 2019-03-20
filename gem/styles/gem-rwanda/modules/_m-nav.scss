@@ -15,16 +15,16 @@
     background: #fff;
     color: $color-cyan;
     font-size: $font-x-medium;
-    padding: 0 2em;
+    padding: 1.5em;
     @include fly-by();
-    @include for-size(tablet-portrait-up) {
+    @media screen and (min-width: 45.000em) {
       @include fly-byEnhanced();
     }
-    @include for-size(tablet-landscape-up) {
-      padding: 1.5em 0 1.5em 8em;
+    @media screen and (min-width: 64.000em) {
+      padding: 1.5em 1em 1.5em 5em;
     }
-    @include for-size(desktop-up) {
-      padding: 3em 0 3em 8em;
+    @media screen and (min-width: 80.000em) {
+      padding: 3em 1em 3em 5em;
        z-index: -9999999999;
      }
   }
@@ -77,6 +77,11 @@
           visibility: hidden;
         }
       }
+      &:active, &:hover, &:focus {
+        color: #fff;
+        text-decoration: underline;
+        text-underline-position: under;
+      }
     }
   }
   &-list {
@@ -103,102 +108,51 @@
       font-weight: bold;
       padding: 0;
       text-decoration: underline;
+      text-underline-position: under;
       text-transform: uppercase;
       @include for-size(tablet-portrait-up) {
         font-size: $font-x-medium;
       }
     }
-  }
-  &-outer {
-    margin: 0;
-    padding: 0;
-    @include for-size(tablet-portrait-up) {
-      margin: 0 1em 0 0;
-    }
-    @include for-size(desktop-up) {
-      margin: 0 5em 0 0;
-    }
-  }
-  &-inner {
-    margin: 1em 0;
-    padding: 0;
-    @include for-size(tablet-landscape-up) {
-      margin: 0 2em 0 0;
-      display: inline-block;
-      vertical-align: top;
-    }
-  }
-  &--primary {
-    display: block;
-    padding: 1em 0;
-    margin: .625em 0 0 0;
-    @include for-size(phone-only) {
-      display: inline-block;
-      padding: 0 5% 0 0;
-    }
-    @include for-size(tablet-landscape-up) {
+    &-inner {
       margin: 0;
-      padding: 0 1.5em 0 0;
+      padding: 0;
+      &__item {
+        display: block;
+        padding: $spacer-small;
+      }
     }
-    @include for-size(desktop-up) {
-      padding: 0 3.5em 0 0;
-    }
+  }
+  &-primary {
+    padding: 0 5% 0 0;
+    display: inline-block;
+    vertical-align: top;
     #{$block}-list__anchor {
       @include for-size(tablet-landscape-up) {
         font-size: $font-large;
       }
     }
   }
-
-  //!!Caution: Extreme us of Nesting - Same class names
-  &--secondary {
-    display: block;
-    padding: 0 1em;
-    @include for-size(phone-only) {
-      display: inline-block;
-      padding: 0 0 0 5%;
+  &-secondary {
+    display: inline-block;
+    vertical-align: top;
+    @media screen and (min-width: 45.000em) {
+      width: 75%;
     }
-    @include for-size(tablet-portrait-up) {
-      padding: 0 0 1em;
+    @media screen and (min-width: 64.000em) {
+      padding: 0 0 0 5%;
       border-left: 3px solid #000;
     }
-    @include for-size(tablet-landscape-up) {
-      padding: 0 0 0 1.5em;
-    }
-    @include for-size(desktop-up) {
-        padding: 0 0 0 3.5em;
-    }
-    #{$block}-list__item {
+    &__item {
       vertical-align: top;
-      @include for-size(tablet-portrait-up) {
-        display: inline-block;
-      }
-      &:last-child {
-        .nav-outer {
-          #{$block}-list__item:last-child {
-            .nav-inner {
-              @include for-size(tablet-landscape-up) {
-                margin: 0 1em 0 0;
-              }
-              @include for-size(desktop-up) {
-                margin: 0 4em 0 0;
-              }
-            }
-          }
-        }
-      }
-    }
-    .nav-outer {
-      #{$block}-list__item {
-        display: block;
-      }
-    }
-    .nav-inner {
-      #{$block}-list__item {
-        display: block;
+      display: inline-block;
+      padding: 0 1.5em 0 0;
+      @media screen and (min-width: 64.000em) {
+        padding: 0 5em 0 0;
       }
     }
   }
+
   .open {
     background-color: #fff;
     color: $color-cyan;

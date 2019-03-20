@@ -69,6 +69,7 @@ jQuery(document).ready(function (e) {
       e(this).parent().fadeOut();
     })
   }
+
   e(".dropdown-toggle").click(function () {
       var t = e(this).parents(".dropdown").children(".dropdown-menu").is(":hidden");
       e(".dropdown .dropdown-menu").hide();
