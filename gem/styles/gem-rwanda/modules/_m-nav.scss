@@ -31,8 +31,11 @@
   &-logged {
     display: inline-block;
     cursor: pointer;
-    padding: $spacer-small 0 0;
+    padding: 1em;
     vertical-align: middle;
+    @media screen and (min-width: 16.875em) {
+      padding: $spacer-small 0 0;
+    }
     @include for-size(tablet-portrait-up) {
       padding: ($spacer-small + 3) 0 0 0;
     }
@@ -43,11 +46,10 @@
       font-size: $font-x-medium;
       text-decoration: none;
       text-transform: uppercase;
-      text-indent: -150px;
-      @media screen and (min-width: 20.000em) {
-        text-indent: -140px;
+      @media screen and (min-width: 16.875em) {
+        text-indent: -70%;
       }
-      @include for-size(tablet-portrait-up) {
+      @media screen and (min-width: 45.000em) {
         padding: ($spacer-small + 3) .5em;
         text-indent: inherit;
       }
