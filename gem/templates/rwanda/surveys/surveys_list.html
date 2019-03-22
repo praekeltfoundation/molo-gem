@@ -12,17 +12,26 @@
       {% with survey=survey.molo_survey_page %}
           {% if not user.is_authenticated and not request.is_preview and not survey.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
             {% if not survey.your_words_competition and not survey.display_survey_directly %}
-              <div class="profiles-join">
-                <div class="profiles-join__content">
-                  <h1 class="heading__headline">
-                    {% trans "Share your opinions and stories, take polls, win fun prizes." %}
-                  </h1>
-                  <div class="call-to-action--group">
-                    <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
-                  </div>
+            <div class="surveys surveys--profiles-join">
+              <div class="surveys__wrapper">
+                <div class="heading heading heading--secondary">
+                  <h1 class="heading__title">{% trans 'Quiz' %}</h1>
                 </div>
-                <div class="profiles-join__icon"></div>
-              </div>
+                <div class="surveys__inner">
+                  <section>
+                    <h1 class="heading__headline">
+                      {% trans "Share your opinions and stories, take polls, win fun prizes." %}
+                    </h1>
+                    <nav>
+                      <div class="call-to-action--group">
+                        <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
+                      </div>
+                    </nav>
+                  </section>
+                </div>
+                  <div class="profiles-join__icon"></div>
+                </div>
+            </div>
             {% endif %}
         {% endif %}
       {% endwith %}
