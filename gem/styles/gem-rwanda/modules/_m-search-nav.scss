@@ -22,11 +22,8 @@
       font-size: $font-x-medium;
       text-transform: uppercase;
       text-indent: -5em;
-      @media screen and (min-width: 16.875em) {
-        //text-indent: -5.5em;
-      }
       @media screen and (min-width: 20.000em) {
-        text-indent: -3.5em;
+        text-indent: -4.5em;
       }
       @include for-size(tablet-landscape-up) {
         display: -webkit-inline-flex;
@@ -100,6 +97,15 @@
         display: inline-block;
         width: 75%;
       }
+    }
+  }
+}
+
+
+:lang(en) {
+  .search-accordion__label {
+    @media screen and (min-width: 20.000em) {
+      text-indent: -4em;
     }
   }
 }
