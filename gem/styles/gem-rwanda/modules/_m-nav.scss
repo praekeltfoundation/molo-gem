@@ -47,8 +47,9 @@
       text-decoration: none;
       text-transform: uppercase;
       @media screen and (min-width: 16.875em) {
-        text-indent: -70%;
+        text-indent: -80%;
       }
+      @media screen and (min-width: 20.000em) {}
       @media screen and (min-width: 45.000em) {
         padding: ($spacer-small + 3) .5em;
         text-indent: inherit;
@@ -165,6 +166,17 @@
     &:before {
       background-position: -15% 15.2%;
       background-size: 115px;
+    }
+  }
+}
+
+:lang(en) {
+  .nav-logged__anchor {
+    @media screen and (min-width: 16.875em) {
+      text-indent: -70%;
+    }
+    @media screen and (min-width: 45.000em) {
+      text-indent: inherit;
     }
   }
 }
