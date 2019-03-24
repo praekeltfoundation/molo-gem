@@ -10,7 +10,7 @@
         <div class="heading heading--hero">
           {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
         </div>
-      </div>  
+      </div>
       <div class="section-page__columns section-page__columns--watch">
           <div class="section-page__first-column section-page__first-column--watch">
             {% load_child_articles_for_section self count=1 featured_in_section=True as articles %}
@@ -131,7 +131,7 @@
                 </div>
                 {% endif %}
               {% endif %}
-              
+
           </div>
           <div class="section-page__second-column section-page__second-column--watch">
             {% if ancestor %}{% load_child_sections_for_section ancestor as sections %}
@@ -141,15 +141,14 @@
               <div class="heading heading--sidebar">
                 <h1 class="heading__subheading">{{section}}</h1>
               </div>
-
                 {% load_child_articles_for_section section as articles %}
+                {% if articles %}
                   <ul class="teaser-grid teaser-grid--watch">
                     {% for article in articles %}
                       <li class="teaser-grid__item">
                         {% if article.homepage_media %}
                           {% for block in article.homepage_media %}
                             {% with block.value as media %}
-                              <div class="teaser-grid__images">
                                 {% if article.get_effective_image %}
                                   <div class="teaser-grid__images">
                                     <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
@@ -158,7 +157,6 @@
                                     </a>
                                   </div>
                                 {% endif %}
-                              </div>
                             {% endwith %}
                           {% endfor %}
                         {% elif article.get_effective_image %}
@@ -173,8 +171,10 @@
                       </li>
                     {% endfor %}
                   </ul>
+                {% endif %}
 
                 {% load_child_sections_for_section section=section as inner_sections %}
+                {% if inner_sections %}
                   <ul class="teaser-accordion-list teaser-accordion-list--watch">
                       {% for inner_section in inner_sections %}
                         <li class="teaser-accordion-list__item">
@@ -229,6 +229,7 @@
                         </li>
                       {% endfor %}
                   </ul>
+                {% endif %}
             {% endfor %}
           </div>
       </div>
@@ -237,7 +238,7 @@
             <div class="heading heading--hero">
               {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
             </div>
-        </div>  
+        </div>
         {% if self.get_main_language_page.title == "Listen" %}
           {% load_child_sections_for_section self as subsections %}
           {% if subsections %}

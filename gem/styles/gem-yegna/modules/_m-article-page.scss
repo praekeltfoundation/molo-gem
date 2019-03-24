@@ -31,32 +31,24 @@
   &__images {
     margin: 1em 0 0;
     overflow: hidden;
-    max-height: 422px;
+    @include for-size(tablet-landscape-up) {
+      height: 642px;
+      width: 1140px;
+    }
     &-hero {
       text-align: center;
       margin: 0 auto;
       iframe, video {
         width: 100%;
         @include for-size(tablet-landscape-up) {
+          min-height: 642px;
+          max-height: 642px;
           height: 642px;
-          max-width: 1140px;
+          width: 1140px;
         }
       }
       .media-player__embed {
         margin: 0 0 1em;
-        @include for-size(tablet-landscape-up) {
-          min-height: 290px;
-          max-height: 422px;
-          height: 422px;
-        }
-        &--audio {
-          height: auto;
-          min-height: auto;
-          min-width: 100%;
-          background-color: $color-light-gray;
-          padding: 1.5em;
-          margin: 0 0 1em;
-        }
       }
     }
     &--inner {
@@ -66,10 +58,31 @@
     }
   }
   &__thumbnail {
-    height: auto;
+    height: 100%;
     width: 100%;
+    object-fit: cover;
+    object-position: left top;
   }
-
+  &__wrapper--cast {
+    margin: 0 auto;
+    @media screen and (min-width: 80.000em) {
+      padding: 1em 23.9%;
+    }
+    #{$block}__images {
+      @include for-size(tablet-landscape-up) {
+        height: 423px;
+        width: 752px;
+      }
+    }
+  }
+  .media-player__embed--audio {
+    background-color: $color-light-gray;
+    height: auto;
+    min-height: auto;
+    min-width: 100%;
+    padding: 1.5em;
+    margin: 0 0 1em;
+  }
   .social-media {
     background: $color-light-gray;
     padding: 1em;
@@ -93,7 +106,6 @@
       margin: 0;
     }
   }
-
   .banner {
     .heading__title,
     .heading__subtitle {
@@ -105,7 +117,6 @@
   .heading__title  {
     color: #000;
   }
-  
   .teaser-breadcrumb {
     text-align: center;
     padding: 1em 0 0;
@@ -125,9 +136,9 @@
       }
     }
     &__images {
-      min-width: 290px;
+      width: 290px;
       @include for-size(tablet-landscape-up)  {
-        max-height: 163.13px;
+        height: 163.13px;
       }
     }
     &__container {
@@ -141,10 +152,8 @@
           background-color: $color;
         }
       }
-      #{$block}__images-hero {
-        .media-player__embed--audio {
-          background-color: $color;
-        }
+      .media-player__embed--audio {
+        background-color: $color;
       }
     }
   }

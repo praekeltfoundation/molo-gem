@@ -27,8 +27,10 @@
     font-size: $font-small;
   }
   &__thumbnail {
-    height: auto;
+    height: 100%;
     width: 100%;
+    object-fit: cover;
+    object-position: left top;
   }
   &__container {
     margin: $spacer-small 0;
@@ -76,24 +78,13 @@
 
   //WATCH HOMEPAGE
   &--watch {
-    iframe,video {
-      @include for-size(tablet-landscape-up) {
-        height: 422px;
-        max-height: 422px;
-      }
-    }
     #{$block}__images {
       display: block;
       @media screen and (min-width: 62.000em)  {
         max-height: 422px;
       }
       @media screen and (min-width: 72.188em) {
-        width: 785px;
-      }
-    }
-    #{$block}__thumbnail {
-      @media screen and (min-width: 62.000em)  {
-        min-width: 785px;
+        width: 750px;
       }
     }
     #{$block}__container {
@@ -112,10 +103,15 @@
     }
     #{$block}__anchor {
       vertical-align: middle;
-      display: block;
     }
     #{$block}__duration {
       vertical-align: sub;
+    }
+    iframe,video {
+      @include for-size(tablet-landscape-up) {
+        height: 422px;
+        max-height: 422px;
+      }
     }
   }
 
@@ -126,30 +122,33 @@
         background-color: $color-light-gray;
         padding: 1em;
         @media screen and (min-width: 45.000em) {
-          display: flex;
+          display: grid;
+          grid-template-columns: 175px 525px;
         }
         @include for-size(tablet-landscape-up) {
           padding: 1.5em;
         }
       }
     }
+    #{$block}__anchor {
+      display: block;
+    }
     #{$block}__images {
       @media screen and (min-width: 62.000em) {
-        max-width: 170px;
-        width: 170px;
-        height: 170px;
+        width: 175px;
+        height: 175px;
       }
-    }
-    #{$block}__thumbnail {
-      max-width: 170px;
+      #{$block}__anchor {
+        @media screen and (min-width: 62.000em) {
+          width: 175px;
+          height: 175px;
+        }
+      }
     }
     #{$block}__container {
       margin: 0 0 $spacer-small;
       @media screen and (min-width: 45.000em) {
         padding: 0 1em;
-      }
-      @media screen and (min-width: 62.000em) {
-        width: 77%;
       }
       .section__title {
         color: $color-light-red;
