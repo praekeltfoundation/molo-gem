@@ -47,27 +47,10 @@
       padding: $spacer-small;
       font-size: $font-small;
       position: relative;
-      &:after {
-        content: "";
-        display: block;
-        border-radius: 10%;
-        background: transparent;
-        width: 35%;
-        height: 3px;
-        position: absolute;
-        margin: -3px auto;
-        right: 0;
-        left: 0;
-        @include for-size(tablet-landscape-up) {
-          width: 100%;
-        }
-      }
       &:active, &:hover, &:focus {
         color: #000;
-        &:after {
-          background-color: #000;
-          transition: background-color 100ms ease-in-out;
-        }
+        text-decoration: underline;
+        text-underline-position: under;
       }
     }
   }
