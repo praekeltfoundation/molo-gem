@@ -535,16 +535,6 @@ class GemReportCommentViewTest(TestCase, GemTestCaseMixin):
         self.assertContains(response, 'This comment has been reported.')
 
 
-class TestKaiOSManifestView(TestCase):
-    def setup(self):
-        self.client = Client()
-
-    def test_returns_correct_manifest_data(self):
-        response = self.client.get('/manifest.webapp')
-
-        self.assertContains(response, '"url": request.get_host()')
-
-
 class TestBbmRedirectView(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
