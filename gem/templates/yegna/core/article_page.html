@@ -40,7 +40,7 @@
       {% endif %}
     </div>
   </div>
-  <div class="article-page__wrapper">
+  <div class="article-page__wrapper{% if section.get_main_language_page.title == 'Cast' %} article-page__wrapper--cast{% endif %}">
     {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
       <div class="teaser-breadcrumb">
         <ul class="teaser-breadcrumb-list">
@@ -103,10 +103,12 @@
     {% if page.homepage_media %}
       {% for block in page.homepage_media %}
         {% with block.value as media %}
-          <div class="article-page__images-hero">
-            {% if block.value.youtube_link %}
+          {% if block.value.youtube_link %}
+            <div class="article-page__images article-page__images-hero">
               {% embed media.youtube_link %}
-            {% elif block.value.type == 'video' %}
+            </div>
+          {% elif block.value.type == 'video' %}
+            <div class="article-page__images article-page__images-hero">
               <div class="media-player__embed">
                 <video poster="/media/{{ media.thumbnail }}" controls>
                   <source src={{media.file.url}} type="video/mp4">
@@ -117,12 +119,13 @@
                   </span>
                 </video>
               </div>
-            {% elif block.value.type == 'audio' %}
+            </div>
+          {% elif block.value.type == 'audio' %}
               {% if self.get_effective_image %}
-                <div class="article-page__images">
-                  {% image self.get_effective_image width-1080 format-jpeg as article_thumbnail %}
-                  <img alt="{{ self.title }}" src="{{ article_thumbnail.url }}" class="article-page__thumbnail" />
-                </div>
+              <div class="article-page__images article-page__images-hero">
+                {% image self.get_effective_image width-1080 format-jpeg as article_thumbnail %}
+                <img alt="{{ self.title }}" src="{{ article_thumbnail.url }}" class="article-page__thumbnail" />
+              </div>
               {% endif %}
               <div class="media-player__embed media-player__embed--audio">
                 <audio controls>
@@ -135,7 +138,6 @@
                  </audio>
                </div>
             {% endif %}
-          </div>
         {% endwith %}
       {% endfor %}
     {% else %}

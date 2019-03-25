@@ -63,20 +63,23 @@ jQuery(document).ready(function (e) {
       if (window.innerWidth > 1024) {
         if (scrollAmount > 0 && scrollPos > headerHeight) {
           header.style.transform = "translate3d(0px, 0px, 0px)";
+          header.style.transition = "transform 300ms ease 3ms";
           header.style.position = "fixed";
         }
         else if (scrollPos > headerHeight) {
           header.style.transform = "translate3d(0px, "+ -headerHeight + "px, 0px)";
+          header.style.transition = "transform 300ms ease 3ms";
           header.style.position = "absolute";
         }
         else if (scrollAmount < 0 || scrollPos < headerHeight) {
           header.style.transform = "translate3d(0px, 0px, 0px)";
+          header.style.transition = "transform 300ms ease 3ms";
         }
       }
       this.y = window.pageYOffset;
     });
   };
-  domReady(function() {	
-    stickyHeader();	
+  domReady(function() {
+    stickyHeader();
   });
 })();

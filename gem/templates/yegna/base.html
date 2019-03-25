@@ -43,6 +43,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/logos/yegna-logo.svg' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/yegna/favicon.ico' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/yegna/favicon.ico' %}">
+
   <!-- Code snippet to speed up Google Fonts rendering: googlefonts.3perf.com -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -96,6 +97,7 @@
   {% endcompress %}
 </head>
 <body {% block body_class %}{% endblock %} {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+  
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
