@@ -537,12 +537,12 @@ class GemReportCommentViewTest(TestCase, GemTestCaseMixin):
 
 class TestKaiOSManifestView(TestCase):
     def setup(self):
-        self.request_factory = RequestFactory()
+        self.client = Client()
 
     def test_returns_correct_manifest_data(self):
-        request = self.request_factory.get('/manifest.webapp')
+        response = self.client.get('/manifest.webapp')
 
-        self.assertContains(request, {"url": request.get_host()})
+        self.assertContains(response, '"url": request.get_host()')
 
 
 class TestBbmRedirectView(TestCase, GemTestCaseMixin):
