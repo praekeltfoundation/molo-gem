@@ -30,7 +30,7 @@
                                 {% embed media.youtube_link %}
                               {% elif block.value.type == 'video' %}
                                 <div class="media-player__embed">
-                                  <video poster="/media/{{ media.thumbnail }}" controls>
+                                  <video poster="{{ media.thumbnail.url }}" controls>
                                     <source src={{media.file.url}} type="video/mp4">
                                     <source src={{media.file.url}} type="video/webm">
                                     <source src={{media.file.url}} type="video/ogg">
