@@ -295,8 +295,9 @@ class KaiOSManifestView(View):
             "description": "An app providing information to girls",
             "launch_path": "/",
             "icons": {
-                "56": "/statc/img/icons/next.png",
-                "112": "/statc/img/icons/next.png"
+                "56": "/static/img/appicons/springster_icon_52.png",
+                "112": "/static/img/appicons/springster_icon_112.png",
+                "128": "/static/img/appicons/springster_icon_128.png",
             },
             "developer": {
                 "name": "Praekelt.org",
@@ -309,7 +310,7 @@ class KaiOSManifestView(View):
                 }
             },
             "default_locale": "en",
-            "cursor": True
+            "cursor": True,
         }
         response = HttpResponse(
             json.dumps(manifest),
