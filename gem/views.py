@@ -310,7 +310,7 @@ class KaiOSManifestView(View):
                 }
             },
             "default_locale": "en",
-            "cursor": True,
+            "cursor": True
         }
         response = HttpResponse(
             json.dumps(manifest),
