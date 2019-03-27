@@ -1,6 +1,7 @@
 {% load wagtailcore_tags core_tags wagtailsettings_tags wagtailimages_tags %}
 {% get_settings %}
   <ul class="social-media-list">
+    {% pageurl page.specific as path %}
     {% if settings.core.SiteSettings.facebook_sharing or  settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing  %}
       <li class="social-media-list__item">
         <h4 class="social-media__label">{% trans "Share" %}</h4>
@@ -8,7 +9,7 @@
     {% endif %}
     {% if settings.core.SiteSettings.facebook_sharing %}
       <li class="social-media-list__item">
-        <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ path }}" target="_top" class="social-media__anchor social-media__anchor--facebook">
+        <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ path }}"  target="_top" class="social-media__anchor social-media__anchor--facebook">
           {% if facebook %}{% image facebook width-40 format-png class="social-media__icon" %}{% else %}{% trans "Facebook" %}{% endif %}
         </a>
       </li>
