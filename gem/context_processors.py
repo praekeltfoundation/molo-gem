@@ -13,7 +13,6 @@ def detect_kaios(request):
 
     if 'kaios.' in request.get_host():
         is_via_kaios = True
-
     return{
         'is_via_kaios': is_via_kaios
     }
