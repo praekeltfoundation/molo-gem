@@ -321,7 +321,7 @@
                   {% endwith %}
                 {% endfor %}
               {% endif %}
-              {% social_media_article %}
+              {% social_media_article page=page %}
             </div>
           {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
             <div class="social-media social-media--listen">
@@ -336,11 +336,11 @@
                   {% endwith %}
                 {% endfor %}
               {% endif %}
-              {% social_media_article %}
+              {% social_media_article page=page %}
             </div>
           {% else %}
             <div class="social-media">
-              {% social_media_article %}
+              {% social_media_article page=page %}
             </div>
           {% endif %}
         {% endif %}
