@@ -70,7 +70,8 @@
             raf(function() {
               var jsScripts = [
                  "https://code.jquery.com/jquery-2.0.3.min.js",
-                 "{% static 'js/dest/yegna-min.js' %}"
+                 "{% static 'js/dest/yegna-min.js' %}",
+                 "{% static 'js/dest/kaios-min.js' %}",
                ];
               for (var i = 0; i < jsScripts.length; i++) {
                 var script = document.createElement('script');
@@ -97,6 +98,7 @@
   {% endcompress %}
 </head>
 <body {% block body_class %}{% endblock %} {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
@@ -110,10 +112,10 @@
      ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
    </script>
   {% endif %}
-    <div id="header" class="header" tabindex="0">
+    <div id="header" class="header" autofocus>
       {% if languages|length > 1 %}
-      <div class="languages {% if is_via_kaios %}items{% endif %}" tabindex="1">
-        <div class="languages--wrapper" tabindex="2">
+      <div class="languages">
+        <div class="languages--wrapper">
           <ul class="languages-list">
             {% for language in languages %}
               <li class="languages-list__item">
@@ -227,10 +229,6 @@
         </a>
       {% endif %}
     </div>
-    {% if is_via_kaios %}
-      <input type="text" class="items" tabIndex="5"/>
-      <a href="more.html" clas="items">More..</a>
-    {% endif %}
 </body>
 </html>
 {% endspaceless %}

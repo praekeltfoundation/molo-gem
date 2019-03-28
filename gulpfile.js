@@ -91,6 +91,7 @@ var gulp              =   require('gulp'),
           'gem/static/js/springster.js',
           'gem/static/js/nn.js',
           'gem/static/js/yegna.js',
+          'gem/static/js/kaios.js',
           'gem/static/js/modeladmin/index.js'
         ])
         .pipe(rename({
