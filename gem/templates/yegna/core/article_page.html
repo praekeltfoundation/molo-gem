@@ -2,6 +2,7 @@
 {% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags %}
 {% get_settings %}
 
+{% block content1 %}
 {% block content %}
 {% get_translation self.get_parent_section.get_parent_section.get_parent_section as ancestor %}
 {% get_translation self.get_parent_section.get_parent_section as parent %}
@@ -361,4 +362,5 @@
     </div>
   </div>
 </div>
+{% endblock %}
 {% endblock %}

@@ -79,7 +79,18 @@ jQuery(document).ready(function (e) {
       this.y = window.pageYOffset;
     });
   };
+
+  var kaiosPadNav = function(e) {
+      /*var childElem = document.getElementsByTagName('div');
+    for (var i = 0, len = childElem.length; i < len; i++) {
+      childElem[i].setAttribute('tabindex', i);
+    }
+    childElem.addEventListener("focus", function() {
+
+    });*/
+  };
   domReady(function() {
     stickyHeader();
+    kaiosPadNav();
   });
 })();

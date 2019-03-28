@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags %}
 {% block body_class %}class="{{ self.get_verbose_name|slugify }}-page" {% endblock %}
-{% block content %}
-  {% gembannerpages %}
-  {% bannerpages position=0 %}
-  {# <!-- OPEM landing-page DIV -->#}
-  <div class="landing-page">
-    {# <!-- OPEN landing-page__first-column DIV -->#}
-    <div class="landing-page__first-column">
-      {% hero_article %}
-      {% latest_listing_homepage num_count=1 %}
-      {% media_listing_homepage %}
-      {# <!-- FRAGMENTED DIVS PAGE -->#}
-      {% section_listing_homepage %}
-  </div>
+{% block content1 %}
+  {% block content %}
+    {% gembannerpages %}
+    {% bannerpages position=0 %}
+    {# <!-- OPEM landing-page DIV -->#}
+    <div class="landing-page">
+      {# <!-- OPEN landing-page__first-column DIV -->#}
+      <div class="landing-page__first-column">
+        {% hero_article %}
+        {% latest_listing_homepage num_count=1 %}
+        {% media_listing_homepage %}
+        {# <!-- FRAGMENTED DIVS PAGE -->#}
+        {% section_listing_homepage %}
+    </div>
+  {% endblock %}
 {% endblock %}
