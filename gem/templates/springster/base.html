@@ -312,6 +312,13 @@
             </script>
           {% endif %}
         {% endblock %}
+        {% if is_via_kaios %}
+          <div class="softkey">
+            <div id="softkey-left" class="softkey-link">Back</div>
+            <div id="softkey-center" class="softkey-link">SELECT</div>
+            <div id="softkey-right" class="softkey-link">Options</div>
+          </div>
+        {% endif %}
         <div class="copyright">
           <p class="copyright__footer-copy" >&copy;
             {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
@@ -327,13 +334,6 @@
             </a>
           {% endif %}
         </div>
-        {% if is_via_kaios %}
-          <div class="softkey">
-            <div id="softkey-left">Back</div>
-            <div id="softkey-center">SELECT</div>
-            <div id="softkey-right">Options</div>
-          </div>
-        {% endif %}
       </div>
     </div>
 

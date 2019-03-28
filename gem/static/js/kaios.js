@@ -1,7 +1,9 @@
+"use strict";
 (function() {
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
+
   function handleKeydown(e) {
     switch(e.key) {
       case 'ArrowUp':
@@ -25,10 +27,7 @@
       childElem[i].className += " items";
       childElem[i].setAttribute('tabindex', i);
       childElem[i].onfocus = function() {
-        var activeElem = document.activeElement;
-        setInterval(function() {
-          activeElem.addEventListener('keydown', handleKeydown);
-        }, 1000);
+        document.activeElement.addEventListener('keydown', handleKeydown);
       };
     }
   };
@@ -44,9 +43,9 @@
 
 
   var softkeyCallback = {
-      left: function() { console.log('You click on SoftLeft') },
-      center: function() { console.log('You click on Enter') },
-      right: function() { console.log('You click on SoftRight') }
+    left: function() { console.log('You click on SoftLeft') },
+    center: function() { console.log('You click on Enter') },
+    right: function() { console.log('You click on SoftRight') }
   };
   function handleKeyDownEvent(evt) {
     switch (evt.key) {
@@ -68,11 +67,8 @@
   };
   document.addEventListener('keydown', handleKeyDownEvent);
 
-
   domReady(function() {
     kaiosPadNav();
-    nav();
-    softkeyCallback();
-    updateSoftKey();
+
   });
 })();
