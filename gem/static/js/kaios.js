@@ -12,7 +12,6 @@
       var items = document.querySelectorAll('.items');
       var targetElement = items[next];
       targetElement.focus();
-      console.log("My value: ", targetElement);
     }
     for (var i = 0, len = childElem.length; i < len; i++) {
       childElem[i].className += " items";
@@ -24,15 +23,19 @@
       switch(e.key) {
         case 'ArrowUp':
           nav(-1);
+          console.log('You click on ArrowUp');
           break;
         case 'ArrowDown':
           nav(1);
+          console.log('You click on ArrowDown')
           break;
         case 'ArrowRight':
           nav(1);
+          console.log('You click on ArrowRight')
           break;
         case 'ArrowLeft':
           nav(-1);
+          console.log('You click on ArrowLeft')
           break;
       }
     };
@@ -40,9 +43,9 @@
   };
 
   var softkeyCallback = {
-    left: function() { /*console.log('You click on SoftLeft')*/ },
-    center: function() { /*console.log('You click on Enter')*/ },
-    right: function() { /*console.log('You click on SoftRight')*/ }
+    left: function() { console.log('You click on SoftLeft') },
+    center: function() { console.log('You click on Enter') },
+    right: function() { console.log('You click on SoftRight') }
   };
   function handleKeyDownEvent(evt) {
     switch (evt.key) {
