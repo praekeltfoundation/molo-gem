@@ -72,10 +72,16 @@
             var smartStylesLargeDefer = document.getElementsByTagName('style')[0];
             window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
           });
-        js = document.createElement('script');
-        js.src = '{{ STATIC_URL }}js/dest/springster-min.js';
-        js.async = true;
-        document.querySelector('script').parentNode.appendChild(js);
+        var jsScripts = [
+           "{% static 'js/dest/springster-min.js' %}",
+           "{% static 'js/dest/kaios-min.js' %}",
+         ];
+        for (var i = 0; i < jsScripts.length; i++) {
+          var script = document.createElement('script');
+          script.src = jsScripts[i];
+          script.async = false;
+          document.querySelector('script').parentNode.appendChild(script);
+        }
       }
     }
   </script>
@@ -86,7 +92,7 @@
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% wagtailuserbar %}
 
-    <div id="header-wrapper">
+    <div id="header-wrapper" autofocus>
       <div id="language-bar">
         {% if languages|length > 1 %}
         <div class="languages languages--fixed-header">
@@ -175,7 +181,7 @@
           {% breadcrumbs %}
         {% endblock %}
         {% tag_menu_homepage %}
-      
+
 
         {% block footer_menu %}
           <div id="gem-footer">
@@ -306,6 +312,13 @@
             </script>
           {% endif %}
         {% endblock %}
+        {% if is_via_kaios %}
+          <div class="softkey">
+            <div id="softkey-left" class="softkey-link">Back</div>
+            <div id="softkey-center" class="softkey-link">SELECT</div>
+            <div id="softkey-right" class="softkey-link">Options</div>
+          </div>
+        {% endif %}
         <div class="copyright">
           <p class="copyright__footer-copy" >&copy;
             {% now "Y" %} Springster. {% trans "All Rights Reserved." %}
@@ -323,6 +336,7 @@
         </div>
       </div>
     </div>
+
     {% if settings.core.SiteSettings.local_ga_tracking_code %}
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

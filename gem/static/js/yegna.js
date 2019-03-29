@@ -79,6 +79,7 @@ jQuery(document).ready(function (e) {
       this.y = window.pageYOffset;
     });
   };
+
   domReady(function() {
     stickyHeader();
   });
