@@ -6,6 +6,10 @@
 
   function kaiosPadNav (e) {
     var childElem = document.querySelectorAll('div, a, input, button, select, textarea,li');
+    for (var i = 0, len = childElem.length; i < len; i++ ) {
+      childElem[i].className += " items";
+      childElem[i].setAttribute('tabindex', i);
+    }
     function nav(num) {
       var currentIndex = childElem[num];
       var next = +(currentIndex.getAttribute('tabindex')) + 1;
@@ -17,11 +21,6 @@
         };
       }
     }
-    for (var i = 0, len = childElem.length; i < len; i++ ) {
-      childElem[i].className += " items";
-      childElem[i].setAttribute('tabindex', i);
-    }
-
     var handleKeydown = function(e) {
       switch(e.key) {
         case 'ArrowUp':
