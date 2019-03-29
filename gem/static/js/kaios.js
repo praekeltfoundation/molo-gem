@@ -8,34 +8,37 @@
     var childElem = document.querySelectorAll('div, a, input, button, select, textarea,li');
     function nav(num) {
       var currentIndex = childElem[num];
-      var next = currentIndex + num;
+      var next = +(currentIndex.getAttribute('tabindex')) + 1;
       var items = document.querySelectorAll('.items');
-      var targetElement = items[next];
-      targetElement.focus();
+      for (var i=items.length; i--;) {
+        var itemIndex = items[i].getAttribute('tabindex');
+        if (itemIndex == next) {
+          items[i].focus();
+        };
+      }
     }
-    for (var i = 0, len = childElem.length; i < len; i++) {
+    for (var i = 0, len = childElem.length; i < len; i++ ) {
       childElem[i].className += " items";
       childElem[i].setAttribute('tabindex', i);
-      nav(i);
     }
 
     var handleKeydown = function(e) {
       switch(e.key) {
         case 'ArrowUp':
           nav(-1);
-          console.log('You click on ArrowUp');
+          console.log('You click on ArrowUp', event.which || event.keyCode || 0);
           break;
         case 'ArrowDown':
           nav(1);
-          console.log('You click on ArrowDown')
+          console.log('You click on ArrowDown', event.which || event.keyCode || 0)
           break;
         case 'ArrowRight':
           nav(1);
-          console.log('You click on ArrowRight')
+          console.log('You click on ArrowRight', event.which || event.keyCode || 0)
           break;
         case 'ArrowLeft':
           nav(-1);
-          console.log('You click on ArrowLeft')
+          console.log('You click on ArrowLeft', event.which || event.keyCode || 0)
           break;
       }
     };
