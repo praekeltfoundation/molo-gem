@@ -10,16 +10,28 @@
       childElem[i].className += " items";
       childElem[i].setAttribute('tabindex', i);
     }
-    function nav(num) {
-      var currentIndex = childElem[num];
-      var next = +(currentIndex.getAttribute('tabindex')) + 1;
-      var items = document.querySelectorAll('.items');
-      for (var i=items.length; i--;) {
-        var itemIndex = items[i].getAttribute('tabindex');
-        if (itemIndex == next) {
-          items[i].focus();
-        };
-      }
+    function nav(event) {
+        var next = event.target + event;
+        var items = document.querySelectorAll('.items');
+        console.log('Elem',  items[next]);
+        for (var i; i=items.length; i++) {
+          console.log('Focused',  items[i]);
+        }
+        var targetElement = items[next];
+       //targetElement.focus();
+      event.target.focus();
+        console.log('Elem', event.target);
+
+      //console.log( +(event.target.getAttribute('tabindex')) +1);
+      /*  var next = +(currentIndex.getAttribute('tabindex')) + 1;
+        var items = document.querySelectorAll('.items');
+          for (var i=items.length; i--;) {
+          var itemIndex = items[i].getAttribute('tabindex');
+          if (itemIndex == next) {
+            items[i].focus();
+          };
+        }
+      */
     }
     var handleKeydown = function(e) {
       switch(e.key) {
@@ -41,8 +53,10 @@
           break;
       }
     };
-    document.activeElement.addEventListener('keydown', handleKeydown);
+    document.activeElement.addEventListener('keydown', nav);
   };
+
+
 
   var softkeyCallback = {
     left: function() { console.log('You click on SoftLeft') },
