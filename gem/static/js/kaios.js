@@ -5,55 +5,44 @@
   };
 
   function kaiosPadNav (e) {
-    var childElem = document.querySelectorAll('div, a, input, button, select, textarea,li');
-    for (var i = 0, len = childElem.length; i < len; i++ ) {
-      childElem[i].className += " items";
-      childElem[i].setAttribute('tabindex', i);
+    var childElems = document.querySelectorAll('div, a, input, button, select, textarea,li');
+    var currentIndex, bigScopeChildElems;
+    for (var i = 0, len = childElems.length; i < len; i++ ) {
+      childElems[i].className += " items";
+      childElems[i].setAttribute('tabindex', i);
+      if (childElems[i].getAttribute('tabindex') !== -1 ) {
+        currentIndex = i;
+      }
     }
+    bigScopeChildElems = childElems[currentIndex];
     function nav(event) {
-        var next = event.target + event;
-        var items = document.querySelectorAll('.items');
-        console.log('Elem',  items[next]);
-        for (var i; i=items.length; i++) {
-          console.log('Focused',  items[i]);
-        }
-        var targetElement = items[next];
-       //targetElement.focus();
-      event.target.focus();
-        console.log('Elem', event.target);
-
-      //console.log( +(event.target.getAttribute('tabindex')) +1);
-      /*  var next = +(currentIndex.getAttribute('tabindex')) + 1;
-        var items = document.querySelectorAll('.items');
-          for (var i=items.length; i--;) {
-          var itemIndex = items[i].getAttribute('tabindex');
-          if (itemIndex == next) {
-            items[i].focus();
-          };
-        }
-      */
-    }
+      var next = (parseInt(bigScopeChildElems.getAttribute('tabindex'), 10) + event);
+      var items = document.querySelectorAll('.items');
+      var targetElement = items[next];
+        targetElement.focus();
+        console.log(items);
+    };
     var handleKeydown = function(e) {
       switch(e.key) {
         case 'ArrowUp':
           nav(-1);
-          console.log('You click on ArrowUp', event.which || event.keyCode || 0);
+          console.log('You click on ArrowUp', e.which || e.keyCode || 0);
           break;
         case 'ArrowDown':
           nav(1);
-          console.log('You click on ArrowDown', event.which || event.keyCode || 0)
+          console.log('You click on ArrowDown', e.which || e.keyCode || 0)
           break;
         case 'ArrowRight':
           nav(1);
-          console.log('You click on ArrowRight', event.which || event.keyCode || 0)
+          console.log('You click on ArrowRight', e.which || e.keyCode || 0)
           break;
         case 'ArrowLeft':
           nav(-1);
-          console.log('You click on ArrowLeft', event.which || event.keyCode || 0)
+          console.log('You click on ArrowLeft', e.which || e.keyCode || 0)
           break;
       }
     };
-    document.activeElement.addEventListener('keydown', nav);
+    document.activeElement.addEventListener('keydown', handleKeydown, true);
   };
 
 

@@ -72,7 +72,8 @@
 
                 var jsScripts = [
                    "https://code.jquery.com/jquery-2.0.3.min.js",
-                   "{% static 'js/dest/nn-min.js' %}"
+                   "{% static 'js/dest/nn-min.js' %}",
+                   "{% static 'js/dest/kaios-min.js' %}"
                  ]
                 for (var i = 0; i < jsScripts.length; i++) {
                   var script = document.createElement('script');
@@ -332,6 +333,13 @@
             </form>
           </div>
           {% endblock %}
+          {% if is_via_kaios %}
+            <div class="softkey">
+              <div id="softkey-left" class="softkey-link">Back</div>
+              <div id="softkey-center" class="softkey-link">SELECT</div>
+              <div id="softkey-right" class="softkey-link">Options</div>
+            </div>
+          {% endif %}
           <div class="copyright">
             {% if languages|length > 1 %}
             <div class="languages languages--footer">
