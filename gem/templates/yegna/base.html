@@ -216,6 +216,13 @@
         {% footer_page %}
       </ul>
     </div>
+    {% if is_via_kaios %}
+      <div class="softkey">
+        <div id="softkey-left" class="softkey-link">Back</div>
+        <div id="softkey-center" class="softkey-link">SELECT</div>
+        <div id="softkey-right" class="softkey-link">Options</div>
+      </div>
+    {% endif %}
     <div class="copyright">
       <p class="copyright__content">&copy; {% now "Y" %} Girl Effect. {% trans "All Rights Reserved." %}</p>
       {% if settings.profiles.UserProfilesSettings.terms_and_conditions %}

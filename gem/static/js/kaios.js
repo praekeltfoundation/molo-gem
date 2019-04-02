@@ -5,42 +5,47 @@
   };
 
   function kaiosPadNav (e) {
-    var childElem = document.querySelectorAll('div, a, input, button, select, textarea,li');
-    function nav(num) {
-      var currentIndex = childElem[num];
-      var next = currentIndex + num;
+    var childElems = document.querySelectorAll('div, a, input, button, select, textarea,li');
+    var currentIndex, bigScopeChildElems;
+    for (var i = 0, len = childElems.length; i < len; i++ ) {
+      childElems[i].className += " items";
+      childElems[i].setAttribute('tabindex', i);
+      if (childElems[i].getAttribute('tabindex') !== -1 ) {
+        currentIndex = i;
+      }
+    }
+    bigScopeChildElems = childElems[currentIndex];
+    function nav(event) {
+      var next = (parseInt(bigScopeChildElems.getAttribute('tabindex'), 10) + event);
       var items = document.querySelectorAll('.items');
       var targetElement = items[next];
-      targetElement.focus();
-    }
-    for (var i = 0, len = childElem.length; i < len; i++) {
-      childElem[i].className += " items";
-      childElem[i].setAttribute('tabindex', i);
-      nav(i);
-    }
-
+        targetElement.focus();
+        console.log(items);
+    };
     var handleKeydown = function(e) {
       switch(e.key) {
         case 'ArrowUp':
           nav(-1);
-          console.log('You click on ArrowUp');
+          console.log('You click on ArrowUp', e.which || e.keyCode || 0);
           break;
         case 'ArrowDown':
           nav(1);
-          console.log('You click on ArrowDown')
+          console.log('You click on ArrowDown', e.which || e.keyCode || 0)
           break;
         case 'ArrowRight':
           nav(1);
-          console.log('You click on ArrowRight')
+          console.log('You click on ArrowRight', e.which || e.keyCode || 0)
           break;
         case 'ArrowLeft':
           nav(-1);
-          console.log('You click on ArrowLeft')
+          console.log('You click on ArrowLeft', e.which || e.keyCode || 0)
           break;
       }
     };
-    document.activeElement.addEventListener('keydown', handleKeydown);
+    document.activeElement.addEventListener('keydown', handleKeydown, true);
   };
+
+
 
   var softkeyCallback = {
     left: function() { console.log('You click on SoftLeft') },
