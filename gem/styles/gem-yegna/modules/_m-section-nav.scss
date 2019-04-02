@@ -6,9 +6,11 @@
   }
   &__label {
     color: #000;
-    display: inline-block;
     padding: 1em 0;
     font-size: $font-medium;
+    @media screen and (min-width: 20.000em) {
+      display: inline-block;
+    }
     @include for-size(tablet-landscape-up) {
       display: block;
     }
@@ -27,6 +29,10 @@
     &__item {
       display: block;
       margin: 1em 0.5em;
+      text-align: center;
+      @media screen and (min-width: 20.000em) {
+        text-align: initial;
+      }
       @media screen and (min-width: 25.000em) {
         width: 320px;
       }

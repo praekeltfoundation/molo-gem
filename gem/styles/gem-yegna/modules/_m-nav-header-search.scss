@@ -28,9 +28,12 @@
   &__label {
     cursor: pointer;
     display: block;
+    font-size: $font-x-small;
     padding: $spacer-half $spacer-small;
     position: relative;
-    font-size: $font-small;
+    @media screen and (min-width: 18.750em) {
+      font-size: $font-small;
+    }
     @include for-size(tablet-portrait-up) {
       display: inline-block;
       margin: 0 -1em 0 0;
@@ -43,11 +46,15 @@
       background: url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/90%;
       content: "";
       display: block;
-      height: 27px;
+      height: 20px;
       vertical-align: middle;
       margin: 0 auto;
-      width: 27px;
+      width: 20px;
       text-align: center;
+      @media screen and (min-width: 18.750em) {
+        height: 27px;
+        width: 27px;
+      }
       @include for-size(tablet-portrait-up) {
         background-size: auto;
         display: inline-block;
@@ -66,13 +73,13 @@
       height: 3px;
       position: absolute;
       margin: -3px auto;
-      right: 0; 
+      right: 0;
       @include for-size(tablet-portrait-up) {
         width: 55%;
       }
       @include for-size(desktop-up) {
         margin: -5px auto;
-        right: 13px; 
+        right: 13px;
         width: 45%;
       }
     }

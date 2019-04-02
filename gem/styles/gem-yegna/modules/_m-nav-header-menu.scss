@@ -16,11 +16,15 @@
       color: #000;
       cursor: pointer;
       display: block;
+      font-size: $font-x-small;
       padding: $spacer-half $spacer-small;
       text-align: center;
       text-decoration: none;
       text-transform: capitalize;
       position: relative;
+      @media screen and (min-width: 18.750em) {
+        font-size: $font-small;
+      }
       @include for-size(tablet-portrait-up) {
         text-align: inherit;
         padding: $spacer-half;
@@ -33,10 +37,14 @@
         background-repeat: no-repeat;
         content: "";
         display: block;
-        height: 27px;
+        height: 20px;
         margin: 0 auto;
         vertical-align: middle;
-        width: 27px;
+        width: 20px;
+        @media screen and (min-width: 18.750em) {
+          height: 27px;
+          width: 27px;
+        }
         @include for-size(tablet-portrait-up) {
           display: inline-block;
           margin: 0 $spacer-half 0 0;
@@ -75,8 +83,6 @@
         }
       }
     }
-
-
     .active {
       opacity: 1;
       &:before {
