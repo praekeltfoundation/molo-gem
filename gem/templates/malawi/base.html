@@ -1,11 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags %}
 {% load wagtailsettings_tags %}
+{% get_current_language as LANGUAGE_CODE %}
 {% get_settings %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{% for language in languages %}{{ language.locale }}{% endfor %}"> <!--<![endif]-->
     <head>
       <!-- Google Tag Manager -->
       {% if settings.core.SiteSettings.ga_tag_manager %}
@@ -63,7 +64,6 @@
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/malawi.css">
         {% endcompress %}
-        {% get_current_language as LANGUAGE_CODE %}
         {% if LANGUAGE_CODE|language_bidi == True %}
           {% compress css %}
             <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
