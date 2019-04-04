@@ -5,7 +5,6 @@ ALLOWED_HOSTS = [
     'localhost',
     '.localhost',
     '127.0.0.1',
-    '10.0.1.151',
     'kaios.yegna.test'
 ]
 
