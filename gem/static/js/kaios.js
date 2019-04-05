@@ -4,7 +4,7 @@
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
   function kaiosPadNav (e) {
-    var childElems = document.querySelectorAll('div, a, input, button, select, textarea,li');
+    var childElems = document.querySelectorAll('div, a, input, button, select, textarea,ul,li');
     var currentIndex = 0, lastTabIndex, lastTabIndexElems, values = [];
     var genericTabs = function (a) {
       for(i = 0; i < a.length; i++ ){
