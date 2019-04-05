@@ -28,7 +28,6 @@
       var targetElement = items[next];
       targetElement.focus();
     }
-
     var handleKeydown = function(e) {
       switch(e.key) {
         case 'ArrowUp':
@@ -50,39 +49,37 @@
       }
     };
     document.activeElement.addEventListener('keydown', handleKeydown, true);
-  };
 
+    var softkeyCallback = {
+      left: function() { console.log('You click on SoftLeft') },
+      center: function() {
+        console.log('You click on Enter')
+      },
+      right: function() { console.log('You click on SoftRight') }
+    };
+    function handleKeyDownEvent(evt) {
+      evt.preventDefault();
+      switch (evt.key) {
+          case 'SoftLeft':
+              // Action case press left key
+              softkeyCallback.left();
+          break;
 
+          case 'SoftRight':
+              // Action case press right key
+              softkeyCallback.right();
+          break;
 
-  var softkeyCallback = {
-    left: function() { console.log('You click on SoftLeft') },
-    center: function() {
-      console.log('You click on Enter')
-
-    },
-    right: function() { console.log('You click on SoftRight') }
-  };
-  function handleKeyDownEvent(evt) {
-    switch (evt.key) {
-        case 'SoftLeft':
-            // Action case press left key
-            softkeyCallback.left();
-        break;
-
-        case 'SoftRight':
-            // Action case press right key
-            softkeyCallback.right();
-        break;
-
-        case 'Enter':
-            // Action case press center key
-            softkeyCallback.center();
-        break;
-    }
+          case 'Enter':
+              // Action case press center key
+              softkeyCallback.center();
+          break;
+      }
+    };
+    document.addEventListener('keydown', handleKeyDownEvent);
   };
 
   domReady(function() {
     kaiosPadNav();
-    document.addEventListener('keydown', handleKeyDownEvent);
   });
 })();
