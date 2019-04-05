@@ -73,16 +73,12 @@
             window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
           });
         var jsScripts = [
-          "https://code.jquery.com/jquery-2.0.3.min.js",
           "{% static 'js/dest/springster-min.js' %}",
           "{% static 'js/dest/kaios-min.js' %}",
          ];
         for (var i = 0; i < jsScripts.length; i++) {
           var script = document.createElement('script');
-          if (i === 0 ) {
-            script.crossOrigin = "anonymous";
-            script.integrity = "sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=";
-          }
+
           script.src = jsScripts[i];
           script.async = false;
           document.querySelector('script').parentNode.appendChild(script);
