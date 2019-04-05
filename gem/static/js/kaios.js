@@ -26,7 +26,6 @@
       var items = document.querySelectorAll(".items");
       currentIndex = next;
       var targetElement = items[next];
-      console.log(targetElement);
       targetElement.focus();
     }
 
