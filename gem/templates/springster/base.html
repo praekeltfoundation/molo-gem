@@ -73,8 +73,8 @@
             window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
           });
         var jsScripts = [
-           "{% static 'js/dest/springster-min.js' %}",
-           "{% static 'js/dest/kaios-min.js' %}",
+          "{% static 'js/dest/springster-min.js' %}",
+          "{% static 'js/dest/kaios-min.js' %}",
          ];
         for (var i = 0; i < jsScripts.length; i++) {
           var script = document.createElement('script');
@@ -90,6 +90,31 @@
     {% molo_pwa_meta %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+    <!-- Load Facebook SDK for JavaScript -->
+    <!--<div id="fb-root"></div>
+    <script>
+      /*window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v3.2'
+        });
+      };
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));*/
+    </script>-->
+    <!-- Your customer chat code -->
+    <!--<div class="fb-customerchat"
+      attribution=setup_tool -->
+      <!--OR install_email-->
+      <!--page_id="811062869260978"
+      logged_in_greeting="Hi!"
+      logged_out_greeting="Hi!">
+    </div>-->
     {% wagtailuserbar %}
 
     <div id="header-wrapper" autofocus>
