@@ -78,7 +78,6 @@
          ];
         for (var i = 0; i < jsScripts.length; i++) {
           var script = document.createElement('script');
-
           script.src = jsScripts[i];
           script.async = false;
           document.querySelector('script').parentNode.appendChild(script);
@@ -92,7 +91,7 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
+    <!--<div id="fb-root"></div>
     <script>
       /*window.fbAsyncInit = function() {
         FB.init({
@@ -107,7 +106,7 @@
         js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));*/
-    </script>
+    </script>-->
     <!-- Your customer chat code -->
     <!--<div class="fb-customerchat"
       attribution=setup_tool -->
