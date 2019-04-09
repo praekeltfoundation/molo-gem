@@ -20,7 +20,7 @@
                     {% embed media.youtube_link %}
                   {% elif block.value.type == 'video' %}
                     <div class="media-player__embed">
-                      <video poster="{{ media.thumbnail.url }}" controls>
+                      <video poster="{% if media.thumbnail %}{{ media.thumbnail.url }}{% endif %}" controls>
                         <source src={{media.file.url}} type="video/mp4">
                         <source src={{media.file.url}} type="video/webm">
                         <source src={{media.file.url}} type="video/ogg">
@@ -100,8 +100,6 @@
                         {% trans "Download" %} {% if media.file.size %}<span class="call-to-action__item--text">({{media.file.size|filesizeformat}})</span>{% endif %}
                       </a>
                       <div class="social-media">
-
-
                           {% social_media_article page=article %}
                       </div>
                     </div>

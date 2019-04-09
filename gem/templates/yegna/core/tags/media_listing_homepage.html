@@ -24,7 +24,7 @@
       {% elif media.type == 'video' %}
         {% if not is_via_freebasics %}
         <div class="media-player__embed">
-          <video poster="{{ media.thumbnail.url }}" controls>
+          <video poster="{% if media.thumbnail %}{{ media.thumbnail.url }}{% endif %}" controls>
             <source src={{media.file.url}} type="video/mp4">
             <source src={{media.file.url}} type="video/webm">
             <source src={{media.file.url}} type="video/ogg">

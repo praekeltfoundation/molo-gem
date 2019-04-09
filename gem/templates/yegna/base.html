@@ -156,11 +156,10 @@
                   <ul class="nav-menu-dropdown-list">
                     {% footer_page %}
                     {% for section in sections %}
-                      {% get_translation section as trans_section %}
                       <li class="nav-menu-dropdown-list__item">
-                        {% if trans_section and not trans_section.title == "Cast" and not  trans_section.title == "News" %}
-                          <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{trans_section.title}}</a>
-                          {% load_child_sections_for_section section=trans_section as sec_sections %}
+                        {% if section and section.get_main_lang_page == "Cast" and not section.get_main_lang_page == "News" %}
+                          <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
+                          {% load_child_sections_for_section section=section as sec_sections %}
                           <ul class="menu-list state-list">
                             {% for sec_section in sec_sections %}
                               {% if sec_section %}
@@ -177,6 +176,9 @@
                 </div>
               </li>
               {% for section_page in sections %}
+              <br/>
+              {{section.get_main_lang_page.title}}
+              <br/>
                 {% if section_page.show_in_menus == True %}
                   <li class="nav-menu-list__item">
                     <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
