@@ -176,12 +176,9 @@
                 </div>
               </li>
               {% for section_page in sections %}
-              <br/>
-              {{section.get_main_lang_page.title}}
-              <br/>
                 {% if section_page.show_in_menus == True %}
                   <li class="nav-menu-list__item">
-                    <a href="{% pageurl section_page.specific %}" id="{{section_page.title|slugify}}" class="nav-menu-list__anchor">
+                    <a href="{% pageurl section_page.specific %}" id="{{section_page.get_main_lang_page.title|slugify}}" class="nav-menu-list__anchor">
                       <span>{{section_page.title}}</span>
                     </a>
                   </li>
