@@ -180,7 +180,7 @@
               {% for section_page in sections %}
                 {% if section_page.show_in_menus == True %}
                   <li class="nav-menu-list__item">
-                    <a href="{% pageurl section_page.specific %}" id="{% if section_page.get_main_language_page != section_page.title %}{{section_page.title|slugify}}{% endif %}" class="nav-menu-list__anchor">
+                    <a href="{% pageurl section_page.specific %}" id="{% if section_page.get_main_language_page != section_page.title %}{{section_page.title|slugify}}{% elif section_page.get_main_language_page == section_page.get_main_language_page.title %}{{section_page.get_main_language_page.title|slugify}}{% endif %}" class="nav-menu-list__anchor">
                       <span>{{section_page.title}}</span>
                     </a>
                   </li>
