@@ -64,7 +64,7 @@ jQuery(document).ready(function (e) {
         if (scrollAmount > 0 && scrollPos > headerHeight) {
           header.style.transform = "translate3d(0px, 0px, 0px)";
           header.style.transition = "transform 300ms ease 3ms";
-          header.style.position = "fixed";
+          header.style.position = "sticky";
         }
         else if (scrollPos > headerHeight) {
           header.style.transform = "translate3d(0px, "+ -headerHeight + "px, 0px)";
