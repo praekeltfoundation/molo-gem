@@ -26,7 +26,7 @@ def content_is(page, title):
     if page.title.lower() == title.lower():
         return True
     else:
-        for translation in page.translated_pages.all():
+        for translation in page.specific.translated_pages.all():
             if translation.title.lower() == title.lower():
                 return True
     return False

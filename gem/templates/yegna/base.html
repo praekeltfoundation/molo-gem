@@ -1,5 +1,5 @@
 {% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
-{% load core_tags staticfiles compress %}
+{% load core_tags staticfiles compress gem_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_settings %}
 {% spaceless %}
@@ -178,12 +178,15 @@
                 </div>
               </li>
               {% for section_page in sections %}
-                {% if section_page.show_in_menus == True %}
-                  <li class="nav-menu-list__item">
-                    <a href="{% pageurl section_page.specific %}" id="{% if section_page.get_main_language_page != section_page.title %}{{section_page.title|slugify}}{% elif section_page.get_main_language_page == section_page.get_main_language_page.title %}{{section_page.get_main_language_page.title|slugify}}{% endif %}" class="nav-menu-list__anchor">
-                      <span>{{section_page.title}}</span>
-                    </a>
-                  </li>
+                {% if section_page.show_in_menus == True %}                  
+                  {% content_is section_page "Listen" as is_listen %}
+                  {% content_is section_page "Cast" as is_cast %}
+                  {% content_is section_page "Watch" as is_watch %}
+                    <li class="nav-menu-list__item">
+                      <a href="{% pageurl section_page.specific %}" id="{% if is_listen %}listen{% elif is_cast %}cast{% elif is_watch %}watch{% endif %}" class="nav-menu-list__anchor">
+                        <span>{{section_page.title}}</span>
+                      </a>
+                    </li>
                 {% endif %}
               {% endfor %}
             </ul>
