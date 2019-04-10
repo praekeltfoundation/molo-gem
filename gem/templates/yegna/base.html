@@ -157,7 +157,11 @@
                     {% footer_page %}
                     {% for section in sections %}
                       <li class="nav-menu-dropdown-list__item">
-                        {% if section.get_main_language_page != section.title and not section.title == "News" and not section.get_main_language_page == "News" and not section.title == "Cast" and not section.get_main_language_page == "Cast" %}
+                        {% content_is section "News" as is_news %}
+                        {% content_is section "Cast" as is_cast %}
+                        {% if is_news or is_cast %}
+                          {#<!--EMPTY CHECK-->#}
+                        {% else %}
                           <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
                         {% endif %}
 
@@ -178,7 +182,7 @@
                 </div>
               </li>
               {% for section_page in sections %}
-                {% if section_page.show_in_menus == True %}                  
+                {% if section_page.show_in_menus == True %}
                   {% content_is section_page "Listen" as is_listen %}
                   {% content_is section_page "Cast" as is_cast %}
                   {% content_is section_page "Watch" as is_watch %}
