@@ -58,7 +58,6 @@
       right: function() { console.log('You click on SoftRight') }
     };
     function handleKeyDownEvent(evt) {
-      evt.preventDefault();
       switch (evt.key) {
           case 'SoftLeft':
               // Action case press left key
