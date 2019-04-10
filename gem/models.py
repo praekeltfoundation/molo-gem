@@ -130,7 +130,6 @@ class GemSettings(BaseSetting):
         ),
         MultiFieldPanel(
             [FieldPanel('fb_enable_chat_bot')], heading="Face Book")
-        ,
     ]
 
 
