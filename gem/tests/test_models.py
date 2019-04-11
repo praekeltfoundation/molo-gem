@@ -7,11 +7,14 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from molo.core.models import SiteSettings
+from molo.core.models import (
+    SiteSettings, Site, Languages, SiteLanguageRelation,
+    SectionIndexPage)
 from molo.surveys.models import (
     MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
 from gem.models import GemSettings
 from gem.tests.base import GemTestCaseMixin
+from gem.templatetags.gem_tags import content_is
 
 from os.path import join
 
@@ -27,11 +30,33 @@ class TestModels(TestCase, GemTestCaseMixin):
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.survey_index = SurveysIndexPage.objects.child_of(
             self.main).first()
+        self.section_index = SectionIndexPage.objects.child_of(
+            self.main).first()
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.enable_tag_navigation = True
         self.site_settings.save()
         self.banner_message = ("Share your opinions and stories, " +
                                "take polls, win fun prizes.")
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en',
+            is_active=True)
+
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(Site.objects.first()),
+            locale='fr',
+            is_active=True)
+
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+
+        self.yourmind_fr = self.mk_section_translation(
+            self.yourmind, self.french, title='Your mind in french')
+
+    def test_content_is(self):
+        self.assertTrue(content_is(self.yourmind, 'Your mind in french'))
+        self.assertTrue(content_is(self.yourmind, 'Your mind'))
+        self.assertFalse(content_is(self.yourmind, 'Your body'))
 
     def test_partner_credit(self):
         response = self.client.get('/')
