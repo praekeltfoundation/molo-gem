@@ -2,7 +2,8 @@
 
     {% for section in sections %}
       {% if section %}
-        {% if section.get_main_language_page.title == "News"  %}
+        {% content_is section "News" as is_watch_news %}
+        {% if is_watch_news %}
           {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
           {% if articles %}
             <div class="article-teaser article-teaser--general">
@@ -84,7 +85,8 @@
   </div>
     {% for section in sections %}
       {% if section %}
-        {% if section.get_main_language_page.title == "Cast" %}
+        {% content_is section "Cast" as is_watch_cast %}
+        {% if is_watch_cast %}
           <div class="landing-page__second-column">
             {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
             {% if articles %}
