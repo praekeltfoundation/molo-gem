@@ -248,7 +248,12 @@
       {% elif is_listen_ancestor or is_listen_parent or is_listen %}
         <div class="banner">
           <div class="heading heading--hero">
-            {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
+
+            {% if ancestor %}
+              {{ancestor.title}} {{parent.title}}
+            {% else %}
+              {{parent.title}} {{self.title}}
+            {% endif %}
           </div>
         </div>
 
