@@ -24,11 +24,13 @@ class GemSettingsTest(TestCase, GemTestCaseMixin):
     def test_enable_fb_chat_bot(self):
         response = self.client.get(reverse('user_register'), follow=True)
         self.assertTemplateUsed(response, 'springster/base.html')
-        self.assertContains(response, '<!-- Load Facebook SDK for JavaScript -->')
+        self.assertNotContains(
+            response, '<!-- Load Facebook SDK for JavaScript -->')
 
         self.gem_setting.fb_enable_chat_bot = True
         self.gem_setting.save()
 
         response = self.client.get(reverse('user_register'), follow=True)
         self.assertTemplateUsed(response, 'springster/base.html')
-        self.assertNotContains(response, '<!-- Load Facebook SDK for JavaScript -->')
+        self.assertContains(
+            response, '<!-- Load Facebook SDK for JavaScript -->')
