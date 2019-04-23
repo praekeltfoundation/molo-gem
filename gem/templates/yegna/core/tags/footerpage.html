@@ -1,4 +1,4 @@
-{% load wagtailcore_tags forms_tags  core_tags %}
+{% load wagtailcore_tags forms_tags  core_tags gem_tags %}
 <li class="nav-menu-dropdown-list__item  nav-menu-dropdown-list__item--footer">
   <ul class="menu-list menu-list--header state-list">
     {% if footers %}
@@ -18,12 +18,17 @@
     {% load_sections as sections %}
     {% for section in sections %}
       {% if section %}
-        {% get_translation section as footer_section %}
-          {% if footer_section.title == "Cast" or footer_section.title == "News" %}
-            <li class="menu-list__item state-list__item">
-              <a href="{% pageurl footer_section.specific %}" class="menu-list__anchor state-list__anchor"><span>{{footer_section}}</span></a>
-            </li>
-          {% endif %}
+        {% content_is section "News" as is_news %}
+        {% content_is section "Cast" as is_cast %}
+        {% if is_news or is_cast %}
+        <li class="menu-list__item state-list__item">
+          <a href="{% pageurl section.specific %}" class="menu-list__anchor state-list__anchor">
+            <span>{{section.title}}</span>
+          </a>
+        </li>
+        {% else %}
+          {#<!--EMPTY CHECK-->#}
+        {% endif %}
       {% endif %}
     {% endfor %}
     </ul>

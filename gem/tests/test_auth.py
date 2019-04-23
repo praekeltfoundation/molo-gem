@@ -61,7 +61,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         # it should return none if user does not DoesNotExist
         claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
         returned_user = backend.filter_users_by_claims(claims)
-        self.assertEquals(returned_user.count(), 0)
+        self.assertEqual(returned_user.count(), 0)
 
     def test_filter_users_by_claims_migrated_user(self):
         claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
@@ -76,7 +76,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
         claims['migration_information'] = {'user_id': -2}
         returned_user = backend.filter_users_by_claims(claims)
-        self.assertEquals(returned_user.count(), 0)
+        self.assertEqual(returned_user.count(), 0)
 
     def test_add_superuser_role_from_claims(self):
         roles = ['product_tech_admin', ]
@@ -95,13 +95,14 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertEquals(user.first_name, 'testgivenname')
-        self.assertEquals(user.last_name, 'testfamilyname')
-        self.assertEquals(user.email, 'test@email.com')
-        self.assertEquals(str(user.profile.auth_service_uuid),
-                          'e2556752-16d0-445a-8850-f190e860dea4')
-        self.assertEquals(user.profile.gender, 'f')
-        self.assertEquals(user.profile.date_of_birth, date(1988, 5, 22))
+        self.assertEqual(user.first_name, 'testgivenname')
+        self.assertEqual(user.last_name, 'testfamilyname')
+        self.assertEqual(user.email, 'test@email.com')
+        self.assertEqual(
+            str(user.profile.auth_service_uuid),
+            'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEqual(user.profile.gender, 'f')
+        self.assertEqual(user.profile.date_of_birth, date(1988, 5, 22))
 
     def test_add_user_role_from_claims(self):
         roles = ['data_admin', ]
@@ -117,8 +118,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertEquals(user.groups.all().count(), 1)
-        self.assertEquals(user.groups.first().name, 'data_admin')
+        self.assertEqual(user.groups.all().count(), 1)
+        self.assertEqual(user.groups.first().name, 'data_admin')
 
     def test_alias_set_to_username(self):
         roles = ['data_admin', ]
@@ -131,16 +132,16 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.create(
             username='testuser', password='password')
         # check that alias is initially empty
-        self.assertEquals(user.profile.alias, None)
+        self.assertEqual(user.profile.alias, None)
         _update_user_from_claims(user, claims)
         # test that empty alias is set to username
-        self.assertEquals(user.profile.alias, user.username)
+        self.assertEqual(user.profile.alias, user.username)
         # test that alias will only change on update from claims
         user.profile.alias = "an_alias"
         self.assertNotEquals(user.profile.alias, user.username)
         # test that non-empty alias is also set to username
         _update_user_from_claims(user, claims)
-        self.assertEquals(user.profile.alias, user.username)
+        self.assertEqual(user.profile.alias, user.username)
 
     def test_removing_user_role(self):
         roles = ['product_tech_admin', 'data_admin', 'content_admin']
@@ -156,9 +157,9 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertEquals(user.groups.all().count(), 2)
-        self.assertEquals(user.groups.first().name, 'data_admin')
-        self.assertEquals(user.groups.last().name, 'content_admin')
+        self.assertEqual(user.groups.all().count(), 2)
+        self.assertEqual(user.groups.first().name, 'data_admin')
+        self.assertEqual(user.groups.last().name, 'content_admin')
 
         roles = ['data_admin', 'content_admin']
         claims = {
@@ -170,9 +171,9 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertEquals(user.groups.all().count(), 2)
-        self.assertEquals(user.groups.first().name, 'data_admin')
-        self.assertEquals(user.groups.last().name, 'content_admin')
+        self.assertEqual(user.groups.all().count(), 2)
+        self.assertEqual(user.groups.first().name, 'data_admin')
+        self.assertEqual(user.groups.last().name, 'content_admin')
 
         roles = ['content_admin']
         claims = {
@@ -184,8 +185,8 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
-        self.assertEquals(user.groups.all().count(), 1)
-        self.assertEquals(user.groups.first().name, 'content_admin')
+        self.assertEqual(user.groups.all().count(), 1)
+        self.assertEqual(user.groups.first().name, 'content_admin')
 
         roles = []
         claims = {
@@ -196,7 +197,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_staff)
-        self.assertEquals(user.groups.all().count(), 0)
+        self.assertEqual(user.groups.all().count(), 0)
 
     def test_update_user_from_claims_creates_profile(self):
         user = get_user_model().objects.create(
@@ -213,11 +214,12 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
-        self.assertEquals(user.first_name, 'testgivenname')
-        self.assertEquals(user.last_name, 'testfamilyname')
-        self.assertEquals(user.email, 'test@email.com')
-        self.assertEquals(str(user.profile.auth_service_uuid),
-                          'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEqual(user.first_name, 'testgivenname')
+        self.assertEqual(user.last_name, 'testfamilyname')
+        self.assertEqual(user.email, 'test@email.com')
+        self.assertEqual(
+            str(user.profile.auth_service_uuid),
+            'e2556752-16d0-445a-8850-f190e860dea4')
 
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_url_changes_when_use_oidc_set_true(self):
@@ -227,7 +229,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             oidc_rp_client_id='id',
             wagtail_redirect_url='https://redirecit.com')
         response = self.client.get('/admin/login/')
-        self.assertEquals(response['location'], '/oidc/authenticate/')
+        self.assertEqual(response['location'], '/oidc/authenticate/')
 
     def test_auth_backend_authenticate(self):
         site = self.main.get_site()
@@ -236,15 +238,15 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
 
         # it should change the client id and client secret if successful
-        self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'unused')
-        self.assertEquals(backend.OIDC_RP_CLIENT_ID, 'unused')
+        self.assertEqual(backend.OIDC_RP_CLIENT_SECRET, 'unused')
+        self.assertEqual(backend.OIDC_RP_CLIENT_ID, 'unused')
         OIDCSettings.objects.create(
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
             wagtail_redirect_url='https://redirecit.com')
         backend = GirlEffectOIDCBackend()
         backend.authenticate(request=request)
-        self.assertEquals(backend.OIDC_RP_CLIENT_SECRET, 'secret')
-        self.assertEquals(backend.OIDC_RP_CLIENT_ID, 'id')
+        self.assertEqual(backend.OIDC_RP_CLIENT_SECRET, 'secret')
+        self.assertEqual(backend.OIDC_RP_CLIENT_ID, 'id')
 
     def test_auth_callback_view_success_url(self):
         site = self.main.get_site()
@@ -256,7 +258,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         settings = OIDCSettings.objects.create(
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
             wagtail_redirect_url='https://redirecit.com')
-        self.assertEquals(view.success_url, settings.wagtail_redirect_url)
+        self.assertEqual(view.success_url, settings.wagtail_redirect_url)
 
     def test_auth_request_get_view(self):
         # it should throw an error if site has no OIDC settings
@@ -272,7 +274,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             site=site, oidc_rp_client_secret='secret', oidc_rp_client_id='id',
             wagtail_redirect_url='http://main1.localhost:8000')
         response = self.client.get(reverse('oidc_authentication_callback'))
-        self.assertEquals(response['location'], '/')
+        self.assertEqual(response['location'], '/')
 
     def test_auth_middleware(self):
         # it should throw an error if site has no OIDC settings
@@ -291,7 +293,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             wagtail_redirect_url='http://main1.localhost:8000')
         # check that users need to login
         response = self.client.get('/admin/')
-        self.assertEquals(response['location'], "/admin/login/?next=/admin/")
+        self.assertEqual(response['location'], "/admin/login/?next=/admin/")
         # test that the admin logs the user in
         User.objects.create_superuser(
             'testadmin', 'testadmin@example.org', 'testadmin')

@@ -63,10 +63,18 @@
               {{ next_article.subtitle|smarttruncatechars:150|safe}}
             </p>
           {% endif %}
-          {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
-          {% get_translation next_article.get_parent_section.get_parent_section as parent %}
-          {% get_translation next_article.get_parent_section as section %}
-            {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+          {% with ancestor=next_article.get_parent_section.get_parent_section.get_parent_section parent=next_article.get_parent_section.get_parent_section %}
+            {% if ancestor %}
+              {% content_is ancestor "Watch" as is_watch_ancestor %}
+              {% content_is ancestor "Listen" as is_listen_ancestor %}
+            {% elif parent %}
+              {% content_is parent "Watch" as is_watch_parent %}
+              {% content_is parent "Listen" as is_listen_parent %}
+            {% else %}
+              {% content_is section "Watch" as is_watch %}
+              {% content_is section "Listen" as is_listen %}
+            {% endif %}
+          {% if is_watch_ancestor or is_watch_parent %}
                   <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
                     {% trans "Watch video" %}
                   </a>
@@ -78,7 +86,7 @@
                 {% trans "More episodes" %}
               </a>
             </div>
-          {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
+          {% elif is_listen_ancestor or is_listen_parent %}
                 <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
                   {% trans "Listen next" %}
                 </a>
@@ -92,7 +100,9 @@
             </div>
           </li>
         </ul>
-      {% endif %}
+        {% endif %}
+      {% endwith %}
+
   </div>
 {% endif %}
 
@@ -149,18 +159,23 @@
             <p class="teaser-{{teaser_type}}__subtitle">
               {{ article.subtitle|smarttruncatechars:150|safe}}
             </p>
-            {% get_translation next_article.get_parent_section.get_parent_section.get_parent_section as ancestor %}
-            {% get_translation next_article.get_parent_section.get_parent_section as parent %}
-            {% get_translation next_article.get_parent_section as section %}
-              {% if ancestor.get_main_language_page.title == "Watch" or  parent.get_main_language_page.title == "Watch" or section.get_main_language_page.title == "Watch" %}
+            {% with ancestor=article.get_parent_section.get_parent_section.get_parent_section parent=article.get_parent_section.get_parent_section %}
+              {% if ancestor %}
+                {% content_is ancestor "Watch" as is_watch_ancestor %}
+                {% content_is ancestor "Listen" as is_listen_ancestor %}
+              {% elif parent %}
+                {% content_is parent "Watch" as is_watch_parent %}
+                {% content_is parent "Listen" as is_listen_parent %}
+              {% endif %}
 
-              {% elif ancestor.get_main_language_page.title == "Listen" or parent.get_main_language_page.title == "Listen" or section.get_main_language_page.title == "Listen" %}
-
+              {% if is_watch_ancestor or is_watch_parent %}
+              {% elif is_listen_ancestor or is_listen_parent %}
               {% else %}
                 <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
                   {% trans "Read more" %}
                 </a>
               {% endif %}
+            {% endwith %}
           </div>
         </li>
         {% endfor %}

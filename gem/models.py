@@ -100,6 +100,9 @@ class GemSettings(BaseSetting):
         help_text=('Subdomain prefix to seperate traffics data for Google '
                    'Analytics. Defaults to "bbm"'))
 
+    fb_enable_chat_bot = models.BooleanField(
+        default=False, help_text='Activate chat-bot for facebook messenger.')
+
     panels = [
         MultiFieldPanel(
             [
@@ -125,6 +128,8 @@ class GemSettings(BaseSetting):
             ],
             heading="BBM",
         ),
+        MultiFieldPanel(
+            [FieldPanel('fb_enable_chat_bot')], heading="FaceBook")
     ]
 
 
