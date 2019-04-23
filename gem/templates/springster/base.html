@@ -90,8 +90,8 @@
     {% molo_pwa_meta %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+    {% if settings.gem.GemSettings.fb_enable_chat_bot %}
     <!-- Load Facebook SDK for JavaScript -->
-    {% if settings.gem.GemSettings.fb_enable_chat_bot.fb_enable_chat_bot %}
     <div id="fb-root"></div>
     <script>
       window.fbAsyncInit = function() {
