@@ -1,3 +1,5 @@
+import pytest
+
 from django.contrib.auth.models import User
 from datetime import date
 from django.test import TestCase, Client
@@ -6,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.conf.urls import url, include
 from django.http import HttpRequest
+from django.core.exceptions import FieldError
 from gem.backends import GirlEffectOIDCBackend, _update_user_from_claims
 from gem.middleware import CustomSessionRefresh
 from gem.models import OIDCSettings
@@ -47,6 +50,31 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(returned_user.username, 'testuser')
         self.assertEqual(returned_user.profile.auth_service_uuid,
                          'e2556752-16d0-445a-8850-f190e860dea4')
+
+    def test_create_user_from_claims_with_errors(self):
+        user2 = get_user_model().objects.create(
+            username='john', password='password')
+        user2.profile.auth_service_uuid = \
+            'e2556552-16d0-445a-0850-f190e860dea6'
+        user2.profile.save()
+        claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+                  'preferred_username': 'john'}
+        backend = GirlEffectOIDCBackend()
+        with pytest.raises(FieldError):
+            backend.create_user(claims)
+
+    def test_create_user_from_claims_with_clashes(self):
+        user2 = get_user_model().objects.create(
+            username='john', password='password')
+        claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+                  'preferred_username': 'john'}
+        backend = GirlEffectOIDCBackend()
+        returned_user = backend.create_user(claims)
+        self.assertEqual(returned_user.username, 'john')
+        self.assertEqual(returned_user.profile.auth_service_uuid,
+                         'e2556752-16d0-445a-8850-f190e860dea4')
+        user2.refresh_from_db()
+        self.assertEqual(user2.username, '3_john')
 
     def test_auth_backend_filter_users_by_claims(self):
         claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
@@ -235,12 +263,11 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         user2 = get_user_model().objects.get(id=user2.pk)
-        new_username = '%s_john' % self.main.get_site()
         self.assertFalse(user.is_superuser)
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')
-        self.assertEqual(user2.username, new_username)
+        self.assertEqual(user2.username, '3_john')
         self.assertEqual(user.username, 'john')
         self.assertEqual(
             str(user.profile.auth_service_uuid),
