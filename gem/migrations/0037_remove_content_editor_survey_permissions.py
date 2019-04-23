@@ -14,9 +14,9 @@ def get_group(Group, group_name):
 def remove_page_permission(GroupPagePermission, group, pages, page_permission_type):
     for page in pages.iterator():
         for permission_type in page_permission_type:
-            permission = GroupPagePermission.objects.filter(
+            permission = GroupPagePermission.objects.get(
                 group=group, page=page, permission_type=permission_type
-            ).first()
+            )
             permission.delete()
 
 
@@ -25,7 +25,7 @@ def remove_content_editor_survey_permissions(apps, schema_editor):
 
     emit_post_migrate_signal(2, False, db_alias)
     Group = apps.get_model('auth.Group')
-    content_admin_group = get_group(Group, 'content_admin')
+    content_editor_group = get_group(Group, 'content_editor')
     SurveysIndexPage = apps.get_model('surveys.SurveysIndexPage')
 
     # Wagtail Page permission
@@ -33,13 +33,13 @@ def remove_content_editor_survey_permissions(apps, schema_editor):
     page_permission_types = ('add', 'edit', 'publish', 'bulk_delete', 'lock')
 
     surveys = SurveysIndexPage.objects.all()
-    remove_page_permission(GroupPagePermission, content_admin_group, surveys, page_permission_types)
+    remove_page_permission(GroupPagePermission, content_editor_group, surveys, page_permission_types)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gem', '0035_merge_20190125_1240'),
+        ('gem', '0036_gemsettings_fb_enable_chat_bot'),
     ]
 
     operations = [
