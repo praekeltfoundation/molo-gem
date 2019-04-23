@@ -1,8 +1,9 @@
-from django.test import TestCase, Client
-from django.test.utils import override_settings
+
+from django.test import TestCase, Client, override_settings
 
 from gem.models import GemSettings
 from gem.tests.base import GemTestCaseMixin
+from gem.settings.base import get_default_template
 
 
 class GemSettingsTest(TestCase, GemTestCaseMixin):
@@ -19,12 +20,9 @@ class GemSettingsTest(TestCase, GemTestCaseMixin):
             fb_enable_chat_bot=False,
         )
 
-    @override_settings(
-        SITE_LAYOUT_2='base',
-        SITE_LAYOUT_BASE='springster')
+    @override_settings(TEMPLATES=[get_default_template('base', 'springster')])
     def test_enable_fb_chat_bot(self):
         response = self.client.get('/')
-
         self.assertNotContains(
             response, '<!-- Load Facebook SDK for JavaScript -->')
 

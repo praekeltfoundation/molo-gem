@@ -179,41 +179,47 @@ if USE_OIDC_AUTHENTICATION:
 MIDDLEWARE_CLASSES += [
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
+
+
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` , `springster` or `rwanda`
 # to switch between them.
+def get_default_template(site_layout_base, site_layout):
+    return {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [join(PROJECT_ROOT, 'templates', site_layout),
+                 join(PROJECT_ROOT, 'templates', site_layout_base), ],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'builtins': [
+                'django.templatetags.i18n',
+            ],
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'molo.core.context_processors.locale',
+                'wagtail.contrib.settings.context_processors.settings',
+                'gem.context_processors.detect_bbm',
+                'gem.context_processors.detect_kaios',
+                'gem.context_processors.detect_freebasics',
+                'gem.context_processors.compress_settings',
+            ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "mote.loaders.app_directories.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ]
+        },
+    }
+
+
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
-DEFAULT_TEMPLATE = {
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [join(PROJECT_ROOT, 'templates', SITE_LAYOUT_2),
-             join(PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE), ],
-    'APP_DIRS': False,
-    'OPTIONS': {
-        'builtins': [
-            'django.templatetags.i18n',
-        ],
-        'context_processors': [
-            'django.template.context_processors.debug',
-            'django.template.context_processors.request',
-            'django.contrib.auth.context_processors.auth',
-            'django.contrib.messages.context_processors.messages',
-            'molo.core.context_processors.locale',
-            'wagtail.contrib.settings.context_processors.settings',
-            'gem.context_processors.detect_bbm',
-            'gem.context_processors.detect_kaios',
-            'gem.context_processors.detect_freebasics',
-            'gem.context_processors.compress_settings',
-        ],
-        "loaders": [
-            "django.template.loaders.filesystem.Loader",
-            "mote.loaders.app_directories.Loader",
-            "django.template.loaders.app_directories.Loader",
-        ]
-    },
-}
+DEFAULT_TEMPLATE = get_default_template(SITE_LAYOUT_BASE, SITE_LAYOUT_2)
 
 TEMPLATES = [
     DEFAULT_TEMPLATE,
