@@ -98,8 +98,9 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')
-        self.assertEqual(str(user.profile.auth_service_uuid),
-                          'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEqual(
+            str(user.profile.auth_service_uuid),
+            'e2556752-16d0-445a-8850-f190e860dea4')
         self.assertEqual(user.profile.gender, 'f')
         self.assertEqual(user.profile.date_of_birth, date(1988, 5, 22))
 
@@ -216,8 +217,9 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')
-        self.assertEqual(str(user.profile.auth_service_uuid),
-                          'e2556752-16d0-445a-8850-f190e860dea4')
+        self.assertEqual(
+            str(user.profile.auth_service_uuid),
+            'e2556752-16d0-445a-8850-f190e860dea4')
 
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_url_changes_when_use_oidc_set_true(self):
