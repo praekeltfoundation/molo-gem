@@ -221,6 +221,31 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             str(user.profile.auth_service_uuid),
             'e2556752-16d0-445a-8850-f190e860dea4')
 
+    def test_update_user_from_claims_updates_username(self):
+        user = get_user_model().objects.create(
+            username='testuser', password='password')
+        user2 = get_user_model().objects.create(
+            username='john', password='password')
+        claims = {
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'username': 'john',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        _update_user_from_claims(user, claims)
+        user = get_user_model().objects.get(id=user.pk)
+        user2 = get_user_model().objects.get(id=user2.pk)
+        new_username = '%s_john' % self.main.get_site()
+        self.assertFalse(user.is_superuser)
+        self.assertEqual(user.first_name, 'testgivenname')
+        self.assertEqual(user.last_name, 'testfamilyname')
+        self.assertEqual(user.email, 'test@email.com')
+        self.assertEqual(user2.username, new_username)
+        self.assertEqual(user.username, 'john')
+        self.assertEqual(
+            str(user.profile.auth_service_uuid),
+            'e2556752-16d0-445a-8850-f190e860dea4')
+
     @override_settings(USE_OIDC_AUTHENTICATION=True)
     def test_admin_url_changes_when_use_oidc_set_true(self):
         self.assertTrue(settings.USE_OIDC_AUTHENTICATION)

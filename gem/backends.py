@@ -8,6 +8,7 @@ from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Group, User
+from django.core.exceptions import FieldError
 from molo.profiles.models import UserProfile
 from wagtail.core.models import Site
 
@@ -36,6 +37,8 @@ def _update_user_from_claims(user, claims):
     user.email = claims.get("email", "")
     user.save()
 
+    username = claims.get("username", "")
+
     # If the user doesn't have a profile for some reason make one
     if not hasattr(user, 'profile'):
         user.profile = UserProfile(user=user)
@@ -49,11 +52,13 @@ def _update_user_from_claims(user, claims):
 
         # If a user already exists with this username
         # change that user's username
-        username = claims.get("username")
         if username:
-            for user in User.objects.filter(username=username):
-                user.username = user.profile.site.pk + '_' + username
-                user.save()
+            for u in User.objects.filter(
+                    username=username).exclude(pk=user.pk):
+                u.username = str(u.profile.site.pk) + '_' + username
+                u.save()
+            user.username = username
+            user.save()
 
     # Synchronise a user's profile data
     user.profile.gender = claims.get("gender", "-").lower()[0]
@@ -62,13 +67,10 @@ def _update_user_from_claims(user, claims):
         date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
     user.profile.date_of_birth = date_of_birth
     if user.profile.alias is None or user.profile.alias == "":
-        user.profile.alias = user.profile.migrated_username
-    elif user.profile.alias != user.profile.migrated_username:
-        user.profile.alias = user.profile.migrated_username
+        user.profile.alias = user.username
+    elif user.profile.alias != user.username:
+        user.profile.alias = user.username
     user.profile.save()
-    if username:
-        user.username = username
-        user.save()
 
     # Synchronise the roles that the user has.
     # The list of roles may contain more or less roles
@@ -165,8 +167,11 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         # If a user already exists with this username
         # change that user's username
         for user in self.UserModel.objects.filter(username=username):
-            user.username = user.profile.site.pk + '_' + username
-            user.save()
+            if user.profile.auth_service_uuid is None:
+                user.username = str(user.profile.site.pk) + '_' + username
+                user.save()
+            else:
+                raise FieldError
 
         if email:
             user = self.UserModel.objects.create_user(username, email)
