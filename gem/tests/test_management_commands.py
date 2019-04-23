@@ -76,7 +76,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         out = StringIO()
         call_command('create_new_banner_link_page_relations', stdout=out)
         second_main_banner = BannerPage.objects.get(pk=second_main_banner.pk)
-        self.assertEquals(
+        self.assertEqual(
             second_main_banner.banner_link_page.pk, second_main_article.pk)
 
     def test_convert_title_to_sentence_case(self):
@@ -104,10 +104,10 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             pk=spaced_article.pk)
         new_russian_article = ArticlePage.objects.get(
             pk=russian_capitals_article.pk)
-        self.assertEquals(new_spanish_article.title, u'¿Que tal?')
-        self.assertEquals(new_spaced_article.title, u'spaced article title')
+        self.assertEqual(new_spanish_article.title, u'¿Que tal?')
+        self.assertEqual(new_spaced_article.title, u'spaced article title')
         self.assertFalse(spaced_article.live)
-        self.assertEquals(new_russian_article.title, u'Ё ф')
+        self.assertEqual(new_russian_article.title, u'Ё ф')
 
     def test_add_reaction_questions_and_choices_command(self):
         out = StringIO()

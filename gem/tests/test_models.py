@@ -138,5 +138,5 @@ class TestModels(TestCase, GemTestCaseMixin):
 
             # test that the join banner only shows up once
             soup = BeautifulSoup(response.content, 'html.parser')
-            self.assertEquals(
+            self.assertEqual(
                 soup.get_text().count(self.banner_message), 1)
