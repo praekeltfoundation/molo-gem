@@ -55,7 +55,7 @@ def _update_user_from_claims(user, claims):
         if username:
             for u in User.objects.filter(
                     username=username).exclude(pk=user.pk):
-                if u.profile.auth_service_uuid is None:
+                if u.profile and u.profile.auth_service_uuid is None:
                     u.username = str(u.profile.site.pk) + '_' + username
                     u.save()
                 else:
@@ -172,7 +172,7 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         # If a user already exists with this username
         # change that user's username
         for user in self.UserModel.objects.filter(username=username):
-            if user.profile.auth_service_uuid is None:
+            if user.profile and user.profile.auth_service_uuid is None:
                 user.username = str(user.profile.site.pk) + '_' + username
                 user.save()
             else:
