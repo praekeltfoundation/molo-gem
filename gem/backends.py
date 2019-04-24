@@ -59,7 +59,9 @@ def _update_user_from_claims(user, claims):
                     user.username = str(user.profile.site.pk) + '_' + username
                     user.save()
                 else:
-                    raise FieldError
+                    raise FieldError(
+                        'Desired username clashes with user with pk %s whose'
+                        ' profile has no auth_service_uuid' % u.pk)
             user.username = username
             user.save()
 
@@ -174,7 +176,9 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
                 user.username = str(user.profile.site.pk) + '_' + username
                 user.save()
             else:
-                raise FieldError
+                raise FieldError(
+                        'Desired username clashes with user with pk %s whose'
+                        ' profile has no auth_service_uuid' % user.pk)
 
         if email:
             user = self.UserModel.objects.create_user(username, email)
