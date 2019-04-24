@@ -55,9 +55,9 @@ def _update_user_from_claims(user, claims):
         if username:
             for u in User.objects.filter(
                     username=username).exclude(pk=user.pk):
-                if user.profile.auth_service_uuid is None:
-                    user.username = str(user.profile.site.pk) + '_' + username
-                    user.save()
+                if u.profile.auth_service_uuid is None:
+                    u.username = str(u.profile.site.pk) + '_' + username
+                    u.save()
                 else:
                     raise FieldError(
                         'Desired username clashes with user with pk %s whose'

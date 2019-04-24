@@ -249,6 +249,23 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             str(user.profile.auth_service_uuid),
             'e2556752-16d0-445a-8850-f190e860dea4')
 
+    def test_update_user_from_claims_with_errors(self):
+        user = get_user_model().objects.create(
+            username='testuser', password='password')
+        user2 = get_user_model().objects.create(
+            username='john', password='password')
+        user2.profile.auth_service_uuid = \
+            'e2556552-16d0-445a-0850-f190e860dea6'
+        user2.profile.save()
+        claims = {
+            'given_name': 'testgivenname',
+            'family_name': 'testfamilyname',
+            'username': 'john',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        with pytest.raises(FieldError):
+            _update_user_from_claims(user, claims)
+
     def test_update_user_from_claims_updates_username(self):
         user = get_user_model().objects.create(
             username='testuser', password='password')
