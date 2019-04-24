@@ -55,8 +55,11 @@ def _update_user_from_claims(user, claims):
         if username:
             for u in User.objects.filter(
                     username=username).exclude(pk=user.pk):
-                u.username = str(u.profile.site.pk) + '_' + username
-                u.save()
+                if user.profile.auth_service_uuid is None:
+                    user.username = str(user.profile.site.pk) + '_' + username
+                    user.save()
+                else:
+                    raise FieldError
             user.username = username
             user.save()
 
