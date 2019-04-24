@@ -7,7 +7,8 @@ import logging
 from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+from django.core.exceptions import FieldError
 from molo.profiles.models import UserProfile
 from wagtail.core.models import Site
 
@@ -36,14 +37,33 @@ def _update_user_from_claims(user, claims):
     user.email = claims.get("email", "")
     user.save()
 
+    username = claims.get("username", "")
+
     # If the user doesn't have a profile for some reason make one
     if not hasattr(user, 'profile'):
         user.profile = UserProfile(user=user)
+
+        # TODO: we should be using a more specific site here?
         user.profile.site = Site.objects.get(is_default_site=True)
 
     # Ensure the profile is linked to their auth service account using the uuid
     if user.profile.auth_service_uuid is None:
         user.profile.auth_service_uuid = claims.get("sub")
+
+        # If a user already exists with this username
+        # change that user's username
+        if username:
+            for u in User.objects.filter(
+                    username=username).exclude(pk=user.pk):
+                if u.profile and u.profile.auth_service_uuid is None:
+                    u.username = str(u.profile.site.pk) + '_' + username
+                    u.save()
+                else:
+                    raise FieldError(
+                        'Desired username clashes with user with pk %s whose'
+                        ' profile has auth_service_uuid' % u.pk)
+            user.username = username
+            user.save()
 
     # Synchronise a user's profile data
     user.profile.gender = claims.get("gender", "-").lower()[0]
@@ -148,6 +168,18 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         username = claims.get("preferred_username")
         email = claims.get("email", "")  # Email is optional
         # We create the user based on the username and optional email fields.
+
+        # If a user already exists with this username
+        # change that user's username
+        for user in self.UserModel.objects.filter(username=username):
+            if user.profile and user.profile.auth_service_uuid is None:
+                user.username = str(user.profile.site.pk) + '_' + username
+                user.save()
+            else:
+                raise FieldError(
+                        'Desired username clashes with user with pk %s whose'
+                        ' profile has an auth_service_uuid' % user.pk)
+
         if email:
             user = self.UserModel.objects.create_user(username, email)
         else:
