@@ -20,6 +20,9 @@ html {
   background: $cool-grey;
   margin: 0;
 }
+body {
+ background: transparent;
+}
 body,
 select,
 textarea {
@@ -71,18 +74,19 @@ hr {
     margin: 0 auto;
     max-width: 360px;
     padding: 0;
+    background: transparent;
   }
   .Header-title {
     margin: 0;
   }
 }
 
-//HEADER STYLES
+//HEADER
 .Header {
   margin-bottom: 0;
   text-align: center;
   overflow: auto;
-  padding: $spacer-half $spacer $spacer-half;
+  //padding: $spacer-half $spacer $spacer-half;
   position: relative;
   //START PHASE 2:HEADER
     #search-toggle__button  {
@@ -220,41 +224,38 @@ hr {
     }
     //SECTION NAVIGATION
     .section-nav {
-    &-list {
-      margin: 0;
-      padding: 0;
-      &__item {
-        display: inline-block;
-        padding: $spacer $spacer-mid 2px 0;
-        &:last-child {
-          padding-right: 0;
-        }
-      }
-      &__anchor {
-        color: #e3ccff;
-        border-bottom: 2px solid $springster-purple;
-        text-decoration: none;
+      &-list {
+        margin: 0;
         padding: 0;
-        -webkit-font-smoothing: subpixel-antialiased;
-        &:hover {
+        &__item {
+          display: inline-block;
+          padding: $spacer $spacer-mid 2px 0;
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+        &__anchor {
+          color: #e3ccff;
+          border-bottom: 2px solid $springster-purple;
           text-decoration: none;
+          padding: 0;
+          -webkit-font-smoothing: subpixel-antialiased;
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }
-  }
   //END PHASE 2:HEADER
-
   &-branding {
     margin: 0 auto 0;
-    display: inline-block;
-    width: 65%;
+    width: 100%;
     &-image {
       width: 100%;
     }
   }
-
   &-title {
-    background: transparent;
+    background: #fff;
     text-align: center;
     margin: 0;
     padding: $spacer-mid 8px $spacer-mid;
@@ -268,7 +269,7 @@ hr {
     }
   }
   &-links {
-   margin: $spacer 0;
+   margin: 0;
    text-align: center;
    a {
      font-family:$baton-medium;
@@ -282,7 +283,6 @@ hr {
   }
 }
 
-//HEADING MODIFICATIONS
 .Registration {
   .Header-title {
     h1 {
@@ -290,12 +290,6 @@ hr {
     }
   }
 }
-
-
-
-
-
-//GENERAL
 .List {
   list-style: none;
   padding: 0;
@@ -329,7 +323,7 @@ hr {
 
 //FORM
 .Form {
-  padding: 0;
+  overflow: auto;
   .Field {
     margin-top: $spacer-multiple;
     &-message {
@@ -385,14 +379,6 @@ hr {
     display: block;
     position: relative;
     width: 100%;
-    .no-js,
-    .no-js .lt-ie9 .lt-ie8 .lt-ie7 {
-      &::after {
-        display: none;
-        visibility: hidden;
-      }
-    }
-
     &::after {
       border-style: solid;
       border-width: .15em .15em 0 0;
@@ -402,12 +388,16 @@ hr {
       height: .65em;
       pointer-events: none;
       position: absolute;
-      right: $spacer-mid;
+      right: 25px;
       top: 46px;
       transform: rotate(135deg);
       width: .65em;
+      .no-js,
+      .no-js .lt-ie9 .lt-ie8 .lt-ie7 {
+        display: none;
+        visibility: hidden;
+      }
     }
-
     .Select {
       appearance: none;
       background-color: transparent;
@@ -416,7 +406,7 @@ hr {
       color: $gunmetal;
       min-height: 41px;
       outline: none;
-      padding: $spacer;
+      padding: 7px;
       width: 100%;
       &:focus {
         border-color: $gunmetal;

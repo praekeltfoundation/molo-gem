@@ -6,7 +6,9 @@ html {
   margin: 0;
   padding: 0;
 }
-
+body {
+ background: transparent;
+}
 body,
 select,
 textarea {
@@ -14,45 +16,38 @@ textarea {
   font-family: $font-fallback;
   font-size: $font-small;
 }
-
 a {
   color: $springster-purple;
-
   &:hover {
     color: $springster-purple;
   }
 }
-
 h1 {
   font-size: 1.2em;
   margin: $spacer 0;
   text-transform: uppercase;
 }
-
 h2 {
   font-size: 1em;
   margin: $spacer 0;
 }
-
 p,
 ul {
   margin: $spacer 0;
 }
-
 hr {
   border: 0;
   border-top: 1px solid $slate-grey;
   height: 0;
   margin: $spacer 0;
 }
-
 * {
   box-sizing: border-box;
 }
 
 
 .Container {
-  background: $white;
+  background: transparent;
   padding: 0 !important; //Override Default
   .Intro {
     color: $slate-grey;
@@ -63,18 +58,13 @@ hr {
 
 
 
-//HEADER STYLES
+//HEADER
 .Header {
   text-align: center;
-  &-title {
-    background: transparent;
-    h1 {
-      color: $gunmetal;
-    }
-  }
-
   &-branding {
-    padding: $spacer-mid;
+    background: #7300ff;
+    color: #e3ccff;
+    padding: $spacer-mid 0;
     &-image {
       background: url('/static/authentication_service/images/springster-logo.svg')no-repeat;
       background-position: 50%;
@@ -85,21 +75,18 @@ hr {
       width: 100%;
     }
   }
+  &-title {
+    background: #fff;
+    h1 {
+      color: $gunmetal;
+    }
+  }
 }
-//HEADING MODIFICATIONS
+
 .Registration {
   .Header {
     background-color: #7300ff;
     padding: 0;
-    &-branding {
-      &-image {
-        background: url('/static/authentication_service/images/springster-logo-white.svg') no-repeat;
-        background-position: 50%;
-        background-size: contain;
-        height: 24px;
-      }
-    }
-
     &-title {
       background: 0 0;
       text-align: center;
@@ -135,9 +122,9 @@ hr {
     }
   }
 }
-//CONTENT BODY
+//CONTENT
 .Content {
-  padding: 0 $spacer-mid 0;
+  background: #fff;
   overflow: auto;
 }
 
@@ -146,7 +133,7 @@ hr {
   .Field {
     margin-top: $spacer;
     text-align: center;
-
+    padding: 0 $spacer-mid 0;
     &-item {
       display: contents;
       margin-top: $spacer-half;
@@ -164,7 +151,6 @@ hr {
       margin-top: $spacer-half;
       text-align: center;
     }
-
     .DateInput,
     .EmailInput,
     .NumberInput,
@@ -178,16 +164,13 @@ hr {
       outline: none;
       padding: $spacer;
       width: 100%;
-
       &:focus {
         border-color: $springster-purple;
       }
     }
-
     .Textarea {
       height: 60px;
     }
-
     .ClearableFileInput {
       display: block;
     }
