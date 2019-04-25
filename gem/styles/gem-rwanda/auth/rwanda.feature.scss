@@ -2,29 +2,31 @@
 @import "../util/colors";
 @import "../_normalize";
 
-body, html {
+body,
+html {
   font-size: 16px;
-  @include for-size(tablet-portrait-up) {
-    background: #fff;
+  @media (min-width:45em) {
+    background: #03b8ad url('/static/authentication_service/rwanda/images/NN_PATTERN-HILLS-AQUA-001.svg') repeat center center/auto;
     color: #000;
   }
 }
 
-a:hover, a:active, a:visited {
-  color:  #eb018c;
-  text-decoration: none;
+a {
+  &:active, &:hover, &:visited {
+    color: #eb018c;
+    text-decoration: none;
+  }
 }
 
-//PAGE WRAPPER
-.Login {}
+/*  NOTE: PAGES WRAPPER */
+
 .Container {
   background: #fff;
   padding: 0;
-
   .Intro {
     background: #fff;
     color: #000;
-    padding: 0 0 2em;
+    padding: 0 10% 2em;
     text-align: left;
     margin: 0;
   }
@@ -32,14 +34,15 @@ a:hover, a:active, a:visited {
 
 //HEADER
 .Header {
-  text-align: center;
+  position: relative;
   overflow: auto;
   width: 100%;
   text-align: center;
   margin: 0;
+  padding: 0 7%;
 }
 .Header-branding {
-  background: url('/static/authentication_service/rwanda/images/logo.png') no-repeat  center 0/100%;
+  background: url('/static/authentication_service/rwanda/images/logo.png') no-repeat center 0/100%;
   width: 330px;
   padding: 0 10%;
   text-align: center;
@@ -54,47 +57,59 @@ a:hover, a:active, a:visited {
 }
 .Header-title {
   background: #fff;
-  margin: 1em 5% 0 5% !important;
-  padding: 1em 5%;
+  padding: 2em 5% 1em;
   text-align: left;
   position: relative;
+  margin: 0;
+  @media (min-width:64em) {
+    margin: 1em 5% 0 5% !important;
+  }
   &:before {
-    background: url('/static/authentication_service/rwanda/images/hero-heading.png') no-repeat 20px center/contain;
+    background-image: url('/static/authentication_service/rwanda/images/ShapesSprites.png');
+    background-repeat: no-repeat;
+    background-position: -30px 83.3%;
+    background-size: 120px;
+    height: 75px;
     content: "";
     display: inline-block;
-    height: 60px;
     width: 135px;
   }
-}
-.Header-title h1 {
-  position: relative;
-  text-transform: uppercase;
-  font-size: $font-x-medium;
+  h1 {
+    position: relative;
+    text-transform: uppercase;
+    font-size: 1.125rem;
+  }
 }
 .Header-links {
   background: #fff;
   color: #000;
   margin: 0 5%;
   text-align: left;
-  padding: 1em 5%;
+  @media (min-width:64em) {
+    padding: 1em 5%;
+  }
   a {
     color: #03b8ad;
     border-bottom: 1px solid #03b8ad;
-    &:active, &:hover, &:focus {
-      color: #02938A;
+    &:active, &:hover {
+      color: #02938a;
     }
   }
 }
 
-//BODY
+//CONTENT
 .Content {
   background: #fff;
   color: #000;
   overflow: auto;
-  padding: 0 5%;
-  margin: 0 5%;
+  margin: 0 7%;
+  padding: 1em 5% 2.5em;
   p {
     text-align: left;
+  }
+  .center {
+    text-align: left;
+    font-size: 1.125rem;
   }
 }
 
@@ -102,50 +117,69 @@ a:hover, a:active, a:visited {
 .Form {
   background: #fff;
   margin: 0;
+  padding: 0;
   position: relative;
+  @media (min-width:45em) {
+    padding: 0 10%;
+  }
 }
 .Form .Field {
   margin: 0;
   padding: 0;
   text-align: left;
-}
-.Form .Field-label {
-  color: #000;
-  display: block;
-  font-weight: bold;
-  margin-bottom: $spacer-small;
   vertical-align: middle;
-  word-break: break-all;
+  word-break: break-word;
   word-wrap: break-word;
 }
+.Form .Field-item,
+.Form .Field-item .Field {
+  clear: both;
+  border: none;
+  margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 .Form .Field-item {
   color: #000;
   display: inline-block;
-  margin: $spacer-half 0;
-  font-size: $font-x-small;
+  margin: 10px 0;
+  font-size: .875rem;
 }
+
+.Form .Field-label {
+  color: #000;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 .Form .Field-message {
   color: #9b9fa2;
-  font-size: $font-small;
-  margin-top: $spacer-half;
+  font-size: 1rem;
+  margin-top: 10px;
   text-align: left;
 }
-.Form .Field .TextInput,
-.Form .Field .PasswordInput,
-.Form .Field .EmailInput,
+
 .Form .Field .DateInput,
-.Form .Field .vDateField,
+.Form .Field .EmailInput,
 .Form .Field .NumberInput,
-.Form .Field .Textarea {
+.Form .Field .PasswordInput,
+.Form .Field .TextInput,
+.Form .Field .Textarea,
+.Form .Field .vDateField {
   border: 2px #03b8ad solid;
   font-size: 1em;
   height: 40px;
-  outline: none;
-  padding: $spacer-small;
+  outline: 0;
+  padding: 5px;
   width: 100%;
   border-width: 2px;
   &:focus {
-    border: 2px #02938A solid;
+    border: 2px #02938a solid;
   }
 }
 .Form .Textarea {
@@ -154,60 +188,55 @@ a:hover, a:active, a:visited {
 .Form .ClearableFileInput {
   display: block;
 }
-.Form .Form--required {}
 .Form .Form--required input {
   border-color: red;
 }
-.Form .ModelChoiceField,
-.Form .TypedChoiceField {
-  .Select {
-    border: 2px solid #03b8ad;
-    &:focus {
-      border-color: #02938A;
-    }
-  }
+.Form .ModelChoiceField .Select,
+.Form .TypedChoiceField .Select {
+  border: 2px solid #03b8ad;
 }
-.Form .Field-message--error,
-.Form .Field-message--error .Field--required {
-  .Field-item input {
-    border-color: #02938A;
-  }
+.Form .ModelChoiceField .Select:focus,
+.Form .TypedChoiceField .Select:focus {
+  border-color: #02938a;
 }
-.Form .Form-buttons {
-  margin-top: 1em;
+.Form .Field-message--error .Field--required .Field-item input,
+.Form .Field-message--error .Field-item input {
+  border-color: #02938a;
 }
-.Button {
-  background-color: #03b8ad;
+.Button,
+.Button--warning,
+.Form .Button {
+  background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% 17px/14px;
   color: #fff !important;
   display: block;
-  font-weight: bold;
-  font-size: $font-small;
-  padding: 15px 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 10px;
   text-transform: uppercase;
   margin: 1em 0;
   box-shadow: 12px 12px 0 0 #f9e435;
   width: auto;
-  &:active, &:hover, &:focus {
-    background-color: #03b8ad;
+  &:active, &:hover {
+    background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% -32px/14px;
     color: #f9e435 !important;
   }
 }
+.Form-buttons {
+  margin-top: 1em;
+}
 .Button--warning {
-  background: #03b8ad !important;
-  margin: 1em !important;
-  color: #fff;
-  box-shadow: 12px 12px 0 0 #ed018c;
-  &:hover {
-    color: #ed018c;
+  box-shadow: 12px 12px 0 0 #ed018c !important;
+  &:hover, &:active {
+    color: #ed018c !important;
   }
 }
 
 .Messages {
-  margin: $spacer-small 0;
+  margin: 5px 0;
 }
 .Message {
   color: #fff;
-  padding: $spacer-small;
+  padding: 5px;
 }
 .Message--success {
   background: #000;
@@ -220,11 +249,11 @@ a:hover, a:active, a:visited {
 .errorlist {
   color: #000;
   list-style: none;
-  margin: $spacer-half 0;
+  margin: 10px 0;
   padding: 0;
   li {
-    margin: $spacer-half 0;
-  }
+   margin: 10px 0;
+ }
 }
 
 .Additional-text {
@@ -232,20 +261,18 @@ a:hover, a:active, a:visited {
   text-align: left;
   padding: 1em 10% 0;
   margin: 0;
-  font-size: 16px;
+  font-size: 1.125rem;
   a {
     color: #eb018c;
     text-transform: uppercase;
-    font-size: 14px;
     border-bottom: 1px solid #eb018c;
-      &:active, &:hover, &:focus {
-        color: #03b8ad;
-        border-bottom: 1px solid #03b8ad;
-      }
+    &:active, &:focus, &:hover {
+      color: #03b8ad;
+      border-bottom: 1px solid #03b8ad;
+    }
   }
 }
 
-//MENU
 .Menu {
   padding: 0;
   margin-top: 0;
@@ -259,38 +286,56 @@ a:hover, a:active, a:visited {
   margin: 0;
   list-style: none;
   text-align: left;
+  @media (min-width:64em) {
+    padding: 5px 30% 0 0;
+  }
 }
 .Menu-item {
-  margin: 10px 0;
+  display: inline-block;
+  font-size: 1.125rem;
+  margin: 10px 2.5em 0 0 !important;
   a {
-    color: #03b8ad;
-    text-decoration: none;
-    font-weight: normal;
+    background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% 17px/14px;
+    border-bottom: none !important;
+    color: #fff !important;
+    display: block !important;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 45px 12px 30px;
     text-transform: uppercase;
-    font-size: $font-xx-small;
-    border-bottom: 1px solid #fff;
-    &:active, &:hover, &:focus {
-      color: #f9e435;
+    font-weight: 400;
+    text-decoration: none;
+    margin: 1em 0;
+    box-shadow: 12px 12px 0 0 #ed018c;
+    width: auto;
+    &:active, &:hover {
+      background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% -32px/14px;
+      color: #f9e435 !important;
+      border-bottom: none !important;
     }
   }
 }
 
-//FOOTER
-.Back-to-top {}
 .Back-to-top--link {
   text-transform: uppercase;
-  font-size: $font-xx-small;
+  font-size: .75rem;
   border-bottom: 1px solid #fff;
 }
+
 .Footer {
   background: #000;
   border: 0;
   color: #fff;
-  font-size: $font-xx-small;
-  padding: 1em 15%;
+  font-size: .75rem;
   text-align: left;
+  padding: 3em 5.5% 1em;
+  margin: 4em 0 0;
+  @media (min-width:64em) {
+    position: absolute;
+    width: 100%;
+  }
   a {
-    font-size: $font-xx-small;
+    font-size: .75rem;
     color: #fff;
     border-bottom: 1px solid #fff;
   }
