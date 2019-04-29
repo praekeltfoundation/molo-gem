@@ -106,7 +106,8 @@
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+      }(document, 'script', 'facebook-jssdk'));
+      </script>
       <!-- Your customer chat code -->
       <div class="fb-customerchat"
         attribution=install_email
@@ -250,7 +251,7 @@
                   <li class="footer-menu-list__item">
                     <form method="post" action="{% url LOGOUT_URL %}">
                       {% csrf_token %}
-                      <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
+                      <input class="footer-menu-list__anchor" value="{% trans 'Log out' %}" type="submit">
                     </form>
                   </li>
                 {% endif %}
