@@ -1,24 +1,36 @@
-@import "../util/_variables";
-@import "../util/colors";
-@import "../_normalize";
+@import "../util/*";
+@import "../normalize";
 
 body,
 html {
+  background-color: #fff;
   font-size: 16px;
-  @media (min-width:45em) {
-    background: #03b8ad url('/static/authentication_service/rwanda/images/NN_PATTERN-HILLS-AQUA-001.svg') repeat center center/auto;
-    color: #000;
-  }
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.5;
+  overflow: auto;
+  position: relative;
+  width: 100%;
 }
-
+h1, h2, h3, h4, h5, h6  {
+  margin: 0;
+}
 a {
-  &:active, &:hover, &:visited {
-    color: #eb018c;
-    text-decoration: none;
+  text-decoration: none;
+  &:visited {
+    @include for-size(tablet-landscape-up) {
+      outline: none;
+    }
   }
 }
 
 /*  NOTE: PAGES WRAPPER */
+#wrap {
+  @media screen and (min-width: 62.000em) {
+    background: url("/static/authentication_service/themes/yegna/images/patterns/home-bg.svg") no-repeat center/100%;
+  }
+}
 
 .Container {
   background: #fff;
@@ -34,22 +46,27 @@ a {
 
 //HEADER
 .Header {
+  background: $color-green url('/static/authentication_service/themes/yegna/images/patterns/main-bg.svg') no-repeat center /auto;
+  vertical-align: middle;
   position: relative;
-  overflow: auto;
   width: 100%;
+  margin: 0 auto;
+  overflow: auto;
   text-align: center;
-  margin: 0;
-  padding: 0 7%;
+  z-index: 9999999;
+  @include for-size(tablet-landscape-up) {
+    position: sticky;
+    transform: translate3d(0, 0, 0);
+    transition: transform 300ms ease 3ms;
+  }
 }
 .Header-branding {
-  background: url('/static/authentication_service/rwanda/images/logo.png') no-repeat center 0/100%;
-  width: 330px;
-  padding: 0 10%;
-  text-align: center;
-  margin: 0 auto 0;
-  position: relative;
-  overflow: auto;
-  height: 90px;
+  background: url('/static/authentication_service/themes/yegna/images/yegna-logo.png') no-repeat center 0/100%;
+  z-index: 999999;
+  width: 126px;
+  height: 125px;
+  padding: 1em 7%;
+  text-align: left;
 }
 .Header-branding-image {
   display: none;
