@@ -6,15 +6,20 @@ STYLE YEGNA
 
 body,
 html {
-    background-color: #fff;
+  background-color: #fff;
+  font-family: 'Noto Sans', Arial, sans-serif;
 }
 body {
   margin: 0;
 }
 
+h1 {
+  font-family: 'Noto Sans', Arial, sans-serif;
+}
+
 /*  NOTE: PAGES WRAPPER */
 .Container {
-  background: 0 0;
+  background: transparent;
   margin: 0 auto;
   width: 100%;
   max-width: 100%;
@@ -23,21 +28,23 @@ body {
 
 //HEADER
 .Header {
-  width: auto;
-  margin: 0;
+  margin: 0 auto;
 }
-.Header-branding {}
+.Header-branding {
+  margin: 2em 0 0 7% !important;
+}
 .Header-branding-image {}
 .Header-title {
-  background: transparent;
-  text-align: left;
+  background: #fff url('/static/authentication_service/themes/yegna/images/patterns/cloudy-bg.svg') repeat center/100%;
   h1 {
-    font-size: 1.125rem;
-    color: #fff;
+    font-size: $font-xx-large;
+    color: $color-purple;
     margin: 1em 0 0 0 !important;
   }
 }
-.Header-links {}
+.Header-links {
+  background: #fff;
+}
 
 .List {
   list-style: none;
@@ -75,32 +82,21 @@ body {
   padding: 0;
   margin: 0;
   a {
-    color: #03b8ad;
-    border-bottom: 1px solid #03b8ad;
+    color: $color-purple;
   }
 }
 .Form .Field-item {
-  width: 100%;
+  width: 90%;
   text-align: left;
   vertical-align: middle;
-  @media (min-width:64em) {
-    width: 75%;
-  }
 }
 .Form .Field-label {
-  font-size: .875rem;
+  display: block;
+  font-size: 1.125rem;
   margin: 0 1em 0 0;
-  @media (min-width:64em) {
-    font-size: 1.125rem;
-    width: 20%;
-    display: inline-block;
-  }
 }
 .Form .Field-message {
   margin: 5px 0;
-  @media (min-width:64em) {
-    margin: 5px 23%;
-  }
 }
 .Form .Field .DateInput,
 .Form .Field .EmailInput,
@@ -114,7 +110,7 @@ body {
   padding: 5px;
   border-width: 2px;
   &:focus {
-    border: 2px #02938a solid;
+    border: 2px #000 solid;
   }
 }
 .Form .Field .Textarea {
@@ -124,21 +120,10 @@ body {
 .Form .TypedChoiceField {
   display: block;
   position: relative;
-  width: 100%;
+  width: 90%;
   &:after {
-    color: #03b8ad;
-    content: '';
-    display: inline-block;
-    height: .65em;
-    pointer-events: none;
-    position: absolute;
-    right: 5%;
-    top: 55%;
-    transform: rotate(135deg);
-    width: .65em;
-    @media (min-width:64em) {
-      top: 35%;
-    }
+    display: none;
+    visibility: hidden;
   }
 }
 .Form .ModelChoiceField .Select,
@@ -151,16 +136,16 @@ body {
   outline: 0;
   padding: 5px;
   width: 100%;
-  border: 2px solid #03b8ad;
+  border: 2px solid #000;
   &:focus {
-    border-color: #03b8ad;
+    border-color: #000;
   }
 }
 .Form .BooleanField {
   display: inline-block;
   margin: 0;
   position: relative;
-  width: 100%;
+  width: 90%;
   @media (min-width:64em) {
     width: auto;
     margin: 0 0 0 9em;
@@ -181,11 +166,11 @@ body {
   margin: 0;
 }
 .Form .BooleanField .Field-item .CheckboxInput {
-  border: 2px solid #03b8ad;
+  border: 2px solid #000;
 }
 .Form .Field-item .CheckboxInput {
   appearance: none;
-  border: 2px solid #03b8ad;
+  border: 2px solid #000;
   display: block;
   height: 20px;
   outline: 0;
@@ -212,21 +197,14 @@ body {
 .Button,
 .Button--warning,
 .Form .Button {
-  background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% 17px/14px;
+  background: #000 ;
   display: inline-block;
-  padding: 12px 45px 12px 30px;
-  margin: 1em 0;
   &:hover, &:active {
-    background: #03b8ad url('/static/authentication_service/rwanda/images/triangle-icon.png') no-repeat 94% -32px/14px;
+    text-decoration: underline;
   }
 }
 .Form-buttons {
   margin-top: 1em;
-}
-.Form .Button {
-  @media (min-width:64em) {
-    margin: 1em 5% 0 24%;
-  }
 }
 .Form .Button--warning {
   @media (min-width:64em) {
@@ -243,7 +221,7 @@ body {
   padding: 1em 10% 0;
   margin: 0;
   @media (min-width:64em) {
-    padding: 1em 1em 0 29%;
+    padding: 1em 1em 0 10%;
   }
 }
 
