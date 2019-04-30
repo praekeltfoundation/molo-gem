@@ -45,8 +45,10 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-springster/auth/springster.enhanced.scss',
         'gem/styles/gem-malawi/auth/zathu.feature.scss',
         'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
-        'gem/styles/gem-rwanda/auth/rwanda.feature.scss',
-        'gem/styles/gem-rwanda/auth/rwanda.enhanced.scss'
+        'gem/styles/gem-rwanda/auth/ninyampinga.feature.scss',
+        'gem/styles/gem-rwanda/auth/ninyampinga.enhanced.scss',
+        'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
+        'gem/styles/gem-yegna/auth/yegna.feature.scss',
     ],
     sassDest = {
          prd: 'gem/static/css/prd',
