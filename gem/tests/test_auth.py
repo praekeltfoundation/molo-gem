@@ -30,6 +30,15 @@ urlpatterns = [
 ]
 
 
+class GirlEffectOIDCBackendMock(GirlEffectOIDCBackend):
+
+    def get_userinfo(self, access_token, id_token, payload):
+        return {
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+            'preferred_username': 'testuser'
+        }
+
+
 @override_settings(
     ROOT_URLCONF='gem.tests.test_auth',
     USE_OIDC_AUTHENTICATION=True,
@@ -50,6 +59,24 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(returned_user.username, 'testuser')
         self.assertEqual(returned_user.profile.auth_service_uuid,
                          'e2556752-16d0-445a-8850-f190e860dea4')
+
+    def test_get_or_create_user_from_claims(self):
+        id_token = 'id_token'
+        access_token = 'access_token'
+        claims = {
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+            'preferred_username': 'testuser'
+        }
+
+        backend = GirlEffectOIDCBackendMock()
+        returned_user = backend.get_or_create_user(
+            access_token, id_token, claims)
+
+        self.assertEqual(returned_user.username, 'testuser')
+        self.assertEqual(
+            returned_user.profile.auth_service_uuid,
+            'e2556752-16d0-445a-8850-f190e860dea4'
+        )
 
     def test_create_user_from_claims_with_errors(self):
         user2 = get_user_model().objects.create(
