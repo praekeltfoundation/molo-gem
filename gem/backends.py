@@ -188,8 +188,10 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         return user
 
     def get_or_create_user(self, access_token, id_token, payload):
-        """Returns a User instance if 1 user is found. Creates a user if not found
-        and configured to do so. Returns nothing if multiple users are matched."""
+        """
+        Returns a User instance if 1 user is found. Creates a user if not found
+        and configured to do so. Returns nothing if multiple users are matched.
+        """
 
         user_info = self.get_userinfo(access_token, id_token, payload)
         username = user_info.get("preferred_username")
@@ -204,7 +206,7 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
             return self.update_user(users[0], user_info)
 
         elif len(users) > 1:
-            # In the rare case that two user accounts have the same email address,
+            # In the rare case that two user accounts have the same email,
             # bail. Randomly selecting one seems really wrong.
             raise SuspiciousOperation('Multiple users returned')
 
@@ -218,15 +220,20 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         return None
 
     def verify_claims(self, claims):
-        """Verify the provided claims to decide if authentication should be allowed."""
+        """
+        Verify the provided claims to decide
+        if authentication should be allowed.
+        """
 
         # Verify claims required by default configuration
         scopes = self.get_settings('OIDC_RP_SCOPES', 'openid email')
         if 'preferred_username' in scopes.split():
             return 'preferred_username' in claims
 
-        LOGGER.warning('Custom OIDC_RP_SCOPES defined. '
-                       'You need to override `verify_claims` for custom claims verification.')
+        LOGGER.warning(
+            'Custom OIDC_RP_SCOPES defined. You need to override'
+            ' `verify_claims` for custom claims verification.'
+        )
 
         return True
 
