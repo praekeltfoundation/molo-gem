@@ -8,7 +8,7 @@ from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Group, User
-from django.core.exceptions import FieldError
+from django.core.exceptions import FieldError, SuspiciousOperation
 from molo.profiles.models import UserProfile
 from wagtail.core.models import Site
 
@@ -187,13 +187,48 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         _update_user_from_claims(user, claims)
         return user
 
+    def get_or_create_user(self, access_token, id_token, payload):
+        """Returns a User instance if 1 user is found. Creates a user if not found
+        and configured to do so. Returns nothing if multiple users are matched."""
+
+        user_info = self.get_userinfo(access_token, id_token, payload)
+        username = user_info.get("preferred_username")
+        claims_verified = self.verify_claims(user_info)
+
+        if not claims_verified:
+            raise SuspiciousOperation('Claims verification failed')
+
+        users = self.filter_users_by_claims(user_info)
+
+        if len(users) == 1:
+            return self.update_user(users[0], user_info)
+
+        elif len(users) > 1:
+            # In the rare case that two user accounts have the same email address,
+            # bail. Randomly selecting one seems really wrong.
+            raise SuspiciousOperation('Multiple users returned')
+
+        elif self.get_settings('OIDC_CREATE_USER', True):
+            user = self.create_user(user_info)
+            return user
+
+        else:
+            LOGGER.debug('Login failed: No user with username %s found, and '
+                         'OIDC_CREATE_USER is False', username)
+        return None
+
     def verify_claims(self, claims):
-        """
-        This function can be used to prevent authorisation of users based
-        on claims information.
-        """
-        verified = super(GirlEffectOIDCBackend, self).verify_claims(claims)
-        return verified
+        """Verify the provided claims to decide if authentication should be allowed."""
+
+        # Verify claims required by default configuration
+        scopes = self.get_settings('OIDC_RP_SCOPES', 'openid email')
+        if 'preferred_username' in scopes.split():
+            return 'preferred_username' in claims
+
+        LOGGER.warning('Custom OIDC_RP_SCOPES defined. '
+                       'You need to override `verify_claims` for custom claims verification.')
+
+        return True
 
     def verify_token(self, token, **kwargs):
         site = self.request.site
