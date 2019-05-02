@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+
 from django.contrib.auth.models import User
 from datetime import date
 from django.test import TestCase, Client
@@ -67,7 +67,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
             'preferred_username': 'testuser'
         }
-        
+
         backend = GirlEffectOIDCBackendMock()
         returned_user = backend.get_or_create_user(
             access_token, id_token, claims)
