@@ -287,7 +287,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         claims = {
             'given_name': 'testgivenname',
             'family_name': 'testfamilyname',
-            'username': 'john',
+            'preferred_username': 'john',
             'email': 'test@email.com',
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         with pytest.raises(FieldError):
@@ -301,7 +301,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         claims = {
             'given_name': 'testgivenname',
             'family_name': 'testfamilyname',
-            'username': 'john',
+            'preferred_username': 'john',
             'email': 'test@email.com',
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
