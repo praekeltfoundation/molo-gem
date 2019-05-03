@@ -72,9 +72,9 @@ urlpatterns += [
                 app_name='molo.profiles')),
 
     url(r'^commenting/',
-        include('molo.commenting.urls',
-                namespace='molo.commenting',
-                app_name='molo.commenting')),
+        include(
+            ('molo.commenting.urls', 'molo.commenting'),
+            namespace='molo.commenting')),
 
     url(r'^comments/reported/(?P<comment_pk>\d+)/$',
         report_response, name='report_response'),
@@ -88,14 +88,15 @@ urlpatterns += [
 
     url(r'', include('django_comments.urls')),
     url(r'^surveys/',
-        include('molo.surveys.urls',
-                namespace='molo.surveys',
-                app_name='molo.surveys')),
+        include(
+            ('molo.surveys.urls', 'molo.surveys'),
+            namespace='molo.surveys')),
 
     url(r'^yourwords/',
-        include('molo.yourwords.urls',
-                namespace='molo.yourwords',
-                app_name='molo.yourwords')),
+        include(
+            ('molo.yourwords.urls', 'molo.yourwords'),
+            namespace='molo.yourwords')
+        ),
 
     url(r'^feed/rss/$', GemRssFeed(), name='feed_rss'),
     url(r'^feed/atom/$', GemAtomFeed(), name='feed_atom'),
@@ -103,9 +104,10 @@ urlpatterns += [
     url(r'^servicedirectory/', include('molo.servicedirectory.urls',
         namespace='molo.servicedirectory')),
 
-    url(r'^polls/', include('molo.polls.urls',
-                            namespace='molo.polls',
-                            app_name='molo.polls')),
+    url(r'^polls/',
+        include(
+            ('molo.polls.urls', 'molo.polls'),
+            namespace='molo.polls')),
 
     url(r"^mote/", include("mote.urls", namespace="mote")),
     url(r'', include('molo.core.urls')),
@@ -125,7 +127,7 @@ urlpatterns += [
         name='section_index'
     ),
     url(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
-        '(?P<question_id>\d+)/vote/$',
+        r'(?P<question_id>\d+)/vote/$',
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
@@ -145,9 +147,6 @@ if settings.DEBUG:
 
 if settings.MAINTENANCE_MODE:
     urlpatterns = [
-        url(
-            r'^health/$',
-            core_views.health,
-        ),
+        url(r'^health/$', core_views.health),
         url(r'', MaintenanceView.as_view()),
     ]
