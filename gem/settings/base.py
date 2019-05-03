@@ -148,7 +148,7 @@ COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
@@ -170,13 +170,13 @@ MIDDLEWARE_CLASSES = [
 ]
 
 if LOG_HEADER_DUMP:
-    MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
+    MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
 if USE_OIDC_AUTHENTICATION:
-    MIDDLEWARE_CLASSES += [
+    MIDDLEWARE += [
         'gem.middleware.CustomSessionRefresh',
     ]
 
-MIDDLEWARE_CLASSES += [
+MIDDLEWARE += [
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
