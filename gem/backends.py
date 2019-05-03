@@ -37,7 +37,7 @@ def _update_user_from_claims(user, claims):
     user.email = claims.get("email", "")
     user.save()
 
-    username = claims.get("username", "")
+    username = claims.get("preferred_username", "")
 
     # If the user doesn't have a profile for some reason make one
     if not hasattr(user, 'profile'):
