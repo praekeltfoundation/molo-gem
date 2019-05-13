@@ -4,6 +4,7 @@
 
 {% block content %}
 {% with ancestor=self.get_parent_section.get_parent_section.get_parent_section parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
+  {% get_translation section as translated_section %}
   {% if ancestor %}
     {% content_is ancestor "Watch" as is_watch_ancestor %}
     {% content_is ancestor "Listen" as is_listen_ancestor %}
@@ -22,18 +23,18 @@
       <div class="heading heading--hero">
           {% if is_watch_ancestor or is_watch_parent or is_watch %}
             {% if ancestor %}<h1 class="heading__title">{{ancestor.title}} {{parent.title}} </h1>
-            {% else %}<h1 class="heading__title">{{parent.title}} {{section.title}}</h1>{% endif %}
+            {% else %}<h1 class="heading__title">{{parent.title}} {{translated_section.title}}</h1>{% endif %}
           {% elif is_listen_ancestor or is_listen_parent or is_listen %}
             {% if ancestor %}<h1 class="heading__title">{{ancestor.title}} {{parent.title}} </h1>
-            {% else %}<h1 class="heading__title">{{parent.title}} {{section.title}}</h1>{% endif %}
+            {% else %}<h1 class="heading__title">{{parent.title}} {{translated_section.title}}</h1>{% endif %}
           {% elif is_news %}
-            <h1 class="heading__title">{% trans "Latest" %} <span class="banner__section-name">{{section.title}}</span></h1>
+            <h1 class="heading__title">{% trans "Latest" %} <span class="banner__section-name">{{translated_section.title}}</span></h1>
             <h3 class="heading__subtitle">{{self.title}}</h3>
           {% elif is_cast %}
-            <h1 class="heading__title">{% trans "Meet the Yegna" %} <span class="banner__section-name">{{section.title}}</span></h1>
+            <h1 class="heading__title">{% trans "Meet the Yegna" %} <span class="banner__section-name">{{translated_section.title}}</span></h1>
             <h3 class="heading__subtitle">{{self.title}}</h3>
           {% else %}
-            <h1 class="heading__title">{{section.title}}</h1>
+            <h1 class="heading__title">{{translated_section.title}}</h1>
           {% endif %}
         </div>
     </div>
@@ -48,7 +49,7 @@
             {% endif %}
             {% if section != None %}
               <li class="teaser-breadcrumb-list__item">
-                <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{section}}</a>
+                <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{translated_section}}</a>
               </li>
             {% endif %}
           </ul>
@@ -80,7 +81,7 @@
             {% endif %}
             {% if section != None %}
               <li class="teaser-breadcrumb-list__item">
-                <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{section}}</a>
+                <a href="{% pageurl self.specific %}"  class="teaser-breadcrumb-list__anchor">{{translated_section}}</a>
               </li>
             {% endif %}
           </ul>
@@ -341,7 +342,7 @@
            </div>
          {% endif %}
        {% endif %}
-      <a href="{% pageurl section.specific %}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{section}}</a>
+      <a href="{% pageurl section.specific %}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{translated_section}}</a>
       {% if is_watch_ancestor or is_watch_parent or is_watch %}
          </div>
          <div class="article-page__second-column">
