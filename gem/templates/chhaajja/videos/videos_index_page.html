@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-videosindexpage{% endblock %}
+
+{% block content %}
+	{% include 'home/header_block.html' %}
+
+	{% load staticfiles %}
+	<!--================Blog List Area =================-->
+	        <section class="blog_list_area"><br/>
+	            <div class="container fullwidth">
+	                <div class="row">
+	                    <div class="col-md-8">
+
+	                        <!--div class="row"-->
+
+							<img src="https://img.youtube.com/vi/{{ latest_video.videourl }}/default.jpg" class="img-responsive latest-video" alt="">
+							<div class="twoheaders">
+							<div class="col-md-6"> <h4 class="headingh4">{{ latest_video.title }}</h4>
+							</div>
+							<div  class="col-md-6">  <div class="column"><a href=""><img src="{% static 'images/like.png' %}" class="" alt=""><p class="socialicons like">Like</p> </a></div><div class="column"><a href=""><img src="{% static 'images/Dislike.png' %}" class="" alt=""> <p class="socialicons Dislike">Dislike</p></a></div><div class="column"><a href=""><img src="{% static 'images/Share.png' %}" class="" alt=""><p class="socialicons Share">Share</p> </a></div><div class="column"><a href=""><img src="{% static 'images/Comment.png' %}" class="" alt=""><p class="socialicons Comment">Comment</p></a></div>
+							</div>
+							</div>
+							<div  class="clear-all"></div>
+							<div>
+								<p class="smalltext">{{ latest_video.intro }}</p>
+
+								<p class="ptext"><a href=""><u><i>Showmore</i></u></a></p>
+							</div>
+						<br/>
+							<article class="blog_list_item row m0">
+
+								<div class="col-md-6 col-xs-6 col-sm-6">
+									<div class="blog_list_content">
+										<h5 class="bottomh5">Khel-Ya-Dil-Ka-Mel</h5>
+										<h5 class="bottomh5">Turn ka chunogi?</h5>
+
+										<div class="pull-left">
+
+										<!--RADIO 1-->
+										<input type="radio" class="radio_item" value="Khel" name="answer" id="radio1">
+											<label class="label_item" for="radio1"> <img src="{% static 'images/symbol.png' %}"> Khel </label> &nbsp; &nbsp; &nbsp; &nbsp;
+
+										<!--RADIO 2-->
+										<input type="radio" class="radio_item" value="Dil" name="answer" id="radio2">
+										<label class="label_item" for="radio2"> <img src="{% static 'images/symbol.png' %}"> Dil</label>
+
+
+
+											<!--<input type="radio" name="answer" value="Khel"><img src="images/symbol.png" alt=""> Khel &nbsp; &nbsp;
+											<input type="radio" name="answer" value="Dil"><img src="images/symbol.png" alt=""> Dil -->
+										</div>
+
+									</div>
+									<!--<p>Thankyou for submitting</p>-->
+								</div>
+								<div class="col-md-6  col-xs-6 col-sm-6">
+									<div class="blog_list_img">
+										<img src="{% static 'images/img2.jpg' %}"  class="img-responsive" alt="">
+									</div>
+								</div>
+							</article>
+
+
+	                        <!--/div-->
+
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="blog_right_sidebar">
+
+	                            <aside class="right_widget category_widget">
+	                                <div class="sidebar_title">
+	                                    <h3> <img src="{% static 'images/Sym1.png' %}"  class="" alt=""> Arre dekho, Naye episodes!</h3>
+	                                </div>
+									<div class="anyClass">
+	                  	{% for post in page.get_children %}
+
+									<div class="col-md-6  col-xs-6 col-sm-6">
+										<div class="blog_list_img">
+											<img src="https://img.youtube.com/vi/{{ post.specific.videourl }}/default.jpg"  class="img-responsive" alt="">
+	                  </div>
+									</div>
+	                               <div class="col-md-6  col-xs-6 col-sm-6">
+										<div class="blog_list_content">
+											<h5 class="righth5"><a href="{% pageurl post %}">{{ post.specific.title }}</a></h5>
+											<p>{{ post.specific.intro }}</p>
+										</div>
+									</div>
+									<div  class="clear-all"></div>
+	                {% endfor %}
+
+
+
+									</div>
+	                            </aside>
+
+
+
+								<div style="clear:both;"></div>
+	                            <aside class="right_widget recent_widget commentsection1">
+	                                <div class="sidebar_title2">
+	                                    <h3><img src="{% static 'images/Sym3.png' %}"  class="" alt=""> Comment</h3>
+	                                </div>
+	                                <div class="recent_widget_inner">
+	                                    <form>
+										<div class="form-group">
+										<textarea class="form-control" rows="8" class="textareac" placeholder="Share your soch"></textarea>
+										 </div>
+										 <div class="form-group">
+										<input type="submit" name="submit" id="submit" value="Submit">
+										 </div>
+										</form>
+
+	                                </div>
+	                            </aside>
+
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </section>
+	        <!--================End Blog List Area =================-->
+	<div style="margin-top:100px;"></div>
+
+	{% include 'home/footer_block.html' %}
+{% endblock %}

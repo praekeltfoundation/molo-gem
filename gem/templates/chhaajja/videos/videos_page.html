@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-videospage{% endblock %}
+
+{% block content %}
+	{% include 'home/header_block.html' %}
+
+	{% load staticfiles %}
+	<div class="video-block">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ page.videourl|safe }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date }}</p>
+
+    <div class="intro">{{ page.intro }}</div>
+
+    {{ page.body|richtext }}
+
+    <p><a href="{{ page.get_parent.url }}">Return to videos</a></p>
+
+	{% include 'home/footer_block.html' %}
+
+{% endblock %}
