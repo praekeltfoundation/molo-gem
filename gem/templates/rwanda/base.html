@@ -141,11 +141,10 @@
                 {% if sections %}
                 <li class="nav-list__item">
                   {% for section_cat in sections %}
-                    {% get_translation section_cat as section %}
-                    {% if section.title == 'Ibibera Ino' or section.title == 'Events' %}
-                      <a href="{% pageurl section.specific %}" class="nav-list__anchor">
-                       {{section.title}}
-                      </a>
+                    {# {% get_translation section_cat as section %} #}
+                    {% content_is section_cat "Events" as is_event %}
+                    {% if is_event == True %}
+                      <a href="{% pageurl section_cat.specific %}" class="nav-list__anchor">{{section_cat.title}}</a>
                     {% endif %}
                   {% endfor %}
                 </li>
@@ -175,12 +174,15 @@
                 <h1 class="nav-list__title">{% trans "Featured" %}:</h1>
                 <ul class="nav-list-inner">
                   {% for section_page in sections %}
-                    {% if section_page.show_in_menus == True %}
-                      <li class="nav-list-inner__item">
-                        <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
-                          {{section_page.title}}
-                        </a>
-                      </li>
+                    {% content_is section_page "Events" as is_event %}
+                    {% if section_page.show_in_menus == True  %}
+                      {% if is_event == False %}
+                        <li class="nav-list-inner__item">
+                          <a href="{% pageurl section_page.specific %}" class="nav-list__anchor">
+                            {{section_page.title}}
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endif %}
                   {% endfor %}
                 </ul>
@@ -189,12 +191,15 @@
                 <h1 class="nav-list__title">{% trans "News and stories" %}:</h1>
                 <ul class="nav-list-inner">
                   {% for section in sections %}
+                    {% content_is section "Events" as is_event %}
                     {% if section.show_in_menus == False %}
-                      <li class="nav-list-inner__item">
-                        <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
-                          {{section.title}}
-                        </a>
-                      </li>
+                      {% if is_event == False %}
+                        <li class="nav-list-inner__item">
+                          <a href="{% pageurl section.specific %}" class="nav-list__anchor {% if request.path == section_path %}nav-list__anchor--selected{% endif %}">
+                            {{section.title}}
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endif %}
                   {% endfor %}
                 </ul>
@@ -266,13 +271,13 @@
               </li>
               {% if sections %}
                 {% for section in sections|slice:":4" %}
-                  {% pageurl section.specific as section_path %}
-                    {% if section_path != '/sections/events/' %}
-                      <li class="menu-list__item">
-                        <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
-                          {{section.title}}
-                        </a>
-                      </li>
+                  {% content_is section "Events" as is_event %}
+                  {% if is_event == False %}
+                    <li class="menu-list__item">
+                      <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
+                        {{section.title}}
+                      </a>
+                    </li>
                   {% endif %}
                 {% endfor %}
               {% endif %}
@@ -280,8 +285,8 @@
             <ul class="menu-list menu-list--column2">
               {% if sections %}
                 {% for section in sections|slice:"4:" %}
-                  {% pageurl section.specific as section_path %}
-                  {% if section_path != '/sections/events/' %}
+                  {% content_is section "Events" as is_event %}
+                  {% if is_event == False %}
                     <li class="menu-list__item">
                       <a href="{% pageurl section.specific %}" class="menu-list__anchor {% if request.path == section_path %}menu-list__anchor--selected{% endif %}">
                         {{section.title}}
