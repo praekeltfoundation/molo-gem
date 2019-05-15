@@ -1,6 +1,7 @@
 import time
 import re
 import urllib
+import uuid
 import structlog
 
 from django.utils.http import urlencode
@@ -53,6 +54,23 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     into the MoloGoogleAnalyticsMiddleware class and override
     submit_to_local_account
     '''
+    def get_visitor_id(self, request):
+        """Generate a visitor id for this hit.
+        If there is a visitor id in the cookie, use that, otherwise
+        use the guid if we have one, otherwise use a random number.
+        """
+        guid = request.META.get('HTTP_X_DCMGUID', '')
+        cookie = request.COOKIES.get('__utmmobile')
+        if cookie:
+            return cookie
+        if guid:
+            # create the visitor id using the guid.
+            cid = guid
+        else:
+            # otherwise this is a new user, create a new random id.
+            cid = str(uuid.uuid4())
+        return cid
+
     def submit_to_local_account(self, request, response, site_settings):
         gem_site_settings = GemSettings.for_site(request.site)
         bbm_ga_code = gem_site_settings.bbm_ga_tracking_code
@@ -67,6 +85,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         if request.COOKIES.get('bbm', 'false') == 'true':
             should_submit_to_bbm_account = True
 
+        cd1 = self.get_visitor_id(request)
+        custom_params.update({'cd1': cd1})
         if hasattr(request, 'user') and hasattr(request.user, 'profile')\
                 and request.user.profile.uuid:
             custom_params.update({'cd2': request.user.profile.uuid})
@@ -89,6 +109,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
     def submit_to_global_account(self, request, response, site_settings):
         custom_params = {}
+        cd1 = self.get_visitor_id(request)
+        custom_params.update({'cd1': cd1})
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\
                     and request.user.profile.uuid:
