@@ -42,7 +42,11 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='bbm.localhost')
+        request = RequestFactory().get(
+            '/',
+            HTTP_HOST='bbm.localhost',
+            HTTP_X_DCMGUID="0000-000-01"
+        )
         request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
@@ -50,7 +54,8 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code', request, self.response, {})
+            'bbm_tracking_code',
+            request, self.response, {'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_bbm_analytics_if_cookie_set(self, mock_submit_tracking):
@@ -60,7 +65,11 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         should be sent to the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='localhost')
+        request = RequestFactory().get(
+            '/',
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01"
+        )
         request.COOKIES['bbm'] = 'true'
         request.site = self.main.get_site()
 
@@ -69,7 +78,8 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code', request, self.response, {})
+            'bbm_tracking_code',
+            request, self.response, {'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account(self, mock_submit_tracking):
@@ -80,7 +90,10 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         the local GA account, not the additional GA account.
         '''
 
-        request = RequestFactory().get('/', HTTP_HOST='localhost')
+        request = RequestFactory().get(
+            '/',
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01",)
         request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
@@ -88,7 +101,11 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response, self.site_settings)
 
         mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code', request, self.response, {})
+            'local_ga_tracking_code',
+            request,
+            self.response,
+            {'cd1': "0000-000-01"}
+        )
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account__custom_params(self,
@@ -183,6 +200,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         request = RequestFactory().get(
             '/search/?q=whatislife',
             HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01"
         )
         request.site = self.main.get_site()
 
@@ -191,4 +209,6 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response)
         # a normal response should activate GA tracking
         mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code', request, self.response, {})
+            'local_ga_tracking_code',
+            request, self.response,
+            {'cd1': "0000-000-01"})
