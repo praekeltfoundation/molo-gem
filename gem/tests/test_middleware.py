@@ -106,20 +106,25 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             password='tester')
         self.client.login(username='tester', password='tester')
         self.user.profile.gender = 'f'
+
         self.user.profile.save()
 
-        request = RequestFactory().get('/', HTTP_HOST='localhost')
+        request = RequestFactory().get(
+            '/',
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01",
+        )
         request.site = self.main.get_site()
         request.user = self.user
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
             request, self.response, self.site_settings)
-
+        cd1 = middleware.get_visitor_id(request)
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request,
             self.response,
-            {'cd2': self.user.profile.uuid})
+            {'cd2': self.user.profile.uuid, 'cd1': cd1})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga__ignored_info(self, mock_submit_tracking):
