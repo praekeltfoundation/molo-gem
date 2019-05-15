@@ -36,32 +36,32 @@ LOG_HEADER_DUMP = environ.get(
 
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get(
-    'USE_OIDC_AUTHENTICATION', '') == 'true'
-OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
-OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
+    'USE_OIDC_AUTHENTICATION', 'true') == 'true'
+OIDC_RP_CLIENT_ID = "118274"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "2648264932dd8c5b171b54cf22f94e8d9cae30db5efc0eb59a0885bb"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
-    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/authorize/')
 # <URL of the OIDC OP token endpoint>
-OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/token/')
 # <URL of the OIDC OP userinfo endpoint>
-OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/userinfo/')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
-OIDC_OP = environ.get('OIDC_OP', '')
-THEME = environ.get('THEME', 'springster')
-LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
+OIDC_OP = environ.get('OIDC_OP', 'https://authentication-service.qa-hub.ie.gehosting.org')
+THEME = environ.get('THEME', 'chhaa-jaa')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'https://chajaa.redmatter.tech/')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
 REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
-LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', 'https://chajaa.redmatter.tech/')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
 OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
 OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
-OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
+OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "https://authentication-service.qa-hub.ie.gehosting.org/openid/end-session/")
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
@@ -75,10 +75,12 @@ ENV = 'dev'
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
+#ALLOWED_HOSTS =['ec2-54-81-163-177.compute-1.amazonaws.com:8000']
+
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
 # a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'https://chajaa.redmatter.tech/'
 
 # Application definition
 
@@ -179,47 +181,41 @@ if USE_OIDC_AUTHENTICATION:
 MIDDLEWARE_CLASSES += [
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
-
-
 # Template configuration
 
 # We have multiple layouts: use `base`, `malawi` , `springster` or `rwanda`
 # to switch between them.
-def get_default_template(site_layout_base, site_layout):
-    return {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [join(PROJECT_ROOT, 'templates', site_layout),
-                 join(PROJECT_ROOT, 'templates', site_layout_base), ],
-        'APP_DIRS': False,
-        'OPTIONS': {
-            'builtins': [
-                'django.templatetags.i18n',
-            ],
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'molo.core.context_processors.locale',
-                'wagtail.contrib.settings.context_processors.settings',
-                'gem.context_processors.detect_bbm',
-                'gem.context_processors.detect_kaios',
-                'gem.context_processors.detect_freebasics',
-                'gem.context_processors.compress_settings',
-            ],
-            "loaders": [
-                "django.template.loaders.filesystem.Loader",
-                "mote.loaders.app_directories.Loader",
-                "django.template.loaders.app_directories.Loader",
-            ]
-        },
-    }
-
-
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE','chhaajaa')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
-DEFAULT_TEMPLATE = get_default_template(SITE_LAYOUT_BASE, SITE_LAYOUT_2)
+DEFAULT_TEMPLATE = {
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [join(PROJECT_ROOT, 'templates', SITE_LAYOUT_2),
+             join(PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE), ],
+    'APP_DIRS': False,
+    'OPTIONS': {
+        'builtins': [
+            'django.templatetags.i18n',
+        ],
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'molo.core.context_processors.locale',
+            'wagtail.contrib.settings.context_processors.settings',
+            'gem.context_processors.detect_bbm',
+            'gem.context_processors.detect_kaios',
+            'gem.context_processors.detect_freebasics',
+            'gem.context_processors.compress_settings',
+        ],
+        "loaders": [
+            "django.template.loaders.filesystem.Loader",
+            "mote.loaders.app_directories.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ]
+    },
+}
 
 TEMPLATES = [
     DEFAULT_TEMPLATE,
@@ -326,7 +322,7 @@ EXTRA_LANG_INFO = {
         'bidi': False,
         'code': 'bn',
         'name': 'Bengali',
-        'name_local': 'বাংলা'
+        'name_local': '?????'
     },
     'my': {
         'bidi': False,
@@ -344,13 +340,13 @@ EXTRA_LANG_INFO = {
         'bidi': False,
         'code': 'prs',
         'name': 'Dari',
-        'name_local': u'دری',
+        'name_local': u'???',
     },
     'am': {
         'bidi': False,
         'code': 'am',
         'name': 'Amharic',
-        'name_local': u'አማርኛ',
+        'name_local': u'????',
     },
 }
 
@@ -528,7 +524,6 @@ if USE_OIDC_AUTHENTICATION:
     ] + AUTHENTICATION_BACKENDS
 
 AWS_HEADERS = {
-    # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
     'Cache-Control': 'max-age=94608000',
     'Content-Disposition':  'attachment',
@@ -592,3 +587,4 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
+
