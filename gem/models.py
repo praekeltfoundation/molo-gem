@@ -5,6 +5,8 @@ from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
 
 from wagtail.core.models import Site
+from molo.core.models import Page
+from wagtail.core.fields import RichTextField
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.admin.edit_handlers import (
@@ -13,6 +15,28 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+
+class VideosPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    videourl = models.CharField(max_length=250, null=True)
+
+    # I've commented out search fields, not sure what
+    # the index variable is meant to be?
+    # search_fields = Page.search_fields + [
+    #     index.SearchField('intro'),
+    #     index.SearchField('body'),
+    #     index.SearchField('videourl'),
+    #     ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        FieldPanel('intro'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('videourl'),
+    ] 
 
 
 class OIDCSettings(models.Model):
