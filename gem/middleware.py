@@ -91,6 +91,11 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                 and request.user.profile.uuid:
             custom_params.update({'cd2': request.user.profile.uuid})
 
+        if hasattr(request, 'user') and request.user.is_authenticated:
+            custom_params.update({'cd3': 'Registered'})
+        else:
+            custom_params.update({'cd3': 'Visitor'})
+
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
                 bbm_ga_code,
@@ -111,6 +116,11 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         custom_params = {}
         cd1 = self.get_visitor_id(request)
         custom_params.update({'cd1': cd1})
+        if hasattr(request, 'user') and request.user.is_authenticated:
+            custom_params.update({'cd3': 'Registered'})
+        else:
+            custom_params.update({'cd3': 'Visitor'})
+
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\
                     and request.user.profile.uuid:

@@ -55,7 +55,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
         mock_submit_tracking.assert_called_once_with(
             'bbm_tracking_code',
-            request, self.response, {'cd1': "0000-000-01"})
+            request, self.response, {"cd3": 'Visitor', 'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_bbm_analytics_if_cookie_set(self, mock_submit_tracking):
@@ -79,7 +79,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
         mock_submit_tracking.assert_called_once_with(
             'bbm_tracking_code',
-            request, self.response, {'cd1': "0000-000-01"})
+            request, self.response, {"cd3": 'Visitor', 'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account(self, mock_submit_tracking):
@@ -104,7 +104,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             'local_ga_tracking_code',
             request,
             self.response,
-            {'cd1': "0000-000-01"}
+            {"cd3": 'Visitor', 'cd1': "0000-000-01"}
         )
 
     @patch(submit_tracking_method)
@@ -141,7 +141,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             'local_ga_tracking_code',
             request,
             self.response,
-            {'cd2': self.user.profile.uuid, 'cd1': cd1})
+            {"cd3": 'Registered', 'cd2': self.user.profile.uuid, 'cd1': cd1})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga__ignored_info(self, mock_submit_tracking):
@@ -211,4 +211,4 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request, self.response,
-            {'cd1': "0000-000-01"})
+            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
