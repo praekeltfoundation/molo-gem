@@ -273,11 +273,22 @@ a {
   }
 }
 
+.Form > .Menu {
+  @media (min-width:64em) {
+    width: auto;
+    padding: 0;
+  }
+}
 .Menu {
   padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0 auto !important;
+  background: #fff;
+  @media (min-width:64em) {
+    width: 86%;
+    padding: 0 13.5% 1em;
+  }
 }
+
 .Menu-title {
   display: none;
 }
@@ -291,14 +302,14 @@ a {
   }
 }
 .Menu-item {
-  display: inline-block;
+  display: block;
   font-size: 1.125rem;
   margin: 10px 2.5em 0 0 !important;
   a {
     background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
     border-bottom: none !important;
     color: #fff !important;
-    display: block !important;
+    display: inline-block !important;
     font-weight: 700;
     font-size: 1rem;
     padding: 12px 45px 12px 30px;
@@ -316,32 +327,36 @@ a {
   }
 }
 
-.Back-to-top--link {
-  text-transform: uppercase;
-  font-size: .75rem;
-  border-bottom: 1px solid #fff;
+.Back-to-top {
+  padding: 3em 7.5% 1em;
+  text-align: left;
+  background: #000;
+  color: #fff;
+  margin: 4em 0 0;
+  &--link {
+    color: #fff !important;
+    text-transform: uppercase;
+    border-bottom: 0;
+    &:hover {
+      text-decoration: underline;
+      text-underline-position: below;
+    }
+  }
 }
 
 .Footer {
-  background: #000;
+  background: transparent !important;
   border: 0;
-  color: #fff;
-  font-size: .75rem;
-  text-align: left;
-  padding: 3em 5.5% 1em;
-  margin: 4em 0 0;
-  @media (min-width:64em) {
-    position: absolute;
-    width: 100%;
-  }
+  margin: 0 !important;
+  padding: 0 !important;
   a {
-    font-size: .75rem;
-    color: #fff;
-    border-bottom: 1px solid #fff;
+    font-size: 1rem;
+    color: #000;
+    border-bottom: 1px solid #000;
   }
   p {
-    color: #fff;
-    padding: 1em 0 0;
+    color: #000;
+    padding: 2em 10%;
     text-align: right;
   }
 }
