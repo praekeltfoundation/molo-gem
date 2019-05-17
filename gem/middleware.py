@@ -16,7 +16,7 @@ from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 
-from molo.core.models import SiteSettings, ArticlePage, SectionPage
+from molo.core.models import SiteSettings, ArticlePage
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 
 from gem.models import GemSettings
@@ -59,18 +59,20 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         """get the tags in an article if the request is for an article page"""
         tags = []
         path = request.get_full_path()
-        path_components = [component for component in path.split('/') if component]
-        if not request.site:
-            raise Http404
+        path_components = [component for component in path.split('/')
+                           if component]
+
         try:
-            page, args, kwargs = request.site.root_page.specific.route(request, path_components)
+            page, args, kwargs = request.site.root_page.specific.route(
+                request,
+                path_components)
             if issubclass(type(page), ArticlePage):
                 tags = page.tags_list()
                 print('|'.join(tags))
             return '|'.join(tags)
 
-        except:
-            return []
+        except Http404:
+            raise []
 
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.

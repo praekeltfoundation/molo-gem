@@ -6,7 +6,7 @@ from gem.models import GemSettings
 
 from mock import patch
 from django.contrib.auth.models import User
-from molo.core.models import(
+from molo.core.models import (
     SiteSettings, SectionIndexPage,
     SiteLanguageRelation, Languages)
 from gem.tests.base import GemTestCaseMixin
