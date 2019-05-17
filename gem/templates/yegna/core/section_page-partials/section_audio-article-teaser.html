@@ -1,6 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
     <div class="teaser-{{teaser_type}}__container">
       <div class="teaser-breadcrumb">
+
+        <!--NOTE: CODIE self.get_parent_section NEEDS TO CHANGE - CURRENTLY THROWING AN ERROR ON WATCH/LISTEN SECTIONS -->
         {% with parent=self.get_parent_section %}
           <ul class="teaser-breadcrumb-list">
             {% if parent != None %}
