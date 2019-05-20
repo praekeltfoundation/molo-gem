@@ -66,7 +66,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             page, args, kwargs = request.site.root_page.specific.route(
                 request,
                 path_components)
-            if issubclass(type(page), ArticlePage):
+            if issubclass(type(page.specific), ArticlePage):
                 tags = page.tags_list()
             return '|'.join(tags)
 
