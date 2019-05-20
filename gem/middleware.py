@@ -67,7 +67,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
-                tags = page.tags_list()
+                tags = page.specific.tags_list()
             return '|'.join(tags)
 
         except Http404:
