@@ -6,9 +6,7 @@ from gem.models import GemSettings
 
 from mock import patch
 from django.contrib.auth.models import User
-from molo.core.models import (
-    SiteSettings, SectionIndexPage,
-    SiteLanguageRelation, Languages)
+from molo.core.models import SiteSettings
 from gem.tests.base import GemTestCaseMixin
 
 
@@ -32,44 +30,6 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             bbm_ga_account_subdomain='bbm',
             bbm_ga_tracking_code='bbm_tracking_code',
         )
-        self.spanish = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.main.get_site()),
-            locale='es',
-            is_active=True)
-
-        self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(),
-            title='Your mind')
-
-        self.sp_yourmind = self.mk_section_translation(
-            self.yourmind, self.spanish, title='Your mind in spanish')
-
-        self.article = self.mk_article(
-            self.yourmind, title='article2',
-            subtitle='article 2 subtitle',
-            slug='article2')
-        self.article.tags.add("tag1")
-        self.article.save_revision().publish()
-        self.article.tags.add("tag2")
-        self.article.save_revision().publish()
-
-        # make a translated version of the articles
-        self.sp_article = self.mk_article_translation(
-            self.article, self.spanish,
-            title=self.article.title + ' in spanish',
-            subtitle=self.article.subtitle + ' in spanish',
-        )
-        self.sp_article.tags.add("sp_tag1")
-        self.sp_article.save_revision().publish()
-        self.sp_article.tags.add("sp_tag2")
-        self.sp_article.save_revision().publish()
-
-        # article with no tags
-        self.article2 = self.mk_article(
-            self.yourmind, title='article',
-            subtitle='article 1 subtitle',
-            slug='article')
-        self.article2.save_revision().publish()
 
         self.response = self.client.get('/')
 
@@ -252,79 +212,3 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             'local_ga_tracking_code',
             request, self.response,
             {"cd3": 'Visitor', 'cd1': "0000-000-01"})
-
-    @patch(submit_tracking_method)
-    def test_submit_to_local_ga_articlepage_with_tags(
-            self, mock_submit_tracking):
-        """requests for article with tags should
-        make a submit tracking with a cd6 value in the
-        custom params containing all the article tags"""
-
-        request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
-                self.yourmind.slug,
-                self.article.slug),
-            HTTP_HOST='localhost',
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-        request.site = self.main.get_site()
-
-        middleware = GemMoloGoogleAnalyticsMiddleware()
-        middleware.process_response(
-            request, self.response)
-        # a normal response should activate GA tracking
-        mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code',
-            request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01",
-             'cd6': '|'.join(self.article.tags_list())}
-        )
-
-    @patch(submit_tracking_method)
-    def test_submit_to_local_ga_articlepage_no_tags(
-            self, mock_submit_tracking):
-        '''request for articles with not tags
-        should not have a cd6 value in
-        the custom params'''
-
-        request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
-                self.yourmind.slug,
-                self.article2.slug),
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-
-        request.site = self.main.get_site()
-
-        middleware = GemMoloGoogleAnalyticsMiddleware()
-        middleware.process_response(
-            request, self.response)
-        # a normal response should activate GA tracking
-        mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code',
-            request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
-
-    @patch(submit_tracking_method)
-    def test_submit_to_local_ga_articlepage_translated_with_tags(
-            self, mock_submit_tracking):
-        '''test that the tags are shown in the language that the
-        user accessed the page in'''
-
-        request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
-                self.yourmind.slug,
-                self.sp_article.slug),
-            HTTP_HOST='localhost',
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-        request.site = self.main.get_site()
-
-        middleware = GemMoloGoogleAnalyticsMiddleware()
-        middleware.process_response(
-            request, self.response)
-        # a normal response should activate GA tracking
-        mock_submit_tracking.assert_called_once_with(
-            'local_ga_tracking_code',
-            request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01", 'cd6': "sp_tag1|sp_tag2"})
