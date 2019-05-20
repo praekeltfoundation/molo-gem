@@ -1,9 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
     <div class="teaser-{{teaser_type}}__container">
       <div class="teaser-breadcrumb">
-        {% with parent=self.get_parent_section %}
+
+        {% with parent=self.get_parent %}
           <ul class="teaser-breadcrumb-list">
-            {% if parent != None %}
+            {% if parent.exact_type == "SectionPage"  %}
               <li class="teaser-breadcrumb-list__item">
                 <span class="teaser-breadcrumb-list__anchor">{{parent}}</span>
               </li>

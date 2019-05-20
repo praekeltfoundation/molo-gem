@@ -3,11 +3,11 @@
 
 {% block content %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
-    {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
-    {% if ancestor %}
+    {% with ancestor=self.get_parent.get_parent parent=self.get_parent %}
+    {% if ancestor.exact_type == "SectionPage"  %}
       {% content_is ancestor "Watch" as is_watch_ancestor %}
       {% content_is ancestor "Listen" as is_listen_ancestor %}
-    {% elif parent %}
+    {% elif parent.exact_type == "SectionPage" %}
       {% content_is parent "Watch" as is_watch_parent %}
       {% content_is parent "Listen" as is_listen_parent %}
     {% else %}
@@ -326,7 +326,7 @@
                         Therefore meaning for option2 how & where are the rest of the subsection articles suffaced?
                   -->
                   {% load_descendant_articles_for_section self count=1 as articles %}
-                  {% if self.get_parent_section.enable_next_section == True and articles %}
+                  {% if self.get_parent.enable_next_section == True and articles %}
                     <div class="article-teaser article-teaser--related">
                       <div class="heading">
                         <h1 class="heading__title">{% trans "Listen next" %}</h1>
