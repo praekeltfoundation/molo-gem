@@ -72,7 +72,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             return '|'.join(tags)
 
         except Http404:
-            raise []
+            return []
 
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
