@@ -10,12 +10,13 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.http.response import Http404
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 
-from molo.core.models import SiteSettings
+from molo.core.models import SiteSettings, ArticlePage
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 
 from gem.models import GemSettings
@@ -54,6 +55,24 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     into the MoloGoogleAnalyticsMiddleware class and override
     submit_to_local_account
     '''
+    def get_article_tags(self, request):
+        """get the tags in an article if the request is for an article page"""
+        tags = []
+        path = request.get_full_path()
+        path_components = [component for component in path.split('/')
+                           if component]
+
+        try:
+            page, args, kwargs = request.site.root_page.specific.route(
+                request,
+                path_components)
+            if issubclass(type(page.specific), ArticlePage):
+                tags = page.specific.tags_list()
+            return '|'.join(tags)
+
+        except Http404:
+            return []
+
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
         If there is a visitor id in the cookie, use that, otherwise
@@ -96,6 +115,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
+        tags = self.get_article_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
+
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
                 bbm_ga_code,
@@ -114,6 +137,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
     def submit_to_global_account(self, request, response, site_settings):
         custom_params = {}
+        tags = self.get_article_tags(request)
+
         cd1 = self.get_visitor_id(request)
         custom_params.update({'cd1': cd1})
         if hasattr(request, 'user') and request.user.is_authenticated:
@@ -121,10 +146,15 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
+        if hasattr(request, 'user') and hasattr(request.user, 'profile')\
+                and request.user.profile.uuid:
+            custom_params.update({'cd2': request.user.profile.uuid})
+
+        tags = self.get_article_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
         if site_settings.global_ga_tracking_code:
-            if hasattr(request, 'user') and hasattr(request.user, 'profile')\
-                    and request.user.profile.uuid:
-                custom_params.update({'cd2': request.user.profile.uuid})
+
             return self.submit_tracking(
                 site_settings.global_ga_tracking_code,
                 request,
