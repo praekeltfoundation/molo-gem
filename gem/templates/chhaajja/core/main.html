@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles gem_tags %}
+{% block content %}
+  {% gembannerpages %}
+  {% bannerpages position=0 %}
+  {# <!-- OPEM landing-page DIV -->#}
+    {# <!-- OPEN landing-page__first-column DIV -->#}
+      {% hero_article %}
+      {% latest_listing_homepage num_count=1 %}
+      {% media_listing_homepage %}
+      {# <!-- FRAGMENTED DIVS PAGE -->#}
+      hello
+      {% section_listing_homepage %}
+{% endblock %}
