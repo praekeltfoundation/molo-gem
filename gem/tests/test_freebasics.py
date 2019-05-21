@@ -67,6 +67,28 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
 
         self.assertNotContains(response, 'Download Audio')
 
+    def test_not_hide_banner(self):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'templates', 'springster')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
+            banner = BannerPage(
+                title='test banner', hide_banner_on_freebasics=False)
+            self.banner_index.add_child(instance=banner)
+            banner.save_revision().publish()
+            client = Client(
+                HTTP_VIA='Internet.org',
+                HTTP_X_IORG_FBS='true',
+                HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
+                ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
+                ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
+                ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+                HTTP_HOST=self.main.get_site().hostname)
+            response = client.get('/')
+            self.assertContains(response, 'test banner')
+
     def test_hide_on_freebasics_banner(self):
         template_settings = deepcopy(settings.TEMPLATES)
         template_settings[0]['DIRS'] = [
@@ -78,7 +100,6 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
                 title='test banner', hide_banner_on_freebasics=True)
             self.banner_index.add_child(instance=banner)
             banner.save_revision().publish()
-            print(dir(banner))
             client = Client(
                 HTTP_VIA='Internet.org',
                 HTTP_X_IORG_FBS='true',
@@ -89,7 +110,3 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
                 HTTP_HOST=self.main.get_site().hostname)
             response = client.get('/')
             self.assertNotContains(response, 'test banner')
-            banner.hide_banner_on_freebasics = True
-            banner.save_revision().publish()
-            response = client.get('/')
-            self.assertContains(response, 'test banner')
