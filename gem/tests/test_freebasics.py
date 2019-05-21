@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (
-    SectionIndexPage, MoloMedia, BannerPage)
+    SectionIndexPage, MoloMedia, BannerPage, BannerIndexPage)
 from os.path import join
 from six import b
 
@@ -15,7 +15,7 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-
+        self.banner_index = BannerIndexPage.objects.last()
         self.yourmind = self.mk_section(
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your mind')
@@ -78,6 +78,7 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
                 title='test banner', hide_banner_on_freebasics=True)
             self.banner_index.add_child(instance=banner)
             banner.save_revision().publish()
+            print(dir(banner))
             client = Client(
                 HTTP_VIA='Internet.org',
                 HTTP_X_IORG_FBS='true',
