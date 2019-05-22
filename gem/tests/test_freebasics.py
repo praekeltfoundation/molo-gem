@@ -1,10 +1,13 @@
 import json
-from six import b
+from copy import deepcopy
 from django.test import TestCase, Client
-
-from gem.tests.base import GemTestCaseMixin
-from molo.core.models import SectionIndexPage, MoloMedia
+from django.conf import settings
 from django.core.files.base import ContentFile
+from gem.tests.base import GemTestCaseMixin
+from molo.core.models import (
+    SectionIndexPage, MoloMedia, BannerPage, BannerIndexPage)
+from os.path import join
+from six import b
 
 
 class FreebasicsContentTest(TestCase, GemTestCaseMixin):
@@ -12,7 +15,7 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-
+        self.banner_index = BannerIndexPage.objects.last()
         self.yourmind = self.mk_section(
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your mind')
@@ -63,3 +66,47 @@ class FreebasicsContentTest(TestCase, GemTestCaseMixin):
         response = client.get(self.article.url)
 
         self.assertNotContains(response, 'Download Audio')
+
+    def test_not_hide_banner(self):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'templates', 'springster')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
+            banner = BannerPage(
+                title='test banner', hide_banner_on_freebasics=False)
+            self.banner_index.add_child(instance=banner)
+            banner.save_revision().publish()
+            client = Client(
+                HTTP_VIA='Internet.org',
+                HTTP_X_IORG_FBS='true',
+                HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
+                ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
+                ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
+                ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+                HTTP_HOST=self.main.get_site().hostname)
+            response = client.get('/')
+            self.assertContains(response, 'test banner')
+
+    def test_hide_on_freebasics_banner(self):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'templates', 'springster')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
+            banner = BannerPage(
+                title='test banner', hide_banner_on_freebasics=True)
+            self.banner_index.add_child(instance=banner)
+            banner.save_revision().publish()
+            client = Client(
+                HTTP_VIA='Internet.org',
+                HTTP_X_IORG_FBS='true',
+                HTTP_USER_AGENT='Mozilla/5.0 (Linux; Android 5.1;'
+                ' VFD 100 Build/LMY47I; wv) AppleWebKit/537.36'
+                ' (KHTML, like Gecko) Version/4.0 Chrome/50.0.2661.86'
+                ' Mobile Safari/537[FBAN/InternetOrgApp; FBAV/7.0;]',
+                HTTP_HOST=self.main.get_site().hostname)
+            response = client.get('/')
+            self.assertNotContains(response, 'test banner')
