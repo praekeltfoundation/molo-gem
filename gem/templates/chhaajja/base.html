@@ -132,25 +132,22 @@
     <div class="container fullwidth" style="margin-top:100px ">
 
         {% block content %}{% endblock %}
+        
+
     </div>
 
-    {% block footer %}
+    {% load_sections as sections %}
+                {% for section in sections %}
+                  <li class="{{section.get_effective_extra_style_hints}} footer-menu-list__sub-menu">
+                    <a href="{% pageurl section.specific %}" class="footer-menu-list__sub-anchor">
+                        {{section.title}}
+                    </a>
+                  </li>
+                {% endfor %}
 
-    <footer class="footer_area">
-        <div class="container">
-            <div class="pull-left pull-left-f">
-                <img src="{{ STATIC_URL }}images/logo.png" alt="chhaajja-logo" width="150">
-            </div>
-            <div class="pull-right pull-right-f">
-                <ul>
-                    <li><a href="#">PRIVACY POLICY</a></li>
-                    <li><a href="#">TERMS &amp; CONDITIONS</a></li>
-                    <li><a href="#">CALL HELPLINE NUMBER</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    {% endblock %}
+    
+     {% footer_page %}
+    
 
 
     <script>
@@ -169,6 +166,13 @@
                     
 
             } 
+
+            var someForm = $('#SomeForm');
+
+                $.each(someForm[0].elements, function(index, elem){
+                    //Do something here.
+                    console.log(elem);
+                });
 
 
             

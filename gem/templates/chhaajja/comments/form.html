@@ -1,4 +1,5 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags molo_commenting_tags %}
+
 <form method="post" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list">
     {% csrf_token %}
     <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
@@ -9,7 +10,7 @@
         {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
     </div>
     <div class="form-group">
-        <textarea class="form-control" name="text" rows="8" placeholder="Share your soch"></textarea>
+        <textarea class="form-control" name="comment" rows="8" placeholder="Share your soch"></textarea>
     </div>
     <div class="form-group">
         <input type="submit" name="submit" id="submit" value="Submit">
