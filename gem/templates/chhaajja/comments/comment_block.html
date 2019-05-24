@@ -1,0 +1,16 @@
+{% load comments mptt_tags molo_commenting_tags %}
+{% if article.is_commenting_enabled %}
+<div class="block comment__form">
+  {% if article.allow_commenting %}
+    <div class="comment__form-post">
+    {% if request.user.is_authenticated %}
+      {% render_comment_form for article %}
+    {% else %}
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button inverted">{% trans "Log in to comment" %}</a>
+    {% endif %}
+  {% else %}
+    <p>{% trans "Commenting on this article is currently disabled" %}</p>
+  {% endif %}
+	</div>
+</div>
+{% endif %}

@@ -36,7 +36,7 @@ LOG_HEADER_DUMP = environ.get(
 
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get(
-    'USE_OIDC_AUTHENTICATION', 'true') == 'true'
+    'USE_OIDC_AUTHENTICATION', 'false') == 'true'
 OIDC_RP_CLIENT_ID = "118274"  # Some constructors require that this be set.
 OIDC_RP_CLIENT_SECRET = "2648264932dd8c5b171b54cf22f94e8d9cae30db5efc0eb59a0885bb"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
