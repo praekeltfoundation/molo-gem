@@ -1,0 +1,83 @@
+{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags gem_tags %}
+{% get_settings %}
+{% if articles %}
+<div class="article-teaser article-teaser--watch">
+  <div class="article-teaser__wrapper">
+    <ul class="teaser-stacklist teaser-stacklist--watch">
+      {% for article in articles|slice:":1" %}
+          <li class="teaser-stacklist__item">
+            <!-- ARTICLE MEDIA -->
+            {% for block in article.body %}
+                <div class="teaser-stacklist__images">
+                  {% if block.value.youtube_link %}
+                  {{block.value.youtube_link}}
+                  <iframe width="420" height="315" src="{{block.value.youtube_link}}" ></iframe>
+                  {% endif %}
+                </div>
+            {% endfor %}
+            <!-- END ARTICLE MEDIA -->
+
+            <!-- START COMMENT -->
+            {% include "comments/comment_block.html" with article=article%}
+            <!-- END COMMENT -->
+
+            <!-- REACTION QUESTION START -->
+            {% load_reaction_question article as question %}
+            {% if question %}
+            <div class="reaction-questions__block">
+                {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
+                  {% if user_can_vote %}
+                    <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+                      {% csrf_token %}
+                      <div class="reaction-questions__list">
+                        {% load_choices_for_reaction_question question as choices %}
+                            {% for choice in choices %}
+                              <div class="reaction-questions__item">
+                                  <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                                  <label for="choice{{ forloop.counter }}">
+                                    <div class="reaction-questions__image">
+                                      {% image choice.specific.image width-50 %}
+                                    </div>
+                                    <div class="reaction-questions__label">
+                                      {{ choice.title|capfirst }}
+                                    </div>
+                                  </label>
+                              </div>
+                          {% endfor %}
+                      </div>
+                    </form>
+
+                  {% else %}
+                  <div class="errors">
+                    {{ form.errors }}
+                    {% trans "You have already submitted a response for this article." %}
+                  </div>
+                  {% endif %}
+              </div>
+            {% endif %}
+            <!-- REACTION QUESTION END -->
+
+            <div class="teaser-stacklist__container{% if article.get_parent_section.get_effective_extra_style_hints %} teaser-stacklist__container--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+                <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
+                  {% if article.title_highlight %}{{ article.title_highlight|smarttruncatechars:100|safe}}{% else %}{{ article.title|smarttruncatechars:100|safe}}{% endif %}
+                </h1>
+              {% if article.subtitle_highlight or article.body_highlight %}
+                <p class="teaser-stacklist__subtitle">
+                  {% if article.subtitle_highlight %}
+                    {{article.subtitle_highlight|smarttruncatechars:150|safe}}
+                  {% elif article.body_highlight %}
+                    {{article.body_highlight|smarttruncatechars:150|safe}}
+                  {% endif %}
+                </p>
+              {% elif article.subtitle %}
+                <p class="teaser-stacklist__subtitle">
+                  {{ article.subtitle|smarttruncatechars:150|safe}}
+                </p>
+              {% endif %}
+            </div>
+          </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

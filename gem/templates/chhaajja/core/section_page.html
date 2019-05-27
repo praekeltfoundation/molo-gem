@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags %}
+
+{% block content %}
+        test_section
+
+        {% content_is self "ARRESUNNA" as is_arresunna%}
+        {% content_is self "videoarticle" as is_videospage %}
+
+        {% if is_arresunna %}
+            ARRESUNNA
+        {% endif %}
+
+        {% if is_videospage %}
+            {% load_child_articles_for_section self as articles %}
+            videospage
+            {% for article in articles %} {{article.title}} {% endfor %}
+        {% endif %}
+
+{% endblock %}
+
+{% comment %} {% load_reaction_question_submission_count choice article question as count%}
+{{count}} {% endcomment %}
