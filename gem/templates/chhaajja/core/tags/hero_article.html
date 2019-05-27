@@ -4,16 +4,14 @@
 <div class="article-teaser">
   <div class="article-teaser__wrapper">
     <ul class="teaser-stacklist">
-      {% for article in articles|slice:":1" %}
+      {% for article in articles %}
         <li class="teaser-stacklist__item">
           <h2 class="article-teaser__title">{{article.title}}</h2>
           <!-- ARTICLE MEDIA -->
-          <div class="teaser-stacklist__images">
+          <div class="teaser-stacklist__iframe">
             {% for block in article.body %}
               {% if block.value.youtube_link %}
-                {% with block.value as media %}
-                  {% if not is_via_freebasics %}{% embed media.youtube_link %}{% endif %}
-                {% endwith %}
+                {% embed block.value.youtube_link %}
               {% endif %}
             {% endfor %}
           </div>

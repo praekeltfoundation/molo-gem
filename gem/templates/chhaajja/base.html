@@ -44,7 +44,6 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css" media="all">
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
-
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
     <script>(function (w, d, s, l, i) {
@@ -135,25 +134,6 @@
       {% footer_page %}
     </div>
   </footer>
-
-  <script>
-    $(document).ready(function () {
-      var x = $('.iframe-parent').width();
-      $("iframe").width(x);
-      $("iframe").height(x / 2);
-      $("#logout-btn").click(function () {
-          $("#logout-form").submit();
-      })
-      var largeText = '';
-      if($('.smalltext').length != 0){
-        largeText = $('.smalltext').html();
-      }
-      var someForm = $('#SomeForm');
-      $.each(someForm[0].elements, function(index, elem){
-          console.log(elem);
-      });
-    });
-  </script>
 
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
     <script>
