@@ -36,32 +36,32 @@ LOG_HEADER_DUMP = environ.get(
 
 # Authentication Service Tokens
 USE_OIDC_AUTHENTICATION = environ.get(
-    'USE_OIDC_AUTHENTICATION', 'false') == 'true'
-OIDC_RP_CLIENT_ID = "118274"  # Some constructors require that this be set.
-OIDC_RP_CLIENT_SECRET = "2648264932dd8c5b171b54cf22f94e8d9cae30db5efc0eb59a0885bb"  # some constructors require that this be set.
+    'USE_OIDC_AUTHENTICATION', '') == 'true'
+OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
+OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
 # <URL of the OIDC OP authorization endpoint>
 OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
-    'OIDC_OP_AUTHORIZATION_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/authorize/')
+    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
 # <URL of the OIDC OP token endpoint>
-OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/token/')
+OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
 # <URL of the OIDC OP userinfo endpoint>
-OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', 'https://authentication-service.qa-hub.ie.gehosting.org/openid/userinfo/')
+OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
 OIDC_RP_SCOPES = 'openid profile email address phone site roles'
 OIDC_STORE_ID_TOKEN = True
-OIDC_OP = environ.get('OIDC_OP', 'https://authentication-service.qa-hub.ie.gehosting.org')
-THEME = environ.get('THEME', 'chhaa-jaa')
-LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'https://chajaa.redmatter.tech/')
+OIDC_OP = environ.get('OIDC_OP', '')
+THEME = environ.get('THEME', 'springster')
+LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
 LOGIN_URL = 'molo.profiles:auth_login'
 LOGOUT_URL = 'molo.profiles:auth_logout'
 REGISTRATION_URL = reverse_lazy('molo.profiles:user_register')
 VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
-LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', 'https://chajaa.redmatter.tech/')
+LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
 OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
 OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
 OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
-OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "https://authentication-service.qa-hub.ie.gehosting.org/openid/end-session/")
+OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
 
 if USE_OIDC_AUTHENTICATION:
     LOGIN_URL = 'oidc_authentication_init'
@@ -78,7 +78,7 @@ ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
 # a trailing slash
-BASE_URL = 'https://chajaa.redmatter.tech'
+BASE_URL = 'http://example.com'
 
 # Application definition
 
@@ -216,10 +216,7 @@ def get_default_template(site_layout_base, site_layout):
     }
 
 
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'chhaajja')
-#SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'yegna')
-#SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
-
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = get_default_template(SITE_LAYOUT_BASE, SITE_LAYOUT_2)
