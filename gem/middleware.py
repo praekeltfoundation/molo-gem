@@ -8,15 +8,18 @@ from django.utils.http import urlencode
 
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
+from django.http.response import Http404
+from django.core.cache import cache
+
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from molo.core.models import SiteSettings, ArticlePage, Tag
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
-
-from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
+
 
 from gem.models import GemSettings
 
@@ -54,6 +57,55 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     into the MoloGoogleAnalyticsMiddleware class and override
     submit_to_local_account
     '''
+    def load_tags_for_article(self, request, article):
+        if not article.specific.__class__ == ArticlePage:
+            return []
+
+        locale = 'en'
+
+        cache_key = "load_tags_for_article_{}_{}_{}_{}".format(
+            locale, request.site.pk, article.pk,
+            article.latest_revision_created_at.isoformat())
+        tags_pks = cache.get(cache_key)
+
+        if not tags_pks:
+            tags = [
+                article_tag.tag.pk for article_tag in
+                article.specific.get_main_language_page().nav_tags.all()
+                if article_tag.tag]
+            if tags and request.site:
+                qs = Tag.objects.descendant_of(
+                    request.site.root_page).live().filter(pk__in=tags)
+                tags_pks = qs.values_list("pk", flat=True)
+                cache.set(cache_key, tags_pks, 300)
+            else:
+                return ""
+        qs = Tag.objects.descendant_of(
+            request.site.root_page).live().filter(pk__in=tags_pks)
+        tags_str = ""
+        for q in qs:
+            tags_str += "|" + q.title
+
+        return tags_str[1:]
+
+    def load_article_nav_tags(self, request):
+        """get the tags in an article if the request is for an article page"""
+        path = request.get_full_path()
+        path_components = [component for component in path.split('/')
+                           if component]
+
+        try:
+            page, args, kwargs = request.site.root_page.specific.route(
+                request,
+                path_components)
+            if issubclass(type(page.specific), ArticlePage):
+                return self.load_tags_for_article(request, page)
+
+        except Http404:
+            return ""
+
+        return ""
+
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
         If there is a visitor id in the cookie, use that, otherwise
@@ -96,6 +148,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
+        tags = self.load_article_nav_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
+
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
                 bbm_ga_code,
@@ -120,6 +176,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             custom_params.update({'cd3': 'Registered'})
         else:
             custom_params.update({'cd3': 'Visitor'})
+
+        tags = self.load_article_nav_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
 
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\
