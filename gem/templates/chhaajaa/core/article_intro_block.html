@@ -1,9 +1,7 @@
 {% load wagtailsettings_tags wagtailcore_tags wagtailimages_tags core_tags %}
 {% get_settings %}
-<script>
-  // window.location.href = "/sections/section-1/pyaar-kiya-toh-darna-kya/";
-</script>
-<div class="article-preview">
+
+<div class="article-teaser">
   <a href="{% pageurl article.specific %}" class="image">
     {% if article.image %}
       {% if square_image %}
@@ -20,6 +18,7 @@
       {% endif %}
     {% endif %}
   </a>
+  
   <div class="text">
     <div class="section-title{% if not article.image %} section-title--noimage{% endif %}">
       {% get_translation article.get_parent_section as section %}
@@ -47,169 +46,160 @@
   </div>
 </div>
 
- <div class="row">
-            <div class="col-md-8">
 
-                <div class="row iframe-parent">
+<div class="row iframe-parent">
+{% comment %}
+{% for block in article %}
 
-                    <!--<img src="images/main-img.jpg" class="img-responsive" alt="">-->
+{% if block.value.youtube_link %}
 
-                    {% comment %} {% for block in article %} 
+<iframe src="{{block.value.youtube_link}}" frameborder="0"
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen="" class="img-responsive iframev" style="width:100%;"></iframe>
+{% endif %}
+{% endfor %}
+<div class="twoheaders">
+<div class="col-md-6">
+{% for block in self.body %}
 
-                    {% if block.value.youtube_link %}
+{% if block.block_type == 'heading' %}
 
-                    <iframe src="{{block.value.youtube_link}}" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen="" class="img-responsive iframev" style="width:100%;"></iframe>
-                    {% endif %}
-                    {% endfor %}
-                    <div class="twoheaders">
-                        <div class="col-md-6">
-                            {% for block in self.body %}
+<h4 class="headingh4">{{ block.value }}</h4>
 
-                            {% if block.block_type == 'heading' %}
+{% endif %}
 
-                            <h4 class="headingh4">{{ block.value }}</h4>
+{% if block.block_type == 'paragraph' %}
 
-                            {% endif %}
+<p class="smalltext">{{ block.value }}</p>
 
-                            {% if block.block_type == 'paragraph' %}
+{% endif %}
 
-                            <p class="smalltext">{{ block.value }}</p>
-
-                            {% endif %}
-
-                            {% endfor %}
+{% endfor %}
 
 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="column col1"><a href="#"><img src="{{ STATIC_URL }}images/like.png" class=""
-                                        alt="">
-                                    <p class="socialicons like">Like</p>
-                                </a></div>
-                            <div class="column"><a href="#"><img src="{{ STATIC_URL }}images/Dislike.png" class=""
-                                        alt="">
-                                    <p class="socialicons Dislike">Dislike</p>
-                                </a></div>
-                            <div class="column">
-                                <a href="javascript:void(0)" id="go-to-poll">
-                                    <img src="{{ STATIC_URL }}images/poll.png" class="" alt="">
-                                    <p class="socialicons Share">Poll</p>
-                                </a>
-                                </div>
-                            <div class="column"><a href="#"><img src="{{ STATIC_URL }}images/Comment.png" class=""
-                                        alt="">
-                                    <p class="socialicons Comment">Comment</p>
-                                </a></div>
-                        </div>
-                    </div>
-                    <div class="clear-all"></div>
+</div>
+<div class="col-md-6">
+<div class="column col1"><a href="#"><img src="{{ STATIC_URL }}images/like.png" class=""
+alt="">
+<p class="socialicons like">Like</p>
+</a></div>
+<div class="column"><a href="#"><img src="{{ STATIC_URL }}images/Dislike.png" class=""
+alt="">
+<p class="socialicons Dislike">Dislike</p>
+</a></div>
+<div class="column">
+<a href="javascript:void(0)" id="go-to-poll">
+<img src="{{ STATIC_URL }}images/poll.png" class="" alt="">
+<p class="socialicons Share">Poll</p>
+</a>
+</div>
+<div class="column"><a href="#"><img src="{{ STATIC_URL }}images/Comment.png" class=""
+alt="">
+<p class="socialicons Comment">Comment</p>
+</a></div>
+</div>
+</div>
+<div class="clear-all"></div>
 
-                    <br>
-                 
-
- 
-                    {% endcomment %}
-
-
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                <div class="blog_right_sidebar">
-
-                    <aside class="right_widget category_widget">
-                        <div class="sidebar_title">
-                            <h3> <img src="{{ STATIC_URL }}images/Sym1.png" class="" alt=""> Arre dekho, naye episodes!
-                            </h3>
-                        </div>
-
-
-                        <div class="anyClass">
-                            {% comment %} {% get_recommended_articles self as recommended_articles %}
-                            {% if recommended_articles %} 
-                            {% for art in article.recommended_articles %}
-                            <div class="row " style="margin-bottom: 5px">
-                            <div class="col-md-5  col-xs-5 col-sm-5">
-                                <div class="blog_list_img">
-
-                                    {% if art.image %}
-                                    <a href="{% pageurl article.specific %}">
-                                            {% image art.image width-1080 format-jpeg as teaser_thumbnail %}
-                                            <img alt=" {{ art.title }}" src="{{ teaser_thumbnail.url }}" class="img-responsive" />
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-7  col-xs-7 col-sm-7">
-                                <div class="blog_list_content">
-                                    <a href="{% pageurl art.specific %}">
-                                        <h5 class="righth5">{{ art.title }}</h5>
-a                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                            <div class="clear-all"></div>
-
-                            {% endfor %}
-                            {% endif %} {% endcomment %}
-                        </div>
-                    </aside>
+<br>
 
 
 
-                    <div style="clear:both;"></div>
-                    <aside class="right_widget recent_widget commentsection1">
-                        <div class="sidebar_title2">
-                            <h3><img src="{{ STATIC_URL }}images/Sym3.png" class="" alt=""> Comment</h3>
-                        </div>
-                        <div class="recent_widget_inner">
-                          
-                          {% comment %} {% include "comments/form.html" %} {% endcomment %}
+{% endcomment %}
 
-                        </div>
-                          
-                          {% comment %} {% load_reaction_question self as question %}
-                            {% if question %}
-                            <div class="reaction-questions__block">
-                                <div class="heading heading__subheading">
-                                <h3>{{question.title}}</h3>
-                                </div>
-                                {% load_user_can_vote_on_reaction_question question self.pk as user_can_vote%}
-                                    {% if user_can_vote %}
-                                    <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" method="post" novalidate>
-                                        {% csrf_token %}
-                                        <div class="reaction-questions__list">
-                                        {% load_choices_for_reaction_question question as choices %}
-                                            {% for choice in choices %}
-                                                <div class="reaction-questions__item">
-                                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
-                                                    <label for="choice{{ forloop.counter }}">
-                                                    <div class="reaction-questions__image">
-                                                        {% image choice.specific.image width-50 %}
-                                                    </div>
-                                                    <div class="reaction-questions__label">
-                                                        {{ choice.title|capfirst }}
-                                                    </div>
-                                                    </label>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                    </form>
 
-                                    {% else %}
-                                    <div class="errors">
-                                    {{ form.errors }}
-                                    {% trans "You have already submitted a response for this article." %}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            {% endif %} {% endcomment %}
+</div>
 
-                    </aside>
+</div>
+<div class="col-md-4">
+<div class="blog_right_sidebar">
 
-                </div>
-            </div>
-        </div>
-    
+<aside class="right_widget category_widget">
+<div class="sidebar_title">
+<h3> <img src="{{ STATIC_URL }}images/Sym1.png" class="" alt=""> Arre dekho, naye episodes!
+</h3>
+</div>
+
+
+<div class="anyClass">
+{% comment %} {% get_recommended_articles self as recommended_articles %}
+{% if recommended_articles %}
+{% for art in article.recommended_articles %}
+<div class="row " style="margin-bottom: 5px">
+<div class="col-md-5  col-xs-5 col-sm-5">
+<div class="blog_list_img">
+
+{% if art.image %}
+<a href="{% pageurl article.specific %}">
+{% image art.image width-1080 format-jpeg as teaser_thumbnail %}
+<img alt=" {{ art.title }}" src="{{ teaser_thumbnail.url }}" class="img-responsive" />
+</a>
+{% endif %}
+</div>
+</div>
+<div class="col-md-7  col-xs-7 col-sm-7">
+<div class="blog_list_content">
+<a href="{% pageurl art.specific %}"><h5 class="righth5">{{ art.title }}</h5></a>
+</div>
+</div>
+</div>
+
+{% endfor %}
+{% endif %} {% endcomment %}
+</div>
+</aside>
+
+
+
+
+<aside class="right_widget recent_widget commentsection1">
+<div class="sidebar_title2">
+<h3><img src="{{ STATIC_URL }}images/Sym3.png" class="" alt=""> Comment</h3>
+</div>
+<div class="recent_widget_inner">
+
+{% include "comments/form.html" %}
+
+</div>
+
+{% comment %} {% load_reaction_question self as question %}
+{% if question %}
+<div class="reaction-questions__block">
+<div class="heading heading__subheading">
+<h3>{{question.title}}</h3>
+</div>
+{% load_user_can_vote_on_reaction_question question self.pk as user_can_vote%}
+{% if user_can_vote %}
+<form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" method="post" novalidate>
+{% csrf_token %}
+<div class="reaction-questions__list">
+{% load_choices_for_reaction_question question as choices %}
+{% for choice in choices %}
+<div class="reaction-questions__item">
+<input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+<label for="choice{{ forloop.counter }}">
+<div class="reaction-questions__image">
+{% image choice.specific.image width-50 %}
+</div>
+<div class="reaction-questions__label">
+{{ choice.title|capfirst }}
+</div>
+</label>
+</div>
+{% endfor %}
+</div>
+</form>
+
+{% else %}
+<div class="errors">
+{{ form.errors }}
+{% trans "You have already submitted a response for this article." %}
+</div>
+{% endif %}
+</div>
+{% endif %}
+{% endcomment %}
+
+</aside>
+
+</div>

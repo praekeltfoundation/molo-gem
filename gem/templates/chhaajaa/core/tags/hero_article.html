@@ -18,17 +18,17 @@
               {{ article.title|smarttruncatechars:100|safe}}
             </h1>
             <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
-            {% with article.body|first as block %}
+            {% for block in article.body %}
               {% if block.block_type == 'paragraph' %}
                 <p class="teaser-stacklist__exerpt">
                   {{block.value|smarttruncatechars:550|safe}}
                 </p>
               {% endif %}
-            {% endwith %}
+            {% endfor %}
 
             {% load_reaction_question article as question %}
             {% if question %}
-              <div class="teaser-stacklist__reaction-questions reaction-questions__block">
+              <div class="reaction-questions">
                   {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
                     {% if user_can_vote %}
                       <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
