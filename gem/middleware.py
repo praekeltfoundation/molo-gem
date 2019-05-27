@@ -9,11 +9,10 @@ from django.utils.http import urlencode
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http.response import Http404
-from django.core.cache import cache
 
 from django.urls import reverse
 from django.utils.crypto import get_random_string
-from molo.core.models import SiteSettings, ArticlePage, Tag
+from molo.core.models import SiteSettings, ArticlePage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
 from mozilla_django_oidc.middleware import SessionRefresh
