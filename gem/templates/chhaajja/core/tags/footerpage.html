@@ -1,19 +1,11 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments %}
 
 {% if footers %}
-
-  <footer class="footer_area">
-        <div class="container">
-            <div class="pull-left pull-left-f">
-                <img src="/static/images/logo.png" alt="chhaajja-logo" width="150">
-            </div>
-            <div class="pull-right pull-right-f">
-                <ul>
-                    {% for page in footers %}
-                        <li><a href="{% pageurl page.specific %}">{{page.title}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </footer>
+  <div class="pull-right pull-right-f">
+    <ul>
+      {% for page in footers %}
+        <li><a href="{% pageurl page.specific %}">{{page.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endif %}
