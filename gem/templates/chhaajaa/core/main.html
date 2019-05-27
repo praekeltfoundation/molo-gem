@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load cache wagtailcore_tags core_tags molo_survey_tags %}
+{% block content %}
+
+  <div class="content--left">
+    {% hero_article %}
+    {% surveys_list only_direct_surveys=True %}
+  </div>
+
+  <div class="content--right">
+    {% latest_listing_homepage %}
+  </div>
+{% endblock %}

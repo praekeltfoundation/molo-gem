@@ -30,6 +30,7 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-rwanda/browsers/nn-safari.scss',
 
         'gem/styles/gem-yegna/yegna.scss',
+        'gem/styles/gem-chhaajaa/chhaajaa.scss',
 
         'gem/styles/maintenance.scss',
 

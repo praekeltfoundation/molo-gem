@@ -1,0 +1,69 @@
+{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags gem_tags %}
+{% get_settings %}
+{% if articles %}
+<div class="article-teaser">
+  <div class="article-teaser__wrapper">
+    <ul class="teaser-stacklist">
+      {% for article in articles %}
+        <li class="teaser-stacklist__item">
+          <div class="teaser-stacklist__iframe">
+            {% for block in article.body %}
+              {% if block.value.youtube_link %}
+                {% embed block.value.youtube_link %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="teaser-stacklist__container">
+            <h1 class="teaser-stacklist__title">
+              {{ article.title|smarttruncatechars:100|safe}}
+            </h1>
+            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+            {% for block in article.body %}
+              {% if block.block_type == 'paragraph' %}
+                <p class="teaser-stacklist__exerpt">
+                  {{block.value|smarttruncatechars:550|safe}}
+                </p>
+              {% endif %}
+            {% endfor %}
+
+            {% load_reaction_question article as question %}
+            {% if question %}
+              <div class="reaction-questions">
+                  {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
+                    {% if user_can_vote %}
+                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="reaction-questions__list">
+                          {% load_choices_for_reaction_question question as choices %}
+                              {% for choice in choices %}
+                                <div class="reaction-questions__item">
+                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                                    <label for="choice{{ forloop.counter }}">
+                                      <div class="reaction-questions__image">
+                                        {% image choice.specific.image width-50 %}
+                                      </div>
+                                      <div class="reaction-questions__label">
+                                        {{ choice.title|capfirst }}
+                                      </div>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                      </form>
+
+                    {% else %}
+                    <div class="errors">
+                      {{ form.errors }}
+                      {% trans "You have already submitted a response for this article." %}
+                    </div>
+                    {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

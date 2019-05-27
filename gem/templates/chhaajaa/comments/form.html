@@ -1,0 +1,19 @@
+{% with article as article %}
+  <form method="post" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list">
+  {% csrf_token %}
+    <div class="form-group{% if form.comment.errors %} input-error {% endif %}">
+    {% if form.errors %}
+      <p class="errors">{% trans "Please correct the error below" %}</p>
+    {% endif %}
+      {{ form.comment }}
+      {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+    </div>
+    <input type="submit" name="submit" id="submit" value="Submit">
+
+  {{ form.object_pk }}
+  {{ form.content_type }}
+  {{ form.timestamp }}
+  {{ form.security_hash }}
+  <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
+  </form>
+{% endwith %}

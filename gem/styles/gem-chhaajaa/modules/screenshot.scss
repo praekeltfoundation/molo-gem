@@ -1,0 +1,54 @@
+.screenshot_area {
+  background: #f1f1f1;
+  padding: 100px 0px;
+}
+
+.screenshot_inner {
+  position: relative;
+  z-index: 2;
+}
+
+.screenshot_inner:before {
+  content: "";
+  position: absolute;
+  left: 49.75%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 0px;
+  z-index: 999;
+  // background: url(../img/screenshot/screenshot-shap.png) no-repeat scroll center center;
+  width: 334px;
+  height: 684px;
+  z-index: 2;
+}
+
+.screenshot_inner .screenshot_slider {
+  height: 684px;
+  position: relative;
+  top: 83px;
+}
+
+.screenshot_inner .screenshot_slider .item {
+  text-align: center;
+}
+
+.screenshot_inner .screenshot_slider .item img {
+  width: 300px;
+  margin: auto;
+  height: 478px;
+}
+
+@media (max-width: 600px){
+    .screenshot_inner {
+        max-width: 335px;
+        margin: auto;
+        overflow: hidden;
+    }
+    .screenshot_inner .screenshot_slider {
+        z-index: 10;
+    }
+    .screenshot_inner .screenshot_slider .item img {
+        width: 290px;
+    }
+}
