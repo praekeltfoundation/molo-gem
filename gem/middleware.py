@@ -14,6 +14,7 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from molo.core.models import SiteSettings, ArticlePage, Tag
+from molo.core.templatetags.core_tags import load_tags_for_article
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
@@ -57,36 +58,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     into the MoloGoogleAnalyticsMiddleware class and override
     submit_to_local_account
     '''
-    def load_tags_for_article(self, request, article):
-        if not article.specific.__class__ == ArticlePage:
-            return []
-
-        locale = 'en'
-
-        cache_key = "load_tags_for_article_{}_{}_{}_{}".format(
-            locale, request.site.pk, article.pk,
-            article.latest_revision_created_at.isoformat())
-        tags_pks = cache.get(cache_key)
-
-        if not tags_pks:
-            tags = [
-                article_tag.tag.pk for article_tag in
-                article.specific.get_main_language_page().nav_tags.all()
-                if article_tag.tag]
-            if tags and request.site:
-                qs = Tag.objects.descendant_of(
-                    request.site.root_page).live().filter(pk__in=tags)
-                tags_pks = qs.values_list("pk", flat=True)
-                cache.set(cache_key, tags_pks, 300)
-            else:
-                return ""
-        qs = Tag.objects.descendant_of(
-            request.site.root_page).live().filter(pk__in=tags_pks)
-        tags_str = ""
-        for q in qs:
-            tags_str += "|" + q.title
-
-        return tags_str[1:]
 
     def load_article_nav_tags(self, request):
         """get the tags in an article if the request is for an article page"""
@@ -99,8 +70,12 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
-                return self.load_tags_for_article(request, page)
-
+                tags_str = ""
+                qs = load_tags_for_article(
+                    {'locale_code': 'en', 'request': request}, page)
+                for q in qs:
+                    tags_str += "|" + q.title
+                return tags_str[1:]
         except Http404:
             return ""
 
