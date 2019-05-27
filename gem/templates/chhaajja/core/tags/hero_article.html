@@ -1,29 +1,31 @@
 {% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags gem_tags %}
 {% get_settings %}
 {% if articles %}
-<div class="article-teaser article-teaser--watch">
+<div class="article-teaser">
   <div class="article-teaser__wrapper">
-    <ul class="teaser-stacklist teaser-stacklist--watch">
+    <ul class="teaser-stacklist">
       {% for article in articles|slice:":1" %}
-          <li class="teaser-stacklist__item">
-            <!-- ARTICLE MEDIA -->
+        <li class="teaser-stacklist__item">
+          <h2 class="article-teaser__title">{{article.title}}</h2>
+          <!-- ARTICLE MEDIA -->
+          <div class="teaser-stacklist__images">
             {% for block in article.body %}
-                <div class="teaser-stacklist__images">
-                  {% if block.value.youtube_link %}
-                  {{block.value.youtube_link}}
-                  <iframe width="420" height="315" src="{{block.value.youtube_link}}" ></iframe>
-                  {% endif %}
-                </div>
+              {% if block.value.youtube_link %}
+                {% with block.value as media %}
+                  {% if not is_via_freebasics %}{% embed media.youtube_link %}{% endif %}
+                {% endwith %}
+              {% endif %}
             {% endfor %}
-            <!-- END ARTICLE MEDIA -->
+          </div>
+          <!-- END ARTICLE MEDIA -->
 
-            <!-- START COMMENT -->
-            {% include "comments/comment_block.html" with article=article%}
-            <!-- END COMMENT -->
+          <!-- START COMMENT -->
+          {% include "comments/comment_block.html"  %}
+          <!-- END COMMENT -->
 
-            <!-- REACTION QUESTION START -->
-            {% load_reaction_question article as question %}
-            {% if question %}
+          <!-- REACTION QUESTION START -->
+          {% load_reaction_question article as question %}
+          {% if question %}
             <div class="reaction-questions__block">
                 {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
                   {% if user_can_vote %}
@@ -53,29 +55,29 @@
                     {% trans "You have already submitted a response for this article." %}
                   </div>
                   {% endif %}
-              </div>
-            {% endif %}
-            <!-- REACTION QUESTION END -->
-
-            <div class="teaser-stacklist__container{% if article.get_parent_section.get_effective_extra_style_hints %} teaser-stacklist__container--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
-                <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
-                  {% if article.title_highlight %}{{ article.title_highlight|smarttruncatechars:100|safe}}{% else %}{{ article.title|smarttruncatechars:100|safe}}{% endif %}
-                </h1>
-              {% if article.subtitle_highlight or article.body_highlight %}
-                <p class="teaser-stacklist__subtitle">
-                  {% if article.subtitle_highlight %}
-                    {{article.subtitle_highlight|smarttruncatechars:150|safe}}
-                  {% elif article.body_highlight %}
-                    {{article.body_highlight|smarttruncatechars:150|safe}}
-                  {% endif %}
-                </p>
-              {% elif article.subtitle %}
-                <p class="teaser-stacklist__subtitle">
-                  {{ article.subtitle|smarttruncatechars:150|safe}}
-                </p>
-              {% endif %}
             </div>
-          </li>
+          {% endif %}
+          <!-- REACTION QUESTION END -->
+
+          <div class="teaser-stacklist__container{% if article.get_parent_section.get_effective_extra_style_hints %} teaser-stacklist__container--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
+              <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
+                {% if article.title_highlight %}{{ article.title_highlight|smarttruncatechars:100|safe}}{% else %}{{ article.title|smarttruncatechars:100|safe}}{% endif %}
+              </h1>
+            {% if article.subtitle_highlight or article.body_highlight %}
+              <p class="teaser-stacklist__subtitle">
+                {% if article.subtitle_highlight %}
+                  {{article.subtitle_highlight|smarttruncatechars:150|safe}}
+                {% elif article.body_highlight %}
+                  {{article.body_highlight|smarttruncatechars:150|safe}}
+                {% endif %}
+              </p>
+            {% elif article.subtitle %}
+              <p class="teaser-stacklist__subtitle">
+                {{ article.subtitle|smarttruncatechars:150|safe}}
+              </p>
+            {% endif %}
+          </div>
+        </li>
       {% endfor %}
     </ul>
   </div>
