@@ -17,15 +17,6 @@
             <h1 class="teaser-stacklist__title">
               {{ article.title|smarttruncatechars:100|safe}}
             </h1>
-            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
-            {% for block in article.body %}
-              {% if block.block_type == 'paragraph' %}
-                <p class="teaser-stacklist__exerpt">
-                  {{block.value|smarttruncatechars:550|safe}}
-                </p>
-              {% endif %}
-            {% endfor %}
-
             {% load_reaction_question article as question %}
             {% if question %}
               <div class="reaction-questions">
@@ -59,8 +50,15 @@
                     {% endif %}
               </div>
             {% endif %}
+            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+            {% for block in article.body %}
+              {% if block.block_type == 'paragraph' %}
+                <p class="teaser-stacklist__exerpt">
+                  {{block.value|smarttruncatechars:350|safe}}
+                </p>
+              {% endif %}
+            {% endfor %}
           </div>
-
         </li>
       {% endfor %}
     </ul>
