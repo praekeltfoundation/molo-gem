@@ -25,15 +25,13 @@
           {% load_reaction_question article as question %}
           {% if question %}
             <div class="reaction-questions__block">
-                {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
-                  {% if user_can_vote %}
-                    <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+                    <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                       {% csrf_token %}
                       <div class="reaction-questions__list">
                         {% load_choices_for_reaction_question question as choices %}
                             {% for choice in choices %}
-                              <div class="reaction-questions__item">
-                                  <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                              <div class="reaction-questions__item" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                                  <input type="hidden" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
                                   <label for="choice{{ forloop.counter }}">
                                     <div class="reaction-questions__image">
                                       {% image choice.specific.image width-50 %}
@@ -46,15 +44,29 @@
                           {% endfor %}
                       </div>
                     </form>
-
-                  {% else %}
-                  <div class="errors">
-                    {{ form.errors }}
-                    {% trans "You have already submitted a response for this article." %}
-                  </div>
-                  {% endif %}
             </div>
+            <script type="text/javascript">
+              var frm = $('#reaction-questions__form');
+              function set_choice(choice){
+                $.ajax({
+                  type: frm.attr('method'),
+                  url: frm.attr('action'),
+                  data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    choice: choice
+                  },
+                  success: function () {
+                      // var result = $('<div />').append(data).find('#showresults').html();
+                      // $('#showresults').html(result);
+                      alert('You have chosen a choice');
+                  }
+                })
+              }
+            
+            </script>
           {% endif %}
+
+
           <!-- REACTION QUESTION END -->
 
           <div class="teaser-stacklist__container{% if article.get_parent_section.get_effective_extra_style_hints %} teaser-stacklist__container--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
@@ -81,3 +93,4 @@
   </div>
 </div>
 {% endif %}
+
