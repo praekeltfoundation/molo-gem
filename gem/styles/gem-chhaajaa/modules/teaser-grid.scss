@@ -1,6 +1,7 @@
 .teaser-grid {
   margin: 1em 0;
   &__item {
+    margin: 1em 0;
     @media screen and (min-width: 80.000em) {
       display: flex;
       justify-content: space-between;
@@ -11,14 +12,30 @@
     overflow: auto;
     iframe {
       @media screen and (min-width: 80.000em) {
-        width: 262px;
-        height: 162px;
+        max-width: 262px;
+        max-height: 162px;
       }
     }
   }
+
+  &__images {
+    overflow: auto;
+    margin: 0 10px 0 0;
+    @media screen and (min-width: 80.000em) {
+      width: 59%;
+    }
+  }
+  &__thumbnail {
+    width: 100%;
+    height: auto;
+  }
+
   &__container {
     overflow: auto;
     position: relative;
+    @media screen and (min-width: 80.000em) {
+      width: 39%;
+    }
   }
   &__anchor {
     display: block;

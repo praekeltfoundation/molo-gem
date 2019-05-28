@@ -1,34 +1,26 @@
-{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_survey_tags %}
 {% get_settings %}
 {% if articles %}
-<div class="article-teaser">
-  <div class="article-teaser__wrapper">
-    <ul class="teaser-stacklist">
-      {% for article in articles %}
-        <li class="teaser-stacklist__item">
-          <div class="teaser-stacklist__iframe">
-            {% for block in article.body %}
-              {% if block.value.youtube_link %}
-                {% embed block.value.youtube_link %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          <!-- END ARTICLE MEDIA -->
-
-          <!-- START COMMENT -->
-          {% include "comments/comment_block.html"  %}
-          <!-- END COMMENT -->
-
-         
-
-      
-          <div class="teaser-stacklist__container">
-            <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
-              <h1 class="teaser-stacklist__title">
-                {{ article.title|smarttruncatechars:100|safe}}
-              </h1>
-            </a>
-            <!-- REACTION QUESTION START -->
+  <div class="article-teaser">
+    <div class="article-teaser__wrapper">
+      <ul class="teaser-stacklist">
+        {% for article in articles %}
+          <li class="teaser-stacklist__item">
+            <div class="teaser-stacklist__iframe">
+              {% for block in article.body %}
+                {% if block.value.youtube_link %}
+                  {% embed block.value.youtube_link %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="teaser-stacklist__container">
+              <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
+                <h1 class="teaser-stacklist__title">
+                  {{ article.title|smarttruncatechars:100|safe}}
+                </h1>
+              </a>
+              {% load_reaction_question article as question %}
+               <!-- REACTION QUESTION START -->
           {% load_reaction_question article as question %}
           {% if question %}
             <div class="reaction-questions__block">
@@ -76,21 +68,24 @@
             </script>
           {% endif %}
           <!-- REACTION QUESTION END -->
-
-            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
-            {% for block in article.body %}
-              {% if block.block_type == 'paragraph' %}
-                <p class="teaser-stacklist__excerpt">
-                  {{block.value|smarttruncatechars:350|safe}}
-                </p>
-              {% endif %}
-            {% endfor %}
-            <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+              <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+              {% for block in article.body %}
+                {% if block.block_type == 'paragraph' %}
+                  <p class="teaser-stacklist__excerpt">
+                    {{block.value|smarttruncatechars:350|safe}}
+                  </p>
+                {% endif %}
+              {% endfor %}
+              <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-</div>
+  {% for article in articles %}
+    {% surveys_list_for_pages page=article %}
+    {% include "comments/comment_block.html" %}
+  {% endfor %}
 {% endif %}
 
