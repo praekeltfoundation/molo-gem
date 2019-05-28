@@ -6,8 +6,6 @@
     <ul class="teaser-stacklist">
       {% for article in articles %}
         <li class="teaser-stacklist__item">
-          <h2 class="article-teaser__title">{{article.title}}</h2>
-          <!-- ARTICLE MEDIA -->
           <div class="teaser-stacklist__iframe">
             {% for block in article.body %}
               {% if block.value.youtube_link %}
@@ -69,23 +67,55 @@
 
           <!-- REACTION QUESTION END -->
 
-          <div class="teaser-stacklist__container{% if article.get_parent_section.get_effective_extra_style_hints %} teaser-stacklist__container--{{article.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
-              <h1 class="teaser-stacklist__title{% if article.title_highlight %} teaser-stacklist__title--highlight{% endif %}">
-                {% if article.title_highlight %}{{ article.title_highlight|smarttruncatechars:100|safe}}{% else %}{{ article.title|smarttruncatechars:100|safe}}{% endif %}
+      
+          <div class="teaser-stacklist__container">
+            <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
+              <h1 class="teaser-stacklist__title">
+                {{ article.title|smarttruncatechars:100|safe}}
               </h1>
-            {% if article.subtitle_highlight or article.body_highlight %}
-              <p class="teaser-stacklist__subtitle">
-                {% if article.subtitle_highlight %}
-                  {{article.subtitle_highlight|smarttruncatechars:150|safe}}
-                {% elif article.body_highlight %}
-                  {{article.body_highlight|smarttruncatechars:150|safe}}
-                {% endif %}
-              </p>
-            {% elif article.subtitle %}
-              <p class="teaser-stacklist__subtitle">
-                {{ article.subtitle|smarttruncatechars:150|safe}}
-              </p>
+            </a>
+            {% load_reaction_question article as question %}
+            {% if question %}
+              <div class="reaction-questions">
+                  {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
+                    {% if user_can_vote %}
+                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="reaction-questions__list">
+                          {% load_choices_for_reaction_question question as choices %}
+                              {% for choice in choices %}
+                                <div class="reaction-questions__item">
+                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                                    <label for="choice{{ forloop.counter }}">
+                                      <div class="reaction-questions__image">
+                                        {% image choice.specific.image width-50 %}
+                                      </div>
+                                      <div class="reaction-questions__label">
+                                        {{ choice.title|capfirst }}
+                                      </div>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                      </form>
+
+                    {% else %}
+                    <div class="errors">
+                      {{ form.errors }}
+                      {% trans "You have already submitted a response for this article." %}
+                    </div>
+                    {% endif %}
+              </div>
             {% endif %}
+            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+            {% for block in article.body %}
+              {% if block.block_type == 'paragraph' %}
+                <p class="teaser-stacklist__excerpt">
+                  {{block.value|smarttruncatechars:350|safe}}
+                </p>
+              {% endif %}
+            {% endfor %}
+            <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
           </div>
         </li>
       {% endfor %}
