@@ -9,6 +9,10 @@ from django.contrib.auth.models import User
 from molo.core.models import SiteSettings
 from gem.tests.base import GemTestCaseMixin
 
+from molo.core.models import (
+    Tag, ArticlePageTags,
+    SectionIndexPage, TagIndexPage)
+
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
@@ -30,6 +34,33 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             bbm_ga_account_subdomain='bbm',
             bbm_ga_tracking_code='bbm_tracking_code',
         )
+        self.yourmind = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
+
+        self.article = self.mk_article(
+            self.yourmind, title='article',
+            subtitle='article with nav_tags',
+            slug='article')
+        self.article.save_revision().publish()
+        self.article2 = self.mk_article(
+            self.yourmind, title='article2',
+            subtitle='artitle without nav_tags',
+            slug='article2')
+        self.article2.save_revision().publish()
+
+        self.tag_index = TagIndexPage.objects.child_of(self.main).first()
+        self.tag = Tag(title='Tag1')
+        self.tag2 = Tag(title='Tag2')
+        self.tag_index.add_child(instance=self.tag)
+        self.tag.save_revision().publish()
+        self.tag_index.add_child(instance=self.tag2)
+        self.tag2.save_revision().publish()
+
+        self.article.nav_tags.create(tag=self.tag)
+        self.article.save_revision().publish()
+        self.article.nav_tags.create(tag=self.tag2)
+        self.article.save_revision().publish()
 
         self.response = self.client.get('/')
 
@@ -202,6 +233,60 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # a normal response should activate GA tracking
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request, self.response,
+            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga_articlepage_with_tags(
+            self, mock_submit_tracking):
+        """requests for article with tags should
+        make a submit tracking with a cd6 value in the
+        custom params containing all the article tags"""
+
+        request = RequestFactory().get(
+            '/sections-main1-1/{}/{}/'.format(
+                self.yourmind.slug,
+                self.article.slug),
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01"
+        )
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # a normal response should activate GA tracking
+        nav_tags = ArticlePageTags.objects.all()
+        tags = [nav_tag.tag.title for nav_tag in nav_tags]
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request, self.response,
+            {"cd3": 'Visitor', 'cd1': "0000-000-01",
+             'cd6': "|".join(tags)}
+        )
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga_articlepage_no_tags(
+            self, mock_submit_tracking):
+        '''request for articles with not tags
+        should not have a cd6 value in
+        the custom params'''
+
+        request = RequestFactory().get(
+            '/sections-main1-1/{}/{}/'.format(
+                self.yourmind.slug,
+                self.article2.slug),
+            HTTP_X_DCMGUID="0000-000-01"
+        )
+
         request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
