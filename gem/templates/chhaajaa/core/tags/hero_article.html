@@ -20,54 +20,55 @@
                 </h1>
               </a>
               {% load_reaction_question article as question %}
-               <!-- REACTION QUESTION START -->
-          {% load_reaction_question article as question %}
-          {% if question %}
-            <div class="reaction-questions__block">
-                    <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-                      {% csrf_token %}
-                      <div class="reaction-questions__list">
-                        {% load_choices_for_reaction_question question as choices %}
-                            {% for choice in choices %}
-                              <!-- if user voted for this choice, then make this div disabled -->
-                              <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
-                                  <label for="choice{{ forloop.counter }}">
-                                    <div class="reaction-questions__image">
-                                      {% image choice.specific.image width-50 %}
-                                    </div>
-                                    <div class="reaction-questions__label">
-                                      {{ choice.title|capfirst }}
-                                    </div>
-                                  </label>
-                              </div>
-                          {% endfor %}
-                      </div>
-                    </form>
-            </div>
-            <script type="text/javascript">
-              var frm = $('#reaction-questions__form');
-              function set_choice(choice){
-                if ($('#' + choice).is('[disabled=enabled]')){
-                  $.ajax({
-                  type: frm.attr('method'),
-                  url: frm.attr('action'),
-                  data: {
-                    csrfmiddlewaretoken: "{{ csrf_token }}",
-                    choice: choice,
-                    ajax: "True"
-                  },
-                  success: function () {
-                    $("#" + choice).attr('disabled', 'disabled');
-                    alert(choice);
+              {% if question %}
+                <div class="reaction-questions__block">
+                        <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                          {% csrf_token %}
+                          <div class="reaction-questions__list">
+                            {% load_choices_for_reaction_question question as choices %}
+                                {% for choice in choices %}
+                                {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                                {% if user_has_chosen %}
+                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                                {% else %}
+                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
+                                {% endif %}
+                                      <label for="choice{{ forloop.counter }}">
+                                        <div class="reaction-questions__image">
+                                          {% image choice.specific.image width-50 %}
+                                        </div>
+                                        <div class="reaction-questions__label">
+                                          {{ choice.title|capfirst }}
+                                        </div>
+                                      </label>
+                                  </div>
+                              {% endfor %}
+                          </div>
+                        </form>
+                </div>
+                <script type="text/javascript">
+                  var frm = $('#reaction-questions__form');
+                  function set_choice(choice){
+                    if ($('#' + choice).is('[disabled=enabled]')){
+                      $.ajax({
+                      type: frm.attr('method'),
+                      url: frm.attr('action'),
+                      data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        choice: choice,
+                        ajax: "True"
+                      },
+                      success: function () {
+                        $("#" + choice).attr('disabled', 'disabled');
+                        alert(choice);
+                      }
+                    })
+                    }
+                  
                   }
-                })
-                }
-               
-              }
-            
-            </script>
-          {% endif %}
-          <!-- REACTION QUESTION END -->
+                
+                </script>
+              {% endif %}
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
               {% for block in article.body %}
                 {% if block.block_type == 'paragraph' %}
