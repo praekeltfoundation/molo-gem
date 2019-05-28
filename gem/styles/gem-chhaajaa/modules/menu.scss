@@ -3,7 +3,7 @@
   min-height: 85px;
   padding: 0 2em;
   @media (min-width: 768px) {
-    padding: 0 5%;
+    padding: 0 3em;
   }
 }
 
@@ -20,13 +20,24 @@ img {
   }
 }
 
+$color_list: (
+  chhaajaa_purple:#8652FC,
+  chhaajaa_pink:#EC4E87
+);
 .navbar-nav {
   &__item  {
     margin-right: 10px;
-    &:first-child {
-
+    &--list {
       .navbar-nav__anchor {
-        font-size: 23px;
+        font-size: 18px;
+      }
+    }
+    @each $name, $color in $color_list {
+      &--#{$name} {
+        .navbar-nav__anchor {
+          font-family: "Fedra Sans Bold", Helvetica, Arial, sans-serif;
+          color: $color;
+        }
       }
     }
     &:last-child {

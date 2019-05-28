@@ -1,4 +1,4 @@
-{% load wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags  %}
 {% get_settings %}
 {% if articles %}
 <div class="article-teaser">
@@ -30,7 +30,7 @@
                           {% load_choices_for_reaction_question question as choices %}
                               {% for choice in choices %}
                                 <div class="reaction-questions__item">
-                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" disabled="enabled" hidden />
                                     <label for="choice{{ forloop.counter }}">
                                       <div class="reaction-questions__image">
                                         {% image choice.specific.image width-50 %}
@@ -67,4 +67,5 @@
     </ul>
   </div>
 </div>
+{% include "comments/comment_block.html" %}
 {% endif %}
