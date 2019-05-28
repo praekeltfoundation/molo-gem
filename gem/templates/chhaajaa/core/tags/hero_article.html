@@ -19,7 +19,16 @@
           {% include "comments/comment_block.html"  %}
           <!-- END COMMENT -->
 
-          <!-- REACTION QUESTION START -->
+         
+
+      
+          <div class="teaser-stacklist__container">
+            <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
+              <h1 class="teaser-stacklist__title">
+                {{ article.title|smarttruncatechars:100|safe}}
+              </h1>
+            </a>
+            <!-- REACTION QUESTION START -->
           {% load_reaction_question article as question %}
           {% if question %}
             <div class="reaction-questions__block">
@@ -28,8 +37,8 @@
                       <div class="reaction-questions__list">
                         {% load_choices_for_reaction_question question as choices %}
                             {% for choice in choices %}
-                              <div class="reaction-questions__item" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                                  <input type="hidden" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
+                              <!-- if user voted for this choice, then make this div disabled -->
+                              <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
                                   <label for="choice{{ forloop.counter }}">
                                     <div class="reaction-questions__image">
                                       {% image choice.specific.image width-50 %}
@@ -46,67 +55,28 @@
             <script type="text/javascript">
               var frm = $('#reaction-questions__form');
               function set_choice(choice){
-                $.ajax({
+                if ($('#' + choice).is('[disabled=enabled]')){
+                  $.ajax({
                   type: frm.attr('method'),
                   url: frm.attr('action'),
                   data: {
                     csrfmiddlewaretoken: "{{ csrf_token }}",
-                    choice: choice
+                    choice: choice,
+                    ajax: "True"
                   },
                   success: function () {
-                      // var result = $('<div />').append(data).find('#showresults').html();
-                      // $('#showresults').html(result);
-                      alert('You have chosen a choice');
+                    $("#" + choice).attr('disabled', 'disabled');
+                    alert(choice);
                   }
                 })
+                }
+               
               }
             
             </script>
           {% endif %}
-
-
           <!-- REACTION QUESTION END -->
 
-      
-          <div class="teaser-stacklist__container">
-            <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
-              <h1 class="teaser-stacklist__title">
-                {{ article.title|smarttruncatechars:100|safe}}
-              </h1>
-            </a>
-            {% load_reaction_question article as question %}
-            {% if question %}
-              <div class="reaction-questions">
-                  {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
-                    {% if user_can_vote %}
-                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
-                        {% csrf_token %}
-                        <div class="reaction-questions__list">
-                          {% load_choices_for_reaction_question question as choices %}
-                              {% for choice in choices %}
-                                <div class="reaction-questions__item">
-                                    <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
-                                    <label for="choice{{ forloop.counter }}">
-                                      <div class="reaction-questions__image">
-                                        {% image choice.specific.image width-50 %}
-                                      </div>
-                                      <div class="reaction-questions__label">
-                                        {{ choice.title|capfirst }}
-                                      </div>
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                      </form>
-
-                    {% else %}
-                    <div class="errors">
-                      {{ form.errors }}
-                      {% trans "You have already submitted a response for this article." %}
-                    </div>
-                    {% endif %}
-              </div>
-            {% endif %}
             <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
             {% for block in article.body %}
               {% if block.block_type == 'paragraph' %}
