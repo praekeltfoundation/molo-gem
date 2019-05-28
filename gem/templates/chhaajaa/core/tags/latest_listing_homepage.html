@@ -3,14 +3,9 @@
 
 {% if articles %}
   <div class="article-teaser article-teaser--latest">
-    {% for article in articles|slice:":1" %}
-    {% get_translation article.get_parent_section as section %}
-      <div class="heading heading--hero">
-        <a class="heading__link" href="{% pageurl section.specific %}">
-          <h1 class="heading__component">{{section}}</h1>
-        </a>
-      </div>
-    {% endfor %}
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+    </div>
     <div class="article-teaser__wrapper">
       <ul class="teaser-grid">
         {% for article in articles|slice:":2" %}
@@ -20,9 +15,17 @@
                 <div class="teaser-grid__iframe">
                   {% embed block.value.youtube_link %}
                 </div>
+              {% else %}
+                {% if article.get_effective_image %}
+                  <div class="teaser-grid__images">
+                    <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                    </a>
+                  </div>
+                {% endif %}
               {% endif %}
             {% endfor %}
-
             <div class="teaser-grid__container">
               <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
@@ -51,5 +54,3 @@
     </div>
   </div>
 {% endif %}
-
-{% include "comments/form.html" %}
