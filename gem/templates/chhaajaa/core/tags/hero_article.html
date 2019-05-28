@@ -14,18 +14,11 @@
             {% endfor %}
           </div>
           <div class="teaser-stacklist__container">
-            <h1 class="teaser-stacklist__title">
-              {{ article.title|smarttruncatechars:100|safe}}
-            </h1>
-            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
-            {% for block in article.body %}
-              {% if block.block_type == 'paragraph' %}
-                <p class="teaser-stacklist__exerpt">
-                  {{block.value|smarttruncatechars:550|safe}}
-                </p>
-              {% endif %}
-            {% endfor %}
-
+            <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
+              <h1 class="teaser-stacklist__title">
+                {{ article.title|smarttruncatechars:100|safe}}
+              </h1>
+            </a>
             {% load_reaction_question article as question %}
             {% if question %}
               <div class="reaction-questions">
@@ -59,8 +52,16 @@
                     {% endif %}
               </div>
             {% endif %}
+            <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+            {% for block in article.body %}
+              {% if block.block_type == 'paragraph' %}
+                <p class="teaser-stacklist__excerpt">
+                  {{block.value|smarttruncatechars:350|safe}}
+                </p>
+              {% endif %}
+            {% endfor %}
+            <a class="call-to-action__read-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
           </div>
-
         </li>
       {% endfor %}
     </ul>

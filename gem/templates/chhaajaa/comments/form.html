@@ -9,11 +9,10 @@
       {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
     </div>
     <input type="submit" name="submit" id="submit" value="Submit">
-
-  {{ form.object_pk }}
-  {{ form.content_type }}
-  {{ form.timestamp }}
-  {{ form.security_hash }}
-  <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
+    {{ form.object_pk }}
+    {{ form.content_type }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
   </form>
 {% endwith %}
