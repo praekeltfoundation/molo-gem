@@ -9,12 +9,26 @@
       display: none;
     }
   }
+  &__list {}
   &__item {
+    cursor: pointer;
     display: inline-block;
     margin: 0 5px;
   }
-  &__image {}
+  &__item:enabled > .reaction-questions__label {
+    color: #000;
+  }
+  &__item:disabled > .reaction-questions__label {
+    color: #5c5c5c;
+  }
+  &__icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 40px;
+  }
   &__label {
     font-size: 16px;
+    cursor: pointer;
   }
 }

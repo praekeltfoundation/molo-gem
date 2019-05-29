@@ -10,6 +10,11 @@ $color_list: (
     display: flex;
     justify-content: space-between;
   }
+  &-right {
+    @media (min-width: 991px) {
+      margin-right: 8em;
+    }
+  }
   &-nav {
     $block: unquote("#{&}");
     &__item {
@@ -121,6 +126,9 @@ $color_list: (
         text-decoration: underline;
         text-underline-position: below;
       }
+    }
+    #logout-form .navbar-nav__button {
+      padding: 7px 5px;
     }
     &__anchor {
       color: #8207ff;

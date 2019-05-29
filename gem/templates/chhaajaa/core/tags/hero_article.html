@@ -1,18 +1,29 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_survey_tags %}
 {% get_settings %}
 {% if articles %}
+  <div class="content--left">
   <div class="article-teaser">
     <div class="article-teaser__wrapper">
       <ul class="teaser-stacklist">
         {% for article in articles %}
           <li class="teaser-stacklist__item">
-            <div class="teaser-stacklist__iframe">
+            {% if article.get_effective_image %}
+              <div class="teaser-stacklist__images">
+                <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                  {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                  <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                </a>
+              </div>
+            {% else %}
               {% for block in article.body %}
                 {% if block.value.youtube_link %}
-                  {% embed block.value.youtube_link %}
+                  <div class="teaser-stacklist__iframe">
+                    {% embed block.value.youtube_link %}
+                  </div>
                 {% endif %}
               {% endfor %}
-            </div>
+            {% endif %}
+
             <div class="teaser-stacklist__container">
               <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-stacklist__title">
@@ -20,35 +31,34 @@
                 </h1>
               </a>
               {% load_reaction_question article as question %}
+
               {% if question %}
-                <div class="reaction-questions__block">
-                        <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-                          {% csrf_token %}
-                          <div class="reaction-questions__list">
-                            {% load_choices_for_reaction_question question as choices %}
-                                {% for choice in choices %}
-                                {% load_user_choice_reaction_question question article choice as user_has_chosen %}
-                                {% if user_has_chosen %}
-                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                                {% else %}
-                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
-                                {% endif %}
-                                      <label for="choice{{ forloop.counter }}">
-                                        <div class="reaction-questions__image">
-                                          {% image choice.specific.image width-50 %}
-                                        </div>
-                                        <div class="reaction-questions__label">
-                                          {{ choice.title|capfirst }}
-                                        </div>
-                                      </label>
-                                  </div>
-                              {% endfor %}
-                          </div>
-                        </form>
+                <div class="reaction-questions">
+                  <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="reaction-questions__list">
+                      {% load_choices_for_reaction_question question as choices %}
+                        {% for choice in choices %}
+                          {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                          {% if user_has_chosen %}
+                            <button class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                          {% else %}
+                            <button class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
+                          {% endif %}
+                              <label for="choice{{ forloop.counter }}" class="reaction-questions__label">
+                                {% image choice.specific.image width-50 as reaction__icon %}
+                                <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                {{ choice.title|capfirst }}
+                              </label>
+                            </button>
+                        {% endfor %}
+                    </div>
+                  </form>
                 </div>
                 <script type="text/javascript">
                   var frm = $('#reaction-questions__form');
                   function set_choice(choice){
+                    console.log("button clicked", e.target);
                     if ($('#' + choice).is('[disabled=enabled]')){
                       $.ajax({
                       type: frm.attr('method'),
@@ -64,9 +74,7 @@
                       }
                     })
                     }
-                  
                   }
-                
                 </script>
               {% endif %}
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
@@ -88,5 +96,5 @@
     {% surveys_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}
   {% endfor %}
+</div>
 {% endif %}
-
