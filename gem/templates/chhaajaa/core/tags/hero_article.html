@@ -31,7 +31,7 @@
                                 {% if user_has_chosen %}
                                   <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
                                 {% else %}
-                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
+                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
                                 {% endif %}
                                       <label for="choice{{ forloop.counter }}">
                                         <div class="reaction-questions__image">
@@ -49,7 +49,7 @@
                 <script type="text/javascript">
                   var frm = $('#reaction-questions__form');
                   function set_choice(choice){
-                    if ($('#' + choice).is('[disabled=enabled]')){
+                    if (!$('#' + choice).attr('disabled') == true){
                       $.ajax({
                         type: frm.attr('method'),
                         url: frm.attr('action'),
@@ -59,12 +59,10 @@
                           ajax: "True"
                         },
                         success: function () {
-                          var choices = document.getElementsByClassName('reaction-questions__item');
-                          for (var i = 0; i < choices.length; ++i ){
-                            console.log(choices[i].id)
-                            $("#" + choices[i].id).attr('disabled', 'enabled');
-                          }
-                          $("#" + choice).attr('disabled', 'disabled');
+                          $( ".reaction-questions__item" ).each(function( index ) {
+                            $(this).attr('disabled', false);
+                          });
+                          $("#" + choice).attr('disabled', true);
                         }
                       })
                     }
