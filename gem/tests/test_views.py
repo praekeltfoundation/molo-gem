@@ -18,8 +18,8 @@ from molo.commenting.models import MoloComment
 from molo.core.models import (
     Main, SectionIndexPage, ReactionQuestionChoice,
     ReactionQuestion, ReactionQuestionResponse,
-    ReactionQuestionIndexPage, SiteLanguageRelation, Languages,
-    ArticlePage, ArticlePageReactionQuestions)
+    ReactionQuestionIndexPage,
+    ArticlePageReactionQuestions)
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
