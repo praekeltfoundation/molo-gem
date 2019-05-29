@@ -14,6 +14,14 @@ $color_list: (
     $block: unquote("#{&}");
     &__item {
       display: inline-block;
+      &:last-child {
+        @media (min-width: 1200px) {
+          margin: 0 0 0 18em;
+        }
+        @media (min-width: 1380px) {
+          margin: 0 0 0 20em;
+        }
+      }
       .click_btn {
         display: none;
         @media (max-width: 991px) {
@@ -139,6 +147,9 @@ $color_list: (
     &__option {
       margin: 1em;
       display: block;
+      &:last-child {
+        margin: 1em 0 1em 1em;
+      }
       @media (min-width: 991px) {
         display: inline-block;
       }
@@ -204,11 +215,14 @@ $color_list: (
 }
 .navbar-brand {
   display: inline-block;
-  padding: 15px 15px 15px 0;
+  padding: 15px;
   font-size: 18px;
   line-height: 20px;
   height: 50px;
   vertical-align: middle;
+  @media (min-width: 991px) {
+    padding: 2em 15px;
+  }
   img {
     display: block;
   }
