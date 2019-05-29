@@ -75,44 +75,48 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          {% load_sections as sections %}
-          {% for section in sections %}
-            <li class="navbar-nav__item navbar-nav__item--list navbar-nav__item--{{section.get_effective_extra_style_hints}}">
-              <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">{{section.title}}</a>
-            </li>
-          {% endfor %}
-          <li class="navbar-nav__item">
-            <div class="nav-search dropdown">
-              <label for="search_accordion" id="nav_search" class="nav-search__label dropdown-toggle">{% trans "Search" %}</label>
-              <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
-              <div class="nav-search__wrapper dropdown-menu">
-                <form action="{% url 'search' %}" class="nav-search__form" novalidate>
-                  <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search Yegna' %}">
-                  <input type="submit" value="{% trans 'Go' %}" class="call-to-action__item call-to-action__item--icon">
-                </form>
+        <div class="nav navbar-nav navbar-right">
+          <ul class="navbar-nav__item navbar-nav__item--{{section.get_effective_extra_style_hints}}">
+            {% load_sections as sections %}
+            {% for section in sections %}
+              <li class="navbar-nav__option">
+                <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">{{section.title}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          <ul class="navbar-nav__item">
+            <li class="navbar-nav__option">
+              <div class="nav-search dropdown">
+                <label for="search_accordion" id="nav_search" class="nav-search__label dropdown-toggle">{% trans "Search" %}</label>
+                <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
+                <div class="nav-search__wrapper dropdown-menu">
+                  <form action="{% url 'search' %}" class="nav-search__form" novalidate>
+                    <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search Yegna' %}">
+                    <input type="submit" value="{% trans 'Go' %}" class="call-to-action__item call-to-action__item--icon">
+                  </form>
+                </div>
               </div>
-            </div>
-          </li>
-          {% if not user.is_authenticated %}
-            <li class="navbar-nav__item">
-              <a href="{{REGISTRATION_URL}}" class="navbar-nav__anchor">Signup</a>
             </li>
-            <li class="navbar-nav__item">
-              <a href="{% url LOGIN_URL %}" class="navbar-nav__anchor">Login</a>
-            </li>
-          {% else %}
-            <li class="navbar-nav__item">
-              <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__anchor">{% trans "Profile" %}</a>
-            </li>
-            <li class="navbar-nav__item">
-              <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
-              {% csrf_token %}
-                <input class="navbar-nav__anchor" value="{% trans 'Log out' %}" type="submit">
-              </form>
-            </li>
-          {% endif %}
-        </ul>
+            {% if not user.is_authenticated %}
+              <li class="navbar-nav__option">
+                <a href="{{REGISTRATION_URL}}" class="navbar-nav__anchor">Signup</a>
+              </li>
+              <li class="navbar-nav__option">
+                <a href="{% url LOGIN_URL %}" class="navbar-nav__anchor">Login</a>
+              </li>
+            {% else %}
+              <li class="navbar-nav__option">
+                <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__anchor">{% trans "Profile" %}</a>
+              </li>
+              <li class="navbar-nav__option">
+                <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
+                {% csrf_token %}
+                  <input class="navbar-nav__anchor" value="{% trans 'Log out' %}" type="submit">
+                </form>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
     </nav>
   </header>

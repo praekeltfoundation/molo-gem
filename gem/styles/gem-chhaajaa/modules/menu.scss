@@ -26,13 +26,9 @@ $color_list: (
 );
 
 .navbar-nav {
-  &__item  {
+  $block: unquote("#{&}");
+  &__item {
     margin-right: 10px;
-    &--list {
-      .navbar-nav__anchor {
-        font-size: 18px;
-      }
-    }
     @each $name, $color in $color_list {
       &--#{$name} {
         .navbar-nav__anchor {
