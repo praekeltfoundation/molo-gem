@@ -10,13 +10,6 @@ $color_list: (
     display: flex;
     justify-content: space-between;
   }
-
-  &-header {
-    overflow: auto;
-    display: inline-block;
-    vertical-align: middle;
-    width: 100%;
-  }
   &-nav {
     $block: unquote("#{&}");
     &__item {
@@ -116,7 +109,7 @@ $color_list: (
         }
       }
     }
-    //#logout-form
+
     &__button {
       background-color: #8207ff;
       color: #fff;
@@ -124,6 +117,10 @@ $color_list: (
       font-size: 18px;
       font-weight: bold;
       text-transform: uppercase;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-underline-position: below;
+      }
     }
     &__anchor {
       color: #8207ff;
@@ -131,12 +128,26 @@ $color_list: (
       font-family: "Fedra Sans Bold", Helvetica, Arial, sans-serif;
       font-weight: bold;
       font-size: 28px;
+      &:hover, &:focus, &:active {
+        color: #EC4E87;
+        text-decoration: underline;
+        text-underline-position: below;
+      }
     }
     &__option {
-      margin: 0 1em;
+      margin: 1em;
+      display: block;
+      @media (min-width: 991px) {
+        display: inline-block;
+      }
+
       &:first-child {
         .navbar-nav__anchor  {
           color: #EC4E87;
+          &:hover, &:focus, &:active {
+            text-decoration: underline;
+            text-underline-position: below;
+          }
         }
       }
     }
@@ -148,8 +159,59 @@ $color_list: (
       }
     }
   }
-
 }
+
+.navbar-header {
+  overflow: auto;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+  width: 100%;
+  @media (min-width: 991px) {
+    width: auto;
+    display: inline-block;
+  }
+}
+.navbar-toggle {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin: 15px;
+  padding: 10px;
+  font-size: 22px;
+  vertical-align: middle;
+  @media (min-width:992px) {
+    display: none;
+  }
+  .sr-only {
+    display: none;
+  }
+  .icon-bar {
+    background-color: #8207ff;
+    display: block;
+    width: 1.9em;
+    height: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  &:hover, &:focus, &:active {
+    .icon-bar {
+      background-color: #EC4E87;
+    }
+  }
+}
+.navbar-brand {
+  display: inline-block;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+  vertical-align: middle;
+  img {
+    display: block;
+  }
+}
+
 .nav-search {
   &__label {
     cursor: pointer;
