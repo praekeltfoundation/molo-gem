@@ -82,7 +82,6 @@
               <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">{{section.title}}</a>
             </li>
           {% endfor %}
-          {% comment %}
           <li class="navbar-nav__item">
             <div class="nav-search dropdown">
               <label for="search_accordion" id="nav_search" class="nav-search__label dropdown-toggle">{% trans "Search" %}</label>
@@ -95,25 +94,18 @@
               </div>
             </div>
           </li>
-          {% endcomment %}
           {% if not user.is_authenticated %}
             <li class="navbar-nav__item">
-              <a href="{{REGISTRATION_URL}}" class="navbar-nav__anchor"><span id="logout">Signup</span></a>
+              <a href="{{REGISTRATION_URL}}" class="navbar-nav__anchor">Signup</a>
             </li>
             <li class="navbar-nav__item">
-              <a href="{% url LOGIN_URL %}" class="navbar-nav__anchor"><span id="logout">Login</span></a>
+              <a href="{% url LOGIN_URL %}" class="navbar-nav__anchor">Login</a>
             </li>
           {% else %}
             <li class="navbar-nav__item">
-              <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__anchor"><span id="logout">{% trans "Profile" %}</span></a>
+              <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__anchor">{% trans "Profile" %}</a>
             </li>
             <li class="navbar-nav__item">
-              {# <!-- TO REMOVE ONCE AUTH SERVICE IS ENABLED --> #}
-              <a href="#" id="logout-btn" class="navbar-nav__anchor">
-                <span id="logout">{% trans 'Log out' %}</span>
-              </a>
-            </li>
-            <li class="navbar-nav__item" style="display: none">
               <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
               {% csrf_token %}
                 <input class="navbar-nav__anchor" value="{% trans 'Log out' %}" type="submit">
