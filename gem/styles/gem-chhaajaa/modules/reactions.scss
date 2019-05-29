@@ -9,12 +9,36 @@
       display: none;
     }
   }
-  &__item {
-    display: inline-block;
-    margin: 0 5px;
+  &__list {}
+  &__icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 40px;
   }
-  &__image {}
   &__label {
     font-size: 16px;
+    cursor: pointer;
+    text-align: center;
   }
+  &__item {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    &[disabled="enabled"] > .reaction-questions__label {
+      color: #000;
+      opacity: 1;
+    }
+    &[disabled="disabled"] > .reaction-questions__label {
+      color: #5c5c5c;
+      opacity: 0.5;
+    }
+    &:focus, &:hover, &:active {
+      opacity: 0.5;
+      color: #ec4e87;
+      font-size: 17px;
+      transition: color 1s ease 3ms,  opacity 1s ease 3ms, font-size 1s ease 3ms;
+    }
+  }
+
 }

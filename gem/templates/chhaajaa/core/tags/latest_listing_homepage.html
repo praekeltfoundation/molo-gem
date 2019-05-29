@@ -8,22 +8,25 @@
     </div>
     <div class="article-teaser__wrapper">
       <ul class="teaser-grid">
-        {% for article in articles|slice:":2" %}
+        {% for article in articles %}
           <li class="teaser-grid__item">
             {% for block in article.body %}
               {% if block.value.youtube_link %}
                 <div class="teaser-grid__iframe">
                   {% embed block.value.youtube_link %}
                 </div>
-              {% else %}
-                {% if article.get_effective_image %}
-                  <div class="teaser-grid__images">
-                    <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
-                    </a>
-                  </div>
-                {% endif %}
+                {% comment %}
+                  {% else %}
+                    {% if article.get_effective_image %}
+                      <div class="teaser-grid__images">
+                        <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                        </a>
+                      </div>
+                      {% endif %}
+                  {% endcomment %}
+
               {% endif %}
             {% endfor %}
             <div class="teaser-grid__container">
