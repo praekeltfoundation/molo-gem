@@ -108,12 +108,6 @@
               <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__anchor"><span id="logout">{% trans "Profile" %}</span></a>
             </li>
             <li class="navbar-nav__item">
-              {# <!-- TO REMOVE ONCE AUTH SERVICE IS ENABLED --> #}
-              <a href="#" id="logout-btn" class="navbar-nav__anchor">
-                <span id="logout">{% trans 'Log out' %}</span>
-              </a>
-            </li>
-            <li class="navbar-nav__item" style="display: none">
               <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
               {% csrf_token %}
                 <input class="navbar-nav__anchor" value="{% trans 'Log out' %}" type="submit">
