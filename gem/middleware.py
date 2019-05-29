@@ -198,6 +198,16 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         return response
 
 
+class ChhaaJaaLoginMiddleware(object):
+    def process_request(self, request):
+        if request.user.is_authenticated() is False \
+                and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
+                and (
+                    'login' not in request.path or
+                    'auth' in request.get_host()):
+            return HttpResponseRedirect(reverse(settings.LOGIN_URL))
+
+
 class CustomSessionRefresh(SessionRefresh):
     """
     Customised version of mozilla_django_oidc.middleware.SessionRefresh
