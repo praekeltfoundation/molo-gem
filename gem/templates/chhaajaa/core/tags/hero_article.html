@@ -6,9 +6,6 @@
     <div class="article-teaser__wrapper">
       <ul class="teaser-stacklist">
         {% for article in articles %}
-        {% with article.body as body %}
-          ==>{{body.value.type}}<br/>
-        {% endwith %}
           <li class="teaser-stacklist__item">
             {% for block in article.body %}
               {% if block.value.type == "video" %}
@@ -48,7 +45,7 @@
                         {% else %}
                           <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
                         {% endif %}
-                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label">
+                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
                               {% image choice.specific.image width-50 as reaction__icon %}
                               <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
                               {{ choice.title|capfirst }}
