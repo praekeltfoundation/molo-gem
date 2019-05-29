@@ -51,21 +51,25 @@
                   function set_choice(choice){
                     if ($('#' + choice).is('[disabled=enabled]')){
                       $.ajax({
-                      type: frm.attr('method'),
-                      url: frm.attr('action'),
-                      data: {
-                        csrfmiddlewaretoken: "{{ csrf_token }}",
-                        choice: choice,
-                        ajax: "True"
-                      },
-                      success: function () {
-                        $("#" + choice).attr('disabled', 'disabled');
-                        // need to make the other choices enabled
-                      }
-                    })
+                        type: frm.attr('method'),
+                        url: frm.attr('action'),
+                        data: {
+                          csrfmiddlewaretoken: "{{ csrf_token }}",
+                          choice: choice,
+                          ajax: "True"
+                        },
+                        success: function () {
+                          var choices = document.getElementsByClassName('reaction-questions__item');
+                          for (var i = 0; i < choices.length; ++i ){
+                            console.log(choices[i].id)
+                            $("#" + choices[i].id).attr('disabled', 'enabled');
+                          }
+                          $("#" + choice).attr('disabled', 'disabled');
+                        }
+                      })
                     }
-                  
                   }
+                  
                 
                 </script>
               {% endif %}
