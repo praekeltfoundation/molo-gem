@@ -72,9 +72,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                 tags_str = ""
                 qs = load_tags_for_article(
                     {'locale_code': 'en', 'request': request}, page)
-                for q in qs:
-                    tags_str += "|" + q.title
-                return tags_str[1:]
+                if qs:
+                    for q in qs:
+                        tags_str += "|" + q.title
+                    return tags_str[1:]
         except Http404:
             return ""
 

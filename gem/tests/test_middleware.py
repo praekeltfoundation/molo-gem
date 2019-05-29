@@ -11,7 +11,8 @@ from gem.tests.base import GemTestCaseMixin
 
 from molo.core.models import (
     Tag, ArticlePageTags,
-    SectionIndexPage, TagIndexPage)
+    SectionIndexPage, TagIndexPage, FooterIndexPage,
+    FooterPage)
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
@@ -61,7 +62,11 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         self.article.save_revision().publish()
         self.article.nav_tags.create(tag=self.tag2)
         self.article.save_revision().publish()
-
+        # get footerpage
+        self.footer_index = FooterIndexPage.objects.child_of(self.main).first()
+        self.footer = FooterPage(title='Test Footer Page')
+        self.footer_index.add_child(instance=self.footer)
+        self.footer.save_revision().publish()
         self.response = self.client.get('/')
 
     @patch(submit_tracking_method)
@@ -284,6 +289,30 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/sections-main1-1/{}/{}/'.format(
                 self.yourmind.slug,
                 self.article2.slug),
+            HTTP_X_DCMGUID="0000-000-01"
+        )
+
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # a normal response should activate GA tracking
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request, self.response,
+            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga__footerpage__no_tags(
+            self, mock_submit_tracking):
+        '''request for articles with not tags
+        should not have a cd6 value in
+        the custom params'''
+
+        request = RequestFactory().get(
+            '/footers-main1-1/{}/'.format(
+                self.footer.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
 
