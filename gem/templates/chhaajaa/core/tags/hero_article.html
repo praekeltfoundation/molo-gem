@@ -114,6 +114,23 @@
         }
       });
 
+      var elems  = document.getElementsByClassName("choice-group");
+      for(var i = 0; i < elems.length; i++) {
+        console.log(elems[i]);
+        elems[i].addEventListener("click", function(e) {
+          var el = elems[i];
+          console.log(el);
+          if (this.classList.contains("selected")) {
+            el.classList.remove('selected');
+            //this.classList.add('selected');
+          } else {
+            this.classList.add('selected');
+            //el.classList.remove('selected');
+          }
+        });
+      }
+
+      //COPIED SCRIPT
       const Utils = {
         addClass: function(element, theClass) {
           element.classList.add(theClass);
