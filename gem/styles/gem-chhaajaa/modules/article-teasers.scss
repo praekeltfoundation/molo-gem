@@ -1,4 +1,25 @@
 .article-teaser {
   padding: 0 0 2em;
+  $block: unquote("#{&}");
   &__wrapper {}
+  &--latest {
+    .heading--hero {
+      margin: 0 0 2em;
+    }
+    #{$block}__wrapper {
+      height: 400px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px #ffe559;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(134,98,252,1);
+        outline: 1px solid rgba(134,98,252,1);
+      }
+    }
+  }
 }

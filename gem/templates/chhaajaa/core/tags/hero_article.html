@@ -6,6 +6,9 @@
     <div class="article-teaser__wrapper">
       <ul class="teaser-stacklist">
         {% for article in articles %}
+        {% with article.body as body %}
+          {{body.value.type}}
+        {% endwith %}
           <li class="teaser-stacklist__item">
             {% for block in article.body %}
               {% if block.value.type == "video" %}
