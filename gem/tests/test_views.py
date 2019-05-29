@@ -1,3 +1,4 @@
+from copy import deepcopy
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
@@ -5,16 +6,20 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, Client, RequestFactory
 from django.test.utils import override_settings
 from django.utils import timezone
+from django.conf import settings
 from mock import patch
-
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport, OIDCSettings
 from gem.tests.base import GemTestCaseMixin
 from gem.views import CustomAuthenticationRequestView
-
+from os.path import join
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
-from molo.core.models import Main, SectionIndexPage
+from molo.core.models import (
+    Main, SectionIndexPage, ReactionQuestionChoice,
+    ReactionQuestion, ReactionQuestionResponse,
+    ReactionQuestionIndexPage, SiteLanguageRelation, Languages,
+    ArticlePage, ArticlePageReactionQuestions)
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
@@ -645,3 +650,74 @@ class GemYourWordsViewTest(TestCase, GemTestCaseMixin):
         self.assertEqual(response.status_code, 200)
         # ensure that the correct url is in the view
         self.assertContains(response, '/yourwords/entry/' + competition.slug)
+
+
+class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.section_index = SectionIndexPage.objects.child_of(
+            self.main).last()
+        self.yourmind = self.mk_section(
+            self.section_index, title='Your mind')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
+    def test_highlights_correct_reaction(self):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'templates', 'chhaajaa')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
+            # create article
+            promote_date = timezone.now() + timezone.timedelta(days=-1)
+            demote_date = timezone.now() + timezone.timedelta(days=1)
+            article = self.mk_article(
+                self.yourmind,
+                feature_as_hero_article=True,
+                promote_date=promote_date,
+                demote_date=demote_date
+            )
+            # create reaction question
+            question = ReactionQuestion(title='This is a question')
+            ReactionQuestionIndexPage.objects.last().add_child(
+                instance=question)
+            question.save_revision().publish()
+
+            # add choices to reaction question
+            choice = ReactionQuestionChoice(title='yes')
+            question.add_child(instance=choice)
+            choice.save_revision().publish()
+            choice2 = ReactionQuestionChoice(title='no')
+            question.add_child(instance=choice2)
+            choice2.save_revision().publish()
+
+            ArticlePageReactionQuestions.objects.create(
+                reaction_question=question, page=article)
+            # create a user and log in
+            user = User.objects.create_superuser(
+                username='testuser', password='password',
+                email='test@email.com')
+            self.client.login(username='testuser', password='password')
+
+            # get the homepage with article and reaction question on it
+            response = self.client.get('/')
+            self.assertContains(response, article.title)
+            self.assertNotContains(
+                response,
+                'onclick="set_choice(%s)" disabled=disabled>' % choice.pk)
+            self.assertNotContains(
+                response,
+                'onclick="set_choice(%s)" disabled=disabled>' % choice2.pk)
+            ReactionQuestionResponse.objects.create(
+                choice=choice, article=article, question=question,
+                user=user)
+            response = self.client.get('/')
+            self.assertContains(
+                response,
+                'onclick="set_choice(%s)" disabled=disabled>' % choice.pk)
+            self.assertNotContains(
+                response,
+                'onclick="set_choice(%s)" disabled=disabled>' % choice2.pk)
+
+# onclick="set_choice(29)" disabled=disabled>
