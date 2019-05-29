@@ -719,5 +719,3 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             self.assertNotContains(
                 response,
                 'onclick="set_choice(%s)" disabled=disabled>' % choice2.pk)
-
-# onclick="set_choice(29)" disabled=disabled>
