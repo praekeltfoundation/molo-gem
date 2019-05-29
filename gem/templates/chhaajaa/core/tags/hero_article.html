@@ -21,16 +21,18 @@
               </a>
               {% load_reaction_question article as question %}
               {% if question %}
-                <div class="reaction-questions">
-                    {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
-                      {% if user_can_vote %}
-                        <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
+                <div class="reaction-questions__block">
+                        <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                           {% csrf_token %}
                           <div class="reaction-questions__list">
                             {% load_choices_for_reaction_question question as choices %}
                                 {% for choice in choices %}
-                                  <div class="reaction-questions__item">
-                                      <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" disabled="enabled" hidden />
+                                {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                                {% if user_has_chosen %}
+                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                                {% else %}
+                                  <div class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
+                                {% endif %}
                                       <label for="choice{{ forloop.counter }}">
                                         <div class="reaction-questions__image">
                                           {% image choice.specific.image width-50 %}
@@ -43,14 +45,29 @@
                               {% endfor %}
                           </div>
                         </form>
-
-                      {% else %}
-                      <div class="errors">
-                        {{ form.errors }}
-                        {% trans "You have already submitted a response for this article." %}
-                      </div>
-                      {% endif %}
                 </div>
+                <script type="text/javascript">
+                  var frm = $('#reaction-questions__form');
+                  function set_choice(choice){
+                    if ($('#' + choice).is('[disabled=enabled]')){
+                      $.ajax({
+                      type: frm.attr('method'),
+                      url: frm.attr('action'),
+                      data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        choice: choice,
+                        ajax: "True"
+                      },
+                      success: function () {
+                        $("#" + choice).attr('disabled', 'disabled');
+                        // need to make the other choices enabled
+                      }
+                    })
+                    }
+                  
+                  }
+                
+                </script>
               {% endif %}
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
               {% for block in article.body %}
@@ -72,3 +89,4 @@
     {% include "comments/comment_block.html" %}
   {% endfor %}
 {% endif %}
+
