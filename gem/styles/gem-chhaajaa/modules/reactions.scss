@@ -10,17 +10,6 @@
     }
   }
   &__list {}
-  &__item {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-  }
-  &__item:enabled > .reaction-questions__label {
-    color: #000;
-  }
-  &__item:disabled > .reaction-questions__label {
-    color: #5c5c5c;
-  }
   &__icon {
     background-position: center;
     background-repeat: no-repeat;
@@ -31,4 +20,20 @@
     font-size: 16px;
     cursor: pointer;
   }
+  &__item {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    &[disabled="enabled"] > .reaction-questions__label {
+      color: #000;
+    }
+    &[disabled="disabled"] > .reaction-questions__label {
+      color: #5c5c5c;
+    }
+    &:focus {
+      opacity: 0.5;
+      transition: opacity 1s ease 3ms;
+    }
+  }
+
 }

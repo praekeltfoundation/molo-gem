@@ -41,40 +41,41 @@
                         {% for choice in choices %}
                           {% load_user_choice_reaction_question question article choice as user_has_chosen %}
                           {% if user_has_chosen %}
-                            <button class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
                           {% else %}
-                            <button class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=enabled>
                           {% endif %}
                               <label for="choice{{ forloop.counter }}" class="reaction-questions__label">
                                 {% image choice.specific.image width-50 as reaction__icon %}
                                 <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
                                 {{ choice.title|capfirst }}
                               </label>
-                            </button>
+                            </span>
                         {% endfor %}
                     </div>
                   </form>
                 </div>
                 <script type="text/javascript">
-                  var frm = $('#reaction-questions__form');
-                  function set_choice(choice){
-                    console.log("button clicked", e.target);
-                    if ($('#' + choice).is('[disabled=enabled]')){
-                      $.ajax({
-                      type: frm.attr('method'),
-                      url: frm.attr('action'),
-                      data: {
-                        csrfmiddlewaretoken: "{{ csrf_token }}",
-                        choice: choice,
-                        ajax: "True"
-                      },
-                      success: function () {
-                        $("#" + choice).attr('disabled', 'disabled');
-                        // need to make the other choices enabled
+                    var frm = $('#reaction-questions__form');
+                    function set_choice(choice){
+                      console.log("button clicked");
+                      if ($('#' + choice).is('[disabled=enabled]')){
+                        $.ajax({
+                        type: frm.attr('method'),
+                        url: frm.attr('action'),
+                        data: {
+                          csrfmiddlewaretoken: "{{ csrf_token }}",
+                          choice: choice,
+                          ajax: "True"
+                        },
+                        success: function () {
+                          $("#" + choice).attr('disabled', 'disabled');
+                          // need to make the other choices enabled
+                        }
+                      })
                       }
-                    })
                     }
-                  }
+
                 </script>
               {% endif %}
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
