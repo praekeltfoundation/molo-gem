@@ -2,7 +2,6 @@ form {
   position: relative;
   overflow: auto;
   vertical-align: middle;
-  display: inline-block;
 }
 fieldset {
   clear: both;
@@ -49,10 +48,7 @@ select[value="value"] {
   font-size: 21px;
   text-transform: capitalize;
 }
-input[type="search"] {
-  width: 100%;
-  appearance: none;
-}
+
 input[type="checkbox"],
 input[type="radio"] {
   margin: 0;
@@ -107,16 +103,21 @@ input[type="datetime-local"],
 input[type="url"],
 select {
   border: none;
-  color: #fff;
-  padding: 10px;
+  color: $colorGrey;
+  padding: 15px;
   margin: 5px 0;
   width: 100%;
-  border: 1px solid #ec4e87;
+  border: 2px solid $colorPurple;
+  font-size: 18px;
   &:focus,
   &:active,
   &:visited {
     outline: none;
   }
+}
+input[type="search"] {
+  width: 100%;
+  appearance: none;
 }
 input[type="button"],
 input[type="reset"],

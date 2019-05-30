@@ -1,19 +1,24 @@
 .wrapper {
-  padding: 1.5em 2em;
   font-size: 18px;
-  @media (min-width: 768px) {
-    padding: 2.5em 3em;
+  & > .container {
+    padding: 1.5em 2em;
+    @media (min-width: 768px) {
+      padding: 2.5em 3em;
+    }
+    @media (min-width: 1200px) {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
+
+//REVIEW FOR ALL PAGES
 .container {
   position: relative;
-  @media (min-width: 1200px) {
-    display: flex;
-    justify-content: space-between;
-  }
   .content--left {
     @media screen and (min-width: 992px) {
       width: 65%;
+      min-height: 955px;
     }
   }
   .content--right {

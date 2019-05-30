@@ -4,7 +4,6 @@ $color_list: (
 );
 
 .navbar {
-  position: relative;
   overflow: auto;
   @media (min-width: 991px) {
     display: flex;
@@ -14,6 +13,7 @@ $color_list: (
     $block: unquote("#{&}");
     #logout-form {
       margin: -2px 0 0;
+      display: inline-block;
     }
     &__button, #logout-form &__button {
       background-color: $colorPurple;
@@ -250,19 +250,40 @@ $color_list: (
       transition: opacity 100ms ease-in-out;
     }
   }
+  &__wrapper {
+    background: $colorYellow;
+    height: auto;
+    padding: 1em 2em;
+    width: 100%;
+    z-index: 9999999999;
+    @media (min-width: 991px) {
+      position: absolute;
+      top: 6em;
+      right: 0;
+    }
+  }
   &__form {
     position: relative;
+    text-align: right;
+    margin: 0 1em;
+
     input[type="search"] {
       border: 3px solid #8207ff;
-      height: 42px;
+      color: $colorGrey;
       margin: 0;
       padding: 5px;
+      font-size: 18px;
+      height: 40px;
+      width: 95%;
+      @media (min-width: 991px) {
+        width: 45%;
+      }
     }
     [type="button"],
     [type="reset"],
     [type="submit"] {
       background-color: #8207ff;
-      margin: 10px 0;
+      margin: 0;
       padding: 10px;
       text-decoration: underline;
       text-underline-position: under;
@@ -279,10 +300,26 @@ $color_list: (
       }
     }
   }
+  &__checkbox {
+    & + * {
+      height: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: visibility 0.2s, opacity 0.5s ease-out;
+    }
+    &:checked + * {
+      opacity: 1;
+      visibility: visible;
+      label[for=search_accordion] {
+        background-color: #000;
+      }
+    }
+  }
+
 }
 
 //??
-.stricky-fixed {
+/*.stricky-fixed {
   position: fixed;
   z-index: 99;
   width: 100%;
@@ -304,4 +341,4 @@ $color_list: (
       padding-left: 15px;
     }
  }
-}
+}*/
