@@ -71,14 +71,11 @@
                 {% endif %}
               {% endif %}
             </div>
-
-
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
               <div class="container">
                 <div class="block">
                   <div class="content">
                     {% for block in article.body %}
-
                       {% if not block.block_type == 'media' %}
                         <p class="teaser-stacklist__excerpt excerpt excerpt-hidden">
                           {{block.value}}
@@ -126,7 +123,6 @@
         if(document.activeElement === e.target) {
           e.target.closest(".comments__form-post").setAttribute("style","border: 5px solid #72f3a2; outline: none; padding: 10px; border-radius: 5px;");
         } else {
-          console.log(document.activeElement);
           //e.target.closest(".comments__form-post").setAttribute("style");
         }
       });
@@ -136,7 +132,6 @@
         console.log(elems[i]);
         elems[i].addEventListener("click", function(e) {
           var el = elems[i];
-          console.log(el);
           if (this.classList.contains("selected")) {
             el.classList.remove('selected');
             //this.classList.add('selected');
