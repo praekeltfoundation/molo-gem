@@ -205,6 +205,7 @@ class ChhaaJaaLoginMiddleware(object):
                 and (
                     'login' not in request.path and
                     'auth' not in request.get_host() and
+                    'auth' not in request.path and
                     'logout' not in request.path and
                     'admin' not in request.path):
             return HttpResponseRedirect(reverse(settings.LOGIN_URL))
