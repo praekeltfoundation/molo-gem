@@ -14,6 +14,7 @@ $color_list: (
     $block: unquote("#{&}");
     #logout-form {
       margin: -2px 0 0;
+      display: inline-block;
     }
     &__button, #logout-form &__button {
       background-color: $colorPurple;
@@ -250,8 +251,18 @@ $color_list: (
       transition: opacity 100ms ease-in-out;
     }
   }
+  &__wrapper {
+    position: absolute;
+    top: 4em;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: 100%;
+  }
   &__form {
     position: relative;
+    text-align: right;
+
     input[type="search"] {
       border: 3px solid #8207ff;
       height: 42px;
@@ -262,7 +273,7 @@ $color_list: (
     [type="reset"],
     [type="submit"] {
       background-color: #8207ff;
-      margin: 10px 0;
+      margin: 0;
       padding: 10px;
       text-decoration: underline;
       text-underline-position: under;
@@ -282,7 +293,7 @@ $color_list: (
 }
 
 //??
-.stricky-fixed {
+/*.stricky-fixed {
   position: fixed;
   z-index: 99;
   width: 100%;
@@ -304,4 +315,4 @@ $color_list: (
       padding-left: 15px;
     }
  }
-}
+}*/
