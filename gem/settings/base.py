@@ -216,7 +216,7 @@ def get_default_template(site_layout_base, site_layout):
     }
 
 
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'chhaajaa')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = get_default_template(SITE_LAYOUT_BASE, SITE_LAYOUT_2)
