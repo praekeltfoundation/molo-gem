@@ -1,5 +1,5 @@
 {% with article as article %}
-  <form method="post" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list">
+  <form method="post" id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}">
   {% csrf_token %}
     <div class="form-group{% if form.comment.errors %} input-error {% endif %}">
     {% if form.errors %}
@@ -16,3 +16,20 @@
     <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
   </form>
 {% endwith %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+        $('#comment-form').submit(function() {
+            $.ajax({
+              data: $(this).serialize(),
+              type: $(this).attr('method'),
+              url: $(this).attr('action'),
+              success: function (data) {
+                // if the comment was a success, remove the comment text from the text area
+                $('#id_comment').val('');
+              },
+            });
+            return false;
+        });
+    });
+</script>

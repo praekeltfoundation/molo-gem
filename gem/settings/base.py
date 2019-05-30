@@ -182,9 +182,6 @@ MIDDLEWARE_CLASSES += [
 
 
 # Template configuration
-
-# We have multiple layouts: use `base`, `malawi` , `springster` or `rwanda`
-# to switch between them.
 def get_default_template(site_layout_base, site_layout):
     return {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -216,6 +213,9 @@ def get_default_template(site_layout_base, site_layout):
     }
 
 
+# We have multiple layouts: use `base`, `malawi` , `springster`, `rwanda`
+# 'chhaajaa' or 'yegna'
+# Change SITE_LAYOUT_BASE to switch between them.
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
