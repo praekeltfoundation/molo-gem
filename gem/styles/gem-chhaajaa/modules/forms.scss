@@ -18,19 +18,22 @@ fieldset {
   }
 }
 label {
+  font-family: $FedraSansBold;
   font-weight: bold;
-  font-size: 21px;
-  padding: 0 .5em 0 0;
+  font-size: 18px;
+  padding: 0 .5em 0 5px;
   vertical-align: middle;
   word-break: break-word;
   word-wrap: break-word;
   display: block;
+  text-transform: uppercase;
+  color: #696969;
 }
 textarea {
   background: transparent;
   margin: 0 auto;
   padding: 1em;
-  width: 100%;
+  width: auto;
 }
 select {
   height: 45px;
@@ -50,8 +53,8 @@ input[type="search"] {
   width: 100%;
   appearance: none;
 }
-[type="checkbox"],
-[type="radio"] {
+input[type="checkbox"],
+input[type="radio"] {
   margin: 0;
   opacity: 0.9;
   visibility: hidden;
@@ -60,34 +63,33 @@ input[type="search"] {
     background-color: transparent;
     cursor: pointer;
     position: relative;
-    padding: 0;
-    margin: 0;
-    width: 100%;
     &:before {
       background-color: #fff;
       content: " ";
-      border: 2px solid aqua;
+      border: 5px solid #ec4e87;
+      border-radius: 5px;
       opacity: 0.9;
       display: inline-block;
-      width: 25px;
-      height: 25px;
+      width: 22px;
+      height: 22px;
       vertical-align: middle;
-      margin-right: 10px;
+      margin-right: 15px;
+      transform: rotate(45deg);
+    }
+    &:active {
+      color: #ec4e87;
     }
   }
 }
-[type="checkbox"] {
+input[type="checkbox"] {
   &:checked + label:before {
-    background: aqua url('/static/img/icons/rwanda/iconsSprite.png') 5px 12.5%/90px no-repeat;
+    background: #ec4e87;
     opacity: 1;
   }
 }
-[type="radio"] {
-  & ~ label:before {
-    border-radius: 50%;
-  }
+input[type="radio"] {
   &:checked + label:before {
-    background: aqua url('/static/img/icons/rwanda/iconsSprite.png')3px 8% /90px no-repeat;
+    background: #ec4e87;
     opacity: 1;
   }
 }
@@ -109,28 +111,42 @@ select {
   padding: 10px;
   margin: 5px 0;
   width: 100%;
+  border: 1px solid #ec4e87;
   &:focus,
   &:active,
   &:visited {
     outline: none;
   }
 }
-[type="button"],
-[type="reset"],
-[type="submit"],
-button{
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+  background: $colorPurple;
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 15px;
   border: none;
-  background: transparent;
+  margin: 10px 0;
 }
 
+*[disabled],
+*[readonly] {
+  background-color: #eee;
+  opacity: 1
+}
 
-
+.selected {}
 .input-hint {
   font-size: 12px;
   font-style: italic;
   display: block;
 }
 .choice-group {
+  display: inline-block;
+  margin: 0 1em 0 0;
   padding: 5px 0;
 }
 .input-group {
@@ -164,8 +180,10 @@ button{
   padding: 0 1em;
 }
 
-#signin {
-  font-family: "Fedra Sans Std Demi";
+
+//??
+
+/*#signin {
   background-color: #8207ff;
   color: #fff;
   border: none;
@@ -174,12 +192,6 @@ button{
   border-radius: 5px;
 }
 
-
-#submit {
-  background-color: #8207ff;
-  border: none;
-  color: #fff
-}
 #logout {
   background-color: #8207ff;
   color: #fff;
@@ -188,37 +200,30 @@ button{
 }
 
 .signinplaceholder {
-  font-family: "Fedra Sans Std Light";
   border: none;
   background-color: #f0f0f0;
-  color: #3c3b3b;
+  color: $colorGrey;
   font-size: 18px;
 }
 .forgotpwd {
-  font-family: "Fedra Sans Std Light";
-
-  color: #3c3b3b;
+  color: $colorGrey;
   font-size: 16px;
 }
 .successmsg {
-  font-family: "Fedra Sans Std Book";
   color: #00e085;
   font-size: 18px;
   margin-bottom: 15px;
 }
 .donotuse {
-  font-family: "Fedra Sans Std Light";
   font-size: 13px;
-  color: #3c3b3b;
+  color: $colorGrey;
 }
 .labelq {
-  font-family: "Fedra Sans Std Book";
-  color: #3c3b3b;
+  color: $colorGrey;
   font-size: 16px;
    cursor: auto;
 }
 .errormsg {
-  font-family: "Fedra Sans Std Light";
   font-size: 13px;
   color: #ff0101;
 }
@@ -230,11 +235,9 @@ button{
 
 }
 .aboutshow {
-  font-family: "Fedra Sans Std Book";
   color: #ff4289;
 }
 .aboutp {
-  font-family: "Fedra Sans Std Light";
   font-size: 14px;
 }
 .sidebar_title3 {
@@ -243,7 +246,6 @@ padding-bottom: 10px;
 
 .characters {
   font-size: 18px;
-  font-family: "Fedra Sans Bold";
   font-weight: 600;
   background-color: #8207ff;
   color: #fff;
@@ -253,7 +255,6 @@ padding-bottom: 10px;
 padding-bottom: 10px;
   h3 {
   font-size: 18px;
-  font-family: "Fedra Sans Bold";
   font-weight: 600;
 
   color: #ff4289;
@@ -265,7 +266,6 @@ padding-bottom: 10px;
   padding: 0px 0px 0px 15px;
 }
 .aboutshowh5 {
-  font-family: "Fedra Sans Std Book";
   color: #ff4289;
   padding: 5px 0px;
 }
@@ -284,7 +284,7 @@ padding-bottom: 10px;
   line-height: 18px;
 }
 .form-control {
-  border: 1px solid #ffe559;
+  border: 1px solid $colorYellow;
 }
 .radio_item {
   display: none !important;
@@ -296,4 +296,4 @@ padding-bottom: 10px;
 .radio_item:checked + label {
   opacity: 1;
   color:#8207ff;
-}
+}*/

@@ -3,11 +3,19 @@
   &__container {
     overflow: auto;
     position: relative;
+    padding: 1.5em 0 0;
   }
   &__excerpt {
-    display: inline;
+    display: inline-block;
   }
   &__inner {}
+  &__cta-buttons {
+    margin: 0 5% 0 0;
+    @media (min-width: 1200px) {
+      float: right;
+      height: 85px;
+    }
+  }
   &__iframe {
     overflow: hidden;
     iframe {
@@ -18,12 +26,18 @@
       }
     }
   }
+  &__image {}
   &__title {
+    background-color: $colorPink;
     color: #fff;
-    background-color: #EC4E87;
+    font-family: $FedraSansBold;
     padding: 0 10px 0;
     display: inline;
-    font-size: 26px;
+    font-size: 34px;
+  }
+  &__subtitle {
+    font-family: $FedraSansStdMedium;
+    margin: 1em 0;
   }
   &__anchor {
     display: inline;

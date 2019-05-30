@@ -1,6 +1,6 @@
 $color_list: (
-  chhaajaa_purple:#8652FC,
-  chhaajaa_pink:#EC4E87
+  chhaajaa_purple : $colorPurple,
+  chhaajaa_pink   : $colorPink
 );
 
 .navbar {
@@ -12,10 +12,74 @@ $color_list: (
   }
   &-nav {
     $block: unquote("#{&}");
+    #logout-form {
+      margin: -2px 0 0;
+    }
+    &__button, #logout-form &__button {
+      background-color: $colorPurple;
+      color: #fff;
+      padding: 5px;
+      font-family: $FedraSansBold;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-underline-position: below;
+      }
+    }
+    &__anchor {
+      color: #8207ff;
+      display: block;
+      font-family: $FedraSansBold;
+      font-size: 28px;
+      text-transform: capitalize;
+      padding: 0 1em;
+      &:hover, &:focus, &:active {
+        color: $colorPink;
+        text-decoration: underline;
+        text-underline-position: below;
+      }
+    }
+    &__option {
+      margin: 1em 10px;
+      display: block;
+      &:last-child {
+        margin: 1em 0 1em 10px;
+      }
+      @media (min-width: 991px) {
+        display: inline-block;
+      }
+
+      &:first-child {
+        .navbar-nav__anchor  {
+          color: $colorPink;
+          &:hover, &:focus, &:active {
+            text-decoration: underline;
+            text-underline-position: below;
+          }
+        }
+      }
+    }
+    @each $name, $color in $color_list {
+      &--#{$name} {
+        .navbar-nav__anchor {
+          color: $color;
+        }
+      }
+    }
     &__item {
       display: inline-block;
-      margin-right: 10px;
-      .click_btn {
+      &:last-child {
+        @media (min-width: 1200px) {
+          margin: 0 0 0 18em;
+        }
+        @media (min-width: 1380px) {
+          margin: 0 0 0 20em;
+        }
+      }
+      //??
+        .click_btn {
         display: none;
         @media (max-width: 991px) {
           position: absolute;
@@ -29,7 +93,7 @@ $color_list: (
           display: block;
         }
       }
-      .submenu  {
+        .submenu  {
         &:hover {
           opacity: 1;
           visibility: visible;
@@ -57,8 +121,8 @@ $color_list: (
             width: 100%;
             a {
               line-height: 45px;
-              border-bottom: 1px solid #f1f4f5;
-              color: #f8395d;
+              border-bottom: none;
+              color: $colorRedLight;
               padding: 0px 20px;
               text-shadow: none;
               position: relative;
@@ -70,7 +134,7 @@ $color_list: (
                 position: absolute;
                 left: 0px;
                 top: 0px;
-                background: #f8395d;
+                background: $colorRedLight;
                 height: 100%;
                 width: 100%;
                 z-index: -1;
@@ -108,58 +172,7 @@ $color_list: (
           }
         }
       }
-    }
-
-    &__button {
-      background-color: #8207ff;
-      color: #fff;
-      padding: 5px;
-      font-size: 18px;
-      font-weight: bold;
-      text-transform: uppercase;
-      &:hover, &:focus, &:active {
-        text-decoration: underline;
-        text-underline-position: below;
-      }
-    }
-    #logout-form .navbar-nav__button {
-      padding: 7px 5px;
-    }
-    &__anchor {
-      color: #8207ff;
-      display: block;
-      font-family: "Fedra Sans Bold", Helvetica, Arial, sans-serif;
-      font-weight: bold;
-      font-size: 28px;
-      &:hover, &:focus, &:active {
-        color: #EC4E87;
-        text-decoration: underline;
-        text-underline-position: below;
-      }
-    }
-    &__option {
-      margin: 1em;
-      display: block;
-      @media (min-width: 991px) {
-        display: inline-block;
-      }
-
-      &:first-child {
-        .navbar-nav__anchor  {
-          color: #EC4E87;
-          &:hover, &:focus, &:active {
-            text-decoration: underline;
-            text-underline-position: below;
-          }
-        }
-      }
-    }
-    @each $name, $color in $color_list {
-      &--#{$name} {
-        .navbar-nav__anchor {
-          color: $color;
-        }
-      }
+      //??
     }
   }
 }
@@ -183,6 +196,7 @@ $color_list: (
   padding: 10px;
   font-size: 22px;
   vertical-align: middle;
+  background: transparent;
   @media (min-width:992px) {
     display: none;
   }
@@ -199,17 +213,18 @@ $color_list: (
   }
   &:hover, &:focus, &:active {
     .icon-bar {
-      background-color: #EC4E87;
+      background-color: $colorPink;
     }
   }
 }
 .navbar-brand {
   display: inline-block;
-  padding: 15px 15px 15px 0;
+  padding: 15px;
   font-size: 18px;
-  line-height: 20px;
-  height: 50px;
   vertical-align: middle;
+  @media (min-width: 991px) {
+    padding: 0.8em 15px;
+  }
   img {
     display: block;
   }
@@ -266,7 +281,7 @@ $color_list: (
   }
 }
 
-
+//??
 .stricky-fixed {
   position: fixed;
   z-index: 99;
