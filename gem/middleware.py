@@ -203,8 +203,10 @@ class ChhaaJaaLoginMiddleware(object):
         if request.user.is_authenticated() is False \
                 and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
                 and (
-                    'login' not in request.path or
-                    'auth' in request.get_host()):
+                    'login' not in request.path and
+                    'auth' not in request.get_host() and
+                    'logout' not in request.path and
+                    'admin' not in request.path):
             return HttpResponseRedirect(reverse(settings.LOGIN_URL))
 
 
