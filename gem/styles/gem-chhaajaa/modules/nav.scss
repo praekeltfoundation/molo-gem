@@ -253,13 +253,16 @@ $color_list: (
   &__wrapper {
     background: $colorYellow;
     height: auto;
-    padding: 1em 2em;
+    padding: 1em 0;
     width: 100%;
     z-index: 9999999999;
 
     position: absolute;
     top: 6em;
     right: 0;
+    @media (min-width: 991px) {
+      padding: 1em 2em;
+    }
   }
   &__form {
     position: relative;
@@ -282,12 +285,12 @@ $color_list: (
     [type="reset"],
     [type="submit"] {
       background-color: #8207ff;
-      margin: 0;
+      margin: 10px;
       padding: 10px;
       text-decoration: underline;
       text-underline-position: under;
       font-weight: bold;
-      @media (max-width: 991px)  {
+      @media (min-width: 991px)  {
         background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
         display: inline-block;
         vertical-align: middle;
