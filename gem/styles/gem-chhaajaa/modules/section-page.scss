@@ -1,12 +1,46 @@
 .section-page {
-  &__wrapper {}
-  &__images {}
-  &__thumbnail {
-    text-align: left;
-    &--placeholder {
-
+  padding: 1em 0;
+  &__images {
+    padding: 0 2em;
+    @media (min-width: 768px) {
+      padding: 0 3em;
     }
   }
+  &__thumbnail {
+    text-align: left;
+    &--placeholder {}
+  }
+
+  &__wrapper {
+    .teaser-stacklist__container {
+      padding: 0.5em 2em;
+      @media (min-width: 768px) {
+        padding: 1.5em 3em;
+      }
+    }
+    .teaser-stacklist__images,
+    .teaser-stacklist__iframe {
+      @media screen and (min-width: 992px) {
+        height: 635px;
+        overflow: hidden;
+      }
+      .teaser-stacklist__anchor {
+        display: block;
+      }
+      .teaser-stacklist__thumbnail {
+        height: auto;
+        object-fit: cover;
+        object-position: left top;
+        height: 100%;
+        width: 100%;
+      }
+      iframe {
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
 
   &__columns {
     @media screen and (min-width: 992px) {
