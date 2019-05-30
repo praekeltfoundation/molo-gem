@@ -32,8 +32,6 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
         response = self.client.get('/')
         self.assertEquals(response.status_code, 200)
 
-        # setting the templates to chhaajaa templates
-        settings.SITE_LAYOUT_BASE = 'chhaajaa'
         template_settings = deepcopy(settings.TEMPLATES)
         template_settings[0]['DIRS'] = [
             join(settings.PROJECT_ROOT, 'templates', 'chhaajaa')
