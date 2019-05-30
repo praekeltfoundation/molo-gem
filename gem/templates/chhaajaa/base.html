@@ -133,7 +133,18 @@
     </div>
     {% footer_page %}
   </footer>
-
+  <script>
+  $( "#id_comment").on("focus",function(event){
+      $(this).closest(".comments__form-post").css({
+        "border": "5px solid #72f3a2",
+        "outline": "none",
+        "padding": "10px",
+        "border-radius": "5px"
+      });
+    }).on("blur",function(event) {
+    $(this).closest(".comments__form-post").css("border","5px solid transparent");
+  });
+  </script>
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
