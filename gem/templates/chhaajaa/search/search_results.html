@@ -4,14 +4,9 @@
 {% block content %}
 {% if search_results %}
   <div class="search-page">
-    <div class="banner">
-      <div class="heading heading--secondary">
-        <h1 class="heading__title">{% trans "Search" %}</h1>
-      </div>
-    </div>
     <div class="search-page__wrapper">
-      <div class="heading">
-        <h3 class="heading__title">{{results|length}} {% trans "Results found for" %}: <span class="search-page__query-term">'{{search_query}}'</span></h3>
+      <div class="heading heading--secondary">
+        <h3 class="heading__macro">{{results|length}} {% trans "Results found for" %}: <span class="search-page__query-term">'{{search_query}}'</span></h3>
       </div>
       <div class="article-teaser__wrapper">
         <ul class="teaser-grid">
@@ -102,14 +97,9 @@
   </div>
   {% else %}
     <div class="search-page">
-      <div class="banner">
-        <div class="heading heading--hero">
-          <h1 class="heading__title">{% trans "Search" %}</h1>
-        </div>
-      </div>
       <div class="search-page__wrapper">
-        <div class="heading">
-          <h1 class="heading__title">{% trans "Search" %}</h1>
+        <div class="heading heading--secondary">
+          <h1 class="heading__macro">{% trans "Search" %}</h1>
         </div>
         <div class="heading  heading--macro">
           <h4 class="heading__title">{% trans "No search results for" %}: <span class="search-page__query-term">'{{ search_query }}'</span></h4>
