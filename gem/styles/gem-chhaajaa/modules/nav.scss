@@ -245,8 +245,8 @@ $color_list: (
       height: 28px;
       width: 28px;
     }
-    &:active, &:hover, &:focus {
-      opacity: 0.5px;
+    &:active, &:hover, &:focus, &:visited {
+      opacity: 0.5;
       transition: opacity 100ms ease-in-out;
     }
   }
@@ -256,11 +256,10 @@ $color_list: (
     padding: 1em 2em;
     width: 100%;
     z-index: 9999999999;
-    @media (min-width: 991px) {
-      position: absolute;
-      top: 6em;
-      right: 0;
-    }
+
+    position: absolute;
+    top: 6em;
+    right: 0;
   }
   &__form {
     position: relative;
@@ -305,7 +304,7 @@ $color_list: (
       height: auto;
       opacity: 0;
       visibility: hidden;
-      transition: visibility 0.2s, opacity 0.5s ease-out;
+      transition: opacity 0.2s linear;
     }
     &:checked + * {
       opacity: 1;
@@ -315,30 +314,4 @@ $color_list: (
       }
     }
   }
-
 }
-
-//??
-/*.stricky-fixed {
-  position: fixed;
-  z-index: 99;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(0, 0, 0, 0.5);
-
-  .navbar-brand {
-    display: inline-block;
-    padding: 0;
-    img {
-      display: inline-block;
-    }
-
-    @media (max-width: 767px) {
-      padding-left: 15px;
-    }
-    @media (max-width: 991px)   {
-      padding-left: 15px;
-    }
- }
-}*/
