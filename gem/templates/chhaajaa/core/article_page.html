@@ -93,7 +93,7 @@
       </div>
     </div>
       {% surveys_list_for_pages page=self %}
-      {% include "comments/comment_block.html" %}
+      {% include "comments/comment_block.html" with article=self %}
     {% block extra_js %}
       <script type="text/javascript">
         var frm = $('#reaction-questions__form');
