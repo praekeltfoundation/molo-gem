@@ -2,22 +2,22 @@
 {% if article.is_commenting_enabled %}
   <div class="comments__form">
     <div class="comments__form-post">
-      <div class="heading heading--secondary">
-        <h4 class="heading__subheading">{% trans "Comment" %}</h4>
-      </div>
       {% if article.allow_commenting %}
         {% if request.user.is_authenticated %}
+          <div class="heading heading--secondary">
+            <h4 class="heading__subheading">{% trans "Comment" %}</h4>
+          </div>
           {% render_comment_form for article %}
-          {% comment %}<!--
-          {% else %}
-            PREVIOUS URL<a href="{% url LOGIN_URL %}?next={{request.path}}"></a>
+        {% else %}
+          {# <!-- PREVIOUS URL<a href="{% url LOGIN_URL %}?next={{request.path}}"></a>-->#}  
             <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
               {% trans "Log in to comment" %}
             </a>
-            -->
-          {% endcomment %}
         {% endif %}
       {% else %}
+        <div class="heading heading--secondary">
+          <h4 class="heading__subheading">{% trans "Comment" %}</h4>
+        </div>
         <h4 class="heading__title">
           {% trans "Commenting on this article is currently disabled" %}
         </h4>

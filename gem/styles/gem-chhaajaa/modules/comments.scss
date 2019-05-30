@@ -1,93 +1,28 @@
-.comments__form {
-  @media (min-width: 1280px) {
-    position: absolute;
-    right: 0.5em;
-    top: 32em;
+.comments {
+  &__item {
+    display: inline-block;
   }
-  form {
-    width: 100%;
-  }
-  label {
-    font-size: 15px;
-    text-transform: uppercase;
-    color: #696969;
-    font-family: "Fedra Sans Bold";
-    font-weight: normal;
-    padding-bottom: 5px;
-  }
-  input {
-    height: 40px;
-    border-radius: 0px;
-    border: 1px solid #dfdfdf;
-    width: 100%;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    text-shadow: none;
-    background: transparent;
-    outline: none;
-    font-family: "Fedra Sans Bold";
-    color: #696969;
-    font-size: 14px;
-    &:focus {
-      border: 1px solid #f8395d;
+  &__counter {}
+  &__form {
+    @media (min-width: 1280px) {
+      position: absolute;
+      right: 0.5em;
+      top: 32em;
     }
-    .placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
+    textarea {
+      min-height: 255px;
+      border-radius: 0px;
+      border: 2px solid $colorYellow;
+      width: auto;
+      &:focus {
+        outline: none;
+        border: 2px solid $colorYellow;
+      }
     }
-    &:-moz-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
+    &-post {
+      padding: 10px;
+      border: 5px solid transparent;
     }
-    &::-moz-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-    &::-webkit-input-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-  }
-  textarea {
-    min-height: 255px;
-    border-radius: 0px;
-    border: 2px solid #ffe559;
-    font-family: "Fedra Sans Bold";
-    width: auto;
-    font-size: 18px;
-    &:focus {
-      outline: none;
-      border: 2px solid #ffe559;
-    }
-
-    .placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-    &:-moz-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-    &::-moz-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-    &::-webkit-input-placeholder {
-      font-family: "Fedra Sans Bold";
-      color: #696969;
-      font-size: 14px;
-    }
-  }
-  &-post {
-    padding: 10px;
-    border: 5px solid transparent;
   }
 }
 
@@ -96,13 +31,11 @@
   padding: 20px 10px;
 }
 
-
 .comment_list_area  {
   h3 {
     font-size: 24px;
     color: #222222;
     text-transform: uppercase;
-    font-family: "Fedra Sans Bold";
     border-bottom: 1px solid #dfdfdf;
     padding: 60px 0px 35px 0px;
     font-weight: 400;
@@ -119,7 +52,6 @@
     }
     .media-body  {
         h4 {
-        font-family: "Fedra Sans Bold";
         font-size: 14px;
         color: #222222;
         padding-bottom: 10px;
@@ -128,12 +60,11 @@
         -o-transition: all 400ms linear 0s;
         transition: all 400ms linear 0s;
         &:hover {
-          color: #f8395d;
+          color: $colorRedLight;
         }
       }
       h5 {
         font-size: 14px;
-        font-family: "Fedra Sans Bold";
         font-style: italic;
         color: #696969;
         padding-bottom: 15px;
@@ -141,12 +72,10 @@
       p {
         font-size: 15px;
         line-height: 26px;
-        font-family: "Fedra Sans Bold";
         color: #696969;
         padding-bottom: 20px;
       }
       .read_more {
-        font-family: "Fedra Sans Bold";
         font-size: 15px;
         text-transform: uppercase;
         width: 70px;
@@ -167,7 +96,7 @@
         -o-transition: all 400ms linear 0s;
         transition: all 400ms linear 0s;
         &:hover {
-          color: #f8395d;
+          color: $colorRedLight;
         }
 
       }
@@ -178,7 +107,6 @@
 .comment_form_area {
   h3 {
     font-size: 24px;
-    font-family: "Fedra Sans Bold";
     color: #222222;
     text-transform: uppercase;
     padding: 60px 0px 25px 0px;
