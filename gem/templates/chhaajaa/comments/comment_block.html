@@ -1,4 +1,4 @@
-{% load comments %}
+{% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags comments %}
 {% if article.is_commenting_enabled %}
   <div class="comments__form">
     <div class="comments__form-post">
@@ -8,10 +8,14 @@
       {% if article.allow_commenting %}
         {% if request.user.is_authenticated %}
           {% render_comment_form for article %}
-        {% else %}
-          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button inverted">
-            {% trans "Log in to comment" %}
-          </a>
+          {% comment %}<!--
+          {% else %}
+            PREVIOUS URL<a href="{% url LOGIN_URL %}?next={{request.path}}"></a>
+            <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
+              {% trans "Log in to comment" %}
+            </a>
+            -->
+          {% endcomment %}
         {% endif %}
       {% else %}
         <h4 class="heading__title">
