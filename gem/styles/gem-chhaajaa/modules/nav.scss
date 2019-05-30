@@ -4,7 +4,6 @@ $color_list: (
 );
 
 .navbar {
-  position: relative;
   overflow: auto;
   @media (min-width: 991px) {
     display: flex;
@@ -251,13 +250,19 @@ $color_list: (
       transition: opacity 100ms ease-in-out;
     }
   }
+  &__checkbox {
+    display: block !important;
+    visibility: visible !important; 
+  }
   &__wrapper {
-    position: absolute;
-    top: 4em;
-    left: 0;
-    right: 0;
     height: auto;
+    padding: 1em 2em;
     width: 100%;
+    @media (min-width: 991px) {
+      position: absolute;
+      top: 4em;
+      right: -2em;
+    }
   }
   &__form {
     position: relative;
@@ -265,9 +270,14 @@ $color_list: (
 
     input[type="search"] {
       border: 3px solid #8207ff;
-      height: 42px;
       margin: 0;
       padding: 5px;
+      font-size: 18px;
+      height: 40px;
+      width: 95%;
+      @media (min-width: 991px) {
+        width: 45%;
+      }
     }
     [type="button"],
     [type="reset"],
