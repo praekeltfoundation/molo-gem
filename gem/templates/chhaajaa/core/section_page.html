@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_survey_tags %}
 {% get_settings %}
 
 {% block content %}
@@ -52,15 +52,15 @@
               {% endfor %}
             </div>
             <div class="teaser-stacklist__cta-buttons">
-                {% load_reaction_question featured_article as question %}
-                {% if question %}
+              {% load_reaction_question featured_article as question %}
+              {% if question %}
                 <div class="reaction-questions">
-                  <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                  <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                     {% csrf_token %}
                     <div class="reaction-questions__list">
                       {% load_choices_for_reaction_question question as choices %}
                         {% for choice in choices %}
-                          {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                          {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
                           {% if user_has_chosen %}
                             <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
                           {% else %}
@@ -77,14 +77,16 @@
                   </form>
                 </div>
               {% endif %}
-              <div class="vote__item">
-                <a href="#" class="vote__icon"></a>
+
+              <div class="share__item">
+                <a href="#" class="share__icon"></a>
               </div>
-              {% if article.is_commenting_enabled %}
-                {% if article.allow_commenting %}
+
+              {% if featured_article.is_commenting_enabled %}
+                {% if featured_article.allow_commenting %}
                   {% if request.user.is_authenticated %}
                     <div class="comments__item">
-                      <a href="#" class="comments__icon"></a>
+                      <a href="#comment-form" class="comments__icon"></a>
                     </div>
                   {% endif %}
                 {% endif %}
@@ -103,9 +105,6 @@
             {% load_child_articles_for_section child_section as articles %}
             <ul class="teaser-card">
             {% for article in articles %}
-              {% if not featured_article %}
-                {{article.title}}<br/>
-              {% endif %}
               <li class="teaser-card__item">
                 {% if article.image %}
                   <div class="teaser-card__images">
@@ -119,6 +118,34 @@
                   <h3 class="teaser-card__title">
                     {{ article.title|safe}}
                   </h3>
+
+                  {% load_reaction_question featured_article as question %}
+                  {% if question %}
+                    <div class="reaction-questions">
+                      <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="reaction-questions__list">
+                          {% load_choices_for_reaction_question question as choices %}
+                            {% for choice in choices %}
+                              {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
+                              {% if user_has_chosen %}
+                                <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                              {% else %}
+                                <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                              {% endif %}
+                                  <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                                    {% image choice.specific.image width-50 as reaction__icon %}
+                                    <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                    {{ choice.title|capfirst }}
+                                  </label>
+                                </span>
+                            {% endfor %}
+                        </div>
+                      </form>
+                    </div>
+                  {% endif %}
+
+
                   {% if article.subtitle %}
                     <h6 class="teaser-card__subtitle">
                       {{ article.subtitle|smarttruncatechars:50|safe}}
@@ -126,7 +153,7 @@
                   {% endif %}
                   {% with article.body as block %}
                     {% if block.block_type == 'paragraph' %}
-                      <p>{{block.value|smarttruncatechars:150|safe}}</p>
+                      <p class="teaser-card__para">{{block.value|smarttruncatechars:150|safe}}</p>
                     {% endif %}
                   {% endwith %}
                 </div>
@@ -139,8 +166,11 @@
 
       {% load_child_articles_for_section self as articles %}
       <div class="section-page__columns-right">
-
+        <div class="heading heading--hero">
+          <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+        </div>
         <ul class="teaser-grid">
+
           {% for article in articles %}
             <li class="teaser-grid__item">
               {% for block in article.body %}
@@ -181,14 +211,11 @@
             </li>
           {% endfor %}
         </ul>
-
         {% for article in featured_articles %}
           {% include "comments/comment_block.html" %}
         {% endfor %}
       </div>
-
     </div>
-
   </div>
 </div>
 {% endblock %}

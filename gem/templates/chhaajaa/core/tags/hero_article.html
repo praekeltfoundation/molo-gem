@@ -58,14 +58,16 @@
                   </form>
                 </div>
               {% endif %}
-              <div class="vote__item">
-                <a href="#" class="vote__icon"></a>
-              </div>
+              {% if survey.display_survey_directly %}
+                <div class="vote__item">
+                  <a href="#survey-form" class="vote__icon"></a>
+                </div>
+              {% endif %}
               {% if article.is_commenting_enabled %}
                 {% if article.allow_commenting %}
                   {% if request.user.is_authenticated %}
                     <div class="comments__item">
-                      <a href="#" class="comments__icon"></a>
+                      <a href="#comment-form" class="comments__icon"></a>
                     </div>
                   {% endif %}
                 {% endif %}
