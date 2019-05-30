@@ -250,23 +250,22 @@ $color_list: (
       transition: opacity 100ms ease-in-out;
     }
   }
-  &__checkbox {
-    display: block !important;
-    visibility: visible !important; 
-  }
   &__wrapper {
+    background: $colorYellow;
     height: auto;
     padding: 1em 2em;
     width: 100%;
+    z-index: 9999999999;
     @media (min-width: 991px) {
       position: absolute;
-      top: 4em;
-      right: -2em;
+      top: 6em;
+      right: 0;
     }
   }
   &__form {
     position: relative;
     text-align: right;
+    margin: 0 1em;
 
     input[type="search"] {
       border: 3px solid #8207ff;
@@ -300,6 +299,22 @@ $color_list: (
       }
     }
   }
+  &__checkbox {
+    & + * {
+      height: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: visibility 0.2s, opacity 0.5s ease-out;
+    }
+    &:checked + * {
+      opacity: 1;
+      visibility: visible;
+      label[for=search_accordion] {
+        background-color: #000;
+      }
+    }
+  }
+
 }
 
 //??
