@@ -37,7 +37,14 @@
           {% endfor %}
 
           <div class="teaser-stacklist__container">
-            <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:50|safe}}</h2>
+            <div class="teaser-stacklist__main">
+              <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:50|safe}}</h2>
+              {% if featured_article.subtitle %}
+                <h6 class="teaser-stacklist__subtitle">
+                  {{ featured_article.subtitle|smarttruncatechars:150|safe}}
+                </h6>
+              {% endif %}
+            </div>
             {% comment %}
               <div class="teaser-stacklist__cta-buttons">
                 {% load_reaction_question featured_article as question %}
@@ -70,14 +77,6 @@
               </div>
               </div>
             {% endcomment %}
-            {% if featured_article.subtitle %}
-              <h6 class="article-teaser__subtitle">
-                {{ featured_article.subtitle|smarttruncatechars:150|safe}}
-              </h6>
-            {% endif %}
-            <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl featured_article.specific %}">
-              {% trans "Read more" %}
-            </a>
           </div>
         </li>
       {% endfor %}
