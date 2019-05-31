@@ -11,6 +11,29 @@
       justify-content: space-between;
     }
   }
+
+  input[type="checkbox"] & ~ label,
+  input[type="radio"] & ~ label {
+    &:before {
+      border: 5px solid $colorPink;
+      transform: rotate(45deg);
+    }
+    &:active {
+      color: $colorPink;
+    }
+  }
+  input[type="checkbox"] {
+    &:checked + label:before {
+      background: $colorPink;
+      opacity: 1;
+    }
+  }
+  input[type="radio"] {
+    &:checked + label:before {
+      background: $colorPink;
+      opacity: 1;
+    }
+  }
 }
 
 .vote {

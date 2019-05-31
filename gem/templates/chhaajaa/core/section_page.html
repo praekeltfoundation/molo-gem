@@ -15,7 +15,7 @@
   <div class="section-page__wrapper">
     {% load_child_articles_for_section self count=1 featured_in_section=True as featured_articles %}
     <ul class="teaser-stacklist">
-      {% for featured_article in featured_articles %}
+      {% for featured_article in featured_articles  %}
         <li class="teaser-stacklist__item">
           {% for block in featured_article.body %}
             {% if block.value.type == "video" %}
@@ -113,7 +113,7 @@
           </div>
             {% load_child_articles_for_section child_section as articles %}
             <ul class="teaser-card">
-            {% for article in articles|slice:":1" %}
+            {% for article in articles %}
               <li class="teaser-card__item">
                 {% if article.image %}
                   <div class="teaser-card__images">
@@ -125,6 +125,7 @@
                   <h3 class="teaser-card__title">
                     {{ article.title|safe}}
                   </h3>
+                  <div class="teaser-stacklist__cta-buttons">
                   {% load_reaction_question article as question %}
                   {% if question %}
                     <div class="reaction-questions">
@@ -150,6 +151,7 @@
                       </form>
                     </div>
                   {% endif %}
+                  </div>
 
                   {% if article.subtitle %}
                     <h6 class="teaser-card__subtitle">
