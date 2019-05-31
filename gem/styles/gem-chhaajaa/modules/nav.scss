@@ -34,7 +34,9 @@ $color_list: (
       font-family: $FedraSansBold;
       font-size: 28px;
       text-transform: capitalize;
-      padding: 0 1em;
+      @media (min-width: 780px) {
+        padding: 0 1em;
+      }
       &:hover, &:focus, &:active {
         color: $colorPink;
         text-decoration: underline;
@@ -42,10 +44,14 @@ $color_list: (
       }
     }
     &__option {
-      margin: 1em 10px;
       display: block;
+      @media (min-width: 780px) {
+        margin: 1em 10px;
+      }
       &:last-child {
-        margin: 1em 0 1em 10px;
+        @media (min-width: 780px) {
+          margin: 1em 0 1em 10px;
+        }
       }
       @media (min-width: 991px) {
         display: inline-block;
@@ -69,7 +75,10 @@ $color_list: (
       }
     }
     &__item {
-      display: inline-block;
+      display: block;
+      @media (min-width: 780px) {
+        display: inline-block;
+      }
       &:last-child {
         @media (min-width: 1200px) {
           margin: 0 0 0 18em;
@@ -192,11 +201,13 @@ $color_list: (
   cursor: pointer;
   display: inline-block;
   position: relative;
-  margin: 15px;
   padding: 10px;
   font-size: 22px;
   vertical-align: middle;
   background: transparent;
+  @media (min-width: 780px) {
+    margin: 15px;
+  }
   @media (min-width:992px) {
     display: none;
   }
@@ -233,10 +244,15 @@ $color_list: (
 .nav-search {
   &__label {
     cursor: pointer;
-    display: inline-block;
+    display: none;
     font-size: 18px;
     text-transform: uppercase;
     padding: 0;
+    visibility: hidden;
+    @media (min-width: 780px) {
+      display: inline-block;
+      visibility: visible;
+    }
     &:after {
       content: " ";
       background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
@@ -276,7 +292,10 @@ $color_list: (
       padding: 5px;
       font-size: 18px;
       height: 40px;
-      width: 95%;
+      width: 100%;
+      @media (min-width: 780px) {
+        width: 95%;
+      }
       @media (min-width: 991px) {
         width: 45%;
       }
@@ -304,18 +323,20 @@ $color_list: (
       }
     }
   }
-  &__checkbox {
-    & + * {
-      height: auto;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s linear;
-    }
-    &:checked + * {
-      opacity: 1;
-      visibility: visible;
-      label[for=search_accordion] {
-        background-color: #000;
+  @media (min-width: 780px)  {
+    &__checkbox {
+      & + * {
+        height: auto;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s linear;
+      }
+      &:checked + * {
+        opacity: 1;
+        visibility: visible;
+        label[for=search_accordion] {
+          background-color: #000;
+        }
       }
     }
   }
