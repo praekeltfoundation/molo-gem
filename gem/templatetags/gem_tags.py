@@ -1,6 +1,8 @@
 import re
+import dateutil
 
 from django.core.urlresolvers import reverse
+from django.utils.timezone import timedelta
 from django.template import Library
 from django.conf import settings
 
@@ -102,3 +104,14 @@ def media_listing_homepage(context):
 @register.simple_tag()
 def oidc_logout_url():
     return settings.LOGOUT_URL
+
+
+@register.filter
+def seconds_to_time(val):
+    """val is in seconds should return hh:mm:ss"""
+    if isinstance(val, int):
+        time = str(timedelta(seconds=val))
+        for zero in re.findall(r'^0:', time):
+            time = time.replace(zero, '')
+        return time
+    return ''
