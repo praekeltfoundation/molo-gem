@@ -14,9 +14,13 @@
     </div>
     <div class="profiles__inner">
       <h2 class="heading__headline">{% trans "Not a member yet?" %}</h2>
+
       <h3 class="heading__subtitle">
-        {% trans "Join us by signing up below." %}
+          {% trans "Join us by signing up below." %}
       </h3>
+
+      <p>{% trans "Humaari kahaniyon mein kho kar ek naya confidence paa jaa. Ab tumhara time aa gaya... ChhaaJaa!" %}</p>
+
       <form method="post" action="{% url "molo.profiles:user_register" %}" class="profiles__form" novalidate>
       {% csrf_token %}
         <fieldset>
