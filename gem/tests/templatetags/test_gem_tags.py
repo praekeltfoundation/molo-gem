@@ -4,7 +4,7 @@ from django.test import RequestFactory, TestCase
 from gem.templatetags.gem_tags import (
     bbm_share_url,
     smart_truncate_chars,
-    idfromlabel
+    idfromlabel, seconds_to_time
 )
 
 
@@ -39,3 +39,11 @@ class TestIdFromLabelTag(TestCase):
         self.assertEqual(idfromlabel('I have visited . . .'),
                          'id_ihavevisited')
         self.assertEqual(idfromlabel('I have visited 1'), 'id_ihavevisited1')
+
+
+class TestSecondsToTime(TestCase):
+
+    def test_seconds_to_time(self):
+        self.assertEqual(seconds_to_time(None), '')
+        self.assertEqual(seconds_to_time(121), '02:01')
+        self.assertEqual(seconds_to_time(3601), '1:00:01')
