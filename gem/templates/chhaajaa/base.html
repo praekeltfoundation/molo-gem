@@ -1,7 +1,10 @@
-{% load compress wagtailuserbar staticfiles %}
-{% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags %}
+{% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
+{% load core_tags compress gem_tags staticfiles %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
+
+
+
 
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -77,13 +80,11 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
           <ul class="navbar-nav__item">
-            <li class="navbar-nav__option">
-              <a href="/" class="navbar-nav__anchor">{% trans "Videos" %}</a>
-            </li>
             {% load_sections as sections %}
             {% for section in sections %}
+              {% content_is section "Videos" as is_videos %}
               <li class="navbar-nav__option navbar-nav__option--{{section.get_effective_extra_style_hints}}">
-                <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">{{section.title}}</a>
+                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
               </li>
             {% endfor %}
           </ul>
