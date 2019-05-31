@@ -35,12 +35,12 @@
   
 </form>
 <script type="text/javascript">
-  var frm = $('#survey-form');
   function set_survey_choice(){
+    var frm = $('#survey-form');
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
       data: frm.serialize() + '&ajax=True'
-    })
+    });
   }
 </script>
