@@ -82,7 +82,7 @@
               {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                 <div class="share__item">
                   <a href="#" id="share_article" class="share__icon"></a>
-                  <div class="share__reveal">
+                  <div id="share_reveal" class="share__reveal">
                     {% social_media_article page=featured_article %}
                   </div>
                 </div>
@@ -227,10 +227,20 @@
 </div>
 {% block extra_js %}
   <script type="text/javascript">
-
     $("#share_article").click(function(e) {
-      e.preventDefault;
-      console.log("Click response");
+      e.preventDefault();
+      $("#share_reveal").toggle(function(){
+        $(this).animate({
+           "display": "block",
+           "transition": "display .15s ease-in-out"
+         }, 500);
+        },function() {
+         $(this).animate({
+           "display": "block",
+           "transition": "display .15s ease-in-out"
+         }, 500);
+        }
+      );
     });
 
     var frm = $('#reaction-questions__form');
