@@ -46,3 +46,4 @@ class TestSecondsToTime(TestCase):
     def test_seconds_to_time(self):
         self.assertEqual(seconds_to_time(None), '')
         self.assertEqual(seconds_to_time(121), '02:01')
+        self.assertEqual(seconds_to_time(3601), '1:00:01')

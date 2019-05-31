@@ -207,7 +207,7 @@
                 {% for block in article.body %}
                   {% if block.value.type == "video" %}
                     {% with block.value as media %}
-                      <span class="teaser-grid__duration">({{block.value.duration|test_seconds_to_time}})</span>
+                      <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
                     {% endwith %}
                   {% endif %}
                 {% endfor %}
