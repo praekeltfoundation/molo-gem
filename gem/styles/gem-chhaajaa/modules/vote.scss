@@ -11,28 +11,28 @@
       justify-content: space-between;
     }
   }
+}
 
-  input[type="checkbox"] & ~ label,
-  input[type="radio"] & ~ label {
-    &:before {
-      border: 5px solid $colorPink;
-      transform: rotate(45deg);
-    }
-    &:active {
-      color: $colorPink;
-    }
+#survey-form input[type="checkbox"] ~ label,
+#survey-form input[type="radio"] ~ label {
+  &:before {
+    border: 5px solid $colorPink !important;
+    transform: rotate(45deg);
   }
-  input[type="checkbox"] {
-    &:checked + label:before {
-      background: $colorPink;
-      opacity: 1;
-    }
+  &:active {
+    color: $colorPink;
   }
-  input[type="radio"] {
-    &:checked + label:before {
-      background: $colorPink;
-      opacity: 1;
-    }
+}
+#survey-form input[type="checkbox"],
+#survey-form input[type="radio"] {
+  &:checked + label:before {
+    background: $colorPink;
+  }
+}
+#survey-form input[type="checkbox"]
+#survey-form input[type="radio"] {
+  &:checked + label:before {
+    background: $colorPink;
   }
 }
 
