@@ -89,18 +89,6 @@
             {% endfor %}
           </ul>
           <ul class="navbar-nav__item">
-            <li class="navbar-nav__option">
-              <div class="nav-search">
-                <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
-                <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
-                <div class="nav-search__wrapper">
-                  <form action="{% url 'search' %}" class="nav-search__form" novalidate>
-                    <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
-                    <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--icon">
-                  </form>
-                </div>
-              </div>
-            </li>
             {% if not user.is_authenticated %}
               <li class="navbar-nav__option">
                 <a href="{{REGISTRATION_URL}}" class="navbar-nav__button">Signup</a>
@@ -119,6 +107,18 @@
                 </form>
               </li>
             {% endif %}
+            <li class="navbar-nav__option">
+              <div class="nav-search">
+                <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
+                <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
+                <div class="nav-search__wrapper">
+                  <form action="{% url 'search' %}" class="nav-search__form" novalidate>
+                    <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+                    <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--icon">
+                  </form>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
