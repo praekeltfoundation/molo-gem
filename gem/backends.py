@@ -234,7 +234,6 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
             'Custom OIDC_RP_SCOPES defined. You need to override'
             ' `verify_claims` for custom claims verification.'
         )
-
         return True
 
     def verify_token(self, token, **kwargs):

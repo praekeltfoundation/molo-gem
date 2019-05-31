@@ -1,0 +1,46 @@
+{% load wagtailcore_tags core_tags gem_tags molo_survey_tags %}
+<form id="survey-form" action="{% pageurl survey %}" method="post" class="polls__form" novalidate>
+{% csrf_token %}
+  {{ form.media }}
+  {% for field in form %}
+    {% if field|fieldtype == 'RadioSelect' %}
+    <fieldset class="{% if self.display_survey_directly %}choice-fieldset{% endif %}">
+      {% for value, text in field.field.choices %}
+        {% load_user_choice_poll_survey survey field.name text as user_has_chosen %}
+        <div class="choice-group choice-group__radio">
+          {% if user_has_chosen %}
+            <input name="{{ field.name }}"
+            id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+            type="radio" value="{{ value }}" checked="checked"
+            onclick="set_choice()"/>
+          {% else%}
+            <input name="{{ field.name }}"
+            id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+            type="radio" value="{{ value }}"
+            onclick="set_choice()"/>
+          {% endif %}
+           <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+        </div>
+      {% endfor %}
+    </fieldset>
+    {% endif %}
+    {% if field.errors %}
+      <ul class="error-list">
+      {% for error in field.errors %}
+        <li class="error-list__item">{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+  
+</form>
+<script type="text/javascript">
+  var frm = $('#survey-form');
+  function set_choice(){
+    $.ajax({
+      type: frm.attr('method'),
+      url: frm.attr('action'),
+      data: frm.serialize() + '&ajax=True'
+    })
+  }
+</script>

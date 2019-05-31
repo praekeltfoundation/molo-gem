@@ -1,0 +1,34 @@
+.surveys, .polls,  {
+  border-top: 2px solid $colorYellow;
+  padding: 1em 0;
+  &__title {
+    color: $colorPink;
+  }
+  &__inner {
+    overflow: auto;
+    @media (min-width: 1200px) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.vote {
+  &__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+  &__icon {
+    background-image: url('/static/img/icons/chhaajaa/poll.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    padding: 0 .5em 0 5px;
+    height: 32px;
+    width: 40px;
+    &:hover, &:focus, &:active {
+      opacity: 0.8;
+      transition: opacity 1s ease;
+    }
+  }
+}

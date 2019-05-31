@@ -1,0 +1,320 @@
+$color_list: (
+  chhaajaa_purple : $colorPurple,
+  chhaajaa_pink   : $colorPink
+);
+
+.navbar {
+  overflow: auto;
+  @media (min-width: 991px) {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-nav {
+    $block: unquote("#{&}");
+    #logout-form {
+      margin: -2px 0 0;
+      display: inline-block;
+    }
+    &__button, #logout-form &__button {
+      background-color: $colorPurple;
+      color: #fff;
+      padding: 5px;
+      font-family: $FedraSansBold;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-underline-position: below;
+      }
+    }
+    &__anchor {
+      color: #8207ff;
+      display: block;
+      font-family: $FedraSansBold;
+      font-size: 28px;
+      text-transform: capitalize;
+      padding: 0 1em;
+      &:hover, &:focus, &:active {
+        color: $colorPink;
+        text-decoration: underline;
+        text-underline-position: below;
+      }
+    }
+    &__option {
+      margin: 1em 10px;
+      display: block;
+      &:last-child {
+        margin: 1em 0 1em 10px;
+      }
+      @media (min-width: 991px) {
+        display: inline-block;
+      }
+
+      &:first-child {
+        .navbar-nav__anchor  {
+          color: $colorPink;
+          &:hover, &:focus, &:active {
+            text-decoration: underline;
+            text-underline-position: below;
+          }
+        }
+      }
+    }
+    @each $name, $color in $color_list {
+      &--#{$name} {
+        .navbar-nav__anchor {
+          color: $color;
+        }
+      }
+    }
+    &__item {
+      display: inline-block;
+      &:last-child {
+        @media (min-width: 1200px) {
+          margin: 0 0 0 18em;
+        }
+        @media (min-width: 1380px) {
+          margin: 0 0 0 20em;
+        }
+      }
+      //??
+        .click_btn {
+        display: none;
+        @media (max-width: 991px) {
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          line-height: 50px;
+          z-index: 6;
+          color: #fff;
+          font-size: 18px;
+          cursor: pointer;
+          display: block;
+        }
+      }
+        .submenu  {
+        &:hover {
+          opacity: 1;
+          visibility: visible;
+          top: 100%;
+        }
+        .dropdown-menu {
+          background: #fff;
+          border-radius: 0px;
+          border: none;
+          @media (min-width: 991px) {
+            display: block;
+            padding: 0px;
+            left: auto;
+            right: 0px;
+            top: 150%;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: all 400ms linear 0s;
+            -o-transition: all 400ms linear 0s;
+            transition: all 400ms linear 0s;
+            min-width: 200px;
+          }
+
+          li {
+            width: 100%;
+            a {
+              line-height: 45px;
+              border-bottom: none;
+              color: $colorRedLight;
+              padding: 0px 20px;
+              text-shadow: none;
+              position: relative;
+              font-weight: 400;
+              text-transform: capitalize;
+              z-index: 3;
+              &:before {
+                content: '';
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                background: $colorRedLight;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+                -webkit-transform: scaleX(0);
+                -ms-transform: scaleX(0);
+                transform: scaleX(0);
+                -webkit-transform-origin: 0 50%;
+                -ms-transform-origin: 0 50%;
+                transform-origin: 0 50%;
+                -webkit-transition-property: -webkit-transform;
+                transition-property: -webkit-transform;
+                -o-transition-property: transform;
+                transition-property: transform;
+                transition-property: transform, -webkit-transform;
+                -webkit-transition: all 400ms linear 0s;
+                -o-transition: all 400ms linear 0s;
+                transition: all 400ms linear 0s;
+              }
+              &:last-child {
+                border-bottom: none;
+                &:before {
+                  display: inline-block;
+                }
+              }
+            }
+            &:hover,
+            &:active {
+              color: #fff;
+              &:before {
+                -webkit-transform: scaleX(1);
+                -ms-transform: scaleX(1);
+                transform: scaleX(1);
+              }
+            }
+          }
+        }
+      }
+      //??
+    }
+  }
+}
+
+.navbar-header {
+  overflow: auto;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+  width: 100%;
+  @media (min-width: 991px) {
+    width: auto;
+    display: inline-block;
+  }
+}
+.navbar-toggle {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin: 15px;
+  padding: 10px;
+  font-size: 22px;
+  vertical-align: middle;
+  background: transparent;
+  @media (min-width:992px) {
+    display: none;
+  }
+  .sr-only {
+    display: none;
+  }
+  .icon-bar {
+    background-color: #8207ff;
+    display: block;
+    width: 1.9em;
+    height: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  &:hover, &:focus, &:active {
+    .icon-bar {
+      background-color: $colorPink;
+    }
+  }
+}
+.navbar-brand {
+  display: inline-block;
+  padding: 15px;
+  font-size: 18px;
+  vertical-align: middle;
+  @media (min-width: 991px) {
+    padding: 0.8em 15px;
+  }
+  img {
+    display: block;
+  }
+}
+
+.nav-search {
+  &__label {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0;
+    &:after {
+      content: " ";
+      background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
+      display: inline-block;
+      vertical-align: middle;
+      height: 28px;
+      width: 28px;
+    }
+    &:active, &:hover, &:focus, &:visited {
+      opacity: 0.5;
+      transition: opacity 100ms ease-in-out;
+    }
+  }
+  &__wrapper {
+    background: $colorYellow;
+    height: auto;
+    padding: 1em 0;
+    width: 100%;
+    z-index: 9999999999;
+
+    position: absolute;
+    top: 6em;
+    right: 0;
+    @media (min-width: 991px) {
+      padding: 1em 2em;
+    }
+  }
+  &__form {
+    position: relative;
+    text-align: right;
+    margin: 0 1em;
+
+    input[type="search"] {
+      border: 3px solid #8207ff;
+      color: $colorGrey;
+      margin: 0;
+      padding: 5px;
+      font-size: 18px;
+      height: 40px;
+      width: 95%;
+      @media (min-width: 991px) {
+        width: 45%;
+      }
+    }
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      background-color: #8207ff;
+      margin: 10px;
+      padding: 10px;
+      text-decoration: underline;
+      text-underline-position: under;
+      font-weight: bold;
+      @media (min-width: 991px)  {
+        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
+        display: inline-block;
+        vertical-align: middle;
+        height: 28px;
+        width: 28px;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+      }
+    }
+  }
+  &__checkbox {
+    & + * {
+      height: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s linear;
+    }
+    &:checked + * {
+      opacity: 1;
+      visibility: visible;
+      label[for=search_accordion] {
+        background-color: #000;
+      }
+    }
+  }
+}

@@ -8,15 +8,18 @@ from django.utils.http import urlencode
 
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
+from django.http.response import Http404
+
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from molo.core.models import SiteSettings, ArticlePage
+from molo.core.templatetags.core_tags import load_tags_for_article
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
-
-from molo.core.models import SiteSettings
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
+
 
 from gem.models import GemSettings
 
@@ -54,6 +57,30 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     into the MoloGoogleAnalyticsMiddleware class and override
     submit_to_local_account
     '''
+
+    def load_article_nav_tags(self, request):
+        """get the tags in an article if the request is for an article page"""
+        path = request.get_full_path()
+        path_components = [component for component in path.split('/')
+                           if component]
+
+        try:
+            page, args, kwargs = request.site.root_page.specific.route(
+                request,
+                path_components)
+            if issubclass(type(page.specific), ArticlePage):
+                tags_str = ""
+                qs = load_tags_for_article(
+                    {'locale_code': 'en', 'request': request}, page)
+                if qs:
+                    for q in qs:
+                        tags_str += "|" + q.title
+                    return tags_str[1:]
+        except Http404:
+            return ""
+
+        return ""
+
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
         If there is a visitor id in the cookie, use that, otherwise
@@ -96,6 +123,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
+        tags = self.load_article_nav_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
+
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
                 bbm_ga_code,
@@ -120,6 +151,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             custom_params.update({'cd3': 'Registered'})
         else:
             custom_params.update({'cd3': 'Visitor'})
+
+        tags = self.load_article_nav_tags(request)
+        if len(tags) > 0:
+            custom_params.update({'cd6': tags})
 
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\
@@ -161,6 +196,20 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         response = self.submit_to_global_account(
             request, response, site_settings)
         return response
+
+
+class ChhaaJaaLoginMiddleware(object):
+    def process_request(self, request):
+        if request.user.is_authenticated() is False \
+                and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
+                and (
+                    'login' not in request.path and
+                    'auth' not in request.get_host() and
+                    'auth' not in request.path and
+                    'oidc' not in request.path and
+                    'logout' not in request.path and
+                    'admin' not in request.path):
+            return HttpResponseRedirect(reverse(settings.LOGIN_URL))
 
 
 class CustomSessionRefresh(SessionRefresh):
