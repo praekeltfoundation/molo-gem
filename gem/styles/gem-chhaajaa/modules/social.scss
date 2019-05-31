@@ -1,5 +1,60 @@
 .share {
   &__item {
+    vertical-align: top;
     display: inline-block;
+    padding: 0 15px 0 0;
+  }
+  &__reveal {
+    position: absolute;
+    bottom: 0;
+    -webkit-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
+    -moz-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
+    box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
+  }
+  &__icon {
+    background: url("/static/img/icons/chhaajaa/share.png") no-repeat 0 0/100%;
+    display: inline-block;
+    height: 38px;
+    width: 40px;
+  }
+}
+
+.social-media {
+  &-list {
+    &__item {
+      display: inline-block;
+      margin: 0 15px 0 5px;
+    }
+  }
+  &__icon {
+    height: 28px;
+    width: 28px;
+  }
+  &__default-icon {
+    height: 35px;
+    width: 35px;
+    display: block;
+    text-indent: 5em;
+    overflow: hidden;
+  }
+  &__anchor {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    &--facebook {
+      .social-media__default-icon {
+        background: url("/static/img/icons/chhaajaa/faceboook.png") no-repeat 0 0/100%;
+      }
+    }
+    &--twitter {
+      .social-media__default-icon {
+        background: url("/static/img/icons/chhaajaa/twitter.png") no-repeat 0 0/100%;
+      }
+    }
+    &--whatsapp {
+      .social-media__default-icon {
+        background: url("/static/img/icons/chhaajaa/whatsapp.png") no-repeat 0 0/100%;
+      }
+    }
   }
 }
