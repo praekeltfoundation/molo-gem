@@ -102,32 +102,32 @@
         {% load_child_sections_for_section section=self as child_sections %}
         {% if child_sections %}
           {% for child_section in child_sections %}
+          <div class="heading heading--hero">
+            <h1 class="heading__component">{{child_section.title}}</h1>
+          </div>
             {% load_child_articles_for_section child_section as articles %}
             <ul class="teaser-card">
             {% for article in articles %}
               <li class="teaser-card__item">
                 {% if article.image %}
                   <div class="teaser-card__images">
-                    <a href="{% pageurl article.specific %}" class="teaser-card__anchor">
-                      {% image article.image width-480 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
-                    </a>
+                    {% image article.image width-480 format-jpeg as teaser_thumbnail %}
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
                   </div>
                 {% endif %}
                 <div class="teaser-card__container">
                   <h3 class="teaser-card__title">
                     {{ article.title|safe}}
                   </h3>
-
-                  {% load_reaction_question featured_article as question %}
+                  {% load_reaction_question article as question %}
                   {% if question %}
                     <div class="reaction-questions">
-                      <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                         {% csrf_token %}
                         <div class="reaction-questions__list">
                           {% load_choices_for_reaction_question question as choices %}
                             {% for choice in choices %}
-                              {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
+                              {% load_user_choice_reaction_question question article choice as user_has_chosen %}
                               {% if user_has_chosen %}
                                 <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
                               {% else %}
@@ -218,4 +218,28 @@
     </div>
   </div>
 </div>
+{% block extra_js %}
+  <script type="text/javascript">
+    var frm = $('#reaction-questions__form');
+    function set_choice(choice) {
+      if (!$('#' + choice).attr('disabled') == true){
+        $.ajax({
+          type: frm.attr('method'),
+          url: frm.attr('action'),
+          data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            choice: choice,
+            ajax: "True"
+          },
+          success: function () {
+            $( ".reaction-questions__item" ).each(function( index ) {
+              $(this).attr('disabled', false);
+            });
+            $("#" + choice).attr('disabled', true);
+          }
+        })
+      }
+    };
+  </script>
+{% endblock %}
 {% endblock %}

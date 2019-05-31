@@ -1,8 +1,10 @@
 footer {
-  padding: 2em;
+  padding: 1em;
   background: $colorYellow;
-  margin-top: 15px;
+  margin-top: 5px;
+  position: relative;
   @media (min-width: 768px) {
+    margin-top: 5em;
     padding: 2em 5%;
   }
   @media (min-width: 1200px) {
@@ -21,13 +23,17 @@ footer {
   }
 
   .pull-right {
-    padding: 0 0 0 10%;
+    @media (min-width: 768px) {
+      padding: 0 0 0 10%;
+    }
     &-list {
       &__item {
         display: inline-block;
-        margin: 0 1em 0;
-        padding: 25px 0;
-
+        padding: 10px 0;
+        @media (min-width: 768px) {
+          margin: 0 1em 0;
+          padding: 25px 0;
+        }
       }
       &__anchor {
         font-size: 24px;

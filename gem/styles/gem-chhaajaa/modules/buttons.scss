@@ -1,23 +1,4 @@
 .call-to-action {
-  &__item {
-    &--paginate {
-      color: $colorRedLight;
-      text-decoration: underline;
-      font-weight: bold;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-  &__read-more {
-    font-family: $FedraSansStdMedium;
-    color: $colorRedLight;
-    display: inline;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 21px;
-    text-decoration: underline;
-  }
   //Buttons
   &__nav-item {
     border: 1px solid $colorRedLight;
@@ -73,176 +54,56 @@
       }
     }
   }
-}
-
-
-.submit_btn {
-  width: 170px;
-  border: 1px solid $colorRedLight;
-  display: inline-block;
-  text-align: center;
-  height: 45px;
-  line-height: 45px;
-  padding: 0px;
-  background: transparent;
-  border-radius: 5px;
-  outline: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  font-size: 15px;
-  color: #fff;
-  font-weight: 400;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 2;
-  -webkit-transition: all 400ms linear 0s;
-  -o-transition: all 400ms linear 0s;
-  transition: all 400ms linear 0s;
-  overflow: hidden;
-  i {
-    padding-right: 14px;
-    font-size: 24px;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -50px;
-    bottom: 0;
-    left: 0;
-    border-right: 50px solid transparent;
-    border-bottom: 80px solid $colorRedLight;
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-    -webkit-transition: all 400ms linear 0s;
-    -o-transition: all 400ms linear 0s;
-    transition: all 400ms linear 0s;
-    z-index: -1;
-  }
-  &:hover, &:focus {
-    color: $colorRedLight;
-    background: transparent;
-    border-color: $colorRedLight;
-    &:before {
-      -webkit-transform: translateX(-100%);
-      -ms-transform: translateX(-100%);
-      transform: translateX(-100%);
-    }
-  }
-  .purple_submit {
-    border: 1px solid #a640d0;
-    &:before {
-      border-bottom: 80px solid #a640d0;
-    }
-    &:hover, &:focus {
-      color: #a640d0;
-      background: transparent;
-      border-color: #a640d0;
-      &:before {
-        -webkit-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-        transform: translateX(-100%);
-      }
-    }
-  }
-}
-
-
-.purchase_btn {
-  width: 220px;
-  border: 2px solid $colorRedLight;
-  border-radius: 5px;
-  display: inline-block;
-  text-align: center;
-  height: 60px;
-  line-height: 60px;
-  font-size: 16px;
-  color: $colorRedLight;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 2;
-  -webkit-transition: all 400ms linear 0s;
-  -o-transition: all 400ms linear 0s;
-  transition: all 400ms linear 0s;
-  overflow: hidden;
-  i {
-    padding-right: 14px;
-    font-size: 24px;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -50px;
-    bottom: 0;
-    left: 0;
-    border-right: 50px solid transparent;
-    border-bottom: 80px solid $colorRedLight;
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    transform: translateX(-100%);
-    -webkit-transition: all 400ms linear 0s;
-    -o-transition: all 400ms linear 0s;
-    transition: all 400ms linear 0s;
-    z-index: -1;
-  }
-  &:hover {
-    color: #fff;
-    &:before {
-      -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-      transform: translateX(0);
-    }
-  }
-  .purple_pruchase {
-    border: 2px solid #a640d0;
-    color: #a640d0;
-    &:before {
-      border-bottom: 80px solid #a640d0;
-    }
-    &:hover {
-      color: #fff;
-    }
-  }
-}
-
-
-.download_area {
-  background: #f1f1f1;
-  padding: 100px 0px;
-  .download_inner {
-    text-align: center;
-    max-width: 945px;
-    margin: auto;
-    h4 {
-      font-size: 18px;
-
-      font-weight: 400;
-      color: #222222;
-      padding-bottom: 14px;
-    }
-    h3 {
-      font-size: 48px;
+  &__item {
+    &--paginate {
       color: $colorRedLight;
+      text-decoration: underline;
       font-weight: bold;
+      &:hover {
+        text-decoration: none;
+      }
     }
-    p {
-      font-size: 16px;
-      line-height: 28px;
-      color: #696969;
-      padding: 35px 0px 30px 0px;
-    }
-    a + a {
-      margin-left: 6px;
-      @media (max-width: 480px) {
-        margin-left: 0px;
+    &--label {
+      font-family: $FedraSansStdMedium;
+      color: $colorPurple;
+      text-transform: uppercase;
+      font-size: 21px;
+      display: inline-block;
+      @media (min-width: 991px) {
         display: block;
-        margin-top: 10px;
+      }
+      &:after {
+        content: "";
+        background-image: url("/static/img/icons/chhaajaa/top.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 38px;
+        position: absolute;
+        height: 37px;
+        width: 78px;
+        display: block;
       }
     }
   }
-  .purple_dd .download_inner h3 {
-    color: #a640d0;
+  &__read-more {
+    font-family: $FedraSansStdMedium;
+    color: $colorRedLight;
+    display: inline;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 21px;
+    text-decoration: underline;
+  }
+  &--backToTop {
+    margin: 0 1em;
+    text-align: center;
+    position: absolute;
+    top: -2em;
+    right: 0; 
+    display: inline-block;
+    @media (min-width: 991px) {
+      right: 2em;
+      display: block;
+    }
   }
 }
