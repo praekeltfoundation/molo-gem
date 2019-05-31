@@ -12,12 +12,12 @@
             <input name="{{ field.name }}"
             id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
             type="radio" value="{{ value }}" checked="checked"
-            onclick="set_choice()"/>
+            onclick="set_survey_choice()"/>
           {% else%}
             <input name="{{ field.name }}"
             id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
             type="radio" value="{{ value }}"
-            onclick="set_choice()"/>
+            onclick="set_survey_choice()"/>
           {% endif %}
            <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
         </div>
@@ -36,7 +36,7 @@
 </form>
 <script type="text/javascript">
   var frm = $('#survey-form');
-  function set_choice(){
+  function set_survey_choice(){
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
