@@ -5,7 +5,7 @@
   <div class="article-teaser">
     <div class="article-teaser__wrapper">
       <ul class="teaser-stacklist">
-        {% for article in articles %}
+        {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
             {% for block in article.body %}
               {% if block.value.type == "video" %}

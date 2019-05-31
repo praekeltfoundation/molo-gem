@@ -11,6 +11,10 @@ $color_list: (
   }
   &-nav {
     $block: unquote("#{&}");
+    @media (min-width: 991px) {
+      display: flex;
+    }
+
     #logout-form {
       margin: -2px 0 0;
       display: inline-block;
@@ -34,7 +38,9 @@ $color_list: (
       font-family: $FedraSansBold;
       font-size: 28px;
       text-transform: capitalize;
-      padding: 0 1em;
+      @media (min-width: 780px) {
+        padding: 0 1em;
+      }
       &:hover, &:focus, &:active {
         color: $colorPink;
         text-decoration: underline;
@@ -42,10 +48,14 @@ $color_list: (
       }
     }
     &__option {
-      margin: 1em 10px;
       display: block;
+      @media (min-width: 780px) {
+        margin: 1em 10px;
+      }
       &:last-child {
-        margin: 1em 0 1em 10px;
+        @media (min-width: 780px) {
+          margin: 1em 0 1em 10px;
+        }
       }
       @media (min-width: 991px) {
         display: inline-block;
@@ -69,8 +79,15 @@ $color_list: (
       }
     }
     &__item {
-      display: inline-block;
+      display: block;
+      @media (min-width: 780px) {
+        display: inline-block;
+      }
       &:last-child {
+        @media (min-width: 991px) {
+          display: flex;
+          flex-direction: row-reverse;
+        }
         @media (min-width: 1200px) {
           margin: 0 0 0 18em;
         }
@@ -78,101 +95,6 @@ $color_list: (
           margin: 0 0 0 20em;
         }
       }
-      //??
-        .click_btn {
-        display: none;
-        @media (max-width: 991px) {
-          position: absolute;
-          right: 0px;
-          top: 0px;
-          line-height: 50px;
-          z-index: 6;
-          color: #fff;
-          font-size: 18px;
-          cursor: pointer;
-          display: block;
-        }
-      }
-        .submenu  {
-        &:hover {
-          opacity: 1;
-          visibility: visible;
-          top: 100%;
-        }
-        .dropdown-menu {
-          background: #fff;
-          border-radius: 0px;
-          border: none;
-          @media (min-width: 991px) {
-            display: block;
-            padding: 0px;
-            left: auto;
-            right: 0px;
-            top: 150%;
-            opacity: 0;
-            visibility: hidden;
-            -webkit-transition: all 400ms linear 0s;
-            -o-transition: all 400ms linear 0s;
-            transition: all 400ms linear 0s;
-            min-width: 200px;
-          }
-
-          li {
-            width: 100%;
-            a {
-              line-height: 45px;
-              border-bottom: none;
-              color: $colorRedLight;
-              padding: 0px 20px;
-              text-shadow: none;
-              position: relative;
-              font-weight: 400;
-              text-transform: capitalize;
-              z-index: 3;
-              &:before {
-                content: '';
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                background: $colorRedLight;
-                height: 100%;
-                width: 100%;
-                z-index: -1;
-                -webkit-transform: scaleX(0);
-                -ms-transform: scaleX(0);
-                transform: scaleX(0);
-                -webkit-transform-origin: 0 50%;
-                -ms-transform-origin: 0 50%;
-                transform-origin: 0 50%;
-                -webkit-transition-property: -webkit-transform;
-                transition-property: -webkit-transform;
-                -o-transition-property: transform;
-                transition-property: transform;
-                transition-property: transform, -webkit-transform;
-                -webkit-transition: all 400ms linear 0s;
-                -o-transition: all 400ms linear 0s;
-                transition: all 400ms linear 0s;
-              }
-              &:last-child {
-                border-bottom: none;
-                &:before {
-                  display: inline-block;
-                }
-              }
-            }
-            &:hover,
-            &:active {
-              color: #fff;
-              &:before {
-                -webkit-transform: scaleX(1);
-                -ms-transform: scaleX(1);
-                transform: scaleX(1);
-              }
-            }
-          }
-        }
-      }
-      //??
     }
   }
 }
@@ -192,11 +114,14 @@ $color_list: (
   cursor: pointer;
   display: inline-block;
   position: relative;
-  margin: 15px;
   padding: 10px;
   font-size: 22px;
   vertical-align: middle;
   background: transparent;
+  margin: 10px;
+  @media (min-width: 780px) {
+    margin: 15px;
+  }
   @media (min-width:992px) {
     display: none;
   }
@@ -233,10 +158,15 @@ $color_list: (
 .nav-search {
   &__label {
     cursor: pointer;
-    display: inline-block;
+    display: none;
     font-size: 18px;
     text-transform: uppercase;
     padding: 0;
+    visibility: hidden;
+    @media (min-width: 780px) {
+      display: inline-block;
+      visibility: visible;
+    }
     &:after {
       content: " ";
       background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
@@ -256,10 +186,11 @@ $color_list: (
     padding: 1em 0;
     width: 100%;
     z-index: 9999999999;
-
-    position: absolute;
-    top: 6em;
-    right: 0;
+    @media (min-width: 780px) {
+      position: absolute;
+      top: 6em;
+      right: 0;
+    }
     @media (min-width: 991px) {
       padding: 1em 2em;
     }
@@ -276,7 +207,10 @@ $color_list: (
       padding: 5px;
       font-size: 18px;
       height: 40px;
-      width: 95%;
+      width: 100%;
+      @media (min-width: 780px) {
+        width: 95%;
+      }
       @media (min-width: 991px) {
         width: 45%;
       }
@@ -291,29 +225,33 @@ $color_list: (
       text-underline-position: under;
       font-weight: bold;
       @media (min-width: 991px)  {
-        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
+        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
         display: inline-block;
         vertical-align: middle;
-        height: 28px;
-        width: 28px;
-        padding: 0;
-        margin: 0;
+        height: 30px;
+        width: 30px;
+        margin: 0 5px;
         border-radius: 0;
+        overflow: hidden;
+        text-indent: 3em;
+        cursor: pointer;
       }
     }
   }
-  &__checkbox {
-    & + * {
-      height: auto;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s linear;
-    }
-    &:checked + * {
-      opacity: 1;
-      visibility: visible;
-      label[for=search_accordion] {
-        background-color: #000;
+  @media (min-width: 780px)  {
+    &__checkbox {
+      & + * {
+        height: auto;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s linear;
+      }
+      &:checked + * {
+        opacity: 1;
+        visibility: visible;
+        label[for=search_accordion] {
+          background-color: #000;
+        }
       }
     }
   }
