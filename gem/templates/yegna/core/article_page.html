@@ -3,7 +3,7 @@
 {% get_settings %}
 
 {% block content %}
-{% with ancestor=self.get_parent_section.get_parent_section.get_parent_section parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
+{% with ancestor=self.get_top_level_parent parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
   {% get_translation section as translated_section %}
   {% if ancestor %}
     {% content_is ancestor "Watch" as is_watch_ancestor %}

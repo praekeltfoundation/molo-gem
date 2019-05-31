@@ -21,7 +21,7 @@
       {% if is_watch_ancestor or is_watch_parent or is_watch %}
       <div class="banner">
         <div class="heading heading--hero">
-          {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
+          {% if ancestor and ancestor.pk != parent.pk %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
         </div>
       </div>
       <div class="section-page__columns section-page__columns--watch">
@@ -250,7 +250,7 @@
         <div class="banner">
           <div class="heading heading--hero">
 
-            {% if ancestor %}
+            {% if ancestor and ancestor.pk != parent.pk %}
               {{ancestor.title}} {{parent.title}}
             {% else %}
               {{parent.title}} {{self.title}}
