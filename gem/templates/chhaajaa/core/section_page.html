@@ -78,9 +78,14 @@
                 </div>
               {% endif %}
 
-              <div class="share__item">
-                <a href="#" class="share__icon"></a>
-              </div>
+              {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+                <div class="share__item">
+                  
+                  <div class="share__item-reveal">
+                    {% social_media_article page=featured_article %}
+                  </div>
+                </div>
+              {% endif %}
 
               {% if featured_article.is_commenting_enabled %}
                 {% if featured_article.allow_commenting %}
@@ -145,17 +150,18 @@
                     </div>
                   {% endif %}
 
-
                   {% if article.subtitle %}
                     <h6 class="teaser-card__subtitle">
                       {{ article.subtitle|smarttruncatechars:50|safe}}
                     </h6>
                   {% endif %}
+
                   {% with article.body as block %}
                     {% if block.block_type == 'paragraph' %}
                       <p class="teaser-card__para">{{block.value|smarttruncatechars:150|safe}}</p>
                     {% endif %}
                   {% endwith %}
+
                 </div>
               </li>
             {% endfor %}
