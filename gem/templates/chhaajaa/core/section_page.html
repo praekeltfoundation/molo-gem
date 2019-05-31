@@ -125,6 +125,7 @@
                   <h3 class="teaser-card__title">
                     {{ article.title|safe}}
                   </h3>
+                  <div class="teaser-stacklist__cta-buttons">
                   {% load_reaction_question article as question %}
                   {% if question %}
                     <div class="reaction-questions">
@@ -150,6 +151,7 @@
                       </form>
                     </div>
                   {% endif %}
+                  </div>
 
                   {% if article.subtitle %}
                     <h6 class="teaser-card__subtitle">
