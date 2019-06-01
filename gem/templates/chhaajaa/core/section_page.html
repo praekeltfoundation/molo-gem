@@ -17,6 +17,8 @@
     <ul class="teaser-stacklist">
       {% for featured_article in featured_articles  %}
         <li class="teaser-stacklist__item">
+
+          {# <!-- REVIEW IMAGE BACKUP --> #}
           {% for block in featured_article.body %}
             {% if block.value.type == "video" %}
               {% if block.value.youtube_link %}
@@ -35,6 +37,8 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {# <!-- END REVIEW IMAGE BACKUP --> #}
+
           <div class="teaser-stacklist__container">
             <div class="teaser-stacklist__main">
               <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:50|safe}}</h2>
@@ -51,6 +55,7 @@
                   </p>
                 {% endif %}
               {% endfor %}
+              <!-- END RICH TEXT -->
             </div>
             <div class="teaser-stacklist__cta-buttons">
               {% load_reaction_question featured_article as question %}
@@ -158,7 +163,7 @@
                       {{ article.subtitle|smarttruncatechars:50|safe}}
                     </h6>
                   {% endif %}
-                  <!-- REVIEW PARA EXCERPT-->
+                  <!-- REVIEW PARA EXCERPT & RICHTEXT-->
                   {% with article.body as block %}
                     {% if block.block_type == 'paragraph' %}
                       <p class="teaser-card__para">{{block.value|smarttruncatechars:150|safe}}</p>
@@ -227,44 +232,44 @@
     </div>
   </div>
 </div>
-{% block extra_js %}
-  <script type="text/javascript">
-    $("#share_article").click(function(e) {
-      e.preventDefault();
-      $("#share_reveal").toggle(function(){
-        $(this).animate({
-           "display": "block",
-           "transition": "display .15s ease-in-out"
-         }, 500);
-        },function() {
-         $(this).animate({
-           "display": "block",
-           "transition": "display .15s ease-in-out"
-         }, 500);
-        }
-      );
-    });
-
-    var frm = $('#reaction-questions__form');
-    function set_choice(choice) {
-      if (!$('#' + choice).attr('disabled') == true){
-        $.ajax({
-          type: frm.attr('method'),
-          url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
-          success: function () {
-            $( ".reaction-questions__item" ).each(function( index ) {
-              $(this).attr('disabled', false);
-            });
-            $("#" + choice).attr('disabled', true);
+  {% block extra_js %}
+    <script type="text/javascript">
+      $("#share_article").click(function(e) {
+        e.preventDefault();
+        $("#share_reveal").toggle(function(){
+          $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          },function() {
+           $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
           }
-        })
-      }
-    };
-  </script>
-{% endblock %}
+        );
+      });
+
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+    </script>
+  {% endblock %}
 {% endblock %}

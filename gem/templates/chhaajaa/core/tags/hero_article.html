@@ -7,6 +7,7 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
+            
             {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
@@ -26,6 +27,7 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+            {# <!-- END REVIEW IMAGE BACKUP --> #}
 
             <div class="teaser-stacklist__container">
               <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
