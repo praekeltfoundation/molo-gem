@@ -1,13 +1,12 @@
 {% load wagtailcore_tags %}
-
 {% if footers %}
-  <div class="pull-right">
-    <ul class="pull-right-list">
-      {% for page in footers %}
-        <li class="pull-right-list__item">
-          <a href="{% pageurl page.specific %}" class="pull-right-list__anchor">{{page.title}}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+<div class="pull-right">
+  <ul class="pull-right-list">
+    {% for page in footers %}
+      <li class="pull-right-list__item">
+        <a href="{% pageurl page.specific %}" class="pull-right-list__anchor">{{page.title}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}

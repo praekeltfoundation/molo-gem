@@ -6,10 +6,13 @@ form {
 fieldset {
   clear: both;
   border: none;
-  margin: 10px 0 15px;
+  margin: 10px;
   word-break: break-word;
   word-wrap: break-word;
   padding: 0;
+  @media (min-width: 768px) {
+    margin: 10px 0 15px;
+  }
   & > label {
     @media (min-width: 1200px) {
       display: inline-block;
@@ -57,8 +60,10 @@ input[type="radio"] {
   position: absolute;
   & ~ label {
     background-color: transparent;
-    cursor: pointer;
     position: relative;
+    @media (min-width: 991px) {
+      cursor: pointer;
+    }
     &:before {
       background-color: #fff;
       content: " ";
