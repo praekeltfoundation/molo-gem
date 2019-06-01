@@ -66,9 +66,12 @@
     &--text {
       display: inline-block;
       color: $colorPink;
-      text-decoration: underline;
-      &:hover {
-        color: $colorPurple;
+      border-bottom: 2px solid transparent;
+      &:hover, &:focus, &:active {
+        border-bottom: 2px solid $colorPink;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
       }
     }
     &--label {
@@ -104,30 +107,49 @@
   }
   &__button {
     display: block;
+    font-family: $FedraSansBold;
     &--primary {
-      background: $colorPurple;
       box-shadow: 12px 12px 0 0 #f9e435;
+      margin: 10px 1em 10px 0;
+      background: $colorPurple;
       color: #fff;
+      cursor: pointer;
       display: inline-block;
       font-size: 18px;
       font-weight: bold;
-      padding: 10px 15px;
+      padding: 5px 15px;
       border: none;
-      margin: 10px 0;
     }
     &--secondary {
       color: $colorPurple;
       margin: 1em 0 0;
       font-size: 21px;
-      text-decoration: underline;
+      &:hover, &:focus, &:active {
+        text-decoration-style: solid;
+        text-underline-position: below;
+        text-decoration-line: underline;
+        text-decoration-skip: spaces;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
+      }
     }
     &--previous {
       color: $colorPurple;
       margin: 1em 0 0;
       font-size: 18px;
       font-weight: bold;
-      text-decoration: underline;
       text-transform: uppercase;
+      &:hover, &:focus, &:active {
+
+        text-decoration-style: solid;
+        text-underline-position: below;
+        text-decoration-line: underline;
+        text-decoration-skip: spaces;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
+      }
     }
   }
   &--group {

@@ -20,7 +20,7 @@ label {
   font-family: $FedraSansStdDemi;
   font-weight: bold;
   font-size: 18px;
-  padding: 0 .5em 0 5px;
+  padding: 0 .5em 0 0;
   vertical-align: middle;
   word-break: break-word;
   word-wrap: break-word;
@@ -35,7 +35,6 @@ textarea {
 }
 select {
   height: 45px;
-  appearance: none;
   border-radius: 0;
   outline: none;
   text-transform: capitalize;
@@ -43,6 +42,7 @@ select {
   white-space:nowrap;
   text-overflow:ellipsis;
   background: #fff;
+  width: 103% !important;
 }
 select[value="value"] {
   font-size: 21px;
@@ -101,22 +101,32 @@ input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
 select {
-  border: none;
+  border-radius: 5px;
   color: $colorGrey;
   padding: 10px;
   margin: 5px 0;
   width: 100%;
   border: 2px solid $colorPurple;
   font-size: 18px;
-  &:focus,
-  &:active,
-  &:visited {
+  &:focus, &:active, &:visited {
     outline: none;
   }
 }
 input[type="search"] {
   width: 100%;
   appearance: none;
+  color: $colorGrey;
+  margin: 0;
+  padding: 5px;
+  font-size: 18px;
+  height: 40px;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 95%;
+  }
+  @media (min-width: 991px) {
+    width: 45%;
+  }
 }
 input[type="button"],
 input[type="reset"],
@@ -124,12 +134,16 @@ input[type="submit"],
 button {
   background: $colorPurple;
   color: #fff;
+  cursor: pointer;
   display: inline-block;
   font-size: 18px;
   font-weight: bold;
   padding: 5px 15px;
   border: none;
   margin: 10px 0;
+  &:focus, &:active, &:visited {
+    outline: none;
+  }
 }
 
 *[disabled],
@@ -138,7 +152,7 @@ button {
   opacity: 1
 }
 .input-hint {
-  font-size: 12px;
+  font-size: 16px;
   font-style: italic;
   display: block;
 }
@@ -149,14 +163,14 @@ button {
 }
 .input-group {
   .helptext {
-    font-size: 18px;
+    font-size: 16px;
     margin: 0;
     font-style: italic;
     display: block;
   }
   span {
+    font-size: 16px;
     display: block;
-    font-size: 5px;
   }
 }
 
@@ -169,11 +183,11 @@ button {
   &__item {
     color: red;
     text-align: left;
-    padding: 0 1em;
+    padding: 1em 1em 0 0;
   }
 }
 .error {
   color: red;
   text-align: left;
-  padding: 0 1em;
+  padding: 1em 1em 0 0;
 }

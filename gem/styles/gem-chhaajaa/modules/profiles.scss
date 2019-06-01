@@ -2,7 +2,7 @@
   padding: 0.5em 0;
   background: $colorYellow;
   @media (min-width: 768px) {
-    padding: 1.5em 5em;
+    padding: 1.5em 15% 3em;
   }
   &__wrapper {
     background: #fff;
@@ -11,20 +11,21 @@
       padding: 2em 5%;
     }
   }
-  &__inner {
-    @media (min-width: 768px) {
-      padding: 0 10% 1em;
-    }
-  }
   &__caption {
     font-size: 27px;
-    padding: 0 0 1em;
+    //padding: 0 0 1em;
     @media (min-width: 768px) {
-      padding: 0 10% 0;
+      padding: 0;
     }
     .heading__subtitle {
       display: inline-block;
       font-size: 27px;
+    }
+  }
+  &__inner {
+    //padding: 15px;
+    @media (min-width: 768px) {
+      padding: 15px 10% 1em 5%;
     }
   }
 
@@ -41,15 +42,22 @@
     padding: 0 .5em 0 5px;
   }
 
-  .heading__component {
-    background: #000;
-    text-transform: uppercase;
-    &:before {
-      display: none;
+  .heading {
+    font-family: $FedraSansStdDemi;
+    &__component {
+      background: transparent;
+      text-transform: uppercase;
+      color: $colorGrey;
+      &:before {
+        display: none;
+      }
     }
-  }
-  .heading--hero {
-    background: #000;
-    display: inline-block;
+    &--hero {
+      background: transparent;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      border-bottom: 2px solid $colorGrey;
+    }
   }
 }

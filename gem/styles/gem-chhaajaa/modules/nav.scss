@@ -14,23 +14,23 @@ $color_list: (
     @media (min-width: 991px) {
       display: flex;
     }
-
     #logout-form {
-      margin: -2px 0 0;
       display: inline-block;
     }
     &__button, #logout-form &__button {
-      background-color: $colorPurple;
-      color: #fff;
-      padding: 5px;
+      background-color: transparent;
+      color: $colorPurple;
+      padding: 0;
       font-family: $FedraSansBold;
-      font-size: 18px;
+      font-size: 25px;
       font-weight: bold;
-      text-transform: uppercase;
-      margin: 10px 0;
       display: block;
       cursor: pointer;
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
+        background-color: $colorPurple;
+        color: #fff;
+        font-size: 18px;
+        padding: 5px 10px;
         margin: 0;
       }
       &:hover, &:focus, &:active {
@@ -44,7 +44,7 @@ $color_list: (
       font-family: $FedraSansBold;
       font-size: 28px;
       text-transform: capitalize;
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
         padding: 0 1em;
       }
       &:hover, &:focus, &:active {
@@ -55,21 +55,22 @@ $color_list: (
     }
     &__option {
       display: block;
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
         margin: 1em 10px;
       }
       &:last-child {
-        @media (min-width: 780px) {
+        @media (min-width: 768px) {
           margin: 1em 0 1em 10px;
         }
       }
       @media (min-width: 991px) {
         display: inline-block;
       }
-
       &:first-child {
         .navbar-nav__anchor  {
-          color: $colorPink;
+          @media (min-width: 768px) {
+            color: $colorPink;
+          }
           &:hover, &:focus, &:active {
             text-decoration: underline;
             text-underline-position: below;
@@ -87,7 +88,7 @@ $color_list: (
     &__item {
       display: block;
       margin: 0 0 10px;
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
         display: inline-block;
       }
       &:last-child {
@@ -118,7 +119,6 @@ $color_list: (
   }
 }
 .navbar-toggle {
-  cursor: pointer;
   display: inline-block;
   position: relative;
   padding: 10px;
@@ -126,7 +126,7 @@ $color_list: (
   vertical-align: middle;
   background: transparent;
   margin: 10px;
-  @media (min-width: 780px) {
+  @media (min-width: 768px) {
     margin: 15px;
   }
   @media (min-width:992px) {
@@ -144,6 +144,7 @@ $color_list: (
     margin-top: 5px;
   }
   &:hover, &:focus, &:active {
+    outline: inherit;
     .icon-bar {
       background-color: $colorPink;
     }
@@ -170,7 +171,7 @@ $color_list: (
     text-transform: uppercase;
     padding: 0;
     visibility: hidden;
-    @media (min-width: 780px) {
+    @media (min-width: 768px) {
       display: inline-block;
       visibility: visible;
     }
@@ -193,7 +194,7 @@ $color_list: (
     padding: 1em 0;
     width: 100%;
     z-index: 9999999999;
-    @media (min-width: 780px) {
+    @media (min-width: 768px) {
       position: absolute;
       top: 6em;
       right: 0;
@@ -204,46 +205,27 @@ $color_list: (
   }
   &__form {
     position: relative;
-    text-align: right;
-    margin: 0 1em 0 5px;
-
-    input[type="search"] {
-      border: 3px solid #8207ff;
-      color: $colorGrey;
-      margin: 0;
-      padding: 5px;
-      font-size: 18px;
-      height: 40px;
-      width: 100%;
-      @media (min-width: 780px) {
-        width: 95%;
-      }
-      @media (min-width: 991px) {
-        width: 45%;
-      }
-    }
+    //text-align: right;
+    //margin: 0 1em 0 5px;
     [type="button"],
-    [type="reset"],
     [type="submit"] {
-      background-color: #8207ff;
       margin: 10px 0;
-      font-weight: bold;
+      float: left;
       @media (min-width: 991px)  {
         background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
         display: inline-block;
+        float: none;
         vertical-align: middle;
         height: 30px;
         width: 30px;
         margin: 0 5px;
         padding: 10px;
-        border-radius: 0;
         overflow: hidden;
         text-indent: 3em;
-        cursor: pointer;
       }
     }
   }
-  @media (min-width: 780px)  {
+  @media (min-width: 768px)  {
     &__checkbox {
       & + * {
         height: auto;

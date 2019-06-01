@@ -1,6 +1,6 @@
 .teaser-card {
-  border-right: 1px solid $colorPurple;
   @media (min-width: 768px) {
+    border-right: 1px solid $colorPurple;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -18,14 +18,18 @@
   &__images {
     width: 100%;
     margin: 0 auto;
-    height: 250px;
     overflow: hidden;
+    @media (min-width: 768px) {
+      height: 250px;
+    }
   }
   &__title {
     color: $colorPink;
     font-size: 21px;
-    padding: 10px 0;
     display: inline-block;
+    @media (min-width: 768px) {
+      padding: 10px 0;
+    }
   }
   &__subtitle,
   &__para {
