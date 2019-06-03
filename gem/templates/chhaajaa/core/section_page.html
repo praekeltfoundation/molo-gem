@@ -68,9 +68,9 @@
                         {% for choice in choices %}
                           {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
                           {% if user_has_chosen %}
-                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})" disabled=disabled>
+                            <span class="reaction-questions__item-{{featured_article}}" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})" disabled=disabled>
                           {% else %}
-                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})">
+                            <span class="reaction-questions__item-{{featured_article}}" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})">
                           {% endif %}
                               <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
                                 {% image choice.specific.image width-50 as reaction__icon %}
@@ -270,7 +270,10 @@
               ajax: "True"
             },
             success: function () {
-              $( ".reaction-questions__item" ).each(function( index ) {
+              $('*[id*=article_id]:visible').each(function() {
+                  $(this).doStuff();
+              });
+              $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
                 $(this).attr('disabled', false);
               });
               $("#" + choice + "-" + article_id).attr('disabled', true);
