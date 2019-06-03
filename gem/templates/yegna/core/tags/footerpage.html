@@ -18,9 +18,7 @@
     {% load_sections as sections %}
     {% for section in sections %}
       {% if section %}
-        {% content_is section "News" as is_news %}
-        {% content_is section "Cast" as is_cast %}
-        {% if is_news or is_cast %}
+        {% if section|is_content:"News" or section|is_content:"Cast" %}
         <li class="menu-list__item state-list__item">
           <a href="{% pageurl section.specific %}" class="menu-list__anchor state-list__anchor">
             <span>{{section.title}}</span>
