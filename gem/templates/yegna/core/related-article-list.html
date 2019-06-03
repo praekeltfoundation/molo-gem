@@ -63,18 +63,9 @@
               {{ next_article.subtitle|smarttruncatechars:150|safe}}
             </p>
           {% endif %}
-          {% with ancestor=next_article.get_parent_section.get_parent_section.get_parent_section parent=next_article.get_parent_section.get_parent_section %}
-            {% if ancestor %}
-              {% content_is ancestor "Watch" as is_watch_ancestor %}
-              {% content_is ancestor "Listen" as is_listen_ancestor %}
-            {% elif parent %}
-              {% content_is parent "Watch" as is_watch_parent %}
-              {% content_is parent "Listen" as is_listen_parent %}
-            {% else %}
-              {% content_is section "Watch" as is_watch %}
-              {% content_is section "Listen" as is_listen %}
-            {% endif %}
-          {% if is_watch_ancestor or is_watch_parent %}
+          {% with ancestor=next_article|parent_section_depth:4 parent=next_article.get_parent_section.get_parent_section %}
+
+          {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" %}
                   <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
                     {% trans "Watch video" %}
                   </a>
@@ -86,7 +77,7 @@
                 {% trans "More episodes" %}
               </a>
             </div>
-          {% elif is_listen_ancestor or is_listen_parent %}
+          {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" %}
                 <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl next_article.specific %}">
                   {% trans "Listen next" %}
                 </a>
@@ -159,17 +150,10 @@
             <p class="teaser-{{teaser_type}}__subtitle">
               {{ article.subtitle|smarttruncatechars:150|safe}}
             </p>
-            {% with ancestor=article.get_parent_section.get_parent_section.get_parent_section parent=article.get_parent_section.get_parent_section %}
-              {% if ancestor %}
-                {% content_is ancestor "Watch" as is_watch_ancestor %}
-                {% content_is ancestor "Listen" as is_listen_ancestor %}
-              {% elif parent %}
-                {% content_is parent "Watch" as is_watch_parent %}
-                {% content_is parent "Listen" as is_listen_parent %}
-              {% endif %}
+            {% with ancestor=article|parent_section_depth:4 parent=article.get_parent_section.get_parent_section %}
 
-              {% if is_watch_ancestor or is_watch_parent %}
-              {% elif is_listen_ancestor or is_listen_parent %}
+              {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" %}
+              {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" %}
               {% else %}
                 <a class="call-to-action__button call-to-action__button--primary" href="{% pageurl article.specific %}">
                   {% trans "Read more" %}

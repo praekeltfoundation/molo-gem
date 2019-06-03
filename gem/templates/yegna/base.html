@@ -157,9 +157,7 @@
                     {% footer_page %}
                     {% for section in sections %}
                       <li class="nav-menu-dropdown-list__item">
-                        {% content_is section "News" as is_news %}
-                        {% content_is section "Cast" as is_cast %}
-                        {% if is_news or is_cast %}
+                        {% if section|is_content:"News" or section|is_content:"Cast" %}
                           {#<!--EMPTY CHECK-->#}
                         {% else %}
                           <a href="{% pageurl section.specific %}" class="nav-menu-dropdown-list__anchor">{{section.title}}</a>
@@ -183,11 +181,8 @@
               </li>
               {% for section_page in sections %}
                 {% if section_page.show_in_menus == True %}
-                  {% content_is section_page "Listen" as is_listen %}
-                  {% content_is section_page "Cast" as is_cast %}
-                  {% content_is section_page "Watch" as is_watch %}
                     <li class="nav-menu-list__item">
-                      <a href="{% pageurl section_page.specific %}" id="{% if is_listen %}listen{% elif is_cast %}cast{% elif is_watch %}watch{% endif %}" class="nav-menu-list__anchor">
+                      <a href="{% pageurl section_page.specific %}" id="{% if section_page|is_content:"Listen" %}listen{% elif section_page|is_content:"Cast" %}cast{% elif section_page|is_content:"Watch" %}watch{% endif %}" class="nav-menu-list__anchor">
                         <span>{{section_page.title}}</span>
                       </a>
                     </li>

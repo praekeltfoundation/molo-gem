@@ -27,10 +27,21 @@ def content_is(page, title):
     if page.title.lower() == title.lower():
         return True
     else:
-        for translation in page.specific.translated_pages.all():
-            if translation.title.lower() == title.lower():
-                return True
+        if hasattr(page.specific, 'translated_pages'):
+            for translation in page.specific.translated_pages.all():
+                if translation.title.lower() == title.lower():
+                    return True
     return False
+
+
+@register.filter
+def is_content(page, content):
+    return page.is_content_page(content)
+
+
+@register.filter()
+def parent_section_depth(page, depth):
+    return page.get_top_level_parent(depth=depth)
 
 
 @register.simple_tag()
