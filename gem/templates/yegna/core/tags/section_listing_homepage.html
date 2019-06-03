@@ -2,8 +2,8 @@
 
     {% for section in sections %}
       {% if section %}
-        {% content_is section "News" as is_watch_news %}
-        {% if is_watch_news %}
+
+        {% if section|is_content:"News" %}
           {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
           {% if articles %}
             <div class="article-teaser article-teaser--general">
@@ -85,8 +85,8 @@
   </div>
     {% for section in sections %}
       {% if section %}
-        {% content_is section "Cast" as is_watch_cast %}
-        {% if is_watch_cast %}
+
+        {% if section|is_content:"Cast" %}
           <div class="landing-page__second-column">
             {% load_descendant_articles_for_section section featured_in_homepage=True as articles %}
             {% if articles %}
