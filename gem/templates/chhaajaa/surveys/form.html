@@ -65,13 +65,12 @@
           for (choice in responses) {
             var percent = responses[choice];
             $('#'+choice+'-perc').text(percent);
-            .width(percent);
             updated.push(choice+'-perc');
           }
           // The above call only returns choices that have answers, update the rest
           $('.response-percent').each(function(){
             if ($.inArray(this.id, updated) == -1){
-              $(this).text(0).width(0);
+              $(this).text(0);
             }
           })
         }
