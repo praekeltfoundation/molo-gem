@@ -7,6 +7,8 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
+            
+            {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
@@ -25,6 +27,8 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+            {# <!-- END REVIEW IMAGE BACKUP --> #}
+
             <div class="teaser-stacklist__container">
               <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-stacklist__title">
@@ -41,39 +45,42 @@
                     <div class="reaction-questions__list">
                       {% load_choices_for_reaction_question question as choices %}
                         {% for choice in choices %}
-                          {% load_user_choice_reaction_question question article choice as user_has_chosen %}
-                          {% if user_has_chosen %}
-                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                          {% else %}
-                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                          {% endif %}
-                              <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                                {% image choice.specific.image width-50 as reaction__icon %}
-                                <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                                {{ choice.title|capfirst }}
-                              </label>
-                            </span>
+                        {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                        {% if user_has_chosen %}
+                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                        {% else %}
+                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                        {% endif %}
+                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                              {% image choice.specific.image width-50 as reaction__icon %}
+                              <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                              {{ choice.title|capfirst }}
+                            </label>
+                          </span>
                         {% endfor %}
                     </div>
                   </form>
                 </div>
-              {% endif %}
-              {% if survey.display_survey_directly %}
-                <div class="vote__item">
-                  <a href="#survey-form" class="vote__icon"></a>
-                </div>
-              {% endif %}
-              {% if article.is_commenting_enabled %}
-                {% if article.allow_commenting %}
-                  {% if request.user.is_authenticated %}
-                    <div class="comments__item">
-                      <a href="#comment-form" class="comments__icon"></a>
-                    </div>
+                {% endif %}
+                {% if survey %}
+                  <div class="vote__item">
+                    <a href="#survey-form" class="vote__icon"></a>
+                  </div>
+                {% endif %}
+                {% if article.is_commenting_enabled %}
+                  {% if article.allow_commenting %}
+                    {% if request.user.is_authenticated %}
+                      <div class="comments__item">
+                        <a href="#comment-form" class="comments__icon"></a>
+                      </div>
+                    {% endif %}
                   {% endif %}
                 {% endif %}
-              {% endif %}
-            </div>
+              </div>
+              {% if article.subtitle %}
               <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+              {% endif %}
+
               <div class="container">
                 <div class="block">
                   <div class="content">
@@ -88,6 +95,7 @@
                 </div>
               </div>
               <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
+
             </div>
           </li>
         {% endfor %}
@@ -120,7 +128,6 @@
           })
         }
       };
-
       const Utils = {
         addClass: function(element, theClass) {
           element.classList.add(theClass);
@@ -128,7 +135,6 @@
         removeClass: function(element, theClass) {
           element.classList.remove(theClass);
         },
-
       showMore: function(element, excerpt) {
         element.addEventListener("click", event => {
           const linkText = event.target.textContent.toLowerCase();

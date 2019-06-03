@@ -12,7 +12,7 @@
     height: 32px;
     width: 40px;
     &:hover, &:focus, &:active {
-      opacity: 0.8;
+      opacity: 0.5;
       transition: opacity 1s ease;
     }
   }
@@ -24,7 +24,7 @@
       width: 30%;
     }
     form {
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
         width: 100%;
       }
     }
@@ -32,7 +32,7 @@
       border-radius: 0px;
       border: 2px solid $colorYellow;
       width: 90%;
-      @media (min-width: 780px) {
+      @media (min-width: 768px) {
         min-height: 220px;
         width: 92%;
       }
@@ -47,8 +47,20 @@
     }
     &-post {
       border: 5px solid transparent;
-      @media (min-width: 780px) {
-        padding: 10px;
+      padding: 10px;
+    }
+    &-disabled {
+      position: relative;
+      opacity: 0.7;
+      &:before {
+        content: "";
+        cursor: not-allowed;
+        display: block;
+        background-color: transparent;
+        height: 100%;
+        width: 100%;
+        z-index: 99999999999;
+        position: absolute;
       }
     }
   }
@@ -132,41 +144,8 @@
     }
   }
 }
-
-.comment_form_area {
-  h3 {
-    font-size: 24px;
-    color: #222222;
-    text-transform: uppercase;
-    padding: 60px 0px 25px 0px;
-    font-weight: 400;
-  }
-
-  .form-group {
-    margin-bottom: 30px;
-    .submit_btn_bg {
-      width: 150px;
-      height: 40px;
-    }
-    &:last-child {
-      margin-bottom: 0px;
-    }
-
-  }
-
-  .purple_form .form-group {
-    input:focus {
-      border: 1px solid #a640d0;
-    }
-    textarea:focus {
-      border: 1px solid #a640d0;
-    }
-    .submit_btn_bg {
-      width: 150px;
-      height: 40px;
-    }
-    &:last-child {
-      margin-bottom: 0px;
-    }
-  }
+.comment-success {
+  font-size: 21px;
+  color: $colorPink;
+  font-style: italic;
 }

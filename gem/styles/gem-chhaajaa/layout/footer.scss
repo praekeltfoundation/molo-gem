@@ -1,10 +1,8 @@
 footer {
   padding: 1em;
   background: $colorYellow;
-  //margin-top: 5px;
   position: relative;
   @media (min-width: 768px) {
-    //margin-top: 5em;
     padding: 2em 5%;
   }
   @media (min-width: 1200px) {
@@ -40,11 +38,12 @@ footer {
         font-family: $FedraSansBold;
         text-transform: uppercase;
         color: $colorPurple;
-        -webkit-transition: all 400ms linear 0s;
-        -o-transition: all 400ms linear 0s;
-        transition: all 400ms linear 0s;
-        &:hover {
-          color: $colorRedLight;
+        border-bottom: 2px solid transparent;
+        &:hover, &:focus, &:active {
+          border-bottom: 2px solid $colorPurple;
+          -webkit-transition: all 400ms linear 0s;
+          -o-transition: all 400ms linear 0s;
+          transition: all 400ms linear 0s;
         }
       }
     }

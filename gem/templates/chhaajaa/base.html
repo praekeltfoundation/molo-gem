@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8" />
     <title>
-      {% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}
+      {% block title %}Chhaajaa - {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -62,24 +62,24 @@
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P45VN52" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
-  <a href="#" id="scroll" style="display: none;"><span></span></a>
-
   <header class="main_menu_area">
     <nav class="navbar">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          {% if user.is_authenticated %}
           <span class="sr-only">{% trans "Menu" %}</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
+          {% endif %}
         </button>
         <a class="navbar-brand" href="/">
           <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
         </a>
       </div>
+      {% if user.is_authenticated %}
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
           <ul class="navbar-nav__item">
             {% load_sections as sections %}
             {% for section in sections %}
@@ -89,43 +89,32 @@
               </li>
             {% endfor %}
           </ul>
-          {% endif %}
           <ul class="navbar-nav__item">
-            {% if not user.is_authenticated %}
-              <li class="navbar-nav__option">
-                <a href="{{REGISTRATION_URL}}" class="navbar-nav__button">Signup</a>
-              </li>
-              <li class="navbar-nav__option">
-                <a href="{% url LOGIN_URL %}" class="navbar-nav__button">Login</a>
-              </li>
-            {% else %}
-              <li class="navbar-nav__option">
-                <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
-              </li>
-              <li class="navbar-nav__option">
-                <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
-                {% csrf_token %}
-                  <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
-                </form>
-              </li>
-            {% endif %}
             <li class="navbar-nav__option">
-              {% if user.is_authenticated %}
-                <div class="nav-search">
-                  <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
-                  <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
-                  <div class="nav-search__wrapper">
-                    <form action="{% url 'search' %}" class="nav-search__form" novalidate>
-                      <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
-                      <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--icon">
-                    </form>
-                  </div>
+              <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
+            </li>
+            <li class="navbar-nav__option">
+              <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
+              {% csrf_token %}
+                <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
+              </form>
+            </li>
+            <li class="navbar-nav__option">
+              <div class="nav-search">
+                <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
+                <input type="checkbox" value="toggles" name="search_toggle" id="search_accordion" class="nav-search__checkbox" />
+                <div class="nav-search__wrapper">
+                  <form action="{% url 'search' %}" class="nav-search__form" novalidate>
+                    <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+                    <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--icon">
+                  </form>
                 </div>
-              {% endif %}
+              </div>
             </li>
           </ul>
         </div>
       </div>
+      {% endif %}
     </nav>
   </header>
   <div class="wrapper">
@@ -143,6 +132,7 @@
       <a href="#" class="call-to-action__item--label">{% trans "Go to top" %}</a>
     </div>
   </footer>
+
   <script>
   $( "#id_comment").on("focus",function(event){
       $(this).closest(".comments__form-post").css({
@@ -155,6 +145,7 @@
     $(this).closest(".comments__form-post").css("border","5px solid transparent");
   });
   </script>
+  {% comment %}{% block extra_js %}{% endblock %}{% endcomment %}
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
