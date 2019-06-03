@@ -64,13 +64,16 @@
     vertical-align: top;
   }
   &__icon {
-    background-image: url('/static/img/icons/chhaajaa/poll.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-    padding: 0 .5em 0 5px;
-    height: 32px;
-    width: 40px;
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/poll.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      content: "";
+      display: block;
+      padding: 0 .5em 0 5px;
+      height: 32px;
+      width: 40px;
+    }
     &:hover, &:focus, &:active {
       opacity: 0.8;
       transition: opacity 1s ease;
@@ -90,7 +93,7 @@
 
   &__bar {
     font-size: 21px;
-    font-weight: $FedraSansStdLight;
+    font-family: $FedraSansStdLight;
     display: inline-block;
     vertical-align: middle;
     padding: 6px 10px 3px;
@@ -104,7 +107,7 @@
       background: #fff;
       color: $colorGrey;
     }
-    &:nth-child(n+2) {
+    &:nth-child(n+3) {
       background: $colorPink;
     }
     &:last-child {

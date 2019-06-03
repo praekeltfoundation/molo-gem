@@ -57,11 +57,9 @@
                   </form>
                 </div>
                 {% endif %}
-                {% if survey %}
-                  <div class="vote__item">
-                    <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                  </div>
-                {% endif %}
+                <div class="vote__item">
+                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                </div>
                 {% if article.is_commenting_enabled %}
                   {% if article.allow_commenting %}
                     {% if request.user.is_authenticated %}
