@@ -12,6 +12,7 @@ from os.path import join
 from django.conf import settings
 from django.contrib.auth.models import User
 from molo.core.models import SiteSettings
+from molo.profiles.models import UserProfilesSettings
 from gem.tests.base import GemTestCaseMixin
 
 from molo.core.models import (
@@ -25,6 +26,9 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main2', slug='main2', path='00010002', url_path='/main2/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        profile_settings = UserProfilesSettings.for_site(self.main.get_site())
+        profile_settings.terms_conditions = self.main
+        profile_settings.save()
 
     def test_redirect_for_chhaajaa_login(self):
         # it should not redirect if the site layout base is not chhhaa jaa
