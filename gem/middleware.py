@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from molo.core.models import SiteSettings, ArticlePage
 from molo.core.templatetags.core_tags import load_tags_for_article
-from molo.profiles.templates import UserProfilesSettings
+from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
