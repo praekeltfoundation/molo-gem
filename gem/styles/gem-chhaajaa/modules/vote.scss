@@ -35,6 +35,7 @@
 
 #survey-form input[type="checkbox"] ~ label,
 #survey-form input[type="radio"] ~ label {
+  color: $colorPink;
   &:before {
     border: 5px solid $colorPink !important;
     transform: rotate(45deg);
@@ -75,5 +76,25 @@
       opacity: 0.8;
       transition: opacity 1s ease;
     }
+  }
+}
+
+.responses {
+  border: 2px solid $colorPink;
+  border-radius: 5px;
+  display: block;
+  margin: 10px;
+}
+.response-percent {
+  display: inline-block;
+  background: $colorPink;
+  &__bar {
+    font-size: 21px;
+    display: block;
+    vertical-align: middle;
+    padding: 6px 10px 3px;
+  }
+  &__percentage-fill {
+    display: inline;
   }
 }

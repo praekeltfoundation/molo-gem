@@ -31,13 +31,17 @@
       {% endfor %}
       </ul>
     {% endif %}
-    <div class="responses" style="width:50%">
-        {% for value, text in field.field.choices %}
-            <div class="response-percent" id="{{ value|slugify }}-perc" style="display:inline;background-color:#ec4c87;width:50%;text-align:center">??</div>
-        {% endfor %}
+    <div class="responses">
+      {% for value, text in field.field.choices %}
+        <div class="response-percent" id="{{ value|slugify }}-perc" style="width:{{value}}">
+          <div class="response-percent__bar" style="width:{{ choice.percentage }}%">
+            <span class="response-percent__percentage-fill">{{ value }}</span>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   {% endfor %}
-  
+
 </form>
 <script type="text/javascript">
   function set_survey_choice(slug){
