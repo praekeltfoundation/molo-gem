@@ -4,7 +4,13 @@
   padding: 1em 0;
   margin: 0 0 5px;
   @media (min-width: 768px) {
-    margin: 0;
+    //margin: 0;
+  }
+  .heading__macro {
+    font-family: $FedraSansStdDemi;
+    @media (min-width: 1200px) {
+      font-size: 38px;
+    }
   }
   &__title {
     color: $colorPink;
@@ -16,6 +22,15 @@
       justify-content: space-between;
     }
   }
+
+  //Form
+  fieldset {
+    margin: 10px;
+  }
+  label {
+    font-size: 23px;
+  }
+
 }
 
 #survey-form input[type="checkbox"] ~ label,
@@ -23,6 +38,8 @@
   &:before {
     border: 5px solid $colorPink !important;
     transform: rotate(45deg);
+    width: 18px;
+    height: 18px;
   }
   &:active {
     color: $colorPink;
