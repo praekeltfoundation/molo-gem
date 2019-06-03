@@ -32,13 +32,11 @@
       </ul>
     {% endif %}
     <div class="responses">
-      {% for value, text in field.field.choices %}
-        <div class="response-percent" id="{{ value|slugify }}-perc" style="width:{{value}}">
-          <div class="response-percent__bar" style="width:{{ choice.percentage }}%">
-            <span class="response-percent__percentage-fill">{{ value }}</span>
-          </div>
-        </div>
-      {% endfor %}
+      <div class="response-percent">
+        {% for value, text in field.field.choices %}
+          <span id="{{ value|slugify }}-perc" class="response-percent__bar" style="{% if value %}width:{{ value.percentage }}%{% endif %}">{{ value }}</span>
+        {% endfor %}
+      </div>
     </div>
   {% endfor %}
 
