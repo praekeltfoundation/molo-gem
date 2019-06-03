@@ -180,7 +180,13 @@
         {% endif %}
       </div>
 
+      {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
+      {% content_is self "Videos" as is_video_section %}
+      {% if not is_video_section %}
+        {% load_child_articles_for_section self.get_first_sibling.specific as articles %}
+      {% else %}
       {% load_child_articles_for_section self as articles %}
+      {% endif %}
       <div class="section-page__columns-right">
         <div class="heading heading--hero">
           <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
