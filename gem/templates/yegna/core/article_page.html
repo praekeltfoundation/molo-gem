@@ -3,7 +3,7 @@
 {% get_settings %}
 
 {% block content %}
-{% with ancestor=self.get_top_level_parent parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
+{% with ancestor=self|parent_section_depth:4 parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
   {% get_translation section as translated_section %}
 
   <div class="article-page{% if section.get_effective_extra_style_hints %} article-page--{{section.get_effective_extra_style_hints}}{% endif %}">

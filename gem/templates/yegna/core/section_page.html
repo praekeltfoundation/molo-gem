@@ -3,7 +3,7 @@
 
 {% block content %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
-    {% with ancestor=self.get_top_level_parent parent=self.get_parent.specific %}
+    {% with ancestor=self|parent_section_depth:4 parent=self.get_parent.specific %}
 
       {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or self|is_content:"Watch" %}
       <div class="banner">

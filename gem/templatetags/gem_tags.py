@@ -38,6 +38,11 @@ def is_content(page, content):
     return page.is_content_page(content)
 
 
+@register.filter()
+def parent_section_depth(page, depth):
+    return page.get_top_level_parent(depth=depth)
+
+
 @register.simple_tag()
 def get_site_static_prefix():
     return settings.SITE_STATIC_PREFIX
