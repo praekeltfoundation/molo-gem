@@ -65,6 +65,7 @@
   }
   &__icon {
     color: $colorGrey;
+    display: inline-block;
     font-family: $FedraSansStdDemi;
     font-size: 18px;
     font-weight: bold;
@@ -72,18 +73,25 @@
     vertical-align: middle;
     word-break: break-word;
     word-wrap: break-word;
+    margin: -7px 0;
     &:before {
-      background-image: url('/static/img/icons/chhaajaa/poll.png');
-      background-position: center;
+      background-image: url('/static/img/icons/chhaajaa/polls.png');
+      background-position: 4px 0;
       background-repeat: no-repeat;
+      background-size: 80%;
       content: "";
       display: block;
-      height: 32px;
-      width: 40px;
+      height: 36px;
+      width: 36px;
+      margin: 0 auto 10px;
     }
     &:hover, &:focus, &:active {
       opacity: 0.8;
       transition: opacity 1s ease;
+      color: red;
+      &:before {
+        background-position: 4px -41px;
+      }
     }
   }
 }
@@ -102,7 +110,8 @@
     font-family: $FedraSansStdLight;
     display: inline-block;
     vertical-align: middle;
-    height: 21px;
+    height: 30px;
+    padding: 5px 10px 0;
     width: auto;
     &:first-child {
       background: $colorPink;
