@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from molo.core.models import SiteSettings, ArticlePage
 from molo.core.templatetags.core_tags import load_tags_for_article
-
+from molo.profiles.templates import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
@@ -201,6 +201,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
 class ChhaaJaaLoginMiddleware(object):
     def process_request(self, request):
+        terms_and_conditions_slug = UserProfilesSettings.for_site(
+            request.site).terms_and_conditions.slug
         if request.user.is_authenticated() is False \
                 and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
                 and (
@@ -209,6 +211,7 @@ class ChhaaJaaLoginMiddleware(object):
                     'auth' not in request.path and
                     'oidc' not in request.path and
                     'logout' not in request.path and
+                    terms_and_conditions_slug not in request.path and
                     'profiles' not in request.path and
                     'admin' not in request.path):
             return redirect_to_login(
