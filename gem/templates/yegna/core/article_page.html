@@ -5,23 +5,11 @@
 {% block content %}
 {% with ancestor=self.get_top_level_parent parent=self.get_parent_section.get_parent_section  section=self.get_parent_section %}
   {% get_translation section as translated_section %}
-  {% if ancestor %}
-    {% content_is ancestor "Watch" as is_watch_ancestor %}
-    {% content_is ancestor "Listen" as is_listen_ancestor %}
-  {% elif parent %}
-    {% content_is parent "Watch" as is_watch_parent %}
-    {% content_is parent "Listen" as is_listen_parent %}
-  {% else %}
-    {% content_is section "Watch" as is_watch %}
-    {% content_is section "Listen" as is_listen %}
-    {% content_is section "News" as is_news %}
-    {% content_is section "Cast" as is_cast %}
-  {% endif %}
 
   <div class="article-page{% if section.get_effective_extra_style_hints %} article-page--{{section.get_effective_extra_style_hints}}{% endif %}">
     <div class="banner">
       <div class="heading heading--hero">
-          {% if is_watch_ancestor or is_watch_parent or is_watch %}
+          {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or section|is_content:"Watch" %}
             {% if ancestor %}<h1 class="heading__title">{{ancestor.title}} {{parent.title}} </h1>
             {% else %}<h1 class="heading__title">{{parent.title}} {{translated_section.title}}</h1>{% endif %}
           {% elif is_listen_ancestor or is_listen_parent or is_listen %}
@@ -39,7 +27,7 @@
         </div>
     </div>
     <div class="article-page__wrapper{% if is_cast %} article-page__wrapper--cast{% endif %}">
-      {% if is_watch_ancestor or is_watch_parent or is_watch %}
+      {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or section|is_content:"Watch" %}
         <div class="teaser-breadcrumb">
           <ul class="teaser-breadcrumb-list">
             {% if parent != None %}
@@ -171,7 +159,7 @@
         </ul>
       {% endif %}
 
-    {% if is_watch_ancestor or is_watch_parent or is_watch %}
+    {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or section|is_content:"Watch" %}
       <div class="article-page__columns">
         <div class="article-page__first-column">
     {% elif is_listen_ancestor or is_listen_parent or is_listen %}
@@ -306,7 +294,7 @@
         </ul>
       {% endif %}
       {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing or settings.core.SiteSettings.whatsapp_sharing or settings.core.SiteSettings.telegram_sharing or settings.core.SiteSettings.viber_sharing %}
-        {% if is_watch_ancestor or is_watch_parent or is_watch %}
+        {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or section|is_content:"Watch" %}
            <div class="social-media social-media--watch">
              {% if page.homepage_media %}
                {% for block in page.homepage_media %}
@@ -343,7 +331,7 @@
          {% endif %}
        {% endif %}
       <a href="{% pageurl section.specific %}" class="call-to-action__item call-to-action__item--nav-back">{% trans "Go back to" %} {{translated_section}}</a>
-      {% if is_watch_ancestor or is_watch_parent or is_watch %}
+      {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or section|is_content:"Watch" %}
          </div>
          <div class="article-page__second-column">
            {% include "core/related-article-list.html" with teaser_type="grid" %}

@@ -33,6 +33,11 @@ def content_is(page, title):
     return False
 
 
+@register.filter
+def is_content(page, content):
+    return page.is_content_page(content)
+
+
 @register.simple_tag()
 def get_site_static_prefix():
     return settings.SITE_STATIC_PREFIX

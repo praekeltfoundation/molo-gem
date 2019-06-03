@@ -5,20 +5,7 @@
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
     {% with ancestor=self.get_top_level_parent parent=self.get_parent.specific %}
 
-    {% if ancestor.exact_type == "SectionPage"  %}
-      {% content_is ancestor "Watch" as is_watch_ancestor %}
-      {% content_is ancestor "Listen" as is_listen_ancestor %}
-    {% elif parent.exact_type == "SectionPage" %}
-      {% content_is parent "Watch" as is_watch_parent %}
-      {% content_is parent "Listen" as is_listen_parent %}
-    {% else %}
-      {% content_is self "Watch" as is_watch %}
-      {% content_is self "Listen" as is_listen %}
-      {% content_is self "News" as is_news %}
-      {% content_is self "Cast" as is_cast %}
-    {% endif %}
-
-      {% if is_watch_ancestor or is_watch_parent or is_watch %}
+      {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or self|is_content:"Watch" %}
       <div class="banner">
         <div class="heading heading--hero">
           {% if ancestor and ancestor.pk != parent.pk %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
@@ -246,7 +233,7 @@
             {% endfor %}
           </div>
       </div>
-      {% elif is_listen_ancestor or is_listen_parent or is_listen %}
+      {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
         <div class="banner">
           <div class="heading heading--hero">
 
@@ -257,8 +244,7 @@
             {% endif %}
           </div>
         </div>
-
-        {% if is_listen %}
+        {% if ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
           {% load_child_sections_for_section self as subsections %}
           {% if subsections %}
             <div class="section-nav">
@@ -469,7 +455,7 @@
             {% endif %}
           </div>
         {% endif %}
-      {% elif is_news %}
+      {% elif self|is_content:"News" %}
         <div class="banner">
           <div class="heading heading--hero">
               {% trans "Latest" %} <span class="banner__section-name">{{self.title}}</span>
@@ -507,7 +493,7 @@
             </div>
           </div>
         </div>
-      {% elif is_cast %}
+      {% elif self|is_content:"Cast" %}
         <div class="banner">
           <div class="heading heading--hero">
               {% trans "Meet the Yegna" %} <span class="banner__section-name">{{self.title}}</span>
