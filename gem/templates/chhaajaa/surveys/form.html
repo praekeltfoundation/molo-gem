@@ -12,12 +12,12 @@
             <input name="{{ field.name }}"
             id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
             type="radio" value="{{ value }}" checked="checked"
-            onclick="set_survey_choice()"/>
+            onclick="set_survey_choice('{{survey.slug}}')"/>
           {% else%}
             <input name="{{ field.name }}"
             id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
             type="radio" value="{{ value }}"
-            onclick="set_survey_choice()"/>
+            onclick="set_survey_choice('{{survey.slug}}')"/>
           {% endif %}
            <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
         </div>
@@ -31,16 +31,51 @@
       {% endfor %}
       </ul>
     {% endif %}
+    <div class="responses" style="width:50%">
+        {% for value, text in field.field.choices %}
+            <div class="response-percent" id="{{ value|slugify }}-perc" style="display:inline;background-color:#ec4c87;width:50%;text-align:center">??</div>
+        {% endfor %}
+    </div>
   {% endfor %}
   
 </form>
 <script type="text/javascript">
-  function set_survey_choice(){
+  function set_survey_choice(slug){
     var frm = $('#survey-form');
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
-      data: frm.serialize() + '&ajax=True'
+      data: frm.serialize() + '&ajax=True',
+      success: function() {
+          update_percentages(slug)
+      },
     });
-  }
+  };
+
+  function update_percentages(slug){
+      $.ajax({
+        type: "get",
+        url: "/surveys/"+slug+"/results_json/",
+        success: function (data) {
+          for (survey in data) {
+            var responses = data[survey];
+            var updated = [];
+            for (choice in responses) {
+              var percent = responses[choice];
+              $('#'+choice+'-perc').text(percent)
+              .width(percent);
+              updated.push(choice+'-perc');
+            }
+            // The above call only returns choices that have answers, update the rest
+            $('.response-percent').each(function(){
+                if ($.inArray(this.id, updated) == -1){
+                    $(this).text(0)
+                    .width(0);
+                }
+            })
+          }
+        },
+    });
+  };
+  update_percentages('{{survey.slug}}');
 </script>
