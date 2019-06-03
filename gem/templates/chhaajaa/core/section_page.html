@@ -41,10 +41,10 @@
 
           <div class="teaser-stacklist__container">
             <div class="teaser-stacklist__main">
-              <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:50|safe}}</h2>
+              <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:100|safe}}</h2>
               {% if featured_article.subtitle %}
                 <h6 class="teaser-stacklist__subtitle">
-                  {{ featured_article.subtitle|smarttruncatechars:150|safe}}
+                  {{ featured_article.subtitle}}
                 </h6>
               {% endif %}
               <!-- RICH TEXT -->
@@ -128,7 +128,7 @@
                 {% endif %}
                 <div class="teaser-card__container">
                   <h3 class="teaser-card__title">
-                    {{ article.title|safe}}
+                    {{ article.title|smarttruncatechars:80|safe}}
                   </h3>
                   <div class="teaser-stacklist__cta-buttons">
                   {% load_reaction_question article as question %}
@@ -163,12 +163,14 @@
                       {{ article.subtitle|smarttruncatechars:50|safe}}
                     </h6>
                   {% endif %}
-                  <!-- REVIEW PARA EXCERPT & RICHTEXT-->
-                  {% with article.body as block %}
-                    {% if block.block_type == 'paragraph' %}
-                      <p class="teaser-card__para">{{block.value|smarttruncatechars:150|safe}}</p>
+
+                  {% for block in article.body %}
+                    {% if not block.block_type == 'media' %}
+                      <p class="teaser-card__para">
+                        {{block.value}}
+                      </p>
                     {% endif %}
-                  {% endwith %}
+                  {% endfor %}
 
                 </div>
               </li>
