@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from molo.core.models import SiteSettings, ArticlePage
 from molo.core.templatetags.core_tags import load_tags_for_article
-
+from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
@@ -211,8 +211,13 @@ class ChhaaJaaLoginMiddleware(object):
                     'logout' not in request.path and
                     'profiles' not in request.path and
                     'admin' not in request.path):
-            return redirect_to_login(
-                next=request.path, login_url=settings.LOGIN_URL)
+            terms_and_conditions = UserProfilesSettings.for_site(
+                request.site).terms_and_conditions
+            if not (
+                    terms_and_conditions and
+                    terms_and_conditions.slug in request.path):
+                return redirect_to_login(
+                    next=request.path, login_url=settings.LOGIN_URL)
 
 
 class CustomSessionRefresh(SessionRefresh):
