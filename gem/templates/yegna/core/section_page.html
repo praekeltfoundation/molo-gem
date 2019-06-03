@@ -258,16 +258,7 @@
                           <img alt="{{ subsection.title }}" src="{{ subsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
                         </div>
                       {% else %}
-                      {% content_is subsection "Music" as is_music %}
-                      {% content_is subsection "Radio Drama" as is_drama %}
-                      {% content_is subsection "Radio drama" as is_drama1 %}
-                      {% content_is subsection "Radio Talkshow" as is_talkshow %}
-                      {% content_is subsection "Radio Talk show" as is_talkshow1 %}
-                      {% content_is subsection "Radio talk Show" as is_talkshow2 %}
-                      {% content_is subsection "Radio Talk Show" as is_talkshow3 %}
-                      {% content_is subsection "Radio talk" as is_talk %}
-                      {% content_is subsection "Radio Talk" as is_talk1 %}
-                        <div class="section-nav-list__images section-nav-list__images--{% if is_music %}music{% elif is_drama or is_drama1 %}radio-drama{% elif is_talkshow or is_talkshow1 or is_talkshow2 or is_talkshow3 %}radio-talk-show{% elif is_talk or is_talk1 %}radio-talk{% endif %}"></div>
+                        <div class="section-nav-list__images section-nav-list__images--{% if subsection|is_content:"Music" %}music{% elif subsection|is_content:"Radio Drama" %}radio-drama{% elif subsection|is_content:"Radio Talkshow" or subsection|is_content:"Radio Talk show" %}radio-talk-show{% elif subsection|is_content:"Radio talk" %}radio-talk{% endif %}"></div>
                       {% endif %}
                       <h2 class="section-nav__label">{{subsection.title}}</h2>
                     </a>
@@ -355,16 +346,7 @@
                                     <img alt="{{ siblingsection.title }}" src="{{ siblingsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
                                   </div>
                                 {% else %}
-                                  {% content_is siblingsection "Music" as is_music %}
-                                  {% content_is siblingsection "Radio Drama" as is_drama %}
-                                  {% content_is siblingsection "Radio drama" as is_drama1 %}
-                                  {% content_is siblingsection "Radio Talkshow" as is_talkshow %}
-                                  {% content_is siblingsection "Radio Talk show" as is_talkshow1 %}
-                                  {% content_is siblingsection "Radio talk Show" as is_talkshow2 %}
-                                  {% content_is siblingsection "Radio Talk Show" as is_talkshow3 %}
-                                  {% content_is siblingsection "Radio talk" as is_talk %}
-                                  {% content_is siblingsection "Radio Talk" as is_talk1 %}
-                                  <div class="section-nav-list__images section-nav-list__images--{% if is_music %}music{% elif is_drama or is_drama1 %}radio-drama{% elif is_talkshow or is_talkshow1 or is_talkshow2 or is_talkshow3 %}radio-talk-show{% elif is_talk or is_talk1 %}radio-talk{% endif %}"></div>
+                                  <div class="section-nav-list__images section-nav-list__images--{% if siblingsection|is_content:"Music" %}music{% elif siblingsection|is_content:"Drama" %}radio-drama{% elif siblingsection|is_content:"Radio Talkshow" or siblingsection|is_content:"Radio Talk show" %}radio-talk-show{% elif siblingsection|is_content:"Radio talk" %}radio-talk{% endif %}"></div>
                                 {% endif %}
                                 <h2 class="section-nav__label">{{siblingsection.title}}</h2>
                               </a>
