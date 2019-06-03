@@ -64,36 +64,68 @@
     vertical-align: top;
   }
   &__icon {
-    background-image: url('/static/img/icons/chhaajaa/poll.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-    padding: 0 .5em 0 5px;
-    height: 32px;
-    width: 40px;
+    color: $colorGrey;
+    display: inline-block;
+    font-family: $FedraSansStdDemi;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    margin: 0 12px 6px 5px;
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/polls.png');
+      background-position: 4px 0;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      content: "";
+      display: block;
+      height: 36px;
+      width: 36px;
+      margin: 0 auto 4px;
+    }
     &:hover, &:focus, &:active {
       opacity: 0.8;
       transition: opacity 1s ease;
+      &:before {
+        background-position: 4px -45px;
+      }
     }
   }
 }
 
 .responses {
   border: 2px solid $colorPink;
-  border-radius: 5px;
   display: block;
-  margin: 10px;
+  margin: 2em 10px 0;
   width: 70%
 }
 .response-percent {
   background: #fff;
   display: flex;
-  width: 100%;
   &__bar {
     font-size: 21px;
-    font-weight: bold;
+    font-family: $FedraSansStdLight;
     display: inline-block;
     vertical-align: middle;
-    padding: 6px 10px 3px;
+    height: 30px;
+    padding: 5px 10px 0;
+    width: auto;
+    &:first-child {
+      background: $colorPink;
+      color: #fff;
+      border-right: 1px solid red;
+    }
+    &:nth-child(2) {
+      background: #fff;
+      color: $colorGrey;
+    }
+    &:nth-child(n+3) {
+      background: $colorPink;
+    }
+    &:last-child {
+      border: none;
+    }
   }
 }

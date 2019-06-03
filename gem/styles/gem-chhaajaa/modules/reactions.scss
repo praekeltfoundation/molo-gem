@@ -1,18 +1,31 @@
 .reaction-questions {
   display: inline-block;
   vertical-align: top;
-  &__list {}
   &__icon {
+    background-image: url('/static/img/icons/chhaajaa/likes.png') !important;
+    background-position: 0 0;
+    background-repeat: no-repeat;
     background-position: center;
     background-repeat: no-repeat;
     height: 30px;
-    width: 30px;
+    width: 35px;
     margin: 0 auto 10px;
+
   }
   &__label {
     color: $colorGrey;
     font-size: 18px;
     text-align: center;
+    &--like {
+      .reaction-questions__icon {
+        background-position: 5px 0;
+      }
+    }
+    &--dislike {
+      .reaction-questions__icon {
+        background-position: 3px -124px;
+      }
+    }
   }
   &__item {
     display: inline-block;
@@ -27,17 +40,28 @@
     }
     &[disabled] > .reaction-questions__label--like {
       .reaction-questions__icon {
-        background-image: url('/static/img/icons/chhaajaa/liked.png') !important;
+        background-position: 5px -62px;
       }
     }
     &[disabled] > .reaction-questions__label--dislike {
       .reaction-questions__icon {
-        background-image: url('/static/img/icons/chhaajaa/disliked.png') !important;
+        background-position: 3px -186px;
       }
     }
+
     &:focus, &:hover, &:active {
       opacity: 0.8;
       transition: opacity 1s ease;
+      .reaction-questions__label--like {
+        .reaction-questions__icon {
+          background-position: 5px -62px;
+        }
+      }
+      .reaction-questions__label--dislike {
+        .reaction-questions__icon {
+          background-position: 3px -186px;
+        }
+      }
     }
   }
 
