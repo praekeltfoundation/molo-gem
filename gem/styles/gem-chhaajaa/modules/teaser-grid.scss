@@ -1,5 +1,20 @@
 .teaser-grid {
   margin: 1em 0;
+  @media (min-width: 768px)  {
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px $colorYellow;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(134,98,252,1);
+      outline: 1px solid rgba(134,98,252,1);
+    }
+  }
   &__item {
     margin: 1em 0 1.5em;
     @media screen and (min-width: 80.000em) {

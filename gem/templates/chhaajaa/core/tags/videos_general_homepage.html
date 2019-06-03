@@ -1,0 +1,71 @@
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags gem_tags %}
+{% get_settings %}
+
+{% if articles %}
+  <div class="article-teaser article-teaser--latest">
+    <div class="heading heading--hero">
+      <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+    </div>
+    <div class="article-teaser__wrapper">
+      <ul class="teaser-grid">
+        {% for article in articles %}
+          <li class="teaser-grid__item">
+
+            {# <!-- REVIEW IMAGE BACKUP --> #}
+            {% for block in article.body %}
+              {% if block.value.type == "video" %}
+                {% if block.value.youtube_link %}
+                  <div class="teaser-grid__iframe">
+                    {% embed block.value.youtube_link %}
+                  </div>
+                  {% endif %}
+              {% else %}
+                {% if forloop.last and article.get_effective_image %}
+                  <div class="teaser-grid__images">
+                    <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                    </a>
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {# <!-- END REVIEW IMAGE BACKUP --> #}
+
+            <div class="teaser-grid__container">
+              <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
+                <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
+              </a>
+
+              {% for block in article.body %}
+                {% if block.value.type == "video" %}
+                  {% with block.value as media %}
+                    <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
+                  {% endwith %}
+                {% endif %}
+              {% endfor %}
+
+              {% if article.subtitle_highlight or article.body_highlight %}
+                <p class="teaser-grid__subtitle">
+                  {% if article.subtitle_highlight %}
+                    {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+                  {% elif article.body_highlight %}
+                    {{article.body_highlight|smarttruncatechars:50|safe}}
+                  {% endif %}
+                </p>
+              {% elif article.subtitle %}
+                <p class="teaser-grid__subtitle">
+                  {% if article.title.30 %}
+                    {{ article.subtitle|smarttruncatechars:50|safe}}
+                  {% else %}
+                    {{ article.subtitle|smarttruncatechars:50|safe}}
+                  {% endif %}
+                </p>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}
