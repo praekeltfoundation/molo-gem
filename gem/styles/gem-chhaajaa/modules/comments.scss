@@ -4,30 +4,33 @@
     vertical-align: top;
   }
   &__icon {
-    font-family: $FedraSansStdDemi;
-    /*background-image: url('/static/img/icons/chhaajaa/Comment.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-    padding: 0 .5em 0 5px;
-    height: 32px;
-    width: 40px;*/
     color: #000;
+    font-family: $FedraSansStdDemi;
     font-size: 18px;
+    font-weight: bold;
     text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
     &:before {
-      background-image: url('/static/img/icons/chhaajaa/Comment.png');
-      background-position: center;
+      background-image: url('/static/img/icons/chhaajaa/comments.png');
+      background-position: 5px -52px;
       background-repeat: no-repeat;
+      content: "";
       display: block;
       padding: 0 .5em 0 5px;
-      height: 32px;
+      margin: 0 auto 8px;
+      height: 30px;
       width: 40px;
 
     }
     &:hover, &:focus, &:active {
       opacity: 0.5;
       transition: opacity 1s ease;
+      &:before {
+        background-position: 5px top;
+        content: "";
+      }
     }
   }
   &__form {

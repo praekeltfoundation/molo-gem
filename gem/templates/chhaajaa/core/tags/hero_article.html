@@ -19,10 +19,8 @@
               {% else %}
                 {% if forloop.last and article.get_effective_image %}
                   <div class="teaser-stacklist__images">
-                    <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                    </a>
+                    {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                   </div>
                 {% endif %}
               {% endif %}
@@ -30,12 +28,9 @@
             {# <!-- END REVIEW IMAGE BACKUP --> #}
 
             <div class="teaser-stacklist__container">
-              <a class="teaser-stacklist__anchor" href="{% pageurl article.specific %}">
-                <h1 class="teaser-stacklist__title">
-                  {{ article.title|smarttruncatechars:100|safe}}
-                </h1>
-              </a>
-
+              <h1 class="teaser-stacklist__title">
+                {{ article.title|smarttruncatechars:100|safe}}
+              </h1>
               <div class="teaser-stacklist__cta-buttons">
                 {% load_reaction_question article as question %}
                 {% if question %}
