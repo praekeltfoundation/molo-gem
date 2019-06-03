@@ -108,7 +108,7 @@ $color_list: (
 }
 
 .navbar-header {
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   vertical-align: middle;
@@ -156,7 +156,7 @@ $color_list: (
   font-size: 18px;
   vertical-align: middle;
   @media (min-width: 991px) {
-    padding: 0.8em 15px;
+    padding: .8em 15px 0.8em 0;
   }
   img {
     display: block;
@@ -194,6 +194,7 @@ $color_list: (
     padding: 1em 0;
     width: 100%;
     z-index: 9999999999;
+    text-align: right;
     @media (min-width: 768px) {
       position: absolute;
       top: 6em;
@@ -237,7 +238,7 @@ $color_list: (
         opacity: 1;
         visibility: visible;
         label[for=search_accordion] {
-          background-color: #000;
+          background-color: $colorGrey;
         }
       }
     }
