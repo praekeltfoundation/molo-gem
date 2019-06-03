@@ -53,7 +53,7 @@ class TestIsContentTemplateFilter(GemTestCaseMixin, TestCase):
             path='00010002',
             url_path='/main1/'
         )
-        self.assertTrue(is_content(page, "main1aqw"))
+        self.assertTrue(is_content(page, "main1"))
         self.assertFalse(is_content(page, "NotWatch"))
 
 

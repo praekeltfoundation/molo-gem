@@ -36,7 +36,6 @@ def content_is(page, title):
 
 @register.filter
 def is_content(page, content):
-    print(type(page), '='*1000)
     return page.is_content_page(content)
 
 
