@@ -183,7 +183,7 @@
       {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
       {% content_is self "Videos" as is_video_section %}
       {% if not is_video_section %}
-        {% load_child_articles_for_section self.get_first_sibling.specific as articles %}
+        {% load_child_articles_for_section self.get_first_sibling.specific False as articles %}
       {% else %}
       {% load_child_articles_for_section self as articles %}
       {% endif %}
