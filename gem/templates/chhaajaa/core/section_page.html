@@ -61,7 +61,7 @@
               {% load_reaction_question featured_article as question %}
               {% if question %}
                 <div class="reaction-questions">
-                  <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                  <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form_{{featured_article.id}}" method="post" novalidate>
                     {% csrf_token %}
                     <div class="reaction-questions__list">
                       {% load_choices_for_reaction_question question as choices %}
@@ -134,7 +134,7 @@
                   {% load_reaction_question article as question %}
                   {% if question %}
                     <div class="reaction-questions">
-                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                      <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form_{{article.id}}" method="post" novalidate>
                         {% csrf_token %}
                         <div class="reaction-questions__list">
                           {% load_choices_for_reaction_question question as choices %}
@@ -258,9 +258,10 @@
         );
       });
 
-      var frm = $('#reaction-questions__form');
+      
       function set_choice(choice, article_id) {
         if (!$('#' + choice).attr('disabled') == true){
+          var frm = $('#reaction-questions__form_' + article_id);
           $.ajax({
             type: frm.attr('method'),
             url: frm.attr('action'),
