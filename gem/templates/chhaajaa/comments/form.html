@@ -27,7 +27,13 @@
         success: function (data) {
           // if the comment was a success, remove the comment text from the text area
           $('#id_comment').val('');
-          $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>")
+          $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
+          setTimeout(function(){
+            $('.comment-success').each(function(index) {
+              $(this).fadeOut()
+            })
+          }, 3000);
+
         },
       });
       return false;

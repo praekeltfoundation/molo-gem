@@ -9,7 +9,7 @@
       {% image self.get_effective_image width-200 as section_photo %}
         <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section-page__thumbnail"/>
     {% else %}
-      <span class="section-page__thumbnail--placeholder"></span>
+      <span class="section-page__thumbnail--placeholder">{{self.title}}</span>
     {% endif %}
   </div>
   <div class="section-page__wrapper">
@@ -29,10 +29,8 @@
             {% else %}
               {% if forloop.last and featured_article.get_effective_image %}
                 <div class="teaser-stacklist__images">
-                  <a href="{% pageurl featured_article.specific %}" class="teaser-stacklist__anchor">
-                    {% image featured_article.get_effective_image width-1980 format-jpeg as teaser_thumbnail %}
-                    <img alt="{{ featured_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                  </a>
+                  {% image featured_article.get_effective_image width-1980 format-jpeg as teaser_thumbnail %}
+                  <img alt="{{ featured_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                 </div>
               {% endif %}
             {% endif %}
@@ -50,7 +48,7 @@
               <!-- RICH TEXT -->
               {% for block in featured_article.body %}
                 {% if not block.block_type == 'media' %}
-                  <p class="teaser-stacklist__excerpt excerpt excerpt-hidden">
+                  <p class="teaser-stacklist__excerpt">
                     {{block.value}}
                   </p>
                 {% endif %}
@@ -237,6 +235,7 @@
           {% include "comments/comment_block.html" %}
         {% endfor %}
       </div>
+
     </div>
   </div>
 </div>
@@ -258,7 +257,7 @@
         );
       });
 
-      
+
       function set_choice(choice, article_id) {
         if (!$('#' + choice).attr('disabled') == true){
           var frm = $('#reaction-questions__form_' + article_id);
