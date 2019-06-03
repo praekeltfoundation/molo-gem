@@ -27,7 +27,10 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
             title='main2', slug='main2', path='00010002', url_path='/main2/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         profile_settings = UserProfilesSettings.for_site(self.main.get_site())
-        profile_settings.terms_conditions = self.main
+        self.yourmind = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
+        profile_settings.terms_conditions = self.yourmind
         profile_settings.save()
 
     def test_redirect_for_chhaajaa_login(self):

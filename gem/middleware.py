@@ -201,22 +201,23 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
 class ChhaaJaaLoginMiddleware(object):
     def process_request(self, request):
-        terms_and_conditions = UserProfilesSettings.for_site(
-            request.site).terms_and_conditions
         if request.user.is_authenticated() is False \
                 and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
-                and terms_and_conditions \
                 and (
                     'login' not in request.path and
                     'auth' not in request.get_host() and
                     'auth' not in request.path and
                     'oidc' not in request.path and
                     'logout' not in request.path and
-                    terms_and_conditions.slug not in request.path and
                     'profiles' not in request.path and
                     'admin' not in request.path):
-            return redirect_to_login(
-                next=request.path, login_url=settings.LOGIN_URL)
+            terms_and_conditions = UserProfilesSettings.for_site(
+                request.site).terms_and_conditions
+            if not (
+                    terms_and_conditions and
+                    terms_and_conditions.slug in request.path):
+                return redirect_to_login(
+                    next=request.path, login_url=settings.LOGIN_URL)
 
 
 class CustomSessionRefresh(SessionRefresh):
