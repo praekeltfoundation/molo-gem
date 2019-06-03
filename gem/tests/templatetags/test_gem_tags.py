@@ -1,10 +1,13 @@
 from django.template import Context
 from django.test import RequestFactory, TestCase
 
+from gem.tests.base import GemTestCaseMixin
 from gem.templatetags.gem_tags import (
+    is_content,
+    idfromlabel,
     bbm_share_url,
+    parent_section_depth,
     smart_truncate_chars,
-    idfromlabel
 )
 
 
@@ -39,3 +42,37 @@ class TestIdFromLabelTag(TestCase):
         self.assertEqual(idfromlabel('I have visited . . .'),
                          'id_ihavevisited')
         self.assertEqual(idfromlabel('I have visited 1'), 'id_ihavevisited1')
+
+
+class TestIsContentTemplateFilter(GemTestCaseMixin, TestCase):
+    def test_filter(self):
+        page = self.mk_main(
+            title='main1',
+            slug='main1',
+            path='00010002',
+            url_path='/main1/'
+        )
+        self.assertTrue(is_content(page, "main1"))
+        self.assertFalse(is_content(page, "NotWatch"))
+
+
+class TestParentSectionDepth(GemTestCaseMixin, TestCase):
+    def test_filter(self):
+        depth = 2
+        main_page = self.mk_main(
+            title='main1',
+            slug='main1',
+            path='00010002',
+            url_path='/main1/'
+        )
+        article = self.mk_article(main_page)
+
+        self.assertEqual(
+            parent_section_depth(article, depth=depth).pk,
+            main_page.pk
+        )
+
+        self.assertEqual(
+            parent_section_depth(article, depth=depth).depth,
+            depth
+        )
