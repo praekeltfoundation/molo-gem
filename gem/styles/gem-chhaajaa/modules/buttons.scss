@@ -63,8 +63,19 @@
         text-decoration: none;
       }
     }
+    &--text {
+      display: inline-block;
+      color: $colorPink;
+      border-bottom: 2px solid transparent;
+      &:hover, &:focus, &:active {
+        border-bottom: 2px solid $colorPink;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
+      }
+    }
     &--label {
-      font-family: $FedraSansStdMedium;
+      font-family: $FedraSansBold;
       color: $colorPurple;
       text-transform: uppercase;
       font-size: 21px;
@@ -76,7 +87,7 @@
         content: "";
         background-image: url("/static/img/icons/chhaajaa/top.png");
         background-repeat: no-repeat;
-        background-position: center;
+        background-position: 1.5em center;
         background-size: 38px;
         position: absolute;
         height: 37px;
@@ -94,14 +105,65 @@
     font-size: 21px;
     text-decoration: underline;
   }
+  &__button {
+    display: block;
+    font-family: $FedraSansBold;
+    &--primary {
+      box-shadow: 12px 12px 0 0 #f9e435;
+      margin: 10px 1em 10px 0;
+      background: $colorPurple;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 5px 15px;
+      border: none;
+    }
+    &--secondary {
+      color: $colorPurple;
+      margin: 1em 0 0;
+      font-size: 21px;
+      &:hover, &:focus, &:active {
+        text-decoration-style: solid;
+        text-underline-position: below;
+        text-decoration-line: underline;
+        text-decoration-skip: spaces;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
+      }
+    }
+    &--previous {
+      color: $colorPurple;
+      margin: 1em 0 0;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      &:hover, &:focus, &:active {
+
+        text-decoration-style: solid;
+        text-underline-position: below;
+        text-decoration-line: underline;
+        text-decoration-skip: spaces;
+        -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+        transition: all .3s cubic-bezier(.6,.2,.1,1);
+      }
+    }
+  }
+  &--group {
+    margin: 1em 0;
+  }
   &--backToTop {
     margin: 0 1em;
     text-align: center;
     position: absolute;
-    top: -2em;
-    right: 0; 
+    top: 2em;
+    right: 0;
     display: inline-block;
     @media (min-width: 991px) {
+      top: -2em;
       right: 2em;
       display: block;
     }

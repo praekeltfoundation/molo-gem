@@ -1,6 +1,6 @@
 {% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags comments %}
 {% if article.is_commenting_enabled %}
-  <div class="comments__form">
+  <div id="comments_form" class="comments__form">
     <div class="comments__form-post">
       {% if article.allow_commenting %}
         {% if request.user.is_authenticated %}
@@ -9,18 +9,18 @@
           </div>
           {% render_comment_form for article %}
         {% else %}
-          {# <!-- PREVIOUS URL<a href="{% url LOGIN_URL %}?next={{request.path}}"></a>-->#}
-            <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
-              {% trans "Log in to comment" %}
-            </a>
+          <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
+            {% trans "Log in to comment" %}
+          </a>
         {% endif %}
       {% else %}
         <div class="heading heading--secondary">
           <h4 class="heading__subheading">{% trans "Comment" %}</h4>
         </div>
-        <h4 class="heading__title">
-          {% trans "Commenting on this article is currently disabled" %}
-        </h4>
+        <h5 class="heading__subtitle">{% trans "Commenting on this article is currently disabled." %}</h5>
+        <div class="comments__form-disabled">
+          {% render_comment_form for article %}
+        </div>
       {% endif %}
     </div>
   </div>

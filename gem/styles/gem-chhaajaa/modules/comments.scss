@@ -4,16 +4,33 @@
     vertical-align: top;
   }
   &__icon {
-    background-image: url('/static/img/icons/chhaajaa/Comment.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-    padding: 0 .5em 0 5px;
-    height: 32px;
-    width: 40px;
+    color: $colorGrey;
+    font-family: $FedraSansStdDemi;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/comments.png');
+      background-position: 5px -52px;
+      background-repeat: no-repeat;
+      content: "";
+      display: block;
+      padding: 0 .5em 0 5px;
+      margin: 0 auto 8px;
+      height: 30px;
+      width: 40px;
+
+    }
     &:hover, &:focus, &:active {
-      opacity: 0.8;
+      opacity: 0.5;
       transition: opacity 1s ease;
+      &:before {
+        background-position: 5px top;
+        content: "";
+      }
     }
   }
   &__form {
@@ -24,22 +41,43 @@
       width: 30%;
     }
     form {
-      width: 100%;
+      @media (min-width: 768px) {
+        width: 100%;
+      }
     }
     textarea {
-      min-height: 255px;
       border-radius: 0px;
       border: 2px solid $colorYellow;
-      width: 92%;
+      width: 90%;
+      @media (min-width: 768px) {
+        min-height: 220px;
+        width: 92%;
+      }
       &:focus {
         outline: none;
         border: 2px solid $colorYellow;
       }
     }
+    button, input[type=button],
+    input[type=reset], input[type=submit] {
+      margin: 10px 5px;
+    }
     &-post {
       border: 5px solid transparent;
-      @media (min-width: 780px) {
-        padding: 10px;
+      padding: 10px;
+    }
+    &-disabled {
+      position: relative;
+      opacity: 0.7;
+      &:before {
+        content: "";
+        cursor: not-allowed;
+        display: block;
+        background-color: transparent;
+        height: 100%;
+        width: 100%;
+        z-index: 99999999999;
+        position: absolute;
       }
     }
   }
@@ -123,41 +161,8 @@
     }
   }
 }
-
-.comment_form_area {
-  h3 {
-    font-size: 24px;
-    color: #222222;
-    text-transform: uppercase;
-    padding: 60px 0px 25px 0px;
-    font-weight: 400;
-  }
-
-  .form-group {
-    margin-bottom: 30px;
-    .submit_btn_bg {
-      width: 150px;
-      height: 40px;
-    }
-    &:last-child {
-      margin-bottom: 0px;
-    }
-
-  }
-
-  .purple_form .form-group {
-    input:focus {
-      border: 1px solid #a640d0;
-    }
-    textarea:focus {
-      border: 1px solid #a640d0;
-    }
-    .submit_btn_bg {
-      width: 150px;
-      height: 40px;
-    }
-    &:last-child {
-      margin-bottom: 0px;
-    }
-  }
+.comment-success {
+  font-size: 21px;
+  color: $colorPink;
+  font-style: italic;
 }

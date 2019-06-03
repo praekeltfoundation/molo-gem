@@ -1,5 +1,6 @@
 .teaser-card {
   @media (min-width: 768px) {
+    border-right: 1px solid $colorPurple;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -10,24 +11,31 @@
     vertical-align: top;
     margin: 0 5px 2em 5px;
     @media (min-width: 1200px) {
+      margin: 0 5px 2em 15px;
       width: 30%;
     }
   }
   &__images {
     width: 100%;
     margin: 0 auto;
-    height: 250px;
     overflow: hidden;
+    @media (min-width: 768px) {
+      height: 251px;
+      width: 251px;
+    }
   }
   &__title {
     color: $colorPink;
     font-size: 21px;
-    padding: 10px 0;
     display: inline-block;
+    @media (min-width: 768px) {
+      padding: 10px 0;
+    }
   }
   &__subtitle,
   &__para {
     font-size: 18px;
     color: $colorGrey;
+    padding-bottom: 10px;
   }
 }

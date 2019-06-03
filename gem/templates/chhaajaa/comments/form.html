@@ -16,20 +16,22 @@
     <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
   </form>
 {% endwith %}
-
+{% block extra_js %}
 <script type="text/javascript">
   $(document).ready(function() {
-        $('#comment-form').submit(function() {
-            $.ajax({
-              data: $(this).serialize(),
-              type: $(this).attr('method'),
-              url: $(this).attr('action'),
-              success: function (data) {
-                // if the comment was a success, remove the comment text from the text area
-                $('#id_comment').val('');
-              },
-            });
-            return false;
-        });
+    $('#comment-form').submit(function() {
+      $.ajax({
+        data: $(this).serialize(),
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        success: function (data) {
+          // if the comment was a success, remove the comment text from the text area
+          $('#id_comment').val('');
+          $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>")
+        },
+      });
+      return false;
     });
+  });
 </script>
+{% endblock %}

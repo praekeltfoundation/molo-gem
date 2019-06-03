@@ -8,11 +8,12 @@
   &__excerpt {
     display: inline-block;
   }
-  &__inner {}
   &__cta-buttons {
-    margin: 0 5% 0 0;
+    margin: 10px 0;
+    position: relative;
     @media (min-width: 1200px) {
       float: right;
+      margin: 10px 2em;
       height: 85px;
     }
   }
@@ -20,13 +21,17 @@
     overflow: hidden;
     iframe {
       width: 100%;
+      height: auto;
+      min-height: 215px;
+      @media (min-width: 768px) {
+        min-height: inherit;
+      }
       @media screen and (min-width: 80.000em) {
         max-width: 903px;
         height: 561px;
       }
     }
   }
-  &__image {}
   &__title {
     background-color: $colorPink;
     color: #fff;

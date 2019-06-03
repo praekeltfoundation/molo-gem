@@ -6,6 +6,8 @@
   <div class="article-page__wrapper">
     <ul class="teaser-stacklist">
       <li class="teaser-stacklist__item">
+
+        {# <!-- REVIEW IMAGE BACKUP --> #}
         {% for block in self.body %}
           {% if block.value.type == "video" %}
             {% if block.value.youtube_link %}
@@ -24,12 +26,17 @@
             {% endif %}
           {% endif %}
         {% endfor %}
+        {# <!-- END REVIEW IMAGE BACKUP --> #}
+
         <div class="teaser-stacklist__container">
           <div class="teaser-stacklist__main">
             <h1 class="teaser-stacklist__title">
               {{ self.title|smarttruncatechars:100|safe}}
             </h1>
+            {% if self.subtitle %}
             <h4 class="teaser-stacklist__subtitle">{{ self.subtitle|smarttruncatechars:150|safe}}</h4>
+            {% endif %}
+            {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in self.body %}
               {% if not block.block_type == 'media' %}
                 <p class="teaser-stacklist__excerpt excerpt excerpt-hidden">
@@ -37,6 +44,8 @@
                 </p>
               {% endif %}
             {% endfor %}
+            {# <!-- END REVIEW IMAGE BACKUP --> #}
+
             {% surveys_list_for_pages page=self %}
           </div>
           <div class="teaser-stacklist__cta-buttons">
@@ -65,25 +74,25 @@
                 </form>
               </div>
             {% endif %}
+            {% if survey %}
             <div class="vote__item">
               <a href="#" class="vote__icon"></a>
             </div>
+            {% endif %}
             {% if self.is_commenting_enabled %}
               {% if self.allow_commenting %}
                 {% if request.user.is_authenticated %}
                   <div class="comments__item">
-                    <a href="#" class="comments__icon"></a>
+                    <a href="#comments_form" class="comments__icon">Comment</a>
                   </div>
                 {% endif %}
               {% endif %}
             {% endif %}
             {% include "comments/comment_block.html" with article=self %}
           </div>
-
         </div>
       </li>
     </ul>
-
     {% block extra_js %}
       <script type="text/javascript">
         var frm = $('#reaction-questions__form');

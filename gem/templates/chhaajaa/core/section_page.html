@@ -15,8 +15,10 @@
   <div class="section-page__wrapper">
     {% load_child_articles_for_section self count=1 featured_in_section=True as featured_articles %}
     <ul class="teaser-stacklist">
-      {% for featured_article in featured_articles %}
+      {% for featured_article in featured_articles  %}
         <li class="teaser-stacklist__item">
+
+          {# <!-- REVIEW IMAGE BACKUP --> #}
           {% for block in featured_article.body %}
             {% if block.value.type == "video" %}
               {% if block.value.youtube_link %}
@@ -35,14 +37,17 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {# <!-- END REVIEW IMAGE BACKUP --> #}
+
           <div class="teaser-stacklist__container">
             <div class="teaser-stacklist__main">
-              <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:50|safe}}</h2>
+              <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:100|safe}}</h2>
               {% if featured_article.subtitle %}
                 <h6 class="teaser-stacklist__subtitle">
-                  {{ featured_article.subtitle|smarttruncatechars:150|safe}}
+                  {{ featured_article.subtitle}}
                 </h6>
               {% endif %}
+              <!-- RICH TEXT -->
               {% for block in featured_article.body %}
                 {% if not block.block_type == 'media' %}
                   <p class="teaser-stacklist__excerpt excerpt excerpt-hidden">
@@ -50,6 +55,7 @@
                   </p>
                 {% endif %}
               {% endfor %}
+              <!-- END RICH TEXT -->
             </div>
             <div class="teaser-stacklist__cta-buttons">
               {% load_reaction_question featured_article as question %}
@@ -78,15 +84,20 @@
                 </div>
               {% endif %}
 
-              <div class="share__item">
-                <a href="#" class="share__icon"></a>
-              </div>
+              {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+                <div class="share__item">
+                  <a href="#" id="share_article" class="share__icon"></a>
+                  <div id="share_reveal" class="share__reveal">
+                    {% social_media_article page=featured_article %}
+                  </div>
+                </div>
+              {% endif %}
 
               {% if featured_article.is_commenting_enabled %}
                 {% if featured_article.allow_commenting %}
                   {% if request.user.is_authenticated %}
                     <div class="comments__item">
-                      <a href="#comment-form" class="comments__icon"></a>
+                      <a href="#comments_form" class="comments__icon">Comment</a>
                     </div>
                   {% endif %}
                 {% endif %}
@@ -117,8 +128,9 @@
                 {% endif %}
                 <div class="teaser-card__container">
                   <h3 class="teaser-card__title">
-                    {{ article.title|safe}}
+                    {{ article.title|smarttruncatechars:80|safe}}
                   </h3>
+                  <div class="teaser-stacklist__cta-buttons">
                   {% load_reaction_question article as question %}
                   {% if question %}
                     <div class="reaction-questions">
@@ -144,18 +156,22 @@
                       </form>
                     </div>
                   {% endif %}
-
+                  </div>
 
                   {% if article.subtitle %}
                     <h6 class="teaser-card__subtitle">
                       {{ article.subtitle|smarttruncatechars:50|safe}}
                     </h6>
                   {% endif %}
-                  {% with article.body as block %}
-                    {% if block.block_type == 'paragraph' %}
-                      <p class="teaser-card__para">{{block.value|smarttruncatechars:150|safe}}</p>
+
+                  {% for block in article.body %}
+                    {% if not block.block_type == 'media' %}
+                      <p class="teaser-card__para">
+                        {{block.value}}
+                      </p>
                     {% endif %}
-                  {% endwith %}
+                  {% endfor %}
+
                 </div>
               </li>
             {% endfor %}
@@ -198,7 +214,7 @@
                 {% for block in article.body %}
                   {% if block.value.type == "video" %}
                     {% with block.value as media %}
-                      <span class="teaser-grid__duration">({{block.value.duration|stringformat:".2s"}}:00)</span>
+                      <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
                     {% endwith %}
                   {% endif %}
                 {% endfor %}
@@ -218,28 +234,44 @@
     </div>
   </div>
 </div>
-{% block extra_js %}
-  <script type="text/javascript">
-    var frm = $('#reaction-questions__form');
-    function set_choice(choice) {
-      if (!$('#' + choice).attr('disabled') == true){
-        $.ajax({
-          type: frm.attr('method'),
-          url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
-          success: function () {
-            $( ".reaction-questions__item" ).each(function( index ) {
-              $(this).attr('disabled', false);
-            });
-            $("#" + choice).attr('disabled', true);
+  {% block extra_js %}
+    <script type="text/javascript">
+      $("#share_article").click(function(e) {
+        e.preventDefault();
+        $("#share_reveal").toggle(function(){
+          $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          },function() {
+           $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
           }
-        })
-      }
-    };
-  </script>
-{% endblock %}
+        );
+      });
+
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+    </script>
+  {% endblock %}
 {% endblock %}

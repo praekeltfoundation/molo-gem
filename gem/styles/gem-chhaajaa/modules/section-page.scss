@@ -8,12 +8,11 @@
   }
   &__thumbnail {
     text-align: left;
-    &--placeholder {}
   }
 
   &__wrapper {
     .teaser-stacklist__container {
-      padding: 0.5em 2em;
+      padding: 0.5em 1em;
       @media (min-width: 768px) {
         padding: 1.5em 3em;
       }
@@ -43,21 +42,19 @@
         display: block;
       }
       .teaser-stacklist__thumbnail {
-        height: auto;
         object-fit: cover;
         object-position: left top;
         height: 100%;
         width: 100%;
       }
       iframe {
-        height: auto;
-        width: 100%;
+        max-width: 100%;
       }
     }
   }
 
   &__columns {
-    padding: 0 1em;
+    padding: 1em;
     @media (min-width: 768px) {
       padding: 0 3em;
     }
@@ -66,14 +63,25 @@
       justify-content: space-between;
     }
     &-left {
-      .heading--hero {
-        display: inline-block;
-      }
       @media screen and (min-width: 992px) {
         width: 65%;
       }
+      .teaser-stacklist__cta-buttons {
+        @media screen and (min-width: 992px) {
+          width: auto;
+          height: auto;
+        }
+      }
+      .heading--hero {
+        display: inline-block;
+      }
     }
     &-right {
+      .heading--hero > .heading__component {
+        &:before {
+          background: url('/static/img/icons/chhaajaa/Sym1b.png') no-repeat center center / 100%;
+        }
+      }
       @media screen and (min-width: 992px) {
         width: 33%;
       }
@@ -81,18 +89,18 @@
     .teaser-grid {
       @media (min-width: 768px)  {
         height: 400px;
-      }
-      overflow-y: scroll;
-      overflow-x: hidden;
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-      &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px $colorYellow;
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: rgba(134,98,252,1);
-        outline: 1px solid rgba(134,98,252,1);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px $colorYellow;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(134,98,252,1);
+          outline: 1px solid rgba(134,98,252,1);
+        }
       }
     }
   }

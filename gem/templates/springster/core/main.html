@@ -14,10 +14,19 @@
     {% gembannerpages %}
 
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
+    {% surveys_list personalisable_survey=True %}
     {% hero_article %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
     {% media_listing_homepage %}
+    {% bannerpages position=1 %}
+    {% poll_page %}
+    {% bannerpages position=2 %}
+    {% surveys_list only_direct_surveys=True %}
+    {% surveys_list only_yourwords=True %}
+    {% surveys_list only_linked_surveys=True %}
+    {% bannerpages position=3 %}
+    {% your_words_competition %}
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}

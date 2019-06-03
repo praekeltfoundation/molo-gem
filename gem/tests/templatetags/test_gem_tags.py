@@ -6,6 +6,7 @@ from gem.templatetags.gem_tags import (
     is_content,
     idfromlabel,
     bbm_share_url,
+    seconds_to_time,	
     parent_section_depth,
     smart_truncate_chars,
 )
@@ -76,3 +77,10 @@ class TestParentSectionDepth(GemTestCaseMixin, TestCase):
             parent_section_depth(article, depth=depth).depth,
             depth
         )
+
+class TestSecondsToTime(TestCase):
+
+    def test_seconds_to_time(self):
+        self.assertEqual(seconds_to_time(None), '')
+        self.assertEqual(seconds_to_time(121), '02:01')
+        self.assertEqual(seconds_to_time(3601), '1:00:01')
