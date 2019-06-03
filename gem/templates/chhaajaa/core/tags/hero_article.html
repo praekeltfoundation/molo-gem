@@ -7,7 +7,7 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
-            
+
             {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
@@ -71,7 +71,7 @@
                   {% if article.allow_commenting %}
                     {% if request.user.is_authenticated %}
                       <div class="comments__item">
-                        <a href="#comment-form" class="comments__icon"></a>
+                        <a href="#comments_form" class="comments__icon">Comment</a>
                       </div>
                     {% endif %}
                   {% endif %}

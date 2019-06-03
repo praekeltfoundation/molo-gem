@@ -1,6 +1,6 @@
 {% load wagtailsettings_tags wagtailcore_tags core_tags wagtailimages_tags comments %}
 {% if article.is_commenting_enabled %}
-  <div class="comments__form">
+  <div id="comments_form" class="comments__form">
     <div class="comments__form-post">
       {% if article.allow_commenting %}
         {% if request.user.is_authenticated %}
