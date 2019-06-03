@@ -63,7 +63,7 @@
               {{ next_article.subtitle|smarttruncatechars:150|safe}}
             </p>
           {% endif %}
-          {% with ancestor=next_article.get_parent_section.get_parent_section.get_parent_section parent=next_article.get_parent_section.get_parent_section %}
+          {% with ancestor=next_article|parent_section_depth:4 parent=next_article.get_parent_section.get_parent_section %}
             {% if ancestor %}
               {% content_is ancestor "Watch" as is_watch_ancestor %}
               {% content_is ancestor "Listen" as is_listen_ancestor %}
@@ -159,7 +159,7 @@
             <p class="teaser-{{teaser_type}}__subtitle">
               {{ article.subtitle|smarttruncatechars:150|safe}}
             </p>
-            {% with ancestor=article.get_parent_section.get_parent_section.get_parent_section parent=article.get_parent_section.get_parent_section %}
+            {% with ancestor=article|parent_section_depth:4 parent=article.get_parent_section.get_parent_section %}
               {% if ancestor %}
                 {% content_is ancestor "Watch" as is_watch_ancestor %}
                 {% content_is ancestor "Listen" as is_listen_ancestor %}
