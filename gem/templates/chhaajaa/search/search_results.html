@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags core_tags wagtailimages_tags gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags %}
 
 {% block content %}
 {% if search_results %}
@@ -15,14 +15,27 @@
         <ul class="teaser-card">
           {% for article in search_results %}
             <li class="teaser-card__item">
-              {% if article.image %}
-                <div class="teaser-card__images">
-                  <a href="{% pageurl article.specific %}" class="teaser-card__anchor">
-                    {% image article.image width-1080 format-jpeg as teaser_thumbnail %}
-                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
-                  </a>
-                </div>
-              {% endif %}
+
+              {# <!-- REVIEW IMAGE BACKUP --> #}
+              {% for block in self.body %}
+                {% if block.value.type == "video" %}
+                  {% if block.value.youtube_link %}
+                    <div class="teaser-card__iframe">
+                      {% embed block.value.youtube_link %}
+                    </div>
+                    {% endif %}
+                {% else %}
+                  {% if forloop.last and article.get_effective_image %}
+                    <div class="teaser-card__images">
+                      <a href="{% pageurl self.specific %}" class="teaser-card__anchor">
+                        {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                        <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
+                      </a>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {# <!-- END REVIEW IMAGE BACKUP --> #}
               <div class="teaser-card__container">
                 <a href="{% pageurl article.specific %}" class="teaser-card__anchor">
                   <h3 class="teaser-card__title {% if article.title_highlight %}teaser-card__title--highlight{% endif %}">
