@@ -76,14 +76,14 @@
             {% endif %}
             {% if survey %}
             <div class="vote__item">
-              <a href="#" class="vote__icon"></a>
+              <a href="#" class="vote__icon">{% trans "Poll" %}</a>
             </div>
             {% endif %}
             {% if self.is_commenting_enabled %}
               {% if self.allow_commenting %}
                 {% if request.user.is_authenticated %}
                   <div class="comments__item">
-                    <a href="#comments_form" class="comments__icon">Comment</a>
+                    <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
                   </div>
                 {% endif %}
               {% endif %}
