@@ -9,11 +9,11 @@ fieldset {
   word-break: break-word;
   word-wrap: break-word;
   padding: 0;
-  @media (min-width: 768px) {
+  @media screen and (min-width: 45.000em) {
     margin: 10px 0 15px;
   }
   & > label {
-    @media (min-width: 1200px) {
+    @media screen and (min-width: 62.000em) {
       display: inline-block;
     }
   }
@@ -63,7 +63,7 @@ input[type="radio"] {
   & ~ label {
     background-color: transparent;
     position: relative;
-    @media (min-width: 991px) {
+    @media screen and (min-width: 62.000em) {
       cursor: pointer;
     }
     &:before {
@@ -128,10 +128,11 @@ input[type="search"] {
   font-size: 18px;
   height: 40px;
   width: 100%;
-  @media (min-width: 768px) {
+  border-radius: 0;
+  @media screen and (min-width: 45.000em) {
     width: 95%;
   }
-  @media (min-width: 991px) {
+  @media screen and (min-width: 62.000em) {
     width: 45%;
   }
 }
@@ -148,8 +149,11 @@ button {
   padding: 5px 15px;
   border: none;
   margin: 10px 0;
-  &:focus, &:active, &:visited {
+  &:active, &:hover, &:focus, &:visited  {
     outline: none;
+    text-decoration: none;
+    background-color: rgba($colorPurple, 0.7);
+    transition: opacity 100ms ease-in-out;
   }
 }
 
@@ -165,7 +169,7 @@ button {
 }
 .choice-group {
   display: inline-block;
-  margin: 0 1em 0 0;
+  margin: 0 1em 1em 0;
   padding: 5px 0;
 }
 .input-group {

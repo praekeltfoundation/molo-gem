@@ -1,5 +1,7 @@
 .teaser-stacklist {
-  &__item {}
+  &__item {
+    position: relative;
+  }
   &__container {
     overflow: auto;
     position: relative;
@@ -11,23 +13,32 @@
   &__cta-buttons {
     margin: 10px 0;
     position: relative;
-    @media (min-width: 1200px) {
+    @media screen and (min-width: 45.000em) {
       float: right;
       margin: 10px 2em;
       height: 85px;
     }
   }
+  &__images {
+    height: auto;
+  }
+  &__thumbnail {
+    height: auto;
+    object-fit: cover;
+    object-position: left top;
+    width: 100%;
+  }
   &__iframe {
     overflow: hidden;
+    height: auto;
     iframe {
       width: 100%;
-      min-height: 215px;
-      @media (min-width: 768px) {
-        min-height: inherit;
+      height: 250px;
+      @media screen and (min-width: 45.000em) {
+        height: 415px;
       }
       @media screen and (min-width: 80.000em) {
-        max-width: 903px;
-        height: 561px;
+        height: 568px;
       }
     }
   }

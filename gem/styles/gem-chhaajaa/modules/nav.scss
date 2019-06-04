@@ -5,13 +5,14 @@ $color_list: (
 
 .navbar {
   overflow: auto;
-  @media (min-width: 991px) {
+  @media screen and (min-width: 45.000em) {
     display: flex;
     justify-content: space-between;
   }
   &-nav {
     $block: unquote("#{&}");
-    @media (min-width: 991px) {
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
       display: flex;
     }
     #logout-form {
@@ -26,7 +27,7 @@ $color_list: (
       font-weight: bold;
       display: block;
       cursor: pointer;
-      @media (min-width: 768px) {
+      @media screen and (min-width: 45.000em) {
         background-color: $colorPurple;
         color: #fff;
         font-size: 18px;
@@ -34,8 +35,10 @@ $color_list: (
         margin: 0;
       }
       &:hover, &:focus, &:active {
-        text-decoration: underline;
-        text-underline-position: below;
+        outline: none;
+        text-decoration: none;
+        background-color: rgba($colorPurple, 0.7);
+        transition: opacity 100ms ease-in-out;
       }
     }
     &__anchor {
@@ -44,7 +47,7 @@ $color_list: (
       font-family: $FedraSansBold;
       font-size: 28px;
       text-transform: capitalize;
-      @media (min-width: 768px) {
+      @media screen and (min-width: 45.000em) {
         padding: 0 1em;
       }
       &:hover, &:focus, &:active {
@@ -55,20 +58,21 @@ $color_list: (
     }
     &__option {
       display: block;
-      @media (min-width: 768px) {
+      @media screen and (min-width: 45.000em) {
         margin: 1em 10px;
+        display: inline-block;
       }
       &:last-child {
-        @media (min-width: 768px) {
+        @media screen and (min-width: 45.000em) {
           margin: 1em 0 1em 10px;
         }
       }
-      @media (min-width: 991px) {
+      @media screen and (min-width: 62.000em) {
         display: inline-block;
       }
       &:first-child {
         .navbar-nav__anchor  {
-          @media (min-width: 768px) {
+          @media screen and (min-width: 45.000em) {
             color: $colorPink;
           }
           &:hover, &:focus, &:active {
@@ -88,32 +92,29 @@ $color_list: (
     &__item {
       display: block;
       margin: 0 0 10px;
-      @media (min-width: 768px) {
+      @media screen and (min-width: 45.000em) {
         display: inline-block;
       }
       &:last-child {
-        @media (min-width: 991px) {
+        @media screen and (min-width: 73.938em) {
           display: flex;
           flex-direction: row-reverse;
-        }
-        @media (min-width: 1200px) {
           margin: 0 0 0 18em;
         }
-        @media (min-width: 1380px) {
+        @media screen and (min-width: 80.000em) {
           margin: 0 0 0 20em;
         }
       }
     }
   }
 }
-
 .navbar-header {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   vertical-align: middle;
   width: 100%;
-  @media (min-width: 991px) {
+  @media screen and (min-width: 45.000em) {
     width: auto;
     display: inline-block;
   }
@@ -126,10 +127,11 @@ $color_list: (
   vertical-align: middle;
   background: transparent;
   margin: 10px;
-  @media (min-width: 768px) {
+  border: 2px solid transparent;
+  @media screen and (min-width: 40.000em) {
     margin: 15px;
   }
-  @media (min-width:992px) {
+  @media screen and (min-width: 45.000em) {
     display: none;
   }
   .sr-only {
@@ -145,6 +147,10 @@ $color_list: (
   }
   &:hover, &:focus, &:active {
     outline: inherit;
+    border-radius: 5px;
+    border: 2px solid $colorPink;
+    background: transparent;
+    transition: border 100ms ease-in-out;
     .icon-bar {
       background-color: $colorPink;
     }
@@ -155,7 +161,7 @@ $color_list: (
   padding: 15px;
   font-size: 18px;
   vertical-align: middle;
-  @media (min-width: 991px) {
+  @media screen and (min-width: 62.000em) {
     padding: .8em 15px 0.8em 0;
   }
   img {
@@ -171,7 +177,7 @@ $color_list: (
     text-transform: uppercase;
     padding: 0;
     visibility: hidden;
-    @media (min-width: 768px) {
+    @media screen and (min-width: 45.000em) {
       display: inline-block;
       visibility: visible;
     }
@@ -184,7 +190,7 @@ $color_list: (
       width: 28px;
     }
     &:active, &:hover, &:focus, &:visited {
-      opacity: 0.5;
+      opacity: 0.7;
       transition: opacity 100ms ease-in-out;
     }
   }
@@ -195,24 +201,22 @@ $color_list: (
     width: 100%;
     z-index: 9999999999;
     text-align: right;
-    @media (min-width: 768px) {
+    @media screen and (min-width: 45.000em) {
       position: absolute;
       top: 6em;
       right: 0;
     }
-    @media (min-width: 991px) {
+    @media screen and (min-width: 62.000em) {
       padding: 1em 2em;
     }
   }
   &__form {
     position: relative;
-    //text-align: right;
-    //margin: 0 1em 0 5px;
     [type="button"],
     [type="submit"] {
       margin: 10px 0;
       float: left;
-      @media (min-width: 991px)  {
+      @media screen and (min-width: 62.000em)  {
         background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
         display: inline-block;
         float: none;
@@ -223,10 +227,15 @@ $color_list: (
         padding: 10px;
         overflow: hidden;
         text-indent: 3em;
+        &:active, &:hover, &:focus, &:visited {
+          opacity: 0.7;
+          background-color: inherit;
+          transition: opacity 100ms ease-in-out;
+        }
       }
     }
   }
-  @media (min-width: 768px)  {
+  @media screen and (min-width: 45.000em)  {
     &__checkbox {
       & + * {
         height: auto;

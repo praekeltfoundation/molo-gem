@@ -3,12 +3,9 @@
   border-bottom: 2px solid $colorYellow;
   padding: 1em 0;
   margin: 0 0 5px;
-  @media (min-width: 768px) {
-    //margin: 0;
-  }
   .heading__macro {
     font-family: $FedraSansStdDemi;
-    @media (min-width: 1200px) {
+    @media screen and (min-width: 62.000em) {
       font-size: 38px;
     }
   }
@@ -17,44 +14,28 @@
   }
   &__inner {
     overflow: auto;
-    @media (min-width: 1200px) {
+    @media screen and (min-width: 62.000em) {
       display: flex;
       justify-content: space-between;
     }
   }
-
-  //Form
+  section {
+    margin: 0 0 1em;
+    @media screen and (min-width: 62.000em) {
+      width: 45%;
+    }
+  }
+  aside {
+    @media screen and (min-width: 62.000em) {
+      width: 55%;
+    }
+  }
+  //FORM
   fieldset {
     margin: 10px;
   }
   label {
     font-size: 23px;
-  }
-}
-
-#survey-form input[type="checkbox"] ~ label,
-#survey-form input[type="radio"] ~ label {
-  color: $colorPink;
-  &:before {
-    border: 5px solid $colorPink !important;
-    transform: rotate(45deg);
-    width: 18px;
-    height: 18px;
-  }
-  &:active {
-    color: $colorPink;
-  }
-}
-#survey-form input[type="checkbox"],
-#survey-form input[type="radio"] {
-  &:checked + label:before {
-    background: $colorPink;
-  }
-}
-#survey-form input[type="checkbox"]
-#survey-form input[type="radio"] {
-  &:checked + label:before {
-    background: $colorPink;
   }
 }
 
@@ -94,38 +75,29 @@
     }
   }
 }
-
-.responses {
-  border: 2px solid $colorPink;
-  display: block;
-  margin: 2em 10px 0;
-  width: 70%
+//RADIO BUTTONS OVERRIDES
+#survey-form input[type="checkbox"] ~ label,
+#survey-form input[type="radio"] ~ label {
+  color: $colorPink;
+  &:before {
+    border: 5px solid $colorPink !important;
+    transform: rotate(45deg);
+    width: 18px;
+    height: 18px;
+  }
+  &:active {
+    color: $colorPink;
+  }
 }
-.response-percent {
-  background: #fff;
-  display: flex;
-  &__bar {
-    font-size: 21px;
-    font-family: $FedraSansStdLight;
-    display: inline-block;
-    vertical-align: middle;
-    height: 30px;
-    padding: 5px 10px 0;
-    width: auto;
-    &:first-child {
-      background: $colorPink;
-      color: #fff;
-      border-right: 1px solid red;
-    }
-    &:nth-child(2) {
-      background: #fff;
-      color: $colorGrey;
-    }
-    &:nth-child(n+3) {
-      background: $colorPink;
-    }
-    &:last-child {
-      border: none;
-    }
+#survey-form input[type="checkbox"],
+#survey-form input[type="radio"] {
+  &:checked + label:before {
+    background: $colorPink;
+  }
+}
+#survey-form input[type="checkbox"]
+#survey-form input[type="radio"] {
+  &:checked + label:before {
+    background: $colorPink;
   }
 }
