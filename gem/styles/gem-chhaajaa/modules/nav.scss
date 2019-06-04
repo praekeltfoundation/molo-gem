@@ -207,14 +207,12 @@ $color_list: (
   }
   &__form {
     position: relative;
-    //text-align: right;
-    //margin: 0 1em 0 5px;
     [type="button"],
     [type="submit"] {
       margin: 10px 0;
       float: left;
       @media (min-width: 991px)  {
-        background: transparent url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
+        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
         display: inline-block;
         float: none;
         vertical-align: middle;
@@ -225,7 +223,9 @@ $color_list: (
         overflow: hidden;
         text-indent: 3em;
         &:active, &:hover, &:focus, &:visited {
-          background-color: transparent;
+          opacity: 0.7;
+          background-color: inherit;
+          transition: opacity 100ms ease-in-out;
         }
       }
     }
