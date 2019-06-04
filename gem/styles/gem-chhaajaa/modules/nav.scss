@@ -214,7 +214,7 @@ $color_list: (
       margin: 10px 0;
       float: left;
       @media (min-width: 991px)  {
-        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
+        background: transparent url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/30px;
         display: inline-block;
         float: none;
         vertical-align: middle;
@@ -224,6 +224,9 @@ $color_list: (
         padding: 10px;
         overflow: hidden;
         text-indent: 3em;
+        &:active, &:hover, &:focus, &:visited {
+          background-color: transparent;
+        }
       }
     }
   }
