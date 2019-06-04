@@ -2,10 +2,8 @@ footer {
   padding: 1em;
   background: $colorYellow;
   position: relative;
-  @media (min-width: 768px) {
+  @media screen and (min-width: 45.000em) {
     padding: 2em 5%;
-  }
-  @media (min-width: 1200px) {
     display: flex;
   }
   .pull-left  {
@@ -20,14 +18,19 @@ footer {
   }
 
   .pull-right {
-    @media (min-width: 768px) {
+    @media screen and (min-width: 45.000em) {
       padding: 0 0 0 10%;
     }
     &-list {
+      margin: 5% 0 0;
+      @media screen and (min-width: 45.000em) {
+        margin: 0;
+      }
       &__item {
-        display: inline-block;
+        display: block;
         padding: 10px 0;
-        @media (min-width: 768px) {
+        @media screen and (min-width: 45.000em) {
+          display: inline-block;
           margin: 0 1em 0;
           padding: 25px 0;
         }

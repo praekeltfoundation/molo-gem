@@ -1,52 +1,28 @@
 .article-page {
   padding: 1em 0;
   &__wrapper {
-    padding: 0.5em 1em;
+    padding: 1.5em 1em;
     position: relative;
-    @media (min-width: 768px) {
-      padding: 1.5em 5em;
-    }
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: 45.000em) {
+      padding: 1.5em;
       display: flex;
       justify-content: space-between;
     }
-
+    @media screen and (min-width: 62.000em){
+      padding: 1.5em 2em;
+    }
     .content--left {
-      @media screen and (min-width: 992px) {
+      @media screen and (min-width: 45.000em) {
         width: 65%;
-        min-height: 975px;
       }
     }
     .content--right {
-      @media screen and (min-width: 992px) {
+      @media screen and (min-width: 45.000em) {
         width: 33%;
       }
     }
     .teaser-stacklist__anchor {
       display: block;
-    }
-
-    .teaser-stacklist__images {
-      height: auto;
-    }
-    .teaser-stacklist__thumbnail {
-      height: auto;
-      object-fit: cover;
-      object-position: left top;
-      width: 100%;
-    }
-    .teaser-stacklist__iframe {
-      @media screen and (min-width: 992px) {
-        height: 568px;
-        overflow: hidden;
-      }
-      iframe {
-        width: 100%;
-        @media screen and (min-width: 992px) {
-          max-height: 568px;
-          max-width: 100%;
-        }
-      }
     }
   }
 }
