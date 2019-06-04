@@ -103,6 +103,7 @@
           {% endif %}
 
 
+<<<<<<< Updated upstream
           <ul class="teaser-grid">
             {% for article in articles %}
               <li class="teaser-grid__item">
@@ -145,6 +146,52 @@
             {% endfor %}
           </ul>
           {% include "comments/comment_block.html" with article=self %}
+=======
+            {% surveys_list_for_pages page=self %}
+          </div>
+          <div class="teaser-stacklist__cta-buttons">
+            {% load_reaction_question self as question %}
+            {% if question %}
+              <div class="reaction-questions">
+                <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                  {% csrf_token %}
+                  <div class="reaction-questions__list">
+                    {% load_choices_for_reaction_question question as choices %}
+                      {% for choice in choices %}
+                        {% load_user_choice_reaction_question question self choice as user_has_chosen %}
+                        {% if user_has_chosen %}
+                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                        {% else %}
+                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                        {% endif %}
+                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                              {% image choice.specific.image width-50 as reaction__icon %}
+                              <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                              {{ choice.title|capfirst }}
+                            </label>
+                          </span>
+                      {% endfor %}
+                  </div>
+                </form>
+              </div>
+            {% endif %}
+            {% if survey %}
+            <div class="vote__item">
+              <a href="#" class="vote__icon"></a>
+            </div>
+            {% endif %}
+            {% if self.is_commenting_enabled %}
+              {% if self.allow_commenting %}
+                {% if request.user.is_authenticated %}
+                  <div class="comments__item">
+                    <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            {% include "comments/comment_block.html" with article=self %}
+          </div>
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>
