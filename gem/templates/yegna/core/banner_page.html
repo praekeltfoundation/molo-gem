@@ -6,7 +6,7 @@
     <h2 class="heading__component">{{self.title}}</h2>
   </div>
     {% if self.banner %}
-      {% image self.banner width-1080 as tmp_photo %}
+      {% image self.banner original as tmp_photo %}
       {% if self.banner_link_page %}
         <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
         <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
