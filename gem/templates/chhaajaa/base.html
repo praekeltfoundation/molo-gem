@@ -45,11 +45,15 @@
     {% endcompress %}
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    {% if user.is_authenticated %}
+      <script> 
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'wagtailID':'{{user.profile.uuid}}'
+        });
+      </script>
+    {% endif %}
     <script>(function (w, d, s, l, i) {
-      window.dataLayer = window.dataLayer || [];
-      dataLayer.push({
-          'wagtailID':'{{user.profile.uuid}}'
-      });
       w[l] = w[l] || []; w[l].push({
         'gtm.start': new Date().getTime(), event: 'gtm.js'
       }); var f = d.getElementsByTagName(s)[0],
