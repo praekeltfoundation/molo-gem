@@ -31,6 +31,9 @@
   {% if self.get_effective_image %}
     {% image self.get_effective_image fill-450x200 as article_photo %}
   {% endif %}
+  {% if settings.core.SiteSettings.google_search_console %}
+    <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
+  {% endif %}
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
   <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/yegna-logo.png' %}{% endif %}"/>
   <meta name="msapplication-TileColor" content="#ffffff" />
