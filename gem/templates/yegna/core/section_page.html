@@ -3,7 +3,8 @@
 
 {% block content %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
-    {% with ancestor=self|parent_section_depth:4 parent=self.get_parent.specific %}
+    {% get_parent self as parent %}
+    {% with ancestor=self|parent_section_depth:4 %}
 
       {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or self|is_content:"Watch" %}
       <div class="banner">
@@ -236,7 +237,6 @@
       {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
         <div class="banner">
           <div class="heading heading--hero">
-
             {% if ancestor and ancestor.pk != parent.pk %}
               {{ancestor.title}} {{parent.title}}
             {% else %}
