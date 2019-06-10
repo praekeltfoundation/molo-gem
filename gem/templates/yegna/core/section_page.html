@@ -9,7 +9,7 @@
       {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or self|is_content:"Watch" %}
       <div class="banner">
         <div class="heading heading--hero">
-          {% if ancestor and ancestor.pk != parent.pk %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
+          {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
         </div>
       </div>
       <div class="section-page__columns section-page__columns--watch">
@@ -237,11 +237,7 @@
       {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
         <div class="banner">
           <div class="heading heading--hero">
-            {% if ancestor and ancestor.pk != parent.pk %}
-              {{ancestor.title}} {{parent.title}}
-            {% else %}
-              {{parent.title}} {{self.title}}
-            {% endif %}
+            {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
           </div>
         </div>
         {% if ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
