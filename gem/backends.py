@@ -173,8 +173,11 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         # change that user's username
         for user in self.UserModel.objects.filter(username=username):
             new_username = str(user.profile.site.pk) + '_' + username
-            exists = self.UserModel.objects.filter(username=new_username).exists()
-            if user.profile and not user.profile.auth_service_uuid and not exists:
+            exists = self.UserModel.objects.filter(
+                username=new_username).exists()
+
+            can_update = user.profile and not user.profile.auth_service_uuid
+            if can_update and not exists:
                 user.username = new_username
                 user.save()
             else:
