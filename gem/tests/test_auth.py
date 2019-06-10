@@ -103,6 +103,19 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user2.refresh_from_db()
         self.assertEqual(user2.username, '3_john')
 
+    def test_create_user_from_claims_with_clashing_username(self):
+        get_user_model().objects.create(
+            username='3_john', password='password')
+        get_user_model().objects.create(
+            username='john', password='password')
+        claims = {
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4',
+            'preferred_username': 'john'
+        }
+        backend = GirlEffectOIDCBackend()
+        with pytest.raises(FieldError):
+            backend.create_user(claims)
+
     def test_auth_backend_filter_users_by_claims(self):
         claims = {'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         user = get_user_model().objects.create(
