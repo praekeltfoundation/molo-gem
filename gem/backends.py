@@ -12,7 +12,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import FieldError, SuspiciousOperation
 from wagtail.core.models import Site
 from molo.profiles.models import UserProfile
-from wagtail.core.models import Site
 
 
 USERNAME_FIELD = "username"
@@ -43,7 +42,8 @@ def _update_user_from_claims(user, claims):
     form = UserChangeForm(instance=user, data=data)
 
     if form.is_valid():
-        user.first_name = claims.get("given_name") or claims.get("nickname", "")
+        user.first_name = \
+            claims.get("given_name") or claims.get("nickname", "")
         user.last_name = claims.get("family_name", "")
         user.email = claims.get("email", "")
         user.save()
