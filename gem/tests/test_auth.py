@@ -306,6 +306,21 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         with pytest.raises(FieldError):
             _update_user_from_claims(user, claims)
 
+    def test_update_user_from_claims_max_length_errors(self):
+        user = get_user_model().objects.create(
+            username='john', password='password')
+        user.profile.auth_service_uuid = \
+            'e2556552-16d0-445a-0850-f190e860dea6'
+        user.profile.save()
+        claims = {
+            'given_name': 'a'*31,
+            'family_name': 'testfamilyname',
+            'preferred_username': 'john',
+            'email': 'test@email.com',
+            'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
+        with pytest.raises(FieldError):
+            _update_user_from_claims(user, claims)
+
     def test_update_user_from_claims_updates_username(self):
         user = get_user_model().objects.create(
             username='testuser', password='password')
