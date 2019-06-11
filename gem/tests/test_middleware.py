@@ -53,8 +53,11 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
 
             # it should redirect if user not logged in, chhaa jaa is template
             # and user not requesting a login page
-            response = self.client.get('/')
+            # it should keep the query string when redirecting
+            response = self.client.get('/?testparam=test1212')
             self.assertEquals(response.status_code, 302)
+            self.assertRedirects(
+                response, '/profiles/login/?next=/%3Ftestparam%3Dtest1212')
 
             # it should not redirect if user logged in regardless
             # of template or path
