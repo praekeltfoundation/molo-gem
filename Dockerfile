@@ -1,6 +1,8 @@
 ARG MOLO_VERSION=7
 FROM praekeltfoundation/molo-bootstrap:${MOLO_VERSION}-onbuild
 
+COPY site-redir-www-nonwww.conf /etc/nginx/conf.d/site-redir-www-nonwww.conf
+
 ENV DJANGO_SETTINGS_MODULE=gem.settings.docker \
     CELERY_APP=gem
 
