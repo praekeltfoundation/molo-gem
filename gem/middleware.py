@@ -216,8 +216,13 @@ class ChhaaJaaLoginMiddleware(object):
             if not (
                     terms_and_conditions and
                     terms_and_conditions.slug in request.path):
+                query_string = request.META['QUERY_STRING']
+                if query_string:
+                    next_value = request.path + '?%s' % query_string
+                else:
+                    next_value = request.path
                 return redirect_to_login(
-                    next=request.path, login_url=settings.LOGIN_URL)
+                    next=next_value, login_url=settings.LOGIN_URL)
 
 
 class CustomSessionRefresh(SessionRefresh):
