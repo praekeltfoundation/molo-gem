@@ -8,9 +8,10 @@ from datetime import datetime
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth.models import Group, User
+from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import FieldError, SuspiciousOperation
-from molo.profiles.models import UserProfile
 from wagtail.core.models import Site
+from molo.profiles.models import UserProfile
 
 
 USERNAME_FIELD = "username"
@@ -31,11 +32,24 @@ def _update_user_from_claims(user, claims):
     :param claims: The claims for the profile
     """
     LOGGER.debug("Updating user {} with claims: {}".format(user, claims))
+    data = {
+        'first_name': claims.get("given_name") or claims.get("nickname", ""),
+        'last_name': claims.get("family_name", ""),
+        'email': claims.get("email", ""),
+        'username': user.username,
+        'date_joined': user.date_joined,
+    }
+    form = UserChangeForm(instance=user, data=data)
 
-    user.first_name = claims.get("given_name") or claims.get("nickname", "")
-    user.last_name = claims.get("family_name", "")
-    user.email = claims.get("email", "")
-    user.save()
+    if form.is_valid():
+        user.first_name = \
+            claims.get("given_name") or claims.get("nickname", "")
+        user.last_name = claims.get("family_name", "")
+        user.email = claims.get("email", "")
+        user.save()
+    else:
+        for e in form.errors:
+            raise FieldError(e[0])
 
     username = claims.get("preferred_username", "")
 
@@ -97,15 +111,12 @@ def _update_user_from_claims(user, claims):
                 try:
                     wagtail_group = Group.objects.get(name=group_name)
                     user.groups.add(wagtail_group)
-                    if not user.is_staff:
-                        user.is_staff = True
-                        user.save()
                 except Group.DoesNotExist:
                     LOGGER.debug("Group {} does not exist".format(group_name))
         # Remove the user's revoked role
         if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
-                user.is_superuser = False
-                user.save()
+            user.is_superuser = False
+            user.save()
 
         for group_name in groups_to_remove:
             try:
@@ -113,6 +124,11 @@ def _update_user_from_claims(user, claims):
                 user.groups.remove(wagtail_group)
             except Group.DoesNotExist:
                 LOGGER.debug("Group {} does not exist".format(group_name))
+
+        if not user.is_staff and user.groups.all().exists():
+            user.is_staff = True
+            user.save()
+
     else:
         user.groups.clear()
         user.is_staff = False
