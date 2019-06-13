@@ -140,6 +140,8 @@ INSTALLED_APPS = [
     'el_pagination',
     'import_export',
     'storages',
+
+    'django.contrib.sitemaps',
 ]
 
 COMMENTS_APP = 'molo.commenting'
