@@ -368,27 +368,33 @@ hr {
     display: block;
     position: relative;
     width: 100%;
-    &::after {
-      border-style: solid;
-      border-width: .15em .15em 0 0;
-      color: $springster-purple;
-      content: '';
-      display: inline-block;
-      height: .65em;
-      pointer-events: none;
-      position: absolute;
-      right: 25px;
-      top: 46px;
-      transform: rotate(135deg);
-      width: .65em;
-      .no-js,
-      .no-js .lt-ie9 .lt-ie8 .lt-ie7 {
-        display: none;
-        visibility: hidden;
+    @media screen and (-webkit-min-device-pixel-ratio:0)  {
+      &::after {
+        border-style: solid;
+        border-width: .15em .15em 0 0;
+        color: $springster-purple;
+        content: '';
+        display: inline-block;
+        height: .65em;
+        pointer-events: none;
+        position: absolute;
+        right: 25px;
+        top: 46px;
+        transform: rotate(135deg);
+        width: .65em;
+      }
+      .Select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
       }
     }
     .Select {
-      appearance: none;
+      appearance: inherit;
+      -webkit-appearance: inherit;
+      -moz-appearance: inherit;
+      -ms-appearance: inherit;
       background-color: transparent;
       border: 2px solid $springster-purple;
       border-radius: 0;

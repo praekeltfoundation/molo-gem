@@ -128,7 +128,16 @@ h1 {
 }
 .Form .ModelChoiceField .Select,
 .Form .TypedChoiceField .Select {
-  appearance: none;
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+  }
+  appearance: inherit;
+  -webkit-appearance: inherit;
+  -moz-appearance: inherit;
+  -ms-appearance: inherit;
   background-color: #fff;
   border-radius: 0;
   color: #000;
