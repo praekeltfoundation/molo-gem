@@ -4,8 +4,7 @@ from .base import *  # noqa
 ALLOWED_HOSTS = [
     'localhost',
     '.localhost',
-    '127.0.0.1',
-    'kaios.yegna.test'
+    '127.0.0.1'
 ]
 
 DEBUG = True
