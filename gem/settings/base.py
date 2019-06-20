@@ -304,6 +304,7 @@ LANGUAGES = global_settings.LANGUAGES + [
     ('ny', 'Chichewa'),
     ('prs', 'Dari'),
     ('am', 'Amharic'),
+    ('sw-tz', 'Tanzanian Swahili'),
 ]
 
 EXTRA_LANG_INFO = {
@@ -354,6 +355,12 @@ EXTRA_LANG_INFO = {
         'code': 'am',
         'name': 'Amharic',
         'name_local': u'አማርኛ',
+    },
+    'sw-tz': {
+        'bidi': False,
+        'code': 'sw-tz',
+        'name': 'Tanzanian Swahili',
+        'name_local': u'Kiswahili',
     },
 }
 
