@@ -168,37 +168,49 @@ h1 {
   display: block;
   position: relative;
   width: 100%;
-  &:after {
-    color: #03b8ad;
-    content: '';
-    display: inline-block;
-    height: .65em;
-    pointer-events: none;
-    position: absolute;
-    right: 5%;
-    top: 55%;
-    transform: rotate(135deg);
-    width: .65em;
-    @media (min-width:64em) {
-      top: 35%;
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    &:after {
+      color: #03b8ad;
+      content: '';
+      display: inline-block;
+      height: .65em;
+      pointer-events: none;
+      position: absolute;
+      right: 5%;
+      top: 55%;
+      transform: rotate(135deg);
+      width: .65em;
+      @media (min-width:64em) {
+        top: 35%;
+      }
+    }
+    .Select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+    }
+  }
+  .Select {
+    appearance: inherit;
+    -webkit-appearance: inherit;
+    -moz-appearance: inherit;
+    -ms-appearance: inherit;
+
+    background-color: #fff;
+    border-radius: 0;
+    color: #000;
+    min-height: 41px;
+    outline: 0;
+    padding: 5px;
+    width: 100%;
+    border: 2px solid #03b8ad;
+    &:focus {
+      border-color: #03b8ad;
     }
   }
 }
-.Form .ModelChoiceField .Select,
-.Form .TypedChoiceField .Select {
-  appearance: none;
-  background-color: #fff;
-  border-radius: 0;
-  color: #000;
-  min-height: 41px;
-  outline: 0;
-  padding: 5px;
-  width: 100%;
-  border: 2px solid #03b8ad;
-  &:focus {
-    border-color: #03b8ad;
-  }
-}
+
 .Form .BooleanField {
   display: inline-block;
   margin: 0;
