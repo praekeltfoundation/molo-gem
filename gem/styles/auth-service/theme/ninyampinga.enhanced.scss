@@ -1,0 +1,410 @@
+// VARIABLES
+
+// Fonts
+$font-basic: Arial, Helvetica, sans-serif;
+$font: Avenir, Arial, Helvetica, sans-serif;
+$font-medium: AvenirMedium, Arial, Helvetica, sans-serif;
+$font-bold: AvenirBold, Arial, Helvetica, sans-serif;
+
+// Colours
+$primary: #ed008c;
+$secondary: #00b8ae;
+$background: #ececec;
+$border: #d6d6d6;
+$warning: #ff674d;
+$success: #dbe200;
+$white: #ffffff;
+$black: #000000;
+
+// Spacing
+$spacer-max: 40px;
+$spacer-multiple: 20px;
+$spacer-mid: 15px;
+$spacer: 10px;
+$spacer-half: 5px;
+
+// TYPOGRAPHY
+
+@font-face {
+    font-family: Avenir;
+    src: url('/static/authentication_service/fonts/AvenirNextCondensed-Regular.woff');
+}
+
+@font-face {
+    font-family: AvenirMedium;
+    src: url('/static/authentication_service/fonts/AvenirNextCondensed-DemiBold.woff');
+}
+
+@font-face {
+    font-family: AvenirBold;
+    src: url('/static/authentication_service/fonts/AvenirNextCondensed-Bold.woff');
+}
+
+body, 
+textarea,
+select {
+    font-family: $font;
+    font-size: 1em;
+    color: $black;
+}
+
+strong {
+    font-family: $font-bold;
+}
+
+a {
+    color: $secondary;
+    text-decoration: none;
+    border-bottom: 1px solid $secondary;
+
+    &:hover {
+        color: $secondary;
+        border: 0;
+    }
+}
+
+h1 {
+    margin: $spacer 0;
+    font-size: 1.6em;
+    font-family: $font-bold;
+}
+
+h2 {
+    font-size: 1.4em;
+    font-family: $font-medium;
+}
+
+p, ul {
+    margin: $spacer 0;
+}
+
+hr {
+    margin: $spacer-multiple 0;
+}
+
+// STRUCTURE
+
+.Container {
+    background: $white;
+    padding: 0;
+}
+
+.Content {
+    padding: $spacer-multiple;
+    background: $background;
+    margin: 0 $spacer-multiple;
+}
+
+.Header {
+    text-align: center;
+    margin-bottom: 0;
+
+    &-branding {
+        margin-bottom: 0;
+
+        &-image {
+            width: 100px;
+        }
+    }
+
+    &-title {
+        background: transparent;
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center;
+
+        h1 {
+            font-size: 1.2em;
+            color: $black;
+            margin: 0;
+            margin-top: $spacer;
+            padding: $spacer-mid;
+        }
+    }
+}
+
+.List {
+    padding: 0;
+    list-style: none;
+
+    li {
+        margin: $spacer-mid 0 0 0;
+    }
+}
+
+.QR {
+    text-align: center;
+
+    &-image {
+        border: 3px solid $primary;
+    }
+}
+
+.Tokens {
+    margin: $spacer 0;
+    border: 1px solid $border;
+    padding: 0 $spacer-mid $spacer-mid $spacer-mid;
+
+    li {
+        width: 50%;
+        float: left;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+.Footer {
+    padding: $spacer-multiple;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border: 0;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+}
+
+// Adjustments for desktops and larger devices
+
+@media (min-width: 40em) {
+    body {
+        margin-top: $spacer-multiple * 2;
+    }
+    .Container {
+        max-width: 35em;
+        margin: 0 auto;
+        padding: $spacer-max;
+    }
+    .Header {
+        &-branding {
+            margin-bottom: $spacer-multiple;
+            
+            &-image {
+                width: 100px;
+            }
+        }
+        &-title {
+            margin: 0;
+
+            h1 {
+                margin: $spacer-multiple;
+            }
+        }
+    }
+    .Footer {
+        margin: $spacer-multiple 0 0 0;
+    }
+}
+
+// FORMS
+
+.Form {
+
+    // Field container
+    .Field {
+        margin-top: $spacer-multiple;
+
+        &-label {
+            text-align: left;
+        }
+
+        &-message {
+            margin-top: $spacer;
+        }
+
+        // Input, password, textarea
+        .TextInput,
+        .PasswordInput,
+        .EmailInput,
+        .DateInput,
+        .vDateField,
+        .NumberInput,
+        .Textarea {
+            border-width: 2px;
+            padding: $spacer;
+            font-weight: bold;
+            color: $black;
+
+            &:focus {
+                border-color: $primary;
+            }
+        }
+
+        .Textarea {
+            height: 100px;
+        }
+
+    }
+
+    // Select boxes
+    .TypedChoiceField,
+    .ModelChoiceField {
+        $block: &;
+        display: block;
+        position: relative;
+        width: 100%;
+    
+        &::after {
+            display: inline-block;
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            width: .65em;
+            height: .65em;
+            border-style: solid;
+            border-width: .15em .15em 0 0;
+            content: "";
+            transform: rotate(135deg);
+            color: $primary;
+        }
+    
+        .Select {
+            width: 100%;
+            min-height: 41px;
+            padding: $spacer - 1;
+            background-color: $white;
+            border: 2px solid $border;
+            color: $primary;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+
+            &:focus {
+                border-color: $primary;
+            }
+        }
+    }
+
+    // Check boxes
+    .BooleanField {
+        width: 100%;
+        display: table;
+        position: relative;
+        margin: 0;
+        
+        .Field-label {
+            width: 80%;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
+        .Field-item {
+            vertical-align: middle;
+            text-align: right;
+
+            .CheckboxInput {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: $spacer-multiple;
+                height: $spacer-multiple;
+                border: 2px solid $border;
+                padding: $spacer-mid;
+
+                &:checked {
+                    border-color: $primary;
+                    background-color: $primary;
+                }
+            }
+        }
+    }
+
+    // Errors
+    .Field-message--error.Field--required {
+        .Field-item input {
+            border-color: $warning;
+        }
+    }
+
+    // Button container
+    &-buttons {
+        margin-bottom: $spacer-multiple;
+    }
+
+}
+
+// Buttons
+
+.Button {
+    margin-top: $spacer-multiple;
+    padding: $spacer-mid;
+    font-weight: bold;
+    text-align: center;
+
+    &:hover {
+        background: $primary;
+    }
+
+    &--warning {
+        background: $warning;
+    }
+}
+
+// Messages (Form feedback)
+
+.Messages {
+    .Message {
+        font-family: $font-bold;
+    }
+}
+
+// Errors
+.errorlist {
+    margin-top: $spacer-multiple;
+}
+
+// MENU
+
+.Menu {
+    &-title {
+        background: $primary;
+        border-top: 1px solid $background;
+        border-bottom: 1px solid $background;
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center;
+
+        h1 {
+            font-size: 1.2em;
+            color: $white;
+        }
+    }
+    &-list {
+        padding-top: $spacer-half;
+    }
+    &-item {
+        margin: $spacer-mid 0;
+
+        a {
+            display: inline-block;
+
+            &:hover {
+                border-bottom: 1px solid $white;
+            }
+        }
+    }
+}
+
+// Adjustments for larger devices and desktops
+
+@media (min-width: 40em) {
+    .Menu {
+        margin-top: $spacer-max;
+        padding-bottom: $spacer;
+
+        &-title {
+            margin-right: 0;
+            margin-left: 0;
+
+            h1 {
+                margin: $spacer-multiple;
+            }
+        }
+    }
+}

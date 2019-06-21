@@ -42,6 +42,8 @@ var gulp              =   require('gulp'),
         'gem/styles/gem-springster/@font-face-baton.s+(a|c)ss',
     ],
     authSassPaths = [
+        'gem/styles/auth-service/style.feature.scss',
+        'gem/styles/auth-service/style.enhanced.scss',
         'gem/styles/gem-springster/auth/springster.feature.scss',
         'gem/styles/gem-springster/auth/springster.enhanced.scss',
         'gem/styles/gem-malawi/auth/zathu.feature.scss',

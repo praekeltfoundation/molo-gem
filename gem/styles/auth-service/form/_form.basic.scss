@@ -1,0 +1,100 @@
+.Form {
+
+    .Field {
+        margin-top: $spacer;
+
+        &-item {
+            margin-top: $spacer-half;
+        }
+
+        &-label {
+            font-weight: bold;
+        }
+
+        &-message {
+            margin-top: $spacer-half;
+            font-size: 0.8em;
+        }
+
+        .TextInput,
+        .PasswordInput,
+        .EmailInput,
+        .DateInput,
+        .vDateField,
+        .NumberInput,
+        .Textarea {
+            width: 100%;
+            border: 1px solid $border;
+            padding: $spacer-half;
+            font-size: 1em;
+        }
+
+        .Textarea {
+            height: 60px;
+        }
+
+        &--required {
+            input {
+                border-color: $warning;
+            }
+        }
+    }
+
+    .Field-message--error.Field--required {
+        .Field-item input {
+            border-color: $warning;
+        }
+    }
+
+    &-buttons {
+        margin-top: $spacer;
+    }
+
+}
+
+.Button {
+    width: 100%;
+    background: $secondary;
+    color: $white;
+    font-size: 1em;
+    border: 0;
+    padding: $spacer $spacer-half;
+    display: block;
+    border: 0;
+    text-decoration: none;
+
+    &:hover {
+        cursor: pointer;
+        background: $primary;
+        color: $white;
+    }
+}
+
+.Messages {
+    margin: $spacer 0;
+
+    .Message {
+        padding: $spacer;
+        color: $white;
+
+        &--success {
+            background: $success;
+        }
+
+        &--error,
+        &--warning {
+            background: $warning;
+        }
+    }
+}
+
+.errorlist {
+    margin: $spacer-half 0;
+    padding: 0;
+    color: $warning;
+    list-style: none;
+
+    li {
+        margin: $spacer-half 0;
+    }
+}
