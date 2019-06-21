@@ -44,6 +44,19 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             title="Maybe.png",
             file=get_test_image_file(),
         )
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en',
+            is_active=True)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='fr',
+            is_active=True)
+        self.spanish = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='es',
+            is_active=True)
+
 
     def test_create_new_banner_relations(self):
         self.yourmind = self.mk_section(
@@ -392,6 +405,58 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
 
         for comment in Comment.objects.all().iterator():
             self.assertNotIn(comment.comment, 'Type your comment here...')
+
+    def test_change_articles_language(self):
+        self.yourmind2 = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your Mind')
+        self.yourmind3 = self.mk_section(
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind 2')
+        # make articles of different sections
+        self.mk_articles(self.yourmind2, count=5)
+        self.mk_articles(self.yourmind3, count=5)
+
+        # translate the article into those languages
+        articles = ArticlePage.objects.all()[1::2]
+        for article in articles:
+            self.mk_article_translation(article, self.french)
+        fr_pk = self.french.pk
+        sp_pk = self.spanish.pk
+
+        fr_articles = [article.title for article in
+                       ArticlePage.objects.filter(language=self.french)]
+
+        out = StringIO()
+        call_command(
+            'change_articles_language',
+            fr_pk, sp_pk, stdout=out
+        )
+        self.assertEquals('', out.getvalue())
+        # test that only the correct articles are translated
+        sp_articles = [article.title for article in
+                       ArticlePage.objects.filter(language=self.spanish)]
+
+        self.assertEquals(sp_articles, fr_articles)
+
+    def test_change_articles_language__invalid_languages(self):
+        self.yourmind2 = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your Mind')
+        self.yourmind3 = self.mk_section(
+            SectionIndexPage.objects.child_of(
+                self.main).first(), title='Your mind 2')
+        # make articles of different sections
+        self.mk_articles(self.yourmind2, count=5)
+        self.mk_articles(self.yourmind3, count=5)
+
+        # translate the article into those languages
+        out = StringIO()
+        call_command(
+            'change_articles_language',
+            None, None, stdout=out
+        )
+        self.assertNotEquals('', out.getvalue())
 
 
 class AddDefaultTagsTest(TestCase):
