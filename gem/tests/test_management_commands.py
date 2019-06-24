@@ -44,18 +44,6 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             title="Maybe.png",
             file=get_test_image_file(),
         )
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.main.get_site()),
-            locale='en',
-            is_active=True)
-        self.french = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.main.get_site()),
-            locale='fr',
-            is_active=True)
-        self.spanish = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.main.get_site()),
-            locale='es',
-            is_active=True)
 
     def test_create_new_banner_relations(self):
         self.yourmind = self.mk_section(
