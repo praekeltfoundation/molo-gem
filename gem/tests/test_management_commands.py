@@ -57,7 +57,6 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             locale='es',
             is_active=True)
 
-
     def test_create_new_banner_relations(self):
         self.yourmind = self.mk_section(
             SectionIndexPage.objects.child_of(self.main).first(),
