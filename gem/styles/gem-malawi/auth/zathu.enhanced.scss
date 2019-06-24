@@ -210,7 +210,7 @@ hr {
       color: $colorPurple;
       min-height: 41px;
       outline: none;
-      padding: $spacer;
+      padding: $spacer 35px $spacer $spacer;
       width: 100%;
 
       &:focus {
@@ -226,11 +226,13 @@ hr {
     width: 100%;
 
     .Field-label {
-      display: table-cell;
+      display: inline-block;
       padding-right: $spacer;
-      text-align: right;
-      vertical-align: middle;
-      width: 60%;
+      text-align: left;
+      font-size: 16px;
+      margin: 10px 0 0 5px;
+      vertical-align: top;
+      width: auto;
     }
 
     .Field-item {
@@ -239,13 +241,14 @@ hr {
 
       .CheckboxInput {
         appearance: none;
-        border: 2px solid $colorPurple;
-        display: block;
+        border: 3px solid $colorPurple;
+        display: inline-block;
         height: $spacer-multiple;
         outline: none;
         padding: $spacer-mid;
         width: $spacer-multiple;
         background-color: $colorWhite;
+        position: relative;
 
         &:checked {
           background-color: $colorPurple;
@@ -254,11 +257,13 @@ hr {
           &::after {
             color: #fff;
             content: '\2714';
-            font-size: $spacer-multiple;
-            left: -$spacer;
-            line-height: $spacer-multiple;
-            position: relative;
-            top: -$spacer;
+            font-size: 25px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: inline-block;
+            top: 0;
           }
         }
       }
