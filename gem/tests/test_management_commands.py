@@ -406,6 +406,18 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             self.assertNotIn(comment.comment, 'Type your comment here...')
 
     def test_change_articles_language(self):
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en',
+            is_active=True)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='fr',
+            is_active=True)
+        self.spanish = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='es',
+            is_active=True)
         self.yourmind2 = self.mk_section(
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your Mind')
