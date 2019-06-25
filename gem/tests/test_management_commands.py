@@ -15,7 +15,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (SiteLanguageRelation, Languages,
                               ReactionQuestion, ReactionQuestionChoice,
                               ArticlePage, BannerPage, SectionIndexPage,
-                              BannerIndexPage)
+                              BannerIndexPage, Tag, SectionPage)
 from os.path import join
 
 
@@ -32,18 +32,6 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             'test', 'test@example.org', 'test')
 
         self.content_type = ContentType.objects.get_for_model(self.user)
-        Image.objects.create(
-            title="Yes.png",
-            file=get_test_image_file(),
-        )
-        Image.objects.create(
-            title="No.png",
-            file=get_test_image_file(),
-        )
-        Image.objects.create(
-            title="Maybe.png",
-            file=get_test_image_file(),
-        )
 
     def test_create_new_banner_relations(self):
         self.yourmind = self.mk_section(
@@ -393,7 +381,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         for comment in Comment.objects.all().iterator():
             self.assertNotIn(comment.comment, 'Type your comment here...')
 
-    def test_change_articles_language(self):
+    def test_change_content_language(self):
         self.english = SiteLanguageRelation.objects.create(
             language_setting=Languages.for_site(self.main.get_site()),
             locale='en',
@@ -412,11 +400,17 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         self.yourmind3 = self.mk_section(
             SectionIndexPage.objects.child_of(
                 self.main).first(), title='Your mind 2')
+        self.tag = self.mk_tag(
+            SectionIndexPage.objects.child_of(self.main).first())
+        self.tag2 = self.mk_tag(
+            SectionIndexPage.objects.child_of(self.main).first())
         # make articles of different sections
         self.mk_articles(self.yourmind2, count=5)
         self.mk_articles(self.yourmind3, count=5)
 
         # translate the article into those languages
+        self.mk_section_translation(self.yourmind2, self.french)
+        self.mk_tag_translation(self.tag, self.french)
         articles = ArticlePage.objects.all()[1::2]
         for article in articles:
             self.mk_article_translation(article, self.french)
@@ -425,10 +419,15 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
 
         fr_articles = [article.title for article in
                        ArticlePage.objects.filter(language=self.french)]
+        fr_tags = [tag.title for tag in
+                   Tag.objects.filter(language=self.french)]
+
+        fr_sections = [section.title for section in
+                       SectionPage.objects.filter(language=self.french)]
 
         out = StringIO()
         call_command(
-            'change_articles_language',
+            'change_content_language',
             fr_pk, sp_pk, stdout=out
         )
         self.assertEquals('', out.getvalue())
@@ -436,9 +435,17 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         sp_articles = [article.title for article in
                        ArticlePage.objects.filter(language=self.spanish)]
 
-        self.assertEquals(sp_articles, fr_articles)
+        sp_tags = [tag.title for tag in
+                   Tag.objects.filter(language=self.spanish)]
 
-    def test_change_articles_language__invalid_languages(self):
+        sp_sections = [section.title for section in
+                       SectionPage.objects.filter(language=self.spanish)]
+
+        self.assertEquals(sp_articles, fr_articles)
+        self.assertEquals(sp_tags, fr_tags)
+        self.assertEquals(sp_sections, fr_sections)
+
+    def test_change_content_language__invalid_languages(self):
         self.yourmind2 = self.mk_section(
             SectionIndexPage.objects.child_of(self.main).first(),
             title='Your Mind')
@@ -452,7 +459,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         # translate the article into those languages
         out = StringIO()
         call_command(
-            'change_articles_language',
+            'change_content_language',
             None, None, stdout=out
         )
         self.assertNotEquals('', out.getvalue())
