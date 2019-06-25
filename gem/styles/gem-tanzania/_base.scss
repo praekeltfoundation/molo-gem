@@ -1,31 +1,48 @@
 html, body {
-  background-color: #fff;
   height: auto;
+  @media  screen and (min-width: 20.000em) {
+    background-color: $color-light-gray;
+  }
 }
 
 body {
-  font-size: 14px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-family: $font-poppins;
   font-weight: normal;
   margin: 0 auto;
   line-height: 1.5;
   overflow: auto;
   position: relative;
   width: 100%;
-  @media screen and (min-width: 20.000em) {
-    font-size: 16px;
-  }
 }
+
 
 h1, h2, h3, h4, h5, h6  {
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
-  &:visited {
+  &:visited,
+  &:focus {
     @media screen and (min-width: 20.000em) {
       outline: none;
     }
   }
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+img {
+  border: 0;
+  height:auto;
+  width: auto;
 }

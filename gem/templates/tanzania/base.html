@@ -49,33 +49,6 @@
     {% endcompress %}
     <noscript></noscript>
   {% if not is_via_freebasics %}
-    {% compress js inline %}
-    <script>
-    !function(a){var b=/iPhone/i,c=/iPod/i,d=/iPad/i,e=/(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,f=/Android/i,g=/(?=.*\bAndroid\b)(?=.*\bSD4930UR\b)/i,h=/(?=.*\bAndroid\b)(?=.*\b(?:KFOT|KFTT|KFJWI|KFJWA|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|KFARWI|KFASWI|KFSAWI|KFSAWA)\b)/i,i=/IEMobile/i,j=/(?=.*\bWindows\b)(?=.*\bARM\b)/i,k=/BlackBerry/i,l=/BB10/i,m=/Opera Mini/i,n=/(CriOS|Chrome)(?=.*\bMobile\b)/i,o=/(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,p=new RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)","i"),q=function(a,b){return a.test(b)},r=function(a){var r=a||navigator.userAgent,s=r.split("[FBAN");return"undefined"!=typeof s[1]&&(r=s[0]),s=r.split("Twitter"),"undefined"!=typeof s[1]&&(r=s[0]),this.apple={phone:q(b,r),ipod:q(c,r),tablet:!q(b,r)&&q(d,r),device:q(b,r)||q(c,r)||q(d,r)},this.amazon={phone:q(g,r),tablet:!q(g,r)&&q(h,r),device:q(g,r)||q(h,r)},this.android={phone:q(g,r)||q(e,r),tablet:!q(g,r)&&!q(e,r)&&(q(h,r)||q(f,r)),device:q(g,r)||q(h,r)||q(e,r)||q(f,r)},this.windows={phone:q(i,r),tablet:q(j,r),device:q(i,r)||q(j,r)},this.other={blackberry:q(k,r),blackberry10:q(l,r),opera:q(m,r),firefox:q(o,r),chrome:q(n,r),device:q(k,r)||q(l,r)||q(m,r)||q(o,r)||q(n,r)},this.seven_inch=q(p,r),this.any=this.apple.device||this.android.device||this.windows.device||this.other.device||this.seven_inch,this.phone=this.apple.phone||this.android.phone||this.windows.phone,this.tablet=this.apple.tablet||this.android.tablet||this.windows.tablet,"undefined"==typeof window?this:void 0},s=function(){var a=new r;return a.Class=r,a};"undefined"!=typeof module&&module.exports&&"undefined"==typeof window?module.exports=r:"undefined"!=typeof module&&module.exports&&"undefined"!=typeof window?module.exports=s():"function"==typeof define&&define.amd?define("isMobile",[],a.isMobile=s()):a.isMobile=s()}(this);
-    var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
-    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-    var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="screen and (min-width: 360px)">';
-      if (cutsTheMustard === true) {
-        if (smartDevice && raf) {
-            raf(function() {
-              var smartStylesLargeDefer = document.getElementsByTagName('style')[0];
-              window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
-            });
-          var jsScripts = [
-            "{% static 'js/dest/springster-min.js' %}",
-            "{% static 'js/dest/kaios-min.js' %}",
-           ];
-          for (var i = 0; i < jsScripts.length; i++) {
-            var script = document.createElement('script');
-            script.src = jsScripts[i];
-            script.async = false;
-            document.querySelector('script').parentNode.appendChild(script);
-          }
-        }
-      }
-    </script>
-    {% endcompress %}
     {% molo_pwa_meta %}
   {% endif %}
   </head>
@@ -109,14 +82,14 @@
     {% endif %}
     {% wagtailuserbar %}
 
-    <div id="header-wrapper" autofocus>
-      <div id="language-bar">
+    <div id="header-wrapper" class="header-wrapper" autofocus>
+      <div id="language-bar" class="language-wrapper">
         {% if languages|length > 1 %}
         <div class="languages languages--fixed-header">
           <ul class="language-list language-list--standard-center">
           {% for language in languages %}
             <li class="language-list__item language-list__item--standard-center">
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor-standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
                 {{language.locale|language_name_local}}
               </a>
             </li>
@@ -127,25 +100,25 @@
       </div>
       <div id="header" class="header">
         <a href="/" class="logo logo--center">
-          <img alt="{% trans "Springster" %}" srcset="{% static 'img/logos/springster-logo.svg' %}" src="{% static 'img/sp-logo.png' %}" width="97" height="24"/>
+          <span class="logo__image">Tanzania</span>
         </a>
         <div class="header__menu">
           <ul class="menu-list menu-list--section-nav">
             <li id="profile" class="menu-list__item menu-list__item--section-nav">
               {% if not user.is_authenticated %}
                 <a  href={{REGISTRATION_URL}} class="menu-list__anchor menu-list__anchor--section-nav">
-                  {% trans "Sign up" %}
+                  <span class="menu-list__label">{% trans "Sign up" %}</span>
                 </a>
               {% else %}
                 <a  href="{{VIEW_PROFILE_URL}}" class="menu-list__anchor menu-list__anchor--section-nav">
-                  {% trans "Profile" %}
+                  <span class="menu-list__label">{% trans "Profile" %}</span>
                 </a>
               {% endif %}
             </li>
             <li id="search" class="menu-list__item menu-list__item--section-nav">
-              <a class="menu-list__anchor menu-list__anchor--section-nav">
-                <label for="search-toggle" >{% trans "Search" %}</label>
-              </a>
+              <label for="search-toggle" class="menu-list__anchor menu-list__anchor--section-nav">
+                <span class="menu-list__label">{% trans "Search" %}</span>
+              </label>
             </li>
           </ul>
         </div>
@@ -252,7 +225,7 @@
         {% endblock %}
 
         {% block footer %}
-          <div id="footer-bar">
+          <div id="footer-bar" class="footer-bar-wrapper">
             {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
