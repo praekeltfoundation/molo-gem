@@ -1,0 +1,47 @@
+.Menu {
+    &-title {
+        background: $primary;
+        border-top: 1px solid $background;
+        border-bottom: 1px solid $background;
+        margin-left: -$spacer-multiple;
+        margin-right: -$spacer-multiple;
+        text-align: center;
+
+        h1 {
+            font-size: 1.2em;
+            color: $white;
+        }
+    }
+    &-list {
+        padding-top: $spacer-half;
+    }
+    &-item {
+        margin: $spacer-mid 0;
+
+        a {
+            display: inline-block;
+
+            &:hover {
+                border-bottom: 1px solid $white;
+            }
+        }
+    }
+}
+
+// Adjustments for larger devices and desktops
+
+@media (min-width: 40em) {
+    .Menu {
+        margin-top: $spacer-max;
+        padding-bottom: $spacer;
+
+        &-title {
+            margin-right: 0;
+            margin-left: 0;
+
+            h1 {
+                margin: $spacer-multiple;
+            }
+        }
+    }
+}

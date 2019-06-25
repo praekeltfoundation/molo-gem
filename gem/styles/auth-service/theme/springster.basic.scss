@@ -1,0 +1,234 @@
+// VARIABLES
+
+// Fonts
+$font-basic: Arial, Helvetica, sans-serif;
+$font: Lineto, Arial, Helvetica, sans-serif;
+$font-medium: LinetoMedium, Arial, Helvetica, sans-serif;
+$font-bold: LinetoBold, Arial, Helvetica, sans-serif;
+
+// Colours
+$primary: #4e5358;
+$secondary: #7300ff;
+$background: #dad9d6;
+$border: #dad9d6;
+$warning: #ff674d;
+$success: #dbe200;
+$white: #ffffff;
+
+// Spacing (also used for widths)
+$spacer-max: 40px;
+$spacer-multiple: 20px;
+$spacer-mid: 15px;
+$spacer: 10px;
+$spacer-half: 5px;
+
+// TYPOGRAPHY
+
+body, 
+textarea, 
+select {
+    font-family: $font-basic;
+    font-size: 1em;
+    color: $primary;
+}
+
+a {
+    color: $secondary;
+
+    &:hover {
+        color: $secondary;
+    }
+}
+
+h1 {
+    margin: $spacer 0;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+h2 {
+    margin: $spacer 0;
+    font-size: 1em;
+}
+
+p, ul {
+    margin: $spacer 0;
+}
+
+hr {
+    height: 0;
+    border: 0;
+    border-top: 1px solid $border;
+    margin: $spacer 0;
+}
+
+// BASE 
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    
+}
+
+// GLOBAL STRUCTURE
+
+.Header {
+    text-align: center;
+
+    &-branding {
+        background: $secondary;
+        padding: $spacer-mid;        
+    }
+}
+
+.Content {
+    padding: $spacer;
+}
+
+.Footer {
+    padding: $spacer;
+    background: $white;
+    font-size: 0.7em;
+    border-top: 1px solid $border;
+    text-align: center;
+}
+
+// FORMS
+
+.Form {
+
+    // Fields
+
+    .Field {
+        margin-top: $spacer;
+
+        &-item {
+            margin-top: $spacer-half;
+        }
+
+        &-label {
+            font-weight: bold;
+            text-align: center;
+            display: block;
+        }
+
+        &-message {
+            margin-top: $spacer-half;
+            font-size: 0.8em;
+        }
+
+        .TextInput,
+        .PasswordInput,
+        .EmailInput,
+        .DateInput,
+        .vDateField,
+        .NumberInput,
+        .Textarea {
+            width: 100%;
+            border: 2px solid $primary;
+            padding: $spacer;
+            font-size: 1em;
+
+            &:focus {
+                border-color: $secondary;
+            }
+        }
+
+        .Textarea {
+            height: 60px;
+        }
+
+        &--required {
+            input {
+                border-color: $warning;
+            }
+        }
+    }
+
+    .Field-message--error.Field--required {
+        .Field-item input {
+            border-color: $warning;
+        }
+    }
+
+    &-buttons {
+        margin-top: $spacer;
+    }
+
+}
+
+.Additional-text {
+    text-align: center;
+}
+
+// Buttons
+
+.Button {
+    width: 100%;
+    background: $secondary;
+    color: $white;
+    font-size: 1em;
+    border: 0;
+    padding: $spacer $spacer-half;
+    display: block;
+    border: 0;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: $spacer;
+
+    &:hover {
+        cursor: pointer;
+        background: $primary;
+        color: $white;
+    }
+}
+
+// Messages (Form Feedback)
+
+.Messages {
+    margin: $spacer 0;
+
+    .Message {
+        padding: $spacer;
+        color: $white;
+
+        &--success {
+            background: $success;
+        }
+
+        &--error,
+        &--warning {
+            background: $warning;
+        }
+    }
+}
+
+// Errors
+
+.errorlist {
+    margin: $spacer-half 0;
+    padding: 0;
+    color: $warning;
+    list-style: none;
+
+    li {
+        margin: $spacer-half 0;
+    }
+}
+
+// MENU
+
+.Menu {
+    &-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}

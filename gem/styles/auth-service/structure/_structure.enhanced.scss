@@ -1,0 +1,113 @@
+.Container {
+    padding: $spacer-multiple;
+    background: $white;
+}
+
+.Header {
+    text-align: center;
+    margin-bottom: $spacer-multiple;
+
+    &-branding {
+        margin-bottom: $spacer;
+
+        &-image {
+            width: 90px;
+        }
+    }
+
+    &-title {
+        background: $primary;
+        margin-left: -$spacer-multiple;
+        margin-right: -$spacer-multiple;
+        text-align: center;
+
+        h1 {
+            font-size: 1.2em;
+            color: $white;
+            margin: $spacer-mid;
+            padding: $spacer-mid;
+        }
+    }
+}
+
+.Intro {
+
+}
+
+.List {
+    padding: 0;
+    list-style: none;
+
+    li {
+        margin: $spacer-mid 0 0 0;
+    }
+}
+
+.QR {
+    text-align: center;
+
+    &-image {
+        border: 3px solid $primary;
+    }
+}
+
+.Tokens {
+    margin: $spacer 0;
+    border: 1px solid $border;
+    padding: 0 $spacer-mid $spacer-mid $spacer-mid;
+
+    li {
+        width: 50%;
+        float: left;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+.Footer {
+    padding: $spacer-multiple $spacer-multiple 0 $spacer-multiple;
+    margin-top: $spacer-multiple;
+    margin-left: -$spacer-multiple;
+    margin-right: -$spacer-multiple;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+}
+
+// Adjustments for larger devices and desktops
+
+@media (min-width: 40em) {
+    body {
+        margin-top: $spacer-multiple * 2;
+    }
+    .Container {
+        max-width: 35em;
+        margin: 0 auto;
+        padding: $spacer-max;
+    }
+    .Header {
+        &-branding {
+            margin-bottom: $spacer-multiple;
+            
+            &-image {
+                width: 100px;
+            }
+        }
+        &-title {
+            margin: 0;
+
+            h1 {
+                margin: $spacer-multiple;
+            }
+        }
+    }
+    .Footer {
+        margin: $spacer-multiple 0 0 0;
+    }
+}
