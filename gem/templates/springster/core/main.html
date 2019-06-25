@@ -62,25 +62,4 @@
     {% your_words_competition %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
-
-    {% get_pages %}
-    {% if pages.next %}
-      {% if articles %}
-      <div class="pagination">
-      {% if articles_paginated.has_previous %}
-      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
-      {% endif %}
-      <span class="pagination__current-page">
-      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-      </span>
-      {% if articles_paginated.has_next %}
-      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
-      {% endif %}
-      </div>
-      {% endif %}
-      <a id="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
-      </a>
-    {% endif %}
-  {% endif %}
 {% endblock %}
