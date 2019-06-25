@@ -32,6 +32,18 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             'test', 'test@example.org', 'test')
 
         self.content_type = ContentType.objects.get_for_model(self.user)
+        Image.objects.create(
+            title="Yes.png",
+            file=get_test_image_file(),
+        )
+        Image.objects.create(
+            title="No.png",
+            file=get_test_image_file(),
+        )
+        Image.objects.create(
+            title="Maybe.png",
+            file=get_test_image_file(),
+        )
 
     def test_create_new_banner_relations(self):
         self.yourmind = self.mk_section(
