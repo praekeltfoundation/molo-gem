@@ -12,7 +12,6 @@
 {% block content %}
     {% bannerpages position=0 %}
     {% gembannerpages %}
-
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
     {% surveys_list personalisable_survey=True %}
     {% hero_article %}
@@ -33,54 +32,21 @@
     {% surveys_list personalisable_survey=True %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
-    
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
-
     {% media_listing_homepage %}
-
     {% bannerpages position=1 %}
-
     {% poll_page %}
     {% surveys_list only_direct_surveys=True %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
-
     {% bannerpages position=2 %}
     {% surveys_list only_yourwords=True %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
-
     {% surveys_list only_linked_surveys=True %}
-
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
-
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
-
     {% bannerpages position=3 %}
     {% your_words_competition %}
-
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
-
-    {% get_pages %}
-    {% if pages.next %}
-      {% if articles %}
-      <div class="pagination">
-      {% if articles_paginated.has_previous %}
-      <a href="?p={{ articles_paginated.previous_page_number }}" class="pagination__nav-anchor-previous"></a>
-      {% endif %}
-      <span class="pagination__current-page">
-      Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-      </span>
-      {% if articles_paginated.has_next %}
-      <a href="?p={{ articles_paginated.next_page_number }}" class="pagination__nav-anchor-next"></a>
-      {% endif %}
-      </div>
-      {% endif %}
-      <a id="more-link" data-next="{% url 'home_index' %}?page={{pages.next.number}}&locale={{locale_code}}" class="more-link call-to-action__button call-to-action__button--primary">
-        <span class="call-to-action__button-text call-to-action__button-text--primary ">{% trans "Load more" %}</span>
-      </a>
-    {% endif %}
   {% endif %}
 {% endblock %}
