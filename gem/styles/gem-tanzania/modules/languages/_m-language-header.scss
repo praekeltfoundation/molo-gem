@@ -1,0 +1,45 @@
+.language {
+  &-wrapper {
+    background-color: #fff;
+    width: 100%;
+    @media screen and (min-width: 20.000em) {
+      max-width: 360px;
+    }
+  }
+  &-list {
+    padding: 5px;
+    &--standard-center {
+      text-align: center;
+    }
+    &__item {
+      &--standard-center {
+        display: inline-block;
+        font-size: 14px;
+        margin: 0 10px;
+      }
+      &--with-label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+    &__anchor {
+      &--standard-center {
+        color: $color-dark-gray;
+        font-size: 14px;
+        &.is-active {
+          color: $color-light-gray;
+        }
+        &:hover, &:active, &:focus {
+          text-decoration: underline;
+          text-underline-position: below;
+        }
+      }
+    }
+    &--with-label__title {
+      font-size: 16px;
+      &:after {
+        content: ":";
+      }
+    }
+  }
+}
