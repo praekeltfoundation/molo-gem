@@ -98,23 +98,25 @@
       {% else %}
           {# include template "patterns/basics/surveys/surveys-list_generic.html" #}
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-              <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">
-              <aside>
-                {% if survey.image %}
-                  {% image survey.image width-165 as icon_small %}
-                  <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-thumb" />
-                {% else %}
-                  <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
-                {% endif %}
-              </aside>
-              <section>
-                <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
-                {% if survey.homepage_introduction %}
-                  <div class="heading heading__subheading">
-                    <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
-                  </div>
-                {% endif %}
-              </section>
+            <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">
+              <div class="surveys--wrapper">
+                <aside>
+                  {% if survey.image %}
+                    {% image survey.image width-165 as icon_small %}
+                    <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-thumb" />
+                  {% else %}
+                    <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
+                  {% endif %}
+                </aside>
+                <section>
+                  <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
+                  {% if survey.homepage_introduction %}
+                    <div class="heading heading__subheading">
+                      <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
+                    </div>
+                  {% endif %}
+                </section>
+              </div>
               <nav>
                 <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
                   <span class="call-to-action__button-text call-to-action__button-text--primary">
