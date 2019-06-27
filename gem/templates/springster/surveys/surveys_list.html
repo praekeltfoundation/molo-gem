@@ -33,6 +33,7 @@
       {% if survey.your_words_competition %}
         {# include template "patterns/basics/surveys/surveys-list_gcn.html" #}
           <div class="gcn-competition gcn-competition--homepage gcn-competition{{survey.get_effective_extra_style_hints}}">
+            <aside>
             {% if survey.image %}
               {% image survey.image width-98 as tmp_photo_small %}
               {% image survey.image width-320 as tmp_photo_large %}
@@ -42,18 +43,22 @@
             {% else %}
                 <div class="surveys--page__image gcn-competition__default"></div>
             {% endif %}
+            </aside>
+            <section>
             <div class="heading heading__component"><h1>{{survey.title}}</h1></div>
             {% if survey.homepage_introduction %}
               <div class="heading heading__subheading">
                 <p>{{survey.homepage_introduction|smarttruncatechars:100|safe}}</p>
               </div>
             {% endif %}
+            </section>
             <a href="{% pageurl survey.specific %}" class="call-to-action__button call-to-action__button--primary">
               <span class="call-to-action__button-text call-to-action__button-text--primary">
                 {% trans "Take GCN competition" as defaultTextGCN %}
                 {{ survey.homepage_button_text|default:defaultTextGCN}}
               </span>
             </a>
+
           </div>
         {# end include template #}
       {% elif survey.display_survey_directly %}
