@@ -29,8 +29,11 @@ class Command(BaseCommand):
                         if hasattr(page.specific, 'language'):
                             if page.specific.language == old_lang:
                                 page.specific.language = new_lang
-                                page.specific.save()
-                                page.save()
+                                if not page.specific.has_unpublished_changes:
+                                    page.specific.save_revision().publish()
+                                else:
+                                    page.specific.save_revision().publish()
+                                    page.specific.unpublish()
             except (ObjectDoesNotExist, MultipleObjectsReturned):
                 self.stdout.write(self.style.WARNING(
                     "Invalid language primary keys were entered" +
