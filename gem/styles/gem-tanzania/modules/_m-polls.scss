@@ -1,11 +1,39 @@
 .polls {
+  overflow: auto;
+  position: relative;
+  &__bubble-icon {
+    background: url('/static/img/icons/tanzania/thoughts-bubble-illustration-blue.png') no-repeat 0 0/contain;
+    height: 105px;
+    width: 120px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 2em;
+  }
+  &__container {
+    background-color: $color-light-gray;
+    padding: 3em 0;
+    margin: 5em 0 1em;
+  }
   img {
     width: 100%;
     height: auto;
   }
-  &__container {
-    background-color: $color-dark_grayish-blue;
-    padding: 20px 0 8px;
+  .heading {
+    &__component:after {
+      background-image: url(/static/img/icons/tanzania/underline-squiggle-grey.png);
+    }
+    &__micro {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  .choice-group {
+    background-color: #fff;
+    padding: 1em;
+    margin: 1em 0.5em;
   }
 
   .polls-results {
