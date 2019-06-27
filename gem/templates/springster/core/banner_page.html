@@ -12,7 +12,7 @@
   {#{% include "patterns/components/banners/main-banner.html" with pageTag=self %}#}
   <div class="banner">
     {% if self.banner %}
-      {% image self.banner width-360 as tmp_photo %}
+      {% image self.banner width-1080 as tmp_photo %}
       {% if self.banner_link_page %}
         <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
         <img alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>

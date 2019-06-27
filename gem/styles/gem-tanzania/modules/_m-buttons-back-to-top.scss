@@ -1,0 +1,48 @@
+.call-to-action {
+  &--backToTop {
+    background-color: $color-light-gray;
+    padding: 15px 0 10px 0;
+  }
+  &--backToTop-bg {
+    background: $color-light-gray;
+    padding: 10px 0;
+  }
+  &-text {
+    &--backToTop,
+    &--backToTop-up_arrow {
+      &:after {
+        content: "";
+        background-image: url(/static/img/icons/tanzania/arrow-up.png);
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: auto 100%;
+        position: absolute;
+        height: 15px;
+        width: 15px;
+      }
+    }
+  }
+
+  &__nav-item-text {
+    &--backToTop {
+      text-transform: uppercase;
+      text-decoration: underline;
+      color: $color-blue;
+      position: relative;
+      font-weight: bold;
+      &:after {
+        top: 3px;
+        margin-left: 10px;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &--backToTop-up_arrow {
+      &:after {
+        right: 20%;
+        top: 30%;
+      }
+    }
+  }
+}
