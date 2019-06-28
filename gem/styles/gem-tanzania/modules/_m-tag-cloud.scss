@@ -1,0 +1,71 @@
+.tag-cloud {
+  display: inline-block;
+  width: 100%;
+  margin: 5em 0 0;
+  position: relative;
+  text-align: center;
+  &__container {
+    background-color: $color-blue;
+    padding: 7em 0 0 0;
+  }
+  &__block {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0;
+    padding: 0 0 20px;
+    list-style-type: none;
+  }
+  &__heading {
+    text-align: center;
+    font-size: 18px;
+    h4 {
+      font-size: 22px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+  }
+  &__item {
+    display: inline-block;
+    padding: 5px 10px;
+    &-title {
+        margin-left: -4px;
+        display: inline-block;
+    }
+  }
+  &__anchor {
+    font-size: 16px;
+    text-decoration: none;
+    color: $color-green;
+    text-transform: capitalize;
+    margin: 0 1em 0 0;
+    &:hover {
+      color: #fff;
+    }
+    &:before {
+      content: "#";
+    }
+  }
+
+  &__icon {
+    overflow: auto;
+    &:after {
+      content: "";
+      background-image: url(/static/img/icons/tanzania/okay-illustration-blue.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 120px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: -5em;
+      height: 145px;
+      display: block;
+    }
+  }
+}
+.article-page-tag-cloud {
+  .heading {
+    margin-bottom: 10px;
+  }
+}
