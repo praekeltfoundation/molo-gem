@@ -1,0 +1,60 @@
+.heading.related-articles__up-next {
+  color: $color-dark_grayish-blue;
+  padding: 0 1em;
+}
+
+.related-articles {
+  .teaser-stacklist__item {
+    padding: 10px 1em;
+  }
+
+  &-up-next {
+    padding: 0 0 1em;
+    text-transform: uppercase;
+    &__title {
+      padding: 10px;
+    }
+    &__desc {
+      padding: 0 10px;
+    }
+  }
+  &-recommended {
+    padding: 0 0 1em;
+    text-transform: uppercase;
+    &__title {
+      word-wrap: break-word;
+    }
+    &-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      &__item {
+        margin: 0 0 20px;
+        padding: 0;
+        overflow: auto;
+        clear: both;
+      }
+      &__content {
+        padding: 0 10px;
+      }
+      &--hero {
+        padding: 0;
+        width: 100%;
+      }
+      &--grid {
+        &:nth-child(even) {
+          @media screen and (min-width: 320px) {
+            width: 45%;
+            padding: 0 10px 0 0;
+          }
+        }
+        &:nth-child(odd) {
+          @media screen and (min-width: 320px) {
+            width: 46%;
+            padding: 0 0 0 10px;
+          }
+        }
+      }
+    }
+  }
+}
