@@ -1,0 +1,142 @@
+.comments {
+  padding: 10px 0;
+  &__form {
+    padding: 0 10px;
+    &--report {
+      padding: 0;
+    }
+  }
+  &__title {
+    padding: 0 10px 10px;
+  }
+  &__alias {
+    color: $color-dark_grayish-blue;
+    font-size: 18px;
+    padding: 0 10px 10px;
+    &-author {
+      a {
+        color: $color-blue;
+        font-weight: 700;
+        font-size: 19px;
+        text-decoration: underline;
+        display: block;
+        padding: 0.5em 0 1em;
+      }
+    }
+  }
+  &__staff {
+    color: $color-dark_grayish-blue;
+    font-size: 18px;
+    padding-right: 5px;
+  }
+  &__reply-meta {
+    padding: 10px 10px;
+    .call-to-action__nav-item-text {
+      display: inline-block;
+      font-size: 16px;
+    }
+  }
+  &__publish-date {
+    color: $color-dark_grayish-blue;
+    font-size: 16px;
+    padding: 0 5px 0 10px;
+  }
+  &__body-small {
+    padding: 0 10px;
+    color: $color-grayish-blue;
+  }
+  &__body-title {
+    color: $color-grayish-blue;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+  &__description {
+    text-align: center;
+    color: $color-grayish-blue;
+    text-transform: uppercase;
+    padding: 0 10px 10px;
+  }
+  &-list {
+    &__item {
+      &--reply {
+        background-color: $color-light-gray;
+        padding: 10px 0;
+      }
+      &--parent-comment {
+        border-top: 3px solid $color-blue;
+        padding: 10px 0 0;
+        &:first-child {
+          border: none;
+        }
+      }
+    }
+    .comment__replies-title {
+      background-color: transparent;
+      color: $color-grayish-blue;
+      font-size: 18px;
+      padding: 1.5em 10px 10px;
+      font-weight: 600;
+    }
+  }
+}
+
+.comment {
+  &__replies-title {
+    background-color: $color-light-gray;
+    color: $color-grayish-blue;
+    font-size: 18px;
+    padding: 1.5em 10px 10px;
+    font-weight: 600;
+  }
+  &-counter {
+    display: inline-block;
+    height: 25px;
+    margin: 5px 0 0;
+    &__icon {
+      display: none;
+      visibility: hidden;
+
+    }
+    &__numeral {
+      color: $color-grayish-blue;
+      margin-left: 5px;
+      vertical-align: top;
+      font-size: 16px;
+      &:before {
+        content: "";
+        background: url(/static/img/icons/tanzania/comments.svg) no-repeat center center/100%;
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+        margin: 0 10px 0 0;
+      }
+    }
+  }
+}
+
+.teaser-stacklist__item--content {
+  .comment-counter-container {
+    height: 20px;
+  }
+  .comment-counter {
+    position: absolute;
+    margin: 0;
+    right: 1em;
+    bottom: 1em;
+  }
+}
+
+
+#id_report_reason {
+  margin: 0;
+  padding: 0;
+  li {
+    display: block;
+    label {
+      text-align: left;
+    }
+    input[type="radio"] {
+      cursor: pointer;
+    }
+  }
+}

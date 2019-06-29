@@ -1,0 +1,37 @@
+.breadcrumbs {
+  padding: 10px 0;
+  &-list {
+    margin: 0;
+    padding: 0 15px;
+    list-style: none;
+    &__item {
+      display: inline-block;
+      &:after {
+        content: " > ";
+        color: $color-grayish-blue;
+        margin: 0 5px 0 5px;
+      }
+      &:last-child:after {
+        content: " ";
+        display: inline-block;
+      }
+      &-pipe {
+        &:after {
+          content: " / ";
+          color: $color-grayish-blue;
+        }
+      }
+    }
+    &__anchor {
+      color: $color-grayish-blue;
+      text-transform: capitalize;
+      @media screen and (min-width: 320px) {
+        text-decoration: none;
+      }
+      &--is-active {
+        color: $color-blue;
+        font-weight: 500;
+      }
+    }
+  }
+}

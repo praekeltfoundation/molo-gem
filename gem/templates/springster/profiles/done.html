@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="profiles">
-    
+
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Thank you for joining!" as headingtext %}
       {% with type="component" htmltag="h1" title=headingtext %}
@@ -10,7 +10,7 @@
         </div>
       {% endwith %}
     {# end include template #}
-    
+
     {% with profile_settings=settings.profiles.UserProfilesSettings %}
         {% if profile_settings.activate_dob and not profile_settings.capture_dob_on_reg or profile_settings.activate_display_name and not profile_settings.capture_display_name_on_reg or profile_settings.activate_gender and not profile_settings.capture_gender_on_reg or profile_settings.activate_education_level and not profile_settings.capture_education_level_on_reg %}
 
@@ -69,7 +69,7 @@
                         <p class="helptext">{% trans "Only you will see this." %}</p>
                     </fieldset>
                     {% endif %}
-                    <input type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary" />
+                    <button type="submit" value="{% trans 'Update' %}" class="call-to-action__button call-to-action__button--primary">{% trans 'Update' %}</button>
                     <a href="/" class="call-to-action__nav-item-text">{% trans "Skip" %}</a>
                 </form>
         {% else %}
