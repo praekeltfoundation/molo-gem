@@ -78,6 +78,12 @@ input[type="search"]::-webkit-search-results-decoration {
   appearance: none;
 }
 
+
+input[type="submit"] {
+  border: none;
+  cursor: pointer;
+}
+
 select {
   background: #fafafa;
   margin: 0 auto 10px;
@@ -99,15 +105,11 @@ select {
 }
 
 textarea {
-  border: none;
-  padding: 8px 8px 0;
-  margin: 0 8px;
+  border: 2px solid $color-blue;
+  padding: 10px;
   display: block;
 }
 
-input[type="submit"] {
-  border: none;
-}
 
 label.error {
   color: $color-pink;
@@ -120,7 +122,10 @@ label.error {
   color: $color-grayish-blue;
   font-size:12px;
 }
-
+.input-group {
+  padding: 0 10px;
+  position: relative;
+}
 .choice-group {
   margin: 0 0 10px;
 }
@@ -133,7 +138,6 @@ label.error {
   color: $color-grayish-blue;
   display: block;
   font-size: 14px;
-  font-weight: bold;
   margin: -5px 0 0;
 }
 
@@ -141,7 +145,6 @@ label.error {
   color: $color-grayish-blue;
   display: block;
   font-size: 12px;
-  font-weight: bold;
   padding: 0 0 10px;
   text-transform: capitalize;
 }

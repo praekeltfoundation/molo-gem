@@ -3,7 +3,7 @@ importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
 
 firebase.initializeApp({
-  'messagingSenderId': '158972131363'
+  'messagingSenderId': '158972131363' //?
 });
 
 const messaging = firebase.messaging();
@@ -26,8 +26,10 @@ function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
       '/',
-      '/static/offline.html',
-      '/static/img/logos/chhaajaa-logo.png',
+      'offline.html',
+      '/static/img/appicons/springster_icon_96.png',
+      '/static/img/appicons/springster_icon_144.png',
+      '/static/img/appicons/springster_icon_192.png'
     ]);
   });
 }
