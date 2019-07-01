@@ -1,0 +1,66 @@
+.section {
+  &-listing {
+    &__title {
+      padding: 10px 15px;
+    }
+    &__link {
+      color: #dc5a11;
+    }
+  }
+  &-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    img {
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &-teaser-listing {
+    &--base {
+      overflow: hidden;
+    }
+    &-header {
+      background: $color-dark_grayish-blue;
+      list-style-type: none;
+      position: relative;
+      overflow: auto;
+      height: 160px;
+      overflow: hidden;
+      @each $name, $background in $sectionThemes {
+        &--#{$name} .section-banner {
+          background: url($background) repeat center center/100%;
+        }
+      }
+    }
+    .heading__section {
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+      padding: 3em 0;
+      &:after {
+        content: " ";
+        background-image: url(/static/img/icons/tanzania/underline-squiggle-white.png);
+        background-position: center center;
+        background-size: 150px;
+        background-repeat: no-repeat;
+        display: block;
+        width: 150px;
+        padding: 10px 0;
+        margin: 0 auto 20px;
+      }
+    }
+  }
+}
+
+.page__heading {
+  color: #fff;
+  position: absolute;
+  top: 55px;
+  left: 15px;
+}
