@@ -25,24 +25,27 @@
     }
     &-item-text {
       color: $color-blue;
-      text-decoration: underline;
+      text-decoration: none;
       text-transform: uppercase;
       text-align: center;
       display: block;
       margin: 1em auto 1.5em;
       font-weight: 500;
+      &:hover, &:active, &:focus {
+        text-decoration: underline;
+      }
       &--right {
         color: $color-blue;
         text-align: right;
         &:after {
-          background-image: url(/static/img/icons/tanzania/arrow-right.png);
-          background-position: center center;
-          background-size: 100%;
+          background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+          background-position: 0 -28em;
+          background-size: 265px;
           background-repeat: no-repeat;
           display: inline-block;
           content: " ";
-          width: 30px;
-          height: 20px;
+          width: 40px;
+          height: 25px;
           vertical-align: middle;
           margin: 0 15px 0;
         }
@@ -51,16 +54,16 @@
         color: $color-blue;
         text-align: left;
         &:before {
-          background-image: url(/static/img/icons/tanzania/arrow-right.png);
-          background-position: center center;
-          background-size: 100%;
+          background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+          background-position: 0 -28em;
+          background-size: 265px;
           background-repeat: no-repeat;
           display: inline-block;
           content: " ";
-          width: 30px;
-          height: 20px;
+          width: 40px;
+          height: 25px;
           vertical-align: middle;
-          margin: 0 15px 0;
+          margin: 0 -10px 0;
           transform: rotate(180deg);
         }
       }
@@ -95,6 +98,9 @@
         background: transparent;
         margin: 0 auto;
       }
+      &--yellow {
+        color: $color-yellow;
+      }
     }
     &--primary {
       background-color: $color-blue;
@@ -105,12 +111,14 @@
       margin: 0 auto 2em;
       z-index: 99999999;
       position: relative;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
+      //-webkit-transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.1s  ease-out;
+    //  -moz-transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.1s  ease-out;
+      //transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.1s  ease-out;
       &:after {
         background: transparent;
-        border: 5px solid $color-blue;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $color-blue;
         content: "";
         display: block;
         width: 101%;
@@ -120,12 +128,15 @@
         right: -1em;
         margin: 0 auto;
         top: 0.4em;
+        -webkit-transition: border-color 0.1s ease-out;
+        -moz-transition: border-color 0.1s ease-out;
+        transition:  border-color 0.1s ease-out;
       }
       &:hover, &:active, &:focus {
         color: $color-light-gray;
         background-color: $color-pink;
-        .call-to-action__button--primary:after {
-          border: 5px solid $color-pink;
+        &:after {
+          border-color: $color-pink;
         }
       }
     }
