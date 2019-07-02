@@ -63,7 +63,7 @@
         {# end include template #}
       {% elif survey.display_survey_directly %}
           {# include template "patterns/basics/surveys/surveys-list_polls.html" #}
-            <div class="polls polls--call-to-action">
+            <div class="polls polls--homepage polls--call-to-action">
               <div class="polls__bubble-icon"></div>
               <div class="polls__container">
                 <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
@@ -98,7 +98,7 @@
       {% else %}
           {# include template "patterns/basics/surveys/surveys-list_generic.html" #}
             {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-            <div class="adv_wrapper adv_wrapper--surveys adv_wrapper{{survey.get_effective_extra_style_hints}}">
+            <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{survey.get_effective_extra_style_hints}}">
               <div class="surveys--wrapper">
                 <aside>
                   {% if survey.image %}
