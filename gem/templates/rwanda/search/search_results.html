@@ -54,11 +54,13 @@
               {% endif %}
             </ul>
             <h3 class="article-teaser__title {% if article.title_highlight %}article-teaser__title--highlight{% endif %}">
+               <a href="{% pageurl article.specific %}" class="article-teaser__heading">
               {% if article.title_highlight %}
                 {{ article.title_highlight|smarttruncatechars:50|safe}}
               {% else %}
                 {{ article.title|safe}}
               {% endif %}
+            </a>
             </h3>
             {% if article.subtitle_highlight or article.body_highlight %}
               <h6 class="article-teaser__subtitle">
