@@ -85,6 +85,12 @@
       display: block;
       text-align: center;
       font-weight: 500;
+      transition: color .2s ease-out, text-decoration .2s ease-out;
+      &:hover, &:active, &:focus {
+        color: $color-pink;
+        text-decoration: underline;
+        text-underline-position: below;
+      }
       &--hyperlink {
         background: transparent;
         margin: 0 auto;
@@ -99,7 +105,9 @@
       margin: 0 auto 2em;
       z-index: 99999999;
       position: relative;
-
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
       &:after {
         background: transparent;
         border: 5px solid $color-blue;
@@ -112,6 +120,13 @@
         right: -1em;
         margin: 0 auto;
         top: 0.4em;
+      }
+      &:hover, &:active, &:focus {
+        color: $color-light-gray;
+        background-color: $color-pink;
+        .call-to-action__button--primary:after {
+          border: 5px solid $color-pink;
+        }
       }
     }
   }

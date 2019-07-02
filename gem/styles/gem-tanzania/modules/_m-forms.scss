@@ -69,6 +69,14 @@ input[type="email"],
 input[type="tel"],
 input[type="search"] {
   border: 2px solid $color-blue;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+    -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+    box-shadow: 10px 10px 5px -10px $color-blue;
+  }
 }
 
 input[type="checkbox"],
@@ -98,7 +106,13 @@ input[type=radio]:checked + label {
 }
 
 input[type=radio] ~ label  {
+  cursor: pointer;
   padding: 15px 10px 15px 55px;
+  opacity: 0.9;
+  transition: opacity .2s ease-out;
+  &:hover, &:active, &:focus {
+    opacity: 1;
+  }
 }
 
 input[type=checkbox] {

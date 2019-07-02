@@ -28,8 +28,9 @@
     display: inline-block;
     padding: 5px 10px;
     &-title {
-        margin-left: -4px;
-        display: inline-block;
+      margin-left: -4px;
+      display: inline-block;
+      transition: text-decoration .2s ease-out;
     }
   }
   &__anchor {
@@ -38,8 +39,12 @@
     color: $color-green;
     text-transform: capitalize;
     margin: 0 1em 0 0;
+
     &:hover {
-      color: #fff;
+      color: $color-yellow;
+      .tag-cloud__item-title {
+        text-decoration: underline;
+      }
     }
     &:before {
       content: "#";
