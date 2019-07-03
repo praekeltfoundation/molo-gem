@@ -32,9 +32,13 @@
       overflow: auto;
       height: 160px;
       overflow: hidden;
-      @each $name, $background in $sectionThemes {
+      @each $name, $backgroundPosition in $sectionThemes {
         &--#{$name} .section-banner {
-          background: url($background) repeat center center/100%;
+          background-image: url(/static/img/icons/tanzania/sections-bg.png);
+          background-position: $backgroundPosition;
+          background-repeat: no-repeat;
+          background-size: 100%;
+
         }
       }
     }
@@ -49,9 +53,9 @@
       z-index: 9999999;
       &:after {
         content: " ";
-        background-image: url(/static/img/icons/tanzania/underline-squiggle-white.png);
-        background-position: center center;
-        background-size: 150px;
+        background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+        background-position: -7.5em -26.5em;
+        background-size: 250px;
         background-repeat: no-repeat;
         display: block;
         width: 150px;
