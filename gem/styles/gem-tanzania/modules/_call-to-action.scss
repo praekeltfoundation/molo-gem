@@ -103,14 +103,34 @@
       }
     }
     &--primary {
-      background-color: $color-blue;
-      color: #fff;
-      cursor: pointer;
       width: 85%;
-      padding: 1em;
-      margin: 0 auto 2em;
       z-index: 99999999;
+
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      color: #fff;
+      background: none;
+      cursor: pointer;
+      padding: 1em;
+      display: inline-block;
+      margin: 0 auto 2em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      outline: none;
       position: relative;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+
+      display: block;
+      background: $color-blue;
+      outline: 1px solid transparent;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
       &:after {
         background: transparent;
         border-width: 5px;
@@ -125,16 +145,34 @@
         right: -1em;
         margin: 0 auto;
         top: 0.4em;
-        //?
         -webkit-transition: border-color 0.1s ease-out;
         -moz-transition: border-color 0.1s ease-out;
         transition:  border-color 0.1s ease-out;
       }
       &:hover, &:active, &:focus {
-        color: $color-light-gray;
-        background-color: $color-pink;
+        -webkit-transform: rotateX(-15deg);
+        -moz-transform: rotateX(-15deg);
+        -ms-transform: rotateX(-15deg);
+        transform: rotateX(-15deg);
         &:after {
-          border-color: $color-pink;
+          content: '';
+          position: absolute;
+          z-index: -1;
+          -webkit-transition: all 0.3s;
+          -moz-transition: all 0.3s;
+          transition: all 0.3s;
+          width: 100%;
+          height: 42%;
+          left: 0;
+          top: -40%;
+          background: #fff;
+          -webkit-transform-origin: 0% 100%;
+          -webkit-transform: rotateX(90deg);
+          -moz-transform-origin: 0% 100%;
+          -moz-transform: rotateX(90deg);
+          transform-origin: 0% 100%;
+          transform: rotateX(90deg);
+
         }
       }
     }
