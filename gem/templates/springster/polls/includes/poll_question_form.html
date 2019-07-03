@@ -35,7 +35,7 @@
         <label for="{{ question.id }}-{{ forloop.counter }}">{{ choice.title|capfirst }}</label>
       </fieldset>
     {% endfor %}
-    <button type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
+    <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
     {% elif question.get_main_language_page.show_results %}
       <a href="{% url 'molo.polls:results' question.id %}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">{% trans "Show Results" %}</span>
