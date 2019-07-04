@@ -111,7 +111,8 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
             session_state = request.session.get('state')
             if get_state and session_state and get_state != session_state:
                 print('Suspicious Operation', '=' * 100)
-                msg = 'Session `oidc_state` does not match the OIDC callback state'
+                msg = 'Session `oidc_state` ' \
+                      'does not match the OIDC callback state'
                 raise SuspiciousOperation(msg)
 
             self.user = auth.authenticate(**kwargs)
