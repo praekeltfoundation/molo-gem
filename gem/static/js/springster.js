@@ -78,7 +78,9 @@
           event.preventDefault();
           var element = event.target;
           if (element.tagName == 'A' &&element.classList.contains("more-link")) {
-            element.innerHTML = "<img src='/static/img/three-dots.svg' alt='Loading...' />";
+            element.classList.add('call-to-action__button--loader');
+            element.setAttribute('value', '');
+            element.innerHTML = '';
             getAjax(element.getAttribute('data-next'), function(data){
               element.parentNode.insertAdjacentHTML('beforeend', data);
               element.parentNode.removeChild(element);
@@ -90,13 +92,10 @@
   };
 
   var loaderAnimation = function() {
-    var ctaBtn = document.querySelectorAll('.call-to-action__button--primary');
+    var ctaBtn = document.querySelectorAll('.call-to-action__button--primary, .call-to-action__button-text--yellow');
     for (var i = 0; i < ctaBtn.length; i++) {
       ctaBtn[i].addEventListener('click', function(event) {
-        event.preventDefault();
-        this.classList.add('call-to-action__button--loader')
-        this.setAttribute('value', '');
-        this.innerHTML = '';
+        setTimeout(this.classList.add('active'), 1000)
       });
     }
   }
