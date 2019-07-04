@@ -32,13 +32,21 @@
       overflow: auto;
       height: 160px;
       overflow: hidden;
-      @each $name, $backgroundPosition in $sectionThemes {
-        &--#{$name} .section-banner {
-          background-image: url(/static/img/icons/tanzania/sections-bg.png);
-          background-position: $backgroundPosition;
-          background-repeat: no-repeat;
-          background-size: 100%;
-
+      @each $name, $styleElements in $sectionThemes {
+        &--#{$name} {
+          .heading__section {
+            color: map-get($styleElements, labelColor);
+            &:after {
+              background-position: map-get($styleElements, underlinePos);
+              //background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+            }
+          }
+          .section-banner {
+            background-image: url(/static/img/icons/tanzania/sections-bg.png);
+            background-position: map-get($styleElements, bgPos);
+            background-repeat: no-repeat;
+            background-size: 100%;
+          }
         }
       }
     }
