@@ -96,14 +96,15 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
             if is_authenticated(request.user):
                 auth.logout(request)
             assert not is_authenticated(request.user)
-        elif 'code' in request.GET or 'state' in request.GET:
+        elif 'code' in request.GET and 'state' in request.GET:
             kwargs = {
                 'request': request,
                 'nonce': nonce,
             }
 
-            # if 'oidc_state' not in request.session:
-            #     return self.login_failure()
+            if 'oidc_state' not in request.session:
+                print('no oidc_state in session', '*'*100)
+                return self.login_failure()
 
             get_state = request.GET.get('state')
             session_state = request.session.get('state')
