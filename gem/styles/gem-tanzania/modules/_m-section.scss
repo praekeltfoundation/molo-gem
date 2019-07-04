@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
     img {
-      width: auto;
+      width: 100%;
       display: block;
       margin: 0 auto;
     }
@@ -24,6 +24,27 @@
   &-teaser-listing {
     &--base {
       overflow: hidden;
+    }
+    .heading__section {
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+      padding: 3em 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 9999999;
+      &:after {
+        content: " ";
+        background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+        background-position: -7.5em -26.5em;
+        background-size: 250px;
+        background-repeat: no-repeat;
+        display: block;
+        width: 150px;
+        padding: 10px 0;
+        margin: 0 auto 20px;
+      }
     }
     &-header {
       background: $color-dark_grayish-blue;
@@ -48,27 +69,6 @@
             background-size: 100%;
           }
         }
-      }
-    }
-    .heading__section {
-      color: #fff;
-      text-align: center;
-      vertical-align: middle;
-      padding: 3em 0;
-      position: absolute;
-      left: 0;
-      right: 0;
-      z-index: 9999999;
-      &:after {
-        content: " ";
-        background-image: url(/static/img/icons/tanzania/icon-sprite.png);
-        background-position: -7.5em -26.5em;
-        background-size: 250px;
-        background-repeat: no-repeat;
-        display: block;
-        width: 150px;
-        padding: 10px 0;
-        margin: 0 auto 20px;
       }
     }
   }
