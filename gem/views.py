@@ -113,11 +113,12 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
                 raise SuspiciousOperation(msg)
 
             self.user = auth.authenticate(**kwargs)
+            print(self.user, '*' * 100)
 
             if self.user and self.user.is_active:
-                print('login success', '='*100)
+                print('login success', '=' * 100)
                 return self.login_success()
-            print('login failure', '=' * 100)
+        print('login failure', '=' * 100)
         return self.login_failure()
 
 
