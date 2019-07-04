@@ -9,6 +9,7 @@
     }
   }
   &-teaser {
+    overflow: hidden;
     &--hero {
       .article__image--link {
         float: none;
@@ -31,14 +32,26 @@
       font-size: 14px;
     }
   }
-
-  &-page__publish-date {
-    padding: 0 15px;
-    color: #94989B;
-    display: block;
-    font-size: 14px;
+  &-page {
+    &__publish-date {
+      padding: 0 15px;
+      color: #94989B;
+      display: block;
+      font-size: 14px;
+    }
+    &-tag-cloud {
+      .tag-cloud__anchor {
+        color: $color-blue;
+      }
+      .heading {
+        &__micro {
+          color: $color-dark_grayish-blue;
+          text-transform: uppercase;
+          font-size: 18px;
+        }
+      }
+    }
   }
-
   &-list {
     &__reply-label {
       padding: 0 5px 0;
@@ -59,12 +72,10 @@
       padding: 0 5px 0;
     }
   }
-
   &__desc {
     padding: 10px;
     margin: 0;
   }
-
   &__image {
     &--link {
       text-align: center;
@@ -83,18 +94,16 @@
       }
     }
   }
-
 }
 
 article {
   margin-bottom: 2em;
-  padding-bottom: 20px;
   h1, h2, h3, h4, h5, h6, p {
     margin: 1em 0;
     padding: 0 10px;
   }
   p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 0 10px;
   }
   img {
@@ -103,16 +112,27 @@ article {
     padding: 0 10px;
   }
   ul, ol {
-    padding: 0 35px;
+    padding: 0 15px;
   }
   li {
-    padding: 0 25px;
+    padding: 0 15px;
+  }
+  &:after {
+    background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+    background-repeat: no-repeat;
+    background-position: -3em -25em;
+    background-size: 220px;
+    content: "";
+    display: block;
+    width: 220px;
+    padding: 20px 0;
+    margin: 0 auto;
   }
 }
 
 .articles {
   overflow: auto;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   .heading--x-small {
     font-weight: bold;
     padding-bottom: 5px;
@@ -121,8 +141,6 @@ article {
     }
   }
 }
-
-
 [data-image-type~="default"] {
   border-radius: 0;
 }

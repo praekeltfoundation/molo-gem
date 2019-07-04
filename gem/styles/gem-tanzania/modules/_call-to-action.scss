@@ -9,40 +9,43 @@
     &-item-share {
       font-weight: 500;
       &--twitter {
-        background: url(/static/img/icons/tanzania/twitter.png) no-repeat center / 100%;
-        height: 24px;
-        width: 24px;
+        background: url(/static/img/icons/tanzania/social-media.png) no-repeat 0 0 / 100px;
+        height: 30px;
+        width: 30px;
         display: inline-block;
         vertical-align: middle;
       }
       &--facebook {
-        background: url(/static/img/icons/tanzania/facebook.png)  no-repeat center / 100%;
-        height: 24px;
-        width: 24px;
+        background: url(/static/img/icons/tanzania/social-media.png)  no-repeat 105% 0 / 100px;
+        height: 30px;
+        width: 30px;
         display: inline-block;
         vertical-align: middle;
       }
     }
     &-item-text {
       color: $color-blue;
-      text-decoration: underline;
+      text-decoration: none;
       text-transform: uppercase;
       text-align: center;
       display: block;
       margin: 1em auto 1.5em;
       font-weight: 500;
+      &:hover, &:active, &:focus {
+        text-decoration: underline;
+      }
       &--right {
         color: $color-blue;
         text-align: right;
         &:after {
-          background-image: url(/static/img/icons/tanzania/arrow-right.png);
-          background-position: center center;
-          background-size: 100%;
+          background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+          background-position: 0 -28em;
+          background-size: 265px;
           background-repeat: no-repeat;
           display: inline-block;
           content: " ";
-          width: 30px;
-          height: 20px;
+          width: 40px;
+          height: 25px;
           vertical-align: middle;
           margin: 0 15px 0;
         }
@@ -51,16 +54,16 @@
         color: $color-blue;
         text-align: left;
         &:before {
-          background-image: url(/static/img/icons/tanzania/arrow-right.png);
-          background-position: center center;
-          background-size: 100%;
+          background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+          background-position: 0 -28em;
+          background-size: 265px;
           background-repeat: no-repeat;
           display: inline-block;
           content: " ";
-          width: 30px;
-          height: 20px;
+          width: 40px;
+          height: 25px;
           vertical-align: middle;
-          margin: 0 15px 0;
+          margin: 0 -10px 0;
           transform: rotate(180deg);
         }
       }
@@ -85,33 +88,86 @@
       display: block;
       text-align: center;
       font-weight: 500;
+      transition: color .2s ease-out, text-decoration .2s ease-out;
+      &:hover, &:active, &:focus {
+        color: $color-pink;
+        text-decoration: underline;
+        text-underline-position: below;
+      }
       &--hyperlink {
         background: transparent;
         margin: 0 auto;
       }
+      &--yellow {
+        color: $color-yellow;
+      }
     }
     &--primary {
-      background-color: $color-blue;
+      background: $color-blue;
       color: #fff;
       cursor: pointer;
-      width: 85%;
       padding: 1em;
-      margin: 0 auto 2em;
-      z-index: 99999999;
+      margin: 2em auto;
       position: relative;
+      width: 85%;
+      z-index: 99999999;
 
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+
+      /*outline: 1px solid transparent;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;*/
       &:after {
         background: transparent;
-        border: 5px solid $color-blue;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $color-blue;
         content: "";
         display: block;
-        width: 101%;
+        width: 100%;
         height: 52px;
         position: absolute;
         left: 0;
         right: -1em;
         margin: 0 auto;
         top: 0.4em;
+
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+
+      /*-webkit-transition: border-color 0.1s ease-out;
+        -moz-transition: border-color 0.1s ease-out;
+        transition:  border-color 0.1s ease-out;*/
+      }
+      &:hover, &:active, &:focus {
+        color: #fff;
+
+        /*-webkit-transform: rotateX(-15deg);
+        -moz-transform: rotateX(-15deg);
+        -ms-transform: rotateX(-15deg);
+        transform: rotateX(-15deg);*/
+
+        &:after {
+          background: transparent;
+          content: '';
+          position: absolute;
+          height: 52px;
+          left: -10%;
+          top: -20%;
+          z-index: -1;
+          width: 100%;
+
+          // -webkit-transform-origin: 0% 100%;
+          // -webkit-transform: rotateX(90deg);
+          // -moz-transform-origin: 0% 100%;
+          // -moz-transform: rotateX(90deg);
+          // transform-origin: 0% 100%;
+          // transform: rotateX(90deg);
+        }
       }
     }
   }

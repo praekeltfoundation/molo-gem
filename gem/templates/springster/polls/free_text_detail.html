@@ -16,7 +16,7 @@
   	<form action="{% url 'molo.polls:free_text_vote' question.id %}" method="post" class="polls__form" novalidate>
   	{% csrf_token %}
   		{{form.answer}}
-      <button type="submit" value="{% trans "Vote" %}" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
+      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Vote" %}</button>
   	</form>
   </div>
 </div>

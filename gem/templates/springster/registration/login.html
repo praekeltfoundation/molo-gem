@@ -21,7 +21,7 @@
       <label>{% trans "4-digit pin" %}</label>
       {{form.password}}
     </fieldset>
-    <button type="submit" value="{% trans "Log in" %}" class="call-to-action__button call-to-action__button--primary">{% trans "Log in" %}</button>
+    <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Log in" %}</button>
     <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.specific.url}}{% endif %}" />
     {% url "forgot_password" as link %}
     {% trans "Forgot PIN" as buttontext %}

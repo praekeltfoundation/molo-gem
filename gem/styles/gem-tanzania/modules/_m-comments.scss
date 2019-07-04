@@ -1,5 +1,5 @@
 .comments {
-  padding: 10px 0;
+  padding: 10px 0 2.5em;
   &__form {
     padding: 0 10px;
     &--report {
@@ -34,6 +34,16 @@
     .call-to-action__nav-item-text {
       display: inline-block;
       font-size: 16px;
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        color: $color-pink;
+      }
+    }
+    .call-to-action__nav-item--replies-counter {
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        color: $color-blue;
+      }
     }
   }
   &__publish-date {
@@ -95,7 +105,6 @@
     &__icon {
       display: none;
       visibility: hidden;
-
     }
     &__numeral {
       color: $color-grayish-blue;
@@ -104,25 +113,14 @@
       font-size: 16px;
       &:before {
         content: "";
-        background: url(/static/img/icons/tanzania/comments.svg) no-repeat center center/100%;
-        height: 15px;
-        width: 15px;
+        background: url(/static/img/icons/tanzania/checkbox-icons.png) no-repeat 0 -80px/135%;
+        height: 40px;
+        width: 40px;
         display: inline-block;
-        margin: 0 10px 0 0;
+        margin: 0 5px 0 0;
+        vertical-align: text-bottom;
       }
     }
-  }
-}
-
-.teaser-stacklist__item--content {
-  .comment-counter-container {
-    height: 20px;
-  }
-  .comment-counter {
-    position: absolute;
-    margin: 0;
-    right: 1em;
-    bottom: 1em;
   }
 }
 

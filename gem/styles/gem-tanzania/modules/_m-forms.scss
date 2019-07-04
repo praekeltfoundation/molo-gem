@@ -69,6 +69,14 @@ input[type="email"],
 input[type="tel"],
 input[type="search"] {
   border: 2px solid $color-blue;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+    -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+    box-shadow: 10px 10px 5px -10px $color-blue;
+  }
 }
 
 input[type="checkbox"],
@@ -89,16 +97,22 @@ input[type=radio]:checked + label {
 }
 
 input[type=radio] + label {
-  background: #fff url('/static/img/icons/tanzania/radio-button.png') 15px center /25px no-repeat;
+  background: #fff url(/static/img/icons/tanzania/checkbox-icons.png) -1em 0.9em/100px no-repeat;
   opacity: 0.8;
 }
 input[type=radio]:checked + label {
-  background: #fff url('/static/img/icons/tanzania/radio-button-active.png') 15px center /25px no-repeat;
+  background: #fff url(/static/img/icons/tanzania/checkbox-icons.png) -1em -3.4em/100px no-repeat;
   opacity: 1;
 }
 
 input[type=radio] ~ label  {
+  cursor: pointer;
   padding: 15px 10px 15px 55px;
+  opacity: 0.9;
+  transition: opacity .2s ease-out;
+  &:hover, &:active, &:focus {
+    opacity: 1;
+  }
 }
 
 input[type=checkbox] {
@@ -108,7 +122,7 @@ input[type=checkbox] {
   opacity: 0.8;
 }
 input[type=checkbox]:checked + label:before {
-  background: $color-green url('/static/img/icons/tanzania/blue-tick.png') center center /20px no-repeat;;
+  background: $color-green url(/static/img/icons/tanzania/icon-sprite.png) center center /20px no-repeat;
   opacity: 1;
 }
 
@@ -119,15 +133,15 @@ input[type=checkbox] ~ label {
   cursor: pointer;
   position: relative;
   &:before {
-      content: "";
-      background: #fff;
-      border: 2px solid $color-blue;
-      opacity: 0.8;
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-      margin: 0 10px 0 0;
+    content: "";
+    background: #fff;
+    border: 2px solid $color-blue;
+    opacity: 0.8;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin: 0 10px 0 0;
   }
 }
 
@@ -169,7 +183,7 @@ select {
 //@-moz-document url-prefix()
 @media screen and (-webkit-min-device-pixel-ratio:0)  {
   select {
-    background: #fafafa url(/static/img/icons/tanzania/dropdown-arrow-blue.png) 50% center/20px no-repeat;
+    background: #fafafa url(/static/img/icons/tanzania/icon-sprite.png) 95% center/20px no-repeat;
     padding: 10px 30px 10px 5px;
   }
 }
@@ -178,6 +192,14 @@ textarea {
   border: 2px solid $color-blue;
   padding: 10px;
   display: block;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+    -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+    box-shadow: 10px 10px 5px -10px $color-blue;
+  }
 }
 
 label.error {

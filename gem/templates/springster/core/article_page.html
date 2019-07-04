@@ -123,20 +123,22 @@
 
   {#{% include "patterns/basics/article-tags/sp_article-page-tag.html" %}#}
   {% if settings.core.SiteSettings.enable_tag_navigation %}
-    <div class="article-page-tag-cloud">
-      <ul class="tag-cloud__block">
-        <div class="heading heading__micro">
-          <h4>{% trans "Read more about" %}</h4>
-        </div>
-        {% for tag in tags  %}
-          <li class="tag-cloud__item">
-            <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
-              <span class="tag-cloud__item-title">{{tag}}</span>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    {% if tags %}
+      <div class="article-page-tag-cloud">
+        <ul class="tag-cloud__block">
+          <div class="heading heading__micro">
+            <h4>{% trans "Read more about" %}</h4>
+          </div>
+          {% for tag in tags  %}
+            <li class="tag-cloud__item">
+              <a href="{% url 'tags_list' tag.slug %}" class="tag-cloud__anchor">
+                <span class="tag-cloud__item-title">{{tag}}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
   {% endif %}
 
   {% include "comments/comment_block.html" %}
