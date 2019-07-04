@@ -92,7 +92,7 @@
   };
 
   var loaderAnimation = function() {
-    var ctaBtn = document.querySelectorAll('.call-to-action__button--primary, .call-to-action__button-text--yellow');
+    var ctaBtn = document.querySelectorAll('.call-to-action__button');
     for (var i = 0; i < ctaBtn.length; i++) {
       ctaBtn[i].addEventListener('click', function(event) {
         setTimeout(this.classList.add('active'), 1000)
