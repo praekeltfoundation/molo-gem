@@ -1,5 +1,14 @@
 .comments {
   padding: 10px 0 2.5em;
+  &:before {
+    content: "";
+    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -24em/150px;
+    height: 105px;
+    overflow: auto;
+    margin: 0 auto;
+    width: 150px;
+    display: block;
+  }
   &__form {
     padding: 0 10px;
     &--report {
@@ -88,6 +97,14 @@
       font-weight: 600;
     }
   }
+  .heading__component {
+    color: $color-dark-gray;
+    text-transform: uppercase;
+    &:after {
+      display: none;
+      visibility: hidden;
+    }
+  }
 }
 
 .comment {
@@ -102,6 +119,13 @@
     display: inline-block;
     height: 25px;
     margin: 5px 0 0;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      opacity: 0.5;
+    }
     &__icon {
       display: none;
       visibility: hidden;
