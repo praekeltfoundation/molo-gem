@@ -96,21 +96,18 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
             if is_authenticated(request.user):
                 auth.logout(request)
             assert not is_authenticated(request.user)
-        elif 'code' in request.GET:
-            print(request.GET, '='*100)
+        elif 'code' in request.GET or 'state' in request.GET:
             kwargs = {
                 'request': request,
                 'nonce': nonce,
             }
 
-            if 'oidc_state' not in request.session:
-                print('login_failure', '='*100)
-                return self.login_failure()
+            # if 'oidc_state' not in request.session:
+            #     return self.login_failure()
 
             get_state = request.GET.get('state')
             session_state = request.session.get('state')
             if get_state and session_state and get_state != session_state:
-                print('Suspicious Operation', '=' * 100)
                 msg = 'Session `oidc_state` ' \
                       'does not match the OIDC callback state'
                 raise SuspiciousOperation(msg)
@@ -118,9 +115,9 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
             self.user = auth.authenticate(**kwargs)
 
             if self.user and self.user.is_active:
-                print('login_success', '=' * 100)
+                print('login success', '='*100)
                 return self.login_success()
-        print('login_failure', '=' * 100)
+            print('login failure', '=' * 100)
         return self.login_failure()
 
 
