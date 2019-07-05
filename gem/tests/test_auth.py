@@ -206,7 +206,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(user.profile.alias, user.username)
         # test that alias will only change on update from claims
         user.profile.alias = "an_alias"
-        self.assertNotEquals(user.profile.alias, user.username)
+        self.assertNotEqual(user.profile.alias, user.username)
         # test that non-empty alias is also set to username
         _update_user_from_claims(user, claims)
         self.assertEqual(user.profile.alias, user.username)

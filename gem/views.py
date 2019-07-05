@@ -19,12 +19,9 @@ from django.views import View
 from django.views.generic import TemplateView, RedirectView
 from django.views.generic.edit import FormView
 from django.conf import settings
-from django.contrib import auth
-from django.core.exceptions import SuspiciousOperation
 
 from django_comments.forms import CommentDetailsForm
 
-from mozilla_django_oidc.utils import is_authenticated
 from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
 
@@ -78,49 +75,6 @@ class CustomAuthenticationCallbackView(OIDCAuthenticationCallbackView):
                 "Site {} has no settings configured.".format(site))
 
         return site.oidcsettings.wagtail_redirect_url
-
-    def get(self, request):
-        """Callback handler for OIDC authorization code flow"""
-
-        nonce = request.session.get('oidc_nonce')
-        if nonce:
-            # Make sure that nonce is not used twice
-            del request.session['oidc_nonce']
-
-        if request.GET.get('error'):
-            # Ouch! Something important failed.
-            # Make sure the user doesn't get to continue to be logged in
-            # otherwise the refresh middleware will force the user to
-            # redirect to authorize again if the session refresh has
-            # expired.
-            if is_authenticated(request.user):
-                auth.logout(request)
-            assert not is_authenticated(request.user)
-        elif 'code' in request.GET and 'state' in request.GET:
-            kwargs = {
-                'request': request,
-                'nonce': nonce,
-            }
-
-            if 'oidc_state' not in request.session:
-                print('no oidc_state in session', '*'*100)
-                return self.login_failure()
-
-            get_state = request.GET.get('state')
-            session_state = request.session.get('state')
-            if get_state and session_state and get_state != session_state:
-                msg = 'Session `oidc_state` ' \
-                      'does not match the OIDC callback state'
-                raise SuspiciousOperation(msg)
-
-            self.user = auth.authenticate(**kwargs)
-            print(self.user, '*' * 100)
-
-            if self.user and self.user.is_active:
-                print('login success', '=' * 100)
-                return self.login_success()
-        print('login failure', '=' * 100)
-        return self.login_failure()
 
 
 class CustomAuthenticationRequestView(OIDCAuthenticationRequestView):
