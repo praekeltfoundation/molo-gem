@@ -111,6 +111,7 @@
       background: $color-blue;
       color: #fff;
       cursor: pointer;
+      height: 50px;
       padding: 1em;
       margin: 2em auto;
       position: relative;
@@ -150,10 +151,16 @@
           top: -20%;
         }
       }
+      &.call-to-action__button--loader {
+        background: $color-blue url('/static/img/three-dots.svg') no-repeat center center/25%;
+        color: #fff;
+      }
+      &.active {
+        animation: pulse 0.5s ease 0s 1;
+      }
     }
   }
   &__hyperlink {
     color: $color-blue;
   }
-
 }
