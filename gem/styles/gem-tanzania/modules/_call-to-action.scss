@@ -1,5 +1,13 @@
 .call-to-action {
   padding: 10px 15px;
+  &__hyperlink {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
+  }
   &__nav {
     font-weight: 500;
     &-item--replies-counter {
@@ -103,7 +111,21 @@
       }
       &--hyperlink {
         background: transparent;
-        margin: 0 auto;
+        //margin: 0 auto;
+        //PROFILES ONLY?
+        &:before {
+          background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+          background-position: 0 -28em;
+          background-size: 265px;
+          background-repeat: no-repeat;
+          display: inline-block;
+          content: " ";
+          width: 40px;
+          height: 25px;
+          vertical-align: middle;
+          margin: 0 -10px 0;
+          transform: rotate(180deg);
+        }
       }
     }
     &--yellow,

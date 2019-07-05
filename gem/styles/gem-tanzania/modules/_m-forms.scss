@@ -1,7 +1,6 @@
 form {
   position: relative;
 }
-
 fieldset {
   border: none;
   margin: 0 0 15px;
@@ -17,8 +16,8 @@ fieldset {
 
 label {
   color: $color-dark_grayish-blue;
-  font-size: 18px;
-  padding: 1em 0 0;
+  font-size: 16px;
+  padding: 0.5em 0;
   display: block;
   text-align: left;
   & > input,
@@ -44,7 +43,7 @@ input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
 textarea, select {
-  border: 2px solid $color-blue;
+  border: 3px solid $color-blue;
   box-sizing: border-box;
   border-radius: 0;
   display: block;
@@ -58,7 +57,7 @@ textarea, select {
   -webkit-border-radius: 0px;
   &:focus {
     outline: 0;
-    border: 2px solid $color-blue;
+    border: 3px solid $color-blue;
   }
 }
 
@@ -68,7 +67,7 @@ input[type="password"],
 input[type="email"],
 input[type="tel"],
 input[type="search"] {
-  border: 2px solid $color-blue;
+  border: 3px solid $color-blue;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
@@ -95,7 +94,6 @@ input[type=radio] + label,
 input[type=radio]:checked + label {
   background-image: none;
 }
-
 input[type=radio] + label {
   background: #fff url(/static/img/icons/tanzania/checkbox-icons.png) -1em 0.9em/100px no-repeat;
   opacity: 0.8;
@@ -109,6 +107,8 @@ input[type=radio] ~ label  {
   cursor: pointer;
   padding: 15px 10px 15px 55px;
   opacity: 0.9;
+  display: flex;
+  align-items: center;
   transition: opacity .2s ease-out;
   &:hover, &:active, &:focus {
     opacity: 1;
@@ -122,7 +122,7 @@ input[type=checkbox] {
   opacity: 0.8;
 }
 input[type=checkbox]:checked + label:before {
-  background: $color-green url(/static/img/icons/tanzania/icon-sprite.png) center center /20px no-repeat;
+  background: $color-green url(/static/img/icons/tanzania/icon-sprite.png) -8.3em -3.5em/200px no-repeat;
   opacity: 1;
 }
 
@@ -132,10 +132,12 @@ input[type=checkbox] ~ label {
   margin: 0;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
   &:before {
     content: "";
     background: #fff;
-    border: 2px solid $color-blue;
+    border: 3px solid $color-blue;
     opacity: 0.8;
     display: inline-block;
     width: 30px;
@@ -188,7 +190,7 @@ select {
   }
 }
 textarea {
-  border: 2px solid $color-blue;
+  border: 3px solid $color-blue;
   padding: 10px;
   display: block;
   -webkit-transition: all 0.3s;
@@ -217,13 +219,6 @@ label.error {
   color: $color-grayish-blue;
   font-size:12px;
 }
-.input-group {
-  padding: 0 10px;
-  position: relative;
-}
-.choice-group {
-  margin: 0 0 10px;
-}
 .required-asterisk {
   color: $color-grayish-blue;
   font-size: 12px;
@@ -234,19 +229,15 @@ label.error {
   font-size: 14px;
   margin: -5px 0 0;
 }
+.helptext,
 .hint-text {
   color: $color-grayish-blue;
-  display: block;
-  font-size: 12px;
-  padding: 0 0 10px;
-  text-transform: capitalize;
+  font-size: 13px;
+  padding: 0;
+  font-style: italic;
+  margin: 0;
+  font-weight: normal;
 }
-.helptext {
-  color: $color-grayish-blue;
-  font-size: 12px;
-  padding: 0 0 10px;
-}
-
 .error-list,
 .errorlist {
   margin: 0;
@@ -257,7 +248,6 @@ label.error {
     text-align: center;
   }
 }
-
 .errors, .error-list__item {
   color: $color-pink;
   padding: 10px 15px 0;
@@ -270,7 +260,12 @@ label.error {
 .sub_label {
   display: block;
 }
+.choice-group {
+  margin: 0 0 10px;
+}
 .input-group {
+  padding: 0 10px;
+  position: relative;
   ul {
     padding: 0;
     margin: 0;
@@ -291,11 +286,15 @@ label.error {
     color: $color-pink;
   }
   span {
-    color: $color-dark-gray;
-    font-size: 12px;
+    color: $color-grayish-blue;
+    font-size: 13px;
     font-style: italic;
     padding-left: 10px;
   }
 }
+fieldset > .input-group {
+  padding: 0;
+}
 .checkbox__legend {
-  display: block;}
+  display: block;
+}
