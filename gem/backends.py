@@ -48,6 +48,7 @@ def _update_user_from_claims(user, claims):
             claims.get("given_name") or claims.get("nickname", "")
         user.last_name = claims.get("family_name", "")
         user.email = claims.get("email", "")
+        user.is_active = True
         user.save()
     else:
         for e in form.errors:
@@ -107,6 +108,7 @@ def _update_user_from_claims(user, claims):
         for group_name in groups_to_add:
             if group_name == SUPERUSER_GROUP:
                 user.is_staff = True
+                user.is_active = True
                 user.is_superuser = True
                 user.save()
             else:
@@ -118,6 +120,7 @@ def _update_user_from_claims(user, claims):
         # Remove the user's revoked role
         if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
             user.is_superuser = False
+            user.is_active = True
             user.save()
 
         for group_name in groups_to_remove:
@@ -129,11 +132,13 @@ def _update_user_from_claims(user, claims):
 
         if not user.is_staff and user.groups.all().exists():
             user.is_staff = True
+            user.is_active = True
             user.save()
 
     else:
         user.groups.clear()
         user.is_staff = False
+        user.is_active = True
         user.save()
 
 
