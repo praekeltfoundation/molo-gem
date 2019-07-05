@@ -16,7 +16,7 @@ fieldset {
 
 label {
   color: $color-dark_grayish-blue;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0.5em 0;
   display: block;
   text-align: left;
@@ -107,6 +107,8 @@ input[type=radio] ~ label  {
   cursor: pointer;
   padding: 15px 10px 15px 55px;
   opacity: 0.9;
+  display: flex;
+  align-items: center;
   transition: opacity .2s ease-out;
   &:hover, &:active, &:focus {
     opacity: 1;
@@ -130,6 +132,8 @@ input[type=checkbox] ~ label {
   margin: 0;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
   &:before {
     content: "";
     background: #fff;
@@ -215,13 +219,6 @@ label.error {
   color: $color-grayish-blue;
   font-size:12px;
 }
-.input-group {
-  padding: 0 10px;
-  position: relative;
-}
-.choice-group {
-  margin: 0 0 10px;
-}
 .required-asterisk {
   color: $color-grayish-blue;
   font-size: 12px;
@@ -232,7 +229,6 @@ label.error {
   font-size: 14px;
   margin: -5px 0 0;
 }
-
 .helptext,
 .hint-text {
   color: $color-grayish-blue;
@@ -242,7 +238,6 @@ label.error {
   margin: 0;
   font-weight: normal;
 }
-
 .error-list,
 .errorlist {
   margin: 0;
@@ -253,7 +248,6 @@ label.error {
     text-align: center;
   }
 }
-
 .errors, .error-list__item {
   color: $color-pink;
   padding: 10px 15px 0;
@@ -266,7 +260,12 @@ label.error {
 .sub_label {
   display: block;
 }
+.choice-group {
+  margin: 0 0 10px;
+}
 .input-group {
+  padding: 0 10px;
+  position: relative;
   ul {
     padding: 0;
     margin: 0;
@@ -293,5 +292,9 @@ label.error {
     padding-left: 10px;
   }
 }
+fieldset > .input-group {
+  padding: 0;
+}
 .checkbox__legend {
-  display: block;}
+  display: block;
+}
