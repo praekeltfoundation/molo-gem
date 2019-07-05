@@ -12,24 +12,48 @@
     top: 2em;
   }
   &__container {
-    background-color: $color-light-gray;
-    padding: 3em 0;
-    margin: 5em 0 1em;
+    padding: 3em 0 0;
+    margin: 5.5em 0 0;
   }
-  img {
-    width: 100%;
-    height: auto;
-  }
+  //POLLS PLUGIN VS POLL VIA SURVEYS CONFLICT
   .heading {
-    &__component:after {
-      background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+    &__component,
+    &__subheading--homepage,
+    &__article {
+      color: $color-dark-gray;
+      &:after {
+        background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+        background-repeat: no-repeat;
+        background-position: -3em -26em;
+        background-size: 220px;
+        content: "";
+        display: block;
+        width: 220px;
+        padding: 20px 0;
+        margin: 0 auto;
+      }
+      * {
+        font-size: 23px;
+      }
     }
     &__micro {
       display: none;
       visibility: hidden;
     }
+    &__subheading {
+      h3 {
+        font-size: 23px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+    &__article * {
+      text-transform: initial;
+      font-size: 23px;
+      font-weight: 500;
+    }
   }
-
   .polls-results {
     margin: 0;
     padding: 0 15px;
@@ -59,5 +83,20 @@
         }
       }
     }
+  }
+  //POLLS PLUGIN VS POLL VIA SURVEYS CONFLICT
+  &--homepage {
+    .polls__container {
+      background-color: $color-light-gray;
+      padding: 3em 0;
+      margin: 5.5em 0 1em;
+    }
+    // .heading__subheading:after {
+    //   display: none;
+    //   visibility: hidden;
+    // }
+  }
+  form {
+    background-color: $color-light-gray;
   }
 }
