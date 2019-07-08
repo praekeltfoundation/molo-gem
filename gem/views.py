@@ -22,9 +22,6 @@ from django.conf import settings
 
 from django_comments.forms import CommentDetailsForm
 
-from mozilla_django_oidc.views import (
-    OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
-
 from gem.forms import (
     GemEditProfileForm,
     GemRegistrationForm,
