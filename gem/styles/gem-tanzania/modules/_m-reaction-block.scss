@@ -29,6 +29,16 @@
     color: #fff;
     display: block;
     cursor: pointer;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      opacity: 0.5;
+      &__numeral {
+        color: $color-pink;
+      }
+    }
   }
   &__message {
     text-align: center;

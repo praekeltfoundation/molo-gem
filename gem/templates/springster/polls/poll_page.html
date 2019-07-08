@@ -1,13 +1,13 @@
 {% block content %}
 {% if questions %}
 {% for question in questions %}
-<div class="polls polls--call-to-action">
+<div class="polls polls--homepage polls--call-to-action">
   <div class="polls__bubble-icon"></div>
   <div class="polls__container">
     <div class="heading heading__micro">
       <p>{% trans "Take a vote!" %}</p>
     </div>
-    <div class="heading heading__subheading">
+    <div class="heading heading__subheading heading__subheading--homepage">
       <h3>{{question.title}}</h3>
     </div>
     {% if question.freetextquestion %}

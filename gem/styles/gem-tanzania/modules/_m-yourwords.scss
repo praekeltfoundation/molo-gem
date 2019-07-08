@@ -11,6 +11,9 @@
       padding: 0;
       margin: 0;
     }
+    .heading__micro * {
+      font-weight: 700;
+    }
   }
   .identity-image--yourwords {
     background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -36em/150px;
@@ -55,28 +58,33 @@
       padding: 10px 1.5em;
     }
   }
+  article:after {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 .gcn-competition {
   padding: 0 0 1em;
   position: relative;
   &__default {
-    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat 0 -67em /150px;
+    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -67em /150px;
     height: 150px;
     overflow: auto;
+    margin: 2em auto 0;
   }
   .heading__component {
     color: $color-dark-gray;
     &:after {
-      content: " ";
-      background-image: url(/static/img/icons/tanzania/checkbox-icons.png);
-      background-position: -6.5em -19.5em;
-      background-size: 250px;
+      background-image: url(/static/img/icons/tanzania/icon-sprite.png);
       background-repeat: no-repeat;
+      background-position: -3em -26em;
+      background-size: 220px;
+      content: "";
       display: block;
-      width: 150px;
-      padding: 10px 0;
-      margin: 0 auto 20px;
+      width: 220px;
+      padding: 20px 0;
+      margin: 0 auto;
     }
     h1, h2 {
       font-size: 20px;
@@ -127,6 +135,6 @@
   }
   section {
     width: 55%; //Flex
-    padding: 1.5em 0;
+    padding: 1.5em 0 0;
   }
 }

@@ -3,6 +3,10 @@
   padding: 10px 10px 5px;
   position: relative;
   margin: 0 auto;
+
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
   @media screen and (min-width: 20.000em) {
     max-width: 360px;
   }
@@ -17,6 +21,9 @@
     animation: qs-timer 300ms;
   }
   .logo {
+    &:hover, &:active, &:focus {
+      animation: pulse 0.5s ease 0s 1;
+    }
     &__image {
       height: 27px;
       width: 97px;

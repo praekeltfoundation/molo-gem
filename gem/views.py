@@ -42,7 +42,8 @@ from molo.profiles.views import (
     MyProfileEdit,
     RegistrationDone
 )
-
+from mozilla_django_oidc.views import (
+    OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
 from wagtail.core.models import Site
 
 

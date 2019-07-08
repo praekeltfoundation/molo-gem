@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
     img {
-      width: auto;
+      width: 100%;
       display: block;
       margin: 0 auto;
     }
@@ -24,31 +24,6 @@
   &-teaser-listing {
     &--base {
       overflow: hidden;
-    }
-    &-header {
-      background: $color-dark_grayish-blue;
-      list-style-type: none;
-      position: relative;
-      overflow: auto;
-      height: 160px;
-      overflow: hidden;
-      @each $name, $styleElements in $sectionThemes {
-        &--#{$name} {
-          .heading__section {
-            color: map-get($styleElements, labelColor);
-            &:after {
-              background-position: map-get($styleElements, underlinePos);
-              //background-image: url(/static/img/icons/tanzania/icon-sprite.png);
-            }
-          }
-          .section-banner {
-            background-image: url(/static/img/icons/tanzania/sections-bg.png);
-            background-position: map-get($styleElements, bgPos);
-            background-repeat: no-repeat;
-            background-size: 100%;
-          }
-        }
-      }
     }
     .heading__section {
       color: #fff;
@@ -69,6 +44,30 @@
         width: 150px;
         padding: 10px 0;
         margin: 0 auto 20px;
+      }
+    }
+    &-header {
+      background: $color-dark_grayish-blue;
+      list-style-type: none;
+      position: relative;
+      overflow: auto;
+      height: 160px;
+      overflow: hidden;
+      @each $name, $styleElements in $sectionThemes {
+        &--#{$name} {
+          .heading__section {
+            color: map-get($styleElements, labelColor);
+            &:after {
+              background-position: map-get($styleElements, underlinePos);
+            }
+          }
+          .section-banner {
+            background-image: url(/static/img/icons/tanzania/sections-bg.png);
+            background-position: map-get($styleElements, bgPos);
+            background-repeat: no-repeat;
+            background-size: 100%;
+          }
+        }
       }
     }
   }
