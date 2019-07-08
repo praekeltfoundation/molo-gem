@@ -40,6 +40,7 @@ def _update_user_from_claims(user, claims):
         'email': claims.get("email", ""),
         'username': user.username,
         'date_joined': user.date_joined,
+        'is_active': user.is_active
     }
     form = BackEndUserForm(instance=user, data=data)
     if form.is_valid():
