@@ -1,5 +1,6 @@
 {% extends "core/article_page.html" %}
 {% load wagtailcore_tags mptt_tags molo_commenting_tags gem_tags %}
+{% block title %}{% trans "Comments" %} - {{ self.title}}{% endblock %}
 {% block content %}
 <div class="comments__container {% if self.get_parent_section.get_effective_extra_style_hints %}comments__container--{{self.get_parent_section.get_effective_extra_style_hints}}{% endif %}">
   <div class="breadcrumbs breadcrumbs--comments">
