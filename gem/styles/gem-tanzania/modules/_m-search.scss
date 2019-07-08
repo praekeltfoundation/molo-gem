@@ -12,11 +12,15 @@
       display: block;
       padding: 35px 0 0 0;
       margin: 0 auto;
+      outline: none;
       @media screen and (min-width: 38.125em) {
         width: 25px;
       }
       &:hover, &:active, &:focus {
-        background-position: -0.2em -14.7em;
+        background-position: -.2em -14.68em;
+        .header__search-bar:after {
+          background-position: -13.6em -12em;
+        }
       }
     }
   }
@@ -33,12 +37,22 @@
 .header__search-bar {
   background-color: $color-blue;
   margin: 0 auto;
-  position: absolute;
-  left: 0;
-  right: 0;
   z-index: 999999;
   padding: 15px 10px;
   width: 100%;
+  &:after {
+    content: "";
+    background-color: $color-blue;
+    background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+    background-repeat: no-repeat;
+    background-position: -10.5em -15.5em;
+    background-size: 240px;
+    height: 30px;
+    width: 35px;
+    float: right;
+    pointer-events: none;
+    margin: -7.7em -1em 0 0;
+  }
 }
 
 
