@@ -9,11 +9,11 @@ from datetime import datetime
 from django.conf import settings
 from wagtail.core.models import Site
 from django.contrib.auth.models import Group, User
-from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import FieldError, SuspiciousOperation
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from molo.profiles.models import UserProfile
+from gem.forms import BackEndUserForm
 
 
 USERNAME_FIELD = "username"
@@ -41,14 +41,12 @@ def _update_user_from_claims(user, claims):
         'username': user.username,
         'date_joined': user.date_joined,
     }
-    form = UserChangeForm(instance=user, data=data)
-
+    form = BackEndUserForm(instance=user, data=data)
     if form.is_valid():
         user.first_name = \
             claims.get("given_name") or claims.get("nickname", "")
         user.last_name = claims.get("family_name", "")
         user.email = claims.get("email", "")
-        user.is_active = True
         user.save()
     else:
         for e in form.errors:
@@ -108,7 +106,6 @@ def _update_user_from_claims(user, claims):
         for group_name in groups_to_add:
             if group_name == SUPERUSER_GROUP:
                 user.is_staff = True
-                user.is_active = True
                 user.is_superuser = True
                 user.save()
             else:
@@ -120,7 +117,6 @@ def _update_user_from_claims(user, claims):
         # Remove the user's revoked role
         if user.is_superuser and SUPERUSER_GROUP not in auth_service_roles:
             user.is_superuser = False
-            user.is_active = True
             user.save()
 
         for group_name in groups_to_remove:
@@ -132,13 +128,11 @@ def _update_user_from_claims(user, claims):
 
         if not user.is_staff and user.groups.all().exists():
             user.is_staff = True
-            user.is_active = True
             user.save()
 
     else:
         user.groups.clear()
         user.is_staff = False
-        user.is_active = True
         user.save()
 
 

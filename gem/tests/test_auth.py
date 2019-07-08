@@ -99,10 +99,12 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
         returned_user = backend.create_user(claims)
         self.assertEqual(returned_user.username, 'john')
+        self.assertEqual(returned_user.is_active, True)
         self.assertEqual(returned_user.profile.auth_service_uuid,
                          'e2556752-16d0-445a-8850-f190e860dea4')
         user2.refresh_from_db()
         self.assertEqual(user2.username, '3_john')
+        self.assertEqual(user2.is_active, True)
 
     def test_create_user_from_claims_with_clashing_username(self):
         get_user_model().objects.create(

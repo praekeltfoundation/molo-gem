@@ -1,5 +1,6 @@
 import re
 from django import forms
+from django.contrib.auth import get_user_model
 from django.forms import Form
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
@@ -162,3 +163,11 @@ class ReportCommentForm(Form):
         widget=forms.RadioSelect,
         choices=CHOICES
     )
+
+
+class BackEndUserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'first_name', 'last_name', 'email', 'username', 'date_joined'
+        ]
