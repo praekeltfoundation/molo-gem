@@ -24,7 +24,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('gem', '0005_gemsettings'),
         ('polls', '0003_create_polls_index_pages'),
-        ('yourwords', '0006_create_your_words_index_pages'),
     ]
 
     operations = [

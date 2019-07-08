@@ -20,8 +20,6 @@ def create_groups_and_permissions(apps, schema_editor):
     FooterIndexPage = apps.get_model('core.FooterIndexPage')
     PollsIndexPage = apps.get_model('polls.PollsIndexPage')
     SurveysIndexPage = apps.get_model('surveys.SurveysIndexPage')
-    YourWordsCompetitionIndexPage = apps.get_model(
-        'yourwords.YourWordsCompetitionIndexPage')
 
     # remove the existing groups
     Group.objects.all().delete()
@@ -32,7 +30,6 @@ def create_groups_and_permissions(apps, schema_editor):
     footers = FooterIndexPage.objects.all()
     polls = PollsIndexPage.objects.all()
     surveys = SurveysIndexPage.objects.all()
-    yourwords = YourWordsCompetitionIndexPage.objects.all()
 
     # **** Get Permission ****
 
@@ -62,14 +59,6 @@ def create_groups_and_permissions(apps, schema_editor):
     change_segment = get_permission(Permission, 'change_segment')
     delete_segment = get_permission(Permission, 'delete_segment')
 
-    # Your Words
-    add_yourwords_entries = get_permission(
-        Permission, 'add_yourwordscompetitionentry')
-    change_yourwords_entries = get_permission(
-        Permission, 'change_yourwordscompetitionentry')
-    delete_yourwords_entries = get_permission(
-        Permission, 'delete_yourwordscompetitionentry')
-
     # User Profile
     change_userprofile_settings = get_permission(
         Permission, 'change_userprofilessettings')
@@ -85,13 +74,11 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, product_admin_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, banners, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, footers, page_permission_types)
-    create_page_permission(GroupPagePermission, product_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, polls, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, surveys, page_permission_types)
     # Django permissions
     product_admin_group.permissions.add(
-        access_admin, add_yourwords_entries, change_yourwords_entries,
-        delete_yourwords_entries, add_molocomment)
+        access_admin, add_molocomment)
 
     # <----- Data Admin ----->
     data_admin_group = create_group(Group, 'data_admin')
@@ -100,14 +87,14 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, data_admin_group, surveys, page_permission_types)
     # Django permissions
     data_admin_group.permissions.add(
-        access_admin, add_yourwords_entries, add_segment,
+        access_admin, add_segment,
         change_segment, delete_segment, add_segmentusergroup,
         change_segmentusergroup, delete_segmentusergroup, add_molocomment)
 
     # <----- Data Viewer ----->
     data_viewer_group = create_group(Group, 'data_viewer')
     # Django permissions
-    data_viewer_group.permissions.add(access_admin, add_yourwords_entries, add_molocomment)
+    data_viewer_group.permissions.add(access_admin, add_molocomment)
 
     # <----- Content Admin ----->
     content_admin_group = create_group(Group, 'content_admin')
@@ -115,7 +102,6 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_admin_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, banners, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, footers, page_permission_types)
-    create_page_permission(GroupPagePermission, content_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, polls, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, surveys, page_permission_types)
     # Django permissions
@@ -123,8 +109,7 @@ def create_groups_and_permissions(apps, schema_editor):
         access_admin, add_cannedresponse, change_cannedresponse,
         delete_cannedresponse, add_molocomment, change_molocomment,
         delete_molocomment, add_comment, change_comment, delete_comment,
-        add_yourwords_entries, change_yourwords_entries,
-        delete_yourwords_entries, change_userprofile_settings, add_segment,
+        change_userprofile_settings, add_segment,
         change_segment, delete_segment, add_segmentusergroup,
         change_segmentusergroup, delete_segmentusergroup)
 
@@ -134,7 +119,6 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_editor_group, sections, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, banners, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, footers, page_permission_types)
-    create_page_permission(GroupPagePermission, content_editor_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, polls, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, surveys, page_permission_types)
     # Django permissions
@@ -142,8 +126,7 @@ def create_groups_and_permissions(apps, schema_editor):
         access_admin, add_cannedresponse, change_cannedresponse,
         delete_cannedresponse, add_comment, change_comment, delete_comment,
         add_molocomment, change_molocomment,
-        delete_molocomment, add_yourwords_entries, change_yourwords_entries,
-        delete_yourwords_entries, change_userprofile_settings)
+        delete_molocomment, change_userprofile_settings)
 
     # <----- Comment Moderator ----->
     comment_moderator_group = create_group(Group, 'comment_moderator')
@@ -177,7 +160,6 @@ class Migration(migrations.Migration):
         ('core', '0077_molo_page'),
         ('profiles', '0021_remove_uuid_null'),
         ('polls', '0004_add-polls-permissions-to-groups'),
-        ('yourwords', '0007_add_yourwords_permission_to_groups'),
         ('surveys', '0026_remove_molosurveypageview_tag'),
         ('contenttypes', '0002_remove_content_type_name'),
         ('wagtailcore', '0032_add_bulk_delete_page_permission'),

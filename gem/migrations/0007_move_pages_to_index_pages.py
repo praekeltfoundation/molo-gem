@@ -61,17 +61,7 @@ def move_polls_to_index_page(apps, schema_editor):
 
 
 def move_yourwords_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, Main)
-    from molo.yourwords.models import (
-        YourWordsCompetition, YourWordsCompetitionIndexPage)
-    main = Main.objects.all().first()
-    current_language = LanguagePage.objects.live().first()
-
-    if main and current_language:
-        # Move existing your words competition
-        index_page = YourWordsCompetitionIndexPage.objects.live().first()
-        for p in YourWordsCompetition.objects.all().child_of(current_language):
-            p.move(index_page, pos='last-child')
+    pass
 
 
 class Migration(migrations.Migration):

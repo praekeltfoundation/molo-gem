@@ -102,7 +102,6 @@ INSTALLED_APPS = [
     'molo.surveys',
     'django_comments',
     'molo.commenting',
-    'molo.yourwords',
     'molo.servicedirectory',
     'molo.polls',
     'molo.pwa',
