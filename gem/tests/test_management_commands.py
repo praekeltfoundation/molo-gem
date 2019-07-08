@@ -474,7 +474,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             'change_content_language',
             None, None, stdout=out
         )
-        self.assertNotEquals('', out.getvalue())
+        self.assertNotEqual('', out.getvalue())
 
 
 class AddDefaultTagsTest(TestCase):

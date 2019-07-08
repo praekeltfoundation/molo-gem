@@ -56,6 +56,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
                   'preferred_username': 'testuser'}
         backend = GirlEffectOIDCBackend()
         returned_user = backend.create_user(claims)
+        self.assertTrue(returned_user.is_active)
         self.assertEqual(returned_user.username, 'testuser')
         self.assertEqual(returned_user.profile.auth_service_uuid,
                          'e2556752-16d0-445a-8850-f190e860dea4')
@@ -98,10 +99,12 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
         returned_user = backend.create_user(claims)
         self.assertEqual(returned_user.username, 'john')
+        self.assertEqual(returned_user.is_active, True)
         self.assertEqual(returned_user.profile.auth_service_uuid,
                          'e2556752-16d0-445a-8850-f190e860dea4')
         user2.refresh_from_db()
         self.assertEqual(user2.username, '3_john')
+        self.assertEqual(user2.is_active, True)
 
     def test_create_user_from_claims_with_clashing_username(self):
         get_user_model().objects.create(
@@ -125,6 +128,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEqual(returned_user[0].pk, user.pk)
+        self.assertTrue(returned_user[0].is_active)
 
         # it should return none if user does not DoesNotExist
         claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
@@ -139,6 +143,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         backend = GirlEffectOIDCBackend()
         returned_user = backend.filter_users_by_claims(claims)
         self.assertEqual(returned_user[0].pk, user.pk)
+        self.assertTrue(returned_user[0].is_active)
 
         # it should return none if user does not DoesNotExist
         claims['sub'] = 'e5135879-16d0-445a-8850-f190e860dea4'
@@ -159,10 +164,12 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.create(
             username='testuser', password='password')
         self.assertFalse(user.is_staff)
+        self.assertTrue(user.is_active)
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')
@@ -186,6 +193,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.groups.all().count(), 1)
         self.assertEqual(user.groups.first().name, 'data_admin')
 
@@ -206,10 +214,11 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         self.assertEqual(user.profile.alias, user.username)
         # test that alias will only change on update from claims
         user.profile.alias = "an_alias"
-        self.assertNotEquals(user.profile.alias, user.username)
+        self.assertNotEqual(user.profile.alias, user.username)
         # test that non-empty alias is also set to username
         _update_user_from_claims(user, claims)
         self.assertEqual(user.profile.alias, user.username)
+        self.assertTrue(user.is_active)
 
     def test_removing_user_role(self):
         roles = ['product_tech_admin', 'data_admin', 'content_admin']
@@ -225,6 +234,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.groups.all().count(), 2)
         self.assertEqual(user.groups.first().name, 'data_admin')
         self.assertEqual(user.groups.last().name, 'content_admin')
@@ -239,6 +249,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.groups.all().count(), 2)
         self.assertEqual(user.groups.first().name, 'data_admin')
         self.assertEqual(user.groups.last().name, 'content_admin')
@@ -253,6 +264,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.groups.all().count(), 1)
         self.assertEqual(user.groups.first().name, 'content_admin')
 
@@ -265,6 +277,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
             'sub': 'e2556752-16d0-445a-8850-f190e860dea4'}
         _update_user_from_claims(user, claims)
         self.assertFalse(user.is_staff)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.groups.all().count(), 0)
 
     def test_update_user_from_claims_creates_profile(self):
@@ -282,6 +295,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         _update_user_from_claims(user, claims)
         user = get_user_model().objects.get(id=user.pk)
         self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')
@@ -336,6 +350,7 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         user = get_user_model().objects.get(id=user.pk)
         user2 = get_user_model().objects.get(id=user2.pk)
         self.assertFalse(user.is_superuser)
+        self.assertTrue(user.is_active)
         self.assertEqual(user.first_name, 'testgivenname')
         self.assertEqual(user.last_name, 'testfamilyname')
         self.assertEqual(user.email, 'test@email.com')

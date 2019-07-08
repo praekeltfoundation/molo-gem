@@ -6,11 +6,12 @@ https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additiona
 import logging
 from datetime import datetime
 
-from mozilla_django_oidc.auth import OIDCAuthenticationBackend
+from wagtail.core.models import Site
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import FieldError, SuspiciousOperation
-from wagtail.core.models import Site
+
+from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from molo.profiles.models import UserProfile
 
 
@@ -38,9 +39,9 @@ def _update_user_from_claims(user, claims):
         'email': claims.get("email", ""),
         'username': user.username,
         'date_joined': user.date_joined,
+        'is_active': user.is_active
     }
     form = UserChangeForm(instance=user, data=data)
-
     if form.is_valid():
         user.first_name = \
             claims.get("given_name") or claims.get("nickname", "")
