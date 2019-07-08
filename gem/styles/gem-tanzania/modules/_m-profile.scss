@@ -3,17 +3,21 @@
   @media screen and (min-width: 20.000em) {
     float: left;
   }
-  .menu-list__anchor--section-nav {
-    background-image: url(/static/img/icons/tanzania/icon-sprite.png);
-    background-position: 0 0;
-    background-size: 245px;
-    background-repeat: no-repeat;
-    display: block;
-    width: 25px;
-    padding-top: 40px;
-    margin: 0 auto;
-    &:hover, &:active, &:focus {
-      background-position: 0.3px -58.4px;
+  .menu-list {
+    &__anchor--section-nav {
+      background-image: url(/static/img/icons/tanzania/icon-sprite.png);
+      background-position: 0 0;
+      background-size: 245px;
+      background-repeat: no-repeat;
+      display: block;
+      padding: 35px 0 0 0;
+      margin: 0 auto;
+      @media screen and (min-width: 38.125em) {
+        width: 25px;
+      }
+      &:hover, &:active, &:focus {
+        background-position: 0.3px -58.4px;
+      }
     }
   }
 }
@@ -32,6 +36,9 @@
   }
   label {
     text-align: center;
+  }
+  input[type=checkbox]~label {
+    padding: 10px 3px;
   }
   &__form--block {
     background: $color-light-gray;
@@ -68,19 +75,7 @@
   }
 
   .call-to-action__nav-item-text {
-    text-align: right;
-    &:after {
-      background-image: url(/static/img/icons/tanzania/icon-sprite.png);
-      background-position: 0 -28em;
-      background-size: 265px;
-      background-repeat: no-repeat;
-      display: inline-block;
-      content: " ";
-      width: 40px;
-      height: 25px;
-      vertical-align: middle;
-      margin: 0 15px 0;
-    }
+    padding: 0 1em
   }
 }
 
