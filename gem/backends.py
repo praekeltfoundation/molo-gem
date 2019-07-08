@@ -6,14 +6,13 @@ https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additiona
 import logging
 from datetime import datetime
 
-from django.conf import settings
 from wagtail.core.models import Site
 from django.contrib.auth.models import Group, User
+from django.contrib.auth.forms import UserChangeForm
 from django.core.exceptions import FieldError, SuspiciousOperation
 
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from molo.profiles.models import UserProfile
-from gem.forms import BackEndUserForm
 
 
 USERNAME_FIELD = "username"
@@ -42,7 +41,7 @@ def _update_user_from_claims(user, claims):
         'date_joined': user.date_joined,
         'is_active': user.is_active
     }
-    form = BackEndUserForm(instance=user, data=data)
+    form = UserChangeForm(instance=user, data=data)
     if form.is_valid():
         user.first_name = \
             claims.get("given_name") or claims.get("nickname", "")
@@ -279,6 +278,3 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
             self.OIDC_RP_CLIENT_SECRET = \
                 site.oidcsettings.oidc_rp_client_secret
         return super(GirlEffectOIDCBackend, self).authenticate(**kwargs)
-
-    def get_settings(self, attr, val=None):
-        return getattr(settings, attr, val)
