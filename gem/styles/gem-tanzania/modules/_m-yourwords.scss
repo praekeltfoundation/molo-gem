@@ -68,10 +68,14 @@
   padding: 0 0 1em;
   position: relative;
   &__default {
-    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -67em /150px;
+    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat 0 -67em /150px;
     height: 150px;
     overflow: auto;
     margin: 2em auto 0;
+    width: 115%;
+    @media screen and (min-width: 38.125em) {
+
+    }
   }
   .heading__component {
     color: $color-dark-gray;
@@ -121,8 +125,8 @@
       color: #fff;
       &--primary {
         background-color: $color-green;
-        &:after{
-          border-color: $color-green;
+        &:hover, &:active, &:focus {
+          background-color:  $color-dark-green;
         }
       }
     }
@@ -130,8 +134,11 @@
   //END HOMEPAGE UI
   aside {
     width: 35%; //Flex
-    margin: 2em 0 0 2em;
+    margin: 2em 0 0 1em;
     padding: 0;
+    @media screen and (min-width: 38.125em) {
+      margin: 2em 0 0 2em;
+    }
   }
   section {
     width: 55%; //Flex
