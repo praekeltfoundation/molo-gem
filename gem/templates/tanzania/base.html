@@ -106,17 +106,15 @@
     <div id="header-wrapper" class="header-wrapper" autofocus>
       <div id="language-bar" class="language-wrapper">
         {% if languages|length > 1 %}
-        <div class="languages languages--fixed-header">
-          <ul class="language-list language-list--standard-center">
-          {% for language in languages %}
-            <li class="language-list__item language-list__item--standard-center">
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
-                {{language.locale|language_name_local}}
-              </a>
-            </li>
-          {% endfor %}
-          </ul>
-        </div>
+          <div class="languages languages--fixed-header">
+            <ul class="language-list language-list--standard-center">
+            {% for language in languages %}
+              <li class="language-list__item language-list__item--standard-center">
+                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">{{language.locale|language_name_local}}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
         {% endif %}
       </div>
       <div id="header" class="header">
@@ -149,7 +147,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_header %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                  <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
                 {% endblock search_input_header %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -163,21 +161,15 @@
                 {% trans "Home" %}
               </a>
             </li>
-          {% load_sections as sections %}
-          {% for section in sections %}
+            {% load_sections as sections %}
+            {% for section in sections %}
             {% pageurl section.specific as section_path %}
-              <li class="section-nav-list__item section-nav-list__item--{{section.get_effective_extra_style_hints}}">
-                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
-                {{section.title}}
+              <li class="section-nav-list__item{% if request.path == section_path %} selected{% endif %}">
+                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor">
+                  {{section.title}}
                 </a>
               </li>
-            {% if forloop.revcounter == 3 %}
-              <ul class="section-nav-list-wrap">
-            {% endif %}
-            {% if forloop.revcounter == 1 %}
-              </ul>
-            {% endif %}
-          {% endfor %}
+            {% endfor %}
           </ul>
         </div>
       </div>
@@ -210,7 +202,8 @@
                   <a href="/" class="footer-menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a></li>
                 {% load_sections as sections %}
                 {% for section in sections %}
-                  <li class="footer-menu-list__item">
+                {% pageurl section.specific as section_path %}
+                  <li class="footer-menu-list__item{% if request.path == section_path %} selected{% endif %}">
                     <a href="{% pageurl section.specific %}" class="footer-menu-list__anchor">
                       {{section.title}}
                     </a>
