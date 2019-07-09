@@ -46,27 +46,60 @@
     &__item {
       display: inline-block;
       padding: 5px 0;
+      position: relative;
       &:hover, &:focus, &:active {
-        background-image: url('/static/img/icons/tanzania/squiggle-pink.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+        // background-image: url('/static/img/icons/tanzania/squiggle-pink.svg');
+        // background-repeat: no-repeat;
+        // background-position: center;
+        // background-size: cover auto;
       }
     }
     &__anchor {
       color: #fff;
       text-decoration: none;
       padding: 5px 0.5em;
+      z-index: 9999999999;
+      &:hover, &:focus, &:active {
+        &:before {
+          background-image: url('/static/img/icons/tanzania/squiggle-pink.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          content: "";
+          width: 85px;
+          padding: 10px;
+          position: absolute;
+          top: 0.5em;
+          margin: 0 auto;
+          left: -10px;
+          right: 0;
+          z-index: -1;
+        }
+      }
     }
     &-wrap {
       display: inline-block;
       padding: 0;
     }
     .selected {
-      background-image: url('/static/img/icons/tanzania/squiggle-pink.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
+      .section-nav-list__anchor {
+        &:before {
+          background-image: url('/static/img/icons/tanzania/squiggle-pink.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          content: "";
+          width: 85px;
+          padding: 10px;
+          position: absolute;
+          top: 0.5em;
+          margin: 0 auto;
+          left: -10px;
+          right: 0;
+          z-index: -1;
+        }
+      }
+
     }
   }
 }
