@@ -202,7 +202,8 @@
                   <a href="/" class="footer-menu-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a></li>
                 {% load_sections as sections %}
                 {% for section in sections %}
-                  <li class="footer-menu-list__item">
+                {% pageurl section.specific as section_path %}
+                  <li class="footer-menu-list__item{% if request.path == section_path %} selected{% endif %}">
                     <a href="{% pageurl section.specific %}" class="footer-menu-list__anchor">
                       {{section.title}}
                     </a>
