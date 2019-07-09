@@ -133,12 +133,17 @@
     }
     &__numeral {
       color: $color-grayish-blue;
-      margin-left: 5px;
       font-size: 16px;
+      @media screen and (min-width: 38.125em) {
+        margin-left: 5px;
+      }
       &:before {
         content: "";
-        background: url(/static/img/icons/tanzania/checkbox-icons.png) no-repeat 0 -74px/50px;
-        width: 40px;
+        background-image: url(/static/img/icons/tanzania/checkbox-icons.png);
+        background-repeat: no-repeat;
+        background-position: -15px -74px;
+        background-size: 50px;
+        width: 20px;
         display: inline-block;
         margin: 0 5px 0 0;
         padding: 10px;
