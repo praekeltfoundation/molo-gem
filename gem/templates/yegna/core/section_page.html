@@ -3,13 +3,25 @@
 
 {% block content %}
   <div class="section-page{% if self.get_effective_extra_style_hints %} section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
-    {% get_parent self as parent %}
-    {% with ancestor=self|parent_section_depth:4 %}
 
-      {% if ancestor|is_content:"Watch" or parent|is_content:"Watch" or self|is_content:"Watch" %}
+    {% with ancestor=self.get_parent_section.get_parent_section parent=self.get_parent_section %}
+    {% if ancestor %}
+      {% content_is ancestor "Watch" as is_watch_ancestor %}
+      {% content_is ancestor "Listen" as is_listen_ancestor %}
+    {% elif parent %}
+      {% content_is parent "Watch" as is_watch_parent %}
+      {% content_is parent "Listen" as is_listen_parent %}
+    {% else %}
+      {% content_is self "Watch" as is_watch %}
+      {% content_is self "Listen" as is_listen %}
+      {% content_is self "News" as is_news %}
+      {% content_is self "Cast" as is_cast %}
+    {% endif %}
+
+      {% if is_watch_ancestor or is_watch_parent or is_watch %}
       <div class="banner">
         <div class="heading heading--hero">
-          {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
+          {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
         </div>
       </div>
       <div class="section-page__columns section-page__columns--watch">
@@ -234,13 +246,19 @@
             {% endfor %}
           </div>
       </div>
-      {% elif ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
+      {% elif is_listen_ancestor or is_listen_parent or is_listen %}
         <div class="banner">
           <div class="heading heading--hero">
-            {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
+
+            {% if ancestor %}
+              {{ancestor.title}} {{parent.title}}
+            {% else %}
+              {{parent.title}} {{self.title}}
+            {% endif %}
           </div>
         </div>
-        {% if ancestor|is_content:"Listen" or parent|is_content:"Listen" or self|is_content:"Listen" %}
+
+        {% if is_listen %}
           {% load_child_sections_for_section self as subsections %}
           {% if subsections %}
             <div class="section-nav">
@@ -254,7 +272,7 @@
                           <img alt="{{ subsection.title }}" src="{{ subsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
                         </div>
                       {% else %}
-                        <div class="section-nav-list__images section-nav-list__images--{% if subsection|is_content:"Music" %}music{% elif subsection|is_content:"Radio Drama" %}radio-drama{% elif subsection|is_content:"Radio Talkshow" or subsection|is_content:"Radio Talk show" %}radio-talk-show{% elif subsection|is_content:"Radio talk" %}radio-talk{% endif %}"></div>
+                        <div class="section-nav-list__images section-nav-list__images--{% if subsection|is_content:"Music" %}music{% elif subsection|is_content:"Radio Drama" %}radio-drama{% elif subsection|is_content:"Radio Talk show" or subsection|is_content:"Radio Talkshow" %}radio-talk-show{% elif subsection|is_content:"Radio Talk" %}radio-talk{% endif %}"></div>
                       {% endif %}
                       <h2 class="section-nav__label">{{subsection.title}}</h2>
                     </a>
@@ -300,7 +318,7 @@
                         Therefore meaning for option2 how & where are the rest of the subsection articles suffaced?
                   -->
                   {% load_descendant_articles_for_section self count=1 as articles %}
-                  {% if self.get_parent.enable_next_section == True and articles %}
+                  {% if self.get_parent_section.enable_next_section == True and articles %}
                     <div class="article-teaser article-teaser--related">
                       <div class="heading">
                         <h1 class="heading__title">{% trans "Listen next" %}</h1>
@@ -342,7 +360,8 @@
                                     <img alt="{{ siblingsection.title }}" src="{{ siblingsection_thumbnail.url }}" class="section-nav-list__thumbnail" />
                                   </div>
                                 {% else %}
-                                  <div class="section-nav-list__images section-nav-list__images--{% if siblingsection|is_content:"Music" %}music{% elif siblingsection|is_content:"Drama" %}radio-drama{% elif siblingsection|is_content:"Radio Talkshow" or siblingsection|is_content:"Radio Talk show" %}radio-talk-show{% elif siblingsection|is_content:"Radio talk" %}radio-talk{% endif %}"></div>
+
+                                  <div class="section-nav-list__images section-nav-list__images--{% if siblingsection|is_content:"Music" %}music{% elif siblingsection|is_content:"Radio Drama" %}radio-drama{% elif siblingsection|is_content:"Radio Talkshow" or siblingsection|is_content:"Radio Talk show" %}radio-talk-show{% elif siblingsection|is_content:"Radio talk" %}radio-talk{% endif %}"></div>
                                 {% endif %}
                                 <h2 class="section-nav__label">{{siblingsection.title}}</h2>
                               </a>
@@ -433,7 +452,7 @@
             {% endif %}
           </div>
         {% endif %}
-      {% elif self|is_content:"News" %}
+      {% elif is_news %}
         <div class="banner">
           <div class="heading heading--hero">
               {% trans "Latest" %} <span class="banner__section-name">{{self.title}}</span>
@@ -471,7 +490,7 @@
             </div>
           </div>
         </div>
-      {% elif self|is_content:"Cast" %}
+      {% elif is_cast %}
         <div class="banner">
           <div class="heading heading--hero">
               {% trans "Meet the Yegna" %} <span class="banner__section-name">{{self.title}}</span>
