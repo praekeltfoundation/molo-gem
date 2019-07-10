@@ -119,7 +119,6 @@
       </div>
       <div id="header" class="header">
         <a href="/" class="logo logo--center">
-          <!-- <span class="logo__image">Tujibebe</span> -->
           <img alt="Tujibebe" srcset="{% static 'img/logos/tujibebe-white.svg' %}" src="{% static 'img/logos/tujibebe-white.png' %}" class="logo__image"  width="115" height="35"/>
         </a>
 
@@ -166,8 +165,8 @@
             {% load_sections as sections %}
             {% for section in sections %}
             {% pageurl section.specific as section_path %}
-              <li class="section-nav-list__item{% if request.path == section_path %} selected{% endif %}">
-                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor">
+              <li class="section-nav-list__item">
+                <a href="{% pageurl section.specific %}{% if request.path == section_path %} selected{% endif %}" class="section-nav-list__anchor">
                   {{section.title}}
                 </a>
               </li>

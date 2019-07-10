@@ -30,17 +30,6 @@
     var content = document.getElementById("content-wrapper");
     var menuList = document.getElementById("nav-list");
 
-    // elastic scroll effect background fix
-    var onResizing = function(event) {
-      if (window.innerWidth < 768){
-        content.style.backgroundColor =  "#7300ff";
-      } else {
-        content.style.backgroundColor =  "transparent";
-      }
-    };
-    window.onresize = onResizing;
-    window.onload = onResizing;
-
     window.addEventListener('scroll', function(){
       var scrollAmount = this.y - window.pageYOffset;
       var scrollPos = window.scrollY;
