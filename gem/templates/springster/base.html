@@ -86,6 +86,14 @@
             document.querySelector('script').parentNode.appendChild(script);
           }
         }
+        // elastic scroll effect background fix
+        var onResizing = function(event) {
+          if (window.innerWidth < 767){
+            content.style.backgroundColor =  "transparent";
+          }
+        };
+        window.onresize = onResizing;
+        window.onload = onResizing;
       }
     </script>
     {% endcompress %}
