@@ -86,14 +86,6 @@
             document.querySelector('script').parentNode.appendChild(script);
           }
         }
-        // elastic scroll effect background fix
-        var onResizing = function(event) {
-          if (window.innerWidth < 767){
-            content.style.backgroundColor =  "transparent";
-          }
-        };
-        window.onresize = onResizing;
-        window.onload = onResizing;
       }
     </script>
     {% endcompress %}
@@ -381,5 +373,19 @@
         ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
       </script>
     {% endif %}
+    <script>
+      // elastic scroll effect background fix
+      var content = document.getElementById("content-wrapper");
+      console.log(content);
+      var onResizing = function() {
+        if (window.innerWidth < 767){
+          content.style.backgroundColor =  "#7300ff";
+        } else {
+          content.style.backgroundColor =  "transparent";
+        }
+      };
+      window.onresize = onResizing;
+      window.onload = onResizing;
+    </script>
   </body>
 </html>
