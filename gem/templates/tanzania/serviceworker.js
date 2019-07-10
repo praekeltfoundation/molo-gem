@@ -27,9 +27,9 @@ function precache() {
     return cache.addAll([
       '/',
       'offline.html',
-      '/static/img/appicons/springster_icon_96.png',
-      '/static/img/appicons/springster_icon_144.png',
-      '/static/img/appicons/springster_icon_192.png'
+      '/static/img/appicons/tanzania/android-icon-96x96.png',
+      '/static/img/appicons/tanzania/ms-icon-144x144.png',
+      '/static/img/appicons/tanzania/android-icon-192x192.png'
     ]);
   });
 }

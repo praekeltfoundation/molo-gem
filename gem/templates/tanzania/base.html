@@ -35,12 +35,12 @@
       <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
       <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
     {% endblock %}
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/springster_icon_96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/tanzania/ms-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/tanzania/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/tanzania/android-icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/tanzania/springster_icon_96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/tanzania/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/tanzania/favicon-16x16.png">
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
@@ -119,8 +119,10 @@
       </div>
       <div id="header" class="header">
         <a href="/" class="logo logo--center">
-          <span class="logo__image">Tujibebe</span>
+          <!-- <span class="logo__image">Tujibebe</span> -->
+          <img alt="Tujibebe" srcset="{% static 'img/logos/tujibebe-white.svg' %}" src="{% static 'img/logos/tujibebe-white.png' %}" class="logo__image"  width="115" height="35"/>
         </a>
+
         <div class="header__menu">
           <ul class="menu-list menu-list--section-nav">
             <li id="profile" class="menu-list__item menu-list__item--section-nav">
