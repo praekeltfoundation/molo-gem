@@ -21,7 +21,7 @@
       {% if is_watch_ancestor or is_watch_parent or is_watch %}
       <div class="banner">
         <div class="heading heading--hero">
-          {% if ancestor %} {{ancestor.title}} {{parent.title}} {% else %}  {{parent.title}} {{self.title}} {% endif %}
+          {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
         </div>
       </div>
       <div class="section-page__columns section-page__columns--watch">
@@ -249,12 +249,7 @@
       {% elif is_listen_ancestor or is_listen_parent or is_listen %}
         <div class="banner">
           <div class="heading heading--hero">
-
-            {% if ancestor %}
-              {{ancestor.title}} {{parent.title}}
-            {% else %}
-              {{parent.title}} {{self.title}}
-            {% endif %}
+            {% if parent %} {{parent.title}} {{self.title}} {% else %} {{self.title}} {% endif %}
           </div>
         </div>
 
