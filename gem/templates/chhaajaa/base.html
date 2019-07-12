@@ -108,7 +108,7 @@
             {% for section in sections %}
               {% content_is section "Videos" as is_videos %}
               <li class="navbar-nav__option navbar-nav__option--{{section.get_effective_extra_style_hints}}">
-                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
+                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor{% if is_videos %} active{% endif %}">{{section.title}}</a>
               </li>
             {% endfor %}
           </ul>
@@ -145,7 +145,9 @@
   </div>
   <footer class="footer_area">
     <div class="pull-left">
-      <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+      <a href="/" class="footer__logo">
+        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+      </a>
       <p class="copyright__disclaimer">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
     {% if user.is_authenticated %}
@@ -177,5 +179,13 @@
       ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
     </script>
   {% endif %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.navbar-nav__anchor').live("click", function(){
+        $('.navbar-nav__anchor').removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script>
 </body>
 </html>
