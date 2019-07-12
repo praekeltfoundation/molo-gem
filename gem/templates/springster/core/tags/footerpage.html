@@ -3,8 +3,8 @@
     {% if footers %}
       {% for page in footers %}
       {% pageurl page.specific as page_path %}
-      <li class="footer-menu-list__item{% if request.path == page_path %} selected{% endif %}">
-        <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor">
+      <li class="footer-menu-list__item">
+        <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor{% if request.path == page_path %} selected{% endif %}">
           {{page.title}}
         </a>
       </li>

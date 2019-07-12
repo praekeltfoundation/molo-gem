@@ -157,8 +157,8 @@
         </div>
         <div class="section-nav">
           <ul id="nav-list" class="section-nav-list">
-            <li class="section-nav-list__item{% if request.path == '/' %} selected{% endif %}">
-              <a href="/" class="section-nav-list__anchor">
+            <li class="section-nav-list__item">
+              <a href="/" class="section-nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
                 {% trans "Home" %}
               </a>
             </li>
@@ -166,7 +166,7 @@
             {% for section in sections %}
             {% pageurl section.specific as section_path %}
               <li class="section-nav-list__item">
-                <a href="{% pageurl section.specific %}{% if request.path == section_path %} selected{% endif %}" class="section-nav-list__anchor">
+                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
                   {{section.title}}
                 </a>
               </li>
@@ -204,8 +204,8 @@
                 {% load_sections as sections %}
                 {% for section in sections %}
                 {% pageurl section.specific as section_path %}
-                  <li class="footer-menu-list__item{% if request.path == section_path %} selected{% endif %}">
-                    <a href="{% pageurl section.specific %}" class="footer-menu-list__anchor">
+                  <li class="footer-menu-list__item">
+                    <a href="{% pageurl section.specific %}" class="footer-menu-list__anchor{% if request.path == section_path %} selected{% endif %}">
                       {{section.title}}
                     </a>
                   </li>
