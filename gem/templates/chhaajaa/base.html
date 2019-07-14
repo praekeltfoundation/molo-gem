@@ -179,12 +179,14 @@
       var urlPath = window.location.pathname;
       localStorage.setItem('nav_anchor_href', urlPath); //Only on load
       var localStoredNavUrl = localStorage.getItem('nav_anchor_href');
-
       if(urlPath == localStoredNavUrl) {
         $('.navbar-nav__anchor').removeClass('active');
-        $("a[href*='" + localStoredNavUrl + "']").addClass('active'); //Only on load
+        if(window.location.href.indexOf("sections") === 22) {
+          $(".navbar-nav__anchor[href^='"+ localStoredNavUrl +"']").addClass('active');
+        } else {
+          $(".navbar-nav__anchor[href='/']").addClass('active');
+        }
       };
-
     });
   </script>
   {% comment %}
