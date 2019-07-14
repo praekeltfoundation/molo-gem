@@ -107,8 +107,8 @@
             {% load_sections as sections %}
             {% for section in sections %}
               {% content_is section "Videos" as is_videos %}
-              <li class="navbar-nav__option navbar-nav__option--{{section.get_effective_extra_style_hints}}">
-                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor{% if is_videos %} active{% endif %}">{{section.title}}</a>
+              <li class="navbar-nav__option">
+                <a href="{% if is_videos %}/{% else %}{{section_path}}{% endif %}" class="navbar-nav__anchor{% if is_videos %} active{% endif %}">{{section.title}}</a>
               </li>
             {% endfor %}
           </ul>
