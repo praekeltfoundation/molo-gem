@@ -336,5 +336,20 @@
         ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
       </script>
     {% endif %}
+    <script>
+      $(document).ready(function(){
+        var urlPath = window.location.pathname;
+            urlPath.replace(/\/$/,"");
+            urlPath.decodeURIComponent(urlPath);
+
+        $('.section-nav-list__anchor').each(function() {
+          $this = $(this);
+          var sectionNavhref = $this.attr('href');
+          if(urlPath.substring(0,sectionNavhref.length)==sectionNavhref) {
+            $this.closest('li').addClass('selected');
+          }
+        });
+      });
+    </script>
   </body>
 </html>
