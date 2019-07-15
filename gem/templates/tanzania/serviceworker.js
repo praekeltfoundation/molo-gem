@@ -3,11 +3,10 @@ importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
 
 firebase.initializeApp({
-  'messagingSenderId': '158972131363' 
+  'messagingSenderId': '158972131363'
 });
 
-const messaging = firebase.messaging();
-
+var messaging = firebase.messaging();
 var CACHE = 'app-cache';
 
 self.addEventListener('install', function(evt) {
@@ -26,7 +25,7 @@ function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
       '/',
-      'offline.html',
+      '/static/offline.html',
       '/static/img/appicons/tanzania/android-icon-96x96.png',
       '/static/img/appicons/tanzania/ms-icon-144x144.png',
       '/static/img/appicons/tanzania/android-icon-192x192.png'

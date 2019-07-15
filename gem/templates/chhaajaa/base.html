@@ -173,16 +173,18 @@
 
     $(document).ready(function(){
       var urlPath = window.location.pathname;
-      localStorage.setItem('nav_anchor_href', urlPath); //Only on load
-      var localStoredNavUrl = localStorage.getItem('nav_anchor_href');
-      if(urlPath == localStoredNavUrl) {
-        $('.navbar-nav__anchor').removeClass('active');
-        if(window.location.href.indexOf("sections") === 22) {
-          $(".navbar-nav__anchor[href^='"+ localStoredNavUrl +"']").addClass('active');
-        } else {
-          $(".navbar-nav__anchor[href='/']").addClass('active');
-        }
-      };
+      $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
+        var $this = $(this),
+            navhref = $this.attr('href');
+          if(navhref != undefined && urlPath.substring(0,navhref.length) == navhref) {
+            if(navhref === '/' ) {
+              $("a[href='/']").addClass('active');
+            } else {
+              $("a[href='/']").removeClass('active');
+              $this.closest('.navbar-nav__anchor, .pull-right-list__anchor').addClass('active');
+            }
+          }
+      });
     });
   </script>
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
