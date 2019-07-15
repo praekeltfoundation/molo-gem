@@ -44,6 +44,7 @@
     {% endcompress %}
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
     <!-- Facebook Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s){
@@ -80,7 +81,7 @@
     </script>
     <!-- End Google Tag Manager -->
 </head>
-<body {% block body_class %}{% endblock %}>
+<body>
   <!-- Google Tag Manager (noscript) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P45VN52" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -107,7 +108,7 @@
             {% load_sections as sections %}
             {% for section in sections %}
               {% content_is section "Videos" as is_videos %}
-              <li class="navbar-nav__option navbar-nav__option--{{section.get_effective_extra_style_hints}}">
+              <li class="navbar-nav__option">
                 <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
               </li>
             {% endfor %}
@@ -145,7 +146,9 @@
   </div>
   <footer class="footer_area">
     <div class="pull-left">
-      <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+      <a href="/" class="footer__logo">
+        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+      </a>
       <p class="copyright__disclaimer">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
     {% if user.is_authenticated %}
@@ -157,16 +160,30 @@
   </footer>
 
   <script>
-  $( "#id_comment").on("focus",function(event){
-      $(this).closest(".comments__form-post").css({
-        "border": "5px solid #72f3a2",
-        "outline": "none",
-        "padding": "10px",
-        "border-radius": "5px"
-      });
-    }).on("blur",function(event) {
-    $(this).closest(".comments__form-post").css("border","5px solid transparent");
-  });
+    $( "#id_comment").on("focus",function(event){
+        $(this).closest(".comments__form-post").css({
+          "border": "5px solid #72f3a2",
+          "outline": "none",
+          "padding": "10px",
+          "border-radius": "5px"
+        });
+      }).on("blur",function(event) {
+      $(this).closest(".comments__form-post").css("border","5px solid transparent");
+    });
+
+    $(document).ready(function(){
+      var urlPath = window.location.pathname;
+      localStorage.setItem('nav_anchor_href', urlPath); //Only on load
+      var localStoredNavUrl = localStorage.getItem('nav_anchor_href');
+      if(urlPath == localStoredNavUrl) {
+        $('.navbar-nav__anchor').removeClass('active');
+        if(window.location.href.indexOf("sections") === 22) {
+          $(".navbar-nav__anchor[href^='"+ localStoredNavUrl +"']").addClass('active');
+        } else {
+          $(".navbar-nav__anchor[href='/']").addClass('active');
+        }
+      };
+    });
   </script>
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
     <script>

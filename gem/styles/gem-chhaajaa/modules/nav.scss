@@ -8,6 +8,7 @@ $color_list: (
   @media screen and (min-width: 45.000em) {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   &-nav {
     $block: unquote("#{&}");
@@ -22,11 +23,14 @@ $color_list: (
       background-color: transparent;
       color: $colorPurple;
       padding: 0;
-      font-family: $FedraSansBold;
+      font-family: "FedraSansDevanagariB-Bold";
       font-size: 25px;
       font-weight: bold;
       display: block;
       cursor: pointer;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
       @media screen and (min-width: 45.000em) {
         background-color: $colorPurple;
         color: #fff;
@@ -35,27 +39,13 @@ $color_list: (
         margin: 0;
       }
       &:hover, &:focus, &:active {
+        background-color: $colorPink;
+        color: #fff;
         outline: none;
         text-decoration: none;
-        background-color: rgba($colorPurple, 0.7);
-        transition: opacity 100ms ease-in-out;
       }
     }
-    &__anchor {
-      color: #8207ff;
-      display: block;
-      font-family: $FedraSansBold;
-      font-size: 28px;
-      text-transform: capitalize;
-      @media screen and (min-width: 45.000em) {
-        padding: 0 1em;
-      }
-      &:hover, &:focus, &:active {
-        color: $colorPink;
-        text-decoration: underline;
-        text-underline-position: below;
-      }
-    }
+
     &__option {
       display: block;
       @media screen and (min-width: 45.000em) {
@@ -70,24 +60,25 @@ $color_list: (
       @media screen and (min-width: 62.000em) {
         display: inline-block;
       }
-      &:first-child {
-        .navbar-nav__anchor  {
-          @media screen and (min-width: 45.000em) {
-            color: $colorPink;
-          }
-          &:hover, &:focus, &:active {
-            text-decoration: underline;
-            text-underline-position: below;
-          }
-        }
+    }
+    &__anchor {
+      color: #8207ff;
+      display: block;
+      font-family: "FedraSansDevanagariB-Bold";
+      font-size: 28px;
+      text-transform: capitalize;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+      @media screen and (min-width: 45.000em) {
+        padding: 0 1em;
+      }
+      &:hover, &:focus, &:active {
+        color: $colorPink;
       }
     }
-    @each $name, $color in $color_list {
-      &--#{$name} {
-        .navbar-nav__anchor {
-          color: $color;
-        }
-      }
+    .active {
+      color: $colorPink;
     }
     &__item {
       display: block;
@@ -117,6 +108,7 @@ $color_list: (
   @media screen and (min-width: 45.000em) {
     width: auto;
     display: inline-block;
+    padding: 0 0 0 1em;
   }
 }
 .navbar-toggle {
@@ -161,12 +153,22 @@ $color_list: (
   padding: 15px;
   font-size: 18px;
   vertical-align: middle;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
   @media screen and (min-width: 62.000em) {
     padding: .8em 15px 0.8em 0;
   }
   img {
     display: block;
+    max-width: 103px;
   }
+  &:hover, &:focus, &:active {
+    img {
+      animation: pulse 0.5s ease 0s 1;
+    }
+  }
+
 }
 
 .nav-search {
@@ -177,21 +179,29 @@ $color_list: (
     text-transform: uppercase;
     padding: 0;
     visibility: hidden;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     @media screen and (min-width: 45.000em) {
       display: inline-block;
       visibility: visible;
     }
     &:after {
       content: " ";
-      background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center center/100%;
+      background-image: url('/static/img/icons/chhaajaa/search_icon.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto;
       display: inline-block;
       vertical-align: middle;
-      height: 28px;
-      width: 28px;
+      height: 35px;
+      width: 40px;
     }
     &:active, &:hover, &:focus, &:visited {
-      opacity: 0.7;
-      transition: opacity 100ms ease-in-out;
+      cursor: pointer;
+      &:after {
+        background-size: 80%;
+      }
     }
   }
   &__wrapper {

@@ -166,7 +166,7 @@
             {% for section in sections %}
             {% pageurl section.specific as section_path %}
               <li class="section-nav-list__item">
-                <a href="{% pageurl section.specific %}{% if request.path == section_path %} selected{% endif %}" class="section-nav-list__anchor">
+                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
                   {{section.title}}
                 </a>
               </li>
