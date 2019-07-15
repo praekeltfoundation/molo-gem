@@ -1,6 +1,6 @@
 (function() {
-
   'use strict';
+
   var domReady = function(callback) {
       document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
   };
@@ -95,6 +95,22 @@
     stickyHeader();
     loadMore();
     loaderAnimation();
+  });
+
+  $(document).ready(function(){
+    var urlPath = window.location.pathname;
+    $('.section-nav-list__anchor, .footer-menu-list__anchor').each(function() {
+      var $this = $(this),
+          sectionNavhref = $this.attr('href');
+      if(urlPath.substring(0,sectionNavhref.length) == sectionNavhref) {
+        if(sectionNavhref === '/' ) {
+          $("a[href='/']").addClass('selected');
+        } else {
+          $("a[href='/']").removeClass('selected');
+          $this.closest('.section-nav-list__anchor, .footer-menu-list__anchor').addClass('selected');
+        }
+      }
+    });
   });
 
 })();

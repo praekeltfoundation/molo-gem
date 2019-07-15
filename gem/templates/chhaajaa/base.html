@@ -176,11 +176,11 @@
       localStorage.setItem('nav_anchor_href', urlPath); //Only on load
       var localStoredNavUrl = localStorage.getItem('nav_anchor_href');
       if(urlPath == localStoredNavUrl) {
-        $('.navbar-nav__anchor').removeClass('active');
+        $('.navbar-nav__anchor .pull-right-list__anchor').removeClass('active');
         if(window.location.href.indexOf("sections") === 22) {
-          $(".navbar-nav__anchor[href^='"+ localStoredNavUrl +"']").addClass('active');
+          $("a[href^='"+ localStoredNavUrl +"']").addClass('active');
         } else {
-          $(".navbar-nav__anchor[href='/']").addClass('active');
+          $("a[href='/']").addClass('active');
         }
       };
     });
