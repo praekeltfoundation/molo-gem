@@ -26,7 +26,7 @@ function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
       '/',
-      'offline.html',
+      '/static/offline.html',
       '/static/img/appicons/springster_icon_96.png',
       '/static/img/appicons/springster_icon_144.png',
       '/static/img/appicons/springster_icon_192.png'

@@ -25,7 +25,7 @@ function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
       '/',
-      'offline.html',
+      '/static/offline.html',
       '/static/img/appicons/tanzania/android-icon-96x96.png',
       '/static/img/appicons/tanzania/ms-icon-144x144.png',
       '/static/img/appicons/tanzania/android-icon-192x192.png'

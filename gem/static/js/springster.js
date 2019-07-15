@@ -99,10 +99,11 @@
 
   $(document).ready(function(){
     var urlPath = window.location.pathname;
+
     $('.section-nav-list__anchor, .footer-menu-list__anchor').each(function() {
       var $this = $(this),
           sectionNavhref = $this.attr('href');
-      if(urlPath.substring(0,sectionNavhref.length) == sectionNavhref) {
+      if(sectionNavhref != undefined && urlPath.substring(0,sectionNavhref.length) == sectionNavhref) {
         if(sectionNavhref === '/' ) {
           $("a[href='/']").addClass('selected');
         } else {
