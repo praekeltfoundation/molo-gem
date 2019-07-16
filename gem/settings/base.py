@@ -578,6 +578,7 @@ PWA_ICONS = [
         "type": "image/png"
     }
 ]
+PWA_SERVICE_WORKER_PATH = join(PROJECT_ROOT, 'templates', 'serviceworker.js')
 PWA_FCM_API_KEY = 'AIzaSyCLtnDpYhzCabuUopYGDLZ4Z-OXRTxdfvg'
 PWA_FCM_MSGSENDER_ID = '158972131363'
 FCM_DJANGO_SETTINGS = {
