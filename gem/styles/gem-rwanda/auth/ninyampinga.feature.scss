@@ -104,6 +104,10 @@ a {
   overflow: auto;
   margin: 0 7%;
   padding: 1em 5% 2.5em;
+  @media (min-width:64em) {
+    padding: 1em 15% 2.5em;
+  }
+
   p {
     text-align: left;
   }
@@ -170,7 +174,8 @@ a {
 .Form .Field .PasswordInput,
 .Form .Field .TextInput,
 .Form .Field .Textarea,
-.Form .Field .vDateField {
+.Form .Field .vDateField ,
+.Form .Field .Select {
   border: 2px #03b8ad solid;
   font-size: 1em;
   height: 40px;
@@ -233,17 +238,21 @@ a {
 
 .Messages {
   margin: 0;
-}
-.Message {
-  color: #fff;
-  padding: 5px;
-}
-.Message--success {
-  background: #000;
-}
-.Message--error,
-.Message--warning {
-  background: #000;
+  padding: 0 7%;
+  .Message {
+    background: #fff;
+    color: #000;
+    padding: 5px 15%;
+  }
+  .Message--success {
+    background: #fff;
+    color: #03b8ad;
+    font-size: 20px;
+  }
+  .Message--error,
+  .Message--warning {
+    background: #000;
+  }
 }
 
 .errorlist {
@@ -285,7 +294,7 @@ a {
   background: #fff;
   @media (min-width:64em) {
     width: 86%;
-    padding: 0 13.5% 1em;
+    padding: 0 6em 1em;
   }
 }
 
@@ -298,11 +307,11 @@ a {
   list-style: none;
   text-align: left;
   @media (min-width:64em) {
-    padding: 5px 30% 0 0;
+    padding: 5px 10% 3em 23%;
   }
 }
 .Menu-item {
-  display: block;
+  display: inline-block;
   font-size: 1.125rem;
   margin: 10px 2.5em 0 0 !important;
   a {
@@ -345,8 +354,8 @@ a {
 }
 
 .Footer {
-  background: transparent !important;
   border: 0;
+  background: transparent !important;
   margin: 0 !important;
   padding: 0 !important;
   a {
