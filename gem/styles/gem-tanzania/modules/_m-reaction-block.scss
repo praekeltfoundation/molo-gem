@@ -1,11 +1,14 @@
 .reaction-questions {
   &__block {
-    background-color: $color-green;
+    background-color: $color-dar-blue;
     padding: 20px 0;
     .heading__subheading {
       color: #fff;
       text-transform: uppercase;
       font-size: 20px;
+    }
+    .error-list__item, .errors {
+      color: $color-green;
     }
   }
   &__list {
@@ -44,27 +47,38 @@
     text-align: center;
     padding: 0 10px 10px;
   }
-}
-
-.reaction-questions-success {
-  &__block {
-    background-color: $color-blue;
-    padding-top: 20px;
-    text-align: center;
-    color: #fff;
-    .heading__micro-alt {
-      padding: 10px;
-      margin: 0;
+  &-success {
+    margin: 1em 0;
+    &__block {
+      //background-color: $color-blue;
+      text-align: center;
+      color: $color-blue;
+      margin: 1em 0;
+      .heading__article {
+        color: $color-blue;
+        padding: 0 15px;
+      }
+      .heading__micro-alt {
+        padding: 10px;
+        margin: 0;
+      }
+      .call-to-action--wide-back {
+        background: transparent;
+        padding: 0 15px;
+      }
+      .call-to-action__nav-item-text {
+        color: $color-blue;
+      }
     }
-  }
-  &__image {
-    margin: 10px;
-    display: inline-block;
-    img {
-      vertical-align: middle;
-      width: 100%;
-      height: auto;
-      max-width: 345px;
+    &__image {
+      margin: 10px;
+      display: inline-block;
+      img {
+        vertical-align: middle;
+        width: 100%;
+        height: auto;
+        max-width: 345px;
+      }
     }
   }
 }
