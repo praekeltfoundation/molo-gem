@@ -13,8 +13,9 @@ class Command(BaseCommand):
         new_lang_pk = options.get('new_lang_pk', None)
         if not old_lang_pk or not new_lang_pk:
             self.stdout.write(self.style.WARNING(
-                "Please enter the old language pk followed by the new language pk"))
-        
+                "Please enter the old language pk "
+                "followed by the new language pk"))
+
         elif old_lang_pk == new_lang_pk:
             self.stdout.write(self.style.WARNING(
                 "The old language pk and new language pk are the same."))
@@ -36,4 +37,5 @@ class Command(BaseCommand):
             except (ObjectDoesNotExist):
                 self.stdout.write(self.style.WARNING(
                     "One or more of the languages with PKs" +
-                    str(old_lang_pk) + " and " + str(new_lang_pk) + " does not exist."))
+                    str(old_lang_pk) + " and " + str(new_lang_pk) +
+                    " does not exist."))
