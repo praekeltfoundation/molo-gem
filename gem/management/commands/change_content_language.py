@@ -33,7 +33,8 @@ class Command(BaseCommand):
                                 page.specific.save_revision().publish()
                             else:
                                 page.specific.save_revision().publish()
-                                page.specific.unpublish()
+                                p = models.MoloPage.objects.get(pk=page.pk)
+                                p.specific.unpublish()
             except (ObjectDoesNotExist):
                 self.stdout.write(self.style.WARNING(
                     "One or more of the languages with PKs" +
