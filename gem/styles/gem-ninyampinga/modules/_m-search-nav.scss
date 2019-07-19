@@ -21,30 +21,23 @@
       display: inline-block;
       font-size: $font-x-medium;
       text-transform: uppercase;
-      text-indent: -5em;
-      @media screen and (min-width: 20.000em) {
-        text-indent: -4.5em;
-      }
+      text-indent: -6em;
+      @media screen and (min-width: 20.000em) {}
       @include for-size(tablet-landscape-up) {
         display: -webkit-inline-flex;
         display: inline-flex;
-        padding: 1.4em .2em 1em;
+        padding: 1.5em .2em 1em;
       }
       &:after {
         content: " ";
-        background-color: $color-cyan_shade1;
-        background-image: url('/static/img/icons/ninyampinga/iconsSprite.png');
+        background-image: url('/static/img/icons/ninyampinga/header-icons.png');
         background-repeat: no-repeat;
-        background-position: 0.7em 32.2%;
-        background-size: 140px;
+        background-position: 0 -4em;
+        background-size: 100%;
         display: inline-block;
         vertical-align: middle;
         height: 40px;
-        width: 55px;
-        @include for-size(tablet-landscape-up) {
-          background-position: 0.7em 32.2%;
-          width: 65px;
-        }
+        width: 85px;
       }
       &:active, &:hover, &:focus {
         opacity: 0.5px;
@@ -71,11 +64,7 @@
     border-top-right-radius: 3px;
     &:after {
       background-color: #fff;
-      background-position: 0.8em 35.6%;
-      background-size: 130px;
-      @include for-size(tablet-landscape-up) {
-        background-position: 0.7em 35.6%;
-      }
+      background-position: 0 0;
     }
   }
   &--header {
@@ -89,7 +78,7 @@
     }
     #{$block}-wrapper {
       @include for-size(tablet-landscape-up) {
-        padding: 3.3em 25%;
+        padding: 2.3em 20%;
       }
     }
     #{$block}__form {
@@ -105,7 +94,7 @@
 :lang(en) {
   .search-accordion__label {
     @media screen and (min-width: 20.000em) {
-      text-indent: -4em;
+      text-indent: -5em;
     }
   }
 }
