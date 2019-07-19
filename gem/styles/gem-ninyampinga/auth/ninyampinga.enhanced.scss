@@ -1,0 +1,309 @@
+/*
+RESET AUTH CORE STYLES
+STYLE ninyampinga (NINYAMPINGA)
+*/
+@import "../util/_variables";
+@import "../util/colors";
+@import "@font-face-TwCenMT.scss";
+
+
+body,
+html {
+  background: #03b8ad;
+  color: #000;
+  font-size: 16px;
+  @media (min-width:45em) {
+    background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/NN_PATTERN-HILLS-AQUA-001.svg') repeat center center/auto;
+  }
+}
+body {
+  margin: 0;
+  @media (min-width:20em) {
+    font-family: $TwCenMTRegular;
+  }
+}
+h1 {
+  font-family: $TwCenMTRegular;
+}
+
+/*  NOTE: PAGES WRAPPER */
+.Container {
+  background: 0 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+//HEADER
+.Header {
+  width: auto;
+  margin: 0;
+}
+.Header-branding {
+  margin: 0 auto 2em;
+}
+.Header-branding-image {
+  width: 27%;
+}
+.Header-title {
+  background: #fff;
+  text-align: left;
+  position: relative;
+  padding: 2em 5% 1em;
+  margin: 0 !important;
+  h1 {
+    font-size: 1.125rem;
+    color: #fff;
+    background-color: #000;
+    display: inline-block;
+    margin: 1em 0 0 0 !important;
+    padding: 5px 15px;
+    position: absolute;
+    left: 1.6em;
+    top: 2.9em;
+    @media (min-width:64em) {
+      font-size: 1.75rem;
+      padding: 0 15px;
+      left: 2.6em;
+      top: 0.9em;
+    }
+  }
+}
+.Header-links {
+  margin: 0;
+  padding: 0 15px;
+
+  @media (min-width:64em) {
+    margin: 0 15% 0 15%;
+    position: absolute;
+    right: 0;
+    top: 10em;
+  }
+}
+
+.List {
+  list-style: none;
+  padding: 0;
+  li {
+    margin: 15px 0 0;
+  }
+}
+
+
+.QR {
+  text-align: center;
+  &-image {
+    border: 3px solid #000;
+  }
+}
+
+.Tokens {
+  border: 1px solid #000;
+  margin: 5px 15px;
+  padding: 0 15px 15px;
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+  li {
+    float: left;
+    width: 50%;
+  }
+}
+
+//FORM
+.Form .Field {
+  padding: 0;
+  margin: 0;
+  a {
+    color: #03b8ad;
+    border-bottom: 1px solid #03b8ad;
+  }
+}
+.Form .Field-item {
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+}
+.Form .Field-label {
+  font-size: .875rem;
+  margin: 0 1em 0 0;
+  text-align: left;
+  @media (min-width:64em) {
+    font-size: 1.125rem;
+  }
+}
+.Form .Field-message {
+  margin: 5px 0;
+  @media (min-width:64em) {
+    margin: 1em;
+  }
+}
+.Form .Field .DateInput,
+.Form .Field .EmailInput,
+.Form .Field .NumberInput,
+.Form .Field .PasswordInput,
+.Form .Field .TextInput,
+.Form .Field .Textarea,
+.Form .Field .vDateField {
+  color: #000;
+  font-weight: 400;
+  padding: 5px;
+  border-width: 2px;
+  &:focus {
+    border: 2px #02938a solid;
+  }
+}
+.Form .Field .Textarea {
+  height: 100px;
+}
+.Form .ModelChoiceField,
+.Form .TypedChoiceField {
+  display: block;
+  position: relative;
+  width: 100%;
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    &:after {
+      color: #03b8ad;
+      content: '';
+      display: inline-block;
+      height: .65em;
+      pointer-events: none;
+      position: absolute;
+      right: 5%;
+      top: 55%;
+      transform: rotate(135deg);
+      width: .65em;
+      @media (min-width:64em) {
+        top: 35%;
+      }
+    }
+    .Select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+    }
+  }
+  .Select {
+    appearance: inherit;
+    -webkit-appearance: inherit;
+    -moz-appearance: inherit;
+    -ms-appearance: inherit;
+
+    background-color: #fff;
+    border-radius: 0;
+    color: #000;
+    min-height: 41px;
+    outline: 0;
+    padding: 5px 35px 5px 5px;
+    width: 100%;
+    border: 2px solid #03b8ad;
+    &:focus {
+      border-color: #03b8ad;
+    }
+  }
+}
+
+.Form .BooleanField {
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+.Form .BooleanField .Field-label {
+    display: inline-block;
+    padding: 5px;
+    text-align: right;
+    vertical-align: middle;
+    width: auto;
+}
+.Form .BooleanField .Field-item {
+  display: inline-block;
+  width: auto;
+}
+.Form .BooleanField .Field-message {
+  margin: 0;
+}
+.Form .BooleanField .Field-item .CheckboxInput {
+  border: 2px solid #03b8ad;
+}
+.Form .Field-item .CheckboxInput {
+  appearance: none;
+  border: 2px solid #03b8ad;
+  display: block;
+  height: 20px;
+  outline: 0;
+  padding: 15px;
+  width: 20px;
+  &:checked {
+    background-color: #000;
+    border-color: #000;
+    &:after {
+      color: #fff;
+      content: '\2714';
+      font-size: 20px;
+      left: -5px;
+      line-height: 20px;
+      position: relative;
+      top: -5px;
+    }
+  }
+}
+.Form .Field-message--error .Field--required .Field-item input,
+.Form .Form .Field-message--error .Field-item input {
+  border-color: red;
+}
+.Button,
+.Button--warning,
+.Form .Button {
+  background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+  display: inline-block;
+  padding: 12px 45px 12px 30px;
+  margin: 1em 0;
+  &:hover, &:active {
+    background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
+  }
+}
+.Form-buttons {
+  margin-top: 1em;
+}
+.Form .Button {}
+.Form .Button--warning {
+  @media (min-width:64em) {
+    margin: 1em;
+  }
+}
+
+.errorlist {
+  margin-top: 20px;
+}
+
+.Additional-text {
+  text-align: left;
+  padding: 1em 10% 0;
+  margin: 0;
+}
+
+//MENU
+.Menu {
+  margin: 0 auto !important;
+}
+.Menu-title {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  h1 {
+   color: #fff;
+   font-size: 1.2em;
+ }
+}
+
+
+.Footer {
+  .Menu {
+    padding: 2em;
+  }
+}
