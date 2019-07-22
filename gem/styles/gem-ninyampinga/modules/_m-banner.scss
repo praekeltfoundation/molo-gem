@@ -4,6 +4,7 @@
   position: relative;
   width: 100%;
   margin: -10% 0;
+  z-index: 9999;
   @include for-size(tablet-portrait-up) {
     margin: -5% 0;
   }
@@ -77,18 +78,23 @@
    }
   }
   &--main {
-    overflow: hidden;
-    max-height: 400px;
     margin: 0;
-    .banner { margin: 0; }
+    max-height: 397px;
+    overflow: hidden;
+    .banner {
+      margin: 0;
+      max-height: 397px;
+      overflow: hidden;
+    }
     #{$block}__caption {
       background: $color-cyan_shade1;
       text-align: left;
-      visibility: visible;
+      visibility: hidden;
+      display: none;
       top: 1em;
       @include for-size(tablet-landscape-up) {
         background: transparent;
-        display: block;
+        display: none;
         float: right;
         top: 4em;
       }
@@ -114,7 +120,7 @@
       background-position: center 0;
       background-size: cover;
       min-height: 195px;
-      max-height: 400px;
+      max-height: 397px;
       @media screen and (min-width: 40.000em) {
         height: 200px;
       }
@@ -122,7 +128,7 @@
         height: 270px;
       }
       @media screen and (min-width: 64.000em) {
-        height: 400px;
+        height: 397px;
       }
     }
   }

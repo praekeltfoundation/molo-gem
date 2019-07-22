@@ -9,7 +9,6 @@
   }
   &__images {
     background-color: $color-gray-light;
-    border: 3px solid $color-cyan_shade1;
     margin: 0 auto;
     overflow: hidden;
     vertical-align: middle;
@@ -52,11 +51,12 @@
     text-transform: uppercase;
     text-decoration: none;
     color: #000;
-    &:focus, &:hover{text-decoration:underline; color: #000;}
+    &:focus, &:hover {
+      text-decoration:underline; color: #000;
+    }
   }
 
   &__subtitle {
-    font-family: $TwCenMTBold;
     font-size: $font-x-medium;
     text-align: left;
   }
@@ -68,21 +68,33 @@
       width: 75%;
     }
   }
-  &--hero-article {
-    background-color: $color-yellow-gorse;
-    padding: 1em 5% 10%;
+
+
+  &--hero {
+    background-color: $color-orange-bright;
+    padding: 2em 5% 10%;
     @include for-size(tablet-portrait-up) {
-      padding: 1em 5% 2em;
+      padding: 2em 5% 2em;
     }
     @include for-size(tablet-landscape-up) {
       order: 2;
       width: 35%;
-      padding: 1em $spacer-inner 0 2em;
+      padding: 2em $spacer-inner 0 2em;
     }
     @include for-size(desktop-up) {
-      padding: 1em 8% 0 2em;
+      padding: 2em 5% 0 2em;
+    }
+    .heading--hero {
+      background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='99px' height='97px' viewBox='0 0 99 97' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com --%3E%3Ctitle%3EShape%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Desktop-/-Headers-/-Mountains_1' transform='translate(-1.000000, 0.000000)' fill='%23FDD400' fill-rule='nonzero'%3E%3Cpath d='M50.6722054,0 L1,48.5 L1,57.4380665 L50.6722054,9.81722054 L99.3187311,57.2915408 L99.3187311,48.3534743 L50.6722054,0 Z M1,68.2809668 L1,77.2190332 L50.6722054,29.744713 L99.3187311,77.2190332 L99.3187311,68.2809668 L50.6722054,19.7809668 L1,68.2809668 Z M1,88.0619335 L1,97 L50.6722054,49.5256798 L99.3187311,97 L99.3187311,88.0619335 L50.6722054,39.5619335 L1,88.0619335 Z' id='Shape'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .heading__component {
+      background: $color-blue-very-dark;
+      color: #fff;
     }
   }
+
+
+
   &--featured-homepage {
     padding: 1em $spacer-inner 0;
     display: block;
@@ -118,4 +130,3 @@
     }
   }
 }
-

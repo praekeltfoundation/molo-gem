@@ -34,23 +34,26 @@
   }
 
   &__button {
-    background-color: $color-cyan_shade1;
-    color: #fff;
     display: inline-block;
     font-size: $font-x-medium;
     font-weight: bold;
     padding: 5px;
-    text-transform: uppercase;
     text-decoration: none;
     vertical-align: middle;
     @include for-size(phone-only) {
       padding: 10px;
       margin: 5px 1em 1em 0;
+      box-shadow: 9px 9px 0 0 $color-yellow-gorse;
     }
     @include for-size(tablet-landscape-up) {
       padding: 0.5em 0.8em;
     }
-    &--primary {
+    &--primary,
+    &--secondary,
+    &--next,
+    &--previous {
+      background-color: $color-pink-bright;
+      color: #fff;
       &:after {
         display: inline-block;
         border-top: 7px solid transparent;
@@ -63,9 +66,6 @@
         top: 1px;
         width: 0;
       }
-      @include for-size(phone-only) {
-        box-shadow: 9px 9px 0 0 $color-yellow-gorse;
-      }
       &:active, &:hover, &:focus {
         color: $color-yellow-gorse;
         &:after {
@@ -73,30 +73,8 @@
         }
       }
     }
-    &--secondary,
-    &--next,
-    &--previous {
-      &:after {
-        content: " ";
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-top: 5px solid transparent;
-        border-left: 10px solid #fff;
-        border-bottom: 5px solid transparent;
-        margin: 0 0 0 1em;
-      }
-      @include for-size(phone-only) {
-        color: #fff;
-        background-color: $color-cyan_shade1;
-        box-shadow: 9px 9px 0 0 $color-pink-hollywood;
-      }
-      &:active, &:hover, &:focus {
-        color: $color-pink-hollywood;
-        &:after {
-          border-left-color: $color-pink-hollywood;
-        }
-      }
+    &--secondary {
+      background-color: $color-cyan_shade1;
     }
 
     &--previous {
