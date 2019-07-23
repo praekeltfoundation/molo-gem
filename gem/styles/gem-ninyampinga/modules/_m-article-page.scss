@@ -55,7 +55,6 @@
       }
     }
     &--inner {
-      border: 3px solid $color-cyan_shade1;
       overflow: hidden;
       height: auto;
       margin: 0 $spacer-inner;
@@ -74,20 +73,11 @@
   @each $sectionModifier, $styleElement in $sectionThemes {
     &--#{$sectionModifier} {
       .social-media {
-        border-top: 2px solid map-get($styleElement, bgColor);
-      }
-      #{$block}__images {
-        border: 3px solid map-get($styleElement, bgColor);
-        &--inner {
-          border: 3px solid map-get($styleElement, bgColor);
-        }
+        //border-top: 2px solid map-get($styleElement, bgColor);
       }
       .media-player {
         &:before {
           background-color: map-get($styleElement, bgColor);
-        }
-        video, iframe  {
-          border: 3px solid map-get($styleElement, bgColor);
         }
       }
       #{$block}__quote {

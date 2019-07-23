@@ -6,6 +6,9 @@
     display: block;
     text-align: center;
     vertical-align: middle;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     @include for-size(tablet-landscape-up) {
       padding: $spacer-half $spacer-small;
     }
@@ -16,7 +19,6 @@
       color: $color-cyan_moderate;
       display: inline-block;
       font-size: $font-x-medium;
-      font-weight: bold;
       text-decoration: underline;
       text-underline-position: under;
       @include for-size(desktop-up) {
@@ -28,29 +30,33 @@
       text-transform: uppercase;
       font-size: $font-x-small;
       text-align: left;
-      padding: 5px 0 1em;
-      font-weight: bold;
+      padding: $spacer-small 0 $spacer-mid;
     }
   }
 
   &__button {
-    background-color: $color-cyan_shade1;
-    color: #fff;
     display: inline-block;
-    font-size: $font-x-medium;
-    font-weight: bold;
-    padding: 5px;
-    text-transform: uppercase;
+    font-size: $font-medium;
+    padding: $spacer-small;
     text-decoration: none;
     vertical-align: middle;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     @include for-size(phone-only) {
-      padding: 10px;
-      margin: 5px 1em 1em 0;
+      padding: $spacer-half;
+      margin: $spacer-small $spacer-mid $spacer-mid 0;
+      box-shadow: 9px 9px 0 0 $color-yellow-gorse;
     }
     @include for-size(tablet-landscape-up) {
-      padding: 0.5em 0.8em;
+      padding: $spacer-small $spacer-mid;
     }
-    &--primary {
+    &--primary,
+    &--secondary,
+    &--next,
+    &--previous {
+      background-color: $color-pink-bright;
+      color: #fff;
       &:after {
         display: inline-block;
         border-top: 7px solid transparent;
@@ -58,13 +64,10 @@
         border-bottom: 7px solid transparent;
         content: " ";
         height: 0;
-        margin: 0 0 0 0.5em;
+        margin: 0 0 0 $spacer-small;
         position: inherit;
         top: 1px;
         width: 0;
-      }
-      @include for-size(phone-only) {
-        box-shadow: 9px 9px 0 0 $color-yellow-gorse;
       }
       &:active, &:hover, &:focus {
         color: $color-yellow-gorse;
@@ -73,30 +76,8 @@
         }
       }
     }
-    &--secondary,
-    &--next,
-    &--previous {
-      &:after {
-        content: " ";
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-top: 5px solid transparent;
-        border-left: 10px solid #fff;
-        border-bottom: 5px solid transparent;
-        margin: 0 0 0 1em;
-      }
-      @include for-size(phone-only) {
-        color: #fff;
-        background-color: $color-cyan_shade1;
-        box-shadow: 9px 9px 0 0 $color-pink-hollywood;
-      }
-      &:active, &:hover, &:focus {
-        color: $color-pink-hollywood;
-        &:after {
-          border-left-color: $color-pink-hollywood;
-        }
-      }
+    &--secondary {
+      background-color: $color-cyan_shade1;
     }
 
     &--previous {
@@ -111,7 +92,7 @@
         border-top: 5px solid transparent;
         border-right: 10px solid #fff;
         border-bottom: 5px solid transparent;
-        margin: 0 1em 0 0;
+        margin: 0 $spacer-mid 0 0;
       }
       &:after {
         display: none;
@@ -146,14 +127,13 @@
 
   &__read-more {
     color: #000000;
-    font-weight: bold;
     font-size: $font-x-small;
     text-decoration: underline;
     text-underline-position: under;
     text-transform: capitalize;
   }
   &--group {
-    padding: 1em 0 1em;
+    padding: $spacer-mid 0 $spacer-mid;
   }
   &--backToTop {
     background: $color-cyan_moderate;
@@ -162,6 +142,9 @@
     margin: $spacer-mid 0;
     text-align: center;
     width: 60%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     &:active, &:hover, &:focus {
       box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     }

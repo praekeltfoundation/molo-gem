@@ -5,7 +5,7 @@
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 0 $spacer-small 2em $spacer-small;
+    margin: 0 1em 2em 1em;
     @include for-size(tablet-portrait-up) {
       width: 25%;
       display: inline-block;
@@ -13,16 +13,14 @@
   }
   &__images {
     background-color: $color-gray-light;
-    border: 3px solid $color-cyan_shade1;
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
     @include for-size(tablet-landscape-up) {
-      height: 165.94px;
+      height: 175px;
     }
   }
   &__thumbnail {
-    //TO REVIEW
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -41,24 +39,36 @@
     text-transform: uppercase;
     text-decoration: none;
     color: #000;
-    &:focus, &:hover{text-decoration:underline; color: #000;}
+    &:focus, &:hover {
+      text-decoration:underline;
+      color: #000;
+    }
   }
   &__subtitle {
-    font-family: $TwCenMTBold;
     margin: 0 0 $spacer-half;
   }
-  &--hero-article {
-    .comments-counter {
-      background: url('/static/img/icons/ninyampinga/iconsSprite.png') no-repeat 0 100%/100%;
+
+  &--latest {
+    overflow: auto;
+    #{$block}__item {
+      margin: 0 1em 2em 0;
+      display: inline-block;
+      @include for-size(tablet-portrait-up) {
+        width: 34%;
+      }
     }
+  }
+  &--hero {
+    color: #fff;
     #{$block}__item {
       margin: 0;
       width: 100%;
     }
+    .comments-counter {
+      background: url('/static/img/icons/ninyampinga/iconsSprite.png') no-repeat 0 100%/100%;
+    }
   }
   &--primary {
-    margin: 0 0.5em 0 0;
-    clear: both;
     #{$block}__item {
       &:nth-child(1) {
         @include for-size(tablet-portrait-up) {
@@ -87,15 +97,6 @@
           display: none;
           text-overflow: ellipsis;
         }
-      }
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      display: inline-block;
-      @include for-size(tablet-portrait-up) {
-        width: 34%;
       }
     }
   }
