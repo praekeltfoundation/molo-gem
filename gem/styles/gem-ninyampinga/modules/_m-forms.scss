@@ -1,6 +1,5 @@
 form {
   position: relative;
-  overflow: auto;
   vertical-align: middle;
 }
 fieldset {
@@ -30,7 +29,7 @@ label {
 }
 textarea {
   background-color: $color-gray-light;
-  border: 2px $color-cyan_shade1 solid;
+  border: 2px $color-pink-bright solid;
   margin: 0 auto;
   padding: 1em;
   width: 100%;
@@ -64,14 +63,15 @@ input[type="datetime-local"],
 input[type="url"],
 select {
   background-color: #ffffff;
-  border: 2px $color-cyan_shade1 solid;
-  color: $color-cyan_shade1;
+  border: 2px solid $color-pink-bright ;
+  border-radius: 5px;
+  color: $color-pink-bright;
   font-size: $font-small;
-  padding: $spacer-half;
+  padding: 13px;
   margin: $spacer-small 0;
   width: 100%;
   @include for-size(tablet-landscape-up) {
-    width: 60%;
+    //width: 60%;
   }
   &:focus, &:active, &:visited {
     outline: none;
@@ -90,7 +90,6 @@ select {
  @include for-size(desktop-up) {
    width: 23%;
  }
- //SPECIAL CASE
  @media (max-width: 65.313em) and (min-width: 64.000em) {
     width: 22%;
  }
@@ -100,6 +99,7 @@ select {
     margin: 0;
   }
 }
+
 [type="button"],
 [type="reset"],
 [type="submit"],
@@ -111,7 +111,6 @@ button {
   word-wrap: break-word;
   white-space: normal;
   vertical-align: top;
-  font-weight: bold;
 }
 input[type="search"] {
   width: 100%;
@@ -134,7 +133,7 @@ input[type="search"] {
     &:before {
       background-color: #fff;
       content: " ";
-      border: 2px solid $color-cyan_shade1;
+      border: 2px solid $color-pink-bright;
       opacity: 0.9;
       display: inline-block;
       width: 25px;
@@ -177,6 +176,7 @@ input[type="search"] {
   span {
     display: block;
     font-size: $font-small;
+    opacity: 0.6;
   }
 }
 .error-list,
@@ -191,7 +191,6 @@ input[type="search"] {
     padding: 0 1em;
   }
 }
-
 .error {
   color: $color-red;
   text-align: left;
