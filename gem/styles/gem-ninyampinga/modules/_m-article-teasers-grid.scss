@@ -5,7 +5,7 @@
   &__item {
     list-style: none;
     vertical-align: top;
-    margin: 0 1em 2em $spacer-small;
+    margin: 0 1em 2em 1em;
     @include for-size(tablet-portrait-up) {
       width: 25%;
       display: inline-block;
@@ -47,19 +47,28 @@
   &__subtitle {
     margin: 0 0 $spacer-half;
   }
+
+  &--latest {
+    overflow: auto;
+    #{$block}__item {
+      margin: 0 1em 2em 0;
+      display: inline-block;
+      @include for-size(tablet-portrait-up) {
+        width: 34%;
+      }
+    }
+  }
   &--hero {
     color: #fff;
-    .comments-counter {
-      background: url('/static/img/icons/ninyampinga/iconsSprite.png') no-repeat 0 100%/100%;
-    }
     #{$block}__item {
       margin: 0;
       width: 100%;
     }
+    .comments-counter {
+      background: url('/static/img/icons/ninyampinga/iconsSprite.png') no-repeat 0 100%/100%;
+    }
   }
   &--primary {
-    margin: 0 0.5em 0 0;
-    clear: both;
     #{$block}__item {
       &:nth-child(1) {
         @include for-size(tablet-portrait-up) {
@@ -88,15 +97,6 @@
           display: none;
           text-overflow: ellipsis;
         }
-      }
-    }
-  }
-  &--latest {
-    overflow: auto;
-    #{$block}__item {
-      display: inline-block;
-      @include for-size(tablet-portrait-up) {
-        width: 34%;
       }
     }
   }
