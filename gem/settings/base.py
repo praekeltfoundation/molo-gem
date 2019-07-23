@@ -100,6 +100,7 @@ INSTALLED_APPS = [
     'molo.core',
     'molo.profiles',
     'molo.surveys',
+    'molo.forms',
     'django_comments',
     'molo.commenting',
     'molo.yourwords',
