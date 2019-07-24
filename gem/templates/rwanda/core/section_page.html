@@ -125,12 +125,14 @@
       {% pageurl self.specific as self_path %}
         {% if section_path != self_path and section_path != '/sections/events/' and section_path != '/sections/sakwe/' and section_path != '/sections/radio-show/' and section_path != '/sections/myth/' %}
           <li class="section-nav-list__item">
-            <a href="{% pageurl section.specific %}" class="section-nav__anchor  {% if section.get_effective_extra_style_hints %}section-nav__anchor--{{section.get_effective_extra_style_hints}}{% endif %}">
+            <a href="{% pageurl section.specific %}" class="section-nav__anchor  {% if section.get_effective_extra_style_hints %}section-nav__anchor--{{section.get_effective_extra_style_hints}}{% endif %}"
+              {% if self.get_effective_image %}
+              {% image section.get_effective_image width-480 as section_photo %}
+                style="background-image: url({{ section_photo.url }});"
+              {% endif %}>
               <h2 class="section-nav__label">
                 {{section.title}}
-                <span class="section-nav__shadow"></span>
               </h2>
-
             </a>
             <p class="section-nav__desc">{{section.description}}</p>
           </li>
