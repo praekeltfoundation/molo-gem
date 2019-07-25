@@ -6,13 +6,7 @@
   {% load_child_sections_for_section self as sections %}
   <div class="section__theme"></div>
   <div class="section-page__wrapper">
-    <div class="heading heading--primary">
-      {% if self.get_effective_image %}
-        {% image self.get_effective_image width-200 as section_photo %}
-          <img alt="{{ self.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
-      {% else %}
-        <span class="section__icon"></span>
-      {% endif %}
+    <div class="heading heading--primary {% if section.get_effective_extra_style_hints %}section--{{section.get_effective_extra_style_hints}}{% endif %}">
       <div class="section__caption">
         <h1 class="section__title">{{self.title}}</h1>
       </div>

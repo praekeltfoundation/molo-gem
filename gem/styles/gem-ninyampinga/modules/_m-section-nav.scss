@@ -23,7 +23,6 @@
       }
     }
   }
-
   &__anchor {
     align-items: center;
     background: #000;
@@ -49,14 +48,6 @@
       height: 160px;
       padding: 15% 1em;
     }
-    @each $sectionModifier, $styleElement in $sectionThemes {
-      &--#{$sectionModifier} {
-        background-color: map-get($styleElement, bgColor);
-        background-position: 0 0;
-        background-repeat: repeat;
-        background-size: auto;
-      }
-    }
     &:hover {
       color: #000;
     }
@@ -81,5 +72,17 @@
     color: #000;
     text-align: center;
     overflow: auto;
+  }
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &__#{$sectionModifier} {
+      .section__title {
+        background-color: map-get($styleElement, bgColor);
+      }
+      background-image: map-get($styleElement, bgShape);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 75px;
+      height: 75px;
+    }
   }
 }
