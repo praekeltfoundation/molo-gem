@@ -2,10 +2,8 @@
 RESET AUTH CORE STYLES
 STYLE ninyampinga (NINYAMPINGA)
 */
-@import "../util/_variables";
-@import "../util/colors";
+@import "../util/*";
 @import "@font-face-TwCenMT.scss";
-
 
 body,
 html {
@@ -38,10 +36,20 @@ h1 {
   margin: 0;
 }
 .Header-branding {
+  background: url('/static/authentication_service/themes/ninyampinga/images/ninyampinga-logo.svg') no-repeat center 0/ 100%;width: 330px;
+  width: 330px;
+  padding: 0 10%;
+  text-align: center;
   margin: 0 auto 2em;
-}
-.Header-branding-image {
-  width: 27%;
+  position: relative;
+  overflow: auto;
+  height: 90px;
+  @include for-size(tablet-landscape-up) {
+    margin: 0 auto 0;
+  }
+  &-image {
+    width: 27%;
+  }
 }
 .Header-title {
   background: #fff;
@@ -49,6 +57,10 @@ h1 {
   position: relative;
   padding: 2em 5% 1em;
   margin: 0 !important;
+  @include for-size(tablet-landscape-up) {
+    margin: 1em 10% 1em 10% !important;
+    //0 9.3% 0!important
+  }
   h1 {
     font-size: 1.125rem;
     color: #fff;
@@ -87,7 +99,6 @@ h1 {
   }
 }
 
-
 .QR {
   text-align: center;
   &-image {
@@ -115,8 +126,8 @@ h1 {
   padding: 0;
   margin: 0;
   a {
-    color: #03b8ad;
-    border-bottom: 1px solid #03b8ad;
+    color: $color-pink-bright;
+    border-bottom: 2px solid $color-pink-bright;
   }
 }
 .Form .Field-item {
@@ -150,7 +161,7 @@ h1 {
   padding: 5px;
   border-width: 2px;
   &:focus {
-    border: 2px #02938a solid;
+    border: 2px solid $color-pink-bright;
   }
 }
 .Form .Field .Textarea {
@@ -163,7 +174,6 @@ h1 {
   width: 100%;
   @media screen and (-webkit-min-device-pixel-ratio:0) {
     &:after {
-      color: #03b8ad;
       content: '';
       display: inline-block;
       height: .65em;
@@ -197,9 +207,9 @@ h1 {
     outline: 0;
     padding: 5px 35px 5px 5px;
     width: 100%;
-    border: 2px solid #03b8ad;
+    border: 2px solid $color-pink-bright;
     &:focus {
-      border-color: #03b8ad;
+      border-color: $color-pink-bright;
     }
   }
 }
@@ -225,11 +235,11 @@ h1 {
   margin: 0;
 }
 .Form .BooleanField .Field-item .CheckboxInput {
-  border: 2px solid #03b8ad;
+  border: 2px solid $color-pink-bright;
 }
 .Form .Field-item .CheckboxInput {
   appearance: none;
-  border: 2px solid #03b8ad;
+  border: 2px solid $color-pink-bright;
   display: block;
   height: 20px;
   outline: 0;
@@ -256,18 +266,17 @@ h1 {
 .Button,
 .Button--warning,
 .Form .Button {
-  background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
   display: inline-block;
   padding: 12px 45px 12px 30px;
   margin: 1em 0;
   &:hover, &:active {
-    background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
+    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
   }
 }
 .Form-buttons {
   margin-top: 1em;
 }
-.Form .Button {}
 .Form .Button--warning {
   @media (min-width:64em) {
     margin: 1em;
@@ -287,15 +296,15 @@ h1 {
 //MENU
 .Menu {
   margin: 0 auto !important;
-}
-.Menu-title {
-  margin-left: 0;
-  margin-right: 0;
-  text-align: center;
-  h1 {
-   color: #fff;
-   font-size: 1.2em;
- }
+  &-title {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    h1 {
+     color: #fff;
+     font-size: 1.2em;
+   }
+  }
 }
 
 
