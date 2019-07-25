@@ -44,9 +44,6 @@
       font-size: $font-x-medium;
       text-decoration: none;
       text-transform: uppercase;
-      @media screen and (min-width: 16.875em) {
-        text-indent: -3.5%;
-      }
       @media screen and (min-width: 20.000em) {}
       @media screen and (min-width: 45.000em) {
         padding: ($spacer-small + 3) .5em;
@@ -76,7 +73,6 @@
         background-repeat: no-repeat;
         background-position: 0 44.8%;
         background-size: 65px;
-
         content: "";
         width: 30px;
         height: 35px;
@@ -145,6 +141,7 @@
     #{$block}-list {
       &__item {
         margin: 0;
+        padding: 5px;
       }
       &__anchor {
         color: #000;
@@ -173,10 +170,9 @@
       }
     }
   }
-
   .open {
     background-color: #fff;
-    color: #000;
+    color: $color-pink-bright;
     border-top-right-radius: 3px;
     &:before {
       background-image: url('/static/img/icons/ninyampinga/header-icons.png');
@@ -186,6 +182,15 @@
       vertical-align: middle;
       height: 40px;
       width: 45px;
+    }
+  }
+}
+
+
+:lang(rw) {
+  .nav-logged__anchor {
+    @media screen and (min-width: 16.875em) {
+      text-indent: -8em;
     }
   }
 }
