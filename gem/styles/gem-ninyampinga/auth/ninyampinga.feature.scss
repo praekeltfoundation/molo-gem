@@ -108,46 +108,57 @@ a {
   margin: 0;
   padding: 0;
   position: relative;
-}
-.Form .Field {
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  vertical-align: middle;
-  word-break: break-word;
-  word-wrap: break-word;
-}
-.Form .Field-item,
-.Form .Field-item .Field {
-  clear: both;
-  border: none;
-  margin: 0;
-  word-break: break-word;
-  word-wrap: break-word;
-}
+  .Field {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
 
-.Form .Field-item {
-  color: #000;
-  display: inline-block;
-  margin: 10px 0;
-  font-size: .875rem;
-}
-
-.Form .Field-label {
-  color: #000;
-  display: block;
-  font-weight: 700;
-  margin-bottom: 5px;
-  vertical-align: middle;
-  word-break: break-word;
-  word-wrap: break-word;
-}
-
-.Form .Field-message {
-  color: #9b9fa2;
-  font-size: 1rem;
-  margin-top: 10px;
-  text-align: left;
+  .Field-item {
+    color: #000;
+    display: inline-block;
+    margin: 10px 0;
+    font-size: .875rem;
+    clear: both;
+    border: none;
+    margin: 0;
+    word-break: break-word;
+    word-wrap: break-word;
+    .Field {
+      clear: both;
+      border: none;
+      margin: 0;
+      word-break: break-word;
+      word-wrap: break-word;
+    }
+  }
+  .Field-label {
+    color: #000;
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+  .Field-message {
+    color: #9b9fa2;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: left;
+  }
+  .Textarea {
+    height: 60px;
+  }
+  .ClearableFileInput {
+    display: block;
+  }
+  .Form--required input {
+    border-color: red;
+  }
 }
 
 .Form .Field .DateInput,
@@ -169,15 +180,7 @@ a {
     border: 2px $color-pink-bright solid;
   }
 }
-.Form .Textarea {
-  height: 60px;
-}
-.Form .ClearableFileInput {
-  display: block;
-}
-.Form .Form--required input {
-  border-color: red;
-}
+
 .Form .ModelChoiceField .Select,
 .Form .TypedChoiceField .Select {
   border: 2px solid $color-pink-bright;
@@ -190,6 +193,8 @@ a {
 .Form .Field-message--error .Field-item input {
   border-color: #02938a;
 }
+
+
 .Button,
 .Button--warning,
 .Form .Button {
@@ -201,11 +206,14 @@ a {
   padding: 12px 10px;
   text-transform: uppercase;
   margin: 1em 0;
-  box-shadow: 12px 12px 0 0 #f9e435;
+  box-shadow: 12px 12px 0 0 $color-yellow;
   width: auto;
-  &:active, &:hover {
-    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
-    color: #f9e435 !important;
+  -webkit-transition: box-shadow ease-in-out 0.3s;
+  -moz-transition: box-shadow ease-in-out 0.3s;
+  transition: box-shadow ease-in-out 0.3s;
+  &:active, &:hover, &:focus {
+    box-shadow: none;
+    color: $color-yellow-gorse !important;
   }
 }
 .Form-buttons {
@@ -250,16 +258,16 @@ a {
 .Additional-text {
   color: #000;
   text-align: left;
-  padding: 1em 10% 0;
+  padding: 1em 0 0;
   margin: 0;
   font-size: 1.125rem;
   a {
-    color: #eb018c;
+    color: $color-pink-bright;
     text-transform: uppercase;
     border-bottom: 1px solid $color-pink-bright;
     &:active, &:focus, &:hover {
-      color: $color-pink-bright;
-      border-bottom: 1px solid $color-pink-bright;
+      color: $color-cyan_shade1;
+      border-bottom: 1px solid $color-cyan_shade1;
     }
   }
 }
@@ -275,7 +283,7 @@ a {
   margin: 0 auto !important;
   background: #fff;
   @media (min-width:64em) {
-    width: 86%;
+    width: 70%;
     padding: 0 6em 1em;
   }
   &-title {
@@ -293,27 +301,20 @@ a {
 }
 
 .Menu-item {
-  display: inline-block;
-  font-size: 1.125rem;
+  display: block !important;
   margin: 10px 2.5em 0 0 !important;
+  text-align: right;
   a {
-    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
-    border-bottom: none !important;
-    color: #fff !important;
-    display: inline-block !important;
+    color: $color-pink-bright !important;
+    font-size: 1.125rem;
     font-weight: 700;
-    font-size: 1rem;
-    padding: 12px 45px 12px 30px;
+    display: inline-block !important;
+    border-bottom: 1px solid $color-pink-bright !important;
     text-transform: uppercase;
-    font-weight: 400;
-    text-decoration: none;
-    margin: 1em 0;
-    box-shadow: 12px 12px 0 0 $color-pink-bright;
-    width: auto;
-    &:active, &:hover {
-      background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
-      color: #f9e435 !important;
-      border-bottom: none !important;
+    font-weight: normal !important;
+    &:active, &:hover, &:focus {
+      color: $color-cyan_shade1 !important;
+      border-bottom: 1px solid $color-cyan_shade1 !important;
     }
   }
 }
@@ -349,5 +350,8 @@ a {
     color: #000;
     padding: 2em 10%;
     text-align: right;
+    @include for-size(tablet-landscape-up) {
+      padding: 2em 16%;
+    }
   }
 }
