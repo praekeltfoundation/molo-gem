@@ -69,7 +69,7 @@ h1 {
     padding: 5px 15px;
     position: absolute;
     left: 1.6em;
-    top: 2.9em;
+    top: 1.9em;
     @media (min-width:64em) {
       font-size: 1.55rem;
       padding: 0 15px;
@@ -80,8 +80,7 @@ h1 {
 }
 .Header-links {
   margin: 0;
-  padding: 0 15px;
-
+  padding: 0 5%;
   @media (min-width:64em) {
     margin: 0 15% 0 15%;
     position: absolute;
@@ -294,7 +293,10 @@ h1 {
 
 //MENU
 .Menu {
-  margin: 0 auto !important;
+  margin: 0 6.9% !important;
+  @include for-size(tablet-landscape-up) {
+    margin: 0 auto !important;
+  }
   &-title {
     margin-left: 0;
     margin-right: 0;
@@ -309,6 +311,9 @@ h1 {
 
 .Footer {
   .Menu {
-    padding: 0 2em;
+    padding: 0 10% 5%;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 2em;
+    }
   }
 }
