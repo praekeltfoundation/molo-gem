@@ -5,13 +5,7 @@
   {% if featured_articles %}
   <div class="article-teaser article-teaser--featured-homepage {% if section.get_effective_extra_style_hints %}article-teaser--{{section.get_effective_extra_style_hints}}{% endif %}">
     <div class="article-teaser__wrapper">
-      <div class="heading heading--primary">
-        {% if section.get_effective_image %}
-          {% image section.get_effective_image width-200 as section_photo %}
-            <img alt="{{ section.title }}" src="{{ section_photo.url }}" class="section__thumbnail"/>
-        {% else %}
-          <span class="section__icon"></span>
-        {% endif %}
+      <div class="heading heading--primary {% if section.get_effective_extra_style_hints %}section-nav__{{section.get_effective_extra_style_hints}}{% endif %}">
         <div class="section__caption">
           <h2 class="section__title">{{section}}</h2>
         </div>
