@@ -7,9 +7,12 @@
     {% trans "Back to article" %}</a>
 </div>
 <div class="comments">
+  <div class="heading heading__component">
+    <h2>{% trans "Your thoughts" %}</h2>
+  </div>
   <div id="comments-list" class="comments__list">
-  {% for node in comments %}
-    {% recursetree node %}
+    {% for node in comments %}
+      {% recursetree node %}
         <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
           <h5 class="comments__alias comments__alias-author">
           {% if node.user.is_staff %}
@@ -51,14 +54,14 @@
             </span>
           <div class="comments__reply-meta">
               {% if not node.user|is_in_admin_group %}
-                <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report">
+                <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                   {% trans "Report" %}
                 </a>
               {% endif %}
 
               {% if node.parent == None %}
-                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response">
-                {% trans "Reply"%}</a>
+                <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
+                  {% trans "Reply"%}</a>
                 {% if do_not_link_replies or node.get_children.count == 0 %}
                   <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
                     {{ node.get_children.count }}
@@ -86,9 +89,10 @@
         {% endif %}
         </div>
         {{ children }}
-    {% endrecursetree %}
-  {% endfor %}
+      {% endrecursetree %}
+    {% endfor %}
   </div>
+
   <div class="pagination">
     {% if page.has_previous %}
       <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>

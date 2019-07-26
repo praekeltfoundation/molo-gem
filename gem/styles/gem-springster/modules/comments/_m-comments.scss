@@ -12,6 +12,31 @@
   &__alias {
     font-size: $font-small;
     padding: 0 10px 10px;
+    color: $cool-grey;
+    font-size: 18px;
+    padding: 0 10px 10px;
+    &-author {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    &-feedback {
+      color: #666;
+      font-size: 14px;
+      &--article {
+        color: #666;
+        font-size: 13px;
+      }
+    }
+    &-link {
+      color: #666;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+      &:hover, &:active, &:focus {
+        color: $mint-green;
+        text-decoration: underline;
+      }
+    }
   }
   &__staff {
     color: $cool-grey;
@@ -26,6 +51,7 @@
     color: $cool-grey;
     font-size: $font-xxx-small;
     padding: 0 5px 0 10px;
+    font-weight: bold;
   }
   &__body-small {
     padding: 0 10px;
@@ -45,19 +71,74 @@
     text-transform: uppercase;
     padding: 0 10px 10px;
   }
-}
-
-.comments-list {
-  &__item--reply {
-    background-color: $pale-grey;
-    padding: 10px 0;
+  &-list {
+    &__reply_wrap {
+      padding: 0 10px;
+      .comments__publish-date {
+        display: inline-block;
+        padding: 0;
+      }
+      .comments__alias-author {
+        text-transform: capitalize;
+        padding: 1em 10px 10px 0;
+      }
+    }
+    &__item--reply {
+      background-color: $pale-grey;
+      padding: 10px 0;
+    }
+    &__item--parent-comment {
+      border-top: 4px solid $mint-green;
+      padding: 10px 0 0;
+    }
+    &__item--parent-comment:first-child {
+      border: none;
+    }
   }
-  &__item--parent-comment {
-    border-top: 4px solid $mint-green;
-    padding: 10px 0 0;
-  }
-  &__item--parent-comment:first-child {
-    border: none;
+  &-replies {
+    &__child-list {
+      list-style: none;
+      padding: 1em 1em 1em 2em;
+    }
+    &-list {
+      background-color: $pale-grey;
+      margin: 10px 0 0;
+      padding-left: 15px;
+      &__item {
+        display: block;
+        padding: 5px 0 10px;
+      }
+      &--reply {
+        background-color: $slate-grey;
+        padding: 20px 0 10px 0;
+      }
+      &--parent-comment {
+        border-top: 3px solid $mint-green;
+        padding: 10px 0 0;
+        &:first-child {
+          border: none;
+        }
+      }
+      .comment__replies-title {
+        background-color: transparent;
+        color: $pale-grey;
+        font-size: 18px;
+        padding: 1.5em 10px 10px;
+        font-weight: 600;
+      }
+    }
+    &-label {
+      color: $slate-grey;
+    }
+    &-title {
+      background-color: $pale-grey;
+      color: $slate-grey;
+      font-weight: 400;
+      padding: 0 0 0 10px;
+    }
+    &-cta-title {
+      color: $slate-grey;
+    }
   }
 }
 
