@@ -301,6 +301,34 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             {"cd3": 'Visitor', 'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
+    def test_submit_to_local_ga_articlepage_title(
+            self, mock_submit_tracking):
+        """requests for article with tags should
+        make a submit tracking with a cd6 value in the
+        custom params containing all the article tags"""
+
+        request = RequestFactory().get(
+            '/sections-main1-1/{}/{}/'.format(
+                self.yourmind.slug,
+                self.article2.slug),
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01"
+        )
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # a normal response should activate GA tracking
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request, self.response,
+            {'cd5': self.article2.title,
+                "cd3": 'Visitor',
+                'cd1': "0000-000-01",
+             })
+
+    @patch(submit_tracking_method)
     def test_submit_to_local_ga_articlepage_with_tags(
             self, mock_submit_tracking):
         """requests for article with tags should
@@ -325,8 +353,9 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01",
-             'cd6': "|".join(tags)}
+            {'cd5': self.article.title,
+                "cd3": 'Visitor', 'cd1': "0000-000-01",
+                'cd6': "|".join(tags)}
         )
 
     @patch(submit_tracking_method)
@@ -352,7 +381,9 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
+            {'cd5': self.article2.title,
+                "cd3": 'Visitor',
+                'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga__footerpage__no_tags(
@@ -376,4 +407,5 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request, self.response,
-            {"cd3": 'Visitor', 'cd1': "0000-000-01"})
+            {'cd5': self.footer.title,
+                "cd3": 'Visitor', 'cd1': "0000-000-01"})

@@ -59,28 +59,30 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     submit_to_local_account
     '''
 
-    def load_article_nav_tags(self, request):
+    def load_article_info(self, request):
         """get the tags in an article if the request is for an article page"""
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-
+        custom_params = {}
         try:
             page, args, kwargs = request.site.root_page.specific.route(
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
                 tags_str = ""
+                custom_params['cd5'] = page.specific.title
                 qs = load_tags_for_article(
                     {'locale_code': 'en', 'request': request}, page)
                 if qs:
                     for q in qs:
                         tags_str += "|" + q.title
-                    return tags_str[1:]
+                    custom_params.update({'cd6': tags_str[1:]})
+                    return custom_params
         except Http404:
-            return ""
+            return custom_params
 
-        return ""
+        return custom_params
 
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
@@ -124,9 +126,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
-        tags = self.load_article_nav_tags(request)
-        if len(tags) > 0:
-            custom_params.update({'cd6': tags})
+        article_info = self.load_article_info(request)
+        custom_params.update(article_info)
 
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
