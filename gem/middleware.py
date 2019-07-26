@@ -64,25 +64,25 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-        custom_params = {}
+        article_info = {}
         try:
             page, args, kwargs = request.site.root_page.specific.route(
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
                 tags_str = ""
-                custom_params['cd5'] = page.specific.title
+                article_info['cd5'] = page.specific.title
                 qs = load_tags_for_article(
                     {'locale_code': 'en', 'request': request}, page)
                 if qs:
                     for q in qs:
                         tags_str += "|" + q.title
-                    custom_params.update({'cd6': tags_str[1:]})
-                    return custom_params
+                    article_info .update({'cd6': tags_str[1:]})
+                    return article_info
         except Http404:
-            return custom_params
+            return article_info
 
-        return custom_params
+        return article_info
 
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
