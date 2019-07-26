@@ -154,9 +154,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
-        tags = self.load_article_nav_tags(request)
-        if len(tags) > 0:
-            custom_params.update({'cd6': tags})
+        article_info = self.load_article_info(request)
+        custom_params.update(article_info)
 
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\
