@@ -2,19 +2,14 @@
 RESET AUTH CORE STYLES
 STYLE ninyampinga (NINYAMPINGA)
 */
-@import "../util/_variables";
-@import "../util/colors";
+@import "../util/*";
 @import "@font-face-TwCenMT.scss";
-
 
 body,
 html {
-  background: #03b8ad;
+  background-color: $color-cyan_shade1;
   color: #000;
   font-size: 16px;
-  @media (min-width:45em) {
-    background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/NN_PATTERN-HILLS-AQUA-001.svg') repeat center center/auto;
-  }
 }
 body {
   margin: 0;
@@ -41,10 +36,20 @@ h1 {
   margin: 0;
 }
 .Header-branding {
+  background: url('/static/authentication_service/themes/ninyampinga/images/ninyampinga-logo.svg') no-repeat center 0/ 100%;width: 330px;
+  width: 330px;
+  padding: 0 10% 1.5em;
+  text-align: center;
   margin: 0 auto 2em;
-}
-.Header-branding-image {
-  width: 27%;
+  position: relative;
+  overflow: auto;
+  height: 90px;
+  @include for-size(tablet-landscape-up) {
+    margin: 0 auto 3em;
+  }
+  &-image {
+    width: 27%;
+  }
 }
 .Header-title {
   background: #fff;
@@ -52,6 +57,9 @@ h1 {
   position: relative;
   padding: 2em 5% 1em;
   margin: 0 !important;
+  @include for-size(tablet-landscape-up) {
+    margin: 0 15.1% 0 !important
+  }
   h1 {
     font-size: 1.125rem;
     color: #fff;
@@ -61,9 +69,9 @@ h1 {
     padding: 5px 15px;
     position: absolute;
     left: 1.6em;
-    top: 2.9em;
+    top: 1.9em;
     @media (min-width:64em) {
-      font-size: 1.75rem;
+      font-size: 1.55rem;
       padding: 0 15px;
       left: 2.6em;
       top: 0.9em;
@@ -72,13 +80,15 @@ h1 {
 }
 .Header-links {
   margin: 0;
-  padding: 0 15px;
-
+  padding: 0 5%;
   @media (min-width:64em) {
     margin: 0 15% 0 15%;
     position: absolute;
     right: 0;
     top: 10em;
+    @include for-size(tablet-portrait-up) {
+      margin: 2em 23% 0 15%;
+    }
   }
 }
 
@@ -89,7 +99,6 @@ h1 {
     margin: 15px 0 0;
   }
 }
-
 
 .QR {
   text-align: center;
@@ -118,8 +127,8 @@ h1 {
   padding: 0;
   margin: 0;
   a {
-    color: #03b8ad;
-    border-bottom: 1px solid #03b8ad;
+    color: $color-pink-bright;
+    border-bottom: 2px solid $color-pink-bright;
   }
 }
 .Form .Field-item {
@@ -153,7 +162,7 @@ h1 {
   padding: 5px;
   border-width: 2px;
   &:focus {
-    border: 2px #02938a solid;
+    border: 2px solid $color-pink-bright;
   }
 }
 .Form .Field .Textarea {
@@ -166,7 +175,6 @@ h1 {
   width: 100%;
   @media screen and (-webkit-min-device-pixel-ratio:0) {
     &:after {
-      color: #03b8ad;
       content: '';
       display: inline-block;
       height: .65em;
@@ -176,9 +184,6 @@ h1 {
       top: 55%;
       transform: rotate(135deg);
       width: .65em;
-      @media (min-width:64em) {
-        top: 35%;
-      }
     }
     .Select {
       appearance: none;
@@ -200,9 +205,9 @@ h1 {
     outline: 0;
     padding: 5px 35px 5px 5px;
     width: 100%;
-    border: 2px solid #03b8ad;
+    border: 2px solid $color-pink-bright;
     &:focus {
-      border-color: #03b8ad;
+      border-color: $color-pink-bright;
     }
   }
 }
@@ -228,11 +233,11 @@ h1 {
   margin: 0;
 }
 .Form .BooleanField .Field-item .CheckboxInput {
-  border: 2px solid #03b8ad;
+  border: 2px solid $color-pink-bright;
 }
 .Form .Field-item .CheckboxInput {
   appearance: none;
-  border: 2px solid #03b8ad;
+  border: 2px solid $color-pink-bright;
   display: block;
   height: 20px;
   outline: 0;
@@ -259,18 +264,17 @@ h1 {
 .Button,
 .Button--warning,
 .Form .Button {
-  background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
   display: inline-block;
   padding: 12px 45px 12px 30px;
   margin: 1em 0;
   &:hover, &:active {
-    background: #03b8ad url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
+    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
   }
 }
 .Form-buttons {
   margin-top: 1em;
 }
-.Form .Button {}
 .Form .Button--warning {
   @media (min-width:64em) {
     margin: 1em;
@@ -283,27 +287,33 @@ h1 {
 
 .Additional-text {
   text-align: left;
-  padding: 1em 10% 0;
+  padding: 1em 0 0;
   margin: 0;
 }
 
 //MENU
 .Menu {
-  margin: 0 auto !important;
-}
-.Menu-title {
-  margin-left: 0;
-  margin-right: 0;
-  text-align: center;
-  h1 {
-   color: #fff;
-   font-size: 1.2em;
- }
+  margin: 0 6.9% !important;
+  @include for-size(tablet-landscape-up) {
+    margin: 0 auto !important;
+  }
+  &-title {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    h1 {
+     color: #fff;
+     font-size: 1.2em;
+   }
+  }
 }
 
 
 .Footer {
   .Menu {
-    padding: 2em;
+    padding: 0 10% 5%;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 2em;
+    }
   }
 }

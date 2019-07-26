@@ -21,6 +21,9 @@
   }
   &__form {
     position: relative;
+    @include for-size(tablet-landscape-up) {
+      width: 50%;
+    }
     input[type="search"] {
       border: 3px solid $color-pink-bright;
       height: 42px;
@@ -54,7 +57,11 @@
     }
   }
   &__query-term {
+    font-size: $font-large;
     font-weight: bold;
     font-style: italic;
+  }
+  .heading__micro {
+    padding: 5px 0 1.5em;
   }
 }
