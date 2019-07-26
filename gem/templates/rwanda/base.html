@@ -71,7 +71,6 @@
                       styles = document.getElementsByTagName('style')[0];
                   window.setTimeout(styles.insertAdjacentHTML('afterend', safari), 0);
                 }
-
                 var jsScripts = [
                    "https://code.jquery.com/jquery-2.0.3.min.js",
                    "{% static 'js/dest/nn-min.js' %}",
@@ -141,15 +140,14 @@
                   </a>
                 </li>
                 {% if sections %}
-                <li class="nav-list__item">
                   {% for section_cat in sections %}
-                    {# {% get_translation section_cat as section %} #}
                     {% content_is section_cat "Events" as is_event %}
                     {% if is_event == True %}
+                    <li class="nav-list__item">
                       <a href="{% pageurl section_cat.specific %}" class="nav-list__anchor">{{section_cat.title}}</a>
+                    </li>
                     {% endif %}
                   {% endfor %}
-                </li>
                 {% endif %}
                 <li class="nav-list__item">
                   {% if not user.is_authenticated %}
