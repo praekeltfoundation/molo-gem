@@ -179,7 +179,15 @@
         {% block breadcrumbs %}
           {% breadcrumbs %}
         {% endblock %}
-        {% tag_menu_homepage %}
+
+        {% comment %}
+          <!-- TAG CLOUD | ON OTHER PAGES -->
+        {% endcomment %}
+          {% if not request.path == '/' %}
+            {% tag_menu_homepage %}
+          {% endif %}
+
+
         {% block footer_menu %}
           <div id="gem-footer">
             <div class="search-bar">
