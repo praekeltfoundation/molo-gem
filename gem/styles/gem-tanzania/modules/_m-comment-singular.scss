@@ -1,0 +1,60 @@
+.comment {
+  &__replies-title {
+    background-color: $color-light-gray;
+    color: $color-grayish-blue;
+    font-size: 18px;
+    padding: 1.5em 10px 10px;
+    font-weight: 600;
+    margin: 1em 0 0;
+  }
+  &-counter {
+    display: inline-block;
+    height: 25px;
+    margin: 5px 0 0;
+    opacity: 1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      opacity: 0.5;
+    }
+    &__icon {
+      display: none;
+      visibility: hidden;
+    }
+    &__numeral {
+      color: $color-grayish-blue;
+      font-size: 16px;
+      @media screen and (min-width: 38.125em) {
+        margin-left: 5px;
+      }
+      &:before {
+        content: "";
+        background-image: url(/static/img/icons/tanzania/checkbox-icons.png);
+        background-repeat: no-repeat;
+        background-position: -15px -74px;
+        background-size: 50px;
+        width: 20px;
+        display: inline-block;
+        margin: 0 5px 0 0;
+        padding: 10px;
+        vertical-align: sub;
+      }
+    }
+  }
+}
+
+
+#id_report_reason {
+  margin: 0;
+  padding: 0;
+  li {
+    display: block;
+    label {
+      text-align: left;
+    }
+    input[type="radio"] {
+      cursor: pointer;
+    }
+  }
+}
