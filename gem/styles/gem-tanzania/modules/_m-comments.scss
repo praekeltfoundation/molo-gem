@@ -1,5 +1,8 @@
 .comments {
   padding: 10px 0 2.5em;
+  ul, ol {
+    list-style-type: none;
+  }
   &:before {
     content: "";
     background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -24em/150px;
@@ -108,7 +111,7 @@
     &-list {
       background-color: $color-light-gray;
       margin: 10px 0 0;
-      padding-left: 15px;
+      padding: 15px 0 0 15px;
       &__item {
         display: block;
         padding: 5px 0 10px;
@@ -154,10 +157,9 @@
     }
     .comment__replies-title {
       background-color: transparent;
-      color: $color-grayish-blue;
-      font-size: 18px;
+      color: $color-blue;
       padding: 1.5em 10px 10px;
-      font-weight: 600;
+      //font-weight: 600;
     }
   }
 
@@ -166,7 +168,6 @@
       .comments-list__item--parent-comment  {}
     }
   }
-
   .heading__component {
     text-transform: uppercase;
     padding: 1.5em 1em;
