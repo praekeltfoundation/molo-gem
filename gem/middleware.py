@@ -10,10 +10,12 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.contrib.auth.views import redirect_to_login
+from django.utils.translation import get_language_from_request
 
 from django.urls import reverse
 from django.utils.crypto import get_random_string
-from molo.core.models import SiteSettings, ArticlePage
+from molo.core.utils import get_locale_code
+from molo.core.models import SiteSettings, ArticlePage, Languages
 from molo.core.templatetags.core_tags import load_tags_for_article
 from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
@@ -71,7 +73,15 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
                 tags_str = ""
-                article_info['cd5'] = page.specific.title
+                main_lang = Languages.for_site(request.site).languages.filter(
+                    is_main_language=True).first()
+                locale_code = get_locale_code(
+                    get_language_from_request(request))
+                if main_lang.locale == locale_code:
+                    article_info['cd5'] = page.specific.title
+                else:
+                    article_info['cd5'] = page.specific.get_main_language_page(
+                    ).title
                 qs = load_tags_for_article(
                     {'locale_code': 'en', 'request': request}, page)
                 if qs:
