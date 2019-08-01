@@ -18,7 +18,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.core.models import (
     Tag, ArticlePageTags,
     SectionIndexPage, TagIndexPage, FooterIndexPage,
-    FooterPage)
+    FooterPage, SiteLanguageRelation, Site, Languages)
 
 
 class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
@@ -320,6 +320,42 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         middleware.process_response(
             request, self.response)
         # a normal response should activate GA tracking
+        mock_submit_tracking.assert_called_once_with(
+            'local_ga_tracking_code',
+            request, self.response,
+            {'cd5': self.article2.title,
+                "cd3": 'Visitor',
+                'cd1': "0000-000-01",
+             })
+
+    @patch(submit_tracking_method)
+    def test_submit_to_local_ga_translated_articlepage_title(
+            self, mock_submit_tracking):
+        """requests for article with tags should
+        make a submit tracking with a cd6 value in the
+        custom params containing all the article tags"""
+
+        french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(Site.objects.first()),
+            locale='fr',
+            is_active=True)
+        french_article = self.mk_article_translation(self.article2, french)
+        french_article.title = "french translation of article"
+        french_article.save_revision().publish()
+        request = RequestFactory().get(
+            '/sections-main1-1/{}/{}/'.format(
+                self.yourmind.slug,
+                french_article.slug),
+            HTTP_HOST='localhost',
+            HTTP_X_DCMGUID="0000-000-01"
+        )
+        request.COOKIES[settings.LANGUAGE_COOKIE_NAME] = french.locale
+        request.site = self.main.get_site()
+
+        middleware = GemMoloGoogleAnalyticsMiddleware()
+        middleware.process_response(
+            request, self.response)
+        # check that the tilte of the article in the main languge is used
         mock_submit_tracking.assert_called_once_with(
             'local_ga_tracking_code',
             request, self.response,
