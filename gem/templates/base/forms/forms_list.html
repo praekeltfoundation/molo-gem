@@ -1,21 +1,21 @@
-{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags static personalise_extras %}
+{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags static forms_personalise_extras %}
 
 {% block content %}
 {% filter_forms_by_segments forms request as filtered_forms %}
-{% for form_page in filtered_surveys %}
-  {% with survey.form_page.molo_form_page form=form_page.form %}
-    {% if survey.your_words_competition %}
+{% for item in filtered_forms %}
+  {% with form_page=item.molo_form_page form=item.form %}
+    {% if form_page.your_words_competition %}
         <div class="your-words your-words{{ self.get_effective_extra_style_hints }}">
             <div class="section-title">
               <h2>{% trans "Share your story" %}</h2>
             </div>
-            <h3>{{ survey.title }}</h3>
-            <p>{{ survey.homepage_introduction }}</p>
+            <h3>{{ form_page.title }}</h3>
+            <p>{{ form_page.homepage_introduction }}</p>
             <img src="{% static 'img/Pencil.png' %}" />
-            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-              <a href="{% pageurl survey.specific %}" class="button call-to-action__button call-to-action__button--primary">
-                {% if survey.homepage_button_text %}
-                  {{survey.homepage_button_text}}
+            {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+              <a href="{% pageurl form_page.specific %}" class="button call-to-action__button call-to-action__button--primary">
+                {% if form_page.homepage_button_text %}
+                  {{form_page.homepage_button_text}}
                 {% else %}
                   {% trans "Write your story" %}
                 {% endif %}
@@ -26,20 +26,20 @@
               </a>
             {% endif %}
         </div>
-    {% elif survey.display_survey_directly %}
+    {% elif form_page.display_form_page_directly %}
       <div class="polls gem-polls">
           <div class="section-title">
             <h4 class="poll__title list-header">{% trans "What's your opinion?" %}</h4>
           </div>
           <div class="list-inline">
-            <h2 class="poll__question-title">{{ survey.title }}</h2>
+            <h2 class="poll__question-title">{{ form_page.title }}</h2>
 
               {% if form %}
-                {% include "surveys/form.html" with surveytype="poll" surveytypeClass="polls"  %}
+                {% include "forms/form.html" with formtype="poll" formtypeClass="polls"  %}
               {% else %}
               <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
                 {% if request.path == "/" %}
-                  <a href="{% pageurl survey %}success/" class="button call-to-action__button call-to-action__button--primary">
+                  <a href="{% pageurl form_page %}success/" class="button call-to-action__button call-to-action__button--primary">
                     {% trans "Show Results" %}
                   </a>
                 {% else %}
@@ -56,12 +56,12 @@
             <h2>Take the Survey</h2>
           </div>
           <div class="surveys__item">
-            <h3>{{ survey.title }}</h3>
-            <p>{{ survey.homepage_introduction }}</p>
-            {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
-              <a href="{% pageurl survey.specific %}" class="button call-to-action__button call-to-action__button--primary">
-                {% if survey.homepage_button_text %}
-                  {{survey.homepage_button_text}}
+            <h3>{{ form_page.title }}</h3>
+            <p>{{ form_page.homepage_introduction }}</p>
+            {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+              <a href="{% pageurl form_page.specific %}" class="button call-to-action__button call-to-action__button--primary">
+                {% if form_page.homepage_button_text %}
+                  {{form_page.homepage_button_text}}
                 {% else %}
                   {% trans "Start" %}
                 {% endif %}

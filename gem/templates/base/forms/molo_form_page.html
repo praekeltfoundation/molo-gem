@@ -11,7 +11,8 @@
       <p>{{ page.introduction }}</p>
       <img src="{% static 'img/Pencil.png' %}" />
       <div class="content">
-        {% for block in page.description %}
+        <!-- this needs to be checked -->
+        {% for block in form.description %}
           {% if block.block_type == 'heading' %}
               <h5>{{ block.value }}</h5>
           {% elif block.block_type == 'paragraph' %}
@@ -28,7 +29,7 @@
       </div>
       {% endif %}
       {% endcomment %}
-      {% include "forms/form.html" with formtype="competition" surveytypeClass="your-words"  %}
+      {% include "forms/form.html" with formtype="competition" formtypeClass="your-words"  %}
     </div>
   {% elif page.display_form_directly %}
       <div class="polls gem-polls">
@@ -39,11 +40,11 @@
             <h2 class="poll__question-title">{{ page.title }}</h2>
             {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
               {% if form %}
-                {% include "forms/form.html" with formtype="poll" surveytypeClass="polls"  %}
+                {% include "forms/form.html" with formtype="poll" formtypeClass="polls"  %}
               {% else %}
               <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
                 {% if request.path == "/" %}
-                  <a href="{% pageurl page.specific %}success/" class="button call-to-action__button call-to-action__button--primary">
+                  <a href="{% pageurl form %}success/" class="button call-to-action__button call-to-action__button--primary">
                     {% trans "Show Results" %}
                   </a>
                 {% else %}
@@ -67,7 +68,7 @@
       {% endif %}
 
       {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-            {% include "forms/form.html" with formtype="survey" surveytypeClass="surveys" %}
+            {% include "forms/form.html" with formtype="form" formtypeClass="surveys" %}
       {% else %}
         <div class="call-to-action call-to-action--surveys">
           <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>

@@ -1,0 +1,157 @@
+{% load forms_personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
+{% get_settings %}
+
+{% block content %}
+{% filter_forms_by_segments forms request as filtered_forms %}
+  {% comment %}
+    {# GER:Is feature supported?
+      <!-- PROFILE JOIN BANNER --> #}
+  {% endcomment %}
+  {% if filtered_forms %}
+    {% with item=filtered_forms|first %}
+      {% with form_page=item.molo_form_page %}
+          {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
+            {% if not form_page.your_words_competition and not form_page.display_form_directly %}
+            <div class="surveys surveys--profiles-join">
+              <div class="surveys__wrapper">
+                <div class="heading heading heading--secondary">
+                  <h1 class="heading__title">{% trans 'Quiz' %}</h1>
+                </div>
+                <div class="surveys__inner">
+                  <section>
+                    <h1 class="heading__headline">
+                      {% trans "Share your opinions and stories, take polls, win fun prizes." %}
+                    </h1>
+                    <nav>
+                      <div class="call-to-action--group">
+                        <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">{% trans "Join" %}</a>
+                      </div>
+                    </nav>
+                  </section>
+                </div>
+                  <div class="profiles-join__icon"></div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+      {% endwith %}
+    {% endwith %}
+  {% endif %}
+
+  {% for item in filtered_forms %}
+    {% with form_page=item.molo_form_page form=item.form %}
+      {% if form_page.your_words_competition %}
+        <div class="yourwords yourwords--homepage">
+          <div class="yourwords__wrapper">
+            <div class="heading heading--hero">
+              <h1 class="heading__component">
+                {% trans "Share your story" %}
+              </h1>
+            </div>
+            <div class="yourwords__inner">
+              {% comment %}
+              {% if form_page.image %}
+                <aside>
+                  {% image form_page.image width-480 as tmp_photo %}
+                  <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="yourwords__image" />
+                </aside>
+              {% endif %}
+              {% endcomment %}
+              <section>
+                <h1 class="heading__headline">{{form_page.title}}</h1>
+                {% if form_page.homepage_introduction %}
+                  <h3 class="heading__subtitle">
+                    {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
+                  </h3>
+                {% endif %}
+                <nav>
+                  <div class="call-to-action--group">
+                    <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+                      {% trans "Take GCN competition" as defaultTextGCN %}
+                      {{ form_page.homepage_button_text|default:defaultTextGCN}}
+                    </a>
+                  </div>
+                </nav>
+              </section>
+            </div>
+          </div>
+        </div>
+      {% elif form_page.display_form_directly %}
+        <div class="polls polls--homepage">
+          <div class="polls__wrapper">
+            <div class="heading heading--secondary">
+              <h1 class="heading__title">{% trans 'Vote' %}</h1>
+            </div>
+            <div class="polls__inner">
+              <section>
+                <h2 class="heading__headline">{{form_page.title}}</h2>
+                {% if form_page.homepage_introduction %}
+                  <h4 class="heading__subtitle">
+                    {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
+                  </h4>
+                {% endif %}
+                {% if form %}
+                  {% include "forms/form.html" with formtype="poll" formtypeClass="polls" %}
+                {% else %}
+                  <p class="error-list__item">
+                    {% trans 'You have already completed this poll' %}.</p>
+                    <nav>
+                      <div class="call-to-action--group">
+                        {% if request.path == "/" %}
+                          <a href="{% pageurl form_page %}success/" class="call-to-action__button call-to-action__button--primary">
+                            {% trans "Show results" %}
+                          </a>
+                        {% else %}
+                          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                            {% trans "Back home" %}
+                          </a>
+                        {% endif %}
+                      </div>
+                    </nav>
+              {% endif %}
+              </section>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
+          {% comment %}
+            <h3>Test what happens here</h3>
+          {% endcomment %}
+        {% else %}
+          <div class="surveys surveys--homepage">
+            <div class="surveys__wrapper">
+              <div class="heading heading heading--secondary">
+                <h1 class="heading__title">{% trans 'Quiz' %}</h1>
+              </div>
+              <div class="surveys__inner">
+                {% if form_page.image %}
+                  <aside>
+                    {% image form_page.image width-480 as tmp_photo %}
+                    <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="surveys__image" />
+                  </aside>
+                {% endif %}
+                <section>
+                  <h2 class="heading__headline">{{form_page.title}}</h2>
+                  {% if form_page.homepage_introduction %}
+                    <h3 class="heading__subtitle">
+                      {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
+                    </h3>
+                  {% endif %}
+                  <nav>
+                    <div class="call-to-action--group">
+                      <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+                        {% trans "Take the survey" as defaultText %}
+                        {{ form_page.homepage_button_text|default:defaultText }}
+                      </a>
+                    </div>
+                  </nav>
+                </section>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+{% endblock %}

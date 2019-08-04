@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles comments molo_survey_tags poll_votings competition_tag el_pagination_tags gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles comments molo_form_tags poll_votings competition_tag el_pagination_tags gem_tags %}
 
 {% block meta %}
     <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Tujibebe celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
@@ -13,7 +13,7 @@
     {% bannerpages position=0 %}
     {% gembannerpages %}
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
-    {% surveys_list personalisable_survey=True %}
+    {% forms_list personalisable_form=True %}
     {% hero_article %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
@@ -21,27 +21,27 @@
     {% bannerpages position=1 %}
     {% poll_page %}
     {% bannerpages position=2 %}
-    {% surveys_list only_direct_surveys=True %}
-    {% surveys_list only_yourwords=True %}
-    {% surveys_list only_linked_surveys=True %}
+    {% forms_list only_direct_forms=True %}
+    {% forms_list only_yourwords=True %}
+    {% forms_list only_linked_forms=True %}
     {% bannerpages position=3 %}
     {% your_words_competition %}
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
-    {% surveys_list personalisable_survey=True %}
+    {% forms_list personalisable_form=True %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
     {% tag_menu_homepage %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
     {% poll_page %}
-    {% surveys_list only_direct_surveys=True %}
+    {% forms_list only_direct_forms=True %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
     {% bannerpages position=2 %}
-    {% surveys_list only_yourwords=True %}
+    {% forms_list only_yourwords=True %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"6:9" %}
-    {% surveys_list only_linked_surveys=True %}
+    {% forms_list only_linked_forms=True %}
     {% include 'patterns/components/article-teasers/sp_variations/grid-teaser-listing.html' with section=tag_nav_data.sections.0.0 featured_articles=tag_nav_data.sections.0.1 %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
