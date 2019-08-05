@@ -279,11 +279,11 @@ CELERY_RESULT_BACKEND = environ.get(
 CELERYBEAT_SCHEDULE = {
     'rotate_content': {
         'task': 'molo.core.tasks.rotate_content',
-        'schedule': crontab(minute=0),
+        'schedule': crontab(minute=0, hour='*/1'),
     },
     'molo_consolidated_minute_task': {
         'task': 'molo.core.tasks.molo_consolidated_minute_task',
-        'schedule': crontab(minute=0),
+        'schedule': crontab(minute=0, hour='*/1'),
     },
 }
 

@@ -1,5 +1,8 @@
 .comments {
   padding: 10px 0 2.5em;
+  ul, ol {
+    list-style-type: none;
+  }
   &:before {
     content: "";
     background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -24em/150px;
@@ -23,13 +26,25 @@
     font-size: 18px;
     padding: 0 10px 10px;
     &-author {
-      a {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    &-feedback {
+      color: #666;
+      font-size: 14px;
+      &--article {
+        color: #666;
+        font-size: 13px;
+      }
+    }
+    &-link {
+      color: #666;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+      &:hover, &:active, &:focus {
         color: $color-blue;
-        font-weight: 700;
-        font-size: 19px;
         text-decoration: underline;
-        display: block;
-        padding: 0.5em 0 1em;
       }
     }
   }
@@ -40,26 +55,38 @@
   }
   &__reply-meta {
     padding: 10px 10px;
-    .call-to-action__nav-item-text {
-      display: inline-block;
-      font-size: 16px;
-      padding: 0 10px 0 0;
-      text-decoration: underline;
-      &:hover, &:active, &:focus {
-        color: $color-pink;
+    .call-to-action__nav-item {
+      &-text {
+        display: inline-block;
+        font-size: 16px;
+        padding: 0 10px 0 0;
+        text-decoration: underline;
+        &:hover, &:active, &:focus {
+          color: $color-pink;
+        }
+
+        &--disabled {
+          color: $color-grayish-blue;
+          cursor: auto;
+          &:hover, &:active, &:focus {
+            color: $color-grayish-blue;
+          }
+        }
       }
-    }
-    .call-to-action__nav-item--replies-counter {
-      text-decoration: underline;
-      &:hover, &:active, &:focus {
-        color: $color-blue;
+
+      &--replies-counter {
+        text-decoration: underline;
+        &:hover, &:active, &:focus {
+          color: $color-blue;
+        }
       }
     }
   }
   &__publish-date {
-    color: $color-dark_grayish-blue;
-    font-size: 16px;
+    color: #666;
+    font-size: 12px;
     padding: 0 5px 0 10px;
+    font-weight: bold;
   }
   &__body-small {
     padding: 0 10px;
@@ -76,11 +103,49 @@
     text-transform: uppercase;
     padding: 0 10px 10px;
   }
+
+  &-replies {
+    &__child-list {
+      padding: 1em 1em 1em 2em;
+    }
+    &-list {
+      background-color: $color-light-gray;
+      margin: 10px 0 0;
+      padding: 15px 0 0 15px;
+      &__item {
+        display: block;
+        padding: 5px 0 10px;
+      }
+    }
+    &-label {
+      color: $color-grayish-blue;
+    }
+    &-title {
+      background-color: $color-light-gray;
+      color: $color-dark_grayish-blue;
+      font-weight: 400;
+      padding: 0 0 0 10px;
+    }
+    &-cta-title {
+      color: $color-grayish-blue;
+    }
+  }
   &-list {
+    &__reply_wrap {
+      padding: 0 10px;
+      .comments__publish-date {
+        display: inline-block;
+        padding: 0;
+      }
+      .comments__alias-author {
+        text-transform: capitalize;
+        padding: 1em 10px 10px 0;
+      }
+    }
     &__item {
       &--reply {
         background-color: $color-light-gray;
-        padding: 10px 0;
+        padding: 20px 0 10px 0;
       }
       &--parent-comment {
         border-top: 3px solid $color-blue;
@@ -92,78 +157,23 @@
     }
     .comment__replies-title {
       background-color: transparent;
-      color: $color-grayish-blue;
-      font-size: 18px;
+      color: $color-blue;
       padding: 1.5em 10px 10px;
-      font-weight: 600;
+      //font-weight: 600;
+    }
+  }
+
+  &--replies-listing {
+    &:first-child {
+      .comments-list__item--parent-comment  {}
     }
   }
   .heading__component {
     text-transform: uppercase;
+    padding: 1.5em 1em;
     &:after {
       display: none;
       visibility: hidden;
-    }
-  }
-}
-
-.comment {
-  &__replies-title {
-    background-color: $color-light-gray;
-    color: $color-grayish-blue;
-    font-size: 18px;
-    padding: 1.5em 10px 10px;
-    font-weight: 600;
-    margin: 1em 0 0;
-  }
-  &-counter {
-    display: inline-block;
-    height: 25px;
-    margin: 5px 0 0;
-    opacity: 1;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-    &:hover, &:active, &:focus {
-      opacity: 0.5;
-    }
-    &__icon {
-      display: none;
-      visibility: hidden;
-    }
-    &__numeral {
-      color: $color-grayish-blue;
-      font-size: 16px;
-      @media screen and (min-width: 38.125em) {
-        margin-left: 5px;
-      }
-      &:before {
-        content: "";
-        background-image: url(/static/img/icons/tanzania/checkbox-icons.png);
-        background-repeat: no-repeat;
-        background-position: -15px -74px;
-        background-size: 50px;
-        width: 20px;
-        display: inline-block;
-        margin: 0 5px 0 0;
-        padding: 10px;
-        vertical-align: sub;
-      }
-    }
-  }
-}
-
-
-#id_report_reason {
-  margin: 0;
-  padding: 0;
-  li {
-    display: block;
-    label {
-      text-align: left;
-    }
-    input[type="radio"] {
-      cursor: pointer;
     }
   }
 }

@@ -1,5 +1,5 @@
 .heading {
-  font-size: $font-xx-large;
+  font-size: $font-x-large;
   text-transform: uppercase;
   @include for-size(tablet-landscape-up) {
     padding: $spacer-small $spacer-mid;
@@ -8,12 +8,11 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='113px' height='97px' viewBox='0 0 113 97' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3EShape%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Desktop-/-Headers-/-River_1' fill='%23EC6E26' fill-rule='nonzero'%3E%3Cpolygon id='Shape' points='100.71125 62.1619718 92.9425 0 43.505 62.1619718 35.73625 0 0 48.6366197 0 71.0422535 25.28375 37.2971831 35.73625 97 82.49 37.2971831 92.9425 97 113 71.0422535 113 48.6366197'%3E%3C/polygon%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: 0 0;
-    background-size: 90px;
+    background-size: 75px;
     height: 75px;
-
     display: inline-block;
     padding: 0 $spacer-small;
-    margin: 1em 0 1em;
+    margin: $spacer-mid 0;
     text-align: center;
     @include for-size(tablet-landscape-up) {
       padding: $spacer-multiple $spacer-small;
@@ -21,33 +20,34 @@
   }
   &--primary {
     position: relative;
-    margin: 0.5em 0;
+    margin: $spacer-small 0;
+    padding: 15px 0;
     @include for-size(tablet-landscape-up) {
-      margin: $spacer-half 0 1em;
+      margin: $spacer-half 0;
     }
   }
   &--secondary {
     display: inline-block;
     padding: 0 $spacer-small;
-    margin: 0.5em $spacer-half;
-    @include for-size(tablet-landscape-up) {
-      padding: 0 $spacer-small;
-      margin: $spacer-half $spacer-half 1em;
-    }
+    margin: $spacer-small $spacer-half;
     @include for-size(phone-only) {
-      background: url('/static/img/icons/ninyampinga/ShapesSprites.png');
+      background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='66px' height='98px' viewBox='0 0 66 98' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com --%3E%3Ctitle%3EShape%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Desktop-/-Headers-/-Plant_1' fill='%23D32027' fill-rule='nonzero'%3E%3Cpath d='M33.8684211,98 L24.6879699,44.0075472 L48.6315789,96.027673 L42.056391,35.9949686 L66,88.0150943 L57.0676692,0 C57.0676692,0 15.6315789,4.19119497 0,35.9949686 C0,35.9949686 33.8684211,98 33.8684211,98 Z' id='Shape'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: 0 3.3%;
-      background-size: 100px;
+      background-position: 0;
+      background-size: 45px;
       height: 75px;
     }
+    @include for-size(tablet-landscape-up) {
+      padding: 0 $spacer-small;
+      margin: $spacer-half $spacer-half $spacer-mid;
+    }
   }
-  //HEADING TAGS
+
   &__component {
     background-color: $color-yellow-gorse;
     color: #000;
     font-size: $font-x-large;
-    margin: 0.5em;
+    margin: 15px 0;
     padding: 0 $spacer-mid;
     @include for-size(tablet-landscape-up) {
       font-size: $font-xx-large;
@@ -57,9 +57,9 @@
   &__subheading {
     background-color: $color-yellow;
     color: #000;
-    font-size:$font-xx-large;
+    font-size: $font-x-large;
     padding: 0 $spacer-half;
-    margin: 0.5em 0;
+    margin: $spacer-small 0;
     text-transform: uppercase;
     @include for-size(tablet-landscape-up) {
       margin: 0;
@@ -68,40 +68,45 @@
   &__basic {
     color: #000;
     background-color: $color-yellow;
-    font-size: $font-xx-large;
+    font-size: $font-x-large;
     padding: 0 $spacer-mid;
-    margin: 0.5em 0 0 1em;
+    margin: $spacer-small 0 0 $spacer-mid;
     @include for-size(tablet-landscape-up) {
       margin: ($spacer-half - 3) 0 0 1em;
     }
   }
   &__title {
-    background-color: $color-red;
+    background-color: $color-green-lime;
     color: #fff;
-    font-size: $font-xx-large;
+    font-size: $font-x-large;
     padding: 0 $spacer-half;
-    margin: 0.5em 0;
+    margin: 20px $spacer-small;
     @include for-size(tablet-landscape-up) {
       margin: $spacer-mid 0;
     }
   }
   &__headline {
     color: #000;
-    font-size: $font-xx-large;
-    margin: 0.5em 0 0;
+    font-size: $font-super;
+    margin: $spacer-half 0 0;
+    text-transform: uppercase;
     @include for-size(tablet-portrait-up) {
-      margin: 1em 0 1em;
+      margin: $spacer-mid 0;
     }
     @include for-size(tablet-landscape-up) {
-      margin: $spacer-mid 0 1em;
+      margin: $spacer-mid 0 $spacer-half;
     }
   }
   &__subtitle {
     color: #000;
     font-size: $font-x-medium;
-    margin: 0.5em 0;
+    margin: $spacer-small 0;
     @include for-size(tablet-landscape-up) {
       margin: 0;
     }
+  }
+  &__micro {
+    font-size: $font-x-medium;
+    padding: 5px 0;
   }
 }

@@ -10,10 +10,12 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.contrib.auth.views import redirect_to_login
+from django.utils.translation import get_language_from_request
 
 from django.urls import reverse
 from django.utils.crypto import get_random_string
-from molo.core.models import SiteSettings, ArticlePage
+from molo.core.utils import get_locale_code
+from molo.core.models import SiteSettings, ArticlePage, Languages
 from molo.core.templatetags.core_tags import load_tags_for_article
 from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
@@ -59,28 +61,38 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     submit_to_local_account
     '''
 
-    def load_article_nav_tags(self, request):
+    def load_article_info(self, request):
         """get the tags in an article if the request is for an article page"""
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-
+        article_info = {}
         try:
             page, args, kwargs = request.site.root_page.specific.route(
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
                 tags_str = ""
+                main_lang = Languages.for_site(request.site).languages.filter(
+                    is_main_language=True).first()
+                locale_code = get_locale_code(
+                    get_language_from_request(request))
+                if main_lang.locale == locale_code:
+                    article_info['cd5'] = page.specific.title
+                else:
+                    article_info['cd5'] = page.specific.get_main_language_page(
+                    ).title
                 qs = load_tags_for_article(
                     {'locale_code': 'en', 'request': request}, page)
                 if qs:
                     for q in qs:
                         tags_str += "|" + q.title
-                    return tags_str[1:]
+                    article_info .update({'cd6': tags_str[1:]})
+                    return article_info
         except Http404:
-            return ""
+            return article_info
 
-        return ""
+        return article_info
 
     def get_visitor_id(self, request):
         """Generate a visitor id for this hit.
@@ -124,9 +136,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
-        tags = self.load_article_nav_tags(request)
-        if len(tags) > 0:
-            custom_params.update({'cd6': tags})
+        article_info = self.load_article_info(request)
+        custom_params.update(article_info)
 
         if bbm_ga_code and should_submit_to_bbm_account:
             return self.submit_tracking(
@@ -153,9 +164,8 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         else:
             custom_params.update({'cd3': 'Visitor'})
 
-        tags = self.load_article_nav_tags(request)
-        if len(tags) > 0:
-            custom_params.update({'cd6': tags})
+        article_info = self.load_article_info(request)
+        custom_params.update(article_info)
 
         if site_settings.global_ga_tracking_code:
             if hasattr(request, 'user') and hasattr(request.user, 'profile')\

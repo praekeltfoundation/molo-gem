@@ -23,7 +23,6 @@
       }
     }
   }
-
   &__anchor {
     align-items: center;
     background: #000;
@@ -38,6 +37,9 @@
     text-decoration: none;
     position: relative;
     width: 100%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     @include for-size(tablet-landscape-up) {
       display: flex;
       justify-content: center;
@@ -46,18 +48,8 @@
       height: 160px;
       padding: 15% 1em;
     }
-    @each $sectionModifier, $styleElement in $sectionThemes {
-      &--#{$sectionModifier} {
-        background-image: url(map-get($styleElement, bgPatterns));
-        background-color: map-get($styleElement, bgColor);
-        background-position: 0 0;
-        background-repeat: repeat;
-        background-size: auto;
-        #{$block}__shadow {
-          border-right: 35px solid map-get($styleElement, textBoxShadow);
-          border-bottom: 15px solid map-get($styleElement, textBoxShadow);
-        }
-      }
+    &:hover {
+      color: #000;
     }
   }
   &__label {
@@ -75,31 +67,22 @@
       font-size: $font-large;
       padding: 0.5em 2px;
     }
-    &::before {
-      background: $color-cyan_shade1;
-      content: "";
-      position: absolute;
-      top: -4%;
-      bottom: -11%;
-      left: -3%;
-      right: -3%;
-      transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
-      z-index: -1;
-    }
-  }
-  &__shadow {
-    display: block;
-    padding: 12px;
-    transform: perspective(350px) rotateX(-35deg) rotateY(-5deg);
-    width: 100%;
-    position: absolute;
-    bottom: -0.6em;
-    right: -8%;
-    z-index: -11;
   }
   &__desc {
     color: #000;
     text-align: center;
     overflow: auto;
+  }
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &__#{$sectionModifier} {
+      .section__title {
+        background-color: map-get($styleElement, bgColor);
+      }
+      background-image: map-get($styleElement, bgShape);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 75px;
+      height: 75px;
+    }
   }
 }
