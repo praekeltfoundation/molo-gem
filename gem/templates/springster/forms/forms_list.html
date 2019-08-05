@@ -31,7 +31,7 @@
   {% for item in filtered_forms %}
     {% with form_page=item.molo_form_page form=item.form %}
       {% if form_page.your_words_competition %}
-        {# include template "patterns/basics/surveys/surveys-list_gcn.html" #}
+        {# include template "patterns/basics/forms/forms-list_gcn.html" #}
           <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
             <aside>
             {% if form_page.image %}
@@ -62,7 +62,7 @@
           </div>
         {# end include template #}
       {% elif form_page.display_form_directly %}
-          {# include template "patterns/basics/surveys/surveys-list_polls.html" #}
+          {# include template "patterns/basics/forms/forms-list_polls.html" #}
             <div class="polls polls--homepage polls--call-to-action">
               <div class="polls__bubble-icon"></div>
               <div class="polls__container">
@@ -74,7 +74,7 @@
                   </div>
                 {% endif %}
                 {% if form %}
-                  {% include "patterns/basics/surveys/surveys-modules/form.html" with formtype="poll" formtypeClass="polls" %}
+                  {% include "patterns/basics/forms/forms-modules/form.html" with formtype="poll" formtypeClass="polls" %}
                 {% else %}
                   <div class="polls">
                     <p class="errors">{% trans 'You have already completed this poll' %}.</p>
@@ -96,7 +96,7 @@
             </div>
           {# end include template #}
       {% else %}
-          {# include template "patterns/basics/surveys/surveys-list_generic.html" #}
+          {# include template "patterns/basics/forms/forms-list_generic.html" #}
             {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
             <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
               <div class="surveys--wrapper">
