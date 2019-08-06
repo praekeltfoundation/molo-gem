@@ -19,13 +19,11 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
     <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
-    <meta name="theme-color" content="#ffffff">
     {% comment %}
       This meta block is overriden in some child templates because not all of the properties
       used here are available on every model.
     {% endcomment %}
+
     {% block meta %}
     {% image self.social_media_image fill-450x200 as tmp_photo %}
     {% if self.get_effective_image %}
@@ -36,10 +34,15 @@
     <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
     <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
     <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
-    <meta property="og:type" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}" />
+    {% endblock %}
+
+    <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none;visibility:none;" />
+    <meta property="og:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    {% endblock %}
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
+    <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png">
@@ -62,6 +65,40 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
+    <script type="text/javascript">
+      let imageIdentity = document.getElementById("image__identity"),
+          getImageArray = imageIdentity.src.split("."),
+          imageExt = getImageArray.slice(-1),
+          formats = [
+            {
+              type:"image",
+              ext: ["png","jpg","jpeg","gif","svg"]
+            },
+            {
+              type:"media",
+              ext: ["mpeg","ogg","jpeg"]
+            }
+          ];
+          for(let i = 0; i < formats.length; i++){
+            if(formats[i].type == "image") {
+              console.log(formats[i].type);
+              for(let j = 0; j < formats[i].ext.length; j++) {
+                //formats[i].ext.includes(imageExt)
+                if(formats[i].ext[j] == imageExt) {
+                  console.log(document.querySelector("meta[property='og:type']"));
+                  document.querySelector("meta[property='og:type']").setAttribute("content",formats[0].type + "/" + formats[0].ext[i]);
+                }
+              }
+            } else if(formats[i].type == "media") {
+              for(let j = 0; j < formats[i].ext.length; j++) {
+                if(formats[i].ext[j] == imageExt) {
+                  document.querySelector("meta[property='og:type']").setAttribute("content",formats[0].type + "/" + formats[0].ext[i]);
+                }
+              }
+            }
+          }
+
+    </script>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
