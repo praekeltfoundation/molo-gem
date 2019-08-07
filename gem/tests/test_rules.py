@@ -1,7 +1,6 @@
 import pytest
 
-from django.core.exceptions import FieldDoesNotExist
-# , ValidationError
+from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import Site
@@ -13,7 +12,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage, SectionIndexPage
 
-# from wagtail_personalisation.models import Segment
+from wagtail_personalisation.models import Segment
 from ..rules import CommentCountRule, ProfileDataRule
 
 
@@ -176,111 +175,111 @@ class TestProfileDataRuleSegmentation(TestCase, GemTestCaseMixin):
         self.assertFalse(rule.test_user(None))
 
 
-# @pytest.mark.django_db
-# class TestProfileDataRuleValidation(TestCase):
-#     def setUp(self):
-#         self.segment = Segment.objects.create()
+@pytest.mark.django_db
+class TestProfileDataRuleValidation(TestCase):
+    def setUp(self):
+        self.segment = Segment.objects.create()
 
-#     def test_missing_field_raises_validation_error(self):
-#         rule = ProfileDataRule()
+    def test_missing_field_raises_validation_error(self):
+        rule = ProfileDataRule()
 
-#         with self.assertRaises(ValidationError) as e:
-#             rule.clean()
+        with self.assertRaises(ValidationError) as e:
+            rule.clean()
 
-#         self.assertEqual(e.exception.messages, ['This field is required'])
+        self.assertEqual(e.exception.messages, ['This field is required'])
 
-    # def test_invalid_regex_value_raises_validation_error(self):
-    #     rule = ProfileDataRule(segment=self.segment,
-    #                            operator=ProfileDataRule.REGEX,
-    #                            field='aith.User__date_joined',
-    #                            value='[')
+    def test_invalid_regex_value_raises_validation_error(self):
+        rule = ProfileDataRule(segment=self.segment,
+                               operator=ProfileDataRule.REGEX,
+                               field='aith.User__date_joined',
+                               value='[')
 
-    #     with self.assertRaises(ValidationError) as context:
-    #         rule.full_clean()
+        with self.assertRaises(ValidationError) as context:
+            rule.full_clean()
 
-    #     found = False
+        found = False
 
-    #     for msg in context.exception.messages:
-    #         if msg.startswith('Regular expression error'):
-    #             found = True
-    #             break
+        for msg in context.exception.messages:
+            if msg.startswith('Regular expression error'):
+                found = True
+                break
 
-    #     self.failIf(not found)
+        self.failIf(not found)
 
-    # def test_age_operator_on_non_date_field_raises_validation_error(self):
-    #     rule = ProfileDataRule(segment=self.segment,
-    #                            operator=ProfileDataRule.OF_AGE,
-    #                            field='profiles.UserProfile__gender',
-    #                            value='1')
+    def test_age_operator_on_non_date_field_raises_validation_error(self):
+        rule = ProfileDataRule(segment=self.segment,
+                               operator=ProfileDataRule.OF_AGE,
+                               field='profiles.UserProfile__gender',
+                               value='1')
 
-    #     with self.assertRaises(ValidationError) as context:
-    #         rule.full_clean()
+        with self.assertRaises(ValidationError) as context:
+            rule.full_clean()
 
-    #     self.assertIn('You can choose age operators only on date and '
-    #                   'date-time fields.', context.exception.messages)
+        self.assertIn('You can choose age operators only on date and '
+                      'date-time fields.', context.exception.messages)
 
-    # def test_age_operator_on_negative_numbers_raises_validation_error(self):
-    #     rule = ProfileDataRule(segment=self.segment,
-    #                            operator=ProfileDataRule.OF_AGE,
-    #                            field='profiles.UserProfile__date_of_birth',
-    #                            value='-1')
+    def test_age_operator_on_negative_numbers_raises_validation_error(self):
+        rule = ProfileDataRule(segment=self.segment,
+                               operator=ProfileDataRule.OF_AGE,
+                               field='profiles.UserProfile__date_of_birth',
+                               value='-1')
 
-    #     with self.assertRaises(ValidationError) as context:
-    #         rule.full_clean()
+        with self.assertRaises(ValidationError) as context:
+            rule.full_clean()
 
-    #     self.assertIn(
-    #       'Value has to be non-negative since it represents age.',
-    #       context.exception.messages)
+        self.assertIn(
+          'Value has to be non-negative since it represents age.',
+          context.exception.messages)
 
 
-# @pytest.mark.django_db
-# class TestProfileDataRuleGetData(TestCase, GemTestCaseMixin):
-#     def setUp(self):
-#         self.main = self.mk_main(
-#             title='main1', slug='main1', path='00010002', url_path='/main1/')
-#         self.segment = Segment.objects.create()
-#         self.user = get_user_model().objects \
-#                                     .create_user(username='tester',
-#                                                  email='tester@example.com',
-#                                                  password='tester')
+@pytest.mark.django_db
+class TestProfileDataRuleGetData(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.segment = Segment.objects.create()
+        self.user = get_user_model().objects \
+                                    .create_user(username='tester',
+                                                 email='tester@example.com',
+                                                 password='tester')
 
-#     def test_get_column_header_returns_related_field_name(self):
-#         rule = ProfileDataRule(field='profiles.UserProfile__date_of_birth',
-#                                operator=ProfileDataRule.OF_AGE,
-#                                value='1')
-#         self.assertEqual(rule.get_column_header(), 'Date Of Birth')
+    def test_get_column_header_returns_related_field_name(self):
+        rule = ProfileDataRule(field='profiles.UserProfile__date_of_birth',
+                               operator=ProfileDataRule.OF_AGE,
+                               value='1')
+        self.assertEqual(rule.get_column_header(), 'Date Of Birth')
 
-#     def test_get_user_info_string_returns_formatted_dates(self):
-#         rule = ProfileDataRule(field='auth.User__date_joined',
-#                                operator=ProfileDataRule.NOT_EQUAL,
-#                                value='2012-09-23')
-#         self.user.date_joined = timezone.now()
-#         self.user.save()
+    def test_get_user_info_string_returns_formatted_dates(self):
+        rule = ProfileDataRule(field='auth.User__date_joined',
+                               operator=ProfileDataRule.NOT_EQUAL,
+                               value='2012-09-23')
+        self.user.date_joined = timezone.now()
+        self.user.save()
 
-#         self.assertEqual(rule.get_user_info_string(self.user),
-#                          timezone.now().strftime('%Y-%m-%d %H:%M'))
+        self.assertEqual(rule.get_user_info_string(self.user),
+                         timezone.now().strftime('%Y-%m-%d %H:%M'))
 
-#     def test_get_user_info_string_returns_string_values(self):
-#         rule = ProfileDataRule(field='profiles.userprofile__gender',
-#                                value='f')
-#         self.user.profile.gender = 'f'
-#         self.user.save()
+    def test_get_user_info_string_returns_string_values(self):
+        rule = ProfileDataRule(field='profiles.userprofile__gender',
+                               value='f')
+        self.user.profile.gender = 'f'
+        self.user.save()
 
-#         self.assertEqual(rule.get_user_info_string(self.user), 'f')
+        self.assertEqual(rule.get_user_info_string(self.user), 'f')
 
-#     def test_get_user_info_string_handles_null_values(self):
-#         rule = ProfileDataRule(field='auth.User__last_login',
-#                                operator=ProfileDataRule.NOT_EQUAL,
-#                                value='2012-09-23')
-#         self.user.last_login = None
+    def test_get_user_info_string_handles_null_values(self):
+        rule = ProfileDataRule(field='auth.User__last_login',
+                               operator=ProfileDataRule.NOT_EQUAL,
+                               value='2012-09-23')
+        self.user.last_login = None
 
-#         self.assertEqual(rule.get_user_info_string(self.user), 'None')
+        self.assertEqual(rule.get_user_info_string(self.user), 'None')
 
-#     deftest_get_user_info_string_returns_none_if_model_not_implemented(self):
-#         rule = ProfileDataRule(field='lel.not_existing_model__date_joined',
-#                                value='2')
+    def test_get_user_info_string_returns_none_if_model_not_implemented(self):
+        rule = ProfileDataRule(field='lel.not_existing_model__date_joined',
+                               value='2')
 
-#         self.assertEqual(rule.get_user_info_string(self.user), 'None')
+        self.assertEqual(rule.get_user_info_string(self.user), 'None')
 
 
 class TestCommentCountRuleSegmentation(TestCase, GemTestCaseMixin):
