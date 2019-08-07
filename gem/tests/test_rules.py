@@ -1,6 +1,7 @@
 import pytest
 
-from django.core.exceptions import FieldDoesNotExist, ValidationError
+from django.core.exceptions import FieldDoesNotExist
+# , ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import Site
@@ -12,8 +13,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.commenting.models import MoloComment
 from molo.core.models import ArticlePage, SectionIndexPage
 
-from wagtail_personalisation.models import Segment
-
+# from wagtail_personalisation.models import Segment
 from ..rules import CommentCountRule, ProfileDataRule
 
 
@@ -228,8 +228,9 @@ class TestProfileDataRuleSegmentation(TestCase, GemTestCaseMixin):
     #     with self.assertRaises(ValidationError) as context:
     #         rule.full_clean()
 
-    #     self.assertIn('Value has to be non-negative since it represents age.',
-    #                   context.exception.messages)
+    #     self.assertIn(
+    #       'Value has to be non-negative since it represents age.',
+    #       context.exception.messages)
 
 
 # @pytest.mark.django_db
@@ -275,7 +276,7 @@ class TestProfileDataRuleSegmentation(TestCase, GemTestCaseMixin):
 
 #         self.assertEqual(rule.get_user_info_string(self.user), 'None')
 
-#     def test_get_user_info_string_returns_none_if_model_not_implemented(self):
+#     deftest_get_user_info_string_returns_none_if_model_not_implemented(self):
 #         rule = ProfileDataRule(field='lel.not_existing_model__date_joined',
 #                                value='2')
 
