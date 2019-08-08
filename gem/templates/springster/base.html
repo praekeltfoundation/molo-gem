@@ -81,11 +81,9 @@
           ];
           for(let i = 0; i < formats.length; i++){
             if(formats[i].type == "image") {
-              console.log(formats[i].type);
               for(let j = 0; j < formats[i].ext.length; j++) {
                 //formats[i].ext.includes(imageExt)
                 if(formats[i].ext[j] == imageExt) {
-                  console.log(document.querySelector("meta[property='og:type']"));
                   document.querySelector("meta[property='og:type']").setAttribute("content",formats[0].type + "/" + formats[0].ext[i]);
                 }
               }
@@ -97,7 +95,6 @@
               }
             }
           }
-
     </script>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
