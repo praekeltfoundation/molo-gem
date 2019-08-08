@@ -94,13 +94,13 @@ var gulp              =   require('gulp'),
   // Minify JS
   gulp.task('compress', function() {
     return gulp.src([
+        'gem/static/js/main.js',
         'gem/static/js/springster.js',
         'gem/static/js/nn.js',
         'gem/static/js/yegna.js',
         'gem/static/js/kaios.js',
         'gem/static/js/modeladmin/index.js'
-      ])
-      .pipe(rename({
+      ]).pipe(rename({
         suffix: "-min",
         extname: ".js"
       }))
