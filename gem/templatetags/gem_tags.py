@@ -1,4 +1,5 @@
 import re
+import mimetypes
 
 from django.core.urlresolvers import reverse
 from django.utils.timezone import timedelta
@@ -124,4 +125,12 @@ def seconds_to_time(val):
         for zero in re.findall(r'^0:', time):
             time = time.replace(zero, '')
         return time
+    return ''
+
+
+@register.filter
+def mimetype(file):
+    """ return mime type of file else a blank string"""
+    if file and file.url:
+        return mimetypes.guess_type(file.url, strict=True)[0]
     return ''
