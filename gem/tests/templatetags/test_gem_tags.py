@@ -102,3 +102,6 @@ class TestMimeType(TestCase):
             duration=200
         )
         self.assertEqual(mimetype(file_model.file), 'text/plain')
+
+        file_model.file = None
+        self.assertEqual(mimetype(file_model.file), '')
