@@ -1,8 +1,13 @@
+import mock
+
+from django.core.files import File
 from django.template import Context
 from django.test import RequestFactory, TestCase
 
+from molo.core.models import MoloMedia
 from gem.tests.base import GemTestCaseMixin
 from gem.templatetags.gem_tags import (
+    mimetype,
     is_content,
     idfromlabel,
     bbm_share_url,
@@ -85,3 +90,15 @@ class TestSecondsToTime(TestCase):
         self.assertEqual(seconds_to_time(None), '')
         self.assertEqual(seconds_to_time(121), '02:01')
         self.assertEqual(seconds_to_time(3601), '1:00:01')
+
+
+class TestMimeType(TestCase):
+
+    def test_mimetype(self):
+        file_mock = mock.MagicMock(spec=File)
+        file_mock.name = 'test.txt'
+        file_model = MoloMedia.objects.create(
+            file=file_mock, title=file_mock.name,
+            duration=200
+        )
+        self.assertEqual(mimetype(file_model.file), 'text/plain')
