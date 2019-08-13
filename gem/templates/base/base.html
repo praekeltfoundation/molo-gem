@@ -11,11 +11,11 @@
     <head>
         <!-- Google Tag Manager -->
         {% if settings.core.SiteSettings.ga_tag_manager %}
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
+          <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
         {% endif %}
         <!-- End Google Tag Manager -->
 
@@ -53,7 +53,7 @@
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
         <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% else %}{{ article_photo.url }}{% endif %}"/>
-        <meta property="og:type" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% else %}{{ article_photo.url }}{% endif %}" />
+        <meta property="og:type" content="" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -91,42 +91,41 @@
         </script>
         {% endcompress %}
     </head>
-
     <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
       <!-- Google Tag Manager (noscript) -->
       {% if settings.core.SiteSettings.ga_tag_manager %}
-      <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe>
-      </noscript>
+        <noscript>
+          <iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}&page_title={% if self.seo_title %}{{ self.seo_title|urlencode }}{% else %}{{ self.title|urlencode }}{% endif %}{%if request.META.HTTP_X_IORG_FBS_UIP %}&freebasics_uip={{request.META.HTTP_X_IORG_FBS_UIP}}{%endif%}"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
       {% endif %}
       <!-- End Google Tag Manager (noscript) -->
 
       <!-- Global Google Tag Manager (noscript) -->
       {% if settings.core.SiteSettings.global_ga_tag_manager %}
-      <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.global_ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe>
-      </noscript>
+        <noscript>
+          <iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.global_ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
       {% endif %}
       <!-- End Global Google Tag Manager (noscript) -->
 
       <div id="gem-header">
-            <a id="logo" href="/">
-              {% get_site_static_prefix as site_prefix %}
-              {% with "img/logos/logo"|add:site_prefix|add:".png" as logo_url %}
-              <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
-              {% endwith %}
-            </a>
-            <a href="#feature-menu">{% trans "Menu" %}</a>
-            {% if not user.is_authenticated %}
-              <a href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
-            {% else %}
-            <a href={{VIEW_PROFILE_URL}}>{% trans "Profile" %}</a>
-            {% endif %}
-            <a href="#search-form">
-              <img src="{% static 'img/icons/search/search_white.png' %}" width="19" height="19" alt="Search" />
-            </a>
+          <a id="logo" href="/">
+            {% get_site_static_prefix as site_prefix %}
+            {% with "img/logos/logo"|add:site_prefix|add:".png" as logo_url %}
+            <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
+            {% endwith %}
+          </a>
+          <a href="#feature-menu">{% trans "Menu" %}</a>
+          {% if not user.is_authenticated %}
+            <a href={{REGISTRATION_URL}}>{% trans "Sign up" %}</a>
+          {% else %}
+          <a href={{VIEW_PROFILE_URL}}>{% trans "Profile" %}</a>
+          {% endif %}
+          <a href="#search-form">
+            <img src="{% static 'img/icons/search/search_white.png' %}" width="19" height="19" alt="Search" />
+          </a>
         </div>
 
         {% if languages|length > 1 %}

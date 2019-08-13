@@ -42,7 +42,6 @@
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
-    {% compress js inline %}
     <!-- Facebook Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s){
@@ -57,13 +56,10 @@
         fbq('init', '2468162103426122');
         fbq('track', 'PageView');
     </script>
-    {% endcompress %}
     <noscript>
       <img height="1" width="1"src="https://www.facebook.com/tr?id=2468162103426122&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Facebook Pixel Code -->
-
-    {% compress js inline %}
     {% if user.is_authenticated %}
       <script>
         window.dataLayer = window.dataLayer || [];
@@ -82,7 +78,6 @@
       })(window, document, 'script', 'dataLayer', 'GTM-P45VN52');
     </script>
     <!-- End Google Tag Manager -->
-    {% endcompress %}
 </head>
 <body>
   <img alt="Chhaajaa" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
