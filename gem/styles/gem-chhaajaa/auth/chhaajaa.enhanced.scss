@@ -1,42 +1,10 @@
 @import "../utils/*";
-@font-face {
-  font-family: "FedraSansDevanagariB-Demi";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.eot");
-  src: local("FedraSansDevanagariB-Demi");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.otf") format("opentype");
-}
+@import "_fonts";
 
-@font-face {
-  font-family: "FedraSansDevanagariB-Medium";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.eot");
-  src: local("FedraSansDevanagariB-Medium");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "FedraSansDevanagariB-Bold";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.eot");
-  src: local("FedraSansDevanagariB-Bold");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "FedraSansDevanagariB-Light";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.eot");
-  src: local("FedraSansDevanagariB-Light");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.otf") format("opentype");
-}
 
 //DEFAULT RESET
 body {
   margin: 0;
-  @media (min-width: 40em) {
-    //margin: 0;
-  }
 }
 body, textarea, select {
   font-family: "FedraSansDevanagariB-Light";
@@ -49,15 +17,13 @@ a {
 }
 
 
-
-
 //CONTAINER
 #wrap {}
 .Container {
   width: 100%;
-  max-width: 100%; //RESET
+  max-width: 100%;
   padding: 0;
-  @media screen and (min-width: 40em) {
+  @media screen and (min-width: 45em) {
     padding: 0;
   }
 }
@@ -67,28 +33,35 @@ a {
   margin-bottom: 0;
   text-align: center;
   &-branding {
-    background-color: $colorYellow; //RESET
-    margin-bottom: 0; //RESET
+    background-color: $colorYellow;
+    margin-bottom: 0;
     &-image {
-      width: 118px; //RESET
+      width: 118px;
     }
   }
 
   &-title {
     background: #fff;
     margin: 0;
-    padding: 1.5em 5% 0;
+    padding: 1.5em;
+    @media screen and (min-width: 45em) {
+      padding: 1.5em 5% 0;
+    }
     h1 {
       color: $colorPink;
       font-family: "FedraSansDevanagariB-Demi";
-      font-size: 55px;
+      font-size: 35px;
       margin-bottom: 0;
       text-transform: uppercase;
       padding: 0;
+      @media screen and (min-width: 45em) {
+        font-size: 55px;
+      }
     }
   }
 
   &-links {
+    font-family: "FedraSansDevanagariB-Light";
     margin: 1em 0;
     a {
       color: $colorPink;
@@ -98,20 +71,9 @@ a {
 }
 
 
-// LIST?
-.List {
-  list-style: none;
-  padding: 0;
-
-  li {
-    margin: $spacer-mid 0 0;
-  }
-}
-
 //QR CODES
 .QR {
   text-align: center;
-
   &-image {
     border: 3px solid $colorPurple;
   }
@@ -123,15 +85,16 @@ a {
   border: 1px solid $colorGrey;
   margin: $spacer-half $spacer-mid;
   padding: 0 $spacer-mid $spacer-mid;
-
   li {
     float: left;
-    width: 50%;
+    width: auto;
+    @media screen and (min-width: 45em) {
+      width: 50%;
+    }
   }
-
   &::after {
     clear: both;
-    content: '';
+    content: " ";
     display: block;
   }
 }
@@ -139,32 +102,41 @@ a {
 //FORMS
 .Form {
   background: #fff;
-  padding: 2em 30%;
+  padding: 2em 1em;
+  @media screen and (min-width: 45em) {
+    padding: 2em 30%;
+  }
   .Field {
     margin: 10px 0 15px;
     &-message {
-      margin-top: $spacer-half;
+      margin: 0;
     }
     &-label {
       font-size: $font-medium;
     }
-
     .DateInput,
     .EmailInput,
     .NumberInput,
     .PasswordInput,
     .TextInput,
     .Textarea,
-    .vDateField {
-      color: $colorPurple;
-      font-weight: normal;
-      padding: $spacer-half;
-
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
+      border-radius: 5px;
+      color: $colorGrey;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 2px solid $colorPurple;
+      font-size: 18px;
       &:focus {
-        border-color: $colorPurple;
+        border-color: $colorPink;
       }
     }
-
+    .ClearableFileInput  {
+      width: auto;
+    }
     .Textarea {
       height: 100px;
     }
@@ -175,7 +147,6 @@ a {
     display: block;
     position: relative;
     width: 100%;
-
     @media screen and (-webkit-min-device-pixel-ratio:0) {
       &::after {
         border-style: solid;
@@ -198,25 +169,13 @@ a {
         -ms-appearance: none;
       }
     }
-
     .Select {
       appearance: inherit;
       -webkit-appearance: inherit;
       -moz-appearance: inherit;
       -ms-appearance: inherit;
-
-      background-color: #fff;
-      border: 0;
-      border-radius: 0;
-      color: $colorPurple;
       min-height: 41px;
-      outline: none;
-      padding: $spacer-half 35px $spacer-half $spacer-half;
       width: 100%;
-
-      &:focus {
-        border-color: $colorPurple;
-      }
     }
   }
 
@@ -225,7 +184,6 @@ a {
     margin: 0;
     position: relative;
     width: 100%;
-
     .Field-label {
       display: inline-block;
       text-align: left;
@@ -234,11 +192,9 @@ a {
       vertical-align: top;
       width: auto;
     }
-
     .Field-item {
       text-align: left;
       vertical-align: middle;
-
       .CheckboxInput {
         appearance: none;
         border: 3px solid $colorPurple;
@@ -249,11 +205,9 @@ a {
         width: $spacer-multiple;
         background-color: #fff;
         position: relative;
-
         &:checked {
           background-color: $colorPurple;
           border-color: $colorPurple;
-
           &::after {
             color: #fff;
             content: '\2714';
@@ -269,7 +223,6 @@ a {
       }
     }
   }
-
   .Field-message--error {
     &.Field--required {
       .Field-item {
@@ -279,15 +232,21 @@ a {
       }
     }
   }
-
   &-buttons {
     margin-bottom: $spacer-multiple;
   }
 }
-
-.Header-links,
 .Additional-text {
+  color: $colorGrey;
   font-family: "FedraSansDevanagariB-Light";
+  padding: 0 1em;
+  @media screen and (min-width: 45em) {
+    padding: 0 30%;
+  }
+  a {
+    color: $colorPurple;
+    font-weight: bold;
+  }
 }
 
 
@@ -297,7 +256,7 @@ a {
   font-weight: bold;
   text-align: center;
   &--warning {
-    background: $colorYellow;
+    background: $colorPink;
   }
 }
 
@@ -309,7 +268,6 @@ a {
 }
 
 //ERRORS
-
 .errorlist {
   margin-top: $spacer-multiple;
 }
@@ -318,6 +276,10 @@ a {
 //MENU NAVIGATION
 .Menu {
   margin: 0;
+  @media (min-width: 40em) {
+    margin-top: $spacer-mid;
+    padding-bottom: $spacer-half;
+  }
   &-title {
     background: $colorPurple;
     margin-left: 0;
@@ -329,32 +291,37 @@ a {
     }
   }
   &-list {
-    padding-top: 0;
+    padding: 0;
   }
   &-item {
-    margin: $spacer-mid 0;
-    a {
-      display: inline-block;
+    margin: $spacer-mid;
+  }
+}
 
-      &:hover {
-        border: 0;
-      }
-    }
-  }
-}
-@media (min-width: 40em) {
-  .Menu {
-    margin-top: $spacer-mid;
-    padding-bottom: $spacer-half;
-  }
-}
 
 //FOOTER
+.Back-to-top {
+  margin: 0 1em;
+  text-align: center;
+  position: absolute;
+  top: -2em;
+  right: 0;
+  display: inline-block;
+  transition: opacity 100ms ease-in-out;
+  @media screen and (min-width: 45.000em) {
+    right: 5%;
+    display: block;
+  }
+  &:active, &:hover, &:focus, &:visited  {
+    opacity: 0,7;
+  }
+}
 .Footer {
-  margin: $spacer-multiple 0 0;
-  padding: $spacer-multiple;
-  text-align: left;
-  p {
+  min-height: 150px;
+  padding: 2em 1em;
+  @media screen and (min-width: 40em) {
     margin: 0;
+    padding: 2em 5%;
+    display: flex;
   }
 }

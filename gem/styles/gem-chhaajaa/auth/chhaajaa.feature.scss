@@ -1,36 +1,5 @@
 @import "../utils/*";
-@font-face {
-  font-family: "FedraSansDevanagariB-Demi";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.eot");
-  src: local("FedraSansDevanagariB-Demi");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "FedraSansDevanagariB-Medium";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.eot");
-  src: local("FedraSansDevanagariB-Medium");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "FedraSansDevanagariB-Bold";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.eot");
-  src: local("FedraSansDevanagariB-Bold");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "FedraSansDevanagariB-Light";
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.eot");
-  src: local("FedraSansDevanagariB-Light");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.svg#bingo") format("svg");
-  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.otf") format("opentype");
-}
-
+@import "_fonts";
 
 html, body {
   background-color: #fff;
@@ -48,7 +17,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
   margin: 0;
@@ -63,7 +31,6 @@ ul {
   margin: 0;
   padding: 0;
 }
-
 a {
   color: $colorPurple;
   text-decoration: none;
@@ -85,7 +52,6 @@ a {
 #wrap {}
 .Container {
   height: auto;
-  //max-width: 100%;
   width: 100%;
   padding: 0;
   position: relative;
@@ -103,7 +69,7 @@ a {
     overflow: auto;
     padding: 0 1em;
     &-image {
-      content: url('/static/authentication_service/themes/chhaajaa/images/chhaajaa-logo.png');
+      content: url("/static/authentication_service/themes/chhaajaa/images/chhaajaa-logo.png");
       display: inline-block;
       width: 118px;
       padding: .8em 15px .8em 0;
@@ -133,21 +99,33 @@ a {
     text-align: center;
     a {
       color: $colorPink;
-      //display: inline-block;
       padding: $spacer-half 0;
     }
-
   }
-
 }
 
 //CONTENT BODY
 .Content {
   padding:  0;
   overflow: auto;
+  p {
+    padding: 0 1em;
+    @media screen and (min-width: 45em) {
+      padding: 0 23%;
+    }
+  }
 }
 
-
+// LIST?
+.List {
+  list-style: none;
+  padding: 0;
+  li {
+    color: $colorGrey;
+    font-size: 21px;
+    margin: $spacer-mid 0 0;
+  }
+}
 
 //FORMS
 .Form {
@@ -170,16 +148,16 @@ a {
       word-break: break-word;
       word-wrap: break-word;
       display: block;
-      color: #3c3b3b;
+      color: $colorGrey ;
     }
     &-message {
-      color: $colorPurple;
-      font-size: $font-small;
-      margin-top: $spacer-half;
-      text-align: center;
+      color: $colorGrey;
       clear: both;
+      font-size: $font-small;
+      font-style: italic;
+      margin-top: $spacer-half;
+      text-align: left;
     }
-
     .DateInput,
     .EmailInput,
     .NumberInput,
@@ -187,7 +165,8 @@ a {
     .TextInput,
     .Textarea,
     .vDateField,
-    .Select {
+    .Select,
+    .ClearableFileInput {
       border-radius: 5px;
       color: $colorGrey;
       padding: 10px;
@@ -196,21 +175,18 @@ a {
       border: 2px solid $colorPurple;
       font-size: 18px;
       &:focus {
-        border-color: $colorGrey;
+        border-color: $colorPink;
       }
     }
-
     .Textarea {
       height: 60px;
     }
-
     .ClearableFileInput {
-      display: block;
+      width: auto;
     }
-
     &--required {
       input {
-        border-color: $colorYellow;
+        border-color: $colorRedLight;
       }
     }
   }
@@ -232,7 +208,7 @@ a {
 
 .Additional-text {
   color: $colorGrey;
-  margin: 1em 0 0;
+  margin: 0;
   font-size: 21px;
   a {
     color: $colorPurple;
@@ -276,15 +252,12 @@ a {
 //FEEDBACK MESSAGES
 .Messages {
   margin: 0;
-
   .Message {
     color: #fff;
     padding: $spacer-half;
-
     &--success {
       background: $colorPurple;
     }
-
     &--error,
     &--warning {
       background: $colorRedLight;
@@ -298,7 +271,6 @@ a {
   list-style: none;
   margin: $spacer-half 0;
   padding: 0;
-
   li {
     margin: $spacer-half 0;
   }
@@ -318,36 +290,72 @@ a {
     text-align: left;
   }
   &-item {
+    display: block;
+    margin: $spacer-mid;
     a {
-      font-size: $font-large;
-      text-decoration: none;
-      font-weight: bold;
+      color: $colorPurple;
+      border-bottom: 2px solid transparent;
+      font-size: 21px;
+      font-weight: 700;
+      font-family: FedraSansDevanagariB-Demi;
+      text-transform: uppercase;
+      -webkit-transition: all .4s linear 0s;
+      -o-transition: all .4s linear 0s;
+      transition: all .4s linear 0s;
+      &:hover {
+        color: $colorPink;
+        border-bottom: 2px solid $colorPink;
+        text-decoration: underline;
+      }
     }
   }
 }
 
 
 //FOOTER
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: $colorPurple;
+    font-family: "FedraSansDevanagariB-Bold";
+    text-transform: uppercase;
+    font-size: 21px;
+    display: inline-block;
+    &:after {
+      content: "";
+      background-image: url("/static/authentication_service/themes/chhaajaa/images/top.png");
+      background-repeat: no-repeat;
+      background-position: 1.5em center;
+      background-size: 38px;
+      position: absolute;
+      height: 37px;
+      width: 78px;
+      display: block;
+    }
+  }
+}
+
 .Footer {
-  background: $colorGrey;
+  background-color: $colorYellow;
   border: 0;
   font-size: $font-x-small;
   margin: 0;
   padding: $spacer-half 0;
   text-align: left;
-  padding: 8px $spacer-half 0 0;
+  padding: 2em 1em;
+  min-height: 150px;
+  position: relative;
+  @media screen and (min-width: 45em) {
+    padding: 2em 5%;
+  }
   p {
     font-size: 12px;
-    color: #a3a3a3;
+    color: $colorGrey;
     text-align: left;
   }
-}
-
-//BACK TO TOP | BUTTON
-.Back-to-top {
-  padding: 0 0 $spacer-mid 0;
-  &--link {
-    color: #5c5c5c;
-    font-size: 20px;
+  .Menu {
+    &-item {
+      display: inline-block;
+    }
   }
 }
