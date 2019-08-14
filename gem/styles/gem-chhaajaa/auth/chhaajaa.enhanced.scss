@@ -1,0 +1,327 @@
+@import "../utils/*";
+@import "_fonts";
+
+
+//DEFAULT RESET
+body {
+  margin: 0;
+}
+body, textarea, select {
+  font-family: "FedraSansDevanagariB-Light";
+  font-size: 1em;
+  color: #fff;
+}
+
+a {
+  border-bottom: none;
+}
+
+
+//CONTAINER
+#wrap {}
+.Container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  @media screen and (min-width: 45em) {
+    padding: 0;
+  }
+}
+
+//HEADER
+.Header {
+  margin-bottom: 0;
+  text-align: center;
+  &-branding {
+    background-color: $colorYellow;
+    margin-bottom: 0;
+    &-image {
+      width: 118px;
+    }
+  }
+
+  &-title {
+    background: #fff;
+    margin: 0;
+    padding: 1.5em;
+    @media screen and (min-width: 45em) {
+      padding: 1.5em 5% 0;
+    }
+    h1 {
+      color: $colorPink;
+      font-family: "FedraSansDevanagariB-Demi";
+      font-size: 35px;
+      margin-bottom: 0;
+      text-transform: uppercase;
+      padding: 0;
+      @media screen and (min-width: 45em) {
+        font-size: 55px;
+      }
+    }
+  }
+
+  &-links {
+    font-family: "FedraSansDevanagariB-Light";
+    margin: 1em 0;
+    a {
+      color: $colorPink;
+    }
+
+  }
+}
+
+
+//QR CODES
+.QR {
+  text-align: center;
+  &-image {
+    border: 3px solid $colorPurple;
+  }
+}
+
+
+//TOKENS
+.Tokens {
+  border: 1px solid $colorGrey;
+  margin: $spacer-half $spacer-mid;
+  padding: 0 $spacer-mid $spacer-mid;
+  li {
+    float: left;
+    width: auto;
+    @media screen and (min-width: 45em) {
+      width: 50%;
+    }
+  }
+  &::after {
+    clear: both;
+    content: " ";
+    display: block;
+  }
+}
+
+//FORMS
+.Form {
+  background: #fff;
+  padding: 2em 1em;
+  @media screen and (min-width: 45em) {
+    padding: 2em 30%;
+  }
+  .Field {
+    margin: 10px 0 15px;
+    &-message {
+      margin: 0;
+    }
+    &-label {
+      font-size: $font-medium;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
+      border-radius: 5px;
+      color: $colorGrey;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 2px solid $colorPurple;
+      font-size: 18px;
+      &:focus {
+        border-color: $colorPink;
+      }
+    }
+    .ClearableFileInput  {
+      width: auto;
+    }
+    .Textarea {
+      height: 100px;
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    display: block;
+    position: relative;
+    width: 100%;
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      &::after {
+        border-style: solid;
+        border-width: .15em .15em 0 0;
+        color: $colorPurple;
+        content: '';
+        display: inline-block;
+        height: .65em;
+        pointer-events: none;
+        position: absolute;
+        right: $spacer-mid;
+        top: 46px;
+        transform: rotate(135deg);
+        width: .65em;
+      }
+      .Select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+      }
+    }
+    .Select {
+      appearance: inherit;
+      -webkit-appearance: inherit;
+      -moz-appearance: inherit;
+      -ms-appearance: inherit;
+      min-height: 41px;
+      width: 100%;
+    }
+  }
+
+  .BooleanField {
+    display: table;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    .Field-label {
+      display: inline-block;
+      text-align: left;
+      font-size: 16px;
+      margin: 10px 0 0 5px;
+      vertical-align: top;
+      width: auto;
+    }
+    .Field-item {
+      text-align: left;
+      vertical-align: middle;
+      .CheckboxInput {
+        appearance: none;
+        border: 3px solid $colorPurple;
+        display: inline-block;
+        height: $spacer-multiple;
+        outline: none;
+        padding: $spacer-mid;
+        width: $spacer-multiple;
+        background-color: #fff;
+        position: relative;
+        &:checked {
+          background-color: $colorPurple;
+          border-color: $colorPurple;
+          &::after {
+            color: #fff;
+            content: '\2714';
+            font-size: 25px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: inline-block;
+            top: 0;
+          }
+        }
+      }
+    }
+  }
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRedLight;
+        }
+      }
+    }
+  }
+  &-buttons {
+    margin-bottom: $spacer-multiple;
+  }
+}
+.Additional-text {
+  color: $colorGrey;
+  font-family: "FedraSansDevanagariB-Light";
+  padding: 0 1em;
+  @media screen and (min-width: 45em) {
+    padding: 0 30%;
+  }
+  a {
+    color: $colorPurple;
+    font-weight: bold;
+  }
+}
+
+
+.Button {
+  margin-top: 20px;
+  padding: 12px;
+  font-weight: bold;
+  text-align: center;
+  &--warning {
+    background: $colorPink;
+  }
+}
+
+//FEEDBACK MESSAGES
+.Messages {
+  .Message {
+    font-family: "FedraSansDevanagariB-Light";
+  }
+}
+
+//ERRORS
+.errorlist {
+  margin-top: $spacer-multiple;
+}
+
+
+//MENU NAVIGATION
+.Menu {
+  margin: 0;
+  @media (min-width: 40em) {
+    margin-top: $spacer-mid;
+    padding-bottom: $spacer-half;
+  }
+  &-title {
+    background: $colorPurple;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    h1 {
+      color: #fff;
+      font-size: 1.2em;
+    }
+  }
+  &-list {
+    padding: 0;
+  }
+  &-item {
+    margin: $spacer-mid;
+  }
+}
+
+
+//FOOTER
+.Back-to-top {
+  margin: 0 1em;
+  text-align: center;
+  position: absolute;
+  top: -2em;
+  right: 0;
+  display: inline-block;
+  transition: opacity 100ms ease-in-out;
+  @media screen and (min-width: 45.000em) {
+    right: 5%;
+    display: block;
+  }
+  &:active, &:hover, &:focus, &:visited  {
+    opacity: 0,7;
+  }
+}
+.Footer {
+  min-height: 150px;
+  padding: 2em 1em;
+  @media screen and (min-width: 40em) {
+    margin: 0;
+    padding: 2em 5%;
+    display: flex;
+  }
+}
