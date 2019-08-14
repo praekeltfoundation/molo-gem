@@ -68,6 +68,7 @@
     </noscript>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+
     <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
       <!-- Load Facebook SDK for JavaScript -->
@@ -396,7 +397,6 @@
         };
         window.onresize = onResizing;
         window.onload = onResizing;
-
 
         //Event Propagation NOT covered
         var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled');

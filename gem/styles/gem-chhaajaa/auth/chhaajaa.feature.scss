@@ -1,130 +1,353 @@
-* {
-  box-sizing: border-box; }
+@import "../utils/*";
+@font-face {
+  font-family: "FedraSansDevanagariB-Demi";
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.eot");
+  src: local("FedraSansDevanagariB-Demi");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.svg#bingo") format("svg");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Demi.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "FedraSansDevanagariB-Medium";
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.eot");
+  src: local("FedraSansDevanagariB-Medium");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.svg#bingo") format("svg");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "FedraSansDevanagariB-Bold";
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.eot");
+  src: local("FedraSansDevanagariB-Bold");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.svg#bingo") format("svg");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "FedraSansDevanagariB-Light";
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.eot");
+  src: local("FedraSansDevanagariB-Light");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.svg#bingo") format("svg");
+  src: url("/static/authentication_service/themes/chhaajaa/fonts/FedraSansDevanagariB-Light.otf") format("opentype");
+}
+
 
 html, body {
-  margin: 0;
-  padding: 0; }
+  background-color: #fff;
+  height: auto;
+}
 
 body {
-  margin: 10px; }
-
-body,
-textarea,
-select {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1em;
-  color: #4D7779; }
-
-a {
-  color: #5268c2; }
-  a:hover {
-    color: #5268c2; }
-
-h1 {
-  margin: 10px 0;
-  font-size: 1.2em; }
-
-h2 {
-  margin: 10px 0;
-  font-size: 1.1em; }
-
-p, ul {
-  margin: 10px 0; }
-
-hr {
-  height: 0;
-  border: 0;
-  border-top: 1px solid #dad9d6;
-  margin: 10px 0; }
-
-.center {
-  text-align: center; }
-
-.Header-branding {
-  text-align: center; }
-  .Header-branding-image {
-    display: block;
-    margin: 0 auto; }
-.Header-title {
-  text-align: center;
-  background: #4D7779; }
-  .Header-title h1 {
-    color: #ffffff;
-    padding: 10px; }
-.Header-links {
-  margin: 10px 0; }
-
-.Footer {
-  padding: 5px 0;
-  background: #ffffff;
-  font-size: 0.7em;
-  border-top: 1px solid #dad9d6; }
-
-.Form .Field {
-  margin-top: 10px; }
-  .Form .Field-item {
-    margin-top: 5px; }
-  .Form .Field-label {
-    font-weight: bold; }
-  .Form .Field-message {
-    margin-top: 5px;
-    font-size: 0.8em; }
-  .Form .Field .TextInput,
-  .Form .Field .PasswordInput,
-  .Form .Field .EmailInput,
-  .Form .Field .DateInput,
-  .Form .Field .vDateField,
-  .Form .Field .NumberInput,
-  .Form .Field .Textarea {
-    width: 100%;
-    border: 1px solid #dad9d6;
-    padding: 5px;
-    font-size: 1em; }
-  .Form .Field .Textarea {
-    height: 60px; }
-  .Form .Field--required input {
-    border-color: #ff674d; }
-.Form .Field-message--error.Field--required .Field-item input {
-  border-color: #ff674d; }
-.Form-buttons {
-  margin-top: 10px; }
-
-.Button {
-  width: 100%;
-  background: #5268c2;
-  color: #ffffff;
-  font-size: 1em;
-  border: 0;
-  padding: 10px 5px;
-  display: block;
-  border: 0;
-  text-decoration: none; }
-  .Button:hover {
-    cursor: pointer;
-    background: #4D7779;
-    color: #ffffff; }
-
-.Messages {
-  margin: 10px 0; }
-  .Messages .Message {
-    padding: 10px;
-    color: #ffffff; }
-    .Messages .Message--success {
-      background: #dbe200; }
-    .Messages .Message--error, .Messages .Message--warning {
-      background: #ff674d; }
-
-.errorlist {
-  margin: 5px 0;
-  padding: 0;
-  color: #ff674d;
-  list-style: none; }
-  .errorlist li {
-    margin: 5px 0; }
-
-.Menu-list {
+  color: $colorGrey;
+  line-height: 1.3;
+  font-size: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: "FedraSansDevanagariB-Light";
   margin: 0;
   padding: 0;
-  list-style: none; }
+}
 
-/*# sourceMappingURL=style.basic.css.map */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
+}
+p {
+  font-family: "FedraSansDevanagariB-Light";
+  margin: 0;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $colorPurple;
+  text-decoration: none;
+  &:hover, &:focus, &:active {
+    color: #ff4289;
+  }
+}
+* {
+  box-sizing: border-box;
+  :focus {
+    @media screen and (min-width: 20.000em) {
+      outline: none;
+    }
+  }
+}
+
+
+//CONTAINER
+#wrap {}
+.Container {
+  height: auto;
+  //max-width: 100%;
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+
+//HEADER
+.Header {
+  overflow: auto;
+  &-branding {
+    background-color: $colorYellow;
+    margin: 0;
+    min-height: 85px;
+    text-align: left;
+    overflow: auto;
+    padding: 0 1em;
+    &-image {
+      content: url('/static/authentication_service/themes/chhaajaa/images/chhaajaa-logo.png');
+      display: inline-block;
+      width: 118px;
+      padding: .8em 15px .8em 0;
+      height: 74px;
+    }
+  }
+
+  &-title {
+    background: #fff;
+    margin: 0;
+    text-align: center;
+    padding: 2em;
+    h1 {
+      color: $colorPink;
+      font-family: "FedraSansDevanagariB-Demi";
+      font-size: 55px;
+      text-transform: uppercase;
+    }
+  }
+  &-links {
+    color: $colorGrey;
+    background: #fff;
+    display: inline-block;
+    font-family: "FedraSansDevanagariB-Light";
+    font-size: 27px;
+    margin: $spacer-half 0;
+    text-align: center;
+    a {
+      color: $colorPink;
+      //display: inline-block;
+      padding: $spacer-half 0;
+    }
+
+  }
+
+}
+
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+}
+
+
+
+//FORMS
+.Form {
+  background: #fff;
+  padding: 1em;
+  margin: 0;
+  .Field {
+    margin: 10px 0 15px;
+    text-align: left;
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+    &-label {
+      font-family: "FedraSansDevanagariB-Demi";
+      font-weight: 700;
+      font-size: $font-medium;
+      padding: 0 .5em 0 0;
+      vertical-align: middle;
+      word-break: break-word;
+      word-wrap: break-word;
+      display: block;
+      color: #3c3b3b;
+    }
+    &-message {
+      color: $colorPurple;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+      clear: both;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select {
+      border-radius: 5px;
+      color: $colorGrey;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 2px solid $colorPurple;
+      font-size: 18px;
+      &:focus {
+        border-color: $colorGrey;
+      }
+    }
+
+    .Textarea {
+      height: 60px;
+    }
+
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $colorYellow;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRedLight;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer-half;
+  }
+}
+
+.Additional-text {
+  color: $colorGrey;
+  margin: 1em 0 0;
+  font-size: 21px;
+  a {
+    color: $colorPurple;
+    display: inline-block;
+    padding: $spacer-half 0;
+    &:hover {
+      color: $colorPink;
+    }
+  }
+}
+
+//BUTTONS / CALL TO ACTION
+.Button {
+  box-shadow: 12px 12px 0 0 $colorYellow;
+  margin: 10px 1em 10px 0;
+  background: $colorPurple;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 15px;
+  border: none;
+  min-width: 30%;
+  transition: opacity .1s ease-in-out;
+  width: auto;
+  &:hover {
+    background: $colorPink;
+    cursor: pointer;
+    outline: 0;
+    text-decoration: none;
+  }
+  &--warning {
+    background: $colorYellow;
+    &:hover {
+      background: $colorYellow;
+    }
+  }
+}
+
+//FEEDBACK MESSAGES
+.Messages {
+  margin: 0;
+
+  .Message {
+    color: #fff;
+    padding: $spacer-half;
+
+    &--success {
+      background: $colorPurple;
+    }
+
+    &--error,
+    &--warning {
+      background: $colorRedLight;
+    }
+  }
+}
+
+//ERROR MASSAGES
+.errorlist {
+  color: $colorRedLight;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+
+//MENU NAV
+.Menu {
+  padding: 0;
+  &-title {
+    display: none;
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  &-item {
+    a {
+      font-size: $font-large;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+
+
+//FOOTER
+.Footer {
+  background: $colorGrey;
+  border: 0;
+  font-size: $font-x-small;
+  margin: 0;
+  padding: $spacer-half 0;
+  text-align: left;
+  padding: 8px $spacer-half 0 0;
+  p {
+    font-size: 12px;
+    color: #a3a3a3;
+    text-align: left;
+  }
+}
+
+//BACK TO TOP | BUTTON
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: #5c5c5c;
+    font-size: 20px;
+  }
+}
