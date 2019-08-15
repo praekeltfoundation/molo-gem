@@ -22,7 +22,7 @@ h1 {
   font-family: $TwCenMTRegular;
 }
 
-/*  NOTE: PAGES WRAPPER */
+//CONTAINER
 .Container {
   background: 0 0;
   margin: 0 auto;
@@ -50,8 +50,9 @@ h1 {
     text-align: left;
     position: relative;
     margin: 2em 5% 0;
-    padding: 2em 0 0;
+    padding: 1em 0 0;
     @include for-size(tablet-portrait-up) {
+      padding: 2em 0 0;
       margin: 5em 15% 0;
     }
     h1 {
@@ -59,10 +60,12 @@ h1 {
       color: #000;
       background-color: $color-yellow-gorse;
       display: inline-block;
-      padding: 0 20px;
-      margin: 20px 10px 0;
-      position: absolute;
-      left: 25px;
+      @media screen and (min-width: 64em) {
+        padding: 0 20px;
+        margin: 20px 10px 0;
+        position: absolute;
+        left: 25px;
+      }
     }
   }
 }
@@ -70,7 +73,7 @@ h1 {
 .Header-links {
   margin: 0;
   padding: 1em;
-  @media (min-width:64em) {
+  @media screen and (min-width: 64em) {
     font-size: 20px;
     position: absolute;
     right: 18%;
@@ -104,56 +107,64 @@ h1 {
   }
   li {
     float: left;
-    width: 50%;
+    @media screen and (min-width: 64em) {
+      width: 50%;
+    }
   }
 }
 
 //FORM
-.Form .Field {
-  padding: 0;
-  margin: 0;
-  a {
-    color: $color-pink-bright;
-    border-bottom: 2px solid $color-pink-bright;
+.Form {
+  .Field {
+    padding: 0;
+    margin: 0;
+    a {
+      color: $color-pink-bright;
+      border-bottom: 2px solid $color-pink-bright;
+    }
+    &-item {
+      margin: 0;
+      text-align: left;
+      vertical-align: middle;
+    }
+    &-label {
+      font-size: .875rem;
+      margin: 0;
+      text-align: left;
+      display: inline-block;
+      @media screen and (min-width: 64em) {
+        font-size: 1.125rem;
+      }
+    }
+    &-message {
+      margin: 0 1em;
+      @media screen and (min-width: 64em) {
+        margin: 0 26% 1em;
+      }
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField {
+      color: #000;
+      font-weight: 400;
+      padding: 5px;
+      border-width: 2px;
+      &:focus {
+        border: 2px solid $color-pink-bright;
+      }
+    }
+    .Textarea {
+      height: 100px;
+    }
   }
 }
-.Form .Field-item {
-  width: 100%;
-  text-align: left;
-  vertical-align: middle;
-}
-.Form .Field-label {
-  font-size: .875rem;
-  margin: 0 1em 0 0;
-  text-align: left;
-  @media (min-width:64em) {
-    font-size: 1.125rem;
-  }
-}
-.Form .Field-message {
-  margin: 5px 0;
-  @media (min-width:64em) {
-    margin: 1em;
-  }
-}
-.Form .Field .DateInput,
-.Form .Field .EmailInput,
-.Form .Field .NumberInput,
-.Form .Field .PasswordInput,
-.Form .Field .TextInput,
-.Form .Field .Textarea,
-.Form .Field .vDateField {
-  color: #000;
-  font-weight: 400;
-  padding: 5px;
-  border-width: 2px;
-  &:focus {
-    border: 2px solid $color-pink-bright;
-  }
-}
-.Form .Field .Textarea {
-  height: 100px;
-}
+
+
 .Form .ModelChoiceField,
 .Form .TypedChoiceField {
   display: block;
@@ -161,13 +172,14 @@ h1 {
   width: 100%;
   @media screen and (-webkit-min-device-pixel-ratio:0) {
     &:after {
+      color: $color-pink-bright;
       content: '';
       display: inline-block;
       height: .65em;
       pointer-events: none;
       position: absolute;
       right: 5%;
-      top: 55%;
+      top: 36%;
       transform: rotate(135deg);
       width: .65em;
     }
@@ -183,7 +195,6 @@ h1 {
     -webkit-appearance: inherit;
     -moz-appearance: inherit;
     -ms-appearance: inherit;
-
     background-color: #fff;
     border-radius: 0;
     color: #000;
@@ -196,74 +207,67 @@ h1 {
       border-color: $color-pink-bright;
     }
   }
-}
-
-.Form .BooleanField {
-  display: inline-block;
-  margin: 0;
-  position: relative;
-  width: 100%;
-}
-.Form .BooleanField .Field-label {
+  .BooleanField {
     display: inline-block;
-    padding: 5px;
-    text-align: right;
-    vertical-align: middle;
-    width: auto;
-}
-.Form .BooleanField .Field-item {
-  display: inline-block;
-  width: auto;
-}
-.Form .BooleanField .Field-message {
-  margin: 0;
-}
-.Form .BooleanField .Field-item .CheckboxInput {
-  border: 2px solid $color-pink-bright;
-}
-.Form .Field-item .CheckboxInput {
-  appearance: none;
-  border: 2px solid $color-pink-bright;
-  display: block;
-  height: 20px;
-  outline: 0;
-  padding: 15px;
-  width: 20px;
-  &:checked {
-    background-color: #000;
-    border-color: #000;
-    &:after {
-      color: #fff;
-      content: '\2714';
-      font-size: 20px;
-      left: -5px;
-      line-height: 20px;
-      position: relative;
-      top: -5px;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    .Field-label {
+      display: inline-block;
+      padding: 5px;
+      text-align: right;
+      vertical-align: middle;
+      width: auto;
+    }
+    .Field-item {
+      display: inline-block;
+      width: auto;
+      .CheckboxInput {
+        border: 2px solid $color-pink-bright;
+        appearance: none;
+        border: 2px solid $color-pink-bright;
+        display: block;
+        height: 20px;
+        outline: 0;
+        padding: 15px;
+        width: 20px;
+        &:checked {
+          background-color: #000;
+          border-color: #000;
+          &:after {
+            color: #fff;
+            content: '\2714';
+            font-size: 20px;
+            left: -5px;
+            line-height: 20px;
+            position: relative;
+            top: -5px;
+          }
+        }
+      }
+    }
+    .Field-message {
+      margin: 0;
     }
   }
 }
+
+
 .Form .Field-message--error .Field--required .Field-item input,
 .Form .Form .Field-message--error .Field-item input {
   border-color: red;
 }
-.Button,
-.Button--warning,
-.Form .Button {
-  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+
+.Button {
+  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 13px/14px;
   display: inline-block;
   padding: 12px 45px 12px 30px;
-  margin: 1em 0;
+  margin: 1em;
   &:hover, &:active {
-    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
+    background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -35px/14px;
   }
-}
-.Form-buttons {
-  margin-top: 1em;
-}
-.Form .Button--warning {
-  @media (min-width:64em) {
-    margin: 1em;
+  &--warning {
+    background: #ff674d url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 13px/14px;
   }
 }
 
@@ -274,15 +278,13 @@ h1 {
 .Additional-text {
   text-align: left;
   padding: 1em 0 0;
-  margin: 0;
+  margin: 0 26% 1em;
 }
 
-//MENU
+//MENU NAV
 .Menu {
-  margin: 0 6.9% !important;
-  @include for-size(tablet-landscape-up) {
-    margin: 0 auto !important;
-  }
+  margin: 0 auto;
+  padding: 0;
   &-title {
     margin-left: 0;
     margin-right: 0;
@@ -294,18 +296,23 @@ h1 {
   }
 }
 
+//FOOTER
 
 .Footer {
   padding: 1em;
   margin: 8em 0 0;
   min-height: 300px;
   @include for-size(tablet-landscape-up) {
-    padding: 3em 5.5% 1em;
+    padding: 3em 15% 1em;
   }
   .Menu {
-    padding: 0 10% 5%;
-    @include for-size(tablet-landscape-up) {
-      padding: 0 2em;
+    background: transparent;
+    &-item {
+      color: $color-cyan_light_grayish;
+      a {
+        color: $color-cyan_light_grayish;
+        border-bottom: 1px solid $color-cyan_light_grayish;
+      }
     }
   }
 }
