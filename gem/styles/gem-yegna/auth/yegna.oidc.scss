@@ -1,0 +1,84 @@
+@import "../util/*";
+@import "../normalize";
+
+body {
+  background-color: #fff;
+  font-size: 16px;
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.5;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+textarea,
+select,
+strong,
+input {}
+
+
+//HEADER
+.Header {
+  background: $color-green url('/static/authentication_service/themes/yegna/images/patterns/main-bg.svg') no-repeat center /auto;
+  vertical-align: middle;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+  text-align: center;
+  z-index: 9999999;
+  &-branding {
+    background: url('/static/authentication_service/themes/yegna/images/yegna-logo.png') no-repeat center 0/125px;
+    height: 125px;
+    width: 126px !important;
+    margin: 2em 0 0 0 !important;
+    padding: 1em 8%;
+    text-align: left;
+    width: 100%;
+    z-index: 999999;
+    &-image {
+      display: none;
+      visibility: hidden;
+    }
+  }
+  &-title {
+    background: #fff url('/static/authentication_service/themes/yegna/images/patterns/cloudy-bg.svg') repeat center/100%;
+    padding: 1em 8%;
+    color: $color-purple;
+    min-height: 125px;
+    h1 {
+      font-size: $font-xx-large;
+      color: $color-purple;
+    }
+  }
+  &-links {
+    background: #fff;
+    margin: 0 !important;
+    a {
+      color: $color-purple;
+      &:active, &:hover {
+        text-decoration: underline;
+        text-underline-position: below;
+      }
+    }
+  }
+}
+
+.Button,
+.Button--warning,
+.Form .Button {
+  background: #000;
+  color: #fff !important;
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 10px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  width: auto;
+  &:hover, &:active {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,104 @@
+@import "../util/*";
+@import "../_normalize";
+
+body {
+  background-color: $color-cyan_shade1;
+  color: #000;
+  font-size: 16px;
+  line-height: 1.3;
+  font-size: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+textarea,
+select,
+strong,
+input {}
+
+
+//HEADER
+.Header {
+  overflow: auto;
+  &-branding {
+    background: url('/static/authentication_service/themes/ninyampinga/images/ninyampinga-logo.svg') no-repeat center 0/ 100%;width: 330px;
+    width: 330px;
+    padding: 0 10% 1.5em;
+    text-align: center;
+    margin: 0 auto 2em;
+    position: relative;
+    overflow: auto;
+    height: 90px;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 auto 3em;
+    }
+    &-image {
+      width: 27%;
+    }
+  }
+  &-title {
+    background: #fff;
+    text-align: left;
+    position: relative;
+    padding: 2em 5% 1em;
+    margin: 0 !important;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 15.1% 0 !important
+    }
+    h1 {
+      font-size: 1.125rem;
+      color: #fff;
+      background-color: #000;
+      display: inline-block;
+      margin: 1em 0 0 0 !important;
+      padding: 5px 15px;
+      position: absolute;
+      left: 1.6em;
+      top: 1.9em;
+      @media (min-width:64em) {
+        font-size: 1.55rem;
+        padding: 0 15px;
+        left: 2.6em;
+        top: 0.9em;
+      }
+    }
+  }
+  &-links {
+    margin: 0;
+    padding: 0 5%;
+    @media (min-width:64em) {
+      margin: 0 15% 0 15%;
+      position: absolute;
+      right: 0;
+      top: 10em;
+      @include for-size(tablet-portrait-up) {
+        margin: 2em 23% 0 15%;
+      }
+    }
+  }
+}
+
+.Button,
+.Button--warning,
+.Form .Button {
+  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+  color: #fff !important;
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 10px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  box-shadow: 12px 12px 0 0 $color-yellow !important;
+  width: auto;
+  -webkit-transition: box-shadow ease-in-out 0.3s;
+  -moz-transition: box-shadow ease-in-out 0.3s;
+  transition: box-shadow ease-in-out 0.3s;
+  &:active, &:hover, &:focus {
+    box-shadow: none !important;
+    color: $color-yellow-gorse !important;
+  }
+}

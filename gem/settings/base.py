@@ -83,6 +83,7 @@ BASE_URL = 'http://example.com'
 # Application definition
 
 INSTALLED_APPS = [
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'mozilla_django_oidc',

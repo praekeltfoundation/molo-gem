@@ -13,6 +13,7 @@ html {
 }
 body {
   margin: 0;
+  min-height: 100vh;
   @media (min-width:20em) {
     font-family: $TwCenMTRegular;
   }
@@ -32,63 +33,48 @@ h1 {
 
 //HEADER
 .Header {
-  width: auto;
+  width: 100%;
   margin: 0;
-}
-.Header-branding {
-  background: url('/static/authentication_service/themes/ninyampinga/images/ninyampinga-logo.svg') no-repeat center 0/ 100%;width: 330px;
-  width: 330px;
-  padding: 0 10% 1.5em;
-  text-align: center;
-  margin: 0 auto 2em;
-  position: relative;
-  overflow: auto;
-  height: 90px;
-  @include for-size(tablet-landscape-up) {
-    margin: 0 auto 3em;
+  &-branding {
+    text-align: center;
+    margin: 0 auto 2em;
+    overflow: auto;
+    &-image {
+      content: url('/static/authentication_service/themes/ninyampinga/images/ninyampinga-logo.svg');
+      height: 90px;
+      width: 330px;
+    }
   }
-  &-image {
-    width: 27%;
-  }
-}
-.Header-title {
-  background: #fff;
-  text-align: left;
-  position: relative;
-  padding: 2em 5% 1em;
-  margin: 0 !important;
-  @include for-size(tablet-landscape-up) {
-    margin: 0 15.1% 0 !important
-  }
-  h1 {
-    font-size: 1.125rem;
-    color: #fff;
-    background-color: #000;
-    display: inline-block;
-    margin: 1em 0 0 0 !important;
-    padding: 5px 15px;
-    position: absolute;
-    left: 1.6em;
-    top: 1.9em;
-    @media (min-width:64em) {
-      font-size: 1.55rem;
-      padding: 0 15px;
-      left: 2.6em;
-      top: 0.9em;
+  &-title {
+    background: #fff;
+    text-align: left;
+    position: relative;
+    margin: 2em 5% 0;
+    padding: 2em 0 0;
+    @include for-size(tablet-portrait-up) {
+      margin: 5em 15% 0;
+    }
+    h1 {
+      font-size: 1.75rem;
+      color: #000;
+      background-color: $color-yellow-gorse;
+      display: inline-block;
+      padding: 0 20px;
+      margin: 20px 10px 0;
+      position: absolute;
+      left: 25px;
     }
   }
 }
+
 .Header-links {
   margin: 0;
-  padding: 0 5%;
+  padding: 1em;
   @media (min-width:64em) {
-    margin: 0 15% 0 15%;
+    font-size: 20px;
     position: absolute;
-    right: 0;
-    top: 10em;
-    @include for-size(tablet-portrait-up) {
-      margin: 2em 23% 0 15%;
-    }
+    right: 18%;
+    top: 9em;
   }
 }
 
@@ -310,6 +296,12 @@ h1 {
 
 
 .Footer {
+  padding: 1em;
+  margin: 8em 0 0;
+  min-height: 300px;
+  @include for-size(tablet-landscape-up) {
+    padding: 3em 5.5% 1em;
+  }
   .Menu {
     padding: 0 10% 5%;
     @include for-size(tablet-landscape-up) {
