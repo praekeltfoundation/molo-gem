@@ -1,5 +1,6 @@
 @import '../../gem/variables/*';
 
+//DEFAULT RESET
 body,
 html {
   background: $colorFourth;
@@ -50,6 +51,7 @@ hr {
   box-sizing: border-box;
 }
 
+//CONTAINER
 .Container {
   background: #fff;
   padding: 0;
@@ -62,6 +64,8 @@ hr {
   }
 }
 
+
+//HEADER
 .Header {
   text-align: center;
   &-title {
@@ -71,21 +75,20 @@ hr {
       color: $colorPurple;
     }
   }
-
   &-branding {
     background-color: $colorYellow;
     margin: 0;
     padding: 0 $spacer-mid;
     text-align: left;
     overflow: auto;
+    min-height: 60px;
     &-image {
-      background: url('/static/authentication_service/themes/zathu/images/zathu.png') no-repeat;
-      background-position: 0;
-      background-size: 130px;
-      display: block;
-      height: 60px;
-      padding-left: 100%;
-      width: 100%;
+      content: url("/static/authentication_service/themes/zathu/images/zathu.png");
+      display: inline-block;
+      width: 130px;
+      height: 40px;
+      padding: 10px 0 0;
+      margin: 5px 0;
     }
   }
 }
@@ -109,6 +112,7 @@ hr {
   }
 }
 
+//FORMS
 .Form {
   background: $colorGrey;
   padding: $spacer $spacer-mid;
@@ -142,7 +146,8 @@ hr {
     .TextInput,
     .Textarea,
     .vDateField,
-    .Select {
+    .Select,
+    .ClearableFileInput {
       border: 0;
       font-size: 1em;
       height: 48px;
@@ -153,15 +158,12 @@ hr {
         border-color: $colorGrey;
       }
     }
-
     .Textarea {
       height: 60px;
     }
-
     .ClearableFileInput {
       display: block;
     }
-
     &--required {
       input {
         border-color: $colorYellow;
@@ -184,7 +186,6 @@ hr {
   }
 }
 
-.Header-links,
 .Additional-text {
   text-align: center;
   font-weight: 400;
@@ -197,6 +198,8 @@ hr {
   }
 }
 
+
+//BUTTONS / CALL TO ACTION
 .Button {
   background: $colorPurple;
   color: #fff;
@@ -225,9 +228,9 @@ hr {
   }
 }
 
+//FEEDBACK MESSAGES
 .Messages {
   margin: 0;
-
   .Message {
     color: #fff;
     padding: $spacer;
@@ -243,6 +246,7 @@ hr {
   }
 }
 
+//ERRORS
 .errorlist {
   color: $colorRed;
   list-style: none;
@@ -254,6 +258,8 @@ hr {
   }
 }
 
+
+//MENU NAV
 .Menu {
   padding: 0;
   &-title {
@@ -274,6 +280,17 @@ hr {
   }
 }
 
+
+//FOOTER
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: #5c5c5c;
+    font-size: 20px;
+  }
+}
+
+
 .Footer {
   background: $colorGrey;
   border: 0;
@@ -286,13 +303,5 @@ hr {
     font-size: 12px;
     color: #a3a3a3;
     text-align: left;
-  }
-}
-
-.Back-to-top {
-  padding: 0 0 $spacer-mid 0;
-  &--link {
-    color: #5c5c5c;
-    font-size: 20px;
   }
 }
