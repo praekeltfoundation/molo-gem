@@ -54,7 +54,9 @@ var gulp              =   require('gulp'),
       'gem/styles/gem-yegna/auth/yegna.feature.scss',
       'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
       'gem/styles/gem-chhaajaa/auth/chhaajaa.enhanced.scss',
-      'gem/styles/gem-chhaajaa/auth/chhaajaa.feature.scss'
+      'gem/styles/gem-chhaajaa/auth/chhaajaa.feature.scss',
+      'gem/styles/gem-tanzania/auth/tanzania.feature.scss',
+      'gem/styles/gem-tanzania/auth/tanzania.enhanced.scss'
     ],
     sassDest = {
      prd: 'gem/static/css/prd',
