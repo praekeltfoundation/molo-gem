@@ -19,7 +19,7 @@ def create_groups_and_permissions(apps, schema_editor):
     SectionIndexPage = apps.get_model('core.SectionIndexPage')
     FooterIndexPage = apps.get_model('core.FooterIndexPage')
     PollsIndexPage = apps.get_model('polls.PollsIndexPage')
-    SurveysIndexPage = apps.get_model('surveys.SurveysIndexPage')
+    # FormIndexPage = apps.get_model('surveys.FormIndexPage')
     YourWordsCompetitionIndexPage = apps.get_model(
         'yourwords.YourWordsCompetitionIndexPage')
 
@@ -31,7 +31,7 @@ def create_groups_and_permissions(apps, schema_editor):
     banners = BannerIndexPage.objects.all()
     footers = FooterIndexPage.objects.all()
     polls = PollsIndexPage.objects.all()
-    surveys = SurveysIndexPage.objects.all()
+    # forms = FormIndexPage.objects.all()
     yourwords = YourWordsCompetitionIndexPage.objects.all()
 
     # **** Get Permission ****
@@ -51,7 +51,7 @@ def create_groups_and_permissions(apps, schema_editor):
     delete_comment = get_permission(Permission, 'delete_comment')
     can_moderate = get_permission(Permission, 'can_moderate')
 
-    # Surveys
+    # forms
     add_segmentusergroup = get_permission(
         Permission, 'add_segmentusergroup')
     change_segmentusergroup = get_permission(
@@ -87,7 +87,7 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, product_admin_group, footers, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, polls, page_permission_types)
-    create_page_permission(GroupPagePermission, product_admin_group, surveys, page_permission_types)
+    # create_page_permission(GroupPagePermission, product_admin_group, forms, page_permission_types)
     # Django permissions
     product_admin_group.permissions.add(
         access_admin, add_yourwords_entries, change_yourwords_entries,
@@ -97,7 +97,7 @@ def create_groups_and_permissions(apps, schema_editor):
     data_admin_group = create_group(Group, 'data_admin')
     # Page permissions
     create_page_permission(GroupPagePermission, data_admin_group, polls, page_permission_types)
-    create_page_permission(GroupPagePermission, data_admin_group, surveys, page_permission_types)
+    # create_page_permission(GroupPagePermission, data_admin_group, forms, page_permission_types)
     # Django permissions
     data_admin_group.permissions.add(
         access_admin, add_yourwords_entries, add_segment,
@@ -117,7 +117,7 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_admin_group, footers, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, polls, page_permission_types)
-    create_page_permission(GroupPagePermission, content_admin_group, surveys, page_permission_types)
+    # create_page_permission(GroupPagePermission, content_admin_group, forms, page_permission_types)
     # Django permissions
     content_admin_group.permissions.add(
         access_admin, add_cannedresponse, change_cannedresponse,
@@ -136,7 +136,7 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_editor_group, footers, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_editor_group, polls, page_permission_types)
-    create_page_permission(GroupPagePermission, content_editor_group, surveys, page_permission_types)
+    # create_page_permission(GroupPagePermission, content_editor_group, forms, page_permission_types)
     # Django permissions
     content_editor_group.permissions.add(
         access_admin, add_cannedresponse, change_cannedresponse,

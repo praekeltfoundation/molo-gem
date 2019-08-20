@@ -87,10 +87,7 @@ urlpatterns += [
         name='already_reported'),
 
     url(r'', include('django_comments.urls')),
-    url(r'^surveys/',
-        include('molo.surveys.urls',
-                namespace='molo.surveys',
-                app_name='molo.surveys')),
+
     url(r'^forms/',
         include('molo.forms.urls',
                 namespace='molo.forms',
