@@ -90,7 +90,7 @@ class Command(BaseCommand):
         #     del submission_dict['created_at']
 
         #     MoloFormSubmission.objects.create(**submission_dict)
-        
+
         # for segment_user_group in SegmentUserGroup.objects.all():
         #     segment_user_group_dict = segment_user_group.__dict__
         #     del segment_user_group_dict['_state']
