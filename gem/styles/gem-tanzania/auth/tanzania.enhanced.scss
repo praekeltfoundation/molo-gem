@@ -109,6 +109,9 @@ hr {
       text-decoration: underline;
       font-size: 16px;
       display: inline-block;
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+      }
     }
   }
 }
@@ -117,6 +120,7 @@ hr {
   list-style: none;
   padding: 0 5%;
   li {
+    color: $color-dark-gray;
     list-style: none;
     font-size: 18px;
     margin: 15px 0 0;
@@ -345,9 +349,12 @@ hr {
   a, button {
     color: $color-blue;
     font-weight: 400;
-    text-decoration: underline;
+    text-decoration: none;
     position: relative;
     display: block;
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -384,6 +391,9 @@ hr {
       text-align: center;
       display: block;
       padding: 20px 0 15px 0;
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+      }
       &:after {
         content: "";
         background-image: url("/static/authentication_service/themes/springster/images/icons/up-arrow.svg");
@@ -457,8 +467,10 @@ hr {
       display: inline-block;
       font-size: 16px;
       text-decoration: none;
-      &:hover {
+      &:hover, &:active, &:focus {
         border: 0;
+        color: $color-blue;
+        text-decoration: underline;
       }
     }
   }

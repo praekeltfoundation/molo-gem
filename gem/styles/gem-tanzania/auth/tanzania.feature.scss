@@ -94,17 +94,32 @@ img {
 
 
 //HEADER
+@keyframes pulse {
+  0% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .Header {
   text-align: center;
   &-branding {
     background: $color-blue;
     color: #fff;
     padding: 15px 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
     &-image {
       content: url('/static/authentication_service/themes/tanzania/images/tujibebe-white.svg');
+      cursor: pointer;
       display: block;
       height: 35px;
       width: 115px;
+      &:hover, &:active, &:focus {
+        animation: pulse 0.5s ease 0s 1;
+      }
     }
   }
   &-links {
@@ -113,7 +128,10 @@ img {
     padding: 10px 0;
     a {
       color: $color-blue;
-      text-decoration: none;
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+      }
     }
   }
   &-title {
@@ -164,7 +182,12 @@ img {
   background: #fff;
   overflow: auto;
   p {
+    color: $color-dark_grayish-blue;
     padding: 0 5%;
+    text-align: center;
+  }
+  .center {
+    color: $color-dark_grayish-blue;
   }
 }
 
@@ -284,9 +307,12 @@ img {
   a, button {
     color: $color-blue;
     font-weight: 400;
-    text-decoration: underline;
+    text-decoration: none;
     position: relative;
     display: block;
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -329,6 +355,10 @@ img {
     a {
       font-size: 16px;
       text-decoration: none;
+      &:hover, &:active, &:focus {
+        color: $color-blue;
+        text-decoration: underline;
+      }
     }
   }
   &-list {
