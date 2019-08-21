@@ -43,5 +43,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(remove_content_editor_survey_permissions),
+        # migrations.RunPython(remove_content_editor_survey_permissions),
     ]

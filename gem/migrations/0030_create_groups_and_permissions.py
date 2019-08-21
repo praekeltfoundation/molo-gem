@@ -52,12 +52,13 @@ def create_groups_and_permissions(apps, schema_editor):
     can_moderate = get_permission(Permission, 'can_moderate')
 
     # forms
-    add_segmentusergroup = get_permission(
-        Permission, 'add_segmentusergroup')
-    change_segmentusergroup = get_permission(
-        Permission, 'change_segmentusergroup')
-    delete_segmentusergroup = get_permission(
-        Permission, 'delete_segmentusergroup')
+    # add_segmentusergroup = get_permission(
+    #     Permission, 'add_segmentusergroup')
+    # change_segmentusergroup = get_permission(
+    #     Permission, 'change_segmentusergroup')
+    # delete_segmentusergroup = get_permission(
+    #     Permission, 'delete_segmentusergroup')
+
     add_segment = get_permission(Permission, 'add_segment')
     change_segment = get_permission(Permission, 'change_segment')
     delete_segment = get_permission(Permission, 'delete_segment')
@@ -88,6 +89,7 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, product_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, product_admin_group, polls, page_permission_types)
     # create_page_permission(GroupPagePermission, product_admin_group, forms, page_permission_types)
+
     # Django permissions
     product_admin_group.permissions.add(
         access_admin, add_yourwords_entries, change_yourwords_entries,
@@ -101,8 +103,10 @@ def create_groups_and_permissions(apps, schema_editor):
     # Django permissions
     data_admin_group.permissions.add(
         access_admin, add_yourwords_entries, add_segment,
-        change_segment, delete_segment, add_segmentusergroup,
-        change_segmentusergroup, delete_segmentusergroup, add_molocomment)
+        change_segment, delete_segment, add_molocomment,
+        # add_segmentusergroup,
+        # change_segmentusergroup, delete_segmentusergroup
+    )
 
     # <----- Data Viewer ----->
     data_viewer_group = create_group(Group, 'data_viewer')
@@ -118,6 +122,7 @@ def create_groups_and_permissions(apps, schema_editor):
     create_page_permission(GroupPagePermission, content_admin_group, yourwords, page_permission_types)
     create_page_permission(GroupPagePermission, content_admin_group, polls, page_permission_types)
     # create_page_permission(GroupPagePermission, content_admin_group, forms, page_permission_types)
+
     # Django permissions
     content_admin_group.permissions.add(
         access_admin, add_cannedresponse, change_cannedresponse,
@@ -125,8 +130,9 @@ def create_groups_and_permissions(apps, schema_editor):
         delete_molocomment, add_comment, change_comment, delete_comment,
         add_yourwords_entries, change_yourwords_entries,
         delete_yourwords_entries, change_userprofile_settings, add_segment,
-        change_segment, delete_segment, add_segmentusergroup,
-        change_segmentusergroup, delete_segmentusergroup)
+        change_segment, delete_segment,
+        # add_segmentusergroup, change_segmentusergroup, delete_segmentusergroup
+    )
 
     # <----- Content Editor ----->
     content_editor_group = create_group(Group, 'content_editor')
@@ -178,7 +184,7 @@ class Migration(migrations.Migration):
         ('profiles', '0021_remove_uuid_null'),
         ('polls', '0004_add-polls-permissions-to-groups'),
         ('yourwords', '0007_add_yourwords_permission_to_groups'),
-        ('surveys', '0026_remove_molosurveypageview_tag'),
+        # ('surveys', '0026_remove_molosurveypageview_tag'),
         ('contenttypes', '0002_remove_content_type_name'),
         ('wagtailcore', '0032_add_bulk_delete_page_permission'),
         ('wagtailadmin', '0001_create_admin_access_permissions'),
