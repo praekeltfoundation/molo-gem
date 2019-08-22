@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import migrations
+
+
+surveys_installed = 'molo.yourwords' in settings.INSTALLED_APPS and \
+    'molo.polls' in settings.INSTALLED_APPS and 'molo.surveys' in settings.INSTALLED_APPS
 
 
 def move_banners_to_index_page(apps, schema_editor):
@@ -45,33 +50,38 @@ def move_sections_to_index_page(apps, schema_editor):
 
 
 def move_polls_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, Main)
-    from molo.polls.models import (Question, FreeTextQuestion, PollsIndexPage)
-    main = Main.objects.all().first()
-    current_language = LanguagePage.objects.live().first()
+    if surveys_installed:
+        from molo.core.models import (LanguagePage, Main)
+        from molo.polls.models import (Question, FreeTextQuestion, PollsIndexPage)
 
-    if main and current_language:
-        # Move existing questions
-        index_page = PollsIndexPage.objects.live().first()
-        for page in Question.objects.all().child_of(current_language):
-            page.move(index_page, pos='last-child')
-        # Move existing FreeTextQuestion
-        for page in FreeTextQuestion.objects.all().child_of(current_language):
-            page.move(index_page, pos='last-child')
+        main = Main.objects.all().first()
+        current_language = LanguagePage.objects.live().first()
+
+        if main and current_language:
+            # Move existing questions
+
+            index_page = PollsIndexPage.objects.live().first()
+            for page in Question.objects.all().child_of(current_language):
+                page.move(index_page, pos='last-child')
+            # Move existing FreeTextQuestion
+            for page in FreeTextQuestion.objects.all().child_of(current_language):
+                page.move(index_page, pos='last-child')
 
 
 def move_yourwords_to_index_page(apps, schema_editor):
-    from molo.core.models import (LanguagePage, Main)
-    from molo.yourwords.models import (
-        YourWordsCompetition, YourWordsCompetitionIndexPage)
-    main = Main.objects.all().first()
-    current_language = LanguagePage.objects.live().first()
+    if surveys_installed:
+        from molo.core.models import (LanguagePage, Main)
+        from molo.yourwords.models import (
+            YourWordsCompetition, YourWordsCompetitionIndexPage)
 
-    if main and current_language:
-        # Move existing your words competition
-        index_page = YourWordsCompetitionIndexPage.objects.live().first()
-        for p in YourWordsCompetition.objects.all().child_of(current_language):
-            p.move(index_page, pos='last-child')
+        main = Main.objects.all().first()
+        current_language = LanguagePage.objects.live().first()
+
+        if main and current_language:
+            # Move existing your words competition
+            index_page = YourWordsCompetitionIndexPage.objects.live().first()
+            for p in YourWordsCompetition.objects.all().child_of(current_language):
+                p.move(index_page, pos='last-child')
 
 
 class Migration(migrations.Migration):

@@ -26,13 +26,12 @@ def add_molo_forms_permissions(apps, schema_editor):
     access_admin = get_permission(Permission, 'access_admin')
 
     # Forms
-    # add_segmentusergroup = get_permission(
-    #     Permission, 'add_segmentusergroup')
-    # change_segmentusergroup = get_permission(
-    #     Permission, 'change_segmentusergroup')
-    # delete_segmentusergroup = get_permission(
-    #     Permission, 'delete_segmentusergroup')
-
+    add_segmentusergroup = get_permission(
+        Permission, 'add_segmentusergroup')
+    change_segmentusergroup = get_permission(
+        Permission, 'change_segmentusergroup')
+    delete_segmentusergroup = get_permission(
+        Permission, 'delete_segmentusergroup')
     add_segment = get_permission(Permission, 'add_segment')
     change_segment = get_permission(Permission, 'change_segment')
     delete_segment = get_permission(Permission, 'delete_segment')
