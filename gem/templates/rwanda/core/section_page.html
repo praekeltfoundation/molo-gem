@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles competition_tag molo_forms_tags gem_tags %}
+{% load wagtailcore_tags wagtailimages_tags core_tags comments staticfiles  molo_forms_tags gem_tags %}
 
 {% block content %}
 <div class="section-page {% if self.get_effective_extra_style_hints %}section-page--{{self.get_effective_extra_style_hints}}{% endif %}">
@@ -136,5 +136,5 @@
 </div>
 {% bannerpages position=5 %}
 {% forms_list_for_pages page=self %}
-{% your_words_competition_in_section self %}
+
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load poll_votings %}
+
 
 {% block content %}
 
@@ -18,7 +18,7 @@
     </div>
   	<form action="{% url 'molo.polls:vote' question.id %}" method="post" class="polls__form" novalidate>
   	{% csrf_token %}
-  		{% load_choices_for_poll_page question as choices %}
+
   		{% for choice in choices %}
       <fieldset class="choice choice-group">
         {% if question.get_main_language_page.allow_multiple_choice %}

@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 
-{% load core_tags competition_tag poll_votings molo_forms_tags molo_forms_tags media_tags %}
+{% load core_tags molo_forms_tags media_tags %}
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
@@ -32,13 +32,13 @@
   </div>
   {% forms_list only_direct_forms=True %}
   {% forms_list only_direct_forms=True %}
-  {% poll_page %}
+
   <div class="article-list">
     {% section_listing_homepage %}
   </div>
 
   {% forms_list only_yourwords=True %}
   {% forms_list only_yourwords=True %}
-  {% your_words_competition %}
+
 
 {% endblock %}

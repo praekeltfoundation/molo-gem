@@ -1,4 +1,4 @@
-{% load i18n static poll_votings %}
+{% load i18n static  %}
 {% if error_message %}
   <ul class="error-list">
     <li class="error-list__item">{{ error_message }}</li>
@@ -6,7 +6,7 @@
 {% endif %}
 <form class="polls__form" action="{% url 'molo.polls:vote' question.id %}" method="post" novalidate>
   {% csrf_token %}
-  {% load_choices_for_poll_page question as choices %}
+
   {% if not request.user.is_authenticated %}
     {% for choice in choices %}
       <fieldset class="choice-fieldset">
