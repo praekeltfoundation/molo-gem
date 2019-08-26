@@ -26,7 +26,7 @@ def create_groups_and_permissions(apps, schema_editor):
 
     if surveys_installed:
         PollsIndexPage = apps.get_model('polls.PollsIndexPage')
-        FormIndexPage = apps.get_model('surveys.FormIndexPage')
+        SurveysIndexPage = apps.get_model('surveys.SurveysIndexPage')
         YourWordsCompetitionIndexPage = apps.get_model('yourwords.YourWordsCompetitionIndexPage')
 
     # remove the existing groups
@@ -39,7 +39,7 @@ def create_groups_and_permissions(apps, schema_editor):
 
     if surveys_installed:
         polls = PollsIndexPage.objects.all()
-        forms = FormIndexPage.objects.all()
+        surverys = SurveysIndexPage.objects.all()
         yourwords = YourWordsCompetitionIndexPage.objects.all()
 
     # **** Get Permission ****
@@ -59,7 +59,7 @@ def create_groups_and_permissions(apps, schema_editor):
     delete_comment = get_permission(Permission, 'delete_comment')
     can_moderate = get_permission(Permission, 'can_moderate')
 
-    # forms
+    # surverys
     if surveys_installed:
         add_segmentusergroup = get_permission(
             Permission, 'add_segmentusergroup')
@@ -100,7 +100,7 @@ def create_groups_and_permissions(apps, schema_editor):
     if surveys_installed:
         create_page_permission(GroupPagePermission, product_admin_group, yourwords, page_permission_types)
         create_page_permission(GroupPagePermission, product_admin_group, polls, page_permission_types)
-        create_page_permission(GroupPagePermission, product_admin_group, forms, page_permission_types)
+        create_page_permission(GroupPagePermission, product_admin_group, surverys, page_permission_types)
 
         # Django permissions
         product_admin_group.permissions.add(
@@ -113,7 +113,7 @@ def create_groups_and_permissions(apps, schema_editor):
     # Page permissions
     if surveys_installed:
         create_page_permission(GroupPagePermission, data_admin_group, polls, page_permission_types)
-        create_page_permission(GroupPagePermission, data_admin_group, forms, page_permission_types)
+        create_page_permission(GroupPagePermission, data_admin_group, surverys, page_permission_types)
 
     # Django permissions
     data_admin_group.permissions.add(
@@ -143,7 +143,7 @@ def create_groups_and_permissions(apps, schema_editor):
     if surveys_installed:
         create_page_permission(GroupPagePermission, content_admin_group, yourwords, page_permission_types)
         create_page_permission(GroupPagePermission, content_admin_group, polls, page_permission_types)
-        create_page_permission(GroupPagePermission, content_admin_group, forms, page_permission_types)
+        create_page_permission(GroupPagePermission, content_admin_group, surverys, page_permission_types)
 
     # Django permissions
     content_admin_group.permissions.add(
@@ -169,7 +169,7 @@ def create_groups_and_permissions(apps, schema_editor):
     if surveys_installed:
         create_page_permission(GroupPagePermission, content_editor_group, yourwords, page_permission_types)
         create_page_permission(GroupPagePermission, content_editor_group, polls, page_permission_types)
-        create_page_permission(GroupPagePermission, content_editor_group, forms, page_permission_types)
+        create_page_permission(GroupPagePermission, content_editor_group, surverys, page_permission_types)
 
     # Django permissions
     content_editor_group.permissions.add(
