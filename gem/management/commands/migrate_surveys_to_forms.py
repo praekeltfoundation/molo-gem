@@ -86,7 +86,6 @@ class Command(BaseCommand):
                 form = MoloFormPage(**survey_dict)
                 forms_index.add_child(instance=form)
                 if survey.status_string == 'draft':
-                    form.save_revision().publish()
                     form.specific.unpublish()
                 else:
                     form.save_revision().publish()
@@ -161,13 +160,11 @@ class Command(BaseCommand):
                         'display_survey_directly']
                 del personalisable_survey_dict[
                     'display_survey_directly']
-                # del personalisable_survey_dict['page_ptr_id']
 
                 personalisable_form = PersonalisableForm(
                     **personalisable_survey_dict)
                 forms_index.add_child(instance=personalisable_form)
                 if personalisable_survey.status_string == 'draft':
-                    personalisable_form.save_revision().publish()
                     personalisable_form.specific.unpublish()
                 else:
                     personalisable_form.save_revision().publish()
@@ -197,7 +194,6 @@ class Command(BaseCommand):
 
                     PersonalisableFormField.objects.create(
                         **personalisable_form_field_dict)
-                # import pdb; pdb.set_trace()
                 for submission in \
                     MoloSurveySubmission.objects.filter(
                         page_id=personalisable_survey_id):
