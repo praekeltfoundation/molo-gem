@@ -52,9 +52,8 @@ class Command(BaseCommand):
 
                     footer_page = FooterPage(**footer_dict)
                     forms_tc.add_child(instance=footer_page)
-                    if footerpage.status_string == 'draft'\
-                        or footerpage.status_string == 'expired':
-                        footer_page.save_revision().publish()
+                    if footerpage.status_string == 'draft' \
+                            or footerpage.status_string == 'expired':
                         footer_page.specific.unpublish()
                     else:
                         footer_page.save_revision().publish()
@@ -88,7 +87,7 @@ class Command(BaseCommand):
                 form = MoloFormPage(**survey_dict)
                 forms_index.add_child(instance=form)
                 if survey.status_string == 'draft'\
-                    or survey.status_string == 'expired':
+                        or survey.status_string == 'expired':
                     form.specific.unpublish()
                 else:
                     form.save_revision().publish()
@@ -124,7 +123,12 @@ class Command(BaseCommand):
                             'created_at']
                         del submission_dict['created_at']
                         submission_dict['page_id'] = form.id
-                        MoloFormSubmission.objects.create(**submission_dict)
+                        form_submission = MoloFormSubmission.objects.create(
+                            **submission_dict)
+                        form_submission.submit_time =\
+                            submission_dict['submit_time']
+                        form_submission.save()
+
             for key in translated_survey:
                 main_form = MoloFormPage.objects.descendant_of(
                     forms_index).get(slug="form-%s" % key).specific
@@ -169,7 +173,7 @@ class Command(BaseCommand):
                     **personalisable_survey_dict)
                 forms_index.add_child(instance=personalisable_form)
                 if personalisable_survey.status_string == 'draft'\
-                    or personalisable_survey.status_string == 'expired':
+                        or personalisable_survey.status_string == 'expired':
                     personalisable_form.specific.unpublish()
                 else:
                     personalisable_form.save_revision().publish()
@@ -211,8 +215,11 @@ class Command(BaseCommand):
                         del submission_dict['created_at']
                         submission_dict[
                             'page_id'] = personalisable_form.id
-                        MoloFormSubmission.objects.create(
+                        form_submission = MoloFormSubmission.objects.create(
                             **submission_dict)
+                        form_submission.submit_time =\
+                            submission_dict['submit_time']
+                        form_submission.save()
             for key in translated_survey:
                 main_form = PersonalisableForm.objects.descendant_of(
                     forms_index).get(slug="form-%s" % key).specific
