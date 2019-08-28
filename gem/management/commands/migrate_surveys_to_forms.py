@@ -27,6 +27,7 @@ from molo.forms.rules import (
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for main in Main.objects.all():
+            print("*"*10, "Migrating Surveys in", main, "*"*10,)
             surveys_index = SurveysIndexPage.objects.child_of(main).first()
             forms_index = FormsIndexPage.objects.child_of(main).first()
             surveys_tc = TermsAndConditionsIndexPage.objects.child_of(
@@ -51,7 +52,8 @@ class Command(BaseCommand):
 
                     footer_page = FooterPage(**footer_dict)
                     forms_tc.add_child(instance=footer_page)
-                    if footerpage.status_string == 'draft':
+                    if footerpage.status_string == 'draft'\
+                        or footerpage.status_string == 'expired':
                         footer_page.save_revision().publish()
                         footer_page.specific.unpublish()
                     else:
@@ -85,7 +87,8 @@ class Command(BaseCommand):
 
                 form = MoloFormPage(**survey_dict)
                 forms_index.add_child(instance=form)
-                if survey.status_string == 'draft':
+                if survey.status_string == 'draft'\
+                    or survey.status_string == 'expired':
                     form.specific.unpublish()
                 else:
                     form.save_revision().publish()
@@ -123,10 +126,11 @@ class Command(BaseCommand):
                         submission_dict['page_id'] = form.id
                         MoloFormSubmission.objects.create(**submission_dict)
             for key in translated_survey:
-                main_form = MoloFormPage.objects.get(
-                    slug="form-%s" % key).specific
-                translated_form = MoloFormPage.objects.get(
-                    slug="form-%s" % translated_survey[key]).specific
+                main_form = MoloFormPage.objects.descendant_of(
+                    forms_index).get(slug="form-%s" % key).specific
+                translated_form = MoloFormPage.objects.descendant_of(
+                    forms_index).get(
+                        slug="form-%s" % translated_survey[key]).specific
                 main_form.translated_pages.add(translated_form)
                 translated_form.translated_pages.add(main_form)
             print("Migration of SurveyPage is Done")
@@ -164,7 +168,8 @@ class Command(BaseCommand):
                 personalisable_form = PersonalisableForm(
                     **personalisable_survey_dict)
                 forms_index.add_child(instance=personalisable_form)
-                if personalisable_survey.status_string == 'draft':
+                if personalisable_survey.status_string == 'draft'\
+                    or personalisable_survey.status_string == 'expired':
                     personalisable_form.specific.unpublish()
                 else:
                     personalisable_form.save_revision().publish()
@@ -209,13 +214,14 @@ class Command(BaseCommand):
                         MoloFormSubmission.objects.create(
                             **submission_dict)
             for key in translated_survey:
-                main_form = PersonalisableForm.objects.get(
-                    slug="form-%s" % key).specific
-                translated_form = PersonalisableForm.objects.get(
-                    slug="form-%s" % translated_survey[key]).specific
+                main_form = PersonalisableForm.objects.descendant_of(
+                    forms_index).get(slug="form-%s" % key).specific
+                translated_form = PersonalisableForm.objects.descendant_of(
+                    forms_index).get(
+                        slug="form-%s" % translated_survey[key]).specific
                 main_form.translated_pages.add(translated_form)
                 translated_form.translated_pages.add(main_form)
-        print("Migration of Personalisable Survey is Done")
+            print("Migration of Personalisable Survey is Done")
 
         # Migrate Survey User Group to Form
         for segment_user_group in SegmentUserGroup.objects.all():
@@ -318,3 +324,4 @@ class Command(BaseCommand):
                 group_rule.delete()
                 segment.save()
         print("Migration of Survey Rules to Form is Done")
+        print("*"*10, "Migration is Done", "*"*10)
