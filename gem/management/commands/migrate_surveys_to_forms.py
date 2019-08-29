@@ -315,6 +315,17 @@ class Command(BaseCommand):
                 combination_rule.delete()
                 segment.save()
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        #     MoloFormSubmission.objects.create(**submission_dict)
+
+        # for segment_user_group in SegmentUserGroup.objects.all():
+        #     segment_user_group_dict = segment_user_group.__dict__
+        #     del segment_user_group_dict['_state']
+        #     FormsSegmentUserGroup.objects.create(**segment_user_group_dict)
+=======
+>>>>>>> feature/install-molo-forms
             group_rule = GroupMembershipRule.objects.filter(
                 segment_id=segment.id).first()
             if group_rule:
@@ -331,4 +342,12 @@ class Command(BaseCommand):
                 group_rule.delete()
                 segment.save()
         print("Migration of Survey Rules to Form is Done")
+<<<<<<< HEAD
         print("*"*10, "Migration is Done \o/", "*"*10)
+=======
+<<<<<<< HEAD
+>>>>>>> ce94b7b472ecb00ff9d0cb42448aebcee3154cd8
+=======
+        print("*"*10, "Migration is Done", "*"*10)
+>>>>>>> 59948859212519205370eb1fd95f0d3229626566
+>>>>>>> feature/install-molo-forms
