@@ -2,36 +2,15 @@
 {% get_settings %}
 
 {% block content %}
-<div class="contact">
 {% filter_forms_by_segments forms request as filtered_forms %}
   {% for item in filtered_forms %}
     {% with form_page=item.molo_form_page form=item.form %}
       {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
-      <div class="banner">
-        <div class="heading heading--hero">
-          <h1 class="heading__title">{{form_page.title}}</h1>
-          <h1 class="heading__title">{{ page.title }}</h1>
-        </div>
-      </div>
-      <div class="contact__wrapper">
-        <div class="contact__columns">
-          {% if form_page.homepage_introduction %}
-            <div class="heading">
-              <h2 class="heading__title">
-                --
-              </h2>
-            </div>
-            <h3 class="heading__subtitle">{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</h3>
-          {% endif %}
-          <a href="{% pageurl form_page.specific %}" class="call-to-action__item call-to-action__item--primary">
-            {% trans "Contact us" as defaultText %} {{ form_page.homepage_button_text|default:defaultText }}
-          </a>
-        </div>
-
-        <div class="contact__second-column">
-          {% include_block page.body %}
-        </div>
-      </div>
+      <li class="menu-list__item state-list__item">
+        <a href="{% pageurl form_page.specific %}" class="menu-list__anchor state-list__anchor">
+          {% trans "Contact us" as defaultText %} {{ form_page.homepage_button_text|default:defaultText }}
+        </a>
+      </li>
       {% endif %}
     {% endwith %}
   {% endfor %}
