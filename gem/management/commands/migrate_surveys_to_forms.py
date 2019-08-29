@@ -331,4 +331,4 @@ class Command(BaseCommand):
                 group_rule.delete()
                 segment.save()
         print("Migration of Survey Rules to Form is Done")
-        print("*"*10, "Migration is Done", "*"*10)
+        print("*"*10, "Migration is Done \o/", "*"*10)
