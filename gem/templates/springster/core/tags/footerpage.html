@@ -1,4 +1,4 @@
-{% load wagtailcore_tags forms_tags %}
+{% load wagtailcore_tags %}
 {% block footer %}
   {% if footers %}
     {% for page in footers %}
@@ -10,6 +10,8 @@
     </li>
     {% endfor %}
     <!-- GET FORMS LIST = SHOW ON MENUS == TRUE -->
-    <li class="menu-list__item state-list__item">{% forms_list %}</li>
+    <li class="menu-list__item state-list__item">
+      {#{% forms_list %}#}
+    </li>
   {% endif %}
 {% endblock %}
