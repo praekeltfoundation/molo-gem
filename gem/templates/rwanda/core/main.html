@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_form_tags poll_votings competition_tag gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags staticfiles comments molo_forms_tags   gem_tags %}
 {% block content %}
   <div class="banner--main">
     {% bannerpages position=0 %}
@@ -27,11 +27,11 @@
   {% forms_list personalisable_form=True %}
   {% forms_list only_linked_forms=True %}
   {% forms_list only_direct_forms=True %}
-  {% poll_page %}
+
   {% bannerpages position=2 %}
   {% section_listing_homepage %}
   {% media_listing_homepage %}
   {% bannerpages position=3 %}
   {% forms_list only_yourwords=True %}
-  {% your_words_competition %}
+
 {% endblock %}

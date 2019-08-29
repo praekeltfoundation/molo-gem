@@ -13,10 +13,10 @@ class TestSitemapsUrls(TestCase, GemTestCaseMixin):
 
     def test_sitemaps(self):
         response = self.client.get('/sitemap.xml')
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.main.get_site().hostname)
 
     def test_robots(self):
         response = self.client.get('/robots.txt')
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.main.get_site().hostname)

@@ -211,7 +211,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
 class ChhaaJaaLoginMiddleware(object):
     def process_request(self, request):
-        if request.user.is_authenticated() is False \
+        if not request.user.is_authenticated \
                 and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
                 and (
                     'login' not in request.path and

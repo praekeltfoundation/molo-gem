@@ -9,7 +9,6 @@ from gem.rules import ProfileDataRule, CommentCountRule
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
 from molo.commenting.models import MoloComment
 from molo.profiles.models import UserProfile
-from molo.surveys.models import SegmentUserGroup
 from molo.forms.models import FormsSegmentUserGroup
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
@@ -31,14 +30,6 @@ class GemCommentReportModelAdmin(admin.StackedInline):
     max_num = 0
     actions = None
     readonly_fields = ["user", "reported_reason", ]
-
-
-class SegementUserPermissionHelper(PermissionHelper):
-    def __init__(self, model, inspect_view_enabled=False):
-        model = SegmentUserGroup
-        super(SegementUserPermissionHelper, self).__init__(
-            model, inspect_view_enabled
-        )
 
 
 class FormsSegementUserPermissionHelper(PermissionHelper):

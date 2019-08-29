@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles comments molo_form_tags poll_votings competition_tag el_pagination_tags gem_tags %}
+{% load cache wagtailcore_tags core_tags wagtailimages_tags wagtailembeds_tags staticfiles comments molo_forms_tags   el_pagination_tags gem_tags %}
 
 {% block meta %}
     <meta name="description" content="{% if self.search_description %}{{self.search_description}}{% else %}Tujibebe celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
@@ -19,13 +19,13 @@
     {% section_listing_homepage %}
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
-    {% poll_page %}
+
     {% bannerpages position=2 %}
     {% forms_list only_direct_forms=True %}
     {% forms_list only_yourwords=True %}
     {% forms_list only_linked_forms=True %}
     {% bannerpages position=3 %}
-    {% your_words_competition %}
+
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
@@ -35,7 +35,7 @@
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.0.0 tag_articles=tag_nav_data.tags_list.0.1 %}
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
-    {% poll_page %}
+
     {% forms_list only_direct_forms=True %}
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
     {% bannerpages position=2 %}
@@ -46,7 +46,7 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"9:12" %}
     {% include "patterns/components/article-teasers/sp_variations/carousel-teaser-listing.html" with tag=tag_nav_data.tags_list.1.0 tag_articles=tag_nav_data.tags_list.1.1 %}
     {% bannerpages position=3 %}
-    {% your_words_competition %}
+
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"12:15" %}
   {% endif %}
 {% endblock %}
