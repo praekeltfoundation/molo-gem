@@ -1,13 +1,15 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags forms_tags %}
 {% block footer %}
-    {% if footers %}
-      {% for page in footers %}
-      {% pageurl page.specific as page_path %}
-      <li class="footer-menu-list__item">
-        <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor{% if request.path == page_path %} selected{% endif %}">
-          {{page.title}}
-        </a>
-      </li>
-      {% endfor %}
-    {% endif %}
+  {% if footers %}
+    {% for page in footers %}
+    {% pageurl page.specific as page_path %}
+    <li class="footer-menu-list__item">
+      <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor{% if request.path == page_path %} selected{% endif %}">
+        {{page.title}}
+      </a>
+    </li>
+    {% endfor %}
+    <!-- GET FORMS LIST = SHOW ON MENUS == TRUE -->
+    <li class="menu-list__item state-list__item">{% forms_list %}</li>
+  {% endif %}
 {% endblock %}
