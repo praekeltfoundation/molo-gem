@@ -1,79 +1,177 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags core_tags gem_tags wagtailimages_tags static %}
+{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 
 {% block content %}
-  {% if page.your_words_competition %}
-    <div class="standalone-page your-words your-words{{ page.get_effective_extra_style_hints }}">
-      <div class="section-title">
-        <h2>{% trans "Share your story" %}</h2>
-      </div>
-      <h3>{{ page.title }}</h3>
-      <p>{{ page.introduction }}</p>
-      <img src="{% static 'img/Pencil.png' %}" />
-      <div class="content">
-        <!-- this needs to be checked -->
-        {% for block in form.description %}
-          {% if block.block_type == 'heading' %}
-              <h5>{{ block.value }}</h5>
-          {% elif block.block_type == 'paragraph' %}
-              <p>{{ block.value }}</p>
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% comment %}
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="your-words__pagination your-words__pagination--multi-step">
-        <h6 class="your-words__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{ pages }} pages{% endblocktrans %}
-        </h6>
-      </div>
-      {% endif %}
-      {% endcomment %}
-      {% include "forms/form.html" with formtype="competition" formtypeClass="your-words"  %}
-    </div>
-  {% elif page.display_form_directly %}
-      <div class="polls gem-polls">
-          <div class="section-title">
-            <h4 class="poll__title list-header">{% trans "What's your opinion?" %}</h4>
-          </div>
-          <div class="list-inline">
-            <h2 class="poll__question-title">{{ page.title }}</h2>
-            {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-              {% if form %}
-                {% include "forms/form.html" with formtype="poll" formtypeClass="polls"  %}
-              {% else %}
-              <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
-                {% if request.path == "/" %}
-                  <a href="{% pageurl form %}success/" class="button call-to-action__button call-to-action__button--primary">
-                    {% trans "Show Results" %}
-                  </a>
-                {% else %}
-                  <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
-                  {% trans "Back home" %}</a>
-                {% endif %}
-              {% endif %}
-            {% endif %}
-          </div>
-      </div>
-  {% else %}
-    <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
-      <h1 class="surveys__title">{{ page.title }}</h1>
-      <h4 class="surveys__intro">{{ page.introduction }}</h4>
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="surveys__pagination surveys__pagination--multi-step">
-        <h6 class="surveys__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{ pages }} pages{% endblocktrans %}
-        </h6>
-      </div>
-      {% endif %}
-
-      {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-            {% include "forms/form.html" with formtype="form" formtypeClass="surveys" %}
-      {% else %}
-        <div class="call-to-action call-to-action--surveys">
-          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
-        </div>
-      {% endif %}
+<div class="contact">
+  {% if self.image %}
+    <div class="contact__image">
+      {% image self.image width-98 as tmp_photo_small %}
+      {% image self.image width-320 as tmp_photo_large %}
+      <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form.image.title }}" class="contact__thumbnail" />
     </div>
   {% endif %}
+  <div class="heading heading__component">
+    <h1>{{self.title}}</h1>
+  </div>
+  {% if self.introduction %}
+    <div class="heading heading__subheading">
+      <p>{{self.introduction|smarttruncatechars:500|safe}}</p>
+    </div>
+  {% endif %}
+
+  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+    {% if self.description %}
+      <div class="contact-inner">
+        {% for block in self.description %}
+            {% if block.block_type == 'heading' %}
+              <h4 class="contact-inner__title">{{ block.value }}</h4>
+            {% else %}
+              {{ block }}
+            {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
+      <div class="contact__terms">
+        <p>{% trans "Read:" %}
+          <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="contact__anchor">
+            {{page.terms_and_conditions.first.terms_and_conditions.title}}
+          </a>
+        </p>
+      </div>
+    {% endif %}
+
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="contact-pagination contact-pagination--multi-step">
+        <h4 class="contact-pagination__title">
+          {% blocktrans with pages=fields_step.paginator.num_pages %}
+            This survey has {{pages}} pages
+          {% endblocktrans %}
+        </h4>
+      </div>
+    {% endif %}
+
+
+
+    {% if form %}
+      <form action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="contact__form contact__form{{self.get_effective_extra_style_hints}}" novalidate>
+        {% csrf_token %}
+          {% if not is_via_freebasics %}
+              {{ form.media }}
+          {% endif %}
+          {% for field in form %}
+            <fieldset>
+              <div class="input-group">
+                <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+                {% if field.help_text %}
+                  {% if field|fieldtype == 'CharacterCountWidget' %}
+                    <p class="contact__helptext helptext">{{ field.help_text }}</p>
+                  {% else %}
+                    <p class="helptext">{{ field.help_text }}</p>
+                  {% endif %}
+                {% endif %}
+                {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+                  {% for value, text in field.field.choices %}
+                    <div class="choice-group">
+                      <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                      <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                    </div>
+                  {% endfor %}
+                {% elif field|fieldtype == 'RadioSelect' %}
+                  {% for value, text in field.field.choices %}
+                    <div class="choice-group choice-group__radio">
+                      <input name="{{ field.name }}"
+                       id="value-{{ field.id_for_label }}-{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                      <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                    </div>
+                  {% endfor %}
+                {% elif field|fieldtype == 'Select' %}
+                  <div class="select-style">
+                    <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+                    {% if field.value.0 %}
+                      <option value="{{field.value}}" selected="selected">{{field.value}}</option>
+                      {% for choice in field.field.choices %}
+                        <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                          {{choice.0}}
+                        </option>
+                      {% endfor %}
+                      {% elif not field.value.0  %}
+                        <option value selected="selected">Choose..</option>
+                        {% for choice in field.field.choices %}
+                        <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                          {{choice.0}}
+                        </option>
+                      {% endfor %}
+                    {% endif %}
+                    </select>
+                  </div>
+                {% else %}
+                  {{field}}
+                {% endif %}
+
+                {% if field.errors %}
+                  <ul class="error-list errorlist">
+                  {% for error in field.errors %}
+                    <li class="error-list__item">{{ error }}</li>
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            </fieldset>
+          {% endfor %}
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">
+            {% if is_intermediate_step %}
+              {% trans 'Next Question' %}
+            {% elif self.submit_text %}
+              {{self.submit_text}}
+            {% else %}
+              {% trans 'Submit' %}
+            {% endif %}
+          </button>
+      </form>
+      {% if fields_step and fields_step.paginator.num_pages > 1 %}
+        <div class="contact-pagination">
+          <p class="contact-pagination__page">
+            {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+              {% trans "Page"  %}
+              <span class="contact-pagination__number"> {{page}}</span>
+              {% trans "of" %}
+              <span class="contact-pagination__number">
+                {{pages}}
+              </span>
+            {% endwith %}
+          </p>
+        </div>
+      {% endif %}
+      {% else %}
+        {# FEEDBACK #}
+        <div class="contact__feedback">
+          <p class="errors">{% trans 'Contact form has been submitted.' %}</p>
+          {% if request.path == "/" %}
+            <a href="{% pageurl form %}success/" class="call-to-action__button call-to-action__button--primary">
+              <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {% trans "Show Results" %}
+              </span>
+            </a>
+          {% else %}
+            <div class="call-to-action">
+              <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+                {% trans "Back home" %}</a>
+            </div>
+          {% endif %}
+        </div>
+        {# END FEEDBACK #}
+      {% endif %}
+
+  {% else %}
+    <div class="contact__feedback">
+      <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Please login" %}
+        </span>
+      </a>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}

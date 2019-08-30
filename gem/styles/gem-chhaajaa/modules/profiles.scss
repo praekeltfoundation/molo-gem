@@ -1,6 +1,5 @@
 .profiles {
   padding: 0.5em 0;
-  //background: $colorYellow;
   @media screen and (min-width: 45.000em) {
     padding: 1.5em 5% 2em;
   }
@@ -9,25 +8,45 @@
     padding: 2em 1em;
     text-align: center;
     @media screen and (min-width: 45.000em) {
-      //padding: 2em 5%;
       padding: 2em 30%;
-    }
-  }
-  &__caption {
-    font-size: 27px;
-    padding: 15px 0 0;
-    .heading__subtitle {
-      display: inline-block;
-      font-size: 27px;
     }
   }
   &__inner {
     @media screen and (min-width: 45.000em) {
-      //padding: 15px 10% 1em 5%;
       padding: 15px 0 1em;
     }
+    &--contact {
+      .heading__subtitle {
+        text-align: left;
+        a {
+          display: inline-block;
+        }
+      }
+      p {
+        padding: 0 10px;
+        text-align: center;
+      }
+      a {
+        display: block;
+        text-align: left;
+      }
+      ul, ol {
+        padding: 0 10px;
+        list-style-position: inside;
+        text-align: left;
+      }
+      ul {
+        list-style: disc;
+      }
+      ol {
+        list-style: decimal;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
-
   &__form {
     overflow: inherit;
     text-align: left;
@@ -40,6 +59,33 @@
   }
   &__description {
     padding: 0 .5em 0 5px;
+  }
+  &__caption {
+    font-size: 22px;
+    padding: 15px 0 0;
+    .heading__subtitle {
+      display: inline-block;
+      font-size: 22px;
+    }
+  }
+  &-pagination {
+    text-align: center;
+    padding: 0 10px;
+    &--multi-step {
+      padding: 2em 10px 0;
+    }
+    &__page {
+      font-size: 16px;
+      font-style: italic;
+      font-weight: normal;
+    }
+    &__number {
+      font-weight: bold;
+    }
+    &__title {
+      font-size: 25px;
+      text-align: left;
+    }
   }
 
   .heading {
@@ -59,7 +105,6 @@
       display: inline-block;
       margin: 0;
       padding: 0;
-      //border-bottom: 2px solid $colorGrey;
     }
   }
 }

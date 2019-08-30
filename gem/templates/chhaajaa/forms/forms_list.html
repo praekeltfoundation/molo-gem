@@ -2,39 +2,31 @@
 {% get_settings %}
 
 {% block content %}
-{% filter_forms_by_segments forms request as filtered_forms %}
-{% if filtered_forms %}
-  {% for item in filtered_forms %}
-    {% with form_page=item.molo_form_page form=item.form %}
-      {% if form_page.display_form_directly %}
-        <div class="polls polls--homepage">
-          <div class="polls__wrapper">
-            <div class="polls__inner">
-              <section>
-                <div class="heading heading--secondary">
-                  <h1 class="heading__macro">
-                    {% if form_page.title %}{{form_page.title}}{% else %}{% trans 'Poll' %}{% endif %}</h1>
-                </div>
-                {% if form_page.homepage_introduction %}
-                  <h4 class="heading__subtitle">
-                    {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
-                  </h4>
-                {% endif %}
-                {% if form %}
-                  {% include "forms/form.html" with formtype="poll" formtypeClass="polls" %}
-                {% endif %}
-              </section>
-              {% if form_page.image %}
-                <aside>
-                  {% image form_page.image width-480 as tmp_photo %}
-                  <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="surveys__image" />
-                </aside>
-              {% endif %}
+<div class="profiles">
+  <div class="profiles__wrapper">
+    {% filter_forms_by_segments forms request as filtered_forms %}
+      {% for item in filtered_forms %}
+        {% with form_page=item.molo_form_page form=item.form %}
+          {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+            <div class="heading heading--hero">
+              <h1 class="heading__component">{{form_page.title}}</h1>
             </div>
-          </div>
-        </div>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-{% endif %}
+            {% if form_page.homepage_introduction %}
+              <div class="profiles__caption">
+                <h3 class="heading__subtitle">{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</h3>
+              </div>
+            {% endif %}
+            <div class="profiles__inner">
+              <div class="call-to-action--group">
+                <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+                  {% trans "Contact us" as defaultText %}
+                  {{ form_page.homepage_button_text|default:defaultText }}
+                </a>
+              </div>
+            </div>
+          {% endif %}
+        {% endwith %}
+      {% endfor %}
+  </div>
+</div>
 {% endblock %}
