@@ -1,0 +1,11 @@
+{% load wagtailcore_tags static i18n %}
+
+{% block content %}
+  {% for form in forms %}
+    <li class="pull-right-list__item">
+      <a href="{% pageurl form %}" class="pull-right-list__anchor{% if request.path == footer_page %} active{% endif %}">
+        {{ form.title }}
+      </a>
+    </li>
+  {% endfor %}
+{% endblock %}
