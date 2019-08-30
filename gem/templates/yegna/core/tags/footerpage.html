@@ -1,4 +1,4 @@
-{% load wagtailcore_tags core_tags %}
+{% load wagtailcore_tags core_tags gem_tags %}
 <li class="nav-menu-dropdown-list__item nav-menu-dropdown-list__item--footer">
   <ul class="menu-list menu-list--header state-list">
     {% if footers %}
@@ -11,8 +11,10 @@
           </li>
         {% endif %}
       {% endfor %}
-      <!-- GET FORMS LIST = SHOW ON MENUS == TRUE -->
-      <!-- <li class="menu-list__item state-list__item">{% forms_list %}</li> -->
+      {% comment %}
+        <!-- GET FORMS LIST = SHOW ON MENUS == TRUE -->
+        <!-- <li class="menu-list__item state-list__item">{% forms_list %}</li> -->
+      {% endcomment %}
     {% endif %}
 
     {% load_sections as sections %}
