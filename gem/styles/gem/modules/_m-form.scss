@@ -1,5 +1,6 @@
 form {
   overflow: auto;
+  padding: 0 10px;
   fieldset {
     border: none;
     margin: 10px 0;
@@ -26,15 +27,15 @@ form {
 }
 
 label {
-  font-size: 16px;
   color: #141414;
-  font-weight: bold;
   cursor: pointer;
+  display: block;
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: bold;
 }
-.profile__alias,
-.profile__dob {
-  margin: 0;
-}
+
+
 input[type="text"],
 input[type="number"],
 input[type="password"],
@@ -66,7 +67,6 @@ input.btn-wide {
 }
 
 select {
-  height: 40px;
   width: 97%;
   margin: 0 0 16px 0;
   display: block;
@@ -131,7 +131,15 @@ button, input[type=submit],
 }
 
 .terms-and-conditions {
-    &__field {
-      @extend %gem__field;
-    }
+  &__field {
+    @extend %gem__field;
+  }
+}
+
+.profile__alias,
+.profile__dob {
+  margin: 0;
+}
+.choice-group {
+  margin: 0 0 10px;
 }
