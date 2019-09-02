@@ -53,7 +53,7 @@
               {% if survey.image %}
                 <aside>
                   {% image survey.image width-480 as tmp_photo %}
-                  <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
+                  <img loading="lazy" src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="yourwords__image" />
                 </aside>
               {% endif %}
               {% endcomment %}
@@ -128,7 +128,7 @@
                 {% if survey.image %}
                   <aside>
                     {% image survey.image width-480 as tmp_photo %}
-                    <img src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="surveys__image" />
+                    <img loading="lazy" src="{{ tmp_photo.url }}" alt="{{ survey.image.title }}" class="surveys__image" />
                   </aside>
                 {% endif %}
                 <section>

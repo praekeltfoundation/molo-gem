@@ -12,10 +12,15 @@
   font-weight: normal;
 }
 
+//DEFAULT RESET
+
 body,
 html {
   background: $colorFourth;
   margin: 0;
+  @media screen and (min-width: 40em) {
+    margin-top: 0;
+  }
 }
 
 body,
@@ -63,12 +68,9 @@ hr {
 }
 
 
-@media (min-width: 40em) {
-  body {
-    margin-top: 0;
-  }
-
-  .Container {
+//CONTAINER
+.Container {
+  @media screen and (min-width: 40em) {
     margin: 0 auto;
     max-width: 360px;
     padding: 0;
@@ -76,17 +78,16 @@ hr {
   }
 }
 
-
+//HEADER
 .Header {
   margin-bottom: 0;
   text-align: center;
   &-branding {
     margin-bottom: 0;
     &-image {
-      width: 100%;
+      width: 130px;
     }
   }
-
   &-title {
     background: #fff;
     margin: 0;
@@ -101,43 +102,48 @@ hr {
   }
 }
 
+
+//LIST
 .List {
   list-style: none;
   padding: 0;
-
   li {
+    list-style: none;
     margin: $spacer-mid 0 0;
+    font-size: 16px;
   }
 }
 
+
+//QR
 .QR {
   text-align: center;
-
   &-image {
     border: 3px solid $colorPurple;
   }
 }
 
+
+//TOKENS
+
 .Tokens {
   border: 1px solid $colorGrey;
   margin: $spacer $spacer-mid;
   padding: 0 $spacer-mid $spacer-mid;
-
   li {
     float: left;
     width: 50%;
   }
-
   &::after {
     clear: both;
-    content: '';
+    content: "";
     display: block;
   }
 }
 
-
+//FORMS
 .Form {
-    background: $colorGrey;
+  background: $colorGrey;
   .Field {
     margin-top: $spacer-multiple;
     &-message {
@@ -147,23 +153,22 @@ hr {
       font-size: $font-medium;
       font-weight: normal;
     }
-
     .DateInput,
     .EmailInput,
     .NumberInput,
     .PasswordInput,
     .TextInput,
     .Textarea,
-    .vDateField {
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
       color: $colorPurple;
       font-weight: normal;
       padding: $spacer;
-
       &:focus {
         border-color: $colorPurple;
       }
     }
-
     .Textarea {
       height: 100px;
     }
@@ -174,7 +179,6 @@ hr {
     display: block;
     position: relative;
     width: 100%;
-
     @media screen and (-webkit-min-device-pixel-ratio:0) {
       &::after {
         border-style: solid;
@@ -197,13 +201,11 @@ hr {
         -ms-appearance: none;
       }
     }
-
     .Select {
       appearance: inherit;
       -webkit-appearance: inherit;
       -moz-appearance: inherit;
       -ms-appearance: inherit;
-
       background-color: #fff;
       border: 0;
       border-radius: 0;
@@ -268,7 +270,6 @@ hr {
       }
     }
   }
-
   .Field-message--error {
     &.Field--required {
       .Field-item {
@@ -278,33 +279,37 @@ hr {
       }
     }
   }
-
   &-buttons {
     margin-bottom: $spacer-multiple;
   }
 }
 
-.Header-links,
 .Additional-text {
   font-family:  "TwCenMT-Regular", ArialMT, Arial, sans-serif;
 }
 
+
+//BUTTONS / CALL TO ACTION
 .Button {
   &--warning {
     background: $colorOrange;
   }
 }
 
+//FEEDBACK MESSAGES
 .Messages {
   .Message {
     font-family: $font-family-default;
   }
 }
 
+//ERROR MASSAGES
 .errorlist {
   margin-top: $spacer-multiple;
 }
 
+
+//MENU NAV
 .Menu {
   margin: 0;
   &-title {
@@ -324,20 +329,22 @@ hr {
     margin: $spacer-mid 0;
     a {
       display: inline-block;
-
+      text-decoration: none;
       &:hover {
         border: 0;
       }
     }
   }
 }
-@media (min-width: 40em) {
-  .Menu {
+
+.Menu {
+  @media screen and (min-width: 40em) {
     margin-top: $spacer-mid;
     padding-bottom: $spacer;
   }
 }
 
+//FOOTER
 .Footer {
   margin: $spacer-multiple 0 0;
   padding: $spacer-multiple;

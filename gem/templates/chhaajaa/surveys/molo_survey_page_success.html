@@ -93,7 +93,7 @@
       {% if self.image %}
         <aside>
           {% image self.image width-480 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
+          <img loading="lazy" src="{{ tmp_photo.url }}" alt="{{ tmp_photo.title }}" class="{% if self.your_words_competition %}yourwords{% elif self.display_survey_directly %}polls{% else %}surveys{% endif %}__image" />
         </aside>
       {% endif %}
     </div>

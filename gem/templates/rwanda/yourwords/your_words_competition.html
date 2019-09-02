@@ -11,7 +11,7 @@
       {% if self.thank_you_page.get_parent_page.get_effective_image %}
         <aside>
           {% image self.thank_you_page.get_parent_page.get_effective_image width-480 as tmp_photo %}
-           <img src="{{ tmp_photo_small.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
+           <img loading="lazy" src="{{ tmp_photo_small.url }}" alt="{{ self.get_parent_page.get_effective_image.title }}" class="yourwords__image"/>
         </aside>
       {% endif %}
       <section>

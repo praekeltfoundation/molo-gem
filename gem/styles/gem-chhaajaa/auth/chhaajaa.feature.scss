@@ -1,0 +1,365 @@
+@import "../utils/*";
+@import "_fonts";
+
+//DEFAULT RESET
+html, body {
+  background-color: #fff;
+  height: auto;
+}
+
+body {
+  color: $colorGrey;
+  line-height: 1.3;
+  font-size: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: "FedraSansDevanagariB-Light";
+  margin: 0;
+  padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
+}
+p {
+  font-family: "FedraSansDevanagariB-Light";
+  margin: 0;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: $colorPurple;
+  text-decoration: none;
+  &:hover, &:focus, &:active {
+    color: #ff4289;
+  }
+}
+* {
+  box-sizing: border-box;
+  :focus {
+    @media screen and (min-width: 20.000em) {
+      outline: none;
+    }
+  }
+}
+
+
+//CONTAINER
+#wrap {}
+.Container {
+  height: auto;
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+
+//HEADER
+.Header {
+  overflow: auto;
+  &-branding {
+    background-color: $colorYellow;
+    margin: 0;
+    min-height: 85px;
+    text-align: left;
+    overflow: auto;
+    padding: 0 1em;
+    &-image {
+      content: url("/static/authentication_service/themes/chhaajaa/images/chhaajaa-logo.png");
+      display: inline-block;
+      width: 118px;
+      padding: .8em 15px .8em 0;
+      height: 74px;
+    }
+  }
+
+  &-title {
+    background: #fff;
+    margin: 0;
+    text-align: center;
+    padding: 2em;
+    h1 {
+      color: $colorPink;
+      font-family: "FedraSansDevanagariB-Demi";
+      font-size: 55px;
+      text-transform: uppercase;
+    }
+  }
+  &-links {
+    color: $colorGrey;
+    background: #fff;
+    display: inline-block;
+    font-family: "FedraSansDevanagariB-Light";
+    font-size: 27px;
+    margin: $spacer-half 0;
+    text-align: center;
+    a {
+      color: $colorPink;
+      padding: $spacer-half 0;
+      text-decoration: none;
+    }
+  }
+}
+
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  p {
+    padding: 0 1em;
+    @media screen and (min-width: 45em) {
+      padding: 0 23%;
+    }
+  }
+}
+
+// IODC LIST
+.List {
+  list-style: none;
+  padding: 0;
+  li {
+    color: $colorGrey;
+    font-size: 21px;
+    margin: $spacer-mid 0 0;
+  }
+}
+
+//FORMS
+.Form {
+  background: #fff;
+  padding: 1em;
+  margin: 0;
+  .Field {
+    margin: 10px 0 15px;
+    text-align: left;
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+    &-label {
+      font-family: "FedraSansDevanagariB-Demi";
+      font-weight: 700;
+      font-size: $font-medium;
+      padding: 0 .5em 0 0;
+      vertical-align: middle;
+      word-break: break-word;
+      word-wrap: break-word;
+      display: block;
+      color: $colorGrey ;
+    }
+    &-message {
+      color: $colorGrey;
+      clear: both;
+      font-size: $font-small;
+      font-style: italic;
+      margin-top: $spacer-half;
+      text-align: left;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
+      border-radius: 5px;
+      color: $colorGrey;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 2px solid $colorPurple;
+      font-size: 18px;
+      &:focus {
+        border-color: $colorPink;
+      }
+    }
+    .Textarea {
+      height: 60px;
+    }
+    .ClearableFileInput {
+      width: auto;
+    }
+    &--required {
+      input {
+        border-color: $colorRedLight;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRedLight;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer-half;
+  }
+}
+
+.Additional-text {
+  color: $colorGrey;
+  margin: 0;
+  font-size: 21px;
+  a {
+    color: $colorPurple;
+    display: inline-block;
+    padding: $spacer-half 0;
+    text-decoration: none;
+    &:hover {
+      color: $colorPink;
+    }
+  }
+}
+
+//BUTTONS / CALL TO ACTION
+.Button {
+  box-shadow: 12px 12px 0 0 $colorYellow;
+  margin: 10px 1em 10px 0;
+  background: $colorPurple;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 15px;
+  border: none;
+  min-width: 30%;
+  transition: opacity .1s ease-in-out;
+  width: auto;
+  &:hover {
+    background: $colorPink;
+    cursor: pointer;
+    outline: 0;
+    text-decoration: none;
+  }
+  &--warning {
+    background: $colorYellow;
+    &:hover {
+      background: $colorYellow;
+    }
+  }
+}
+
+//FEEDBACK MESSAGES
+.Messages {
+  margin: 0;
+  .Message {
+    color: #fff;
+    padding: $spacer-half;
+    &--success {
+      background: $colorPurple;
+    }
+    &--error,
+    &--warning {
+      background: $colorRedLight;
+    }
+  }
+}
+
+//ERROR MASSAGES
+.errorlist {
+  color: $colorRedLight;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+
+//MENU NAV
+.Menu {
+  padding: 0;
+  &-title {
+    display: none;
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  &-item {
+    display: block;
+    margin: $spacer-mid;
+    a {
+      color: $colorPurple;
+      border-bottom: 2px solid transparent;
+      font-size: 21px;
+      font-weight: 700;
+      font-family: FedraSansDevanagariB-Demi;
+      text-transform: uppercase;
+      -webkit-transition: all .4s linear 0s;
+      -o-transition: all .4s linear 0s;
+      transition: all .4s linear 0s;
+      text-decoration: none;
+      &:hover {
+        color: $colorPink;
+        border-bottom: 2px solid $colorPink;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+
+//FOOTER
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: $colorPurple;
+    font-family: "FedraSansDevanagariB-Bold";
+    text-transform: uppercase;
+    font-size: 21px;
+    display: inline-block;
+    &:after {
+      content: "";
+      background-image: url("/static/authentication_service/themes/chhaajaa/images/top.png");
+      background-repeat: no-repeat;
+      background-position: 1.5em center;
+      background-size: 38px;
+      position: absolute;
+      height: 37px;
+      width: 78px;
+      display: block;
+    }
+  }
+}
+
+.Footer {
+  background-color: $colorYellow;
+  border: 0;
+  font-size: $font-x-small;
+  margin: 0;
+  padding: $spacer-half 0;
+  text-align: left;
+  padding: 2em 1em;
+  min-height: 150px;
+  position: relative;
+  @media screen and (min-width: 45em) {
+    padding: 2em 5%;
+  }
+  p {
+    font-size: 12px;
+    color: $colorGrey;
+    text-align: left;
+  }
+  .Menu {
+    &-item {
+      display: inline-block;
+    }
+  }
+}

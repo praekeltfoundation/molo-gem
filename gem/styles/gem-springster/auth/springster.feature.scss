@@ -18,6 +18,7 @@ textarea {
 }
 a {
   color: $springster-purple;
+  text-decoration: none;
   &:hover {
     color: $springster-purple;
   }
@@ -78,6 +79,9 @@ hr {
   &-links {
     background: #fff;
     padding: 10px 0;
+    a {
+      text-decoration: none;
+    }
   }
   &-title {
     background: #fff;
@@ -86,7 +90,7 @@ hr {
     }
   }
 }
-
+//REGISTRATION: HEADER & FORMS
 .Registration {
   .Header {
     background-color: #7300ff;
@@ -108,7 +112,10 @@ hr {
 
     &-links {
       color: #4e5358;
-      a { color: #7300ff; }
+      a {
+        color: #7300ff;
+        text-decoration: none;
+      }
     }
   }
 }
@@ -126,6 +133,7 @@ hr {
     }
   }
 }
+
 //CONTENT
 .Content {
   background: #fff;
@@ -230,6 +238,10 @@ hr {
     margin: $spacer-half 0;
   }
 }
+.Additional-text {
+  text-align: center;
+  display: block;
+}
 
 //BUTTONS
 .Button {
@@ -243,21 +255,39 @@ hr {
   text-align: center;
   text-decoration: none;
   width: 100%;
-
   &:hover {
     background: $iron-grey;
     color: $springster-purple;
     cursor: pointer;
   }
-
   &--warning {
     background-color: $bright-orange;
   }
 }
-.Additional-text {
-  text-align: center;
-  display: block;
+
+
+//MENU NAV
+.Menu {
+  background-color: $mint-green;
+  padding: $spacer $spacer-mid;
+  &-title {
+    display: none;
+  }
+  &-item {
+    a {
+      font-size: $font-medium;
+      text-decoration: none;
+    }
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
 }
+
+
 
 //FOOTER
 .Footer {
@@ -273,24 +303,5 @@ hr {
     padding: $spacer-mid $spacer-mid $spacer;
     margin: 0;
     text-align: center;
-  }
-}
-
-.Menu {
-  background-color: $mint-green;
-  padding: $spacer $spacer-mid;
-  &-title {
-    display: none;
-  }
-  &-item {
-    a {
-      font-size: $font-medium;
-    }
-  }
-  &-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
   }
 }
