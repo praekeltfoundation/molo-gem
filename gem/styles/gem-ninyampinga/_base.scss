@@ -7,6 +7,9 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   margin: 0 auto;
   line-height: 1.5;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
   width: 100%;
   @include for-size(phone-only) {
     font-family: 'Tw Cen MT', Arial, sans-serif;
@@ -34,5 +37,10 @@ a {
     &:visited {
       outline: none;
     }
+  }
+}
+*:focus {
+  @media screen and (min-width: 20.000em) {
+    outline: none;
   }
 }

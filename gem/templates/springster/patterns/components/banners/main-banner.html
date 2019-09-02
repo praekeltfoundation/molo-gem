@@ -4,14 +4,14 @@
     {% image pageTag.banner width-360 as tmp_photo %}
     {% if pageTag.banner_link_page %}
       <a href="{% pageurl pageTag.banner_link_page.specific %}" target="_top" class="banner__item-link">
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+      <img loading="lazy" alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
       </a>
     {% elif pageTag.external_link %}
       <a href="{{ pageTag.external_link }}" target="_blank" class="banner__item-link">
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+      <img loading="lazy" alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
       </a>
     {% else %}
-      <img alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+      <img loading="lazy" alt="{{ pageTag.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
     {% endif %}
   {% else %}
     <div class="banner__block">

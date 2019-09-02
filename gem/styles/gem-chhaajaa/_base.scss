@@ -6,6 +6,9 @@ body {
   color: $colorGrey;
   line-height: 1.3;
   font-size: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
   font-family: "FedraSansDevanagariB-Light";
   margin: 0;
   padding: 0;
@@ -31,6 +34,11 @@ a {
   text-decoration: none;
   &:hover, &:focus, &:active {
     color: #ff4289;
+  }
+}
+*:focus {
+  @media screen and (min-width: 20.000em) {
+    outline: none;
   }
 }
 
