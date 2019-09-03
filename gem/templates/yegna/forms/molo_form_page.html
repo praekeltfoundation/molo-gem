@@ -1,27 +1,72 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
-  <div class="contact-page">
-    <div class="banner">
-      <div class="heading heading--hero">
-        <h1 class="heading__title">{{ page.title }}</h1>
-      </div>
+<div class="contact">
+  <div class="banner">
+    <div class="heading heading--hero">
+      <h1 class="heading__title">{{ page.title }}</h1>
     </div>
-    <div class="contact-page__wrapper">
-      <div class="contact-page__columns">
-        <div class="contact-page__first-column">
+  </div>
+    <div class="contact__wrapper">
+      <div class="contact__columns">
+        <div class="contact__first-column">
           <div class="heading">
             <h2 class="heading__title">{{ page.introduction }}</h2>
           </div>
-          <h3 class="heading__subtitle">{{ page.search_description }}</h3>
-          <form action="{% pageurl page.specific %}" method="POST" class="contact-page__form" novalidate>
+          <form action="{% pageurl page.specific %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="POST" class="contact__form" novalidate>
           {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="{% trans 'Submit Message' %}" class="call-to-action__item call-to-action__item--primary">
+            <button type="submit" class="call-to-action__button call-to-action__button--primary">
+              {% if is_intermediate_step %}
+                {% trans 'Next' %}
+              {% elif page.submit_text %}
+                {{page.submit_text}}
+              {% else %}
+                {% trans 'Submit Message' %}
+              {% endif %}
+            </button>
           </form>
+          {% if fields_step and fields_step.paginator.num_pages > 1 %}
+            <div class="contact-pagination">
+              <p class="contact-pagination__page">
+                {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                  {% trans "Page"  %}
+                  <span class="contact-pagination__number"> {{page}}</span>
+                  {% trans "of" %}
+                  <span class="contact-pagination__number">
+                    {{pages}}
+                  </span>
+                {% endwith %}
+              </p>
+            </div>
+          {% endif %}
+          {% if page.terms_and_conditions.exists and page.terms_and_conditions.first.terms_and_conditions.live %}
+            <div class="contact__terms">
+              <p>{% trans "Read:" %}
+                <a href="{% pageurl page.terms_and_conditions.first.terms_and_conditions %}" class="contact__anchor">
+                  {{page.terms_and_conditions.first.terms_and_conditions.title}}
+                </a>
+              </p>
+            </div>
+        {% endif %}
         </div>
-        <div class="contact-page__second-column">
-          {% include_block page.description %}
+        <div class="contact__second-column">
+          {% if self.description %}
+            <div class="contact-inner">
+              {% for block in self.description %}
+                {% if forloop.counter %}
+                  {% if block.block_type == 'heading' %}
+                    <div class="heading">
+                      <h2 class="heading__title">{{ block.value }}</h2>
+                    </div>
+                  {% else %}
+                    {{ block }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          <!-- {# {% include_block page.description %}  #}-->
         </div>
       </div>
     </div>
