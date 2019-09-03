@@ -63,7 +63,6 @@
             </span>
 
             <div class="comments__reply-meta">
-
               {% if not node.user|is_in_admin_group %}
                 <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                   {% trans "Report" %}
@@ -73,7 +72,6 @@
               {% if node.parent == None %}
                 <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                   {% trans "Reply"%}</a>
-
                 {% if do_not_link_replies or node.get_children.count == 0 %}
                   <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
                     {{ node.get_children.count }}
@@ -84,7 +82,7 @@
                     {% endif %}
                   </p>
                 {% else %}
-                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment_reply" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                     {{ node.get_children.count }}
                     {% if node.get_children.count == 0 or node.get_children.count == 1 %}
                       {% trans "Reply" %}
@@ -93,11 +91,9 @@
                     {% endif %}
                   </a>
                 {% endif %}
-
               {% endif %}
             </div>
           {% endif %}
-
         {% if node.parent == None and node.get_children.count != 0 %}
           <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
         {% endif %}
