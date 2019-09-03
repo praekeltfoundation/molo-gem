@@ -1,4 +1,6 @@
 import re
+import mimetypes
+from copy import copy
 
 from django.core.urlresolvers import reverse
 from django.utils.timezone import timedelta
@@ -7,6 +9,8 @@ from django.conf import settings
 
 from gem.constants import GENDER
 from gem.models import GemTextBanner
+
+from molo.forms.models import FormsIndexPage, MoloFormPage
 from molo.core.models import MoloMedia
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
@@ -125,3 +129,30 @@ def seconds_to_time(val):
             time = time.replace(zero, '')
         return time
     return ''
+
+
+@register.filter
+def mimetype(file):
+    """ return mime type of file else a blank string"""
+    if file and file.url:
+        return mimetypes.guess_type(file.url, strict=True)[0]
+    return ''
+
+
+@register.inclusion_tag('forms/contact_forms_list.html', takes_context=True)
+def contact_forms_list(context):
+    context = copy(context)
+    locale_code = context.get('locale_code')
+    main = context['request'].site.root_page
+    page = FormsIndexPage.objects.child_of(main).live().first()
+    if page:
+        forms = (
+            MoloFormPage.objects.child_of(page).filter(
+                language__is_main_language=True,
+                contact_form=True).specific())
+    else:
+        forms = MoloFormPage.objects.none()
+    context.update({
+        'forms': get_pages(context, forms, locale_code)
+    })
+    return context

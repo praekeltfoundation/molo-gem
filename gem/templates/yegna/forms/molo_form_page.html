@@ -11,7 +11,7 @@
       <div class="contact-page__columns">
         <div class="contact-page__first-column">
           <div class="heading">
-            <h2 class="heading__title">{{ page.intro }}</h2>
+            <h2 class="heading__title">{{ page.introduction }}</h2>
           </div>
           <h3 class="heading__subtitle">{{ page.search_description }}</h3>
           <form action="{% pageurl page.specific %}" method="POST" class="contact-page__form" novalidate>
@@ -21,7 +21,7 @@
           </form>
         </div>
         <div class="contact-page__second-column">
-          {% include_block page.body %}
+          {% include_block page.description %}
         </div>
       </div>
     </div>

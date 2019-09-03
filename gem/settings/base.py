@@ -599,7 +599,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 AWS_S3_FILE_OVERWRITE = False
 
 PERSONALISATION_SEGMENTS_ADAPTER = (
-    'molo.forms.adapters.PersistentFormsSegmentsAdapter'
+    'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"

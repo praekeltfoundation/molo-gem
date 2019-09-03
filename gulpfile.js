@@ -51,8 +51,12 @@ var gulp              =   require('gulp'),
       'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
       'gem/styles/gem-ninyampinga/auth/ninyampinga.feature.scss',
       'gem/styles/gem-ninyampinga/auth/ninyampinga.enhanced.scss',
-      'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
       'gem/styles/gem-yegna/auth/yegna.feature.scss',
+      'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
+      'gem/styles/gem-chhaajaa/auth/chhaajaa.enhanced.scss',
+      'gem/styles/gem-chhaajaa/auth/chhaajaa.feature.scss',
+      'gem/styles/gem-tanzania/auth/tanzania.feature.scss',
+      'gem/styles/gem-tanzania/auth/tanzania.enhanced.scss'
     ],
     sassDest = {
      prd: 'gem/static/css/prd',
@@ -94,13 +98,13 @@ var gulp              =   require('gulp'),
   // Minify JS
   gulp.task('compress', function() {
     return gulp.src([
+        'gem/static/js/main.js',
         'gem/static/js/springster.js',
         'gem/static/js/nn.js',
         'gem/static/js/yegna.js',
         'gem/static/js/kaios.js',
         'gem/static/js/modeladmin/index.js'
-      ])
-      .pipe(rename({
+      ]).pipe(rename({
         suffix: "-min",
         extname: ".js"
       }))

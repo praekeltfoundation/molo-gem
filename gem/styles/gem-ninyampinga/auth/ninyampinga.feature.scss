@@ -5,17 +5,18 @@ body,
 html {
   background-color: $color-cyan_shade1;
   font-size: 16px;
+  min-height: 100vh;
 }
 
 a {
+  text-decoration: none;
   &:active, &:hover, &:visited {
     color: $color-pink-bright;
     text-decoration: none;
   }
 }
 
-/*  NOTE: */
-//PAGES WRAPPER
+//CONTAINER
 .Container {
   background: #fff;
   padding: 0;
@@ -35,52 +36,66 @@ a {
 .Header {
   position: relative;
   overflow: auto;
-  width: 100%;
   text-align: center;
-  margin: 0;
-  padding: 0 7%;
-  &-branding-image {
-    display: none;
-    visibility: hidden;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  &-branding {
+    background-color: $color-red-very-dark;
+    padding: 0 $spacer-inner;
+    width: 100%;
+      height: 4em;
+    &-image {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
   }
-}
-.Header-title {
-  background: #fff;
-  padding: 2em 5% 1em;
-  text-align: left;
-  position: relative;
-  &:before {
-    background-image: url('/static/authentication_service/themes/ninyampinga/images/ShapesSprites.png');
-    background-repeat: no-repeat;
-    background-position: -30px 83.3%;
-    background-size: 120px;
-    height: 75px;
-    content: "";
-    display: inline-block;
-    width: 135px;
-  }
-  h1 {
+  &-title {
+    background: #fff;
+    margin: 2em 5% 0;
+    text-align: left;
     position: relative;
-    text-transform: uppercase;
-    font-size: 1.125rem;
+    padding: 20px 5px;
+    @include for-size(tablet-portrait-up) {
+      margin: 5em 15% 0;
+    }
+    &:before {
+      background-image: url('/static/authentication_service/themes/ninyampinga/images/hero-icon.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 75px;
+      height: 75px;
+      content: "";
+      display: inline-block;
+      width: 135px;
+    }
+    h1 {
+      position: relative;
+      text-transform: uppercase;
+      font-size: 1.75rem;
+    }
   }
-}
-.Header-links {
-  background: #fff;
-  color: #000;
-  margin: 0 5%;
-  text-align: left;
-  @media (min-width:64em) {
-    padding: 1em 5%;
-  }
-  a {
-    color: $color-pink-bright;
-    border-bottom: 1px solid $color-pink-bright;
-    &:active, &:hover {
-      color: #02938a;
+  &-links {
+    background: #fff;
+    color: #000;
+    margin: 0;
+    padding: 1em;
+    text-align: left;
+    a {
+      color: $color-pink-bright;
+      text-decoration: none;
+      border-bottom: 1px solid $color-pink-bright;
+      text-decoration: none;
+      &:active, &:hover {
+        color: #02938a;
+      }
     }
   }
 }
+
+
 
 //CONTENT
 .Content {
@@ -91,7 +106,7 @@ a {
   padding: 1em 5% 2.5em;
   @include for-size(tablet-landscape-up) {
     padding: 1em 9% 2.5em;
-    margin: 0 20%;
+    margin: 0 15%;
   }
   p {
     text-align: left;
@@ -108,121 +123,111 @@ a {
   margin: 0;
   padding: 0;
   position: relative;
+
+  &-buttons {
+    margin: 0 26% 1em;
+  }
   .Field {
+    clear: both;
+    border: none;
     margin: 0;
     padding: 0;
     text-align: left;
     vertical-align: middle;
-    word-break: break-word;
-    word-wrap: break-word;
-  }
 
-  .Field-item {
-    color: #000;
-    display: inline-block;
-    margin: 10px 0;
-    font-size: .875rem;
-    clear: both;
-    border: none;
-    margin: 0;
-    word-break: break-word;
-    word-wrap: break-word;
-    .Field {
-      clear: both;
-      border: none;
-      margin: 0;
+    &-item {
+      color: #000;
+      display: inline-block;
+      margin: 10px 0;
+      font-size: .875rem;
+      @include for-size(tablet-landscape-up) {
+        width: 73%;
+        display: inline-block;
+      }
+    }
+    &-label {
+      color: #000;
+      display: inline-block;
+      padding: 0 .5em 0 0;
+      font-weight: normal;
+      vertical-align: middle;
       word-break: break-word;
       word-wrap: break-word;
+      @include for-size(tablet-landscape-up) {
+        width: 25%;
+      }
+    }
+    &-message {
+      color: #9b9fa2;
+      font-size: 1rem;
+      margin: 0 26% 1em;
+      text-align: left;
+      &--error {
+        .Field--required .Field-item input,
+        .Field-item input {
+          border-color: #02938a;
+        }
+      }
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select {
+      border: 2px $color-pink-bright solid;
+      font-size: 1em;
+      height: 48px;
+      outline: 0;
+      padding: 5px;
+      width: 100%;
+      border-width: 2px;
+      &:focus {
+        border: 2px $color-pink-bright solid;
+      }
+    }
+    .Textarea {
+      height: 60px;
+    }
+    .ClearableFileInput {
+      display: block;
+    }
+    .Form--required input {
+      border-color: red;
     }
   }
-  .Field-label {
-    color: #000;
-    display: block;
-    font-weight: 700;
-    margin-bottom: 5px;
-    vertical-align: middle;
-    word-break: break-word;
-    word-wrap: break-word;
-  }
-  .Field-message {
-    color: #9b9fa2;
-    font-size: 1rem;
-    margin-top: 10px;
-    text-align: left;
-  }
-  .Textarea {
-    height: 60px;
-  }
-  .ClearableFileInput {
-    display: block;
-  }
-  .Form--required input {
-    border-color: red;
+
+  .ModelChoiceField .Select,
+  .TypedChoiceField .Select {
+    border: 2px solid $color-pink-bright;
+    &:focus {
+      border-color: #02938a;
+    }
   }
 }
 
-.Form .Field .DateInput,
-.Form .Field .EmailInput,
-.Form .Field .NumberInput,
-.Form .Field .PasswordInput,
-.Form .Field .TextInput,
-.Form .Field .Textarea,
-.Form .Field .vDateField,
-.Form .Field .Select {
-  border: 2px $color-pink-bright solid;
-  font-size: 1em;
-  height: 48px;
-  outline: 0;
-  padding: 5px;
-  width: 100%;
-  border-width: 2px;
-  &:focus {
-    border: 2px $color-pink-bright solid;
-  }
-}
 
-.Form .ModelChoiceField .Select,
-.Form .TypedChoiceField .Select {
-  border: 2px solid $color-pink-bright;
-}
-.Form .ModelChoiceField .Select:focus,
-.Form .TypedChoiceField .Select:focus {
-  border-color: #02938a;
-}
-.Form .Field-message--error .Field--required .Field-item input,
-.Form .Field-message--error .Field-item input {
-  border-color: #02938a;
-}
-
-
-.Button,
-.Button--warning,
-.Form .Button {
-  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
-  color: #fff !important;
+.Button {
+  background: $color-pink-bright url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 13px/14px;
+  border: none;
+  color: #fff;
   display: block;
   font-weight: 700;
   font-size: 1rem;
   padding: 12px 10px;
   text-transform: uppercase;
   margin: 1em 0;
-  box-shadow: 12px 12px 0 0 $color-yellow !important;
+  box-shadow: 12px 12px 0 0 $color-yellow;
   width: auto;
   -webkit-transition: box-shadow ease-in-out 0.3s;
   -moz-transition: box-shadow ease-in-out 0.3s;
   transition: box-shadow ease-in-out 0.3s;
   &:active, &:hover, &:focus {
-    box-shadow: none !important;
-    color: $color-yellow-gorse !important;
-  }
-}
-.Form-buttons {
-  margin-top: 1em;
-}
-.Button--warning {
-  box-shadow: 12px 12px 0 0 #ed018c !important;
-  &:hover, &:active {
-    color: #ed018c !important;
+    box-shadow: none;
+    color: $color-yellow-gorse;
   }
 }
 
@@ -259,12 +264,12 @@ a {
   color: #000;
   text-align: left;
   padding: 1em 0 0;
-  margin: 0;
+  margin: 0 26% 1em;
   font-size: 1.125rem;
   a {
     color: $color-pink-bright;
-    text-transform: uppercase;
     border-bottom: 1px solid $color-pink-bright;
+    text-decoration: none;
     &:active, &:focus, &:hover {
       color: $color-cyan_shade1;
       border-bottom: 1px solid $color-cyan_shade1;
@@ -272,21 +277,18 @@ a {
   }
 }
 
+//MENU NAV
 .Form > .Menu {
   @media (min-width:64em) {
     width: auto;
     padding: 0;
   }
 }
+
 .Menu {
   background: #fff;
   padding: 0;
-  margin: 0 6.9% !important;
-  @include for-size(tablet-landscape-up) {
-    margin: 0 auto !important;
-    padding: 0 6em 1em;
-    width: 60%;
-  }
+  margin: 0;
   &-title {
     display: none;
   }
@@ -295,56 +297,42 @@ a {
     margin: 0;
     list-style: none;
     text-align: left;
-    @media (min-width:64em) {
-      padding: 5px 0 3em 0;
+    &--right {
+      margin: 0;
+      padding: 0;
     }
   }
-}
-
-.Menu-item {
-  display: block !important;
-  margin: 10px 0 0 0 !important;
-  text-align: right;
-  @media (min-width:64em) {
-    padding: 5px 0 0.5em 21%;
-  }
-
-  a {
-    color: $color-pink-bright !important;
-    font-size: 1.125rem !important;
-    display: inline-block !important;
-    border-bottom: 1px solid $color-pink-bright !important;
-    text-transform: uppercase;
-    font-weight: normal !important;
-    &:active, &:hover, &:focus {
-      color: $color-cyan_shade1 !important;
-      border-bottom: 1px solid $color-cyan_shade1 !important;
-    }
-  }
-}
-
-//RIGHT OR LEFT
-.Menu-list--right {
-  margin: 10px 2.5em 0 0 !important;
-  .Menu-item {
-    @media (min-width:64em) {
-      padding: 5px 10% 0.5em 21%;
+  &-item {
+    display: block;
+    margin: 10px 0 0 0;
+    text-align: right;
+    a {
+      color: $color-pink-bright;
+      font-size: 1.125rem;
+      display: inline-block;
+      border-bottom: 1px solid $color-pink-bright;
+      text-transform: uppercase;
+      font-weight: normal;
+      text-decoration: none;
+      &:active, &:hover, &:focus {
+        color: $color-cyan_shade1;
+        border-bottom: 1px solid $color-cyan_shade1;
+      }
     }
   }
 }
 
 
-
+//FOOTER
 .Back-to-top {
-  padding: 3em 7.5% 1em;
-  text-align: left;
-  background: #000;
-  color: #fff;
-  margin: 4em 0 0;
+  background: transparent;
+  color: $color-cyan_light_grayish;
+  margin: 0;
+  text-align: right;
   &--link {
-    color: #fff !important;
+    color: #fff;
     text-transform: uppercase;
-    border-bottom: 0;
+    border-bottom: 1px solid transparent;
     &:hover {
       text-decoration: underline;
       text-underline-position: below;
@@ -354,20 +342,22 @@ a {
 
 .Footer {
   border: 0;
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  background-color: $color-pink-very-dark;
+  text-align: left;
+  padding: 1em;
+  min-height: 300px;
   a {
     font-size: 1rem;
-    color: #000;
-    border-bottom: 1px solid #000;
+    color: $color-cyan_light_grayish;
+    border-bottom: 1px solid $color-cyan_light_grayish;
+    text-decoration: none;
   }
   p {
-    color: #000;
-    padding: 2em 10%;
-    text-align: right;
+    color: #fff;
+    font-size: 14px;
     @include for-size(tablet-landscape-up) {
-      padding: 2em 20%;
+      padding: 2em 0;
+      text-align: right;
     }
   }
 }
