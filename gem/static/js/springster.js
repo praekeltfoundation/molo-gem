@@ -99,7 +99,6 @@
 
   $(document).ready(function(){
     var urlPath = window.location.pathname;
-
     $('.section-nav-list__anchor, .footer-menu-list__anchor').each(function() {
       var $this = $(this),
           sectionNavhref = $this.attr('href');
