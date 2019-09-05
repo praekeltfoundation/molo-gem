@@ -64,7 +64,7 @@
                   {% trans "Reply"%}
                 </a>
                 {% if do_not_link_replies or node.get_children.count == 0 %}
-                  <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                  <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                     {{ node.get_children.count }}
                     {% if node.get_children.count == 0 or node.get_children.count == 1 %}
                       {% trans "Reply" %}
