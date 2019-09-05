@@ -61,9 +61,10 @@
 
               {% if node.parent == None %}
                 <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item-text--response {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
-                  {% trans "Reply"%}</a>
+                  {% trans "Reply"%}
+                </a>
                 {% if do_not_link_replies or node.get_children.count == 0 %}
-                  <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                  <p class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                     {{ node.get_children.count }}
                     {% if node.get_children.count == 0 or node.get_children.count == 1 %}
                       {% trans "Reply" %}
@@ -72,7 +73,7 @@
                     {% endif %}
                   </p>
                 {% else %}
-                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment-block" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter">
+                  <a href="{% url 'molo.commenting:molo-comments-reply' node.pk %}#comment_reply" class="call-to-action__nav-item-text call-to-action__nav-item--replies-counter {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
                     {{ node.get_children.count }}
                     {% if node.get_children.count == 0 or node.get_children.count == 1 %}
                       {% trans "Reply" %}
@@ -88,11 +89,11 @@
           <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
         {% endif %}
         </div>
+
         {{ children }}
       {% endrecursetree %}
     {% endfor %}
   </div>
-
   <div class="pagination">
     {% if page.has_previous %}
       <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
