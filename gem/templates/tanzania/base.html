@@ -347,10 +347,13 @@
         }
 
         //Event Propagation NOT covered
-        var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled');
+        var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled'),
+            pageNums;
         for(var i = 0; i < disabledElem.length; i++){
           disabledElem[i].addEventListener('click', (event) => {
             event.preventDefault();
+            var pageNums = event.target.href.split('/')[6] === '' ?  event.target.href.split('/')[5]  : event.target.href.split('/')[6];
+            window.location = "/commenting/molo/reply/" + pageNums + "/#comment-block";
           });
         };
       </script>
