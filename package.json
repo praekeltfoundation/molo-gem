@@ -4,10 +4,14 @@
   "description": "gem =========================",
   "main": "gulpfile.js",
   "dependencies": {
-    "acorn": "^5.7.1"
+    "acorn": "^5.7.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "scripts": {
-    "test": "gulp"
+    "test": "gulp",
+    "build": "webpack --config webpack.config.js --progress --colors --mode development",
+    "watch": "webpack --config webpack.config.js --watch --mode development"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,10 @@
   },
   "homepage": "https://github.com/praekelt/molo-gem#readme",
   "devDependencies": {
+    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
     "bower": "^1.8.8",
     "del": "^3.0.0",
     "glob": "^7.1.2",
@@ -43,6 +51,9 @@
     "gulp-util": "^3.0.8",
     "gulp-watch": "^5.0.1",
     "marked": ">=0.3.18",
-    "uglify": "^0.1.5"
+    "uglify": "^0.1.5",
+    "webpack": "^4.39.3",
+    "webpack-bundle-tracker": "^0.4.2-beta",
+    "webpack-cli": "^3.3.8"
   }
 }
