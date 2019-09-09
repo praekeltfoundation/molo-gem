@@ -1,21 +1,33 @@
 {% load wagtailcore_tags core_tags gem_tags %}
-<form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{surveytypeClass}}__form {{surveytypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
+<form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{formtypeClass}}__form {{formtypeClass}}__form{{self.get_effective_extra_style_hints}}" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
   {% endif %}
+    
+
   {% for field in form %}
   <fieldset>
+
     <div class="input-group">
       <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
       {% if field.help_text %}
         {% if field|fieldtype == 'CharacterCountWidget' %}
-          <p class="{{surveytypeClass}}__helptext helptext">{{ field.help_text }}</p>
+          <p class="{{formtypeClass}}__helptext helptext">{{ field.help_text }}</p>
         {% else %}
           <p class="helptext">{{ field.help_text }}</p>
         {% endif %}
       {% endif %}
-      {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+      blabla
+      {% if field|fieldtype == 'CheckboxInput' %}
+      blabla
+        <fieldset>
+          <div class="choice-group">
+            <input name="{{ field.name }}" id="{{ field.label|idfromlabel }}" type="checkbox" value="{{field.value}}"/>
+            <label for="{{ field.label|idfromlabel }}">{{ field.label|capfirst }}</label>
+          </div>
+        </fieldset>
+      {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
           {% for value, text in field.field.choices %}
               <div class="choice-group">
                   <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
@@ -77,13 +89,13 @@
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
     {% endif %}
   {% else %}
-      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:surveytype}}{% endif %}</button>
+      <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %}{% trans 'Next Question' %}{% elif self.submit_text %} {{self.submit_text}} {% else %}{{ text|add:" "|add:formtype}}{% endif %}</button>
   {% endif %}
   {% if fields_step and fields_step.paginator.num_pages > 1 %}
-    <div class="{{surveytypeClass}}__pagination">
-        <p class="{{surveytypeClass}}__page">
+    <div class="{{formtypeClass}}__pagination">
+        <p class="{{formtypeClass}}__page">
           {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-            {% trans Page %} <span class="{{surveytypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{surveytypeClass}}__page-number">{{ pages }}</span>
+            {% trans Page %} <span class="{{formtypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{formtypeClass}}__page-number">{{ pages }}</span>
           {% endwith %}
         </p>
     </div>
