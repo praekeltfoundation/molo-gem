@@ -3,6 +3,7 @@
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 {% load molo_pwa %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -99,6 +100,9 @@
       </div>
     {% endif %}
     {% wagtailuserbar %}
+
+    <div id="react"></div>
+    {% render_bundle 'main' %}
 
     <div id="header-wrapper" autofocus>
       <div id="language-bar">

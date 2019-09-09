@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     'molo.pwa',
     'fcm_django',
     'mote',
+    'webpack_loader',
 
     'wagtail.core',
     'wagtail.admin',
@@ -171,6 +172,13 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.MultiSiteRedirectToHomepage',
     'gem.middleware.ChhaaJaaLoginMiddleware'
 ]
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'js/bundles/',
+        'STATS_FILE': join(BASE_DIR, 'webpack-stats.json')
+    }
+}
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
