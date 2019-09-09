@@ -4,8 +4,11 @@
   {% if not is_via_freebasics %}
       {{ form.media }}
   {% endif %}
+    
+
   {% for field in form %}
   <fieldset>
+
     <div class="input-group">
       <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
       {% if field.help_text %}
@@ -15,7 +18,16 @@
           <p class="helptext">{{ field.help_text }}</p>
         {% endif %}
       {% endif %}
-      {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+      blabla
+      {% if field|fieldtype == 'CheckboxInput' %}
+      blabla
+        <fieldset>
+          <div class="choice-group">
+            <input name="{{ field.name }}" id="{{ field.label|idfromlabel }}" type="checkbox" value="{{field.value}}"/>
+            <label for="{{ field.label|idfromlabel }}">{{ field.label|capfirst }}</label>
+          </div>
+        </fieldset>
+      {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
           {% for value, text in field.field.choices %}
               <div class="choice-group">
                   <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
