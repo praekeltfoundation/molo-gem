@@ -35,21 +35,21 @@ FED Workflow
   Application CSS Folder:
   ```
     /styles/app-name/
-      * /layout/
-        * _l-header.scss
-        * _l-footer.scss
-      * /modules
-        * _m-article-list.scss
-        * _m-article.scss
-      * /state
-        * _s-article-list.scss
-        * _s-article.scss
-      * /utils
-        * variables.scss
-        * color.scss
-      * _base.scss
-      * _versions.scss
-      * styles-rtl.scss
+      /layout/
+        _l-header.scss
+        _l-footer.scss
+      /modules
+        _m-article-list.scss
+        _m-article.scss
+      /state
+        _s-article-list.scss
+        _s-article.scss
+      /utils
+        variables.scss
+        color.scss
+      _base.scss
+      _versions.scss
+      styles-rtl.scss
   ```
 
 Gulp.js / Webpack.js: AUTOMATION & LINTING
