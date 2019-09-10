@@ -1,57 +1,54 @@
 FED Workflow
 ------------------
 
-  Maintenance, Performance, and Readability.
-  We use SMACSS and BEM methodologies
+## HTML Template Approach
+  We use BEM methodologies / naming convention
+  [introduction to BEM](http://getbem.com/introduction/)
+  [Methodology Quick Start](https://en.bem.info/methodology/quick-start/)
 
-  BEM introduction (for HTML MARKUP FILES)
-  https://en.bem.info/methodology/quick-start/
-  http://getbem.com/introduction/
 
-  BEM Naming Convention Example
-    Languages
-    Language__current
-    Language__title
-    Language__title--icon
-    Language__dropdown-button
+### Example: Languages block
+  ```
+    <div class="languages">
+      <h2 class="language__title">Language block</h2>
+      <ul class="language-list">
+        <li class="language-list__item"></li>
+        <li class="language-list__item"></li>
+      </ul>
+    </div>
+  ```
 
-    Language__list
-    Language-list__toggle
-    Language-list__item
+## CSS Styles Approach
+  We write CSS styles using SCSS extension for rich CSS features.
+  SCSS is compiled using [gulp.js](https://gulpjs.com/) tast runner workflow and or [Webpack](webpack.js) bundler workflow
 
-  SMACSS (For SASS / CSS FILES)
-  https://smacss.com/book/
+  We use SMACSS methodologies / CSS structure and naming convention
+  [SMACCS Cookbook](  https://smacss.com/book/)
 
-  E.G. variables / colors.scss
-  $springster-sunny-yellow                :           #FFFC78;
-  $mint-green                             :           #a4eed2;
-  $sunny-yellow                           :           #fffc80;
-
-  $color-gray                             :     color(greyscale, gray-chateau);
-  $color-gray-light                       :     color(greyscale, gray-light);
-
-FILES DIRECTORY / STRUCTURE
-  Folder / files path: /styles/app-name/
-    /layout/
+  Application CSS Folder: `/styles/app-name/`
+    -/layout/
       _l-header.scss
       _l-footer.scss
-    /modules
+    - /modules
       _m-article-list.scss
       _m-article.scss
-    /state
+    - /state
       _s-article-list.scss
       _s-article.scss
-    /variables
+    - /utils
       variables.scss
       color.scss
     _base.scss
     _versions.scss
     styles-rtl.scss
-    e.g. ninyampings.scss | @import all compoments folders e.g. @import "util/*";
 
-  Output file path: /static/css/dev
-                      with sourcemaps /maps
-                    /static/css/prd
+
+  Output CSS Folder: `/static/css/dev/filename.css`
+                                  /maps/filename.css
+                    /static/css/prd/filename.css
+                              /maps/filename.css
+
+
 
 CLI: COMPRESSION AUTOMATION + LINTING
   --------------------------------
