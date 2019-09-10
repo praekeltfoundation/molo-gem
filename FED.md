@@ -3,12 +3,13 @@ FED Workflow
 
 ### HTML Template Approach
   We use BEM methodologies / naming convention
+
   [introduction to BEM](http://getbem.com/introduction/)
 
   [Methodology Quick Start](https://en.bem.info/methodology/quick-start/)
 
 
-### Example: Languages block
+### e.g. Languages block
   ```
     <div class="languages">
       <h2 class="language__title">Language block</h2>
@@ -23,11 +24,12 @@ FED Workflow
     </div>
   ```
 
-## CSS Styles Approach
+### CSS Styles Approach
   We write CSS styles using SCSS extension for rich CSS features.
+
   SCSS is compiled using [gulp.js](https://gulpjs.com/) tast runner workflow and or [Webpack](webpack.js) bundler workflow.
 
-  We use SMACSS methodologies / CSS structure and naming convention
+  We use SMACSS methodologies / CSS structure and naming convention.
   [SMACCS Cookbook](  https://smacss.com/book/)
 
   Application CSS Folder:
@@ -67,11 +69,8 @@ Gulp.js / Webpack.js: AUTOMATION & LINTING
   * gulp --type=ci
 
 
-
   Output CSS Folder:
-  ```
     * /static/css/dev/filename.css
       * /maps/filename.css
     * /static/css/prd/filename.css
       * /maps/filename.css
-  ```
