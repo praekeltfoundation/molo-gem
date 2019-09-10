@@ -71,9 +71,9 @@ Gulp.js / Webpack.js: AUTOMATION & LINTING
 
   Output CSS Folder:
 
-    1. `/static/css/dev/filename.css`
-      1. `/static/css/dev/filename.css`
-      1. `/maps/filename.css`
-    1. `/static/css/prd/filename.css`
-      1. `/static/css/prd/filename.css`
-      1. `/maps/filename.css`
+    `/static/css/dev/filename.css`
+      `/static/css/dev/filename.css`
+      `/maps/filename.css`
+    `/static/css/prd/filename.css`
+    `/static/css/prd/filename.css`
+    `/maps/filename.css`
