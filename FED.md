@@ -1,4 +1,5 @@
-FED
+FED Workflow
+------------------
 
   Maintenance, Performance, and Readability.
   We use SMACSS and BEM methodologies
@@ -26,8 +27,8 @@ FED
   $mint-green                             :           #a4eed2;
   $sunny-yellow                           :           #fffc80;
 
-  $color-gray             :     color(greyscale, gray-chateau);
-  $color-gray-light       :     color(greyscale, gray-light);
+  $color-gray                             :     color(greyscale, gray-chateau);
+  $color-gray-light                       :     color(greyscale, gray-light);
 
 FILES DIRECTORY / STRUCTURE
   Folder / files path: /styles/app-name/

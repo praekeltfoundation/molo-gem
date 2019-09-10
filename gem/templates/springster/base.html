@@ -101,9 +101,6 @@
     {% endif %}
     {% wagtailuserbar %}
 
-    <div id="react"></div>
-    {% render_bundle 'main' %}
-
     <div id="header-wrapper" autofocus>
       <div id="language-bar">
         {% if languages|length > 1 %}
@@ -186,6 +183,10 @@
 
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
+        <div id="react"></div>
+
+
+
         {% display_unread_notifications %}
         {% block content %}{% endblock %}
         {% block breadcrumbs %}
@@ -417,5 +418,7 @@
       {% endcompress %}
       {% molo_pwa_meta %}
     {% endif %}
+    <!-- Renders scripts + links-->
+    {% render_bundle 'main' %}
   </body>
 </html>
