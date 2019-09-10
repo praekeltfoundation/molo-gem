@@ -1,9 +1,10 @@
 FED Workflow
 ------------------
 
-## HTML Template Approach
+### HTML Template Approach
   We use BEM methodologies / naming convention
   [introduction to BEM](http://getbem.com/introduction/)
+  
   [Methodology Quick Start](https://en.bem.info/methodology/quick-start/)
 
 
