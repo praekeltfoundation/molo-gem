@@ -52,16 +52,16 @@ input[type="search"] {
   visibility: hidden;
   position: absolute;
   & ~ label {
-    background-color: transparent;
+    background: #fff;
     cursor: pointer;
     position: relative;
-    padding: 0;
+    padding: 10px;
     margin: 0;
     width: 100%;
     &:before {
-      background-color: #fff;
+      background: #fff;
+      border: 3px solid #000;
       content: " ";
-      border: none;
       opacity: 0.9;
       display: inline-block;
       width: 25px;
@@ -71,9 +71,10 @@ input[type="search"] {
     }
   }
 }
+
 [type="checkbox"] {
   &:checked + label:before {
-    background: $color-light-gray url('/static/img/icons/ninyampinga/iconsSprite.png') 5px 12.5%/90px no-repeat;
+    background: url('/static/img/icons/yegna/icon-check.png') center center/80% no-repeat;
     opacity: 1;
   }
 }
@@ -82,10 +83,11 @@ input[type="search"] {
     border-radius: 50%;
   }
   &:checked + label:before {
-    background: $color-light-gray url('/static/img/icons/ninyampinga/iconsSprite.png')3px 8% /90px no-repeat;
+    background: #000 url('/static/img/icons/yegna/icon-oval.png') center center/50% no-repeat;
     opacity: 1;
   }
 }
+
 textarea {
   background: #fff;
   border: 2px solid #000;

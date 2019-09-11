@@ -16,6 +16,12 @@
             <span class="{{formtypeClass}}__helptext">{{ field.help_text }}</span>
           {% endif %}
         {% endif %}
+        {% if field|fieldtype == 'CheckboxInput' %}
+          <div class="choice-group">
+            <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+            <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+          </div>
+        {% endif %}
         {% if field|fieldtype == 'RadioSelect' %}
             <ul>
               {% for choice in field.field.choices %}

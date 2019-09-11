@@ -67,6 +67,12 @@
                   {{ form.media }}
                 {% endif %}
                 {% for field in form %}
+                  {% if field|fieldtype == 'CheckboxInput' %}
+                    <div class="choice-group">
+                      <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                      <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                    </div>
+                  {% endif %}
                   {% if field|fieldtype == 'CheckboxSelectMultiple' %}
                     <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
                       {% for value, text in field.field.choices %}

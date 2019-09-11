@@ -2,9 +2,15 @@
 <form action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__form" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
-      {{ form.media }}
+    {{ form.media }}
   {% endif %}
   {% for field in form %}
+    {% if field|fieldtype == 'CheckboxInput' %}
+      <div class="choice-group">
+        <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+        <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+      </div>
+    {% endif %}
     {% if field|fieldtype == 'CheckboxSelectMultiple' %}
     <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
       {% for value, text in field.field.choices %}
