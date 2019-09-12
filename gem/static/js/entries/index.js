@@ -1,13 +1,14 @@
 import React from "react"
 import ReactDOM from "react-dom"
+//import {MoloComp} from "../Components/molo.jsx"
 
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 const element = <Welcome name="world" />;
 
-const mainReactDiv = document.getElementById("react");
 ReactDOM.render(
   element,
-  mainReactDiv
+  //<MoloComp />,
+  document.querySelector("#react")
 )

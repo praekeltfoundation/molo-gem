@@ -6,7 +6,7 @@ const path = require("path"),
     context: __dirname,
     entry: "../gem/static/js/entries/index.js",
     output: {
-      path: path.resolve("./gem/static/js/dest/dev/"),
+      path: path.resolve("./gem/static/js/dest/dev"),
       filename: "[name]-[hash].js"
     },
     mode: 'development',
