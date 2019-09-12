@@ -6,11 +6,7 @@ const path = require("path"),
   config.output.path = require('path').resolve('./gem/static/js/dest')
 
   config.plugins = config.plugins.concat([
-    new BundleTracker(
-      {
-        filename: './webpack-stats-prod.json'
-      }
-    ),
+    new BundleTracker({filename: './webpack-stats-prod.json'}),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
