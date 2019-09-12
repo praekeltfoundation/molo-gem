@@ -4,9 +4,9 @@ const path = require("path"),
 
   module.exports = {
     context: __dirname,
-    entry: "../gem/static/js/index.js",
+    entry: "../gem/static/js/entries/index.js",
     output: {
-      path: path.resolve("./gem/static/js/bundles/"),
+      path: path.resolve("./gem/static/js/dest/dev/"),
       filename: "[name]-[hash].js"
     },
     mode: 'development',

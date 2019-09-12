@@ -81,20 +81,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../gem/static/js/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../gem/static/js/entries/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../gem/static/js/index.js":
-/*!*********************************!*\
-  !*** ../gem/static/js/index.js ***!
-  \*********************************/
+/***/ "../gem/static/js/entries/index.js":
+/*!*****************************************!*\
+  !*** ../gem/static/js/entries/index.js ***!
+  \*****************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"../node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nfunction Welcome(props) {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"h1\", null, \"Hello, \", props.name);\n}\n\nvar element = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Welcome, {\n  name: \"world\"\n});\nvar mainReactDiv = document.getElementById(\"react\");\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(element, mainReactDiv);\n\n//# sourceURL=webpack:///../gem/static/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"../node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nfunction Welcome(props) {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"h1\", null, \"Hello, \", props.name);\n}\n\nvar element = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Welcome, {\n  name: \"world\"\n});\nvar mainReactDiv = document.getElementById(\"react\");\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(element, mainReactDiv);\n\n//# sourceURL=webpack:///../gem/static/js/entries/index.js?");
 
 /***/ }),
 

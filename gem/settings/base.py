@@ -178,14 +178,14 @@ MIDDLEWARE_CLASSES = [
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'js/bundles/',
+        'BUNDLE_DIR_NAME': 'js/dest/dev',
         'STATS_FILE': join(BASE_DIR, './gem/webpack-stats.json')
     }
 }
 
 if not DEBUG:
     WEBPACK_LOADER['DEFAULT'].update({
-        'BUNDLE_DIR_NAME': 'js/dest/',
+        'BUNDLE_DIR_NAME': 'js/dest/prod',
         'STATS_FILE': join(BASE_DIR, './gem/webpack-stats-prod.json')
     })
 
