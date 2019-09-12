@@ -186,7 +186,7 @@ WEBPACK_LOADER = {
 if not DEBUG:
     WEBPACK_LOADER['DEFAULT'].update({
         'BUNDLE_DIR_NAME': 'js/dest/',
-        'STATS_FILE': os.path.join(BASE_DIR, './gem/webpack-stats-prod.json'
+        'STATS_FILE': join(BASE_DIR, './gem/webpack-stats-prod.json')
     })
 
 if LOG_HEADER_DUMP:
