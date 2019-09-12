@@ -12,10 +12,11 @@ function Welcome(props) {
 const element = <Welcome name="world" />;
 
 mainReactDiv.appendChild(component())
+const App = () => {
+  ReactDOM.render(
+    element,
+    mainReactDiv
+  )
+}
 
-ReactDOM.render(
-  element,
-  mainReactDiv
-);
-
-export default hot();
+export default hot(App);

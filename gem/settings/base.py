@@ -182,11 +182,11 @@ WEBPACK_LOADER = {
     }
 }
 
-if not DEBUG:
-    WEBPACK_LOADER['DEFAULT'].update({
-        'BUNDLE_DIR_NAME': 'js/dest/',
-        'STATS_FILE': join(BASE_DIR, 'webpack-stats-prod.json')
-    })
+#if not DEBUG:
+#    WEBPACK_LOADER['DEFAULT'].update({
+#        'BUNDLE_DIR_NAME': 'js/dest/',
+#        'STATS_FILE': join(BASE_DIR, 'webpack-stats-prod.json')
+#    })
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
