@@ -1,7 +1,7 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 
 {# <!-- PRINTED THE POLL FORM: --> {% pageurl form %} #}
-<form action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{formtypeClass}}__form{% if self.get_effective_extra_style_hints %} {{formtypeClass}}__form{{self.get_effective_extra_style_hints}}{% endif %}" novalidate>
+<form action="{% if not request.is_preview %}{% pageurl form_page %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{{formtypeClass}}__form{% if self.get_effective_extra_style_hints %} {{formtypeClass}}__form{{self.get_effective_extra_style_hints}}{% endif %}" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
