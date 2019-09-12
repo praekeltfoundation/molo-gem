@@ -1,28 +1,9 @@
-const path = require("path"),
-      webpack = require("webpack"),
-      BundleTracker = require("webpack-bundle-tracker");
+'use strict';
 
-  module.exports = {
-    context: __dirname,
-    entry: "./gem/static/js/index.js",
-    output: {
-      path: path.resolve("../gem/static/js/bundles"),
-      filename: "[name]-[hash].js"
-    },
-    plugins: [
-      new BundleTracker({filename: './webpack-stats.json'})
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: ["babel-loader"]
-        }
-      ]
-    },
-    resolve: {
-      modules: ["./gem/static/js/bundles"],
-      extensions: ["*",".js", ".jsx"]
-    }
-  };
+const environment = (process.env.NODE_ENV || 'development').trim();
+
+if (environment === 'development') {
+  module.exports = require('./webpack-config/webpack.base.config');
+} else {
+  module.exports = require('./webpack-config/webpack.prod.config');
+}
