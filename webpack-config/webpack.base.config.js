@@ -4,13 +4,13 @@ const path = require("path"),
 
   module.exports = {
     context: __dirname,
-    entry: "./gem/static/js/index.js",
+    entry: "../gem/static/js/index.js",
     output: {
-      path: path.resolve("./gem/static/js/bundles/"),
+      path: path.resolve("../gem/static/js/bundles/"),
       filename: "[name]-[hash].js"
     },
     plugins: [
-      new BundleTracker({filename: './gem/webpack-stats.json'})
+      new BundleTracker({filename: '../gem/webpack-stats.json'})
     ],
     module: {
       rules: [
