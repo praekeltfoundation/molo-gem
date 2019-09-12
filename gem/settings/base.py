@@ -177,6 +177,7 @@ MIDDLEWARE_CLASSES = [
 
 WEBPACK_LOADER = {
     'DEFAULT': {
+        'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'js/bundles/',
         'STATS_FILE': join(BASE_DIR, 'webpack-stats.json')
     }
