@@ -179,9 +179,15 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'js/bundles/',
-        'STATS_FILE': join(BASE_DIR, 'webpack-stats.json')
+        'STATS_FILE': join(BASE_DIR, './gem/webpack-stats.json')
     }
 }
+
+if not DEBUG:
+    WEBPACK_LOADER['DEFAULT'].update({
+        'BUNDLE_DIR_NAME': 'js/dest/',
+        'STATS_FILE': os.path.join(BASE_DIR, './gem/webpack-stats-prod.json'
+    })
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]

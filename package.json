@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "gulp",
-    "build": "webpack --config webpack.config.js --progress --colors --mode development",
-    "watch": "node server.js"
+    "build": "NODE_ENV=development webpack --config webpack.config.js --progress",
+    "prod": "NODE_ENV=production webpack --config webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
