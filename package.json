@@ -3,14 +3,9 @@
   "version": "1.0.0",
   "description": "gem =========================",
   "main": "gulpfile.js",
-  "dependencies": {
-    "acorn": "^5.7.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
-  },
   "scripts": {
     "test": "gulp",
-    "build": "webpack --config webpack.config.js --progress --colors",
+    "build": "webpack --config webpack.config.js --progress --colors --mode development",
     "prod": "webpack --config webpack.config.js",
     "watch": "node server.js"
   },
@@ -23,6 +18,11 @@
   "bugs": {
     "url": "https://github.com/praekelt/molo-gem/issues"
   },
+  "dependencies": {
+    "acorn": "^5.7.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
   "homepage": "https://github.com/praekelt/molo-gem#readme",
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -30,7 +30,6 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
-    "bower": "^1.8.8",
     "del": "^3.0.0",
     "glob": "^7.1.2",
     "gulp": "^4.0.2",
@@ -53,12 +52,10 @@
     "gulp-util": "^3.0.8",
     "gulp-watch": "^5.0.1",
     "marked": ">=0.3.18",
-    "react-hot-loader": "^4.12.12",
     "uglify": "^0.1.5",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",
     "webpack-bundle-tracker": "^0.4.2-beta",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-cli": "^3.3.8"
   }
 }
