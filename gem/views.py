@@ -343,13 +343,13 @@ class MaintenanceView(TemplateView):
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
 
-#REACT + DJANGO TEST
-class ThaQuestionnaire(View):
+
+class ThaQuestionnaire(TemplateView):
     title = "Questionnaire"
-    template_name = 'questionnaire.html'
+    template = 'questionnaire.html'
 
     def get(self, request):
-        questionnaire = list(ThaQuestion.objects.values('pk', 'questionnaire_text'))
+        questionnaire = ThaQuestion.objects.values('pk', 'questionnaire_text')
 
         context = {
             'questionnaire_text': self.title,

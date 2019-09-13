@@ -39,6 +39,7 @@ elif settings.ENABLE_SSO:
     ]
 
 urlpatterns += [
+    url(r'^questionnaire/$', ThaQuestionnaire.as_view(), name='questionnaire'),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
@@ -130,8 +131,7 @@ urlpatterns += [
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-    url(r'', include('django_prometheus.urls')),
-    url('questionnaire/', ThaQuestionnaire.as_view(), name='questionnaire')
+    url(r'', include('django_prometheus.urls'))
 ]
 
 
