@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "gulp",
-    "build": "NODE_ENV=development webpack --config webpack.config.js --progress",
-    "prod": "NODE_ENV=production webpack --config webpack.config.js --progress"
+    "build": "webpack --config webpack.config.js --env development",
+    "prod": "webpack --config webpack.config.js --env production"
   },
   "repository": {
     "type": "git",
@@ -55,6 +55,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",
     "webpack-bundle-tracker": "^0.4.2-beta",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-merge": "^4.2.2"
   }
 }

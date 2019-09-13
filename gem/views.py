@@ -1,7 +1,6 @@
 import re
 import json
 
-
 from django import forms
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
@@ -43,6 +42,7 @@ from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
 from wagtail.core.models import Site
 
+from gem.models import ThaQuestion
 
 def report_response(request, comment_pk):
     comment = MoloComment.objects.get(pk=comment_pk)
@@ -342,3 +342,18 @@ class MaintenanceView(TemplateView):
         context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
+
+#REACT + DJANGO TEST
+class ThaQuestionnaire(View):
+    title = "Questionnaire"
+    template_name = 'questionnaire.html'
+
+    def get(self, request):
+        questionnaire = list(ThaQuestion.objects.values('pk', 'questionnaire_text'))
+
+        context = {
+            'questionnaire_text': self.title,
+            'props': questionnaire,
+        }
+
+        return render(request, self.template, context)

@@ -21,7 +21,8 @@ from gem.views import (
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSManifestView
+    KaiOSManifestView,
+    ThaQuestionnaire
 )
 
 urlpatterns = []
@@ -130,6 +131,7 @@ urlpatterns += [
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
     url(r'', include('django_prometheus.urls')),
+    url('questionnaire/', ThaQuestionnaire.as_view(), name='questionnaire')
 ]
 
 
