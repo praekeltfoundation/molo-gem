@@ -2,7 +2,8 @@
 const path = require("path"),
       webpack = require("webpack"),
       merge = require("webpack-merge"),
-      BundleTracker = require("webpack-bundle-tracker");
+      BundleTracker = require("webpack-bundle-tracker"),
+      MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
   const baseConfig = merge([
     {
@@ -14,9 +15,42 @@ const path = require("path"),
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             use: ["babel-loader"]
+          },
+          {
+            test: /\.css$/,
+            use: [
+              MiniCSSExtractPlugin.loader,
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true
+                }
+              }
+            ]
+          },
+          {
+            test: /\.scss$/,
+            use: [
+              MiniCSSExtractPlugin.loader,
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true
+                }
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true
+                }
+              }
+            ]
           }
         ]
       },
+      plugins: [
+        new MiniCSSExtractPlugin({filename: "./gem/assets/css/[name].css"})
+      ],
       resolve: {
         extensions: ["*",".js", ".jsx"]
       }

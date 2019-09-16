@@ -1,6 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-//import {MoloComp} from "../Components/molo.jsx"
+//import ".../styles/gem-springster/01_springster.scss"
+import "/Users/mitsoqalaba/Sites/WWW/PROJECTS/MOLO/molo-gem/gem/static/css/wepback.css"
+
 
 class Language extends React.Component {
     render() {
