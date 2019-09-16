@@ -55,9 +55,13 @@
     {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
+    {% if not is_via_freebasics %}
+      {% molo_pwa_meta %}
+    {% endif %}
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/01_springster.css" media="all"/>
     {% endcompress %}
+    {% render_bundle 'main' 'css' %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/02_springster-rtl.css" media="all"/>
@@ -68,9 +72,7 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/05_no-script-state.css" media="all"/>
     {% endcompress %}
     </noscript>
-    {% if not is_via_freebasics %}
-      {% molo_pwa_meta %}
-    {% endif %}
+
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
     <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
