@@ -63,7 +63,7 @@ var gulp              =   require('gulp'),
     dev: 'gem/static/css/dest/dev',
   },
   authSassDest = {
-    auth: stylesDir + '/dest/auth-compiled'
+    auth: 'gem/static/css/dest/auth-compiled'
   };
 
 
