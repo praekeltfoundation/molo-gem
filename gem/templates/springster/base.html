@@ -56,16 +56,16 @@
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all"/>
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/01_springster.css" media="all"/>
     {% endcompress %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/02_springster-rtl.css" media="all"/>
       {% endcompress %}
     {% endif %}
     <noscript>
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all"/>
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/05_no-script-state.css" media="all"/>
     {% endcompress %}
     </noscript>
     {% if not is_via_freebasics %}
@@ -186,8 +186,6 @@
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
         <div id="react"></div>
-        {% render_bundle 'main' %}
-
 
         {% display_unread_notifications %}
         {% block content %}{% endblock %}
@@ -375,7 +373,7 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-      var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="screen and (min-width: 360px)">';
+      var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/04_state-320.css" media="screen and (min-width: 360px)">';
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
               raf(function() {
@@ -420,5 +418,6 @@
       </script>
       {% endcompress %}
     {% endif %}
+    {% render_bundle 'main' %}
   </body>
 </html>

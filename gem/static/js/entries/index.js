@@ -1,7 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom"
-//import ".../styles/gem-springster/01_springster.scss"
-import "/Users/mitsoqalaba/Sites/WWW/PROJECTS/MOLO/molo-gem/gem/static/css/wepback.css"
 
 
 class Language extends React.Component {
@@ -20,5 +18,5 @@ class LanguageChild extends React.Component {
 
 ReactDOM.render(
   <Language />,
-  window.react_mount
+  document.getElementById('react')
 )

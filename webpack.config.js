@@ -2,13 +2,17 @@
 const path = require("path"),
       webpack = require("webpack"),
       merge = require("webpack-merge"),
+      glob = require("glob"),
       BundleTracker = require("webpack-bundle-tracker"),
       MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
   const baseConfig = merge([
     {
       context: __dirname,
-      entry: "./gem/static/js/entries/index.js",
+      entry: {
+        main: "./gem/static/js/entries/index.js",
+        style: glob.sync('./gem/static/js/entries/styles/**/*.scss')
+      },
       module: {
         rules: [
           {
@@ -49,7 +53,7 @@ const path = require("path"),
         ]
       },
       plugins: [
-        new MiniCSSExtractPlugin({filename: "./gem/assets/css/[name].css"})
+        new MiniCSSExtractPlugin({filename: "./css/[name].css"})
       ],
       resolve: {
         extensions: ["*",".js", ".jsx"]

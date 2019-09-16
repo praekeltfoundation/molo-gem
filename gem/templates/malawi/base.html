@@ -63,12 +63,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="{% static 'img/zathu-favicon.ico' %}" />
         {% compress css %}
-          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
-          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/malawi.css">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style.css">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/malawi.css">
         {% endcompress %}
         {% if LANGUAGE_CODE|language_bidi == True %}
           {% compress css %}
-            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style-rtl.css">
           {% endcompress %}
         {% endif %}
     </head>

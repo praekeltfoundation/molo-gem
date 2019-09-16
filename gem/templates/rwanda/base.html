@@ -47,7 +47,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
   {% compress css inline %}
-  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
+  <link href="{{ STATIC_URL }}css/dest/{{ ENV }}/nn.css" rel="stylesheet" media="all">
   {% endcompress %}
   {% molo_pwa_meta %}
   {% if settings.core.SiteSettings.google_search_console %}
@@ -347,7 +347,7 @@
                   if (devices && raf) {
                     raf(function() {
                       if(isMobile.apple.browser === true) {
-                        var safari = '<link href="{{ STATIC_URL }}css/{{ ENV }}/nn-safari.css" rel="stylesheet" media="all">',
+                        var safari = '<link href="{{ STATIC_URL }}css/dest/{{ ENV }}/nn-safari.css" rel="stylesheet" media="all">',
                             styles = document.getElementsByTagName('style')[0];
                         window.setTimeout(styles.insertAdjacentHTML('afterend', safari), 0);
                       }

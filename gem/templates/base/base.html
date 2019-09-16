@@ -59,14 +59,14 @@
         <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
-          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style.css">
         {% endcompress %}
         {% if settings.core.SiteSettings.google_search_console %}
           <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
         {% endif %}
         {% if LANGUAGE_CODE|language_bidi == True %}
           {% compress css %}
-            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style-rtl.css">
           {% endcompress %}
         {% endif %}
         {% compress js inline %}
