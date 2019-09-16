@@ -34,7 +34,7 @@ FED Workflow
 
   Application CSS Folder:
   ```
-    /styles/app-name/
+    /static/css/sass/app-name/
       /layout/
         _l-header.scss
         _l-footer.scss
@@ -51,6 +51,15 @@ FED Workflow
       _versions.scss
       styles-rtl.scss
   ```
+
+
+#### Gulp.js CSS Output:
+
+  /static/css/dest/dev/filename.css
+    /maps/filename.css
+  /static/css/dest/prd/filename.css
+
+
 
 Gulp.js / Webpack.js: AUTOMATION & LINTING
 ----------------------------------------
@@ -69,9 +78,13 @@ Gulp.js / Webpack.js: AUTOMATION & LINTING
   * gulp --type=ci
 
 
-  Output CSS Folder:
+  * Make sure the following files are available:
+    * Webpack.js Config file = webpack.config.js
+    * Babel config = .babelrc
 
-    /static/css/dev/filename.css
-      /maps/filename.css
-    /static/css/prd/filename.css
-      /maps/filename.css
+#### Gulp.js JS Output:
+  /static/js/dest/filename.js
+
+#### Webpack.js JS Output:
+  /static/js/dest/dev/filename.js
+  /static/js/dest/prd/filename.js
