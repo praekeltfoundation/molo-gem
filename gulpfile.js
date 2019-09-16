@@ -113,7 +113,7 @@ var gulp              =   require('gulp'),
         'gem/static/js/gulp-entries/nn.js',
         'gem/static/js/gulp-entries/yegna.js',
         'gem/static/js/gulp-entries/kaios.js',
-        'gem/static/js/modeladmin/index.js'
+        'gem/static/js/gulp-entries/modeladmin/index.js'
       ]).pipe(rename({
         suffix: "-min",
         extname: ".js"

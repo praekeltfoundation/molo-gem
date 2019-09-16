@@ -185,8 +185,6 @@
 
     <div id="content-wrapper" class="content-wrapper">
       <div class="content">
-        <div id="react"></div>
-
         {% display_unread_notifications %}
         {% block content %}{% endblock %}
         {% block breadcrumbs %}
@@ -365,7 +363,7 @@
       </script>
     {% endif %}
     {% if not is_via_freebasics %}
-      <script src="{{ STATIC_URL }}js/jquery.js"></script>
+      <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
       {% compress js inline %}
       <script src="{% static 'js/dest/main-min.js' %}"></script>
       <script>
@@ -418,6 +416,5 @@
       </script>
       {% endcompress %}
     {% endif %}
-    {% render_bundle 'main' %}
   </body>
 </html>

@@ -44,6 +44,7 @@ from wagtail.core.models import Site
 
 from gem.models import ThaQuestion
 
+
 def report_response(request, comment_pk):
     comment = MoloComment.objects.get(pk=comment_pk)
 
@@ -353,7 +354,7 @@ class ThaQuestionnaire(TemplateView):
 
         context = {
             'questionnaire_text': self.title,
-            'props': questionnaire,
+            'props': list(questionnaire),
         }
 
         return render(request, self.template, context)

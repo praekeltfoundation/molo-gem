@@ -173,8 +173,6 @@ MIDDLEWARE_CLASSES = [
     'gem.middleware.ChhaaJaaLoginMiddleware'
 ]
 
-
-
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
