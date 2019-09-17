@@ -56,7 +56,7 @@ const path = require("path"),
         new MiniCSSExtractPlugin({filename: "./css/[name].css"})
       ],
       resolve: {
-        extensions: ["*",".js", ".jsx"]
+        extensions: ["*",".js", ".jsx","scss"]
       }
     }
   ]);

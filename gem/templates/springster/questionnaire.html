@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load render_bundle from webpack_loader %}
 {% block content %}
-  <div id="react-wrapper">
+  <div class="react-wrapper">
     <h1>Questions</h1>
 
     <div id="react"></div>
@@ -9,6 +9,8 @@
       window.props = {{ props|safe }};
       window.react_mount = document.getElementById('react');
     </script>
+
+
     {% render_bundle 'main' 'js' %}
   </div>
 {% endblock %}
