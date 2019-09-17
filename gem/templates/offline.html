@@ -2,9 +2,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>{{ self.title }} | Offline</title>
+    <title>{% if SITE_LAYOUT_2|length > 0  %}{{ SITE_LAYOUT_2|capfirst }}{% else %}{{ SITE_LAYOUT_BASE|capfirst }}{% endif %} | Offline</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <style>
+    {% if SITE_LAYOUT_BASE == "base" and SITE_LAYOUT_2 == "malawi" %}
+    {% elif SITE_LAYOUT_BASE == "chhaajaa" %}
+    {% elif SITE_LAYOUT_BASE == "rwanda" %}
+    {% elif SITE_LAYOUT_BASE == "springster"  %}
+      <style>
       body {
         font-family: "Arial", sans-serif;
         font-size: 12pt;
@@ -60,6 +64,9 @@
         width: 100%;
       }
     </style>
+    {% elif SITE_LAYOUT_BASE == "springster" and SITE_LAYOUT_2 == "tanzania" %}
+    {% elif SITE_LAYOUT_BASE == "yegna"%}
+    {% endif %}
 </head>
 <body>
   <article class="container">

@@ -569,26 +569,36 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
-PWA_NAME = 'Springster'
-PWA_DESCRIPTION = "Springster"
-PWA_THEME_COLOR = '#7300FF'
+
+#PWA_SERVICE_WORKER_PATH =  join(
+#    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+
+PWA_SERVICE_WORKER_PATH =  join(
+    STATIC_ROOT + '/js/gulp-entries/serviceworker.js')
+
+if not SITE_LAYOUT_2:
+    PWA_NAME = SITE_LAYOUT_BASE.capitalize()
+    PWA_DESCRIPTION = SITE_LAYOUT_BASE.capitalize()
+else:
+    PWA_NAME = SITE_LAYOUT_2.capitalize()
+    PWA_DESCRIPTION = SITE_LAYOUT_2.capitalize()
+
+PWA_THEME_COLOR = '#ced4db'
 PWA_DISPLAY = 'standalone'
 PWA_START_URL = '/'
 PWA_ICONS = [
     {
-        "src": "/static/img/appicons/springster_icon_96.png",
+        "src": "/static/img/appicons/springster/springster_icon_96.png",
         "sizes": "96x96",
         "type": "image/png"
     },
     {
-        "src": "/static/img/appicons/springster_icon_144.png",
+        "src": "/static/img/appicons/springster/springster_icon_144.png",
         "sizes": "144x144",
         "type": "image/png"
     },
     {
-        "src": "/static/img/appicons/springster_icon_192.png",
+        "src": "/static/img/appicons/springster/springster_icon_192.png",
         "sizes": "192x192",
         "type": "image/png"
     }

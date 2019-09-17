@@ -21,8 +21,7 @@ from gem.views import (
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSManifestView,
-    ThaQuestionnaire
+    KaiOSManifestView, ServiceWorkerOfflineView, Questionnaires
 )
 
 urlpatterns = []
@@ -39,7 +38,9 @@ elif settings.ENABLE_SSO:
     ]
 
 urlpatterns += [
-    url(r'^questionnaire/$', ThaQuestionnaire.as_view(), name='questionnaire'),
+    url(r'^questionnaires/$', Questionnaires.as_view(), name='questionnaires'),
+    url(r'', ServiceWorkerOfflineView.as_view(), name='offline'),
+    url(r'^offline/', ServiceWorkerOfflineView.as_view(), name='offline'),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),

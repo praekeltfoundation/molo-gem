@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from gem.models import (
     GemCommentReport, OIDCSettings,
-    ThaQuestion, QuestionnaireChoice
+    Questionnaire, QuestionnaireChoice
 )
 from gem.rules import ProfileDataRule, CommentCountRule
 
@@ -88,7 +88,7 @@ class QuestionnaireChoiceAdminInline(admin.TabularInline):
     model = QuestionnaireChoice
 
 
-class ThaQuestionAdmin(admin.ModelAdmin):
+class QuestionnaireAdmin(admin.ModelAdmin):
     list_display = ("questionnaire_text", "pub_date")
     inlines = [QuestionnaireChoiceAdminInline]
 
@@ -97,4 +97,4 @@ admin.site.unregister(User)
 admin.site.unregister(MoloComment)
 admin.site.register(OIDCSettings, OIDCSettingsAdmin)
 admin.site.register(MoloComment, GemCommentReportAdmin)
-admin.site.register(ThaQuestion, ThaQuestionAdmin)
+admin.site.register(Questionnaire, QuestionnaireAdmin)
