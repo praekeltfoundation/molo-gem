@@ -37,6 +37,7 @@ elif settings.ENABLE_SSO:
         url(r'^admin/callback/', cas_views.callback),
     ]
 
+
 urlpatterns += [
     url(r'^questionnaires/$', Questionnaires.as_view(), name='questionnaires'),
     url(r'', ServiceWorkerOfflineView.as_view(), name='offline'),
