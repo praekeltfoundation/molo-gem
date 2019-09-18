@@ -43,6 +43,10 @@
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    			  crossorigin="anonymous"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
     <!-- Facebook Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s){
@@ -158,8 +162,7 @@
       <a href="#" class="call-to-action__item--label">{% trans "Go to top" %}</a>
     </div>
   </footer>
-  <script src="{{ STATIC_URL }}js/jquery.js"></script>
-  <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
   {% compress js inline %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script>
