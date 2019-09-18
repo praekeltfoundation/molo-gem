@@ -15,14 +15,14 @@
       {% image self.banner width-1080 as tmp_photo %}
       {% if self.banner_link_page %}
         <a href="{% pageurl self.banner_link_page.specific %}" target="_top" class="banner__item-link">
-        <img loading="lazy" alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        <img  alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
         </a>
       {% elif self.external_link %}
         <a href="{{ self.external_link }}" target="_blank" class="banner__item-link">
-        <img loading="lazy" alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        <img  alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
         </a>
       {% else %}
-        <img loading="lazy" alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
+        <img  alt="{{ self.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
       {% endif %}
     {% else %}
       <div class="banner__block">

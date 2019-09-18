@@ -21,7 +21,7 @@
                   {% if forloop.last and self.get_effective_image %}
                     <div class="teaser-stacklist__images">
                       {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img loading="lazy" alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                      <img  alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                     </div>
                   {% endif %}
                 {% endif %}
@@ -117,7 +117,7 @@
                       <div class="teaser-grid__images">
                         <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                           {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                          <img loading="lazy" alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                          <img  alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
                         </a>
                       </div>
                     {% endif %}

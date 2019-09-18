@@ -10,11 +10,12 @@
       <ul class="teaser-grid">
         {% for article in articles %}
           <li class="teaser-grid__item">
-
+            lalalalala
             {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
+                blablabla
                   <div class="teaser-grid__iframe">
                     {% embed block.value.youtube_link %}
                   </div>
@@ -24,7 +25,7 @@
                   <div class="teaser-grid__images">
                     <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                       {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img loading="lazy" alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                      <img  alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
                     </a>
                   </div>
                 {% endif %}
