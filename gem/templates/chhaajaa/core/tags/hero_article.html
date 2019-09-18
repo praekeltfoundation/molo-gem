@@ -8,6 +8,7 @@
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
             {# <!-- REVIEW IMAGE BACKUP --> #}
+
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
@@ -19,7 +20,7 @@
                 {% if forloop.last and article.get_effective_image %}
                   <div class="teaser-stacklist__images">
                     {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                    <img loading="lazy" alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                   </div>
                 {% endif %}
               {% endif %}
@@ -93,6 +94,7 @@
       </ul>
     </div>
   </div>
+
   {% for article in articles %}
     {% surveys_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}

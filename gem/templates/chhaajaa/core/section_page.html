@@ -30,7 +30,7 @@
               {% if forloop.last and featured_article.get_effective_image %}
                 <div class="teaser-stacklist__images">
                   {% image featured_article.get_effective_image width-1980 format-jpeg as teaser_thumbnail %}
-                  <img loading="lazy" alt="{{ featured_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                  <img alt="{{ featured_article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                 </div>
               {% endif %}
             {% endif %}
@@ -121,7 +121,7 @@
                 {% if article.image %}
                   <div class="teaser-card__images">
                     {% image article.image width-480 format-jpeg as teaser_thumbnail %}
-                    <img loading="lazy" alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
                   </div>
                 {% endif %}
                 <div class="teaser-card__container">
@@ -205,7 +205,7 @@
                     <div class="teaser-grid__images">
                       <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                         {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                        <img loading="lazy" alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                        <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
                       </a>
                     </div>
                   {% endif %}
