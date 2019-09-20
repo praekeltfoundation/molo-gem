@@ -9,22 +9,20 @@ const messaging = firebase.messaging();
 const CACHE = 'app-cache';
 
 self.addEventListener('install', function(evt) {
-  evt.waitUntil(precache());
+  evt.waitUntil(
+    caches.open(CACHE).then(function (cache) {
+      return cache.addAll([
+        '/',
+        '/offline'
+      ]);
+    })
+  );
 });
 
 self.addEventListener('fetch', function(evt) {
   evt.respondWith(fetch(evt.request).catch(function () {
     return caches.open(CACHE).then(function(cache) {
-      return cache.match('/offline/'); //? Does this needs an actual file?
+      return cache.match('/offline'); 
     });
   }));
 });
-
-function precache() {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.addAll([
-      '/',
-      '/offline/'
-    ]);
-  });
-}

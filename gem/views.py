@@ -342,16 +342,6 @@ class MaintenanceView(TemplateView):
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
 
-class ServiceWorkerOfflineView(TemplateView):
-    template_name = 'offline.html'
-
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs['status'] = 503
-        context['SITE_LAYOUT_BASE'] = settings.SITE_LAYOUT_BASE
-        context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
-        return super(TemplateView, self).render_to_response(
-            context, **response_kwargs)
-
 
 class Questionnaires(TemplateView):
     title = "Questionnaires"
