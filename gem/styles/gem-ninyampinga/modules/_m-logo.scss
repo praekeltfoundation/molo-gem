@@ -3,21 +3,23 @@
   margin: 0 auto;
   max-height: 100px;
   overflow: hidden;
-  width: 100%;
+  width: 85%;
   position: relative;
-  top: 1em;
   @media screen and (min-width: 25.000em) {
     width: 360px;
   }
   @include for-size(tablet-portrait-up) {
+    top: 1em;
     height: 100px;
   }
   &-wrapper {
     position: relative;
     margin: 0 1em;
+    width: 100%;
     @include for-size(tablet-landscape-up) {
       margin: 0 auto;
       order: 2;
+      width: auto;
       z-index: 999999999999;
     }
   }
@@ -28,8 +30,8 @@
     text-transform: uppercase;
     vertical-align: middle;
     text-align: center;
-    width: 80%;
-    margin: 1.9em auto;
+    margin: 0 auto;
+    padding: 3em 0;
     overflow: hidden;
   }
   &__image {
