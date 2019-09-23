@@ -356,3 +356,8 @@ class Questionnaires(TemplateView):
         }
 
         return render(request, self.template, context)
+
+
+def offline_sw(request):
+	template = 'springster/offline.html'
+	return render(request,template)
