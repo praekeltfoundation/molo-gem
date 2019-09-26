@@ -74,6 +74,7 @@ ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
+INTERNAL_IPS = ALLOWED_HOSTS
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
@@ -92,6 +93,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_prometheus',
+    'debug_toolbar',
 
     'taggit',
     'modelcluster',
@@ -141,7 +143,7 @@ INSTALLED_APPS = [
     'import_export',
     'storages',
 
-    'django.contrib.sitemaps',
+    'django.contrib.sitemaps'
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -150,7 +152,7 @@ COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
@@ -169,17 +171,18 @@ MIDDLEWARE_CLASSES = [
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'gem.middleware.ChhaaJaaLoginMiddleware'
+    'gem.middleware.ChhaaJaaLoginMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 if LOG_HEADER_DUMP:
-    MIDDLEWARE_CLASSES += ['gem.middleware.LogHeaderInformationMiddleware', ]
+    MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
 if USE_OIDC_AUTHENTICATION:
-    MIDDLEWARE_CLASSES += [
+    MIDDLEWARE += [
         'gem.middleware.CustomSessionRefresh',
     ]
 
-MIDDLEWARE_CLASSES += [
+MIDDLEWARE += [
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 

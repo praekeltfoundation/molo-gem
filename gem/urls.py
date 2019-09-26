@@ -134,6 +134,8 @@ urlpatterns += [
 
 
 if settings.DEBUG:
+    import debug_toolbar
+    from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     urlpatterns += staticfiles_urlpatterns()
@@ -142,6 +144,12 @@ if settings.DEBUG:
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns + static(
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 if settings.MAINTENANCE_MODE:
     urlpatterns = [
