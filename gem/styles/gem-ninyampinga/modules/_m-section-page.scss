@@ -11,7 +11,6 @@
     @each $sectionModifier, $styleElement in $sectionThemes {
       &--#{$sectionModifier} {
         #{$block}__theme {
-
           background-color: map-get($styleElement, bgColor);
           background-position: 0 0;
           background-repeat: repeat;
@@ -26,11 +25,15 @@
         .section__caption {
           &:before {
             background-image: map-get($styleElement, bgShape);
-            background-color: map-get($styleElement, bgColor);
             background-position: 0 0;
             background-repeat: no-repeat;
-            background-size: auto;
+            background-size: contain;
             content: "";
+            display: block;
+            height: 85px;
+            width: 100%;
+            position: absolute;
+            top: -10px;
 
           }
         }
@@ -63,6 +66,7 @@
   &__caption {
     color: #fff;
     display: inline-block;
+    position: relative;
   }
   &__title {
     background-color: #000;
@@ -72,7 +76,10 @@
     margin: $spacer-half 0;
     @include for-size(tablet-landscape-up) {
       font-size: $font-xx-large;
-      margin: 0;
+
+      z-index: 9999999999;
+      position: relative;
+      margin: 15px 0 0 15px;
     }
   }
 }
