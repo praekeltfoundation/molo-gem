@@ -14,6 +14,7 @@ from django.utils.translation import get_language_from_request
 
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.utils.deprecation import MiddlewareMixin
 from molo.core.utils import get_locale_code
 from molo.core.models import SiteSettings, ArticlePage, Languages
 from molo.core.templatetags.core_tags import load_tags_for_article
@@ -27,7 +28,7 @@ from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
 
 
-class ForceDefaultLanguageMiddleware(object):
+class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     """
     Ignore Accept-Language HTTP headers
 
@@ -44,7 +45,7 @@ class ForceDefaultLanguageMiddleware(object):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
-class LogHeaderInformationMiddleware(object):
+class LogHeaderInformationMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         log = structlog.get_logger()
@@ -209,7 +210,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         return response
 
 
-class ChhaaJaaLoginMiddleware(object):
+class ChhaaJaaLoginMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if request.user.is_authenticated() is False \
                 and settings.SITE_LAYOUT_BASE == 'chhaajaa' \

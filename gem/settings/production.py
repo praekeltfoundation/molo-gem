@@ -64,7 +64,7 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 ENABLE_SSO = True
 
 if not USE_OIDC_AUTHENTICATION:
-    MIDDLEWARE_CLASSES += [  # noqa: F405
+    MIDDLEWARE += [  # noqa: F405
         'molo.core.middleware.MoloCASMiddleware',
         'molo.core.middleware.Custom403Middleware',
     ]
