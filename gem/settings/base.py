@@ -579,7 +579,8 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
 
 # PWA_SERVICE_WORKER_PATH =  join(
 #    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
-PWA_SERVICE_WORKER_PATH = join(BASE_DIR, 'gem/static/js/gulp-entries/','serviceworker.js')
+PWA_SERVICE_WORKER_PATH = join(
+    BASE_DIR, 'gem/static/js/gulp-entries/', 'serviceworker.js')
 if not SITE_LAYOUT_2:
     PWA_NAME = SITE_LAYOUT_BASE.capitalize()
     PWA_DESCRIPTION = SITE_LAYOUT_BASE.capitalize()

@@ -348,7 +348,8 @@ class Questionnaires(TemplateView):
     template = 'questionnaires.html'
 
     def get(self, request):
-        questionnaire = Questionnaire.objects.values('pk', 'questionnaire_text')
+        questionnaire = Questionnaire.objects.values(
+            'pk', 'questionnaire_text')
 
         context = {
             'questionnaire_text': self.title,
@@ -359,5 +360,5 @@ class Questionnaires(TemplateView):
 
 
 def offline_sw(request):
-	template = 'springster/offline.html'
-	return render(request,template)
+    template = 'springster/offline.html'
+    return render(request, template)
