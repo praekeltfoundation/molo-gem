@@ -11,7 +11,7 @@ class Language extends React.Component {
 
 class LanguageChild extends React.Component {
   render() {
-    return <li className="questionare__item">{this.props.question}</li>;
+    return <li className="questionare__item"><h3>{this.props.question}</h3></li>;
   }
 }
 

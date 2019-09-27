@@ -1,3 +1,7 @@
+{% load wagtailsettings_tags %}
+{% get_settings %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +41,7 @@
       .content {
         max-width: 960px;
         padding: 0 1.5em;
+        margin: 0 auto;
       }
       .container {
         width: 100%;
@@ -71,7 +76,7 @@
 <body>
   <article class="container">
     <article class="content sp-accent">
-        <h1 class="color-accent center-font">No Internet Connection</h1>
+        <h1 class="color-accent center-font">Nooooo Internet Connection</h1>
         <h2 class="center-font">Please connect and try again</h2>
         <br />
         <a onClick="window.location.reload()" class="button">Reload</a>

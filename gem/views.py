@@ -27,7 +27,7 @@ from gem.forms import (
     GemRegistrationDoneForm,
     ReportCommentForm,
 )
-from gem.models import GemSettings, GemCommentReport
+from gem.models import GemSettings, GemCommentReport, Questionnaire
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -41,8 +41,6 @@ from molo.profiles.views import (
 from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
 from wagtail.core.models import Site
-
-from gem.models import ThaQuestion
 
 
 def report_response(request, comment_pk):
@@ -345,12 +343,13 @@ class MaintenanceView(TemplateView):
             context, **response_kwargs)
 
 
-class ThaQuestionnaire(TemplateView):
-    title = "Questionnaire"
-    template = 'questionnaire.html'
+class Questionnaires(TemplateView):
+    title = "Questionnaires"
+    template = 'questionnaires.html'
 
     def get(self, request):
-        questionnaire = ThaQuestion.objects.values('pk', 'questionnaire_text')
+        questionnaire = Questionnaire.objects.values(
+            'pk', 'questionnaire_text')
 
         context = {
             'questionnaire_text': self.title,
@@ -358,3 +357,8 @@ class ThaQuestionnaire(TemplateView):
         }
 
         return render(request, self.template, context)
+
+
+def offline_sw(request):
+    template = 'springster/offline.html'
+    return render(request, template)
