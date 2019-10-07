@@ -1,11 +1,7 @@
 .polls {
   $block: unquote("#{&}");
-  background-color: #fff;
-  background-image: url(/static/img/patterns/ninyampinga/pattern_sprite.png);
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 35%;
-  padding: 1em 0 0;
+  background-color: $color-green-lime;
+  padding: 2em 0;
   @include for-size(tablet-landscape-up) {
     background-color: $color-green-lime;
     margin: -1.5em 0;
@@ -13,18 +9,25 @@
   }
   &__wrapper {
     background-color: #fff;
-    padding: 15px;
+    padding: 15px 0;
+    position: relative;
     @include for-size(tablet-landscape-up) {
       margin: 0 auto;
       padding: 2em 15% 2em 2em;
       width: 80%;
+    }
+    .heading__headline {
+      padding: 0 15px;
+    }
+    .polls__form,
+    .surveys__form { //Form Poll variable class not picked up.
+      padding: 0 1em;
     }
   }
   &__answers {
     margin: 0.313em 0;
   }
   &__inner {
-    padding: 0 1em;
     @include for-size(tablet-landscape-up) {
       display: flex;
     }
@@ -42,12 +45,6 @@
       input {
         width: 100%;
       }
-      // [type="button"],
-      // [type="reset"],
-      // [type="submit"],
-      // button {
-      //   width: auto;
-      // }
       @include for-size(tablet-landscape-up) {
         display: inline-block;
         order: 2;
@@ -93,6 +90,23 @@
       display: block;
       vertical-align: middle;
       padding: $spacer-small $spacer-half;
+    }
+  }
+  &--homepage {
+    &:before {
+      @include for-size(tablet-landscape-up) {
+        background-image: url(/static/img/patterns/ninyampinga/pattern_sprite.png);
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 900px;
+        content: " ";
+        display: block;
+        width: 30%;
+        height: 560px;
+        position: absolute;
+        right: 0;
+        margin: -7.5em 0px;
+      }
     }
   }
   .choice-group {

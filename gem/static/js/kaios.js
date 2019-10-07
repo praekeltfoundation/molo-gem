@@ -7,7 +7,7 @@
     var childElems = document.querySelectorAll('div, a, input, button, select, textarea,ul,li');
     var currentIndex = 0, lastTabIndex, lastTabIndexElems, values = [];
     var genericTabs = function (a) {
-      for(i = 0; i < a.length; i++ ){
+      for(var i = 0; i < a.length; i++ ){
         a[i].className += " items";
         a[i].setAttribute('tabindex', i);
         values.push(a[i]);

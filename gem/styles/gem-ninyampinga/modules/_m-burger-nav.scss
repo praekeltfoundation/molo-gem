@@ -12,7 +12,7 @@
     text-transform: uppercase;
     padding: 5px 1em;
     @include for-size(tablet-portrait-up) {
-      padding: .9em 1.8em;
+      padding: .9em 1.8em .9em 0;
     }
     &:active, &:hover, &:focus {
       text-decoration: underline;
@@ -25,6 +25,9 @@
       vertical-align: middle;
       width: 45px;
       height: 40px;
+      @include for-size(tablet-portrait-up) {
+        margin: 0 0 0 20px;
+      }
     }
   }
   &__icon {
