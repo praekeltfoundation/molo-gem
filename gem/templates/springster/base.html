@@ -55,16 +55,16 @@
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css" media="all">
     {% endcompress %}
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster-rtl.css" media="all">
       {% endcompress %}
     {% endif %}
     <noscript>
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
   </head>
@@ -368,13 +368,8 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-      var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="screen and (min-width: 360px)">';
-        if (cutsTheMustard === true) {
+      if (cutsTheMustard === true) {
           if (smartDevice && raf) {
-              raf(function() {
-                var smartStylesLargeDefer = document.getElementsByTagName('style')[0];
-                window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
-              });
             var jsScripts = [
               "{% static 'js/dest/springster-min.js' %}",
               "{% static 'js/dest/kaios-min.js' %}",

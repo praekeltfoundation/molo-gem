@@ -35,12 +35,10 @@ var gulp              =   require('gulp'),
 
       'gem/styles/maintenance.scss',
 
-      'gem/styles/gem-springster/01_springster.s+(a|c)ss',
-      'gem/styles/gem-springster/02_springster-rtl.s+(a|c)ss',
-      'gem/styles/gem-springster/03_state.s+(a|c)ss',
-      'gem/styles/gem-springster/04_state-320.s+(a|c)ss',
-      'gem/styles/gem-springster/05_no-script-state.s+(a|c)ss',
       'gem/styles/gem-springster/@font-face-baton.s+(a|c)ss',
+      'gem/styles/gem-springster/springster.s+(a|c)ss',
+      'gem/styles/gem-springster/springster-rtl.s+(a|c)ss',
+      'gem/styles/gem-springster/no-script-state.s+(a|c)ss'
     ],
     authSassPaths = [
       'gem/styles/auth-service/style.feature.scss',
