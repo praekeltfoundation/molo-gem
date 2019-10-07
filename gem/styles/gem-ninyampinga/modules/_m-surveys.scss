@@ -1,11 +1,22 @@
 .surveys {
   $block: unquote("#{&}");
-  background-color: #fff;
-  background-image: url(/static/img/patterns/ninyampinga/pattern_sprite.png);
-  background-repeat: no-repeat;
-  background-position:  0 center;
-  background-size: 50%;
-  padding: 1em 0 0;
+  background-color: $color-green-lime;
+  padding: 2em 0 0;
+  &:before {
+    @include for-size(tablet-landscape-up) {
+      background-image: url(/static/img/patterns/ninyampinga/pattern_sprite.png);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 900px;
+      content: " ";
+      display: block;
+      width: 30%;
+      height: 560px;
+      position: absolute;
+      left: 0;
+      margin: -7.5em 0px;
+    }
+  }
   @include for-size(tablet-landscape-up) {
     background-color: $color-green-lime;
     margin: -1.5em 0;
@@ -13,11 +24,16 @@
   }
   &__wrapper {
     background-color: #fff;
-    padding: 15px;
+    padding: 15px 0;
+    position: relative;
+    z-index: 9999;
     @include for-size(tablet-landscape-up) {
       margin: 0 auto;
       padding: 2% 2em 5%;
       width: 80%;
+    }
+    .surveys__form {
+      padding: 0 1em;
     }
   }
   &__inner {
