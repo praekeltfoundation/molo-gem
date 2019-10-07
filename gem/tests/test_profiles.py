@@ -2,7 +2,7 @@ from gem.tests.base import GemTestCaseMixin
 from molo.profiles.models import UserProfilesSettings
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class TestProfileInformationDisplay(TestCase, GemTestCaseMixin):
