@@ -45,59 +45,79 @@ urlpatterns += [
         template_name='robots.txt', content_type='text/plain')),
     re_path(r'^sitemap\.xml$', sitemap_views.sitemap),
     re_path(r'^documents/', include(wagtaildocs_urls)),
-    re_path(r'^manifest\.webapp$', KaiOSManifestView.as_view(),
-        name='kaios_manifest'),
-    re_path(r'^bbm/(?P<redirect_path>.*)$',
+    re_path(
+        r'^manifest\.webapp$',
+        KaiOSManifestView.as_view(), name='kaios_manifest'),
+
+    re_path(
+        r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
+
     re_path(r'', include('molo.pwa.urls')),
-    re_path(r'^profiles/register/$',
+    re_path(
+        r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
-    re_path(r'^profiles/register/done/',
+
+    re_path(
+        r'^profiles/register/done/',
         GemRegistrationDoneView.as_view(), name='registration_done'),
-    re_path(r'^profiles/forgot_password/$',
+
+    re_path(
+        r'^profiles/forgot_password/$',
         ForgotPasswordView.as_view(), name='forgot_password'),
-    re_path(r'^profiles/reset_password/$',
+
+    re_path(
+        r'^profiles/reset_password/$',
         ResetPasswordView.as_view(), name='reset_password'),
-    re_path(r'^profiles/reset-success/$',
+
+    re_path(
+        r'^profiles/reset-success/$',
         TemplateView.as_view(
-            template_name='profiles/reset_password_success.html'
-        ),
+            template_name='profiles/reset_password_success.html'),
         name='reset_password_success'),
-    re_path(r'^profiles/edit/myprofile/$',
+
+    re_path(
+        r'^profiles/edit/myprofile/$',
         login_required(GemEditProfileView.as_view()),
         name='edit_my_profile'),
-    re_path(r'^profiles/',
+
+    re_path(
+        r'^profiles/',
         include(
             ('molo.profiles.urls', 'molo.profiles'),
-            )),
+        )),
 
-    re_path(r'^commenting/',
+    re_path(
+        r'^commenting/',
         include(
             ('molo.commenting.urls', 'molo.commenting'),
-            )),
+        )),
 
-    re_path(r'^comments/reported/(?P<comment_pk>\d+)/$',
+    re_path(
+        r'^comments/reported/(?P<comment_pk>\d+)/$',
         report_response, name='report_response'),
 
-    re_path(r'^comments/report_comment/(?P<comment_pk>\d+)/$',
+    re_path(
+        r'^comments/report_comment/(?P<comment_pk>\d+)/$',
         login_required(ReportCommentView.as_view()), name='report_comment'),
 
-    re_path(r'^comments/already_reported/(?P<comment_pk>\d+)/$',
+    re_path(
+        r'^comments/already_reported/(?P<comment_pk>\d+)/$',
         login_required(AlreadyReportedCommentView.as_view()),
         name='already_reported'),
 
     re_path(r'', include('django_comments.urls')),
 
-    re_path(r'^forms/',
+    re_path(
+        r'^forms/',
         include(
             ('molo.forms.urls', 'molo.forms'),
-            )),
+        )),
 
     re_path(r'^feed/rss/$', GemRssFeed(), name='feed_rss'),
     re_path(r'^feed/atom/$', GemAtomFeed(), name='feed_atom'),
 
-    re_path(r'^servicedirectory/', include('molo.servicedirectory.urls',
-        )),
+    re_path(r'^servicedirectory/', include('molo.servicedirectory.urls')),
 
     re_path(r"^mote/", include(("mote.urls", "mote"))),
     re_path(r'', include('molo.core.urls')),
@@ -116,10 +136,12 @@ urlpatterns += [
         core_views.section_index,
         name='section_index'
     ),
-    re_path(r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
+    re_path(
+        r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
         '(?P<question_id>\d+)/vote/$',
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
+
     re_path(r'', include(wagtail_urls)),
     re_path(r'', include('django_prometheus.urls')),
 ]
