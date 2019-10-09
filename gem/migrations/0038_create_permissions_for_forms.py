@@ -24,7 +24,7 @@ def add_molo_forms_permissions(apps, schema_editor):
     # **** Get Permission ****
 
     # Wagtail
-    access_admin = get_permission(Permission, 'access_admin')
+    access_admin, created = get_permission(Permission, 'access_admin')
 
     # Forms
     FormsSegmentUserGroup, created = ContentType.objects.get_or_create(
@@ -45,16 +45,16 @@ def add_molo_forms_permissions(apps, schema_editor):
         codename='delete_segmentusergroup',
         content_type_id=FormsSegmentUserGroup.pk)
 
-    add_segmentusergroup = get_permission(
+    add_segmentusergroup, created = get_permission(
         Permission, 'add_segmentusergroup')
-    change_segmentusergroup = get_permission(
+    change_segmentusergroup, created = get_permission(
         Permission, 'change_segmentusergroup')
-    delete_segmentusergroup = get_permission(
+    delete_segmentusergroup, created = get_permission(
         Permission, 'delete_segmentusergroup')
 
-    add_segment = get_permission(Permission, 'add_segment')
-    change_segment = get_permission(Permission, 'change_segment')
-    delete_segment = get_permission(Permission, 'delete_segment')
+    add_segment, created = get_permission(Permission, 'add_segment')
+    change_segment, created = get_permission(Permission, 'change_segment')
+    delete_segment, created = get_permission(Permission, 'delete_segment')
 
 
     # Wagtail Page permission
@@ -87,7 +87,7 @@ def get_or_create_group(Group, group_name):
 
 
 def get_permission(Permission, code_name):
-    return Permission.objects.get(codename=code_name)
+    return Permission.objects.get_or_create(codename=code_name)
 
 
 def create_page_permission(GroupPagePermission, group, pages, page_permission_type):
