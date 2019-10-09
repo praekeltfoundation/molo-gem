@@ -32,9 +32,9 @@ if settings.USE_OIDC_AUTHENTICATION:
     ]
 elif settings.ENABLE_SSO:
     urlpatterns += [
-        re_path(r'^admin/login/', cas_views.login),
-        re_path(r'^admin/logout/', cas_views.logout),
-        re_path(r'^admin/callback/', cas_views.callback),
+        re_path(r'^admin/login/', cas_views.LoginView.as_view()),
+        re_path(r'^admin/logout/', cas_views.LogoutView.as_view()),
+        re_path(r'^admin/callback/', cas_views.CallbackView.as_view()),
     ]
 
 urlpatterns += [
