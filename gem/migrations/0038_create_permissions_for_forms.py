@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import MultipleObjectsReturned
 from django.core.management.sql import emit_post_migrate_signal
 
 
@@ -87,7 +88,11 @@ def get_or_create_group(Group, group_name):
 
 
 def get_permission(Permission, code_name):
-    return Permission.objects.get_or_create(codename=code_name)
+    try:
+        return Permission.objects.get_or_create(codename=code_name)
+    except MultipleObjectsReturned:
+        Permission.objects.filter(codename=code_name).delete()
+        return Permission.objects.create(codename=code_name)
 
 
 def create_page_permission(GroupPagePermission, group, pages, page_permission_type):
