@@ -27,7 +27,7 @@ def add_molo_forms_permissions(apps, schema_editor):
     access_admin = get_permission(Permission, 'access_admin')
 
     # Forms
-    FormsSegmentUserGroup = ContentType.objects.get_or_create(
+    FormsSegmentUserGroup, created = ContentType.objects.get_or_create(
         app_label='forms', model='FormsSegmentUserGroup')
 
     Permission.objects.create(
