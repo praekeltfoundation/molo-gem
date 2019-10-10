@@ -1,8 +1,21 @@
 .reaction-questions {
   &__block {
-    @include divider-combo-1;
     background-color: $springster-purple-light;
     padding: 20px 0;
+    &:after,
+    &:before {
+      @include divider-combo-1;
+      content: "";
+      display: block;
+      height: 10px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      margin: -4px 0;
+    }
+    &:before {
+      top: 0;
+    }
   }
 
   &__list {

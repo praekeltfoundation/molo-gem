@@ -9,9 +9,22 @@
         width: 100%;
     }
     &__block {
-        @include divider-combo-1;
         background-color: $springster-purple-light;
         padding: 15px 0;
+        &:after,
+        &:before {
+          @include divider-combo-1;
+          content: "";
+          display: block;
+          height: 10px;
+          width: 100%;
+          position: absolute;
+          left: 0;
+          margin: -4px 0;
+        }
+        &:before {
+          top: 0;
+        }
         .heading {
           margin-bottom: 5px;
         }

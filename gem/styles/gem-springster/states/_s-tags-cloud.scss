@@ -1,6 +1,19 @@
 .tag-cloud__container {
-  @include divider-combo-1;
   background-color: $sunny-yellow;
+  &:after,
+  &:before {
+    @include divider-combo-1;
+    content: "";
+    display: block;
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin: -4px 0;
+  }
+  &:before {
+    top: 0;
+  }
 }
 
 .article-page-tag-cloud {
@@ -13,16 +26,19 @@
       padding-top: 60px;
     }
     &__heading {
-      @include underline(zig-zag, 10px);
+      &:after {
+        content: "";
+        display: block;
+        @include underline(zig-zag, 10px);
+      }
     }
     &__icon {
       margin-top: -35px;
-      //Tag cloud image
-      background-image: url("/static/img/icons/header-image.png");
-      background-image: url("/static/img/icons/header-image.svg"),
+      background-image: url("/static/img/icons/header-icons.svg"),
         linear-gradient(transparent, transparent);
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: center -18.5em;
+      background-size: 265px;
       padding: 2px 5px;
       height: 88px;
       width: 100px;
@@ -31,6 +47,7 @@
       margin-left: -55px;
       text-align: center;
       display: block;
+      z-index: 999;
     }
 
   }

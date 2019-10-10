@@ -1,7 +1,22 @@
 #gem-footer {
-  @include divider-combo-1;
   background-color: $mint-green;
-  padding: 12px 8px;
+  padding: 12px 8px 0;
+  position: relative;
+  margin: 5px 0;
+  &:after,
+  &:before {
+    @include divider-combo-1;
+    content: "";
+    display: block;
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin: -4px 0;
+  }
+  &:before {
+    top: 0;
+  }
   a {text-decoration: none;}
   .left {
     float: left;

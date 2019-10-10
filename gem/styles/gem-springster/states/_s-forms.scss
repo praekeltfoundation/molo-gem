@@ -1,67 +1,56 @@
 fieldset {
-    padding: 0 10px;
+  padding: 0 10px;
 }
-.checkbox__legend { display: block;}
+label {
+  display: block;
+  padding: 16px 0 10px 0;
+  text-align: left;
+  line-height: get-line-height($font-x-small, 16px);
+}
+label {
+  & > input,
+  & > input[type="checkbox"],
+  & > input[type="radio"],
+  & > textarea,
+  & > select {
+    position: relative;
+    visibility: visible;
+  }
+}
 input[type="checkbox"],
 input[type="radio"] {
-    position: absolute;
-    visibility: hidden;
-}
-label {
-    display: block;
-    padding: 16px 0 10px 0;
-    text-align: left;
-    line-height: get-line-height($font-x-small, 16px);
-}
-
-label {
-    & > input,
-    & > input[type="checkbox"],
-    & > input[type="radio"],
-    & > textarea,
-    & > select {
-        position: relative;
-        visibility: visible;
-    }
-}
-
-input[type=checkbox] + label,
-input[type=checkbox]:checked + label,
-input[type=radio] + label,
-input[type=radio]:checked + label {
+  position: absolute;
+  visibility: hidden;
+  + label {
     background-image: none;
+  }
+  &:checked + label {
+    background-image: none;
+  }
 }
 
 input[type=radio] + label {
-    //Enable Radio
-    background: #fff url('/static/img/icons/icons.png') -.5em -29.5em/85px no-repeat;
-    opacity: 0.8;
+  background: #fff url('/static/img/icons/icons.png') -.5em -29.5em/85px no-repeat;
+  opacity: 0.8;
 }
 input[type=radio]:checked + label {
-    //Enable Checkbox
-    background: #fff url('/static/img/icons/icons.png') -.5em -29.5em/85px no-repeat;
-    opacity: 1;
-}
-.choice-group--comments {
-    input[type=radio] + label,
-    input[type=radio]:checked + label {
-        background-color: $springster-purple-light;
-    }
+  background: #fff url('/static/img/icons/icons.png') -.5em -37.5em/85px no-repeat;
+  opacity: 1;
 }
 input[type=radio] ~ label  {
-    padding: 16px 10px 16px 54px;
+  padding: 16px 10px 16px 54px;
 }
 
+
 input[type=checkbox] {
-    margin: 0 15px 0 12px;
-    visibility: hidden;
-    position: absolute;
-    opacity: 0.8;
+  margin: 0 15px 0 12px;
+  visibility: hidden;
+  position: absolute;
+  opacity: 0.8;
 }
 input[type=checkbox]:checked + label:before {
-    //Enable Checkbox
-    background: $springster-purple url('/static/img/icons/icons.png') -.5em -29.5em/85px no-repeat;
-    opacity: 1;
+  background: $springster-purple url('/static/img/icons/icons.png') -.5em -29.5em/85px no-repeat;
+  opacity: 1;
 }
 
 input[type=checkbox] ~ label {
@@ -94,5 +83,16 @@ input[type=checkbox] ~ label {
     //Drop down arrow
     background: #fafafa url(/static/img/icons/icons.png) 98% 50%/20px no-repeat;
     padding: 10px 30px 10px 5px;
+  }
+}
+
+.checkbox__legend {
+  display: block;
+}
+
+.choice-group--comments {
+  input[type=radio] + label,
+  input[type=radio]:checked + label {
+    background-color: $springster-purple-light;
   }
 }
