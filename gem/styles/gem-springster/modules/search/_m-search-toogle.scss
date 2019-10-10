@@ -7,8 +7,22 @@
   padding: 15px 0 0 0;
 }
 #search-toggle__button:not(checked) ~ .search {
-    display: none;
+  display: none;
 }
 #search-toggle__button:checked ~ .search {
     display: block;
+}
+
+
+.header__search {
+  .header__search-input,
+  .header__search-input + * {
+    display: none;
+  }
+  .header__search-input:checked + * {
+    display: block;
+  }
+  .header__search-bar {
+    position: relative;
+  }
 }
