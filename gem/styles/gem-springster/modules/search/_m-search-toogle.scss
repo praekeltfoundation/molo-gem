@@ -13,16 +13,29 @@
     display: block;
 }
 
-
 .header__search {
-  .header__search-input,
-  .header__search-input + * {
+  &-bar {
+    position: relative;
+    &:after {
+      content: "";
+      background-color: $springster-purple;
+      background-image: url(/static/img/icons/arrows.svg), url(/static/img/icons/arrows.png);
+      background-repeat: no-repeat;
+      background-position: 0 10px;
+      background-size: 80%;
+      height: 30px;
+      width: 25px;
+      pointer-events: none;
+      position: absolute;
+      right: 5px;
+      top: -50px;
+    }
+  }
+  &-input,
+  &-input + * {
     display: none;
   }
-  .header__search-input:checked + * {
+  &-input:checked + * {
     display: block;
-  }
-  .header__search-bar {
-    position: relative;
   }
 }
