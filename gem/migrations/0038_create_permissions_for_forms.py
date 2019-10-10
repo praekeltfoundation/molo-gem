@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import MultipleObjectsReturned
 from django.core.management.sql import emit_post_migrate_signal
 
 
@@ -25,10 +24,10 @@ def add_molo_forms_permissions(apps, schema_editor):
     # **** Get Permission ****
 
     # Wagtail
-    access_admin, created = get_permission(Permission, 'access_admin')
+    access_admin = get_permission(Permission, 'access_admin')
 
     # Forms
-    FormsSegmentUserGroup, created = ContentType.objects.get_or_create(
+    FormsSegmentUserGroup = ContentType.objects.get_or_create(
         app_label='forms', model='FormsSegmentUserGroup')
 
     Permission.objects.create(
@@ -46,16 +45,16 @@ def add_molo_forms_permissions(apps, schema_editor):
         codename='delete_segmentusergroup',
         content_type_id=FormsSegmentUserGroup.pk)
 
-    add_segmentusergroup, created = get_permission(
+    add_segmentusergroup = get_permission(
         Permission, 'add_segmentusergroup')
-    change_segmentusergroup, created = get_permission(
+    change_segmentusergroup = get_permission(
         Permission, 'change_segmentusergroup')
-    delete_segmentusergroup, created = get_permission(
+    delete_segmentusergroup = get_permission(
         Permission, 'delete_segmentusergroup')
 
-    add_segment, created = get_permission(Permission, 'add_segment')
-    change_segment, created = get_permission(Permission, 'change_segment')
-    delete_segment, created = get_permission(Permission, 'delete_segment')
+    add_segment = get_permission(Permission, 'add_segment')
+    change_segment = get_permission(Permission, 'change_segment')
+    delete_segment = get_permission(Permission, 'delete_segment')
 
 
     # Wagtail Page permission
@@ -88,11 +87,7 @@ def get_or_create_group(Group, group_name):
 
 
 def get_permission(Permission, code_name):
-    try:
-        return Permission.objects.get_or_create(codename=code_name)
-    except MultipleObjectsReturned:
-        Permission.objects.filter(codename=code_name).delete()
-        return Permission.objects.create(codename=code_name)
+    return Permission.objects.get(codename=code_name)
 
 
 def create_page_permission(GroupPagePermission, group, pages, page_permission_type):
