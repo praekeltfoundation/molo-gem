@@ -24,23 +24,21 @@
       text-decoration: none;
     }
     &--text {
-        cursor: pointer;
-        @include font($baton-medium);
-        font-size: 16px;
-        text-transform: uppercase;
-        text-decoration: underline;
-        color: $springster-purple;
-        position: relative;
-        &:hover {
-          color: $black;
-        }
+      cursor: pointer;
+      @include font($baton-medium);
+      font-size: 16px;
+      text-transform: uppercase;
+      text-decoration: underline;
+      color: $springster-purple;
+      position: relative;
+      &:hover {
+        color: $black;
+      }
     }
   }
 
   &__nav-item {
-      /*This selector should inherit the styles of
-        selector above including enhancement --text*/
-      @extend .call-to-action__item;
+    @extend .call-to-action__item;
   }
   &__hyperlink {
     cursor: pointer;
@@ -52,7 +50,6 @@
   }
 }
 
-//Toggle loadmore button on js friendly featurephones
 .no-js .more-link {
   display: none;
 }

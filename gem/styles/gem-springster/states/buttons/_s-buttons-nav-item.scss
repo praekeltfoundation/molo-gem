@@ -1,44 +1,42 @@
 .call-to-action__nav-item {
-    &-text {
-      &--backToTop {
-        @include font($baton-medium);
-        font-weight: normal;
-        line-height: 1.7em;
-      }
+  &-text {
+    &--backToTop {
+      @include font($baton-medium);
+      font-weight: normal;
+      line-height: 1.7em;
     }
-    &--with-icon {
-        text-indent: -99em;
-        height: 21px;
-        width: 21px;
-        position: absolute;
-        right: 10%;
-        top: 0;
-        padding: 0;
-    }
-    &--search-icon {
-        background-repeat:  no-repeat;
-        background-position: 100% 0;
-        background-size: auto 98%;
-        right: 3%;
-    }
-    &--search-icon-bg {
-        background-repeat:  no-repeat;
-        background-position: 12px 10px;
-        background-size: auto 60%;
-        right: 10%;
-        top: 10px;
-    }
-    &--search-icon,
-    &--search-icon-bg {
-        background-color: transparent;
-        //Search icon - no sure which color
-        background-image: url(/static/img/icons/icons.svg), url(/static/img/icons/icons.png);
-    }
+  }
+  &--with-icon {
+    text-indent: -99em;
+    height: 25px;
+    width: 40px;
+    position: absolute;
+    right: 10%;
+    top: 0;
+    padding: 0;
+  }
+  &--search-icon {
+    background-repeat:  no-repeat;
+    background-position: 100% 0;
+    background-size: auto 98%;
+    right: 3%; //Check which media-query style does this belong
+  }
+  &--search-icon-bg {
+    background-repeat:  no-repeat;
+    background-position: 12px 10px;
+    background-size: auto 60%;
+    right: 10%;
+    top: 10px;
+  }
+  &--search-icon,
+  &--search-icon-bg {
+    background-color: transparent;
+    background-image: url(/static/img/icons/icons.svg), url(/static/img/icons/icons.png);
+  }
 }
 
 .comments__reply-meta {
   .call-to-action__nav-item--replies-counter {
-    //Enforce display - cascade  in not inherited
-      float: right;
+    float: right;
   }
 }
