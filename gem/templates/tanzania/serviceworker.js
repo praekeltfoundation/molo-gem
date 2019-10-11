@@ -26,9 +26,9 @@ function precache() {
     return cache.addAll([
       '/',
       '/static/offline.html',
-      '/static/img/appicons/tanzania/android-icon-96x96.png',
-      '/static/img/appicons/tanzania/ms-icon-144x144.png',
-      '/static/img/appicons/tanzania/android-icon-192x192.png'
+      '/static/img/appicons/tujibebe/android-icon-96x96.png',
+      '/static/img/appicons/tujibebe/ms-icon-144x144.png',
+      '/static/img/appicons/tujibebe/android-icon-192x192.png'
     ]);
   });
 }

@@ -23,38 +23,44 @@ var gulp              =   require('gulp'),
     sassPaths = [
       'gem/styles/gem/base_style.scss',
       'gem/styles/gem/base_style-rtl.scss',
+
+      'gem/styles/gem-chhaajaa/chhaajaa.scss',
+
       'gem/styles/gem-malawi/malawi.scss',
 
       'gem/styles/gem-ninyampinga/nn.scss',
       'gem/styles/gem-ninyampinga/enhanced-nn.scss',
       'gem/styles/gem-ninyampinga/browsers/nn-safari.scss',
 
-      'gem/styles/gem-yegna/yegna.scss',
-      'gem/styles/gem-chhaajaa/chhaajaa.scss',
-      'gem/styles/gem-tujibebe/tujibebe.scss',
-
-      'gem/styles/maintenance.scss',
-
       'gem/styles/gem-springster/@font-face-baton.s+(a|c)ss',
       'gem/styles/gem-springster/springster.s+(a|c)ss',
       'gem/styles/gem-springster/springster-rtl.s+(a|c)ss',
-      'gem/styles/gem-springster/no-script-state.s+(a|c)ss'
+      'gem/styles/gem-springster/no-script-state.s+(a|c)ss',
+
+      'gem/styles/gem-tujibebe/tujibebe.scss',
+
+      'gem/styles/gem-yegna/yegna.scss',
+
+      'gem/styles/maintenance.scss'
     ],
     authSassPaths = [
-      'gem/styles/auth-service/style.feature.scss',
-      'gem/styles/auth-service/style.enhanced.scss',
-      'gem/styles/gem-springster/auth/springster.feature.scss',
-      'gem/styles/gem-springster/auth/springster.enhanced.scss',
-      'gem/styles/gem-malawi/auth/zathu.feature.scss',
-      'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
-      'gem/styles/gem-ninyampinga/auth/ninyampinga.feature.scss',
-      'gem/styles/gem-ninyampinga/auth/ninyampinga.enhanced.scss',
-      'gem/styles/gem-yegna/auth/yegna.feature.scss',
-      'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
       'gem/styles/gem-chhaajaa/auth/chhaajaa.enhanced.scss',
       'gem/styles/gem-chhaajaa/auth/chhaajaa.feature.scss',
-      'gem/styles/gem-tanzania/auth/tanzania.feature.scss',
-      'gem/styles/gem-tanzania/auth/tanzania.enhanced.scss'
+
+      'gem/styles/gem-malawi/auth/zathu.feature.scss',
+      'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
+
+      'gem/styles/gem-ninyampinga/auth/ninyampinga.feature.scss',
+      'gem/styles/gem-ninyampinga/auth/ninyampinga.enhanced.scss',
+
+      'gem/styles/gem-springster/auth/springster.feature.scss',
+      'gem/styles/gem-springster/auth/springster.enhanced.scss',
+
+      'gem/styles/gem-tujibebe/auth/tujibebe.feature.scss',
+      'gem/styles/gem-tujibebe/auth/tujibebe.enhanced.scss',
+
+      'gem/styles/gem-yegna/auth/yegna.feature.scss',
+      'gem/styles/gem-yegna/auth/yegna.enhanced.scss'
     ],
     sassDest = {
      prd: 'gem/static/css/prd',
