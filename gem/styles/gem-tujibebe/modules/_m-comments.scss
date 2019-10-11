@@ -1,0 +1,173 @@
+.comments {
+  padding: 10px 0 2.5em;
+  ul, ol {
+    list-style-type: none;
+  }
+  &:before {
+    content: "";
+    background: url('/static/img/icons/tanzania/illustrations.png') no-repeat center -24em/150px;
+    height: 105px;
+    overflow: auto;
+    margin: 0 auto;
+    width: 150px;
+    display: block;
+  }
+  &__form {
+    padding: 0 10px;
+    &--report {
+      padding: 0;
+    }
+  }
+  &__title {
+    padding: 0 10px 10px;
+  }
+  &__alias {
+    color: $color-dark_grayish-blue;
+    font-size: 18px;
+    padding: 0 10px 10px;
+    &-author {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    &-feedback {
+      color: #666;
+      font-size: 14px;
+      &--article {
+        color: #666;
+        font-size: 13px;
+      }
+    }
+    &-link {
+      color: #666;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+      &:hover, &:active, &:focus {
+        color: $color-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__staff {
+    color: $color-dark_grayish-blue;
+    font-size: 18px;
+    padding-right: 5px;
+  }
+  &__reply-meta {
+    padding: 10px 10px;
+    .call-to-action__nav-item {
+      &-text {
+        display: inline-block;
+        font-size: 16px;
+        padding: 0 10px 0 0;
+        text-decoration: underline;
+        &:hover, &:active, &:focus {
+          color: $color-pink;
+        }
+
+        &--disabled {
+          color: $color-grayish-blue;
+          cursor: auto;
+          &:hover, &:active, &:focus {
+            color: $color-grayish-blue;
+          }
+        }
+      }
+
+      &--replies-counter {
+        text-decoration: underline;
+        &:hover, &:active, &:focus {
+          color: $color-blue;
+        }
+      }
+    }
+  }
+  &__publish-date {
+    color: #666;
+    font-size: 12px;
+    padding: 0 5px 0 10px;
+    font-weight: bold;
+  }
+  &__body-small {
+    padding: 0 10px;
+    color: $color-grayish-blue;
+  }
+  &__body-title {
+    color: $color-grayish-blue;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+  &__description {
+    text-align: center;
+    color: $color-grayish-blue;
+    text-transform: uppercase;
+    padding: 0 10px 10px;
+  }
+
+  &-replies {
+    &__child-list {
+      padding: 1em 1em 1em 2em;
+    }
+    &-list {
+      background-color: $color-light-gray;
+      margin: 10px 0 0;
+      padding: 15px 0 0 15px;
+      &__item {
+        display: block;
+        padding: 5px 0 10px;
+      }
+    }
+    &-label {
+      color: $color-grayish-blue;
+    }
+    &-title {
+      background-color: $color-light-gray;
+      color: $color-dark_grayish-blue;
+      font-weight: 400;
+      padding: 0 0 0 10px;
+    }
+    &-cta-title {
+      color: $color-grayish-blue;
+    }
+  }
+  &-list {
+    &__reply_wrap {
+      padding: 0 10px;
+      .comments__publish-date {
+        display: inline-block;
+        padding: 0;
+      }
+      .comments__alias-author {
+        text-transform: capitalize;
+        padding: 1em 10px 10px 0;
+      }
+    }
+    &__item {
+      &--reply {
+        background-color: $color-light-gray;
+        padding: 20px 0 10px 0;
+      }
+      &--parent-comment {
+        border-top: 3px solid $color-blue;
+        padding: 10px 0 0;
+        &:first-child {
+          border: none;
+        }
+      }
+    }
+    .comment__replies-title {
+      background-color: transparent;
+      color: $color-blue;
+      padding: 1.5em 10px 10px;
+      //font-weight: 600;
+    }
+  }
+  .heading__component {
+    text-transform: uppercase;
+    padding: 1.5em 1em;
+    &:after {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}

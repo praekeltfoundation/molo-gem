@@ -31,7 +31,7 @@ var gulp              =   require('gulp'),
 
       'gem/styles/gem-yegna/yegna.scss',
       'gem/styles/gem-chhaajaa/chhaajaa.scss',
-      'gem/styles/gem-tanzania/tanzania.scss',
+      'gem/styles/gem-tujibebe/tujibebe.scss',
 
       'gem/styles/maintenance.scss',
 
@@ -61,7 +61,7 @@ var gulp              =   require('gulp'),
      dev: 'gem/static/css/dev',
     },
     authSassDest = {
-      auth: 'gem/styles/auth-compiled'
+      auth: 'gem/static/authentication_service/themes'
     };
 
   function styles(env) {
@@ -92,6 +92,10 @@ var gulp              =   require('gulp'),
   gulp.task('styles:auth', function() {
     return styles('auth');
   });
+
+
+
+
 
   // Minify JS
   gulp.task('compress', function() {
