@@ -59,19 +59,19 @@
       {% molo_pwa_meta %}
     {% endif %}
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/springster.css" media="all">
     {% endcompress %}
 
     {% render_bundle 'style' 'css' %}
 
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/springster-rtl.css" media="all">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/springster-rtl.css" media="all">
       {% endcompress %}
     {% endif %}
     <noscript>
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/no-script-state.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
 

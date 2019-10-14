@@ -65,8 +65,8 @@ var gulp              =   require('gulp'),
 
 
     var sassDest = {
-     prd: 'gem/static/css/prd',
-     dev: 'gem/static/css/dev',
+     prd: 'gem/static/css/dest/prd',
+     dev: 'gem/static/css/dest/dev',
     },
     authSassDest = {
       auth: 'gem/static/authentication_service/themes'
