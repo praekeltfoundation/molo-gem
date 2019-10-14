@@ -56,12 +56,12 @@
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% elif request.get_full_path == '/' %}Our Stories. Our Music. Our Lives.{% else %}{{ self.subtitle }}{% endif %}"/>
         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}"/>
+        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/zathu/zathu-fb-share_1200X630.png' %}{% endif %}"/>
         <meta property="og:image:type" content="" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="{% static 'img/zathu-favicon.ico' %}" />
+        <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/zathu/zathu-favicon.ico' %}" />
         {% compress css %}
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style.css">
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/malawi.css">
@@ -73,7 +73,7 @@
         {% endif %}
     </head>
     <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-      <img alt="Zathu" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+      <img alt="Zathu" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/zathu/zathu-fb-share_1200X630.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
 
       <!-- Google Tag Manager (noscript) -->
       {% if settings.core.SiteSettings.ga_tag_manager %}
@@ -104,7 +104,7 @@
 
         <div id="gem-header">
             <a id="logo" href="/">
-              <img src="{% static 'img/logos/zathu.png' %}" width="120" alt="Zathu" />
+              <img src="{% static 'img/logos/zathu/zathu.png' %}" width="120" alt="Zathu" />
             </a>
             <a href="#feature-menu">{% trans "Menu" %}</a>
             {% if not user.is_authenticated %}
@@ -113,13 +113,14 @@
             <a class="profile-menu-item" href="{{VIEW_PROFILE_URL}}">{% trans "Profile" %}</a>
             {% endif %}
             <a class="search-icon" href="#search-form">
+              <!--To review -->
               <img src="{% static 'img/icons/search/search_purple.png' %}" width="100%" alt="Search" />
             </a>
         </div>
 
         {% if 'ninyampinga.com' in request.get_host %}
           <div class="banner__birthday">
-            <img class="banner" src="{% static 'img/logos/turamurika.png' %}" alt="GEM" />
+            <img class="banner" src="{% static 'img/logos/zathu/turamurika.png' %}" alt="GEM" />
           </div>
         {% endif %}
 

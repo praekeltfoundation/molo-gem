@@ -31,7 +31,7 @@
     {% image self.get_effective_image fill-450x200 as article_photo %}
   {% endif %}
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}"/>
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga/ninyampinga-logo.png' %}{% endif %}"/>
   <meta property="og:image:type" content="" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -55,7 +55,7 @@
   {% endif %}
 </head>
 <body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
@@ -77,7 +77,7 @@
               {% image settings.core.SiteSettings.logo width-350 as logo_image %}
               <img src="{{logo_image.url}}" width="334" height="57" alt="Girl Effect - Ni Nyampinga" class="logo__image" />
             {% else %}
-              {% with "img/logos/ninyampinga-logo"|add:".png" as logo_url %}
+              {% with "img/logos/ninyampinga/ninyampinga-logo"|add:".png" as logo_url %}
                 <img src="{% static logo_url %}" width="334" height="57" alt="Girl Effect - Ni Nyampinga" class="logo__image" />
               {% endwith %}
             {% endif %}

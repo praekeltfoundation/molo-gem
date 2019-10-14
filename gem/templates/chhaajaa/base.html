@@ -21,7 +21,7 @@
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
     <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}" />
     <meta name="msapplication-TileColor" content="#ffe559">
-    <meta name="msapplication-TileImage" content="{% static 'img/logos/chhaajaa-logo.png' %}">
+    <meta name="msapplication-TileImage" content="{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}">
     <meta name="theme-color" content="#ffe559">
     {% if self.social_media_image %}
       {% image self.social_media_image fill-450x200 as tmp_photo %}
@@ -35,11 +35,11 @@
     <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
     <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" />
+    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}{% endif %}" />
     <meta property="og:image:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <link rel="icon" href="{% static 'img/logos/chhaajaa-logo.png' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}" type="image/x-icon" />
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
@@ -84,7 +84,7 @@
     <!-- End Google Tag Manager -->
 </head>
 <body>
-  <img alt="Chhaajaa" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <img alt="Chhaajaa" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
   <!-- Google Tag Manager (noscript) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P45VN52" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -101,7 +101,7 @@
           {% endif %}
         </button>
         <a class="navbar-brand" href="/">
-          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
+          <img src="{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
         </a>
       </div>
       {% if user.is_authenticated %}
@@ -150,7 +150,7 @@
   <footer class="footer_area">
     <div class="pull-left">
       <a href="/" class="footer__logo">
-        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+        <img src="{% static 'img/logos/chhaajaa/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
       </a>
       <p class="copyright__disclaimer">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>

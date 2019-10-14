@@ -294,9 +294,9 @@ class KaiOSManifestView(View):
             "description": "An app providing information to girls",
             "launch_path": "/",
             "icons": {
-                "56": "/static/img/appicons/springster_icon_52.png",
-                "112": "/static/img/appicons/springster_icon_112.png",
-                "128": "/static/img/appicons/springster_icon_128.png",
+                "56": "/static/img/appicons/springster/springster_icon_52.png",
+                "112": "/static/img/appicons/springster/springster_icon_112.png",
+                "128": "/static/img/appicons/springster/springster_icon_128.png",
             },
             "developer": {
                 "name": "Praekelt.org",
