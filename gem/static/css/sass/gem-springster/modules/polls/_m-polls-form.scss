@@ -4,9 +4,22 @@
     height: auto;
   }
   &__container {
-    @include divider-combo-1;
     background-color: $mint-green-light;
     padding: 20px 0 8px;
+    &:after,
+    &:before {
+      @include divider-combo-1;
+      content: "";
+      display: block;
+      height: 10px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      margin: 4px 0;
+    }
+    &:before {
+      top: 32px;
+    }
   }
   .heading__micro {
     margin: 0px 0 8px 0;

@@ -1,0 +1,34 @@
+.polls {
+  &__container {
+    background-color: $mint-green-light;
+    padding: 60px 0 8px;
+    margin-top: 40px;
+    &:after,
+    &:before {
+      @include divider-combo-1;
+      content: "";
+      display: block;
+      height: 10px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      margin: 4px 0;
+    }
+    &:before {
+      top: 32px;
+    }
+  }
+  &__bubble-icon {
+    background: url(/static/img/icons/header-icons.svg) no-repeat center -195px/300px;
+    padding: 2px 5px;
+    height: 88px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    z-index: 999;
+  }
+  .heading__component {
+    background: none;
+  }
+}

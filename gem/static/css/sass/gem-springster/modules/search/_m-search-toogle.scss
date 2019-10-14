@@ -7,8 +7,35 @@
   padding: 15px 0 0 0;
 }
 #search-toggle__button:not(checked) ~ .search {
-    display: none;
+  display: none;
 }
 #search-toggle__button:checked ~ .search {
     display: block;
+}
+
+.header__search {
+  &-bar {
+    position: relative;
+    &:after {
+      content: "";
+      background-color: $springster-purple;
+      background-image: url(/static/img/icons/arrows.svg), url(/static/img/icons/arrows.png);
+      background-repeat: no-repeat;
+      background-position: 0 10px;
+      background-size: 80%;
+      height: 30px;
+      width: 25px;
+      pointer-events: none;
+      position: absolute;
+      right: 5px;
+      top: -50px;
+    }
+  }
+  &-input,
+  &-input + * {
+    display: none;
+  }
+  &-input:checked + * {
+    display: block;
+  }
 }

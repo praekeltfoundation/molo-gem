@@ -1,0 +1,72 @@
+#profile {
+  float: left;
+  .menu-list__anchor--section-nav {
+    background-image: url(/static/img/icons/icons.svg), url(/static/img/icons/icons.png);
+    background-repeat: no-repeat;
+    background-position: -35px top;
+    background-size: 95px;
+    height: 35px;
+    width: auto;
+  }
+}
+#search {
+  float: right;
+  .menu-list__anchor--section-nav {
+    //Mint search
+    background-image: url(/static/img/icons/icons.svg), url(/static/img/icons/icons.png);
+    background-position: -25px -72.9em;
+    background-size: 95px;
+    background-repeat: no-repeat;
+    height: 35px;
+    width: auto;
+  }
+}
+
+.menu-list {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+  &__item  {
+    display: inline-block;
+    border: none;
+    padding: 5px 0;
+  }
+  &__anchor {
+    display: inline-block;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: $font-xx-small;
+    label {
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      text-transform: uppercase;
+      font-weight: normal;
+      font-size: $font-xx-small;
+      padding: 3px 0;
+    }
+    &--section-nav {
+      display: block;
+      text-indent: 120%;
+      vertical-align: middle;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+//MOTE
+.menu-list__anchor {
+  &-toggle, &-standard,
+  &-profile-icon, &-search-icon {
+    color: #07292F;
+  }
+}
+.menu-list__anchor-toggle,
+.menu-list__anchor-search-icon {
+  margin: 5px 0 0;
+}

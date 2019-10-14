@@ -1,0 +1,290 @@
+form {
+  position: relative;
+}
+fieldset {
+  border: none;
+  margin: 0 0 15px;
+  padding: 0 10px;
+  display: block;
+  position: relative;
+  word-break: break-all;
+  word-wrap: break-word;
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+}
+
+label {
+  color: $color-dark_grayish-blue;
+  font-size: 16px;
+  padding: 0.5em 0;
+  display: block;
+  text-align: left;
+  & > input,
+  & > input[type="checkbox"],
+  & > input[type="radio"],
+  & > textarea,
+  & > select {
+    position: relative;
+    visibility: visible;
+  }
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+textarea, select {
+  border: 3px solid $color-blue;
+  box-sizing: border-box;
+  border-radius: 0;
+  display: block;
+  font-size: 16px;
+  margin: 10px auto;
+  padding: 10px 0 10px 10px;
+  width: 98%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-border-radius: 0px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    outline: 0;
+    border: 3px solid $color-blue;
+    -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+    -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+    box-shadow: 10px 10px 5px -10px $color-blue;
+  }
+}
+
+input[type="checkbox"],
+input[type="radio"]  {
+  display: inline-block;
+  margin-left: 10px;
+  position: initial;
+  visibility: initial;
+  position: absolute;
+  visibility: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+input[type=checkbox] + label,
+input[type=checkbox]:checked + label,
+input[type=radio] + label,
+input[type=radio]:checked + label {
+  background-image: none;
+}
+input[type=radio] + label {
+  background: #fff url(/static/img/icons/tanzania/checkbox-icons.png) -1.5em 0.9em/100px no-repeat;
+  opacity: 0.9;
+}
+input[type=radio]:checked + label {
+  background: #fff url(/static/img/icons/tanzania/checkbox-icons.png) -1.5em -3.9em/100px no-repeat;
+  opacity: 1;
+}
+input[type=radio] ~ label  {
+  cursor: pointer;
+  padding: 15px 10px 15px 3.4em;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  transition: opacity .2s ease-out;
+  &:hover, &:active, &:focus {
+    opacity: 1;
+  }
+}
+
+input[type=checkbox] {
+  margin: 0 15px 0 12px;
+  visibility: hidden;
+  position: absolute;
+  opacity: 0.8;
+}
+input[type=checkbox]:checked + label:before {
+  background: $color-green url(/static/img/icons/tanzania/icon-sprite.png) -7.7em -3.3em/185px no-repeat;
+  opacity: 1;
+}
+
+input[type=checkbox] ~ label {
+  background: #fff;
+  padding: 10px 5px;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  &:before {
+    content: "";
+    background: #fff;
+    border: 3px solid $color-blue;
+    opacity: 0.8;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin: 0 10px 0 0;
+  }
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select {
+  background: #fafafa;
+  margin: 0 auto 10px;
+  padding: 10px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  &:focus,
+  &:visited,
+  &:active {
+    outline: none;
+  }
+}
+
+//@-moz-document url-prefix()
+@media screen and (-webkit-min-device-pixel-ratio:0)  {
+  select {
+    background: #fafafa url(/static/img/icons/tanzania/icon-sprite.png) 18em -15.4em/215px no-repeat;
+    padding: 10px 10px 10px 5px;
+  }
+}
+textarea {
+  border: 3px solid $color-blue;
+  padding: 10px;
+  display: block;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+    -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+    box-shadow: 10px 10px 5px -10px $color-blue;
+  }
+}
+input[type="submit"] {
+  border: none;
+  cursor: pointer;
+}
+button {
+  border: none;
+}
+label.error {
+  color: $color-pink;
+  .required-asterisk,
+  .required-info {
+    color: $color-pink;
+  }
+}
+.choice-group--comments {
+  input[type=radio] + label,
+  input[type=radio]:checked + label {
+    background-color: $color-blue;
+  }
+}
+.search-icon {
+  color: $color-grayish-blue;
+  font-size:12px;
+}
+.required-asterisk {
+  color: $color-grayish-blue;
+  font-size: 12px;
+}
+.required-info {
+  color: $color-grayish-blue;
+  display: block;
+  font-size: 14px;
+  margin: -5px 0 0;
+}
+.helptext,
+.hint-text {
+  color: $color-grayish-blue;
+  font-size: 13px;
+  padding: 0;
+  font-style: italic;
+  margin: 0;
+  font-weight: normal;
+}
+.error-list,
+.errorlist {
+  margin: 0;
+  padding: 0;
+  li {
+    display: block;
+    color: $color-pink;
+    text-align: center;
+  }
+}
+.errors, .error-list__item {
+  color: $color-pink;
+  padding: 10px 15px 0;
+  text-align: center;
+}
+.select-group {
+  display: inline-block;
+  padding: 15px 0;
+}
+.sub_label {
+  display: block;
+}
+.choice-group {
+  margin: 0 0 10px;
+}
+.input-group {
+  padding: 0 10px;
+  position: relative;
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      display: block;
+      position: relative;
+      label {
+        text-align: left;
+      }
+    }
+  }
+  &.input-error {
+    input, textarea {
+      border-color: $color-pink;
+    }
+  }
+  .error-message {
+    color: $color-pink;
+  }
+  span {
+    color: $color-grayish-blue;
+    font-size: 13px;
+    font-style: italic;
+    padding-left: 10px;
+  }
+}
+fieldset > .input-group {
+  padding: 0;
+}
+.checkbox__legend {
+  display: block;
+}

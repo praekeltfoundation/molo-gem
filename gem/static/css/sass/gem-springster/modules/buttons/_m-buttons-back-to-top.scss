@@ -1,54 +1,53 @@
 .call-to-action {
+  &--backToTop {
+    background-color: $pale-grey-two;
+    padding: 17px 0 12px 0;
+  }
+  &--backToTop-bg {
+    background: #F0F3F5;
+    padding: 10px 0;
+  }
+  &-text {
     &--backToTop {
-      background-color: $pale-grey-two;
-      padding: 17px 0 12px 0;
+      &:after {
+        content: "";
+        //Arrow up
+        background-image: url(/static/img/icons/arrows.png);
+        background-repeat: no-repeat;
+        background-position: 0 -21.2em;
+        background-size: 100%;
+        position: absolute;
+        height: 14px;
+        width: 14px;
+      }
     }
-    &--backToTop-bg {
-        background: #F0F3F5;
-        padding: 10px 0;
+    &--backToTop-up_arrow {
+      @extend .call-to-action-text--backToTop;
     }
-    &-text {
-        &--backToTop {
-            &:after {
-              content: "";
-              background-image: url(/static/img/icons/up-arrow.png);
-              background-repeat: no-repeat;
-              background-position: 0 0;
-              background-size: auto 100%;
-              position: absolute;
-              height: 14px;
-              width: 14px;
-            }
-        }
-        &--backToTop-up_arrow {
-            /*This selector should inherit the styles of
-              selector above*/
-            @extend .call-to-action-text--backToTop;
-        }
-    }
+  }
 
-    &__nav-item-text {
-        &--backToTop {
-            font-size: 16px;
-            text-transform: uppercase;
-            text-decoration: underline;
-            color: $springster-purple;
-            position: relative;
-            font-weight: bold;
-            @extend .call-to-action-text--backToTop;
-            &:after {
-                top: 3px;
-                margin-left: 10px;
-            }
-            &:hover {
-                text-decoration: none;
-            }
-        }
-        &--backToTop-up_arrow {
-          &:after {
-            right: 20%;
-            top: 30%;
-          }
-        }
+  &__nav-item-text {
+    &--backToTop {
+      font-size: 16px;
+      text-transform: uppercase;
+      text-decoration: underline;
+      color: $springster-purple;
+      position: relative;
+      font-weight: bold;
+      @extend .call-to-action-text--backToTop;
+      &:after {
+        top: 5px;
+        margin-left: 10px;
+      }
+      &:hover {
+          text-decoration: none;
+      }
     }
+    &--backToTop-up_arrow {
+      &:after {
+        right: 20%;
+        top: 30%;
+      }
+    }
+  }
 }

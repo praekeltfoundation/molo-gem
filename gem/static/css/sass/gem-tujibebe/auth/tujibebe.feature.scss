@@ -1,0 +1,389 @@
+@import '../util/*';
+
+body,
+html {
+  background-color: $color-grayish-blue;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 16px;
+  font-family: $font-poppins;
+  font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.3;
+  overflow: auto;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  z-index: -1;
+}
+
+select,
+textarea {
+  border-radius: 0;
+  color: $color-grayish-blue;
+}
+a {
+  color: $color-blue;
+  text-decoration: none;
+  &:hover {
+    color: $color-blue;
+  }
+}
+h1 {
+  font-size: 1.2em;
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+hr {
+  border: 0;
+  border-top: 1px solid $color-grayish-blue;
+  height: 0;
+  margin: 10px 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  border: 0;
+  height:auto;
+  width: auto;
+}
+
+*:focus {
+  @media screen and (min-width: 20.000em) {
+    outline: none;
+  }
+}
+
+
+
+//CONTAINER
+
+.Container {
+  background: transparent;
+  padding: 0; //Override Default
+  .Intro {
+    color: $color-grayish-blue;
+    padding: 0 15px;
+    text-align: center;
+  }
+}
+
+
+
+//HEADER
+@keyframes pulse {
+  0% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.Header {
+  text-align: center;
+  &-branding {
+    background: $color-blue;
+    color: #fff;
+    padding: 15px 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &-image {
+      content: url('/static/authentication_service/themes/tanzania/images/tujibebe-white.svg');
+      cursor: pointer;
+      display: block;
+      height: 35px;
+      width: 115px;
+      &:hover, &:active, &:focus {
+        animation: pulse 0.5s ease 0s 1;
+      }
+    }
+  }
+  &-links {
+    background: #fff;
+    color: $color-dark-gray;
+    padding: 10px 0;
+    a {
+      color: $color-blue;
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+  &-title {
+    background: #fff;
+    padding: 15px;
+    h1 {
+      color: $color-grayish-blue;
+    }
+  }
+}
+//REGISTRATION: HEADER & FORMS
+.Registration {
+  .Header {
+    background-color: #fff;
+    padding: 0;
+    &-title {
+      background: 0 0;
+      text-align: center;
+      background-color: #fff;
+      margin: 0;
+      padding: 15px 8px 35px;
+      h1 {
+        color: $color-blue;
+        font-size: 32px;
+        margin: 0;
+        padding: 0 0 5px;
+      }
+    }
+  }
+}
+.Delete-Account,
+.Security,
+.Password,
+.Reset-Password {
+  .Header-title {
+    padding: 0;
+    h1 {
+      background: transparent;
+      color: $color-blue;
+      font-size: 18px;
+      padding: 15px 8px 0;
+    }
+  }
+}
+
+//CONTENT
+.Content {
+  background: #fff;
+  overflow: auto;
+  p {
+    color: $color-dark_grayish-blue;
+    padding: 0 5%;
+    text-align: center;
+  }
+  .center {
+    color: $color-dark_grayish-blue;
+  }
+}
+
+//FORM
+.Form {
+  .Field {
+    margin-top: 10px;
+    text-align: center;
+    padding: 0 15px 0;
+    &-item {
+      display: contents;
+      margin-top: 10px;
+    }
+
+    &-label {
+      color: $color-dark_grayish-blue;
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    &-message {
+      color: $color-grayish-blue;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField, {
+      border: 3px solid $color-blue;
+      font-size: 1em;
+      height: 48px;
+      outline: none;
+      width: 100%;
+      margin: 10px auto;
+      padding: 10px 0 10px 10px;
+      width: 98%;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -webkit-border-radius: 0px;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+      &:hover, &:active, &:focus {
+        outline: 0;
+        border: 3px solid $color-blue;
+        -webkit-box-shadow: 10px 10px 5px -10px $color-blue;
+        -moz-box-shadow: 10px 10px 5px -10px $color-blue;
+        box-shadow: 10px 10px 5px -10px $color-blue;
+      }
+    }
+    .Textarea {
+      height: 60px;
+    }
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $color-grayish-blue;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $color-pink;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: 5px;
+  }
+}
+.Messages {
+  margin: 0;
+  .Message {
+    background-color: $color-grayish-blue;
+    color: #fff;
+    padding: 5px;
+    &--success {
+      background-color: $color-grayish-blue;
+      color: #fff;
+    }
+    &--error,
+    &--warning {
+      background: $color-pink;
+    }
+  }
+}
+.errorlist {
+  color: $color-pink;
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+
+  li {
+    margin: 10px 0;
+  }
+}
+
+.Additional-text {
+  color: $color-dark-gray;
+  padding: 5px 15px;
+  margin: 0;
+  text-align: center;
+  a, button {
+    color: $color-blue;
+    font-weight: 400;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+//BUTTONS
+.Button {
+  background: $color-blue;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 1em;
+  margin: 15px auto;
+  position: relative;
+  width: 90%;
+  z-index: 99999999;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    background: $color-dar-blue;
+  }
+  &--warning {
+    background-color: $color-pink;
+  }
+}
+
+
+//MENU NAV
+.Menu {
+  background-color: $color-light-gray;
+  padding: 5px 15px;
+  &-title {
+    display: none;
+  }
+  &-item {
+    a {
+      font-size: 16px;
+      text-decoration: none;
+      &:hover, &:active, &:focus {
+        color: $color-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}
+
+
+
+//FOOTER
+.Footer {
+  background: #fff;
+  border-top: 1px solid $color-grayish-blue;
+  font-size: 12px;
+  padding: 5px 0;
+  text-align: center;
+  //COPYRIGHT
+  p {
+    color: $color-grayish-blue;
+    font-size: 12px;
+    padding: 30px 15px;
+    margin: 0;
+    text-align: center;
+  }
+}
