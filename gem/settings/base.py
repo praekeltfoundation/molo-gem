@@ -238,7 +238,7 @@ def get_default_template(site_layout_base, site_layout):
     }
 
 
-# We have multiple layouts: use `base`, `malawi` , `springster`, `rwanda`
+# We have multiple layouts: use `base`, `malawi` , `springster`, `ninyampinga`
 # 'chhaajaa' or 'yegna'
 # Change SITE_LAYOUT_BASE to switch between them.
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')

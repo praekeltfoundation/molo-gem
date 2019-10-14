@@ -28,7 +28,7 @@ var gulp              =   require('gulp'),
 
       'gem-chhaajaa/chhaajaa.scss',
 
-      'gem-malawi/malawi.scss',
+      'gem-ninyampinga/nn.scss',
 
       'gem-springster/@font-face-baton.s+(a|c)ss',
       'gem-springster/springster.s+(a|c)ss',
@@ -39,15 +39,14 @@ var gulp              =   require('gulp'),
 
       'gem-yegna/yegna.scss',
 
+      'gem-zathu/zathu.scss',
+
       'maintenance.scss'
     ],
 
     authSassPaths = [
       'gem-chhaajaa/auth/chhaajaa.enhanced.scss',
       'gem-chhaajaa/auth/chhaajaa.feature.scss',
-
-      'gem-malawi/auth/zathu.feature.scss',
-      'gem-malawi/auth/zathu.enhanced.scss',
 
       'gem-ninyampinga/auth/ninyampinga.feature.scss',
       'gem-ninyampinga/auth/ninyampinga.enhanced.scss',
@@ -59,7 +58,10 @@ var gulp              =   require('gulp'),
       'gem-tujibebe/auth/tujibebe.enhanced.scss',
 
       'gem-yegna/auth/yegna.feature.scss',
-      'gem-yegna/auth/yegna.enhanced.scss'
+      'gem-yegna/auth/yegna.enhanced.scss',
+
+      'gem-zathu/auth/zathu.feature.scss',
+      'gem-zathu/auth/zathu.enhanced.scss'
     ];
 
 
