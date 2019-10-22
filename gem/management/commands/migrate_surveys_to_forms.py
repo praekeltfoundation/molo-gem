@@ -258,10 +258,10 @@ class Command(BaseCommand):
 
         # Migrate Survey Rules to Form
         for segment in Segment.objects.all():
-            submission_rule = \
+            submission_rules = \
                 SurveySubmissionDataRule.objects.filter(
-                    segment_id=segment.id).first()
-            if submission_rule:
+                    segment_id=segment.id).all()
+            for submission_rule in submission_rules:
                 rule_dict = {}
                 for item in submission_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -276,9 +276,9 @@ class Command(BaseCommand):
                 submission_rule.delete()
                 segment.save()
 
-            response_rule = SurveyResponseRule.objects.filter(
-                segment_id=segment.id).first()
-            if response_rule:
+            response_rules = SurveyResponseRule.objects.filter(
+                segment_id=segment.id).all()
+            for response_rule in response_rules:
                 rule_dict = {}
                 for item in response_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -293,9 +293,9 @@ class Command(BaseCommand):
                 response_rule.delete()
                 segment.save()
 
-            article_rule = ArticleTagRule.objects.filter(
-                segment_id=segment.id).first()
-            if article_rule:
+            article_rules = ArticleTagRule.objects.filter(
+                segment_id=segment.id).all()
+            for article_rule in article_rules:
                 rule_dict = {}
                 for item in article_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -304,9 +304,9 @@ class Command(BaseCommand):
                 article_rule.delete()
                 segment.save()
 
-            combination_rule = CombinationRule.objects.filter(
-                segment_id=segment.id).first()
-            if combination_rule:
+            combination_rules = CombinationRule.objects.filter(
+                segment_id=segment.id).all()
+            for combination_rule in combination_rules:
                 rule_dict = {}
                 for item in combination_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -315,9 +315,9 @@ class Command(BaseCommand):
                 combination_rule.delete()
                 segment.save()
 
-            group_rule = GroupMembershipRule.objects.filter(
-                segment_id=segment.id).first()
-            if group_rule:
+            group_rules = GroupMembershipRule.objects.filter(
+                segment_id=segment.id).all()
+            for group_rule in group_rules:
                 rule_dict = {}
                 for item in group_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
