@@ -4,13 +4,13 @@
 {% block content %}
   {# HEADING #}
   {% if self.your_words_competition %}
-    <div class="gcn-competition surveys{{survey.get_effective_extra_style_hints}} surveys--page">
-  {% elif self.display_survey_directly %}
+    <div class="gcn-competition surveys{{form.get_effective_extra_style_hints}} surveys--page">
+  {% elif self.display_form_directly %}
     <div class="polls polls--call-to-action">
       <div class="polls__bubble-icon"></div>
       <div class="polls__container">
   {% else %}
-    <div class="surveys surveys{{survey.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
+    <div class="surveys surveys{{form.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
       {% if self.image %}
         <div class="surveys--page__image-wrapper">
           {% image self.image width-165 as icon_small %}
@@ -28,7 +28,7 @@
         <div class="surveys--page__image-wrapper">
           {% image self.image width-98 as tmp_photo_small %}
           {% image self.image width-320 as tmp_photo_large %}
-            <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ survey.image.title }}" class="surveys--page__image" />
+            <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form.image.title }}" class="surveys--page__image" />
         </div>
       {% else %}
         <div class="surveys--page__image gcn-competition__default"></div>
@@ -37,7 +37,7 @@
     {% if self.introduction %}
       <div class="heading heading__subheading"><p>{{self.introduction}}</p></div>
     {% endif %}
-  {% elif self.display_survey_directly %}
+  {% elif self.display_form_directly %}
     {# POLLS HEADING #}
     <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
     <div class="heading heading__subheading"><h3>{{self.title}}</h3></div>
@@ -82,7 +82,7 @@
       <h6 class="surveys__pagination-title">
         {% if self.your_words_competition %}
           {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
-        {% elif not self.display_survey_directly %}
+        {% elif not self.display_form_directly %}
             {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
         {% endif %}
       </h6>
@@ -91,8 +91,8 @@
   {% endcomment %}
 
   {# START FORM #}
-    {% if form %}  
-    <form action="{% if survey.display_survey_directly %}{% pageurl survey %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form {% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__form{{self.get_effective_extra_style_hints}}" novalidate>
+    {% if form %}
+    <form action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__form {% if self.get_effective_extra_style_hints %}{% if self.display_form_directly %}polls--{{self.get_effective_extra_style_hints}}{% else %}surveys--{{self.get_effective_extra_style_hints}}{% endif %}__form{{self.get_effective_extra_style_hints}}{% endif %}" novalidate>
       {% csrf_token %}
         {% if not is_via_freebasics %}
             {{ form.media }}
@@ -103,12 +103,18 @@
             <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
             {% if field.help_text %}
               {% if field|fieldtype == 'CharacterCountWidget' %}
-                <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
+                <p class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
               {% else %}
                 <p class="helptext">{{ field.help_text }}</p>
               {% endif %}
             {% endif %}
-            {% if field|fieldtype == 'CheckboxSelectMultiple' %}
+            {% if field|fieldtype == 'CheckboxInput' %}
+              <div class="choice-group">
+                <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+              </div>
+            {% endif %}
+            {% if field|fieldtype == 'CheckboxSelectMultiple'  %}
               {% for value, text in field.field.choices %}
                 <div class="choice-group">
                   <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
@@ -157,10 +163,10 @@
           </div>
         </fieldset>
         {% endfor %}
-        {% if survey.display_survey_directly %}
-          {% if user.is_authenticated and user.is_active or request.is_preview or survey.allow_anonymous_submissions %}
+        {% if form.display_form_directly %}
+          {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
             {% trans "Vote" as defaultText %}
-            <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ survey.submit_text|default:defaultText }}</button>
+            <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ form.submit_text|default:defaultText }}</button>
           {% else %}
             <div class="polls">
               <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
@@ -171,14 +177,14 @@
             </div>
           {% endif %}
         {% else %}
-          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
         {% endif %}
 
         {% if fields_step and fields_step.paginator.num_pages > 1 %}
-          <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__pagination">
-              <p class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page">
+          <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__pagination">
+              <p class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__page">
                 {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                  {% trans "Page"  %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{page}}</span> {% trans "of" %}<span class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}__page-number"> {{pages}}</span>
+                  {% trans "Page"  %}<span class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__page-number"> {{page}}</span> {% trans "of" %}<span class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__page-number"> {{pages}}</span>
                 {% endwith %}
               </p>
           </div>
@@ -186,13 +192,13 @@
       </form>
     {% else %}
       {# FEEDBACK #}
-      <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+      <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
         <p class="errors">{% trans 'You have already completed this ' %}
-          {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
           {% endif %}.
         </p>
         {% if request.path == "/" %}
-          <a href="{% pageurl survey %}success/" class="call-to-action__button call-to-action__button--primary">
+          <a href="{% pageurl form %}success/" class="call-to-action__button call-to-action__button--primary">
             <span class="call-to-action__button-text call-to-action__button-text--primary">
               {% trans "Show Results" %}
             </span>
@@ -208,10 +214,10 @@
     {% endif %}
   {% else %}
     {# CTA #}
-    <div class="{% if self.display_survey_directly %}polls{% else %}surveys{% endif %}">
+    <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
       <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
           {% endif %}.
         </span>
       </a>
@@ -222,7 +228,7 @@
   {# DIV CLOSE #}
   {% if self.your_words_competition %}
     </div>
-  {% elif self.display_survey_directly %}
+  {% elif self.display_form_directly %}
     </div>
     </div>
   {% else %}

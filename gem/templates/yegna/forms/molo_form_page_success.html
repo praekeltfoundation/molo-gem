@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
+
+{% block content %}
+<div class="contact">
+  <div class="banner">
+    <div class="heading heading--hero">
+      <h1 class="heading__title">{{ page.title }}</h1>
+    </div>
+  </div>
+  <div class="contact__wrapper">
+    <div class="contact__columns">
+      <div class="contact__first-column">
+        {% if self.introduction %}
+          <div class="heading">
+            <h2 class="heading__title">{{self.introduction|smarttruncatechars:500|safe}}</h2>
+          </div>
+        {% endif %}
+        {% if page.thank_you_text %}
+          <div class="contact-headings">
+            <h3 class="contact-headings__medium">{{ page.thank_you_text }}</h3>
+          </div>
+        {% else %}
+          <div class="contact-headings">
+            <h3 class="contact-headings__medium">{% trans "Thank you, your email has been sent successfully" %}.</h3>
+          </div>
+        {% endif %}
+        <div class="call-to-action">
+          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--nav-back">
+            {% trans "Back home" %}</a>
+        </div>
+      </div>
+
+      <div class="contact__second-column">
+        {% if self.description %}
+          <div class="contact-inner">
+            {% for block in self.description %}
+              {% if forloop.counter %}
+                {% if block.block_type == 'heading' %}
+                  <div class="heading">
+                    <h2 class="heading__title">{{ block.value }}</h2>
+                  </div>
+                {% else %}
+                  {{ block }}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
