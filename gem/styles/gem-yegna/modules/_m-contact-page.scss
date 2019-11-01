@@ -1,8 +1,9 @@
-.contact-page {
+.contact {
   &__wrapper {
     @include pages();
   }
   &__columns {
+    overflow: hidden;
     @media screen and (min-width: 45.000em) {
       display: flex;
     }
@@ -28,6 +29,40 @@
     }
     p {
       margin: 0 0 1em;
+    }
+    ul, li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &-inner {
+    position: relative;
+    text-align: center;
+    &__title {
+      font-size: 18;
+      padding: 0 10px;
+    }
+    p {
+      font-size: 1em;
+      padding: 0 10px;
+    }
+    a {
+      padding: 0 10px;
+    }
+    ul, ol {
+      padding: 0 10px;
+      list-style-position: inside;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &-headings {
+    padding: 1em 0;
+    &__medium {
+      font-size: 22px;
     }
   }
   .heading__subtitle {

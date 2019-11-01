@@ -73,7 +73,7 @@ ENABLE_GA_LOGGING = True  # environ.get("ENABLE_GA_LOGGING", '') == 'true'
 ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
-ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '*').split(",")
 INTERNAL_IPS = [
     'localhost',
     '.localhost',
@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'gem',
     'molo.core',
     'molo.profiles',
+    'molo.forms',
     'molo.surveys',
     'django_comments',
     'molo.commenting',

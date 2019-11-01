@@ -1,0 +1,9 @@
+{% comment %}
+{% if fields_step and fields_step.paginator.num_pages > 1 %}
+<div class="{{formtypeClass}}__pagination {{formtypeClass}}__pagination--multi-step">
+  <h6 class="{{formtypeClass}}__pagination-title">
+    {% blocktrans with pages=fields_step.paginator.num_pages %}This {{formtype}} has {{ pages }} pages{% endblocktrans %}
+  </h6>
+</div>
+{% endif %}
+{% endcomment %}
