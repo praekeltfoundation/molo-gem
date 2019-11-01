@@ -29,14 +29,16 @@ class Command(BaseCommand):
         for main in Main.objects.all():
             print("*"*10, "Migrating Surveys in", main, "*"*10,)
             surveys_index = SurveysIndexPage.objects.child_of(main).first()
-            forms_index = FormsIndexPage.objects.child_of(main).first()
+            forms_index = FormsIndexPage.objects.descendant_of(main).filter(
+                slug='surveys-indexpage').first()
             surveys_tc = TermsAndConditionsIndexPage.objects.child_of(
                 surveys_index).first()
 
             # Copy the Survey Ts&Cs to Forms
             if surveys_tc:
-                forms_tc = FormsTermsAndConditionsIndexPage(
-                    title="Form Terms And Conditions Index Page")
+                forms_tc = FormsTermsAndConditionsIndexPage.objects.filter(
+                    slug='terms-conditions-indexpage').child_of(
+                        forms_index).first()
                 forms_index.add_child(instance=forms_tc)
                 forms_tc.save_revision().publish()
                 for footerpage in FooterPage.objects.child_of(surveys_tc):
