@@ -93,6 +93,10 @@ urlpatterns += [
         include('molo.surveys.urls',
                 namespace='molo.surveys',
                 app_name='molo.surveys')),
+    url(r'^forms/',
+        include('molo.forms.urls',
+                namespace='molo.forms',
+                app_name='molo.forms')),
 
     url(r'^yourwords/',
         include('molo.yourwords.urls',

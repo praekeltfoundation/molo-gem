@@ -1,0 +1,44 @@
+{% load i18n molo_forms_tags %}
+<div class="overflow">
+<table class="listing">
+    <col />
+    <col />
+    <col />
+    <thead>
+        <tr>
+            {% for heading in data_headings %}
+                <th>{{ heading.name }}</th>
+            {% endfor %}
+            <th>{% trans "Actions" %}</th>
+            <th>{% trans "Article" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data_rows %}
+            <tr>
+                {% for cell in row.fields %}
+                    <td>
+                        {{ cell }}
+                    </td>
+                {% endfor %}
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'wagtailforms:delete_submissions' form_page.id %}?selected-submissions={{ row.model_id }}">
+                    {% trans 'delete' %}</a>
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:article' form_page.id row.model_id %}">
+                    {% submission_has_article form_page.id row.model_id as has_article %}
+                    {% if has_article %}
+                      {% trans 'Article' %}</a>
+                    {% else %}
+                      {% trans 'Convert to Article' %}</a>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>

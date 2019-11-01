@@ -1,0 +1,5 @@
+<div class="{{formtypeClass}}">
+    {% trans "Log in to take" as buttontext %}
+    {% url LOGIN_URL as link %}
+    {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext|add:" "|add:formtype  %}
+</div>
