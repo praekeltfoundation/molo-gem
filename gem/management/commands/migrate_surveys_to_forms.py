@@ -247,7 +247,7 @@ class Command(BaseCommand):
         print("Migration of User Group is Done")
 
         # Migrate Survey Page View
-        for view in MoloSurveyPageView.objects.all():
+        for view in MoloSurveyPageView.objects.all().iterator():
             view_dict = {}
             for item in view.__dict__.items():
                 if item[0] not in ('_state'):
@@ -259,7 +259,7 @@ class Command(BaseCommand):
         print("Migration of PageView is Done")
 
         # Migrate Survey Rules to Form
-        for segment in Segment.objects.all():
+        for segment in Segment.objects.all().iterator():
             submission_rules = \
                 SurveySubmissionDataRule.objects.filter(
                     segment_id=segment.id).all()

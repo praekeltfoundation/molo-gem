@@ -295,8 +295,10 @@ class KaiOSManifestView(View):
             "launch_path": "/",
             "icons": {
                 "56": "/static/img/appicons/springster/springster_icon_52.png",
-                "112": "/static/img/appicons/springster/springster_icon_112.png",
-                "128": "/static/img/appicons/springster/springster_icon_128.png",
+                "112":
+                    "/static/img/appicons/springster/springster_icon_112.png",
+                "128":
+                    "/static/img/appicons/springster/springster_icon_128.png",
             },
             "developer": {
                 "name": "Praekelt.org",
