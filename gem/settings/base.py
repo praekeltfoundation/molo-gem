@@ -100,10 +100,13 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
+
 def show_toolbar(request):
     return True
+
+
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK' : show_toolbar,
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     'RESULTS_CACHE_SIZE': 3,
     'SHOW_COLLAPSED': True,
     'ENABLE_STACKTRACES': True,
@@ -111,8 +114,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'SQL_WARNING_THRESHOLD': 100,   # milliseconds
 }
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
