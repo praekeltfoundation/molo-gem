@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load core_tags gem_tags wagtailimages_tags wagtailembeds_tags molo_survey_tags %}
+{% load core_tags gem_tags wagtailimages_tags wagtailembeds_tags molo_forms_tags %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
@@ -155,5 +155,5 @@
 
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
-{% surveys_list_for_pages page=self %}
+{% forms_list_for_pages page=self %}
 {% endblock %}
