@@ -250,7 +250,7 @@ class Command(BaseCommand):
         for view in MoloSurveyPageView.objects.all().iterator():
             view_dict = {}
             for item in view.__dict__.items():
-                if item[0] not in ('_state'):
+                if item[0] not in ('id', '_state'):
                     view_dict[item[0]] = item[1]
             form_page_view = MoloFormPageView(**view_dict)
             form_page_view.save()
