@@ -442,7 +442,7 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             'change_content_language',
             fr_pk, sp_pk, stdout=out
         )
-        self.assertEquals('', out.getvalue())
+        self.assertEqual('', out.getvalue())
         # test that only the correct articles are translated
         sp_articles = [article.title for article in
                        ArticlePage.objects.filter(language=self.spanish)]
@@ -453,9 +453,9 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
         sp_sections = [section.title for section in
                        SectionPage.objects.filter(language=self.spanish)]
 
-        self.assertEquals(sp_articles, fr_articles)
-        self.assertEquals(sp_tags, fr_tags)
-        self.assertEquals(sp_sections, fr_sections)
+        self.assertEqual(sp_articles, fr_articles)
+        self.assertEqual(sp_tags, fr_tags)
+        self.assertEqual(sp_sections, fr_sections)
 
     def test_change_content_language__invalid_languages(self):
         self.yourmind2 = self.mk_section(

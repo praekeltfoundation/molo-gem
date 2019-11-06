@@ -204,7 +204,7 @@ class TestProfileDataRuleValidation(TestCase):
                 found = True
                 break
 
-        self.failIf(not found)
+        self.assertTrue(found)
 
     def test_age_operator_on_non_date_field_raises_validation_error(self):
         rule = ProfileDataRule(segment=self.segment,

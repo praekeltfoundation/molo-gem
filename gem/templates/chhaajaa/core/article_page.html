@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags molo_survey_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags molo_forms_tags %}
 
 {% block content %}
 <div class="article-page">
@@ -85,7 +85,7 @@
           </ul>
         </div>
       </div>
-      {% surveys_list_for_pages page=self %}
+      {% forms_list_for_pages page=self %}
     </div>
     <div class="content--right">
       {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}

@@ -249,7 +249,7 @@ class ProfileDataRule(AbstractBaseRule):
     def test_user(self, request, user=None):
         if request:
             # Fail segmentation if user is not logged-in.
-            if not request.user.is_authenticated():
+            if not request.user.is_authenticated:
                 return False
             user = request.user
         if not user:
@@ -351,7 +351,7 @@ class ProfileDataRule(AbstractBaseRule):
             related_field_value = self.get_related_field_value(
                 user=user)
         except LookupError as e:
-            logging.warn(e)
+            logging.warning(e)
             return "None"
 
         if isinstance(related_field_value, datetime.datetime) \
@@ -403,7 +403,7 @@ class CommentCountRule(AbstractBaseRule):
     def test_user(self, request, user=None):
         if request:
             # Fail segmentation if user is not logged-in.
-            if not request.user.is_authenticated():
+            if not request.user.is_authenticated:
                 return False
             user = request.user
         if not user:
