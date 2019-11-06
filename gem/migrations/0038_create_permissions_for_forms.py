@@ -19,7 +19,7 @@ def add_molo_forms_permissions(apps, schema_editor):
     FormsIndexPage = apps.get_model('forms.FormsIndexPage')
 
     # **** Get IndexPages ****
-    forms = FormsIndexPage.objects.all()
+    forms = FormsIndexPage.objects.filter(slug='molo-forms').all()
 
     # **** Get Permission ****
 
