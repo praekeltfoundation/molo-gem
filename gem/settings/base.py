@@ -105,12 +105,9 @@ INSTALLED_APPS = [
     'molo.core',
     'molo.profiles',
     'molo.forms',
-    'molo.surveys',
     'django_comments',
     'molo.commenting',
-    'molo.yourwords',
     'molo.servicedirectory',
-    'molo.polls',
     'molo.pwa',
     'fcm_django',
     'mote',
@@ -129,7 +126,6 @@ INSTALLED_APPS = [
     'wagtailmedia',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
-    'wagtailsurveys',
     'wagtail.contrib.sitemaps',
     'wagtail_personalisation',
     'wagtailfontawesome',
@@ -606,7 +602,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 AWS_S3_FILE_OVERWRITE = False
 
 PERSONALISATION_SEGMENTS_ADAPTER = (
-    'molo.surveys.adapters.PersistentSurveysSegmentsAdapter'
+    'molo.forms.adapters.PersistentFormsSegmentsAdapter'
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"

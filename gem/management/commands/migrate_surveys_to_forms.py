@@ -111,6 +111,7 @@ class Command(BaseCommand):
                             form_field_dict[item[0]] = item[1]
                     form_field_dict['page_id'] = form.id
                     del form_field_dict['_state']
+                    del form_field_dict['id']
 
                     MoloFormField.objects.create(**form_field_dict)
 
@@ -121,6 +122,7 @@ class Command(BaseCommand):
                             submission_dict[item[0]] = item[1]
 
                         del submission_dict['_state']
+                        del submission_dict['id']
                         submission_dict['submit_time'] = submission_dict[
                             'created_at']
                         del submission_dict['created_at']
@@ -212,6 +214,7 @@ class Command(BaseCommand):
                         for item in submission.__dict__.items():
                             submission_dict[item[0]] = item[1]
                         del submission_dict['_state']
+                        del submission_dict['id']
                         submission_dict['submit_time'] = \
                             submission_dict['created_at']
                         del submission_dict['created_at']
@@ -250,7 +253,7 @@ class Command(BaseCommand):
         for view in MoloSurveyPageView.objects.all().iterator():
             view_dict = {}
             for item in view.__dict__.items():
-                if item[0] not in ('_state'):
+                if item[0] not in ('id', '_state'):
                     view_dict[item[0]] = item[1]
             form_page_view = MoloFormPageView(**view_dict)
             form_page_view.save()

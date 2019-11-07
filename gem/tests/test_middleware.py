@@ -37,7 +37,7 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
         # it should not redirect if the site layout base is not chhhaa jaa
         # even if user is not logged in and not requesting a login page
         response = self.client.get('/')
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         template_settings = deepcopy(settings.TEMPLATES)
         template_settings[0]['DIRS'] = [
@@ -49,13 +49,13 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
             # user user not loged in and requesting
             # login page
             response = self.client.get('/profiles/login/')
-            self.assertEquals(response.status_code, 200)
+            self.assertEqual(response.status_code, 200)
 
             # it should redirect if user not logged in, chhaa jaa is template
             # and user not requesting a login page
             # it should keep the query string when redirecting
             response = self.client.get('/?testparam=test1212')
-            self.assertEquals(response.status_code, 302)
+            self.assertEqual(response.status_code, 302)
             self.assertRedirects(
                 response, '/profiles/login/?next=/%3Ftestparam%3Dtest1212')
 
@@ -63,7 +63,7 @@ class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
             # of template or path
             self.login()
             response = self.client.get('/')
-            self.assertEquals(response.status_code, 200)
+            self.assertEqual(response.status_code, 200)
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):

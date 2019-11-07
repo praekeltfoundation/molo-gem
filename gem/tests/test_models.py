@@ -10,8 +10,8 @@ from django.conf import settings
 from molo.core.models import (
     SiteSettings, Site, Languages, SiteLanguageRelation,
     SectionIndexPage)
-from molo.surveys.models import (
-    MoloSurveyPage, MoloSurveyFormField, SurveysIndexPage)
+from molo.forms.models import (
+    MoloFormPage, MoloFormField, FormsIndexPage)
 from gem.models import GemSettings
 from gem.tests.base import GemTestCaseMixin
 from gem.templatetags.gem_tags import content_is
@@ -28,7 +28,7 @@ class TestModels(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-        self.survey_index = SurveysIndexPage.objects.child_of(
+        self.form_index = FormsIndexPage.objects.child_of(
             self.main).first()
         self.section_index = SectionIndexPage.objects.child_of(
             self.main).first()
@@ -80,41 +80,41 @@ class TestModels(TestCase, GemTestCaseMixin):
         ]
 
         with self.settings(TEMPLATES=template_settings):
-            molo_survey_page = MoloSurveyPage(
-                title='survey title',
-                slug='survey-slug',
-                homepage_introduction='Introduction to Test Survey ...',
-                thank_you_text='Thank you for taking the Test Survey',
+            molo_form_page = MoloFormPage(
+                title='from title',
+                slug='form-slug',
+                homepage_introduction='Introduction to Test Form ...',
+                thank_you_text='Thank you for taking the Test Form',
                 allow_anonymous_submissions=False
             )
-            self.survey_index.add_child(instance=molo_survey_page)
+            self.form_index.add_child(instance=molo_form_page)
 
-            molo_survey_page2 = MoloSurveyPage(
-                title='survey title',
-                slug='another-survey-slug',
-                homepage_introduction='Introduction to Test Survey ...',
-                thank_you_text='Thank you for taking the Test Survey',
+            molo_form_page2 = MoloFormPage(
+                title='form title',
+                slug='another-form-slug',
+                homepage_introduction='Introduction to Test Form ...',
+                thank_you_text='Thank you for taking the Test Form',
                 allow_anonymous_submissions=True
             )
 
-            self.survey_index.add_child(instance=molo_survey_page2)
+            self.form_index.add_child(instance=molo_form_page2)
 
-            MoloSurveyFormField.objects.create(
-                page=molo_survey_page,
+            MoloFormField.objects.create(
+                page=molo_form_page,
                 sort_order=1,
                 label='Your favourite animal',
                 field_type='singleline',
                 required=True
             )
-            MoloSurveyFormField.objects.create(
-                page=molo_survey_page2,
+            MoloFormField.objects.create(
+                page=molo_form_page2,
                 sort_order=1,
                 label='Your birthday month',
                 field_type='singleline',
                 required=True
             )
-            molo_survey_page.save_revision().publish()
-            molo_survey_page2.save_revision().publish()
+            molo_form_page.save_revision().publish()
+            molo_form_page2.save_revision().publish()
             setting = GemSettings.for_site(self.main.get_site())
             self.assertFalse(setting.show_join_banner)
             response = self.client.get('%s?next=%s' % (
