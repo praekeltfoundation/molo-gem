@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_survey_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_forms_tags %}
 {% get_settings %}
 {% if articles %}
   <div class="content--left">
@@ -96,7 +96,7 @@
   </div>
 
   {% for article in articles %}
-    {% surveys_list_for_pages page=article %}
+    {% forms_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}
   {% endfor %}
   {% block extra_js %}

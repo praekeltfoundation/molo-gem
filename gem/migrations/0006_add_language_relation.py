@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import migrations
 
 
@@ -19,14 +20,21 @@ def add_language_relation(apps, schema_editor):
                 LanguageRelation.objects.create(page=p, language=main_lang)
 
 
-class Migration(migrations.Migration):
+surveys_installed = 'molo.yourwords' in settings.INSTALLED_APPS and \
+    'molo.polls' in settings.INSTALLED_APPS and 'molo.surveys' in settings.INSTALLED_APPS
 
+if surveys_installed:
     dependencies = [
         ('gem', '0005_gemsettings'),
         ('polls', '0003_create_polls_index_pages'),
         ('yourwords', '0006_create_your_words_index_pages'),
     ]
+else:
+    dependencies = [('gem', '0005_gemsettings')]
 
+
+class Migration(migrations.Migration):
+    dependencies = dependencies
     operations = [
         migrations.RunPython(add_language_relation),
     ]

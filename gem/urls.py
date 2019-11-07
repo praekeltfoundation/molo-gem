@@ -89,29 +89,17 @@ urlpatterns += [
         name='already_reported'),
 
     url(r'', include('django_comments.urls')),
-    url(r'^surveys/',
-        include('molo.surveys.urls',
-                namespace='molo.surveys',
-                app_name='molo.surveys')),
+
     url(r'^forms/',
         include('molo.forms.urls',
                 namespace='molo.forms',
                 app_name='molo.forms')),
-
-    url(r'^yourwords/',
-        include('molo.yourwords.urls',
-                namespace='molo.yourwords',
-                app_name='molo.yourwords')),
 
     url(r'^feed/rss/$', GemRssFeed(), name='feed_rss'),
     url(r'^feed/atom/$', GemAtomFeed(), name='feed_atom'),
 
     url(r'^servicedirectory/', include('molo.servicedirectory.urls',
         namespace='molo.servicedirectory')),
-
-    url(r'^polls/', include('molo.polls.urls',
-                            namespace='molo.polls',
-                            app_name='molo.polls')),
 
     url(r"^mote/", include("mote.urls", namespace="mote")),
     url(r'', include('molo.core.urls')),
