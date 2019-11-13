@@ -1,0 +1,51 @@
+.header__search {
+  &-bar {
+    position: relative;
+    &:after {
+      content: "";
+      background-color: $springster-purple;
+      background-image: url(/static/img/icons/springster/arrows.svg), url(/static/img/icons/springster/arrows.png);
+      background-repeat: no-repeat;
+      background-position: center 10px;
+      background-size: 22px;
+      height: 40px;
+      width: 35px;
+      pointer-events: none;
+      position: absolute;
+      right: 5px;
+      top: -50px;
+    }
+  }
+  &-input,
+  &-input + * {
+    display: none;
+  }
+  &-input:checked + * {
+    display: block;
+  }
+}
+
+.search-bar {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  input[type="text"] {
+    @include font($baton-regular);
+    color: $springster-purple;
+    font-size: 20px;
+    padding: 5px 0 5px 5px;
+    border: 2px solid $springster-purple;
+    box-sizing: border-box;
+    width: 100%;
+    &:focus {
+      border: 2px solid $gunmetal;
+      outline: 0;
+    }
+  }
+  &--footer {
+    margin: 0 8px;
+  }
+  &--results-page {
+    margin: 30px 16px;
+  }
+}

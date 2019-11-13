@@ -1,0 +1,68 @@
+#gem-footer {
+  background-color: $mint-green;
+  padding: 12px 8px 0;
+  position: relative;
+  margin: 5px 0;
+  &:after,
+  &:before {
+    @include divider-combo-1;
+    content: "";
+    display: block;
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin: -4px 0;
+  }
+  &:before {
+    top: 0;
+  }
+  a {text-decoration: none;}
+  .left {
+    float: left;
+    width: 50%;
+  }
+  .right {
+    float: right;
+    width: 50%;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .group:after {
+    content:"";
+    display: table;
+    clear: both;
+  }
+  @media screen and (max-width: 280px) {
+    .left, .right {
+        float: none;
+        width: auto;
+    }
+  }
+}
+
+.footer-menu-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  &__item {
+    margin: 0 8px;
+    padding: 6px 0;
+  }
+  &__anchor {
+    @include font($baton-regular);
+    font-size: 20px;
+    color: $springster-purple;
+  }
+  .selected {
+    text-decoration: underline !important;
+  }
+  input {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+}

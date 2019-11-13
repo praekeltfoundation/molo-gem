@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     'molo.pwa',
     'fcm_django',
     'mote',
+    'webpack_loader',
 
     'wagtail.core',
     'wagtail.admin',
@@ -176,6 +177,20 @@ MIDDLEWARE = [
     'gem.middleware.ChhaaJaaLoginMiddleware',
 ]
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'js/dest/dev/',
+        'STATS_FILE': join(BASE_DIR, './gem/webpack-stats.json')
+    }
+}
+
+if not DEBUG:
+    WEBPACK_LOADER['DEFAULT'].update({
+        'BUNDLE_DIR_NAME': 'js/dest/prod/',
+        'STATS_FILE': join(BASE_DIR, './gem/webpack-stats-prod.json')
+    })
+
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
 if USE_OIDC_AUTHENTICATION:
@@ -220,7 +235,7 @@ def get_default_template(site_layout_base, site_layout):
     }
 
 
-# We have multiple layouts: use `base`, `malawi` , `springster`, `rwanda`
+# We have multiple layouts: use `base`, `malawi` , `springster`, `ninyampinga`
 # 'chhaajaa' or 'yegna'
 # Change SITE_LAYOUT_BASE to switch between them.
 SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
@@ -558,26 +573,34 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
+
+# PWA_SERVICE_WORKER_PATH =  join(
+#    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
 PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
-PWA_NAME = 'Springster'
-PWA_DESCRIPTION = "Springster"
-PWA_THEME_COLOR = '#7300FF'
+    BASE_DIR, 'gem/static/js/gulp-entries/', 'serviceworker.js')
+if not SITE_LAYOUT_2:
+    PWA_NAME = SITE_LAYOUT_BASE.capitalize()
+    PWA_DESCRIPTION = SITE_LAYOUT_BASE.capitalize()
+else:
+    PWA_NAME = SITE_LAYOUT_2.capitalize()
+    PWA_DESCRIPTION = SITE_LAYOUT_2.capitalize()
+
+PWA_THEME_COLOR = '#ced4db'
 PWA_DISPLAY = 'standalone'
 PWA_START_URL = '/'
 PWA_ICONS = [
     {
-        "src": "/static/img/appicons/springster_icon_96.png",
+        "src": "/static/img/appicons/springster/springster_icon_96.png",
         "sizes": "96x96",
         "type": "image/png"
     },
     {
-        "src": "/static/img/appicons/springster_icon_144.png",
+        "src": "/static/img/appicons/springster/springster_icon_144.png",
         "sizes": "144x144",
         "type": "image/png"
     },
     {
-        "src": "/static/img/appicons/springster_icon_192.png",
+        "src": "/static/img/appicons/springster/springster_icon_192.png",
         "sizes": "192x192",
         "type": "image/png"
     }

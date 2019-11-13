@@ -1,0 +1,97 @@
+fieldset {
+  padding: 0 10px;
+}
+label {
+  display: block;
+  padding: 16px 0 10px 0;
+  text-align: left;
+  line-height: get-line-height($font-x-small, 16px);
+}
+label {
+  & > input,
+  & > input[type="checkbox"],
+  & > input[type="radio"],
+  & > textarea,
+  & > select {
+    position: relative;
+    visibility: visible;
+  }
+}
+input[type="checkbox"],
+input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+  + label {
+    background-image: none;
+  }
+  &:checked + label {
+    background-image: none;
+  }
+}
+
+input[type=radio] + label {
+  background: #fff url('/static/img/icons/springster/icons.png') -.5em -14.2em/85px no-repeat;
+  opacity: 0.8;
+}
+input[type=radio]:checked + label {
+  background: #fff url('/static/img/icons/springster/icons.png') -.5em -18.1em/85px no-repeat;
+  opacity: 1;
+}
+input[type=radio] ~ label  {
+  padding: 16px 10px 16px 54px;
+}
+
+
+input[type=checkbox] {
+  margin: 0 15px 0 12px;
+  visibility: hidden;
+  position: absolute;
+  opacity: 0.8;
+}
+input[type=checkbox]:checked + label:before {
+  background: $springster-purple url('/static/img/icons/springster/icons.png') -.5em -29.5em/85px no-repeat;
+  opacity: 1;
+}
+
+input[type=checkbox] ~ label {
+    background-color: transparent;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    &:before {
+      content: "";
+      background: #fff;
+      border: 2px solid $springster-purple;
+      opacity: 0.8;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin: 0 10px 0 0;
+    }
+    .call-to-action__hyperlink {
+        text-transform: none;
+        @include font($baton-regular);
+        font-size: $font-medium;
+    }
+}
+
+//@-moz-document url-prefix()
+@media screen and (-webkit-min-device-pixel-ratio:0)  {
+  select {
+    background: #fafafa url(/static/img/icons/springster/icons.png) 98% 50%/20px no-repeat;
+    padding: 10px 30px 10px 5px;
+  }
+}
+
+.checkbox__legend {
+  display: block;
+}
+
+.choice-group--comments {
+  input[type=radio] + label,
+  input[type=radio]:checked + label {
+    background-color: $springster-purple-light;
+  }
+}

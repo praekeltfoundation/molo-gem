@@ -1,0 +1,23 @@
+.heading {
+  &__section h1 {
+    @media screen and (max-width: 320px) {
+      font-size: $font-x-large;
+    }
+  }
+  &__square {
+    background-color: $springster-purple;
+    &:after {
+      background: url('/static/img/lines/springster/line-separator.png') no-repeat center -45px/100%;
+      content: "";
+      display: block;
+      height: 10px;
+      width: 200px;
+      margin: 0 auto;
+    }
+  }
+  &__component {
+    @include underline(zig-zag, 10px);
+    margin: 0 8px 20px;
+    padding-top: 30px;
+  }
+}

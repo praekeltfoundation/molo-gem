@@ -1,0 +1,47 @@
+@import "@font-face-baton-regular";
+@import "@font-face-baton.scss";
+
+@import "../versions";
+@import "utilities/*";
+
+@import "_base";
+@import "layout/*";
+@import "modules/**/*";
+@import "states/**/*";
+
+@media screen and (min-width: 1440px) {
+  html {
+    -webkit-overflow-scrolling : touch;
+    -webkit-tap-highlight-color : lighten(#333, 75%);
+  }
+
+  @-webkit-viewport {
+    width : device-width;
+  }
+  @-moz-viewport {
+    width : device-width;
+  }
+  @-ms-viewport {
+    width : device-width;
+  }
+  @-o-viewport {
+    width : device-width;
+  }
+  @viewport {
+    width : device-width;
+  }
+  ::-moz-selection {
+    background-color: $springster-purple-light;
+    color: $springster-purple;
+    text-shadow: none;
+  }
+  ::selection {
+    background-color: $springster-purple-light;
+    color: $springster-purple;
+    text-shadow: none;
+  }
+  .overflow-container { overflow-y: scroll; }
+  :not(a):focus {
+    outline: none;
+  }
+}

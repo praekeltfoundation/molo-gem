@@ -1,7 +1,6 @@
 import re
 import json
 
-
 from django import forms
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
@@ -28,7 +27,7 @@ from gem.forms import (
     GemRegistrationDoneForm,
     ReportCommentForm,
 )
-from gem.models import GemSettings, GemCommentReport
+from gem.models import GemSettings, GemCommentReport, Questionnaire
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
 
 from molo.commenting.models import MoloComment
@@ -295,9 +294,9 @@ class KaiOSManifestView(View):
             "description": "An app providing information to girls",
             "launch_path": "/",
             "icons": {
-                "56": "/static/img/appicons/springster_icon_52.png",
-                "112": "/static/img/appicons/springster_icon_112.png",
-                "128": "/static/img/appicons/springster_icon_128.png",
+                "56": "/static/img/appicons/springster/springster_icon_52.png",
+                "112": "/static/img/appicons/springster/springster_icon_112.png",
+                "128": "/static/img/appicons/springster/springster_icon_128.png",
             },
             "developer": {
                 "name": "Praekelt.org",
@@ -342,3 +341,24 @@ class MaintenanceView(TemplateView):
         context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
+
+
+class Questionnaires(TemplateView):
+    title = "Questionnaires"
+    template = 'questionnaires.html'
+
+    def get(self, request):
+        questionnaire = Questionnaire.objects.values(
+            'pk', 'questionnaire_text')
+
+        context = {
+            'questionnaire_text': self.title,
+            'props': list(questionnaire),
+        }
+
+        return render(request, self.template, context)
+
+
+def offline_sw(request):
+    template = 'springster/offline.html'
+    return render(request, template)

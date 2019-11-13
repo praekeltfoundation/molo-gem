@@ -140,3 +140,14 @@ class GemCommentReport(models.Model):
 
     reported_reason = models.CharField(
         max_length=128, blank=False)
+
+
+class Questionnaire(models.Model):
+    questionnaire_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class QuestionnaireChoice(models.Model):
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+    questionnaire_choice_text = models.CharField(max_length=200)
+    questionnaire_choice_votes = models.IntegerField(default=0)

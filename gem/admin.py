@@ -3,7 +3,10 @@ from collections import Counter
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from gem.models import GemCommentReport, OIDCSettings
+from gem.models import (
+    GemCommentReport, OIDCSettings,
+    Questionnaire, QuestionnaireChoice
+)
 from gem.rules import ProfileDataRule, CommentCountRule
 
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
@@ -81,8 +84,17 @@ class CommentCountRuleAdminInline(admin.TabularInline):
     model = CommentCountRule
 
 
-admin.site.unregister(User)
+class QuestionnaireChoiceAdminInline(admin.TabularInline):
+    model = QuestionnaireChoice
 
+
+class QuestionnaireAdmin(admin.ModelAdmin):
+    list_display = ("questionnaire_text", "pub_date")
+    inlines = [QuestionnaireChoiceAdminInline]
+
+
+admin.site.unregister(User)
 admin.site.unregister(MoloComment)
 admin.site.register(OIDCSettings, OIDCSettingsAdmin)
 admin.site.register(MoloComment, GemCommentReportAdmin)
+admin.site.register(Questionnaire, QuestionnaireAdmin)

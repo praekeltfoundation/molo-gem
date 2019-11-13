@@ -1,0 +1,124 @@
+.surveys {
+  $block: unquote("#{&}");
+  background-color: $color-green-lime;
+  padding: 2em 0 0;
+  &:before {
+    @include for-size(tablet-landscape-up) {
+      background-image: url(/static/img/patterns/ninyampinga/patterns.png);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 900px;
+      content: " ";
+      display: block;
+      width: 30%;
+      height: 560px;
+      position: absolute;
+      left: 0;
+      margin: -7.5em 0px;
+    }
+  }
+  @include for-size(tablet-landscape-up) {
+    background-color: $color-green-lime;
+    margin: -1.5em 0;
+    padding: 5em 5.5% 6em;
+  }
+  &__wrapper {
+    background-color: #fff;
+    padding: 15px 0;
+    position: relative;
+    z-index: 9999;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 auto;
+      padding: 2% 2em 5%;
+      width: 80%;
+    }
+    .surveys__form {
+      padding: 0 1em;
+    }
+  }
+  &__inner {
+    padding: 0 1em;
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+      padding: 0 10%;
+    }
+    aside {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+        @include for-size(tablet-landscape-up) {
+          margin: 0 2em 0 0;
+          order: 1;
+        }
+    }
+    section {
+      width: 100%;
+      input {
+        width: 100%;
+      }
+      [type="button"],
+      [type="reset"],
+      [type="submit"],
+      button {
+        width: auto;
+      }
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        order: 2;
+      }
+    }
+  }
+  &__image {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+  &__terms {
+    .call-to-action__item-text {
+      color: $color-cyan_shade1;
+      text-align: left;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-position: under;
+      display: inline-block;
+      padding: $spacer-small;
+      &:active, &:hover, &:focus {
+        color: $color-pink;
+      }
+    }
+  }
+  &__choices {
+    &-title {
+      display: block;
+      font-size: $font-x-medium;
+    }
+    &-percentage {
+      display: block;
+      background: $color-gray-light;
+      border-radius: 20px;
+      margin: $spacer-half 0 0;
+    }
+    &-bar {
+      background: $color-yellow-gorse;
+      border-radius: $spacer-multiple;
+    }
+    &-subtitle {
+      font-size: $font-x-medium;
+      display: block;
+      vertical-align: middle;
+      padding: $spacer-small $spacer-half;
+    }
+  }
+  &--profiles-join {
+    .heading__headline {
+      @include for-size(tablet-landscape-up) {
+        padding: 0 30% 0 0;
+      }
+    }
+  }
+  &-results {
+    &__item {
+      list-style-type: none;
+    }
+  }
+}

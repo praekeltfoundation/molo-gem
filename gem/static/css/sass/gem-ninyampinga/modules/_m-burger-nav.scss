@@ -1,0 +1,46 @@
+.burger-nav {
+  $block: unquote("#{&}");
+  color: #fff;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  &__label {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $font-x-medium;
+    text-transform: uppercase;
+    padding: 5px 1em;
+    @include for-size(tablet-portrait-up) {
+      padding: .9em 1.8em .9em 0;
+    }
+    &:active, &:hover, &:focus {
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    &:before {
+      background: url('/static/img/icons/ninyampinga/icons.png') no-repeat 0 5px/ 95px;
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 45px;
+      height: 40px;
+      @include for-size(tablet-portrait-up) {
+        margin: 0 0 0 20px;
+      }
+    }
+  }
+  &__icon {
+    display: inline-block;
+    height: auto;
+    vertical-align: middle;
+    overflow: auto;
+    width: 25px;
+    @include for-size(tablet-portrait-up) {
+      width: 35px;
+    }
+    @include for-size(tablet-landscape-up) {
+      width: 42px;
+    }
+  }
+}

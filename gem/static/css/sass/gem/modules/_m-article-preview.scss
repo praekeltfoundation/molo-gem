@@ -1,0 +1,76 @@
+// not used, but extended into other classes below.
+.zig-zag-bar {
+  height: 24px;
+  width: 100%;
+  display: block;
+  content: " ";
+  background: url(/static/img/lines/base/featured_bar.png);
+  margin: 0 0 24px 0;
+}
+
+.article-preview {
+  img {
+    width: 100%;
+  }
+  .text {
+    .section-title {
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      a {
+        color: #ed008c;
+      }
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: bold;
+      a { color: #141414; }
+    }
+    p {
+      color: #7a7a7a;
+      text-transform: none;
+    }
+    .read-more {
+      display: inline-block;
+      font-size: 13px;
+      text-decoration: underline;
+      color: #00b8ae;
+      text-transform: capitalize;
+    }
+  }
+  .tags {
+    padding: 0;
+    &-list {
+      padding: 8px 0;
+    }
+  }
+}
+
+.section_page .section-title,
+.article .section-title {
+  display: none;
+}
+
+.article-list {
+  .article-preview {
+    .text, .image {margin: 0 8px;}
+    .section-title, img, h3, p,
+    .read-more {margin-bottom: 8px;}
+    img {width: 50%;}
+  }
+}
+
+#article-hero {
+  .text {margin: 0 8px;}
+  img, .read-more {margin-bottom: 16px;}
+  .section-title, h3, p {
+    margin-bottom: 8px;
+  }
+  &:after {
+    @extend .zig-zag-bar;
+    background-position: -20px 0;
+  }
+  .tags {
+    padding: 0;
+  }
+}

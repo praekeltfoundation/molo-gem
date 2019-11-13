@@ -3,6 +3,7 @@
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 {% load molo_pwa %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -37,40 +38,46 @@
     <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
     <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
     <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/springster/springster-fb-share.png' %}{% endif %}"/>
     {% endblock %}
     <meta property="og:image:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
+    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/springster_icon_96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster/springster_icon_144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/springster/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster/springster_icon_192.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/springster/springster_icon_96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/springster/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/springster/favicon-16x16.png">
     {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
+    {% if not is_via_freebasics %}
+      {% molo_pwa_meta %}
+    {% endif %}
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/springster.css" media="all">
     {% endcompress %}
+
+    {% render_bundle 'style' 'css' %}
+
     {% if LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/springster-rtl.css" media="all">
       {% endcompress %}
     {% endif %}
     <noscript>
     {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
+
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-
-    <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+    <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/logos/springster/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
@@ -118,7 +125,7 @@
       </div>
       <div id="header" class="header">
         <a href="/" class="logo logo--center">
-          <img alt="{% trans "Springster" %}" srcset="{% static 'img/logos/springster-logo.svg' %}" src="{% static 'img/sp-logo.png' %}" width="97" height="24"/>
+          <img alt="{% trans "Springster" %}" srcset="{% static 'img/logos/springster/springster-logo.svg' %}" src="{% static 'img/logos/springster/sp-logo.png' %}" width="97" height="24"/>
         </a>
         <div class="header__menu">
           <ul class="menu-list menu-list--section-nav">
@@ -360,7 +367,7 @@
       </script>
     {% endif %}
     {% if not is_via_freebasics %}
-      <script src="{{ STATIC_URL }}js/jquery.js"></script>
+      <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
       {% compress js inline %}
       <script src="{% static 'js/dest/main-min.js' %}"></script>
       <script>
@@ -368,16 +375,11 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
-      var smartStylesLarge = '<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" media="screen and (min-width: 360px)">';
-        if (cutsTheMustard === true) {
+      if (cutsTheMustard === true) {
           if (smartDevice && raf) {
-              raf(function() {
-                var smartStylesLargeDefer = document.getElementsByTagName('style')[0];
-                window.setTimeout(smartStylesLargeDefer.insertAdjacentHTML('afterend', smartStylesLarge), 0);
-              });
             var jsScripts = [
               "{% static 'js/dest/springster-min.js' %}",
-              "{% static 'js/dest/kaios-min.js' %}",
+              "{% static 'js/dest/kaios-min.js' %}"
              ];
             for (var i = 0; i < jsScripts.length; i++) {
               var script = document.createElement('script');
@@ -409,9 +411,9 @@
             window.location = "/commenting/molo/reply/" + pageNums + "/#comment-block";
           });
         };
+
       </script>
       {% endcompress %}
-      {% molo_pwa_meta %}
     {% endif %}
   </body>
 </html>

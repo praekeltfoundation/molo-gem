@@ -1,0 +1,267 @@
+@import "../_fonts.scss";
+@import "variables/**/*";
+
+@import "_base";
+@import "layout/**/*";
+@import "modules/**/*";
+@import "state/**/*";
+
+html,body, .article {
+  font-family: $font-family-default;
+  color: $colorPurple;
+}
+
+h2, h3, h4 {
+  font-family: $font-family-zathu;
+  font-weight: normal;
+}
+
+a {
+  color: $colorPurple;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $colorBlack;
+}
+
+.message-notification {
+    background-color: inherit;
+    color: #412a83;
+    a {
+        color: #412a83;
+        font-weight: bold;
+    }
+ }
+
+.section-header {
+  background-color: $colorPurple;
+  a {
+    font-family: $font-family-zathu;
+    color: $colorYellow;
+    font-weight: normal;
+    font-size: $font-large;
+  }
+}
+
+.template-main {
+  #article-hero {
+    .text {
+      margin: 0 16px;
+      position: relative;
+      .section-title {
+        background-color: transparent;
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 20px;
+        line-height: 20px;
+        font-weight: normal;
+        padding: 0;
+        a {
+          font-family: $font-family-default;
+          font-weight: bold;
+          color: $colorOrange;
+          font-size: $font-large;
+        }
+      }
+    }
+  }
+}
+
+.article-preview {
+  .text {
+    .section-title {
+      font-family: $font-family-zathu;
+      font-size: 12px;
+      font-weight: normal;
+      text-transform: capitalize;
+      a {
+        font-family: $font-family-default;
+        font-weight: bold;
+        color: $colorOrange;
+        font-size: $font-small;
+      }
+    }
+
+    h3 {
+      font-family: $font-family-zathu;
+      font-weight: normal;
+      a {
+        color: $colorPurple;
+      }
+    }
+    p {
+      color: $colorPurple;
+    }
+  }
+}
+
+.article-list  {
+    .article-preview {
+      .text {
+        .section-title {
+          font-family: $font-family-zathu;
+          font-weight: normal;
+        }
+      }
+    }
+}
+
+.profile-container,
+.default-container {
+  form {
+    label, p {
+      font-family: $font-family-default;
+      color: $colorPurple;
+    }
+  }
+}
+
+.default-container {
+  form {
+    label, p {
+      font-family: $font-family-zathu;
+      font-weight: normal;
+      font-size: 16px;
+      margin: 0 0 16px 0;
+      padding: 0;
+      color: #4F4C54;
+    }
+  }
+}
+
+.profile-container {
+  input + h5 + p {
+    font-family: $font-family-zathu;
+    font-weight: normal;;
+  }
+}
+
+.sd-heading.find-a-service {
+  font-family: $font-family-zathu;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.standalone-page {
+  padding: 10px 16px;
+  &.your-words {
+    .section-title {
+      h2 {
+        background: $colorPurple;
+      }
+    }
+  }
+}
+
+.related-articles-up-next {
+  &:after {
+    height: 30px;
+    background: url('/static/img/lines/zathu/mw_zig_pattern_30.png') repeat-x center center;
+  }
+}
+
+#article-hero:after {
+  background-image: url('/static/img/lines/zathu/mw_zig_pattern_30.png');
+  background-repeat: repeat-x;
+}
+
+.teal-ribbon {
+  height: 40px;
+  background-image: url('/static/img/lines/zathu/mw_zig_pattern_30.png');
+  margin: 0 0 15px 0;
+  background-repeat: repeat-x;
+  background-size: auto;
+}
+
+.sd-container {
+  hr {
+    background-image: url('/static/img/lines/zathu/mw_zig_pattern_30.png');
+    background-repeat: repeat-x;
+  }
+}
+
+.template-main .article-list,
+#article-hero {
+  &:after {
+    height: 50px;
+    background-image: url('/static/img/lines/zathu/mw_zig_pattern_30.png');
+    margin: 0 0 10px 0;
+    background-repeat: repeat-x;
+  }
+}
+
+.signin-form {
+  .terms-and-conditions__field {
+    label, label a {
+      color: $colorPurple;
+      text-decoration: underline;
+    }
+  }
+}
+
+.profile-container,
+.default-container {
+  form {
+    background-color: $colorGrey;
+
+    .inverted {
+      text-align: center;
+      color: $colorPurple;
+    }
+  }
+}
+
+
+//COMMENTS
+.comment-form {
+  font-family: $font-family-default;
+  h1, .comment.staff .by {color: $colorPurple;}
+  textarea {border: 1px solid $colorGrey;}
+  .title h6 {font-family: $font-family-default;}
+  h3.comment-header {color: #141414;}
+  .view-more-comments a{background: $colorGrey; }
+  .comment-submit {
+    background-color: $colorPurple;
+    color: $colorYellow;
+    font-family: $font-family-zathu;
+    font-weight: normal;
+    margin-top: 15px;
+  }
+  .submit-anonymous {
+    font-family: $font-family-zathu;
+    font-weight: normal;
+  }
+}
+.comment {
+  font-family: $font-family-default;
+  &-sign-up a ,
+  &__reply-meta-link {
+    color: $colorPurple;
+  }
+  &__admin-reply {
+    background: #ececec;
+  }
+  &__reply-thread-content {
+    padding: 0 15px 10px;
+  }
+}
+
+.comments {
+  &__reply-title--unread {
+    color: $colorPurple;
+    font-weight: normal;
+  }
+  &__reply-heading {
+    font-family: $font-family-zathu;
+    padding: 15px 15px 0;
+  }
+}
+
+//PAGINATION
+.pagination {
+  a {
+    color: $colorPurple;
+  }
+}

@@ -59,14 +59,14 @@
         <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% compress css %}
-          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
+          <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style.css">
         {% endcompress %}
         {% if settings.core.SiteSettings.google_search_console %}
           <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
         {% endif %}
         {% if LANGUAGE_CODE|language_bidi == True %}
           {% compress css %}
-            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dest/{{ ENV }}/base_style-rtl.css">
           {% endcompress %}
         {% endif %}
         {% compress js inline %}
@@ -114,7 +114,7 @@
       <div id="gem-header">
           <a id="logo" href="/">
             {% get_site_static_prefix as site_prefix %}
-            {% with "img/logos/girleffect-logo"|add:site_prefix|add:".png" as logo_url %}
+            {% with "img/logos/girleffect/girleffect-logo"|add:site_prefix|add:".png" as logo_url %}
             <img src="{% static logo_url %}" width="119" height="28" alt="Girl Effect" />
             {% endwith %}
           </a>
@@ -125,7 +125,8 @@
           <a href={{VIEW_PROFILE_URL}}>{% trans "Profile" %}</a>
           {% endif %}
           <a href="#search-form">
-            <img src="{% static 'img/icons/search/search_white.png' %}" width="19" height="19" alt="Search" />
+            <!--To Review -->
+            <img src="{% static 'img/icons/base/search-icons.png' %}" width="19" height="19" alt="Search" />
           </a>
         </div>
 

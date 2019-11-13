@@ -21,7 +21,7 @@ from gem.views import (
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSManifestView
+    KaiOSManifestView, Questionnaires
 )
 
 urlpatterns = []
@@ -37,7 +37,9 @@ elif settings.ENABLE_SSO:
         url(r'^admin/callback/', cas_views.callback),
     ]
 
+
 urlpatterns += [
+    url(r'^questionnaires/$', Questionnaires.as_view(), name='questionnaires'),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
@@ -121,7 +123,7 @@ urlpatterns += [
         core_views.ReactionQuestionChoiceView.as_view(),
         name='reaction-vote'),
     url(r'', include(wagtail_urls)),
-    url(r'', include('django_prometheus.urls')),
+    url(r'', include('django_prometheus.urls'))
 ]
 
 
