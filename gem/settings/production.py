@@ -4,7 +4,7 @@ from .base import USE_OIDC_AUTHENTICATION
 
 # Disable debug mode
 
-DEBUG = False
+DEBUG = True
 ENV = 'prd'
 
 # Compress static files offline

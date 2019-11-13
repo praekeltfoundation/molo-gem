@@ -64,8 +64,6 @@ var gulp              =   require('gulp'),
       'gem-zathu/auth/zathu.enhanced.scss'
     ];
 
-
-
     var sassDest = {
      prd: 'gem/static/css/dest/prd',
      dev: 'gem/static/css/dest/dev',
@@ -88,7 +86,7 @@ var gulp              =   require('gulp'),
     var isDev = env === 'dev';
     if (isDev)
       s = s
-          .pipe(sourcemaps.init());
+        .pipe(sourcemaps.init());
       s = s
       .pipe(sassGlob())
       .pipe(sass().on('error', sass.logError))
@@ -114,24 +112,22 @@ var gulp              =   require('gulp'),
 
 
 
-
-
   // Minify JS
   gulp.task('compress', function() {
-    return gulp.src([
-        'gem/static/js/gulp-entries/main.js',
-        'gem/static/js/gulp-entries/springster.js',
-        'gem/static/js/gulp-entries/nn.js',
-        'gem/static/js/gulp-entries/yegna.js',
-        'gem/static/js/gulp-entries/kaios.js',
-        'gem/static/js/gulp-entries/modeladmin/index.js'
-      ]).pipe(rename({
-        suffix: "-min",
-        extname: ".js"
-      }))
-      .pipe(uglify())
-      .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-      .pipe(gulp.dest('gem/static/js/dest'))
+  return gulp.src([
+      'gem/static/js/gulp-entries/main.js',
+      'gem/static/js/gulp-entries/springster.js',
+      'gem/static/js/gulp-entries/nn.js',
+      'gem/static/js/gulp-entries/yegna.js',
+      'gem/static/js/gulp-entries/kaios.js',
+      'gem/static/js/gulp-entries/modeladmin/index.js'
+    ]).pipe(rename({
+      suffix: "-min",
+      extname: ".js"
+    }))
+    .pipe(uglify())
+    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+    .pipe(gulp.dest('gem/static/js/dest'))
   });
 
 
