@@ -1,0 +1,307 @@
+@import '../utilities/*';
+
+body,
+html {
+  background: $cool-grey;
+  margin: 0;
+  padding: 0;
+}
+body {
+ background: transparent;
+}
+body,
+select,
+textarea {
+  color: $gunmetal;
+  font-family: $font-fallback;
+  font-size: $font-small;
+}
+a {
+  color: $springster-purple;
+  text-decoration: none;
+  &:hover {
+    color: $springster-purple;
+  }
+}
+h1 {
+  font-size: 1.2em;
+  margin: $spacer 0;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 1em;
+  margin: $spacer 0;
+}
+p,
+ul {
+  margin: $spacer 0;
+}
+hr {
+  border: 0;
+  border-top: 1px solid $slate-grey;
+  height: 0;
+  margin: $spacer 0;
+}
+* {
+  box-sizing: border-box;
+}
+
+
+.Container {
+  background: transparent;
+  padding: 0 !important; //Override Default
+  .Intro {
+    color: $slate-grey;
+    padding: 0 $spacer-mid;
+    text-align: center;
+  }
+}
+
+
+
+//HEADER
+.Header {
+  text-align: center;
+  &-branding {
+    background: #7300ff;
+    color: #e3ccff;
+    padding: $spacer-mid 0;
+    &-image {
+      background: url('/static/authentication_service/themes/springster/images/springster-logo.svg')no-repeat;
+      background-position: 50%;
+      background-size: contain;
+      display: block;
+      height: 24px;
+      padding-left: 100%;
+      width: 100%;
+    }
+  }
+  &-links {
+    background: #fff;
+    padding: 10px 0;
+    a {
+      text-decoration: none;
+    }
+  }
+  &-title {
+    background: #fff;
+    h1 {
+      color: $gunmetal;
+    }
+  }
+}
+//REGISTRATION: HEADER & FORMS
+.Registration {
+  .Header {
+    background-color: #7300ff;
+    padding: 0;
+    &-title {
+      background: 0 0;
+      text-align: center;
+      background-color: #7300ff;
+      margin: 0;
+      padding: 15px 8px 35px;
+      h1 {
+        background: url("/static/authentication_service/themes/springster/images/lines/skewed-underline.png") no-repeat 50% 100%/200px;
+        color: #fff;
+        font-size: 32px;
+        margin: 0;
+        padding: 0 0 10px;
+      }
+    }
+
+    &-links {
+      color: #4e5358;
+      a {
+        color: #7300ff;
+        text-decoration: none;
+      }
+    }
+  }
+}
+.Delete-Account,
+.Security,
+.Password,
+.Reset-Password {
+  .Header-title {
+    padding: 0;
+    h1 {
+      background: transparent;
+      color: #4e5358;
+      font-size: 18px;
+      padding: $spacer-mid 8px 0;
+    }
+  }
+}
+
+//CONTENT
+.Content {
+  background: #fff;
+  overflow: auto;
+  p {
+    padding: 0 5%;
+  }
+}
+
+//FORM
+.Form {
+  .Field {
+    margin-top: $spacer;
+    text-align: center;
+    padding: 0 $spacer-mid 0;
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+
+    &-label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+
+    &-message {
+      color: $slate-grey;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select {
+      border: 2px solid $springster-purple;
+      font-size: 1em;
+      height: 48px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+      &:focus {
+        border-color: $springster-purple;
+      }
+    }
+    .Textarea {
+      height: 60px;
+    }
+    .ClearableFileInput {
+      display: block;
+    }
+
+    &--required {
+      input {
+        border-color: $mustard;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $red;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer;
+  }
+}
+.Messages {
+  margin: 0;
+  .Message {
+    background-color: $springster-purple;
+    color: #fff;
+    padding: $spacer;
+    &--success {
+      background-color: $springster-purple;
+      color: #fff;
+    }
+    &--error,
+    &--warning {
+      background: $red;
+    }
+  }
+}
+.errorlist {
+  color: $red;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+.Additional-text {
+  text-align: center;
+  display: block;
+}
+
+//BUTTONS
+.Button {
+  background: $springster-purple;
+  color: $white;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  &:hover {
+    background: $iron-grey;
+    color: $springster-purple;
+    cursor: pointer;
+  }
+  &--warning {
+    background-color: $bright-orange;
+  }
+}
+
+
+//MENU NAV
+.Menu {
+  background-color: $mint-green;
+  padding: $spacer $spacer-mid;
+  &-title {
+    display: none;
+  }
+  &-item {
+    a {
+      font-size: $font-medium;
+      text-decoration: none;
+    }
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}
+
+
+
+//FOOTER
+.Footer {
+  background: $white;
+  border-top: 1px solid $slate-grey;
+  font-size: $font-xx-small;
+  padding: $spacer 0;
+  text-align: center;
+  //COPYRIGHT
+  p {
+    color: #a3a7ae;
+    font-size: 12px;
+    padding: $spacer-mid $spacer-mid $spacer;
+    margin: 0;
+    text-align: center;
+  }
+}

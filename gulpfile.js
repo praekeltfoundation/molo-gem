@@ -19,59 +19,74 @@ var gulp              =   require('gulp'),
     svgmin            =   require('gulp-svgmin'),
     del               =   require('del'),
     gutil             =   require('gulp-util'),
-    uglify            =   require('gulp-uglify'),
+    uglify            =   require('gulp-uglify');
+
+    var stylesDir     =  "gem/static/css/sass/",
     sassPaths = [
-      'gem/styles/gem/base_style.scss',
-      'gem/styles/gem/base_style-rtl.scss',
-      'gem/styles/gem-malawi/malawi.scss',
+      'gem/base_style.scss',
+      'gem/base_style-rtl.scss',
 
-      'gem/styles/gem-ninyampinga/nn.scss',
-      'gem/styles/gem-ninyampinga/enhanced-nn.scss',
-      'gem/styles/gem-ninyampinga/browsers/nn-safari.scss',
+      'gem-chhaajaa/chhaajaa.scss',
 
-      'gem/styles/gem-yegna/yegna.scss',
-      'gem/styles/gem-chhaajaa/chhaajaa.scss',
-      'gem/styles/gem-tanzania/tanzania.scss',
+      'gem-ninyampinga/nn.scss',
 
-      'gem/styles/maintenance.scss',
+      'gem-springster/@font-face-baton.s+(a|c)ss',
+      'gem-springster/springster.s+(a|c)ss',
+      'gem-springster/springster-rtl.s+(a|c)ss',
+      'gem-springster/no-script-state.s+(a|c)ss',
 
-      'gem/styles/gem-springster/01_springster.s+(a|c)ss',
-      'gem/styles/gem-springster/02_springster-rtl.s+(a|c)ss',
-      'gem/styles/gem-springster/03_state.s+(a|c)ss',
-      'gem/styles/gem-springster/04_state-320.s+(a|c)ss',
-      'gem/styles/gem-springster/05_no-script-state.s+(a|c)ss',
-      'gem/styles/gem-springster/@font-face-baton.s+(a|c)ss',
+      'gem-tujibebe/tujibebe.scss',
+
+      'gem-yegna/yegna.scss',
+
+      'gem-zathu/zathu.scss',
+
+      'maintenance.scss'
     ],
+
     authSassPaths = [
-      'gem/styles/auth-service/style.feature.scss',
-      'gem/styles/auth-service/style.enhanced.scss',
-      'gem/styles/gem-springster/auth/springster.feature.scss',
-      'gem/styles/gem-springster/auth/springster.enhanced.scss',
-      'gem/styles/gem-malawi/auth/zathu.feature.scss',
-      'gem/styles/gem-malawi/auth/zathu.enhanced.scss',
-      'gem/styles/gem-ninyampinga/auth/ninyampinga.feature.scss',
-      'gem/styles/gem-ninyampinga/auth/ninyampinga.enhanced.scss',
-      'gem/styles/gem-yegna/auth/yegna.feature.scss',
-      'gem/styles/gem-yegna/auth/yegna.enhanced.scss',
-      'gem/styles/gem-chhaajaa/auth/chhaajaa.enhanced.scss',
-      'gem/styles/gem-chhaajaa/auth/chhaajaa.feature.scss',
-      'gem/styles/gem-tanzania/auth/tanzania.feature.scss',
-      'gem/styles/gem-tanzania/auth/tanzania.enhanced.scss'
-    ],
-    sassDest = {
-     prd: 'gem/static/css/prd',
-     dev: 'gem/static/css/dev',
+      'gem-chhaajaa/auth/chhaajaa.enhanced.scss',
+      'gem-chhaajaa/auth/chhaajaa.feature.scss',
+
+      'gem-ninyampinga/auth/ninyampinga.feature.scss',
+      'gem-ninyampinga/auth/ninyampinga.enhanced.scss',
+
+      'gem-springster/auth/springster.feature.scss',
+      'gem-springster/auth/springster.enhanced.scss',
+
+      'gem-tujibebe/auth/tujibebe.feature.scss',
+      'gem-tujibebe/auth/tujibebe.enhanced.scss',
+
+      'gem-yegna/auth/yegna.feature.scss',
+      'gem-yegna/auth/yegna.enhanced.scss',
+
+      'gem-zathu/auth/zathu.feature.scss',
+      'gem-zathu/auth/zathu.enhanced.scss'
+    ];
+
+    var sassDest = {
+     prd: 'gem/static/css/dest/prd',
+     dev: 'gem/static/css/dest/dev',
     },
     authSassDest = {
-      auth: 'gem/styles/auth-compiled'
+      auth: 'gem/static/authentication_service/themes'
     };
+
+  for(var i = 0; i < sassPaths.length || i < authSassPaths.length; i++){
+    if (sassPaths[i]) {
+      sassPaths[i] = stylesDir + sassPaths[i];
+    }
+    if(authSassPaths[i]) {
+      authSassPaths[i] = stylesDir + authSassPaths[i];
+    }
+  }
 
   function styles(env) {
     var s = gulp.src(env === 'auth' ? authSassPaths : sassPaths);
     var isDev = env === 'dev';
     if (isDev)
       s = s
-          .pipe(sourcemaps.init());
+        .pipe(sourcemaps.init());
       s = s
       .pipe(sassGlob())
       .pipe(sass().on('error', sass.logError))
@@ -95,23 +110,26 @@ var gulp              =   require('gulp'),
     return styles('auth');
   });
 
+
+
   // Minify JS
   gulp.task('compress', function() {
-    return gulp.src([
-        'gem/static/js/main.js',
-        'gem/static/js/springster.js',
-        'gem/static/js/nn.js',
-        'gem/static/js/yegna.js',
-        'gem/static/js/kaios.js',
-        'gem/static/js/modeladmin/index.js'
-      ]).pipe(rename({
-        suffix: "-min",
-        extname: ".js"
-      }))
-      .pipe(uglify())
-      .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-      .pipe(gulp.dest('gem/static/js/dest'))
+  return gulp.src([
+      'gem/static/js/gulp-entries/main.js',
+      'gem/static/js/gulp-entries/springster.js',
+      'gem/static/js/gulp-entries/nn.js',
+      'gem/static/js/gulp-entries/yegna.js',
+      'gem/static/js/gulp-entries/kaios.js',
+      'gem/static/js/gulp-entries/modeladmin/index.js'
+    ]).pipe(rename({
+      suffix: "-min",
+      extname: ".js"
+    }))
+    .pipe(uglify())
+    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+    .pipe(gulp.dest('gem/static/js/dest'))
   });
+
 
   gulp.task('styles', gulp.series('styles:dev','styles:prd','styles:auth'));
   gulp.task('default', gulp.series('styles','compress'));

@@ -1,0 +1,66 @@
+.pagination {
+  margin: 1em auto;
+  text-align: center;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (min-width: 25.000em) {
+    display: flex;
+  }
+  @include for-size(tablet-landscape-up) {
+    margin: 0 0 2em;
+  }
+  .call-to-action {
+    &__button {
+      text-transform: uppercase;
+      display: block;
+      @media screen and (min-width: 40.000em) {
+        display: inline-block;
+      }
+      &--secondary {
+        padding:  0.5em 1em;
+      }
+    }
+    &__counter {
+      font-weight: bold;
+      color: #000;
+      font-weight: bold;
+      padding: 0 $spacer-small;
+      font-weight: 700;
+    }
+    &__item {
+      text-decoration: none;
+      font-size: $font-x-small;
+      &--text {
+        color: #000;
+        margin: 0 auto;
+        display: block;
+        font-weight: 400;
+        @media screen and (min-width: 20.000em) {
+          padding: 2em;
+        }
+        @media screen and (min-width: 40.000em) {
+          display: inline-block;
+        }
+        @include for-size(tablet-portrait-up) {
+          padding: 0 2em;
+        }
+        &:active, &:hover, &:focus {
+          color: #000;
+          transition: color 100ms ease-in-out;
+        }
+      }
+      &:active, &:hover, &:focus {
+        color: #000;
+        transition: color 100ms ease-in-out;
+      }
+    }
+  }
+  [type="button"],
+  [type="reset"],
+  [type="submit"],
+  button {
+    padding: 0.7em 3.5em;
+  }
+
+}

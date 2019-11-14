@@ -1,0 +1,308 @@
+@import '../../gem/variables/*';
+
+//DEFAULT RESET
+body,
+html {
+  background: $colorFourth;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+select,
+textarea {
+  color: $colorPurple;
+  font-family: $font-family-default;
+  font-size: $font-small;
+}
+
+a {
+  color: $colorPurple;
+  text-decoration: none;
+  &:hover {
+    color: $colorPurple;
+  }
+}
+
+h1 {
+  font-size: $font-large;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: $font-medium;
+  margin: $spacer 0;
+}
+
+p,
+ul {
+  margin: $spacer 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $colorFourth;
+  height: 0;
+  margin: $spacer 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+//CONTAINER
+.Container {
+  background: #fff;
+  padding: 0;
+  overflow: auto;
+
+  .Intro {
+    color: $colorPurple;
+    padding: 0 $spacer-mid;
+    text-align: center;
+  }
+}
+
+
+//HEADER
+.Header {
+  text-align: center;
+  &-title {
+    background: #fff;
+    margin: 0;
+    h1 {
+      color: $colorPurple;
+    }
+  }
+  &-branding {
+    background-color: $colorYellow;
+    margin: 0;
+    padding: 0 $spacer-mid;
+    text-align: left;
+    overflow: auto;
+    min-height: 60px;
+    &-image {
+      content: url("/static/authentication_service/themes/zathu/images/zathu.png");
+      display: inline-block;
+      width: 130px;
+      height: 40px;
+      padding: 10px 0 0;
+      margin: 5px 0;
+    }
+  }
+}
+
+//CONTENT BODY
+.Content {
+  padding:  0;
+  overflow: auto;
+  &:after {
+    content: " ";
+    height: 40px;
+    background-image: url("/static/authentication_service/themes/zathu/images/separator/mw_zig_pattern_30.png");
+    margin: $spacer-multiple 0 $spacer-mid 0;
+    background-position: center center;
+    background-repeat: repeat-x;
+    background-size: auto;
+    display: block;
+  }
+  p, .center {
+    padding: 0 $spacer-mid;
+  }
+}
+
+//FORMS
+.Form {
+  background: $colorGrey;
+  padding: $spacer $spacer-mid;
+  margin: 0 $spacer $spacer-multiple;
+  .Field {
+    margin-top: $spacer;
+    text-align: left;
+
+    &-item {
+      display: contents;
+      margin-top: $spacer-half;
+    }
+    &-label {
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: $spacer;
+    }
+    &-message {
+      color: $colorPurple;
+      font-size: $font-small;
+      margin-top: $spacer-half;
+      text-align: center;
+      clear: both;
+    }
+
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
+      border: 0;
+      font-size: 1em;
+      height: 48px;
+      outline: none;
+      padding: $spacer;
+      width: 100%;
+      &:focus {
+        border-color: $colorGrey;
+      }
+    }
+    .Textarea {
+      height: 60px;
+    }
+    .ClearableFileInput {
+      display: block;
+    }
+    &--required {
+      input {
+        border-color: $colorYellow;
+      }
+    }
+  }
+
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRed;
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    margin-top: $spacer;
+  }
+}
+
+.Additional-text {
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  a {
+    display: inline-block;
+    padding: $spacer 0;
+    text-decoration: none;
+  }
+}
+
+
+//BUTTONS / CALL TO ACTION
+.Button {
+  background: $colorPurple;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  padding: $spacer $spacer-half;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &:hover {
+    background: $colorPurple;
+    color: #fff;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  &--warning {
+    background: $colorOrange;
+
+    &:hover {
+      background: $colorOrange;
+    }
+  }
+}
+
+//FEEDBACK MESSAGES
+.Messages {
+  margin: 0;
+  .Message {
+    color: #fff;
+    padding: $spacer;
+
+    &--success {
+      background: $colorPurple;
+    }
+
+    &--error,
+    &--warning {
+      background: $colorRed;
+    }
+  }
+}
+
+//ERRORS
+.errorlist {
+  color: $colorRed;
+  list-style: none;
+  margin: $spacer-half 0;
+  padding: 0;
+
+  li {
+    margin: $spacer-half 0;
+  }
+}
+
+
+//MENU NAV
+.Menu {
+  padding: 0;
+  &-title {
+    display: none;
+  }
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  &-item {
+    a {
+      font-size: $font-large;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+
+
+//FOOTER
+.Back-to-top {
+  padding: 0 0 $spacer-mid 0;
+  &--link {
+    color: #5c5c5c;
+    font-size: 20px;
+  }
+}
+
+
+.Footer {
+  background: $colorGrey;
+  border: 0;
+  font-size: $font-m-small;
+  margin: 0;
+  padding: $spacer 0;
+  text-align: left;
+  padding: 8px $spacer 0 0;
+  p {
+    font-size: 12px;
+    color: #a3a3a3;
+    text-align: left;
+  }
+}

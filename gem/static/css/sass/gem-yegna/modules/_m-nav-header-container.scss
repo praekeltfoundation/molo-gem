@@ -1,0 +1,18 @@
+.nav {
+  $block: unquote("#{&}");
+  text-align: center;
+  @media screen and (min-width: 40.000em) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: inherit;
+  }
+  @include for-size(tablet-landscape-up) {
+    order: 2;
+    justify-content: space-between;
+    text-align: inherit;
+  }
+  @media screen and (min-width: 65.938em) {
+    width: 88%;
+  }
+}

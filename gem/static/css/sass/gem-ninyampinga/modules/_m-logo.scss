@@ -1,0 +1,44 @@
+.logo {
+  background: url('/static/img/logos/ninyampinga/ninyampinga-logo.svg') no-repeat center 0/ 100%;
+  margin: 0 auto;
+  max-height: 100px;
+  overflow: hidden;
+  width: 85%;
+  position: relative;
+  @media screen and (min-width: 25.000em) {
+    width: 360px;
+  }
+  @include for-size(tablet-portrait-up) {
+    top: 1em;
+    height: 100px;
+  }
+  &-wrapper {
+    position: relative;
+    margin: 0 1em;
+    width: 100%;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 auto;
+      order: 2;
+      width: auto;
+      z-index: 999999999999;
+    }
+  }
+  &__anchor {
+    color: #fff;
+    display: block;
+    font-size: $font-x-medium;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;
+    padding: 3em 0;
+    overflow: hidden;
+  }
+  &__image {
+    max-width: 300px;
+    height: auto;
+    width: 80%;
+    display: none;
+    visibility: hidden;
+  }
+}

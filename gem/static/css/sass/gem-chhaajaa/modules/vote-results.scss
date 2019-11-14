@@ -1,0 +1,34 @@
+.responses {
+  border: 2px solid $colorPink;
+  display: block;
+  margin: 2em 10px 0;
+  width: 70%
+}
+.response-percent {
+  background: #fff;
+  display: flex;
+  &__bar {
+    font-size: 21px;
+    font-family: "FedraSansDevanagariB-Light";
+    display: inline-block;
+    vertical-align: middle;
+    height: 30px;
+    padding: 5px 10px 0;
+    width: auto;
+    &:first-child {
+      background: $colorPink;
+      color: #fff;
+      border-right: 1px solid red;
+    }
+    &:nth-child(2) {
+      background: #fff;
+      color: $colorGrey;
+    }
+    &:nth-child(n+3) {
+      background: $colorPink;
+    }
+    &:last-child {
+      border: none;
+    }
+  }
+}

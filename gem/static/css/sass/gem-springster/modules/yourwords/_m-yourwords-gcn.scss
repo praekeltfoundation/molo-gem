@@ -1,0 +1,28 @@
+.gcn-competition {
+    margin: 0 auto;
+    padding: 0 0 10px;
+    position: relative;
+    @each $name, $color in $color_list {
+        &--#{$name} {
+            background-color: $color;
+        }
+    }
+    &__default {
+        @media screen and (min-width: 320px) {
+            background: url(/static/img/banners/springster/gcn_banner.jpg) no-repeat 0 0/contain;
+            min-height: 160px;
+            height: auto;
+            width: 100%;
+            padding: 0 0 25px;
+        }
+    }
+    &--homepage {
+        margin: 15px 0 0;
+        border-color: #edf0f2;
+        border-style: solid;
+        border-width: 0;
+        border-bottom-width: 4px;
+        border-top-width: 4px;
+    }
+    .heading__component {padding-top: 0;}
+}

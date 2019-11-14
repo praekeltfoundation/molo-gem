@@ -1,0 +1,45 @@
+.teaser-card {
+  @media screen and (min-width: 45.000em) {
+    border-right: 1px solid $colorPurple;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  &__item {
+    display: inline-block;
+    list-style: none;
+    vertical-align: top;
+    margin: 0 5px 2em 5px;
+    @media screen and (min-width: 62.000em) {
+      margin: 0 5px 2em 15px;
+      width: 30%;
+      &:first-child {
+        margin: 0 5px 2em 0;
+      }
+    }
+  }
+  &__images {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    @media screen and (min-width: 45.000em) {
+      height: 251px;
+      width: 251px;
+    }
+  }
+
+  &__title {
+    color: $colorPink;
+    font-size: 21px;
+    display: inline-block;
+    @media screen and (min-width: 45.000em) {
+      padding: 10px 0;
+    }
+  }
+  &__subtitle,
+  &__para {
+    font-size: 18px;
+    color: $colorGrey;
+    padding-bottom: 10px;
+  }
+}

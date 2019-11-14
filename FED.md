@@ -1,79 +1,90 @@
-FED
+FED Workflow
+------------------
 
-  Maintenance, Performance, and Readability.
-  We use SMACSS and BEM methodologies
+### HTML Template Approach
+  We use BEM methodologies / naming convention
 
-  BEM introduction (for HTML MARKUP FILES)
-  https://en.bem.info/methodology/quick-start/
-  http://getbem.com/introduction/
+  [Introduction to BEM](http://getbem.com/introduction/)
 
-  BEM Naming Convention Example
-    Languages
-    Language__current
-    Language__title
-    Language__title--icon
-    Language__dropdown-button
+  [Methodology Quick Start](https://en.bem.info/methodology/quick-start/)
 
-    Language__list
-    Language-list__toggle
-    Language-list__item
 
-  SMACSS (For SASS / CSS FILES)
-  https://smacss.com/book/
+### e.g. Languages block
+  ```
+    <div class="languages">
+      <h2 class="language__title">Language block</h2>
+      <ul class="language-list">
+        <li class="language-list__item">
+          <a href="#" class="language-list__anchor">English</a>
+        </li>
+        <li class="language-list__item">
+          <a href="#" class="language-list__anchor">Xhosa</a>
+        </li>
+      </ul>
+    </div>
+  ```
 
-  E.G. variables / colors.scss
-  $springster-sunny-yellow                :           #FFFC78;
-  $mint-green                             :           #a4eed2;
-  $sunny-yellow                           :           #fffc80;
+### CSS Styles Approach
+  We write CSS styles using SCSS extension for rich CSS features.
 
-  $color-gray             :     color(greyscale, gray-chateau);
-  $color-gray-light       :     color(greyscale, gray-light);
+  SCSS is compiled using [gulp.js](https://gulpjs.com/) tast runner workflow and or [Webpack](webpack.js) bundler workflow.
 
-FILES DIRECTORY / STRUCTURE
-  Folder / files path: /styles/app-name/
-    /layout/
-      _l-header.scss
-      _l-footer.scss
-    /modules
-      _m-article-list.scss
-      _m-article.scss
-    /state
-      _s-article-list.scss
-      _s-article.scss
-    /variables
-      variables.scss
-      color.scss
-    _base.scss
-    _versions.scss
-    styles-rtl.scss
-    e.g. ninyampings.scss | @import all compoments folders e.g. @import "util/*";
+  We use SMACSS methodologies / CSS structure and naming convention.
+  [SMACCS Cookbook](  https://smacss.com/book/)
 
-  Output file path: /static/css/dev
-                      with sourcemaps /maps
-                    /static/css/prd
+  Application CSS Folder:
+  ```
+    /static/css/sass/app-name/
+      /layout/
+        _l-header.scss
+        _l-footer.scss
+      /modules
+        _m-article-list.scss
+        _m-article.scss
+      /state
+        _s-article-list.scss
+        _s-article.scss
+      /utils
+        variables.scss
+        color.scss
+      _base.scss
+      _versions.scss
+      styles-rtl.scss
+  ```
 
-CLI: COMPRESSION AUTOMATION + LINTING
-  --------------------------------
-  - Gulp enforce SASS, JS syntax rules
 
+#### Gulp.js CSS Output:
+
+  /static/css/dest/dev/filename.css
+    /maps/filename.css
+  /static/css/dest/prd/filename.css
+
+
+
+Gulp.js / Webpack.js: AUTOMATION & LINTING
+----------------------------------------
   Requirements:
-  Must have node.js, npm and gulp installed globally
-  https://docs.npmjs.com/cli/install
-  https://gulpjs.org/getting-started
+  * Must have [Node.js](https://nodejs.org/en/), npm installed globally
+  * Must have gulp.js installed globally ie. `npm install gulp-cli -g`
 
-  Node version: Use Recommended for most users version - https://nodejs.org/en/
+  * Make sure the following files are available:
+    * NPM file = package.json
+    * Entry file = gulpfile.js
 
-  - npm install gulp-cli -g
+  On your CLI, cd to the project.
+  run the following commands:
+  * npm install
+  * npm shrinkwrap
+  * gulp --type=ci
 
-  Asset bundling & processing, concatenating and minification scripts are:
-  - gulpfile.js
-  - package.json
 
-  Commands:
-  - npm install
-  - npm shrinkwrap
-  - gulp OR gulp --type=ci
+  * Make sure the following files are available:
+    * Webpack.js Config file = webpack.config.js
+    * Babel config = .babelrc
 
-  IMAGES FORMATS:
-    SVG, PNG, Sprites icons
-    Images must be compressed
+#### Gulp.js JS Output:
+  /static/js/dest/filename.js
+
+#### Webpack.js JS Output:
+  /static/js/dest/dev/filename.js
+  /static/js/dest/prd/filename.js

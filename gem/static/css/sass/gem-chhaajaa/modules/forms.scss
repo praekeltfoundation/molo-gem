@@ -1,0 +1,211 @@
+form {
+  position: relative;
+  vertical-align: middle;
+}
+fieldset {
+  clear: both;
+  border: none;
+  margin: 10px;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 0;
+  @media screen and (min-width: 45.000em) {
+    margin: 10px 0 15px;
+  }
+  & > label {
+    @media screen and (min-width: 62.000em) {
+      display: inline-block;
+    }
+  }
+}
+label {
+  font-family: "FedraSansDevanagariB-Demi";
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0 .5em 0 0;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
+  display: block;
+  color: $colorGrey;
+}
+textarea {
+  background: transparent;
+  color: $colorGrey;
+    font-family: "FedraSansDevanagariB-Demi";
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 1em;
+  width: auto;
+}
+select {
+  height: 45px;
+  border-radius: 0;
+  outline: none;
+  text-transform: capitalize;
+  overflow:hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  background: #fff;
+  width: 103% !important;
+}
+select[value="value"] {
+  font-size: 21px;
+  text-transform: capitalize;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin: 0;
+  opacity: 0.9;
+  visibility: hidden;
+  position: absolute;
+  & ~ label {
+    background-color: transparent;
+    position: relative;
+    @media screen and (min-width: 62.000em) {
+      cursor: pointer;
+    }
+    &:before {
+      background-color: #fff;
+      content: " ";
+      border: 2px solid $colorPurple;
+      border-radius: 5px;
+      opacity: 0.9;
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 15px;
+    }
+    &:active {
+      color: $colorPurple;
+    }
+  }
+}
+input[type="checkbox"] {
+  &:checked + label:before {
+    background: $colorPurple;
+    opacity: 1;
+  }
+}
+input[type="radio"] {
+  &:checked + label:before {
+    background: $colorPurple;
+    opacity: 1;
+  }
+}
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select {
+  border-radius: 5px;
+  color: $colorGrey;
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  border: 2px solid $colorPurple;
+  font-size: 18px;
+  &:focus, &:active, &:visited {
+    outline: none;
+  }
+}
+input[type="search"] {
+  width: 100%;
+  appearance: none;
+  color: $colorGrey;
+  margin: 0;
+  padding: 5px;
+  font-size: 18px;
+  height: 40px;
+  width: 100%;
+  border-radius: 0;
+  @media screen and (min-width: 45.000em) {
+    width: 95%;
+  }
+  @media screen and (min-width: 62.000em) {
+    width: 45%;
+  }
+}
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+  background: $colorPurple;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: none;
+  margin: 10px 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:active, &:hover, &:focus, &:visited  {
+    outline: none;
+    text-decoration: none;
+    background-color: $colorPink;
+  }
+}
+
+*[disabled],
+*[readonly] {
+  background: transparent;
+  opacity: 1
+}
+.input-hint {
+  font-size: 16px;
+  font-style: italic;
+  display: block;
+}
+.choice-group {
+  display: inline-block;
+  margin: 0 1em 1em 0;
+  padding: 5px 0;
+}
+.input-group {
+  .helptext {
+    font-size: 16px;
+    margin: 0;
+    font-style: italic;
+    display: block;
+  }
+  span {
+    font-size: 16px;
+    display: block;
+  }
+}
+
+.error-list,
+.errorlist {
+  display: block;
+  padding: 0;
+  color: red;
+  list-style-type: none;
+  &__item {
+    color: red;
+    text-align: left;
+    padding: 1em 1em 0 0;
+  }
+}
+.error {
+  color: red;
+  text-align: left;
+  padding: 1em 1em 0 0;
+}

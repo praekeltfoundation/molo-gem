@@ -1,0 +1,103 @@
+.section-page {
+  padding: 1em 0;
+  &__images {
+    padding: 0 1em;
+    @media screen and (min-width: 45.000em) {
+      padding: 0 2em;
+    }
+  }
+  &__thumbnail {
+    text-align: left;
+    &--placeholder {
+      background: $colorPink;
+      color: #fff;
+      font-size: 28px;
+      padding: 5px 15px;
+      margin: 1em 0;
+      display: inline-block;
+    }
+  }
+
+  &__wrapper {
+    .teaser-stacklist__container {
+      padding: 1.5em 1em 4em 1em;
+      @media screen and (min-width: 45.000em) {
+        display: flex;
+        padding: 1.5em;
+        justify-content: space-between;
+      }
+      @media screen and (min-width: 62.000em) {
+        padding: 1.5em 2em;
+      }
+    }
+    .teaser-stacklist__main {
+      @media screen and (min-width: 62.000em) {
+        width: 65%;
+        margin: 0 5% 0 0;
+      }
+    }
+    .teaser-stacklist__cta-buttons {
+      float: right;
+      @media screen and (min-width: 62.000em) {
+        width: 33%;
+      }
+    }
+    .teaser-stacklist__images,
+    .teaser-stacklist__iframe {
+      @media screen and (min-width: 62.000em) {
+        height: 635px;
+        overflow: hidden;
+      }
+      .teaser-stacklist__anchor {
+        display: block;
+      }
+    }
+  }
+
+  &__columns {
+    padding: 1.5em 20px;
+    @media (min-width: 38.125em) {
+      padding: 1.5em 1em;
+    }
+    @media screen and (min-width: 45.000em) {
+      padding: 1.5em;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media screen and (min-width: 62.000em) {
+      padding: 1.5em 2em;
+    }
+    &-left {
+      @media screen and (min-width: 45.000em) {
+        width: 65%;
+      }
+      .teaser-stacklist__cta-buttons {
+        @media screen and (min-width: 45.000em) {
+          width: auto;
+          height: auto;
+        }
+      }
+      .heading--hero {
+        display: inline-block;
+      }
+    }
+    &-right {
+      .heading--hero > .heading__component {
+        &:before {
+          background: url('/static/img/icons/chhaajaa/Sym1b.png') no-repeat center center / 100%;
+        }
+      }
+      @media screen and (min-width: 45.000em) {
+        width: 33%;
+      }
+    }
+  }
+
+  .comments__form {
+    @media screen and (min-width: 80.000em) {
+      position: inherit;
+      margin: 2.5em 0;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.banner {
+  $block: unquote("#{&}");
+  background: rgba(0, 255, 255, 0.1);
+  color: #000;
+  font-size: $font-medium;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  @include for-size(tablet-portrait-up) {
+    background: #fff url('/static/img/patterns/yegna/cloudy-bg.svg') repeat center/100%;
+    color: $color-purple;
+  }
+  @media screen and (min-width: 80.000em) {
+    min-height: 125px;
+  }
+  &--image-type {
+    background: rgba(0, 255, 255, 0.1);
+    height: auto;
+    @media screen and (min-width: 80.000em) {
+      height: auto;
+    }
+  }
+  &__item {
+    display: block;
+    &-link {
+      color: #000;
+      text-decoration: none;
+      @include for-size(tablet-portrait-up) {
+        color: $color-purple;
+      }
+      &--text {
+        color: #000;
+        text-decoration: none;
+        @include for-size(tablet-portrait-up) {
+          color: $color-purple;
+        }
+      }
+    }
+  }
+  &__image {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    text-transform: uppercase;
+    //background-repeat: no-repeat;
+    //background-position: center center;
+    //height: 290px;
+    @media screen and (min-width: 40.000em) {
+      //height: 300px;
+    }
+    @media screen and (min-width: 64.000em) {
+      //background-size: 100%;
+      //height: 360px;
+    }
+    @media screen and (min-width: 80.000em) {
+      //background-position: 0 center;
+      //max-height: 650px;
+    }
+    &--block {
+      @media screen and (min-width: 80.000em) {
+        overflow: hidden;
+        //max-height: 650px;
+      }
+    }
+  }
+  &__caption {
+    display: none;
+    visibility: hidden;
+  }
+  .heading {
+    font-weight: 700;
+    @include for-size(tablet-portrait-up) {
+      padding: 1.5em 0.5em 1em;
+    }
+  }
+}

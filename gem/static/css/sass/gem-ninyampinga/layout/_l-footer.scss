@@ -1,0 +1,57 @@
+.footer {
+  background-color: $color-pink-very-dark;
+  color: #fff;
+  overflow: auto;
+  padding: 1em;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 3em 5% 1em;
+    margin: -1.5em 0;
+  }
+  @media screen and (min-width: 86.813em) {
+    padding: 3em $spacer-inner 1em;
+  }
+  .social-media {
+    display: inline-block;
+    margin: 0 0 1em;
+    text-align: left;
+    @include for-size(tablet-landscape-up) {
+      width: 20%;
+      flex: 1 auto;
+      order: 2;
+    }
+    &__icon {
+      height: auto;
+      width: auto;
+      max-width: 50px;
+      max-height: 50px;
+      float: left;
+      margin: 0 1em 0 0;
+    }
+    &-list {
+      @include for-size(tablet-portrait-up)  {
+        padding: 0 3em 0 0;
+      }
+      @include for-size(tablet-landscape-up) {
+        padding: 0;
+      }
+      &__item {
+        padding: $spacer-small;
+        display: block;
+      }
+    }
+  }
+  .searchCopyright-wrapper {
+    display: inline-block;
+    margin: 0 0 1em;
+    @include for-size(tablet-landscape-up) {
+      width: 20%;
+      flex: 1 auto;
+      order: 3;
+    }
+  }
+}

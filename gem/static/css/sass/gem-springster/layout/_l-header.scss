@@ -1,0 +1,35 @@
+#header {
+  background-color: $springster-purple;
+  position: relative;
+  .logo--center img {
+    width: 97px;
+  }
+}
+
+.header {
+  overflow: auto;
+  padding: 10px 0;
+  @include font($baton-regular);
+  border: none;
+  outline: 0;
+  @media only screen and (min-width: 320px){
+    box-sizing: border-box;
+    padding: 10px 10px 5px;
+  }
+  &-fixed {
+    @media only screen and (min-width: 320px){
+      position: fixed;
+      top: 0;
+      z-index: 9999;
+      width: 100%;
+      box-sizing: border-box;
+      transform: translate3d(0px, 0px, 0px);
+      transition: transform 300ms ease 0ms;
+      animation: qs-timer 300ms;
+    }
+  }
+  &__menu {
+    background: $springster-purple;
+    height: 40px;
+  }
+}

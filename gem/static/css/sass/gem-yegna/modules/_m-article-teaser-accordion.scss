@@ -1,0 +1,46 @@
+.teaser-accordion-list {
+  $block: unquote("#{&}");
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  @media screen and (min-width: 62.000em) {
+    width: 333px;
+    max-width: 333px;
+  }
+  &__item {
+    margin: $spacer-half 0;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+  }
+  &__anchor {
+    background-color: $color-light-gray;
+    color: #000;
+    display: block;
+    cursor: pointer;
+    margin: 0 auto $spacer-small;
+    padding: $spacer-half;
+    text-align: center;
+    text-decoration: none;
+    &:active, &:hover, &:focus {
+      background-color: $color-aqua;
+      transition: background-color 100ms ease-in-out;
+    }
+  }
+  &--watch {
+    #{$block}__anchor {
+      &:active, &:hover, &:focus {
+        background-color: $color-aqua;
+        transition: background-color 100ms ease-in-out;
+      }
+    }
+  }
+  &--listen {
+    #{$block}__anchor {
+      &:active, &:hover, &:focus {
+        background-color: $color-light-red;
+        transition: background-color 100ms ease-in-out;
+      }
+    }
+  }
+}

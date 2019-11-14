@@ -1,0 +1,46 @@
+html, body {
+  background-color: #fff;
+  height: auto;
+}
+body {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  line-height: 1.5;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  @include for-size(phone-only) {
+    font-family: 'Tw Cen MT', Arial, sans-serif;
+  }
+}
+h1, h2, h3, h4, h5, h6  {
+  margin: 0;
+  line-height: 1;
+  font-weight: inherit;
+}
+
+a {
+  color: $color-cyan_shade1;
+  display: block;
+  text-decoration: underline;
+  text-underline-position: under;
+  overflow: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  &:active, &:hover, &:focus {
+    color: $color-pink;
+  }
+  @include for-size(desktop-up) {
+    outline: none;
+    &:visited {
+      outline: none;
+    }
+  }
+}
+*:focus {
+  @media screen and (min-width: 20.000em) {
+    outline: none;
+  }
+}

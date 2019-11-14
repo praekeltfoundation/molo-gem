@@ -1,0 +1,334 @@
+@import "../util/*";
+@import "../normalize";
+
+body,
+html {
+  background-color: #fff;
+  font-size: 16px;
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.5;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+h1, h2, h3, h4, h5, h6  {
+  font-family: 'Noto Sans', Arial, sans-serif;
+  margin: 0;
+}
+a {
+  text-decoration: underline;
+  text-underline-position: below;
+  border-bottom: 0 !important;
+  &:visited {
+    @include for-size(tablet-landscape-up) {
+      outline: none;
+    }
+  }
+}
+
+/*  NOTE: PAGES WRAPPER */
+#wrap {
+  @media screen and (min-width: 62.000em) {
+    background: url("/static/authentication_service/themes/yegna/images/patterns/home-bg.svg") no-repeat center/100%;
+  }
+}
+
+.Container {
+  background: transparent;
+  padding: 0;
+  .Intro {
+    background: #fff;
+    color: #000;
+    padding: 0 10% 2em;
+    text-align: left;
+    margin: 0;
+  }
+}
+
+//HEADER
+.Header {
+  background: $color-green url('/static/authentication_service/themes/yegna/images/patterns/main-bg.svg') no-repeat center /auto;
+  vertical-align: middle;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+  text-align: center;
+  z-index: 9999999;
+}
+.Header-branding {
+  background: url('/static/authentication_service/themes/yegna/images/yegna-logo.png') no-repeat center 0/125px;
+  height: 125px;
+  width: 126px !important;
+  margin: 2em 0 0 0 !important;
+  padding: 1em 8%;
+  text-align: left;
+  width: 100%;
+  z-index: 999999;
+}
+.Header-branding-image {
+  display: none;
+  visibility: hidden;
+}
+.Header-title {
+  background: #fff url('/static/authentication_service/themes/yegna/images/patterns/cloudy-bg.svg') repeat center/100%;
+  padding: 1em 8%;
+  color: $color-purple;
+  min-height: 125px;
+  h1 {
+    font-size: $font-xx-large;
+    color: $color-purple;
+  }
+}
+.Header-links {
+  background: #fff;
+  margin: 0 !important;
+  a {
+    color: $color-purple;
+    &:active, &:hover {
+      text-decoration: underline;
+      text-underline-position: below;
+    }
+  }
+}
+
+//CONTENT
+.Content {
+  background: transparent;
+  color: #000;
+  overflow: auto;
+  margin: 0 7%;
+  padding: 1em 5% 2.5em;
+  p {
+    text-align: left;
+  }
+  .center {
+    text-align: left;
+    font-size: 1.125rem;
+  }
+}
+
+//FORM
+.Form {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.Form .Field {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+.Form .Field-item,
+.Form .Field-item .Field {
+  clear: both;
+  border: none;
+  margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.Form .Field-item {
+  color: #000;
+  display: inline-block;
+  margin: 10px 0;
+  font-size: .875rem;
+}
+
+.Form .Field-label {
+  color: #000;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.Form .Field-message {
+  color: $color-purple;
+  font-size: 1rem;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.Form .Field .DateInput,
+.Form .Field .EmailInput,
+.Form .Field .NumberInput,
+.Form .Field .PasswordInput,
+.Form .Field .TextInput,
+.Form .Field .Textarea,
+.Form .Field .vDateField,
+.Form .Field .Select {
+  border: 2px #000 solid;
+  font-size: 1em;
+  height: 48px;
+  outline: 0;
+  padding: 5px;
+  width: 90%;
+  border-width: 2px;
+  &:focus {
+    border: 2px #000 solid;
+  }
+}
+.Form .Textarea {
+  height: 60px;
+}
+.Form .ClearableFileInput {
+  display: block;
+}
+.Form .Form--required input {
+  border-color: red;
+}
+.Form .ModelChoiceField .Select,
+.Form .TypedChoiceField .Select {
+  border: 2px solid #000;
+}
+.Form .ModelChoiceField .Select:focus,
+.Form .TypedChoiceField .Select:focus {
+  border-color: #000;
+}
+.Form .Field-message--error .Field--required .Field-item input,
+.Form .Field-message--error .Field-item input {
+  border-color: #000;
+}
+.Button,
+.Button--warning,
+.Form .Button {
+  background: #000;
+  color: #fff !important;
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 10px;
+  text-transform: uppercase;
+  margin: 1em 0;
+  width: auto;
+  &:hover, &:active {
+    text-decoration: underline;
+  }
+}
+.Form-buttons {
+  margin-top: 1em;
+}
+.Messages {
+  margin: 0;
+}
+.Message {
+  color: #fff;
+  padding: 5px;
+}
+.Message--success {
+  background: #000;
+}
+.Message--error,
+.Message--warning {
+  background: #000;
+}
+
+.errorlist {
+  color: #000;
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+  li {
+   margin: 10px 0;
+ }
+}
+
+.Additional-text {
+  color: #000;
+  text-align: left;
+  padding: 1em 10% 0;
+  margin: 0;
+  font-size: 1.125rem;
+  a {
+    color: $color-purple;
+    text-transform: uppercase;
+    &:active, &:focus, &:hover {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-position: below;
+    }
+  }
+}
+
+.Menu {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.Menu-title {
+  display: none;
+}
+.Menu-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+  @media (min-width:64em) {
+    padding: 5px 30% 0 0;
+  }
+}
+.Menu-item {
+  display: inline-block;
+  font-size: 1.125rem;
+  margin: 10px 2.5em 0 0 !important;
+  a {
+    background: $color-purple url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% 17px/14px;
+    border-bottom: none !important;
+    color: #fff !important;
+    display: block !important;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 45px 12px 30px;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    margin: 1em 0;
+    box-shadow: 12px 12px 0 0 $color-purple;
+    width: auto;
+    &:active, &:hover {
+      background: $color-purple url('/static/authentication_service/themes/ninyampinga/images/triangle-icon.png') no-repeat 94% -32px/14px;
+      color: $color-purple !important;
+      border-bottom: none !important;
+    }
+  }
+}
+
+.Back-to-top--link {
+  text-transform: uppercase;
+  font-size: .75rem;
+  border-bottom: 1px solid #fff;
+}
+
+.Footer {
+  background: #000;
+  border: 0;
+  color: #fff;
+  font-size: .75rem;
+  text-align: left;
+  padding: 3em 5.5% 1em;
+  margin: 4em 0 0;
+  @media (min-width:64em) {
+    position: absolute;
+    width: 100%;
+  }
+  a {
+    font-size: .75rem;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+  }
+  p {
+    color: #fff;
+    padding: 1em 0 0;
+    text-align: right;
+  }
+}

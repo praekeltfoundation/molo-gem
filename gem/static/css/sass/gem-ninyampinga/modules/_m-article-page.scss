@@ -1,0 +1,136 @@
+.article-page {
+  $block: unquote("#{&}");
+  article {
+    overflow: auto;
+    h1, h2, h3, h4, h5, h6, p, a {
+      padding: 0 $spacer-inner;
+      @include for-size(tablet-landscape-up) {
+        padding: 0 15%;
+      }
+      @include for-size(desktop-up) {
+        padding: 0 20%;
+      }
+    }
+    p {
+      vertical-align: top;
+      word-break: break-word;
+    }
+    a {
+      display: inline-block;
+      vertical-align: top;
+      word-break: break-word;
+    }
+  }
+  &__quote {
+    color: #000;
+    display: block;
+    padding: 2em 15%;
+    font-weight: bold;
+    margin: 1em 0;
+    text-align: center;
+    font-size: $font-medium;
+    text-transform: uppercase;
+    width: 100%;
+    @include for-size(tablet-landscape-up) {
+      padding: 2em 25%;
+      font-size: $font-large;
+    }
+  }
+  &__images {
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    @include for-size(desktop-up) {
+      height: 491.63px;
+    }
+    &-wrapper {
+      padding: 1em $spacer-inner;
+      @include for-size(tablet-landscape-up) {
+        padding: 1em 15%;
+      }
+      @include for-size(desktop-up) {
+        padding: 1em 20%;
+      }
+    }
+    &--inner {
+      overflow: hidden;
+      height: auto;
+      padding: 1em $spacer-inner;
+      @include for-size(tablet-landscape-up) {
+        padding: 1em 15%;
+      }
+      @include for-size(desktop-up) {
+        padding: 1em 20%;
+        height: 491.63px;
+      }
+    }
+  }
+  @each $sectionModifier, $styleElement in $sectionThemes {
+    &--#{$sectionModifier} {
+      .media-player {
+        &:before {
+          background-color: map-get($styleElement, bgColor);
+        }
+      }
+      #{$block}__quote {
+        background: map-get($styleElement, bgColor) url(map-get($styleElement, bgPatterns)) repeat center center/auto;
+        color: map-get($styleElement, textColor);
+      }
+    }
+  }
+  .social-media {
+    margin: 5% auto 0;
+    padding: 40px 5.5% 20px;
+    text-align: center;
+    border-top: 3px solid $color-pink-bright;
+    @include for-size(tablet-landscape-up) {
+      width: 80%;
+    }
+    @include for-size(desktop-up) {
+      width: 60%;
+    }
+    &-list__item {
+      display: inline-block;
+      padding: $spacer-mid $spacer-small;
+    }
+    .heading__subtitle {
+      font-size: $font-large;
+      text-transform: uppercase;
+    }
+  }
+  .media-player {
+    clear: both;
+    padding: 0 $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+    @include for-size(desktop-up) {
+      padding: 1em 20%;
+    }
+  }
+
+  .heading__headline,
+  .heading__subtitle,
+  .teaser-tags,
+  .ordered-list,
+  .unordered-list {
+    padding: 0 $spacer-inner;
+    @include for-size(tablet-landscape-up) {
+      padding: 0 15%;
+    }
+    @include for-size(desktop-up) {
+      padding: 0 20%;
+    }
+  }
+
+  .article-teaser-related {
+    .heading__headline,
+    .heading__subtitle,
+    .teaser-tags,
+    .ordered-list,
+    .unordered-list {
+      padding: $spacer-small 0 0;
+    }
+  }
+}

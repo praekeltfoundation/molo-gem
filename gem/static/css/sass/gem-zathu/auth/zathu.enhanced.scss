@@ -1,0 +1,355 @@
+@import '../../gem/variables/*';
+@font-face {
+  font-family: 'zathu';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/static/authentication_service/themes/zathu/fonts/zathu-webfont.woff') format('woff');
+  src: url('/static/authentication_service/themes/zathu/fonts/zathu-webfont.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'TwCenMT';
+  src: url('/static/authentication_service/themes/zathu/fonts/TwCenMT-Regular.woff') format('woff');
+  font-weight: normal;
+}
+
+//DEFAULT RESET
+
+body,
+html {
+  background: $colorFourth;
+  margin: 0;
+  @media screen and (min-width: 40em) {
+    margin-top: 0;
+  }
+}
+
+body,
+select,
+textarea {
+  color: $colorPurple;
+  font-family: $font-family-default;
+  font-size: $font-small;
+}
+
+a {
+  border: 0;
+  color: $colorPurple;
+  text-decoration: underline;
+
+  &:hover {
+    border: 0;
+    color: $colorPurple;
+  }
+}
+
+h1 {
+  font-family: $font-family-zathu;
+  font-size: 1.6em;
+  text-align: center;
+}
+
+h2 {
+  font-family: $font-family-zathu;
+  font-size: 1.4em;
+  text-align: center;
+}
+
+p, ul {
+  margin: $spacer 0;
+  text-align: center;
+}
+
+ul, ol, li {
+  list-style: none;
+}
+
+hr {
+  margin: $spacer-multiple 0;
+}
+
+
+//CONTAINER
+.Container {
+  @media screen and (min-width: 40em) {
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0;
+    overflow: auto;
+  }
+}
+
+//HEADER
+.Header {
+  margin-bottom: 0;
+  text-align: center;
+  &-branding {
+    margin-bottom: 0;
+    &-image {
+      width: 130px;
+    }
+  }
+  &-title {
+    background: #fff;
+    margin: 0;
+    text-align: center;
+
+    h1 {
+      color: $colorPurple;
+      font-size: $font-x-large;
+      margin: 0;
+      padding: $spacer-mid;
+    }
+  }
+}
+
+
+//LIST
+.List {
+  list-style: none;
+  padding: 0;
+  li {
+    list-style: none;
+    margin: $spacer-mid 0 0;
+    font-size: 16px;
+  }
+}
+
+
+//QR
+.QR {
+  text-align: center;
+  &-image {
+    border: 3px solid $colorPurple;
+  }
+}
+
+
+//TOKENS
+
+.Tokens {
+  border: 1px solid $colorGrey;
+  margin: $spacer $spacer-mid;
+  padding: 0 $spacer-mid $spacer-mid;
+  li {
+    float: left;
+    width: 50%;
+  }
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+//FORMS
+.Form {
+  background: $colorGrey;
+  .Field {
+    margin-top: $spacer-multiple;
+    &-message {
+      margin-top: $spacer;
+    }
+    &-label {
+      font-size: $font-medium;
+      font-weight: normal;
+    }
+    .DateInput,
+    .EmailInput,
+    .NumberInput,
+    .PasswordInput,
+    .TextInput,
+    .Textarea,
+    .vDateField,
+    .Select,
+    .ClearableFileInput {
+      color: $colorPurple;
+      font-weight: normal;
+      padding: $spacer;
+      &:focus {
+        border-color: $colorPurple;
+      }
+    }
+    .Textarea {
+      height: 100px;
+    }
+  }
+
+  .ModelChoiceField,
+  .TypedChoiceField {
+    display: block;
+    position: relative;
+    width: 100%;
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      &::after {
+        border-style: solid;
+        border-width: .15em .15em 0 0;
+        color: $colorPurple;
+        content: '';
+        display: inline-block;
+        height: .65em;
+        pointer-events: none;
+        position: absolute;
+        right: $spacer-mid;
+        top: 46px;
+        transform: rotate(135deg);
+        width: .65em;
+      }
+      .Select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+      }
+    }
+    .Select {
+      appearance: inherit;
+      -webkit-appearance: inherit;
+      -moz-appearance: inherit;
+      -ms-appearance: inherit;
+      background-color: #fff;
+      border: 0;
+      border-radius: 0;
+      color: $colorPurple;
+      min-height: 41px;
+      outline: none;
+      padding: $spacer 35px $spacer $spacer;
+      width: 100%;
+
+      &:focus {
+        border-color: $colorPurple;
+      }
+    }
+  }
+
+  .BooleanField {
+    display: table;
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .Field-label {
+      display: inline-block;
+      text-align: left;
+      font-size: 16px;
+      margin: 10px 0 0 5px;
+      vertical-align: top;
+      width: auto;
+    }
+
+    .Field-item {
+      text-align: left;
+      vertical-align: middle;
+
+      .CheckboxInput {
+        appearance: none;
+        border: 3px solid $colorPurple;
+        display: inline-block;
+        height: $spacer-multiple;
+        outline: none;
+        padding: $spacer-mid;
+        width: $spacer-multiple;
+        background-color: $colorWhite;
+        position: relative;
+
+        &:checked {
+          background-color: $colorPurple;
+          border-color: $colorPurple;
+
+          &::after {
+            color: #fff;
+            content: '\2714';
+            font-size: 25px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: inline-block;
+            top: 0;
+          }
+        }
+      }
+    }
+  }
+  .Field-message--error {
+    &.Field--required {
+      .Field-item {
+        input {
+          border-color: $colorRed;
+        }
+      }
+    }
+  }
+  &-buttons {
+    margin-bottom: $spacer-multiple;
+  }
+}
+
+.Additional-text {
+  font-family:  "TwCenMT-Regular", ArialMT, Arial, sans-serif;
+}
+
+
+//BUTTONS / CALL TO ACTION
+.Button {
+  &--warning {
+    background: $colorOrange;
+  }
+}
+
+//FEEDBACK MESSAGES
+.Messages {
+  .Message {
+    font-family: $font-family-default;
+  }
+}
+
+//ERROR MASSAGES
+.errorlist {
+  margin-top: $spacer-multiple;
+}
+
+
+//MENU NAV
+.Menu {
+  margin: 0;
+  &-title {
+    background: $colorPurple;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    h1 {
+      color: #fff;
+      font-size: 1.2em;
+    }
+  }
+  &-list {
+    padding-top: 0;
+  }
+  &-item {
+    margin: $spacer-mid 0;
+    a {
+      display: inline-block;
+      text-decoration: none;
+      &:hover {
+        border: 0;
+      }
+    }
+  }
+}
+
+.Menu {
+  @media screen and (min-width: 40em) {
+    margin-top: $spacer-mid;
+    padding-bottom: $spacer;
+  }
+}
+
+//FOOTER
+.Footer {
+  margin: $spacer-multiple 0 0;
+  padding: $spacer-multiple;
+  text-align: left;
+  p {
+    margin: 0;
+  }
+}

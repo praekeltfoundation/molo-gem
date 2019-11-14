@@ -1,0 +1,138 @@
+.call-to-action {
+  $block: unquote("#{&}");
+  &__button {
+    padding: $spacer-half;
+    text-decoration: none;
+    display: inline-block;
+    &--primary {
+      background: #000;
+      color: #fff;
+      display: inline-block;
+      text-decoration: none;
+      &:before {
+        background: url("/static/img/icons/yegna/icon-watch-white.svg") no-repeat center center / 100%;
+        content: "";
+        display: inline-block;
+        height: $spacer-mid;
+        margin: 0 .3em 0 0;
+        vertical-align: middle;
+        width: $spacer-half;
+      }
+    }
+    &--secondary {
+      background: #000;
+      color: #fff;
+      display: inline-block;
+      text-decoration: none;
+      padding: $spacer-half $spacer-mid;
+    }
+  }
+  &__item {
+    color: #000;
+    &--nav-back {
+      color: #000;
+      display: block;
+      margin: 1.5em 0 1em;
+      padding: 0 $spacer-small;
+      text-decoration: none;
+      &:before {
+        background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
+        content: "";
+        display: inline-block;
+        height: $spacer-mid;
+        margin: 0 1em 0 0;
+        vertical-align: middle;
+        transform: rotate(180deg);
+        width: 25px;
+      }
+    }
+    &--text {
+      color: #000;
+      padding: 0 $spacer-small;
+      text-decoration: underline;
+      &:active, &:hover, &:focus {
+        color: $color-pink;
+      }
+    }
+    &--icon {
+      background: #000 url('/static/img/icons/yegna/icon-search.svg') no-repeat center center/auto;
+      border: 1px solid #000;
+      color: #fff;
+      display: inline-block;
+      margin: $spacer-small 0;
+      padding: 11px;
+      vertical-align: middle;
+      @media screen and (min-width: 72.188em) {
+        margin: 0 $spacer-small;
+      }
+    }
+    &--back-to-top {
+      color: #000;
+      text-align: center;
+      text-decoration: none;
+      &:before {
+        background: url('/static/img/icons/yegna/icon-arrow-up.svg') no-repeat center center/auto;
+        content: "";
+        display: block;
+        height: 26px;
+        margin: 0 auto;
+        width: 21px;
+      }
+    }
+    &--paginate {
+      margin: 1.5em 0;
+      text-align: right;
+      display: block;
+      text-decoration: none;
+      padding: 0 2em;
+      &:active, &:hover, &:focus {
+        color: $color-purple;
+        transition: color 100ms ease-in-out;
+      }
+      &:visited {
+        @include for-size(tablet-landscape-up) {
+          outline: none;
+        }
+      }
+      &:after {
+        background: url("/static/img/icons/yegna/icon-readmore.svg") no-repeat center center / 100%;
+        content: "";
+        display: inline-block;
+        height: $spacer-mid;
+        margin: 0 0 0 1em;
+        vertical-align: middle;
+        width: 25px;
+      }
+    }
+  }
+  &--media-download {
+    overflow: hidden;
+    margin: 1em 0 0;
+    text-align: left;
+    #{$block}__button {
+      &:before {
+        background: url('/static/img/icons/yegna/icon-download.svg') no-repeat center center/auto;
+        content: "";
+        display: inline-block;
+        height: 30px;
+        vertical-align: middle;
+        width: 30px;
+      }
+      &--primary {
+        background: #000;
+        color: #fff;
+      }
+    }
+    #{$block}__item {
+      &--text {
+        color: #fff;
+        font-size: $font-xx-small;
+        text-decoration: none;
+        &:active, &:hover, &:focus {
+          color: #fff;
+          transition: color 100ms ease-in-out;
+        }
+      }
+    }
+  }
+}

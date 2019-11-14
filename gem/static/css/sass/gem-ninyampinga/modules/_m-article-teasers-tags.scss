@@ -1,0 +1,50 @@
+.teaser-tags {
+  $block: unquote("#{&}");
+  display: block;
+  margin: 0;
+  padding: 5px 0 0;
+  overflow: hidden;
+  &__item {
+    display: inline-block;
+    padding: 0 $spacer-small 0 0;
+  }
+  &__anchor {
+    color: $color-pink-bright;
+    font-size: $font-small;
+    text-decoration: underline;
+    text-underline-position: under;
+      &:before {
+        content: "#";
+        display: inline;
+      }
+  }
+  &__title {
+    display: inline;
+    color: $color-pink-bright;
+    font-size: $font-small;
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+
+  &__heading {
+    font-size: $font-x-large;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #000;
+    &:focus, &:hover {
+      text-decoration:underline;
+      color: #000;
+    }
+  }
+  &--non-click {
+    height: auto;
+    #{$block}__item {
+      background: $color-gray-light;
+      border-radius: $spacer-small;
+      padding: $spacer-half;
+    }
+    #{$block}__title {
+      text-decoration: none;
+    }
+  }
+}

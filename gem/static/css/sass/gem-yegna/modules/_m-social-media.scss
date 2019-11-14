@@ -1,0 +1,39 @@
+.social-media {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 1em 0 0;
+  @include for-size(tablet-landscape-up) {
+    float: right;
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    &__item {
+      display: inline-block;
+    }
+  }
+  &__icon {
+    vertical-align: middle;
+    max-width: 35px;
+    max-height: 30px;
+    height: auto;
+    width: auto;
+  }
+  &__anchor {
+    color: #000;
+    display: block;
+    font-size: $font-x-small;
+    padding: $spacer-small;
+    text-decoration: none;
+    &:active, &:hover, &:focus {
+      color: $color-purple;
+      transition: color 100ms ease-in-out;
+    }
+  }
+  &__label {
+    color: #000;
+    display: block;
+    font-size: $font-x-small;
+    padding: $spacer-small;
+  }
+}

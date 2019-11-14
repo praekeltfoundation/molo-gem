@@ -1,0 +1,74 @@
+.tag-cloud {
+  display: inline-block;
+  width: 100%;
+  margin: 5em 0 0;
+  position: relative;
+  text-align: center;
+  &__container {
+    background-color: $color-blue;
+    padding: 6.5em 0 0 0;
+  }
+  &__block {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0;
+    padding: 0 0 20px;
+    list-style-type: none;
+  }
+  &__heading {
+    text-align: center;
+    font-size: 23px;
+    * {
+      font-size: 23px;
+      text-transform: uppercase;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+  &__item {
+    display: inline-block;
+    padding: 5px 10px;
+    &-title {
+      margin-left: -4px;
+      display: inline-block;
+      transition: text-decoration .2s ease-out;
+    }
+  }
+  &__anchor {
+    font-size: 17px;
+    text-decoration: none;
+    color: $color-green;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 0.4em 0 0;
+    &:hover {
+      color: $color-yellow;
+      .tag-cloud__item-title {
+        text-decoration: underline;
+      }
+    }
+    &:before {
+      content: "#";
+    }
+  }
+  &__icon {
+    overflow: auto;
+    &:after {
+      //background-image: url(/static/img/icons/tujibebe/illustrations.png);
+      //background-position: center -49em;
+      background-image: url(/static/img/icons/tujibebe/mobile-illustration.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100px;
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: -4em;
+      height: 140px;
+      display: block;
+      width: 100%;
+    }
+  }
+}

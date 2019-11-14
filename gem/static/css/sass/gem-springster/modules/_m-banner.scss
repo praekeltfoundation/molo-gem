@@ -1,0 +1,38 @@
+.banner {
+    margin: 5px 0 0;
+    &:first-child {
+      margin: 0;
+    }
+    &__item {display: block;}
+    &__image {
+        display: block;
+        width: 100%;
+    }
+    &__block {
+        background-color: $springster-purple-light;
+        padding: 15px 0;
+        &:after,
+        &:before {
+          @include divider-combo-1;
+          content: "";
+          display: block;
+          height: 10px;
+          width: 100%;
+          position: absolute;
+          left: 0;
+          margin: -4px 0;
+        }
+        &:before {
+          top: 0;
+        }
+        .heading {
+          margin-bottom: 5px;
+        }
+    }
+    &__subtitle {
+        text-align: center;
+        padding-bottom: 5px;
+        color: $gunmetal;
+        font-size: $font-x-small;
+    }
+}

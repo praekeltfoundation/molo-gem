@@ -1,0 +1,67 @@
+footer {
+  padding: 1em;
+  background: $colorYellow;
+  position: relative;
+  @media screen and (min-width: 45.000em) {
+    padding: 2em 5%;
+    display: flex;
+  }
+  .footer__logo {
+    animation: pulse 0.5s ease 0s 1;
+  }
+  .pull-left  {
+    h4 {
+      font-size: 14px;
+      line-height: 80px;
+      font-weight: 400;
+      a {
+        color: $colorRedLight;
+      }
+    }
+  }
+
+  .pull-right {
+    @media screen and (min-width: 45.000em) {
+      padding: 0 0 0 10%;
+    }
+    &-list {
+      margin: 5% 0 0;
+      @media screen and (min-width: 45.000em) {
+        margin: 0;
+      }
+      &__item {
+        display: block;
+        padding: 10px 0;
+        @media screen and (min-width: 45.000em) {
+          display: inline-block;
+          margin: 0 1em 0;
+          padding: 25px 0;
+        }
+      }
+      &__anchor {
+        font-size: 24px;
+        font-weight:bold;
+        font-family: "FedraSansDevanagariB-Demi";
+        text-transform: uppercase;
+        color: $colorPurple;
+        border-bottom: 2px solid transparent;
+        -webkit-transition: all 400ms linear 0s;
+        -o-transition: all 400ms linear 0s;
+        transition: all 400ms linear 0s;
+        &:hover, &:focus, &:active {
+          color: $colorPink;
+          border-bottom: 2px solid $colorPink;
+        }
+      }
+      .active {
+        color: $colorPink;
+        border-bottom: 2px solid $colorPink;
+      }
+    }
+  }
+  .copyright__disclaimer {
+    font-family: "FedraSansDevanagariB-Light";
+    font-weight: normal;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,64 @@
+.section-page {
+  $block: unquote("#{&}");
+  overflow: auto;
+  position: relative;
+  &__columns {
+    @include pages();
+    width: 100%;
+    @media screen and (min-width: 62.000em) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__first-column {
+    @media screen and (min-width: 45.000em) {
+      margin: 0 1em 0 0;
+    }
+    @media screen and (min-width: 62.000em) {
+      margin-right: 2em;
+      width: 65%;
+    }
+    @media screen and (min-width: 72.188em) {
+      margin-right: 5%;
+      min-width: 750px;
+    }
+    @media screen and (min-width: 80.00em) {
+      margin-right: 10%;
+    }
+  }
+  &__second-column {
+    @media screen and (min-width: 62.000em) {
+      width: 35%;
+    }
+  }
+  &__label {
+    font-style: italic;
+    font-size: $font-xx-small;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  @each $name, $color in $color_loop {
+    &--#{$name} {
+      #{$block}__first-column,
+      #{$block}__second-column {
+        .teaser-stacklist--watch .teaser-stacklist__container,
+        .teaser-grid--watch .teaser-grid__container,
+        .teaser-stacklist--listen .teaser-stacklist__elem-audio,
+        .teaser-grid--listen .teaser-grid__elem-audio {
+          background-color: $color;
+        }
+        .teaser-accordion-list--watch .teaser-accordion-list__anchor,
+        .teaser-accordion-list--listen .teaser-accordion-list__anchor {
+          &:active, &:hover, &:focus {
+            background-color: $color;
+            transition: background-color 100ms ease-in-out;
+          }
+        }
+      }
+      .teaser-grid--listen .teaser-breadcrumb-list__anchor {
+        color: $color;
+      }
+    }
+  }
+}

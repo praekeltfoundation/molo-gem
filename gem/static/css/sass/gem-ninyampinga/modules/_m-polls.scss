@@ -1,0 +1,116 @@
+.polls {
+  $block: unquote("#{&}");
+  background-color: $color-green-lime;
+  padding: 2em 0;
+  @include for-size(tablet-landscape-up) {
+    background-color: $color-green-lime;
+    margin: -1.5em 0;
+    padding: 5em 5.5% 6em;
+  }
+  &__wrapper {
+    background-color: #fff;
+    padding: 15px 0;
+    position: relative;
+    @include for-size(tablet-landscape-up) {
+      margin: 0 auto;
+      padding: 2em 15% 2em 2em;
+      width: 80%;
+    }
+    .heading__headline {
+      padding: 0 15px;
+    }
+    .polls__form,
+    .surveys__form { //Form Poll variable class not picked up.
+      padding: 0 1em;
+    }
+  }
+  &__answers {
+    margin: 0.313em 0;
+  }
+  &__inner {
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+    aside {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+        @include for-size(tablet-landscape-up) {
+          margin: 0 2em 0 0;
+          order: 1;
+        }
+    }
+    section {
+      width: 100%;
+      input {
+        width: 100%;
+      }
+      @include for-size(tablet-landscape-up) {
+        display: inline-block;
+        order: 2;
+      }
+    }
+  }
+  &__image {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+  &__terms {
+    .call-to-action__item-text {
+      color: $color-cyan_shade1;
+      text-align: left;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-position: under;
+      display: inline-block;
+      padding: $spacer-small;
+      &:active, &:hover, &:focus {
+        color: $color-pink;
+      }
+    }
+  }
+  &__choices {
+    &-title {
+      display: block;
+      font-size: $font-x-medium;
+    }
+    &-percentage {
+      display: block;
+      background: $color-gray-light;
+      border-radius: 20px;
+      margin: $spacer-half 0 0;
+    }
+    &-bar {
+      background: $color-yellow-gorse;
+      border-radius: $spacer-multiple;
+    }
+    &-subtitle {
+      font-size: $font-x-medium;
+      display: block;
+      vertical-align: middle;
+      padding: $spacer-small $spacer-half;
+    }
+  }
+  &--homepage {
+    &:before {
+      @include for-size(tablet-landscape-up) {
+        background-image: url(/static/img/patterns/ninyampinga/patterns.png);
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 900px;
+        content: " ";
+        display: block;
+        width: 30%;
+        height: 560px;
+        position: absolute;
+        right: 0;
+        margin: -7.5em 0px;
+      }
+    }
+  }
+  .choice-group {
+    display: inline-block;
+    margin: 0 15px;
+  }
+}

@@ -1,0 +1,137 @@
+form {
+  overflow: auto;
+  fieldset {
+    border: none;
+    margin: 10px 0;
+    padding: 0;
+    text-align: left;
+  }
+  .input-group {
+    overflow: auto;
+    span {
+      padding: 5px 5px 0;
+      display: block;
+      font-style: italic;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        padding: 5px 0;
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
+label {
+  font-size: 16px;
+  color: #141414;
+  font-weight: bold;
+  cursor: pointer;
+}
+.profile__alias,
+.profile__dob {
+  margin: 0;
+}
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select {
+  padding: 10px;
+  font-size: 18px;
+  border: 1px #D6D6D6 solid;
+  width: 90%;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+[type="checkbox"],
+[type="radio"] {
+    @extend %gem__checkbox;
+}
+input.btn-wide {
+  width: 100%;
+  cursor: pointer;
+}
+
+select {
+  height: 40px;
+  width: 97%;
+  margin: 0 0 16px 0;
+  display: block;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
+textarea {
+  display: block;
+  width: 95%;
+  font-size: 14px;
+  padding: 5px;
+}
+
+button, input[type=submit],
+.button, .gem-polls a,
+.search__submit {
+  display: inline-block;
+  background: #ed008c;
+  font-family: 'TwCenMT';
+  color: #fff;
+  border: 0;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 5px 0 15px;
+  height: auto;
+  line-height: 1.3333;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  @media screen and (min-width:480px) {
+    padding: 10px 24px;
+    font-size: 18px;
+  }
+}
+.error {color: red;}
+.input-error {border: solid 1px red;}
+.label-wide, .input-wide {
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+}
+#id_terms_and_conditions {
+  display: inline;
+  width: auto;
+  margin: 0 10px 0;
+  vertical-align: middle;
+}
+.call-to-action__nav-item--challenge-heading {
+  text-align: center;
+}
+.helptext {
+  font-weight: normal;
+  margin: 10px 0;
+}
+.input-hint,
+.sigin-form__input-hint {
+  color: #777;
+  font-size: 16px;
+  display: block;
+}
+
+.terms-and-conditions {
+    &__field {
+      @extend %gem__field;
+    }
+}

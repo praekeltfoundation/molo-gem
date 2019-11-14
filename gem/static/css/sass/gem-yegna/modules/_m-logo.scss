@@ -1,0 +1,28 @@
+.logo {
+  $block: unquote("#{&}");
+  z-index: 999999;
+  padding: 1em 0;
+  text-align: center;
+  @media screen and (min-width: 64.000em) {
+    left: 5%;
+    order: 1;
+    bottom: -2em;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+  }
+  @media screen and(min-width: 80.000em) {
+    left: 8%;
+  }
+  &__anchor {
+    display: block;
+    &:active, &:hover, &:focus {
+      opacity: 1;
+      transition: opacity 100ms ease-in-out;
+    }
+  }
+  &__image {
+    width: auto;
+    height: auto;
+  }
+}

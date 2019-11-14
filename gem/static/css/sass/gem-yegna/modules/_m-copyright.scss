@@ -1,0 +1,37 @@
+.copyright {
+  color: $color-gray;
+  font-size: $font-x-small;
+  text-align: center;
+  font-weight: bold;
+  padding: 1.5em 1em;
+  clear: both;
+  @include for-size(tablet-portrait-up) {
+    color: #000;
+    padding: $spacer-half 1em;
+    text-align: left;
+  }
+  @include for-size(tablet-landscape-up) {
+    padding: $spacer-half 8%;
+  }
+  &__content {
+    display: inline-block;
+    margin: 0;
+  }
+  &__link {
+    color: #000;
+    display: inline-block;
+    &:active, &:hover, &:focus {
+      color: $color-pink;
+      transition: color 100ms ease-in-out;
+    }
+    &--credit {
+      color: $color-gray;
+      text-align: center;
+      @include for-size(tablet-portrait-up) {
+        color: #000;
+        float: right;
+        text-align: right;
+      }
+    }
+  }
+}

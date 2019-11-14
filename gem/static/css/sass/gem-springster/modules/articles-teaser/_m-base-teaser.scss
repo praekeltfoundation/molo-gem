@@ -1,0 +1,35 @@
+.base-teaser {
+    &__thumbnail-link {
+      cursor: pointer;
+      outline: none;
+      vertical-align: top;
+      img {
+        width: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    &__title {
+      font-size: $font-x-small;
+      @each $language in $languages {
+        &:lang(#{$language}) {
+          font-size: $font-large;
+        }
+      }
+      font-weight: bold;
+      padding: 0;
+      line-height: 1.2;
+      &-link {
+        color: $charcoal-grey;
+      }
+    }
+
+    &__subtitle {
+      color: $slate-grey;
+      font-size: $font-xx-small;
+      text-transform: none;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+}

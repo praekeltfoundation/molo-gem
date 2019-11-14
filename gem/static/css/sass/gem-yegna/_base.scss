@@ -1,0 +1,49 @@
+html, body {
+  background-color: #fff;
+  height: auto;
+}
+body {
+  font-size: 14px;
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.5;
+  overflow: auto;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  @media screen and (min-width: 20.000em) {
+    font-size: 16px;
+  }
+}
+h1, h2, h3, h4, h5, h6  {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  &:visited {
+    @include for-size(tablet-landscape-up) {
+      outline: none;
+    }
+  }
+}
+
+::after, ::before {
+  @media screen and (min-width: 62.000em) {
+    box-sizing: content-box;
+  }
+}
+
+.main-page {
+  @media screen and (min-width: 62.000em) {
+    background: url("/static/img/patterns/yegna/home-bg.svg") no-repeat center/100%;
+  }
+}
+*:focus {
+  @media screen and (min-width: 20.000em) {
+    outline: none;
+  }
+}
