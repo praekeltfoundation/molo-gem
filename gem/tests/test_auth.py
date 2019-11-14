@@ -18,7 +18,7 @@ from gem.views import (
     CustomAuthenticationRequestView)
 from wagtail.core import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 urlpatterns = [
     url(r'^admin/login/', RedirectWithQueryStringView.as_view(

@@ -71,7 +71,7 @@ if not USE_OIDC_AUTHENTICATION:
 
     CAS_SERVER_URL = ''
     CAS_ADMIN_PREFIX = '/admin/'
-    CAS_VERSION = '3'
+    CAS_VERSION = '2'
 
 
 COMPRESS_OFFLINE_CONTEXT = {  # noqa

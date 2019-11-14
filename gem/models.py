@@ -16,7 +16,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class OIDCSettings(models.Model):
-    site = models.OneToOneField(Site)
+    site = models.OneToOneField(Site, on_delete=models.CASCADE)
     oidc_rp_client_id = models.CharField(max_length=255)
     oidc_rp_client_secret = models.CharField(max_length=255)
     oidc_rp_scopes = models.CharField(
@@ -134,9 +134,9 @@ class GemSettings(BaseSetting):
 
 
 class GemCommentReport(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    comment = models.ForeignKey(MoloComment)
+    comment = models.ForeignKey(MoloComment, on_delete=models.CASCADE)
 
     reported_reason = models.CharField(
         max_length=128, blank=False)
