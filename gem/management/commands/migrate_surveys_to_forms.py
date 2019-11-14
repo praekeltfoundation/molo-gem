@@ -29,14 +29,16 @@ class Command(BaseCommand):
         for main in Main.objects.all():
             print("*"*10, "Migrating Surveys in", main, "*"*10,)
             surveys_index = SurveysIndexPage.objects.child_of(main).first()
-            forms_index = FormsIndexPage.objects.child_of(main).first()
+            forms_index = FormsIndexPage.objects.descendant_of(main).filter(
+                slug='surveys-indexpage').first()
             surveys_tc = TermsAndConditionsIndexPage.objects.child_of(
                 surveys_index).first()
 
             # Copy the Survey Ts&Cs to Forms
             if surveys_tc:
-                forms_tc = FormsTermsAndConditionsIndexPage(
-                    title="Form Terms And Conditions Index Page")
+                forms_tc = FormsTermsAndConditionsIndexPage.objects.filter(
+                    slug='terms-conditions-indexpage').child_of(
+                        forms_index).first()
                 forms_index.add_child(instance=forms_tc)
                 forms_tc.save_revision().publish()
                 for footerpage in FooterPage.objects.child_of(surveys_tc):
@@ -109,6 +111,7 @@ class Command(BaseCommand):
                             form_field_dict[item[0]] = item[1]
                     form_field_dict['page_id'] = form.id
                     del form_field_dict['_state']
+                    del form_field_dict['id']
 
                     MoloFormField.objects.create(**form_field_dict)
 
@@ -119,6 +122,7 @@ class Command(BaseCommand):
                             submission_dict[item[0]] = item[1]
 
                         del submission_dict['_state']
+                        del submission_dict['id']
                         submission_dict['submit_time'] = submission_dict[
                             'created_at']
                         del submission_dict['created_at']
@@ -210,6 +214,7 @@ class Command(BaseCommand):
                         for item in submission.__dict__.items():
                             submission_dict[item[0]] = item[1]
                         del submission_dict['_state']
+                        del submission_dict['id']
                         submission_dict['submit_time'] = \
                             submission_dict['created_at']
                         del submission_dict['created_at']
@@ -245,10 +250,10 @@ class Command(BaseCommand):
         print("Migration of User Group is Done")
 
         # Migrate Survey Page View
-        for view in MoloSurveyPageView.objects.all():
+        for view in MoloSurveyPageView.objects.all().iterator():
             view_dict = {}
             for item in view.__dict__.items():
-                if item[0] not in ('_state'):
+                if item[0] not in ('id', '_state'):
                     view_dict[item[0]] = item[1]
             form_page_view = MoloFormPageView(**view_dict)
             form_page_view.save()
@@ -257,11 +262,11 @@ class Command(BaseCommand):
         print("Migration of PageView is Done")
 
         # Migrate Survey Rules to Form
-        for segment in Segment.objects.all():
-            submission_rule = \
+        for segment in Segment.objects.all().iterator():
+            submission_rules = \
                 SurveySubmissionDataRule.objects.filter(
-                    segment_id=segment.id).first()
-            if submission_rule:
+                    segment_id=segment.id).all()
+            for submission_rule in submission_rules:
                 rule_dict = {}
                 for item in submission_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -276,9 +281,9 @@ class Command(BaseCommand):
                 submission_rule.delete()
                 segment.save()
 
-            response_rule = SurveyResponseRule.objects.filter(
-                segment_id=segment.id).first()
-            if response_rule:
+            response_rules = SurveyResponseRule.objects.filter(
+                segment_id=segment.id).all()
+            for response_rule in response_rules:
                 rule_dict = {}
                 for item in response_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -293,9 +298,9 @@ class Command(BaseCommand):
                 response_rule.delete()
                 segment.save()
 
-            article_rule = ArticleTagRule.objects.filter(
-                segment_id=segment.id).first()
-            if article_rule:
+            article_rules = ArticleTagRule.objects.filter(
+                segment_id=segment.id).all()
+            for article_rule in article_rules:
                 rule_dict = {}
                 for item in article_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -304,9 +309,9 @@ class Command(BaseCommand):
                 article_rule.delete()
                 segment.save()
 
-            combination_rule = CombinationRule.objects.filter(
-                segment_id=segment.id).first()
-            if combination_rule:
+            combination_rules = CombinationRule.objects.filter(
+                segment_id=segment.id).all()
+            for combination_rule in combination_rules:
                 rule_dict = {}
                 for item in combination_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
@@ -315,9 +320,9 @@ class Command(BaseCommand):
                 combination_rule.delete()
                 segment.save()
 
-            group_rule = GroupMembershipRule.objects.filter(
-                segment_id=segment.id).first()
-            if group_rule:
+            group_rules = GroupMembershipRule.objects.filter(
+                segment_id=segment.id).all()
+            for group_rule in group_rules:
                 rule_dict = {}
                 for item in group_rule.__dict__.items():
                     if item[0] not in ('id', '_state'):
