@@ -210,32 +210,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         return response
 
 
-class ChhaaJaaLoginMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if not request.user.is_authenticated \
-                and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
-                and (
-                    'login' not in request.path and
-                    'auth' not in request.get_host() and
-                    'auth' not in request.path and
-                    'oidc' not in request.path and
-                    'logout' not in request.path and
-                    'profiles' not in request.path and
-                    'admin' not in request.path):
-            terms_and_conditions = UserProfilesSettings.for_site(
-                request.site).terms_and_conditions
-            if not (
-                    terms_and_conditions and
-                    terms_and_conditions.slug in request.path):
-                query_string = request.META['QUERY_STRING']
-                if query_string:
-                    next_value = request.path + '?%s' % query_string
-                else:
-                    next_value = request.path
-                return redirect_to_login(
-                    next=next_value, login_url=settings.LOGIN_URL)
-
-
 class CustomSessionRefresh(SessionRefresh):
     """
     Customised version of mozilla_django_oidc.middleware.SessionRefresh
