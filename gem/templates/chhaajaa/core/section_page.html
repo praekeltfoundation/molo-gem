@@ -11,7 +11,7 @@
           <h1 class="heading__component">{{section.title}}</h1>
         </div>
         <div class="section-page__wrapper section-service__wrapper">
-          {% load_child_articles_for_section section as services %}
+          {% load_child_articles_for_section section count=8 as services %}
           <ul class="teaser-stacklist">
             {% for service in services %}
               <li class="teaser-stacklist__item">
@@ -75,6 +75,23 @@
               </li>
             {% endfor %}
           </ul>
+          {% if services and articles_paginated.paginator.num_pages > 1 %}
+            <div class="pagination">
+              {% if articles_paginated.has_previous %}
+                <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                  {% trans "Previous" %}
+                </a>
+              {% endif %}
+              <p class="call-to-action__item call-to-action__item--text">
+                {% trans "Pages" %} <span class="call-to-action__counter">{{ articles_paginated.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{articles_paginated.paginator.num_pages }}</span>
+              </p>
+              {% if articles_paginated.has_next %}
+                <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
+                  {% trans "Newer" %}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
       {% else %}
         <div class="section-page__images">
@@ -242,7 +259,6 @@
                             </p>
                           {% endif %}
                         {% endfor %}
-
                       </div>
                     </li>
                   {% endfor %}
@@ -308,7 +324,6 @@
                 {% include "comments/comment_block.html" %}
               {% endfor %}
             </div>
-
           </div>
         </div>
       {% endif %}
