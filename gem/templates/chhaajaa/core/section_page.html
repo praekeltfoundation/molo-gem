@@ -12,46 +12,46 @@
         </div>
         <div class="section-page__wrapper section-service__wrapper">
           {% load_child_articles_for_section section count=8 as services %}
-          <ul class="teaser-stacklist">
+          <ul class="service-stacklist">
             {% for service in services %}
-              <li class="teaser-stacklist__item">
+              <li class="service-stacklist__item">
                 {% for block in service.body %}
                   {% if block.value.type == "video" %}
                     {% if block.value.youtube_link %}
-                      <div class="teaser-stacklist__iframe">
+                      <div class="service-stacklist__iframe">
                         {% embed block.value.youtube_link %}
                       </div>
                       {% endif %}
                   {% else %}
                     {% if forloop.last and service.get_effective_image %}
-                      <div class="teaser-stacklist__images">
+                      <div class="service-stacklist__images">
                         {% image service.get_effective_image width-1980 format-jpeg as teaser_thumbnail %}
-                        <img alt="{{ service.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                        <img alt="{{ service.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__thumbnail"/>
                       </div>
                     {% endif %}
                   {% endif %}
                 {% endfor %}
 
 
-                <div class="teaser-stacklist__container">
-                  <div class="teaser-stacklist__main">
-                    <h2 class="teaser-stacklist__title-secondary">{{ service.title|smarttruncatechars:100|safe}}</h2>
+                <div class="service-stacklist__container">
+                  <div class="service-stacklist__main">
+                    <h2 class="service-stacklist__title-secondary">{{ service.title|smarttruncatechars:100|safe}}</h2>
                     {% if service.subtitle %}
-                      <h6 class="teaser-stacklist__subtitle">
+                      <h6 class="service-stacklist__subtitle">
                         {{ service.subtitle}}
                       </h6>
                     {% endif %}
 
                     {% for block in service.body %}
                       {% if not block.block_type == 'media' %}
-                        <p class="teaser-stacklist__excerpt">
+                        <p class="service-stacklist__excerpt">
                           {{block.value}}
                         </p>
                       {% endif %}
                     {% endfor %}
 
                   </div>
-                  <div class="teaser-stacklist__cta-buttons">
+                  <div class="service-stacklist__cta-buttons">
                     {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                       <div class="share__item">
                         <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
