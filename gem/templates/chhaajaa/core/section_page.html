@@ -34,9 +34,11 @@
 
                 <div class="service-stacklist__container">
                   <div class="service-stacklist__main">
-                    <h2 class="service-stacklist__title-secondary">
-                      {{ service.title|smarttruncatechars:45|safe}}
-                    </h2>
+                    <a href="{% pageurl service.specific %}">
+                      <h2 class="service-stacklist__title-secondary">
+                        {{ service.title|smarttruncatechars:45|safe}}
+                      </h2>
+                    </a>
                     {% if service.subtitle %}
                       <h6 class="service-stacklist__subtitle">
                         {{ service.subtitle|smarttruncatechars:100|safe}}

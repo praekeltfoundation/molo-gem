@@ -2,153 +2,228 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags molo_forms_tags %}
 
 {% block content %}
-<div class="article-page">
-  <div class="article-page__wrapper">
-    <div class="content--left">
-      <div class="article-teaser">
-        <div class="article-teaser__wrapper">
-          <ul class="teaser-stacklist">
-            <li class="teaser-stacklist__item">
-              {# <!-- REVIEW IMAGE BACKUP --> #}
-              {% for block in self.body %}
-                {% if block.value.type == "video" %}
-                  {% if block.value.youtube_link %}
-                    <div class="teaser-stacklist__iframe">
-                      {% embed block.value.youtube_link %}
+  <div class="article-page article-page--service">
+    {% with parent_section=self.get_parent_section %}
+      {% content_is parent_section "Service Aggregator" as parent_service_section %}
+      {% if parent_service_section %}
+        <div class="article-teaser">
+          {% for block in self.body %}
+            {% if block.value.type == "video" %}
+              {% if block.value.youtube_link %}
+                <div class="teaser-stacklist__iframe">
+                  {% embed block.value.youtube_link %}
+                </div>
+                {% endif %}
+            {% else %}
+              {% if self.get_effective_image %}
+                <div class="teaser-stacklist__images">
+                  {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                  <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          <div class="teaser-stacklist__container">
+            <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
+            <div class="teaser-stacklist__cta-buttons">
+              {% load_reaction_question self as question %}
+              {% if question %}
+                <div class="reaction-questions">
+                  <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="reaction-questions__list">
+                      {% load_choices_for_reaction_question question as choices %}
+                        {% for choice in choices %}
+                          {% load_user_choice_reaction_question question self choice as user_has_chosen %}
+                          {% if user_has_chosen %}
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                          {% else %}
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                          {% endif %}
+                              <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                                {% image choice.specific.image width-50 as reaction__icon %}
+                                <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                {{ choice.title|capfirst }}
+                              </label>
+                            </span>
+                        {% endfor %}
                     </div>
-                    {% endif %}
-                {% else %}
-                  {% if forloop.last and self.get_effective_image %}
-                    <div class="teaser-stacklist__images">
-                      {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                  </form>
+                </div>
+              {% endif %}
+
+              {% if self.is_commenting_enabled %}
+                {% if self.allow_commenting %}
+                  {% if request.user.is_authenticated %}
+                    <div class="comments__item">
+                      <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
                     </div>
                   {% endif %}
                 {% endif %}
-              {% endfor %}
-              {# <!-- END REVIEW IMAGE BACKUP --> #}
-
-              <div class="teaser-stacklist__container">
-                <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
-                <div class="teaser-stacklist__cta-buttons">
-                  {% load_reaction_question self as question %}
-                  {% if question %}
-                    <div class="reaction-questions">
-                      <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-                        {% csrf_token %}
-                        <div class="reaction-questions__list">
-                          {% load_choices_for_reaction_question question as choices %}
-                            {% for choice in choices %}
-                              {% load_user_choice_reaction_question question self choice as user_has_chosen %}
-                              {% if user_has_chosen %}
-                                <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                              {% else %}
-                                <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                              {% endif %}
-                                  <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                                    {% image choice.specific.image width-50 as reaction__icon %}
-                                    <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                                    {{ choice.title|capfirst }}
-                                  </label>
-                                </span>
-                            {% endfor %}
-                        </div>
-                      </form>
-                    </div>
-                  {% endif %}
-                  <div class="vote__item">
-                    <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                  </div>
-                  {% if self.is_commenting_enabled %}
-                    {% if self.allow_commenting %}
-                      {% if request.user.is_authenticated %}
-                        <div class="comments__item">
-                          <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
-                        </div>
-                      {% endif %}
-                    {% endif %}
-                  {% endif %}
-
+              {% endif %}
+            </div>
+            {% if self.subtitle %}
+              <h4 class="teaser-stacklist__subtitle">{{ self.subtitle }}</h4>
+            {% endif %}
+            {% for block in self.body %}
+              {% if not block.block_type == 'media' %}
+                <div class="teaser-stacklist__excerpt">
+                  {{block.value}}
                 </div>
-                {% if self.subtitle %}
-                  <h4 class="teaser-stacklist__subtitle">{{ self.subtitle|smarttruncatechars:150|safe}}</h4>
-                {% endif %}
-                {% for block in self.body %}
-                  {% if not block.block_type == 'media' %}
-                    <div class="teaser-stacklist__excerpt">
-                      {{block.value}}
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      {% forms_list_for_pages page=self %}
-    </div>
-    <div class="content--right">
-      {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
-      <div class="article-teaser">
-        <div class="heading heading--hero">
-          <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
-        </div>
-        <div class="article-teaser__wrapper">
-          {% get_translation self.get_parent_section as section %}
-          {% content_is section "Videos" as is_video_section %}
-          {% if not is_video_section %}
-            {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
-          {% else %}
-            {% load_child_articles_for_section section as articles %}
-          {% endif %}
-
-          <ul class="teaser-grid">
-            {% for article in articles %}
-              <li class="teaser-grid__item">
-                {% for block in article.body %}
-                  {% if block.value.type == "video" %}
-                    {% if block.value.youtube_link %}
-                      <div class="teaser-grid__iframe">
-                        {% embed block.value.youtube_link %}
-                      </div>
-                      {% endif %}
-                  {% else %}
-                    {% if forloop.last and article.get_effective_image %}
-                      <div class="teaser-grid__images">
-                        <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-                          {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
-                        </a>
-                      </div>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-                <div class="teaser-grid__container">
-                  <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
-                    <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
-                  </a>
-                  {% for block in article.body %}
-                    {% if block.value.type == "video" %}
-                      {% with block.value as media %}
-                        <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
-                      {% endwith %}
-                    {% endif %}
-                  {% endfor %}
-                  {% if article.subtitle %}
-                    <p class="teaser-grid__subtitle">
-                      {{ article.subtitle|smarttruncatechars:50|safe}}
-                    </p>
-                  {% endif %}
-                </div>
-              </li>
+              {% endif %}
             {% endfor %}
-          </ul>
-          {% include "comments/comment_block.html" with article=self %}
+          </div>
         </div>
-      </div>
-    </div>
+      {% else %}
+        <div class="article-page__wrapper">
+          <div class="content--left">
+            <div class="article-teaser">
+              <div class="article-teaser__wrapper">
+                <ul class="teaser-stacklist">
+                  <li class="teaser-stacklist__item">
+                    {# <!-- REVIEW IMAGE BACKUP --> #}
+                    {% for block in self.body %}
+                      {% if block.value.type == "video" %}
+                        {% if block.value.youtube_link %}
+                          <div class="teaser-stacklist__iframe">
+                            {% embed block.value.youtube_link %}
+                          </div>
+                          {% endif %}
+                      {% else %}
+                        {% if forloop.last and self.get_effective_image %}
+                          <div class="teaser-stacklist__images">
+                            {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                            <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                    {# <!-- END REVIEW IMAGE BACKUP --> #}
+
+                    <div class="teaser-stacklist__container">
+                      <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
+                      <div class="teaser-stacklist__cta-buttons">
+                        {% load_reaction_question self as question %}
+                        {% if question %}
+                          <div class="reaction-questions">
+                            <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                              {% csrf_token %}
+                              <div class="reaction-questions__list">
+                                {% load_choices_for_reaction_question question as choices %}
+                                  {% for choice in choices %}
+                                    {% load_user_choice_reaction_question question self choice as user_has_chosen %}
+                                    {% if user_has_chosen %}
+                                      <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                                    {% else %}
+                                      <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                                    {% endif %}
+                                        <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                                          {% image choice.specific.image width-50 as reaction__icon %}
+                                          <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                          {{ choice.title|capfirst }}
+                                        </label>
+                                      </span>
+                                  {% endfor %}
+                              </div>
+                            </form>
+                          </div>
+                        {% endif %}
+                        <div class="vote__item">
+                          <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                        </div>
+                        {% if self.is_commenting_enabled %}
+                          {% if self.allow_commenting %}
+                            {% if request.user.is_authenticated %}
+                              <div class="comments__item">
+                                <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+                              </div>
+                            {% endif %}
+                          {% endif %}
+                        {% endif %}
+
+                      </div>
+                      {% if self.subtitle %}
+                        <h4 class="teaser-stacklist__subtitle">{{ self.subtitle|smarttruncatechars:150|safe}}</h4>
+                      {% endif %}
+                      {% for block in self.body %}
+                        {% if not block.block_type == 'media' %}
+                          <div class="teaser-stacklist__excerpt">
+                            {{block.value}}
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {% forms_list_for_pages page=self %}
+          </div>
+          <div class="content--right">
+            {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
+            <div class="article-teaser">
+              <div class="heading heading--hero">
+                <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+              </div>
+              <div class="article-teaser__wrapper">
+                {% get_translation self.get_parent_section as section %}
+                {% content_is section "Videos" as is_video_section %}
+                {% if not is_video_section %}
+                  {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
+                {% else %}
+                  {% load_child_articles_for_section section as articles %}
+                {% endif %}
+
+                <ul class="teaser-grid">
+                  {% for article in articles %}
+                    <li class="teaser-grid__item">
+                      {% for block in article.body %}
+                        {% if block.value.type == "video" %}
+                          {% if block.value.youtube_link %}
+                            <div class="teaser-grid__iframe">
+                              {% embed block.value.youtube_link %}
+                            </div>
+                            {% endif %}
+                        {% else %}
+                          {% if forloop.last and article.get_effective_image %}
+                            <div class="teaser-grid__images">
+                              <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                                {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
+                              </a>
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                      <div class="teaser-grid__container">
+                        <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
+                          <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
+                        </a>
+                        {% for block in article.body %}
+                          {% if block.value.type == "video" %}
+                            {% with block.value as media %}
+                              <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
+                            {% endwith %}
+                          {% endif %}
+                        {% endfor %}
+                        {% if article.subtitle %}
+                          <p class="teaser-grid__subtitle">
+                            {{ article.subtitle|smarttruncatechars:50|safe}}
+                          </p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+                {% include "comments/comment_block.html" with article=self %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
   </div>
-</div>
+
   {% block extra_js %}
     <script type="text/javascript">
       var frm = $('#reaction-questions__form');
