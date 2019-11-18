@@ -62,17 +62,13 @@
           {% if services and articles_paginated.paginator.num_pages > 1 %}
             <div class="pagination">
               {% if articles_paginated.has_previous %}
-                <a href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary">
-                  {% trans "Previous" %}
-                </a>
+                <a id="prev" href="?p={{ articles_paginated.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
               {% endif %}
               <p class="call-to-action__item call-to-action__item--text">
                 {% trans "Pages" %} <span class="call-to-action__counter">{{ articles_paginated.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{articles_paginated.paginator.num_pages }}</span>
               </p>
               {% if articles_paginated.has_next %}
-                <a href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary">
-                  {% trans "Next" %}
-                </a>
+                <a id="next" href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
               {% endif %}
             </div>
           {% endif %}
