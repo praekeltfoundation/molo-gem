@@ -9,7 +9,6 @@ from django.utils.http import urlencode
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http.response import Http404
-from django.contrib.auth.views import redirect_to_login
 from django.utils.translation import get_language_from_request
 
 from django.urls import reverse
@@ -18,13 +17,11 @@ from django.utils.deprecation import MiddlewareMixin
 from molo.core.utils import get_locale_code
 from molo.core.models import SiteSettings, ArticlePage, Languages
 from molo.core.templatetags.core_tags import load_tags_for_article
-from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 from molo.core.middleware import (
     MoloGoogleAnalyticsMiddleware, LoginRquiredMiddleware)
-
 
 from gem.models import GemSettings
 

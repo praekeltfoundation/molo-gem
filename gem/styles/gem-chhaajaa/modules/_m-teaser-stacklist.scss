@@ -9,6 +9,9 @@
   }
   &__excerpt {
     display: inline-block;
+    @media screen and (min-width: 45.000em) {
+      padding: 0 10% 0 0;
+    }
   }
   &__cta-buttons {
     margin: 10px 0;
@@ -21,6 +24,11 @@
   }
   &__images {
     height: auto;
+    overflow: hidden;
+    height: 200px;
+    @media screen and (min-width: 45.000em) {
+      height: auto;
+    }
   }
   &__thumbnail {
     height: auto;
@@ -48,15 +56,17 @@
     font-family: "FedraSansDevanagariB-Bold";
     padding: 0 10px 0;
     display: inline;
-    font-size: 34px;
+    font-size: 30px;
     &-secondary {
       color: $colorPink;
     }
   }
   &__subtitle {
-    font-family: "FedraSansDevanagariB-Medium";
     font-size: 18px;
     margin: 1em 0;
+    @media screen and (min-width: 45.000em) {
+      margin: 1em 35% 1em 0;
+    }
   }
   &__anchor {
     display: inline;

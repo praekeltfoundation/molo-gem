@@ -172,9 +172,9 @@ MIDDLEWARE = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
-    'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'gem.middleware.ChhaaJaaLoginMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage'
 ]
+
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('banned_keywords_and_patterns', models.TextField(help_text=b'Banned keywords and patterns for comments, separated by a line a break. Use only lowercase letters for keywords.', null=True, verbose_name=b'Banned Keywords and Patterns', blank=True)),
-                ('site', models.OneToOneField(editable=False, to='wagtailcore.Site')),
+                ('site', models.OneToOneField(editable=False, to='wagtailcore.Site', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,

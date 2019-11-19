@@ -64,6 +64,26 @@
       <img height="1" width="1"src="https://www.facebook.com/tr?id=2468162103426122&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Facebook Pixel Code -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '{your-pixel-id-goes-here}');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id={your-pixel-id-goes-here}&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
     {% if user.is_authenticated %}
       <script>
         window.dataLayer = window.dataLayer || [];
@@ -93,20 +113,20 @@
     <nav class="navbar">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated %}{% endif %}
           <span class="sr-only">{% trans "Menu" %}</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          {% endif %}
         </button>
         <a class="navbar-brand" href="/">
           <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
         </a>
       </div>
-      {% if user.is_authenticated %}
+
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
+          <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
             {% load_sections as sections %}
             {% for section in sections %}
@@ -116,6 +136,8 @@
               </li>
             {% endfor %}
           </ul>
+
+          <!-- MOBILE NAV -->
           <ul class="navbar-nav__item">
             <li class="navbar-nav__option">
               <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
@@ -141,12 +163,13 @@
           </ul>
         </div>
       </div>
-      {% endif %}
+
     </nav>
   </header>
   <div class="wrapper">
     {% block content %}{% endblock %}
   </div>
+
   <footer class="footer_area">
     <div class="pull-left">
       <a href="/" class="footer__logo">
@@ -154,9 +177,8 @@
       </a>
       <p class="copyright__disclaimer">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
-    {% if user.is_authenticated %}
-      {% footer_page %}
-    {% endif %}
+
+    {% footer_page %}
     <div class="call-to-action call-to-action--backToTop">
       <a href="#" class="call-to-action__item--label">{% trans "Go to top" %}</a>
     </div>
