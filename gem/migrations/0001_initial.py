@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GemUserProfile',
             fields=[
-                ('user', models.OneToOneField(related_name='gem_profile', primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(related_name='gem_profile', primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
                 ('gender', models.CharField(blank=True, max_length=1, null=True, choices=[(b'f', b'female'), (b'm', b'male'), (b't', b'trans')])),
             ],
         ),

@@ -46,11 +46,11 @@ def add_molo_forms_permissions(apps, schema_editor):
         content_type_id=FormsSegmentUserGroup.pk)
 
     add_segmentusergroup = get_permission(
-        Permission, 'add_segmentusergroup')
+        Permission, 'add_segmentusergroup', FormsSegmentUserGroup)
     change_segmentusergroup = get_permission(
-        Permission, 'change_segmentusergroup')
+        Permission, 'change_segmentusergroup', FormsSegmentUserGroup)
     delete_segmentusergroup = get_permission(
-        Permission, 'delete_segmentusergroup')
+        Permission, 'delete_segmentusergroup', FormsSegmentUserGroup)
 
     add_segment = get_permission(Permission, 'add_segment')
     change_segment = get_permission(Permission, 'change_segment')
@@ -86,8 +86,11 @@ def get_or_create_group(Group, group_name):
     return group
 
 
-def get_permission(Permission, code_name):
-    return Permission.objects.get(codename=code_name)
+def get_permission(Permission, code_name, content_type=None):
+    kw = dict(codename=code_name)
+    if content_type:
+        kw.update({'content_type_id': content_type.pk})
+    return Permission.objects.get(**kw)
 
 
 def create_page_permission(GroupPagePermission, group, pages, page_permission_type):
