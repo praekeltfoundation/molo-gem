@@ -24,7 +24,6 @@ from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 
-
 from gem.models import GemSettings
 
 
