@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from django.test import RequestFactory, TestCase
 from django.test.client import Client
 
@@ -7,12 +5,10 @@ from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
 
 from mock import patch
-from os.path import join
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from molo.core.models import SiteSettings
-from molo.profiles.models import UserProfilesSettings
 from gem.tests.base import GemTestCaseMixin
 
 from molo.core.models import (
@@ -20,7 +16,7 @@ from molo.core.models import (
     SectionIndexPage, TagIndexPage, FooterIndexPage,
     FooterPage, SiteLanguageRelation, Site, Languages)
 
-    
+
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
     submit_tracking_method = (
