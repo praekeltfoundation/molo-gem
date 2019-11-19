@@ -9,7 +9,6 @@ from django.utils.http import urlencode
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 from django.http.response import Http404
-from django.contrib.auth.views import redirect_to_login
 from django.utils.translation import get_language_from_request
 
 from django.urls import reverse
@@ -18,12 +17,10 @@ from django.utils.deprecation import MiddlewareMixin
 from molo.core.utils import get_locale_code
 from molo.core.models import SiteSettings, ArticlePage, Languages
 from molo.core.templatetags.core_tags import load_tags_for_article
-from molo.profiles.models import UserProfilesSettings
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
-
 
 from gem.models import GemSettings
 
@@ -208,32 +205,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         response = self.submit_to_global_account(
             request, response, site_settings)
         return response
-
-
-class ChhaaJaaLoginMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if not request.user.is_authenticated \
-                and settings.SITE_LAYOUT_BASE == 'chhaajaa' \
-                and (
-                    'login' not in request.path and
-                    'auth' not in request.get_host() and
-                    'auth' not in request.path and
-                    'oidc' not in request.path and
-                    'logout' not in request.path and
-                    'profiles' not in request.path and
-                    'admin' not in request.path):
-            terms_and_conditions = UserProfilesSettings.for_site(
-                request.site).terms_and_conditions
-            if not (
-                    terms_and_conditions and
-                    terms_and_conditions.slug in request.path):
-                query_string = request.META['QUERY_STRING']
-                if query_string:
-                    next_value = request.path + '?%s' % query_string
-                else:
-                    next_value = request.path
-                return redirect_to_login(
-                    next=next_value, login_url=settings.LOGIN_URL)
 
 
 class CustomSessionRefresh(SessionRefresh):
