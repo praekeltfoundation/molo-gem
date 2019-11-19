@@ -1,14 +1,14 @@
 {% load wagtailcore_tags  core_tags gem_tags %}
 {% if footers %}
-<div class="pull-right">
-  <ul class="pull-right-list">
+<div class="footer--right">
+  <ul class="footer-list">
     {% for page in footers %}
       {% pageurl page.specific as footer_page %}
-      <li class="pull-right-list__item">
-        <a href="{{footer_page}}" class="pull-right-list__anchor{% if request.path == footer_page %} active{% endif %}">{{page.title}}</a>
+      <li class="footer-list__item">
+        <a href="{{footer_page}}" class="footer-list__anchor{% if request.path == footer_page %} active{% endif %}">{{page.title}}</a>
       </li>
     {% endfor %}
-    <li class="menu-list__item state-list__item">{% contact_forms_list %}</li>
+    <li class="footer-list__item">{% contact_forms_list %}</li>
   </ul>
 </div>
 {% endif %}
