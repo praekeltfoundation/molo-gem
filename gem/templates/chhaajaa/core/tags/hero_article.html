@@ -7,7 +7,7 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
-            
+
             {% if article.homepage_media %}
               {% for block in article.homepage_media %}
                 {% with block.value as media %}
@@ -124,39 +124,6 @@
           })
         }
       };
-      const Utils = {
-        addClass: function(element, theClass) {
-          element.classList.add(theClass);
-        },
-        removeClass: function(element, theClass) {
-          element.classList.remove(theClass);
-        },
-        showMore: function(element, excerpt) {
-          element.addEventListener("click", event => {
-            const linkText = event.target.textContent.toLowerCase();
-            event.preventDefault();
-              if (linkText == "show more") {
-                element.textContent = "Show less";
-                this.removeClass(excerpt, "excerpt-hidden");
-                this.addClass(excerpt, "excerpt-visible");
-              } else {
-                element.textContent = "Show more";
-                this.removeClass(excerpt, "excerpt-visible");
-                this.addClass(excerpt, "excerpt-hidden");
-              }
-          });
-        }
-      };
-      const ExcerptWidget = {
-        showMore: function(showMoreLinksTarget, excerptTarget) {
-          const showMoreLinks = document.querySelectorAll(showMoreLinksTarget);
-          showMoreLinks.forEach(function(link) {
-            const excerpt = link.previousElementSibling.querySelector(excerptTarget);
-            Utils.showMore(link, excerpt);
-          });
-        }
-      };
-      ExcerptWidget.showMore('.show-more', '.excerpt');
     </script>
   {% endblock %}
 </div>
