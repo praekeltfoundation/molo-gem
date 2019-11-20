@@ -103,7 +103,9 @@ class GemSettings(BaseSetting):
     fb_enable_chat_bot = models.BooleanField(
         default=False, help_text='Activate chat-bot for facebook messenger.')
 
-    enable_comment_threads = models.BooleanField(default=False)
+    enable_comment_threads = models.BooleanField(
+        default=False,
+        help_text='When enabled user comments will be shown on the front-end.')
 
     panels = [
         MultiFieldPanel(
