@@ -77,20 +77,16 @@
               {% endif %}
 
               <div class="container">
-                <div class="block">
-                  <div class="content">
-                    {% for block in article.body %}
-                      {% if not block.block_type == 'media' %}
-                        <div class="teaser-stacklist__excerpt excerpt excerpt-hidden">
-                          {{block.value}}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
+                {% for block in article.body %}
+                  {% if not block.block_type == 'media' %}
+                    <div class="teaser-stacklist__excerpt">
+                      {{block.value}}
+                    </div>
+                  {% endif %}
+                {% endfor %}
               </div>
-              <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
             </div>
+            <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
           </li>
         {% endfor %}
       </ul>
