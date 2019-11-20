@@ -10,27 +10,26 @@
       <ul class="teaser-grid">
         {% for article in articles %}
           <li class="teaser-grid__item">
-            {# <!-- REVIEW IMAGE BACKUP --> #}
-            {% for block in article.body %}
-              {% if block.value.type == "video" %}
-                {% if block.value.youtube_link %}
+            {% if article.homepage_media %}
+              {% for block in article.homepage_media %}
+                {% with block.value as media %}
                   <div class="teaser-grid__iframe">
-                    {% embed block.value.youtube_link %}
+                    {% if block.value.youtube_link %}
+                      {% embed media.youtube_link %}
+                    {% endif %}
                   </div>
-                  {% endif %}
-              {% else %}
-                {% if forloop.last and article.get_effective_image %}
-                  <div class="teaser-grid__images">
-                    <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
-                      {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail"/>
-                    </a>
-                  </div>
-                {% endif %}
+                {% endwith %}
+              {% endfor %}
+            {% else %}
+              {% if article.get_effective_image %}
+                <div class="teaser-grid__images">
+                  <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
+                    {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
+                  </a>
+                </div>
               {% endif %}
-            {% endfor %}
-            {# <!-- END REVIEW IMAGE BACKUP --> #}
-
+            {% endif %}
             <div class="teaser-grid__container">
               <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>

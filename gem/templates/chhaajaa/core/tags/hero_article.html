@@ -2,30 +2,32 @@
 {% get_settings %}
 {% if articles %}
   <div class="content--left">
-  <div class="article-teaser">
-    <div class="article-teaser__wrapper">
+    <div class="article-teaser">
+      <div class="article-teaser__wrapper">
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
-            {# <!-- REVIEW IMAGE BACKUP --> #}
-
-            {% for block in article.body %}
-              {% if block.value.type == "video" %}
-                {% if block.value.youtube_link %}
+            
+            {% if article.homepage_media %}
+              {% for block in article.homepage_media %}
+                {% with block.value as media %}
                   <div class="teaser-stacklist__iframe">
-                    {% embed block.value.youtube_link %}
+                    {% if block.value.youtube_link %}
+                      {% embed media.youtube_link %}
+                    {% endif %}
                   </div>
-                  {% endif %}
-              {% else %}
-                {% if forloop.last and article.get_effective_image %}
-                  <div class="teaser-stacklist__images">
-                    {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                  </div>
-                {% endif %}
+                {% endwith %}
+              {% endfor %}
+            {% else %}
+              {% if article.get_effective_image %}
+                <div class="teaser-stacklist__images">
+                  <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                    {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                    <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                  </a>
+                </div>
               {% endif %}
-            {% endfor %}
-            {# <!-- END REVIEW IMAGE BACKUP --> #}
+            {% endif %}
 
             <div class="teaser-stacklist__container">
               <h1 class="teaser-stacklist__title">
@@ -99,6 +101,7 @@
     {% forms_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}
   {% endfor %}
+
   {% block extra_js %}
     <script type="text/javascript">
       var frm = $('#reaction-questions__form');
