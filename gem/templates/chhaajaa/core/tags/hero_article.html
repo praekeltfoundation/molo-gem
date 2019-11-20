@@ -7,7 +7,6 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
-
             {% if article.homepage_media %}
               {% for block in article.homepage_media %}
                 {% with block.value as media %}
@@ -62,6 +61,7 @@
                 <div class="vote__item">
                   <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
                 </div>
+
                 {% if article.is_commenting_enabled %}
                   {% if article.allow_commenting %}
                     {% if request.user.is_authenticated %}
@@ -97,6 +97,7 @@
     {% forms_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}
   {% endfor %}
+</div>
 
   {% block extra_js %}
     <script type="text/javascript">
@@ -122,5 +123,4 @@
       };
     </script>
   {% endblock %}
-</div>
 {% endif %}
