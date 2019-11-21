@@ -11,7 +11,7 @@
         </div>
         {% render_comment_form for article %}
       {% else %}
-        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+      <a href="{% url LOGIN_URL %}" class="call-to-action__button call-to-action__button--primary">
           {% trans "Log in to comment" %}
         </a>
       {% endif %}
@@ -35,7 +35,7 @@
         <h2 class="heading__component">{% trans "The Comments" %}</h2>
       </div>
     {% endif %}
-    
+
     <div class="comments-list">
       {% for node in comment_list %}
         {% recursetree node %}

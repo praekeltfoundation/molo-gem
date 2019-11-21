@@ -43,10 +43,18 @@
       color: $colorRedLight;
     }
     &-text {
-      font-weight: bold;
+      border-bottom: 2px solid transparent;
       color: $colorPink;
       display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
       margin: 0 10px 0 0;
+      -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      transition: all .3s cubic-bezier(.6,.2,.1,1);
+      &:hover, &:focus, &:active {
+        border-bottom: 2px solid $colorPink;
+      }
     }
     &--replies-counter {
       color: $colorGrey;
