@@ -3,7 +3,6 @@
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 
-
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -29,7 +28,6 @@
     {% if self.get_effective_image %}
       {% image self.get_effective_image fill-450x200 as article_photo %}
     {% endif %}
-
     <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Chhaajaa Web application{% endif %}" />
     <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
     <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
@@ -163,21 +161,20 @@
           </ul>
         </div>
       </div>
-
     </nav>
   </header>
+
   <div class="wrapper">
     {% block content %}{% endblock %}
   </div>
 
   <footer class="footer_area">
-    <div class="pull-left">
+    <div class="footer--left">
       <a href="/" class="footer__logo">
-        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="150">
+        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="110">
       </a>
-      <p class="copyright__disclaimer">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
+      <p class="copyright">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
-
     {% footer_page %}
     <div class="call-to-action call-to-action--backToTop">
       <a href="#" class="call-to-action__item--label">{% trans "Go to top" %}</a>
@@ -187,6 +184,13 @@
   {% compress js inline %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script>
+      $(".show-more").click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
+        $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden");
+      });
+
       $( "#id_comment").on("focus",function(event){
           $(this).closest(".comments__form-post").css({
             "border": "5px solid #72f3a2",

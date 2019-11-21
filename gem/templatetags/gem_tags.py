@@ -147,7 +147,7 @@ def contact_forms_list(context):
     page = FormsIndexPage.objects.child_of(main).live().first()
     if page:
         forms = (
-            MoloFormPage.objects.child_of(page).filter(
+            MoloFormPage.objects.descendant_of(page).filter(
                 language__is_main_language=True,
                 contact_form=True).specific())
     else:

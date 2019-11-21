@@ -9,8 +9,19 @@
   }
   &__excerpt {
     display: inline-block;
+    height: auto;
+    position: relative;
+    overflow: auto;
     @media screen and (min-width: 45.000em) {
       padding: 0 10% 0 0;
+    }
+
+    &--hidden {
+      height: 55px;
+      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: hidden;
+      position: relative;
     }
   }
   &__cta-buttons {

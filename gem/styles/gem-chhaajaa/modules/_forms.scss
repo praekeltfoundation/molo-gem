@@ -31,8 +31,9 @@ label {
 }
 textarea {
   background: transparent;
+  border-radius: 5px;
   color: $colorGrey;
-    font-family: "FedraSansDevanagariB-Demi";
+  font-family: "FedraSansDevanagariB-Demi";
   font-size: 18px;
   margin: 0 auto;
   padding: 1em;
@@ -58,6 +59,7 @@ select[value="value"] {
   font-size: 21px;
   text-transform: capitalize;
 }
+
 
 input[type="checkbox"],
 input[type="radio"] {
@@ -112,7 +114,8 @@ input[type="month"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="url"],
-select {
+select,
+textarea {
   border-radius: 5px;
   color: $colorGrey;
   padding: 10px;
@@ -125,15 +128,12 @@ select {
   }
 }
 input[type="search"] {
-  width: 100%;
-  appearance: none;
   color: $colorGrey;
-  margin: 0;
-  padding: 5px;
+  margin: 0 -45px;
+  padding: 10px;
   font-size: 18px;
-  height: 40px;
   width: 100%;
-  border-radius: 0;
+  border-radius: 5px;
   @media screen and (min-width: 45.000em) {
     width: 95%;
   }
@@ -147,6 +147,7 @@ input[type="submit"],
 button {
   background: $colorPurple;
   color: #fff;
+  border-radius: 2px;
   cursor: pointer;
   display: inline-block;
   font-size: 18px;
@@ -200,12 +201,8 @@ button {
   list-style-type: none;
   &__item {
     color: red;
-    text-align: left;
-    padding: 1em 1em 0 0;
   }
 }
 .error {
   color: red;
-  text-align: left;
-  padding: 1em 1em 0 0;
 }
