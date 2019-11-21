@@ -3,12 +3,11 @@
 {% get_settings %}
 
 {% block content %}
-  <div class="article-page article-service">
-
-    <!-- [SERVICE AGGREGATOR SECTION] -->
-    {% with parent_section=self.get_parent_section %}
-      {% content_is parent_section "Service Aggregator" as parent_service_section %}
-      {% if parent_service_section %}
+<div class="article-page article-service">
+  {% with parent_section=self.get_parent_section %}
+    {% load_sections service_aggregator=True as sections %}
+    {% for section in sections %}
+      {%  if parent_section.pk == section.pk %}
         {% if self.homepage_media %}
           {% for block in self.homepage_media %}
             {% with block.value as media %}
@@ -237,7 +236,6 @@
           {% endif %}
         </div>
       {% else %}
-      <!-- [OTHER SECTION] -->
         <div class="article-page__wrapper">
           <div class="content--left">
             <div class="article-teaser">
@@ -408,31 +406,31 @@
           </div>
         </div>
       {% endif %}
-    {% endwith %}
-  </div>
-
-  {% block extra_js %}
-    <script type="text/javascript">
-      var frm = $('#reaction-questions__form');
-      function set_choice(choice) {
-        if (!$('#' + choice).attr('disabled') == true){
-          $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              choice: choice,
-              ajax: "True"
-            },
-            success: function () {
-              $( ".reaction-questions__item" ).each(function( index ) {
-                $(this).attr('disabled', false);
-              });
-              $("#" + choice).attr('disabled', true);
-            }
-          })
-        }
-      };
-    </script>
-  {% endblock %}
+    {% endfor %}
+  {% endwith %}
+</div>
+{% endblock %}
+{% block extra_js %}
+  <script type="text/javascript">
+    var frm = $('#reaction-questions__form');
+    function set_choice(choice) {
+      if (!$('#' + choice).attr('disabled') == true){
+        $.ajax({
+          type: frm.attr('method'),
+          url: frm.attr('action'),
+          data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            choice: choice,
+            ajax: "True"
+          },
+          success: function () {
+            $( ".reaction-questions__item" ).each(function( index ) {
+              $(this).attr('disabled', false);
+            });
+            $("#" + choice).attr('disabled', true);
+          }
+        })
+      }
+    };
+  </script>
 {% endblock %}

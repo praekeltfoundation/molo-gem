@@ -47,6 +47,8 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
+
     <!-- Facebook Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s){
@@ -195,6 +197,24 @@
   {% compress js inline %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script>
+      let $grid = $('.service-stacklist').isotope({
+        // main isotope options
+        itemSelector: '.service-stacklist__item',
+        // set layoutMode
+        layoutMode: 'masonry',
+
+        // options for cellsByRow layout mode
+        cellsByRow: {
+          columnWidth: 200,
+          rowHeight: 150
+        },
+
+        // options for masonry layout mode
+        // masonry: {
+        //   columnWidth: '.grid-sizer'
+        // }
+      });
+
       $(".show-more").click(function (e) {
         e.preventDefault();
         var $this = $(this);

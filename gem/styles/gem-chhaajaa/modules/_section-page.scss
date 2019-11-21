@@ -1,5 +1,4 @@
 .section-page {
-  padding: 1em 0;
   &__images {
     padding: 0 1em;
     @media screen and (min-width: 45.000em) {
@@ -7,6 +6,11 @@
     }
   }
   &__wrapper {
+    .teaser-grid {
+      -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+      -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+    }
     .teaser-stacklist__container {
       padding: 1.5em 1em 4em 1em;
       @media screen and (min-width: 45.000em) {
@@ -33,7 +37,7 @@
     .teaser-stacklist__images,
     .teaser-stacklist__iframe {
       @media screen and (min-width: 62.000em) {
-        height: 635px;
+        height: 460px;
         overflow: hidden;
       }
       .teaser-stacklist__anchor {
@@ -83,6 +87,9 @@
   img.section-page__thumbnail {
     text-align: left;
     width: auto;
+    @media screen and (min-width: 45.000em) {
+      width: 150px;
+    }
     &--placeholder {
       background: $colorPink;
       color: #fff;
@@ -92,8 +99,12 @@
       display: inline-block;
     }
   }
-
-
+  .comments-posting {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: auto;
+  }
   .comments__form {
     @media screen and (min-width: 80.000em) {
       position: inherit;
