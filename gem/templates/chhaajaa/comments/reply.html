@@ -8,8 +8,8 @@
     {% trans "Back to article" %}</a>
   </div>
   <div class="comments">
-    <div class="heading heading__component">
-      <h2>{% trans "Your thoughts" %}</h2>
+    <div class="heading heading--hero">
+      <h2 class="heading__component">{% trans "Your Comments" %}</h2>
     </div>
     <div class="comments--replies-listing">
       {% with comment as node %}
@@ -194,8 +194,8 @@
     </div>
     {% if self.allow_commenting %}
       <div id="comment-block">
-        <div class="heading heading__component">
-          <h2>{% trans "Add your reply" %}</h2>
+        <div class="heading heading--hero">
+          <h2 class="heading__component">{% trans "Add your reply" %}</h2>
         </div>
         {% if request.user.is_authenticated %}
           <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
@@ -230,8 +230,8 @@
       </div>
     {% else %}
       <div id="comment-block">
-        <div class="heading heading__component">
-          <h2>{% trans "Add your reply" %}</h2>
+        <div class="heading heading--hero">
+          <h2 class="heading__component">{% trans "Add your reply" %}</h2>
         </div>
         <div class="heading heading__micro">
           <h4 class="comments__title">{% trans "Commenting on this article is currently disabled" %}.</h4>
