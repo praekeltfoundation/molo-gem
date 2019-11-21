@@ -1,26 +1,25 @@
-import time
 import re
-import urllib
+import time
 import uuid
+import urllib
 import structlog
 
-from django.utils.http import urlencode
-
-from django.conf import settings
-from django.http import JsonResponse, HttpResponseRedirect
-from django.http.response import Http404
-from django.utils.translation import get_language_from_request
-
 from django.urls import reverse
+from django.conf import settings
+from django.utils.http import urlencode
+from django.http.response import Http404
 from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
-from molo.core.utils import get_locale_code
-from molo.core.models import SiteSettings, ArticlePage, Languages
-from molo.core.templatetags.core_tags import load_tags_for_article
+from django.http import JsonResponse, HttpResponseRedirect
+from django.utils.translation import get_language_from_request
+
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
+from molo.core.utils import get_locale_code
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
+from molo.core.models import SiteSettings, ArticlePage, Languages
+from molo.core.templatetags.core_tags import load_tags_for_article
 
 from gem.models import GemSettings
 
