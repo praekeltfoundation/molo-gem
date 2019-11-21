@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for formpage in forms %}
-    <a href="{% pageurl formpage.specific %}" class="footer-menu-list__anchor{% if request.path == page_path %} selected{% endif %}">
+    <a href="{% pageurl formpage.specific %}" class="footer-list__anchor{% if request.path == page_path %} selected{% endif %}">
       {{formpage.title}}
     </a>
 	{% endfor %}
