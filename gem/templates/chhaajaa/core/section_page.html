@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags load_sections service_aggregator=True  %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags load_sections %}
 {% get_settings %}
 
 {% block content %}
+  {% load_sesctions service_aggregator=true as is_service_aggregator %}
+  {{is_service_aggregator}}
   <div class="section-page {% if is_service_aggregator %}section-service{% endif %}">
     {% if is_service_aggregator %}
       <div class="heading heading--hero">

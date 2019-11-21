@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags comments gem_tags molo_forms_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_forms_tags %}
+{% get_settings %}
 
 {% block content %}
   <div class="article-page article-service">
@@ -76,6 +77,13 @@
               </div>
             {% endif %}
           {% endfor %}
+
+          {% if settings.gem.GemSettings.enable_comment_threads %}
+            {% for article in articles %}
+              {% forms_list_for_pages page=article %}
+              {% include "comments/comment_block.html" %}
+            {% endfor %}
+          {%endif %}
 
           <!-- NEXT UP -->
           {% get_next_article self as article %}
@@ -257,27 +265,26 @@
                         </div>
                       {% endif %}
                     {% endif %}
-
-{#
-  <!-- REVIEW IMAGE BACKUP --
-  {% for block in self.body %}
-    {% if block.value.type == "video" %}
-      {% if block.value.youtube_link %}
-        <div class="teaser-stacklist__iframe">
-          {% embed block.value.youtube_link %}
-        </div>
-        {% endif %}
-    {% else %}
-      {% if forloop.last and self.get_effective_image %}
-        <div class="teaser-stacklist__images">
-          {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-          <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-        </div>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-  -- END REVIEW IMAGE BACKUP -->
-#}
+                    {% comment %}
+                      <!-- REVIEW IMAGE BACKUP --
+                      {% for block in self.body %}
+                        {% if block.value.type == "video" %}
+                          {% if block.value.youtube_link %}
+                            <div class="teaser-stacklist__iframe">
+                              {% embed block.value.youtube_link %}
+                            </div>
+                            {% endif %}
+                        {% else %}
+                          {% if forloop.last and self.get_effective_image %}
+                            <div class="teaser-stacklist__images">
+                              {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                              <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                      -- END REVIEW IMAGE BACKUP -->
+                    {% endcomment %}
                     <div class="teaser-stacklist__container">
                       <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
                       <div class="teaser-stacklist__cta-buttons">
