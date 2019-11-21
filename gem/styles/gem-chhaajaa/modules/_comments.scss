@@ -94,6 +94,13 @@
       }
     }
   }
+  &-list_wrapper {
+    padding: 3em 0 0;
+    .heading--hero {
+      display: inline-block;
+      margin: 0;
+    }
+  }
   &-list {
     &__reply_wrap {
       padding: 0 10px;
@@ -110,8 +117,11 @@
       padding: 10px 0;
     }
     &__item--parent-comment {
-      border-top: 4px solid $colorPurple;
+      border-top: 2px solid $colorYellow;
       padding: 10px 0 0;
+      @media screen and (min-width: 45.000em) {
+        width: 65%;
+      }
     }
     &__item--parent-comment:first-child {
       border: none;
@@ -155,9 +165,12 @@
 
     }
   }
-
-  &__form {
+  &-posting {
     padding: 0 10px;
+    margin: 0 0 2em;
+    @media screen and (min-width: 45.000em) {
+      width: 97%;
+    }
     @media screen and (min-width: 80.000em) {
       float: right;
       margin: -25em -55% 0 0;
@@ -202,12 +215,6 @@
     }
     &--report {
       padding: 0;
-    }
-  }
-  form {
-    margin: 0 0 2em;
-    @media screen and (min-width: 45.000em) {
-      width: 97%;
     }
   }
 }

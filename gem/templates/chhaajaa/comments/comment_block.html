@@ -1,31 +1,33 @@
 {% load wagtailsettings_tags wagtailcore_tags mptt_tags molo_commenting_tags core_tags wagtailimages_tags comments gem_tags %}
 
 {% if article.is_commenting_enabled %}
-<div id="comments_form" class="comments__form">
-  <div class="comments__form-post">
-    <div class="comments__post-on-article">
-      {% if article.allow_commenting %}
-        {% if request.user.is_authenticated %}
-          <div class="heading heading--secondary">
-            <h4 class="heading__subheading">{% trans "Comment" %}</h4>
-          </div>
-          {% render_comment_form for article %}
-        {% else %}
-          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-            {% trans "Log in to comment" %}
-          </a>
-        {% endif %}
-      {% else %}
+<div class="comments-wrapper">
+  {# <!-- COMMENTS FORM MODULE --> #}
+  <div class="comments-posting">
+    {% if article.allow_commenting %}
+      {% if request.user.is_authenticated %}
         <div class="heading heading--secondary">
           <h4 class="heading__subheading">{% trans "Comment" %}</h4>
         </div>
-        <h5 class="heading__subtitle">{% trans "Commenting on this article is currently disabled." %}</h5>
-        <div class="comments__form-disabled">
-          {% render_comment_form for article %}
-        </div>
+        {% render_comment_form for article %}
+      {% else %}
+        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+          {% trans "Log in to comment" %}
+        </a>
       {% endif %}
-    </div>
+    {% else %}
+      <div class="heading heading--secondary">
+        <h4 class="heading__subheading">{% trans "Comment" %}</h4>
+      </div>
+      <h5 class="heading__subtitle">{% trans "Commenting on this article is currently disabled." %}</h5>
+      <div class="comments__form-disabled">
+        {% render_comment_form for article %}
+      </div>
+    {% endif %}
+  </div>
 
+  {# <!-- COMMENTS THREAD MODULE --> #}
+  <div id="comments-list" class="comments-list_wrapper">
     {% get_comment_count for article as comment_count %}
     {% get_molo_comments for article as comment_list limit 2 child_limit 2 %}
     {% if comment_count > 1 %}
@@ -33,8 +35,8 @@
         <h2 class="heading__component">{% trans "The Comments" %}</h2>
       </div>
     {% endif %}
-
-    <div id="comments-list" class="comments__list">
+    
+    <div class="comments-list">
       {% for node in comment_list %}
         {% recursetree node %}
           <div class="comments-list__item{% if node.parent == None %} comments-list__item--parent-comment{% endif %}{% if node.parent %} comments-list__item--reply{% endif %}">
@@ -110,16 +112,14 @@
           {{ children }}
         {% endrecursetree %}
       {% endfor %}
-
-
-      {% if comment_count > 2 %}
-        <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__button call-to-action__button--primary" {{attribute}}>
-          <span class="call-to-action__button-text call-to-action__button-text--primary">
-            {% trans "Read more comments" %}</span>
-        </a>
-      {% endif %}
-
     </div>
+
+    {% if comment_count > 2 %}
+      <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__button call-to-action__button--primary" {{attribute}}>
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Read more comments" %}</span>
+      </a>
+    {% endif %}
   </div>
 </div>
 {% endif %}
