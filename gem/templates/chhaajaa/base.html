@@ -184,6 +184,13 @@
   {% compress js inline %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script>
+      $(".show-more").click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
+        $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden");
+      });
+
       $( "#id_comment").on("focus",function(event){
           $(this).closest(".comments__form-post").css({
             "border": "5px solid #72f3a2",
