@@ -28,6 +28,7 @@ function precache() {
       '/',
       '/static/offline.html',
       '/static/img/logos/chhaajaa-logo-old.png'
+
     ]);
   });
 }
