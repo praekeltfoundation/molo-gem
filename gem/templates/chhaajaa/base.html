@@ -131,13 +131,23 @@
         <div class="nav navbar-nav navbar-right">
           <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
+            {% load_sections service_aggregator=True as service_aggregators %}
             {% load_sections as sections %}
-            {% for section in sections %}
-              {% content_is section "Videos" as is_videos %}
-              <li class="navbar-nav__option">
-                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
-              </li>
-            {% endfor %}
+            {% if sections %}
+              {% for section in sections %}
+                {% content_is section "Videos" as is_videos %}
+                <li class="navbar-nav__option">
+                  <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+            {% if service_aggregators %}
+              {% for service_aggregator in service_aggregators %}
+                <li class="navbar-nav__option">
+                  <a href="{% pageurl service_aggregator.specific %}" class="navbar-nav__anchor">{{service_aggregator.title}}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
           </ul>
 
           <!-- MOBILE NAV -->
@@ -198,21 +208,12 @@
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script>
       let $grid = $('.service-stacklist').isotope({
-        // main isotope options
         itemSelector: '.service-stacklist__item',
-        // set layoutMode
         layoutMode: 'masonry',
-
-        // options for cellsByRow layout mode
         cellsByRow: {
           columnWidth: 200,
           rowHeight: 150
-        },
-
-        // options for masonry layout mode
-        // masonry: {
-        //   columnWidth: '.grid-sizer'
-        // }
+        }
       });
 
       $(".show-more").click(function (e) {
@@ -223,14 +224,14 @@
       });
 
       $( "#id_comment").on("focus",function(event){
-          $(this).closest(".comments__form-post").css({
+          $(this).closest(".comments-posting").css({
             "border": "5px solid #72f3a2",
             "outline": "none",
             "padding": "10px",
             "border-radius": "5px"
           });
         }).on("blur",function(event) {
-        $(this).closest(".comments__form-post").css("border","5px solid transparent");
+        $(this).closest(".comments-posting").css("border","5px solid transparent");
       });
 
       $(document).ready(function(){
