@@ -8,10 +8,34 @@
     {% load_sections service_aggregator=True as sections %}
     {% for section in sections %}
       {%  if parent_section.pk == section.pk %}
+        {% comment %}
+          <!-- REVIEW IMAGE BACKUP --
+          {% if self.homepage_media %}
+            {% for block in self.homepage_media %}
+              {% with block.value as media %}
+                <div class="article-page__iframe">
+                  {% if block.value.youtube_link %}
+                    {% embed media.youtube_link %}
+                  {% endif %}
+                </div>
+              {% endwith %}
+            {% endfor %}
+          {% else %}
+            {% if article.get_effective_image %}
+              <div class="article-page__images">
+                <a href="{% pageurl article.specific %}" class="article-page__anchor">
+                  {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                  <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-page__thumbnail" />
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+          -- END REVIEW IMAGE BACKUP -->
+        {% endcomment %}
         {% if self.homepage_media %}
           {% for block in self.homepage_media %}
             {% with block.value as media %}
-              <div class="article-page__iframe">
+              <div class="teaser-stacklist__iframe">
                 {% if block.value.youtube_link %}
                   {% embed media.youtube_link %}
                 {% endif %}
@@ -19,11 +43,11 @@
             {% endwith %}
           {% endfor %}
         {% else %}
-          {% if article.get_effective_image %}
-            <div class="article-page__images">
-              <a href="{% pageurl article.specific %}" class="article-page__anchor">
-                {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="article-page__thumbnail" />
+          {% if self.get_effective_image %}
+            <div class="service-stacklist__iframe">
+              <a href="{% pageurl self.specific %}" class="service-stacklist__anchor">
+                {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__main-mage" />
               </a>
             </div>
           {% endif %}
@@ -87,7 +111,7 @@
           <!-- NEXT UP -->
           {% get_next_article self as article %}
           {% if article and self.get_parent_section.enable_next_section %}
-            <div class="article-teaser">
+            <div class="article-teaser article-teaser--related-services">
               <div class="heading heading--hero">
                 <h1 class="heading__component heading__component--finder">
                   {% trans "Up Next services" %}
@@ -100,7 +124,7 @@
                     {% if article.homepage_media %}
                       {% for block in article.homepage_media %}
                         {% with block.value as media %}
-                          <div class="teaser-stacklist__iframe">
+                          <div class="service-stacklist__iframe">
                             {% if block.value.youtube_link %}
                               {% embed media.youtube_link %}
                             {% endif %}
@@ -166,7 +190,7 @@
           {% if self.get_parent_section.enable_recommended_section %}
           {% get_recommended_articles self as articles %}
             {% if articles %}
-            <div class="article-teaser">
+            <div class="article-teaser article-teaser--related-services">
               <h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
               <ul class="service-stacklist">
                 {% for article in articles %}
@@ -191,7 +215,7 @@
                       </div>
                     {% endif %}
                   {% endif %}
-                  <div class="teaser-stacklist__item--content">
+                  <div class="service-stacklist__item--content">
                     {% if article.title_highlight %}
                       <a href="{% pageurl article.specific %}">
                         <h2 class="service-stacklist__title-secondary">
@@ -263,26 +287,6 @@
                         </div>
                       {% endif %}
                     {% endif %}
-                    {% comment %}
-                      <!-- REVIEW IMAGE BACKUP --
-                      {% for block in self.body %}
-                        {% if block.value.type == "video" %}
-                          {% if block.value.youtube_link %}
-                            <div class="teaser-stacklist__iframe">
-                              {% embed block.value.youtube_link %}
-                            </div>
-                            {% endif %}
-                        {% else %}
-                          {% if forloop.last and self.get_effective_image %}
-                            <div class="teaser-stacklist__images">
-                              {% image self.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                            </div>
-                          {% endif %}
-                        {% endif %}
-                      {% endfor %}
-                      -- END REVIEW IMAGE BACKUP -->
-                    {% endcomment %}
                     <div class="teaser-stacklist__container">
                       <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
                       <div class="teaser-stacklist__cta-buttons">
