@@ -93,6 +93,11 @@
     padding: 3em 0 0;
   }
   &-list {
+    &__item {
+      &--reply {
+        margin: 0 20px 0
+      }
+    }
     &__reply_wrap {
       padding: 0 10px;
       .comments__publish-date {
@@ -104,12 +109,9 @@
         padding: 1em 10px 10px 0;
       }
     }
-    &__item--reply {
-      padding: 10px 0;
-    }
     &__item--parent-comment {
       border-top: 2px solid $colorYellow;
-      padding: 10px 0 15px;
+      padding: 10px 0 0;
       @media screen and (min-width: 45.000em) {
         width: 65%;
       }
@@ -147,8 +149,6 @@
         font-weight: 600;
       }
     }
-    &-label {}
-    &-cta-title {}
     &-title {
       font-weight: 400;
       padding: 0 0 0 10px;
@@ -198,7 +198,7 @@
     width: 85%;
     @media screen and (min-width: 45.000em) {
       min-height: 220px;
-      width: 92%;
+      width: 90%;
     }
     &:focus {
       outline: none;

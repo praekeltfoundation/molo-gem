@@ -266,7 +266,6 @@
               <div class="article-teaser__wrapper">
                 <ul class="teaser-stacklist">
                   <li class="teaser-stacklist__item">
-
                     {% if self.homepage_media %}
                       {% for block in self.homepage_media %}
                         {% with block.value as media %}
@@ -315,9 +314,14 @@
                             </form>
                           </div>
                         {% endif %}
-                        <div class="vote__item">
-                          <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                        </div>
+
+                        {% comment %}
+                          <!-- WHAT DID THIS VOTIGN DO?
+                          <div class="vote__item">
+                            <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                          </div>-->
+                        {% endcomment %}
+
                         {% if self.is_commenting_enabled %}
                           {% if self.allow_commenting %}
                             {% if request.user.is_authenticated %}
@@ -345,6 +349,7 @@
               </div>
             </div>
             {% forms_list_for_pages page=self %}
+            {% include "comments/comment_block.html" with article=self %}
           </div>
           <div class="content--right">
             {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
@@ -404,7 +409,6 @@
                     </li>
                   {% endfor %}
                 </ul>
-                {% include "comments/comment_block.html" with article=self %}
               </div>
             </div>
           </div>
