@@ -89,7 +89,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
         self.assertEqual(
             compress_settings(request),
             {
-                'LOGIN_URL': 'molo.profiles:auth_login',
+                'LOGIN_URL': reverse('molo.profiles:auth_login'),
                 'VIEW_PROFILE_URL': u'/profiles/view/myprofile/',
                 'EDIT_PROFILE_URL': u'/profiles/edit/myprofile/',
                 'REGISTRATION_URL': u'/profiles/register/',
