@@ -238,46 +238,4 @@
 
     </div>
   </div>
-</div>
-  {% block extra_js %}
-    <script type="text/javascript">
-      $("#share_article").click(function(e) {
-        e.preventDefault();
-        $("#share_reveal").toggle(function(){
-          $(this).animate({
-             "display": "block",
-             "transition": "display .15s ease-in-out"
-           }, 500);
-          },function() {
-           $(this).animate({
-             "display": "block",
-             "transition": "display .15s ease-in-out"
-           }, 500);
-          }
-        );
-      });
-
-
-      function set_choice(choice, article_id) {
-        if (!$('#' + choice).attr('disabled') == true){
-          var frm = $('#reaction-questions__form_' + article_id);
-          $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              choice: choice,
-              ajax: "True"
-            },
-            success: function () {
-              $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
-                $(this).attr('disabled', false);
-              });
-              $("#" + choice + "-" + article_id).attr('disabled', true);
-            }
-          })
-        }
-      };
-    </script>
-  {% endblock %}
 {% endblock %}

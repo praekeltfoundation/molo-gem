@@ -57,9 +57,14 @@
                   </form>
                 </div>
                 {% endif %}
-                <div class="vote__item">
-                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                </div>
+
+                {% comment %}
+                  <!-- WHAT DID THIS VOTIGN DO?
+                  <div class="vote__item">
+                    <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                  </div>-->
+                {% endcomment %}
+
                 {% if article.is_commenting_enabled %}
                   {% if article.allow_commenting %}
                     {% if request.user.is_authenticated %}
@@ -99,62 +104,5 @@
     {% forms_list_for_pages page=article %}
     {% include "comments/comment_block.html" %}
   {% endfor %}
-  {% block extra_js %}
-    <script type="text/javascript">
-      var frm = $('#reaction-questions__form');
-      function set_choice(choice) {
-        if (!$('#' + choice).attr('disabled') == true){
-          $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              choice: choice,
-              ajax: "True"
-            },
-            success: function () {
-              $( ".reaction-questions__item" ).each(function( index ) {
-                $(this).attr('disabled', false);
-              });
-              $("#" + choice).attr('disabled', true);
-            }
-          })
-        }
-      };
-      const Utils = {
-        addClass: function(element, theClass) {
-          element.classList.add(theClass);
-        },
-        removeClass: function(element, theClass) {
-          element.classList.remove(theClass);
-        },
-        showMore: function(element, excerpt) {
-          element.addEventListener("click", event => {
-            const linkText = event.target.textContent.toLowerCase();
-            event.preventDefault();
-              if (linkText == "show more") {
-                element.textContent = "Show less";
-                this.removeClass(excerpt, "excerpt-hidden");
-                this.addClass(excerpt, "excerpt-visible");
-              } else {
-                element.textContent = "Show more";
-                this.removeClass(excerpt, "excerpt-visible");
-                this.addClass(excerpt, "excerpt-hidden");
-              }
-          });
-        }
-      };
-      const ExcerptWidget = {
-        showMore: function(showMoreLinksTarget, excerptTarget) {
-          const showMoreLinks = document.querySelectorAll(showMoreLinksTarget);
-          showMoreLinks.forEach(function(link) {
-            const excerpt = link.previousElementSibling.querySelector(excerptTarget);
-            Utils.showMore(link, excerpt);
-          });
-        }
-      };
-      ExcerptWidget.showMore('.show-more', '.excerpt');
-    </script>
-  {% endblock %}
 </div>
 {% endif %}
