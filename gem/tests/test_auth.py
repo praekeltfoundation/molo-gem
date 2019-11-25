@@ -440,4 +440,4 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
         response = self.client.get('/admin/')
         self.assertContains(response, "Welcome to the GEM Wagtail CMS")
         # test that the correct logout button is in in the template
-        self.assertContains(response, "oidc/logout")
+        self.assertContains(response, reverse("oidc/logout"))
