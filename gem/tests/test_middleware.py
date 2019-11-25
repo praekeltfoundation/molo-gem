@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from django.test import RequestFactory, TestCase
 from django.test.client import Client
 
@@ -7,63 +5,16 @@ from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 from gem.models import GemSettings
 
 from mock import patch
-from os.path import join
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from molo.core.models import SiteSettings
-from molo.profiles.models import UserProfilesSettings
 from gem.tests.base import GemTestCaseMixin
 
 from molo.core.models import (
     Tag, ArticlePageTags,
     SectionIndexPage, TagIndexPage, FooterIndexPage,
     FooterPage, SiteLanguageRelation, Site, Languages)
-
-
-class TestChhaaJaaLoginMiddleware(TestCase, GemTestCaseMixin):
-    def setUp(self):
-        self.main = self.mk_main(
-            title='main2', slug='main2', path='00010002', url_path='/main2/')
-        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-        profile_settings = UserProfilesSettings.for_site(self.main.get_site())
-        self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(),
-            title='Your mind')
-        profile_settings.terms_conditions = self.yourmind
-        profile_settings.save()
-
-    def test_redirect_for_chhaajaa_login(self):
-        # it should not redirect if the site layout base is not chhhaa jaa
-        # even if user is not logged in and not requesting a login page
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
-
-        template_settings = deepcopy(settings.TEMPLATES)
-        template_settings[0]['DIRS'] = [
-            join(settings.PROJECT_ROOT, 'templates', 'chhaajaa')
-        ]
-        with self.settings(
-                TEMPLATES=template_settings, SITE_LAYOUT_BASE='chhaajaa'):
-            # it should not redirect if templates chhaajaa
-            # user user not loged in and requesting
-            # login page
-            response = self.client.get('/profiles/login/')
-            self.assertEqual(response.status_code, 200)
-
-            # it should redirect if user not logged in, chhaa jaa is template
-            # and user not requesting a login page
-            # it should keep the query string when redirecting
-            response = self.client.get('/?testparam=test1212')
-            self.assertEqual(response.status_code, 302)
-            self.assertRedirects(
-                response, '/profiles/login/?next=/%3Ftestparam%3Dtest1212')
-
-            # it should not redirect if user logged in regardless
-            # of template or path
-            self.login()
-            response = self.client.get('/')
-            self.assertEqual(response.status_code, 200)
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):

@@ -143,8 +143,7 @@ INSTALLED_APPS = [
     'import_export',
     'storages',
 
-    'django.contrib.sitemaps',
-    'debug_toolbar',
+    'django.contrib.sitemaps'
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -163,7 +162,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
@@ -172,9 +170,9 @@ MIDDLEWARE = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
-    'molo.core.middleware.MultiSiteRedirectToHomepage',
-    'gem.middleware.ChhaaJaaLoginMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage'
 ]
+
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]

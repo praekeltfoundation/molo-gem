@@ -19,26 +19,26 @@
     margin: 1em 0 1.5em;
     @media screen and (min-width: 62.000em) {
       display: flex;
+      padding: 0 5px 0 10px;
       justify-content: space-between;
     }
   }
   &__iframe {
+    background-color: $colorGreyDark;
     margin: 0 10px 0 0;
-    overflow: auto;
+    overflow: hidden;
+    @media screen and (min-width: 62.000em) {
+      width: 60%;
+      max-height: 180px;
+    }
     iframe {
+      min-height: 190px;
       width: 100%;
-      height: auto;
-      min-height: 250px;
-      @media screen and (min-width: 45.000em) {
-        min-height: auto;
-      }
-      @media screen and (min-width: 62.000em) {
-        max-width: 262px;
-        max-height: 162px;
-      }
+      height: 100%;
     }
   }
   &__images {
+    background-color: $colorGreyDark;
     overflow: hidden;
     margin: 0 10px 0 0;
     @media screen and (min-width: 62.000em) {
@@ -47,14 +47,21 @@
     }
   }
   &__thumbnail {
-    width: 100%;
     height: auto;
+    object-fit: cover;
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      background-color: #fafafa;
+    }
+    @media screen and (min-width: 62.000em) {
+      min-height: 190px;
+    }
   }
   &__container {
     position: relative;
     padding: 0 5px 0 0;
     @media screen and (min-width: 62.000em) {
-      width: 39%;
+      width: 41%;
     }
   }
   &__anchor {

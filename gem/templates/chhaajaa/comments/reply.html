@@ -198,47 +198,57 @@
         <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
         {% trans "Back to article" %}</a>
       </div>
-      <div id="comment-block" class="comments-posting comments-posting--replies">
-        {% if self.allow_commenting %}
-            <div class="heading heading--secondary">
-              <h4 class="heading__subheading">{% trans "Add your reply" %}</h4>
-            </div>
-            {% if request.user.is_authenticated %}
-              <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
-                {% csrf_token %}
-                <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
-                  {% if form.errors %}
-                    <p class="errors">{% trans "Please correct the error below" %}</p>
-                  {% endif %}
-                  {{ form.comment }}
-                  {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
-                </div>
-                <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Comment" %}</button>
-                <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">{% trans "Comment Anonymously" %}</button>
-                {{ form.object_pk }}
-                {{ form.content_type }}
-                {{ form.timestamp }}
-                {{ form.security_hash }}
-                <input type="hidden" name="next" value="{% pageurl self %}" />
-                {% if comment.id %}
-                <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+    </div>
+  </div>
+
+  <div class="content--right">
+    <div class="comments">
+      {% if self.allow_commenting %}
+        <div id="comment-block">
+          <div class="heading heading--hero">
+            <h2 class="heading__component">{% trans "Add your reply" %}</h2>
+          </div>
+          {% if request.user.is_authenticated %}
+            <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
+              {% csrf_token %}
+              <div class="input-group{% if form.comment.errors %} input-error{% endif %}">
+                {% if form.errors %}
+                  <p class="errors">{% trans "Please correct the error below" %}</p>
                 {% endif %}
-              </form>
-            {% else %}
-              <div class="heading heading__micro">
-                <p><a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__hyperlink">
-                  {% trans "Please log in to leave a comment." %}</a></p>
+                {{ form.comment }}
+                {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
               </div>
-            {% endif %}
-        {% else %}
+              <button type="submit" name="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Comment" %}</button>
+              <button type="submit" name="submit_anonymously" class="call-to-action__button call-to-action__button--primary call-to-action__button--secondary">{% trans "Comment Anonymously" %}</button>
+              {{ form.object_pk }}
+              {{ form.content_type }}
+              {{ form.timestamp }}
+              {{ form.security_hash }}
+              <input type="hidden" name="next" value="{% pageurl self %}" />
+              {% if comment.id %}
+              <input type="hidden" name="parent" id="parent_id" value="{{ comment.id }}" />
+              {% endif %}
+            </form>
+          {% else %}
+            <div class="heading heading__micro">
+              <p>
+                <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__hyperlink">
+                  {% trans "Please log in to leave a comment." %}
+                </a>
+              </p>
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <div id="comment-block">
           <div class="heading heading--hero">
             <h2 class="heading__component">{% trans "Add your reply" %}</h2>
           </div>
           <div class="heading heading__micro">
             <h4 class="comments__title">{% trans "Commenting on this article is currently disabled" %}.</h4>
           </div>
-        {% endif %}
-      </div>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
