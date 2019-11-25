@@ -1,6 +1,6 @@
 import pytest
 
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from datetime import date
 from django.test import TestCase, Client
 from django.test.utils import override_settings
