@@ -152,6 +152,7 @@
 
           <!-- MOBILE NAV -->
           <ul class="navbar-nav__item">
+            {% if request.user.is_authenticated %}
             <li class="navbar-nav__option">
               <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
             </li>
@@ -161,6 +162,12 @@
                 <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
               </form>
             </li>
+
+            {% else %}
+              <li class="navbar-nav__option">
+                  <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
+                </li>
+            {% endif %}
             <li class="navbar-nav__option">
               <div class="nav-search">
                 <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
