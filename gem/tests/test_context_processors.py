@@ -116,7 +116,8 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
 
         # Check settings
         settings = compress_settings(request)
-        self.assertEqual(settings['LOGIN_URL'], reverse('molo.profiles:auth_login'))
+        self.assertEqual(
+            settings['LOGIN_URL'], reverse('molo.profiles:auth_login'))
         self.assertEqual(
             settings['VIEW_PROFILE_URL'],
             u'/profile/edit/?theme=springster&redirect_uri='
@@ -129,6 +130,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
             u'/registration/?theme=springster&hide=end-user&redirect_uri='
             'http://example.url/oidc/authenticate/&client_id=client_id&'
             'language=en')
-        self.assertEqual(settings['LOGOUT_URL'], reverse('molo.profiles:auth_logout'))
+        self.assertEqual(
+            settings['LOGOUT_URL'], reverse('molo.profiles:auth_logout'))
         self.assertEqual(settings['ENV'], 'test_env')
         self.assertEqual(settings['STATIC_URL'], 'test_static_url')
