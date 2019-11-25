@@ -156,7 +156,7 @@
               <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
             </li>
             <li class="navbar-nav__option">
-              <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
+              <form method="post" id="logout-form" action="{{ LOGOUT_URL }}">
               {% csrf_token %}
                 <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
               </form>

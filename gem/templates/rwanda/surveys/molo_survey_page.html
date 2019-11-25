@@ -137,7 +137,7 @@
                         {% trans "Vote" as defaultText %}
                         <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ survey.submit_text|default:defaultText }}</button>
                       {% else %}
-                        <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+                        <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
                           {% trans "Log in to vote" %}
                         </a>
                       {% endif %}
@@ -175,7 +175,7 @@
           {% else %}
             <nav>
               <div class="call-to-action--group">
-                <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+                <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
                     {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_survey_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
                     {% endif %}
                 </a>

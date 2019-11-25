@@ -152,7 +152,7 @@
               {% footer_page %}
               {% if not user.is_authenticated %}
                 <li class="footer-menu-list__item">
-                  <a href="{% url LOGIN_URL %}" class="footer-menu-list__anchor">
+                  <a href="{{ LOGIN_URL }}" class="footer-menu-list__anchor">
                     {% trans "Log in / Sign up" %}
                   </a>
                 </li>
@@ -165,7 +165,7 @@
               </li>
 
               <li class="footer-menu-list__item">
-                <form method="post" action="{% url LOGOUT_URL %}">
+                <form method="post" action="{{ LOGOUT_URL }}">
                   {% csrf_token %}
                   <input class="footer-menu-list__anchor" value="{% trans "Log out" %}" type="submit">
                 </form>
