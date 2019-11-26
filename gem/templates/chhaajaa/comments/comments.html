@@ -98,13 +98,13 @@
       </div>
       <div class="pagination">
         {% if page.has_previous %}
-          <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
+          <a id="prev" href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
         {% endif %}
-        <span class="pagination__nav-item pagination__nav-item--current">
-          Page {{ page.number }} of {{ page.paginator.num_pages }}
-        </span>
+        <p class="call-to-action__item call-to-action__item--text">
+          {% trans "Pages" %} <span class="call-to-action__counter">{{ page.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{page.paginator.num_pages }}</span>
+        </p>
         {% if page.has_next %}
-          <a href="?p={{ page.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next"></a>
+          <a id="next" href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
         {% endif %}
       </div>
     </div>

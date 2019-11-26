@@ -13,8 +13,6 @@
   {{ form.timestamp }}
   {{ form.security_hash }}
   <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
-
-  {# <!-- <input type="hidden" name="next" value="{% pageurl self %}" /> --> #}
   {% if node.id %}
   <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />
   {% endif %}
