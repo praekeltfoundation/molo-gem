@@ -5,7 +5,7 @@
     {% for page in footers %}
       {% pageurl page.specific as footer_page %}
       <li class="footer-list__item">
-        <a href="{{footer_page}}" class="footer-list__anchor{% if request.path == footer_page %} active{% endif %}">{{page.title}}</a>
+       <a href="{{footer_page}}" class="footer-list__anchor{% if request.path == footer_page %} active{% endif %}">{{page.title}}</a>
       </li>
     {% endfor %}
     <li class="footer-list__item">{% contact_forms_list %}</li>
