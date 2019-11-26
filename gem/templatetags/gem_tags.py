@@ -7,6 +7,8 @@ from django.utils.timezone import timedelta
 from django.template import Library
 from django.conf import settings
 
+from wagtail.core.rich_text import RichText
+
 from gem.constants import GENDER
 from gem.models import GemTextBanner
 
@@ -91,14 +93,19 @@ def gembannerpages(context):
 
 @register.filter(name='smarttruncatechars')
 def smart_truncate_chars(value, max_length):
+    is_str = isinstance(value, str) and len(value) > max_length
+    is_rt = isinstance(
+        value, RichText) and len(value.__str__()) > max_length
 
-    if len(value) > max_length:
+    if is_rt:
+        value = value.__str__()
+
+    if is_str or is_rt:
         truncd_val = value[:max_length]
         if value[max_length] != ' ':
             truncd_val = truncd_val[:truncd_val.rfind(' ')]
 
         return truncd_val + '...'
-
     return value
 
 

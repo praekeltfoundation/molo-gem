@@ -4,6 +4,8 @@ from django.core.files import File
 from django.template import Context
 from django.test import RequestFactory, TestCase
 
+from wagtail.core.rich_text import RichText
+
 from molo.core.models import MoloMedia
 from gem.tests.base import GemTestCaseMixin
 from gem.templatetags.gem_tags import (
@@ -34,6 +36,12 @@ class TestSmartTruncateChars(TestCase):
         string = 'This is a test string which is long'
         result = smart_truncate_chars(string, 15)
         self.assertEqual(result, 'This is a test...')
+
+    def test_truncates_richtext(self):
+        max_length = 15
+        string = RichText('This is a test string which is long')
+        result = smart_truncate_chars(string, max_length)
+        self.assertTrue(len(result) <= max_length)
 
     def test_strips_to_defined_length_when_no_spaces(self):
         string = 'Thisisateststringwhichislong'
