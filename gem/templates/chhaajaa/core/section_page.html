@@ -76,8 +76,12 @@
           {% endif %}
         </div>
       </div>
-      {% else %}
-        <div class="section-page">
+    {% endif %}
+  {% endfor %}
+
+  {% load_sections service_aggregator=False as sections %}
+  {% for section in sections %}
+    <div class="section-page">
           <div class="section-page__images">
             {% if self.get_effective_image %}
               {% image self.get_effective_image width-200 as section_photo %}
@@ -310,8 +314,7 @@
               </div>
             </div>
           </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
+
 {% endblock %}
