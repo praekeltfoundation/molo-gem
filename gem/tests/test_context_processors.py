@@ -1,4 +1,5 @@
 from django.test import RequestFactory, TestCase, override_settings
+from django.urls import reverse
 
 from gem.context_processors import (
     compress_settings,
@@ -88,11 +89,11 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
         self.assertEqual(
             compress_settings(request),
             {
-                'LOGIN_URL': 'molo.profiles:auth_login',
+                'LOGIN_URL': reverse('molo.profiles:auth_login'),
                 'VIEW_PROFILE_URL': u'/profiles/view/myprofile/',
                 'EDIT_PROFILE_URL': u'/profiles/edit/myprofile/',
                 'REGISTRATION_URL': u'/profiles/register/',
-                'LOGOUT_URL': 'molo.profiles:auth_logout',
+                'LOGOUT_URL': reverse('molo.profiles:auth_logout'),
                 'ENV': 'test_env',
                 'STATIC_URL': 'test_static_url',
             }
@@ -115,7 +116,8 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
 
         # Check settings
         settings = compress_settings(request)
-        self.assertEqual(settings['LOGIN_URL'], 'molo.profiles:auth_login')
+        self.assertEqual(
+            settings['LOGIN_URL'], reverse('molo.profiles:auth_login'))
         self.assertEqual(
             settings['VIEW_PROFILE_URL'],
             u'/profile/edit/?theme=springster&redirect_uri='
@@ -128,6 +130,7 @@ class TestCompressSettings(TestCase, GemTestCaseMixin):
             u'/registration/?theme=springster&hide=end-user&redirect_uri='
             'http://example.url/oidc/authenticate/&client_id=client_id&'
             'language=en')
-        self.assertEqual(settings['LOGOUT_URL'], 'molo.profiles:auth_logout')
+        self.assertEqual(
+            settings['LOGOUT_URL'], reverse('molo.profiles:auth_logout'))
         self.assertEqual(settings['ENV'], 'test_env')
         self.assertEqual(settings['STATIC_URL'], 'test_static_url')

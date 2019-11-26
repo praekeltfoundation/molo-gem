@@ -71,7 +71,7 @@
             {% include "forms/form.html" with formtype="form" formtypeClass="surveys" %}
       {% else %}
         <div class="call-to-action call-to-action--surveys">
-          <a href="{% url LOGIN_URL %}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
+          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="button call-to-action__nav-item call-to-action__nav-item--surveys">{% trans 'Log in to take survey' %}</a>
         </div>
       {% endif %}
     </div>
