@@ -67,12 +67,9 @@
                             </div>
                           {% endif %}
   
-                          {% comment %}
-                            <!-- WHAT DID THIS VOTIGN DO?
-                            <div class="vote__item">
-                              <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                            </div>-->
-                          {% endcomment %}
+                          <div class="vote__item">
+                            <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                           </div>
   
                           {% if self.is_commenting_enabled %}
                             {% if self.allow_commenting %}
@@ -83,7 +80,6 @@
                               {% endif %}
                             {% endif %}
                           {% endif %}
-  
                         </div>
                         {% if self.subtitle %}
                           <h4 class="teaser-stacklist__subtitle">{{ self.subtitle|smarttruncatechars:150|safe}}</h4>
@@ -242,6 +238,7 @@
                   </form>
                 </div>
               {% endif %}
+              
               {% if self.is_commenting_enabled %}
                 {% if self.allow_commenting %}
                   {% if request.user.is_authenticated %}
@@ -263,11 +260,9 @@
               {% endif %}
             {% endfor %}
 
-            <div class="vote__item">
-              <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-            </div>
 
             {% if settings.gem.GemSettings.enable_comment_threads %}
+                
               {% for article in articles %}
                 {% forms_list_for_pages page=article %}
                 {% include "comments/comment_block.html" %}
