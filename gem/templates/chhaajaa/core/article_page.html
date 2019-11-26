@@ -101,6 +101,10 @@
             {% endif %}
           {% endfor %}
 
+          <div class="vote__item">
+            <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+          </div>
+
           {% if settings.gem.GemSettings.enable_comment_threads %}
             {% for article in articles %}
               {% forms_list_for_pages page=article %}

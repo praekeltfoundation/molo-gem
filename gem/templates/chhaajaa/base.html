@@ -104,7 +104,12 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
+         {% if settings.core.SiteSettings.logo %}
+            {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+            <img src="{{logo_image.url}}" width="150" height="auto" alt="Chhaajja" />
+          {% else %}
+            <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="150" height="auto" alt="Chhaajja" />
+          {% endif %}
         </a>
       </div>
 
@@ -174,7 +179,12 @@
   <footer class="footer_area">
     <div class="footer--left">
       <a href="/" class="footer__logo">
-        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="110">
+        {% if settings.core.SiteSettings.logo %}
+          {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+          <img src="{{logo_image.url}}" width="110" height="auto" alt="Chhaajja" />
+        {% else %}
+          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="110" height="auto" alt="Chhaajja" />
+        {% endif %}
       </a>
       <p class="copyright">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
