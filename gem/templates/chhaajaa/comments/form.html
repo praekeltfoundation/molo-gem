@@ -13,34 +13,7 @@
   {{ form.timestamp }}
   {{ form.security_hash }}
   <input type="hidden" name="next" value="{{ request.path|urlencode }}" />
-
-  {# <!-- <input type="hidden" name="next" value="{% pageurl self %}" /> --> #}
   {% if node.id %}
   <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />
   {% endif %}
 </form>
-
-{% block extra_js %}
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#comment-form').submit(function() {
-        $.ajax({
-          data: $(this).serialize(),
-          type: $(this).attr('method'),
-          url: $(this).attr('action'),
-          success: function (data) {
-            // if the comment was a success, remove the comment text from the text area
-            $('#id_comment').val('');
-            $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
-            setTimeout(function(){
-              $('.comment-success').each(function(index) {
-                $(this).hide('fast', function(){ $(this).remove(); });
-              })
-            }, 3000);
-          },
-        });
-        return false;
-      });
-    });
-  </script>
-{% endblock %}

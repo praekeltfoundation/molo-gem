@@ -104,7 +104,12 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
+         {% if settings.core.SiteSettings.logo %}
+            {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+            <img src="{{logo_image.url}}" width="150" height="auto" alt="Chhaajja" />
+          {% else %}
+            <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="150" height="auto" alt="Chhaajja" />
+          {% endif %}
         </a>
       </div>
 
@@ -174,7 +179,12 @@
   <footer class="footer_area">
     <div class="footer--left">
       <a href="/" class="footer__logo">
-        <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajaa" width="110">
+        {% if settings.core.SiteSettings.logo %}
+          {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+          <img src="{{logo_image.url}}" width="110" height="auto" alt="Chhaajja" />
+        {% else %}
+          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="110" height="auto" alt="Chhaajja" />
+        {% endif %}
       </a>
       <p class="copyright">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
     </div>
@@ -192,9 +202,108 @@
         ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
       </script>
   {% endif %}
-  {% compress js inline %}
+  {% compress js inline %}{% endcompress %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
-    <script>
+    <script type="text/javascript">
+      /* Reaction Question */
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+
+      /* Section */
+      $("#share_article").click(function(e) {
+        e.preventDefault();
+        $("#share_reveal").toggle(function(){
+          $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          },function() {
+           $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          }
+        );
+      });
+      function set_choice(choice, article_id) {
+        if (!$('#' + choice).attr('disabled') == true){
+          var frm = $('#reaction-questions__form_' + article_id);
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice + "-" + article_id).attr('disabled', true);
+            }
+          })
+        }
+      };
+      /* Commenting */
+      $('#comment-form').submit(function() {
+        $.ajax({
+          data: $(this).serialize(),
+          type: $(this).attr('method'),
+          url: $(this).attr('action'),
+          success: function (data) {
+            // if the comment was a success, remove the comment text from the text area
+            $('#id_comment').val('');
+            $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
+            setTimeout(function(){
+              $('.comment-success').each(function(index) {
+                $(this).hide('fast', function(){ $(this).remove(); });
+              })
+            }, 3000);
+          },
+        });
+        return false;
+      });
+
       let $grid = $('.service-stacklist').isotope({
         itemSelector: '.service-stacklist__item',
         layoutMode: 'masonry',
@@ -238,6 +347,6 @@
         });
       });
     </script>
-  {% endcompress %}
+
 </body>
 </html>

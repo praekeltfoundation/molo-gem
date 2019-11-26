@@ -180,6 +180,13 @@
       {% endfor %}
       </div>   <!-- Comment Reply -->
 
+      {% get_comments_content_object for form as self %}
+      {% pageurl self as the_url %}
+      <div class="call-to-action call-to-action--wide-back">
+        <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        {% trans "Back to article" %}</a>
+      </div>
+
       <div class="pagination">
         {% if replies.has_previous %}
           <a id="prev" href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
@@ -191,23 +198,17 @@
           <a id="next" href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
         {% endif %}
       </div>
-
-      {% get_comments_content_object for form as self %}
-      {% pageurl self as the_url %}
-      <div class="call-to-action call-to-action--wide-back">
-        <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-        {% trans "Back to article" %}</a>
-      </div>
     </div>
   </div>
 
   <div class="content--right">
     <div class="comments">
-      {% if self.allow_commenting %}
-        <div id="comment-block">
-          <div class="heading heading--hero">
-            <h2 class="heading__component">{% trans "Add your reply" %}</h2>
+      <div id="comment-block" class="comments-posting comments-posting--replies">
+        {% if self.allow_commenting %}
+          <div class="heading heading--secondary">
+            <h4 class="heading__subheading">{% trans "Add your reply" %}</h4>
           </div>
+
           {% if request.user.is_authenticated %}
             <form id="comment-form" action="{% url 'molo.commenting:molo-comments-post' %}#comments-list" method="post" class="comments__form" novalidate>
               {% csrf_token %}
@@ -238,17 +239,16 @@
               </p>
             </div>
           {% endif %}
-        </div>
-      {% else %}
-        <div id="comment-block">
-          <div class="heading heading--hero">
-            <h2 class="heading__component">{% trans "Add your reply" %}</h2>
+
+        {% else %}
+          <div class="heading heading--secondary">
+            <h4 class="heading__subheading">{% trans "Add your reply" %}</h4>
           </div>
           <div class="heading heading__micro">
             <h4 class="comments__title">{% trans "Commenting on this article is currently disabled" %}.</h4>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

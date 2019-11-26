@@ -58,13 +58,10 @@
                   </form>
                 </div>
                 {% endif %}
-                
-                {% comment %}
-                  <!-- WHAT DID THIS VOTIGN DO?
-                  <div class="vote__item">
-                    <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                  </div>-->
-                {% endcomment %}
+
+                <div class="vote__item">
+                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                </div>
 
                 {% if article.is_commenting_enabled %}
                   {% if article.allow_commenting %}
@@ -103,28 +100,3 @@
   {% endfor %}
 </div>
 {% endif %}
-
-{% block extra_js %}
-  <script type="text/javascript">
-    var frm = $('#reaction-questions__form');
-    function set_choice(choice) {
-      if (!$('#' + choice).attr('disabled') == true){
-        $.ajax({
-          type: frm.attr('method'),
-          url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
-          success: function () {
-            $( ".reaction-questions__item" ).each(function( index ) {
-              $(this).attr('disabled', false);
-            });
-            $("#" + choice).attr('disabled', true);
-          }
-        })
-      }
-    };
-  </script>
-{% endblock %}

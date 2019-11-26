@@ -4,10 +4,6 @@
 {% block content %}
 <div class="container">
   <div class="content--left">
-    <div class="call-to-action call-to-action--wide-back">
-      <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-        {% trans "Back to article" %}</a>
-    </div>
     <div class="comments">
       <div class="heading heading--hero">
         <h2 class="heading__component">{% trans "Your Comments" %}</h2>
@@ -96,20 +92,20 @@
           {% endrecursetree %}
         {% endfor %}
       </div>
-      <div class="pagination">
-        {% if page.has_previous %}
-          <a href="?p={{ page.previous_page_number }}" class="pagination__nav-item pagination__nav-anchor-previous"></a>
-        {% endif %}
-        <span class="pagination__nav-item pagination__nav-item--current">
-          Page {{ page.number }} of {{ page.paginator.num_pages }}
-        </span>
-        {% if page.has_next %}
-          <a href="?p={{ page.next_page_number }}" class="pagination__nav-item pagination__nav-anchor-next"></a>
-        {% endif %}
-      </div>
       <div class="call-to-action call-to-action--wide-back">
         <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
           {% trans "Back to article" %}</a>
+      </div>
+      <div class="pagination">
+        {% if page.has_previous %}
+          <a id="prev" href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+        {% endif %}
+        <p class="call-to-action__item call-to-action__item--text">
+          {% trans "Pages" %} <span class="call-to-action__counter">{{ page.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{page.paginator.num_pages }}</span>
+        </p>
+        {% if page.has_next %}
+          <a id="next" href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+        {% endif %}
       </div>
     </div>
   </div>
