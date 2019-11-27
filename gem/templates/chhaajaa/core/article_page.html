@@ -21,7 +21,7 @@
                     <li class="teaser-stacklist__item">
 
                       {# <!-- REVIEW IMAGE BACKUP --> #}
-                      {% for block in article.body %}
+                      {% for block in self.body %}
                         {% if block.value.type == "video" %}
                           {% if block.value.youtube_link %}
                             <div class="teaser-stacklist__iframe">
@@ -29,9 +29,9 @@
                             </div>
                           {% endif %}
                         {% else %}
-                          {% if forloop.last and article.get_effective_image %}
+                          {% if forloop.last and self.get_effective_image %}
                           <div class="teaser-stacklist__images">
-                            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                            <a href="{% pageurl self.specific %}" class="teaser-stacklist__anchor">
                                   {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
                                   <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
                                 </a>
@@ -277,7 +277,7 @@
             {% if article and self.get_parent_section.enable_next_section %}
               <div class="article-teaser article-teaser--related-services">
                 <div class="heading heading--hero">
-                  ==><h1 class="heading__component heading__component--finder">
+                  <h1 class="heading__component heading__component--finder">
                     {% trans "Up Next services" %}
                   </h1>
                 </div>
@@ -355,7 +355,7 @@
             {% get_recommended_articles self as articles %}
               {% if articles %}
               <div class="article-teaser article-teaser--related-services">
-                ==><h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
+                <h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
                 <ul class="service-stacklist">
                   {% for article in articles %}
                   <li class="service-stacklist__item">
