@@ -10,12 +10,11 @@
       <ul class="teaser-grid">
         {% for article in articles %}
           <li class="teaser-grid__item">
-
             {# <!-- REVIEW IMAGE BACKUP --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
-                  <div class="teaser-stacklist__iframe">
+                  <div class="teaser-grid__iframe">
                     {% embed block.value.youtube_link %}
                   </div>
                 {% endif %}

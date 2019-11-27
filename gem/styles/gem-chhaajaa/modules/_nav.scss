@@ -32,20 +32,21 @@
       background-color: transparent;
       color: $colorPurple;
       cursor: pointer;
+      font-family: "FedraSansDevanagariB-Bold";
       display: block;
-      font-size: 28px;
+      font-size: 25px;
       font-weight: 700;
       margin: 0;
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
       transition: all 0.3s;
-
       @media screen and (min-width: 45.000em) {
         align-items: center;
         background-color: $colorPurple;
         border-radius: 2px;
         color: #fff;
         display: flex;
+        font-family: "FedraSansDevanagariB-Light";
         font-size: 22px;
         min-width: 96.73px;
         justify-content: center;
@@ -65,6 +66,7 @@
     #logout-form {
       display: inline-block;
       .navbar-nav__button {
+        font-family: "FedraSansDevanagariB-Demi";
         padding: 5px 0;
         @media screen and (min-width: 45.000em)  {
           padding: 0 15px;
@@ -76,14 +78,15 @@
 
     &__option {
       display: block;
+      margin: 5px 0;
       @media screen and (min-width: 45.000em) {
-        margin: 10px;
+        margin: 0 10px;
         display: inline-block;
         overflow: hidden;
       }
       &:last-child {
         @media screen and (min-width: 45.000em) {
-          margin: 10px 0 10px 10px;
+          margin: 0 10px;
         }
       }
     }
@@ -91,7 +94,7 @@
       color: #8207ff;
       display: block;
       font-family: "FedraSansDevanagariB-Bold";
-      font-size: 27px;
+      font-size: 24px;
       text-transform: capitalize;
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
@@ -110,11 +113,14 @@
       @media screen and (min-width: 45.000em) {
         margin: 0 auto;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
       }
       &:last-child {
         @media screen and (min-width: 73.938em) {
           margin: 0;
           margin-left: 2.5em;
+          flex-wrap: inherit;
           flex-direction: row-reverse;
         }
       }
@@ -137,11 +143,11 @@
   &-toggle {
     display: inline-block;
     position: relative;
-    padding: 10px;
+    padding: 5px;
     font-size: 22px;
     vertical-align: middle;
     background: transparent;
-    margin: 10px;
+    margin: 10px 5px;
     border: 2px solid transparent;
     @media screen and (min-width: 40.000em) {
       margin: 15px;
@@ -289,8 +295,6 @@
 
 .navbar-right {
   .navbar-nav__item:first-child {
-    @media screen and (min-width: 45.000em) {
-      //margin: 0 10.5em 0 0;
-    }
+    //@media screen and (min-width: 45.000em) {}
   }
 }
