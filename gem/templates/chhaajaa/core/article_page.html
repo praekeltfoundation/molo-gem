@@ -19,26 +19,27 @@
                 <div class="article-teaser__wrapper">
                   <ul class="teaser-stacklist">
                     <li class="teaser-stacklist__item">
-                      {% if self.homepage_media %}
-                        {% for block in self.homepage_media %}
-                          {% with block.value as media %}
+
+                      {# <!-- REVIEW IMAGE BACKUP --> #}
+                      {% for block in article.body %}
+                        {% if block.value.type == "video" %}
+                          {% if block.value.youtube_link %}
                             <div class="teaser-stacklist__iframe">
-                              {% if block.value.youtube_link %}
-                                {% embed media.youtube_link %}
-                              {% endif %}
+                              {% embed block.value.youtube_link %}
                             </div>
-                          {% endwith %}
-                        {% endfor %}
-                      {% else %}
-                        {% if self.get_effective_image %}
+                          {% endif %}
+                        {% else %}
+                          {% if forloop.last and article.get_effective_image %}
                           <div class="teaser-stacklist__images">
                             <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                              {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-                            </a>
-                          </div>
+                                  {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                                  <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                                </a>
+                            </div>
+                          {% endif %}
                         {% endif %}
-                      {% endif %}
+                      {% endfor %}
+
                       <div class="teaser-stacklist__container">
                         <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
                         <div class="teaser-stacklist__cta-buttons">
@@ -108,6 +109,7 @@
             {% endif %}
 
             <div class="content--right">
+
               {# <!-- Beginning of Side Bar -->  #}
               {% if articles %}
                 <div class="article-teaser">
@@ -118,26 +120,25 @@
                   <ul class="teaser-grid">
                     {% for article in articles %}
                       <li class="teaser-grid__item">
-                        {% if self.homepage_media %}
-                          {% for block in self.homepage_media %}
-                            {% with block.value as media %}
+                        {% for block in article.body %}
+                          {% if block.value.type == "video" %}
+                            {% if block.value.youtube_link %}
                               <div class="teaser-grid__iframe">
-                                {% if block.value.youtube_link %}
-                                  {% embed media.youtube_link %}
-                                {% endif %}
+                                {% embed block.value.youtube_link %}
                               </div>
-                            {% endwith %}
-                          {% endfor %}
-                        {% else %}
-                          {% if article.get_effective_image %}
+                            {% endif %}
+                          {% else %}
+                            {% if forloop.last and article.get_effective_image %}
                             <div class="teaser-grid__images">
                               <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                                 {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
                                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                               </a>
                             </div>
+                            {% endif %}
                           {% endif %}
-                        {% endif %}
+                        {% endfor %}
+
                         <div class="teaser-grid__container">
                           <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                             <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
