@@ -6,7 +6,6 @@
     {% if field|fieldtype == 'RadioSelect' %}
     <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
       {% for value, text in field.field.choices %}
-        {% load_user_choice_poll_form form_page field.name text as user_has_chosen %}
         <div class="choice-group choice-group__radio">
           {% if user_has_chosen %}
             <input name="{{ field.name }}"
