@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 {% block content %}
+
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
     <div class="heading {% if self.your_words_competition %}heading--hero {% else %}heading--secondary{% endif %}">

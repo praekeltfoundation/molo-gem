@@ -3,7 +3,6 @@
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
 
-
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -29,7 +28,6 @@
     {% if self.get_effective_image %}
       {% image self.get_effective_image fill-450x200 as article_photo %}
     {% endif %}
-
     <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Chhaajaa Web application{% endif %}" />
     <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
     <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
@@ -39,6 +37,9 @@
     <meta property="og:image:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    {% if settings.core.SiteSettings.google_search_console %}
+    <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
+    {% endif %}
     <link rel="icon" href="{% static 'img/logos/chhaajaa-logo.png' %}" type="image/x-icon" />
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
@@ -46,6 +47,8 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
+
     <!-- Facebook Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s){
@@ -64,6 +67,7 @@
       <img height="1" width="1"src="https://www.facebook.com/tr?id=2468162103426122&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Facebook Pixel Code -->
+
     {% if user.is_authenticated %}
       <script>
         window.dataLayer = window.dataLayer || [];
@@ -93,39 +97,63 @@
     <nav class="navbar">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated %}{% endif %}
           <span class="sr-only">{% trans "Menu" %}</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          {% endif %}
         </button>
         <a class="navbar-brand" href="/">
-          <img src="{% static 'img/logos/chhaajaa-logo.png' %}" alt="Chhaajja" width="150">
+         {% if settings.core.SiteSettings.logo %}
+            {% image settings.core.SiteSettings.logo width-350 as logo_image %}
+            <img src="{{logo_image.url}}" width="150" height="auto" alt="Chhaajja" />
+          {% else %}
+            <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="150" height="auto" alt="Chhaajja" />
+          {% endif %}
         </a>
       </div>
-      {% if user.is_authenticated %}
+
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
+          <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
+            {% load_sections service_aggregator=True as service_aggregators %}
             {% load_sections as sections %}
-            {% for section in sections %}
-              {% content_is section "Videos" as is_videos %}
-              <li class="navbar-nav__option">
-                <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
-              </li>
-            {% endfor %}
+            {% if sections %}
+              {% for section in sections %}
+                {% content_is section "Videos" as is_videos %}
+                <li class="navbar-nav__option">
+                  <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
+            {% if service_aggregators %}
+              {% for service_aggregator in service_aggregators %}
+                <li class="navbar-nav__option">
+                  <a href="{% pageurl service_aggregator.specific %}" class="navbar-nav__anchor">{{service_aggregator.title}}</a>
+                </li>
+              {% endfor %}
+            {% endif %}
           </ul>
+
+          <!-- MOBILE NAV -->
           <ul class="navbar-nav__item">
+            {% if request.user.is_authenticated %}
             <li class="navbar-nav__option">
               <a href="{{VIEW_PROFILE_URL}}" class="navbar-nav__button">{% trans "Profile" %}</a>
             </li>
             <li class="navbar-nav__option">
-              <form method="post" id="logout-form" action="{% url LOGOUT_URL %}">
+              <form method="post" id="logout-form" action="{{ LOGOUT_URL }}">
               {% csrf_token %}
                 <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
               </form>
             </li>
+
+            {% else %}
+              <li class="navbar-nav__option">
+                  <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
+                </li>
+            {% endif %}
             <li class="navbar-nav__option">
               <div class="nav-search">
                 <label for="search_accordion" id="nav_search" class="nav-search__label"></label>
@@ -141,12 +169,13 @@
           </ul>
         </div>
       </div>
-      {% endif %}
     </nav>
   </header>
+
   <div class="wrapper">
     {% block content %}{% endblock %}
   </div>
+
   <footer class="footer_area">
     <div class="footer--left">
       <a href="/" class="footer__logo">
@@ -173,18 +202,133 @@
         ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
       </script>
   {% endif %}
-  {% compress js inline %}
+  {% compress js inline %}{% endcompress %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
-    <script>
+    <script type="text/javascript">
+      /* Reaction Question */
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+
+      /* Section */
+      $("#share_article").click(function(e) {
+        e.preventDefault();
+        $("#share_reveal").toggle(function(){
+          $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          },function() {
+           $(this).animate({
+             "display": "block",
+             "transition": "display .15s ease-in-out"
+           }, 500);
+          }
+        );
+      });
+      function set_choice(choice, article_id) {
+        if (!$('#' + choice).attr('disabled') == true){
+          var frm = $('#reaction-questions__form_' + article_id);
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice + "-" + article_id).attr('disabled', true);
+            }
+          })
+        }
+      };
+      /* Commenting */
+      $('#comment-form').submit(function() {
+        $.ajax({
+          data: $(this).serialize(),
+          type: $(this).attr('method'),
+          url: $(this).attr('action'),
+          success: function (data) {
+            // if the comment was a success, remove the comment text from the text area
+            $('#id_comment').val('');
+            $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
+            setTimeout(function(){
+              $('.comment-success').each(function(index) {
+                $(this).hide('fast', function(){ $(this).remove(); });
+              })
+            }, 3000);
+          },
+        });
+        return false;
+      });
+
+      let $grid = $('.service-stacklist').isotope({
+        itemSelector: '.service-stacklist__item',
+        layoutMode: 'masonry',
+        cellsByRow: {
+          columnWidth: 200,
+          rowHeight: 150
+        }
+      });
+
+      $(".show-more").click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
+        $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden").slow();
+      });
+
       $( "#id_comment").on("focus",function(event){
-          $(this).closest(".comments__form-post").css({
+          $(this).closest(".comments-posting").css({
             "border": "5px solid #72f3a2",
             "outline": "none",
             "padding": "10px",
             "border-radius": "5px"
           });
         }).on("blur",function(event) {
-        $(this).closest(".comments__form-post").css("border","5px solid transparent");
+        $(this).closest(".comments-posting").css("border","5px solid transparent");
       });
 
       $(document).ready(function(){
@@ -203,6 +347,6 @@
         });
       });
     </script>
-  {% endcompress %}
+
 </body>
 </html>

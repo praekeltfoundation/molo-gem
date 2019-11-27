@@ -31,7 +31,7 @@
         {% endwith %}
     {% endif %}
 
-    <form method="post" action="{% url LOGOUT_URL %}">
+    <form method="post" action="{{ LOGOUT_URL }}">
       {% csrf_token %}
       <button class="call-to-action__button call-to-action__button-text call-to-action__button-text--hyperlink" type="submit">{% trans "Log out" %}</button>
     </form>
