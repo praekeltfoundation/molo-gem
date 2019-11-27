@@ -3,16 +3,16 @@
 {% get_settings %}
 
 {% block content %}
-<div class="article-page article-service">
+
   {% load_sections service_aggregator=True as service_aggregators %}
   {% load_sections as sections %}
-
   {% with parent_section=self.get_parent_section %}
 
     {% if sections  %}
       {# <!-- GENERAL ARTICLE UI --> #}
       {% for section in sections %}
         {% if parent_section.pk ==  section.pk %}
+        <div class="article-page">
           <div class="article-page__wrapper">
             <div class="content--left">
               <div class="article-teaser">
@@ -30,11 +30,11 @@
                           {% endwith %}
                         {% endfor %}
                       {% else %}
-                        {% if article.get_effective_image %}
+                        {% if self.get_effective_image %}
                           <div class="teaser-stacklist__images">
                             <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                              {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+                              {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                              <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
                             </a>
                           </div>
                         {% endif %}
@@ -67,11 +67,9 @@
                               </form>
                             </div>
                           {% endif %}
-
                           <div class="vote__item">
                             <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                           </div>
-
+                          </div>
                           {% if self.is_commenting_enabled %}
                             {% if self.allow_commenting %}
                               {% if request.user.is_authenticated %}
@@ -100,21 +98,23 @@
               {% forms_list_for_pages page=self %}
               {% include "comments/comment_block.html" with article=self %}
             </div>
+
+            {% get_translation self.get_parent_section as section %}
+            {% content_is section "Videos" as is_video_section %}
+            {% if not is_video_section %}
+              {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
+            {% else %}
+              {% load_child_articles_for_section section as articles %}
+            {% endif %}
+
             <div class="content--right">
-              {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
-              <div class="article-teaser">
+              {# <!-- Beginning of Side Bar -->  #}
+              {% if articles %}
+                <div class="article-teaser">
                 <div class="heading heading--hero">
-                  <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+                  <h1 class="heading__component">{% trans "Arress dekho" %}</h1>
                 </div>
                 <div class="article-teaser__wrapper">
-                  {% get_translation self.get_parent_section as section %}
-                  {% content_is section "Videos" as is_video_section %}
-                  {% if not is_video_section %}
-                    {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
-                  {% else %}
-                    {% load_child_articles_for_section section as articles %}
-                  {% endif %}
-
                   <ul class="teaser-grid">
                     {% for article in articles %}
                       <li class="teaser-grid__item">
@@ -159,15 +159,18 @@
                     {% endfor %}
                   </ul>
                 </div>
-              </div>
+                </div>
+              {% endif %}
             </div>
           </div>
+        </div>
         {% endif %}
       {% endfor %}
 
       {# <!-- SERVICE FINDER ARTICLE UI --> #}
       {% for service_aggregator in service_aggregators %}
         {% if parent_section.pk ==  service_aggregator.pk %}
+        <div class="article-page article-service">
           {% comment %}
           <!-- REVIEW IMAGE BACKUP --
           {% if self.homepage_media %}
@@ -273,7 +276,7 @@
             {% if article and self.get_parent_section.enable_next_section %}
               <div class="article-teaser article-teaser--related-services">
                 <div class="heading heading--hero">
-                  <h1 class="heading__component heading__component--finder">
+                  ==><h1 class="heading__component heading__component--finder">
                     {% trans "Up Next services" %}
                   </h1>
                 </div>
@@ -351,7 +354,7 @@
             {% get_recommended_articles self as articles %}
               {% if articles %}
               <div class="article-teaser article-teaser--related-services">
-                <h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
+                ==><h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
                 <ul class="service-stacklist">
                   {% for article in articles %}
                   <li class="service-stacklist__item">
@@ -421,7 +424,7 @@
           </div>
         {% endif %}
       {% endfor %}
+    </div>
     {% endif %}
   {% endwith %}
-</div>
 {% endblock %}
