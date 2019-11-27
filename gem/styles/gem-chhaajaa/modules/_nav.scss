@@ -77,13 +77,13 @@
     &__option {
       display: block;
       @media screen and (min-width: 45.000em) {
-        margin: 10px;
+        margin: 0 10px;
         display: inline-block;
         overflow: hidden;
       }
       &:last-child {
         @media screen and (min-width: 45.000em) {
-          margin: 10px 0 10px 10px;
+          margin: 0 10px;
         }
       }
     }
@@ -91,7 +91,7 @@
       color: #8207ff;
       display: block;
       font-family: "FedraSansDevanagariB-Bold";
-      font-size: 27px;
+      font-size: 24px;
       text-transform: capitalize;
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
@@ -110,11 +110,14 @@
       @media screen and (min-width: 45.000em) {
         margin: 0 auto;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
       }
       &:last-child {
         @media screen and (min-width: 73.938em) {
           margin: 0;
           margin-left: 2.5em;
+          flex-wrap: inherit;
           flex-direction: row-reverse;
         }
       }
