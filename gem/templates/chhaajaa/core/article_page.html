@@ -3,41 +3,43 @@
 {% get_settings %}
 
 {% block content %}
-<div class="article-page article-service">
-  {% load_sections service_aggregator=True as service_aggregators %}
-  {% load_sections as sections %} 
 
+  {% load_sections service_aggregator=True as service_aggregators %}
+  {% load_sections as sections %}
   {% with parent_section=self.get_parent_section %}
 
     {% if sections  %}
+      {# <!-- GENERAL ARTICLE UI --> #}
       {% for section in sections %}
         {% if parent_section.pk ==  section.pk %}
+        <div class="article-page">
           <div class="article-page__wrapper">
             <div class="content--left">
               <div class="article-teaser">
                 <div class="article-teaser__wrapper">
                   <ul class="teaser-stacklist">
                     <li class="teaser-stacklist__item">
-                      {% if self.homepage_media %}
-                        {% for block in self.homepage_media %}
-                          {% with block.value as media %}
+
+                      {# <!-- REVIEW IMAGE BACKUP --> #}
+                      {% for block in self.body %}
+                        {% if block.value.type == "video" %}
+                          {% if block.value.youtube_link %}
                             <div class="teaser-stacklist__iframe">
-                              {% if block.value.youtube_link %}
-                                {% embed media.youtube_link %}
-                              {% endif %}
+                              {% embed block.value.youtube_link %}
                             </div>
-                          {% endwith %}
-                        {% endfor %}
-                      {% else %}
-                        {% if article.get_effective_image %}
+                          {% endif %}
+                        {% else %}
+                          {% if forloop.last and self.get_effective_image %}
                           <div class="teaser-stacklist__images">
-                            <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                              {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
-                            </a>
-                          </div>
+                            <a href="{% pageurl self.specific %}" class="teaser-stacklist__anchor">
+                                  {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                                  <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                                </a>
+                            </div>
+                          {% endif %}
                         {% endif %}
-                      {% endif %}
+                      {% endfor %}
+
                       <div class="teaser-stacklist__container">
                         <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
                         <div class="teaser-stacklist__cta-buttons">
@@ -66,11 +68,9 @@
                               </form>
                             </div>
                           {% endif %}
-  
                           <div class="vote__item">
                             <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                           </div>
-  
+                          </div>
                           {% if self.is_commenting_enabled %}
                             {% if self.allow_commenting %}
                               {% if request.user.is_authenticated %}
@@ -99,44 +99,46 @@
               {% forms_list_for_pages page=self %}
               {% include "comments/comment_block.html" with article=self %}
             </div>
+
+            {% get_translation self.get_parent_section as section %}
+            {% content_is section "Videos" as is_video_section %}
+            {% if not is_video_section %}
+              {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
+            {% else %}
+              {% load_child_articles_for_section section as articles %}
+            {% endif %}
+
             <div class="content--right">
-              {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
-              <div class="article-teaser">
+
+              {# <!-- Beginning of Side Bar -->  #}
+              {% if articles %}
+                <div class="article-teaser">
                 <div class="heading heading--hero">
-                  <h1 class="heading__component">{% trans "Arre dekho" %}</h1>
+                  <h1 class="heading__component">{% trans "Arress dekho" %}</h1>
                 </div>
                 <div class="article-teaser__wrapper">
-                  {% get_translation self.get_parent_section as section %}
-                  {% content_is section "Videos" as is_video_section %}
-                  {% if not is_video_section %}
-                    {% load_child_articles_for_section section.get_first_sibling.specific False as articles %}
-                  {% else %}
-                    {% load_child_articles_for_section section as articles %}
-                  {% endif %}
-  
                   <ul class="teaser-grid">
                     {% for article in articles %}
                       <li class="teaser-grid__item">
-                        {% if self.homepage_media %}
-                          {% for block in self.homepage_media %}
-                            {% with block.value as media %}
+                        {% for block in article.body %}
+                          {% if block.value.type == "video" %}
+                            {% if block.value.youtube_link %}
                               <div class="teaser-grid__iframe">
-                                {% if block.value.youtube_link %}
-                                  {% embed media.youtube_link %}
-                                {% endif %}
+                                {% embed block.value.youtube_link %}
                               </div>
-                            {% endwith %}
-                          {% endfor %}
-                        {% else %}
-                          {% if article.get_effective_image %}
+                            {% endif %}
+                          {% else %}
+                            {% if forloop.last and article.get_effective_image %}
                             <div class="teaser-grid__images">
                               <a href="{% pageurl article.specific %}" class="teaser-grid__anchor">
                                 {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
                                 <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-grid__thumbnail" />
                               </a>
                             </div>
+                            {% endif %}
                           {% endif %}
-                        {% endif %}
+                        {% endfor %}
+
                         <div class="teaser-grid__container">
                           <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                             <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
@@ -158,14 +160,18 @@
                     {% endfor %}
                   </ul>
                 </div>
-              </div>
+                </div>
+              {% endif %}
             </div>
           </div>
+        </div>
         {% endif %}
       {% endfor %}
-      
+
+      {# <!-- SERVICE FINDER ARTICLE UI --> #}
       {% for service_aggregator in service_aggregators %}
         {% if parent_section.pk ==  service_aggregator.pk %}
+        <div class="article-page article-service">
           {% comment %}
           <!-- REVIEW IMAGE BACKUP --
           {% if self.homepage_media %}
@@ -238,7 +244,7 @@
                   </form>
                 </div>
               {% endif %}
-              
+
               {% if self.is_commenting_enabled %}
                 {% if self.allow_commenting %}
                   {% if request.user.is_authenticated %}
@@ -261,7 +267,7 @@
             {% endfor %}
 
 
-            {% if settings.gem.GemSettings.enable_comment_threads %}          
+            {% if settings.gem.GemSettings.enable_comment_threads %}
               {% forms_list_for_pages page=self %}
               {% include "comments/comment_block.html" %}
             {%endif %}
@@ -419,7 +425,7 @@
           </div>
         {% endif %}
       {% endfor %}
-    {% endif %} 
+    </div>
+    {% endif %}
   {% endwith %}
-</div>
 {% endblock %}

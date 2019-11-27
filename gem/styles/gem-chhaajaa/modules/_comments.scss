@@ -29,7 +29,7 @@
     font-style: italic;
     padding-right: 5px;
   }
-  
+
   &__reply-meta {
     display: inline-block;
     padding: 10px 10px;
@@ -92,10 +92,6 @@
     }
   }
 
-  &-list_wrapper {
-    padding: 3em 0 0;
-  }
-
   &-list {
     &__item {
       &--reply {
@@ -123,6 +119,9 @@
     &__item--parent-comment:first-child {
       border: none;
     }
+    &_wrapper {
+      padding: 2em 0 0;
+    }
   }
 
   &-replies {
@@ -135,7 +134,7 @@
       margin: 15px 0;
       padding-left: 15px;
       background-color: #ebeef1;
-      
+
       &-title,
       &-label {
         text-decoration: underline;
@@ -242,9 +241,14 @@
       background-color: $colorPink;
     }
   }
-  .heading--hero {
-    display: inline-block;
-    margin: 0 0 1em;
+  .heading {
+    &__micro {
+      margin: 0 15px;
+    }
+    &--hero {
+      display: inline-block;
+      margin: 0 0 1em;
+    }
   }
 }
 
@@ -278,7 +282,7 @@
     color: $colorPink;
     font-style: italic;
   }
-  
+
   &_list_area  {
     h3 {
       font-size: 24px;
@@ -288,7 +292,6 @@
       padding: 60px 0px 35px 0px;
       font-weight: 400;
     }
-  
     .media {
       margin-top: 0px;
       padding: 35px 0px 30px 0px;
@@ -332,7 +335,7 @@
           border-radius: 0px;
           line-height: 28px;
         }
-  
+
       }
       .media.comment_reply {
         max-width: 650px;
@@ -347,7 +350,7 @@
           &:hover {
             color: $colorPink;
           }
-  
+
         }
       }
     }
