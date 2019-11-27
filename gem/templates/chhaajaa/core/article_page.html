@@ -261,12 +261,9 @@
             {% endfor %}
 
 
-            {% if settings.gem.GemSettings.enable_comment_threads %}
-                
-              {% for article in articles %}
-                {% forms_list_for_pages page=article %}
-                {% include "comments/comment_block.html" %}
-              {% endfor %}
+            {% if settings.gem.GemSettings.enable_comment_threads %}          
+              {% forms_list_for_pages page=self %}
+              {% include "comments/comment_block.html" %}
             {%endif %}
 
             <!-- NEXT UP -->
