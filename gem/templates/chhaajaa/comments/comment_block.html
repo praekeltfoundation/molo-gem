@@ -1,6 +1,5 @@
 {% load wagtailsettings_tags wagtailcore_tags mptt_tags molo_commenting_tags core_tags wagtailimages_tags comments gem_tags %}
 {% get_settings %}
-
 {% if article.is_commenting_enabled %}
 <div class="comments">
   {# <!-- COMMENTS FORM MODULE --> #}
@@ -113,10 +112,8 @@
           {% endfor %}
         </div>
       {% if comment_count > 2 %}
-        <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__button call-to-action__button--primary" {{attribute}}>
-          <span class="call-to-action__button-text call-to-action__button-text--primary">
-            {% trans "Read more comments" %}
-          </span>
+        <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__nav-item--more" {{attribute}}>
+          {% trans "Read more comments" %}
         </a>
       {% endif %}
     </div>

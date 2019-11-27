@@ -14,8 +14,8 @@
     border-radius: 22.5px;
     display: inline-block;
     text-align: center;
-    padding: 15px;
-    color: #fff;
+    padding: 10px;
+    color: $colorRedLight;
     font-weight: 400;
     text-transform: uppercase;
     position: relative;
@@ -46,10 +46,9 @@
       z-index: -1;
     }
     &:hover {
-      color: $colorRedLight;
+      color: $colorPink;
     }
     &-text {
-      border-bottom: 2px solid transparent;
       color: $colorPink;
       display: inline-block;
       font-size: 18px;
@@ -59,7 +58,25 @@
       -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
       transition: all .3s cubic-bezier(.6,.2,.1,1);
       &:hover, &:focus, &:active {
-        border-bottom: 2px solid $colorPink;
+        color: $colorPurple;
+      }
+    }
+    &--more {
+      color: #ec4c87;
+      padding: 5px 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      &:hover {
+        color: $colorPurple;
+      }
+      &:after {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
       }
     }
     &--replies-counter {
