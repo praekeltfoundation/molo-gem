@@ -47,9 +47,9 @@
                 <p class="comments__body-small">{{ node.comment }}</p>
               {% endif %}
 
-                <span class="comments__publish-date">
-                  {{node.submit_date|timesince}} {% trans "ago" %}
-                </span>
+              <span class="comments__publish-date">
+                {{node.submit_date|timesince}} {% trans "ago" %}
+              </span>
               <div class="comments__reply-meta">
                   {% if not node.user|is_in_admin_group %}
                     <a href="{% url 'report_comment' node.pk %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--report {% if not self.allow_commenting %}call-to-action__nav-item-text--disabled{% endif %}">
@@ -96,18 +96,18 @@
         <a href="{% pageurl self.specific %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
           {% trans "Back to article" %}</a>
       </div>
-      <div class="pagination">
-        {% if page.has_previous %}
-          <a id="prev" href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-        {% endif %}
-        <p class="call-to-action__item call-to-action__item--text">
-          {% trans "Pages" %} <span class="call-to-action__counter">{{ page.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{page.paginator.num_pages }}</span>
-        </p>
-        {% if page.has_next %}
-          <a id="next" href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-        {% endif %}
-      </div>
     </div>
   </div>
+    <div class="pagination">
+      {% if page.has_previous %}
+        <a id="prev" href="?p={{ page.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+      {% endif %}
+      <p class="call-to-action__item call-to-action__item--text">
+        {% trans "Pages" %} <span class="call-to-action__counter">{{ page.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{page.paginator.num_pages }}</span>
+      </p>
+      {% if page.has_next %}
+        <a id="next" href="?p={{ articles_paginated.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+      {% endif %}
+    </div>
 </div>
 {% endblock %}

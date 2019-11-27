@@ -92,7 +92,6 @@
             <h3 class="comment__replies-title">{% trans "Recent Replies"%}</h3>
           {% endif %}
       {% endwith %}
-
       {% if do_not_link_replies or node.get_children.count == 0 %}
         <h6 class="comments__body-title">
           {% if page == 1 %}
@@ -178,26 +177,14 @@
           {% endif %}
         </div>
       {% endfor %}
-      </div>   <!-- Comment Reply -->
+        </div>   <!-- Comment Reply -->
 
-      {% get_comments_content_object for form as self %}
-      {% pageurl self as the_url %}
-      <div class="call-to-action call-to-action--wide-back">
-        <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-        {% trans "Back to article" %}</a>
-      </div>
-
-      <div class="pagination">
-        {% if replies.has_previous %}
-          <a id="prev" href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-        {% endif %}
-        <p class="call-to-action__item call-to-action__item--text">
-          {% trans "Page" %} <span class="call-to-action__counter">{{ replies.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{ replies.paginator.num_pages }}</span>
-        </p>
-        {% if replies.has_next %}
-          <a id="next" href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-        {% endif %}
-      </div>
+        {% get_comments_content_object for form as self %}
+        {% pageurl self as the_url %}
+        <div class="call-to-action call-to-action--wide-back">
+          <a href="{{the_url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+          {% trans "Back to article" %}</a>
+        </div>
     </div>
   </div>
 
@@ -232,11 +219,9 @@
             </form>
           {% else %}
             <div class="heading heading__micro">
-              <p>
-                <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__hyperlink">
-                  {% trans "Please log in to leave a comment." %}
-                </a>
-              </p>
+              <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__hyperlink">
+                {% trans "Please log in to leave a comment." %}
+              </a>
             </div>
           {% endif %}
 
@@ -251,5 +236,17 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="pagination">
+  {% if replies.has_previous %}
+    <a id="prev" href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+  {% endif %}
+  <p class="call-to-action__item call-to-action__item--text">
+    {% trans "Page" %} <span class="call-to-action__counter">{{ replies.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{ replies.paginator.num_pages }}</span>
+  </p>
+  {% if replies.has_next %}
+    <a id="next" href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+  {% endif %}
 </div>
 {% endblock %}
