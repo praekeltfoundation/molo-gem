@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="comments comments--replies">
+    <div class="heading heading--hero">
+      <h2 class="heading__component">{% trans "Comment Replies" %}</h2>
+    </div>
+    <div class="comments__list">
+      {% if unread_notifications %}
+        <h3 class="comment__replies-title comment__replies-cta-title">
+          {% trans "You have"%} {{number_unread_notifications}} {% trans "unread"%}
+          {% if number_unread_notifications == 1 %}
+            {% trans "Reply"%}
+          {% else %}
+            {% trans "Replies"%}
+          {% endif %}
+        </h3>
+        {% for notice in unread_notifications %}
+          {% include 'notifications/notice.html' %}
+        {% endfor %}
+      {% endif %}
+      {% if read_notifications %}
+        {% for notice in read_notifications %}
+          {% include 'notifications/notice.html' %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% trans "Back home" as back %}
+    {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+  </div>
+</div>
+{% endblock %}

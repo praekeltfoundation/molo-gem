@@ -7,7 +7,7 @@
       <ul class="teaser-stacklist">
         {% for article in articles|slice:":1" %}
           <li class="teaser-stacklist__item">
-
+            {# <!-- ARTICLE BODY IMAGE | LEGACY IMPLEMETATION --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
@@ -26,8 +26,6 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
-
-
             <div class="teaser-stacklist__container">
               <h1 class="teaser-stacklist__title">
                 {{ article.title|smarttruncatechars:100|safe}}

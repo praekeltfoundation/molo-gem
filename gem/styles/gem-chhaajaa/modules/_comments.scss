@@ -1,49 +1,68 @@
 .comments {
+  .call-to-action__nav-item-text--response {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    &:after {
+      color: $colorPink;;
+      content: "|";
+      font-size: 13px;
+      display: inline-block;
+      padding: 0 10px;
+      vertical-align: middle;
+    }
+    &:hover,&:focus {
+      text-decoration: underline;
+    }
+  }
+  .heading {
+    &__micro {
+      margin: 0 15px;
+    }
+    &--hero {
+      display: inline-block;
+      margin: 0 0 1em;
+    }
+  }
+  //REPLY CONTAINER
+  &--replies {
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      width: 60%;
+    }
+  }
   &__title {
     padding: 10px;
   }
   &__alias {
-    padding: 10px;
-    font-size: 20px;
-    &-author {
-      font-weight: bold;
-    }
+    padding: 10px 0;
+    font-size: 18px;
     &-feedback {
-      color: #666;
+      color: $colorGrey;
+      font-size: 15px;
       &--article {
-        color: #666;
+        color: $colorGrey;
+        font-size: 18px;
+        @media screen and (min-width: 45.000em) {
+          font-size: 20px;
+        }
       }
     }
     &-link {
-      color: #666;
+      color: $colorPink;
       text-decoration: none;
-      font-weight: bold;
       &:hover, &:active, &:focus {
         color: $colorPurple;
         text-decoration: underline;
       }
     }
   }
-
   &__staff {
-    font-style: italic;
     padding-right: 5px;
-  }
-
-  &__reply-meta {
-    display: inline-block;
-    padding: 10px 10px;
-    &--disabled {
-      cursor: auto;
-      &:hover, &:active, &:focus {
-        color: $colorPurple;
-      }
-    }
   }
   &__publish-date {
     display: inline-block;
     padding: 0 5px 0 10px;
-    font-weight: bold;
   }
   &__body-small {
     padding: 0 10px;
@@ -91,25 +110,36 @@
       }
     }
   }
-
   &-list {
+    @media screen and (min-width: 45.000em) {
+      padding: 0 0 25px;
+    }
     &__item {
       &--reply {
+        background: $colorGreyLight ;
+        border-bottom: 1px solid #e3e3e3;
         margin: 0 20px 0;
         @media screen and (min-width: 45.000em) {
           padding: 0 1em 1em;
+        }
+        &:last-child {
+          border-bottom: none;
         }
       }
     }
     &__reply_wrap {
       padding: 0 10px;
+      .comments__alias-feedback {
+        color: $colorPurple;
+        font-family: "FedraSansDevanagariB-Demi";
+        text-transform: uppercase;
+      }
       .comments__publish-date {
         display: inline-block;
         padding: 0;
-      }
-      .comments__alias-author {
-        text-transform: capitalize;
-        padding: 1em 10px 10px 0;
+        font-family: "FedraSansDevanagariB-Light";
+        font-size: 16px;
+        font-weight: normal;
       }
     }
     &__item--parent-comment {
@@ -123,28 +153,50 @@
       padding: 2em 0 0;
     }
   }
-
+  &__reply-meta {
+    display: inline-block;
+    padding: 10px 10px;
+    .call-to-action__nav-item-text {
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+    }
+    &--disabled {
+      cursor: auto;
+      &:hover, &:active, &:focus {
+        color: $colorPurple;
+      }
+    }
+  }
+  /* COMMENTS REPLY PAGE*/
   &-replies {
-    &__child-list {
-      list-style: none;
-      padding: 1em 1em 1em 2em;
+    &-title {
+      font-weight: 400;
+      padding: 0 0 0 10px;
     }
     &-list {
       margin: 10px 0 0;
       margin: 15px 0;
       padding-left: 15px;
-      background-color: #ebeef1;
-
+      background: $colorGreyLight;
       &-title,
       &-label {
         text-decoration: underline;
         font-weight: 700;
         padding: 15px 0 0 5px;
       }
-
+      &__child-list {
+        padding: 15px 0 10px;
+      }
       &__item {
-        display: block;
+        background: $colorGreyLight;
         padding: 20px 0 10px 0;
+
+        @media screen and (min-width: 45.000em) {
+          padding: 0 1em 1em;
+        }
       }
       &--reply {
         padding: 20px 0 10px 0;
@@ -157,18 +209,15 @@
         }
       }
     }
-    &-title {
-      font-weight: 400;
-      padding: 0 0 0 10px;
-    }
+
   }
   &-posting {
     border: 5px solid transparent;
-    padding: 0 10px;
-    margin: 0 0 2em;
+    margin: 0 0 1em;
     @media screen and (min-width: 45.000em) {
       padding: 10px;
       width: 97%;
+      margin: 0 0 2em;
     }
     @media screen and (min-width: 80.000em) {
       position: absolute;
@@ -241,26 +290,17 @@
       background-color: $colorPink;
     }
   }
-  .heading {
-    &__micro {
-      margin: 0 15px;
-    }
-    &--hero {
-      display: inline-block;
-      margin: 0 0 1em;
-    }
-  }
 }
 
 .comment {
   &__replies-title {
     color: $colorPurple;
+    font-family: "FedraSansDevanagariB-Demi";
     font-size: 20px;
     padding: 10px 15px;
-    font-weight: 600;
+    text-transform: uppercase;
     @media screen and (min-width: 45.000em) {
-      font-size: 25px;
-      padding: 10px 25px 0;
+      padding: 10px 25px;
     }
   }
   &-counter {
@@ -282,20 +322,19 @@
     color: $colorPink;
     font-style: italic;
   }
-
   &_list_area  {
     h3 {
       font-size: 24px;
       color: #222222;
       text-transform: uppercase;
-      border-bottom: 1px solid #dfdfdf;
+      border-bottom: 1px solid $colorGreyLight;
       padding: 60px 0px 35px 0px;
       font-weight: 400;
     }
     .media {
       margin-top: 0px;
       padding: 35px 0px 30px 0px;
-      border-bottom: 1px solid #dfdfdf;
+      border-bottom: 1px solid $colorGreyLight;
       overflow: hidden;
       clear: both;
       .media-left {

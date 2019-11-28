@@ -1,7 +1,8 @@
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
-{% load core_tags compress gem_tags staticfiles %}
+{% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
 {% get_settings %}
 {% get_current_language as LANGUAGE_CODE %}
+
 
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -173,6 +174,7 @@
   </header>
 
   <div class="wrapper">
+    {% display_unread_notifications %}
     {% block content %}{% endblock %}
   </div>
 
@@ -304,14 +306,14 @@
         return false;
       });
 
-      let $grid = $('.service-stacklist').isotope({
-        itemSelector: '.service-stacklist__item',
-        layoutMode: 'masonry',
-        cellsByRow: {
-          columnWidth: 200,
-          rowHeight: 150
-        }
-      });
+      // var $grid = $('.service-stacklist').isotope({
+      //   itemSelector: '.service-stacklist__item',
+      //   layoutMode: 'masonry',
+      //   cellsByRow: {
+      //     columnWidth: 200,
+      //     rowHeight: 150
+      //   }
+      // });
 
       $(".show-more").click(function (e) {
         e.preventDefault();
