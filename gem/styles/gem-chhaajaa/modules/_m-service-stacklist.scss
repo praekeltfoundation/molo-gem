@@ -9,12 +9,14 @@
     margin: 0 15px 10px 0;
     padding: 10px 10px 5px;
     position: relative;
-    width: 23%;
     display: inline-block;
     border-radius: 5px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
     -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+    @media screen and (min-width: 45.000em) {
+      width: 23%;
+    }
   }
   &__main {
     overflow: hidden;
@@ -68,7 +70,10 @@
     width: 100%;
     iframe {
       width: 100%;
-      height: 300px;
+      height: 250px !important;
+      @media screen and (min-width: 45.000em) {
+        height: 300px !important;
+      }
     }
   }
   &__images {
@@ -77,7 +82,7 @@
     width: 100%;
   }
   &__thumbnail {
-    height: auto;
+    height: 250px;
     object-fit: cover;
     object-position: center 0 !important;
     width: 100%;
