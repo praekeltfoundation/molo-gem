@@ -6,12 +6,19 @@
     padding: 5px;
   }
   &__wrapper {
-    @media screen and (min-width: 45.000em) {
-      max-height: 865px;
-    }
+    position: relative;
   }
   &--latest {
     padding: 5px 10px;
+    margin: 2em 0 0;
+    @media screen and (min-width: 45.000em) {
+      margin: 0;
+    }
+    .article-teaser__wrapper {
+      @media screen and (min-width: 45.000em) {
+        max-height: 865px;
+      }
+    }
   }
   &--related-services {
     position: relative;
@@ -42,7 +49,9 @@
   }
   + .comments {
     border-top: 2px solid $colorYellow;
-    width: 90%;
+    @media screen and (min-width: 45.000em) {
+      width: 90%;
+    }
   }
 }
 

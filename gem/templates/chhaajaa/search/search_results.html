@@ -6,7 +6,7 @@
   <div class="search-page">
     <div class="search-page__wrapper">
       <div class="heading heading--secondary">
-        <h1 class="heading__macro">{% trans "Search Results" %}</h1>
+        <h1 class="heading__headline">{% trans "Search Results" %}</h1>
       </div>
       <div class="heading">
         <h3 class="heading__subtitle">{{results|length}} {% trans "Results found for" %}: <span class="search-page__query-term">'{{search_query}}'</span></h3>
@@ -15,9 +15,7 @@
         <ul class="teaser-card">
           {% for article in search_results %}
             <li class="teaser-card__item">
-
-              {# <!-- REVIEW IMAGE BACKUP --> #}
-              {% for block in self.body %}
+              {% for block in article.body %}
                 {% if block.value.type == "video" %}
                   {% if block.value.youtube_link %}
                     <div class="teaser-card__iframe">
@@ -27,9 +25,9 @@
                 {% else %}
                   {% if forloop.last and article.get_effective_image %}
                     <div class="teaser-card__images">
-                      <a href="{% pageurl self.specific %}" class="teaser-card__anchor">
+                      <a href="{% pageurl article.specific %}" class="teaser-card__anchor">
                         {% image article.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
-                        <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
+                        <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-card__thumbnail"/>
                       </a>
                     </div>
                   {% endif %}
@@ -93,7 +91,7 @@
     <div class="search-page">
       <div class="search-page__wrapper">
         <div class="heading heading--secondary">
-          <h1 class="heading__macro">{% trans "Search" %}</h1>
+          <h1 class="heading__headline">{% trans "Search" %}</h1>
         </div>
         <div class="heading  heading--macro">
           <h4 class="heading__title">{% trans "No search results for" %}: <span class="search-page__query-term">'{{ search_query }}'</span></h4>
