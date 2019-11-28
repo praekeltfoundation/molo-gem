@@ -175,7 +175,7 @@
           {% if self.homepage_media %}
             {% for block in self.homepage_media %}
               {% with block.value as media %}
-                <div class="teaser-stacklist__iframe">
+                <div class="teaser-stacklist__iframe-main">
                   {% if block.value.youtube_link %}
                     {% embed media.youtube_link %}
                   {% endif %}
@@ -184,7 +184,7 @@
             {% endfor %}
           {% else %}
             {% if self.get_effective_image %}
-              <div class="service-stacklist__images">
+              <div class="service-stacklist__images-main">
                 <a href="{% pageurl self.specific %}" class="service-stacklist__anchor">
                   {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
                   <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__main-mage" />
