@@ -265,23 +265,26 @@
             <ul class="service-stacklist">
               {% for service in services %}
                 <li class="service-stacklist__item">
-                  {% for block in service.body %}
-                    {% if block.value.type == "video" %}
-                      {% if block.value.youtube_link %}
+                  {% if service.homepage_media %}
+                    {% for block in service.homepage_media %}
+                      {% with block.value as media %}
                         <div class="service-stacklist__iframe">
-                          {% embed block.value.youtube_link %}
+                          {% if block.value.youtube_link %}
+                            {% embed media.youtube_link %}
+                          {% endif %}
                         </div>
-                        {% endif %}
-                    {% else %}
-                      {% if forloop.last and service.get_effective_image %}
-                        <div class="service-stacklist__images">
-                          {% image service.get_effective_image width-1980 format-jpeg as teaser_thumbnail %}
-                          <img alt="{{ service.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__thumbnail"/>
-                        </div>
-                      {% endif %}
+                      {% endwith %}
+                    {% endfor %}
+                  {% else %}
+                    {% if service.get_effective_image %}
+                      <div class="service-stacklist__images">
+                        <a href="{% pageurl service.specific %}" class="service-stacklist__anchor">
+                          {% image service.get_effective_image width-480 format-jpeg as teaser_thumbnail %}
+                          <img alt="{{ service.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__thumbnail" />
+                        </a>
+                      </div>
                     {% endif %}
-                  {% endfor %}
-
+                  {% endif %}
                   <div class="service-stacklist__container">
                     <div class="service-stacklist__main">
                       <a href="{% pageurl service.specific %}">

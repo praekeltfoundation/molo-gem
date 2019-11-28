@@ -10,7 +10,7 @@
       <ul class="teaser-grid">
         {% for article in articles %}
           <li class="teaser-grid__item">
-            {# <!-- REVIEW IMAGE BACKUP --> #}
+            {# <!-- ARTICLE BODY IMAGE | LEGACY IMPLEMETATION --> #}
             {% for block in article.body %}
               {% if block.value.type == "video" %}
                 {% if block.value.youtube_link %}
@@ -29,12 +29,11 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
-            {# <!-- END REVIEW IMAGE BACKUP --> #}
+
             <div class="teaser-grid__container">
               <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
               </a>
-
               {% for block in article.body %}
                 {% if block.value.type == "video" %}
                   {% with block.value as media %}

@@ -208,7 +208,7 @@
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script type="text/javascript">
       /* Reaction Question */
-      var frm = $('#reaction-questions__form');
+      let frm = $('#reaction-questions__form');
       function set_choice(choice) {
         if (!$('#' + choice).attr('disabled') == true){
           $.ajax({
@@ -229,7 +229,7 @@
         }
       };
 
-      var frm = $('#reaction-questions__form');
+      let frm = $('#reaction-questions__form');
       function set_choice(choice) {
         if (!$('#' + choice).attr('disabled') == true){
           $.ajax({
@@ -306,14 +306,14 @@
         return false;
       });
 
-      let $grid = $('.service-stacklist').isotope({
-        itemSelector: '.service-stacklist__item',
-        layoutMode: 'masonry',
-        cellsByRow: {
-          columnWidth: 200,
-          rowHeight: 150
-        }
-      });
+      // let $grid = $('.service-stacklist').isotope({
+      //   itemSelector: '.service-stacklist__item',
+      //   layoutMode: 'masonry',
+      //   cellsByRow: {
+      //     columnWidth: 200,
+      //     rowHeight: 150
+      //   }
+      // });
 
       $(".show-more").click(function (e) {
         e.preventDefault();
@@ -334,7 +334,7 @@
       });
 
       $(document).ready(function(){
-        var urlPath = window.location.pathname;
+        let urlPath = window.location.pathname;
         $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
           var $this = $(this),
               navhref = $this.attr('href');

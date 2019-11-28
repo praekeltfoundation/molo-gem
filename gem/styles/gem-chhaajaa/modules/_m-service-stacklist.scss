@@ -16,6 +16,10 @@
     -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
   }
+  &__main {
+    overflow: hidden;
+    position: relative;
+  }
   &__container {
     overflow: auto;
     position: relative;
@@ -90,6 +94,26 @@
   }
   &__anchor {
     display: inline;
+  }
+
+  //Service HTML Entities
+  .external-link {
+    color: #ec4c87;
+    padding: 5px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    &:hover {
+      color: $colorPurple;
+    }
+      &:after {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
+    }
   }
 }
 img.service-stacklist__main-mage {
