@@ -11,6 +11,10 @@
         </div>
         {% render_comment_form for article %}
       {% else %}
+      <div class="heading heading--secondary">
+        <h4 class="heading__subheading">{% trans "Comment" %}</h4>
+      </div>
+      <h5 class="heading__subtitle">{% trans "Commenting requires you to be logged in." %}</h5>
       <a href="{{ LOGIN_URL }}" class="call-to-action__button call-to-action__button--primary">
           {% trans "Log in to comment" %}
         </a>

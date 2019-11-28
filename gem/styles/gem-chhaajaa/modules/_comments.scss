@@ -24,12 +24,9 @@
       }
     }
   }
-
   &__staff {
-    font-style: italic;
     padding-right: 5px;
   }
-
   &__reply-meta {
     display: inline-block;
     padding: 10px 10px;
@@ -93,6 +90,9 @@
   }
 
   &-list {
+    @media screen and (min-width: 45.000em) {
+      padding: 0 0 25px;
+    }
     &__item {
       &--reply {
         background: #f6f8fa;
@@ -252,11 +252,28 @@
       margin: 0 0 1em;
     }
   }
+  .call-to-action__nav-item-text {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    &:after {
+      color: $colorPink;;
+      content: "|";
+      font-size: 13px;
+      display: inline-block;
+      padding: 0 10px;
+      vertical-align: middle;
+    }
+    &:hover,&:focus {
+      text-decoration: underline;
+    }
+  }
 }
 
 .comment {
   &__replies-title {
     color: $colorPurple;
+    font-family: "FedraSansDevanagariB-Demi";
     font-size: 20px;
     padding: 10px 15px;
     text-transform: uppercase;
