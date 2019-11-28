@@ -1,4 +1,29 @@
 .comments {
+  .call-to-action__nav-item-text {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    &:after {
+      color: $colorPink;;
+      content: "|";
+      font-size: 13px;
+      display: inline-block;
+      padding: 0 10px;
+      vertical-align: middle;
+    }
+    &:hover,&:focus {
+      text-decoration: underline;
+    }
+  }
+  .heading {
+    &__micro {
+      margin: 0 15px;
+    }
+    &--hero {
+      display: inline-block;
+      margin: 0 0 1em;
+    }
+  }
   &__title {
     padding: 10px;
   }
@@ -26,16 +51,6 @@
   }
   &__staff {
     padding-right: 5px;
-  }
-  &__reply-meta {
-    display: inline-block;
-    padding: 10px 10px;
-    &--disabled {
-      cursor: auto;
-      &:hover, &:active, &:focus {
-        color: $colorPurple;
-      }
-    }
   }
   &__publish-date {
     display: inline-block;
@@ -88,7 +103,6 @@
       }
     }
   }
-
   &-list {
     @media screen and (min-width: 45.000em) {
       padding: 0 0 25px;
@@ -123,6 +137,23 @@
     }
     &_wrapper {
       padding: 2em 0 0;
+    }
+  }
+  &__reply-meta {
+    display: inline-block;
+    padding: 10px 10px;
+    .call-to-action__nav-item-text {
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+    }
+    &--disabled {
+      cursor: auto;
+      &:hover, &:active, &:focus {
+        color: $colorPurple;
+      }
     }
   }
 
@@ -243,31 +274,6 @@
       background-color: $colorPink;
     }
   }
-  .heading {
-    &__micro {
-      margin: 0 15px;
-    }
-    &--hero {
-      display: inline-block;
-      margin: 0 0 1em;
-    }
-  }
-  .call-to-action__nav-item-text {
-    font-size: 16px;
-    margin: 0;
-    text-transform: uppercase;
-    &:after {
-      color: $colorPink;;
-      content: "|";
-      font-size: 13px;
-      display: inline-block;
-      padding: 0 10px;
-      vertical-align: middle;
-    }
-    &:hover,&:focus {
-      text-decoration: underline;
-    }
-  }
 }
 
 .comment {
@@ -300,7 +306,6 @@
     color: $colorPink;
     font-style: italic;
   }
-
   &_list_area  {
     h3 {
       font-size: 24px;
