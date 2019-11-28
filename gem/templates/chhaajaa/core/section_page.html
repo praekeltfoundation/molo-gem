@@ -184,7 +184,7 @@
               {% endif %}
 
 
-              {% comment %} <!-- Beginning of Side Bar --> {% endcomment %}
+              {# <!-- SIDE BAR--> #}
               {% content_is self "Videos" as is_video_section %}
               {% if not is_video_section %}
                 {% load_child_articles_for_section self.get_first_sibling.specific False as articles %}
@@ -247,6 +247,8 @@
     {% endfor %}
 
 
+
+    <!-- COMMENTING ON SECTION -->
     {% comment %}
       {% for article in featured_articles %}
         {% include "comments/comment_block.html" %}
@@ -289,7 +291,7 @@
                     <div class="service-stacklist__main">
                       <a href="{% pageurl service.specific %}">
                         <h2 class="service-stacklist__title-secondary">
-                          {{ service.title|smarttruncatechars:45|safe}}
+                          {{ service.title|smarttruncatechars:50|safe}}
                         </h2>
                       </a>
                       {% if service.subtitle %}
@@ -307,7 +309,7 @@
                     </div>
                     <div class="service-stacklist__cta-buttons">
                       <a href="{% pageurl service.specific %}" class="service-stacklist__link">
-                        {{ service.title|smarttruncatechars:40|safe}}
+                        {{ service.title|smarttruncatechars:25|safe}}
                       </a>
                     </div>
                   </div>

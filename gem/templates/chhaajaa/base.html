@@ -208,7 +208,7 @@
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script type="text/javascript">
       /* Reaction Question */
-      let frm = $('#reaction-questions__form');
+      var frm = $('#reaction-questions__form');
       function set_choice(choice) {
         if (!$('#' + choice).attr('disabled') == true){
           $.ajax({
@@ -229,7 +229,7 @@
         }
       };
 
-      let frm = $('#reaction-questions__form');
+      var frm = $('#reaction-questions__form');
       function set_choice(choice) {
         if (!$('#' + choice).attr('disabled') == true){
           $.ajax({
@@ -306,7 +306,7 @@
         return false;
       });
 
-      // let $grid = $('.service-stacklist').isotope({
+      // var $grid = $('.service-stacklist').isotope({
       //   itemSelector: '.service-stacklist__item',
       //   layoutMode: 'masonry',
       //   cellsByRow: {
@@ -334,7 +334,7 @@
       });
 
       $(document).ready(function(){
-        let urlPath = window.location.pathname;
+        var urlPath = window.location.pathname;
         $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
           var $this = $(this),
               navhref = $this.attr('href');

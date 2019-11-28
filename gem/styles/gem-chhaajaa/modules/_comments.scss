@@ -1,5 +1,5 @@
 .comments {
-  .call-to-action__nav-item-text {
+  .call-to-action__nav-item-text--response {
     font-size: 16px;
     margin: 0;
     text-transform: uppercase;
@@ -24,25 +24,33 @@
       margin: 0 0 1em;
     }
   }
+  //REPLY CONTAINER
+  &--replies {
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      width: 60%;
+    }
+  }
   &__title {
     padding: 10px;
   }
   &__alias {
-    padding: 10px;
-    font-size: 19px;
-    &-author {
-      font-weight: bold;
-    }
+    padding: 10px 0;
+    font-size: 18px;
     &-feedback {
-      color: #666;
+      color: $colorGrey;
+      font-size: 15px;
       &--article {
-        color: #666;
+        color: $colorGrey;
+        font-size: 18px;
+        @media screen and (min-width: 45.000em) {
+          font-size: 20px;
+        }
       }
     }
     &-link {
-      color: #666;
+      color: $colorPink;
       text-decoration: none;
-      font-weight: bold;
       &:hover, &:active, &:focus {
         color: $colorPurple;
         text-decoration: underline;
@@ -55,7 +63,6 @@
   &__publish-date {
     display: inline-block;
     padding: 0 5px 0 10px;
-    font-weight: bold;
   }
   &__body-small {
     padding: 0 10px;
@@ -109,23 +116,30 @@
     }
     &__item {
       &--reply {
-        background: #f6f8fa;
+        background: $colorGreyLight ;
         border-bottom: 1px solid #e3e3e3;
         margin: 0 20px 0;
         @media screen and (min-width: 45.000em) {
           padding: 0 1em 1em;
         }
+        &:last-child {
+          border-bottom: none;
+        }
       }
     }
     &__reply_wrap {
       padding: 0 10px;
+      .comments__alias-feedback {
+        color: $colorPurple;
+        font-family: "FedraSansDevanagariB-Demi";
+        text-transform: uppercase;
+      }
       .comments__publish-date {
         display: inline-block;
         padding: 0;
-      }
-      .comments__alias-author {
-        text-transform: capitalize;
-        padding: 1em 10px 10px 0;
+        font-family: "FedraSansDevanagariB-Light";
+        font-size: 16px;
+        font-weight: normal;
       }
     }
     &__item--parent-comment {
@@ -156,28 +170,33 @@
       }
     }
   }
-
+  /* COMMENTS REPLY PAGE*/
   &-replies {
-    &__child-list {
-      list-style: none;
-      padding: 1em 1em 1em 2em;
+    &-title {
+      font-weight: 400;
+      padding: 0 0 0 10px;
     }
     &-list {
       margin: 10px 0 0;
       margin: 15px 0;
       padding-left: 15px;
-      background-color: #ebeef1;
-
+      background: $colorGreyLight;
       &-title,
       &-label {
         text-decoration: underline;
         font-weight: 700;
         padding: 15px 0 0 5px;
       }
-
+      &__child-list {
+        padding: 15px 0 10px;
+      }
       &__item {
-        display: block;
+        background: $colorGreyLight;
         padding: 20px 0 10px 0;
+
+        @media screen and (min-width: 45.000em) {
+          padding: 0 1em 1em;
+        }
       }
       &--reply {
         padding: 20px 0 10px 0;
@@ -190,10 +209,7 @@
         }
       }
     }
-    &-title {
-      font-weight: 400;
-      padding: 0 0 0 10px;
-    }
+
   }
   &-posting {
     border: 5px solid transparent;
@@ -311,14 +327,14 @@
       font-size: 24px;
       color: #222222;
       text-transform: uppercase;
-      border-bottom: 1px solid #dfdfdf;
+      border-bottom: 1px solid $colorGreyLight;
       padding: 60px 0px 35px 0px;
       font-weight: 400;
     }
     .media {
       margin-top: 0px;
       padding: 35px 0px 30px 0px;
-      border-bottom: 1px solid #dfdfdf;
+      border-bottom: 1px solid $colorGreyLight;
       overflow: hidden;
       clear: both;
       .media-left {
