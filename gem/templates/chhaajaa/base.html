@@ -46,7 +46,6 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
 
@@ -207,14 +206,18 @@
   {% compress js inline %}{% endcompress %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script type="text/javascript">
-      var $grid = $('.service-stacklist').isotope({
-        itemSelector: '.service-stacklist__item',
-        layoutMode: 'masonry',
-        cellsByRow: {
-          columnWidth: 200,
-          rowHeight: 150
-        }
-      });
+
+      var widthViewport =  $(window).width();
+      if(widthViewport > 720) {
+        var $grid = $('.service-stacklist').isotope({
+          itemSelector: '.service-stacklist__item',
+          layoutMode: 'masonry',
+          cellsByRow: {
+            columnWidth: 200,
+            rowHeight: 150
+          }
+        });
+      }
       /* Section */
       $("#share_article").click(function(e) {
         e.preventDefault();
@@ -231,7 +234,6 @@
           }
         );
       });
-
       /* Commenting */
       $('#comment-form').submit(function() {
         $.ajax({
