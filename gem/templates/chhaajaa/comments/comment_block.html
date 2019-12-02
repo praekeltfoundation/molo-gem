@@ -32,9 +32,11 @@
 
   {% if settings.gem.GemSettings.enable_comment_threads %}
     {# <!-- COMMENTS THREAD MODULE --> #}
-    <div id="comments-list" class="comments-list_wrapper">
+    {% if comment_list %}
+      <div id="comments-list" class="comments-list_wrapper">
       {% get_comment_count for article as comment_count %}
       {% get_molo_comments for article as comment_list limit 2 child_limit 2 %}
+
         <div class="heading heading--hero">
           <h2 class="heading__component">{% if comment_count > 1 %}{% trans "The Comments" %}{% else %}{% trans "The Comment" %}{% endif %}</h2>
         </div>
@@ -115,12 +117,13 @@
             {% endrecursetree %}
           {% endfor %}
         </div>
-      {% if comment_count > 2 %}
-        <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__nav-item--more" {{attribute}}>
-          {% trans "Read more comments" %}
-        </a>
-      {% endif %}
-    </div>
-  {%endif %}
+        {% if comment_count > 2 %}
+          <a href="{% url 'molo.commenting:more-comments' article.pk %}" class="call-to-action__nav-item--more" {{attribute}}>
+            {% trans "Read more comments" %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
 </div>
 {% endif %}

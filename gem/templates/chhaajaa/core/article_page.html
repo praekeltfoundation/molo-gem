@@ -67,6 +67,14 @@
                               </form>
                             </div>
                           {% endif %}
+                          {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+                            <div class="share__item">
+                              <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
+                              <div id="share_reveal" class="share__reveal">
+                                {% social_media_article page=self %}
+                              </div>
+                            </div>
+                          {% endif %}
                           <div class="vote__item">
                             <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
                           </div>
@@ -222,6 +230,15 @@
                 </div>
               {% endif %}
 
+              {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+                <div class="share__item">
+                  <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
+                  <div id="share_reveal" class="share__reveal">
+                    {% social_media_article page=self %}
+                  </div>
+                </div>
+              {% endif %}
+
               {% if self.is_commenting_enabled %}
                 {% if self.allow_commenting %}
                   {% if request.user.is_authenticated %}
@@ -243,11 +260,11 @@
               {% endif %}
             {% endfor %}
 
-
             {% if settings.gem.GemSettings.enable_comment_threads %}
-              {% forms_list_for_pages page=self %}
-              {% include "comments/comment_block.html" %}
-            {%endif %}
+            {% forms_list_for_pages page=self %}
+            {% include "comments/comment_block.html" with article=self %}
+            {% endif %}
+
             <!-- NEXT UP -->
             {% get_next_article self as article %}
             {% if article and self.get_parent_section.enable_next_section %}
