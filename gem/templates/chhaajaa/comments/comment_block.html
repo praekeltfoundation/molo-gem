@@ -32,11 +32,10 @@
 
   {% if settings.gem.GemSettings.enable_comment_threads %}
     {# <!-- COMMENTS THREAD MODULE --> #}
+    {% get_comment_count for article as comment_count %}
+    {% get_molo_comments for article as comment_list limit 2 child_limit 2 %}
     {% if comment_list %}
       <div id="comments-list" class="comments-list_wrapper">
-      {% get_comment_count for article as comment_count %}
-      {% get_molo_comments for article as comment_list limit 2 child_limit 2 %}
-
         <div class="heading heading--hero">
           <h2 class="heading__component">{% if comment_count > 1 %}{% trans "The Comments" %}{% else %}{% trans "The Comment" %}{% endif %}</h2>
         </div>
