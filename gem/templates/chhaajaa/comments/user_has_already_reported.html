@@ -2,17 +2,21 @@
 {% load wagtailcore_tags %}
 {% block content %}
 <div class="container">
-  <div class="comments">
-    <div class="heading heading__subheading">
-      <h3>{% trans "You have already reported this comment" %}</h3>
+  <div class="content--left">
+    <div class="comments">
+      <div class="heading heading--secondary">
+        <h4 class="heading__subheading">
+          {% trans "You have already reported this comment" %}
+        </h4>
+      </div>
+      <p class="comments__body-small">
+        {% trans "The comment will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
+      </p>
     </div>
-    <p class="comments__body-small">
-      {% trans "The comment will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
-    </p>
-  </div>
-  <div class="call-to-action call-to-action--wide-back">
-    <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back to article" %}</a>
+    <div class="call-to-action call-to-action--wide-back">
+      <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        {% trans "Back to article" %}</a>
+    </div>
   </div>
 </div>
 {% endblock %}

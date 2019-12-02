@@ -2,20 +2,25 @@
 {% load wagtailcore_tags %}
 {% block content %}
 <div class="container">
-  <div class="comments">
-    <div class="heading heading--hero">
-      <h2 class="heading__component">{% trans "Thanks!" %}</h2>
+  <div class="content--left">
+    <div class="comments">
+      <div class="heading heading--hero">
+        <h2 class="heading__component">{% trans "Thanks!" %}</h2>
+      </div>
+      <br/>
+      <div class="heading heading--secondary">
+        <h4 class="heading__subheading">
+          {% trans "This comment has been reported." %}
+        </h4>
+      </div>
+      <p class="comments__body-small">
+        {% trans "It will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
+      </p>
     </div>
-    <div class="heading heading__subheading">
-      <h3>{% trans "This comment has been reported." %}</h3>
+    <div class="call-to-action call-to-action--wide-back">
+      <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        {% trans "Back to article" %}</a>
     </div>
-    <p class="comments__body-small">
-      {% trans "It will be reviewed by the moderation team and may be removed if it breaks our Platform rules" %}
-    </p>
-  </div>
-  <div class="call-to-action call-to-action--wide-back">
-    <a href="{% pageurl article %}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back to article" %}</a>
   </div>
 </div>
 {% endblock %}
