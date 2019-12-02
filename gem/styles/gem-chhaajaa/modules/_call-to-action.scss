@@ -7,6 +7,7 @@
     font-weight: 700;
     font-size: 20px;
   }
+
   //BUTTONS
   &__nav-item {
     font-family: "FedraSansDevanagariB-Demi";
@@ -102,7 +103,6 @@
         margin: 0 5px 0;
       }
     }
-
     &--replies-counter {
       color: $colorGrey;
     }
@@ -208,10 +208,19 @@
       -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
       -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
       transition: all .3s cubic-bezier(.6,.2,.1,1);
-      &:hover, &:focus, &:active {
+      &:hover, &:focus {
         text-decoration-style: solid;
         text-underline-position: below;
         text-decoration-line: underline;
+      }
+      &:before {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
       }
     }
   }
