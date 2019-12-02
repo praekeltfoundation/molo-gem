@@ -186,6 +186,17 @@
           {% trans "Back to article" %}</a>
         </div>
     </div>
+    <div class="pagination">
+      {% if replies.has_previous %}
+        <a id="prev" href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+      {% endif %}
+      <p class="call-to-action__item call-to-action__item--text">
+        {% trans "Page" %} <span class="call-to-action__counter">{{ replies.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{ replies.paginator.num_pages }}</span>
+      </p>
+      {% if replies.has_next %}
+        <a id="next" href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
+      {% endif %}
+    </div>
   </div>
 
   <div class="content--right">
@@ -238,15 +249,4 @@
   </div>
 </div>
 
-<div class="pagination">
-  {% if replies.has_previous %}
-    <a id="prev" href="?p={{ replies.previous_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-  {% endif %}
-  <p class="call-to-action__item call-to-action__item--text">
-    {% trans "Page" %} <span class="call-to-action__counter">{{ replies.number }}</span> {% trans "of" %} <span class="call-to-action__counter">{{ replies.paginator.num_pages }}</span>
-  </p>
-  {% if replies.has_next %}
-    <a id="next" href="?p={{ replies.next_page_number }}" class="call-to-action__button call-to-action__button--secondary"></a>
-  {% endif %}
-</div>
 {% endblock %}
