@@ -38,10 +38,15 @@
     <meta property="og:image:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta name="msapplication-TileImage" content="{% static 'img/appicons/chaajaa-purple.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="300x300" href="{% static 'img/appicons/chaajaa-purple.png' %}">
+    <link rel="shortcut icon" href="{% static 'img/appicons/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'img/appicons/favicon.ico' %}" type="image/x-icon">
+
     {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
-    <link rel="icon" href="{% static 'img/logos/chhaajaa-logo.png' %}" type="image/x-icon" />
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
     {% endcompress %}
