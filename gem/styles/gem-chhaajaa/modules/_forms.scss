@@ -29,10 +29,49 @@ label {
   display: block;
   color: $colorGrey;
 }
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="week"],
+input[type="date"],
+input[type="month"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="url"],
+select,
+textarea {
+  border-radius: 5px;
+  color: $colorGrey;
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  border: 2px solid $colorPurple;
+  font-size: 18px;
+  &:focus, &:active {
+    outline: none;
+  }
+}
+input[type="search"] {
+  color: $colorGrey;
+  padding: 10px;
+  font-size: 18px;
+  width: 90%;
+  border-radius: 5px;
+  @media screen and (min-width: 45.000em) {
+    width: 95%;
+  }
+  @media screen and (min-width: 62.000em) {
+    width: 45%;
+  }
+}
 textarea {
   background: transparent;
+  border-radius: 5px;
   color: $colorGrey;
-    font-family: "FedraSansDevanagariB-Demi";
+  font-family: "FedraSansDevanagariB-Demi";
   font-size: 18px;
   margin: 0 auto;
   padding: 1em;
@@ -100,55 +139,15 @@ input[type="radio"] {
     opacity: 1;
   }
 }
-input[type="text"],
-input[type="number"],
-input[type="password"],
-input[type="email"],
-input[type="tel"],
-input[type="search"],
-input[type="week"],
-input[type="date"],
-input[type="month"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="url"],
-select {
-  border-radius: 5px;
-  color: $colorGrey;
-  padding: 10px;
-  margin: 5px 0;
-  width: 100%;
-  border: 2px solid $colorPurple;
-  font-size: 18px;
-  &:focus, &:active, &:visited {
-    outline: none;
-  }
-}
-input[type="search"] {
-  width: 100%;
-  appearance: none;
-  color: $colorGrey;
-  margin: 0;
-  padding: 5px;
-  font-size: 18px;
-  height: 40px;
-  width: 100%;
-  border-radius: 0;
-  @media screen and (min-width: 45.000em) {
-    width: 95%;
-  }
-  @media screen and (min-width: 62.000em) {
-    width: 45%;
-  }
-}
 input[type="button"],
 input[type="reset"],
 input[type="submit"],
 button {
   background: $colorPurple;
   color: #fff;
+  border-radius: 2px;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   font-size: 18px;
   font-weight: bold;
   padding: 5px 15px;
@@ -157,7 +156,10 @@ button {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
-  &:active, &:hover, &:focus, &:visited  {
+  @media screen and (min-width: 45.000em) {
+    display: inline-block;
+  }
+  &:active, &:hover, &:focus {
     outline: none;
     text-decoration: none;
     background-color: $colorPink;
@@ -200,12 +202,8 @@ button {
   list-style-type: none;
   &__item {
     color: red;
-    text-align: left;
-    padding: 1em 1em 0 0;
   }
 }
 .error {
   color: red;
-  text-align: left;
-  padding: 1em 1em 0 0;
 }

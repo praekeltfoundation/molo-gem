@@ -21,7 +21,7 @@
                 <li><a href="{% url 'wagtailadmin_account' %}" class="icon icon-user">{% trans "Account settings" %}</a></li>
                 <li>
                   {# BEGIN CUSTOM TEMPLATE LOGIC #}
-                  <form method="post" action="{% url LOGOUT_URL %}">
+                  <form method="post" action="{{ LOGOUT_URL }}">
                     {% csrf_token %}
                     <span class="icon-logout_wrapper">
                       <input class="icon icon-logout" value="{% trans "Log out" %}" type="submit">

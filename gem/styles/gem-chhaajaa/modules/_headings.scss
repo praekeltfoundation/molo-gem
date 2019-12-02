@@ -1,7 +1,9 @@
 .heading {
-  font-family: "FedraSansDevanagariB-Bold";
+  //font-family: "FedraSansDevanagariB-Bold";
+  font-family: "FedraSansDevanagariB-Demi";
   &--hero {
     background-color: $colorPurple;
+    border-radius: 2px;
     color: #fff;
     padding: 2px 5px;
     margin: 0 0 15px;
@@ -12,29 +14,38 @@
   &--secondary {
     display: inline-block;
     margin: 0 5px 0 0;
+    font-size: 23px;
     @media screen and (min-width: 45.000em) {
       margin: 0 1em 0 0;
     }
   }
 
   &__component {
+    font-family: "FedraSansDevanagariB-Demi";
     color: #fff;
     display: inline-block;
-    font-size: 29px;
+    font-size: 24px;
     &:before {
-      background: url('/static/img/icons/chhaajaa/Sym1.png') no-repeat center center / 100%;
+      background: url('/static/img/icons/chhaajaa/smile-icon.png') no-repeat 0 0/100%;
       content: "";
       display: inline-block;
-      height: 28px;
-      width: 25px;
+      height: 24px;
+      width: 20px;
       margin: 0 5px 0 0;
-      vertical-align: sub;
+      vertical-align: middle;
+    }
+    &--service-finder {
+      &:before {
+        background: url('/static/img/icons/chhaajaa/service-icon.png') no-repeat 0 0/100%;
+      }
     }
   }
+
   &__subheading {
+    font-family: "FedraSansDevanagariB-Demi";
     color: $colorPink;
     padding: 10px 0;
-    font-size: 34px;
+    font-size: 26px;
     @media screen and (min-width: 45.000em) {
       padding: 1em 0;
     }
@@ -48,22 +59,27 @@
       vertical-align: sub;
     }
   }
-  &__macro {
-    color: $colorPink;
-    font-size: 28px;
-    padding: 10px 0;
-  }
   &__headline {
+    color: $colorPink;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 28px;
     @media screen and (min-width: 45.000em) {
-      margin: 1em 0 0;
+      margin: 10px 0;
     }
   }
+  &__macro {
+    color: $colorPink;
+    font-size: 22px;
+    padding: 10px 0;
+  }
   &__title {
-    font-size: 34px;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 22px;
   }
   &__subtitle {
-    font-size: 21px;
-    padding: 0 0 5px;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 18px;
+    padding: 0 5px;
   }
 }
 
@@ -72,7 +88,7 @@
   padding-bottom: 70px;
   h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 21px;
     font-weight: bold;
     text-transform: uppercase;
     color: $colorPink;
@@ -109,7 +125,7 @@
   padding-bottom: 70px;
   h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 22px;
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;

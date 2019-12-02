@@ -1,13 +1,22 @@
 .call-to-action {
+  &--wide-back {
+    padding: 1em 0 1em;
+  }
+  &__hyperlink {
+    color: $colorGrey;
+    font-weight: 700;
+    font-size: 20px;
+  }
 
-  //Buttons
+  //BUTTONS
   &__nav-item {
+    font-family: "FedraSansDevanagariB-Demi";
     border: 1px solid $colorRedLight;
     border-radius: 22.5px;
     display: inline-block;
     text-align: center;
-    padding: 15px;
-    color: #fff;
+    padding: 10px;
+    color: $colorRedLight;
     font-weight: 400;
     text-transform: uppercase;
     position: relative;
@@ -38,22 +47,90 @@
       z-index: -1;
     }
     &:hover {
-      color: $colorRedLight;
+      color: $colorPink;
+    }
+    &-text {
+      color: $colorPink;
+      display: inline-block;
+      font-family: "FedraSansDevanagariB-Demi";
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 10px 0 0;
+      -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      transition: all .3s cubic-bezier(.6,.2,.1,1);
+      &:hover, &:focus, &:active {
+        color: $colorPurple;
+      }
+      &--right,
+      &--left {
+        color: $colorPink;
+        padding: 5px 0;
+        text-transform: uppercase;
+        &:hover {
+          color: $colorPurple;
+        }
+        &:before {
+          background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+          content: "";
+          height: 16px;
+          width: 20px;
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 5px 0;
+        }
+      }
+      &--left {
+        &:before {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+    &--more {
+      color: $colorPink;
+      padding: 5px 0;
+      text-transform: uppercase;
+      &:hover {
+        color: $colorPurple;
+      }
+      &:after {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
+      }
+    }
+    &--replies-counter {
+      color: $colorGrey;
     }
   }
   &__item {
     &--paginate {
-      color: $colorRedLight;
-      text-decoration: underline;
-      font-weight: bold;
+      color: $colorPink;
+      padding: 5px 0;
+      text-transform: uppercase;
       &:hover {
-        text-decoration: none;
+        color: $colorPurple;
+      }
+      &:after {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
       }
     }
     &--text {
+      font-family: "FedraSansDevanagariB-Demi";
       display: inline-block;
       color: $colorPink;
       border-bottom: 2px solid transparent;
+      font-weight: 700;
       -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
       -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
       transition: all .3s cubic-bezier(.6,.2,.1,1);
@@ -84,62 +161,71 @@
     }
   }
   &__read-more {
-    font-family: "FedraSansDevanagariB-Bold";
     color: $colorRedLight;
-    display: inline;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 21px;
+    display: inline-block;
+    font-size: 19px;
+    padding: 10px 0;
     text-decoration: underline;
   }
   &__button {
     display: block;
     font-family: "FedraSansDevanagariB-Bold";
     &--primary {
+      background-color: $colorPurple;
       box-shadow: 12px 12px 0 0 #f9e435;
-      margin: 10px 1em 10px 0;
-      background: $colorPurple;
       color: #fff;
       cursor: pointer;
       display: inline-block;
       font-size: 18px;
       font-weight: bold;
+      margin: 10px 1em 10px 0;
       padding: 10px 15px;
       border: none;
-      min-width: 45%;
+      border-radius: 2px;
       transition: opacity 100ms ease-in-out;
-      &:active, &:hover, &:focus, &:visited  {
+      &:active, &:hover, &:focus {
+        background-color: $colorPink;
+        color: #fff;
         outline: none;
         text-decoration: none;
-        background-color: $colorPink;
       }
     }
     &--secondary {
-      color: $colorPurple;
       margin: 1em 0 0;
       font-size: 21px;
       -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
       -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
       transition: all .3s cubic-bezier(.6,.2,.1,1);
       &:hover, &:focus, &:active {
+        text-decoration: none;
+      }
+    }
+    &--previous {
+      color: $colorPink;
+      font-family: "FedraSansDevanagariB-Demi";
+      padding: 5px 0;
+      margin: 1em 0 0;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: left;
+      -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
+      transition: all .3s cubic-bezier(.6,.2,.1,1);
+      &:hover, &:focus {
+          color: $colorPurple;
         text-decoration-style: solid;
         text-underline-position: below;
         text-decoration-line: underline;
       }
-    }
-    &--previous {
-      color: $colorPurple;
-      margin: 1em 0 0;
-      font-size: 18px;
-      font-weight: bold;
-      text-transform: uppercase;
-      -webkit-transition: all .3s cubic-bezier(.6,.2,.1,1);
-      -o-transition: all .3s cubic-bezier(.6,.2,.1,1);
-      transition: all .3s cubic-bezier(.6,.2,.1,1);
-      &:hover, &:focus, &:active {
-        text-decoration-style: solid;
-        text-underline-position: below;
-        text-decoration-line: underline;
+      &:before {
+        background: url(/static/img/icons/chhaajaa/chevron-down3x.svg) no-repeat 0 0/50%;
+        content: "";
+        height: 16px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0;
+        transform: rotate(-180deg)
       }
     }
   }
@@ -158,7 +244,7 @@
       right: 5%;
       display: block;
     }
-    &:active, &:hover, &:focus, &:visited  {
+    &:active, &:hover, &:focus {
       opacity: 0,7;
     }
   }

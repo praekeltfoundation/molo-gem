@@ -1,0 +1,417 @@
+.comments {
+  .call-to-action__nav-item-text--response,
+  .call-to-action__nav-item-text--report,
+  .call-to-action__nav-item--replies-counter {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    &:after {
+      color: $colorPink;;
+      content: "|";
+      font-size: 13px;
+      display: inline-block;
+      padding: 0 10px;
+      vertical-align: middle;
+    }
+    &:hover,&:focus {
+      text-decoration: underline;
+    }
+  }
+  .heading {
+    &__micro {
+      margin: 0 15px;
+    }
+    &--hero {
+      display: inline-block;
+      margin: 0 0 1em;
+    }
+  }
+  //REPLY CONTAINER
+  &--replies {
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      width: 60%;
+    }
+  }
+  &__title {
+    padding: 10px;
+  }
+  &__alias {
+    padding: 10px 0;
+    font-size: 18px;
+    &-feedback {
+      color: $colorGrey;
+      font-size: 15px;
+      &--article {
+        color: $colorGrey;
+        font-size: 18px;
+        @media screen and (min-width: 45.000em) {
+          font-size: 20px;
+        }
+      }
+    }
+    &-link {
+      color: $colorPink;
+      text-decoration: none;
+      &:hover, &:active, &:focus {
+        color: $colorPurple;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__staff {
+    padding-right: 5px;
+  }
+  &__publish-date {
+    display: inline-block;
+    padding: 0 5px 0 10px;
+  }
+  &__body-small {
+    padding: 0 10px;
+    margin: 0;
+  }
+  &__body-title {
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+  &__description {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+  }
+  &__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+  &__icon {
+    color: $colorGrey;
+    display: inline-block;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/comments.png');
+      background-position: 10px -35px;
+      background-repeat: no-repeat;
+      content: "";
+      display: block;
+      padding: 5px 10px 0 5px;
+      height: 36px;
+      width: 30px;
+      background-size: 60%;
+      margin: 0;
+    }
+    &:hover, &:focus, &:active {
+      &:before {
+        background-position: 10px 3.2px;
+        content: "";
+      }
+    }
+  }
+  &-list {
+    @media screen and (min-width: 45.000em) {
+      padding: 0 0 25px;
+    }
+    &__item {
+      &--reply {
+        background: $colorGreyLight ;
+        border-bottom: 1px solid #e3e3e3;
+        margin: 0 20px 0;
+        @media screen and (min-width: 45.000em) {
+          padding: 0 1em 1em;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    &__reply_wrap {
+      padding: 0 10px;
+      .comments__alias-feedback {
+        color: $colorPurple;
+        font-family: "FedraSansDevanagariB-Demi";
+        text-transform: uppercase;
+      }
+      .comments__publish-date {
+        display: inline-block;
+        padding: 0;
+        font-family: "FedraSansDevanagariB-Light";
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+    &__item--parent-comment {
+      border-top: 2px solid $colorYellow;
+      padding: 10px 0 0;
+    }
+    &__item--parent-comment:first-child {
+      border: none;
+    }
+    &_wrapper {
+      padding: 2em 0 0;
+    }
+  }
+  &__reply-meta {
+    display: inline-block;
+    padding: 10px 10px;
+    .call-to-action__nav-item-text {
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+    }
+    &--disabled {
+      cursor: auto;
+      &:hover, &:active, &:focus {
+        color: $colorPurple;
+      }
+    }
+  }
+  /* COMMENTS REPLY PAGE*/
+  &-replies {
+    &-title {
+      font-weight: 400;
+      padding: 0 0 0 10px;
+    }
+    &-list {
+      margin: 10px 0 0;
+      margin: 15px 0;
+      padding-left: 15px;
+      background: $colorGreyLight;
+      &-title,
+      &-label {
+        text-decoration: underline;
+        font-weight: 700;
+        padding: 15px 0 0 5px;
+      }
+      &__child-list {
+        padding: 15px 0 10px;
+      }
+      &__item {
+        background: $colorGreyLight;
+        padding: 20px 0 10px 0;
+
+        @media screen and (min-width: 45.000em) {
+          padding: 0 1em 1em;
+        }
+      }
+      &--reply {
+        padding: 20px 0 10px 0;
+      }
+      &--parent-comment {
+        border-top: 3px solid $colorPurple;
+        padding: 10px 0 0;
+        &:first-child {
+          border: none;
+        }
+      }
+    }
+
+  }
+  &-posting {
+    border: 5px solid transparent;
+    margin: 0 0 1em;
+    @media screen and (min-width: 45.000em) {
+      padding: 10px;
+      width: 97%;
+      margin: 0 0 2em;
+    }
+    @media screen and (min-width: 80.000em) {
+      position: absolute;
+      right: 2.5em;
+      top: 33em;
+      width: 410px;
+    }
+    &--replies {
+      @media screen and (min-width: 80.000em) {
+        margin: 1em 0 2em;
+        top: 0;
+      }
+    }
+    &-post {
+      border: 5px solid transparent;
+      @media (min-width: 38.125em) {
+        padding: 10px;
+      }
+    }
+    &-disabled {
+      position: relative;
+      opacity: 0.7;
+      &:before {
+        content: "";
+        cursor: not-allowed;
+        display: block;
+        background-color: transparent;
+        height: 100%;
+        width: 100%;
+        z-index: 99999999999;
+        position: absolute;
+      }
+    }
+    &--report {
+      padding: 0;
+    }
+  }
+  textarea {
+    border-radius: 5px;
+    border: 2px solid $colorYellow;
+    width: 85%;
+    @media screen and (min-width: 45.000em) {
+      min-height: 220px;
+      width: 90%;
+    }
+    &:focus {
+      outline: none;
+      border: 2px solid $colorYellow;
+    }
+  }
+  button, input[type=button],
+  input[type=reset], input[type=submit] {
+    background: $colorPurple;
+    box-shadow: none;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border: none;
+    margin: 10px 5px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    &:active, &:hover, &:focus {
+      outline: none;
+      text-decoration: none;
+      background-color: $colorPink;
+    }
+  }
+}
+
+.comment {
+  &__replies-title {
+    color: $colorPurple;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 20px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    @media screen and (min-width: 45.000em) {
+      padding: 10px 25px;
+    }
+  }
+  &-counter {
+    display: inline-block;
+    height: 25px;
+    margin: 5px 0 0;
+    &__icon {
+      vertical-align: middle;
+      max-width: 21px;
+    }
+    &__numeral {
+      vertical-align: top;
+      margin-left: 5px;
+    }
+  }
+
+  &-success {
+    font-size: 21px;
+    color: $colorPink;
+    font-style: italic;
+  }
+  &_list_area  {
+    h3 {
+      font-size: 24px;
+      color: #222222;
+      text-transform: uppercase;
+      border-bottom: 1px solid $colorGreyLight;
+      padding: 60px 0px 35px 0px;
+      font-weight: 400;
+    }
+    .media {
+      margin-top: 0px;
+      padding: 35px 0px 30px 0px;
+      border-bottom: 1px solid $colorGreyLight;
+      overflow: hidden;
+      clear: both;
+      .media-left {
+        padding-right: 30px;
+      }
+      .media-body  {
+          h4 {
+          font-size: 14px;
+          color: #222222;
+          padding-bottom: 10px;
+          font-weight: bold;
+          -webkit-transition: all 400ms linear 0s;
+          -o-transition: all 400ms linear 0s;
+          transition: all 400ms linear 0s;
+          &:hover {
+            color: $colorPink;
+            text-decoration: underline;
+          }
+        }
+        h5 {
+          font-size: 14px;
+          font-style: italic;
+          color: #696969;
+          padding-bottom: 15px;
+        }
+        p {
+          font-size: 15px;
+          line-height: 26px;
+          color: #696969;
+          padding-bottom: 20px;
+        }
+        .read_more {
+          font-size: 15px;
+          text-transform: uppercase;
+          width: 70px;
+          height: 30px;
+          border-radius: 0px;
+          line-height: 28px;
+        }
+
+      }
+      .media.comment_reply {
+        max-width: 650px;
+        float: right;
+      }
+      .purple_comment  {
+        .media .media-body h4 {
+          color: #222222;
+          -webkit-transition: all 400ms linear 0s;
+          -o-transition: all 400ms linear 0s;
+          transition: all 400ms linear 0s;
+          &:hover {
+            color: $colorPink;
+          }
+
+        }
+      }
+    }
+  }
+}
+.commentsection {
+  border: 2px solid #4bffa1;
+  padding: 20px 10px;
+}
+
+#id_report_reason {
+  margin: 0;
+  padding: 0;
+  li {
+    display: block;
+    label {
+      text-align: left;
+    }
+    input[type="radio"] {
+      cursor: pointer;
+    }
+  }
+}

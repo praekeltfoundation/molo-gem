@@ -14,7 +14,7 @@ from wagtail.core import urls as wagtail_urls
 
 from molo.core import views as core_views
 from molo.profiles.views import ForgotPasswordView, ResetPasswordView
-from wagtail.contrib.sitemaps import views as sitemap_views
+
 from gem.views import (
     report_response, GemRegistrationView,
     GemRssFeed, GemAtomFeed,
@@ -51,7 +51,7 @@ urlpatterns += [
     re_path(r'^admin/', include(wagtailadmin_urls)),
     re_path(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
-    re_path(r'^sitemap\.xml$', sitemap_views.sitemap),
+    re_path(r'^sitemap\.xml$', core_views.sitemap),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(
         r'^manifest\.webapp$',
@@ -164,11 +164,6 @@ if settings.DEBUG:
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-    import debug_toolbar
-    urlpatterns += [
-        re_path(r'^__debug__/', include(debug_toolbar.urls)),
-    ]
 
 
 if settings.MAINTENANCE_MODE:

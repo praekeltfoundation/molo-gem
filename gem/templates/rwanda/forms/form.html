@@ -85,7 +85,7 @@
         {{ form.submit_text|default:polltext }}
       </button>
     {% else %}
-      <a href="{% url LOGIN_URL %}?next=request.path" class="call-to-action__button call-to-action__button--primary">
+      <a href="{{ LOGIN_URL }}?next=request.path" class="call-to-action__button call-to-action__button--primary">
         {% trans "Log in to vote" %}
       </a>
     {% endif %}

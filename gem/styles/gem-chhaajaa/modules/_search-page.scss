@@ -1,0 +1,78 @@
+.search-page {
+  padding: 10px 1em;
+  @media screen and (min-width: 45.000em) {
+    padding: 1.5em 2.5em;
+  }
+  @media screen and (min-width: 62.000em) {
+    padding: 2.5em;
+  }
+  &__query-term {
+    color: $colorPurple;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 22px;
+    text-transform: capitalize;
+  }
+
+  &__form  {
+    margin: 2em 0;
+    @media screen and (min-width: 62.000em) {
+      width: 50%;
+    }
+    .call-to-action__button--secondary {
+      @media screen and (min-width: 62.000em)  {
+        background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center 0/30px;
+        display: inline-block;
+        vertical-align: middle;
+        height: 36px;
+        width: 30px;
+        margin: 0 -45px;
+        padding: 10px;
+        overflow: hidden;
+        text-indent: 3em;
+        &:active, &:hover, &:focus {
+          opacity: 0.7;
+          background-color: inherit;
+          transition: opacity 10ms ease-in-out;
+        }
+      }
+    }
+  }
+  .teaser-card {
+    border: none;
+    &__item {
+      @media screen and (min-width: 62.000em) {
+        width: 22%;
+      }
+    }
+    &__iframe {
+      margin: 0 10px 0 0;
+      overflow: hidden;
+      width: 100%;
+      iframe {
+        width: 100%;
+        height: 200px;
+      }
+    }
+    &__images {
+      margin: 0 10px 0 0;
+      overflow: hidden;
+      width: 100%;
+    }
+    &__thumbnail {
+      height: 200px;
+      object-fit: cover;
+      object-position: center 0;
+      width: 100%;
+    }
+  }
+  .article-teaser__wrapper {
+    padding: 10px 0 0;
+    @media screen and (min-width: 45.000em) {
+      padding: 20px 0 0;
+    }
+  }
+  input[type="search"] {
+    width: 50%;
+  }
+}

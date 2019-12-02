@@ -1,0 +1,293 @@
+.navbar {
+  overflow: auto;
+  @media screen and (min-width: 45.000em) {
+    display: flex;
+    justify-content: safe;
+    align-items: center;
+  }
+  &-collapse {
+    overflow-x: visible;
+    padding-right: 0;
+    padding-left: 15px;
+    border-top: 1px solid transparent;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      margin: 10px 0;
+      max-height: 350px;
+      border-top: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+  &-nav {
+    $block: unquote("#{&}");
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__button, #logout-form .navbar-nav__button  {
+      background-color: transparent;
+      color: $colorPurple;
+      cursor: pointer;
+      font-family: "FedraSansDevanagariB-Bold";
+      display: block;
+      font-size: 25px;
+      font-weight: 700;
+      margin: 0;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+      @media screen and (min-width: 45.000em) {
+        align-items: center;
+        background-color: $colorPurple;
+        border-radius: 2px;
+        color: #fff;
+        display: flex;
+        font-family: "FedraSansDevanagariB-Light";
+        font-size: 22px;
+        min-width: 96.73px;
+        justify-content: center;
+        padding: 0 15px;
+        height: 35px;
+      }
+      &:hover, &:focus, &:active {
+        @media screen and (min-width: 45.000em) {
+          background-color: $colorPink;
+          color: #fff;
+          outline: none;
+          text-decoration: none;
+        }
+      }
+    }
+
+    #logout-form {
+      display: inline-block;
+      .navbar-nav__button {
+        font-family: "FedraSansDevanagariB-Demi";
+        padding: 5px 0;
+        @media screen and (min-width: 45.000em)  {
+          padding: 0 15px;
+          font-size: 20px;
+          font-weight: 300;
+        }
+      }
+    }
+
+    &__option {
+      display: block;
+      margin: 5px 0;
+      @media screen and (min-width: 45.000em) {
+        margin: 0 10px;
+        display: inline-block;
+        overflow: hidden;
+      }
+      &:last-child {
+        @media screen and (min-width: 45.000em) {
+          margin: 0 10px;
+        }
+      }
+    }
+    &__anchor {
+      color: #8207ff;
+      display: block;
+      font-family: "FedraSansDevanagariB-Bold";
+      font-size: 24px;
+      text-transform: capitalize;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+      @media screen and (min-width: 45.000em) {
+        padding: 0 5px;
+      }
+      &:hover, &:focus, &:active {
+        color: $colorPink;
+      }
+    }
+
+    &__item {
+      display: block;
+      margin: 0 0 10px;
+      @media screen and (min-width: 45.000em) {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
+      }
+      &:last-child {
+        @media screen and (min-width: 73.938em) {
+          margin: 0;
+          margin-left: 2.5em;
+          flex-wrap: inherit;
+          flex-direction: row-reverse;
+        }
+      }
+    }
+    .active {
+      color: $colorPink;
+    }
+  }
+  &-header {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    width: 100%;
+    @media screen and (min-width: 45.000em) {
+      width: auto;
+      display: inline-block;
+    }
+  }
+  &-toggle {
+    display: inline-block;
+    position: relative;
+    padding: 5px;
+    font-size: 22px;
+    vertical-align: middle;
+    background: transparent;
+    margin: 10px 5px;
+    border: 2px solid transparent;
+    @media screen and (min-width: 40.000em) {
+      margin: 15px;
+    }
+    @media screen and (min-width: 45.000em) {
+      display: none;
+    }
+    .sr-only {
+      display: none;
+    }
+    .icon-bar {
+      background-color: #8207ff;
+      display: block;
+      width: 1.9em;
+      height: 5px;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+    &:hover, &:focus, &:active {
+      outline: inherit;
+      border-radius: 5px;
+      border: 2px solid $colorPink;
+      background: transparent;
+      transition: border 100ms ease-in-out;
+      .icon-bar {
+        background-color: $colorPink;
+      }
+    }
+  }
+  &-brand {
+    display: inline-block;
+    padding: 15px;
+    font-size: 18px;
+    vertical-align: middle;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    @media screen and (min-width: 62.000em) {
+      padding: .8em 15px 0.8em;
+    }
+    img {
+      display: block;
+      max-width: 105px;
+    }
+    &:hover, &:focus, &:active {
+      img {
+        animation: pulse 0.5s ease 0s 1;
+      }
+    }
+
+  }
+  .nav-search {
+    &__label {
+      cursor: pointer;
+      display: none;
+      font-size: 18px;
+      text-transform: uppercase;
+      padding: 0;
+      visibility: hidden;
+      @media screen and (min-width: 45.000em) {
+        display: inline-block;
+        visibility: visible;
+      }
+      &:after {
+        content: " ";
+        background-image: url('/static/img/icons/chhaajaa/search_icon.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: auto;
+        display: inline-block;
+        vertical-align: middle;
+        height: 35px;
+        width: 40px;
+      }
+      &:active, &:hover, &:focus {
+        cursor: pointer;
+        &:after {
+          background-size: 80%;
+        }
+      }
+    }
+    &__wrapper {
+      background: $colorYellow;
+      height: auto;
+      padding: 1em 0;
+      width: 100%;
+      z-index: 9999999999;
+      @media screen and (min-width: 45.000em) {
+        text-align: center;
+        position: absolute;
+        top: 85px;
+        right: 0;
+      }
+      @media screen and (min-width: 62.000em) {
+        padding: 2em 0;
+      }
+    }
+
+    &__form {
+      position: relative;
+      input[type="search"] {
+        @media screen and (min-width: 62.000em) {
+          margin: 0 -45px;
+        }
+      }
+      .call-to-action__item--icon {
+        @media screen and (min-width: 62.000em)  {
+          background: url('/static/img/icons/chhaajaa/search_icon.png') no-repeat center 0/30px;
+          display: inline-block;
+          vertical-align: middle;
+          height: 36px;
+          width: 30px;
+          margin: 0 5px;
+          padding: 10px;
+          overflow: hidden;
+          text-indent: 3em;
+          &:active, &:hover, &:focus {
+            opacity: 0.7;
+            background-color: inherit;
+            transition: opacity 10ms ease-in-out;
+          }
+        }
+      }
+    }
+    @media screen and (min-width: 45.000em)  {
+      &__checkbox {
+        & + * {
+          height: auto;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.2s linear;
+        }
+        &:checked + * {
+          opacity: 1;
+          visibility: visible;
+          label[for=search_accordion] {
+            background-color: $colorGrey;
+          }
+        }
+      }
+    }
+  }
+}
