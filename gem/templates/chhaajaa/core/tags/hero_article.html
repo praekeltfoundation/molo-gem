@@ -1,101 +1,102 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_forms_tags %}
 {% get_settings %}
+
 {% if articles %}
-  <div class="content--left">
-    <div class="article-teaser">
-      <div class="article-teaser__wrapper">
-      <ul class="teaser-stacklist">
-        {% for article in articles|slice:":1" %}
-          <li class="teaser-stacklist__item">
-            {# <!-- ARTICLE BODY IMAGE | LEGACY IMPLEMETATION --> #}
-            {% for block in article.body %}
-              {% if block.value.type == "video" %}
-                {% if block.value.youtube_link %}
-                  <div class="teaser-stacklist__iframe">
-                    {% embed block.value.youtube_link %}
-                  </div>
-                {% endif %}
-              {% else %}
-                {% if forloop.last and article.get_effective_image %}
-                  <div class="teaser-stacklist__images">
-                    <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                      {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                      <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                    </a>
-                  </div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-            <div class="teaser-stacklist__container">
-              <h1 class="teaser-stacklist__title">
-                {{ article.title|smarttruncatechars:100|safe}}
-              </h1>
-              <div class="teaser-stacklist__cta-buttons">
-                {% load_reaction_question article as question %}
-                {% if question %}
-                <div class="reaction-questions">
-                  <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="reaction-questions__list">
-                      {% load_choices_for_reaction_question question as choices %}
-                        {% for choice in choices %}
-                        {% load_user_choice_reaction_question question article choice as user_has_chosen %}
-                        {% if user_has_chosen %}
-                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                        {% else %}
-                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                        {% endif %}
-                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                              {% image choice.specific.image width-50 as reaction__icon %}
-                              <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                              {{ choice.title|capfirst }}
-                            </label>
-                          </span>
-                        {% endfor %}
+
+    <div class="content--left">
+      <div class="article-teaser">
+        <div class="article-teaser__wrapper">
+        <ul class="teaser-stacklist">
+          {% for article in articles|slice:":1" %}
+            <li class="teaser-stacklist__item">
+              {% for block in article.body %}
+                {% if block.value.type == "video" %}
+                  {% if block.value.youtube_link %}
+                    <div class="teaser-stacklist__iframe">
+                      {% embed block.value.youtube_link %}
                     </div>
-                  </form>
-                </div>
+                  {% endif %}
+                {% else %}
+                  {% if forloop.last and article.get_effective_image %}
+                    <div class="teaser-stacklist__images">
+                      <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+                        {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                        <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+                      </a>
+                    </div>
+                  {% endif %}
                 {% endif %}
-
-                <div class="vote__item">
-                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                </div>
-
-                {% if article.is_commenting_enabled %}
-                  {% if article.allow_commenting %}
-                    {% if request.user.is_authenticated %}
-                      <div class="comments__item">
-                        <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+              {% endfor %}
+              <div class="teaser-stacklist__container">
+                <h1 class="teaser-stacklist__title">
+                  {{ article.title|smarttruncatechars:100|safe}}
+                </h1>
+                <div class="teaser-stacklist__cta-buttons">
+                  {% load_reaction_question article as question %}
+                  {% if question %}
+                  <div class="reaction-questions">
+                    <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                      {% csrf_token %}
+                      <div class="reaction-questions__list">
+                        {% load_choices_for_reaction_question question as choices %}
+                          {% for choice in choices %}
+                          {% load_user_choice_reaction_question question article choice as user_has_chosen %}
+                          {% if user_has_chosen %}
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                          {% else %}
+                            <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                          {% endif %}
+                              <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                                {% image choice.specific.image width-50 as reaction__icon %}
+                                <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                {{ choice.title|capfirst }}
+                              </label>
+                            </span>
+                          {% endfor %}
                       </div>
+                    </form>
+                  </div>
+                  {% endif %}
+
+                  <div class="vote__item">
+                    <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                  </div>
+
+                  {% if article.is_commenting_enabled %}
+                    {% if article.allow_commenting %}
+                      {% if request.user.is_authenticated %}
+                        <div class="comments__item">
+                          <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+                        </div>
+                      {% endif %}
                     {% endif %}
                   {% endif %}
+                </div>
+
+                {% if article.subtitle %}
+                <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
                 {% endif %}
+                <div class="teaser-stacklist__inner">
+                  {% for block in article.body %}
+                    {% if not block.block_type == 'media' %}
+                      <div class="teaser-stacklist__excerpt teaser-stacklist__excerpt--hidden">
+                        <p>{{block.value}}</p>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
+                </div>
               </div>
-
-              {% if article.subtitle %}
-              <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
-              {% endif %}
-              <div class="teaser-stacklist__inner">
-                {% for block in article.body %}
-                  {% if not block.block_type == 'media' %}
-                    <div class="teaser-stacklist__excerpt teaser-stacklist__excerpt--hidden">
-                      <p>{{block.value}}</p>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-                <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
-              </div>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-  </div>
+    {% for article in articles %}
+      {% forms_list_for_pages page=article %}
+      {% include "comments/comment_block.html" %}
+    {% endfor %}
 
-  {% for article in articles %}
-    {% forms_list_for_pages page=article %}
-    {% include "comments/comment_block.html" %}
-  {% endfor %}
 </div>
 {% endif %}
 <script type="text/javascript">

@@ -122,13 +122,19 @@
         <div class="nav navbar-nav navbar-right">
           <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
+            <li class="navbar-nav__option">
+              <a href="/" class="navbar-nav__anchor">
+                {% trans "Home" %}
+              </a>
+            </li>
             {% load_sections service_aggregator=True as service_aggregators %}
             {% load_sections as sections %}
             {% if sections %}
               {% for section in sections %}
-                {% content_is section "Videos" as is_videos %}
                 <li class="navbar-nav__option">
-                  <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
+                  <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
+                    {{section.title}}
+                  </a>
                 </li>
               {% endfor %}
             {% endif %}
@@ -153,11 +159,10 @@
                 <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
               </form>
             </li>
-
             {% else %}
               <li class="navbar-nav__option">
-                  <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
-                </li>
+                <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
+              </li>
             {% endif %}
             <li class="navbar-nav__option">
               <div class="nav-search">
