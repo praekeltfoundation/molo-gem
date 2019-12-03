@@ -2,7 +2,6 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags comments gem_tags molo_forms_tags %}
 {% get_settings %}
 
-
 {% block content %}
   {% load_sections service_aggregator=True as service_aggregators %}
   {% load_sections as sections %}
@@ -10,16 +9,19 @@
   {% if sections  %}
     {% for section in sections %}
     {% load_child_articles_for_section self count=1 featured_in_section=True as featured_articles %}
-
+    {% content_is section "Videos" as is_video_section %}
       {% if self.pk ==  section.pk %}
-        {% content_is section "Videos" as is_video_section %}
         {% if is_video_section %}
         <!-- VIDEO SECTION -->
           <div class="container">
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
+              {% for article in featured_articles %}
+                {% forms_list_for_pages page=article %}
+                {% include "comments/comment_block.html" %}
+              {% endfor %}
             </div>
-            
+
             <div class="content--right">
               {% latest_listing_homepage %}
             </div>
@@ -126,7 +128,6 @@
               </ul>
               <div class="section-page__columns">
                 {% load_child_sections_for_section section=self as child_sections %}
-
                 <div class="section-page__columns-left">
                   {% if child_sections %}
                     {% for child_section in child_sections %}
@@ -174,13 +175,11 @@
                               </div>
                             {% endif %}
                             </div>
-
                             {% if article.subtitle %}
                               <h6 class="teaser-card__subtitle">
                                 {{ article.subtitle|smarttruncatechars:50|safe}}
                               </h6>
                             {% endif %}
-
                             {% for block in article.body %}
                               {% if not block.block_type == 'media' %}
                                 <p class="teaser-card__para">
@@ -196,15 +195,12 @@
                   {% endif %}
                 </div>
 
-
                 {# <!-- SIDE BAR--> #}
-                {% content_is self "Videos" as is_video_section %}
                 {% if not is_video_section %}
                   {% load_child_articles_for_section self.get_first_sibling.specific False as articles %}
                 {% else %}
-                {% load_child_articles_for_section self as articles %}
+                  {% load_child_articles_for_section self as articles %}
                 {% endif %}
-
                 {% if articles %}
                   <div class="section-page__columns-right">
                     <div class="heading heading--hero">
@@ -260,7 +256,11 @@
       {% endif %}
     {% endfor %}
 
-    <!-- ARREN SUN NA / GENERAL COMMENTING -->
+    {% if not is_video_section %}
+      {% load_child_articles_for_section self.get_first_sibling.specific False as articles %}
+    {% else %}
+      {% load_child_articles_for_section self as articles %}
+    {% endif %}
     <div class="section-page__commenting">
       {% for article in featured_articles %}
         {% include "comments/comment_block.html" %}
