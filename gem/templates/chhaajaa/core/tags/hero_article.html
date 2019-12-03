@@ -43,6 +43,7 @@
       </div>
       <div class="teaser-stacklist__cta-buttons">
         {% load_reaction_question article as question %}
+        {{question}}
         {% if question %}
         <div class="reaction-questions">
           <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
@@ -81,6 +82,7 @@
   {% endfor %}
   </ul>
 {% endif %}
+
 <script type="text/javascript">
   /* Reaction Question */
   var frm = $('#reaction-questions__form');
