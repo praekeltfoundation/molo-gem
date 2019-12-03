@@ -19,6 +19,7 @@
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
             </div>
+            
             <div class="content--right">
               {% latest_listing_homepage %}
             </div>
@@ -38,7 +39,6 @@
               <ul class="teaser-stacklist">
                 {% for featured_article in featured_articles  %}
                   <li class="teaser-stacklist__item">
-                    {# <!-- REVIEW IMAGE BACKUP --> #}
                     {% for block in featured_article.body %}
                       {% if block.value.type == "video" %}
                         {% if block.value.youtube_link %}
@@ -55,7 +55,6 @@
                         {% endif %}
                       {% endif %}
                     {% endfor %}
-                    {# <!-- END REVIEW IMAGE BACKUP --> #}
 
                     <div class="teaser-stacklist__container">
                       <div class="teaser-stacklist__main">
