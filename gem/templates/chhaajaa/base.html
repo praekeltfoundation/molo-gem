@@ -120,6 +120,8 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
+          {% load_sections service_aggregator=True as service_aggregators %}
+          {% load_sections as sections %}
           <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
             <li class="navbar-nav__option">
@@ -127,15 +129,17 @@
                 {% trans "Home" %}
               </a>
             </li>
-            {% load_sections service_aggregator=True as service_aggregators %}
-            {% load_sections as sections %}
             {% if sections %}
               {% for section in sections %}
-                <li class="navbar-nav__option">
-                  <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
-                    {{section.title}}
-                  </a>
-                </li>
+              {# <!-- HOME REPLACES Chhaa Jaa! SECTION PAGE--> #}
+                {% content_is section "Chhaa Jaa!" as is_home %}
+                {% if not is_home %}
+                  <li class="navbar-nav__option">
+                    <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
+                      {{section.title}}
+                    </a>
+                  </li>
+                {% endif %}
               {% endfor %}
             {% endif %}
             {% if service_aggregators %}
@@ -146,7 +150,6 @@
               {% endfor %}
             {% endif %}
           </ul>
-
           <!-- MOBILE NAV -->
           <ul class="navbar-nav__item">
             {% if request.user.is_authenticated %}
