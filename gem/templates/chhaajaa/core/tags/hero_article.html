@@ -67,31 +67,19 @@
           </form>
         </div>
         {% endif %}
-
-        <div class="vote__item">
-          <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-        </div>
-
-        {% if article.is_commenting_enabled %}
-          {% if article.allow_commenting %}
-            {% if request.user.is_authenticated %}
-              <div class="comments__item">
-                <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
-              </div>
-            {% endif %}
-          {% endif %}
+        {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+          <div class="share__item">
+            <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
+            <div id="share_reveal" class="share__reveal">
+              {% social_media_article page=article %}
+            </div>
+          </div>
         {% endif %}
       </div>
     </div>
   </li>
   {% endfor %}
   </ul>
-
-  {% for article in articles %}
-    {% forms_list_for_pages page=article %}
-    {% include "comments/comment_block.html" %}
-  {% endfor %}
-
 {% endif %}
 <script type="text/javascript">
   /* Reaction Question */
