@@ -14,58 +14,59 @@
   a {
     text-decoration: underline;
   }
-  .rich-text {
-    ul {
-      list-style: initial;
-      list-style-position: inside;
+}
+.rich-text {
+  ul {
+    list-style: initial;
+    list-style-position: inside;
+  }
+  ol {
+    list-style: decimal;
+    list-style-position: inside;
+  }
+  p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+  h2, h3, h4 {
+    margin: 0.5em 0;
+  }
+  img.richtext-image {
+    display: inline-block;
+  }
+  img.richtext-image.left {
+    @media screen and (min-width: 45.000em) {
+      float: left;
+      margin: 5px 1em 5px 0;
     }
-    ol {
-      list-style: decimal;
-      list-style-position: inside;
+  }
+  img.richtext-image.right {
+    @media screen and (min-width: 45.000em) {
+      float: right;
+      margin: 5px 0 5px 1em;
     }
-    p {
-      margin-block-start: 1em;
-      margin-block-end: 1em;
-      margin-inline-start: 0px;
-      margin-inline-end: 0px;
-    }
-    h2, h3, h4 {
-      margin: 0.5em 0;
-    }
-    img.richtext-image {
-      display: inline-block;
-    }
-    img.richtext-image.left {
+  }
+  img.richtext-image.full-width {
+    display: block;
+    height: auto;
+    width: 100%
+  }
+  .responsive-object {
+    padding: 10px !important;
+    iframe {
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+      height: 250px;
       @media screen and (min-width: 45.000em) {
-        float: left;
-        margin: 5px 1em 5px 0;
-      }
-    }
-    img.richtext-image.right {
-      @media screen and (min-width: 45.000em) {
-        float: right;
-        margin: 5px 0 5px 1em;
-      }
-    }
-    img.richtext-image.full-width {
-      display: block;
-      height: auto;
-      width: 100%
-    }
-    .responsive-object {
-      padding: 10px !important;
-      iframe {
-        object-fit: cover;
-        object-position: center;
-        width: 100%;
-        height: 250px;
-        @media screen and (min-width: 45.000em) {
-          height: 415px;
-        }
+        height: 415px;
       }
     }
   }
 }
+
 
 //Service HTML Entities
 .external-link {
