@@ -5,24 +5,27 @@
   <ul class="teaser-stacklist">
   {% for article in articles|slice:":1" %}
     <li class="teaser-stacklist__item">
-      {% for block in article.body %}
-        {% if block.value.type == "video" %}
-          {% if block.value.youtube_link %}
-            <div class="teaser-stacklist__iframe">
-              {% embed block.value.youtube_link %}
-            </div>
-          {% endif %}
-        {% else %}
-          {% if forloop.last and article.get_effective_image %}
-            <div class="teaser-stacklist__images">
-              <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-              </a>
-            </div>
-          {% endif %}
+      {% if article.homepage_media %}
+        {% for block in article.homepage_media %}
+          {% with block.value as media %}
+            {% if block.value.youtube_link %}
+              <div class="teaser-stacklist__iframe">
+                {% embed media.youtube_link %}
+              </div>
+            {% endif %}
+          {% endwith %}
+        {% endfor %}
+      {% else %}
+        {% if article.get_effective_image %}
+        <div class="teaser-stacklist__images">
+            <a href="{% pageurl article.specific %}"  class="teaser-stacklist__anchor">
+              {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+              <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail" />
+            </a>
+          </div>
         {% endif %}
-      {% endfor %}
+      {% endif %}
+
       <div class="teaser-stacklist__container">
         <div class="teaser-stacklist__main">
           <h1 class="teaser-stacklist__title-secondary">

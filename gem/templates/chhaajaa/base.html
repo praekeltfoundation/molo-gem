@@ -1,3 +1,13 @@
+{% comment %}
+  <!--
+  !!APP NOTE!!
+  THIS APPLICATION USES ARTICLE BODY MEDIA(VIDEO / YOUTUBE ) [FIRST MEDIA IN ARTICLE BODY]
+  Homepage Media Option is later added for YEGNA
+  We cannot simple change the template behaviour as this qill require CMS content redoing.
+  -->
+{% endcomment %}
+
+
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
 {% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
 {% get_settings %}
@@ -131,8 +141,7 @@
             </li>
             {% if sections %}
               {% for section in sections %}
-              {# <!-- HOME REPLACES Chhaa Jaa! SECTION PAGE--> #}
-                {% content_is section "Chhaa Jaa!" as is_home %}
+                {% content_is section "Home" as is_home %}
                 {% if not is_home %}
                   <li class="navbar-nav__option">
                     <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
