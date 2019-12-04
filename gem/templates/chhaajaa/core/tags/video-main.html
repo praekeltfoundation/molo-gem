@@ -30,7 +30,8 @@
               {% load_reaction_question article as question %}
               {% if question %}
                 <div class="reaction-questions">
-                  <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+
+                  <form class="reaction-questions__field" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                   {% csrf_token %}
                     <div class="reaction-questions__list">
                       {% load_choices_for_reaction_question question as choices %}

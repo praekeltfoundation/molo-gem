@@ -77,28 +77,28 @@
                       <div class="teaser-stacklist__cta-buttons">
                         {% load_reaction_question featured_article as question %}
                         {% if question %}
-                          <div class="reaction-questions">
-                            <form class="reaction-questions__form" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form_{{featured_article.id}}" method="post" novalidate>
-                              {% csrf_token %}
-                              <div class="reaction-questions__list">
-                                {% load_choices_for_reaction_question question as choices %}
-                                  {% for choice in choices %}
-                                    {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
-                                    {% if user_has_chosen %}
-                                      <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})" disabled=disabled>
-                                    {% else %}
-                                      <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{featured_article}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{featured_article.id}})">
-                                    {% endif %}
-                                        <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                                          {% image choice.specific.image width-50 as reaction__icon %}
-                                          <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                                          {{ choice.title|capfirst }}
-                                        </label>
-                                      </span>
-                                  {% endfor %}
-                              </div>
-                            </form>
-                          </div>
+                        <div class="reaction-questions">
+                          <form class="reaction-questions__field" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="reaction-questions__list">
+                              {% load_choices_for_reaction_question question as choices %}
+                                {% for choice in choices %}
+                                {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
+                                {% if user_has_chosen %}
+                                  <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
+                                {% else %}
+                                  <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
+                                {% endif %}
+                                    <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
+                                      {% image choice.specific.image width-50 as reaction__icon %}
+                                      <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
+                                      {{ choice.title|capfirst }}
+                                    </label>
+                                  </span>
+                                {% endfor %}
+                            </div>
+                          </form>
+                        </div>
                         {% endif %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
@@ -148,18 +148,19 @@
                             </h3>
                             <div class="teaser-stacklist__cta-buttons">
                             {% load_reaction_question article as question %}
+
                             {% if question %}
                               <div class="reaction-questions">
-                                <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form_{{article.id}}" method="post" novalidate>
+                                <form class="reaction-questions__field" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form_{{article.id}}" method="post" novalidate>
                                   {% csrf_token %}
                                   <div class="reaction-questions__list">
                                     {% load_choices_for_reaction_question question as choices %}
                                       {% for choice in choices %}
                                         {% load_user_choice_reaction_question question article choice as user_has_chosen %}
                                         {% if user_has_chosen %}
-                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }}, {{article.id}})" disabled=disabled>
+                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_section_choice({{ choice.specific.get_main_language_page.id }}, {{article.id}})" disabled=disabled>
                                         {% else %}
-                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_choice({{ choice.specific.get_main_language_page.id }},{{article.id}})">
+                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_section_choice({{ choice.specific.get_main_language_page.id }},{{article.id}})">
                                         {% endif %}
                                             <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
                                               {% image choice.specific.image width-50 as reaction__icon %}
@@ -348,27 +349,27 @@
     {% endfor %}
 
   {% endif %}
-{% endblock %}
 
-<script type="text/javascript">
-  function set_choice(choice, article_id) {
-    if (!$('#' + choice).attr('disabled') == true){
-      var frm = $('#reaction-questions__form_' + article_id);
-      $.ajax({
-        type: frm.attr('method'),
-        url: frm.attr('action'),
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          choice: choice,
-          ajax: "True"
-        },
-        success: function () {
-          $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
-            $(this).attr('disabled', false);
-          });
-          $("#" + choice + "-" + article_id).attr('disabled', true);
-        }
-      })
-    }
-  };
-</script>
+  <script type="text/javascript">
+    function set_section_choice(choice, article_id) {
+      if (!$('#' + choice).attr('disabled') == true){
+        var frm = $('#reaction-questions__form_' + article_id);
+        $.ajax({
+          type: frm.attr('method'),
+          url: frm.attr('action'),
+          data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            choice: choice,
+            ajax: "True"
+          },
+          success: function () {
+            $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
+              $(this).attr('disabled', false);
+            });
+            $("#" + choice + "-" + article_id).attr('disabled', true);
+          }
+        })
+      }
+    };
+  </script>
+{% endblock %}
