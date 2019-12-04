@@ -256,6 +256,7 @@
       {% endif %}
     {% endfor %}
 
+    <!-- Showing Up Twice -->
     {% if not is_video_section %}
       {% load_child_articles_for_section self.get_first_sibling.specific False as articles %}
     {% else %}
@@ -349,47 +350,3 @@
 
   {% endif %}
 {% endblock %}
-<script type="text/javascript">
-  /* Reaction Question */
-  var frm = $('#reaction-questions__form');
-  function set_choice(choice) {
-    if (!$('#' + choice).attr('disabled') == true){
-      $.ajax({
-        type: frm.attr('method'),
-        url: frm.attr('action'),
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          choice: choice,
-          ajax: "True"
-        },
-        success: function () {
-          $( ".reaction-questions__item" ).each(function( index ) {
-            $(this).attr('disabled', false);
-          });
-          $("#" + choice).attr('disabled', true);
-        }
-      })
-    }
-  };
-
-  function set_choice(choice, article_id) {
-    if (!$('#' + choice).attr('disabled') == true){
-      var frm = $('#reaction-questions__form_' + article_id);
-      $.ajax({
-        type: frm.attr('method'),
-        url: frm.attr('action'),
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          choice: choice,
-          ajax: "True"
-        },
-        success: function () {
-          $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
-            $(this).attr('disabled', false);
-          });
-          $("#" + choice + "-" + article_id).attr('disabled', true);
-        }
-      })
-    }
-  };
-</script>
