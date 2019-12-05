@@ -24,13 +24,12 @@
         {% endfor %}
           <div class="teaser-stacklist__container">
             <h1 class="teaser-stacklist__title">
-              {{ article.title|smarttruncatechars:100|safe}}
+              {{ article.title}}
             </h1>
             <div class="teaser-stacklist__cta-buttons">
               {% load_reaction_question article as question %}
               {% if question %}
                 <div class="reaction-questions">
-
                   <form class="reaction-questions__field" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
                   {% csrf_token %}
                     <div class="reaction-questions__list">
@@ -57,7 +56,6 @@
               <div class="vote__item">
                 <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
               </div>
-
               {% if article.is_commenting_enabled %}
                 {% if article.allow_commenting %}
                   {% if request.user.is_authenticated %}
@@ -69,14 +67,16 @@
               {% endif %}
             </div>
             {% if article.subtitle %}
-              <h4 class="teaser-stacklist__subtitle">{{ article.subtitle|smarttruncatechars:150|safe}}</h4>
+              <h4 class="teaser-stacklist__subtitle">{{ article.subtitle}}</h4>
             {% endif %}
             <div class="teaser-stacklist__inner">
               {% for block in article.body %}
+              {% if  article.body %}
                 {% if not block.block_type == 'media' %}
                   <div class="teaser-stacklist__excerpt teaser-stacklist__excerpt--hidden">
                     <p>{{block.value}}</p>
                   </div>
+                {% endif %}
                 {% endif %}
               {% endfor %}
               <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
