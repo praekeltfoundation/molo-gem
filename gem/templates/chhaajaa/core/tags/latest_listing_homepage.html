@@ -8,7 +8,6 @@
     </div>
     <div class="article-teaser__wrapper">
       <ul class="teaser-grid">
-         
         {% for article in articles %}
           <li class="teaser-grid__item">
             {# <!-- ARTICLE BODY IMAGE | LEGACY IMPLEMETATION --> #}
@@ -30,7 +29,6 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
-
             <div class="teaser-grid__container">
               <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
                 <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
@@ -46,17 +44,17 @@
               {% if article.subtitle_highlight or article.body_highlight %}
                 <p class="teaser-grid__subtitle">
                   {% if article.subtitle_highlight %}
-                    {{article.subtitle_highlight|smarttruncatechars:50|safe}}
+                    {{article.subtitle_highlight}}
                   {% elif article.body_highlight %}
-                    {{article.body_highlight|smarttruncatechars:50|safe}}
+                    {{article.body_highlight}
                   {% endif %}
                 </p>
               {% elif article.subtitle %}
                 <p class="teaser-grid__subtitle">
                   {% if article.title.30 %}
-                    {{ article.subtitle|smarttruncatechars:50|safe}}
+                    {{ article.subtitle}}
                   {% else %}
-                    {{ article.subtitle|smarttruncatechars:50|safe}}
+                    {{ article.subtitle}}
                   {% endif %}
                 </p>
               {% endif %}
