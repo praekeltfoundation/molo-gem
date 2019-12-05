@@ -141,13 +141,15 @@
             </li>
             {% if sections %}
               {% for section in sections %}
-                {% content_is section "Home" as is_home %}
-                {% if not is_home %}
-                  <li class="navbar-nav__option">
-                    <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
-                      {{section.title}}
-                    </a>
-                  </li>
+                {% if section.show_in_menus == True  %}
+                  {% content_is section "Home" as is_home %}
+                  {% if not is_home %}
+                    <li class="navbar-nav__option">
+                      <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
+                        {{section.title}}
+                      </a>
+                    </li>
+                  {% endif %}
                 {% endif %}
               {% endfor %}
             {% endif %}
