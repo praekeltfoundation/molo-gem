@@ -1,3 +1,13 @@
+{% comment %}
+  <!--
+  NOTE!!
+  THIS APPLICATION USES ARTICLE BODY MEDIA(VIDEO / YOUTUBE ) [FIRST MEDIA IN ARTICLE BODY]
+  Homepage Media Option is later added for YEGNA
+  We cannot simple change the template behaviour as this qill require CMS content redoing.
+  -->
+{% endcomment %}
+
+
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
 {% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
 {% get_settings %}
@@ -120,16 +130,27 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-right">
+          {% load_sections service_aggregator=True as service_aggregators %}
+          {% load_sections as sections %}
           <!-- DESKTOP NAV -->
           <ul class="navbar-nav__item">
-            {% load_sections service_aggregator=True as service_aggregators %}
-            {% load_sections as sections %}
+            <li class="navbar-nav__option">
+              <a href="/" class="navbar-nav__anchor">
+                {% trans "Home" %}
+              </a>
+            </li>
             {% if sections %}
               {% for section in sections %}
-                {% content_is section "Videos" as is_videos %}
-                <li class="navbar-nav__option">
-                  <a href="{% if is_videos %}/{% else %}{% pageurl section.specific %}{% endif %}" class="navbar-nav__anchor">{{section.title}}</a>
-                </li>
+                {% if section.show_in_menus == True  %}
+                  {% content_is section "Home" as is_home %}
+                  {% if not is_home %}
+                    <li class="navbar-nav__option">
+                      <a href="{% pageurl section.specific %}" class="navbar-nav__anchor">
+                        {{section.title}}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endif %}
               {% endfor %}
             {% endif %}
             {% if service_aggregators %}
@@ -140,7 +161,6 @@
               {% endfor %}
             {% endif %}
           </ul>
-
           <!-- MOBILE NAV -->
           <ul class="navbar-nav__item">
             {% if request.user.is_authenticated %}
@@ -153,11 +173,10 @@
                 <input value="{% trans 'Log out' %}" type="submit" class="navbar-nav__button"/>
               </form>
             </li>
-
             {% else %}
               <li class="navbar-nav__option">
-                  <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
-                </li>
+                <a href="{{LOGIN_URL}}" class="navbar-nav__button">{% trans "Log In" %}</a>
+              </li>
             {% endif %}
             <li class="navbar-nav__option">
               <div class="nav-search">
@@ -208,10 +227,30 @@
         ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
       </script>
   {% endif %}
-  {% compress js inline %}{% endcompress %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script type="text/javascript">
-
+      /* Reaction Questions */
+      var frm = $('#reaction-questions__form');
+      function set_choice(choice) {
+        if (!$('#' + choice).attr('disabled') == true){
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
+    $(document).ready(function(){
       var widthViewport =  $(window).width();
       if(widthViewport > 720) {
         var $grid = $('.service-stacklist').isotope({
@@ -223,6 +262,9 @@
           }
         });
       }
+
+
+
       /* Section */
       $("#share_article").click(function(e) {
         e.preventDefault();
@@ -258,12 +300,24 @@
         });
         return false;
       });
-      $(".show-more").click(function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
-        $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden").slow();
+
+      var article_excerpt = $(".teaser-stacklist__excerpt").text().length;
+      var show_more_link = $(".show-more");
+      show_more_link.css({
+        display: 'none'
       });
+      if(article_excerpt > 308) { 
+        show_more_link.css({
+          display: 'inline-block'
+        });
+        show_more_link.click(function (e) {
+          e.preventDefault();
+          var $this = $(this);
+
+          $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
+          $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden").slow();
+        });
+      }
       $( "#id_comment").on("focus",function(event){
           $(this).closest(".comments-posting").css({
             "border": "5px solid #72f3a2",
@@ -274,7 +328,7 @@
         }).on("blur",function(event) {
         $(this).closest(".comments-posting").css("border","5px solid transparent");
       });
-      $(document).ready(function(){
+
         var urlPath = window.location.pathname;
         $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
           var $this = $(this),

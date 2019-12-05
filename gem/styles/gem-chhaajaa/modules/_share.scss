@@ -5,25 +5,29 @@
     padding: 0 15px 0 0;
   }
   &__reveal {
-    border-radius: 5px;
-    position: absolute;
-    left: 0;
-    top: 4em;
-    text-align: center;
-    display: none;
     -webkit-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
     -moz-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
     box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
+    border-radius: 5px;
+    display: none;
+    text-align: center;
     width: 100%;
-    @media (min-width: 768px) {
+    @media screen and (min-width: 45.000em) {
+      position: absolute;
+      left: 0;
+      top: 4em;
       width: 75%;
     }
+    // @media (min-width: 768px) {
+    //   width: 75%;
+    // }
   }
   &__icon {
     color: $colorGrey;
     font-weight: 600;
     font-family: "FedraSansDevanagariB-Demi";
     text-align: center;
+    font-size: 14px;
     vertical-align: middle;
     word-break: break-word;
     word-wrap: break-word;
@@ -53,8 +57,8 @@
     }
   }
   &__icon {
-    height: 28px;
-    width: 28px;
+    height: 28px !important;
+    width: 28px !important;
   }
   &__default-icon {
     height: 35px;

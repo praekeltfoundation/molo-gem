@@ -163,3 +163,12 @@ def contact_forms_list(context):
         'forms': get_pages(context, forms, locale_code)
     })
     return context
+
+
+@register.simple_tag()
+def has_forms(page):
+    if MoloFormPage.objects.descendant_of(page).filter(
+            language__is_main_language=True).all():
+        return True
+    else:
+        return False
