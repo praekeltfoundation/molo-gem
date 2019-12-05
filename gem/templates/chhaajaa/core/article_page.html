@@ -75,9 +75,12 @@
                               </div>
                             {% endif %}
 
-                            <div class="vote__item">
-                              <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                            </div>
+                            {% has_forms page=self as has_polls %}
+                            {% if has_polls %}
+                              <div class="vote__item">
+                                <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                              </div>
+                            {% endif %}
 
                             {% if self.is_commenting_enabled %}
                               {% if self.allow_commenting %}

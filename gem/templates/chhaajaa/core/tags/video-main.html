@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags molo_forms_tags core_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags molo_forms_tags core_tags gem_tags %}
 <div class="article-teaser">
   <div class="article-teaser__wrapper">
     <ul class="teaser-stacklist">
@@ -53,10 +53,12 @@
                 </div>
               {% endif %}
 
-              <!-- Poll Check -->
-              <div class="vote__item">
-                <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-              </div>
+              {% has_forms page=article as has_polls %}
+              {% if has_polls %}
+                <div class="vote__item">
+                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                </div>
+              {% endif %}
 
               {% if article.is_commenting_enabled %}
                 {% if article.allow_commenting %}
