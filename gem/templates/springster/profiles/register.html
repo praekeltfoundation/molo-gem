@@ -17,8 +17,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url LOGIN_URL as link %}
-      {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+      {% with type="micro" htmltag="p" title=headingtext hyperlink=LOGIN_URL linktitle=linktext %}
       <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
         <{{htmltag}}>{{title}}</{{htmltag}}>
         <a href="{{hyperlink}}" class="call-to-action__hyperlink">
@@ -149,8 +148,7 @@
     {# include template "patterns/basics/headings/sp_variations/heading.html" #}
       {% trans "Already joined?" as headingtext %}
       {% trans "Log in here" as linktext %}
-      {% url LOGIN_URL as link %}
-      {% with type="micro" htmltag="p" title=headingtext hyperlink=link linktitle=linktext %}
+      {% with type="micro" htmltag="p" title=headingtext hyperlink=LOGIN_URL linktitle=linktext %}
         <div class="heading heading__{{type}} heading__{{type}}-hyperlink {{extraclass}}">
           <{{htmltag}}>{{title}}</{{htmltag}}>
           <a href="{{hyperlink}}" class="call-to-action__hyperlink">
