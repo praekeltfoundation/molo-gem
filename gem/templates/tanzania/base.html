@@ -13,7 +13,7 @@
 <!--<![endif]-->
   <head>
     <meta charset="utf-8"/>
-    <title>Tujibebe | {% block title %}{% if self.seo_title %}Home{% else %}{{ self.title }}{% endif %}{% endblock %}</title>
+    <title>Tujibebe | {% if self.seo_title %} {% if self.seo_title == "Main" %} Home {% else %}{{ self.seo_title }}{% endif %}{% else %} {% if self.title == "Main" %} Home {% else %}{{ self.title }}{% endif %}{% endif %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />

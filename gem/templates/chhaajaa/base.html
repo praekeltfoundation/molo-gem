@@ -23,10 +23,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>Chhaa Jaa | {% block title %}
-      {% if self.seo_title == "Main" %}Home{% else %}{{ self.title }}{% endif %}
-
-      {% endblock %}</title>
+    <title>Chhaa Jaa | {% block title %}{% if self.seo_title %} {% if self.seo_title == "Main" %} Home {% else %}{{ self.seo_title }}{% endif %}{% else %} {% if self.title == "Main" %} Home {% else %}{{ self.title }}{% endif %}{% endif %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image" />
     {# <!--CORRECT GOOGLE SITE VERIFICATION CONTENT? --> #}
@@ -120,20 +117,6 @@
     <!-- End Google Tag Manager -->
 </head>
 <body>
-  <br/>
-    {% if self.seo_title %}
-      Home
-
-    {% else %}
-      {% if self.title != "Main" %}
-        b;lablaba
-      {% else %}
-        {{ self.title }}
-      {% endif %}
-
-    {% endif %}
-  <br/>
-
   <img alt="Chhaajaa" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
   <!-- Google Tag Manager (noscript) -->
   <noscript>
