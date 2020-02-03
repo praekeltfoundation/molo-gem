@@ -27,9 +27,9 @@
     {% forms_list only_yourwords=True %}
     {% forms_list only_linked_forms=True %}
     {% bannerpages position=3 %}
-
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
+
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
 
     {% forms_list personalisable_form=True %}
@@ -41,9 +41,6 @@
 
     {% bannerpages position=1 %}
 
-    {% comment %}
-  
-    {% endcomment %}
     {% tag_menu_homepage %}
 
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"3:6" %}
