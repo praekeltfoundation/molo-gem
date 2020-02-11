@@ -10,14 +10,18 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 from os.path import abspath, dirname, join
+
 from os import environ
 import django.conf.locale
-from django.conf import global_settings
 from django.urls import reverse_lazy
+from django.conf.global_settings import *
 from django.utils.translation import ugettext_lazy as _
+
 import dj_database_url
+
 import djcelery
 from celery.schedules import crontab
+
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -98,6 +102,11 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_prometheus',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'taggit',
     'modelcluster',
 
@@ -151,6 +160,10 @@ COMMENTS_FLAG_THRESHHOLD = 3
 COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
+
+AUTHENTICATION_BACKENDS += [
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
@@ -297,7 +310,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LANGUAGES = global_settings.LANGUAGES + [
+LANGUAGES = LANGUAGES + [
     ('tl', 'Tagalog'),
     ('rw', 'Kinyarwanda'),
     ('ha', 'Hausa'),
@@ -604,3 +617,18 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
+
+SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', False)
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID'),
+            'secret': environ.get('GOOGLE_LOGIN_SECRET'),
+            'key': environ.get('GOOGLE_LOGIN_KEY')
+        }
+    }
+}

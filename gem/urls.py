@@ -21,7 +21,7 @@ from gem.views import (
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSManifestView
+    KaiOSManifestView, AdminLogin
 )
 
 urlpatterns = []
@@ -46,6 +46,9 @@ elif settings.ENABLE_SSO:
     ]
 
 urlpatterns += [
+    re_path(r'^admin/login', AdminLogin.as_view()),
+    re_path(r'^accounts/', include('allauth.urls')),
+
     re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
     re_path(r'^admin/', include(wagtailadmin_urls)),
@@ -153,7 +156,6 @@ urlpatterns += [
     re_path(r'', include(wagtail_urls)),
     re_path(r'', include('django_prometheus.urls')),
 ]
-
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
