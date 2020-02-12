@@ -441,3 +441,32 @@ class TestOIDCAuthIntegration(TestCase, GemTestCaseMixin):
     #     self.assertContains(response, "Welcome to the GEM Wagtail CMS")
     #     # test that the correct logout button is in in the template
     #     self.assertContains(response, "oidc/logout")
+
+
+class TestAllAuth(GemTestCaseMixin, TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            username='superuser', email='superuser@email.com', password='pass')
+
+    @override_settings(ENABLE_ALL_AUTH=True)
+    def test_admin_login_view(self):
+        res = self.client.get(reverse('wagtailadmin_login'))
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, 'wagtailadmin/social_login.html')
+
+    @override_settings(ENABLE_ALL_AUTH=True)
+    def test_admin_views_authed_user(self):
+        self.client.force_login(self.user)
+        res = self.client.get(reverse('wagtailadmin_login'))
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, '/admin/')
+
+        res = self.client.get(res.url)
+        self.assertEqual(res.status_code, 200)
+
+    @override_settings(ENABLE_ALL_AUTH=False)
+    def test_login_allauth_disabled(self):
+        res = self.client.get(reverse('wagtailadmin_login'))
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateNotUsed(res, 'wagtailadmin/social_login.html')
+        self.assertTemplateUsed(res, 'wagtailadmin/login.html')
