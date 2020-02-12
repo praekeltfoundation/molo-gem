@@ -452,11 +452,13 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_admin_login_view(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
+        self.assertEqual(settings.ENABLE_ALL_AUTH, True)
         self.assertTemplateUsed(res, 'wagtailadmin/social_login.html')
 
     def test_admin_login_view_default_allauth_setting(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
+        self.assertEqual(settings.ENABLE_ALL_AUTH, False)
         self.assertTemplateUsed(res, 'wagtailadmin/login.html')
 
     @override_settings(ENABLE_ALL_AUTH=True)
@@ -464,6 +466,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.client.force_login(self.user)
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 302)
+        self.assertEqual(settings.ENABLE_ALL_AUTH, True)
         self.assertEqual(res.url, '/admin/')
 
         res = self.client.get(res.url)
@@ -473,5 +476,6 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_login_allauth_disabled(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
+        self.assertEqual(settings.ENABLE_ALL_AUTH, False)
         self.assertTemplateNotUsed(res, 'wagtailadmin/social_login.html')
         self.assertTemplateUsed(res, 'wagtailadmin/login.html')
