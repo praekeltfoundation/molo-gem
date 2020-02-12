@@ -183,20 +183,18 @@ MIDDLEWARE = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
-    'molo.core.middleware.MultiSiteRedirectToHomepage'
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
+
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE += [
-        'gem.middleware.CustomSessionRefresh',
+        # 'gem.middleware.CustomSessionRefresh',
     ]
-
-MIDDLEWARE += [
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
-]
 
 
 # Template configuration
@@ -531,6 +529,7 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
     'GOOGLE_ANALYTICS_IGNORE_PATH')
+
 if CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH:
     GOOGLE_ANALYTICS_IGNORE_PATH += [
         d.strip() for d in CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH.split(',')]
@@ -618,17 +617,28 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
 
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_REDIRECT_URL = "/admin/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/admin/login/"
+
 SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', False)
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+SOCIALACCOUNT_STORE_TOKENS = False
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
         'APP': {
-            'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID'),
-            'secret': environ.get('GOOGLE_LOGIN_SECRET'),
-            'key': environ.get('GOOGLE_LOGIN_KEY')
+            'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID', ''),
+            'secret': environ.get('GOOGLE_LOGIN_SECRET', ''),
+            # 'key': environ.get('GOOGLE_LOGIN_KEY', '')
         }
     }
 }

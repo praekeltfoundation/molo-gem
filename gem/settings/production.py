@@ -61,7 +61,7 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 )
 
 # Setup for CAS
-ENABLE_SSO = True
+ENABLE_SSO = os.environ.get('ENABLE_SSO', True)
 
 if not USE_OIDC_AUTHENTICATION:
     MIDDLEWARE += [  # noqa: F405
