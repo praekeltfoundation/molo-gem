@@ -45,10 +45,13 @@ elif settings.ENABLE_SSO:
             cas_views.CallbackView.as_view(), name='cas_ng_callback'),
     ]
 
-urlpatterns += [
-    re_path(r'^admin/login', AdminLogin.as_view()),
-    re_path(r'^accounts/', include('allauth.urls')),
+if settings.ENABLE_ALL_AUTH:
+    urlpatterns += [
+        re_path(r'^admin/login', AdminLogin.as_view()),
+        re_path(r'^accounts/', include('allauth.urls')),
+    ]
 
+urlpatterns += [
     re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
     re_path(r'^admin/', include(wagtailadmin_urls)),

@@ -161,10 +161,6 @@ COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
-AUTHENTICATION_BACKENDS += [
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
 MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -193,7 +189,7 @@ if LOG_HEADER_DUMP:
 
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE += [
-        # 'gem.middleware.CustomSessionRefresh',
+        'gem.middleware.CustomSessionRefresh',
     ]
 
 
@@ -617,10 +613,17 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
 
+ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', False)
+
+if ENABLE_ALL_AUTH:
+    AUTHENTICATION_BACKENDS += [
+        'allauth.account.auth_backends.AuthenticationBackend',
+    ]
+
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_LOGIN_REDIRECT_URL = "/admin/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/admin/login/"
-
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', False)
 SOCIALACCOUNT_STORE_TOKENS = False
 SOCIALACCOUNT_PROVIDERS = {
