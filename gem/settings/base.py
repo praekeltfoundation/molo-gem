@@ -613,7 +613,7 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
 
-ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', True)
+ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', False)
 
 if ENABLE_ALL_AUTH:
     AUTHENTICATION_BACKENDS += [

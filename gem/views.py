@@ -346,4 +346,8 @@ class MaintenanceView(TemplateView):
 
 
 class AdminLogin(LoginView):
+    def get_form_kwargs(self):
+        print('AdminLogin', '*'*1000)
+        return super().get_form_kwargs()
+
     template_name = 'wagtailadmin/social_login.html'
