@@ -613,35 +613,35 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
 
-ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', False)
+ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', True)
 
 if ENABLE_ALL_AUTH:
     AUTHENTICATION_BACKENDS += [
         'allauth.account.auth_backends.AuthenticationBackend',
     ]
 
-ACCOUNT_AUTHENTICATION_METHOD = "username"
-ACCOUNT_LOGIN_REDIRECT_URL = "/admin/"
-ACCOUNT_LOGOUT_REDIRECT_URL = "/admin/login/"
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
-SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', False)
-SOCIALACCOUNT_STORE_TOKENS = False
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'APP': {
-            'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID', ''),
-            'secret': environ.get('GOOGLE_LOGIN_SECRET', ''),
-            # 'key': environ.get('GOOGLE_LOGIN_KEY', '')
+    ACCOUNT_AUTHENTICATION_METHOD = "username"
+    ACCOUNT_LOGIN_REDIRECT_URL = "/admin/"
+    ACCOUNT_LOGOUT_REDIRECT_URL = "/admin/login/"
+    ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+    SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', True)
+    SOCIALACCOUNT_STORE_TOKENS = False
+    SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            # For each OAuth based provider, either add a ``SocialApp``
+            # (``socialaccount`` app) containing the required client
+            # credentials, or list them here:
+            'SCOPE': [
+                'profile',
+                'email',
+            ],
+            'AUTH_PARAMS': {
+                'access_type': 'online',
+            },
+            'APP': {
+                'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID', ''),
+                'secret': environ.get('GOOGLE_LOGIN_SECRET', ''),
+                # 'key': environ.get('GOOGLE_LOGIN_KEY', '')
+            }
         }
     }
-}
