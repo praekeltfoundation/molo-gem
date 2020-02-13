@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600|Heebo:400,500&display=swap');
+
 html, body {
   background-color: #fff;
   height: auto;
 }
 body {
   font-size: 16px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Tw Cen MT', Helvetica, Arial, sans-serif;
   margin: 0 auto;
   line-height: 1.5;
   overflow-y: scroll;
@@ -12,7 +14,22 @@ body {
   scroll-behavior: smooth;
   width: 100%;
   @include for-size(phone-only) {
-    font-family: 'Tw Cen MT', Arial, sans-serif;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+  }
+}
+h1, h2 {
+  font-weight: bold;
+  @include for-size(phone-only) {
+    font-family: 'Heebo', sans-serif;
+    font-weight: normal;
+  }
+}
+h3, h4, h5, h6 {
+  
+  @include for-size(phone-only) {
+    font-family: 'Muli', sans-serif;
+    font-weight: 600;
   }
 }
 h1, h2, h3, h4, h5, h6  {
