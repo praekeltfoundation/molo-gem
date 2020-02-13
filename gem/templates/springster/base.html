@@ -13,7 +13,27 @@
 <!--<![endif]-->
   <head>
     <meta charset="utf-8"/>
-    <title>{% if is_via_bbm %}GirlTalk{% else %}{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}{% endif %}</title>
+    <title>Springster | 
+      {% if is_via_bbm %}
+        GirlTalk
+      {% else %}
+        {% block title %}
+          {% if self.seo_title %}
+            {% if self.seo_title == "Main" %}
+              Home
+            {% else %}
+              {{ self.seo_title }}
+            {% endif %}
+          {% else %}
+            {% if self.title == "Main" %}
+              Home
+            {% else %}
+              {{ self.title }}
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+      {% endif %}
+    </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
