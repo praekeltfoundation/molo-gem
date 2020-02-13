@@ -35,10 +35,24 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
-  <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Ninyampinga{% endif %}" />
   <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
   <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-  <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+  {% if self.search_description %}
+    <meta name="description" content="{{self.search_description}}" />
+    <meta property="og:description" content="{{self.search_description}}"/>
+  {% elif self.social_media_description %}
+    <meta name="description" content="{{self.social_media_description}}" />
+    <meta property="og:description" content="{{self.social_media_description}}"/>
+  {% elif self.title and self.subtitle %}
+    <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
+    <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
+  {% elif self.title and self.description %}
+    <meta name="description" content="{{self.title}} - {{self.description}}" />
+    <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
+  {% else %}
+    <meta name="description" lang="en" content="Ni Nyampinga is Rwanda’s first youth brand giving girls the advice and confidence they need to thrive." />
+    <meta property="og:description" lang="en" content="Ni Nyampinga is Rwanda’s first youth brand giving girls the advice and confidence they need to thrive."/>
+  {% endif %}
   <meta property="og:type" content="website" />
   {% if self.social_media_image %}
     {% image self.social_media_image fill-450x200 as tmp_photo %}
