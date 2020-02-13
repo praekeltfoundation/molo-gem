@@ -47,7 +47,7 @@ elif settings.ENABLE_SSO:
 
 if settings.ENABLE_ALL_AUTH:
     urlpatterns += [
-        re_path(r'^admin/login/', AdminLogin.as_view()),
+        re_path(r'^admin/login/$', AdminLogin.as_view()),
         re_path(r'^accounts/', include('allauth.urls')),
     ]
 

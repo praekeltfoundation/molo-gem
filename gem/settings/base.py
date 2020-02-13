@@ -620,9 +620,11 @@ if ENABLE_ALL_AUTH:
         'allauth.account.auth_backends.AuthenticationBackend',
     ]
 
+    ACCOUNT_ADAPTER = "gem.adapter.StaffUserAdapter"
+    SOCIALACCOUNT_ADAPTER = "gem.adapter.StaffUserSocialAdapter"
     ACCOUNT_AUTHENTICATION_METHOD = "username"
-    ACCOUNT_LOGIN_REDIRECT_URL = "/admin/"
-    ACCOUNT_LOGOUT_REDIRECT_URL = "/admin/login/"
+    ACCOUNT_LOGIN_REDIRECT_URL = "wagtailadmin_home"
+    ACCOUNT_LOGOUT_REDIRECT_URL = "/"
     ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
     SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', True)
     SOCIALACCOUNT_STORE_TOKENS = False

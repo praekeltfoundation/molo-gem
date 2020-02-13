@@ -1,10 +1,10 @@
-import pytest, mock
+import pytest
 
 from datetime import date
+from django.urls import reverse
 from django.conf import settings
 from django.http import HttpRequest
 from django.test import TestCase, Client
-from django.urls import reverse, re_path
 from django.conf.urls import url, include
 from django.core.exceptions import FieldError
 from django.contrib.auth import get_user_model
@@ -19,7 +19,7 @@ from gem.middleware import CustomSessionRefresh
 from gem.backends import GirlEffectOIDCBackend, _update_user_from_claims
 from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
-    CustomAuthenticationRequestView, AdminLogin)
+    CustomAuthenticationRequestView)
 
 
 urlpatterns = [
@@ -450,35 +450,17 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.user = get_user_model().objects.create_superuser(
             username='superuser', email='superuser@email.com', password='pass')
 
-    @mock.patch('gem.urls.urlpatterns', [
-        re_path(r'^admin/login/', AdminLogin.as_view()),
-        re_path(r'^accounts/', include('allauth.urls')),
-        re_path(r'^admin/', include('wagtail.admin.urls')),
-        re_path(r'^profiles/', include(('molo.profiles.urls', 'molo.profiles'))),
-    ])
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_login_view(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(settings.ENABLE_ALL_AUTH, True)
-        self.assertEqual(res.template_name, ['wagtailadmin/social_login.html'])
 
-    @mock.patch('gem.urls.urlpatterns', [
-        re_path(r'^admin/', include('wagtail.admin.urls')),
-        re_path(r'^profiles/', include(('molo.profiles.urls', 'molo.profiles'))),
-    ])
     def test_admin_login_view_default_allauth_setting(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(settings.ENABLE_ALL_AUTH, False)
-        self.assertEqual(res.template_name, ['wagtailadmin/login.html'])
 
-    @mock.patch('gem.urls.urlpatterns', [
-        re_path(r'^admin/login/', AdminLogin.as_view()),
-        re_path(r'^accounts/', include('allauth.urls')),
-        re_path(r'^admin/', include('wagtail.admin.urls')),
-        re_path(r'^profiles/', include(('molo.profiles.urls', 'molo.profiles'))),
-    ])
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_views_authed_user(self):
         self.client.force_login(self.user)
@@ -490,13 +472,8 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         res = self.client.get(res.url)
         self.assertEqual(res.status_code, 200)
 
-    @mock.patch('gem.urls.urlpatterns', [
-        re_path(r'^admin/', include('wagtail.admin.urls')),
-        re_path(r'^profiles/', include(('molo.profiles.urls', 'molo.profiles'))),
-    ])
     @override_settings(ENABLE_ALL_AUTH=False)
     def test_login_allauth_disablede(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(settings.ENABLE_ALL_AUTH, False)
-        self.assertEqual(res.template_name, ['wagtailadmin/login.html'])
