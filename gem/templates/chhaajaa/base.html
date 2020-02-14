@@ -23,7 +23,23 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>Chhaa Jaa | {% block title %}{% if self.seo_title %} {% if self.seo_title == "Main" %} Home {% else %}{{ self.seo_title }}{% endif %}{% else %} {% if self.title == "Main" %} Home {% else %}{{ self.title }}{% endif %}{% endif %}{% endblock %}</title>
+    <title>Chhaa Jaa |
+      {% block title %}
+        {% if self.seo_title %}
+          {% if self.seo_title == "Main" %}
+            Home
+          {% else %}
+            {{ self.seo_title }}
+          {% endif %}
+        {% else %}
+          {% if self.title == "Main" %}
+            Home
+          {% else %}
+            {{ self.title }}
+          {% endif %}
+        {% endif %}
+      {% endblock %}
+    </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image" />
     {# <!--CORRECT GOOGLE SITE VERIFICATION CONTENT? --> #}
@@ -50,10 +66,10 @@
       <meta property="og:description" content="self.social_media_description"/>
     {% elif self.title and self.subtitle %}
       <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
-      <meta property="og:description" content="Chhaa Jaa | {{self.title}} - {{self.subtitle}}"/>
+      <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
     {% elif self.title and self.description %}
       <meta name="description" content="{{self.title}} - {{self.description}}" />
-      <meta property="og:description" content="Chhaa Jaa | {{self.title}} - {{self.description}}"/>
+      <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
     {% else %}
       <meta name="description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta" />
       <meta property="og:description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta"/>

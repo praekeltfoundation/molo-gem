@@ -13,7 +13,23 @@
 <!--<![endif]-->
   <head>
     <meta charset="utf-8"/>
-    <title>Tujibebe | {% block title %}{% if self.seo_title %} {% if self.seo_title == "Main" %} Home {% else %}{{ self.seo_title }}{% endif %}{% else %} {% if self.title == "Main" %} Home {% else %}{{ self.title }}{% endif %}{% endif %}{% endblock %}</title>
+    <title>Tujibebe |
+      {% block title %}
+        {% if self.seo_title %}
+          {% if self.seo_title == "Main" %}
+            Home
+          {% else %}
+            {{ self.seo_title }}
+          {% endif %}
+        {% else %}
+          {% if self.title == "Main" %}
+            Home
+          {% else %}
+            {{ self.title }}
+          {% endif %}
+        {% endif %}
+      {% endblock %}
+    </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
@@ -43,13 +59,13 @@
         <meta property="og:description" content="{{self.search_description}}"/>
       {% elif self.social_media_description %}
         <meta name="description" content="{{self.social_media_description}}" />
-        <meta property="og:description" content="self.social_media_description"/>
+        <meta property="og:description" content="{{self.social_media_description}}"/>
       {% elif self.title and self.subtitle %}
         <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
-        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.subtitle}}"/>
+        <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
       {% elif self.title and self.description %}
         <meta name="description" content="{{self.title}} - {{self.description}}" />
-        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.description}}"/>
+        <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
       {% else %}
         <meta name="description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
         <meta name="description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />

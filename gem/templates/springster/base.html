@@ -13,7 +13,27 @@
 <!--<![endif]-->
   <head>
     <meta charset="utf-8"/>
-    <title>{% if is_via_bbm %}GirlTalk{% else %}{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}{% endif %}</title>
+    <title>Springster |
+      {% if is_via_bbm %}
+        GirlTalk
+      {% else %}
+        {% block title %}
+          {% if self.seo_title %}
+            {% if self.seo_title == "Main" %}
+              Home
+            {% else %}
+              {{ self.seo_title }}
+            {% endif %}
+          {% else %}
+            {% if self.title == "Main" %}
+              Home
+            {% else %}
+              {{ self.title }}
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+      {% endif %}
+    </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
@@ -33,15 +53,29 @@
     {% endcomment %}
     <meta property="og:type" content="website" />
     {% block meta %}
-    <meta name="description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
-    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
-    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-    <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+      <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+      <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+      <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+      <meta property="og:image:type" content="" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      {% if self.search_description %}
+        <meta name="description" content="{{self.search_description}}" />
+        <meta property="og:description" content="{{self.search_description}}"/>
+      {% elif self.social_media_description %}
+        <meta name="description" content="{{self.social_media_description}}" />
+        <meta property="og:description" content="{{self.social_media_description}}"/>
+      {% elif self.title and self.subtitle %}
+        <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
+        <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
+      {% elif self.title and self.description %}
+        <meta name="description" content="{{self.title}} - {{self.description}}" />
+        <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
+      {% else %}
+        <meta name="description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
+        <meta property="og:description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world."/>
+      {% endif %}
     {% endblock %}
-    <meta property="og:image:type" content="" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
