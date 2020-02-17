@@ -459,7 +459,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_admin_login_view_default_allauth_setting(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(settings.ENABLE_ALL_AUTH, False)
+        self.assertEqual(settings.ENABLE_ALL_AUTH, True)
 
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_views_authed_user(self):
