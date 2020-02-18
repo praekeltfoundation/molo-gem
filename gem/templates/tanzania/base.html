@@ -55,9 +55,10 @@
       <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
       <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
       {% if self.search_description %}
-        <meta name="description" content="{{self.search_description}}" />
-        <meta property="og:description" content="{{self.search_description}}"/>
+        <meta name="description" content="Tujibebe | {{self.search_description}}" />
+        <meta property="og:description" content="Tujibebe | {{self.search_description}}"/>
       {% elif self.social_media_description %}
+<<<<<<< Updated upstream
         <meta name="description" content="{{self.social_media_description}}" />
         <meta property="og:description" content="{{self.social_media_description}}"/>
       {% elif self.title and self.subtitle %}
@@ -66,11 +67,21 @@
       {% elif self.title and self.description %}
         <meta name="description" content="{{self.title}} - {{self.description}}" />
         <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
+=======
+        <meta name="description" content="Tujibebe | {{self.social_media_description}}" />
+        <meta property="og:description" content="Tujibebe | {{self.social_media_description}}"/>
+      {% elif self.title and self.subtitle %}
+        <meta name="description" content="Tujibebe | {{self.title}} - {{self.subtitle}}" />
+        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.subtitle}}"/>
+      {% elif self.title and self.description %}
+        <meta name="description" content="Tujibebe | {{self.title}} - {{self.description}}" />
+        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.description}}"/>
+>>>>>>> Stashed changes
       {% else %}
-        <meta name="description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
-        <meta name="description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
-        <meta property="og:description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
-        <meta property="og:description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
+        <meta name="description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
+        <meta name="description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
+        <meta property="og:description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
+        <meta property="og:description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
       {% endif %}
     {% endblock %}
     <meta property="og:image:type" content="" />

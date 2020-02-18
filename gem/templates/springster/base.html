@@ -53,6 +53,7 @@
     {% endcomment %}
     <meta property="og:type" content="website" />
     {% block meta %}
+<<<<<<< Updated upstream
       <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
       <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
       <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
@@ -76,6 +77,17 @@
         <meta property="og:description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world."/>
       {% endif %}
     {% endblock %}
+=======
+    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+    <meta property="og:image:type" content="" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="description" content="Springster | {% if self.social_media_description %}{{ self.social_media_description }}{% elif self.subtitle %}{{ self.subtitle }}{% elif self.search_description %}{{self.search_description}}{% else %}Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world.{% endif %}" />
+    <meta property="og:description" content="Springster | {% if self.search_description %}{{ self.search_description }}{% elif self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+
+>>>>>>> Stashed changes
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
     <meta name="theme-color" content="#ffffff">
