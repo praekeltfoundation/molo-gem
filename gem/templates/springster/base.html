@@ -17,6 +17,7 @@
       {% if is_via_bbm %}
         GirlTalk
       {% else %}
+
         {% block title %}
           {% if self.seo_title %}
             {% if self.seo_title == "Main" %}
@@ -24,14 +25,17 @@
             {% else %}
               {{ self.seo_title }}
             {% endif %}
-          {% else %}
+          {% elif self.title %}
             {% if self.title == "Main" %}
               Home
             {% else %}
               {{ self.title }}
             {% endif %}
+          {% else %}
+            Welcome
           {% endif %}
         {% endblock %}
+
       {% endif %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
