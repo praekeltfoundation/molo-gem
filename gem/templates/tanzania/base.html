@@ -58,7 +58,6 @@
         <meta name="description" content="Tujibebe | {{self.search_description}}" />
         <meta property="og:description" content="Tujibebe | {{self.search_description}}"/>
       {% elif self.social_media_description %}
-<<<<<<< Updated upstream
         <meta name="description" content="{{self.social_media_description}}" />
         <meta property="og:description" content="{{self.social_media_description}}"/>
       {% elif self.title and self.subtitle %}
@@ -67,16 +66,6 @@
       {% elif self.title and self.description %}
         <meta name="description" content="{{self.title}} - {{self.description}}" />
         <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
-=======
-        <meta name="description" content="Tujibebe | {{self.social_media_description}}" />
-        <meta property="og:description" content="Tujibebe | {{self.social_media_description}}"/>
-      {% elif self.title and self.subtitle %}
-        <meta name="description" content="Tujibebe | {{self.title}} - {{self.subtitle}}" />
-        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.subtitle}}"/>
-      {% elif self.title and self.description %}
-        <meta name="description" content="Tujibebe | {{self.title}} - {{self.description}}" />
-        <meta property="og:description" content="Tujibebe | {{self.title}} - {{self.description}}"/>
->>>>>>> Stashed changes
       {% else %}
         <meta name="description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
         <meta name="description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
@@ -96,6 +85,7 @@
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
+    {% molo_pwa_meta %}
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/tanzania.css" media="all">
     {% endcompress %}
@@ -365,7 +355,6 @@
       </script>
     {% endif %}
     {% if not is_via_freebasics %}
-      <script src="{{ STATIC_URL }}js/jquery.js"></script>
       {% compress js inline %}
       <script src="{% static 'js/dest/main-min.js' %}"></script>
       <script>
@@ -373,20 +362,26 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
+
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             var jsScripts = [
-              "{% static 'js/dest/springster-min.js' %}",
-              "{% static 'js/dest/kaios-min.js' %}",
+               "https://code.jquery.com/jquery-2.2.4.min.js",
+               "{% static 'js/dest/springster-min.js' %}",
+               "{% static 'js/dest/kaios-min.js' %}",
              ];
             for (var i = 0; i < jsScripts.length; i++) {
               var script = document.createElement('script');
+              if (i === 0 ) {
+                script.crossOrigin = "anonymous";
+                script.integrity = "sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=";
+              }
               script.src = jsScripts[i];
               script.async = false;
               document.querySelector('script').parentNode.appendChild(script);
             }
           }
-        }
+        };
 
         //Event Propagation NOT covered
         var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled'),
@@ -400,7 +395,6 @@
         };
       </script>
       {% endcompress %}
-      {% molo_pwa_meta %}
     {% endif %}
   </body>
 </html>
