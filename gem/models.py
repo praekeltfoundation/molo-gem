@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.forms import CheckboxSelectMultiple
+from django.contrib.auth.models import User, Group, Permission
 
 from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
@@ -146,3 +147,24 @@ class GemCommentReport(models.Model):
 
     reported_reason = models.CharField(
         max_length=128, blank=False)
+
+
+class Invite(models.Model):
+    email = models.EmailField(unique=True)
+    groups = models.ManyToManyField(Group)
+    is_accepted = models.BooleanField(default=False)
+    permissions = models.ManyToManyField(Permission)
+
+    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'Invite: {}'.format(self.email)
+
+    panels = [
+        FieldPanel('email'),
+        FieldPanel('is_accepted'),
+        FieldPanel('groups', widget=CheckboxSelectMultiple),
+        FieldPanel('permissions', widget=CheckboxSelectMultiple),
+    ]
+

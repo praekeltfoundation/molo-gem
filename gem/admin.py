@@ -3,7 +3,7 @@ from collections import Counter
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from gem.models import GemCommentReport, OIDCSettings
+from gem.models import GemCommentReport, OIDCSettings, Invite
 from gem.rules import ProfileDataRule, CommentCountRule
 
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
@@ -12,6 +12,24 @@ from molo.profiles.models import UserProfile
 from molo.forms.models import FormsSegmentUserGroup
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin as WagtailModelAdmin, modeladmin_register)
+
+
+class InviteAdmin(WagtailModelAdmin):
+    model = Invite
+    menu_order = 600
+    menu_icon = 'mail'
+    menu_label = 'Invites'
+    add_to_settings_menu = True
+    search_fields = ['email']
+    list_filter = ['is_accepted', 'created_at']
+    list_display = [
+        'email', 'created_at', 'modified_at', 'is_accepted'
+    ]
+
+
+modeladmin_register(InviteAdmin)
 
 
 class OIDCSettingsAdmin(admin.ModelAdmin):

@@ -1,10 +1,12 @@
 from django.dispatch import receiver
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.contrib.contenttypes.models import ContentType
 
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.socialaccount.signals import social_account_updated
+
+from gem.models import Invite
 
 
 def get_admin_perms():
@@ -20,28 +22,60 @@ def get_admin_perms():
     return admin_permission
 
 
-class StaffUserAdapter(DefaultAccountAdapter):
+class StaffUserMixin(object):
+
+    def is_open_for_signup(self, request, sociallogin):
+        """
+        Checks whether or not the site is open for signups.
+
+        Next to simply returning True/False you can also intervene the
+        regular flow by raising an ImmediateHttpResponse
+        """
+        return Invite.objects.filter(
+            email=sociallogin.user.email, is_accepted=False).exists()
+
+    def add_user_perms(self, user, *perms):
+        permissions = Permission.objects.filter(name__in=perms)
+        user.user_permissions.add(permissions)
+
+    def add_groups(self, user, *groups):
+        user_groups = Group.objects.filter(name__in=groups)
+        user.groups.add(user_groups)
+
+    def add_perms(self, user, commit=True):
+        invite = Invite.objects.\
+            get(email=user.email)
+        invite.is_accepted = True
+
+        if not user.is_staff:
+            user.is_staff = True
+
+        self.add_perms(invite.perms)
+        self.add_groups(invite.groups)
+
+        if not user.has_perm('access_admin'):
+            user.user_permissions.add(get_admin_perms())
+
+        if commit:
+            user.save()
+            invite.save()
+
+
+class StaffUserAdapter(StaffUserMixin, DefaultAccountAdapter):
     """ give users an is_staff default of true """
 
     def save_user(self, request, user, form, commit=True):
         user = super().save_user(request, user, form, commit=commit)
-        if not user.is_staff:
-            user.is_staff = True
-            user.user_permissions.add(get_admin_perms())
-            if commit:
-                user.save()
+        self.add_perms(user, commit=commit)
         return user
 
 
-class StaffUserSocialAdapter(DefaultSocialAccountAdapter):
+class StaffUserSocialAdapter(StaffUserMixin, DefaultSocialAccountAdapter):
     """ give users an is_staff default of true """
 
     def save_user(self, request, sociallogin, form=None):
         user = super().save_user(request, sociallogin, form=form)
-        if not user.is_staff:
-            user.is_staff = True
-            user.user_permissions.add(get_admin_perms())
-            user.save()
+        self.add_perms(user)
         return user
 
 
