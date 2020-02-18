@@ -93,7 +93,7 @@
     {% endif %}
     <noscript>
       {% compress css inline %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/no-script-state.css" media="all"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all"/>
       {% endcompress %}
     </noscript>
   </head>
@@ -402,9 +402,9 @@
           if (cutsTheMustard === true) {
             if (smartDevice && raf) {
               raf(function() {
-                var stateStyles = '<link rel="preload" href="{{ STATIC_URL }}css/{{ ENV }}/states.css" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">',
+                var stateStyles = '<link rel="preload" href="{{ STATIC_URL }}css/{{ ENV }}/04_state-320.css" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">',
                     styles = document.getElementsByTagName('style')[0];
-                window.setTimeout(styles.insertAdjacentHTML('afterend', stateStyles), 0);
+                window.setTimeout(styles.insertAdjacentHTML('afterend', stateStyles), 1000);
 
                 var jsScripts = [
                    "https://code.jquery.com/jquery-2.2.4.min.js",
