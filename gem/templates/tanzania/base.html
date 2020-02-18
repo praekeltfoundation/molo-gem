@@ -21,12 +21,14 @@
           {% else %}
             {{ self.seo_title }}
           {% endif %}
-        {% else %}
+        {% elif self.title %}
           {% if self.title == "Main" %}
             Home
           {% else %}
             {{ self.title }}
           {% endif %}
+        {% else %}
+          Welcome
         {% endif %}
       {% endblock %}
     </title>
@@ -287,38 +289,6 @@
                 {% trans "Back to Top" %}</a>
             </div>
           </div>
-
-          {% block google_analytics %}
-            {% include "patterns/components/ga_tag_manager.html" %}
-          {% endblock %}
-
-          {% block facebook_pixel_tracker %}
-          {# Facebook Pixel Code #}
-            <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function()
-            {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
-            ;
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window,document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '461337710896694');
-            fbq('track', 'PageView');
-            </script>
-            <noscript>
-            <img height="1" width="1"
-            src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
-            &noscript=1" alt="Facebook pixel tracker"/>
-            </noscript>
-          {# End Facebook Pixel Code #}
-          {% endblock %}
-
-          {% block facebook_analytics %}
-            {% include "core/facebook_analytics.html" %}
-          {% endblock %}
-
         {% endblock %}
         {% if is_via_kaios %}
           <div class="softkey">
@@ -344,6 +314,36 @@
         </div>
       </div>
     </div>
+    {% block google_analytics %}
+      {% include "patterns/components/ga_tag_manager.html" %}
+    {% endblock %}
+
+    {% block facebook_pixel_tracker %}
+    {# Facebook Pixel Code #}
+      <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function()
+      {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
+      ;
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '461337710896694');
+      fbq('track', 'PageView');
+      </script>
+      <noscript>
+      <img height="1" width="1"
+      src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
+      &noscript=1" alt="Facebook pixel tracker"/>
+      </noscript>
+    {# End Facebook Pixel Code #}
+    {% endblock %}
+
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
 
     {% if settings.core.SiteSettings.local_ga_tracking_code %}
       <script>

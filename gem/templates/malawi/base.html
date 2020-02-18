@@ -47,12 +47,14 @@
               {% else %}
                 {{ self.seo_title }}
               {% endif %}
-            {% else %}
+            {% elif self.title %}
               {% if self.title == "Main" %}
                 Home
               {% else %}
                 {{ self.title }}
               {% endif %}
+            {% else %}
+              Welcome
             {% endif %}
           {% endblock %}
         </title>
