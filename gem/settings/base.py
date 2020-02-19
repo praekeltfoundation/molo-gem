@@ -651,3 +651,31 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+ENABLE_ALL_AUTH = True
+ACCOUNT_ADAPTER = "gem.adapter.StaffUserAdapter"
+SOCIALACCOUNT_ADAPTER = "gem.adapter.StaffUserSocialAdapter"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_REDIRECT_URL = "wagtailadmin_home"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', True)
+SOCIALACCOUNT_STORE_TOKENS = False
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+                'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID', '726276124990-vvb5jbe1cr0t5gaar7mp46633vsd0hk8.apps.googleusercontent.com'),
+                'secret': environ.get('GOOGLE_LOGIN_SECRET', 'lQdaGIawQD-oOBzPrehua3ZM'),
+        }
+    }
+}

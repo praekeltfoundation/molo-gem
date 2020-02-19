@@ -1,11 +1,12 @@
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/admin.css">
+{% endblock %}
 {% load socialaccount %}
-
 {% get_providers as socialaccount_providers %}
-
 {% for provider in socialaccount_providers %}
     {% if provider.id == "openid" %}
         {% for brand in provider.get_brands %}
-            <div class="">
+            <div>
               <a title="{{brand.name}}"
                  class="button socialaccount_provider {{provider.id}} {{brand.id}}"
                  href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
@@ -14,7 +15,7 @@
             </div>
         {% endfor %}
     {% endif %}
-    <div class="">
+    <div>
       <a title="{{provider.name}}" class="button socialaccount_provider {{provider.id}}"
          href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
           <span class="fa fa-google"></span> {{provider.name}}
