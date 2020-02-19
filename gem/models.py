@@ -151,9 +151,9 @@ class GemCommentReport(models.Model):
 
 class Invite(models.Model):
     email = models.EmailField(unique=True)
-    groups = models.ManyToManyField(Group)
     is_accepted = models.BooleanField(default=False)
-    permissions = models.ManyToManyField(Permission)
+    groups = models.ManyToManyField(Group, blank=True)
+    permissions = models.ManyToManyField(Permission, blank=True)
 
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
