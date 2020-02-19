@@ -1,5 +1,5 @@
 from django.dispatch import receiver
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
 from allauth.account.adapter import DefaultAccountAdapter
@@ -32,33 +32,27 @@ class StaffUserMixin(object):
         regular flow by raising an ImmediateHttpResponse
         """
         return Invite.objects.filter(
-            email=sociallogin.user.email, is_accepted=False).exists()
-
-    def add_user_perms(self, user, *perms):
-        permissions = Permission.objects.filter(name__in=perms)
-        user.user_permissions.add(permissions)
-
-    def add_groups(self, user, *groups):
-        user_groups = Group.objects.filter(name__in=groups)
-        user.groups.add(user_groups)
+            email=sociallogin.user.email,
+            is_accepted=False).exists()
 
     def add_perms(self, user, commit=True):
         invite = Invite.objects.\
             get(email=user.email)
-        invite.is_accepted = True
 
         if not user.is_staff:
             user.is_staff = True
 
-        self.add_perms(invite.perms)
-        self.add_groups(invite.groups)
+        user.groups.add(*invite.groups.all())
+        user.user_permissions.add(*invite.permissions.all())
 
         if not user.has_perm('access_admin'):
             user.user_permissions.add(get_admin_perms())
 
         if commit:
             user.save()
-            invite.save()
+
+        invite.is_accepted = True
+        invite.save()
 
 
 class StaffUserAdapter(StaffUserMixin, DefaultAccountAdapter):

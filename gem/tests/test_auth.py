@@ -9,12 +9,14 @@ from django.conf.urls import url, include
 from django.core.exceptions import FieldError
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
-
+from django.contrib.auth.models import Group, Permission
+from allauth.socialaccount.models import SocialLogin
 from wagtail.core import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 
-from gem.models import OIDCSettings
+from gem.models import OIDCSettings, Invite
 from gem.tests.base import GemTestCaseMixin
+from gem.adapter import StaffUserSocialAdapter
 from gem.middleware import CustomSessionRefresh
 from gem.backends import GirlEffectOIDCBackend, _update_user_from_claims
 from gem.views import (
@@ -477,3 +479,34 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(settings.ENABLE_ALL_AUTH, False)
+
+    def test_staff_social_adaptor(self):
+        request = None
+
+        adaptor = StaffUserSocialAdapter(request=request)
+        user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='pass'
+        )
+        sociallogin = SocialLogin(user=user)
+        group = Group.objects.filter().first()
+        perm = Permission.objects.filter().first()
+
+        self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
+
+        invite = Invite.objects.create(email=user.email)
+        invite.groups.add(group)
+        invite.permissions.add(perm)
+
+        self.assertFalse(user.groups.all().exists())
+        self.assertFalse(user.user_permissions.all().exists())
+
+        adaptor.add_perms(user)
+        invite.refresh_from_db()
+        self.assertTrue(invite.is_accepted)
+        self.assertTrue(user.groups.all().exists())
+        self.assertTrue(user.user_permissions.all().exists())
+
+        user.delete()
+        invite.delete()
