@@ -1,58 +1,71 @@
-from django.dispatch import receiver
-from django.contrib.auth.models import Permission
+from django.db.models import Q
+from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-from allauth.socialaccount.signals import social_account_updated
 
 from gem.models import Invite
 
 
-def get_admin_perms():
-    wagtailadmin_content_type, created = ContentType.objects.get_or_create(
-        app_label='wagtailadmin',
-        model='admin'
-    )
-    admin_permission, created = Permission.objects.get_or_create(
-        content_type=wagtailadmin_content_type,
-        codename='access_admin',
-        name='Can access Wagtail admin'
-    )
-    return admin_permission
-
-
 class StaffUserMixin(object):
 
-    def is_open_for_signup(self, request, sociallogin):
+    def get_admin_perms(self):
+        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+            app_label='wagtailadmin',
+            model='admin'
+        )
+        admin_permission, created = Permission.objects.get_or_create(
+            content_type=wagtailadmin_content_type,
+            codename='access_admin',
+            name='Can access Wagtail admin'
+        )
+        return admin_permission
+
+    def is_open_for_signup(self, request, sociallogin=None):
         """
         Checks whether or not the site is open for signups.
 
         Next to simply returning True/False you can also intervene the
         regular flow by raising an ImmediateHttpResponse
         """
+        email = None
+        username = None
+
+        if sociallogin:
+            email = sociallogin.user.email or None
+        elif request and request.POST:
+            username = request.POST.get('username') or None
+
         return Invite.objects.filter(
-            email=sociallogin.user.email,
-            is_accepted=False).exists()
+            email=email, email__isnull=False,
+            is_accepted=False).exists() or User.objects.filter(
+                Q(email=email, email__isnull=False, is_staff=True) |
+                Q(email=email, email__isnull=False, is_superuser=True) |
+
+                Q(username=username,
+                  username__isnull=False, is_staff=True) |
+
+                Q(username=username,
+                  username__isnull=False, is_superuser=True)
+        )
 
     def add_perms(self, user, commit=True):
         invite = Invite.objects.\
-            get(email=user.email)
+            filter(email=user.email, is_accepted=False).first()
 
-        if not user.is_staff:
+        if invite and not user.is_staff:
             user.is_staff = True
+            if commit:
+                user.save()
 
-        user.groups.add(*invite.groups.all())
-        user.user_permissions.add(*invite.permissions.all())
+            user.groups.add(*invite.groups.all())
+            user.user_permissions.add(*invite.permissions.all())
 
-        if not user.has_perm('access_admin'):
-            user.user_permissions.add(get_admin_perms())
-
-        if commit:
-            user.save()
-
-        invite.is_accepted = True
-        invite.save()
+            if not user.has_perm('access_admin'):
+                user.user_permissions.add(self.get_admin_perms())
+            invite.is_accepted = True
+            invite.save()
 
 
 class StaffUserAdapter(StaffUserMixin, DefaultAccountAdapter):
@@ -71,21 +84,3 @@ class StaffUserSocialAdapter(StaffUserMixin, DefaultSocialAccountAdapter):
         user = super().save_user(request, sociallogin, form=form)
         self.add_perms(user)
         return user
-
-
-@receiver(social_account_updated)
-def my_callback(sender, **kwargs):
-    """
-    :param sender: SocialLogin
-    :param kwargs:
-    :return:
-    """
-    request = kwargs.get('request')
-    auth = request.user.is_authenticated
-
-    if auth and not request.user.is_staff:
-        request.user.is_staff = True
-        request.user.save()
-
-    if auth and not request.user.has_perm('access_admin'):
-        request.user.user_permissions.add(get_admin_perms())

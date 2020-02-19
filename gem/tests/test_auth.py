@@ -4,20 +4,21 @@ from datetime import date
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpRequest
-from django.test import TestCase, Client
 from django.conf.urls import url, include
 from django.core.exceptions import FieldError
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
+from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import Group, Permission
+
 from allauth.socialaccount.models import SocialLogin
 from wagtail.core import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 
 from gem.models import OIDCSettings, Invite
 from gem.tests.base import GemTestCaseMixin
-from gem.adapter import StaffUserSocialAdapter
 from gem.middleware import CustomSessionRefresh
+from gem.adapter import StaffUserSocialAdapter, StaffUserAdapter
 from gem.backends import GirlEffectOIDCBackend, _update_user_from_claims
 from gem.views import (
     RedirectWithQueryStringView, CustomAuthenticationCallbackView,
@@ -475,12 +476,15 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertEqual(res.status_code, 200)
 
     @override_settings(ENABLE_ALL_AUTH=False)
-    def test_login_allauth_disablede(self):
+    def test_login_all_auth_disabled(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(settings.ENABLE_ALL_AUTH, False)
 
     def test_staff_social_adaptor(self):
+        """
+        Test a front-end user getting an invite to admin site
+        """
         request = None
 
         adaptor = StaffUserSocialAdapter(request=request)
@@ -510,3 +514,147 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
 
         user.delete()
         invite.delete()
+
+    def test_staff_social_adaptor_new_user(self):
+        """
+        Test a new user getting an invite to admin site
+        """
+        request = None
+
+        adaptor = StaffUserSocialAdapter(request=request)
+        user = get_user_model()(
+            username='testuser',
+            email='testuser@email.com',
+            password='pass'
+        )
+        sociallogin = SocialLogin(user=user)
+        group = Group.objects.filter().first()
+        perm = Permission.objects.filter().first()
+
+        self.assertFalse(user.pk)
+        self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
+
+        invite = Invite.objects.create(email=user.email)
+        invite.groups.add(group)
+        invite.permissions.add(perm)
+
+        adaptor.add_perms(user)
+        invite.refresh_from_db()
+        self.assertTrue(invite.is_accepted)
+        self.assertTrue(user.groups.all().exists())
+        self.assertTrue(user.user_permissions.all().exists())
+
+        user.delete()
+        invite.delete()
+
+    def test_staff_social_adaptor_staff(self):
+        """
+        Test a regular staff login
+        """
+        request = None
+
+        adaptor = StaffUserSocialAdapter(request=request)
+        user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='pass',
+            is_staff=True,
+        )
+        sociallogin = SocialLogin(user=user)
+        group = Group.objects.filter().first()
+        perm = Permission.objects.filter().first()
+
+        user.groups.add(group)
+        user.user_permissions.add(perm)
+        self.assertTrue(adaptor.is_open_for_signup(request, sociallogin))
+
+        adaptor.add_perms(user)
+        self.assertTrue(user.groups.all().exists())
+        self.assertTrue(user.user_permissions.all().exists())
+
+        user.delete()
+
+    def test_staff_social_adaptor_superuser(self):
+        """
+        Test a superuser login
+        """
+        request = None
+        adaptor = StaffUserSocialAdapter(request=request)
+        user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            is_superuser=True,
+            password='pass'
+        )
+        sociallogin = SocialLogin(user=user)
+        self.assertTrue(adaptor.is_open_for_signup(request, sociallogin))
+        self.assertFalse(user.groups.all().exists())
+        self.assertFalse(user.user_permissions.all().exists())
+
+        adaptor.add_perms(user)
+        self.assertFalse(user.groups.all().exists())
+        self.assertFalse(user.user_permissions.all().exists())
+
+        user.delete()
+
+    def test_staff_user_adapter_new_user(self):
+        adaptor = StaffUserAdapter()
+        user = get_user_model()(
+            username='testuser',
+            email='testuser@email.com',
+            password='pass'
+        )
+        request = RequestFactory().post(
+            data={
+                'username': user.username,
+                'password': user.password
+            }, path=reverse('wagtailadmin_login'))
+        self.assertFalse(adaptor.is_open_for_signup(request, None))
+
+    def test_staff_user_adapter_front_end_user(self):
+        adaptor = StaffUserAdapter()
+        user = get_user_model().objects.create(
+            username='testuser',
+            email='testuser@email.com',
+            password='pass'
+        )
+        request = RequestFactory().post(
+            data={
+                'username': user.username,
+                'password': user.password
+            }, path=reverse('wagtailadmin_login'))
+        self.assertFalse(adaptor.is_open_for_signup(request, None))
+
+    def test_staff_user_adapter_staff_user(self):
+        adaptor = StaffUserAdapter()
+        user = get_user_model().objects.create(
+            username='testuser',
+            email='testuser@email.com',
+            is_staff=True,
+            password='pass'
+        )
+        request = RequestFactory().post(
+            data={
+                'username': user.username,
+                'password': user.password
+            }, path=reverse('wagtailadmin_login'))
+        self.assertTrue(adaptor.is_open_for_signup(request, None))
+
+    def test_staff_user_adapter_staff_user_perms(self):
+        adaptor = StaffUserAdapter()
+        group = Group.objects.filter().first()
+        perm = Permission.objects.filter().first()
+        user = get_user_model().objects.create(
+            username='testuser',
+            email='testuser@email.com',
+            is_staff=True,
+            password='pass'
+        )
+        user.groups.add(group)
+        user.user_permissions.add(perm)
+        request = RequestFactory().post(
+            data={
+                'username': user.username,
+                'password': user.password
+            }, path=reverse('wagtailadmin_login'))
+        self.assertTrue(adaptor.is_open_for_signup(request, None))
