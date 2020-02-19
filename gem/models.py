@@ -167,4 +167,3 @@ class Invite(models.Model):
         FieldPanel('groups', widget=CheckboxSelectMultiple),
         FieldPanel('permissions', widget=CheckboxSelectMultiple),
     ]
-
