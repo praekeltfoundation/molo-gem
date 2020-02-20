@@ -30,25 +30,13 @@ class StaffUserMixin(object):
         regular flow by raising an ImmediateHttpResponse
         """
         email = None
-        username = None
 
         if sociallogin:
             email = sociallogin.user.email or None
-        elif request and request.POST:
-            username = request.POST.get('username') or None
 
         return Invite.objects.filter(
             email=email, email__isnull=False,
-            is_accepted=False).exists() or User.objects.filter(
-                Q(email=email, email__isnull=False, is_staff=True) |
-                Q(email=email, email__isnull=False, is_superuser=True) |
-
-                Q(username=username,
-                  username__isnull=False, is_staff=True) |
-
-                Q(username=username,
-                  username__isnull=False, is_superuser=True)
-        )
+            is_accepted=False).exists()
 
     def add_perms(self, user, commit=True):
         invite = Invite.objects.\

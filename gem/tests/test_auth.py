@@ -566,7 +566,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
 
         user.groups.add(group)
         user.user_permissions.add(perm)
-        self.assertTrue(adaptor.is_open_for_signup(request, sociallogin))
+        self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
 
         adaptor.add_perms(user)
         self.assertTrue(user.groups.all().exists())
@@ -587,7 +587,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
             password='pass'
         )
         sociallogin = SocialLogin(user=user)
-        self.assertTrue(adaptor.is_open_for_signup(request, sociallogin))
+        self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
         self.assertFalse(user.groups.all().exists())
         self.assertFalse(user.user_permissions.all().exists())
 
@@ -638,7 +638,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
-        self.assertTrue(adaptor.is_open_for_signup(request, None))
+        self.assertFalse(adaptor.is_open_for_signup(request, None))
 
     def test_staff_user_adapter_staff_user_perms(self):
         adaptor = StaffUserAdapter()
@@ -657,4 +657,4 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
-        self.assertTrue(adaptor.is_open_for_signup(request, None))
+        self.assertFalse(adaptor.is_open_for_signup(request, None))
