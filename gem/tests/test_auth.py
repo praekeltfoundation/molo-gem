@@ -11,7 +11,7 @@ from django.test.utils import override_settings
 from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import Group, Permission
 
-from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.models import SocialLogin, SocialAccount
 from wagtail.core import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 
@@ -658,3 +658,17 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
         self.assertFalse(adaptor.is_open_for_signup(request, None))
+
+    def test_user_delete(self):
+        user = get_user_model().objects.create(
+            username='testuser',
+            email='testuser@email.com',
+            is_staff=True,
+            password='pass'
+        )
+        SocialAccount.objects.create(
+            user=user, provider='google', uid='1')
+        user.delete()
+        self.assertFalse(
+            SocialAccount.objects.filter(user=user)
+        )
