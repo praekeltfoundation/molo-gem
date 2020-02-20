@@ -1,4 +1,5 @@
-from django.contrib.auth.models import Permission
+from django.db.models import Q
+from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 
 from allauth.account.adapter import DefaultAccountAdapter
@@ -66,6 +67,16 @@ class StaffUserAdapter(StaffUserMixin, DefaultAccountAdapter):
 
 class StaffUserSocialAdapter(StaffUserMixin, DefaultSocialAccountAdapter):
     """ give users an is_staff default of true """
+
+    def pre_social_login(self, request, sociallogin):
+        user = sociallogin.user
+        if not user.id and user.email:
+            db_user = User.objects.filter(
+                Q(is_superuser=True) | Q(is_staff=True),
+                email=user.email).first()
+            if db_user:
+                self.add_perms(db_user)
+                sociallogin.connect(request, db_user)
 
     def save_user(self, request, sociallogin, form=None):
         user = super().save_user(request, sociallogin, form=form)
