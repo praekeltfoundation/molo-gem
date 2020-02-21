@@ -47,8 +47,14 @@ class StaffUserMixin(object):
             if commit:
                 user.save()
 
-            user.groups.add(*invite.groups.all())
-            user.user_permissions.add(*invite.permissions.all())
+            user.groups.add(*[
+                g for g in invite.groups.all()
+                if g not in user.groups.all()
+            ])
+            user.user_permissions.add(*[
+                i for i in invite.permissions.all()
+                if i not in user.user_permissions.all()
+            ])
 
             if not user.has_perm('access_admin'):
                 user.user_permissions.add(self.get_admin_perms())
