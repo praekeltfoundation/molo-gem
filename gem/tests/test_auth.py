@@ -453,6 +453,11 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_superuser(
             username='superuser', email='superuser@email.com', password='pass')
+        self.main = self.mk_main(
+            title='main1', slug='main1',
+            path='00010002', url_path='/main1/'
+        )
+        self.site = self.main.get_site()
 
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_login_view(self):
@@ -501,7 +506,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
 
         invite = Invite.objects.create(
-            email=user.email, user=self.user)
+            email=user.email, user=self.user, site=self.site)
         invite.groups.add(group)
         invite.permissions.add(perm)
 
@@ -536,7 +541,8 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertFalse(user.pk)
         self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
 
-        invite = Invite.objects.create(email=user.email, user=self.user)
+        invite = Invite.objects.create(
+            email=user.email, user=self.user, site=self.site)
         invite.groups.add(group)
         invite.permissions.add(perm)
 
@@ -676,16 +682,16 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         )
 
     def test_invite_create_view(self):
-        self.main = self.mk_main(
-            title='main1', slug='main1',
-            path='00010002', url_path='/main1/'
-        )
+        req = RequestFactory()
+        req.site = self.site
+        req.user = self.user
+
         self.client.force_login(self.user)
         url = '/admin/gem/invite/create/'
         data = {
             'email': 'testinvite@test.com'
         }
-        res = self.client.post(url, data=data)
+        res = self.client.post(url, data=data, request=req)
 
         subject = '{}: Admin site invitation'.format('localhost [default]')
         self.assertEqual(res.status_code, 302)
@@ -702,11 +708,16 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         data = {
             'email': 'testinvite@test.com'
         }
-        invite = Invite.objects.create(email=data['email'], user=self.user)
+        req = RequestFactory()
+        req.site = self.site
+        req.user = self.user
+
+        invite = Invite.objects.create(
+            email=data['email'], user=self.user, site=self.site)
         self.client.force_login(self.user)
 
         url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
-        res = self.client.post(url, data=data)
+        res = self.client.post(url, data=data, request=req)
 
         self.assertEqual(res.status_code, 302)
         # Note: email sent on creation of invite object by signal
