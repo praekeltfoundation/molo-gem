@@ -681,6 +681,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
             SocialAccount.objects.filter(user=user)
         )
 
+    @override_settings(ENABLE_ALL_AUTH=True)
     def test_invite_create_view(self):
         req = RequestFactory()
         req.site = self.site
@@ -704,6 +705,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertTrue(
             Invite.objects.filter(user=self.user).exists())
 
+    @override_settings(ENABLE_ALL_AUTH=True)
     def test_invite_edit_view(self):
         data = {
             'email': 'testinvite@test.com'

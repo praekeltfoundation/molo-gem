@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.forms import CheckboxSelectMultiple
@@ -188,14 +189,14 @@ def delete_social_accounts(sender, **kw):
 def send_admin_invite_email(sender, **kwargs):
     invite = kwargs.get('instance')
     created = kwargs.get('created')
-    if created:
+    if created and settings.ENABLE_ALL_AUTH:
         user = invite.user
         site = invite.site
         subject = _('{}: Admin site invitation'.format(site))
-        url = '{}{}'.format(site.hostname, reverse('admin_login'))
+        url = '{}{}'.format(site.hostname, reverse('wagtailadmin_login'))
         message = _(
             'Hello, \n\n'
-            'You have been invited to {0} Admin site by {1}. \n'
+            'You have been invited to {0}Admin site by {1}. \n'
             'Use the link below to log in with Google sign in. \n'
             '{2}'.format(site, user, url)
         )
