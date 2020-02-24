@@ -1,6 +1,7 @@
 import pytest
 
 from datetime import date
+from django.core import mail
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpRequest
@@ -499,7 +500,8 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
 
         self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
 
-        invite = Invite.objects.create(email=user.email)
+        invite = Invite.objects.create(
+            email=user.email, user=self.user)
         invite.groups.add(group)
         invite.permissions.add(perm)
 
@@ -534,7 +536,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertFalse(user.pk)
         self.assertFalse(adaptor.is_open_for_signup(request, sociallogin))
 
-        invite = Invite.objects.create(email=user.email)
+        invite = Invite.objects.create(email=user.email, user=self.user)
         invite.groups.add(group)
         invite.permissions.add(perm)
 
@@ -672,3 +674,41 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertFalse(
             SocialAccount.objects.filter(user=user)
         )
+
+    def test_invite_create_view(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1',
+            path='00010002', url_path='/main1/'
+        )
+        self.client.force_login(self.user)
+        url = '/admin/gem/invite/create/'
+        data = {
+            'email': 'testinvite@test.com'
+        }
+        res = self.client.post(url, data=data)
+
+        subject = '{}: Admin site invitation'.format('localhost [default]')
+        self.assertEqual(res.status_code, 302)
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, subject)
+        self.assertEqual(mail.outbox[0].to, [data['email']])
+        self.assertEqual(mail.outbox[0].from_email, self.user.email)
+
+        self.assertTrue(
+            Invite.objects.filter(user=self.user).exists())
+
+    def test_invite_edit_view(self):
+        data = {
+            'email': 'testinvite@test.com'
+        }
+        invite = Invite.objects.create(email=data['email'], user=self.user)
+        self.client.force_login(self.user)
+
+        url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
+        res = self.client.post(url, data=data)
+
+        self.assertEqual(res.status_code, 302)
+        # Note: email sent on creation of invite object by signal
+        # testing that a duplicate email was not sent on update
+        self.assertEqual(len(mail.outbox), 1)

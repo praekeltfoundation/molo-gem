@@ -1,7 +1,10 @@
 from django.db import models
+from django.urls import reverse
 from django.dispatch import receiver
-from django.db.models.signals import pre_delete
+from django.core.mail import send_mail
 from django.forms import CheckboxSelectMultiple
+from django.utils.text import gettext_lazy as _
+from django.db.models.signals import pre_delete, post_save
 from django.contrib.auth.models import User, Group, Permission
 
 from allauth.socialaccount.models import SocialAccount
@@ -161,6 +164,8 @@ class Invite(models.Model):
 
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
+    site = models.ForeignKey(Site, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Invite: {}'.format(self.email)
@@ -177,3 +182,26 @@ class Invite(models.Model):
 def delete_social_accounts(sender, **kw):
     user = kw.get('instance')
     SocialAccount.objects.filter(user=user).delete()
+
+
+@receiver(post_save, sender=Invite)
+def send_admin_invite_email(sender, **kwargs):
+    invite = kwargs.get('instance')
+    created = kwargs.get('created')
+    if created:
+        user = invite.user
+        site = invite.site
+        subject = _('{}: Admin site invitation'.format(site))
+        url = '{}{}'.format(site.hostname, reverse('admin_login'))
+        message = _(
+            'Hello, \n\n'
+            'You have been invited to {0} Admin site by {1}. \n'
+            'Use the link below to log in with Google sign in. \n'
+            '{2}'.format(site, user, url)
+        )
+        send_mail(
+            subject,
+            message,
+            user.email,
+            [invite.email]
+        )
