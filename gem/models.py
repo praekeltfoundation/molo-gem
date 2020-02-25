@@ -196,13 +196,13 @@ def send_admin_invite_email(sender, **kwargs):
         url = '{}{}'.format(site.hostname, reverse('wagtailadmin_login'))
         message = _(
             'Hello, \n\n'
-            'You have been invited to {0}Admin site by {1}. \n'
+            'You have been invited to {0} Admin site by {1}. \n'
             'Use the link below to log in with Google sign in. \n'
             '{2}'.format(site, user, url)
         )
         send_mail(
             subject,
             message,
-            user.email,
+            settings.DEFAULT_FROM_EMAIL,
             [invite.email]
         )
