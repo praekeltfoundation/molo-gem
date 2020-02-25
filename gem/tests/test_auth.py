@@ -700,7 +700,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, subject)
         self.assertEqual(mail.outbox[0].to, [data['email']])
-        self.assertEqual(mail.outbox[0].from_email, self.user.email)
+        self.assertEqual(mail.outbox[0].from_email, 'no-reply@gehosting.org')
 
         self.assertTrue(
             Invite.objects.filter(user=self.user).exists())
