@@ -11,6 +11,7 @@ ENV = 'prd'
 
 COMPRESS_OFFLINE = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Send notification emails as a background task using Celery,
 # to prevent this from blocking web server threads
