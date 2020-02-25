@@ -175,7 +175,7 @@ class Invite(models.Model):
         FieldPanel('email'),
         FieldPanel('is_accepted'),
         FieldPanel('groups', widget=CheckboxSelectMultiple),
-        FieldPanel('permissions', widget=CheckboxSelectMultiple),
+        # FieldPanel('permissions', widget=CheckboxSelectMultiple),
     ]
 
 
