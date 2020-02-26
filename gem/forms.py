@@ -1,9 +1,9 @@
 import re
 from django import forms
-from django.forms import Form
+from django.forms import Form, CheckboxSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 from gem.constants import GENDERS
-from gem.models import GemSettings
+from gem import models
 from molo.profiles.forms import RegistrationForm, EditProfileForm, DoneForm
 from gem.settings import REGEX_EMAIL, REGEX_PHONE
 
@@ -38,7 +38,7 @@ class GemAliasMixin(object):
             )
 
         site = Site.objects.get(is_default_site=True)
-        settings = GemSettings.for_site(site)
+        settings = models.GemSettings.for_site(site)
 
         banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
@@ -60,6 +60,23 @@ class GemAliasMixin(object):
                 )
 
         return alias
+
+
+class PermissionGroupCheckboxSelect(CheckboxSelectMultiple):
+    template_name = 'admin/permission_group_checkbox_select.html'
+
+    def create_option(
+            self, name, value, label, selected, index,
+            subindex=None, attrs=None):
+
+        opt = super().create_option(
+            name, value, label, selected, index,
+            subindex=subindex, attrs=attrs)
+        opt.update({
+            'permissions': self.choices.queryset.get(name=label)
+            .permissions.all().values_list('name', flat=True)
+        })
+        return opt
 
 
 class GemRegistrationForm(GemAliasMixin, RegistrationForm):

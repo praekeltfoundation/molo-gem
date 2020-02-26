@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.conf import settings
 from django.dispatch import receiver
 from django.core.mail import send_mail
-from django.forms import CheckboxSelectMultiple
 from django.utils.text import gettext_lazy as _
 from django.db.models.signals import pre_delete, post_save
 from django.contrib.auth.models import User, Group, Permission
@@ -22,6 +21,8 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from .forms import PermissionGroupCheckboxSelect
 
 
 class OIDCSettings(models.Model):
@@ -174,7 +175,7 @@ class Invite(models.Model):
     panels = [
         FieldPanel('email'),
         FieldPanel('is_accepted'),
-        FieldPanel('groups', widget=CheckboxSelectMultiple),
+        FieldPanel('groups', widget=PermissionGroupCheckboxSelect),
         # FieldPanel('permissions', widget=CheckboxSelectMultiple),
     ]
 
