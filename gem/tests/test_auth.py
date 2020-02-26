@@ -719,6 +719,9 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         self.client.force_login(self.user)
 
         url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
+        res = self.client.post(url, request=req)
+        self.assertEqual(res.status_code, 200)
+
         res = self.client.post(url, data=data, request=req)
 
         self.assertEqual(res.status_code, 302)
