@@ -9,10 +9,12 @@
       {% for option in options %}
         <li>
           {% include option.template_name with widget=option %}
-            <p class="help">
+            {% if option.permissions %}
+            <p class="help" style="margin-bottom: 25px;">
             {% for perm in option.permissions %}
               <small>{{ perm }}{% if not forloop.last %}&nbsp;<b>|</b>&nbsp;{% endif %}</small>
             {% endfor %}
+            {% endif %}
             </p>
         </li>
       {% endfor %}
