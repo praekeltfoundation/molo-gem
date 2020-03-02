@@ -4,65 +4,49 @@
 {% block content %}
 {% filter_forms_by_segments forms request as filtered_forms %}
   {% if filtered_forms %}
-    {% with item=filtered_forms|first %}
-      {% with form_page=item.molo_form_page %}
-        {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions %}
-          {% if  not form_page.your_words_competition and not form_page.display_form_directly %}
-            {#{% include "patterns/components/banners/join-banner.html" %}#}
-              {% if settings.gem.GemSettings.show_join_banner %}
-                <div class="profiles-join-banner">
-                  <div class="profiles-join-banner__icon"></div>
-                  <div class="profiles-join-banner__content">
-                    <div class="heading heading__subheading-alt">
-                      <h4>{% trans "Share your opinions and stories, take polls, win fun prizes." %}</h4>
-                    </div>
-                    <a href="{{ LOGIN_URL }}" class="call-to-action__button call-to-action__button--yellow">
-                      <span class="call-to-action__button-text call-to-action__button-text--yellow">{% trans "Join" %}</span>
-                    </a>
+    {% for item in filtered_forms %}
+
+      {% if item.molo_form_page.moloformpage and item.molo_form_page.personalisableform %}
+        ==>{{item.molo_form_page.moloformpage}}<br/>
+        ++>{{item.molo_form_page.personalisableform}}<br/>
+      {% elif item.molo_form_page.moloformpage and not item.molo_form_page.personalisableform  %}
+        -->{{item.molo_form_page.moloformpage}}<br/>
+        ##>{{item.molo_form_page.personalisableform}}<br/>
+      {% endif %}
+
+
+      {% with form_page=item.molo_form_page form=item.form %}
+
+          {% if form_page.your_words_competition %}
+            <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
+              <aside>
+              {% if form_page.image %}
+                {% image form_page.image width-98 as tmp_photo_small %}
+                {% image form_page.image width-320 as tmp_photo_large %}
+                  <div class="surveys--page__image-wrapper">
+                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form_page.image.title }}" class="surveys--page__image" />
                   </div>
+              {% else %}
+                  <div class="surveys--page__image gcn-competition__default"></div>
+              {% endif %}
+              </aside>
+              <section>
+              <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
+              {% if form_page.homepage_introduction %}
+                <div class="heading heading__subheading">
+                  <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
                 </div>
               {% endif %}
-            {# end include template #}
-          {% endif %}
-        {% endif %}
-      {% endwith %}
-    {% endwith %}
-  {% endif %}
-  {% for item in filtered_forms %}
-    {% with form_page=item.molo_form_page form=item.form %}
-      {% if form_page.your_words_competition %}
-        {# include template "patterns/basics/forms/forms-list_gcn.html" #}
-          <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
-            <aside>
-            {% if form_page.image %}
-              {% image form_page.image width-98 as tmp_photo_small %}
-              {% image form_page.image width-320 as tmp_photo_large %}
-                <div class="surveys--page__image-wrapper">
-                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form_page.image.title }}" class="surveys--page__image" />
-                </div>
-            {% else %}
-                <div class="surveys--page__image gcn-competition__default"></div>
-            {% endif %}
-            </aside>
-            <section>
-            <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
-            {% if form_page.homepage_introduction %}
-              <div class="heading heading__subheading">
-                <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
-              </div>
-            {% endif %}
-            </section>
-            <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
-              <span class="call-to-action__button-text call-to-action__button-text--primary">
-                {% trans "Take GCN competition" as defaultTextGCN %}
-                {{ form_page.homepage_button_text|default:defaultTextGCN}}
-              </span>
-            </a>
+              </section>
+              <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+                <span class="call-to-action__button-text call-to-action__button-text--primary">
+                  {% trans "Take GCN competition" as defaultTextGCN %}
+                  {{ form_page.homepage_button_text|default:defaultTextGCN}}
+                </span>
+              </a>
 
-          </div>
-        {# end include template #}
-      {% elif form_page.display_form_directly %}
-          {# include template "patterns/basics/forms/forms-list_polls.html" #}
+            </div>
+          {% elif form_page.display_form_directly %}
             <div class="polls polls--homepage polls--call-to-action">
               <div class="polls__bubble-icon"></div>
               <div class="polls__container">
@@ -94,9 +78,7 @@
                 {% endif %}
               </div>
             </div>
-          {# end include template #}
-      {% else %}
-          {# include template "patterns/basics/forms/forms-list_generic.html" #}
+          {% else %}
             {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
             <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
               <div class="surveys--wrapper">
@@ -127,8 +109,13 @@
               </nav>
             </div>
             {% endif %}
-          {# end include template #}
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
+          {% endif %}
+
+      {% endwith %}
+
+
+    {% endfor %}
+
+  {% endif %}
+
 {% endblock %}
