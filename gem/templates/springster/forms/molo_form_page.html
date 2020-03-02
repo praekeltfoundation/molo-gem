@@ -3,37 +3,37 @@
 
 {% block content %}
   {# HEADING #}
-  {% if self.your_words_competition %}
-    <div class="gcn-competition surveys{{form.get_effective_extra_style_hints}} surveys--page">
-  {% elif self.display_form_directly %}
-    <div class="polls polls--call-to-action">
-      <div class="polls__bubble-icon"></div>
-      <div class="polls__container">
-  {% else %}
-    <div class="surveys surveys{{form.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
-      {% if self.image %}
-        <div class="surveys--page__image-wrapper">
-          {% image self.image width-165 as icon_small %}
-          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys--page__image" />
-        </div>
-      {% else %}
-        <div class="identity-image identity-image--survey"></div>
-      {% endif %}
-  {% endif %}
+    {% if self.your_words_competition %}
+      <div class="gcn-competition surveys{{form.get_effective_extra_style_hints}} surveys--page">
+    {% elif self.display_form_directly %}
+      <div class="polls polls--call-to-action">
+        <div class="polls__bubble-icon"></div>
+        <div class="polls__container">
+    {% else %}
+      <div class="surveys surveys{{form.get_effective_extra_style_hints}} surveys--call-to-action surveys--page">
+        {% if self.image %}
+          <div class="surveys--page__image-wrapper">
+            {% image self.image width-165 as icon_small %}
+            <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="surveys--page__image" />
+          </div>
+        {% else %}
+          <div class="identity-image identity-image--survey"></div>
+        {% endif %}
+    {% endif %}
   {# END HEADING #}
 
   {% if self.your_words_competition %}
-      {# GCN COMPETITION HEADING #}
-      {% if self.image %}
-        <div class="surveys--page__image-wrapper">
-          {% image self.image width-98 as tmp_photo_small %}
-          {% image self.image width-320 as tmp_photo_large %}
-            <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form.image.title }}" class="surveys--page__image" />
-        </div>
-      {% else %}
-        <div class="surveys--page__image gcn-competition__default"></div>
-      {% endif %}
-      <div class="heading heading__component"><h1>{{self.title}}</h1></div>
+    {# GCN COMPETITION HEADING #}
+    {% if self.image %}
+      <div class="surveys--page__image-wrapper">
+        {% image self.image width-98 as tmp_photo_small %}
+        {% image self.image width-320 as tmp_photo_large %}
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form.image.title }}" class="surveys--page__image" />
+      </div>
+    {% else %}
+      <div class="surveys--page__image gcn-competition__default"></div>
+    {% endif %}
+    <div class="heading heading__component"><h1>{{self.title}}</h1></div>
     {% if self.introduction %}
       <div class="heading heading__subheading"><p>{{self.introduction}}</p></div>
     {% endif %}
