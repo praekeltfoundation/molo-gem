@@ -1,5 +1,6 @@
-{% load forms_personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
-{% get_settings %}
+{% load wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
+
+
 {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
   <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
     <div class="surveys--wrapper">
