@@ -3,9 +3,9 @@
 
 {% block content %}
   <!-- {# HEADING #} -->
-    {% if self.your_words_competition %}
+    {% if self.your_words_competition and not self.personalisableform %}
       <div class="gcn-competition surveys{{form.get_effective_extra_style_hints}} surveys--page">
-    {% elif self.display_form_directly %}
+    {% elif self.display_form_directly and not self.personalisableform  %}
       <div class="polls polls--call-to-action">
         <div class="polls__bubble-icon"></div>
         <div class="polls__container">
@@ -22,7 +22,7 @@
     {% endif %}
   <!-- {# END HEADING #} -->
 
-  {% if self.your_words_competition %}
+  {% if self.your_words_competition and not self.personalisableform %}
     <!-- {# GCN COMPETITION HEADING #} -->
     {% if self.image %}
       <div class="surveys--page__image-wrapper">
@@ -37,7 +37,7 @@
     {% if self.introduction %}
       <div class="heading heading__subheading"><p>{{self.introduction}}</p></div>
     {% endif %}
-  {% elif self.display_form_directly %}
+  {% elif self.display_form_directly and not self.personalisableform  %}
     <!-- {# POLLS HEADING #} -->
     <div class="heading heading__micro"><p>{% trans "Take a vote!" %}</p></div>
     <div class="heading heading__subheading"><h3>{{self.title}}</h3></div>
@@ -163,6 +163,7 @@
           </div>
         </fieldset>
         {% endfor %}
+
         {% if form.display_form_directly %}
           {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
             {% trans "Vote" as defaultText %}
@@ -177,7 +178,20 @@
             </div>
           {% endif %}
         {% else %}
-          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">
+            {% if is_intermediate_step %}
+              {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}}
+            {% else %}
+              {% trans 'Submit' %}
+              {% if self.your_words_competition %}
+                {% trans 'competition' %}
+              {% elif self.display_form_directly %}
+                {% trans 'poll' %}
+              {% else %}
+                {% trans 'survey' %}
+              {% endif %}
+            {% endif %}
+          </button>
         {% endif %}
 
         {% if fields_step and fields_step.paginator.num_pages > 1 %}
@@ -194,7 +208,12 @@
       <!-- {# FEEDBACK #} -->
       <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
         <p class="errors">{% trans 'You have already completed this ' %}
-          {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% if self.your_words_competition %}
+            {% trans 'competition' %}
+          {% elif self.display_form_directly %}
+            {% trans 'poll' %}
+          {% else %}
+            {% trans 'survey' %}
           {% endif %}.
         </p>
         {% if request.path == "/" %}
@@ -217,7 +236,13 @@
     <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
       <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Log in to take" %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}
+          {% trans "Log in to take" %}
+          {% if self.your_words_competition %}
+            {% trans 'competition' %}
+          {% elif self.display_form_directly %}
+            {% trans 'poll' %}
+          {% else %}
+            {% trans 'survey' %}
           {% endif %}.
         </span>
       </a>
@@ -226,10 +251,10 @@
   {% endif %}
 
   <!-- {# DIV CLOSE #} -->
-  {% if self.your_words_competition %}
+  {% if self.your_words_competition and not self.personalisableform %}
     </div>
-  {% elif self.display_form_directly %}
-    </div>
+  {% elif self.display_form_directly and not self.personalisableform  %}
+      </div>
     </div>
   {% else %}
     </div>
