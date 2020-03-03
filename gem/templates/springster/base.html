@@ -52,7 +52,6 @@
       used here are available on every model.
     {% endcomment %}
     <meta property="og:type" content="website" />
-    {% comment %}{% endcomment %}
       {% block meta %}
         <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
         <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
