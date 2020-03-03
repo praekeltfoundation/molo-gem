@@ -32,28 +32,26 @@
 
   {% if filtered_forms %}
     {% for item in filtered_forms %}
-
       {% with form_page=item.molo_form_page form=item.form %}
-        {# IF NOT personalisableform AND SETTING YW - USE YW UI #}
-        <br/>
-        <br/>
-        ==>{{ form_page.your_words_competition}}
-        <br/>
-        <br/>
-        <br/>
-        {% if not form_page.personalisableform and form_page.your_words_competition %}
-          {% include 'forms/yourwords_landing.html' %}
-        {# IF NOT personalisableform AND SETTING POLLS - USE POLLS UI #}
-        {% elif not form_page.personalisableform and form_page.display_form_directly %}
-          {% include 'forms/polls_landing.html' %}
-        {# IF personalisableform WITH SETTING FOR YW / POLLS - USE SURVEY UI #}
+        {% if form_page.your_words_competition and not form_page.personalisableform  %}
+          <!--
+            {# IF NOT personalisableform AND SETTING YOURWORDS - USE YOURWORDS UI #}
+          -->
+          {% include 'forms/form_modules/yourwords_landing.html' %}
+        {% elif form_page.display_form_directly and not form_page.personalisableform  %}
+          <!--
+            {# IF NOT personalisableform AND SETTING POLLS - USE POLLS UI #}
+          -->
+          {% include 'forms/form_modules/polls_landing.html' %}
         {% elif form_page.personalisableform or form_page.personalisableform and form_page.your_words_competition or form_page.personalisableform and form_page.display_form_directly %}
-          {% include 'forms/surveys_landing.html' %}
+          <!--
+            {# IF personalisableform WITH SETTING FOR YW / POLLS - USE SURVEY UI #}
+          -->
+          {% include 'forms/form_modules/surveys_landing.html' %}
         {% else %}
-          {% include 'forms/surveys_landing.html' %}
+          {% include 'forms/form_modules/surveys_landing.html' %}
         {% endif %}
       {% endwith %}
-
     {% endfor %}
   {% endif %}
 
