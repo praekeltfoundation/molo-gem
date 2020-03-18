@@ -36,7 +36,8 @@ class StaffUserMixin(object):
 
         return Invite.objects.filter(
             email=email, email__isnull=False,
-            is_accepted=False).exists()
+            site=request.site, is_accepted=False
+        ).exists()
 
     def add_perms(self, user, commit=True):
         invite = Invite.objects.\
