@@ -42,10 +42,11 @@ class StaffUserMixin(object):
         invite = Invite.objects.\
             filter(email=user.email, is_accepted=False).first()
 
-        if invite and not user.is_staff:
-            user.is_staff = True
-            if commit:
-                user.save()
+        if invite:
+            if not user.is_staff:
+                user.is_staff = True
+                if commit:
+                    user.save()
 
             user.groups.add(*[
                 g for g in invite.groups.all()
@@ -56,8 +57,13 @@ class StaffUserMixin(object):
                 if i not in user.user_permissions.all()
             ])
 
-            if not user.has_perm('access_admin'):
+            if not user.has_perm('wagtailadmin.access_admin'):
                 user.user_permissions.add(self.get_admin_perms())
+
+            admin_sites = user.profile.admin_sites
+            if not admin_sites.filter(pk=invite.site.pk).exists():
+                admin_sites.add(invite.site)
+
             invite.is_accepted = True
             invite.save()
 
