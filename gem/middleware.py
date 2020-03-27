@@ -10,6 +10,7 @@ from django.utils.http import urlencode
 from django.http.response import Http404
 from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
+from django.middleware.locale import LocaleMiddleware
 from django.http import JsonResponse, HttpResponseRedirect
 from django.utils.translation import get_language_from_request
 
@@ -39,6 +40,12 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
+
+
+class GEMLocaleMiddleware(LocaleMiddleware):
+    def process_request(self, request):
+        # inspect url get article locale if article, set it in session
+        return super().process_request(request)
 
 
 class LogHeaderInformationMiddleware(MiddlewareMixin):
