@@ -1,6 +1,6 @@
 {% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
 {% load core_tags staticfiles compress gem_tags molo_commenting_tags %}
-{% get_current_language as LANGUAGE_CODE %}
+
 {% get_settings %}
 {% load molo_pwa %}
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!-->
 {% spaceless %}
-<html class="no-js" lang="{{LANGUAGE_CODE}}">
+<html class="no-js" lang="{{request.LANGUAGE_CODE}}">
 <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
@@ -84,7 +84,7 @@
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
   {% endif %}
 </head>
-<body {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+<body {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
   {% wagtailuserbar %}
   {% block google_analytics %}
@@ -218,7 +218,7 @@
               </li>
               {% for language in languages %}
                 <li class="languages-list__item">
-                  <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
+                  <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if request.LANGUAGE_CODE == language.locale %} languages-list__active{% endif %}">{{language.locale | language_name_local}}</a>
                 </li>
               {% endfor %}
             </ul>
@@ -338,7 +338,7 @@
             <div class="languages languages--footer">
               <p class="languages__label">{% trans "Languages" %}:</p>
               {% for language in languages %}
-                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
+                <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages__anchor {% if request.LANGUAGE_CODE == language.locale %}active{% endif %}">{{ language }}</a>
               {% endfor %}
             </div>
             {% endif %}
