@@ -543,10 +543,8 @@ class TestServiceRedirectView(TestCase, GemTestCaseMixin):
 
     def test_redirect_view(self):
         res = self.client.get(reverse('services_redirect'))
-        self.assertRedirects(res, 'sections/service-finder')
-
-        res = self.client.get(reverse('services_redirect'), follow=True)
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, '/sections/service-finder/')
 
 
 class TestBbmRedirectView(TestCase, GemTestCaseMixin):
