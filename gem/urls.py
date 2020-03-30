@@ -4,7 +4,7 @@ from django.conf.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 from django.contrib.auth.decorators import login_required
 from django_cas_ng import views as cas_views
 
@@ -46,6 +46,11 @@ elif settings.ENABLE_SSO:
     ]
 
 urlpatterns += [
+    re_path(
+        r'^services/$',
+        RedirectView.as_view(url='/sections/service-finder/'),
+        name='services_redirect'),
+
     re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
     re_path(r'^admin/', include(wagtailadmin_urls)),
