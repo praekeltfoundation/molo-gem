@@ -48,7 +48,8 @@ elif settings.ENABLE_SSO:
 urlpatterns += [
     re_path(
         r'^services/$',
-        RedirectView.as_view(url='/sections/service-finder/'), name='services_redirect'),
+        RedirectView.as_view(url='/sections/service-finder/'),
+        name='services_redirect'),
 
     re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
