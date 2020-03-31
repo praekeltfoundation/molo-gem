@@ -463,12 +463,10 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_admin_login_view(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(settings.ENABLE_ALL_AUTH, True)
 
     def test_admin_login_view_default_allauth_setting(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(settings.ENABLE_ALL_AUTH, False)
 
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_views_authed_user(self):
@@ -485,7 +483,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_login_all_auth_disabled(self):
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(settings.ENABLE_ALL_AUTH, False)
+        self.assertNotContains(res, '<span class="fa fa-google"></span>Google')
 
     def test_staff_social_adaptor(self):
         """
@@ -728,7 +726,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
         res = self.client.post(url, request=req)
         self.assertEqual(res.status_code, 200)
-
+        self.assertContains(res, data['email'])
         res = self.client.post(url, data=data, request=req)
 
         self.assertEqual(res.status_code, 302)
