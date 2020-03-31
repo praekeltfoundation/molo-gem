@@ -535,6 +535,18 @@ class GemReportCommentViewTest(TestCase, GemTestCaseMixin):
         self.assertContains(response, 'This comment has been reported.')
 
 
+class TestServiceRedirectView(TestCase, GemTestCaseMixin):
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+
+    def test_redirect_view(self):
+        res = self.client.get(reverse('services_redirect'))
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, '/sections/service-finder/')
+
+
 class TestBbmRedirectView(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
