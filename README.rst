@@ -28,3 +28,15 @@ To get started::
 	* tick all the ARTICLE TAG SETTINGS (Display tags on front end and enable tag navigation)
 
 .. _Molo: https://molo.readthedocs.org
+
+Social Login
+~~~~~~~~~~~~
+Currently only Google login is enabled see `SOCIALACCOUNT_PROVIDERS` setting to enable others
+
+ENV Variables required to enable social login::
+
+    SOCIAL_LOGIN_ENABLE = FALSE
+    GOOGLE_LOGIN_KEY
+    GOOGLE_LOGIN_SECRET
+    GOOGLE_LOGIN_CLIENT_ID
+

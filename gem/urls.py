@@ -21,7 +21,7 @@ from gem.views import (
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
     BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
-    KaiOSManifestView
+    KaiOSManifestView, AdminLogin
 )
 
 urlpatterns = []
@@ -43,6 +43,12 @@ elif settings.ENABLE_SSO:
         re_path(
             r'^admin/callback/',
             cas_views.CallbackView.as_view(), name='cas_ng_callback'),
+    ]
+
+if settings.ENABLE_ALL_AUTH:
+    urlpatterns += [
+        re_path(r'^admin/login/$', AdminLogin.as_view(), name='admin_login'),
+        re_path(r'^accounts/', include('allauth.urls')),
     ]
 
 urlpatterns += [
@@ -158,7 +164,6 @@ urlpatterns += [
     re_path(r'', include(wagtail_urls)),
     re_path(r'', include('django_prometheus.urls')),
 ]
-
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
