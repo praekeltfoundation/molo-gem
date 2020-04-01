@@ -476,12 +476,53 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         res = self.client.get(res.url)
         self.assertEqual(res.status_code, 200)
 
-    @override_settings(ENABLE_ALL_AUTH=False)
-    def test_login_all_auth_disabled(self):
-        res = self.client.get(reverse('wagtailadmin_login'))
+    @override_settings(ENABLE_ALL_AUTH=True)
+    def test_invite_create_view(self):
+        req = RequestFactory()
+        req.site = self.site
+        req.user = self.user
+
+        self.client.force_login(self.user)
+        url = '/admin/gem/invite/create/'
+        data = {
+            'email': 'testinvite@test.com'
+        }
+        res = self.client.post(url, data=data, request=req)
+
+        subject = '{}: Admin site invitation'.format('localhost [default]')
+        self.assertEqual(res.status_code, 302)
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, subject)
+        self.assertEqual(mail.outbox[0].to, [data['email']])
+        self.assertEqual(mail.outbox[0].from_email, 'no-reply@gehosting.org')
+
+        self.assertTrue(
+            Invite.objects.filter(user=self.user).exists())
+
+    @override_settings(ENABLE_ALL_AUTH=True)
+    def test_invite_edit_view(self):
+        data = {
+            'email': 'testinvite@test.com'
+        }
+        req = RequestFactory()
+        req.site = self.site
+        req.user = self.user
+
+        invite = Invite.objects.create(
+            email=data['email'], user=self.user, site=self.site)
+        self.client.force_login(self.user)
+
+        url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
+        res = self.client.post(url, request=req)
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateNotUsed(res, 'wagtailadmin/social_login.html')
-        self.assertNotContains(res, '<span class="fa fa-google"></span>Google')
+        self.assertContains(res, data['email'])
+        res = self.client.post(url, data=data, request=req)
+
+        self.assertEqual(res.status_code, 302)
+        # Note: email sent on creation of invite object by signal
+        # testing that a duplicate email was not sent on update
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_staff_social_adaptor(self):
         """
@@ -684,50 +725,19 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
             SocialAccount.objects.filter(user=user)
         )
 
-    @override_settings(ENABLE_ALL_AUTH=True)
-    def test_invite_create_view(self):
-        req = RequestFactory()
-        req.site = self.site
-        req.user = self.user
 
-        self.client.force_login(self.user)
-        url = '/admin/gem/invite/create/'
-        data = {
-            'email': 'testinvite@test.com'
-        }
-        res = self.client.post(url, data=data, request=req)
+class TestAllAuthDisabled(GemTestCaseMixin, TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            username='superuser', email='superuser@email.com', password='pass')
+        self.main = self.mk_main(
+            title='main1', slug='main1',
+            path='00010002', url_path='/main1/'
+        )
+        self.site = self.main.get_site()
 
-        subject = '{}: Admin site invitation'.format('localhost [default]')
-        self.assertEqual(res.status_code, 302)
-
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, subject)
-        self.assertEqual(mail.outbox[0].to, [data['email']])
-        self.assertEqual(mail.outbox[0].from_email, 'no-reply@gehosting.org')
-
-        self.assertTrue(
-            Invite.objects.filter(user=self.user).exists())
-
-    @override_settings(ENABLE_ALL_AUTH=True)
-    def test_invite_edit_view(self):
-        data = {
-            'email': 'testinvite@test.com'
-        }
-        req = RequestFactory()
-        req.site = self.site
-        req.user = self.user
-
-        invite = Invite.objects.create(
-            email=data['email'], user=self.user, site=self.site)
-        self.client.force_login(self.user)
-
-        url = '/admin/gem/invite/edit/{}/'.format(invite.pk)
-        res = self.client.post(url, request=req)
+    @override_settings(ENABLE_ALL_AUTH=False)
+    def test_login_all_auth_disabled(self):
+        res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 200)
-        self.assertContains(res, data['email'])
-        res = self.client.post(url, data=data, request=req)
-
-        self.assertEqual(res.status_code, 302)
-        # Note: email sent on creation of invite object by signal
-        # testing that a duplicate email was not sent on update
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertNotContains(res, '<span class="fa fa-google"></span>Google')
