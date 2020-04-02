@@ -10,17 +10,18 @@ from django.http import (
     HttpResponseRedirect,
     HttpResponse
 )
-from django.http.response import HttpResponseForbidden
-from django.shortcuts import render
-from django.utils.feedgenerator import Atom1Feed
-from django.utils.http import is_safe_url
-from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import TemplateView, RedirectView
-from django.views.generic.edit import FormView
 from django.conf import settings
-
+from django.shortcuts import render
+from django.utils.http import is_safe_url
+from django.views.generic.edit import FormView
+from django.utils.feedgenerator import Atom1Feed
 from django_comments.forms import CommentDetailsForm
+from django.http.response import HttpResponseForbidden
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import TemplateView, RedirectView
+
+from allauth.account.views import LoginView
 
 from gem.forms import (
     GemEditProfileForm,
@@ -28,20 +29,20 @@ from gem.forms import (
     GemRegistrationDoneForm,
     ReportCommentForm,
 )
-from gem.models import GemSettings, GemCommentReport
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
-
-from molo.commenting.models import MoloComment
+from gem.models import GemSettings, GemCommentReport
 
 from molo.core.models import ArticlePage
+from molo.commenting.models import MoloComment
+
 from molo.profiles.views import (
     RegistrationView,
     MyProfileEdit,
     RegistrationDone
 )
+from wagtail.core.models import Site
 from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
-from wagtail.core.models import Site
 
 
 def report_response(request, comment_pk):
@@ -342,3 +343,7 @@ class MaintenanceView(TemplateView):
         context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
+
+
+class AdminLogin(LoginView):
+    template_name = 'wagtailadmin/social_login.html'

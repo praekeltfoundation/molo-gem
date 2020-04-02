@@ -1,6 +1,5 @@
 import os
 from .base import *  # noqa
-from .base import USE_OIDC_AUTHENTICATION
 
 # Disable debug mode
 
@@ -12,6 +11,7 @@ ENV = 'prd'
 
 COMPRESS_OFFLINE = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Send notification emails as a background task using Celery,
 # to prevent this from blocking web server threads
@@ -61,9 +61,10 @@ GOOGLE_PLACES_API_SERVER_KEY = os.environ.get(
 )
 
 # Setup for CAS
-ENABLE_SSO = True
+ENABLE_SSO = os.environ.get('ENABLE_SSO', False)
+ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', True)
 
-if not USE_OIDC_AUTHENTICATION:
+if ENABLE_SSO:
     MIDDLEWARE += [  # noqa: F405
         'molo.core.middleware.MoloCASMiddleware',
         'molo.core.middleware.Custom403Middleware',
