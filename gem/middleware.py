@@ -12,14 +12,15 @@ from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
 from django.middleware.locale import LocaleMiddleware
 from django.http import JsonResponse, HttpResponseRedirect
-from django.utils.translation import get_language_from_request
+from django.utils.translation import (
+    get_language_from_request, LANGUAGE_SESSION_KEY)
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 from molo.core.utils import get_locale_code
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
-from molo.core.models import SiteSettings, ArticlePage, Languages
+from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
 from gem.models import GemSettings
@@ -42,9 +43,19 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
-class GEMLocaleMiddleware(LocaleMiddleware):
+class GemLocaleMiddleware(LocaleMiddleware):
     def process_request(self, request):
-        # inspect url get article locale if article, set it in session
+        has_slug = len(request.path.split('/')) > 1
+        slug = request.path.split('/')[-1]
+
+        if has_slug and request.path[-1] == '/':
+            slug = request.path.split('/')[-2]
+
+        if not request.session.get(LANGUAGE_SESSION_KEY) and (has_slug and slug):
+            page = MoloPage.objects.filter(slug=slug).first()
+            if page:
+                request.session[LANGUAGE_SESSION_KEY] = page.specific.language.locale
+
         return super().process_request(request)
 
 
