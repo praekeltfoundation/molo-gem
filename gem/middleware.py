@@ -51,10 +51,12 @@ class GemLocaleMiddleware(LocaleMiddleware):
         if has_slug and request.path[-1] == '/':
             slug = request.path.split('/')[-2]
 
-        if not request.session.get(LANGUAGE_SESSION_KEY) and (has_slug and slug):
+        session_exists = request.session.get(LANGUAGE_SESSION_KEY)
+        if not session_exists and (has_slug and slug):
             page = MoloPage.objects.filter(slug=slug).first()
             if page:
-                request.session[LANGUAGE_SESSION_KEY] = page.specific.language.locale
+                request.session[LANGUAGE_SESSION_KEY]\
+                    = page.specific.language.locale
 
         return super().process_request(request)
 
