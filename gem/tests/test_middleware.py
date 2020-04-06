@@ -1,20 +1,21 @@
-from django.test import RequestFactory, TestCase
-from django.test.client import Client
-
-from gem.middleware import GemMoloGoogleAnalyticsMiddleware
-from gem.models import GemSettings
-
 from mock import patch
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from molo.core.models import SiteSettings
-from gem.tests.base import GemTestCaseMixin
+from django.test import RequestFactory, TestCase
+from django.test.client import Client
+from django.utils.translation import (
+    get_language_from_request, LANGUAGE_SESSION_KEY)
 
+from molo.core.models import SiteSettings
 from molo.core.models import (
     Tag, ArticlePageTags,
     SectionIndexPage, TagIndexPage, FooterIndexPage,
     FooterPage, SiteLanguageRelation, Site, Languages)
+
+from gem.models import GemSettings
+from gem.tests.base import GemTestCaseMixin
+from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
@@ -396,3 +397,54 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response,
             {'cd5': self.footer.title,
                 "cd3": 'Visitor', 'cd1': "0000-000-01"})
+
+
+class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
+
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.site_settings = SiteSettings.for_site(self.main.get_site())
+
+        self.yourmind = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
+
+        self.article = self.mk_article(self.yourmind, title='article')
+        self.article.save_revision().publish()
+
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en',
+            is_active=True)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='fr',
+            is_active=True)
+
+        self.fr_article = self.mk_article_translation(
+            self.article, self.french)
+
+        self.fr_yourmind = self.mk_section_translation(
+            self.yourmind, self.french)
+
+    def test_non_default_language_existing_session(self):
+        request = RequestFactory().get('/locale/en/')
+        self.assertEqual(get_language_from_request(request), 'en')
+
+        request = RequestFactory()
+        request.session = {LANGUAGE_SESSION_KEY: 'en'}
+
+        fr_url = self.fr_article.url
+        request.get(fr_url)
+        self.assertEqual(get_language_from_request(request), 'en')
+
+    def test_non_default_language_new_session(self):
+        fr_url = self.fr_article.url
+        res = self.client.get(fr_url)
+        self.assertTrue('lang="fr"' in str(res.content))
+
+    def test_default_language(self):
+        res = self.client.get('/')
+        self.assertTrue('lang="en"' in str(res.content))
