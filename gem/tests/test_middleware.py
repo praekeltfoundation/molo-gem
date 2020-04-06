@@ -471,28 +471,6 @@ class TestAdminSiteAdminMiddleware(TestCase, GemTestCaseMixin):
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.site_settings = SiteSettings.for_site(self.site)
 
-        self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(),
-            title='Your mind')
-
-        self.article = self.mk_article(self.yourmind, title='article')
-        self.article.save_revision().publish()
-
-        self.english = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.site),
-            locale='en',
-            is_active=True)
-        self.french = SiteLanguageRelation.objects.create(
-            language_setting=Languages.for_site(self.site),
-            locale='fr',
-            is_active=True)
-
-        self.fr_article = self.mk_article_translation(
-            self.article, self.french)
-
-        self.fr_yourmind = self.mk_section_translation(
-            self.yourmind, self.french)
-
         self.user = User.objects.create_user(
             username='tester',
             is_staff=True,
@@ -500,6 +478,16 @@ class TestAdminSiteAdminMiddleware(TestCase, GemTestCaseMixin):
             password='tester')
         self.user.profile.admin_sites.add(self.site)
         self.user.user_permissions.add(self.get_admin_perms())
+
+    def test_access_admin_no_site_admin_permissions_superuser(self):
+        user, created = User.objects.get_or_create(
+            username='testusermidware',
+            is_staff=True, password='1234', is_superuser=True
+        )
+        user.user_permissions.add(self.get_admin_perms())
+        self.client.force_login(user)
+        res = self.client.get('/admin/')
+        self.assertEqual(res.status_code, 200)
 
     def test_access_admin_no_site_admin_permissions(self):
         user, created = User.objects.get_or_create(

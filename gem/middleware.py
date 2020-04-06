@@ -299,18 +299,20 @@ class CustomSessionRefresh(SessionRefresh):
 class AdminSiteAdminMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if '/admin' in request.path and request.user.is_authenticated:
-            # determine user user.profile.admin_sites
-            # perm denied if user is not related to admin_sites
-            # redirect to default admin site (first) or home
-            site = request.site
-            if site not in request.user.profile.admin_sites.all():
-                warning(
-                    request,
-                    _("You do not have the permissions to access {}."
-                      .format(site)))
-                site = request.user.profile.admin_sites.first()
-                if site:
-                    return HttpResponseRedirect(
-                        redirect_to=site.hostname+'/admin/')
-                return HttpResponseRedirect(redirect_to='/')
+        if request.user.is_authenticated:
+            is_superuser = request.user.is_superuser
+            if not is_superuser and '/admin' in request.path:
+                # determine user user.profile.admin_sites
+                # perm denied if user is not related to admin_sites
+                # redirect to default admin site (first) or home
+                site = request.site
+                if site not in request.user.profile.admin_sites.all():
+                    warning(
+                        request,
+                        _("You do not have the permissions to access {}."
+                          .format(site)))
+                    site = request.user.profile.admin_sites.first()
+                    if site:
+                        return HttpResponseRedirect(
+                            redirect_to=site.hostname+'/admin/')
+                    return HttpResponseRedirect(redirect_to='/')
