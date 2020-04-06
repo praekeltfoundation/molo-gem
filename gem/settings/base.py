@@ -181,6 +181,7 @@ MIDDLEWARE = [
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'gem.middleware.AdminSiteAdminMiddleware',
 ]
 
 
