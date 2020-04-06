@@ -8,9 +8,11 @@ from django.urls import reverse
 from django.conf import settings
 from django.utils.http import urlencode
 from django.http.response import Http404
+from django.contrib.messages import warning
 from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
 from django.middleware.locale import LocaleMiddleware
+from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse, HttpResponseRedirect
 from django.utils.translation import (
     get_language_from_request, LANGUAGE_SESSION_KEY)
@@ -292,3 +294,25 @@ class CustomSessionRefresh(SessionRefresh):
             response['refresh_url'] = redirect_url
             return response
         return HttpResponseRedirect(redirect_url)
+
+
+class AdminSiteAdminMiddleware(MiddlewareMixin):
+
+    def process_request(self, request):
+        if request.user.is_authenticated:
+            is_superuser = request.user.is_superuser
+            if not is_superuser and '/admin' in request.path:
+                # determine user user.profile.admin_sites
+                # perm denied if user is not related to admin_sites
+                # redirect to default admin site (first) or home
+                site = request.site
+                if site not in request.user.profile.admin_sites.all():
+                    warning(
+                        request,
+                        _("You do not have the permissions to access {}."
+                          .format(site)))
+                    site = request.user.profile.admin_sites.first()
+                    if site:
+                        return HttpResponseRedirect(
+                            redirect_to=site.hostname+'/admin/')
+                    return HttpResponseRedirect(redirect_to='/')

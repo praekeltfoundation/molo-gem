@@ -458,6 +458,8 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
             path='00010002', url_path='/main1/'
         )
         self.site = self.main.get_site()
+        self.user.profile.admin_sites.add(self.site)
+        self.client = Client(SERVER_NAME=self.site.hostname)
 
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_login_view(self):
@@ -470,6 +472,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     @override_settings(ENABLE_ALL_AUTH=True)
     def test_admin_views_authed_user(self):
         self.client.force_login(self.user)
+
         res = self.client.get(reverse('wagtailadmin_login'))
         self.assertEqual(res.status_code, 302)
         self.assertEqual(settings.ENABLE_ALL_AUTH, True)
@@ -491,7 +494,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         }
         res = self.client.post(url, data=data, request=req)
 
-        subject = '{}: Admin site invitation'.format('localhost [default]')
+        subject = '{}: Admin site invitation'.format(self.site)
         self.assertEqual(res.status_code, 302)
 
         self.assertEqual(len(mail.outbox), 1)
@@ -737,6 +740,7 @@ class TestAllAuthDisabled(GemTestCaseMixin, TestCase):
             path='00010002', url_path='/main1/'
         )
         self.site = self.main.get_site()
+        self.user.profile.admin_sites.add(self.site)
 
     @override_settings(ENABLE_ALL_AUTH=False)
     def test_login_all_auth_disabled(self):
