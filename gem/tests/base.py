@@ -11,8 +11,7 @@ from molo.core.models import (
 from molo.core.utils import generate_slug
 
 from molo.forms.models import (
-    MoloFormPage, MoloFormField, FormsIndexPage,
-    ArticlePageForms, MoloFormSubmission)
+    MoloFormPage, MoloFormField, ArticlePageForms)
 
 
 class GemTestCaseMixin(object):
