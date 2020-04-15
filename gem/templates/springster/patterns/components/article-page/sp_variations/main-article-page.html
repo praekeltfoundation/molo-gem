@@ -72,37 +72,4 @@
   {% else %}
     {% social_media_article page=self %}
   {% endif %}
-  {% load_reaction_question article as question %}
-  {% if question %}
-  <div class="reaction-questions__block">
-    {% include "patterns/basics/headings/sp_variations/heading.html" with type="subheading" htmltag="h3" title=question.title %}
-      {% load_user_can_vote_on_reaction_question question article.pk as user_can_vote%}
-        {% if user_can_vote %}
-          <form class="reaction-questions__form" action="{% url 'reaction-vote' article.slug question.id %}" method="post" novalidate>
-            {% csrf_token %}
-            <div class="reaction-questions__list">
-              {% load_choices_for_reaction_question question as choices %}
-                  {% for choice in choices %}
-                     <div class="reaction-questions__item">
-                        <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
-                        <label for="choice{{ forloop.counter }}">
-                          <div class="reaction-questions__image">
-                            {% image choice.specific.image width-50 %}
-                          </div>
-                          <div class="reaction-questions__label">
-                            {{ choice.title|capfirst }}
-                          </div>
-                        </label>
-                    </div>
-                {% endfor %}
-            </div>
-          </form>
 
-        {% else %}
-        <div class="errors">
-          {{ form.errors }}
-          {% trans "You have already submitted a response for this article." %}
-        </div>
-        {% endif %}
-    </div>
-  {% endif %}

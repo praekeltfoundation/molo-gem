@@ -84,43 +84,6 @@
     {% social_media_article page=self %}
   {% endif %}
 
-  {% load_reaction_question self as question %}
-  {% if question %}
-  <div class="reaction-questions__block">
-    <div class="heading heading__subheading">
-      <h3>{{question.title}}</h3>
-    </div>
-      {% load_user_can_vote_on_reaction_question question self.pk as user_can_vote%}
-        {% if user_can_vote %}
-          <form class="reaction-questions__form" action="{% url 'reaction-vote' self.slug question.id %}" method="post" novalidate>
-            {% csrf_token %}
-            <div class="reaction-questions__list">
-              {% load_choices_for_reaction_question question as choices %}
-                  {% for choice in choices %}
-                     <div class="reaction-questions__item">
-                        <input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.specific.get_main_language_page.id }}" />
-                        <label for="choice{{ forloop.counter }}">
-                          <div class="reaction-questions__image">
-                            {% image choice.specific.image width-50 %}
-                          </div>
-                          <div class="reaction-questions__label">
-                            {{ choice.title|capfirst }}
-                          </div>
-                        </label>
-                    </div>
-                {% endfor %}
-            </div>
-          </form>
-
-        {% else %}
-        <div class="errors">
-          {{ form.errors }}
-          {% trans "You have already submitted a response for this article." %}
-        </div>
-        {% endif %}
-    </div>
-  {% endif %}
-
   {#{% include "patterns/basics/article-tags/sp_article-page-tag.html" %}#}
   {% if settings.core.SiteSettings.enable_tag_navigation %}
     {% if tags %}
