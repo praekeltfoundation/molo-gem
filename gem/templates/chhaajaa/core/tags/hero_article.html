@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags molo_forms_tags %}
 {% get_settings %}
 
 {% if articles %}
@@ -42,6 +42,8 @@
             {% endfor %}
         </div>
         <div class="teaser-stacklist__cta-buttons">
+          {% forms_list_for_pages page=self %}
+          {% forms_list_linked_to_pages self %}
 
           {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
             <div class="share__item">
