@@ -57,9 +57,17 @@ class GemLocaleMiddleware(LocaleMiddleware):
         if not session_exists and (has_slug and slug):
             page = MoloPage.objects.filter(slug=slug).first()
             if page:
-                request.session[LANGUAGE_SESSION_KEY]\
-                    = page.specific.language.locale
+                specific = getattr(page, 'specific', None)
+                specific_language = specific and getattr(
+                    page.specific, 'language', None)
 
+                if specific_language:
+                    request.session[LANGUAGE_SESSION_KEY]\
+                        = page.specific.language.locale
+
+                elif hasattr(page, 'language'):
+                    request.session[LANGUAGE_SESSION_KEY] \
+                        = page.language.locale
         return super().process_request(request)
 
 
