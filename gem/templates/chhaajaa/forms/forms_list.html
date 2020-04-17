@@ -36,7 +36,7 @@
       {% else %}
       {% trans "Take The Form" as button_text %}
       <div class="call-to-action call-to-action--forms">
-          <a href="{% pageurl form_page %}" class="call-to-action__nav-item call-to-action__nav-item--forms">{{ form_page.homepage_button_text|default:button_text }}</a>
+          <a href="{% pageurl form_page %}" class="call-to-action__button call-to-action__button--primary">{{ form_page.homepage_button_text|default:button_text }}</a>
       </div>
       {% endif %}
     {% endwith %}
