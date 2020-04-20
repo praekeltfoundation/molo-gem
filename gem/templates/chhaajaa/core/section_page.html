@@ -75,8 +75,7 @@
                         <!-- END RICH TEXT -->
                       </div>
                       <div class="teaser-stacklist__cta-buttons">
-                        {% forms_list_for_pages page=self %}
-                        {% forms_list_linked_to_pages self %}
+                        {% forms_list_linked_to_pages featured_article %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                           <div class="share__item">
@@ -274,6 +273,9 @@
                       {% endfor %}
                     </div>
                     <div class="service-stacklist__cta-buttons">
+
+                      {% forms_list_linked_to_pages service %}
+
                       <a href="{% pageurl service.specific %}" class="service-stacklist__link">
                         {{ service.title|smarttruncatechars:25|safe}}
                       </a>
