@@ -51,11 +51,7 @@
                             {% endif %}
 
                             {% has_forms page=self as has_polls %}
-                            {% if has_polls %}
-                              <div class="vote__item">
-                                <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                              </div>
-                            {% endif %}
+                            {% forms_list_linked_to_pages self %}
 
                             {% if self.is_commenting_enabled %}
                               {% if self.allow_commenting %}
@@ -83,7 +79,7 @@
                   </div>
                 </div>
                 {% forms_list_for_pages page=self %}
-                {% forms_list_linked_to_pages self %}
+
                 {% include "comments/comment_block.html" with article=self %}
               </div>
 
@@ -194,6 +190,9 @@
                 {% endif %}
 
                 {% if self.is_commenting_enabled %}
+
+                  {% forms_list_linked_to_pages self %}
+
                   {% if self.allow_commenting %}
                     {% if request.user.is_authenticated %}
                       <div class="comments__item">
