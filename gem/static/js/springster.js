@@ -64,9 +64,9 @@
         wrapper.appendChild(moreLink);
         wrapper.setAttribute("id", "articles-more");
         wrapper.addEventListener("click", function(event) {
-          event.preventDefault();
           var element = event.target;
           if (element.tagName == 'A' &&element.classList.contains("more-link")) {
+            event.preventDefault();
             element.classList.add('call-to-action__button--loader');
             element.setAttribute('value', '');
             element.innerHTML = '';
