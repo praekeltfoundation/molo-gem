@@ -745,4 +745,3 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
             self.assertTrue(form.title in str(res.content))
-        
