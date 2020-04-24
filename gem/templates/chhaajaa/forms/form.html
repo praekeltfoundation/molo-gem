@@ -2,6 +2,7 @@
 <form id="survey-form" action="{% pageurl form_page %}" method="post" class="polls__form" novalidate>
 {% csrf_token %}
   {{ form.media }}
+
   {% for field in form %}
     {% if field|fieldtype == 'RadioSelect' %}
     <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
@@ -24,8 +25,10 @@
     </fieldset>
     {% else %}
       <fieldset>
+        {% if field|fieldtype == 'hidden' %}
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <span class="forms__helptext">{{ field.help_text }}</span>
+        {% endif %}
         {{ field }}
         {% if field.errors %}
         <ul class="error error--forms">
