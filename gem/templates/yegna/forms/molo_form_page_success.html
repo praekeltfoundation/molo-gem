@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
+{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags molo_forms_tags %}
 
 {% block content %}
 <div class="contact">
@@ -18,7 +18,7 @@
         {% endif %}
         {% if page.thank_you_text %}
           <div class="contact-headings">
-            <h3 class="contact-headings__medium">{{ page.thank_you_text }}</h3>
+            <h3 class="contact-headings__medium">{{ page.thank_you_text|url_to_anchor|safe }}</h3>
           </div>
         {% else %}
           <div class="contact-headings">
