@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags molo_forms_tags %}
 
 {% block content %}
   <!-- {# HEADING #} -->
@@ -78,7 +78,7 @@
   {% else %}
     {% if self.thank_you_text %}
       <div class="heading heading__subheading">
-        <h3>{{self.thank_you_text}}</h3>
+        <h3>{{self.thank_you_text|url_to_anchor|safe}}</h3>
       </div>
     {% else %}
       <div class="heading heading__subheading">
