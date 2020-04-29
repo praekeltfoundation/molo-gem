@@ -107,4 +107,9 @@
       {% endwith %}
     </div>
   {% endif %}
+
+  {% if not fields_step or fields_step and fields_step.number == 1 %}
+  <input type="hidden" name="article_page" value="{{ self.pk }}" />
+  {% endif %}
+
 </form>

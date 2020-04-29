@@ -69,6 +69,10 @@
         <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
     {% endif %}
 
+    {% if not fields_step or fields_step and fields_step.number == 1 %}
+    <input type="hidden" name="article_page" value="{{ self.pk }}" />
+    {% endif %}
+
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="{{formtypeClass}}__pagination">
         <p class="{{formtypeClass}}__page">
