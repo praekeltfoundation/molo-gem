@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags static %}
+{% load wagtailimages_tags static molo_forms_tags %}
 
 {% block content %}
   {% if self.your_words_competition %}
@@ -17,7 +17,7 @@
       <img src="{% static 'img/Pencil.png' %}" />
       <h4 class="surveys__thank-you">
         {% if self.thank_you_text %}
-          {{ self.thank_you_text }}
+          {{ self.thank_you_text|url_to_anchor|safe }}
         {% else %}
           {% trans "Thanks for submitting your story! You’ll find out soon if you’re a winner!" %}
         {% endif %}
@@ -44,7 +44,7 @@
         <div class="poll__form-block">
           <h2 class="poll__question-title">{{ self.title }}</h2>
           {% if self.thank_you_text %}
-            <h3 class="poll__title">{{ self.thank_you_text }}</h3>
+            <h3 class="poll__title">{{ self.thank_you_text|url_to_anchor|safe }}</h3>
           {% else %}
             <h3 class="poll__title">
               {% trans "Thank you for submitting poll!" %}
@@ -57,7 +57,7 @@
       <h1 class="surveys__title">{% trans "Survey Results" %}</h1>
       <h4 class="surveys__thank-you">
         {% if self.thank_you_text %}
-          {{ self.thank_you_text }}
+          {{ self.thank_you_text|url_to_anchor|safe }}
         {% else %}
           {% trans "Thank you for submitting survey!" %}
         {% endif %}

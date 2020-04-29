@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags molo_forms_tags %}
 {% block content %}
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
@@ -60,7 +60,7 @@
         {% else %}
           {% if self.thank_you_text %}
             <h2 class="heading__headline">{% trans "Thank you" %}</h2>
-            <h3 class="heading__subtitle">{{self.thank_you_text}}</h3>
+            <h3 class="heading__subtitle">{{self.thank_you_text|url_to_anchor|safe}}</h3>
           {% else %}
             <h2 class="heading__headline">
               {% if self.your_words_competition %}
