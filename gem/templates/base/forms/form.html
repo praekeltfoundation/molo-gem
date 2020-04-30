@@ -6,9 +6,13 @@
       {{ form.media }}
   {% endif %}
     {% for field in form %}
+
+    {% if field|fieldtype != 'HiddenInput' %}
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% endif %}
+
         {% if field.help_text %}
           {% if field|fieldtype == 'CharacterCountWidget' %}
             <span class="{{formtypeClass}}__helptext helptext">{{ field.help_text }}</span>
@@ -21,8 +25,7 @@
             <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
             <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
           </div>
-        {% endif %}
-        {% if field|fieldtype == 'RadioSelect' %}
+        {% elif field|fieldtype == 'RadioSelect' %}
             <ul>
               {% for choice in field.field.choices %}
                 <li>
@@ -40,6 +43,8 @@
               </li>
             {% endfor %}
           </ul>
+      {% elif field|fieldtype == 'HiddenInput' %}
+        <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="hidden" value="{{ value }}" />
       {% else %}
         {{ field }}
       {% endif %}
@@ -51,8 +56,10 @@
           {% endfor %}
           </ul>
         {% endif %}
+  {% if field|fieldtype != 'HiddenInput' %}
       </div>
     </fieldset>
+  {% endif %}
     {% endfor %}
 
     {% trans "Done" as text %}
