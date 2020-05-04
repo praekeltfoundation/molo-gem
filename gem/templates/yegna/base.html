@@ -1,6 +1,6 @@
 {% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
 {% load core_tags staticfiles compress gem_tags %}
-{% get_current_language as LANGUAGE_CODE %}
+
 {% get_settings %}
 {% spaceless %}
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]>
 <!-->
-<html class="no-js" lang="{{LANGUAGE_CODE}}">
+<html class="no-js" lang="{{request.LANGUAGE_CODE}}">
 <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
@@ -95,7 +95,7 @@
   <link href="{{ STATIC_URL }}css/{{ ENV }}/yegna.css" rel="stylesheet" media="all">
   {% endcompress %}
 </head>
-<body {% block body_class %}{% endblock %} {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+<body {% block body_class %}{% endblock %} {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   <img alt="Yegna" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/yegna-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
   {% wagtailuserbar %}
   {% block google_analytics %}
@@ -117,7 +117,7 @@
           <ul class="languages-list">
             {% for language in languages %}
               <li class="languages-list__item">
-                <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if LANGUAGE_CODE == language.locale %} languages-list__anchor--active{% endif %}">
+                <a rel="alternate" hreflang="{{language.locale | language_name_local}}" href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="languages-list__anchor{% if request.LANGUAGE_CODE == language.locale %} languages-list__anchor--active{% endif %}">
                   {{language.locale | language_name_local}}
                 </a>
               </li>
