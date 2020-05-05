@@ -1,6 +1,6 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if form %}
-<form class="{{formtypeClass}}__form" action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
+<form class="{{formtypeClass}}__form" action="{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% else %}{% pageurl form_page %}{% endif %}" method="post" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
@@ -77,8 +77,8 @@
     {% endif %}
 
     {% if not fields_step or fields_step and fields_step.number == 1 %}
-    <input type="hidden" name="article_page" value="{{ self.pk }}" />
-    {% endif %}
+    <input type="hidden" name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
+{% endif %}
 
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="{{formtypeClass}}__pagination">

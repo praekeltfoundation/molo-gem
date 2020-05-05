@@ -21,7 +21,11 @@
                   </h4>
                 {% endif %}
                 {% if form %}
-                  {% include "forms/form.html" with formtype="poll" formtypeClass="polls" %}
+                  {% if self.content_type|lower == 'article' %}
+                    {% include "forms/form.html" with formtype="reaction" formtypeClass="polls" %}
+                  {% else %}
+                    {% include "forms/form.html" with formtype="poll" formtypeClass="polls" %}
+                  {% endif %}
                 {% endif %}
               </section>
               {% if form_page.image %}

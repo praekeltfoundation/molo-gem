@@ -99,7 +99,7 @@
               {% endif %}
             </button>
             {% if not fields_step or fields_step and fields_step.number == 1 %}
-            <input type="hidden" name="article_page" value="{{ self.pk }}" />
+            <input type="hidden" name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
             {% endif %}
           </form>
           {% if fields_step and fields_step.paginator.num_pages > 1 %}
