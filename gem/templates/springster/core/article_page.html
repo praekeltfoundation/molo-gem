@@ -84,6 +84,7 @@
     {% social_media_article page=self %}
   {% endif %}
 
+  {% forms_list_for_pages page=self %}
   {% forms_list_linked_to_pages self %}
 
   {#{% include "patterns/basics/article-tags/sp_article-page-tag.html" %}#}
@@ -260,8 +261,5 @@
     </div>
     {% endif %}
   {% endif %}
-
-  {% forms_list_for_pages page=self %}
-  {% forms_list_linked_to_pages self %}
 </div>
 {% endblock %}

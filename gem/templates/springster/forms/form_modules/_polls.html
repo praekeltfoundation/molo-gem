@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
+
+{% block content %}
+  <div class="polls polls--call-to-action">
+    <div class="polls__bubble-icon"></div>
+    <div class="polls__container">
+      <div class="heading heading__micro">
+        <p>{% trans "Take a vote!" %}</p>
+      </div>
+      <div class="heading heading__subheading">
+        <h3>{{self.title}}</h3>
+      </div>
+    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+      {% include "forms/form_modules/form.html" %}
+    {% else %}
+      <div class="polls">
+        <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+          <span class="call-to-action__button-text call-to-action__button-text--primary">
+            {% trans "Log in to take poll" %}
+          </span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
