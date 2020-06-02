@@ -203,6 +203,11 @@
               </p>
           </div>
         {% endif %}
+
+        {% if not fields_step or fields_step and fields_step.number == 1 %}
+        <input type="hidden" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
+        {% endif %}
+
       </form>
     {% else %}
       <!-- {# FEEDBACK #} -->

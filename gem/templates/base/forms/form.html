@@ -1,14 +1,18 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if form %}
-<form class="{{formtypeClass}}__form" action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% endif %}" method="post" novalidate>
+<form class="{{formtypeClass}}__form" action="{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:"1" }}{% else %}{% pageurl form_page %}{% endif %}" method="post" novalidate>
 {% csrf_token %}
   {% if not is_via_freebasics %}
       {{ form.media }}
   {% endif %}
     {% for field in form %}
+
+    {% if field|fieldtype != 'HiddenInput' %}
     <fieldset>
       <div class="input-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% endif %}
+
         {% if field.help_text %}
           {% if field|fieldtype == 'CharacterCountWidget' %}
             <span class="{{formtypeClass}}__helptext helptext">{{ field.help_text }}</span>
@@ -21,8 +25,7 @@
             <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
             <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
           </div>
-        {% endif %}
-        {% if field|fieldtype == 'RadioSelect' %}
+        {% elif field|fieldtype == 'RadioSelect' %}
             <ul>
               {% for choice in field.field.choices %}
                 <li>
@@ -40,6 +43,8 @@
               </li>
             {% endfor %}
           </ul>
+      {% elif field|fieldtype == 'HiddenInput' %}
+        <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="hidden" value="{{ value }}" />
       {% else %}
         {{ field }}
       {% endif %}
@@ -51,8 +56,10 @@
           {% endfor %}
           </ul>
         {% endif %}
+  {% if field|fieldtype != 'HiddenInput' %}
       </div>
     </fieldset>
+  {% endif %}
     {% endfor %}
 
     {% trans "Done" as text %}
@@ -68,6 +75,10 @@
     {% else %}
         <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
     {% endif %}
+
+    {% if not fields_step or fields_step and fields_step.number == 1 %}
+    <input type="hidden" name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
+{% endif %}
 
     {% if fields_step and fields_step.paginator.num_pages > 1 %}
       <div class="{{formtypeClass}}__pagination">
