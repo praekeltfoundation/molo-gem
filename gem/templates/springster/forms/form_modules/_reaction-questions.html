@@ -10,7 +10,6 @@
         <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
       {% endif %}
     </div>
-
     {% if form %}
       <form action="{% if not request.is_preview %}{% pageurl form_page %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="reaction-questions__form" novalidate>
       {% csrf_token %}
@@ -23,22 +22,23 @@
             {% if not field|fieldtype == 'HiddenInput' %}
               {% if field|fieldtype == 'CheckboxInput' or field|fieldtype == 'CheckboxSelectMultiple' or field|fieldtype == 'RadioSelect' %}
 
-              <div class="reaction-questions__item">
+              <div class="reaction-questions__items">
                 <label class="reaction-questions__label" for="{{ field.id_for_label }}">
                   {{ field.label|capfirst }}
                 </label>
                 <div class="reaction-questions__choices">
                 {% for value, text in field.field.choices %}
                   <div class="reaction-questions__choices-items">
-                    <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                    <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                    <input name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.field.widget.input_type }}" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                    <label for="{{ field.id_for_label }}">
+                      {{ text|capfirst }}
+                    </label>
                   </div>
                 {% endfor %}
                 </div>
               </div>
-
               {% else %}
-                <div class="reaction-questions__item">
+                <div class="reaction-questions__items">
                   <label class="reaction-questions__label" for="{{ field.id_for_label }}">
                     {{ field.label|capfirst }}
                   </label>
@@ -50,8 +50,41 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% if field.errors %}
+            <ul class="error-list errorlist">
+            {% for error in field.errors %}
+              <li class="error-list__item">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
           </div>
         </fieldset>
+
+        <button type="submit" class="call-to-action__button call-to-action__button--primary">
+          {% if is_intermediate_step %}
+            {% trans 'Next Question' %}
+          {% elif self.submit_text %}
+            {{self.submit_text}}
+          {% else %}
+            {% trans 'Submit' %}
+          {% endif %}
+        </button>
+        
+        {% if fields_step and fields_step.paginator.num_pages > 1 %}
+          <div class="reaction-questions__pagination">
+            <p class="reaction-questions__page">
+              {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+                {% trans Page %}
+                <span class="reaction-questions__page-number">{{ page }}</span>
+                {% trans of %} <span class="reaction-questions__page-number">{{ pages }}</span>
+              {% endwith %}
+            </p>
+          </div>
+        {% endif %}
+
+        {% if not fields_step or fields_step and fields_step.number == 1 %}
+          <input type="hidden" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
+        {% endif %}
       </form>
     {% endif %}
   </div>
