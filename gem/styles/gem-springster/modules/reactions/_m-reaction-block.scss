@@ -1,64 +1,102 @@
 .reaction-questions {
+  text-align: center;
+  .heading {
+    margin: 0;
+  }
   &__block {
     @include divider-combo-1;
     background-color: $springster-purple-light;
     padding: 20px 0;
   }
-
-  &__list {
+  &__list {}
+  &__item {
+    span {
+      display: block;
+      text-align: left;
+    }
+  }
+  &__label {
+    @include font($baton-regular);
+    font-size: $font-small;
+    display: block;
+    cursor: pointer;
     text-align: center;
   }
 
-  &__item {
-    display: inline-block;
-    margin: 0 20px;
+  &__choices {
+    display: flex;
+    justify-content: center;
+    &-items {}
 
-    input {
-      display: none;
+    input[type="radio"],
+    input[type="checkbox"] {
+      display: block;
+      padding: 0;
+      & ~ label {
+        align-items: center;
+        font-size: $font-xxx-small;
+        flex-direction: column;
+        text-transform: uppercase;
+        visibility: visible;
+        display: flex;
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+        justify-content: center;
+        text-align: center;
+        &:before {
+          background: #fff;
+          border: 3px solid $springster-purple;
+          content: "";
+          cursor: pointer;
+          display: block;
+          width: 25px;
+          height: 25px;
+          margin: 5px 15px;
+          transition: all ease-in-out 0.2s;
+        }
+      }
+      & ~ label
+      & + label,
+      &:checked + label {
+        background: none;
+      }
+      &:checked + label:before {
+        background: $springster-purple-light;
+        opacity: 1;
+      }
     }
-  }
 
-  &__image {
-    cursor: pointer;
-    line-height: 80px;
-
-    img {
-      vertical-align: middle;
+    input[type="radio"] {
+      & ~ label:before {
+        border-radius: 50%;
+      }
     }
-  }
-
-  &__label {
-    @include font($baton-regular);
-    font-size: $font-x-large;
-    display: block;
-    cursor: pointer;
   }
 
   &__message {
     text-align: center;
     padding: 0 10px 10px;
   }
-}
-
-.reaction-questions-success {
-  &__block {
-    background-color: $mint-green;
-    padding-top: 20px;
-    text-align: center;
-    .heading__micro-alt {
-      padding: 10px;
-      margin: 0;
+  &-success {
+    &__block {
+      background-color: $mint-green;
+      padding-top: 20px;
+      text-align: center;
+      .heading__micro-alt {
+        padding: 10px;
+        margin: 0;
+      }
     }
-  }
-
-  &__image {
-    margin: 10px;
-    display: inline-block;
-    img {
-      vertical-align: middle;
-      width: 100%;
-      height: auto;
-      max-width: 344px;
+    &__image {
+      margin: 10px;
+      display: inline-block;
+      img {
+        vertical-align: middle;
+        width: 100%;
+        height: auto;
+        max-width: 344px;
+      }
     }
   }
 }

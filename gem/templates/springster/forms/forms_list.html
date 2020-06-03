@@ -45,8 +45,9 @@
           {% include 'forms/form_modules/polls_landing.html' %}
 
         {% elif form_page.article_form_only and not form_page.personalisableform %}
-          {# ONLY SHOW ON ARTICLE PAGE #}
-          --
+
+          {% include 'forms/form_modules/_reaction-questions.html' %}
+
         {% elif form_page.personalisableform or form_page.personalisableform and form_page.your_words_competition or form_page.personalisableform and form_page.display_form_directly %}
 
           {% include 'forms/form_modules/surveys_landing.html' %}

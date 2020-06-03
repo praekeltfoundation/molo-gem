@@ -1,0 +1,58 @@
+{% load wagtailcore_tags wagtailsettings_tags static gem_tags %}
+
+<div class="reaction-questions">
+  <div class="reaction-questions__block">
+    <div class="heading heading__subheading">
+      <h3>{{form_page.title}}</h3>
+    </div>
+    <div class="heading heading__micro">
+      {% if form_page.homepage_introduction %}
+        <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+      {% endif %}
+    </div>
+
+    {% if form %}
+      <form action="{% if not request.is_preview %}{% pageurl form_page %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="reaction-questions__form" novalidate>
+      {% csrf_token %}
+        {% if not is_via_freebasics %}
+          {{ form.media }}
+        {% endif %}
+        <fieldset>
+          <div class="input-group reaction-questions__list">
+          {% for field in form %}
+            {% if not field|fieldtype == 'HiddenInput' %}
+              {% if field|fieldtype == 'CheckboxInput' or field|fieldtype == 'CheckboxSelectMultiple' or field|fieldtype == 'RadioSelect' %}
+
+              <div class="reaction-questions__item">
+                <label class="reaction-questions__label" for="{{ field.id_for_label }}">
+                  {{ field.label|capfirst }}
+                </label>
+                <div class="reaction-questions__choices">
+                {% for value, text in field.field.choices %}
+                  <div class="reaction-questions__choices-items">
+                    <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                    <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+                  </div>
+                {% endfor %}
+                </div>
+              </div>
+
+              {% else %}
+                <div class="reaction-questions__item">
+                  <label class="reaction-questions__label" for="{{ field.id_for_label }}">
+                    {{ field.label|capfirst }}
+                  </label>
+                  {% if field.help_text %}
+                    <p class="helptext">{{ field.help_text }}</p>
+                  {% endif %}
+                  {{field}}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </div>
+        </fieldset>
+      </form>
+    {% endif %}
+  </div>
+</div>
