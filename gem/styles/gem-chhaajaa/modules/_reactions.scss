@@ -2,30 +2,26 @@
   display: inline-block;
   vertical-align: top;
   &__icon {
-    background-image: url('/static/img/icons/chhaajaa/likes.png') !important;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 30px;
-    width: 35px;
-    margin: 0 auto 10px;
-  }
-  &__label {
     color: $colorGrey;
-    font-size: 14px;
+    font-weight: 600;
+    font-family: "FedraSansDevanagariB-Demi";
     text-align: center;
-    &--like {
-      .reaction-questions__icon {
-        background-position: 5px 0;
-      }
-    }
-    &--dislike {
-      .reaction-questions__icon {
-        background-position: 3px -124px;
-      }
+    font-size: 14px;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/likes.png');
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      content: " ";
+      display: block;
+      height: 30px;
+      width: 35px;
+      margin: 0 auto 10px;
     }
   }
+
   &__item {
     display: inline-block;
     margin: 0 5px;

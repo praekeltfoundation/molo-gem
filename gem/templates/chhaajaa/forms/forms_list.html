@@ -37,11 +37,22 @@
             </div>
           </div>
         </div>
+      {% elif form_page.article_form_only and not form_page.personalisableform %}
+
+        {% trans "Take The Form" as button_text %}
+        <div class="reaction-questions">
+          <a href="{% pageurl form_page %}" class="reaction-questions__icon">
+            {{ form_page.homepage_button_text|default:button_text }}
+          </a>
+        </div>
+
       {% else %}
-      {% trans "Take The Form" as button_text %}
-      <div class="call-to-action call-to-action--forms">
+
+        {% trans "Take The Form" as button_text %}
+        <div class="call-to-action call-to-action--forms">
           <a href="{% pageurl form_page %}" class="call-to-action__button call-to-action__button--primary">{{ form_page.homepage_button_text|default:button_text }}</a>
-      </div>
+        </div>
+
       {% endif %}
     {% endwith %}
   {% endfor %}
