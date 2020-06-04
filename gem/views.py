@@ -200,29 +200,38 @@ def clean_comment(self):
     Check for email addresses, telephone numbers and any other keywords or
     patterns defined through GemSettings.
     """
+
     comment = self.cleaned_data['comment']
+    comment_moderator_groups = ['comment_moderator']
 
-    site = Site.objects.get(is_default_site=True)
-    settings = GemSettings.for_site(site)
+    should_validate = \
+        not self.request \
+        or self.request and \
+        not self.request.user.groups.filter(
+            name__in=comment_moderator_groups).exists()
 
-    banned_list = [REGEX_EMAIL, REGEX_PHONE]
+    if should_validate:
+        site = Site.objects.get(is_default_site=True)
+        settings = GemSettings.for_site(site)
 
-    banned_keywords_and_patterns = \
-        settings.banned_keywords_and_patterns.split('\n') \
-        if settings.banned_keywords_and_patterns else []
+        banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
-    banned_list += banned_keywords_and_patterns
+        banned_keywords_and_patterns = \
+            settings.banned_keywords_and_patterns.split('\n') \
+            if settings.banned_keywords_and_patterns else []
 
-    for keyword in banned_list:
-        keyword = keyword.replace('\r', '')
-        match = re.search(keyword, comment.lower())
-        if match:
-            raise forms.ValidationError(
-                _(
-                    'This comment has been removed as it contains profanity, '
-                    'contact information or other inappropriate content. '
+        banned_list += banned_keywords_and_patterns
+
+        for keyword in banned_list:
+            keyword = keyword.replace('\r', '')
+            match = re.search(keyword, comment.lower())
+            if match:
+                raise forms.ValidationError(
+                    _(
+                        'This comment has been removed as it contains profanity, '
+                        'contact information or other inappropriate content. '
+                    )
                 )
-            )
 
     return comment
 
