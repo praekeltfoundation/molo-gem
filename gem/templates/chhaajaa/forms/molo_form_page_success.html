@@ -78,31 +78,26 @@
           {% else %}
             <h2 class="heading__headline">
               {% if self.your_words_competition %}
-                {% with wordSetting='GCN competition' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your GCN competition has been completed successfully!" %}
               {% elif self.display_form_directly %}
-                {% with wordSetting='poll' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your poll has been completed successfully!" %}
+              {% elif self.contact_form or self.article_form_only %}
+                {% trans "The form has been completed successfully!" %}
               {% else %}
-                {% with wordSetting='survey' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your survey has been completed successfully!" %}
               {% endif %}
             </h2>
+            <h3 class="heading__subtitle">
+              {% if self.your_words_competition %}
+                {% trans "Thank you for submitting this GCN competition!" %}
+              {% elif self.display_form_directly %}
+                {% trans "Thank you for submitting this poll!" %}
+              {% elif self.contact_form or self.article_form_only %}
+                {% trans "Thank you for submitting this form" %}
+              {% else %}
+                {% trans "Thank you for submitting this survey!" %}
+              {% endif %}
+            </h3>
           {% endif %}
         {% endif %}
         <nav>

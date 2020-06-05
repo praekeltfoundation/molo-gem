@@ -89,7 +89,25 @@
             </a>
           {% endif %}
         {% else %}
-          <button type="submit" class="call-to-action__button call-to-action__button--primary">{% if is_intermediate_step %} {% trans 'Next Question' %} {% elif self.submit_text %} {{self.submit_text}} {% else %} {% trans 'Submit' %} {% if self.your_words_competition %}{% trans 'competition' %}{% elif self.display_form_directly %}{% trans 'poll' %}{% else %}{% trans 'survey' %}{% endif %}{% endif %}</button>
+          <button type="submit" class="call-to-action__button call-to-action__button--primary">
+            {% if is_intermediate_step %}
+              {% trans 'Next Question' %}
+            {% elif self.submit_text %}
+              {{self.submit_text}}
+            {% else %}
+              {% trans 'Submit' %}
+              {% if self.your_words_competition %}
+                {% trans 'competition' %}
+              {% elif self.display_form_directly %}
+                {% trans 'poll' %}
+              {% elif self.contact_form %}
+                {% trans 'contact' %}
+              {% elif self.article_form_only %}
+                {% trans 'question' %}
+              {% else %}
+                {% trans 'survey' %}
+              {% endif %}
+            {% endif %}</button>
         {% endif %}
       </div>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
@@ -102,6 +120,7 @@
         </div>
       {% endif %}
     </form>
+
 {% else %}
   <p class="error-list__item">
     {% trans 'You have already completed this ' %}
@@ -112,11 +131,12 @@
     {% elif self.contact_form %}
       {% trans 'contact form' %}
     {% elif self.article_form_only %}
-      {% trans 'question.' %}
+      {% trans 'question' %}
     {% else %}
       {% trans 'survey' %}
     {% endif %}
   </p>
+
   <div class="call-to-action--group">
     {% if request.path == "/" %}
       <a href="{% pageurl form %}success/" class="call-to-action__button call-to-action__button--primary">
@@ -128,4 +148,5 @@
       </a>
     {% endif %}
   </div>
+
 {% endif %}
