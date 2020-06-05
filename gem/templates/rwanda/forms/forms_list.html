@@ -98,7 +98,7 @@
                     <nav>
                       <div class="call-to-action--group">
                         {% if request.path == "/" %}
-                          <a href="{% pageurl form_page %}success/" class="call-to-action__button call-to-action__button--primary">
+                          <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
                             {% trans "Show results" %}
                           </a>
                         {% else %}

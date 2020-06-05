@@ -161,7 +161,7 @@
               </p>
               <div class="call-to-action--group">
                 {% if request.path == "/" %}
-                  <a href="{% pageurl form %}success/" class="call-to-action__button call-to-action__button--primary">
+                  <a href="{% url 'molo.forms:success' form.slug %}" class="call-to-action__button call-to-action__button--primary">
                     {% trans "Show Results" %}
                   </a>
                 {% else %}

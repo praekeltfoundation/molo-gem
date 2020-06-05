@@ -38,7 +38,7 @@
           {% else %}
           <p class="error error--poll">{% trans 'You have already completed this poll.' %}</p>
             {% if request.path == "/" %}
-              <a href="{% pageurl form_page %}success/" class="button call-to-action__button call-to-action__button--primary">
+              <a href="{% url 'molo.forms:success' form_page.slug %}" class="button call-to-action__button call-to-action__button--primary">
                 {% trans "Show Results" %}
               </a>
             {% else %}
