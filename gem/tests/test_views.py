@@ -1,5 +1,5 @@
 from copy import deepcopy
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission, Group
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.urls import reverse
@@ -420,8 +420,30 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/admin/commenting/molocomment/')
 
+    def get_admin_perms(self):
+        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+            app_label='wagtailadmin',
+            model='admin'
+        )
+        admin_permission, created = Permission.objects.get_or_create(
+            content_type=wagtailadmin_content_type,
+            codename='access_admin',
+            name='Can access Wagtail admin'
+        )
+        return admin_permission
+
     def test_non_moderator_user_contact_information_comment(self):
-        self.client.login(username='admin', password='admin')
+        user = User.objects.create_user(
+            username='staffuser',
+            email='staffuser@example.com',
+            is_staff=True,
+            password='tester')
+        admin_permission = self.get_admin_perms()
+        user.user_permissions.add(admin_permission)
+        user.profile.admin_sites.add(self.main.get_site())
+
+        self.assertTrue(user.has_perm('wagtailadmin.access_admin'))
+        self.client.force_login(user)
 
         comment = self.create_comment(
             self.article, 'test comment1 text', self.superuser)
@@ -448,6 +470,13 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
                 'contact information or other inappropriate content. '
             ]}
         )
+
+        group, created = Group.objects.get_or_create(
+            name='comment_moderator')
+        user.groups.add(group)
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
