@@ -3,15 +3,13 @@
   <form class="{{formtypeClass}}__form" action="{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% else %}{% pageurl self.specific %}{% endif %}" method="post" novalidate>
   {% csrf_token %}
     {% if not is_via_freebasics %}
-        {{ form.media }}
+      {{ form.media }}
     {% endif %}
       {% for field in form %}
       {% if field|fieldtype != 'HiddenInput' %}
       <fieldset>
         <div class="input-group">
           <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {% endif %}
-
           {% if field.help_text %}
             {% if field|fieldtype == 'CharacterCountWidget' %}
               <span class="{{formtypeClass}}__helptext helptext">{{ field.help_text }}</span>
@@ -25,14 +23,14 @@
               <label for="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
             </div>
           {% elif field|fieldtype == 'RadioSelect' %}
-              <ul>
-                {% for choice in field.field.choices %}
-                  <li>
-                    <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="radio" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked="checked"{% endif %}>
-                    <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
-                  </li>
-                {% endfor %}
-              </ul>
+            <ul>
+              {% for choice in field.field.choices %}
+                <li>
+                  <input id="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}" type="radio" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked="checked"{% endif %}>
+                  <label for="choice-{{ field.id_for_label }}-{{ forloop.counter }}" name="{{ field.name }}">{{choice.0}}</label>
+                </li>
+              {% endfor %}
+            </ul>
           {% elif field|fieldtype == 'CheckboxSelectMultiple' %}
             <ul>
               {% for choice in field.field.choices %}
@@ -42,11 +40,9 @@
                 </li>
               {% endfor %}
             </ul>
-        {% elif field|fieldtype == 'HiddenInput' %}
-          <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="hidden" value="{{ value }}" />
-        {% else %}
-          {{ field }}
-        {% endif %}
+          {% else %}
+            {{ field }}
+          {% endif %}
 
           {% if field.errors %}
             <ul class="error error--{{formtypeClass}}">
@@ -55,39 +51,37 @@
             {% endfor %}
             </ul>
           {% endif %}
-    {% if field|fieldtype != 'HiddenInput' %}
         </div>
       </fieldset>
-    {% endif %}
-      {% endfor %}
+      {% endif %}
+    {% endfor %}
 
-      {% trans "Done" as text %}
-      {% trans "Vote" as polltext %}
-      {% if form.display_form_directly %}
-        {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
-          <input type="submit" value="{{ form.submit_text|default:polltext }}" class="button call-to-action__button call-to-action__button--primary" />
-        {% else %}
-            {% trans "Log in to vote" as buttontext %}
-            {% url LOGIN_URL as link %}
-            {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
-        {% endif %}
+    {% trans "Done" as text %}
+    {% trans "Vote" as polltext %}
+    {% if form.display_form_directly %}
+      {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
+        <input type="submit" value="{{ form.submit_text|default:polltext }}" class="button call-to-action__button call-to-action__button--primary" />
       {% else %}
-          <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
+          {% trans "Log in to vote" as buttontext %}
+          {% url LOGIN_URL as link %}
+          {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"?next="|add:request.path text=buttontext %}
       {% endif %}
+    {% else %}
+      <input type="submit" value="{% if is_intermediate_step %}{% trans 'Next Question' %}{% else %}{{ self.submit_text|default:text}}{% endif %}" class="button call-to-action__button call-to-action__button--primary"/>
+    {% endif %}
 
-      {% if not fields_step or fields_step and fields_step.number == 1 %}
+    {% if not fields_step or fields_step and fields_step.number == 1 %}
       <input type="hidden" name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
-  {% endif %}
-
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-        <div class="{{formtypeClass}}__pagination">
-          <p class="{{formtypeClass}}__page">
-            {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-              {% trans Page %} <span class="{{formtypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{formtypeClass}}__page-number">{{ pages }}</span>
-            {% endwith %}
-          </p>
-        </div>
-      {% endif %}
+    {% endif %}
+    {% if fields_step and fields_step.paginator.num_pages > 1 %}
+      <div class="{{formtypeClass}}__pagination">
+        <p class="{{formtypeClass}}__page">
+          {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
+            {% trans Page %} <span class="{{formtypeClass}}__page-number">{{ page }}</span> {% trans of %} <span class="{{formtypeClass}}__page-number">{{ pages }}</span>
+          {% endwith %}
+        </p>
+      </div>
+    {% endif %}
   </form>
 {% else %}
   <p class="error error--{{formtypeClass}}">{% trans 'You have already completed this' %} {{formtype}}.</p>
