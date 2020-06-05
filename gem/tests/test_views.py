@@ -1,5 +1,5 @@
 from copy import deepcopy
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.urls import reverse
