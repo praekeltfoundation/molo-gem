@@ -204,11 +204,12 @@ def clean_comment(self):
     comment = self.cleaned_data['comment']
     comment_moderator_groups = ['comment_moderator']
 
-    should_validate = \
-        not self.request \
-        or self.request and \
-        not self.request.user.groups.filter(
-            name__in=comment_moderator_groups).exists()
+    is_moderator = self.request and self.request.user.groups.filter(
+        name__in=comment_moderator_groups).exists()
+    is_superuser = self.request and self.request.user.is_superuser
+
+    should_validate = not self.request \
+        or (not is_moderator and not is_superuser)
 
     if should_validate:
         site = Site.objects.get(is_default_site=True)

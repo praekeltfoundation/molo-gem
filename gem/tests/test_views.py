@@ -1,5 +1,5 @@
 from copy import deepcopy
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.urls import reverse
@@ -397,28 +397,7 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
 
-    def get_admin_perms(self):
-        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
-            app_label='wagtailadmin',
-            model='admin'
-        )
-        admin_permission, created = Permission.objects.get_or_create(
-            content_type=wagtailadmin_content_type,
-            codename='access_admin',
-            name='Can access Wagtail admin'
-        )
-        return admin_permission
-
     def test_moderator_user_contact_information_comment(self):
-        moderator, created = Group.objects.\
-            get_or_create(name='comment_moderator')
-        self.user = User.objects.create_user(
-            username='foo', email='foo@example.com',
-            password='foo', is_staff=True
-        )
-        self.user.groups.add(moderator)
-        if not self.user.has_perm('wagtailadmin.access_admin'):
-            self.user.user_permissions.add(self.get_admin_perms())
         self.client.login(username='admin', password='admin')
 
         comment = self.create_comment(
@@ -439,16 +418,9 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
 
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, email)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
 
     def test_non_moderator_user_contact_information_comment(self):
-        self.user = User.objects.create_user(
-            username='foo', email='foo@example.com',
-            password='foo', is_staff=True
-        )
-
-        if not self.user.has_perm('wagtailadmin.access_admin'):
-            self.user.user_permissions.add(self.get_admin_perms())
         self.client.login(username='admin', password='admin')
 
         comment = self.create_comment(
