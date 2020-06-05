@@ -2,9 +2,14 @@
 {% get_settings %}
 
 {% block content %}
+
 {% filter_forms_by_segments forms request as filtered_forms %}
-  {# FORM BANNER - SHOWS AT DIFFERENT FORM TYPE POSITIONS ATM #}
   {% if filtered_forms %}
+    {% comment %}
+      FORM BANNER -
+      New issue: Setting is not longer available
+      Old issue: SHOWS AT DIFFERENT FORM TYPE POSITIONS ATM
+    {% endcomment %}
     {% with item=filtered_forms|first %}
       {% with form_page=item.molo_form_page %}
         {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions %}
@@ -28,27 +33,27 @@
         {% endif %}
       {% endwith %}
     {% endwith %}
-  {% endif %}
 
-  {% if filtered_forms %}
     {% for item in filtered_forms %}
       {% with form_page=item.molo_form_page form=item.form %}
-        {% if form_page.your_words_competition and not form_page.personalisableform  %}
-          <!--
-            {# IF NOT personalisableform AND SETTING YOURWORDS - USE YOURWORDS UI #}
-          -->
+        {% if form_page.your_words_competition and not form_page.personalisableform %}
+
           {% include 'forms/form_modules/yourwords_landing.html' %}
-        {% elif form_page.display_form_directly and not form_page.personalisableform  %}
-          <!--
-            {# IF NOT personalisableform AND SETTING POLLS - USE POLLS UI #}
-          -->
+
+        {% elif form_page.display_form_directly and not form_page.personalisableform %}
+
           {% include 'forms/form_modules/polls_landing.html' %}
+
+        {% elif form_page.article_form_only and not form_page.personalisableform %}
+
+          {% include 'forms/form_modules/_reaction-questions.html' %}
+
         {% elif form_page.personalisableform or form_page.personalisableform and form_page.your_words_competition or form_page.personalisableform and form_page.display_form_directly %}
-          <!--
-            {# IF personalisableform WITH SETTING FOR YW / POLLS - USE SURVEY UI #}
-          -->
+
           {% include 'forms/form_modules/surveys_landing.html' %}
+
         {% else %}
+
           {% include 'forms/form_modules/surveys_landing.html' %}
         {% endif %}
       {% endwith %}
