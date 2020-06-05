@@ -226,12 +226,11 @@ def clean_comment(self):
             keyword = keyword.replace('\r', '')
             match = re.search(keyword, comment.lower())
             if match:
-                raise forms.ValidationError(
-                    _(
-                        'This comment has been removed as it contains profanity, '
-                        'contact information or other inappropriate content. '
-                    )
+                err = _(
+                    'This comment has been removed as it contains profanity, '
+                    'contact information or other inappropriate content. '
                 )
+                raise forms.ValidationError(err)
 
     return comment
 

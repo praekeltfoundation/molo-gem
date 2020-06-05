@@ -410,7 +410,8 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         return admin_permission
 
     def test_moderator_user_contact_information_comment(self):
-        moderator, created = Group.objects.get_or_create(name='comment_moderator')
+        moderator, created = Group.objects.\
+            get_or_create(name='comment_moderator')
         self.user = User.objects.create_user(
             username='foo', email='foo@example.com',
             password='foo', is_staff=True
