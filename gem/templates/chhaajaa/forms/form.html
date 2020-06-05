@@ -2,41 +2,38 @@
 <form id="survey-form" action="{% pageurl form_page %}" method="post" class="polls__form" novalidate>
 {% csrf_token %}
   {{ form.media }}
-
   {% for field in form %}
-
     {% if field|fieldtype == 'RadioSelect' %}
     <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
-        {% if formtype == 'reaction'  %}
-          <div class="reaction-questions__list">
-              {% for value, text in field.field.choices %}
-                  <span class="reaction-questions__item" id="{{value}}" onclick="set_choice('{{ value }}')">
-                    <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ text|slugify }}">
-                      <div class="reaction-questions__icon" style="background-image: url('{{value.url}}')"></div>
-                      {{ text|capfirst }}
-                    </label>
-                  </span>
-              {% endfor %}
-          </div>
-        {% else %}
+      {% if formtype == 'reaction'  %}
+        <div class="reaction-questions__list">
           {% for value, text in field.field.choices %}
-            <div class="choice-group choice-group__radio">
-              {% if user_has_chosen %}
-                <input name="{{ field.name }}"
-                id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
-                type="radio" value="{{ value }}" checked="checked"
-                onclick="set_form_choice('{{form_page.slug}}')"/>
-              {% else%}
-                <input name="{{ field.name }}"
-                id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
-                type="radio" value="{{ value }}"
-                onclick="set_form_choice('{{form_page.slug}}')"/>
-              {% endif %}
-               <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
-            </div>
+            <span class="reaction-questions__item" id="{{value}}" onclick="set_choice('{{ value }}')">
+              <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ text|slugify }}">
+                <div class="reaction-questions__icon" style="background-image: url('{{value.url}}')"></div>
+                {{ text|capfirst }}
+              </label>
+            </span>
           {% endfor %}
-        {% endif %}
-
+        </div>
+      {% else %}
+        {% for value, text in field.field.choices %}
+          <div class="choice-group choice-group__radio">
+            {% if user_has_chosen %}
+              <input name="{{ field.name }}"
+              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+              type="radio" value="{{ value }}" checked="checked"
+              onclick="set_form_choice('{{form_page.slug}}')"/>
+            {% else%}
+              <input name="{{ field.name }}"
+              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+              type="radio" value="{{ value }}"
+              onclick="set_form_choice('{{form_page.slug}}')"/>
+            {% endif %}
+             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+          </div>
+        {% endfor %}
+      {% endif %}
     </fieldset>
     {% else %}
       <fieldset>
