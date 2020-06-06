@@ -17,9 +17,9 @@
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
               {% for article in featured_articles|slice:":1" %}
-              
-              {% forms_list_for_pages page=featured_article %}
-              {% forms_list_linked_to_pages featured_article %}
+
+              {% forms_list_for_pages page=self %}
+              {% forms_list_linked_to_pages self %}
 
               {% endfor %}
             </div>
