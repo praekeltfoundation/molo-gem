@@ -2,11 +2,8 @@
   border-top: 2px solid $colorYellow;
   padding: 1em 0;
   margin: 0 0 5px;
-  .heading__macro {
-    font-family: "FedraSansDevanagariB-Demi";
-    @media screen and (min-width: 62.000em) {
-      font-size: 38px;
-    }
+  @media screen and (min-width: 45.000em) {
+    padding: 1.5em 5% 2em;
   }
   &__title {
     color: $colorPink;
@@ -18,6 +15,57 @@
       justify-content: space-between;
     }
   }
+  &__wrapper {
+    padding: 2em 1em;
+    @media screen and (min-width: 45.000em) {
+      padding: 2em 5% 2em 30%;
+    }
+  }
+
+  &-results {
+    &__item {
+      display: block;
+      padding: 0 0 10px;
+      label {
+        text-align: left;
+      }
+    }
+  }
+
+  &__choices {
+    &-title {
+      margin: 0;
+    }
+    &-subtitle {
+      margin: 0;
+    }
+    &-bar {
+      background: $colorPink;
+      border-radius: 20px;
+      padding: 5px 10px;
+      color: #FFF;
+      font-size: $font-xx-small;
+      display: block;
+      vertical-align: middle;
+    }
+    &-percentage {
+      background: #fff;
+      border: 3px solid $colorPink;
+      border-radius: 20px;
+
+    }
+  }
+  &--homepage {
+    @media screen and (min-width: 45.000em) {
+      padding: 0;
+    }
+    .polls__wrapper {
+      @media screen and (min-width: 45.000em) {
+        padding: 2em 0;
+      }
+    }
+  }
+
   section {
     margin: 0 0 1em;
     @media screen and (min-width: 62.000em) {
@@ -35,6 +83,12 @@
   }
   label {
     font-size: 23px;
+  }
+  .heading__macro {
+    font-family: "FedraSansDevanagariB-Demi";
+    @media screen and (min-width: 62.000em) {
+      font-size: 38px;
+    }
   }
 
   .vote {

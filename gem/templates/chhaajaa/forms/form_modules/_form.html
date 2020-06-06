@@ -1,6 +1,7 @@
 {% load wagtailcore_tags gem_tags %}
 {% if form %}
-  <form action="{% if form.display_form_directly %}{% pageurl form %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__form {% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}forms{% endif %}__form--{{self.get_effective_extra_style_hints}}" novalidate>
+{#{% pageurl form.specific %}#}
+  <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl form_page.specific %}{% endif %}{% if form_page.multi_step or form_page.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.your_words_competition %}yourwords__form yourwords__form--{{form_page.get_effective_extra_style_hints}} {% elif form_page.display_form_directly %}polls__form polls__form--{{form_page.get_effective_extra_style_hints}}{% else %}surveys__form surveys__form--{{form_page.get_effective_extra_style_hints}}{% endif %}" novalidate>
     {% csrf_token %}
     {% if not is_via_freebasics %}
       {{ form.media }}
@@ -79,10 +80,12 @@
       {% endif %}
       {% endfor %}
       <div class="call-to-action--group">
-        {% if form.display_form_directly %}
+        {% if form_page.display_form_directly %}
           {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
             {% trans "Vote" as defaultText %}
-            <button type="submit" class="call-to-action__button call-to-action__button--primary">{{ form.submit_text|default:defaultText }}</button>
+            <button type="submit" class="call-to-action__button call-to-action__button--primary">
+              {{ form.submit_text|default:defaultText }}
+            </button>
           {% else %}
             <a href="{% url LOGIN_URL %}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
               {% trans "Log in to vote" %}
@@ -98,8 +101,6 @@
               {% trans 'Submit' %}
               {% if self.your_words_competition %}
                 {% trans 'competition' %}
-              {% elif self.display_form_directly %}
-                {% trans 'poll' %}
               {% elif self.contact_form %}
                 {% trans 'contact' %}
               {% elif self.article_form_only %}
@@ -107,7 +108,8 @@
               {% else %}
                 {% trans 'survey' %}
               {% endif %}
-            {% endif %}</button>
+            {% endif %}
+          </button>
         {% endif %}
       </div>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
