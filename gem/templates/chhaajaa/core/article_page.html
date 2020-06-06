@@ -50,8 +50,10 @@
                               </div>
                             {% endif %}
                             {% has_forms page=self as has_polls %}
+                            {% forms_list_for_pages page=self %}
+                            
                             {% comment %}
-                              <!-- IF " {% forms_list_for_pages %} OR {% forms_list_linked_to_pages %}" -->
+                              <!-- IF POLLS OR SURVEYS OR REACTION CTAs -->
                               <div class="vote__item">
                                 <a href="/" class="vote__icon">
                                   Poll

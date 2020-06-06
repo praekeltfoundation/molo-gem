@@ -17,7 +17,10 @@
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
               {% for article in featured_articles|slice:":1" %}
-                {% forms_list_for_pages page=article %}
+
+              {% forms_list_for_pages page=featured_article %}
+              {% forms_list_linked_to_pages page=featured_article %}
+
               {% endfor %}
             </div>
             <div class="content--right">
@@ -75,7 +78,8 @@
                         <!-- END RICH TEXT -->
                       </div>
                       <div class="teaser-stacklist__cta-buttons">
-                        {% forms_list_linked_to_pages featured_article %}
+                        {% forms_list_for_pages page=featured_article %}
+                        {% forms_list_linked_to_pages page=featured_article %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                           <div class="share__item">
@@ -179,12 +183,14 @@
                           {% endfor %}
                           <div class="teaser-grid__container">
                             <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
-                              <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
+                              <h1 class="teaser-grid__title">
+                                {{ article.title|smarttruncatechars:45|safe}}</h1>
                             </a>
                             {% for block in article.body %}
                               {% if block.value.type == "video" %}
                                 {% with block.value as media %}
-                                  <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
+                                  <span class="teaser-grid__duration">
+                                    ({{block.value.duration|seconds_to_time}})</span>
                                 {% endwith %}
                               {% endif %}
                             {% endfor %}
