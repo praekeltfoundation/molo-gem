@@ -1,0 +1,217 @@
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags core_tags gem_tags molo_forms_tags %}
+
+{% for service_aggregator in service_aggregators %}
+  {% if parent_section.pk ==  service_aggregator.pk %}
+    <div class="article-page article-service">
+      {% if self.homepage_media %}
+        {% for block in self.homepage_media %}
+          {% with block.value as media %}
+            <div class="teaser-stacklist__iframe-main">
+              {% if block.value.youtube_link %}
+                {% embed media.youtube_link %}
+              {% endif %}
+            </div>
+          {% endwith %}
+        {% endfor %}
+      {% else %}
+        {% if self.get_effective_image %}
+          <div class="service-stacklist__images-main">
+            <a href="{% pageurl self.specific %}" class="service-stacklist__anchor">
+              {% image self.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+              <img alt="{{ self.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__main-mage" />
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="article-service__content">
+        <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
+        <div class="teaser-stacklist__cta-buttons">
+          {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+            <div class="share__item">
+              <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
+              <div id="share_reveal" class="share__reveal">
+                {% social_media_article page=self %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% forms_list_for_pages page=self %}
+          {% forms_list_linked_to_pages self %}
+
+          {% if self.is_commenting_enabled %}
+            {% if self.allow_commenting %}
+              {% if request.user.is_authenticated %}
+                <div class="comments__item">
+                  <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </div>
+        {% if self.subtitle %}
+          <h4 class="teaser-stacklist__subtitle">{{ self.subtitle }}</h4>
+        {% endif %}
+        {% for block in self.body %}
+          {% if not block.block_type == 'media' %}
+            <div class="teaser-stacklist__excerpt">
+              {{block.value}}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if settings.gem.GemSettings.enable_comment_threads %}
+          {% include "comments/comment_block.html" with article=self %}
+        {% endif %}
+
+        <!-- NEXT UP -->
+        {% get_next_article self as article %}
+        {% if article and self.get_parent_section.enable_next_section %}
+          <div class="article-teaser article-teaser--related-services">
+            <div class="heading heading--hero">
+              <h1 class="heading__component heading__component--finder">
+                {% trans "Up Next services" %}
+              </h1>
+            </div>
+            <ul class="service-stacklist">
+              <li class="service-stacklist__item">
+                <div class="service-stacklist__item--content">
+                  {% if article.homepage_media %}
+                    {% for block in article.homepage_media %}
+                      {% with block.value as media %}
+                        <div class="service-stacklist__iframe">
+                          {% if block.value.youtube_link %}
+                            {% embed media.youtube_link %}
+                          {% endif %}
+                        </div>
+                      {% endwith %}
+                    {% endfor %}
+                  {% else %}
+                    {% if article.get_effective_image %}
+                      <div class="service-stacklist__images">
+                        <a href="{% pageurl article.specific %}" class="service-stacklist__anchor">
+                          {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__thumbnail" />
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  <div class="service-stacklist__item--content">
+                    {% if article.title_highlight %}
+                      <a href="{% pageurl article.specific %}">
+                        <h2 class="service-stacklist__title-secondary">
+                          {{ article.title_highlight|smarttruncatechars:45|safe}}
+                        </h2>
+                      </a>
+                    {% else %}
+                      <a href="{% pageurl article.specific %}" >
+                        <h2 class="service-stacklist__title-secondary">
+                          {{ article.title|smarttruncatechars:45|safe}}
+                        </h2>
+                      </a>
+                    {% endif %}
+                    {% if article.subtitle_highlight or article.body_highlight %}
+                      <p class="service-stacklist__subtitle">
+                        {% if article.subtitle_highlight %}
+                          {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                        {% elif article.body_highlight %}
+                          {{article.body_highlight|smarttruncatechars:28|safe}}
+                        {% endif %}
+                      </p>
+                    {% elif article.subtitle %}
+                      <p class="service-stacklist__subtitle">
+                        {% if article.title.30 %}
+                          {{ article.subtitle|smarttruncatechars:28|safe}}
+                        {% else %}
+                          {{ article.subtitle|smarttruncatechars:50|safe}}
+                        {% endif %}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="service-stacklist__cta-buttons">
+                  <a href="{% pageurl article.specific %}" class="service-stacklist__link">
+                    {{ article.title}}
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        {% endif %}
+
+        <!-- RECOMMENDED -->
+        {% if self.get_parent_section.enable_recommended_section %}
+        {% get_recommended_articles self as articles %}
+          {% if articles %}
+          <div class="article-teaser article-teaser--related-services">
+            <h3 class="heading heading--small related-articles__recommended">{% trans "You can also read" %}</h3>
+            <ul class="service-stacklist">
+              {% for article in articles %}
+              <li class="service-stacklist__item">
+                {% if article.homepage_media %}
+                  {% for block in article.homepage_media %}
+                    {% with block.value as media %}
+                      <div class="teaser-stacklist__iframe">
+                        {% if block.value.youtube_link %}
+                          {% embed media.youtube_link %}
+                        {% endif %}
+                      </div>
+                    {% endwith %}
+                  {% endfor %}
+                {% else %}
+                  {% if article.get_effective_image %}
+                    <div class="service-stacklist__images">
+                      <a href="{% pageurl article.specific %}" class="service-stacklist__anchor">
+                        {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+                        <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="service-stacklist__thumbnail" />
+                      </a>
+                    </div>
+                  {% endif %}
+                {% endif %}
+                <div class="service-stacklist__item--content">
+                  {% if article.title_highlight %}
+                    <a href="{% pageurl article.specific %}">
+                      <h2 class="service-stacklist__title-secondary">
+                        {{ article.title_highlight|smarttruncatechars:45|safe}}
+                      </h2>
+                    </a>
+                  {% else %}
+                    <a href="{% pageurl article.specific %}" >
+                      <h2 class="service-stacklist__title-secondary">
+                        {{ article.title|smarttruncatechars:45|safe}}
+                      </h2>
+                    </a>
+                  {% endif %}
+                  {% if article.subtitle_highlight or article.body_highlight %}
+                    <p class="service-stacklist__subtitle">
+                      {% if article.subtitle_highlight %}
+                        {{article.subtitle_highlight|smarttruncatechars:28|safe}}
+                      {% elif article.body_highlight %}
+                        {{article.body_highlight|smarttruncatechars:28|safe}}
+                      {% endif %}
+                    </p>
+                  {% elif article.subtitle %}
+                    <p class="service-stacklist__subtitle">
+                      {% if article.title.30 %}
+                        {{ article.subtitle|smarttruncatechars:28|safe}}
+                      {% else %}
+                        {{ article.subtitle|smarttruncatechars:50|safe}}
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+                <div class="service-stacklist__cta-buttons">
+                  <a href="{% pageurl article.specific %}" class="service-stacklist__link">
+                    {{ article.title}}
+                  </a>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
