@@ -14,7 +14,7 @@
         </div>
       {% endif %}
       {% if field|fieldtype == 'CheckboxSelectMultiple' %}
-        <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
+        <fieldset {% if self.display_form_directly %}class="choice-fieldset"{% endif %}>
           {% for value, text in field.field.choices %}
             <div class="choice-group">
               <input name="{{ field.name }}" id="value-{{ field.label|idfromlabel }}-{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
@@ -23,7 +23,7 @@
           {% endfor %}
         </fieldset>
         {% elif field|fieldtype == 'RadioSelect' %}
-        <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
+        <fieldset {% if self.display_form_directly %}class="choice-fieldset"{% endif %}>
           {% for value, text in field.field.choices %}
             <div class="choice-group choice-group__radio">
               <input name="{{ field.name }}"
@@ -33,7 +33,7 @@
           {% endfor %}
         </fieldset>
         {% elif field|fieldtype == 'Select' %}
-        <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
+        <fieldset {% if self.display_form_directly %}class="choice-fieldset"{% endif %}>
           <div class="select-group">
             <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
             {% if field.value.0 %}
@@ -119,8 +119,7 @@
           </p>
         </div>
       {% endif %}
-    </form>
-
+  </form>
 {% else %}
   <p class="error-list__item">
     {% trans 'You have already completed this ' %}

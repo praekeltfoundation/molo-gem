@@ -5,16 +5,11 @@
 
 {% filter_forms_by_segments forms request as filtered_forms %}
   {% if filtered_forms %}
-    {% comment %}
-      FORM BANNER -
-      New issue: Setting is not longer available
-      Old issue: SHOWS AT DIFFERENT FORM TYPE POSITIONS ATM
-    {% endcomment %}
+
     {% with item=filtered_forms|first %}
       {% with form_page=item.molo_form_page %}
         {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions %}
           {% if  not form_page.your_words_competition and not form_page.display_form_directly %}
-            {#{% include "patterns/components/banners/join-banner.html" %}#}
               {% if settings.gem.GemSettings.show_join_banner %}
                 <div class="profiles-join-banner">
                   <div class="profiles-join-banner__icon"></div>
@@ -28,7 +23,6 @@
                   </div>
                 </div>
               {% endif %}
-            {# end include template #}
           {% endif %}
         {% endif %}
       {% endwith %}

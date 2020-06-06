@@ -7,28 +7,28 @@
   {% for item in filtered_forms %}
 
     {% with form_page=item.molo_form_page form=item.form %}
-      {% if form_page.display_form_directly %}
-      <div class="vote__item">
-        <a href="{% pageurl form_page %}" class="vote__icon">
-          {{ form_page.homepage_button_text|default:'Poll' }}
-        </a>
-      </div>
-
-
-        {% include 'forms/form_modules/_polls.html' %}
+      {% if form_page.your_words_competition and not form_page.personalisableform %}
+        <div class="surveys__item">
+          <a href="{% pageurl form_page %}" class="surveys__icon">
+            {{ form_page.homepage_button_text|default:'Yourwords' }}
+          </a>
+        </div>
+      {% elif form_page.display_form_directly and not form_page.personalisableform %}
+        {% include "forms/form_modules/_polls.html" %}
       {% elif form_page.article_form_only and not form_page.personalisableform %}
-        <div class="reaction-questions">
+        <div class="reaction-questions__item">
           <a href="{% pageurl form_page %}" class="reaction-questions__icon">
             {{ form_page.homepage_button_text|default:'Like' }}
           </a>
         </div>
       {% else %}
-        <div class="call-to-action call-to-action--forms">
-          <a href="{% pageurl form_page %}" class="call-to-action__button call-to-action__button--primary">
-            {{ form_page.homepage_button_text|default:'Take The Form' }}
+        <div class="surveys__item">
+          <a href="{% pageurl form_page %}" class="surveys__icon">
+            {{ form_page.homepage_button_text|default:'Survey' }}
           </a>
         </div>
       {% endif %}
+
     {% endwith %}
   {% endfor %}
 {% endif %}
