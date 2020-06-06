@@ -51,7 +51,7 @@
                             {% endif %}
                             {% has_forms page=self as has_polls %}
                             {% forms_list_for_pages page=self %}
-                            
+
                             {% comment %}
                               <!-- IF POLLS OR SURVEYS OR REACTION CTAs -->
                               <div class="vote__item">
@@ -88,8 +88,8 @@
                 </div>
                 {% include "comments/comment_block.html" with article=self %}
 
-                {% forms_list_for_pages page=self %}
-                {% forms_list_linked_to_pages article=self %}
+                {% forms_list_for_pages page=article %}
+                {% forms_list_linked_to_pages article %}
               </div>
 
               {% get_translation self.get_parent_section as section %}
@@ -159,7 +159,7 @@
         {% endif %}
       {% endfor %}
 
-      {% include "core/service-finder.html" %}
+      {% include "core/article_page-service-finder.html" %}
 
     {% endif %}
   {% endwith %}

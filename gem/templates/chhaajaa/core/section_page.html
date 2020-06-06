@@ -17,9 +17,9 @@
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
               {% for article in featured_articles|slice:":1" %}
-
+              
               {% forms_list_for_pages page=featured_article %}
-              {% forms_list_linked_to_pages page=featured_article %}
+              {% forms_list_linked_to_pages featured_article %}
 
               {% endfor %}
             </div>
@@ -79,7 +79,7 @@
                       </div>
                       <div class="teaser-stacklist__cta-buttons">
                         {% forms_list_for_pages page=featured_article %}
-                        {% forms_list_linked_to_pages page=featured_article %}
+                        {% forms_list_linked_to_pages featured_article %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                           <div class="share__item">
