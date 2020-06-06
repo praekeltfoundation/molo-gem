@@ -51,15 +51,14 @@
                             {% endif %}
                             {% has_forms page=self as has_polls %}
                             {% if has_polls %}
-                            <!-- If page exist - show icon -->
+                            {% comment %}
+                            <!-- IF " {% forms_list_for_pages %} OR {% forms_list_linked_to_pages %}" -->
+                            {% endcomment %}
                                 <div class="vote__item">
                                   <a href="/" class="vote__icon">
                                     Poll
                                   </a>
                                 </div>
-                              {% comment %}
-                                {% forms_list_for_pages page=self %}
-                              {% endcomment %}
                             {% endif %}
 
                             {% if self.is_commenting_enabled %}
