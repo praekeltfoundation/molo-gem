@@ -16,7 +16,7 @@
       <div class="polls">
         <p class="errors">{% trans 'You have already completed this poll' %}.</p>
         {% if request.path == "/" %}
-          <a href="{% pageurl form_page %}success/" class="call-to-action__button call-to-action__button--primary">
+          <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
             <span class="call-to-action__button-text call-to-action__button-text--primary">
               {% trans "Show Results" %}
             </span>

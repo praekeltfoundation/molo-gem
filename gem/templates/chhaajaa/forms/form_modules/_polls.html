@@ -1,3 +1,5 @@
+{% load wagtailimages_tags gem_tags %}
+
 <div class="polls polls--homepage">
   <div class="polls__wrapper">
     <div class="polls__inner">
@@ -12,11 +14,7 @@
           </h4>
         {% endif %}
         {% if form %}
-          {% if self.content_type|lower == 'article' %}
-            {% include "forms/form.html" with formtype="reaction" formtypeClass="polls" %}
-          {% else %}
-            {% include "forms/form.html" with formtype="poll" formtypeClass="polls" %}
-          {% endif %}
+          {% include "forms/form_modules/_form.html" with formtype="poll" formtypeClass="polls" %}
         {% endif %}
       </section>
       {% if form_page.image %}

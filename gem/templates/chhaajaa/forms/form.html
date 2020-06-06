@@ -4,19 +4,7 @@
   {{ form.media }}
   {% for field in form %}
     {% if field|fieldtype == 'RadioSelect' %}
-    <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
-      {% if formtype == 'reaction'  %}
-        <div class="reaction-questions__list">
-          {% for value, text in field.field.choices %}
-            <span class="reaction-questions__item" id="{{value}}" onclick="set_choice('{{ value }}')">
-              <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ text|slugify }}">
-                <div class="reaction-questions__icon" style="background-image: url('{{value.url}}')"></div>
-                {{ text|capfirst }}
-              </label>
-            </span>
-          {% endfor %}
-        </div>
-      {% else %}
+      <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
         {% for value, text in field.field.choices %}
           <div class="choice-group choice-group__radio">
             {% if user_has_chosen %}
@@ -33,8 +21,7 @@
              <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
           </div>
         {% endfor %}
-      {% endif %}
-    </fieldset>
+      </fieldset>
     {% else %}
       <fieldset>
         {% if field|fieldtype == 'hidden' %}
@@ -53,9 +40,9 @@
     {% endif %}
     {% if field.errors %}
       <ul class="error-list">
-      {% for error in field.errors %}
-        <li class="error-list__item">{{ error }}</li>
-      {% endfor %}
+        {% for error in field.errors %}
+          <li class="error-list__item">{{ error }}</li>
+        {% endfor %}
       </ul>
     {% endif %}
     <div class="responses">
@@ -68,7 +55,7 @@
   {% endfor %}
 
   {% if not fields_step or fields_step and fields_step.number == 1 %}
-  <input type="hidden" id="article_page_input"  name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
+    <input type="hidden" id="article_page_input"  name="article_page" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
   {% endif %}
 
   {% trans "Submit Form" as text %}

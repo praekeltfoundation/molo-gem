@@ -150,3 +150,43 @@
   </div>
 
 {% endif %}
+
+<script type="text/javascript">
+  function set_form_choice(slug){
+    var frm = $('#survey-form');
+    $.ajax({
+      type: frm.attr('method'),
+      url: frm.attr('action'),
+      data: frm.serialize() + '&ajax=True',
+      success: function() {
+        update_percentages(slug)
+      },
+    });
+  };
+
+  function update_percentages(slug){
+    //For post / complete delete only
+    $.ajax({
+      type: "get",
+      url: "/forms/"+slug+"/results_json/",
+      success: function (data) {
+        for (form in data) {
+          var responses = data[form];
+          var updated = [];
+          for (choice in responses) {
+            var percent = responses[choice];
+            $('#'+choice+'-perc').text(percent).css('width',percent+'%');
+            updated.push(choice+'-perc');
+          }
+          // The above call only returns choices that have answers, update the rest
+          $('.response-percent__bar').each(function(){
+            if ($.inArray(this.id, updated) == -1){
+              $(this).text(0).css('width','0%');
+            }
+          })
+        }
+      },
+  });
+  };
+  update_percentages('{{form_page.slug}}');
+</script>

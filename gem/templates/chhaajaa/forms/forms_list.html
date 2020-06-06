@@ -8,6 +8,13 @@
 
     {% with form_page=item.molo_form_page form=item.form %}
       {% if form_page.display_form_directly %}
+      <div class="vote__item">
+        <a href="{% pageurl form_page %}" class="vote__icon">
+          {{ form_page.homepage_button_text|default:'Poll' }}
+        </a>
+      </div>
+
+
         {% include 'forms/form_modules/_polls.html' %}
       {% elif form_page.article_form_only and not form_page.personalisableform %}
         <div class="reaction-questions">
