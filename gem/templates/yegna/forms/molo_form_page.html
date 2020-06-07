@@ -14,7 +14,7 @@
         <div class="heading">
           <h2 class="heading__title">{{ page.introduction }}</h2>
         </div>
-        <form action="{% pageurl page.specific %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="POST" class="contact__form" novalidate>
+        <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="POST" class="contact__form" novalidate>
         {% csrf_token %}
           {% for field in form %}
             {% if field|fieldtype != 'HiddenInput' %}

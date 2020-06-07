@@ -1,6 +1,6 @@
 {% load wagtailcore_tags gem_tags %}
 {% if form %}
-  <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if form_page.multi_step or form_page.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.your_words_competition %}yourwords__form yourwords__form--{{form_page.get_effective_extra_style_hints}} {% elif form_page.display_form_directly %}polls__form polls__form--{{form_page.get_effective_extra_style_hints}}{% else %}surveys__form surveys__form--{{form_page.get_effective_extra_style_hints}}{% endif %}" novalidate>
+  <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.your_words_competition %}yourwords__form yourwords__form--{{form_page.get_effective_extra_style_hints}} {% elif form_page.display_form_directly %}polls__form polls__form--{{form_page.get_effective_extra_style_hints}}{% else %}surveys__form surveys__form--{{form_page.get_effective_extra_style_hints}}{% endif %}" novalidate>
     {% csrf_token %}
     {% if not is_via_freebasics %}
       {{ form.media }}
