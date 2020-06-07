@@ -1,6 +1,6 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 {% if form %}
-  <form class="{{formtypeClass}}__form" action="{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% else %}{% pageurl self.specific %}{% endif %}" method="post" novalidate>
+  <form class="{{formtypeClass}}__form" action="{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% else %}{% pageurl form_page.specific %}{% endif %}" method="post" novalidate>
   {% csrf_token %}
     {% if not is_via_freebasics %}
       {{ form.media }}
