@@ -23,14 +23,16 @@
               {% if field|fieldtype == 'CheckboxInput' or field|fieldtype == 'CheckboxSelectMultiple' or field|fieldtype == 'RadioSelect' %}
 
               <div class="reaction-questions__items">
+
                 <label class="reaction-questions__label" for="{{ field.id_for_label }}">
                   {{ field.label|capfirst }}
                 </label>
                 <div class="reaction-questions__choices">
+
                 {% for value, text in field.field.choices %}
                   <div class="reaction-questions__choices-items">
-                    <input name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.field.widget.input_type }}" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                    <label for="{{ field.id_for_label }}">
+                    <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="{{ field.field.widget.input_type }}" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                    <label for="id_{{ value|slugify }}">
                       {{ text|capfirst }}
                     </label>
                   </div>
@@ -69,7 +71,7 @@
             {% trans 'Submit' %}
           {% endif %}
         </button>
-        
+
         {% if fields_step and fields_step.paginator.num_pages > 1 %}
           <div class="reaction-questions__pagination">
             <p class="reaction-questions__page">
