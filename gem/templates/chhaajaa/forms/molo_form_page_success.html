@@ -17,6 +17,11 @@
       </h1>
     </div>
     {% elif self.contact_form %}
+    <div class="heading heading--secondary">
+      <h1 class="heading__title">
+        {{self.title}}
+      </h1>
+    </div>
     {% else %}
     <div class="heading heading--secondary">
       <h1 class="heading__title">
@@ -49,6 +54,7 @@
               {% endwith %}
             {% endif %}
           </h2>
+          
           <ul class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}-results">
             {% for question, answers in results.items %}
               {% for answer, count in answers.items %}

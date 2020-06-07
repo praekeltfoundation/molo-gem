@@ -136,6 +136,8 @@
             {% trans 'competition' %}
           {% elif self.display_form_directly and not self.personalisableform %}
             {% trans 'poll' %}
+          {% elif self.contact_form or self.article_form_only %}
+            {% trans 'form' %}
           {% else %}
             {% trans 'survey' %}
           {% endif %}
@@ -159,18 +161,19 @@
   </form>
 {% else %}
   <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
-    <p class="errors">{% trans 'You have already completed this ' %}
-      {% if self.your_words_competition and not self.personalisableform %}
+    <p class="errors">{% trans 'You have already completed this' %}
+      {% if form_page.your_words_competition and not form_page.personalisableform %}
         {% trans 'competition' %}
-      {% elif self.display_form_directly and not self.personalisableform %}
+      {% elif form_page.display_form_directly and not form_page.personalisableform %}
         {% trans 'poll' %}
+      {% elif form_page.contact_form or form_page.article_form_only %}
+        {% trans 'form' %}
       {% else %}
         {% trans 'survey' %}
-      {% endif %}.
+      {% endif %}
     </p>
-    <!--{# REQUIRED FUNCTIONALITY REVIEW!!! #} -->
-    {% if request.path == "/" %}
-      <a href="{% pageurl form %}success/" class="call-to-action__button call-to-action__button--primary">
+    {% if form_page.show_results %}
+      <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
           {% trans "Show Results" %}
         </span>

@@ -14,8 +14,11 @@
       {% include "patterns/basics/forms/forms-modules/form.html" with formtype="poll" formtypeClass="polls" %}
     {% else %}
       <div class="polls">
-        <p class="errors">{% trans 'You have already completed this poll' %}.</p>
-        {% if request.path == "/" %}
+        <p class="errors">
+          {% trans 'You have already completed this poll' %}
+        </p>
+        {{results}}
+        {% if form_page.show_results %}
           <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
             <span class="call-to-action__button-text call-to-action__button-text--primary">
               {% trans "Show Results" %}

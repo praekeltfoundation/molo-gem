@@ -23,7 +23,6 @@
         </div>
   {% else %}
     <div class="surveys surveys--call-to-action">
-      <!-- {# WHICH MESSAGE #} -->
       {% if self.image %}
         <div class="surveys--page__image-wrapper">
           {% image self.image width-165 as icon_small %}
@@ -55,26 +54,26 @@
       </h4>
     </div>
     <ul class="polls-results-list">
-        {% for question, answers in results.items %}
-          <label class="polls__question">{{ question|capfirst }}</label>
-          {% for answer, count in answers.items %}
-          <li class="polls-results-list__item">
-            {% if self.show_results_as_percentage %}
-              {{answer}}
-              <div class="polls-results-list__percent">
-                <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
-                  <span class="choice-percentage">{{ count }}%</span>
-                </div>
+      {% for question, answers in results.items %}
+        <label class="polls__question">{{ question|capfirst }}</label>
+        {% for answer, count in answers.items %}
+        <li class="polls-results-list__item">
+          {% if self.show_results_as_percentage %}
+            {{answer}}
+            <div class="polls-results-list__percent">
+              <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
+                <span class="choice-percentage">{{ count }}%</span>
               </div>
-            {% else %}
-              <h4 class="polls__answers-counter">
-                {{answer}} -
-                {{ count }} vote{{ count|pluralize }}</h4>
-            {% endif %}
-          </li>
-          {% endfor %}
+            </div>
+          {% else %}
+            <h4 class="polls__answers-counter">
+              {{answer}} -
+              {{ count }} vote{{ count|pluralize }}</h4>
+          {% endif %}
+        </li>
         {% endfor %}
-      </ul>
+      {% endfor %}
+    </ul>
   {% else %}
     {% if self.thank_you_text %}
       <div class="heading heading__subheading">
@@ -83,22 +82,14 @@
     {% else %}
       <div class="heading heading__subheading">
         {% if self.your_words_competition %}
-          <h4>
-            {% trans 'Your' %}
-            {% if self.your_words_competition %}
-              {% trans 'GCN competition' %}
-            {% elif self.display_form_directly and not self.personalisableform %}
-              {% trans 'poll' %}
-            {% else %}
-              {% trans 'survey!' %}
-            {% endif %}
-            {% trans 'has been completed successfully!' %}
-          </h4>
+          <h4>{% trans 'Your GCN competition has been completed successfully!' %}</h4>
         {% else %}
           <h3>
             {% trans "Thank you for submitting" %}
             {% if self.display_form_directly and not self.personalisableform %}
               {% trans 'this poll.' %}
+            {% elif self.contact_form or self.article_form_only %}
+              {% trans 'this form!' %}
             {% else %}
               {% trans 'this survey!' %}
             {% endif %}
@@ -121,6 +112,7 @@
 
   <div class="call-to-action call-to-action--wide-back">
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back home" %}</a>
+      {% trans "Back home" %}
+    </a>
   </div>
 {% endblock %}

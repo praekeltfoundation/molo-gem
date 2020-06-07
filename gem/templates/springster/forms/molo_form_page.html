@@ -2,10 +2,10 @@
 
 {% block content %}
   {% if self.your_words_competition and not self.personalisableform %}
-    {% include "forms/forms-modules/_yourwords.html" %}
+    {% include "forms/form_modules/_yourwords.html" %}
   {% elif self.display_form_directly and not self.personalisableform  %}
-    {% include "forms/forms-modules/_polls.html" %}
+    {% include "forms/form_modules/_polls.html" %}
   {% else %}
-    {% include "forms/forms-modules/_surveys.html" %}
+    {% include "forms/form_modules/_surveys.html" %}
   {% endif %}
 {% endblock %}
