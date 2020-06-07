@@ -21,13 +21,13 @@
         {% endfor %}
       </div>
       {% comment %}
-      {% if fields_step and fields_step.paginator.num_pages > 1 %}
-      <div class="your-words__pagination your-words__pagination--multi-step">
-        <h6 class="your-words__pagination-title">
-          {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{ pages }} pages{% endblocktrans %}
-        </h6>
-      </div>
-      {% endif %}
+        {% if fields_step and fields_step.paginator.num_pages > 1 %}
+        <div class="your-words__pagination your-words__pagination--multi-step">
+          <h6 class="your-words__pagination-title">
+            {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{ pages }} pages{% endblocktrans %}
+          </h6>
+        </div>
+        {% endif %}
       {% endcomment %}
       {% include "forms/form.html" with formtype="competition" formtypeClass="your-words"  %}
     </div>
@@ -57,6 +57,7 @@
     </div>
   {% else %}
     <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
+      
       <h1 class="surveys__title">{{ page.title }}</h1>
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}
