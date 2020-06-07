@@ -127,7 +127,8 @@
                               {{ article.title|smarttruncatechars:80|safe}}
                             </h3>
                             <div class="teaser-stacklist__cta-buttons">
-
+                              {% forms_list_for_pages page=article %}
+                              {% forms_list_linked_to_pages article %}
                             </div>
                             {% if article.subtitle %}
                               <h6 class="teaser-card__subtitle">
