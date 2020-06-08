@@ -51,15 +51,7 @@
                             {% endif %}
                             {% has_forms page=self as has_polls %}
                             {% forms_list_for_pages page=self %}
-
-                            {% comment %}
-                              <!-- IF POLLS OR SURVEYS OR REACTION CTAs -->
-                              <div class="vote__item">
-                                <a href="/" class="vote__icon">
-                                  Poll
-                                </a>
-                              </div>
-                            {% endcomment %}
+                            {% forms_list_linked_to_pages self %}
 
                             {% if self.is_commenting_enabled %}
                               {% if self.allow_commenting %}
@@ -87,9 +79,9 @@
                   </div>
                 </div>
                 {% include "comments/comment_block.html" with article=self %}
-
-                {% forms_list_for_pages page=self %}
-                {% forms_list_linked_to_pages self %}
+                {% for form in forms %}
+                  {% include "forms/form_modules/_form.html" with form_page=form.molo_form_page form=form.form %}
+                {% endfor %}
               </div>
 
               {% get_translation self.get_parent_section as section %}

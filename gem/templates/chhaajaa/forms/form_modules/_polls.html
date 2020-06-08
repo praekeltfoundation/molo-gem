@@ -6,7 +6,11 @@
       <section>
         <div class="heading heading--secondary">
           <h1 class="heading__macro">
-            {% if form_page.title %}{{form_page.title}}{% else %}{% trans 'Poll' %}{% endif %}</h1>
+            {% if form_page.title %}
+              {{form_page.title}}
+            {% else %}
+              {% trans 'Poll' %}
+            {% endif %}</h1>
         </div>
         {% if form_page.homepage_introduction %}
           <h4 class="heading__subtitle">
@@ -14,7 +18,7 @@
           </h4>
         {% endif %}
         {% if form %}
-          {% include "forms/form_modules/_form.html" with formtype="poll" formtypeClass="polls" %}
+          {% include "forms/form_modules/_form.html" %}
         {% endif %}
       </section>
       {% if form_page.image %}

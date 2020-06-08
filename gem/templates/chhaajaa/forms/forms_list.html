@@ -14,7 +14,12 @@
           </a>
         </div>
       {% elif form_page.display_form_directly and not form_page.personalisableform %}
-        {% include "forms/form_modules/_polls.html" %}
+        <div class="vote__item">
+          <a href="{% pageurl form_page %}" class="vote__icon">
+            Poll
+          </a>
+        </div>
+    
       {% elif form_page.article_form_only and not form_page.personalisableform %}
         <div class="reaction-questions__item">
           <a href="{% pageurl form_page %}" class="reaction-questions__icon">
