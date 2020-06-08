@@ -1,5 +1,5 @@
 from copy import deepcopy
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission, Group
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.urls import reverse
@@ -396,6 +396,87 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
+
+    def test_moderator_user_contact_information_comment(self):
+        self.client.login(username='admin', password='admin')
+
+        comment = self.create_comment(
+            self.article, 'test comment1 text', self.superuser)
+
+        email = 'someone1@test.com'
+        url = '/admin/comment/1/reply/'.format(comment.pk)
+        content_type = '{}.{}'.format(
+            *self.article.specific.content_type.natural_key())
+        response = self.client.get(url)
+
+        data = response.context_data['form'].initial
+        data.update(dict(
+            comment=email,
+            object_pk=self.article.pk,
+            content_type=content_type
+        ))
+
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
+
+    def get_admin_perms(self):
+        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+            app_label='wagtailadmin',
+            model='admin'
+        )
+        admin_permission, created = Permission.objects.get_or_create(
+            content_type=wagtailadmin_content_type,
+            codename='access_admin',
+            name='Can access Wagtail admin'
+        )
+        return admin_permission
+
+    def test_non_moderator_user_contact_information_comment(self):
+        user = User.objects.create_user(
+            username='staffuser',
+            email='staffuser@example.com',
+            is_staff=True,
+            password='tester')
+        admin_permission = self.get_admin_perms()
+        user.user_permissions.add(admin_permission)
+        user.profile.admin_sites.add(self.main.get_site())
+
+        self.assertTrue(user.has_perm('wagtailadmin.access_admin'))
+        self.client.force_login(user)
+
+        comment = self.create_comment(
+            self.article, 'test comment1 text', self.superuser)
+
+        email = 'someone1@test.com'
+        url = '/admin/comment/1/reply/'.format(comment.pk)
+        content_type = '{}.{}'.format(
+            *self.article.specific.content_type.natural_key())
+        response = self.client.get(url)
+
+        data = response.context_data['form'].initial
+        data.update(dict(
+            comment=email,
+            object_pk=self.article.pk,
+            content_type=content_type
+        ))
+
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context['form'].errors,
+            {'comment': [
+                'This comment has been removed as it contains profanity, '
+                'contact information or other inappropriate content. '
+            ]}
+        )
+
+        group, created = Group.objects.get_or_create(
+            name='comment_moderator')
+        user.groups.add(group)
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
