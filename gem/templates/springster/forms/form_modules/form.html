@@ -42,7 +42,8 @@
 
 {% if form %}
 
-  <form action="{% if form_page.display_form_directly or form_page.article_form_only %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %} {% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.display_form_directly %}polls__form{% elif form_page.article_form_only %}reaction-questions__form{% elif self.contact_form %}contact__form{% elif self.your_words_competition %}gcn-competition__form{% else %}surveys__form{% endif %}" novalidate>
+  <form action="{% if form_page.display_form_directly or form_page.article_form_only %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.display_form_directly %}polls__form{% elif form_page.article_form_only %}reaction-questions__form{% elif self.contact_form %}contact__form{% elif self.your_words_competition %}gcn-competition__form{% else %}surveys__form{% endif %}" novalidate>
+
     {% csrf_token %}
     {% if not is_via_freebasics %}
       {{ form.media }}
@@ -68,8 +69,8 @@
           {% if field|fieldtype == 'CheckboxSelectMultiple'  %}
             {% for value, text in field.field.choices %}
               <div class="choice-group">
-                <input name="{{ field.name }}" id="{{ field.id_for_label }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                <label for="{{ field.id_for_label }}">{{ text|capfirst }}</label>
+                <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
               </div>
             {% endfor %}
           {% elif field|fieldtype == 'RadioSelect' %}
