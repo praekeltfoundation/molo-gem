@@ -1,99 +1,24 @@
-{% load wagtailcore_tags wagtailsettings_tags static gem_tags %}
-
+{% load gem_tags %}
 <div class="reaction-questions">
   <div class="reaction-questions__block">
     <div class="heading heading__subheading">
       <h3>{{form_page.title}}</h3>
     </div>
-    <div class="heading heading__micro">
+    <div class="heading heading__subtitle">
       {% if form_page.homepage_introduction %}
         <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+      {% else %}
+        <p>{{form_page.introduction|smarttruncatechars:100|safe}}</p>
       {% endif %}
     </div>
     {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
       {% include "forms/form_modules/form.html" %}
+    {% else %}
+      <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Log in to like" %}
+        </span>
+      </a>
     {% endif %}
-
-    {% comment %}
-      {% if form %}
-        <form action="{% if not request.is_preview %}{% pageurl form_page %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="reaction-questions__form" novalidate>
-        {% csrf_token %}
-          {% if not is_via_freebasics %}
-            {{ form.media }}
-          {% endif %}
-          <fieldset>
-            <div class="input-group reaction-questions__list">
-            {% for field in form %}
-              {% if not field|fieldtype == 'HiddenInput' %}
-                {% if field|fieldtype == 'CheckboxInput' or field|fieldtype == 'CheckboxSelectMultiple' or field|fieldtype == 'RadioSelect' %}
-
-                <div class="reaction-questions__items">
-
-                  <label class="reaction-questions__label" for="{{ field.id_for_label }}">
-                    {{ field.label|capfirst }}
-                  </label>
-                  <div class="reaction-questions__choices">
-
-                  {% for value, text in field.field.choices %}
-                    <div class="reaction-questions__choices-items">
-                      <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="{{ field.field.widget.input_type }}" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                      <label for="id_{{ value|slugify }}">
-                        {{ text|capfirst }}
-                      </label>
-                    </div>
-                  {% endfor %}
-                  </div>
-                </div>
-                {% else %}
-                  <div class="reaction-questions__items">
-                    <label class="reaction-questions__label" for="{{ field.id_for_label }}">
-                      {{ field.label|capfirst }}
-                    </label>
-                    {% if field.help_text %}
-                      <p class="helptext">{{ field.help_text }}</p>
-                    {% endif %}
-                    {{field}}
-                  </div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-            {% if field.errors %}
-              <ul class="error-list errorlist">
-              {% for error in field.errors %}
-                <li class="error-list__item">{{ error }}</li>
-              {% endfor %}
-              </ul>
-            {% endif %}
-            </div>
-          </fieldset>
-
-          <button type="submit" class="call-to-action__button call-to-action__button--primary">
-            {% if is_intermediate_step %}
-              {% trans 'Next Question' %}
-            {% elif self.submit_text %}
-              {{self.submit_text}}
-            {% else %}
-              {% trans 'Submit' %}
-            {% endif %}
-          </button>
-
-          {% if fields_step and fields_step.paginator.num_pages > 1 %}
-            <div class="reaction-questions__pagination">
-              <p class="reaction-questions__page">
-                {% with page=fields_step.number pages=fields_step.paginator.num_pages %}
-                  {% trans Page %}
-                  <span class="reaction-questions__page-number">{{ page }}</span>
-                  {% trans of %} <span class="reaction-questions__page-number">{{ pages }}</span>
-                {% endwith %}
-              </p>
-            </div>
-          {% endif %}
-
-          {% if not fields_step or fields_step and fields_step.number == 1 %}
-            <input type="hidden" {% if self.content_type|lower == 'article' %} value="{{ self.pk }}" {% endif %} />
-          {% endif %}
-        </form>
-      {% endif %}
-    {% endcomment %}
   </div>
 </div>

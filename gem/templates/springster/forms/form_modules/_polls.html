@@ -1,24 +1,47 @@
-
+{% load gem_tags %}
 {% block content %}
-  <div class="polls polls--call-to-action">
+  <div class="polls {% if request.path == '/' %}polls--homepage{% endif %}  polls--call-to-action">
     <div class="polls__bubble-icon"></div>
     <div class="polls__container">
       <div class="heading heading__micro">
         <p>{% trans "Take a vote!" %}</p>
       </div>
+      <!-- heading__component-->
       <div class="heading heading__subheading">
         <h3>{{self.title}}</h3>
       </div>
-    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-      {% include "forms/form_modules/form.html" %}
-    {% else %}
-      <div class="polls">
-        <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
-          <span class="call-to-action__button-text call-to-action__button-text--primary">
-            {% trans "Log in to take poll" %}
-          </span>
-        </a>
+      <div class="heading heading__subheading">
+        {% if form_page.homepage_introduction %}
+          <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+        {% else %}
+          <p>{{form_page.introduction|smarttruncatechars:100|safe}}</p>
+        {% endif %}
       </div>
-    {% endif %}
+
+      {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+        {% if form %}
+          {% include "forms/form_modules/form.html" %}
+        {% else %}
+          <div class="polls">
+            <p class="errors">
+              {% trans 'You have already completed this poll' %}.
+            </p>
+            <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
+              <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {% trans "Show Results" %}
+              </span>
+            </a>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="polls">
+          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+            <span class="call-to-action__button-text call-to-action__button-text--primary">
+              {% trans "Log in to vote" %}
+            </span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
   </div>
 {% endblock %}

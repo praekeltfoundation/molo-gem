@@ -17,8 +17,8 @@
       </div>
     {% endif %}
 
-  {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-    {% include "forms/form_modules/form.html" %}
-  {% endif %}
+    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+      {% include "forms/form_modules/form.html" %}
+    {% endif %}
   </div>
 {% endblock %}

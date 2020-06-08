@@ -6,7 +6,7 @@
       {% if forloop.counter %}
         {% if block.block_type == 'heading' %}
           <h4 class="surveys--page__excerpt-heading">
-            {{ block.value }}
+           {{ block.value }}
           </h4>
         {% else %}
           {{ block }}
@@ -41,76 +41,81 @@
 
 
 {% if form %}
-  <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl form_page.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__form {% if self.get_effective_extra_style_hints %}{% if self.display_form_directly %}polls--{{self.get_effective_extra_style_hints}}{% else %}surveys--{{self.get_effective_extra_style_hints}}{% endif %}__form{{self.get_effective_extra_style_hints}}{% endif %}" novalidate>
+
+
+  <form action="{% if form_page.display_form_directly or form_page.article_form_only %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.display_form_directly %}polls__form{% elif form_page.article_form_only %}reaction-questions__form{% elif form_page.contact_form %}contact__form{% elif form_page.your_words_competition %}gcn-competition__form{% else %}surveys__form{% endif %}" novalidate>
+    sdjfhsjdk
     {% csrf_token %}
     {% if not is_via_freebasics %}
       {{ form.media }}
     {% endif %}
     {% for field in form %}
-    <fieldset>
-      <div class="input-group">
-        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-        {% if field.help_text %}
-          {% if field|fieldtype == 'CharacterCountWidget' %}
-            <p class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
-          {% else %}
-            <p class="helptext">{{ field.help_text }}</p>
+      {% if field|fieldtype != 'HiddenInput' %}
+      <fieldset>
+        <div class="input-group">
+          <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+          {% if field.help_text %}
+            {% if field|fieldtype == 'CharacterCountWidget' %}
+              <p class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
+            {% else %}
+              <p class="helptext">{{ field.help_text }}</p>
+            {% endif %}
           {% endif %}
-        {% endif %}
-        {% if field|fieldtype == 'CheckboxInput' %}
-          <div class="choice-group">
-            <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-            <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
-          </div>
-        {% endif %}
-        {% if field|fieldtype == 'CheckboxSelectMultiple'  %}
-          {% for value, text in field.field.choices %}
+          {% if field|fieldtype == 'CheckboxInput' %}
             <div class="choice-group">
-              <input name="{{ field.name }}" id="{{ field.id_for_label }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-              <label for="{{ field.id_for_label }}">{{ text|capfirst }}</label>
-            </div>
-          {% endfor %}
-        {% elif field|fieldtype == 'RadioSelect' %}
-          {% for value, text in field.field.choices %}
-            <div class="choice-group choice-group__radio">
-              <input name="{{ field.name }}"
-               id="id_{{ value|slugify }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+              <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
               <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
             </div>
-          {% endfor %}
-        {% elif field|fieldtype == 'Select' %}
-          <div class="select-style">
-            <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
-            {% if field.value.0 %}
-              <option value="{{field.value}}" selected="selected">{{field.value}}</option>
-              {% for choice in field.field.choices %}
-                <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                  {{choice.0}}
-                </option>
-              {% endfor %}
-              {% elif not field.value.0  %}
-                <option value selected="selected">Choose..</option>
+          {% endif %}
+          {% if field|fieldtype == 'CheckboxSelectMultiple'  %}
+            {% for value, text in field.field.choices %}
+              <div class="choice-group">
+                <input name="{{ field.name }}" id="{{ field.id_for_label }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="{{ field.id_for_label }}">{{ text|capfirst }}</label>
+              </div>
+            {% endfor %}
+          {% elif field|fieldtype == 'RadioSelect' %}
+            {% for value, text in field.field.choices %}
+              <div class="choice-group choice-group__radio">
+                <input name="{{ field.name }}"
+                 id="id_{{ value|slugify }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
+              </div>
+            {% endfor %}
+          {% elif field|fieldtype == 'Select' %}
+            <div class="select-style">
+              <select id="{{ field.id_for_label }}"  name="{{field.name}}" class="select">
+              {% if field.value.0 %}
+                <option value="{{field.value}}" selected="selected">{{field.value}}</option>
                 {% for choice in field.field.choices %}
-                <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
-                  {{choice.0}}
-                </option>
-              {% endfor %}
-            {% endif %}
-            </select>
-          </div>
-        {% else %}
-          {{field}}
-        {% endif %}
+                  <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                    {{choice.0}}
+                  </option>
+                {% endfor %}
+                {% elif not field.value.0  %}
+                  <option value selected="selected">Choose..</option>
+                  {% for choice in field.field.choices %}
+                  <option value="{{choice.0}}" {% if field.value == choice.0 %}selected="selected"{% endif %}>
+                    {{choice.0}}
+                  </option>
+                {% endfor %}
+              {% endif %}
+              </select>
+            </div>
+          {% else %}
+            {{field}}
+          {% endif %}
 
-        {% if field.errors %}
-          <ul class="error-list errorlist">
-          {% for error in field.errors %}
-            <li class="error-list__item">{{ error }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      </div>
-    </fieldset>
+          {% if field.errors %}
+            <ul class="error-list errorlist">
+            {% for error in field.errors %}
+              <li class="error-list__item">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </fieldset>
+      {% endif %}
     {% endfor %}
 
     {% if form.display_form_directly %}
@@ -161,7 +166,8 @@
   </form>
 {% else %}
   <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
-    <p class="errors">{% trans 'You have already completed this' %}
+    <p class="errors">
+      {% trans 'You have already completed this' %}
       {% if form_page.your_words_competition and not form_page.personalisableform %}
         {% trans 'competition' %}
       {% elif form_page.display_form_directly and not form_page.personalisableform %}
@@ -175,7 +181,7 @@
     {% if form_page.show_results %}
       <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
-          {% trans "Show Results" %}
+          ==> {% trans "Show Results" %}
         </span>
       </a>
     {% else %}

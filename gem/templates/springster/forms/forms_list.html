@@ -1,5 +1,4 @@
-{% load forms_personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
-{% get_settings %}
+{% load forms_personalise_extras wagtailimages_tags wagtailcore_tags core_tags wagtailsettings_tags gem_tags staticfiles %}
 
 {% block content %}
 
@@ -31,26 +30,77 @@
     {% for item in filtered_forms %}
       {% with form_page=item.molo_form_page form=item.form %}
         {% if form_page.your_words_competition and not form_page.personalisableform %}
-
-          {% include 'forms/form_modules/yourwords_landing.html' %}
+          <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
+            <aside>
+            {% if form_page.image %}
+              {% image form_page.image width-98 as tmp_photo_small %}
+              {% image form_page.image width-320 as tmp_photo_large %}
+                <div class="surveys--page__image-wrapper">
+                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form_page.image.title }}" class="surveys--page__image" />
+                </div>
+            {% else %}
+                <div class="surveys--page__image gcn-competition__default"></div>
+            {% endif %}
+            </aside>
+            <section>
+            <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
+            {% if form_page.homepage_introduction %}
+              <div class="heading heading__subheading">
+                <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+              </div>
+            {% endif %}
+            </section>
+            <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+              <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {% trans "Take GCN competition" as defaultTextGCN %}
+                {{ form_page.homepage_button_text|default:defaultTextGCN}}
+              </span>
+            </a>
+          </div>
 
         {% elif form_page.display_form_directly and not form_page.personalisableform %}
 
-          {% include 'forms/form_modules/polls_landing.html' %}
+          {% include 'forms/form_modules/_polls.html' %}
 
         {% elif form_page.article_form_only and not form_page.personalisableform %}
 
           {% include 'forms/form_modules/_reaction-questions.html' %}
 
-        {% elif form_page.personalisableform or form_page.personalisableform and form_page.your_words_competition or form_page.personalisableform and form_page.display_form_directly %}
-
-          {% include 'forms/form_modules/surveys_landing.html' %}
-
         {% else %}
+          <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
+            <div class="surveys--wrapper">
+              <aside>
+                {% if form_page.image %}
+                  {% image form_page.image width-165 as icon_small %}
+                  <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="adv_wrapper__item-thumb" />
+                {% else %}
+                  <img src="{% static 'img/icons/think_purple_HR.png' %}" width="115" class="adv_wrapper__item-icon" />
+                {% endif %}
+              </aside>
+              <section>
+                <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
+                {% if form_page.homepage_introduction %}
+                  <div class="heading heading__subheading">
+                    <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+                  </div>
+                {% endif %}
+              </section>
+            </div>
+            <nav>
+              <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+                <span class="call-to-action__button-text call-to-action__button-text--primary">
+                  {% trans "Take The Survey" as defaultText %}
+                  {{ form_page.homepage_button_text|default:defaultText }}
+                </span>
+              </a>
+            </nav>
+          </div>
 
-          {% include 'forms/form_modules/surveys_landing.html' %}
-          
+
+
+
         {% endif %}
+
       {% endwith %}
     {% endfor %}
   {% endif %}
