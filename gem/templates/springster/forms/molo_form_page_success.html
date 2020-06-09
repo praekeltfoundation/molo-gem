@@ -103,8 +103,10 @@
             {% trans "Thank you for submitting" %}
             {% if self.display_form_directly and not self.personalisableform %}
               {% trans 'this poll.' %}
-            {% elif self.contact_form or self.article_form_only %}
+            {% elif self.contact_form %}
               {% trans 'this form!' %}
+            {% elif self.article_form_only %}
+              {% trans 'a response for this article' %}.
             {% else %}
               {% trans 'this survey!' %}
             {% endif %}

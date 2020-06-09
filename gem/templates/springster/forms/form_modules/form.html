@@ -32,7 +32,7 @@
         {% if self.your_words_competition %}
           {% blocktrans with pages=fields_step.paginator.num_pages %}This competition has {{pages}} pages {% endblocktrans %}
         {% elif not self.display_form_directly %}
-            {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
+          {% blocktrans with pages=fields_step.paginator.num_pages %}This survey has {{pages}} pages{% endblocktrans %}
         {% endif %}
       </h6>
     </div>
@@ -41,7 +41,6 @@
 
 
 {% if form %}
-
   <form action="{% if form_page.display_form_directly or form_page.article_form_only %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ fields_step.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.display_form_directly %}polls__form{% elif form_page.article_form_only %}reaction-questions__form{% elif self.contact_form %}contact__form{% elif self.your_words_competition %}gcn-competition__form{% else %}surveys__form{% endif %}" novalidate>
 
     {% csrf_token %}
@@ -140,8 +139,10 @@
             {% trans 'competition' %}
           {% elif self.display_form_directly and not self.personalisableform %}
             {% trans 'poll' %}
-          {% elif self.contact_form or self.article_form_only %}
+          {% elif self.contact_form %}
             {% trans 'form' %}
+          {% elif self.article_form_only %}
+            {% trans 'response.' %}
           {% else %}
             {% trans 'survey' %}
           {% endif %}
@@ -166,21 +167,23 @@
 {% else %}
   <div class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}">
     <p class="errors">
-      {% trans 'You have already completed this' %}
+      {% trans 'You have already completed' %}
       {% if form_page.your_words_competition and not form_page.personalisableform %}
-        {% trans 'competition' %}
+        {% trans 'this competition.' %}
       {% elif form_page.display_form_directly and not form_page.personalisableform %}
-        {% trans 'poll' %}
-      {% elif form_page.contact_form or form_page.article_form_only %}
-        {% trans 'form' %}
+        {% trans 'this poll.' %}
+      {% elif form_page.contact_form and not form_page.personalisableform %}
+        {% trans 'this form.' %}
+      {% elif form_page.article_form_only and not form_page.personalisableform %}
+        {% trans 'a response for this article.' %}
       {% else %}
-        {% trans 'survey' %}
+        {% trans 'this survey.' %}
       {% endif %}
     </p>
     {% if form_page.show_results %}
       <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">
-          ==> {% trans "Show Results" %}
+          {% trans "Show Results" %}
         </span>
       </a>
     {% else %}
