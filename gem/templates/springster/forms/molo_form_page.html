@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
   {% if self.your_words_competition and not self.personalisableform %}
     {% include "forms/form_modules/_yourwords.html" %}
@@ -8,4 +9,16 @@
   {% else %}
     {% include "forms/form_modules/_surveys.html" %}
   {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <ul class="breadcrumbs-list breadcrumbs-list--pipe">
+      <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
+        <a href="{{request.site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
+      </li>
+      <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
+        <span class="breadcrumbs-list__anchor breadcrumbs-list__anchor--is-active">{{ self }}</span>
+      </li>
+    </ul>
+  </div>
 {% endblock %}
