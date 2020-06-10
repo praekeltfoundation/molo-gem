@@ -679,9 +679,9 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            self.assertTrue(form.title in str(res.content))
-
-            self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form.slug in str(res.content))
+            # now the user is redirected to the form page
+            # self.assertTrue(form_field.label in str(res.content))
 
             data = {
                 form_field.admin_label: 'b'
@@ -694,8 +694,7 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            self.assertTrue(form.title in str(res.content))
-            self.assertFalse(form_field.label in str(res.content))
+            self.assertTrue(form.slug in str(res.content))
 
     def test_reaction_question_multi_submissions(self):
         template_settings = deepcopy(settings.TEMPLATES)
@@ -729,8 +728,7 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            self.assertTrue(form.title in str(res.content))
-            self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form.slug in str(res.content))
 
             data = {
                 form_field.admin_label: 'b'
@@ -743,5 +741,4 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            self.assertTrue(form.title in str(res.content))
-            self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form.slug in str(res.content))
