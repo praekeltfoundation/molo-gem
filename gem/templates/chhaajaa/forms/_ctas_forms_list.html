@@ -1,0 +1,40 @@
+{% load forms_personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
+{% get_settings %}
+
+{% block content %}
+{% filter_forms_by_segments forms request as filtered_forms %}
+{% if filtered_forms %}
+  {% for item in filtered_forms %}
+
+    {% with form_page=item.molo_form_page form=item.form %}
+      {% if form_page.your_words_competition and not form_page.personalisableform %}
+        <div class="surveys__item">
+          <a href="{% pageurl form_page %}" class="surveys__icon">
+            {{ form_page.homepage_button_text|default:'Yourwords' }}
+          </a>
+        </div>
+      {% elif form_page.display_form_directly and not form_page.personalisableform %}
+        <div class="vote__item">
+          <a href="{% pageurl form_page %}" class="vote__icon">
+            Poll
+          </a>
+        </div>
+    
+      {% elif form_page.article_form_only and not form_page.personalisableform %}
+        <div class="reaction-questions__item">
+          <a href="{% pageurl form_page %}" class="reaction-questions__icon">
+            {{ form_page.homepage_button_text|default:'Like' }}
+          </a>
+        </div>
+      {% else %}
+        <div class="surveys__item">
+          <a href="{% pageurl form_page %}" class="surveys__icon">
+            {{ form_page.homepage_button_text|default:'Survey' }}
+          </a>
+        </div>
+      {% endif %}
+
+    {% endwith %}
+  {% endfor %}
+{% endif %}
+{% endblock %}

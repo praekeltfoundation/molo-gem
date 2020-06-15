@@ -49,9 +49,18 @@
                                 </div>
                               </div>
                             {% endif %}
+
                             {% has_forms page=self as has_polls %}
-                            {% forms_list_for_pages page=self %}
-                            {% forms_list_linked_to_pages self %}
+                            {% if has_polls %}
+                              <div class="vote__item">
+                                <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                              </div>
+                            {% endif %}
+
+                            {% comment %}
+                              <!-- ASSUMING IT'S JUST RQ -->
+                              {% forms_list_linked_to_pages self %}
+                            {% endcomment %}
 
                             {% if self.is_commenting_enabled %}
                               {% if self.allow_commenting %}
@@ -78,10 +87,15 @@
                     </ul>
                   </div>
                 </div>
+
+                {% if has_polls == True %}
+                  {% forms_list_for_pages page=self %}
+                {% endif %}
+                
+                <!-- ASSUMING IT'S JUST RQ -->
+                {% forms_list_linked_to_pages self %}
+
                 {% include "comments/comment_block.html" with article=self %}
-                {% for form in forms %}
-                  {% include "forms/form_modules/_form.html" with form_page=form.molo_form_page form=form.form %}
-                {% endfor %}
               </div>
 
               {% get_translation self.get_parent_section as section %}
@@ -91,6 +105,7 @@
               {% else %}
                 {% load_child_articles_for_section section as articles %}
               {% endif %}
+
               <div class="content--right">
                 {# <!-- Beginning of Side Bar -->  #}
                 {% if articles %}

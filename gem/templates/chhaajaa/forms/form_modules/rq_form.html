@@ -1,0 +1,66 @@
+{% load wagtailcore_tags core_tags gem_tags %}
+
+{#{% url 'reaction-vote' self.slug question.id %}#}
+<div class="reaction-questions">
+  <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__field" novalidate>
+  {% csrf_token %}
+    {{ form.media }}
+    {% for field in form %}
+      {% if field|fieldtype == 'RadioSelect' %}
+        <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
+          {% for value, text in field.field.choices %}
+
+            {% if user_has_chosen %}
+              <input name="{{ field.name }}"
+              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+              type="radio" value="{{ value }}"
+              onclick="set_form_choice('{{form_page.slug}}')"/>
+
+              <span class="reaction-questions__item" id="{{ field.auto_id }}" onclick="set_choice({{ field.auto_id|slugify }})" disabled=disabled>
+
+            {% else %}
+
+              <input name="{{ field.name }}"
+              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
+              type="radio" value="{{ value }}"
+              onclick="set_form_choice('{{form_page.slug}}')"/>
+
+              <span class="reaction-questions__item" id="{{ field.auto_id }}" onclick="set_choice({{ field.auto_id|slugify }})">
+
+            {% endif %}
+
+             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">
+               {{ text|capfirst }}
+             </label>
+
+          {% endfor %}
+        </fieldset>
+      {% endif %}
+
+      <!-- START: TO REMOVE ERRORS -->
+      {% if field.errors %}
+        <ul class="error-list">
+        {% for error in field.errors %}
+          <li class="error-list__item">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+      <!--END: TO REMOVE ERRORS -->
+
+    {% endfor %}
+  </form>
+</div>
+
+<script type="text/javascript">
+  function set_form_choice(slug){
+    var frm = $('#reaction-questions__form');
+    $.ajax({
+      type: frm.attr('method'),
+      url: frm.attr('action'),
+      data: frm.serialize() + '&ajax=True',
+      success: function() {
+        update_percentages(slug)
+      },
+    });
+  };
+</script>

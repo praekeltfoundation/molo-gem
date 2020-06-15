@@ -10,16 +10,16 @@
               {{form_page.title}}
             {% else %}
               {% trans 'Poll' %}
-            {% endif %}</h1>
+            {% endif %}
+          </h1>
         </div>
         {% if form_page.homepage_introduction %}
           <h4 class="heading__subtitle">
             {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
           </h4>
         {% endif %}
-        {% if form %}
-          {% include "forms/form_modules/_form.html" %}
-        {% endif %}
+
+        {% include "forms/form_modules/polls_form.html" %}
       </section>
       {% if form_page.image %}
         <aside>
