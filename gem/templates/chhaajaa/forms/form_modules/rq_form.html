@@ -14,14 +14,14 @@
                 <input name="{{ field.name }}"
                 id="{{ value|slugify }}_{{ forloop.counter0 }}"
                 type="radio" value="{{ value }}"
-                onclick="set_form_choice('{{ forloop.counter0 }}')"
+                onclick="set_rq_form_choice('{{ forloop.counter0 }}')"
                 class="{{ value|slugify }}"/>
 
               {% else %}
                 <input name="{{ field.name }}"
                 id="{{ value|slugify }}_{{ forloop.counter0 }}"
                 type="radio" value="{{ value }}"
-                onclick="set_form_choice('{{ forloop.counter0 }}')"
+                onclick="set_rq_form_choice('{{ forloop.counter0 }}')"
                 class="{{ value|slugify }}"/>
               {% endif %}
 
@@ -33,7 +33,6 @@
         </fieldset>
       {% endif %}
 
-      <!-- START: TO REMOVE ERRORS -->
       {% if field.errors %}
         <ul class="error-list">
         {% for error in field.errors %}
@@ -41,37 +40,36 @@
         {% endfor %}
         </ul>
       {% endif %}
-      <!--END: TO REMOVE ERRORS -->
 
     {% endfor %}
   </form>
 </div>
 
 <script type="text/javascript">
-  function set_form_choice(slug){
+  console.log('icon');
+  function set_rq_form_choice(slug) {
+
     var frm = $('#reaction-questions__form');
     var label = $(event.target);
     var $thisElem = label.next()[0];
 
     $('.reaction-questions__label').removeClass('active');
     $($thisElem).addClass('active');
-    //sessionStorage.setItem('rq',$($thisElem).attr('for'));
-    console.log('ok?',$thisElem);
+    sessionStorage.setItem('rq',$($thisElem).attr('for'));
 
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
       data: frm.serialize() + '&ajax=True',
       success: function() {
-        update_percentages(slug);
+        send_results(slug);
       }
     });
   };
-  //$('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
+  $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
 
-  function update_percentages(slug){
+  function send_results(slug){
     //For post / complete delete only
-
     $.ajax({
       type: "get",
       url: "/forms/"+slug+"/results_json/",
@@ -97,5 +95,5 @@
       }
   });
   };
-  update_percentages('{{ forloop.counter0 }}');
+  send_results('{{ forloop.counter0 }}');
 </script>

@@ -1,11 +1,10 @@
 {% load wagtailcore_tags core_tags gem_tags %}
-<form id="survey-form" action="{% pageurl form_page %}" method="post" class="polls__form" novalidate>
+<form id="polls_form" action="{% pageurl form_page %}" method="post" class="polls__form" novalidate="novalidate">
 {% csrf_token %}
   {{ form.media }}
   {% for field in form %}
     {% if field|fieldtype == 'RadioSelect' %}
-    <!-- If the one input: -->
-      <fieldset class="{% if self.display_form_directly %}choice-fieldset{% endif %}">
+      <fieldset class="choice-fieldset">
         {% for value, text in field.field.choices %}
           <div class="choice-group choice-group__radio">
             {% if user_has_chosen %}
@@ -19,11 +18,23 @@
               type="radio" value="{{ value }}"
               onclick="set_form_choice('{{form_page.slug}}')"/>
             {% endif %}
-             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">{{ text|capfirst }}</label>
+              <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">
+                {{ text|capfirst }}
+              </label>
           </div>
         {% endfor %}
       </fieldset>
+
+      <div class="responses">
+        <div class="response-percent">
+          {% for value, text in field.field.choices %}
+            <span id="{{ value|slugify }}-perc" class="response-percent__bar">
+            </span>
+          {% endfor %}
+        </div>
+      </div>
     {% endif %}
+
     {% if field.errors %}
       <ul class="error-list">
       {% for error in field.errors %}
@@ -31,21 +42,12 @@
       {% endfor %}
       </ul>
     {% endif %}
-
-    <div class="responses">
-      <div class="response-percent">
-        {% for value, text in field.field.choices %}
-          <span id="{{ value|slugify }}-perc" class="response-percent__bar"></span>
-        {% endfor %}
-      </div>
-    </div>
-
   {% endfor %}
 </form>
 
 <script type="text/javascript">
   function set_form_choice(slug){
-    var frm = $('#survey-form');
+    var frm = $('#polls_form');
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
@@ -69,14 +71,13 @@
             $('#'+choice+'-perc').text(percent).css('width',percent+'%');
             updated.push(choice+'-perc');
           }
-          // The above call only returns choices that have answers, update the rest
           $('.response-percent__bar').each(function(){
             if ($.inArray(this.id, updated) == -1){
               $(this).text(0).css('width','0%');
             }
           })
         }
-      },
+      }
   });
   };
   update_percentages('{{form_page.slug}}');

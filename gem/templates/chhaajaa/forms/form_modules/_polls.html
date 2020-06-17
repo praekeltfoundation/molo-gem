@@ -19,12 +19,16 @@
           </h4>
         {% endif %}
 
-        {% include "forms/form_modules/polls_form.html" %}
+        {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+          {% if form %}
+            {% include "forms/form_modules/polls_form.html" %}
+          {% endif %}
+        {% endif %}
       </section>
       {% if form_page.image %}
         <aside>
           {% image form_page.image width-480 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="surveys__image" />
+          <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="polls__image" />
         </aside>
       {% endif %}
     </div>
