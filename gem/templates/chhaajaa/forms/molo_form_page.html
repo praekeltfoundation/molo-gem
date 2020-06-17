@@ -59,7 +59,7 @@
         {% endif %}
 
         {% if self.contact_form %}
-          {% include 'forms/form_modules/_form.html' %}
+          {% include 'forms/form.html' %}
         {% else %}
           {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
             {% if fields_step and fields_step.paginator.num_pages > 1 %}
@@ -75,7 +75,7 @@
                 </p>
               </div>
             {% endif %}
-            {% include 'forms/form_modules/_form.html' %}
+            {% include 'forms/form.html' %}
           {% else %}
             <nav>
               <div class="call-to-action--group">
