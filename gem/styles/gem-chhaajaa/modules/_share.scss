@@ -37,12 +37,22 @@
     word-wrap: break-word;
     position: relative;
     &:before {
-      background: url("/static/img/icons/chhaajaa/share.png") no-repeat 0 2px/100%;
+      background-image: url("/static/img/icons/chhaajaa/share.png");
+      background-repeat: no-repeat;
+      background-position: 0 2px;
+      background-size: 100%;
       content: "";
       display: block;
       height: 36px;
       width: 30px;
       margin: 0 0 2px;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      &:before {
+        background-position: 0 -32.5px;
+      }
     }
   }
 }

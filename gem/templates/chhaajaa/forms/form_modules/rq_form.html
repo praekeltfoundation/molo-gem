@@ -2,37 +2,33 @@
 
 {#{% url 'reaction-vote' self.slug question.id %}#}
 <div class="reaction-questions">
-  <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__field" novalidate>
+  <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
   {% csrf_token %}
     {{ form.media }}
     {% for field in form %}
       {% if field|fieldtype == 'RadioSelect' %}
         <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
           {% for value, text in field.field.choices %}
+            <div class="reaction-questions__item">
+              {% if user_has_chosen %}
+                <input name="{{ field.name }}"
+                id="{{ value|slugify }}_{{ forloop.counter0 }}"
+                type="radio" value="{{ value }}"
+                onclick="set_form_choice('{{ forloop.counter0 }}')"
+                class="{{ value|slugify }}"/>
 
-            {% if user_has_chosen %}
-              <input name="{{ field.name }}"
-              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
-              type="radio" value="{{ value }}"
-              onclick="set_form_choice('{{form_page.slug}}')"/>
+              {% else %}
+                <input name="{{ field.name }}"
+                id="{{ value|slugify }}_{{ forloop.counter0 }}"
+                type="radio" value="{{ value }}"
+                onclick="set_form_choice('{{ forloop.counter0 }}')"
+                class="{{ value|slugify }}"/>
+              {% endif %}
 
-              <span class="reaction-questions__item" id="{{ field.auto_id }}" onclick="set_choice({{ field.auto_id|slugify }})" disabled=disabled>
-
-            {% else %}
-
-              <input name="{{ field.name }}"
-              id="value-{{ field.id_for_label }}-{{ forloop.counter }}"
-              type="radio" value="{{ value }}"
-              onclick="set_form_choice('{{form_page.slug}}')"/>
-
-              <span class="reaction-questions__item" id="{{ field.auto_id }}" onclick="set_choice({{ field.auto_id|slugify }})">
-
-            {% endif %}
-
-             <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">
-               {{ text|capfirst }}
-             </label>
-
+               <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
+                 {{ text|capfirst }}
+               </label>
+            </div>
           {% endfor %}
         </fieldset>
       {% endif %}
@@ -54,13 +50,52 @@
 <script type="text/javascript">
   function set_form_choice(slug){
     var frm = $('#reaction-questions__form');
+    var label = $(event.target);
+    var $thisElem = label.next()[0];
+
+    $('.reaction-questions__label').removeClass('active');
+    $($thisElem).addClass('active');
+    //sessionStorage.setItem('rq',$($thisElem).attr('for'));
+    console.log('ok?',$thisElem);
+
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
       data: frm.serialize() + '&ajax=True',
       success: function() {
-        update_percentages(slug)
-      },
+        update_percentages(slug);
+      }
     });
   };
+  //$('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
+
+  function update_percentages(slug){
+    //For post / complete delete only
+
+    $.ajax({
+      type: "get",
+      url: "/forms/"+slug+"/results_json/",
+      success: function (data) {
+
+        for (form in data) {
+          var responses = data[form];
+          var updated = [];
+
+          for (choice in responses) {
+            var percent = responses[choice];
+
+            $('#'+choice+'-perc').text(percent).css('width',percent+'%');
+            updated.push(choice+'-perc');
+          }
+
+          $('.response-percent__bar').each(function(){
+            if ($.inArray(this.id, updated) == -1){
+              $(this).text(0).css('width','0%');
+            }
+          })
+        }
+      }
+  });
+  };
+  update_percentages('{{ forloop.counter0 }}');
 </script>
