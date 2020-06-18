@@ -9,23 +9,21 @@
       {% if field|fieldtype == 'RadioSelect' %}
         <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
           {% for value, text in field.field.choices %}
-          
             <div class="reaction-questions__item">
               {% if user_has_chosen %}
                 <input name="{{ field.name }}"
                 id="{{ value|slugify }}_{{ forloop.counter0 }}"
                 type="radio" value="{{ value }}"
-                onclick="set_rq_form_choice('{{form_page.slug}}_{{ forloop.counter0 }}')"
+                onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
                 class="{{ value|slugify }}"/>
 
               {% else %}
                 <input name="{{ field.name }}"
                 id="{{ value|slugify }}_{{ forloop.counter0 }}"
                 type="radio" value="{{ value }}"
-                onclick="set_rq_form_choice('{{form_page.slug}}_{{ forloop.counter0 }}')"
+                onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
                 class="{{ value|slugify }}"/>
               {% endif %}
-
                <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
                  {{ text|capfirst }}
                </label>
