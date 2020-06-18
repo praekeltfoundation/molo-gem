@@ -19,11 +19,16 @@
           </h4>
         {% endif %}
 
-        {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+        {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
           {% if form %}
             {% include "forms/form_modules/polls_form.html" %}
           {% endif %}
+        {% else %}
+          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
+            {% trans "Log in to vote" %}
+          </a>
         {% endif %}
+
       </section>
       {% if form_page.image %}
         <aside>
