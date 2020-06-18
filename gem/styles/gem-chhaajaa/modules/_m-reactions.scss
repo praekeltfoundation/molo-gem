@@ -1,0 +1,86 @@
+.reaction-questions {
+  display: inline-block;
+  vertical-align: top;
+  &__form {
+    margin: 0 10px 0 0;
+  }
+  &__list {
+    margin: 5px 0 0 0;
+  }
+  &__item {
+    display: inline-block;
+    transition: opacity 1s ease;
+  }
+  &__label {
+    color: $colorGrey;
+    display: inline-block;
+    font-weight: 600;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 14px;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    &:hover,
+    &:focus,
+    &:active {
+      color: $colorPink;
+    }
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: absolute;
+    visibility: hidden;
+    display: block;
+    margin: 10px;
+    ~ label:before {
+      background-color: transparent;
+      background-image: url('/static/img/icons/chhaajaa/likes.png');
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: inherit;
+      border: none;
+      border-radius: inherit;
+      content: " ";
+      display: block;
+      height: 30px;
+      width: 35px;
+      margin: 0 auto 5px;
+      text-align: center;
+      &:hover {
+        background-position: 0 -57px;
+      }
+    }
+  }
+  .active {
+    color: $colorPink;
+  }
+
+  .like ~ label {
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/likes.png') !important;
+      background-position: 0 0!important;
+    }
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      &:before {
+        background-position: 0 -61.8px!important;
+      }
+    }
+  }
+  .dislike ~ label {
+    &:before {
+      background-image: url('/static/img/icons/chhaajaa/likes.png')!important;
+      background-position: 0  -125px!important;
+    }
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      &:before {
+        background-position: 0 -186.8px!important;
+      }
+    }
+  }
+}

@@ -3,9 +3,6 @@
   .heading {
     margin: 0;
   }
-  input {
-    margin: 0;
-  }
   &__block {
     @include divider-combo-1;
     background-color: $springster-purple-light;
@@ -20,6 +17,7 @@
       text-align: left;
     }
   }
+
   &__label {
     cursor: pointer;
     @include font($baton-regular);
@@ -80,6 +78,14 @@
         border-radius: 50%;
       }
     }
+  }
+  input {
+    margin: 0;
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: absolute;
+    visibility: hidden;
   }
 
   &__message {

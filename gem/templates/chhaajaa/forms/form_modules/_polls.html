@@ -10,21 +10,30 @@
               {{form_page.title}}
             {% else %}
               {% trans 'Poll' %}
-            {% endif %}</h1>
+            {% endif %}
+          </h1>
         </div>
         {% if form_page.homepage_introduction %}
           <h4 class="heading__subtitle">
             {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
           </h4>
         {% endif %}
-        {% if form %}
-          {% include "forms/form_modules/_form.html" %}
+
+        {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
+          {% if form %}
+            {% include "forms/form_modules/polls_form.html" %}
+          {% endif %}
+        {% else %}
+          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
+            {% trans "Log in to vote" %}
+          </a>
         {% endif %}
+
       </section>
       {% if form_page.image %}
         <aside>
           {% image form_page.image width-480 as tmp_photo %}
-          <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="surveys__image" />
+          <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="polls__image" />
         </aside>
       {% endif %}
     </div>

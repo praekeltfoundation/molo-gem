@@ -5,11 +5,11 @@
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
       {% if self.your_words_competition %}
-      <div class="heading heading--hero">
-        <h1 class="heading__component">
-        {% trans 'Share your story' %}
-        </h1>
-      </div>
+        <div class="heading heading--hero">
+          <h1 class="heading__component">
+            {% trans 'Share your story' %}
+          </h1>
+        </div>
       {% elif self.contact_form %}
       {% else %}
       <div class="heading heading--secondary">
@@ -59,12 +59,13 @@
         {% endif %}
 
         {% if self.contact_form %}
-          {% include 'forms/form_modules/_form.html' %}
+          {% include 'forms/form.html' %}
         {% else %}
           {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
             {% if fields_step and fields_step.paginator.num_pages > 1 %}
               <div class="pagination pagination--multi-step">
                 <p class="call-to-action__item--text call-to-action__item--text-current">
+
                   {% if self.your_words_competition %}
                     {% blocktrans with pages=fields_step.paginator.num_pages %}
                     This competition has {{pages}} pages {% endblocktrans %}
@@ -74,7 +75,7 @@
                 </p>
               </div>
             {% endif %}
-            {% include 'forms/form_modules/_form.html' %}
+            {% include 'forms/form.html' %}
           {% else %}
             <nav>
               <div class="call-to-action--group">
