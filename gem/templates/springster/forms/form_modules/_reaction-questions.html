@@ -12,7 +12,7 @@
       {% endif %}
     </div>
     {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
-      {% include "forms/form_modules/form.html" %}
+      {% include "forms/form_modules/reaction-question_forms.html" %}
     {% else %}
       <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
         <span class="call-to-action__button-text call-to-action__button-text--primary">

@@ -32,7 +32,7 @@
     visibility: hidden;
     display: block;
     margin: 10px;
-    ~ label:before {
+    & ~ label:before {
       background-color: transparent;
       background-image: url('/static/img/icons/chhaajaa/likes.png');
       background-position: 0 0;
@@ -51,10 +51,6 @@
       }
     }
   }
-  .active {
-    color: $colorPink;
-  }
-
   .like ~ label {
     &:before {
       background-image: url('/static/img/icons/chhaajaa/likes.png') !important;
@@ -82,5 +78,8 @@
         background-position: 0 -186.8px!important;
       }
     }
+  }
+  .active {
+    color: $colorPink;
   }
 }

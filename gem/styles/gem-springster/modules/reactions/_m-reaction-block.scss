@@ -1,97 +1,94 @@
 .reaction-questions {
-  text-align: center;
-  .heading {
-    margin: 0;
-  }
+  position: relative;
   &__block {
     @include divider-combo-1;
     background-color: $springster-purple-light;
     padding: 20px 0;
   }
-  &__list {}
-  &__items {
-    padding: 0;
-    margin: 10px 0;
-    span {
-      display: block;
-      text-align: left;
-    }
+  &__form {
+    margin: 0;
   }
-
+  &__list {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+  }
+  &__item {
+    padding: 0;
+    margin: 0 10px;
+  }
   &__label {
     cursor: pointer;
     @include font($baton-regular);
     display: block;
-    font-size: $font-small;
+    font-size: $font-x-large;
     padding: 5px;
-    text-align: center;
-  }
-
-  &__choices {
-    display: flex;
-    justify-content: center;
-    input[type="radio"],
-    input[type="checkbox"] {
-      display: block;
-      padding: 0;
-      & ~ label {
-        align-items: center;
-        font-size: $font-xx-small;
-        flex-direction: column;
-        text-transform: uppercase;
-        visibility: visible;
-        display: flex;
-        cursor: pointer;
-        padding: 0;
-        position: relative;
-        justify-content: center;
-        text-align: center;
-        &:before {
-          background: #fff;
-          border: 3px solid $springster-purple;
-          content: "";
-          cursor: pointer;
-          display: block;
-          width: 25px;
-          height: 25px;
-          margin: 5px 15px;
-          opacity: 1;
-          transition: all ease-in-out 0.2s;
-        }
-      }
-
-      & + label {
-        background: none;
-        opacity: 1;
-      }
-      & + label,
-      &:checked + label {
-        background: none;
-      }
-      &:checked + label:before {
-        background: $springster-purple url('/static/img/icons/check-box.png') 0 0/25px no-repeat;
-      }
-    }
-
-    input[type="radio"] {
-      & ~ label:before {
-        border-radius: 50%;
-      }
-    }
-  }
-  input {
-    margin: 0;
-  }
-  input[type="checkbox"],
-  input[type="radio"] {
-    position: absolute;
-    visibility: hidden;
   }
 
   &__message {
     text-align: center;
     padding: 0 10px 10px;
   }
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    & ~ label {
+      padding: 5px;
+      opacity: 1;
+      &:before {
+        background-image: url('/static/img/icons/chhaajaa/likes.png');
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: inherit;
+        border: none;
+        border-radius: inherit;
+        content: " ";
+        display: block;
+        height: 30px;
+        width: 35px;
+        margin: 0 auto 5px;
+        text-align: center;
+        transition: all ease-in-out 0.2s;
+      }
+      &:hover:before,
+      &:focus:before,
+      &:active:before {
+        //background-position: 0 -57px;
+        opacity: 0.5;
+      }
+    }
+    & + label,
+    &:checked + label {
+      background: none;
+      opacity: 1;
+    }
+    // &:checked + label:before {
+    //   background: $springster-purple url('/static/img/icons/check-box.png') 0 0/25px no-repeat;
+    // }
+  }
+  .like ~ label:before,
+  .yes ~ label:before {
+    background-image: url('/static/img/icons/Yes.width-50.png') !important;
+    height: 50px!important;
+    width: 50px!important;
+  }
+  .dislike ~ label:before,
+  .no ~ label:before {
+    background-image: url('/static/img/icons/No.width-50.png')!important;
+    height: 50px!important;
+    width: 50px!important;
+  }
+  .maybe ~ label:before {
+    background-image: url('/static/img/icons/Maybe.width-50.png')!important;
+    height: 50px!important;
+    width: 50px!important;
+  }
+  .active {
+    opacity: 0.5 !important;
+  }
+
   &-success {
     &__block {
       background-color: $mint-green;
