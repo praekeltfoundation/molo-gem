@@ -3,6 +3,7 @@
 <div class="polls polls--homepage">
   <div class="polls__wrapper">
     <div class="polls__inner">
+
       <section>
         <div class="heading heading--secondary">
           <h1 class="heading__macro">
@@ -18,24 +19,28 @@
             {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
           </h4>
         {% endif %}
-
-        {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
-          {% if form %}
+        {% if form %}
+          {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
             {% include "forms/form_modules/polls_form.html" %}
+          {% else %}
+            <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
+              {% trans "Log in to vote" %}
+            </a>
           {% endif %}
         {% else %}
-          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
-            {% trans "Log in to vote" %}
-          </a>
+          <p class="error-list__item">
+            {% trans 'You have already completed this poll.' %}
+          </p>
         {% endif %}
-
       </section>
+
       {% if form_page.image %}
         <aside>
           {% image form_page.image width-480 as tmp_photo %}
           <img src="{{ tmp_photo.url }}" alt="{{ form_page.image.title }}" class="polls__image" />
         </aside>
       {% endif %}
+
     </div>
   </div>
 </div>

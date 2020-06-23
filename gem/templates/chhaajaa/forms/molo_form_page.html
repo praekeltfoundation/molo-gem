@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
 {% block content %}
-
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
-      {% if self.your_words_competition %}
-        <div class="heading heading--hero">
-          <h1 class="heading__component">
-            {% trans 'Share your story' %}
-          </h1>
-        </div>
-      {% elif self.contact_form %}
-      {% else %}
+    {% if self.your_words_competition %}
+      <div class="heading heading--hero">
+        <h1 class="heading__component">
+          {% trans 'Share your story' %}
+        </h1>
+      </div>
+    {% elif self.contact_form %}
+    {% else %}
       <div class="heading heading--secondary">
         <h1 class="heading__title">
           {% if self.display_form_directly %}
@@ -23,8 +22,7 @@
           {% endif %}
         </h1>
       </div>
-      {% endif %}
-
+    {% endif %}
 
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__inner">
       <section>
