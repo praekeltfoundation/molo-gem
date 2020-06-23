@@ -27,6 +27,11 @@
       <div class="article-service__content">
         <h1 class="teaser-stacklist__title">{{ self.title}}</h1>
         <div class="teaser-stacklist__cta-buttons">
+          {% comment %}
+          <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+          {% endcomment %}
+          {% forms_list_linked_to_pages self %}
+
           {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
             <div class="share__item">
               <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>
@@ -35,8 +40,7 @@
               </div>
             </div>
           {% endif %}
-          {% forms_list_for_pages page=self %}
-          {% forms_list_linked_to_pages self %}
+
           {% if self.is_commenting_enabled %}
             {% if self.allow_commenting %}
               {% if request.user.is_authenticated %}
@@ -61,6 +65,9 @@
         {% if settings.gem.GemSettings.enable_comment_threads %}
           {% include "comments/comment_block.html" with article=self %}
         {% endif %}
+
+        {% comment %}<!-- POLL FORM -->{% endcomment %}
+        {% forms_list_for_pages page=article %}
 
         <!-- NEXT UP -->
         {% get_next_article self as article %}

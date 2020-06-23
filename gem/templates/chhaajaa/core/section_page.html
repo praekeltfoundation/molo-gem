@@ -16,12 +16,6 @@
           <div class="container">
             <div class="content--left">
               {% include "core/tags/video-main.html" %}
-              {% for article in featured_articles|slice:":1" %}
-
-              {% forms_list_for_pages page=self %}
-              {% forms_list_linked_to_pages self %}
-
-              {% endfor %}
             </div>
             <div class="content--right">
               {% latest_listing_homepage %}
@@ -78,7 +72,9 @@
                         <!-- END RICH TEXT -->
                       </div>
                       <div class="teaser-stacklist__cta-buttons">
-                        {% forms_list_for_pages page=featured_article %}
+                        {% comment %}
+                        <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+                        {% endcomment %}
                         {% forms_list_linked_to_pages featured_article %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
@@ -127,7 +123,9 @@
                               {{ article.title|smarttruncatechars:80|safe}}
                             </h3>
                             <div class="teaser-stacklist__cta-buttons">
-                              {% forms_list_for_pages page=article %}
+                              {% comment %}
+                              <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+                              {% endcomment %}
                               {% forms_list_linked_to_pages article %}
                             </div>
                             {% if article.subtitle %}

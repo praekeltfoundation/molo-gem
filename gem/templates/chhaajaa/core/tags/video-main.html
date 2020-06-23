@@ -1,4 +1,6 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags molo_forms_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags molo_forms_tags core_tags gem_tags comments %}
+
+{% get_settings %}
 <div class="article-teaser">
   <div class="article-teaser__wrapper">
     <ul class="teaser-stacklist">
@@ -27,8 +29,28 @@
               {{ article.title}}
             </h1>
             <div class="teaser-stacklist__cta-buttons">
-              {% forms_list_for_pages page=self %}
-              {% forms_list_linked_to_pages self %}
+              {% has_forms page=self as has_polls %}
+              {% if has_polls %}
+                <div class="vote__item">
+                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+                </div>
+              {% endif %}
+
+              {% comment %}
+                <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+              {% endcomment %}
+              {% forms_list_linked_to_pages article %}
+
+              {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+                <div class="share__item">
+                  <a href="#" id="share_article" class="share__icon">
+                    {% trans "Share" %}
+                  </a>
+                  <div id="share_reveal" class="share__reveal">
+                    {% social_media_article page=article %}
+                  </div>
+                </div>
+              {% endif %}
 
               {% if article.is_commenting_enabled %}
                 {% if article.allow_commenting %}
