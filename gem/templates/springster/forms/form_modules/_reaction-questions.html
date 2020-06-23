@@ -11,7 +11,7 @@
         <p>{{form_page.introduction|smarttruncatechars:100|safe}}</p>
       {% endif %}
     </div>
-    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+    {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
       {% include "forms/form_modules/reaction-question_forms.html" %}
     {% else %}
       <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">

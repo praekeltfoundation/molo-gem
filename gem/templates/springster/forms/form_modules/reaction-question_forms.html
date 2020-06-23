@@ -5,7 +5,7 @@
   {{ form.media }}
   {% for field in form %}
     {% if field|fieldtype == 'RadioSelect' %}
-      <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
+      <div class="reaction-questions__list">
         {% for value, text in field.field.choices %}
           <div class="reaction-questions__item">
             {% if user_has_chosen %}
@@ -26,7 +26,7 @@
              </label>
           </div>
         {% endfor %}
-      </fieldset>
+      </div>
     {% endif %}
 
     {% if field.errors %}
@@ -40,9 +40,13 @@
   {% endfor %}
 </form>
 
-
 <script type="text/javascript">
-  console.log('icon');
+  /*
+    data: {
+      frm.serialize() + '&ajax=True'
+    },
+  */
+
   function set_rq_form_choice(slug) {
     var frm = $('#reaction-questions__form'),
       label = $(event.target),
@@ -50,23 +54,19 @@
     $('.reaction-questions__label').removeClass('active');
     $($thisElem).addClass('active');
     sessionStorage.setItem('rq',$($thisElem).attr('for'));
+
+      console.log(frm.attr('action'));
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
-      data: frm.serialize() + '&ajax=True',
-      success: function() {
-        send_results(slug);
-      }
-    });
-  };
-  $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
-
-  function send_results(slug){
-    //For post / complete delete only
-    $.ajax({
-      type: "get",
-      url: "/forms/"+slug+"/results_json/",
-      success: function (data) {
+      data: {
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        choice: slug,
+        ajax: "True"
+      },
+      success: function(data) {
+        //send_results(slug);
+        console.log(data);
         for (form in data) {
           var responses = data[form];
           var updated = [];
@@ -81,8 +81,9 @@
             }
           })
         }
+
       }
-  });
+    });
   };
-  send_results('{{ forloop.counter0 }}');
+  $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
 </script>
