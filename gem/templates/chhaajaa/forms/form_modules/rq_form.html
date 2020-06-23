@@ -3,7 +3,13 @@
 <div class="reaction-questions">
   {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
     {% if form %}
-      <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
+      {% comment %}
+        {{article}}<br/>
+        {{form_page.id}}<br/>
+      {% endcomment %}
+
+
+      <form id="{% if not article.get_parent_section.get_parent_section.slug %}reaction-questions__form{% else %}reaction-questions__form_{{form_page.id}}{% endif %}" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
       {% csrf_token %}
         {{ form.media }}
         {% for field in form %}
@@ -14,16 +20,12 @@
                   {% if user_has_chosen %}
                     <input name="{{ field.name }}"
                     id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                    type="radio" value="{{ value }}"
-                    onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
-                    class="{{ value|slugify }}"/>
+                    type="radio" value="{{ value }}" {% if not article.get_parent_section.get_parent_section.slug %}onclick="set_rq_form_choice('{{ value|slugify }}_{{ forloop.counter0 }}')"{% else %}onclick="set_section_choice('{{ value|slugify }}_{{ forloop.counter0 }}', '{{form_page.id}}')"{% endif %} class="{{ value|slugify }}"/>
 
                   {% else %}
                     <input name="{{ field.name }}"
                     id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                    type="radio" value="{{ value }}"
-                    onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
-                    class="{{ value|slugify }}"/>
+                    type="radio" value="{{ value }}"{% if not article.get_parent_section.get_parent_section.slug %}onclick="set_rq_form_choice('{{ value|slugify }}_{{ forloop.counter0 }}')"{% else %}onclick="set_section_choice('{{ value|slugify }}_{{ forloop.counter0 }}', '{{form_page.id}}')"{% endif %} class="{{ value|slugify }}"/>
                   {% endif %}
                    <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
                      {{ text|capfirst }}
@@ -48,60 +50,5 @@
         {% trans 'You have already completed this poll.' %}
       </p>
     {% endif %}
-  {% else %}
-    <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
-      {% trans "Log in to add a response" %}
-    </a>
   {% endif %}
 </div>
-
-<script type="text/javascript">
-  function set_rq_form_choice(slug) {
-    var frm = $('#reaction-questions__form');
-    var label = $(event.target);
-    var $thisElem = label.next()[0];
-
-    $('.reaction-questions__label').removeClass('active');
-    $($thisElem).addClass('active');
-    sessionStorage.setItem('rq',$($thisElem).attr('for'));
-
-    $.ajax({
-      type: frm.attr('method'),
-      url: frm.attr('action'),
-      data: frm.serialize() + '&ajax=True',
-      success: function() {
-        send_results(slug);
-      }
-    });
-  };
-  $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
-
-  function send_results(slug){
-    //For post / complete delete only
-    $.ajax({
-      type: "get",
-      url: "/forms/"+slug+"/results_json/",
-      success: function (data) {
-
-        for (form in data) {
-          var responses = data[form];
-          var updated = [];
-
-          for (choice in responses) {
-            var percent = responses[choice];
-
-            $('#'+choice+'-perc').text(percent).css('width',percent+'%');
-            updated.push(choice+'-perc');
-          }
-
-          $('.response-percent__bar').each(function(){
-            if ($.inArray(this.id, updated) == -1){
-              $(this).text(0).css('width','0%');
-            }
-          })
-        }
-      }
-  });
-  };
-  send_results('{{ forloop.counter0 }}');
-</script>

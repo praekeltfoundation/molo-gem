@@ -1,86 +1,78 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags molo_forms_tags core_tags gem_tags comments %}
 
 {% get_settings %}
-<div class="article-teaser">
-  <div class="article-teaser__wrapper">
-    <ul class="teaser-stacklist">
-    {% for article in featured_articles|slice:":1" %}
-        <li class="teaser-stacklist__item">
-        {% for block in article.body %}
-          {% if block.value.type == "video" %}
-            {% if block.value.youtube_link %}
-              <div class="teaser-stacklist__iframe">
-                {% embed block.value.youtube_link %}
-              </div>
-            {% endif %}
-          {% else %}
-            {% if forloop.last and article.get_effective_image %}
-              <div class="teaser-stacklist__images">
-                <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
-                  {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
-                  <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
-                </a>
-              </div>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-          <div class="teaser-stacklist__container">
-            <h1 class="teaser-stacklist__title">
-              {{ article.title}}
-            </h1>
-            <div class="teaser-stacklist__cta-buttons">
-              {% has_forms page=self as has_polls %}
-              {% if has_polls %}
-                <div class="vote__item">
-                  <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
-                </div>
-              {% endif %}
+  <li class="teaser-stacklist__item">
+  {% for block in article.body %}
+  {% if block.value.type == "video" %}
+    {% if block.value.youtube_link %}
+      <div class="teaser-stacklist__iframe">
+        {% embed block.value.youtube_link %}
+      </div>
+    {% endif %}
+  {% else %}
+    {% if forloop.last and article.get_effective_image %}
+      <div class="teaser-stacklist__images">
+        <a href="{% pageurl article.specific %}" class="teaser-stacklist__anchor">
+          {% image article.get_effective_image width-1080 format-jpeg as teaser_thumbnail %}
+          <img alt="{{ article.title }}" src="{{ teaser_thumbnail.url }}" class="teaser-stacklist__thumbnail"/>
+        </a>
+      </div>
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+  <div class="teaser-stacklist__container">
+    <h1 class="teaser-stacklist__title">
+      {{ article.title}}
+    </h1>
+    <div class="teaser-stacklist__cta-buttons">
+      {% has_forms page=self as has_polls %}
+      {% if has_polls %}
+        <div class="vote__item">
+          <a href="#survey-form" class="vote__icon">{% trans "Poll" %}</a>
+        </div>
+      {% endif %}
 
-              {% comment %}
-                <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
-              {% endcomment %}
-              {% forms_list_linked_to_pages article %}
+      {% comment %}
+        <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+      {% endcomment %}
+      {% forms_list_linked_to_pages article %}
 
-              {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
-                <div class="share__item">
-                  <a href="#" id="share_article" class="share__icon">
-                    {% trans "Share" %}
-                  </a>
-                  <div id="share_reveal" class="share__reveal">
-                    {% social_media_article page=article %}
-                  </div>
-                </div>
-              {% endif %}
-
-              {% if article.is_commenting_enabled %}
-                {% if article.allow_commenting %}
-                  {% if request.user.is_authenticated %}
-                    <div class="comments__item">
-                      <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
-                    </div>
-                  {% endif %}
-                {% endif %}
-              {% endif %}
-            </div>
-
-            {% if article.subtitle %}
-              <h4 class="teaser-stacklist__subtitle">{{ article.subtitle}}</h4>
-            {% endif %}
-            <div class="teaser-stacklist__inner">
-              {% for block in article.body %}
-                {% if article.body|slice:":1" %}
-                  {% if not block.block_type == 'media' %}
-                    <div class="teaser-stacklist__excerpt teaser-stacklist__excerpt--hidden">
-                      <p>{{block.value}}</p>
-                    </div>
-                  {% endif %}
-                  <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
-                {% endif %}
-              {% endfor %}
-            </div>
+      {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+        <div class="share__item">
+          <a href="#" id="share_article" class="share__icon">
+            {% trans "Share" %}
+          </a>
+          <div id="share_reveal" class="share__reveal">
+            {% social_media_article page=article %}
           </div>
-        </li>
+        </div>
+      {% endif %}
+
+      {% if article.is_commenting_enabled %}
+        {% if article.allow_commenting %}
+          {% if request.user.is_authenticated %}
+            <div class="comments__item">
+              <a href="#comment-form" class="comments__icon">{% trans "Comment" %}</a>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% if article.subtitle %}
+      <h4 class="teaser-stacklist__subtitle">{{ article.subtitle}}</h4>
+    {% endif %}
+    <div class="teaser-stacklist__inner">
+      {% for block in article.body %}
+        {% if article.body|slice:":1" %}
+          {% if not block.block_type == 'media' %}
+            <div class="teaser-stacklist__excerpt teaser-stacklist__excerpt--hidden">
+              <p>{{block.value}}</p>
+            </div>
+          {% endif %}
+          <a class="call-to-action__read-more show-more" href="{% pageurl article.specific %}">{% trans "Show more" %}</a>
+        {% endif %}
       {% endfor %}
-      </ul>
+    </div>
   </div>
-</div>
+  </li>

@@ -39,9 +39,7 @@
         {% elif form_page.display_form_directly and not form_page.personalisableform %}
           {% include 'forms/form_modules/_polls.html' %}
         {% elif form_page.article_form_only and not form_page.personalisableform %}
-          {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
-            {% include 'forms/form_modules/rq_form.html' %}
-          {% endif %}
+          {% include 'forms/form_modules/rq_form.html' %}
         {% else %}
           <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
             <div class="surveys--wrapper">

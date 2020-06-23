@@ -7,7 +7,6 @@
   -->
 {% endcomment %}
 
-
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
 {% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
 {% get_settings %}
@@ -258,9 +257,14 @@
   {% endif %}
     <script src="{% static 'js/dest/main-min.js' %}"></script>
     <script type="text/javascript">
-      /* Reaction Questions */
-      var frm = $('#reaction-questions__form');
-      function set_choice(choice) {
+      /* OTHER LIKE REACTION QUESTIONS */
+      function set_rq_form_choice(choice) {
+        var frm = $('#reaction-questions__form');
+        var label = $(event.target);
+        var $thisElem = label.next()[0];
+        $('.reaction-questions__label').removeClass('active');
+        $($thisElem).addClass('active');
+        sessionStorage.setItem('rq',$($thisElem).attr('for'));
         if (!$('#' + choice).attr('disabled') == true){
           $.ajax({
             type: frm.attr('method'),
@@ -279,75 +283,103 @@
           })
         }
       };
+      $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
+
+      /* A SINGLE LIKE REACTION QUESTION */
+      function set_section_choice(choice, article_id) {
+        var frm = $('#reaction-questions__form_' + article_id);
+        if (!$('#' + choice).attr('disabled') == true)  {
+          $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              choice: choice,
+              ajax: "True"
+            },
+            success: function () {
+              // $( ".reaction-questions__label" ).filter('[id*="' + article_id + '"]').each(function( index ) {
+              //   $(this).attr('disabled', false);
+              // });
+              // $("#" + choice + "-" + article_id).attr('disabled', true);
+
+              $( ".reaction-questions__item" ).each(function( index ) {
+                $(this).attr('disabled', false);
+              });
+              $("#" + choice).attr('disabled', true);
+            }
+          })
+        }
+      };
 
 
       $(document).ready(function(){
-      var widthViewport =  $(window).width();
-      if(widthViewport > 720) {
-        var $grid = $('.service-stacklist').isotope({
-          itemSelector: '.service-stacklist__item',
-          layoutMode: 'masonry',
-          cellsByRow: {
-            columnWidth: 200,
-            rowHeight: 150
-          }
-        });
-      }
+        var widthViewport =  $(window).width();
+        if(widthViewport > 720) {
+          var $grid = $('.service-stacklist').isotope({
+            itemSelector: '.service-stacklist__item',
+            layoutMode: 'masonry',
+            cellsByRow: {
+              columnWidth: 200,
+              rowHeight: 150
+            }
+          });
+        }
 
-      /* Section */
-      $("#share_article").click(function(e) {
-        e.preventDefault();
-        $("#share_reveal").toggle(function(){
-          $(this).animate({
-             "display": "block",
-             "transition": "display .15s ease-in-out"
-           }, 500);
-          },function() {
-           $(this).animate({
-             "display": "block",
-             "transition": "display .15s ease-in-out"
-           }, 500);
-          }
-        );
-      });
-      /* Commenting */
-      $('#comment-form').submit(function() {
-        $.ajax({
-          data: $(this).serialize(),
-          type: $(this).attr('method'),
-          url: $(this).attr('action'),
-          success: function (data) {
-            // if the comment was a success, remove the comment text from the text area
-            $('#id_comment').val('');
-            $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
-            setTimeout(function(){
-              $('.comment-success').each(function(index) {
-                $(this).hide('fast', function(){ $(this).remove(); });
-              })
-            }, 3000);
-          },
-        });
-        return false;
-      });
-
-      var article_excerpt = $(".teaser-stacklist__excerpt").text().length;
-      var show_more_link = $(".show-more");
-      show_more_link.css({
-        display: 'none'
-      });
-      if(article_excerpt > 308) {
-        show_more_link.css({
-          display: 'inline-block'
-        });
-        show_more_link.click(function (e) {
+        /* Section */
+        $("#share_article").click(function(e) {
           e.preventDefault();
-          var $this = $(this);
-
-          $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
-          $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden").slow();
+          $("#share_reveal").toggle(function(){
+            $(this).animate({
+               "display": "block",
+               "transition": "display .15s ease-in-out"
+             }, 500);
+            },function() {
+             $(this).animate({
+               "display": "block",
+               "transition": "display .15s ease-in-out"
+             }, 500);
+            }
+          );
         });
-      }
-      $( "#id_comment").on("focus",function(event){
+        /* Commenting */
+        $('#comment-form').submit(function() {
+          $.ajax({
+            data: $(this).serialize(),
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            success: function (data) {
+              // if the comment was a success, remove the comment text from the text area
+              $('#id_comment').val('');
+              $('#id_comment').after("<p class='comment-success'>Thank you for your comment!</p>");
+              setTimeout(function(){
+                $('.comment-success').each(function(index) {
+                  $(this).hide('fast', function(){ $(this).remove(); });
+                })
+              }, 3000);
+            },
+          });
+          return false;
+        });
+
+        var article_excerpt = $(".teaser-stacklist__excerpt").text().length;
+        var show_more_link = $(".show-more");
+        show_more_link.css({
+          display: 'none'
+        });
+        if(article_excerpt > 308) {
+          show_more_link.css({
+            display: 'inline-block'
+          });
+          show_more_link.click(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $this.text($this.text() == "(Show Less)" ? "(Show More)" : "(Show Less)");
+            $(".teaser-stacklist__excerpt").toggleClass("teaser-stacklist__excerpt--hidden").slow();
+          });
+        }
+        $( "#id_comment").on("focus",function(event){
           $(this).closest(".comments-posting").css({
             "border": "5px solid #72f3a2",
             "outline": "none",
