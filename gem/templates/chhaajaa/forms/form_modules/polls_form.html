@@ -18,7 +18,7 @@
               type="radio" value="{{ value }}"
               onclick="set_form_choice('{{form_page.slug}}')"/>
             {% endif %}
-              <label for="value-{{ field.id_for_label }}-{{ forloop.counter }}">
+              <label class="choice-label" for="value-{{ field.id_for_label }}-{{ forloop.counter }}">
                 {{ text|capfirst }}
               </label>
           </div>
@@ -48,7 +48,16 @@
 
 <script type="text/javascript">
   function set_form_choice(slug){
-    var frm = $('#polls_form');
+    var frm = $('#polls_form'),
+      label = $(event.target),
+      $thisElem = label.next()[0];
+
+    console.log($thisElem);
+
+    $('.choice-label').removeClass('active');
+    $($thisElem).addClass('active');
+    sessionStorage.setItem('rq',$($thisElem).attr('for'));
+
     $.ajax({
       type: frm.attr('method'),
       url: frm.attr('action'),
@@ -58,6 +67,7 @@
       },
     });
   };
+  $('label[for='+ sessionStorage.getItem('rq') +']').addClass('active');
 
   function update_percentages(slug){
     $.ajax({

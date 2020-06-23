@@ -141,28 +141,29 @@
 
 
 //RADIO BUTTONS OVERRIDES
-#polls_form input[type="checkbox"] ~ label,
-#polls_form input[type="radio"] ~ label {
-  color: $colorPink;
-  &:before {
-    border: 5px solid $colorPink !important;
-    transform: rotate(45deg);
-    width: 18px;
-    height: 18px;
-  }
-  &:active {
+#polls_form {
+  input[type="checkbox"] ~ label,
+  input[type="radio"] ~ label {
     color: $colorPink;
+    &:before {
+      border: 5px solid $colorPink !important;
+      transform: rotate(45deg);
+      width: 18px;
+      height: 18px;
+    }
+    &:active {
+      color: $colorPink;
+    }
   }
-}
-#polls_form input[type="checkbox"],
-#polls_form input[type="radio"] {
-  &:checked + label:before {
-    background: $colorPink;
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    &:checked + label:before {
+      background: $colorPink;
+    }
   }
-}
-#polls_form  input[type="checkbox"]
-#polls_form  input[type="radio"] {
-  &:checked + label:before {
+  
+  .active:before {
     background: $colorPink;
   }
 }

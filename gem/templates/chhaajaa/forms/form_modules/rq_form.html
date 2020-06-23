@@ -1,58 +1,62 @@
 {% load wagtailcore_tags core_tags gem_tags %}
 
 <div class="reaction-questions">
-  {% if form %}
-    <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
-    {% csrf_token %}
-      {{ form.media }}
-      {% for field in form %}
-        {% if field|fieldtype == 'RadioSelect' %}
-          <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
-            {% for value, text in field.field.choices %}
-              <div class="reaction-questions__item">
-                {% if user_has_chosen %}
-                  <input name="{{ field.name }}"
-                  id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                  type="radio" value="{{ value }}"
-                  onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
-                  class="{{ value|slugify }}"/>
+  {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+    {% if form %}
+      <form id="reaction-questions__form" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
+      {% csrf_token %}
+        {{ form.media }}
+        {% for field in form %}
+          {% if field|fieldtype == 'RadioSelect' %}
+            <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
+              {% for value, text in field.field.choices %}
+                <div class="reaction-questions__item">
+                  {% if user_has_chosen %}
+                    <input name="{{ field.name }}"
+                    id="{{ value|slugify }}_{{ forloop.counter0 }}"
+                    type="radio" value="{{ value }}"
+                    onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
+                    class="{{ value|slugify }}"/>
 
-                {% else %}
-                  <input name="{{ field.name }}"
-                  id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                  type="radio" value="{{ value }}"
-                  onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
-                  class="{{ value|slugify }}"/>
-                {% endif %}
-                 <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
-                   {{ text|capfirst }}
-                 </label>
-              </div>
+                  {% else %}
+                    <input name="{{ field.name }}"
+                    id="{{ value|slugify }}_{{ forloop.counter0 }}"
+                    type="radio" value="{{ value }}"
+                    onclick="set_rq_form_choice('{{field.name}}_{{ forloop.counter0 }}')"
+                    class="{{ value|slugify }}"/>
+                  {% endif %}
+                   <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
+                     {{ text|capfirst }}
+                   </label>
+                </div>
+              {% endfor %}
+            </fieldset>
+          {% endif %}
+
+          {% if field.errors %}
+            <ul class="error-list">
+            {% for error in field.errors %}
+              <li class="error-list__item">{{ error }}</li>
             {% endfor %}
-          </fieldset>
-        {% endif %}
+            </ul>
+          {% endif %}
 
-        {% if field.errors %}
-          <ul class="error-list">
-          {% for error in field.errors %}
-            <li class="error-list__item">{{ error }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-
-      {% endfor %}
-    </form>
+        {% endfor %}
+      </form>
+    {% else %}
+      <p class="error-list__item">
+        {% trans 'You have already completed this poll.' %}
+      </p>
+    {% endif %}
   {% else %}
-    <p class="error-list__item">
-      {% trans 'You have already completed this poll.' %}
-    </p>
+    <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
+      {% trans "Log in to add a response" %}
+    </a>
   {% endif %}
 </div>
 
 <script type="text/javascript">
-  console.log('icon');
   function set_rq_form_choice(slug) {
-
     var frm = $('#reaction-questions__form');
     var label = $(event.target);
     var $thisElem = label.next()[0];

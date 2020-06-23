@@ -19,18 +19,19 @@
             {{form_page.homepage_introduction|smarttruncatechars:215|safe}}
           </h4>
         {% endif %}
-        {% if form %}
-          {% if user.is_authenticated and user.is_active or request.is_preview or form.allow_anonymous_submissions %}
+
+        {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+          {% if form %}
             {% include "forms/form_modules/polls_form.html" %}
           {% else %}
-            <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
-              {% trans "Log in to vote" %}
-            </a>
+            <p class="error-list__item">
+              {% trans 'You have already completed this poll.' %}
+            </p>
           {% endif %}
         {% else %}
-          <p class="error-list__item">
-            {% trans 'You have already completed this poll.' %}
-          </p>
+          <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__item--paginate">
+            {% trans "Log in to vote" %}
+          </a>
         {% endif %}
       </section>
 
