@@ -200,29 +200,38 @@ def clean_comment(self):
     Check for email addresses, telephone numbers and any other keywords or
     patterns defined through GemSettings.
     """
+
     comment = self.cleaned_data['comment']
+    comment_moderator_groups = ['comment_moderator']
 
-    site = Site.objects.get(is_default_site=True)
-    settings = GemSettings.for_site(site)
+    is_moderator = self.request and self.request.user.groups.filter(
+        name__in=comment_moderator_groups).exists()
+    is_superuser = self.request and self.request.user.is_superuser
 
-    banned_list = [REGEX_EMAIL, REGEX_PHONE]
+    should_validate = not self.request \
+        or (not is_moderator and not is_superuser)
 
-    banned_keywords_and_patterns = \
-        settings.banned_keywords_and_patterns.split('\n') \
-        if settings.banned_keywords_and_patterns else []
+    if should_validate:
+        site = Site.objects.get(is_default_site=True)
+        settings = GemSettings.for_site(site)
 
-    banned_list += banned_keywords_and_patterns
+        banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
-    for keyword in banned_list:
-        keyword = keyword.replace('\r', '')
-        match = re.search(keyword, comment.lower())
-        if match:
-            raise forms.ValidationError(
-                _(
+        banned_keywords_and_patterns = \
+            settings.banned_keywords_and_patterns.split('\n') \
+            if settings.banned_keywords_and_patterns else []
+
+        banned_list += banned_keywords_and_patterns
+
+        for keyword in banned_list:
+            keyword = keyword.replace('\r', '')
+            match = re.search(keyword, comment.lower())
+            if match:
+                err = _(
                     'This comment has been removed as it contains profanity, '
                     'contact information or other inappropriate content. '
                 )
-            )
+                raise forms.ValidationError(err)
 
     return comment
 

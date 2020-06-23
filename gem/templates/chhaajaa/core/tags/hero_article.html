@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags wagtailsettings_tags core_tags gem_tags molo_forms_tags %}
 {% get_settings %}
 
 {% if articles %}
@@ -27,7 +27,7 @@
       <div class="teaser-stacklist__container">
         <div class="teaser-stacklist__main">
           <h1 class="teaser-stacklist__title-secondary">
-            {{ article.title}}
+            <a href="{% pageurl article %}" class="promoted-article-list__anchor">{{ article.title}}</a>
           </h1>
           {% if article.subtitle %}
             <h4 class="teaser-stacklist__subtitle">{{ article.subtitle }}</h4>
@@ -42,31 +42,14 @@
             {% endfor %}
         </div>
         <div class="teaser-stacklist__cta-buttons">
-          {% load_reaction_question article as question %}
-          {% if question %}
-          <div class="reaction-questions">
-            <form class="reaction-questions__field" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-              {% csrf_token %}
-              <div class="reaction-questions__list">
-                {% load_choices_for_reaction_question question as choices %}
-                  {% for choice in choices %}
-                  {% load_user_choice_reaction_question question article choice as user_has_chosen %}
-                  {% if user_has_chosen %}
-                    <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                  {% else %}
-                    <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                  {% endif %}
-                      <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                        {% image choice.specific.image width-50 as reaction__icon %}
-                        <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                        {{ choice.title|capfirst }}
-                      </label>
-                    </span>
-                  {% endfor %}
-              </div>
-            </form>
-          </div>
-          {% endif %}
+          {% comment %}
+            {% has_forms page=article as has_polls %}
+            {% if has_polls %}{% endif %}
+          {% endcomment %}
+          
+          {% forms_list_for_pages page=article %}
+          {% forms_list_linked_to_pages article %}
+
           {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
             <div class="share__item">
               <a href="#" id="share_article" class="share__icon">{% trans "Share" %}</a>

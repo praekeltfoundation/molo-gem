@@ -1,0 +1,79 @@
+.surveys {
+  padding: 0.5em 0;
+  @media screen and (min-width: 45.000em) {
+    padding: 1.5em 5% 2em;
+  }
+  &__wrapper {
+    background: #fff;
+    padding: 2em 1em;
+    text-align: center;
+    @media screen and (min-width: 45.000em) {
+      padding: 2em 30%;
+    }
+    .heading__subtitle {
+      color: $colorPink;
+      font-family: "FedraSansDevanagariB-Light";
+    }
+  }
+  &__title {
+    color: $colorPink;
+  }
+  &__inner {
+    overflow: auto;
+  }
+  section {
+    margin: 0 0 1em;
+  }
+  aside {
+    display: none;
+  }
+  //FORM
+  &__form {
+    overflow: inherit;
+    text-align: left;
+    input {
+      width: 90%;
+    }
+    textarea {
+      width: 88%;
+    }
+  }
+
+  &__icon {
+    color: $colorGrey;
+    display: inline-block;
+    font-family: "FedraSansDevanagariB-Demi";
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: break-word;
+    margin: 0 12px 6px 5px;
+    &:before {
+      background-image: url('/static/img/icons/survey.png');
+      background-position: 0 3px;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      content: "";
+      display: block;
+      height: 41px;
+      width: 30px;
+      margin: 0 auto 4px;
+    }
+    &:hover, &:focus, &:active {
+      &:before {
+        background-position: 0 -40.5px;
+      }
+    }
+  }
+  .heading__macro {
+    font-family: "FedraSansDevanagariB-Demi";
+    @media screen and (min-width: 62.000em) {
+      font-size: 38px;
+    }
+  }
+  .call-to-action--group {
+    text-align: left;
+  }
+}

@@ -1,25 +1,18 @@
-from copy import deepcopy
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.sites.models import Site
-from django.urls import reverse
-from django.test import TestCase, Client, RequestFactory
-from django.test.utils import override_settings
-from django.utils import timezone
-from django.conf import settings
 from mock import patch
-from gem.forms import GemRegistrationForm, GemEditProfileForm
-from gem.models import GemSettings, GemCommentReport, OIDCSettings
-from gem.tests.base import GemTestCaseMixin
-from gem.views import CustomAuthenticationRequestView
 from os.path import join
-from molo.commenting.forms import MoloCommentForm
-from molo.commenting.models import MoloComment
+from copy import deepcopy
+
+from django.urls import reverse
+from django.conf import settings
+from django.utils import timezone
+from django.contrib.auth.models import User, Permission, Group
+from django.contrib.sites.models import Site
+from django.test.utils import override_settings
+from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase, Client, RequestFactory
+
 from molo.core.models import (
-    Main, SectionIndexPage, ReactionQuestionChoice,
-    ReactionQuestion, ReactionQuestionResponse,
-    ReactionQuestionIndexPage,
-    ArticlePageReactionQuestions)
+    Main, SectionIndexPage)
 from molo.profiles.models import (
     SecurityAnswer,
     SecurityQuestion,
@@ -27,6 +20,19 @@ from molo.profiles.models import (
     UserProfile,
     UserProfilesSettings,
 )
+
+from molo.commenting.forms import MoloCommentForm
+from molo.commenting.models import MoloComment
+
+from molo.forms.tests.base import create_molo_form_page
+from molo.forms.models import (
+    ArticlePageForms, FormsIndexPage,
+    MoloFormSubmission, MoloFormField)
+
+from gem.forms import GemRegistrationForm, GemEditProfileForm
+from gem.models import GemSettings, GemCommentReport, OIDCSettings
+from gem.tests.base import GemTestCaseMixin
+from gem.views import CustomAuthenticationRequestView
 
 
 @override_settings(
@@ -367,7 +373,7 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         })
         self.client.post(
             reverse('molo.commenting:molo-comments-post'), data)
-        [comment] = MoloComment.objects.filter(user=self.user)
+        comment = MoloComment.objects.filter(user=self.user).first()
         self.assertEqual(comment.comment, 'Foo')
         self.assertEqual(comment.user_name, 'Anonymous')
 
@@ -396,6 +402,87 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         response = self.client.get('/sections-main1-1/your-mind/article-1/')
         self.assertNotContains(response, "Big Sister")
         self.assertContains(response, "Gabi")
+
+    def test_moderator_user_contact_information_comment(self):
+        self.client.login(username='admin', password='admin')
+
+        comment = self.create_comment(
+            self.article, 'test comment1 text', self.superuser)
+
+        email = 'someone1@test.com'
+        url = '/admin/comment/1/reply/'.format(comment.pk)
+        content_type = '{}.{}'.format(
+            *self.article.specific.content_type.natural_key())
+        response = self.client.get(url)
+
+        data = response.context_data['form'].initial
+        data.update(dict(
+            comment=email,
+            object_pk=self.article.pk,
+            content_type=content_type
+        ))
+
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
+
+    def get_admin_perms(self):
+        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+            app_label='wagtailadmin',
+            model='admin'
+        )
+        admin_permission, created = Permission.objects.get_or_create(
+            content_type=wagtailadmin_content_type,
+            codename='access_admin',
+            name='Can access Wagtail admin'
+        )
+        return admin_permission
+
+    def test_non_moderator_user_contact_information_comment(self):
+        user = User.objects.create_user(
+            username='staffuser',
+            email='staffuser@example.com',
+            is_staff=True,
+            password='tester')
+        admin_permission = self.get_admin_perms()
+        user.user_permissions.add(admin_permission)
+        user.profile.admin_sites.add(self.main.get_site())
+
+        self.assertTrue(user.has_perm('wagtailadmin.access_admin'))
+        self.client.force_login(user)
+
+        comment = self.create_comment(
+            self.article, 'test comment1 text', self.superuser)
+
+        email = 'someone1@test.com'
+        url = '/admin/comment/1/reply/'.format(comment.pk)
+        content_type = '{}.{}'.format(
+            *self.article.specific.content_type.natural_key())
+        response = self.client.get(url)
+
+        data = response.context_data['form'].initial
+        data.update(dict(
+            comment=email,
+            object_pk=self.article.pk,
+            content_type=content_type
+        ))
+
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context['form'].errors,
+            {'comment': [
+                'This comment has been removed as it contains profanity, '
+                'contact information or other inappropriate content. '
+            ]}
+        )
+
+        group, created = Group.objects.get_or_create(
+            name='comment_moderator')
+        user.groups.add(group)
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/admin/commenting/molocomment/')
 
     def getValidData(self, obj):
         form = MoloCommentForm(obj)
@@ -637,15 +724,19 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
         self.yourmind = self.mk_section(
             self.section_index, title='Your mind')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.user = User.objects.create_user(
+            username='tester',
+            email='tester@example.com',
+            password='tester')
 
-    def test_highlights_correct_reaction(self):
+    def test_reaction_question(self):
         template_settings = deepcopy(settings.TEMPLATES)
         template_settings[0]['DIRS'] = [
             join(settings.PROJECT_ROOT, 'templates', 'chhaajaa')
         ]
 
         with self.settings(TEMPLATES=template_settings):
-            # create article
+            self.client.force_login(self.user)
             promote_date = timezone.now() + timezone.timedelta(days=-1)
             demote_date = timezone.now() + timezone.timedelta(days=1)
             article = self.mk_article(
@@ -654,44 +745,81 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
                 promote_date=promote_date,
                 demote_date=demote_date
             )
-            # create reaction question
-            question = ReactionQuestion(title='This is a question')
-            ReactionQuestionIndexPage.objects.last().add_child(
-                instance=question)
-            question.save_revision().publish()
+            forms_index = FormsIndexPage.objects.filter().first()
+            form = create_molo_form_page(
+                forms_index, display_form_directly=True)
 
-            # add choices to reaction question
-            choice = ReactionQuestionChoice(title='yes')
-            question.add_child(instance=choice)
-            choice.save_revision().publish()
-            choice2 = ReactionQuestionChoice(title='no')
-            question.add_child(instance=choice2)
-            choice2.save_revision().publish()
+            form_field = MoloFormField.objects.create(
+                page=form, sort_order=1, label='q1', field_type='checkboxes',
+                required=True, page_break=False,
+                admin_label='q1', skip_logic=None, choices='a,b,c',
+            )
+            ArticlePageForms.objects.create(
+                page=article, form=form)
 
-            ArticlePageReactionQuestions.objects.create(
-                reaction_question=question, page=article)
-            # create a user and log in
-            user = User.objects.create_superuser(
-                username='testuser', password='password',
-                email='test@email.com')
-            self.client.login(username='testuser', password='password')
+            res = self.client.get('/')
+            self.assertEqual(res.status_code, 200)
+            self.assertContains(res, article.title)
+            # self.assertTrue(form_field.label in str(res.content))
+            # now the user is redirected to the form page
+            # self.assertTrue(form_field.label in str(res.content))
 
-            # get the homepage with article and reaction question on it
-            response = self.client.get('/')
-            self.assertContains(response, article.title)
-            self.assertNotContains(
-                response,
-                'onclick="set_choice(%s)" disabled=disabled>' % choice.pk)
-            self.assertNotContains(
-                response,
-                'onclick="set_choice(%s)" disabled=disabled>' % choice2.pk)
-            ReactionQuestionResponse.objects.create(
-                choice=choice, article=article, question=question,
-                user=user)
-            response = self.client.get('/')
-            self.assertContains(
-                response,
-                'onclick="set_choice(%s)" disabled=disabled>' % choice.pk)
-            self.assertNotContains(
-                response,
-                'onclick="set_choice(%s)" disabled=disabled>' % choice2.pk)
+            data = {
+                form_field.admin_label: 'b'
+            }
+            MoloFormSubmission.objects.create(
+                page=form, article_page=article,
+                user=self.user, form_data=data
+            )
+
+            res = self.client.get('/')
+            self.assertEqual(res.status_code, 200)
+            self.assertContains(res, article.title)
+            # self.assertTrue(form_field.label in str(res.content))
+
+    def test_reaction_question_multi_submissions(self):
+        template_settings = deepcopy(settings.TEMPLATES)
+        template_settings[0]['DIRS'] = [
+            join(settings.PROJECT_ROOT, 'templates', 'chhaajaa')
+        ]
+
+        with self.settings(TEMPLATES=template_settings):
+            self.client.force_login(self.user)
+            promote_date = timezone.now() + timezone.timedelta(days=-1)
+            demote_date = timezone.now() + timezone.timedelta(days=1)
+            article = self.mk_article(
+                self.yourmind,
+                feature_as_hero_article=True,
+                promote_date=promote_date,
+                demote_date=demote_date
+            )
+            forms_index = FormsIndexPage.objects.filter().first()
+            form = create_molo_form_page(
+                forms_index, display_form_directly=True,
+                allow_multiple_submissions_per_user=True)
+
+            form_field = MoloFormField.objects.create(
+                page=form, sort_order=1, label='q1', field_type='checkboxes',
+                required=True, page_break=False,
+                admin_label='q1', skip_logic=None, choices='a,b,c',
+            )
+            ArticlePageForms.objects.create(
+                page=article, form=form)
+
+            res = self.client.get('/')
+            self.assertEqual(res.status_code, 200)
+            self.assertContains(res, article.title)
+            # self.assertTrue(form_field.label in str(res.content))
+
+            data = {
+                form_field.admin_label: 'b'
+            }
+            MoloFormSubmission.objects.create(
+                page=form, article_page=article,
+                user=self.user, form_data=data
+            )
+
+            res = self.client.get('/')
+            self.assertEqual(res.status_code, 200)
+            self.assertContains(res, article.title)
+            # self.assertTrue(form_field.label in str(res.content))

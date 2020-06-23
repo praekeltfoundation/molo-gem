@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_prometheus',
+    'rest_framework',
 
     'allauth',
     'allauth.account',
