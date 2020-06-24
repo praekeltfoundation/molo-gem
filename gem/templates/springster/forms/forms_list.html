@@ -23,42 +23,44 @@
           {% endif %}
         {% endwith %}
       {% endwith %}
+    {% endif %}
 
-    {% else %}
-      {% for item in filtered_forms %}
-        {% with form_page=item.molo_form_page form=item.form %}
-          {% if form_page.your_words_competition and not form_page.personalisableform %}
-            <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
-              <aside>
-              {% if form_page.image %}
-                {% image form_page.image width-98 as tmp_photo_small %}
-                {% image form_page.image width-320 as tmp_photo_large %}
-                  <div class="surveys--page__image-wrapper">
-                    <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form_page.image.title }}" class="surveys--page__image" />
-                  </div>
-              {% else %}
-                <div class="surveys--page__image gcn-competition__default"></div>
-              {% endif %}
-              </aside>
-              <section>
-              <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
-              {% if form_page.homepage_introduction %}
-                <div class="heading heading__subheading">
-                  <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+    {% for item in filtered_forms %}
+      {% with form_page=item.molo_form_page form=item.form %}
+        {% if form_page.your_words_competition and not form_page.personalisableform %}
+          <div class="gcn-competition gcn-competition--homepage gcn-competition{{form_page.get_effective_extra_style_hints}}">
+            <aside>
+            {% if form_page.image %}
+              {% image form_page.image width-98 as tmp_photo_small %}
+              {% image form_page.image width-320 as tmp_photo_large %}
+                <div class="surveys--page__image-wrapper">
+                  <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form_page.image.title }}" class="surveys--page__image" />
                 </div>
-              {% endif %}
-              </section>
-              <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
-                <span class="call-to-action__button-text call-to-action__button-text--primary">
-                  {% trans "Take GCN competition" as defaultTextGCN %}
-                  {{ form_page.homepage_button_text|default:defaultTextGCN}}
-                </span>
-              </a>
-            </div>
-          {% elif form_page.display_form_directly and not form_page.personalisableform %}
-            {% include 'forms/form_modules/_polls.html' %}
-          {% elif form_page.article_form_only and not form_page.personalisableform %}
-            {% include 'forms/form_modules/_reaction-questions.html' %}
+            {% else %}
+              <div class="surveys--page__image gcn-competition__default"></div>
+            {% endif %}
+            </aside>
+            <section>
+            <div class="heading heading__component"><h1>{{form_page.title}}</h1></div>
+            {% if form_page.homepage_introduction %}
+              <div class="heading heading__subheading">
+                <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+              </div>
+            {% endif %}
+            </section>
+            <a href="{% pageurl form_page.specific %}" class="call-to-action__button call-to-action__button--primary">
+              <span class="call-to-action__button-text call-to-action__button-text--primary">
+                {% trans "Take GCN competition" as defaultTextGCN %}
+                {{ form_page.homepage_button_text|default:defaultTextGCN}}
+              </span>
+            </a>
+          </div>
+        {% elif form_page.display_form_directly and not form_page.personalisableform %}
+          {% include 'forms/form_modules/_polls.html' %}
+        {% elif form_page.article_form_only and not form_page.personalisableform %}
+          {% include 'forms/form_modules/_reaction-questions.html' %}
+        {% else %}
+          {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions %}
           {% else %}
             <div class="adv_wrapper adv_wrapper--surveys adv_wrapper--homepage adv_wrapper{{form_page.get_effective_extra_style_hints}}">
               <div class="surveys--wrapper">
@@ -89,8 +91,9 @@
               </nav>
             </div>
           {% endif %}
-        {% endwith %}
-      {% endfor %}
-    {% endif %}
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+
   {% endif %}
 {% endblock %}
