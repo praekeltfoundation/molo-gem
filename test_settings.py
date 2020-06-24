@@ -1,10 +1,10 @@
 from gem.settings import *  # noqa: F401, F403
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'gem_test.db',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'gem_test.db',
+#     }
+# }
 
 LOGGING = {
     'version': 1,
