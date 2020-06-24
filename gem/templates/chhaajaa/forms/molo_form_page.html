@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags %}
+
 {% block content %}
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
@@ -59,7 +60,7 @@
         {% if self.contact_form %}
           {% include 'forms/form.html' %}
         {% else %}
-        
+
           {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
             {% if fields_step and fields_step.paginator.num_pages > 1 %}
               <div class="pagination pagination--multi-step">
@@ -95,4 +96,5 @@
     </div>
   </div>
 </div>
+
 {% endblock %}

@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
 {% load wagtailimages_tags molo_forms_tags %}
+
 {% block content %}
-<div class="
-  {% if self.your_words_competition %}
-    yourwords
-  {% elif self.display_form_directly %}
-    polls
-  {% else %}
-    surveys
-  {% endif %}">
+<div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
     {% if self.your_words_competition %}
     <div class="heading heading--hero">
@@ -17,23 +11,23 @@
       </h1>
     </div>
     {% elif self.contact_form %}
-    <div class="heading heading--secondary">
-      <h1 class="heading__title">
-        {{self.title}}
-      </h1>
-    </div>
+      <div class="heading heading--secondary">
+        <h1 class="heading__title">
+          {{self.title}}
+        </h1>
+      </div>
     {% else %}
-    <div class="heading heading--secondary">
-      <h1 class="heading__title">
-        {% if self.display_form_directly %}
-          {% trans 'Vote' %}
-        {% elif self.article_form_only %}
-          {% trans 'Reaction Questions' %}
-        {% else %}
-          {% trans 'Quiz' %}
-        {% endif %}
-      </h1>
-    </div>
+      <div class="heading heading--secondary">
+        <h1 class="heading__title">
+          {% if self.display_form_directly %}
+            {% trans 'Vote' %}
+          {% elif self.article_form_only %}
+            {% trans 'Reaction Questions' %}
+          {% else %}
+            {% trans 'Quiz' %}
+          {% endif %}
+        </h1>
+      </div>
     {% endif %}
 
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__inner">
