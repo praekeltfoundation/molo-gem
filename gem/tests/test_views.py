@@ -1,9 +1,9 @@
 from mock import patch
-from os.path import join
-from copy import deepcopy
+# from os.path import join
+# from copy import deepcopy
 
 from django.urls import reverse
-from django.conf import settings
+# from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User, Permission, Group
 from django.contrib.sites.models import Site
@@ -24,10 +24,10 @@ from molo.profiles.models import (
 from molo.commenting.forms import MoloCommentForm
 from molo.commenting.models import MoloComment
 
-from molo.forms.tests.base import create_molo_form_page
-from molo.forms.models import (
-    ArticlePageForms, FormsIndexPage,
-    MoloFormSubmission, MoloFormField)
+# from molo.forms.tests.base import create_molo_form_page
+# from molo.forms.models import (
+#    ArticlePageForms, FormsIndexPage,
+#    MoloFormSubmission, MoloFormField)
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport, OIDCSettings
@@ -714,7 +714,13 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
             'theme': 'springster', 'language': 'en'
         })
 
-#THE REACTION QUESTIONS ON FORMS IS NOW SIMILAR TO THE POLLS IMPLEMENATION ON FORMS HOWEVER USES A DIFFERENT TAG FROM display_form_directly - DO THESE BELOW TEST NEED TO BE ADJUSTED - Aphiwe to please advice?
+
+# THE REACTION QUESTIONS ON FORMS IS NOW
+# SIMILAR TO THE POLLS IMPLEMENATION ON
+# FORMS HOWEVER USES A DIFFERENT TAG
+# FROM display_form_directly -
+# DO THESE BELOW TEST NEED TO BE ADJUSTED
+# - Aphiwe to please advice?
 # class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
 #     def setUp(self):
 #         self.main = self.mk_main(
