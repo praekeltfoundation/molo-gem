@@ -3,7 +3,7 @@ from os.path import join
 from copy import deepcopy
 
 from django.urls import reverse
-from django.conf import settings
+# from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User, Permission, Group
 from django.contrib.sites.models import Site
@@ -26,8 +26,8 @@ from molo.commenting.models import MoloComment
 
 from molo.forms.tests.base import create_molo_form_page
 from molo.forms.models import (
-    ArticlePageForms, FormsIndexPage,
-    MoloFormSubmission, MoloFormField)
+   ArticlePageForms, FormsIndexPage,
+   MoloFormSubmission, MoloFormField)
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
 from gem.models import GemSettings, GemCommentReport, OIDCSettings
@@ -715,6 +715,12 @@ class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
         })
 
 
+# THE REACTION QUESTIONS ON FORMS IS NOW
+# SIMILAR TO THE POLLS IMPLEMENATION ON
+# FORMS HOWEVER USES A DIFFERENT TAG
+# FROM display_form_directly -
+# DO THESE BELOW TEST NEED TO BE ADJUSTED
+# - Aphiwe to please advice?
 class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
@@ -762,7 +768,7 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             self.assertContains(res, article.title)
             # self.assertTrue(form_field.label in str(res.content))
             # now the user is redirected to the form page
-            # self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form_field.label in str(res.content))
 
             data = {
                 form_field.admin_label: 'b'
@@ -775,7 +781,7 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            # self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form_field.label in str(res.content))
 
     def test_reaction_question_multi_submissions(self):
         template_settings = deepcopy(settings.TEMPLATES)
@@ -809,7 +815,7 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            # self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form_field.label in str(res.content))
 
             data = {
                 form_field.admin_label: 'b'
@@ -822,4 +828,4 @@ class ChhaaJaaReactionQuestionsTest(TestCase, GemTestCaseMixin):
             res = self.client.get('/')
             self.assertEqual(res.status_code, 200)
             self.assertContains(res, article.title)
-            # self.assertTrue(form_field.label in str(res.content))
+            self.assertTrue(form_field.label in str(res.content))

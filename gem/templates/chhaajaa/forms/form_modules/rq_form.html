@@ -8,7 +8,6 @@
         {{form_page.id}}<br/>
       {% endcomment %}
 
-
       <form id="{% if not article.get_parent_section.get_parent_section.slug %}reaction-questions__form{% else %}reaction-questions__form_{{form_page.id}}{% endif %}" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
       {% csrf_token %}
         {{ form.media }}
