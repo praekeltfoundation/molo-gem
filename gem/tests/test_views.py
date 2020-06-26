@@ -3,7 +3,7 @@ from os.path import join
 from copy import deepcopy
 
 from django.urls import reverse
-# from django.conf import settings
+from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User, Permission, Group
 from django.contrib.sites.models import Site
