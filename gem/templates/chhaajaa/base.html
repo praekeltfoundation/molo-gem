@@ -288,7 +288,8 @@
             choice: choice,
             ajax: "True"
           },
-          success: function () {
+          success: function (res) {
+            console.log(res, 'RQ base.html 1')
             $( ".reaction-questions__item" ).each(function( index ) {
               $(this).attr('disabled', false);
             });
@@ -311,7 +312,8 @@
             choice: choice,
             ajax: "True"
           },
-          success: function () {
+          success: function (res) {
+            console.log(res, 'RQ base.html 2')
             // $( ".reaction-questions__label" ).filter('[id*="' + article_id + '"]').each(function( index ) {
             //   $(this).attr('disabled', false);
             // });

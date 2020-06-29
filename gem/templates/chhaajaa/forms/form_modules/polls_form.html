@@ -62,7 +62,8 @@
       type: frm.attr('method'),
       url: frm.attr('action'),
       data: frm.serialize() + '&ajax=True',
-      success: function() {
+      success: function(res) {
+        console.log(res, 'RQ polls_form.html 1')
         update_percentages(slug)
       },
     });
@@ -74,6 +75,7 @@
       type: "get",
       url: "/forms/"+ slug +"/results_json/",
       success: function (data) {
+        console.log(data, 'RQ polls_form.html 2')
         for (form in data) {
           var responses = data[form];
           var updated = [];
