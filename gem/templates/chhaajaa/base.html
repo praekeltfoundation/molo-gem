@@ -280,16 +280,21 @@
       $($thisElem).addClass('active');
       sessionStorage.setItem('rq',$($thisElem).attr('for'));
       if (!$('#' + choice).attr('disabled') == true){
+        var data = {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          ajax: "True"
+        };
+
+        var form_values = frm.serializeArray();
+        for(var i=0; i<form_values.length; i++){
+          data[form_values[i].name] = form_values[i].value;
+        }
+
         $.ajax({
-          type: frm.attr('method'),
+          type: 'post',
           url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
+          data: data,
           success: function (res) {
-            console.log(res, 'RQ base.html 1')
             $( ".reaction-questions__item" ).each(function( index ) {
               $(this).attr('disabled', false);
             });
@@ -304,16 +309,23 @@
     function set_section_choice(choice, article_id) {
       var frm = $('#reaction-questions__form_' + article_id);
       if (!$('#' + choice).attr('disabled') == true)  {
+
+        var data = {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          ajax: "True"
+        };
+
+        var form_values = frm.serializeArray();
+        for(var i=0; i<form_values.length; i++){
+          data[form_values[i].name] = form_values[i].value;
+        }
+
         $.ajax({
           type: frm.attr('method'),
           url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
+          data: data,
           success: function (res) {
-            console.log(res, 'RQ base.html 2')
+
             // $( ".reaction-questions__label" ).filter('[id*="' + article_id + '"]').each(function( index ) {
             //   $(this).attr('disabled', false);
             // });
