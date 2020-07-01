@@ -53,8 +53,6 @@
       label = $(event.target),
       $thisElem = label.next()[0];
 
-    console.log($thisElem);
-
     $('.choice-label').removeClass('active');
     $($thisElem).addClass('active');
     sessionStorage.setItem('rq',$($thisElem).attr('for'));
@@ -98,7 +96,6 @@
               var percent = responses[choice];
               $('#'+choice+'-perc').text(percent).css('width',percent+'%');
               updated.push(choice+'-perc');
-              console.log(choice, 'choice', percent, 'percent');
             }
             $('.response-percent__bar').each(function(){
               if ($.inArray(this.id, updated) == -1){
