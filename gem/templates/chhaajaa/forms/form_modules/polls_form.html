@@ -62,22 +62,7 @@
       url: frm.attr('action'),
       data: frm.serialize() + '&ajax=True',
       success: function(data) {
-        for (form in data) {
-          if(form!=='article_page'){
-            var responses = data[form];
-            var updated = [];
-            for (choice in responses) {
-              var percent = responses[choice];
-              $('#'+choice+'-perc').text(percent).css('width',percent+'%');
-              updated.push(choice+'-perc');
-            }
-            $('.response-percent__bar').each(function(){
-              if ($.inArray(this.id, updated) == -1){
-                $(this).text(0).css('width','0%');
-              }
-            });
-          }
-        }
+        update_ui(data);
       },
     });
   };
@@ -88,24 +73,27 @@
       type: "get",
       url: article_id ? "/forms/"+ slug +"/" + article_id +"/success/?format=json":"/forms/"+ slug +"/success/?format=json",
       success: function (data) {
-        for (form in data) {
-          if(form!=='article_page'){
-            var responses = data[form];
-            var updated = [];
-            for (choice in responses) {
-              var percent = responses[choice];
-              $('#'+choice+'-perc').text(percent).css('width',percent+'%');
-              updated.push(choice+'-perc');
-            }
-            $('.response-percent__bar').each(function(){
-              if ($.inArray(this.id, updated) == -1){
-                $(this).text(0).css('width','0%');
-              }
-            })
-          }
-        }
+        update_ui(data);
       }
-  });
-  };
+    });
+  }
+  function update_ui(data){
+    for (form in data) {
+      if(form!=='article_page'){
+        var responses = data[form];
+        var updated = [];
+        for (choice in responses) {
+          var percent = responses[choice];
+          $('#'+choice+'-perc').text(percent).css('width',percent+'%');
+          updated.push(choice+'-perc');
+        }
+        $('.response-percent__bar').each(function(){
+          if ($.inArray(this.id, updated) == -1){
+            $(this).text(0).css('width','0%');
+          }
+        })
+      }
+    }
+  }
   update_percentages('{{form_page.slug}}', {{self.pk }});
 </script>
