@@ -50,7 +50,20 @@
         background-position: 0 -57px;
       }
     }
+    &:disabled {
+      & ~ label,
+      & ~ label:before {
+        opacity: 0.7;
+      }
+    }
+    &:enabled {
+      & ~ label,
+      & ~ label:before {
+        opacity: 1;
+      }
+    }
   }
+
   .maybe ~ label,
   .like ~ label {
     &:before {

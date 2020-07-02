@@ -4,31 +4,26 @@
   {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
     {% if form %}
       {% comment %}
-        {{article}}<br/>
-        {{form_page.id}}<br/>
+        {% if article.get_parent_section %}
       {% endcomment %}
-
-      <form id="{% if not article.get_parent_section.get_parent_section.slug %}reaction-questions__form{% else %}reaction-questions__form_{{form_page.id}}{% endif %}" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
+      <form id="{{form_page|slugify}}_{{form_page.id}}" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
       {% csrf_token %}
         {{ form.media }}
         {% for field in form %}
           {% if field|fieldtype == 'RadioSelect' %}
             <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
               {% for value, text in field.field.choices %}
+              <!-- GET ARTICLE TITLE {{article.slug}} -->
                 <div class="reaction-questions__item">
-                  {% if user_has_chosen %}
-                    <input name="{{ field.name }}"
-                    id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                    type="radio" value="{{ value }}" {% if not article.get_parent_section.get_parent_section.slug %}onclick="set_rq_form_choice('{{ value|slugify }}_{{ forloop.counter0 }}')"{% else %}onclick="set_section_choice('{{ value|slugify }}_{{ forloop.counter0 }}', '{{form_page.id}}')"{% endif %} class="{{ value|slugify }}"/>
+                  <input name="{{article.slug}}-{{ field.name }}"
+                  id="{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}"
+                  type="radio" value="{{ value }}"
+                  onclick="set_rq_form_choice('{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}')"
+                  class="reaction-questions__input {{ value|slugify }}"/>
 
-                  {% else %}
-                    <input name="{{ field.name }}"
-                    id="{{ value|slugify }}_{{ forloop.counter0 }}"
-                    type="radio" value="{{ value }}"{% if not article.get_parent_section.get_parent_section.slug %}onclick="set_rq_form_choice('{{ value|slugify }}_{{ forloop.counter0 }}')"{% else %}onclick="set_section_choice('{{ value|slugify }}_{{ forloop.counter0 }}', '{{form_page.id}}')"{% endif %} class="{{ value|slugify }}"/>
-                  {% endif %}
-                   <label class="reaction-questions__label" for="{{ value|slugify }}_{{ forloop.counter0 }}">
-                     {{ text|capfirst }}
-                   </label>
+                 <label class="reaction-questions__label" for="{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}">
+                   {{ text|capfirst }}
+                 </label>
                 </div>
               {% endfor %}
             </fieldset>
@@ -52,3 +47,53 @@
     {% endif %}
   {% endif %}
 </div>
+
+<script type="text/javascript">
+  /* OTHER LIKE REACTION QUESTIONS */
+
+  var sessionVal;
+  var names = $('.reaction-questions__input');
+  function set_rq_form_choice(choice) {
+    var frm = $('#{{form_page|slugify}}_{{form_page.id}}');
+    var label = $(event.target);
+    var $thisElem = label.next()[0];
+
+    var data = {
+      csrfmiddlewaretoken: "{{ csrf_token }}",
+      ajax: "True"
+    };
+    var form_values = frm.serializeArray();
+    for(var i=0; i<form_values.length; i++){
+      data[form_values[i].name] = form_values[i].value;
+    }
+    $.ajax({
+      type: 'post',
+      url: frm.attr('action'),
+      data: data,
+      success: function (res) {
+        names.each(function(index) {
+          if($(names[index]).attr('name') === label.attr('name')) {
+            var currentLabelContext = $(names[index]).next()[0];
+
+            $(currentLabelContext).removeClass('active');
+            $($thisElem).addClass('active');
+
+            $(currentLabelContext).prev().attr('disabled', false);
+            $($thisElem).prev().attr('disabled', true);
+
+            if($(currentLabelContext).hasClass('active')) {
+              sessionVal = true } else { sessionVal = false }
+            sessionStorage.setItem($(currentLabelContext).attr('for'),sessionVal);
+          }
+        });
+      }
+    });
+  };
+
+  names.each(function(index) {
+    if(sessionStorage.getItem(names[index].id) === 'true') {
+      $('label[for=' + names[index].id +']').addClass('active');
+      $('#'+ names[index].id).attr('disabled', true);
+    }
+  });
+</script>
