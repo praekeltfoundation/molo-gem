@@ -1,0 +1,24 @@
+{% load gem_tags %}
+<div class="reaction-questions">
+  <div class="reaction-questions__block">
+    <div class="heading heading__subheading">
+      <h3>{{form_page.title}}</h3>
+    </div>
+    <div class="heading heading__subtitle">
+      {% if form_page.homepage_introduction %}
+        <p>{{form_page.homepage_introduction|smarttruncatechars:100|safe}}</p>
+      {% else %}
+        <p>{{form_page.introduction|smarttruncatechars:100|safe}}</p>
+      {% endif %}
+    </div>
+    {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+      {% include "forms/form_modules/reaction-question_forms.html" %}
+    {% else %}
+      <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+        <span class="call-to-action__button-text call-to-action__button-text--primary">
+          {% trans "Log in to like" %}
+        </span>
+      </a>
+    {% endif %}
+  </div>
+</div>

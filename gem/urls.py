@@ -155,11 +155,6 @@ urlpatterns += [
         core_views.section_index,
         name='section_index'
     ),
-    re_path(
-        r'^reaction/(?P<article_slug>[0-9A-Za-z_\-]+)/'
-        '(?P<question_id>\d+)/vote/$',
-        core_views.ReactionQuestionChoiceView.as_view(),
-        name='reaction-vote'),
 
     re_path(r'', include(wagtail_urls)),
     re_path(r'', include('django_prometheus.urls')),

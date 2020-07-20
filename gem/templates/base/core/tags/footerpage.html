@@ -1,11 +1,14 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags gem_tags %}
 
 {% if footers %}
   <ul class="footer-menu-list">
-  {% for page in footers %}
+    {% for page in footers %}
+      <li class="footer-menu-list__item">
+        <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor">{{page.title}}</a>
+      </li>
+    {% endfor %}
     <li class="footer-menu-list__item">
-      <a href="{% pageurl page.specific %}" class="footer-menu-list__anchor">{{page.title}}</a>
+      {% contact_forms_list %}
     </li>
-  {% endfor %}
-</li>
+  </ul>
 {% endif %}

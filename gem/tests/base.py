@@ -7,9 +7,11 @@ from wagtail.core.models import Page
 
 from molo.core.models import (
     Main, SectionPage, ArticlePage, PageTranslation, Tag,
-    ArticlePageReactionQuestions, ReactionQuestion,
-    ReactionQuestionChoice, BannerPage, Languages, SiteLanguageRelation)
+    BannerPage, Languages, SiteLanguageRelation)
 from molo.core.utils import generate_slug
+
+from molo.forms.models import (
+    MoloFormPage, MoloFormField, ArticlePageForms)
 
 
 class GemTestCaseMixin(object):
@@ -99,28 +101,23 @@ class GemTestCaseMixin(object):
     def mk_reaction_question(self, parent, article, **kwargs):
         data = {}
         data.update({
-            'title': 'Test Question',
+            'introduction': 'Test Question',
         })
         data.update(kwargs)
         data.update({
             'slug': generate_slug(data['title'])
         })
-        question = ReactionQuestion(**data)
-        parent.add_child(instance=question)
-        question.save_revision().publish()
-        choice1 = ReactionQuestionChoice(
-            title='yes', success_message='well done')
-        question.add_child(instance=choice1)
-        choice1.save_revision().publish()
-        choice2 = ReactionQuestionChoice(title='maybe')
-        question.add_child(instance=choice2)
-        choice2.save_revision().publish()
-        choice3 = ReactionQuestionChoice(title='no')
-        question.add_child(instance=choice3)
-        choice3.save_revision().publish()
-        ArticlePageReactionQuestions.objects.create(
-            reaction_question=question, page=article)
-        return question
+        form = MoloFormPage(**data)
+        parent.add_child(instance=form)
+        form.save_revision().publish()
+        field = MoloFormField(
+            choices='yes,maybe,no', success_message='well done')
+        form.add_child(instance=field)
+        field.save_revision().publish()
+
+        ArticlePageForms.objects.create(
+            reaction_question=form, page=article)
+        return form
 
     def mk_sections(self, parent, count=2, **kwargs):
         sections = []

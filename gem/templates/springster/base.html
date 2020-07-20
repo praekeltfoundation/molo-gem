@@ -68,9 +68,6 @@
         {% elif self.title and self.subtitle %}
           <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
           <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
-        {% elif self.title and self.description %}
-          <meta name="description" lang="en" content="{{self.title}}" />
-          <meta property="og:description" lang="en" content="{{self.title}}"/>
         {% else %}
           <meta name="description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
           <meta property="og:description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
@@ -102,6 +99,7 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all">
     {% endcompress %}
     </noscript>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
 

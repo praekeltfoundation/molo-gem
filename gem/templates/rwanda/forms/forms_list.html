@@ -98,7 +98,7 @@
                     <nav>
                       <div class="call-to-action--group">
                         {% if request.path == "/" %}
-                          <a href="{% pageurl form_page %}success/" class="call-to-action__button call-to-action__button--primary">
+                          <a href="{% url 'molo.forms:success' form_page.slug %}" class="call-to-action__button call-to-action__button--primary">
                             {% trans "Show results" %}
                           </a>
                         {% else %}
@@ -115,9 +115,7 @@
         </div>
       {% else %}
         {% if not user.is_authenticated and not request.is_preview and not form_page.allow_anonymous_submissions and settings.gem.GemSettings.show_join_banner %}
-          {% comment %}
-            <h3>Test what happens here</h3>
-          {% endcomment %}
+        -
         {% else %}
           <div class="surveys surveys--homepage">
             <div class="surveys__wrapper">
