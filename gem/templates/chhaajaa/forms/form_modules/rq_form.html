@@ -1,0 +1,99 @@
+{% load wagtailcore_tags core_tags gem_tags %}
+
+<div class="reaction-questions">
+  {% if user.is_authenticated and user.is_active or request.is_preview or form_page.allow_anonymous_submissions %}
+    {% if form %}
+      {% comment %}
+        {% if article.get_parent_section %}
+      {% endcomment %}
+      <form id="{{form_page|slugify}}_{{form_page.id}}" action="{% pageurl form_page %}" method="post" class="reaction-questions__form" novalidate>
+      {% csrf_token %}
+        {{ form.media }}
+        {% for field in form %}
+          {% if field|fieldtype == 'RadioSelect' %}
+            <fieldset class="reaction-questions__list {% if self.display_form_directly %}choice-fieldset{% endif %}">
+              {% for value, text in field.field.choices %}
+              <!-- GET ARTICLE TITLE {{article.slug}} -->
+                <div class="reaction-questions__item">
+                  <input name="{{article.slug}}-{{ field.name }}"
+                  id="{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}"
+                  type="radio" value="{{ value }}"
+                  onclick="set_rq_form_choice('{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}')"
+                  class="reaction-questions__input {{ value|slugify }}"/>
+
+                 <label class="reaction-questions__label" for="{{article.slug}}_{{ value|slugify }}_{{ forloop.counter0 }}">
+                   {{ text|capfirst }}
+                 </label>
+                </div>
+              {% endfor %}
+            </fieldset>
+          {% endif %}
+
+          {% if field.errors %}
+            <ul class="error-list">
+            {% for error in field.errors %}
+              <li class="error-list__item">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+
+        {% endfor %}
+        <input id="article_page_id" class="article_page" type="hidden" name="article_page"  value="{{ self.pk }}" />
+      </form>
+    {% else %}
+      <p class="error-list__item">
+        {% trans 'You have already completed this poll.' %}
+      </p>
+    {% endif %}
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+  /* OTHER LIKE REACTION QUESTIONS */
+
+  var sessionVal;
+  var names = $('.reaction-questions__input');
+  function set_rq_form_choice(choice) {
+    var frm = $('#{{form_page|slugify}}_{{form_page.id}}');
+    var label = $(event.target);
+    var $thisElem = label.next()[0];
+
+    var data = {
+      csrfmiddlewaretoken: "{{ csrf_token }}",
+      ajax: "True"
+    };
+    var form_values = frm.serializeArray();
+    for(var i=0; i<form_values.length; i++){
+      data[form_values[i].name] = form_values[i].value;
+    }
+    $.ajax({
+      type: 'post',
+      url: frm.attr('action'),
+      data: data,
+      success: function (res) {
+        names.each(function(index) {
+          if($(names[index]).attr('name') === label.attr('name')) {
+            var currentLabelContext = $(names[index]).next()[0];
+
+            $(currentLabelContext).removeClass('active');
+            $($thisElem).addClass('active');
+
+            $(currentLabelContext).prev().attr('disabled', false);
+            $($thisElem).prev().attr('disabled', true);
+
+            if($(currentLabelContext).hasClass('active')) {
+              sessionVal = true } else { sessionVal = false }
+            sessionStorage.setItem($(currentLabelContext).attr('for'),sessionVal);
+          }
+        });
+      }
+    });
+  };
+
+  names.each(function(index) {
+    if(sessionStorage.getItem(names[index].id) === 'true') {
+      $('label[for=' + names[index].id +']').addClass('active');
+      $('#'+ names[index].id).attr('disabled', true);
+    }
+  });
+</script>

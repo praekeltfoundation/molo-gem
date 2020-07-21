@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags molo_forms_tags %}
+{% load wagtailcore_tags wagtailimages_tags molo_forms_tags %}
 
 {% block content %}
   <!-- {# HEADING #} -->
@@ -21,9 +21,21 @@
         <div class="heading heading__micro">
           <p>{% trans "Take a vote!" %}</p>
         </div>
+  {% elif self.article_form_only and not self.personalisableform %}
+    <div class="reaction-questions-success__block">
+      {% if self.image %}
+        <div class="reaction-questions-success__image">
+          {% image self.image width-165 as icon_small %}
+          <img src="{{ icon_small.url }}" alt="{{ self.title }}" class="reaction-questions-success__thumbnail" />
+        </div>
+      {% else %}
+        <div class="reaction-questions-success__image--default"></div>
+      {% endif %}
   {% else %}
     <div class="surveys surveys--call-to-action">
-      <!-- {# WHICH MESSAGE #} -->
+      <div class="heading heading__article">
+        <h1>{{self.title}}</h1>
+      </div>
       {% if self.image %}
         <div class="surveys--page__image-wrapper">
           {% image self.image width-165 as icon_small %}
@@ -35,9 +47,11 @@
   {% endif %}
   <!-- {# END HEADING #}-->
 
-  <div class="heading heading__{% if self.display_form_directly %}article{% else %}component{% endif %}">
-    <h1>{{self.title}}</h1>
-  </div>
+  {% if not self.article_form_only %}
+    <div class="heading heading__{% if self.display_form_directly %}article{% else %}component{% endif %}">
+      <h1>{{self.title}}</h1>
+    </div>
+  {% endif %}
 
   <!-- {# ENABLED RESULTS #} -->
   {% if self.show_results and results %}
@@ -55,26 +69,26 @@
       </h4>
     </div>
     <ul class="polls-results-list">
-        {% for question, answers in results.items %}
-          <label class="polls__question">{{ question|capfirst }}</label>
-          {% for answer, count in answers.items %}
-          <li class="polls-results-list__item">
-            {% if self.show_results_as_percentage %}
-              {{answer}}
-              <div class="polls-results-list__percent">
-                <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
-                  <span class="choice-percentage">{{ count }}%</span>
-                </div>
+      {% for question, answers in results.items %}
+        <label class="polls__question">{{ question|capfirst }}</label>
+        {% for answer, count in answers.items %}
+        <li class="polls-results-list__item">
+          {% if self.show_results_as_percentage %}
+            {{answer}}
+            <div class="polls-results-list__percent">
+              <div class="polls-results-list__percent-bar" style="width:{{ count }}%">
+                <span class="choice-percentage">{{ count }}%</span>
               </div>
-            {% else %}
-              <h4 class="polls__answers-counter">
-                {{answer}} -
-                {{ count }} vote{{ count|pluralize }}</h4>
-            {% endif %}
-          </li>
-          {% endfor %}
+            </div>
+          {% else %}
+            <h4 class="polls__answers-counter">
+              {{answer}} -
+              {{ count }} vote{{ count|pluralize }}</h4>
+          {% endif %}
+        </li>
         {% endfor %}
-      </ul>
+      {% endfor %}
+    </ul>
   {% else %}
     {% if self.thank_you_text %}
       <div class="heading heading__subheading">
@@ -83,22 +97,16 @@
     {% else %}
       <div class="heading heading__subheading">
         {% if self.your_words_competition %}
-          <h4>
-            {% trans 'Your' %}
-            {% if self.your_words_competition %}
-              {% trans 'GCN competition' %}
-            {% elif self.display_form_directly and not self.personalisableform %}
-              {% trans 'poll' %}
-            {% else %}
-              {% trans 'survey!' %}
-            {% endif %}
-            {% trans 'has been completed successfully!' %}
-          </h4>
+          <h4>{% trans 'Your GCN competition has been completed successfully!' %}</h4>
         {% else %}
           <h3>
             {% trans "Thank you for submitting" %}
             {% if self.display_form_directly and not self.personalisableform %}
               {% trans 'this poll.' %}
+            {% elif self.contact_form %}
+              {% trans 'this form!' %}
+            {% elif self.article_form_only %}
+              {% trans 'a response for this article' %}.
             {% else %}
               {% trans 'this survey!' %}
             {% endif %}
@@ -114,13 +122,37 @@
   {% elif self.display_form_directly and not self.personalisableform %}
       </div>
     </div>
+  {% elif self.article_form_only and not self.personalisableform %}
+    </div>
   {% else %}
     </div>
   {% endif %}
   <!-- {# END DIV CLOSE #} -->
 
+  <!-- AMMEND: RETURN TO PAGE IF NOT FROM HOMEPAGE --->
+  {% if not self.article_form_only %}
+    <div class="call-to-action call-to-action--wide-back">
+      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        {% trans "Back home" %}
+      </a>
+    </div>
+  {% else %}
   <div class="call-to-action call-to-action--wide-back">
     <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
-      {% trans "Back home" %}</a>
+      {% trans "Back to Article" %}
+    </a>
+  </div>
+  {% endif %}
+{% endblock %}
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <ul class="breadcrumbs-list breadcrumbs-list--pipe">
+      <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
+        <a href="{{request.site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
+      </li>
+      <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
+        <span class="breadcrumbs-list__anchor breadcrumbs-list__anchor--is-active">{{ self }}</span>
+      </li>
+    </ul>
   </div>
 {% endblock %}

@@ -2,13 +2,20 @@
   &__block {
     background-color: $color-dar-blue;
     padding: 20px 0;
-    .heading__subheading {
-      color: #fff;
-      text-transform: uppercase;
-      font-size: 20px;
+    .heading {
+      &__micro {
+        color: #fff;
+        padding: 0 0.5em;
+        text-transform: capitalize;
+      }
+      &__subheading {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 20px;
+      }
     }
     .error-list__item, .errors {
-      color: $color-green;
+      color: $color-pink;
     }
   }
   &__list {
@@ -28,6 +35,33 @@
       vertical-align: middle;
     }
   }
+  &__form {
+    label {
+      color: #fff;
+      text-align: center;
+    }
+    input[type="checkbox"] ~ label {
+      background: transparent;
+    }
+    input[type=radio] + label {
+      background: url(/static/img/icons/tanzania/checkbox-icons.png) -1.5em 0.9em/100px no-repeat;
+      opacity: 0.9;
+    }
+    input[type=radio]:checked + label {
+      background: url(/static/img/icons/tanzania/checkbox-icons.png) -1.5em -3.9em/100px no-repeat;
+      opacity: 1;
+    }
+    .input-group span {
+      color: #fff;
+      display: block;
+      text-align: left;
+    }
+    .call-to-action__button--primary:active, .call-to-action__button--primary:focus,
+    .call-to-action__button--primary:hover, .call-to-action__button--yellow:active,
+    .call-to-action__button--yellow:focus, .call-to-action__button--yellow:hover {
+      background: $color-dark-green;
+    }
+  }
   &__label {
     color: #fff;
     display: block;
@@ -36,11 +70,10 @@
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
+    text-align: center;
     &:hover, &:active, &:focus {
       opacity: 0.5;
-      &__numeral {
-        color: $color-pink;
-      }
+      &__numeral {}
     }
   }
   &__message {

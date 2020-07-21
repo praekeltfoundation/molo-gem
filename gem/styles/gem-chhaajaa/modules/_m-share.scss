@@ -3,6 +3,13 @@
     vertical-align: top;
     display: inline-block;
     padding: 0 15px 0 0;
+    &:hover, &:focus {
+      &__icon{
+        &:before {
+          background-position: 0 -32.6px;
+        }
+      }
+    }
   }
   &__reveal {
     -webkit-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.34);
@@ -18,9 +25,6 @@
       top: 4em;
       width: 75%;
     }
-    // @media (min-width: 768px) {
-    //   width: 75%;
-    // }
   }
   &__icon {
     color: $colorGrey;
@@ -33,16 +37,21 @@
     word-wrap: break-word;
     position: relative;
     &:before {
-      background: url("/static/img/icons/chhaajaa/share.png") no-repeat 0 2px/100%;
+      background-image: url("/static/img/icons/chhaajaa/share.png");
+      background-repeat: no-repeat;
+      background-position: 0 2px;
+      background-size: 100%;
       content: "";
       display: block;
       height: 36px;
       width: 30px;
       margin: 0 0 2px;
     }
-    &:hover, &:focus {
+    &:hover,
+    &:focus,
+    &:active {
       &:before {
-        background-position: 0 -32.6px;
+        background-position: 0 -32.5px;
       }
     }
   }

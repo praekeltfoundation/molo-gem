@@ -1,0 +1,35 @@
+{% load wagtailimages_tags %}
+
+{% block content %}
+  <div class="gcn-competition surveys{{form.get_effective_extra_style_hints}} surveys--page">
+    {% if self.image %}
+      <div class="surveys--page__image-wrapper">
+        {% image self.image width-98 as tmp_photo_small %}
+        {% image self.image width-320 as tmp_photo_large %}
+          <img src="{{ tmp_photo_small.url }}" srcset="{{ tmp_photo_large.url }}" alt="{{ form.image.title }}" class="surveys--page__image" />
+      </div>
+    {% else %}
+      <div class="surveys--page__image gcn-competition__default"></div>
+    {% endif %}
+    <div class="heading heading__component">
+      <h1>{{self.title}}</h1>
+    </div>
+    {% if self.introduction %}
+      <div class="heading heading__subheading">
+        <p>{{self.introduction}}</p>
+      </div>
+    {% endif %}
+
+    {% if user.is_authenticated and user.is_active or request.is_preview or self.allow_anonymous_submissions %}
+      {% include "forms/form_modules/form.html" %}
+    {% else %}
+      <div class="surveys">
+        <a href="{{ LOGIN_URL }}?next={{request.path}}" class="call-to-action__button call-to-action__button--primary">
+          <span class="call-to-action__button-text call-to-action__button-text--primary">
+            {% trans "Log in to take competition" %}
+          </span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

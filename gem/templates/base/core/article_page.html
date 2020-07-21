@@ -155,5 +155,7 @@
 
   {% include "comments/comment_block.html" %}
   {% include "core/related-article-list.html" %}
-{% forms_list_for_pages page=self %}
+  {% forms_list_for_pages page=self %}
+  {% forms_list_linked_to_pages self %}
+
 {% endblock %}

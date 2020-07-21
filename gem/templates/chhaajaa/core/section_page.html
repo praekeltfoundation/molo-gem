@@ -15,10 +15,16 @@
         <!-- VIDEO SECTION -->
           <div class="container">
             <div class="content--left">
-              {% include "core/tags/video-main.html" %}
-              {% for article in featured_articles|slice:":1" %}
-                {% forms_list_for_pages page=article %}
-              {% endfor %}
+              <div class="article-teaser">
+                <div class="article-teaser__wrapper">
+                  <ul class="teaser-stacklist">
+                    {% for article in featured_articles|slice:":1" %}
+                      {% include "core/tags/video-main.html" %}
+                      {% forms_list_for_pages page=article %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
             </div>
             <div class="content--right">
               {% latest_listing_homepage %}
@@ -58,7 +64,8 @@
 
                     <div class="teaser-stacklist__container">
                       <div class="teaser-stacklist__main">
-                        <h2 class="teaser-stacklist__title-secondary">{{ featured_article.title|smarttruncatechars:100|safe}}</h2>
+                        <h2 class="teaser-stacklist__title-secondary">
+                          {{featured_article.title|smarttruncatechars:100|safe}}</h2>
                         {% if featured_article.subtitle %}
                           <h6 class="teaser-stacklist__subtitle">
                             {{ featured_article.subtitle}}
@@ -75,31 +82,10 @@
                         <!-- END RICH TEXT -->
                       </div>
                       <div class="teaser-stacklist__cta-buttons">
-                        {% load_reaction_question featured_article as question %}
-                        {% if question %}
-                        <div class="reaction-questions">
-                          <form class="reaction-questions__field" action="{% url 'reaction-vote' featured_article.slug question.id %}" id="reaction-questions__form" method="post" novalidate>
-                            {% csrf_token %}
-                            <div class="reaction-questions__list">
-                              {% load_choices_for_reaction_question question as choices %}
-                                {% for choice in choices %}
-                                {% load_user_choice_reaction_question question featured_article choice as user_has_chosen %}
-                                {% if user_has_chosen %}
-                                  <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})" disabled=disabled>
-                                {% else %}
-                                  <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}" onclick="set_choice({{ choice.specific.get_main_language_page.id }})">
-                                {% endif %}
-                                    <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                                      {% image choice.specific.image width-50 as reaction__icon %}
-                                      <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                                      {{ choice.title|capfirst }}
-                                    </label>
-                                  </span>
-                                {% endfor %}
-                            </div>
-                          </form>
-                        </div>
-                        {% endif %}
+                        {% comment %}
+                        <!-- DISPLAY REACTION QUESTIONS RADIO FIELDS -->
+                        {% endcomment %}
+                        {% forms_list_linked_to_pages featured_article %}
 
                         {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
                           <div class="share__item">
@@ -124,14 +110,17 @@
                   </li>
                 {% endfor %}
               </ul>
+
               <div class="section-page__columns">
                 {% load_child_sections_for_section section=self as child_sections %}
+                {# <!-- ARREN SUN NA - SUBSECTION --> #}
                 <div class="section-page__columns-left">
                   {% if child_sections %}
+
                     {% for child_section in child_sections %}
-                    <div class="heading heading--hero">
-                      <h1 class="heading__component">{{child_section.title}}</h1>
-                    </div>
+                      <div class="heading heading--hero">
+                        <h1 class="heading__component">{{child_section.title}}</h1>
+                      </div>
                       {% load_child_articles_for_section child_section False 10 as articles %}
                       <ul class="teaser-card">
                       {% for article in articles %}
@@ -147,32 +136,11 @@
                               {{ article.title|smarttruncatechars:80|safe}}
                             </h3>
                             <div class="teaser-stacklist__cta-buttons">
-                            {% load_reaction_question article as question %}
-
-                            {% if question %}
-                              <div class="reaction-questions">
-                                <form class="reaction-questions__field" action="{% url 'reaction-vote' article.slug question.id %}" id="reaction-questions__form_{{article.id}}" method="post" novalidate>
-                                  {% csrf_token %}
-                                  <div class="reaction-questions__list">
-                                    {% load_choices_for_reaction_question question as choices %}
-                                      {% for choice in choices %}
-                                        {% load_user_choice_reaction_question question article choice as user_has_chosen %}
-                                        {% if user_has_chosen %}
-                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_section_choice({{ choice.specific.get_main_language_page.id }}, {{article.id}})" disabled=disabled>
-                                        {% else %}
-                                          <span class="reaction-questions__item" id="{{ choice.specific.get_main_language_page.id }}-{{article.id}}" onclick="set_section_choice({{ choice.specific.get_main_language_page.id }},{{article.id}})">
-                                        {% endif %}
-                                            <label for="choice{{ forloop.counter }}" class="reaction-questions__label reaction-questions__label--{{ choice.title|slugify }}">
-                                              {% image choice.specific.image width-50 as reaction__icon %}
-                                              <div class="reaction-questions__icon" style="background-image: url('{{reaction__icon.url}}')"></div>
-                                              {{ choice.title|capfirst }}
-                                            </label>
-                                          </span>
-                                      {% endfor %}
-                                  </div>
-                                </form>
-                              </div>
-                            {% endif %}
+                              {% comment %}
+                              <!-- !!!!! DISPLAY REACTION QUESTIONS RADIO FIELDS ON SUBSECTION ARTICLE
+                              -->
+                              {% endcomment %}
+                              {% forms_list_linked_to_pages article %}
                             </div>
                             {% if article.subtitle %}
                               <h6 class="teaser-card__subtitle">
@@ -228,12 +196,14 @@
                           {% endfor %}
                           <div class="teaser-grid__container">
                             <a class="teaser-grid__anchor" href="{% pageurl article.specific %}">
-                              <h1 class="teaser-grid__title">{{ article.title|smarttruncatechars:45|safe}}</h1>
+                              <h1 class="teaser-grid__title">
+                                {{ article.title|smarttruncatechars:45|safe}}</h1>
                             </a>
                             {% for block in article.body %}
                               {% if block.value.type == "video" %}
                                 {% with block.value as media %}
-                                  <span class="teaser-grid__duration">({{block.value.duration|seconds_to_time}})</span>
+                                  <span class="teaser-grid__duration">
+                                    ({{block.value.duration|seconds_to_time}})</span>
                                 {% endwith %}
                               {% endif %}
                             {% endfor %}
@@ -322,6 +292,7 @@
                       {% endfor %}
                     </div>
                     <div class="service-stacklist__cta-buttons">
+
                       <a href="{% pageurl service.specific %}" class="service-stacklist__link">
                         {{ service.title|smarttruncatechars:25|safe}}
                       </a>
@@ -349,27 +320,4 @@
     {% endfor %}
 
   {% endif %}
-
-  <script type="text/javascript">
-    function set_section_choice(choice, article_id) {
-      if (!$('#' + choice).attr('disabled') == true){
-        var frm = $('#reaction-questions__form_' + article_id);
-        $.ajax({
-          type: frm.attr('method'),
-          url: frm.attr('action'),
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            choice: choice,
-            ajax: "True"
-          },
-          success: function () {
-            $( ".reaction-questions__item" ).filter('[id*="' + article_id + '"]').each(function( index ) {
-              $(this).attr('disabled', false);
-            });
-            $("#" + choice + "-" + article_id).attr('disabled', true);
-          }
-        })
-      }
-    };
-  </script>
 {% endblock %}
