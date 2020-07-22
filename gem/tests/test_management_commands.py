@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django_comments.models import Comment
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.six import StringIO
@@ -22,6 +23,10 @@ from molo.core.models import (
 from molo.commenting.models import MoloComment
 
 from gem.tests.base import GemTestCaseMixin
+
+from molo.forms.models import MoloFormPage, MoloFormSubmission
+from molo.profiles.models import (
+    UserProfile, SecurityAnswer, SecurityQuestion, SecurityQuestionIndexPage)
 
 
 class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
@@ -277,6 +282,199 @@ class GemManagementCommandsTest(TestCase, GemTestCaseMixin):
             None, None, stdout=out
         )
         self.assertNotEqual('', out.getvalue())
+
+
+class TestRemoveDeprecatedSiteContent(GemManagementCommandsTest):
+    def setUp(self):
+        super().setUp()
+
+        # Create content
+        section_index = SectionIndexPage.objects.child_of(self.main).first()
+        section = self.mk_section(section_index, title='Section')
+        article = self.mk_article(
+            parent=section, title='Article')
+
+        # Note: this 'site' attr is the django site, not the wagtail one
+        MoloComment.objects.create(
+            content_type=self.content_type,
+            site=Site.objects.get_current(),
+            object_pk=article.pk,
+            user=self.user,
+            comment="Here's a comment",
+            submit_date=timezone.now())
+
+        form = MoloFormPage(
+            title='Form',
+            slug='form',
+        )
+        section_index.add_child(instance=form)
+        form.save_revision().publish()
+        MoloFormSubmission.objects.create(
+            form_data='{"checkbox-question": ["option 1", "option 2"]}',
+            user=self.user,
+            page_id=form.pk
+        )
+
+        self.profile = self.user.profile
+        sq_index = SecurityQuestionIndexPage.objects.child_of(
+            self.main).first()
+        sec_q = SecurityQuestion(title='Sec Question')
+        sq_index.add_child(instance=sec_q)
+        sec_q.save_revision().publish()
+        SecurityAnswer.objects.create(
+            user=self.profile, question=sec_q, answer="Sec Answer")
+
+    def test_raises_error_for_invalid_site_id(self):
+        out = StringIO()
+
+        with self.assertRaises(CommandError) as e:
+            call_command(
+                'remove_deprecated_site_data',
+                '999', stdout=out
+            )
+
+        self.assertEqual('Site "999" does not exist', str(e.exception))
+
+    def test_without_commit_only_lists_data(self):
+        out = StringIO()
+        call_command(
+            'remove_deprecated_site_data',
+            self.profile.site.pk, stdout=out
+        )
+
+        self.assertEqual(MoloComment.objects.all().count(), 1)
+        self.assertEqual(MoloFormSubmission.objects.all().count(), 1)
+        self.assertEqual(SecurityAnswer.objects.all().count(), 1)
+        self.assertEqual(User.objects.filter(username='test').count(), 1)
+        self.assertEqual(UserProfile.objects.filter(
+            site=self.profile.site.pk).count(), 1)
+
+        self.assertIn('Found 1 profiles for site 3', out.getvalue())
+        self.assertIn('Found 0 staff profiles', out.getvalue())
+        self.assertIn('Found 1 comments', out.getvalue())
+        self.assertIn('Found 1 form submissions', out.getvalue())
+        self.assertIn('Found 1 security question answers', out.getvalue())
+
+    def test_removes_all_data(self):
+        # Confirm data exists
+        self.assertEqual(MoloComment.objects.all().count(), 1)
+        self.assertEqual(MoloFormSubmission.objects.all().count(), 1)
+        self.assertEqual(SecurityAnswer.objects.all().count(), 1)
+        self.assertEqual(User.objects.filter(username='test').count(), 1)
+        self.assertEqual(UserProfile.objects.filter(
+            site=self.profile.site.pk).count(), 1)
+
+        out = StringIO()
+        call_command(
+            'remove_deprecated_site_data',
+            self.profile.site.pk, '--commit', stdout=out
+        )
+
+        self.assertEqual(MoloComment.objects.all().count(), 0)
+        self.assertEqual(MoloFormSubmission.objects.all().count(), 0)
+        self.assertEqual(SecurityAnswer.objects.all().count(), 0)
+        self.assertEqual(User.objects.filter(username='test').count(), 0)
+        self.assertEqual(UserProfile.objects.filter(
+            site=self.profile.site.pk).count(), 0)
+
+        self.assertIn('Found 1 profiles for site 3', out.getvalue())
+        self.assertIn('Found 0 staff profiles', out.getvalue())
+        self.assertIn('Found 1 comments', out.getvalue())
+        self.assertIn('Found 1 form submissions', out.getvalue())
+        self.assertIn('Found 1 security question answers', out.getvalue())
+
+    def test_doesnt_process_staff_data(self):
+        self.user.is_staff = True
+        self.user.save()
+
+        out = StringIO()
+        call_command(
+            'remove_deprecated_site_data',
+            self.profile.site.pk, '--commit', stdout=out
+        )
+
+        self.assertEqual(MoloComment.objects.all().count(), 1)
+        self.assertEqual(MoloFormSubmission.objects.all().count(), 1)
+        self.assertEqual(SecurityAnswer.objects.all().count(), 1)
+        self.assertEqual(User.objects.filter(username='test').count(), 1)
+        self.assertEqual(UserProfile.objects.filter(
+            site=self.profile.site.pk).count(), 1)
+
+        self.assertIn('Found 1 profiles for site 3', out.getvalue())
+        self.assertIn('Found 1 staff profiles', out.getvalue())
+        self.assertIn('Found 0 comments', out.getvalue())
+        self.assertIn('Found 0 form submissions', out.getvalue())
+        self.assertIn('Found 0 security question answers', out.getvalue())
+
+    def test__doesnt_remove_data_from_other_sites(self):
+        user2 = User.objects.create_user(
+            'test2', 'test2@example.org', 'test2')
+        user2.profile.site = self.main2.get_site()
+        user2.profile.save()
+
+        # Create content
+        section_index_2 = SectionIndexPage.objects.child_of(self.main2).first()
+        section = self.mk_section(section_index_2, title='Section 2')
+        article = self.mk_article(
+            parent=section, title='Article 2')
+
+        # Note: this 'site' attr is the django site, not the wagtail one
+        MoloComment.objects.create(
+            content_type=self.content_type,
+            site=Site.objects.get_current(),
+            object_pk=article.pk,
+            user=user2,
+            comment="Here's a 2nd comment",
+            submit_date=timezone.now())
+
+        form_2 = MoloFormPage(
+            title='Form 2',
+            slug='form-2',
+        )
+        section_index_2.add_child(instance=form_2)
+        form_2.save_revision().publish()
+        MoloFormSubmission.objects.create(
+            form_data='{"checkbox-question": ["option 1", "option 2"]}',
+            user=user2,
+            page_id=form_2.pk
+        )
+
+        profile2 = user2.profile
+        sq_index_2 = SecurityQuestionIndexPage.objects.child_of(
+            self.main2).first()
+        sec_q = SecurityQuestion(title='Sec Question 2')
+        sq_index_2.add_child(instance=sec_q)
+        sec_q.save_revision().publish()
+        SecurityAnswer.objects.create(
+            user=profile2, question=sec_q, answer="Sec Answer 2")
+
+        out = StringIO()
+        call_command(
+            'remove_deprecated_site_data',
+            profile2.site.pk, '--commit', stdout=out
+        )
+
+        comments = MoloComment.objects.all()
+        self.assertEqual(comments.count(), 1)
+        self.assertNotEqual(comments.first().user, user2)
+
+        submissions = MoloFormSubmission.objects.all()
+        self.assertEqual(submissions.count(), 1)
+        self.assertNotEqual(submissions.first().user, user2)
+
+        answers = SecurityAnswer.objects.all()
+        self.assertEqual(answers.count(), 1)
+        self.assertNotEqual(answers.first().user, user2)
+
+        users = User.objects.filter(username__contains='test')
+        self.assertEqual(users.count(), 1)
+        self.assertNotEqual(users.first(), user2)
+
+        self.assertEqual(UserProfile.objects.filter(
+            site=profile2.site.pk).count(), 0)
+
+        self.assertIn('Found 1 profiles for site 5', out.getvalue())
+        self.assertIn('Found 0 staff profiles', out.getvalue())
 
 
 class AddDefaultTagsTest(TestCase):
