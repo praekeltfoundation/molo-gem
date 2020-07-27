@@ -51,7 +51,7 @@
       {% if field|fieldtype != 'HiddenInput' %}
       <fieldset>
         <div class="input-group">
-          <label>{{ field.label|capfirst }}</label>
+          <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
           {% if field.help_text %}
             {% if field|fieldtype == 'CharacterCountWidget' %}
               <p class="{% if self.display_form_directly %}polls{% else %}surveys{% endif %}__helptext helptext">{{ field.help_text }}</p>
