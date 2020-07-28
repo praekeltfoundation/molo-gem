@@ -21,12 +21,14 @@
         {% else %}
           {{ self.seo_title }}
         {% endif %}
-      {% else %}
+      {% elif self.title %}
         {% if self.title == "Main" %}
           Home
         {% else %}
           {{ self.title }}
         {% endif %}
+      {% else %}
+        Welcome
       {% endif %}
     {% endblock %}
   </title>
@@ -73,13 +75,13 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/ninyampinga/NN_Favicon_GREEN.svg' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
-  {% compress css inline %}
-  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
-  {% endcompress %}
   {% molo_pwa_meta %}
   {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
   {% endif %}
+  {% compress css inline %}
+  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
+  {% endcompress %}
 </head>
 <body {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
   <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />

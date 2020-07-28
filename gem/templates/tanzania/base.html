@@ -21,12 +21,14 @@
           {% else %}
             {{ self.seo_title }}
           {% endif %}
-        {% else %}
+        {% elif self.title %}
           {% if self.title == "Main" %}
             Home
           {% else %}
             {{ self.title }}
           {% endif %}
+        {% else %}
+          Welcome
         {% endif %}
       {% endblock %}
     </title>
@@ -55,8 +57,8 @@
       <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
       <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
       {% if self.search_description %}
-        <meta name="description" content="{{self.search_description}}" />
-        <meta property="og:description" content="{{self.search_description}}"/>
+        <meta name="description" content="Tujibebe | {{self.search_description}}" />
+        <meta property="og:description" content="Tujibebe | {{self.search_description}}"/>
       {% elif self.social_media_description %}
         <meta name="description" content="{{self.social_media_description}}" />
         <meta property="og:description" content="{{self.social_media_description}}"/>
@@ -64,10 +66,10 @@
         <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
         <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
       {% else %}
-        <meta name="description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
-        <meta name="description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
-        <meta property="og:description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
-        <meta property="og:description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
+        <meta name="description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
+        <meta name="description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
+        <meta property="og:description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
+        <meta property="og:description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
       {% endif %}
     {% endblock %}
     <meta property="og:image:type" content="" />
@@ -82,6 +84,7 @@
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
+    {% molo_pwa_meta %}
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/tanzania.css" media="all">
     {% endcompress %}
@@ -283,38 +286,6 @@
                 {% trans "Back to Top" %}</a>
             </div>
           </div>
-
-          {% block google_analytics %}
-            {% include "patterns/components/ga_tag_manager.html" %}
-          {% endblock %}
-
-          {% block facebook_pixel_tracker %}
-          {# Facebook Pixel Code #}
-            <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function()
-            {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
-            ;
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window,document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '461337710896694');
-            fbq('track', 'PageView');
-            </script>
-            <noscript>
-            <img height="1" width="1"
-            src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
-            &noscript=1" alt="Facebook pixel tracker"/>
-            </noscript>
-          {# End Facebook Pixel Code #}
-          {% endblock %}
-
-          {% block facebook_analytics %}
-            {% include "core/facebook_analytics.html" %}
-          {% endblock %}
-
         {% endblock %}
         {% if is_via_kaios %}
           <div class="softkey">
@@ -340,6 +311,36 @@
         </div>
       </div>
     </div>
+    {% block google_analytics %}
+      {% include "patterns/components/ga_tag_manager.html" %}
+    {% endblock %}
+
+    {% block facebook_pixel_tracker %}
+    {# Facebook Pixel Code #}
+      <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function()
+      {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
+      ;
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '461337710896694');
+      fbq('track', 'PageView');
+      </script>
+      <noscript>
+      <img height="1" width="1"
+      src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
+      &noscript=1" alt="Facebook pixel tracker"/>
+      </noscript>
+    {# End Facebook Pixel Code #}
+    {% endblock %}
+
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
 
     {% if settings.core.SiteSettings.local_ga_tracking_code %}
       <script>
@@ -351,7 +352,6 @@
       </script>
     {% endif %}
     {% if not is_via_freebasics %}
-      <script src="{{ STATIC_URL }}js/jquery.js"></script>
       {% compress js inline %}
       <script src="{% static 'js/dest/main-min.js' %}"></script>
       <script>
@@ -359,20 +359,26 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
+
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             var jsScripts = [
-              "{% static 'js/dest/springster-min.js' %}",
-              "{% static 'js/dest/kaios-min.js' %}",
+               "https://code.jquery.com/jquery-2.2.4.min.js",
+               "{% static 'js/dest/springster-min.js' %}",
+               "{% static 'js/dest/kaios-min.js' %}",
              ];
             for (var i = 0; i < jsScripts.length; i++) {
               var script = document.createElement('script');
+              if (i === 0 ) {
+                script.crossOrigin = "anonymous";
+                script.integrity = "sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=";
+              }
               script.src = jsScripts[i];
               script.async = false;
               document.querySelector('script').parentNode.appendChild(script);
             }
           }
-        }
+        };
 
         //Event Propagation NOT covered
         var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled'),
@@ -386,7 +392,6 @@
         };
       </script>
       {% endcompress %}
-      {% molo_pwa_meta %}
     {% endif %}
   </body>
 </html>
