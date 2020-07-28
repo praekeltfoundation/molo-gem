@@ -8,17 +8,21 @@ from django.urls import reverse
 from django.conf import settings
 from django.utils.http import urlencode
 from django.http.response import Http404
+from django.contrib.messages import warning
 from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
+from django.middleware.locale import LocaleMiddleware
+from django.utils.translation import ugettext_lazy as _
 from django.http import JsonResponse, HttpResponseRedirect
-from django.utils.translation import get_language_from_request
+from django.utils.translation import (
+    get_language_from_request, LANGUAGE_SESSION_KEY)
 
 from mozilla_django_oidc.middleware import SessionRefresh
 from mozilla_django_oidc.utils import import_from_settings, absolutify
 
 from molo.core.utils import get_locale_code
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
-from molo.core.models import SiteSettings, ArticlePage, Languages
+from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
 from gem.models import GemSettings
@@ -39,6 +43,32 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
+
+
+class GemLocaleMiddleware(LocaleMiddleware):
+    def process_request(self, request):
+        has_slug = len(request.path.split('/')) > 1
+        slug = request.path.split('/')[-1]
+
+        if has_slug and request.path[-1] == '/':
+            slug = request.path.split('/')[-2]
+
+        session_exists = request.session.get(LANGUAGE_SESSION_KEY)
+        if not session_exists and (has_slug and slug):
+            page = MoloPage.objects.filter(slug=slug).first()
+            if page:
+                specific = getattr(page, 'specific', None)
+                specific_language = specific and getattr(
+                    page.specific, 'language', None)
+
+                if specific_language:
+                    request.session[LANGUAGE_SESSION_KEY]\
+                        = page.specific.language.locale
+
+                elif hasattr(page, 'language'):
+                    request.session[LANGUAGE_SESSION_KEY] \
+                        = page.language.locale
+        return super().process_request(request)
 
 
 class LogHeaderInformationMiddleware(MiddlewareMixin):
@@ -272,3 +302,25 @@ class CustomSessionRefresh(SessionRefresh):
             response['refresh_url'] = redirect_url
             return response
         return HttpResponseRedirect(redirect_url)
+
+
+class AdminSiteAdminMiddleware(MiddlewareMixin):
+
+    def process_request(self, request):
+        if request.user.is_authenticated:
+            is_superuser = request.user.is_superuser
+            if not is_superuser and '/admin' in request.path:
+                # determine user user.profile.admin_sites
+                # perm denied if user is not related to admin_sites
+                # redirect to default admin site (first) or home
+                site = request.site
+                if site not in request.user.profile.admin_sites.all():
+                    warning(
+                        request,
+                        _("You do not have the permissions to access {}."
+                          .format(site)))
+                    site = request.user.profile.admin_sites.first()
+                    if site:
+                        return HttpResponseRedirect(
+                            redirect_to=site.hostname+'/admin/')
+                    return HttpResponseRedirect(redirect_to='/')

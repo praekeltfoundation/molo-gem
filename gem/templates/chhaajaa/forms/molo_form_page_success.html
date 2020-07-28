@@ -1,13 +1,35 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags molo_forms_tags %}
+
 {% block content %}
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
-    <div class="heading {% if self.your_words_competition %}heading--hero {% else %}heading--secondary{% endif %}">
-      <h1 class="{% if self.your_words_competition %}heading__component {% else %}heading__title{% endif %}">
-        {% if self.your_words_competition %}{% trans 'Share your story' %}{% elif self.display_form_directly %}{% trans 'Vote' %}{% else %}{% trans 'Quiz' %}{% endif %}
+    {% if self.your_words_competition %}
+    <div class="heading heading--hero">
+      <h1 class="heading__component">
+      {% trans 'Share your story' %}
       </h1>
     </div>
+    {% elif self.contact_form %}
+      <div class="heading heading--secondary">
+        <h1 class="heading__title">
+          {{self.title}}
+        </h1>
+      </div>
+    {% else %}
+      <div class="heading heading--secondary">
+        <h1 class="heading__title">
+          {% if self.display_form_directly %}
+            {% trans 'Vote' %}
+          {% elif self.article_form_only %}
+            {% trans 'Reaction Questions' %}
+          {% else %}
+            {% trans 'Quiz' %}
+          {% endif %}
+        </h1>
+      </div>
+    {% endif %}
+
     <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__inner">
       <section>
         {% if self.show_results and results %}
@@ -26,6 +48,7 @@
               {% endwith %}
             {% endif %}
           </h2>
+
           <ul class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}-results">
             {% for question, answers in results.items %}
               {% for answer, count in answers.items %}
@@ -40,8 +63,7 @@
                   </div>
                 {% else %}
                   <p class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__answers">
-                    {{answer}} -
-                    {{ count }} vote{{ count|pluralize }}
+                    {{answer}} - {{ count }} vote{{ count|pluralize }}
                   </p>
                 {% endif %}
               </li>
@@ -51,35 +73,30 @@
         {% else %}
           {% if self.thank_you_text %}
             <h2 class="heading__headline">{% trans "Thank you" %}</h2>
-            <h3 class="heading__subtitle">{{self.thank_you_text}}</h3>
+            <h3 class="heading__subtitle">{{self.thank_you_text|url_to_anchor|safe}}</h3>
           {% else %}
             <h2 class="heading__headline">
               {% if self.your_words_competition %}
-                {% with wordSetting='GCN competition' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your GCN competition has been completed successfully!" %}
               {% elif self.display_form_directly %}
-                {% with wordSetting='poll' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your poll has been completed successfully!" %}
+              {% elif self.contact_form or self.article_form_only %}
+                {% trans "The form has been completed successfully!" %}
               {% else %}
-                {% with wordSetting='survey' %}
-                  {% if self.your_words_competition %}
-                    {% blocktrans %}Your {{wordSetting}} has been completed successfully!{% endblocktrans %}
-                  {% else %}
-                    {% blocktrans %}Thank you for submitting this {{wordSetting}}!{% endblocktrans %}
-                  {% endif %}
-                {% endwith %}
+                {% trans "Your survey has been completed successfully!" %}
               {% endif %}
             </h2>
+            <h3 class="heading__subtitle">
+              {% if self.your_words_competition %}
+                {% trans "Thank you for submitting this GCN competition!" %}
+              {% elif self.display_form_directly %}
+                {% trans "Thank you for submitting this poll!" %}
+              {% elif self.contact_form or self.article_form_only %}
+                {% trans "Thank you for submitting this form" %}
+              {% else %}
+                {% trans "Thank you for submitting this survey!" %}
+              {% endif %}
+            </h3>
           {% endif %}
         {% endif %}
         <nav>
@@ -97,6 +114,7 @@
         </aside>
       {% endif %}
     </div>
+
   </div>
 </div>
 {% endblock %}

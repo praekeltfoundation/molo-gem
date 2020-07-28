@@ -10,17 +10,18 @@ from django.http import (
     HttpResponseRedirect,
     HttpResponse
 )
-from django.http.response import HttpResponseForbidden
-from django.shortcuts import render
-from django.utils.feedgenerator import Atom1Feed
-from django.utils.http import is_safe_url
-from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import TemplateView, RedirectView
-from django.views.generic.edit import FormView
 from django.conf import settings
-
+from django.shortcuts import render
+from django.utils.http import is_safe_url
+from django.views.generic.edit import FormView
+from django.utils.feedgenerator import Atom1Feed
 from django_comments.forms import CommentDetailsForm
+from django.http.response import HttpResponseForbidden
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import TemplateView, RedirectView
+
+from allauth.account.views import LoginView
 
 from gem.forms import (
     GemEditProfileForm,
@@ -28,20 +29,20 @@ from gem.forms import (
     GemRegistrationDoneForm,
     ReportCommentForm,
 )
-from gem.models import GemSettings, GemCommentReport
 from gem.settings import REGEX_PHONE, REGEX_EMAIL
-
-from molo.commenting.models import MoloComment
+from gem.models import GemSettings, GemCommentReport
 
 from molo.core.models import ArticlePage
+from molo.commenting.models import MoloComment
+
 from molo.profiles.views import (
     RegistrationView,
     MyProfileEdit,
     RegistrationDone
 )
+from wagtail.core.models import Site
 from mozilla_django_oidc.views import (
     OIDCAuthenticationRequestView, OIDCAuthenticationCallbackView)
-from wagtail.core.models import Site
 
 
 def report_response(request, comment_pk):
@@ -199,29 +200,38 @@ def clean_comment(self):
     Check for email addresses, telephone numbers and any other keywords or
     patterns defined through GemSettings.
     """
+
     comment = self.cleaned_data['comment']
+    comment_moderator_groups = ['comment_moderator']
 
-    site = Site.objects.get(is_default_site=True)
-    settings = GemSettings.for_site(site)
+    is_moderator = self.request and self.request.user.groups.filter(
+        name__in=comment_moderator_groups).exists()
+    is_superuser = self.request and self.request.user.is_superuser
 
-    banned_list = [REGEX_EMAIL, REGEX_PHONE]
+    should_validate = not self.request \
+        or (not is_moderator and not is_superuser)
 
-    banned_keywords_and_patterns = \
-        settings.banned_keywords_and_patterns.split('\n') \
-        if settings.banned_keywords_and_patterns else []
+    if should_validate:
+        site = Site.objects.get(is_default_site=True)
+        settings = GemSettings.for_site(site)
 
-    banned_list += banned_keywords_and_patterns
+        banned_list = [REGEX_EMAIL, REGEX_PHONE]
 
-    for keyword in banned_list:
-        keyword = keyword.replace('\r', '')
-        match = re.search(keyword, comment.lower())
-        if match:
-            raise forms.ValidationError(
-                _(
+        banned_keywords_and_patterns = \
+            settings.banned_keywords_and_patterns.split('\n') \
+            if settings.banned_keywords_and_patterns else []
+
+        banned_list += banned_keywords_and_patterns
+
+        for keyword in banned_list:
+            keyword = keyword.replace('\r', '')
+            match = re.search(keyword, comment.lower())
+            if match:
+                err = _(
                     'This comment has been removed as it contains profanity, '
                     'contact information or other inappropriate content. '
                 )
-            )
+                raise forms.ValidationError(err)
 
     return comment
 
@@ -342,3 +352,7 @@ class MaintenanceView(TemplateView):
         context['SITE_LAYOUT_2'] = settings.SITE_LAYOUT_2
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
+
+
+class AdminLogin(LoginView):
+    template_name = 'wagtailadmin/social_login.html'

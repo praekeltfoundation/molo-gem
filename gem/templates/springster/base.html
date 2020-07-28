@@ -1,7 +1,7 @@
 {% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
 {% get_settings %}
-{% get_current_language as LANGUAGE_CODE %}
+
 {% load molo_pwa %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -9,7 +9,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
 <!--[if IE 10]><html class="no-js lt-ie9 ie10"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="{{LANGUAGE_CODE}}">
+<html class="no-js" lang="{{request.LANGUAGE_CODE}}">
 <!--<![endif]-->
   <head>
     <meta charset="utf-8"/>
@@ -50,37 +50,37 @@
     {% endif %}
 
     <meta property="og:type" content="website" />
-    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
-    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
-    <meta property="og:image:type" content="" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    {% if self.search_description %}
-      <meta name="description" content="{{self.search_description}}" />
-      <meta property="og:description" content="{{self.search_description}}"/>
-    {% elif self.social_media_description %}
-      <meta name="description" content="{{self.social_media_description}}" />
-      <meta property="og:description" content="{{self.social_media_description}}"/>
-    {% elif self.title and self.subtitle %}
-      <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
-      <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
-    {% elif self.title and self.description %}
-      <meta name="description" content="{{self.title}} - {{self.description}}" />
-      <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
-    {% else %}
-      <meta name="description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
-      <meta property="og:description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world."/>
-    {% endif %}
-    <meta name="msapplication-TileColor" content="#ffffff"/>
-    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png"/>
-    <meta name="theme-color" content="#ffffff"/>
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png"/>
-    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png"/>
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/springster_icon_96.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png"/>
+      {% block meta %}
+        <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+        <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+        <meta property="og:image:type" content="" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {% if self.search_description %}
+          <meta name="description" content="{{self.search_description}}" />
+          <meta property="og:description" content="{{self.search_description}}" />
+        {% elif self.social_media_description %}
+          <meta name="description" content="{{self.social_media_description}}" />
+          <meta property="og:description" content="{{self.social_media_description}}"/>
+        {% elif self.title and self.subtitle %}
+          <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
+          <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
+        {% else %}
+          <meta name="description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
+          <meta property="og:description" lang="en" content="Springster celebrates the diverse, inspirational and convention‑defying experiences of girls across the world." />
+        {% endif %}
+      {% endblock %}
+
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/springster_icon_144.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}img/appicons/springster_icon_144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/appicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ STATIC_URL }}img/appicons/springster_icon_192.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ STATIC_URL }}img/appicons/springster_icon_96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ STATIC_URL }}img/appicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ STATIC_URL }}img/appicons/favicon-16x16.png">
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
@@ -88,7 +88,7 @@
     {% compress css inline  %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/01_springster.css" media="all">
     {% endcompress %}
-    {% if LANGUAGE_CODE|language_bidi == True %}
+    {% if request.LANGUAGE_CODE|language_bidi == True %}
       {% compress css inline %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/02_springster-rtl.css" media="all" />
       {% endcompress %}
@@ -98,16 +98,11 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all"/>
       {% endcompress %}
     </noscript>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   </head>
-  <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-    <img alt="Springster" src="
-    {% if self.social_media_image %}
-      {{ tmp_photo.url }}
-    {% elif article_photo.url %}
-      {{ article_photo.url }}
-    {% else %}
-      {% static 'img/springster-fb-share.png' %}
-    {% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+
+    <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
@@ -144,7 +139,7 @@
           <ul class="language-list language-list--standard-center">
           {% for language in languages %}
             <li class="language-list__item language-list__item--standard-center">
-              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor-standard-center {% if LANGUAGE_CODE == language.locale %} is-active {% endif %}">
+              <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor-standard-center {% if request.LANGUAGE_CODE == language.locale %} is-active {% endif %}">
                 {{language.locale|language_name_local}}
               </a>
             </li>
@@ -299,7 +294,7 @@
                   </li>
                   {% for language in languages %}
                   <li class="language-list__item language-list__item--with-label">
-                    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--with-label {% if LANGUAGE_CODE == language.locale %}is-active{% endif %}">
+                    <a href="{% url 'locale_set' language.locale %}?next={{request.path}}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" class="language-list__anchor language-list__anchor--with-label {% if request.LANGUAGE_CODE == language.locale %}is-active{% endif %}">
                       {{language.locale|language_name_local}}
                     </a>
                   </li>

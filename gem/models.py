@@ -1,5 +1,13 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
+from django.conf import settings
+from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.utils.text import gettext_lazy as _
+from django.db.models.signals import pre_delete, post_save
+from django.contrib.auth.models import User, Group, Permission
+
+from allauth.socialaccount.models import SocialAccount
 
 from molo.commenting.models import MoloComment
 from molo.core.models import BannerPage, BannerIndexPage
@@ -13,6 +21,8 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from .forms import PermissionGroupCheckboxSelect
 
 
 class OIDCSettings(models.Model):
@@ -146,3 +156,53 @@ class GemCommentReport(models.Model):
 
     reported_reason = models.CharField(
         max_length=128, blank=False)
+
+
+class Invite(models.Model):
+    email = models.EmailField(unique=True)
+    is_accepted = models.BooleanField(default=False)
+    groups = models.ManyToManyField(Group, blank=True)
+    permissions = models.ManyToManyField(Permission, blank=True)
+
+    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
+    site = models.ForeignKey(Site, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'Invite: {}'.format(self.email)
+
+    panels = [
+        FieldPanel('email'),
+        FieldPanel('groups', widget=PermissionGroupCheckboxSelect),
+        # FieldPanel('permissions', widget=CheckboxSelectMultiple),
+    ]
+
+
+@receiver(pre_delete, sender=User)
+def delete_social_accounts(sender, **kw):
+    user = kw.get('instance')
+    SocialAccount.objects.filter(user=user).delete()
+
+
+@receiver(post_save, sender=Invite)
+def send_admin_invite_email(sender, **kwargs):
+    invite = kwargs.get('instance')
+    created = kwargs.get('created')
+    if created and settings.ENABLE_ALL_AUTH:
+        user = invite.user
+        site = invite.site
+        subject = _('{}: Admin site invitation'.format(site))
+        url = '{}{}'.format(site.hostname, reverse('wagtailadmin_login'))
+        message = _(
+            'Hello, \n\n'
+            'You have been invited to {0} Admin site by {1}. \n'
+            'Use the link below to log in with Google sign in. \n'
+            '{2}'.format(site, user, url)
+        )
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [invite.email]
+        )

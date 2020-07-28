@@ -1,12 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags compress static wagtailuserbar core_tags molo_commenting_tags %}
 {% load wagtailsettings_tags %}
-{% get_current_language as LANGUAGE_CODE %}
+
 {% get_settings %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="{{LANGUAGE_CODE}}"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{request.LANGUAGE_CODE}}"> <!--<![endif]-->
     <head>
       <!-- Google Tag Manager -->
       {% if settings.core.SiteSettings.ga_tag_manager %}
@@ -79,9 +79,6 @@
         {% elif self.title and self.subtitle %}
           <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
           <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
-        {% elif self.title and self.description %}
-          <meta name="description" content="{{self.title}} - {{self.description}}" />
-          <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
         {% else %}
           <meta name="description" lang="en" content="Our Stories. Our Music. Our Lives." />
           <meta property="og:description" lang="en" content="Our Stories. Our Music. Our Lives."/>
@@ -98,13 +95,13 @@
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style.css">
           <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/malawi.css">
         {% endcompress %}
-        {% if LANGUAGE_CODE|language_bidi == True %}
+        {% if request.LANGUAGE_CODE|language_bidi == True %}
           {% compress css %}
             <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/base_style-rtl.css">
           {% endcompress %}
         {% endif %}
     </head>
-    <body class="{% block body_class %}{% endblock %}" {% if LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
+    <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
       <img alt="Zathu" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
 
       <!-- Google Tag Manager (noscript) -->

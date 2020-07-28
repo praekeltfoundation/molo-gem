@@ -1,20 +1,22 @@
-from django.test import RequestFactory, TestCase
-from django.test.client import Client
-
-from gem.middleware import GemMoloGoogleAnalyticsMiddleware
-from gem.models import GemSettings
-
 from mock import patch
 
 from django.conf import settings
-from django.contrib.auth.models import User
-from molo.core.models import SiteSettings
-from gem.tests.base import GemTestCaseMixin
+from django.test.client import Client
+from django.test import RequestFactory, TestCase
+from django.contrib.auth.models import Permission, User
+from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import (
+    get_language_from_request, LANGUAGE_SESSION_KEY)
 
+from molo.core.models import SiteSettings
 from molo.core.models import (
     Tag, ArticlePageTags,
     SectionIndexPage, TagIndexPage, FooterIndexPage,
     FooterPage, SiteLanguageRelation, Site, Languages)
+
+from gem.models import GemSettings
+from gem.tests.base import GemTestCaseMixin
+from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
@@ -396,3 +398,118 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             request, self.response,
             {'cd5': self.footer.title,
                 "cd3": 'Visitor', 'cd1': "0000-000-01"})
+
+
+class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
+
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.site_settings = SiteSettings.for_site(self.main.get_site())
+
+        self.yourmind = self.mk_section(
+            SectionIndexPage.objects.child_of(self.main).first(),
+            title='Your mind')
+
+        self.article = self.mk_article(self.yourmind, title='article')
+        self.article.save_revision().publish()
+
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en',
+            is_active=True)
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='fr',
+            is_active=True)
+
+        self.fr_article = self.mk_article_translation(
+            self.article, self.french)
+
+        self.fr_yourmind = self.mk_section_translation(
+            self.yourmind, self.french)
+
+    def test_non_default_language_existing_session(self):
+        request = RequestFactory().get('/locale/en/')
+        self.assertEqual(get_language_from_request(request), 'en')
+
+        request = RequestFactory()
+        request.session = {LANGUAGE_SESSION_KEY: 'en'}
+
+        fr_url = self.fr_article.url
+        request.get(fr_url)
+        self.assertEqual(get_language_from_request(request), 'en')
+
+    def test_non_default_language_new_session(self):
+        fr_url = self.fr_article.url
+        res = self.client.get(fr_url)
+        self.assertTrue('lang="fr"' in str(res.content))
+
+    def test_default_language(self):
+        res = self.client.get('/')
+        self.assertTrue('lang="en"' in str(res.content))
+
+
+class TestAdminSiteAdminMiddleware(TestCase, GemTestCaseMixin):
+    def get_admin_perms(self):
+        wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+            app_label='wagtailadmin',
+            model='admin'
+        )
+        admin_permission, created = Permission.objects.get_or_create(
+            content_type=wagtailadmin_content_type,
+            codename='access_admin',
+            name='Can access Wagtail admin'
+        )
+        return admin_permission
+
+    def setUp(self):
+        self.main = self.mk_main(
+            title='main1', slug='main1', path='00010002', url_path='/main1/')
+        self.site = self.main.get_site()
+        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
+        self.site_settings = SiteSettings.for_site(self.site)
+
+        self.user = User.objects.create_user(
+            username='tester',
+            is_staff=True,
+            email='tester@example.com',
+            password='tester')
+        self.user.profile.admin_sites.add(self.site)
+        self.user.user_permissions.add(self.get_admin_perms())
+
+    def test_access_admin_no_site_admin_permissions_superuser(self):
+        user, created = User.objects.get_or_create(
+            username='testusermidware',
+            is_staff=True, password='1234', is_superuser=True
+        )
+        user.user_permissions.add(self.get_admin_perms())
+        self.client.force_login(user)
+        res = self.client.get('/admin/')
+        self.assertEqual(res.status_code, 200)
+
+    def test_access_admin_no_site_admin_permissions(self):
+        user, created = User.objects.get_or_create(
+            username='testusermidware',
+            is_staff=True, password='1234'
+        )
+        user.user_permissions.add(self.get_admin_perms())
+        self.client.force_login(user)
+        res = self.client.get('/admin/')
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, '/')
+
+        site = Site.objects.create(
+            hostname='dummysite.com',
+            root_page=self.main
+        )
+        user.profile.admin_sites.add(site)
+        res = self.client.get('/admin/')
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.url, site.hostname + '/admin/')
+
+    def test_access_admin(self):
+        self.client.force_login(self.user)
+        res = self.client.get('/admin/')
+        self.assertEqual(res.status_code, 200)

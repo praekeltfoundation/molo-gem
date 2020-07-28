@@ -7,132 +7,133 @@
   -->
 {% endcomment %}
 
-
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
 {% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
 {% get_settings %}
-{% get_current_language as LANGUAGE_CODE %}
-
 
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="{{LANGUAGE_CODE}}">
+<html class="no-js" lang="{{request.LANGUAGE_CODE}}">
 <!--<![endif]-->
+
 <head>
-    <meta charset="utf-8" />
-    <title>Chhaa Jaa |
-      {% block title %}
-        {% if self.seo_title %}
-          {% if self.seo_title == "Main" %}
-            Home
-          {% else %}
-            {{ self.seo_title }}
-          {% endif %}
-        {% elif self.title %}
-          {% if self.title == "Main" %}
-            Home
-          {% else %}
-            {{ self.title }}
-          {% endif %}
+  <meta charset="utf-8" />
+  <title>
+    Chhaa Jaa |
+    {% block title %}
+      {% if self.seo_title %}
+        {% if self.seo_title == "Main" %}
+          Home
         {% else %}
-          Welcome
+          {{ self.seo_title }}
         {% endif %}
-      {% endblock %}
-    </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="twitter:card" content="summary_large_image" />
-    {# <!--CORRECT GOOGLE SITE VERIFICATION CONTENT? --> #}
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}" />
-    <meta name="msapplication-TileColor" content="#ffe559">
-    <meta name="msapplication-TileImage" content="{% static 'img/logos/chhaajaa-logo.png' %}">
-    <meta name="theme-color" content="#ffe559">
-    {% if self.social_media_image %}
-      {% image self.social_media_image fill-450x200 as tmp_photo %}
-    {% endif %}
-    {% if self.get_effective_image %}
-      {% image self.get_effective_image fill-450x200 as article_photo %}
-    {% endif %}
-    <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
-    <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-    <meta property="og:type" content="website" />
-    {% if self.search_description %}
-      <meta name="description" content="{{self.search_description}}" />
-      <meta property="og:description" content="{{self.search_description}}"/>
-    {% elif self.social_media_description %}
-      <meta name="description" content="{{self.social_media_description}}" />
-      <meta property="og:description" content="self.social_media_description"/>
-    {% elif self.title and self.subtitle %}
-      <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
-      <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
-    {% elif self.title and self.description %}
-      <meta name="description" content="{{self.title}} - {{self.description}}" />
-      <meta property="og:description" content="{{self.title}} - {{self.description}}"/>
-    {% else %}
-      <meta name="description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta" />
-      <meta property="og:description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta"/>
-    {% endif %}
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" />
-    <meta property="og:image:type" content="" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="msapplication-TileImage" content="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="300x300" href="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}">
-    <link rel="shortcut icon" href="{% static 'img/appicons/chhaajaa/favicon.ico' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}" type="image/x-icon">
+      {% else %}
+        {% if self.title == "Main" %}
+          Home
+        {% else %}
+          {{ self.title }}
+        {% endif %}
+      {% endif %}
+    {% endblock %}
+  </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    {% if settings.core.SiteSettings.google_search_console %}
+  {# <!--CORRECT GOOGLE SITE VERIFICATION CONTENT? --> #}
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <link href="{{ request.build_absolute_uri }}" rel="canonical" />
+  <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}" />
+  <meta name="msapplication-TileColor" content="#ffe559">
+  <meta name="msapplication-TileImage" content="{% static 'img/logos/chhaajaa-logo.png' %}">
+  <meta name="theme-color" content="#ffe559"/>
+  {% if self.social_media_image %}
+    {% image self.social_media_image fill-450x200 as tmp_photo %}
+  {% endif %}
+  {% if self.get_effective_image %}
+    {% image self.get_effective_image fill-450x200 as article_photo %}
+  {% endif %}
+  <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
+  <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <meta property="og:type" content="website" />
+  {% if self.search_description %}
+    <meta name="description" content="{{self.search_description}}" />
+    <meta property="og:description" content="{{self.search_description}}"/>
+  {% elif self.social_media_description %}
+    <meta name="description" content="{{self.social_media_description}}" />
+    <meta property="og:description" content="self.social_media_description"/>
+  {% elif self.title and self.subtitle %}
+    <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
+    <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
+  {% else %}
+    <meta name="description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta" />
+    <meta property="og:description" content="Chhaa Jaa har hafte aapke liye laayega hasi, knowledge aur inspiration! Ham wada karte hain ki hamari kahaniya sachchi, mazedaar aur joshili hongi Aao milein aisi ladkiyon se jo zindagi puri tarah se jeena chahti hain aur jinhe savaal poochne se darr nahi lagta"/>
+  {% endif %}
+
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" />
+  <meta property="og:image:type" content="" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="msapplication-TileImage" content="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="300x300" href="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}">
+  <link rel="shortcut icon" href="{% static 'img/appicons/chhaajaa/favicon.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'img/appicons/chhaajaa/chaajaa-purple.png' %}" type="image/x-icon">
+
+  {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
-    {% endif %}
-    {% compress css inline %}
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
-    {% endcompress %}
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
+  {% endif %}
+  {% compress css inline %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/chhaajaa.css" media="all">
+  {% endcompress %}
 
-    <!-- Facebook Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s){
-      if(f.fbq)return;
-      n=f.fbq=function(){
-        n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;
-        n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);
-        t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '2468162103426122');
-        fbq('track', 'PageView');
-    </script>
-    <noscript>
-      <img height="1" width="1"src="https://www.facebook.com/tr?id=2468162103426122&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Facebook Pixel Code -->
 
-    {% if user.is_authenticated %}
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({
-            'wagtailID':'{{user.profile.uuid}}'
-        });
-      </script>
-    {% endif %}
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
+  <script src="https://www.googleoptimize.com/optimize.js?id=OPT-P879MZC"></script>
+
+  <!-- Facebook Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;
+    n=f.fbq=function(){
+      n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);
+      t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2468162103426122');
+      fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1"src="https://www.facebook.com/tr?id=2468162103426122&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel Code -->
+
+  {% if user.is_authenticated %}
     <script>
-      (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start': new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-NH95KK4');
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+          'wagtailID':'{{user.profile.uuid}}'
+      });
     </script>
-    <!-- End Google Tag Manager -->
+  {% endif %}
+  <script>
+    (function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start': new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+      'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NH95KK4');
+  </script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
   <img alt="Chhaajaa" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/chhaajaa-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
@@ -140,6 +141,8 @@
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P45VN52" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
+
+
   <header class="main_menu_area">
     <nav class="navbar">
       <div class="navbar-header">
@@ -243,45 +246,31 @@
           <img src="{% static 'img/logos/chhaajaa-logo.png' %}" width="110" height="auto" alt="Chhaajja" />
         {% endif %}
       </a>
-      <p class="copyright">&copy; {% now "Y" %}{% trans " All Rights Reserved." %}</p>
+      <p class="copyright">
+        &copy; {% now "Y" %}{% trans " All Rights Reserved." %}
+      </p>
     </div>
+
     {% footer_page %}
+
     <div class="call-to-action call-to-action--backToTop">
-      <a href="#" class="call-to-action__item--label">{% trans "Go to top" %}</a>
+      <a href="#" class="call-to-action__item--label">
+        {% trans "Go to top" %}
+      </a>
     </div>
   </footer>
+
   {% if settings.core.SiteSettings.local_ga_tracking_code %}
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
-      </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{settings.core.SiteSettings.local_ga_tracking_code}}', 'auto');
+    </script>
   {% endif %}
-    <script src="{% static 'js/dest/main-min.js' %}"></script>
-    <script type="text/javascript">
-      /* Reaction Questions */
-      var frm = $('#reaction-questions__form');
-      function set_choice(choice) {
-        if (!$('#' + choice).attr('disabled') == true){
-          $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-              choice: choice,
-              ajax: "True"
-            },
-            success: function () {
-              $( ".reaction-questions__item" ).each(function( index ) {
-                $(this).attr('disabled', false);
-              });
-              $("#" + choice).attr('disabled', true);
-            }
-          })
-        }
-      };
+  <script src="{% static 'js/dest/main-min.js' %}"></script>
+  <script type="text/javascript">
     $(document).ready(function(){
       var widthViewport =  $(window).width();
       if(widthViewport > 720) {
@@ -349,31 +338,30 @@
         });
       }
       $( "#id_comment").on("focus",function(event){
-          $(this).closest(".comments-posting").css({
-            "border": "5px solid #72f3a2",
-            "outline": "none",
-            "padding": "10px",
-            "border-radius": "5px"
-          });
-        }).on("blur",function(event) {
-        $(this).closest(".comments-posting").css("border","5px solid transparent");
-      });
-
-        var urlPath = window.location.pathname;
-        $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
-          var $this = $(this),
-              navhref = $this.attr('href');
-            if(navhref != undefined && urlPath.substring(0,navhref.length) == navhref) {
-              if(navhref === '/' ) {
-                $("a[href='/']").addClass('active');
-              } else {
-                $("a[href='/']").removeClass('active');
-                $this.closest('.navbar-nav__anchor, .pull-right-list__anchor').addClass('active');
-              }
-            }
+        $(this).closest(".comments-posting").css({
+          "border": "5px solid #72f3a2",
+          "outline": "none",
+          "padding": "10px",
+          "border-radius": "5px"
         });
-      });
-    </script>
+      }).on("blur",function(event) {
+      $(this).closest(".comments-posting").css("border","5px solid transparent");
+    });
 
+      var urlPath = window.location.pathname;
+      $('.navbar-nav__anchor, .pull-right-list__anchor').each(function(){
+        var $this = $(this),
+            navhref = $this.attr('href');
+          if(navhref != undefined && urlPath.substring(0,navhref.length) == navhref) {
+            if(navhref === '/' ) {
+              $("a[href='/']").addClass('active');
+            } else {
+              $("a[href='/']").removeClass('active');
+              $this.closest('.navbar-nav__anchor, .pull-right-list__anchor').addClass('active');
+            }
+          }
+      });
+    });
+  </script>
 </body>
 </html>

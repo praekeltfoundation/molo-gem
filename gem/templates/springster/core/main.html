@@ -4,16 +4,13 @@
 {% block content %}
     {% bannerpages position=0 %}
     {% gembannerpages %}
-
   {% if not settings.core.SiteSettings.enable_tag_navigation %}
-    {% forms_list personalisable_form=True %}
     {% forms_list personalisable_form=True %}
     {% hero_article %}
     {% latest_listing_homepage num_count=6 %}
     {% section_listing_homepage %}
     {% media_listing_homepage %}
     {% bannerpages position=1 %}
-
     {% bannerpages position=2 %}
     {% forms_list only_direct_forms=True %}
     {% forms_list only_yourwords=True %}
@@ -21,7 +18,6 @@
     {% bannerpages position=3 %}
   {% else %}
     {% get_tag_articles tag_count=4 as tag_nav_data %}
-
     {% paginate 15 tag_nav_data.latest_articles as latest_articles %}
 
     {% forms_list personalisable_form=True %}
@@ -29,6 +25,7 @@
     {% include 'core/tags/latest_listing_homepage.html' with articles=latest_articles|slice:"0:3" %}
 
     {% forms_list only_direct_forms=True %}
+
     {% forms_list only_linked_forms=True %}
 
     {% bannerpages position=1 %}

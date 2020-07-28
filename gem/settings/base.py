@@ -10,14 +10,18 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 from os.path import abspath, dirname, join
+
 from os import environ
 import django.conf.locale
-from django.conf import global_settings
 from django.urls import reverse_lazy
+from django.conf.global_settings import *
 from django.utils.translation import ugettext_lazy as _
+
 import dj_database_url
+
 import djcelery
 from celery.schedules import crontab
+
 djcelery.setup_loader()
 
 # Absolute filesystem paths
@@ -97,6 +101,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_prometheus',
+    'rest_framework',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     'taggit',
     'modelcluster',
@@ -156,7 +166,7 @@ MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'gem.middleware.GemLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -170,20 +180,19 @@ MIDDLEWARE = [
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
     'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
-    'molo.core.middleware.MultiSiteRedirectToHomepage'
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'gem.middleware.AdminSiteAdminMiddleware',
 ]
 
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
+
 if USE_OIDC_AUTHENTICATION:
     MIDDLEWARE += [
         'gem.middleware.CustomSessionRefresh',
     ]
-
-MIDDLEWARE += [
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
-]
 
 
 # Template configuration
@@ -297,7 +306,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LANGUAGES = global_settings.LANGUAGES + [
+LANGUAGES = LANGUAGES + [
     ('tl', 'Tagalog'),
     ('rw', 'Kinyarwanda'),
     ('ha', 'Hausa'),
@@ -518,6 +527,7 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
 
 CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH = environ.get(
     'GOOGLE_ANALYTICS_IGNORE_PATH')
+
 if CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH:
     GOOGLE_ANALYTICS_IGNORE_PATH += [
         d.strip() for d in CUSTOM_GOOGLE_ANALYTICS_IGNORE_PATH.split(',')]
@@ -531,12 +541,16 @@ FREE_BASICS_URL_FOR_CSRF_MESSAGE = environ.get(
 AUTHENTICATION_BACKENDS = [
     'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'molo.core.backends.MoloCASBackend',
 ]
 
 if USE_OIDC_AUTHENTICATION:
     AUTHENTICATION_BACKENDS = [
         'gem.backends.GirlEffectOIDCBackend',
+    ] + AUTHENTICATION_BACKENDS
+
+if ENABLE_SSO:
+    AUTHENTICATION_BACKENDS = [
+        'molo.core.backends.MoloCASBackend',
     ] + AUTHENTICATION_BACKENDS
 
 AWS_HEADERS = {
@@ -604,3 +618,38 @@ PERSONALISATION_SEGMENTS_ADAPTER = (
 )
 
 X_FRAME_OPTIONS = "allow-from https://tableau.ie.gehosting.org"
+
+ENABLE_ALL_AUTH = environ.get('ENABLE_ALL_AUTH', False)
+
+if ENABLE_ALL_AUTH:
+    AUTHENTICATION_BACKENDS += [
+        'allauth.account.auth_backends.AuthenticationBackend',
+    ]
+
+ACCOUNT_ADAPTER = "gem.adapter.StaffUserAdapter"
+SOCIALACCOUNT_ADAPTER = "gem.adapter.StaffUserSocialAdapter"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_REDIRECT_URL = "wagtailadmin_home"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+SOCIALACCOUNT_ENABLED = environ.get('SOCIAL_LOGIN_ENABLE', True)
+SOCIALACCOUNT_STORE_TOKENS = False
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': environ.get('GOOGLE_LOGIN_CLIENT_ID', ''),
+            'secret': environ.get('GOOGLE_LOGIN_SECRET', ''),
+            # 'key': environ.get('GOOGLE_LOGIN_KEY', '')
+        }
+    }
+}

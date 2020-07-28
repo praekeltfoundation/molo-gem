@@ -27,6 +27,8 @@ class TestCommentReportingModelAdmin(TestCase, GemTestCaseMixin):
         self.content_type = ContentType.objects.get_for_model(self.article)
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.client.login(username='testadmin', password='testadmin')
+        self.site = self.main.get_site()
+        self.user.profile.admin_sites.add(self.site)
 
     def mk_comment(self, comment, parent=None):
         return MoloComment.objects.create(
