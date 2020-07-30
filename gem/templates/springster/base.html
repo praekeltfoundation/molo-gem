@@ -231,7 +231,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_footer %}
-                <label class="search__label" for="search_bottom">Search</label>
+                <label class="search__label" for="search_bottom">{% trans "Search" %}</label>
                 <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text" id="search_bottom">
                 {% endblock search_input_footer %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
