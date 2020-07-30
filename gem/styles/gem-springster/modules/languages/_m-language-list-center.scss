@@ -4,6 +4,7 @@
   @include font($baton-turbo);
   font-size: 12px;
 }
+
 .language-list {
   list-style-type: none;
   margin: 0;
@@ -17,10 +18,14 @@
     margin: 0px 5px;
   }
   &__anchor-standard-center {
-    color: $cool-grey;
+    color: $dark-grey;
     font-size: 12px;
-    &.is-active {
-      color: $gunmetal;
+    &.is-active,
+    &:hover,
+    &:focus {
+      color: #000;
+      text-underline-position: under;
+      text-decoration: underline;
     }
   }
 }

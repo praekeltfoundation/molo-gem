@@ -98,8 +98,7 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/05_no-script-state.css" media="all"/>
       {% endcompress %}
     </noscript>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-  </head>
+</head>
   <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
 
     <img alt="Springster" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{% static 'img/springster-fb-share.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
@@ -178,7 +177,8 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_header %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                <label class="search__label" for="search_top">Search</label>
+                <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text" id="search_top">
                 {% endblock search_input_header %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -231,7 +231,8 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_footer %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                <label class="search__label" for="search_bottom">Search</label>
+                <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text" id="search_bottom">
                 {% endblock search_input_footer %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -285,7 +286,9 @@
             {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
-            <a class="footer-logo" href="/"></a>
+            <a class="footer-logo" href="/">
+              <img class="footer-logo__thumbnail" alt="{% trans "Springster Logo - Footer" %}" src="{% static 'img/logos/sp-footer-logo.png' %}" width="200" height="59"/>
+            </a>
             {% if languages|length > 1 %}
               <div class="languages">
                 <ul class="language-list language-list--with-label">
@@ -400,16 +403,12 @@
             if (smartDevice && raf) {
               raf(function() {
                 var jsScripts = [
-                   "https://code.jquery.com/jquery-2.2.4.min.js",
+                   "{% static 'js/jquery-3.5.1.min.js' %}",
                    "{% static 'js/dest/springster-min.js' %}",
                    "{% static 'js/dest/kaios-min.js' %}"
                  ];
                 for (var i = 0; i < jsScripts.length; i++) {
                   var script = document.createElement('script');
-                  if (i === 0 ) {
-                    script.crossOrigin = "anonymous";
-                    script.integrity = "sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=";
-                  };
                   script.src = jsScripts[i];
                   script.async = false;
                   document.querySelector('script').parentNode.appendChild(script);
