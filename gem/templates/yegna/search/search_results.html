@@ -120,7 +120,8 @@
           </p>
         </div>
         <form action="{% url 'search' %}" class="search-page__form" novalidate>
-          <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "Search Yegna" %}">
+          <label class="search__label" for="search_inner">{% trans "Search" %}</label>
+          <input name="q" type="search" aria-label="Search Input" id="search_inner" placeholder="{% trans "Search Yegna" %}">
           <input type="submit" value="{% trans "Go" %}" class="call-to-action__item call-to-action__item--text">
         </form>
       </div>

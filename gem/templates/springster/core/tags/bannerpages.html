@@ -14,7 +14,7 @@
             {% endif %}
             {% if bannerpage.external_link %}
              <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
-               <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+               <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click here for more" %}</span>
              </a>
             {% endif %}
           </div>
@@ -29,7 +29,7 @@
                 <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
               </a>
               {% elif bannerpage.external_link %}
-              <a href="{{ bannerpage.external_link }}" target="_blank" class="banner__item-link">
+              <a href="{{ bannerpage.external_link }}" target="_blank" rel="noreferrer" class="banner__item-link">
                 <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
               </a>
               {% else %}
@@ -45,7 +45,7 @@
                 {% endif %}
                 {% if bannerpage.external_link %}
                 <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
-                  <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+                  <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click here for more" %}</span>
                 </a>
                 {% endif %}
               </div>
@@ -59,7 +59,7 @@
             <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
           </a>
           {% elif bannerpage.external_link %}
-          <a href="{{ bannerpage.external_link }}" target="_blank" class="banner__item-link">
+          <a href="{{ bannerpage.external_link }}" target="_blank" rel="noreferrer" class="banner__item-link">
             <img alt="{{ bannerpage.title }}" src="{{ tmp_photo.url }}" class="banner__image"/>
           </a>
           {% else %}
@@ -75,7 +75,7 @@
               {% endif %}
               {% if bannerpage.external_link %}
               <a href="{% if bannerpage.external_link %}{{bannerpage.external_link}}{% elif bannerpage.banner_link_page %}{% pageurl bannerpage.banner_link_page.specific %}{% endif %}" class="call-to-action__button">
-                <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click Here" %}</span>
+                <span class="call-to-action__button-text call-to-action__button-text--hyperlink">{% trans "Click here for more" %}</span>
               </a>
               {% endif %}
           </div>

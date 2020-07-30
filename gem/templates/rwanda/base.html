@@ -230,7 +230,8 @@
           <div class="search-wrapper dropdown-menu">
             <h1 class="search__title">{% trans "Search" %}:</h1>
             <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <label class="search__label" for="search_top">{% trans 'Search' %}</label>
+              <input name="q" type="search" aria-label="Search Input" id="search_top" placeholder="{% trans 'Search' %}">
               <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
             </form>
           </div>
@@ -320,7 +321,8 @@
               </h3>
             </div>
             <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <label class="search__label" for="search_bottom">{% trans "Search" %}</label>
+              <input name="q" type="search" aria-label="Search Input" id="search_bottom" placeholder="{% trans 'Search' %}">
               <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
             </form>
           </div>
