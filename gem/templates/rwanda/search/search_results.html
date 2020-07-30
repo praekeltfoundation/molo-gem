@@ -113,7 +113,8 @@
       <span class="search__query-term">'{{ search_query }}'</span>
     </h4>
     <form action="{% url 'search' %}" class="search__form" novalidate>
-      <input name="q" type="search" aria-label="Search Input" placeholder="{% trans "I am looking for" %}">
+      <label class="search__label" for="search_inner">Search</label>
+      <input name="q" type="search" aria-label="Search Input" id="search_inner" placeholder="{% trans "I am looking for" %}">
       <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
     </form>
   </div>
