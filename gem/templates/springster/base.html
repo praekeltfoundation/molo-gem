@@ -188,23 +188,23 @@
         <div class="section-nav">
           <ul id="nav-list" class="section-nav-list">
             <li class="section-nav-list__item">
-              <a href="/" class="section-nav-list__anchor{% if request.path == '/' %} selected{% endif %}">
-                {% trans "Home" %}
-              </a>
+              <a href="/" class="section-nav-list__anchor{% if request.path == '/' %} selected{% endif %}">{% trans "Home" %}</a>
             </li>
           {% load_sections as sections %}
           {% for section in sections %}
             {% pageurl section.specific as section_path %}
-              <li class="section-nav-list__item section-nav-list__item--{{section.get_effective_extra_style_hints}}">
-                <a href="{% pageurl section.specific %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
-                {{section.title}}
-                </a>
-              </li>
+            <li class="section-nav-list__item section-nav-list__item--{{section.get_effective_extra_style_hints}}">
+              <a href="{% pageurl section.specific %}" class="section-nav-list__anchor{% if request.path == section_path %} selected{% endif %}">
+              {{section.title}}
+              </a>
+            </li>
             {% if forloop.revcounter == 3 %}
+            <li class="section-nav-list__item">
               <ul class="section-nav-list-wrap">
             {% endif %}
             {% if forloop.revcounter == 1 %}
-            </ul>
+              </ul>
+            </li>
             {% endif %}
           {% endfor %}
           </ul>
