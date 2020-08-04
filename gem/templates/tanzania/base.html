@@ -160,7 +160,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_header %}
-                  <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                  <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_header %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -204,7 +204,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_footer %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_footer %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -259,7 +259,9 @@
             {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
-            <a class="footer-logo" href="/"></a>
+            <a class="footer-logo" href="/">
+              <img class="footer-logo__thumbnail" alt="{% trans "Tujibebe Logo - Footer" %}" src="{% static 'img/logos/tujibebe.png' %}"/>
+            </a>
             {% if languages|length > 1 %}
               <div class="languages">
                 <ul class="language-list language-list--with-label">
