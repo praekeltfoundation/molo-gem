@@ -51,7 +51,7 @@
     {% endif %}
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}"/>
+    <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}"/>
     <meta property="og:image:type" content="" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -97,7 +97,7 @@
     {% endif %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-    <img alt="Zathu" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+    <img alt="Zathu" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/zathu-fb-share_1200X630.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
 
     <!-- Google Tag Manager (noscript) -->
     {% if settings.core.SiteSettings.ga_tag_manager %}

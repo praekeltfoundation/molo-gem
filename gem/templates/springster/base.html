@@ -19,20 +19,14 @@
       {% else %}
         {% block title %}
           {% if self.seo_title %}
-            {% if self.seo_title == "Main" %}
-              Home
-            {% else %}
+            {% if self.seo_title == "Main" %}Home{% else %}
               {{ self.seo_title }}
             {% endif %}
           {% elif self.title %}
-            {% if self.title == "Main" %}
-              Home
-            {% else %}
+            {% if self.title == "Main" %}Home{% else %}
               {{ self.title }}
             {% endif %}
-          {% else %}
-            Welcome
-          {% endif %}
+          {% else %}Welcome{% endif %}
         {% endblock %}
       {% endif %}
     </title>
