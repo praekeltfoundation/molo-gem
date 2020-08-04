@@ -16,20 +16,15 @@
     <title>Tujibebe |
       {% block title %}
         {% if self.seo_title %}
-          {% if self.seo_title == "Main" %}
-            Home
+          {% if self.seo_title == "Main" %}Home
           {% else %}
             {{ self.seo_title }}
           {% endif %}
         {% elif self.title %}
-          {% if self.title == "Main" %}
-            Home
-          {% else %}
-            {{ self.title }}
+          {% if self.title == "Main" %}Home
+          {% else %}{{ self.title }}
           {% endif %}
-        {% else %}
-          Welcome
-        {% endif %}
+        {% else %}Welcome{% endif %}
       {% endblock %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -55,7 +50,7 @@
     {% block meta %}
       <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
       <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-      <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
+      <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
       {% if self.search_description %}
         <meta name="description" content="Tujibebe | {{self.search_description}}" />
         <meta property="og:description" content="Tujibebe | {{self.search_description}}"/>
@@ -90,7 +85,7 @@
     {% endcompress %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-    <img alt="Tujibebe" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+    <img alt="Tujibebe" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/tujibebe.svg' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
@@ -165,7 +160,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_header %}
-                  <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                  <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_header %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -209,7 +204,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_footer %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_footer %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -264,7 +259,9 @@
             {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
-            <a class="footer-logo" href="/"></a>
+            <a class="footer-logo" href="/">
+              <img class="footer-logo__thumbnail" alt="{% trans "Tujibebe Logo - Footer" %}" src="{% static 'img/logos/tujibebe.png' %}"/>
+            </a>
             {% if languages|length > 1 %}
               <div class="languages">
                 <ul class="language-list language-list--with-label">

@@ -16,20 +16,14 @@
   <title>Ni Nyampinga |
     {% block title %}
       {% if self.seo_title %}
-        {% if self.seo_title == "Main" %}
-          Home
-        {% else %}
+        {% if self.seo_title == "Main" %}Home{% else %}
           {{ self.seo_title }}
         {% endif %}
       {% elif self.title %}
-        {% if self.title == "Main" %}
-          Home
-        {% else %}
+        {% if self.title == "Main" %}Home{% else %}
           {{ self.title }}
         {% endif %}
-      {% else %}
-        Welcome
-      {% endif %}
+      {% else %}Welcome{% endif %}
     {% endblock %}
   </title>
   <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
@@ -60,7 +54,7 @@
     {% image self.get_effective_image fill-450x200 as article_photo %}
   {% endif %}
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}"/>
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}"/>
   <meta property="og:image:type" content="" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -84,7 +78,8 @@
   {% endcompress %}
 </head>
 <body {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <a class="skip-link" href="#wrapper">Skip to main</a>
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
