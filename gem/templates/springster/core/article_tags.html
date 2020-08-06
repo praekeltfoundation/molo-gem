@@ -71,12 +71,14 @@
           {% endif %}
         {% endif %}
         {% get_comment_count for article as comment_count %}
-        {% if comment_count > 0 %}
-          <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-            <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-            <span class="comment-counter__numeral">{{comment_count}}</span>
-          </a>
-        {% endif %}
+          {% if article.is_commenting_enabled %}
+            {% if comment_count > 0 %}
+              <a href="{% pageurl article.specific %}?#comments" class="comment-counter{% if not article.allow_commenting %} comment-counter--disabled{% endif %}">
+                <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+                <span class="comment-counter__numeral">{{comment_count}}</span>
+              </a>
+            {% endif %}
+          {% endif %}
       </div>
     </li>
     {% endfor %}
@@ -154,12 +156,14 @@
                    </div>
                  {% endif %}
                {% endif %}
-               {% get_comment_count for article as comment_count %}
-               {% if comment_count > 0 %}
-                 <a href="{% pageurl article.specific %}?#comments" class="comment-counter">
-                   <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-                   <span class="comment-counter__numeral">{{comment_count}}</span>
-                 </a>
+
+               {% if article.is_commenting_enabled %}
+                  {% if comment_count > 0 %}
+                    <a href="{% pageurl article.specific %}?#comments" class="comment-counter{% if not article.allow_commenting %} comment-counter--disabled{% endif %}">
+                        <img alt="Comments" srcset="{% static 'img/icons/comment.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+                        <span class="comment-counter__numeral">{{comment_count}}</span>
+                    </a>
+                 {% endif %}
                {% endif %}
              </div>
            </div>

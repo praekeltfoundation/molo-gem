@@ -3,13 +3,31 @@
   height: 25px;
   margin: 5px 0 0;
   &__icon {
-    vertical-align: middle;
     max-width: 21px;
   }
   &__numeral {
     color: $slate-grey;
     font-size: $font-x-small;
     vertical-align: top;
-    margin-left: 5px;
+  }
+  &--disabled {
+    opacity: 0.3 !important;
+  }
+}
+
+.teaser-stacklist__item--content {
+  .comment-counter-container {
+    height: 20px;
+  }
+  .comment-counter {
+    position: absolute;
+    margin: 0;
+    right: 10px;
+    bottom: 2px;
+    text-decoration: none;
+    opacity: 1;
+    &:hover, &:active {
+      opacity: 0.8;
+    }
   }
 }
