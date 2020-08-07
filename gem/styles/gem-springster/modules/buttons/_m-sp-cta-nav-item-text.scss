@@ -76,7 +76,13 @@
           }
       }
 
-      &--disabled {color: $cool-grey;}
+      &--disabled {
+        color: $cool-grey;
+        cursor: not-allowed !important;
+        display: inline-block;  /* For IE11/ MS Edge bug */
+        pointer-events: none;
+        text-decoration: none;
+      }
       &--report {
         padding: 0 10px 0 0;
       }
