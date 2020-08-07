@@ -22,7 +22,8 @@ class GemPagesAdminApi(PagesAdminAPIEndpoint):
 
         # Fields
         try:
-            fields_config = parse_fields_parameter(self.request.GET.get('fields', []))
+            fields_config = parse_fields_parameter(
+                self.request.GET.get('fields', []))
         except ValueError as e:
             raise BadRequestError("fields error: %s" % str(e))
 
