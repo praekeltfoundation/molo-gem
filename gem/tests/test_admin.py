@@ -55,3 +55,24 @@ class TestCommentReportingModelAdmin(TestCase, GemTestCaseMixin):
         response = self.client.get('/admin/commenting/molocomment/')
         self.assertContains(
             response, 'bad sample text, (2), lack of humour, (1)')
+
+    def test_admin_api(self):
+        response = self.client.get(
+            '/admin/api/v2beta/pages/?child_of=1&for_explorer=1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data)
+
+    def test_admin_api_with_invalid_input(self):
+        response = self.client.get(
+            '/admin/api/v2beta/pages/?child_of=1&for_explorer=1&fields=121223')
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue(response.data)
+
+    def test_admin_api_detail_with_invalid_input(self):
+        response = self.client.get(
+            '/admin/api/v2beta/pages/{}/?'
+            'child_of=1&for_explorer=1&fields=121223'
+            .format(self.main.pk)
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue(response.data)
