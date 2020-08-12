@@ -15,7 +15,8 @@ class GemPagesAdminApi(PagesAdminAPIEndpoint):
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+            models = page_models_from_string(
+                request.GET.get('type', 'wagtailcore.Page'))
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
