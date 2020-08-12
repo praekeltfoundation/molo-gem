@@ -1,14 +1,35 @@
 from django.conf.urls import url
 
 from wagtail.core import hooks
+from wagtail.core.models import Page
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.admin.api.endpoints import PagesAdminAPIEndpoint
-from wagtail.api.v2.utils import BadRequestError, parse_fields_parameter
+from wagtail.api.v2.utils import \
+    BadRequestError, parse_fields_parameter, \
+    filter_page_type, page_models_from_string
 
 
 class GemPagesAdminApi(PagesAdminAPIEndpoint):
     def get_queryset(self):
-        self.queryset = super(GemPagesAdminApi, self).get_queryset()
+        request = self.request
+
+        # Allow pages to be filtered to a specific type
+        try:
+            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+        except (LookupError, ValueError):
+            raise BadRequestError("type doesn't exist")
+
+        if not models:
+            models = [Page]
+
+        if len(models) == 1:
+            print(request.GET, 'if', '*' * 100)
+            self.queryset = models[0].objects.exclude(depth=1).all()
+        else:
+            print(request.GET, 'else', '=' * 100)
+            self.queryset = filter_page_type(
+                Page.objects.exclude(depth=1).all(), models)
+
         return self.queryset
 
     def get_serializer_class(self):
