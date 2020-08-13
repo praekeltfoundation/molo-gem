@@ -54,11 +54,12 @@
         {% if self.subtitle %}
           <h4 class="teaser-stacklist__subtitle">{{ self.subtitle }}</h4>
         {% endif %}
+
         {% for block in self.body %}
           {% if not block.block_type == 'media' %}
-            <div class="teaser-stacklist__excerpt">
+            <p class="teaser-stacklist__excerpt">
               {{block.value}}
-            </div>
+            </p>
           {% endif %}
         {% endfor %}
 

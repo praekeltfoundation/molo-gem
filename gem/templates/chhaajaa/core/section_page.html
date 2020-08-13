@@ -283,13 +283,15 @@
                           {{ service.subtitle|smarttruncatechars:85|safe}}
                         </h6>
                       {% endif %}
+
                       {% for block in service.body %}
                         {% if not block.block_type == 'media' %}
                           <p class="service-stacklist__excerpt">
-                            {{block.value|smarttruncatechars:125|safe}}
+                            {{block.value}}
                           </p>
                         {% endif %}
                       {% endfor %}
+
                     </div>
                     <div class="service-stacklist__cta-buttons">
 
