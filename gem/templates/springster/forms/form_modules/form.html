@@ -59,25 +59,25 @@
               <p class="helptext">{{ field.help_text }}</p>
             {% endif %}
           {% endif %}
+
           {% if field|fieldtype == 'CheckboxInput' %}
             <div class="choice-group">
-              <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-              <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
+              <input name="{{ field.name }}" id="id_{{ field.name|slugify }}__{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+              <label for="id_{{ field.name|slugify }}__{{ forloop.counter }}">{{ text|capfirst }}</label>
             </div>
-          {% endif %}
-          {% if field|fieldtype == 'CheckboxSelectMultiple'  %}
+          {% elif field|fieldtype == 'CheckboxSelectMultiple'  %}
             {% for value, text in field.field.choices %}
               <div class="choice-group">
-                <input name="{{ field.name }}" id="id_{{ value|slugify }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
-                <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
+                <input name="{{ field.name }}" id="id_{{field.name|slugify}}_{{ forloop.counter }}" type="checkbox" value="{{ value }}" {% if field.value.0 == value %}checked="checked"{% endif %}/>
+                <label for="id_{{field.name|slugify}}_{{ forloop.counter }}">{{ text|capfirst }}</label>
               </div>
             {% endfor %}
           {% elif field|fieldtype == 'RadioSelect' %}
             {% for value, text in field.field.choices %}
               <div class="choice-group choice-group__radio">
                 <input name="{{ field.name }}"
-                 id="id_{{ value|slugify }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
-                <label for="id_{{ value|slugify }}">{{ text|capfirst }}</label>
+                 id="id_{{field.name|slugify}}_{{ forloop.counter }}" type="radio" value="{{ value }}" {% if field.value == value %}checked="checked"{% endif %}/>
+                <label for="id_{{field.name|slugify}}_{{ forloop.counter }}">{{ text|capfirst }}</label>
               </div>
             {% endfor %}
           {% elif field|fieldtype == 'Select' %}

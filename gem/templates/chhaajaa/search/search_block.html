@@ -1,5 +1,6 @@
 <h3 class=" heading__subtitle">{% trans "Search" %}</h3>
 <form action="{% url 'search' %}" class="search-page__form" novalidate>
-  <input name="q" type="search" value="{{ search_query }}" aria-label="Search Input" placeholder="{% trans "Search" %}">
+  <label class="search__label" for="search_general">{% trans "Search" %}</label>
+  <input name="q" type="search" value="{{ search_query }}" aria-label="Search Input" id="search_general" placeholder="{% trans "Search" %}">
   <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--text">
 </form>

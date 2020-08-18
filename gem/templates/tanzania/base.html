@@ -16,18 +16,15 @@
     <title>Tujibebe |
       {% block title %}
         {% if self.seo_title %}
-          {% if self.seo_title == "Main" %}
-            Home
+          {% if self.seo_title == "Main" %}Home
           {% else %}
             {{ self.seo_title }}
           {% endif %}
-        {% else %}
-          {% if self.title == "Main" %}
-            Home
-          {% else %}
-            {{ self.title }}
+        {% elif self.title %}
+          {% if self.title == "Main" %}Home
+          {% else %}{{ self.title }}
           {% endif %}
-        {% endif %}
+        {% else %}Welcome{% endif %}
       {% endblock %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -53,10 +50,10 @@
     {% block meta %}
       <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
       <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-      <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
+      <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/tujibebe.svg' %}{% endif %}"/>
       {% if self.search_description %}
-        <meta name="description" content="{{self.search_description}}" />
-        <meta property="og:description" content="{{self.search_description}}"/>
+        <meta name="description" content="Tujibebe | {{self.search_description}}" />
+        <meta property="og:description" content="Tujibebe | {{self.search_description}}"/>
       {% elif self.social_media_description %}
         <meta name="description" content="{{self.social_media_description}}" />
         <meta property="og:description" content="{{self.social_media_description}}"/>
@@ -64,10 +61,10 @@
         <meta name="description" content="{{self.title}} - {{self.subtitle}}" />
         <meta property="og:description" content="{{self.title}} - {{self.subtitle}}"/>
       {% else %}
-        <meta name="description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
-        <meta name="description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
-        <meta property="og:description" lang="en" content="Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
-        <meta property="og:description" lang="sw-tz" content="Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
+        <meta name="description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together." />
+        <meta name="description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha." />
+        <meta property="og:description" lang="en" content="Tujibebe | Tujibebe is a youth brand that educates and empowers young Tanzanians to make informed choices that enable them to overcome life’s challenges together."/>
+        <meta property="og:description" lang="sw-tz" content="Tujibebe | Tujibebe inawaelimisha na kuwawezesha vijana wa kitanzania kufanya maamuzi sahihi ili kwa pamoja waweze kukabiliana na changamoto za maisha."/>
       {% endif %}
     {% endblock %}
     <meta property="og:image:type" content="" />
@@ -82,12 +79,13 @@
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
+    {% molo_pwa_meta %}
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/tanzania.css" media="all">
     {% endcompress %}
   </head>
   <body class="{% block body_class %}{% endblock %}" {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-    <img alt="Tujibebe" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/tujibebe.svg' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+    <img alt="Tujibebe" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/tujibebe.svg' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
     {% if settings.gem.GemSettings.fb_enable_chat_bot %}
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
@@ -162,7 +160,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_header %}
-                  <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                  <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_header %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -206,7 +204,7 @@
             <div class="search-bar">
               <form action="{% url 'search' %}" novalidate>
                 {% block search_input_footer %}
-                <input placeholder="{% trans "Search" %}" name="q" type="text" id="input__none">
+                <input aria-label="Search Input" placeholder="{% trans "Search" %}" name="q" type="text">
                 {% endblock search_input_footer %}
                 <input type="submit" value="{% trans "Search" %}" class="call-to-action__item call-to-action__item--with-icon call-to-action__item--search-icon">
               </form>
@@ -261,7 +259,9 @@
             {% if not is_via_bbm %}
               {% social_media_footer %}
             {% endif %}
-            <a class="footer-logo" href="/"></a>
+            <a class="footer-logo" href="/">
+              <img class="footer-logo__thumbnail" alt="{% trans "Tujibebe Logo - Footer" %}" src="{% static 'img/logos/tujibebe.png' %}"/>
+            </a>
             {% if languages|length > 1 %}
               <div class="languages">
                 <ul class="language-list language-list--with-label">
@@ -283,38 +283,6 @@
                 {% trans "Back to Top" %}</a>
             </div>
           </div>
-
-          {% block google_analytics %}
-            {% include "patterns/components/ga_tag_manager.html" %}
-          {% endblock %}
-
-          {% block facebook_pixel_tracker %}
-          {# Facebook Pixel Code #}
-            <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function()
-            {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
-            ;
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window,document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '461337710896694');
-            fbq('track', 'PageView');
-            </script>
-            <noscript>
-            <img height="1" width="1"
-            src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
-            &noscript=1" alt="Facebook pixel tracker"/>
-            </noscript>
-          {# End Facebook Pixel Code #}
-          {% endblock %}
-
-          {% block facebook_analytics %}
-            {% include "core/facebook_analytics.html" %}
-          {% endblock %}
-
         {% endblock %}
         {% if is_via_kaios %}
           <div class="softkey">
@@ -340,6 +308,36 @@
         </div>
       </div>
     </div>
+    {% block google_analytics %}
+      {% include "patterns/components/ga_tag_manager.html" %}
+    {% endblock %}
+
+    {% block facebook_pixel_tracker %}
+    {# Facebook Pixel Code #}
+      <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function()
+      {n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}
+      ;
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '461337710896694');
+      fbq('track', 'PageView');
+      </script>
+      <noscript>
+      <img height="1" width="1"
+      src="https://www.facebook.com/tr?id=461337710896694&ev=PageView
+      &noscript=1" alt="Facebook pixel tracker"/>
+      </noscript>
+    {# End Facebook Pixel Code #}
+    {% endblock %}
+
+    {% block facebook_analytics %}
+      {% include "core/facebook_analytics.html" %}
+    {% endblock %}
 
     {% if settings.core.SiteSettings.local_ga_tracking_code %}
       <script>
@@ -351,7 +349,6 @@
       </script>
     {% endif %}
     {% if not is_via_freebasics %}
-      <script src="{{ STATIC_URL }}js/jquery.js"></script>
       {% compress js inline %}
       <script src="{% static 'js/dest/main-min.js' %}"></script>
       <script>
@@ -359,11 +356,13 @@
       var cutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
       var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       var smartDevice = (isMobile.apple.device || isMobile.android.device || isMobile.windows.device || !isMobile.other.opera || !isMobile.other.device);
+
         if (cutsTheMustard === true) {
           if (smartDevice && raf) {
             var jsScripts = [
-              "{% static 'js/dest/springster-min.js' %}",
-              "{% static 'js/dest/kaios-min.js' %}",
+               "{% static 'js/jquery-3.5.1.min.js' %}",
+               "{% static 'js/dest/springster-min.js' %}",
+               "{% static 'js/dest/kaios-min.js' %}",
              ];
             for (var i = 0; i < jsScripts.length; i++) {
               var script = document.createElement('script');
@@ -372,7 +371,7 @@
               document.querySelector('script').parentNode.appendChild(script);
             }
           }
-        }
+        };
 
         //Event Propagation NOT covered
         var disabledElem = document.querySelectorAll('.call-to-action__nav-item-text--disabled'),
@@ -386,7 +385,6 @@
         };
       </script>
       {% endcompress %}
-      {% molo_pwa_meta %}
     {% endif %}
   </body>
 </html>

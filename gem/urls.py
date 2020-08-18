@@ -15,6 +15,7 @@ from wagtail.core import urls as wagtail_urls
 from molo.core import views as core_views
 from molo.profiles.views import ForgotPasswordView, ResetPasswordView
 
+from gem import admin_api as admin_pages_api_urls
 from gem.views import (
     report_response, GemRegistrationView,
     GemRssFeed, GemAtomFeed,
@@ -59,6 +60,7 @@ urlpatterns += [
 
     re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
+    re_path(r'^admin/api/', include(admin_pages_api_urls)),
     re_path(r'^admin/', include(wagtailadmin_urls)),
     re_path(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),

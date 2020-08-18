@@ -16,18 +16,14 @@
   <title>Ni Nyampinga |
     {% block title %}
       {% if self.seo_title %}
-        {% if self.seo_title == "Main" %}
-          Home
-        {% else %}
+        {% if self.seo_title == "Main" %}Home{% else %}
           {{ self.seo_title }}
         {% endif %}
-      {% else %}
-        {% if self.title == "Main" %}
-          Home
-        {% else %}
+      {% elif self.title %}
+        {% if self.title == "Main" %}Home{% else %}
           {{ self.title }}
         {% endif %}
-      {% endif %}
+      {% else %}Welcome{% endif %}
     {% endblock %}
   </title>
   <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
@@ -58,7 +54,7 @@
     {% image self.get_effective_image fill-450x200 as article_photo %}
   {% endif %}
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}"/>
+  <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}"/>
   <meta property="og:image:type" content="" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -73,16 +69,17 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/ninyampinga/NN_Favicon_GREEN.svg' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
-  {% compress css inline %}
-  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
-  {% endcompress %}
   {% molo_pwa_meta %}
   {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
   {% endif %}
+  {% compress css inline %}
+  <link href="{{ STATIC_URL }}css/{{ ENV }}/nn.css" rel="stylesheet" media="all">
+  {% endcompress %}
 </head>
 <body {% if request.LANGUAGE_CODE|language_bidi == True %}dir="rtl"{% endif %}>
-  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <img alt="Ninyampinga" src="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/logos/ninyampinga-logo.png' %}{% endif %}" id="image__identity" style="display:none; visibility:hidden;" />
+  <a class="skip-link" href="#wrapper">Skip to main</a>
   {% wagtailuserbar %}
   {% block google_analytics %}
    {% include "patterns/components/ga_tag_manager.html" %}
@@ -228,7 +225,8 @@
           <div class="search-wrapper dropdown-menu">
             <h1 class="search__title">{% trans "Search" %}:</h1>
             <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <label class="search__label" for="search_top">{% trans 'Search' %}</label>
+              <input name="q" type="search" aria-label="Search Input" id="search_top" placeholder="{% trans 'Search' %}">
               <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
             </form>
           </div>
@@ -318,7 +316,8 @@
               </h3>
             </div>
             <form action="{% url 'search' %}" class="search__form" novalidate>
-              <input name="q" type="search" aria-label="Search Input" placeholder="{% trans 'Search' %}">
+              <label class="search__label" for="search_bottom">{% trans "Search" %}</label>
+              <input name="q" type="search" aria-label="Search Input" id="search_bottom" placeholder="{% trans 'Search' %}">
               <input type="submit" value="{% trans 'Search' %}" class="call-to-action__item call-to-action__item--text">
             </form>
           </div>
@@ -378,17 +377,14 @@
                             styles = document.getElementsByTagName('style')[0];
                         window.setTimeout(styles.insertAdjacentHTML('afterend', safari), 0);
                       }
+
                       var jsScripts = [
-                         "https://code.jquery.com/jquery-2.0.3.min.js",
+                         "{% static 'js/jquery-3.5.1.min.js' %}",
                          "{% static 'js/dest/nn-min.js' %}",
                          "{% static 'js/dest/kaios-min.js' %}"
                        ]
                       for (var i = 0; i < jsScripts.length; i++) {
                         var script = document.createElement('script');
-                        if (i === 0 ) {
-                          script.crossOrigin = "anonymous";
-                          script.integrity = "sha256-sTy1mJ4I/LAjFCCdEB4RAvPSmRCb3CU7YqodohyeOLo=";
-                        }
                         script.src = jsScripts[i];
                         script.async = false;
                         document.querySelector('script').parentNode.appendChild(script);

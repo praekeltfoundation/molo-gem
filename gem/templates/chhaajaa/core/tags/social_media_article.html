@@ -18,7 +18,7 @@
     {% endif %}
     {% if settings.core.SiteSettings.whatsapp_sharing %}
       <li class="social-media-list__item">
-        <a href="whatsapp://send?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ path }}" target="_blank" class="social-media__anchor social-media__anchor--whatsapp " data-action="share/whatsapp/share">
+        <a href="whatsapp://send?text=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ path }}" target="_blank" rel="noreferrer" class="social-media__anchor social-media__anchor--whatsapp " data-action="share/whatsapp/share">
           {% if whatsapp %}{% image whatsapp width-40 format-png class="social-media__icon" %}{% else %}<span class="social-media__default-icon">{% trans "Whatsapp" %}<span>{% endif %}
         </a>
       </li>

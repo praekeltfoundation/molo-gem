@@ -1,11 +1,14 @@
 {% load staticfiles comments %}
+
 {% get_comment_count for article as comment_count %}
-{% if comment_count > 0 %}
-  <a href="/" class="comment-counter">
-    <img alt="Comments" srcset="{% static 'img/icons/check.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
-    <span class="comment-counter__numeral">{{comment_count}}</span>
-    <span class="comment-counter__numeral comment-counter__numeral--plural">
-      {% trans "comment" %}{{comment_count|pluralize}}
-    </span>
-  </a>
+{% if article.is_commenting_enabled %}
+  {% if comment_count > 0 %}
+    <a href="/" class="comment-counter{% if not article.allow_commenting %} comment-counter--disabled{% endif %}">
+      <img alt="Comments" srcset="{% static 'img/icons/check.svg' %}" src="{% static 'img/icons/check@2x.png' %}" class="comment-counter__icon">
+      <span class="comment-counter__numeral">{{comment_count}}</span>
+      <span class="comment-counter__numeral comment-counter__numeral--plural">
+        {% trans "comment" %}{{comment_count|pluralize}}
+      </span>
+    </a>
+  {% endif %}
 {% endif %}
