@@ -43,7 +43,11 @@ TABLES = [
 
 
 def remove_tables(apps, schema_editor):
-    migrations.RunSQL('DROP TABLE IF EXISTS {} CASCADE;'.format(','.join(TABLES)))
+    cascade = ''
+    if schema_editor.connection.vendor != 'sqlite':
+        cascade = 'CASCADE'
+    sql = 'DROP TABLE IF EXISTS {} {};'.format(','.join(TABLES), cascade)
+    migrations.RunSQL(sql)
 
 
 class Migration(migrations.Migration):
