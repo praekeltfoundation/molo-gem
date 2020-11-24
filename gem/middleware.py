@@ -182,6 +182,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                     custom_params)
         return response
 
+
     def submit_to_global_account(self, request, response, site_settings):
         custom_params = {}
         cd1 = self.get_visitor_id(request)

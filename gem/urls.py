@@ -74,7 +74,7 @@ urlpatterns += [
         r'^bbm/(?P<redirect_path>.*)$',
         BbmRedirect.as_view(), name='bbm_redirect'),
 
-    re_path(r'', include('molo.pwa.urls')),
+    re_path('', include('pwa.urls')),
     re_path(
         r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
