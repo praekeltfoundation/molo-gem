@@ -92,6 +92,7 @@ BASE_URL = 'http://example.com'
 # Application definition
 
 INSTALLED_APPS = [
+    'pwa',
     'django.contrib.admin',
     'django.contrib.auth',
     'mozilla_django_oidc',
@@ -118,8 +119,6 @@ INSTALLED_APPS = [
     'django_comments',
     'molo.commenting',
     'molo.servicedirectory',
-    'molo.pwa',
-    'fcm_django',
     'mote',
 
     'wagtail.core',
@@ -574,8 +573,30 @@ if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-PWA_SERVICE_WORKER_PATH = join(
-    PROJECT_ROOT, 'templates', SITE_LAYOUT_BASE, 'serviceworker.js')
+PWA_APP_NAME = 'Springster-APP'
+PWA_APP_DESCRIPTION = "Springster-APP"
+PWA_APP_THEME_COLOR = '#7300FF'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [
+    {
+        "src": "/static/img/appicons/springster_icon_96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
+    {
+        "src": "/static/img/appicons/springster_icon_192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }
+]
+
+
 PWA_NAME = 'Springster'
 PWA_DESCRIPTION = "Springster"
 PWA_THEME_COLOR = '#7300FF'

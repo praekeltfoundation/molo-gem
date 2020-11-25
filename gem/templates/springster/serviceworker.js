@@ -1,35 +1,51 @@
-
-importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
-
-firebase.initializeApp({
-  'messagingSenderId': '158972131363'
+self.addEventListener("install", function(event) {
+  event.waitUntil(preLoad());
 });
 
-const messaging = firebase.messaging();
-
-var CACHE = 'app-cache';
-
-self.addEventListener('install', function(evt) {
-  evt.waitUntil(precache());
-});
-
-self.addEventListener('fetch', function(evt) {
-  evt.respondWith(fetch(evt.request).catch(function () {
-    return caches.open(CACHE).then(function(cache) {
-      return cache.match('/static/offline.html');
-    });
-  }));
-});
-
-function precache() {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.addAll([
-      '/',
-      '/static/offline.html',
-      '/static/img/appicons/springster_icon_96.png',
-      '/static/img/appicons/springster_icon_144.png',
-      '/static/img/appicons/springster_icon_192.png'
-    ]);
+var preLoad = function(){
+  console.log("Installing web app");
+  return caches.open("offline").then(function(cache) {
+    console.log("caching index and important routes");
+    return cache.addAll(["/", "/offline.html"]);
   });
-}
+};
+
+self.addEventListener("fetch", function(event) {
+  event.respondWith(checkResponse(event.request).catch(function() {
+    return returnFromCache(event.request);
+  }));
+  event.waitUntil(addToCache(event.request));
+});
+
+var checkResponse = function(request){
+  return new Promise(function(fulfill, reject) {
+    fetch(request).then(function(response){
+      if(response.status !== 404) {
+        fulfill(response);
+      } else {
+        reject();
+      }
+    }, reject);
+  });
+};
+
+var addToCache = function(request){
+  return caches.open("offline").then(function (cache) {
+    return fetch(request).then(function (response) {
+      console.log(response.url + " was cached");
+      return cache.put(request, response);
+    });
+  });
+};
+
+var returnFromCache = function(request){
+  return caches.open("offline").then(function (cache) {
+    return cache.match(request).then(function (matching) {
+     if(!matching || matching.status == 404) {
+       return cache.match("offline.html");
+     } else {
+       return matching;
+     }
+    });
+  });
+};
