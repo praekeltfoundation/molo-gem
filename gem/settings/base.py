@@ -119,7 +119,6 @@ INSTALLED_APPS = [
     'django_comments',
     'molo.commenting',
     'molo.servicedirectory',
-    'fcm_django',
     'mote',
 
     'wagtail.core',
