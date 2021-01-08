@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags wagtailcore_tags static core_tags gem_tags molo_forms_tags %}
-
+{% wagtail_site as current_site %}
 {% block content %}
 <div class="contact">
   <div class="banner">
@@ -26,7 +26,7 @@
           </div>
         {% endif %}
         <div class="call-to-action">
-          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--nav-back">
+          <a href="{{current_site.root_page.specific.url}}" class="call-to-action__item call-to-action__item--nav-back">
             {% trans "Back home" %}</a>
         </div>
       </div>

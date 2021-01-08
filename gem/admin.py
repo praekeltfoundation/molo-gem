@@ -3,7 +3,7 @@ from collections import Counter
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from gem.models import GemCommentReport, OIDCSettings, Invite
+from gem.models import GemCommentReport, Invite
 from gem.rules import ProfileDataRule, CommentCountRule
 
 from molo.commenting.admin import MoloCommentAdmin, MoloCommentsModelAdmin
@@ -16,6 +16,7 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin as WagtailModelAdmin, modeladmin_register)
 
 from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.core.models import Site
 
 
 class InviteAdmin(WagtailModelAdmin):
@@ -32,21 +33,17 @@ class InviteAdmin(WagtailModelAdmin):
 
     class InviteCreateView(CreateView):
         def form_valid(self, form):
+            site = Site.find_for_request(self.request)
             if not form.instance.user:
                 form.instance.user = self.request.user
             if not form.instance.site:
-                form.instance.site = self.request.site
+                form.instance.site = site
             return super().form_valid(form)
 
     create_view_class = InviteCreateView
 
 
 modeladmin_register(InviteAdmin)
-
-
-class OIDCSettingsAdmin(admin.ModelAdmin):
-    class Meta:
-        verbose_name_plural = "OIDC Settings"
 
 
 class UserProfileInlineModelAdmin(admin.StackedInline):
@@ -114,5 +111,4 @@ class CommentCountRuleAdminInline(admin.TabularInline):
 admin.site.unregister(User)
 
 admin.site.unregister(MoloComment)
-admin.site.register(OIDCSettings, OIDCSettingsAdmin)
 admin.site.register(MoloComment, GemCommentReportAdmin)

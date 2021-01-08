@@ -25,8 +25,10 @@ class TestProfileInformationDisplay(TestCase, GemTestCaseMixin):
         self.user.profile.gender = 'f'
         self.user.profile.save()
         response = self.client.get(reverse('molo.profiles:view_my_profile'))
-        self.assertContains(response, '<span>female</span>')
+        self.assertContains(
+            response, '<span class="input-feedback">female</span>')
         self.user.profile.gender = 'None'
         self.user.profile.save()
         response = self.client.get(reverse('molo.profiles:view_my_profile'))
-        self.assertContains(response, '<span>Not set</span>')
+        self.assertContains(
+            response, '<span class="input-feedback">Not set.</span>')

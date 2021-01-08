@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
 {% block content %}
 <div class="comments">
   <div class="heading heading__component">
@@ -30,6 +31,6 @@
     {% endif %}
   </div>
   {% trans "Back home" as back %}
-  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+  {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=current_site.root_page.specific.url page_name=back direction="left" %}
 </div>
 {% endblock %}

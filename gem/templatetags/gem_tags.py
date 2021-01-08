@@ -15,17 +15,8 @@ from gem.models import GemTextBanner
 from molo.forms.models import FormsIndexPage, MoloFormPage
 from molo.core.models import MoloMedia
 from molo.core.templatetags.core_tags import get_pages
+from wagtail.core.models import Site
 register = Library()
-
-
-@register.simple_tag(takes_context=True)
-def bbm_share_url(context):
-    req = context['request']
-    uri = reverse(
-        'bbm_redirect',
-        kwargs={'redirect_path': req.get_full_path().lstrip('/')},
-    )
-    return req.build_absolute_uri(uri)
 
 
 @register.simple_tag()
@@ -81,8 +72,9 @@ def gembannerpages(context):
     request = context['request']
     locale = context.get('locale_code')
     pages = []
-    if request.site:
-        pages = request.site.root_page.specific.bannerpages().exact_type(
+    site = Site.find_for_request(request)
+    if site:
+        pages = site.root_page.specific.bannerpages().exact_type(
             GemTextBanner)
     return {
         'bannerpages': get_pages(context, pages, locale),
@@ -95,10 +87,10 @@ def gembannerpages(context):
 def smart_truncate_chars(value, max_length):
     is_str = isinstance(value, str) and len(value) > max_length
     is_rt = isinstance(
-        value, RichText) and len(value.__str__()) > max_length
+        value, RichText) and len(str(value)) > max_length
 
     if is_rt:
-        value = value.__str__()
+        value = str(value)
 
     if is_str or is_rt:
         truncd_val = value[:max_length]

@@ -2,11 +2,11 @@ from django.conf.urls import url
 
 from wagtail.core import hooks
 from wagtail.api.v2.router import WagtailAPIRouter
-from wagtail.admin.api.endpoints import PagesAdminAPIEndpoint
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.api.v2.utils import BadRequestError, parse_fields_parameter
 
 
-class GemPagesAdminApi(PagesAdminAPIEndpoint):
+class GemPagesAdminApi(PagesAPIViewSet):
     def get_queryset(self):
         self.queryset = super(GemPagesAdminApi, self).get_queryset()
         return self.queryset

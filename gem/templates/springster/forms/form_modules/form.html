@@ -1,5 +1,5 @@
 {% load wagtailcore_tags gem_tags %}
-
+{% wagtail_site as current_site %}
 {% if self.description %}
   <div class="surveys--page__excerpt">
     {% for block in self.description %}
@@ -188,7 +188,7 @@
       </a>
     {% else %}
       <div class="call-to-action call-to-action--wide-back">
-        <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+        <a href="{{current_site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
           {% trans "Back home" %}</a>
       </div>
     {% endif %}

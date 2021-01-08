@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% wagtail_site as current_site %}
 {% block content %}
 <div class="profiles">
 
@@ -88,7 +89,7 @@
                     {% trans "My Profile" %}
                 </span>
             </a>
-            <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Homepage" %}</a>
+            <a href="{{current_site.root_page.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Homepage" %}</a>
         {% endif %}
     {% endwith %}
 </div>

@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.forms import Form, CheckboxSelectMultiple
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import  gettext_lazy as _
 from gem.constants import GENDERS
 from gem import models
 from molo.profiles.forms import RegistrationForm, EditProfileForm, DoneForm

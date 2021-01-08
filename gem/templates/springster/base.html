@@ -1,5 +1,6 @@
-{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags static %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
+{% wagtail_site as current_site %}
 {% get_settings %}
 
 <!DOCTYPE html>
@@ -13,9 +14,6 @@
   <head>
     <meta charset="utf-8"/>
     <title>Springster |
-      {% if is_via_bbm %}
-        GirlTalk
-      {% else %}
         {% block title %}
           {% if self.seo_title %}
             {% if self.seo_title == "Main" %}Home{% else %}
@@ -27,14 +25,13 @@
             {% endif %}
           {% else %}Welcome{% endif %}
         {% endblock %}
-      {% endif %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <link rel="manifest" href="/static/manifest.json">
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/static/manifest.json">
 
     {% if self.social_media_image %}
       {% image self.social_media_image fill-450x200 as tmp_photo %}
@@ -47,7 +44,7 @@
       {% block meta %}
         <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
         <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{request.site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
+        <meta property="og:image" content="{% if self.social_media_image %}{{ tmp_photo.url }}{% elif article_photo.url %}{{ article_photo.url }}{% else %}{{current_site.root_url}}{% static 'img/springster-fb-share.png' %}{% endif %}"/>
         <meta property="og:image:type" content="" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -282,9 +279,7 @@
 
         {% block footer %}
           <div id="footer-bar">
-            {% if not is_via_bbm %}
-              {% social_media_footer %}
-            {% endif %}
+            {% social_media_footer %}
             <a class="footer-logo" href="/">
               <img class="footer-logo__thumbnail" alt="{% trans "Springster Logo - Footer" %}" src="{% static 'img/logos/sp-footer-logo.png' %}" width="200" height="59"/>
             </a>
@@ -366,21 +361,6 @@
         {% include "core/facebook_analytics.html" %}
       {% endblock %}
 
-      {% if is_via_bbm %}
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-91670449-1', 'auto', 'BBMGATracker');
-          ga('BBMGATracker.set', 'dimension1', 'Girl Effect');
-          ga('BBMGATracker.require', 'linkid', 'linkid.js');
-          ga('BBMGATracker.require', 'displayfeatures');
-
-          ga('BBMGATracker.send', 'pageview');
-        </script>
-      {% endif %}
     {% endblock %}
     {% if settings.core.SiteSettings.local_ga_tracking_code %}
       <script>

@@ -1,4 +1,4 @@
-{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags static %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
 {% get_settings %}
 
@@ -31,7 +31,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/tanzania/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -256,9 +256,7 @@
 
         {% block footer %}
           <div id="footer-bar" class="footer-bar-wrapper">
-            {% if not is_via_bbm %}
               {% social_media_footer %}
-            {% endif %}
             <a class="footer-logo" href="/">
               <img class="footer-logo__thumbnail" alt="{% trans "Tujibebe Logo - Footer" %}" src="{% static 'img/logos/tujibebe.png' %}"/>
             </a>

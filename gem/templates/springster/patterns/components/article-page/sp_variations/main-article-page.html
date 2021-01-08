@@ -1,4 +1,4 @@
-{% load wagtailcore_tags core_tags wagtailimages_tags staticfiles comments gem_tags molo_forms_tags %}
+{% load wagtailcore_tags core_tags wagtailimages_tags static comments gem_tags molo_forms_tags %}
 {% get_translation self.get_parent_section as section %}
   <div class="heading heading__article">
     <h1>{{self.title}}</h1>
@@ -8,13 +8,6 @@
       <h2>{{self.subtitle}}</h2>
     </div>
   {% endif %}
-  {% if is_via_bbm %}
-      <ul class="social-media-list">
-        <li class="social-media-list__item">
-            <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
-          </li>
-      </ul>
-    {% endif %}
     {% get_comment_count for article as comment_count %}
       {% if article.is_commenting_enabled %}
         {% if comment_count > 0 %}
@@ -66,14 +59,6 @@
       {% endif %}
     {% endfor %}
   </article>
-  {% if is_via_bbm %}
-    <ul class="social-media-list">
-      <li class="social-media-list__item">
-        <a href="bbmi:///api/share?message={% bbm_share_url %}&userCustomMessage={{ page.title | upper }} | {{page.subtitle}}" class="call-to-action__item-share call-to-action__nav-item-share--bbm"></a>
-      </li>
-    </ul>
-  {% else %}
     {% social_media_article page=self %}
-  {% endif %}
 
   {% forms_list_linked_to_pages self %}

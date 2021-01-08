@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags core_tags wagtailimages_tags static %}
-
+{% wagtail_site as current_site %}
 {% block content %}
   {% if page.your_words_competition %}
     <div class="standalone-page your-words your-words{{ page.get_effective_extra_style_hints }}">
@@ -48,7 +48,7 @@
                 {% trans "Show Results" %}
               </a>
             {% else %}
-              <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+              <a href="{{current_site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
               {% trans "Back home" %}</a>
             {% endif %}
           {% endif %}
@@ -57,7 +57,7 @@
     </div>
   {% else %}
     <div class="surveys surveys{{page.get_parent_section.get_effective_extra_style_hints}}">
-      
+
       <h1 class="surveys__title">{{ page.title }}</h1>
       <h4 class="surveys__intro">{{ page.introduction }}</h4>
       {% if fields_step and fields_step.paginator.num_pages > 1 %}

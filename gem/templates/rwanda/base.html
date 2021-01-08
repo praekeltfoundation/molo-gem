@@ -1,5 +1,5 @@
 {% load wagtailuserbar wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
-{% load core_tags staticfiles compress gem_tags molo_commenting_tags %}
+{% load core_tags static compress gem_tags molo_commenting_tags %}
 
 {% get_settings %}
 {% load molo_pwa %}
@@ -30,7 +30,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="twitter:card" content="summary_large_image"/>
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="keywords" content="{% if self.specific.metadata_tags %}{{self.specific.metadata_tags.all|join:','}}{% else %}{{self.seo_title}}{% endif %}" />
   <meta property="og:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
   {% if self.search_description %}

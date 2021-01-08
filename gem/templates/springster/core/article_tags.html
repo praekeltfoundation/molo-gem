@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags staticfiles comments %}
+{% load el_pagination_tags wagtailcore_tags core_tags wagtailimages_tags gem_tags static comments %}
+{% wagtail_site as current_site %}
 {% block content %}
 {% get_translation tag as translated_tag %}
 <div class="call-to-action call-to-action--wide-back">
-  <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+  <a href="{{current_site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
     {% trans "Back home" %}
   </a>
   </div>

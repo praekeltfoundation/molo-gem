@@ -24,7 +24,7 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         response = self.client.get('/profiles/view/myprofile/')
-        self.assertContains(response, 'Hello tester')
+        self.assertContains(response, '<h1>tester</h1>')
         self.assertContains(response, 'Log out')
 
         # wait for the session to expire
@@ -36,7 +36,7 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
         # redirected to the wagtail login page
         self.assertRedirects(response,
                              '/profiles/login/?next=/profiles/view/myprofile/')
-        self.assertNotContains(response, 'Hello tester')
+        self.assertNotContains(response, '<h1>tester</h1>')
         self.assertNotContains(response, 'Log out')
 
     def test_session_does_not_expire_if_activity_within_session_cookie_age(
@@ -45,8 +45,7 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         response = self.client.get('/profiles/view/myprofile/')
-
-        self.assertContains(response, 'Hello tester')
+        self.assertContains(response, '<h1>tester</h1>')
         self.assertContains(response, 'Log out')
 
         # wait for less time than it takes for the session to expire
@@ -54,7 +53,7 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
 
         response = self.client.get('/profiles/view/myprofile/')
 
-        self.assertContains(response, 'Hello tester')
+        self.assertContains(response, '<h1>tester</h1>')
         self.assertContains(response, 'Log out')
 
         # check that the previous request reset the timeout
@@ -64,5 +63,5 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
 
         response = self.client.get('/profiles/view/myprofile/')
 
-        self.assertContains(response, 'Hello tester')
+        self.assertContains(response, '<h1>tester</h1>')
         self.assertContains(response, 'Log out')

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
 
 {% block content %}
   {% if self.your_words_competition and not self.personalisableform %}
@@ -14,7 +15,7 @@
   <div class="breadcrumbs">
     <ul class="breadcrumbs-list breadcrumbs-list--pipe">
       <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
-        <a href="{{request.site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
+        <a href="{{current_site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
       </li>
       <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
         <span class="breadcrumbs-list__anchor breadcrumbs-list__anchor--is-active">{{ self }}</span>

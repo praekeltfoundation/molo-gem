@@ -108,7 +108,7 @@ class Command(BaseCommand):
                         page_id=survey_id):
                     form_field_dict = {}
                     for item in form_field.__dict__.items():
-                            form_field_dict[item[0]] = item[1]
+                        form_field_dict[item[0]] = item[1]
                     form_field_dict['page_id'] = form.id
                     del form_field_dict['_state']
                     del form_field_dict['id']
@@ -116,22 +116,22 @@ class Command(BaseCommand):
                     MoloFormField.objects.create(**form_field_dict)
 
                 for submission in MoloSurveySubmission.objects.filter(
-                            page_id=survey_id):
-                        submission_dict = {}
-                        for item in submission.__dict__.items():
-                            submission_dict[item[0]] = item[1]
+                        page_id=survey_id):
+                    submission_dict = {}
+                    for item in submission.__dict__.items():
+                        submission_dict[item[0]] = item[1]
 
-                        del submission_dict['_state']
-                        del submission_dict['id']
-                        submission_dict['submit_time'] = submission_dict[
-                            'created_at']
-                        del submission_dict['created_at']
-                        submission_dict['page_id'] = form.id
-                        form_submission = MoloFormSubmission.objects.create(
-                            **submission_dict)
-                        form_submission.submit_time =\
-                            submission_dict['submit_time']
-                        form_submission.save()
+                    del submission_dict['_state']
+                    del submission_dict['id']
+                    submission_dict['submit_time'] = submission_dict[
+                        'created_at']
+                    del submission_dict['created_at']
+                    submission_dict['page_id'] = form.id
+                    form_submission = MoloFormSubmission.objects.create(
+                        **submission_dict)
+                    form_submission.submit_time =\
+                        submission_dict['submit_time']
+                    form_submission.save()
 
             for key in translated_survey:
                 main_form = MoloFormPage.objects.descendant_of(
@@ -208,23 +208,23 @@ class Command(BaseCommand):
                     PersonalisableFormField.objects.create(
                         **personalisable_form_field_dict)
                 for submission in \
-                    MoloSurveySubmission.objects.filter(
-                        page_id=personalisable_survey_id):
-                        submission_dict = {}
-                        for item in submission.__dict__.items():
-                            submission_dict[item[0]] = item[1]
-                        del submission_dict['_state']
-                        del submission_dict['id']
-                        submission_dict['submit_time'] = \
-                            submission_dict['created_at']
-                        del submission_dict['created_at']
-                        submission_dict[
-                            'page_id'] = personalisable_form.id
-                        form_submission = MoloFormSubmission.objects.create(
-                            **submission_dict)
-                        form_submission.submit_time =\
-                            submission_dict['submit_time']
-                        form_submission.save()
+                        MoloSurveySubmission.objects.filter(
+                            page_id=personalisable_survey_id):
+                    submission_dict = {}
+                    for item in submission.__dict__.items():
+                        submission_dict[item[0]] = item[1]
+                    del submission_dict['_state']
+                    del submission_dict['id']
+                    submission_dict['submit_time'] = \
+                        submission_dict['created_at']
+                    del submission_dict['created_at']
+                    submission_dict[
+                        'page_id'] = personalisable_form.id
+                    form_submission = MoloFormSubmission.objects.create(
+                        **submission_dict)
+                    form_submission.submit_time =\
+                        submission_dict['submit_time']
+                    form_submission.save()
             for key in translated_survey:
                 main_form = PersonalisableForm.objects.descendant_of(
                     forms_index).get(slug="form-%s" % key).specific
@@ -239,7 +239,7 @@ class Command(BaseCommand):
         for segment_user_group in SegmentUserGroup.objects.all():
             segment_user_group_dict = {}
             for item in segment_user_group.__dict__.items():
-                    segment_user_group_dict[item[0]] = item[1]
+                segment_user_group_dict[item[0]] = item[1]
             del segment_user_group_dict['_state']
             del segment_user_group_dict['id']
             segment_user_group_dict['name'] = \

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags static molo_forms_tags %}
-
+{% load wagtailcore_tags wagtailimages_tags static molo_forms_tags %}
+{% wagtail_site as current_site %}
 {% block content %}
   {% if self.your_words_competition %}
     <div class="standalone-page your-words your-words{{ self.get_effective_extra_style_hints }}">
@@ -85,7 +85,7 @@
     {% endif %}
 
     <div class="call-to-action">
-      <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+      <a href="{{current_site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
       {% trans "Back to Home page" %}</a>
     </div>
   {% if self.your_words_competition %}</div>

@@ -14,15 +14,15 @@ from os.path import abspath, dirname, join
 from os import environ
 import django.conf.locale
 from django.urls import reverse_lazy
-from django.conf.global_settings import *
-from django.utils.translation import ugettext_lazy as _
+from django.conf.global_settings import LANGUAGES
+from django.utils.translation import  gettext_lazy as _
 
 import dj_database_url
 
-import djcelery
 from celery.schedules import crontab
 
-djcelery.setup_loader()
+
+WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK = True
 
 # Absolute filesystem paths
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
@@ -39,20 +39,6 @@ LOG_HEADER_DUMP = environ.get(
     'LOG_HEADER_DUMP', '') == 'true'
 
 # Authentication Service Tokens
-USE_OIDC_AUTHENTICATION = environ.get(
-    'USE_OIDC_AUTHENTICATION', '') == 'true'
-OIDC_RP_CLIENT_ID = "unused"  # Some constructors require that this be set.
-OIDC_RP_CLIENT_SECRET = "unused"  # some constructors require that this be set.
-# <URL of the OIDC OP authorization endpoint>
-OIDC_OP_AUTHORIZATION_ENDPOINT = environ.get(
-    'OIDC_OP_AUTHORIZATION_ENDPOINT', '')
-# <URL of the OIDC OP token endpoint>
-OIDC_OP_TOKEN_ENDPOINT = environ.get('OIDC_OP_TOKEN_ENDPOINT', '')
-# <URL of the OIDC OP userinfo endpoint>
-OIDC_OP_USER_ENDPOINT = environ.get('OIDC_OP_USER_ENDPOINT', '')
-OIDC_RP_SCOPES = 'openid profile email address phone site roles'
-OIDC_STORE_ID_TOKEN = True
-OIDC_OP = environ.get('OIDC_OP', '')
 THEME = environ.get('THEME', 'springster')
 LOGIN_REDIRECT_URL = environ.get('LOGIN_REDIRECT_URL', 'wagtailadmin_home')
 LOGIN_URL = reverse_lazy('molo.profiles:auth_login')
@@ -62,14 +48,6 @@ VIEW_PROFILE_URL = reverse_lazy('molo.profiles:view_my_profile')
 EDIT_PROFILE_URL = reverse_lazy('edit_my_profile')
 LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL', '')
 WAGTAIL_REDIRECT_URL = environ.get('WAGTAIL_REDIRECT_URL', '')
-OIDC_OP_LOGOUT_URL_METHOD = "gem.utils.provider_logout_url"
-OIDC_AUTHENTICATE_CLASS = "gem.views.CustomAuthenticationRequestView"
-OIDC_CALLBACK_CLASS = "gem.views.CustomAuthenticationCallbackView"
-OIDC_OP_LOGOUT_URL = environ.get("OIDC_OP_LOGOUT_URL", "")
-
-if USE_OIDC_AUTHENTICATION:
-    LOGIN_URL = 'oidc_authentication_init'
-    LOGOUT_URL = 'oidc_logout'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -95,7 +73,6 @@ INSTALLED_APPS = [
     'pwa',
     'django.contrib.admin',
     'django.contrib.auth',
-    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -144,7 +121,6 @@ INSTALLED_APPS = [
     'google_analytics',
 
     'raven.contrib.django.raven_compat',
-    'djcelery',
     'django_cas_ng',
     'compressor',
     'notifications',
@@ -165,6 +141,7 @@ MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
+    'molo.core.middleware.SetLangaugeCodeMiddleware',
     'gem.middleware.GemLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -172,7 +149,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
     'molo.core.middleware.AdminLocaleMiddleware',
@@ -187,11 +163,6 @@ MIDDLEWARE = [
 
 if LOG_HEADER_DUMP:
     MIDDLEWARE += ['gem.middleware.LogHeaderInformationMiddleware', ]
-
-if USE_OIDC_AUTHENTICATION:
-    MIDDLEWARE += [
-        'gem.middleware.CustomSessionRefresh',
-    ]
 
 
 # Template configuration
@@ -212,7 +183,6 @@ def get_default_template(site_layout_base, site_layout):
                 'django.contrib.messages.context_processors.messages',
                 'molo.core.context_processors.locale',
                 'wagtail.contrib.settings.context_processors.settings',
-                'gem.context_processors.detect_bbm',
                 'gem.context_processors.detect_kaios',
                 'gem.context_processors.detect_freebasics',
                 'gem.context_processors.compress_settings',
@@ -229,7 +199,7 @@ def get_default_template(site_layout_base, site_layout):
 # We have multiple layouts: use `base`, `malawi` , `springster`, `rwanda`
 # 'chhaajaa' or 'yegna'
 # Change SITE_LAYOUT_BASE to switch between them.
-SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'base')
+SITE_LAYOUT_BASE = environ.get('SITE_LAYOUT_BASE', 'springster')
 SITE_LAYOUT_2 = environ.get('SITE_LAYOUT_2', '')
 
 DEFAULT_TEMPLATE = get_default_template(SITE_LAYOUT_BASE, SITE_LAYOUT_2)
@@ -498,7 +468,7 @@ EMAIL_USE_TLS = environ.get('EMAIL_USE_TLS', 'false').lower() == 'true'
 DEFAULT_FROM_EMAIL = environ.get(
     'DEFAULT_FROM_EMAIL', 'no-reply@gehosting.org')
 
-GOOGLE_ANALYTICS = {'google_analytics_id': 'bgufdg'}
+GOOGLE_ANALYTICS = {}
 GOOGLE_ANALYTICS_IGNORE_PATH = [
     # health check used by marathon
     '/health/',
@@ -545,11 +515,6 @@ AUTHENTICATION_BACKENDS = [
     'molo.profiles.backends.MoloProfilesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
-
-if USE_OIDC_AUTHENTICATION:
-    AUTHENTICATION_BACKENDS = [
-        'gem.backends.GirlEffectOIDCBackend',
-    ] + AUTHENTICATION_BACKENDS
 
 if ENABLE_SSO:
     AUTHENTICATION_BACKENDS = [

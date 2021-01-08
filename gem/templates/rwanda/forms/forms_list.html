@@ -1,6 +1,6 @@
 {% load forms_personalise_extras wagtailimages_tags wagtailcore_tags wagtailsettings_tags static gem_tags %}
 {% get_settings %}
-
+{% wagtail_site as current_site %}
 {% block content %}
 {% filter_forms_by_segments forms request as filtered_forms %}
   {% comment %}
@@ -102,7 +102,7 @@
                             {% trans "Show results" %}
                           </a>
                         {% else %}
-                          <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+                          <a href="{{current_site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
                             {% trans "Back home" %}
                           </a>
                         {% endif %}

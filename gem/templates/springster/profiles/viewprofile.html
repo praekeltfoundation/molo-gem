@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load wagtailsettings_tags gem_tags %}
-
+{% load wagtailcore_tags wagtailsettings_tags gem_tags %}
+{% wagtail_site as current_site %}
 {% get_settings %}
 {% block content %}
 <div class="profiles">
@@ -129,6 +129,6 @@
         </fieldset>
         <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Change" %}</button>
     </form>
-    <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Homepage" %}</a>
+    <a href="{{current_site.root_page.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">{% trans "Homepage" %}</a>
 </div>
 {% endblock %}

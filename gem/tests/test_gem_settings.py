@@ -10,13 +10,9 @@ class GemSettingsTest(TestCase, GemTestCaseMixin):
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
-        self.main2 = self.mk_main(
-            title='main2', slug='main2', path='00010003', url_path='/main2/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
         self.gem_setting = GemSettings.objects.create(
             site_id=self.main.get_site().id,
-            bbm_ga_account_subdomain='bbm',
-            bbm_ga_tracking_code='bbm_tracking_code',
             fb_enable_chat_bot=False,
         )
 
