@@ -2,7 +2,6 @@ import re
 import mimetypes
 from copy import copy
 
-from django.urls import reverse
 from django.utils.timezone import timedelta
 from django.template import Library
 from django.conf import settings

@@ -7,7 +7,6 @@ from gem.context_processors import (
     detect_kaios,
 )
 from gem.tests.base import GemTestCaseMixin
-from wagtail.core.models import Site
 
 
 class TestDetectKaiOS(TestCase):

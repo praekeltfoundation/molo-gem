@@ -21,7 +21,7 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    MaintenanceView, RedirectWithQueryStringView,
+    MaintenanceView,
     KaiOSManifestView, AdminLogin
 )
 
@@ -152,7 +152,6 @@ urlpatterns += [
 ]
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
     urlpatterns += static(
         settings.MEDIA_URL + 'images/',
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))

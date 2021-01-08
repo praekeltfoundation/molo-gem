@@ -1,12 +1,7 @@
-import pytest
-
-from datetime import date
 from django.core import mail
 from django.urls import reverse
 from django.conf import settings
-from django.http import HttpRequest
 from django.conf.urls import url, include
-from django.core.exceptions import FieldError
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 from django.test import TestCase, Client, RequestFactory
@@ -14,13 +9,11 @@ from django.contrib.auth.models import Group, Permission
 
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 from wagtail.core import urls as wagtail_urls
-from wagtail.core.models import Site
 from wagtail.admin import urls as wagtailadmin_urls
 
 from gem.models import Invite
 from gem.tests.base import GemTestCaseMixin
 from gem.adapter import StaffUserSocialAdapter, StaffUserAdapter
-from gem.views import RedirectWithQueryStringView
 
 
 urlpatterns = [

@@ -1,24 +1,18 @@
 import re
 import json
 
-
 from django import forms
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from django.http import (
-    HttpResponseBadRequest,
-    HttpResponseRedirect,
-    HttpResponse
-)
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import View
 from django.conf import settings
 from django.shortcuts import render
-from django.utils.http import is_safe_url
 from django.views.generic.edit import FormView
 from django.utils.feedgenerator import Atom1Feed
 from django_comments.forms import CommentDetailsForm
 from django.http.response import HttpResponseForbidden
-from django.utils.translation import  gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, RedirectView
 
 from allauth.account.views import LoginView

@@ -1,29 +1,21 @@
 import re
-import time
 import uuid
 import urllib
 import structlog
 
-from django.urls import reverse
 from django.conf import settings
-from django.utils.http import urlencode
 from django.http.response import Http404
 from django.contrib.messages import warning
-from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
 from django.middleware.locale import LocaleMiddleware
-from django.utils.translation import  gettext_lazy as _
-from django.http import JsonResponse, HttpResponseRedirect
-from django.utils.translation import (
-    get_language_from_request, LANGUAGE_SESSION_KEY)
-
+from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponseRedirect
+from django.utils.translation import get_language_from_request
 
 from molo.core.utils import get_locale_code
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
-
-from gem.models import GemSettings
 
 from wagtail.core.models import Site
 
@@ -61,12 +53,12 @@ class GemLocaleMiddleware(LocaleMiddleware):
                     page.specific, 'language', None)
 
                 if specific_language:
-                    response.set_cookie('django_language'\
-                        ,page.specific.language.locale)
+                    response.set_cookie(
+                        'django_language', page.specific.language.locale)
 
                 elif hasattr(page, 'language'):
-                    response.set_cookie('django_language' \
-                        ,page.language.locale)
+                    response.set_cookie(
+                        'django_language', page.language.locale)
         return response
 
 
@@ -139,11 +131,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         return cid
 
     def submit_to_local_account(self, request, response, site_settings):
-        site = Site.find_for_request(request)
-        gem_site_settings = GemSettings.for_site(site)
-        current_subdomain = request.get_host().split(".")[0]
         custom_params = {}
-
 
         cd1 = self.get_visitor_id(request)
         custom_params.update({'cd1': cd1})

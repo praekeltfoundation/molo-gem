@@ -1,6 +1,4 @@
 from django.conf import settings
-from django.urls import reverse
-from wagtail.core.models import Site
 
 
 def detect_kaios(request):

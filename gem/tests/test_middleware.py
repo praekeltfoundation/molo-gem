@@ -5,8 +5,7 @@ from django.test.client import Client
 from django.test import RequestFactory, TestCase
 from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import (
-    get_language_from_request, LANGUAGE_SESSION_KEY)
+from django.utils.translation import get_language_from_request
 
 from molo.core.models import SiteSettings
 from molo.core.models import (

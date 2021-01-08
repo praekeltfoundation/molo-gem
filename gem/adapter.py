@@ -8,6 +8,7 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from gem.models import Invite
 from wagtail.core.models import Site
 
+
 class StaffUserMixin(object):
 
     def get_admin_perms(self):
