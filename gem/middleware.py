@@ -84,10 +84,10 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-        article_info = {}
         site = Site.find_for_request(request)
+        article_info = {}
         try:
-            page, args, kwargs = site.root_page.specific.route(
+            page, args, kwargs = site.root_page.route(
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
@@ -110,7 +110,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                     return article_info
         except Http404:
             return article_info
-
         return article_info
 
     def get_visitor_id(self, request):
@@ -186,7 +185,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                        if request.path.startswith(p)]
             if any(exclude):
                 return response
-
         # Only track 200 and 302 responses for current_site
         if not (response.status_code == 200 or response.status_code == 302):
             return response
@@ -205,7 +203,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
 
         site = Site.find_for_request(request)
         site_settings = SiteSettings.for_site(site)
-
         if site_settings.local_ga_tracking_code or \
                 settings.GOOGLE_ANALYTICS.get('google_analytics_id'):
             response = self.submit_to_local_account(

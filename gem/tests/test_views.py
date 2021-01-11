@@ -404,11 +404,11 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
     def test_moderator_user_contact_information_comment(self):
         self.client.login(username='admin', password='admin')
 
-        comment = self.create_comment(
+        self.create_comment(
             self.article, 'test comment1 text', self.superuser)
 
         email = 'someone1@test.com'
-        url = '/admin/comment/1/reply/'.format(comment.pk)
+        url = '/admin/comment/1/reply/'
         content_type = '{}.{}'.format(
             *self.article.specific.content_type.natural_key())
         response = self.client.get(url)
@@ -449,11 +449,11 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         self.assertTrue(user.has_perm('wagtailadmin.access_admin'))
         self.client.force_login(user)
 
-        comment = self.create_comment(
+        self.create_comment(
             self.article, 'test comment1 text', self.superuser)
 
         email = 'someone1@test.com'
-        url = '/admin/comment/1/reply/'.format(comment.pk)
+        url = '/admin/comment/1/reply/'
         content_type = '{}.{}'.format(
             *self.article.specific.content_type.natural_key())
         response = self.client.get(url)
