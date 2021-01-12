@@ -45,10 +45,6 @@ def report_response(request, comment_pk):
     })
 
 
-class RedirectWithQueryStringView(RedirectView):
-    query_string = True
-
-
 class GemRegistrationView(RegistrationView):
     form_class = GemRegistrationForm
 
