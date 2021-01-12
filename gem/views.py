@@ -13,7 +13,7 @@ from django.utils.feedgenerator import Atom1Feed
 from django_comments.forms import CommentDetailsForm
 from django.http.response import HttpResponseForbidden
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView
 
 from allauth.account.views import LoginView
 
