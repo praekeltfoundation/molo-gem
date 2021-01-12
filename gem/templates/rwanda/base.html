@@ -2,7 +2,7 @@
 {% load core_tags static compress gem_tags molo_commenting_tags %}
 
 {% get_settings %}
-{% load molo_pwa %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
@@ -69,7 +69,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/appicons/ninyampinga/NN_Favicon_GREEN.svg' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'img/appicons/ninyampinga/favicon.ico' %}">
-  {% molo_pwa_meta %}
   {% if settings.core.SiteSettings.google_search_console %}
     <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
   {% endif %}
