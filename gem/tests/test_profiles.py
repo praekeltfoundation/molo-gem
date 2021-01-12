@@ -31,4 +31,4 @@ class TestProfileInformationDisplay(TestCase, GemTestCaseMixin):
         self.user.profile.save()
         response = self.client.get(reverse('molo.profiles:view_my_profile'))
         self.assertContains(
-            response, '<span>Not set.</span>')
+            response, '<span>Not set</span>')
