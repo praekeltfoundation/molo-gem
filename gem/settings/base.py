@@ -88,7 +88,7 @@ INSTALLED_APPS = [
 
     'taggit',
     'modelcluster',
-    
+
     'molo.core',
     'molo.profiles',
     'molo.forms',
@@ -154,7 +154,6 @@ MIDDLEWARE = [
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
-    'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
     'gem.middleware.AdminSiteAdminMiddleware',
