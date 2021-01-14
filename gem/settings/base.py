@@ -16,9 +16,9 @@ import django.conf.locale
 from django.urls import reverse_lazy
 from django.conf.global_settings import LANGUAGES
 from django.utils.translation import  gettext_lazy as _
-
+import djcelery
 import dj_database_url
-
+djcelery.setup_loader()
 from celery.schedules import crontab
 
 
@@ -117,6 +117,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
 
     'mptt',
+    'djcelery',
     'django.contrib.sites',
     'google_analytics',
 
@@ -154,6 +155,7 @@ MIDDLEWARE = [
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
 
+    'gem.middleware.GemMoloGoogleAnalyticsMiddleware',
     'molo.core.middleware.MultiSiteRedirectToHomepage',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
     'gem.middleware.AdminSiteAdminMiddleware',
