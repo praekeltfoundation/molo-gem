@@ -141,7 +141,7 @@ def mimetype(file):
 def contact_forms_list(context):
     context = copy(context)
     locale_code = context.get('locale_code')
-    main = context['request'].site.root_page
+    main = Site.find_for_request(context['request']).root_page
     page = FormsIndexPage.objects.child_of(main).live().first()
     if page:
         forms = (
