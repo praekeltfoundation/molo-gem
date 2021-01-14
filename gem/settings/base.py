@@ -16,9 +16,9 @@ import django.conf.locale
 from django.urls import reverse_lazy
 from django.conf.global_settings import LANGUAGES
 from django.utils.translation import  gettext_lazy as _
-import djcelery
+
 import dj_database_url
-djcelery.setup_loader()
+
 from celery.schedules import crontab
 
 
@@ -117,7 +117,6 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
 
     'mptt',
-    'djcelery',
     'django.contrib.sites',
     'google_analytics',
 
@@ -253,14 +252,14 @@ DATABASES['default']['TEST']['NAME'] = join(PROJECT_ROOT, 'db.sqlite3')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_ALWAYS_EAGER = False
+CELERY_TASK_ALWAYS_EAGER = False
 CELERY_IMPORTS = (
     'molo.core.tasks', 'google_analytics.tasks', 'molo.profiles.task',
     'molo.commenting.tasks')
-BROKER_URL = environ.get('BROKER_URL', 'redis://localhost:6379/0')
+CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = environ.get(
     'CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
-CELERYBEAT_SCHEDULE = {
+CELERY_BEAT_SCHEDULE = {
     'rotate_content': {
         'task': 'molo.core.tasks.rotate_content',
         'schedule': crontab(minute=0, hour='*/1'),
