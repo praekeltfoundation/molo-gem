@@ -1,6 +1,7 @@
 import os
 import debug_toolbar
 from django.conf.urls import include, re_path
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
@@ -48,7 +49,7 @@ if settings.ENABLE_ALL_AUTH:
     ]
 
 urlpatterns += [
-    re_path(r'__debug__/', include(debug_toolbar.urls)),
+    path(r'', include(debug_toolbar.urls)),
     re_path(
         r'^services/$',
         RedirectView.as_view(url='/sections/service-finder/'),
