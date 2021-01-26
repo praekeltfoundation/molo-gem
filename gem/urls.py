@@ -1,6 +1,6 @@
 import os
 import debug_toolbar
-from django.conf.urls import include, re_path, path
+from django.conf.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
@@ -149,7 +149,7 @@ urlpatterns += [
 
     re_path(r'', include(wagtail_urls)),
     re_path(r'', include('django_prometheus.urls')),
-    path('__debug__/', include(debug_toolbar.urls)),
+    re_path(r'__debug__/', include(debug_toolbar.urls)),
 ]
 
 if settings.DEBUG:
