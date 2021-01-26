@@ -48,6 +48,7 @@ if settings.ENABLE_ALL_AUTH:
     ]
 
 urlpatterns += [
+    re_path(r'__debug__/', include(debug_toolbar.urls)),
     re_path(
         r'^services/$',
         RedirectView.as_view(url='/sections/service-finder/'),
@@ -148,8 +149,7 @@ urlpatterns += [
     ),
 
     re_path(r'', include(wagtail_urls)),
-    re_path(r'', include('django_prometheus.urls')),
-    re_path(r'^__debug__/', include(debug_toolbar.urls)),
+    re_path(r'', include('django_prometheus.urls'))
 ]
 
 if settings.DEBUG:
