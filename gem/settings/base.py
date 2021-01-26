@@ -56,11 +56,7 @@ ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '*').split(",")
-INTERNAL_IPS = [
-    'localhost',
-    '.localhost',
-    '127.0.0.1'
-]
+INTERNAL_IPS = ['*']
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
@@ -128,7 +124,8 @@ INSTALLED_APPS = [
     'import_export',
     'storages',
 
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
+    'debug_toolbar'
 ]
 
 COMMENTS_APP = 'molo.commenting'
@@ -140,6 +137,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'molo.core.middleware.SetLangaugeCodeMiddleware',
     'gem.middleware.GemLocaleMiddleware',
