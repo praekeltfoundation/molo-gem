@@ -75,7 +75,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/',
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01",)
-
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
             request, self.response, self.site_settings)
@@ -106,6 +106,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_X_DCMGUID="0000-000-01",
         )
         request.user = self.user
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
             request, self.response, self.site_settings)
@@ -127,6 +128,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/password-reset/',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -137,6 +139,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/reset-success/',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware.process_response(
             request, self.response)
         mock_submit_tracking.assert_not_called()
@@ -145,6 +148,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/reset-password/',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware.process_response(
             request, self.response)
         mock_submit_tracking.assert_not_called()
@@ -160,6 +164,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/search/?q=user%40user.com',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -171,6 +176,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/search/?q=whatislife',
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01")
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -199,6 +205,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -236,6 +243,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -268,6 +276,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -299,6 +308,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.article2.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -326,6 +336,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.footer.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.main.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -372,6 +383,7 @@ class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
 
     def test_non_default_language_existing_session(self):
         request = RequestFactory().get('/locale/en/')
+        request._wagtail_site = self.main.get_site()
         self.assertEqual(get_language_from_request(request), 'en')
 
         request = RequestFactory()
@@ -379,6 +391,7 @@ class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
 
         fr_url = self.fr_article.url
         request = request.get(fr_url)
+        request._wagtail_site = self.main.get_site()
         self.assertEqual(get_language_from_request(request), 'en')
 
     def test_non_default_language_new_session(self):

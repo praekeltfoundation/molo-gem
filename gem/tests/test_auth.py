@@ -60,6 +60,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
     def test_invite_create_view(self):
         req = self.factory.get("/")
         req.user = self.user
+        req._wagtail_site = self.main.get_site()
 
         self.client.force_login(self.user)
         url = '/admin/gem/invite/create/'
@@ -86,6 +87,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         }
         req = self.factory.get("/")
         req.user = self.user
+        req._wagtail_site = self.main.get_site()
 
         invite = Invite.objects.create(
             email=data['email'], user=self.user, site=self.site)
@@ -107,6 +109,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         Test a front-end user getting an invite to admin site
         """
         request = self.factory.get("/")
+        request._wagtail_site = self.main.get_site()
 
         adaptor = StaffUserSocialAdapter(request=request)
         user = get_user_model().objects.create_user(
@@ -142,6 +145,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         Test a new user getting an invite to admin site
         """
         request = self.factory.get("/")
+        request._wagtail_site = self.main.get_site()
 
         adaptor = StaffUserSocialAdapter(request=request)
         user = get_user_model()(
@@ -175,6 +179,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         Test a regular staff login
         """
         request = self.factory.get("/")
+        request._wagtail_site = self.main.get_site()
         adaptor = StaffUserSocialAdapter(request=request)
         user = get_user_model().objects.create_user(
             username='testuser',
@@ -201,6 +206,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
         Test a superuser login
         """
         request = self.factory.get("/")
+        request._wagtail_site = self.main.get_site()
         adaptor = StaffUserSocialAdapter(request=request)
         user = get_user_model().objects.create_user(
             username='testuser',
@@ -231,6 +237,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
+        request._wagtail_site = self.main.get_site()
         self.assertFalse(adaptor.is_open_for_signup(request, None))
 
     def test_staff_user_adapter_front_end_user(self):
@@ -245,6 +252,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
+        request._wagtail_site = self.main.get_site()
         self.assertFalse(adaptor.is_open_for_signup(request, None))
 
     def test_staff_user_adapter_staff_user(self):
@@ -260,6 +268,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
+        request._wagtail_site = self.main.get_site()
         self.assertFalse(adaptor.is_open_for_signup(request, None))
 
     def test_staff_user_adapter_staff_user_perms(self):
@@ -279,6 +288,7 @@ class TestAllAuth(GemTestCaseMixin, TestCase):
                 'username': user.username,
                 'password': user.password
             }, path=reverse('wagtailadmin_login'))
+        request._wagtail_site = self.main.get_site()
         self.assertFalse(adaptor.is_open_for_signup(request, None))
 
     def test_user_delete(self):
