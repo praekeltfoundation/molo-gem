@@ -151,6 +151,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
     'molo.core.middleware.SetLangaugeCodeMiddleware',
+    'molo.core.middleware.SetSiteMiddleware',
     'gem.middleware.GemLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
