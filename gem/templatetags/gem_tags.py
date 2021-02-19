@@ -14,7 +14,6 @@ from gem.models import GemTextBanner
 from molo.forms.models import FormsIndexPage, MoloFormPage
 from molo.core.models import MoloMedia
 from molo.core.templatetags.core_tags import get_pages
-from wagtail.core.models import Site
 register = Library()
 
 
@@ -71,7 +70,7 @@ def gembannerpages(context):
     request = context['request']
     locale = context.get('locale_code')
     pages = []
-    site = Site.find_for_request(request)
+    site = request._wagtail_site
     if site:
         pages = site.root_page.specific.bannerpages().exact_type(
             GemTextBanner)
@@ -141,7 +140,7 @@ def mimetype(file):
 def contact_forms_list(context):
     context = copy(context)
     locale_code = context.get('locale_code')
-    main = Site.find_for_request(context['request']).root_page
+    main = context['request']._wagtail_site.root_page
     page = FormsIndexPage.objects.child_of(main).live().first()
     if page:
         forms = (

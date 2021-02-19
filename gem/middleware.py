@@ -17,8 +17,6 @@ from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
-from wagtail.core.models import Site
-
 
 class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     """
@@ -84,7 +82,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         article_info = {}
         try:
             page, args, kwargs = site.root_page.route(
@@ -201,7 +199,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             if re.match(r'[^@]+@[^@]+\.[^@]+', search_string):
                 return response
 
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         if site_settings.local_ga_tracking_code or \
                 settings.GOOGLE_ANALYTICS.get('google_analytics_id'):
@@ -222,7 +220,7 @@ class AdminSiteAdminMiddleware(MiddlewareMixin):
                 # determine user user.profile.admin_sites
                 # perm denied if user is not related to admin_sites
                 # redirect to default admin site (first) or home
-                site = Site.find_for_request(request)
+                site = request._wagtail_site
                 if site not in request.user.profile.admin_sites.all():
                     warning(
                         request,

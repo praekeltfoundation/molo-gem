@@ -6,7 +6,6 @@ from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
 from gem.models import Invite
-from wagtail.core.models import Site
 
 
 class StaffUserMixin(object):
@@ -34,7 +33,7 @@ class StaffUserMixin(object):
 
         if sociallogin:
             email = sociallogin.user.email or None
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         return Invite.objects.filter(
             email=email, email__isnull=False,
             site=site, is_accepted=False

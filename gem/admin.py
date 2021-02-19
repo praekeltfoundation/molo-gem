@@ -16,7 +16,6 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin as WagtailModelAdmin, modeladmin_register)
 
 from wagtail.contrib.modeladmin.views import CreateView
-from wagtail.core.models import Site
 
 
 class InviteAdmin(WagtailModelAdmin):
@@ -33,7 +32,7 @@ class InviteAdmin(WagtailModelAdmin):
 
     class InviteCreateView(CreateView):
         def form_valid(self, form):
-            site = Site.find_for_request(self.request)
+            site = self.request._wagtail_site
             if not form.instance.user:
                 form.instance.user = self.request.user
             if not form.instance.site:

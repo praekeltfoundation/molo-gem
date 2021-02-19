@@ -171,7 +171,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/search/?q=whatislife',
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01")
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
@@ -199,7 +199,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
@@ -236,7 +236,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
@@ -268,7 +268,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
@@ -299,7 +299,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.article2.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
@@ -326,7 +326,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.footer.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-        site = Site.find_for_request(request)
+        site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         site_settings.save()
