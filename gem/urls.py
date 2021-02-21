@@ -49,7 +49,6 @@ if settings.ENABLE_ALL_AUTH:
     ]
 
 urlpatterns += [
-    path(r'', include(debug_toolbar.urls)),
     re_path(
         r'^services/$',
         RedirectView.as_view(url='/sections/service-finder/'),
