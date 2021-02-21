@@ -1,5 +1,4 @@
 import os
-import debug_toolbar
 from django.conf.urls import include, re_path
 from django.urls import path
 from django.conf.urls.static import static
