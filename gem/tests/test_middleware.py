@@ -205,7 +205,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request._wagtail_site = self.main.get_site()
+        request._wagtail_site = self.article2.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -243,7 +243,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request._wagtail_site = self.main.get_site()
+        request._wagtail_site = self.article2.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -276,7 +276,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request._wagtail_site = self.main.get_site()
+        request._wagtail_site = self.article.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -308,7 +308,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.article2.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request._wagtail_site = self.main.get_site()
+        request._wagtail_site = self.article2.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
@@ -336,7 +336,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
                 self.footer.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request._wagtail_site = self.main.get_site()
+        request._wagtail_site = self.footer.get_site()
         site = request._wagtail_site
         site_settings = SiteSettings.for_site(site)
         site_settings.local_ga_tracking_code = 'local_ga_tracking_code'

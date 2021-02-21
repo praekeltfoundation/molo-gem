@@ -17,6 +17,8 @@ from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
+from wagtail.core.models import Site
+
 
 class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     """
@@ -82,7 +84,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
-        site = request._wagtail_site
+        site = Site.find_for_request(request)
         article_info = {}
         try:
             page, args, kwargs = site.root_page.route(
