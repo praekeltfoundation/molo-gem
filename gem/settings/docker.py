@@ -15,7 +15,7 @@ if SECRET_KEY == DEFAULT_SECRET_KEY:  # noqa: F405
 
 # Disable debug mode
 
-DEBUG = True
+DEBUG = False
 
 PROJECT_ROOT = (
     environ.get('PROJECT_ROOT') or dirname(dirname(abspath(__file__))))

@@ -61,13 +61,6 @@ RENDER_PANELS = True
 
 def return_true(soemthing):
     return True
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': return_true,
-    'SHOW_COLLAPSED': False,
-    'RENDER_PANELS': True,
-    'ENABLE_STACKTRACES': True,
-    'SHOW_TEMPLATE_CONTEXT': True
-}
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or
@@ -77,7 +70,6 @@ BASE_URL = 'http://example.com'
 # Application definition
 
 INSTALLED_APPS = [
-    'debug_toolbar',
     'pwa',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -146,7 +138,6 @@ COMMENTS_HIDE_REMOVED = False
 SITE_ID = 1
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'molo.core.middleware.ForceDefaultLanguageMiddleware',
