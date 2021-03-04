@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load wagtailimages_tags molo_forms_tags %}
-
+{% load wagtailcore_tags wagtailimages_tags molo_forms_tags %}
+{% wagtail_site as current_site %}
 {% block content %}
 <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}">
   <div class="{% if self.your_words_competition %}yourwords{% elif self.display_form_directly %}polls{% else %}surveys{% endif %}__wrapper">
@@ -101,7 +101,7 @@
         {% endif %}
         <nav>
           <div class="call-to-action--group">
-            <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+            <a href="{{current_site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
               {% trans "Back home" %}
             </a>
           </div>

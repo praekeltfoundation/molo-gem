@@ -26,16 +26,7 @@ from .forms import PermissionGroupCheckboxSelect
 
 
 class OIDCSettings(models.Model):
-    site = models.OneToOneField(Site, on_delete=models.CASCADE)
-    oidc_rp_client_id = models.CharField(max_length=255)
-    oidc_rp_client_secret = models.CharField(max_length=255)
-    oidc_rp_scopes = models.CharField(
-        blank=True, max_length=255,
-        default='openid profile email address phone site roles')
-    wagtail_redirect_url = models.URLField()
-
-    def __str__(self):
-        return '{} {}'.format(self.site, self.oidc_rp_client_id)
+    pass
 
 
 class GemTextBanner(BannerPage):
@@ -99,16 +90,6 @@ class GemSettings(BaseSetting):
         null=True, blank=True,
         help_text=' The link that the partner credit will redirect to e.g'
         '. https://www.google.co.za/')
-    bbm_ga_tracking_code = models.TextField(
-        null=True, blank=True,
-        help_text='Tracking code for additional Google Analytics account '
-                  'to divert traffic that matches a specific subdomain.')
-    # FIXME: Remove bbm_ga_account_subdomain and its uses in middleware once
-    # BBM South Africa and Nigeria are changed to use `/bbm/` cookie endpoint.
-    bbm_ga_account_subdomain = models.TextField(
-        default='bbm',
-        help_text=('Subdomain prefix to seperate traffics data for Google '
-                   'Analytics. Defaults to "bbm"'))
 
     fb_enable_chat_bot = models.BooleanField(
         default=False, help_text='Activate chat-bot for facebook messenger.')
@@ -135,13 +116,6 @@ class GemSettings(BaseSetting):
         FieldPanel('moderator_name'),
         FieldPanel('banned_keywords_and_patterns'),
         FieldPanel('banned_names_with_offensive_language'),
-        MultiFieldPanel(
-            [
-                FieldPanel('bbm_ga_tracking_code'),
-                FieldPanel('bbm_ga_account_subdomain'),
-            ],
-            heading="BBM",
-        ),
         MultiFieldPanel(
             [FieldPanel('fb_enable_chat_bot')], heading="FaceBook"),
         MultiFieldPanel(

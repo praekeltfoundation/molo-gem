@@ -1,4 +1,5 @@
 {% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
 <div class="{{formtypeClass}}">
     <p class="errors">{% trans 'You have already completed this' %} {{formtype}}.</p>
     {% if request.path == "/" %}
@@ -7,6 +8,6 @@
         {% include "patterns/basics/buttons/sp_variations/button.html" with type="primary" hyperlink=link|add:"success/" text=buttontext %}
     {% else %}
       {% trans "Back home" as back %}
-      {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=request.site.root_page.specific.url page_name=back direction="left" %}
+      {% include "patterns/basics/buttons/sp_variations/text-dir-arrow_back-button.html" with hyperlink=current_site.root_page.specific.url page_name=back direction="left" %}
     {% endif %}
 </div>

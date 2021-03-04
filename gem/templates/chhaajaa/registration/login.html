@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
 {% block content %}
 <div class="profiles">
   <div class="profiles__wrapper">
@@ -38,7 +40,7 @@
         </fieldset>
         <div class="call-to-action--group">
           <button type="submit" class="call-to-action__button call-to-action__button--primary">{% trans "Log in" %}</button>
-          <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{request.site.root_page.specific.url}}{% endif %}"/>
+          <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{current_site.root_page.specific.url}}{% endif %}"/>
           <a href="{% url "molo.profiles:forgot_password" %}" class="call-to-action__button call-to-action__button--secondary">
             {% trans "Forgot PIN" %}</a>
         </div>

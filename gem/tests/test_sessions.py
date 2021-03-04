@@ -45,7 +45,6 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
         self.client.login(username='tester', password='tester')
 
         response = self.client.get('/profiles/view/myprofile/')
-
         self.assertContains(response, 'Hello tester')
         self.assertContains(response, 'Log out')
 
@@ -53,7 +52,6 @@ class GemAutomaticLogoutTest(TestCase, GemTestCaseMixin):
         time.sleep(0.5)
 
         response = self.client.get('/profiles/view/myprofile/')
-
         self.assertContains(response, 'Hello tester')
         self.assertContains(response, 'Log out')
 

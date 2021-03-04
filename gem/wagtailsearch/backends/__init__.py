@@ -6,7 +6,7 @@ import sys
 from importlib import import_module
 import warnings
 
-from django.utils import six
+from six import reraise
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
@@ -47,7 +47,7 @@ def import_backend(dotted_path):
             # Old
             return import_string(dotted_path)
         except ImportError:
-            six.reraise(ImportError, e, sys.exc_info()[2])
+            reraise(ImportError, e, sys.exc_info()[2])
 
 
 def get_search_backend(backend='default', **kwargs):

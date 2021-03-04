@@ -8,7 +8,7 @@
 {% endcomment %}
 
 {% load wagtailuserbar wagtailsettings_tags wagtailcore_tags  wagtailimages_tags %}
-{% load core_tags compress gem_tags staticfiles molo_commenting_tags %}
+{% load core_tags compress gem_tags static molo_commenting_tags %}
 {% get_settings %}
 
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
   {# <!--CORRECT GOOGLE SITE VERIFICATION CONTENT? --> #}
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-  <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="msapplication-TileColor" content="#ffe559">
   <meta name="msapplication-TileImage" content="{% static 'img/logos/chhaajaa-logo.png' %}">
   <meta name="theme-color" content="#ffe559"/>

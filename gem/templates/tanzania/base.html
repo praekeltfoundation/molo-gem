@@ -1,8 +1,7 @@
-{% load compress wagtailuserbar wagtailcore_tags core_tags staticfiles %}
+{% load compress wagtailuserbar wagtailcore_tags core_tags static %}
 {% load wagtailsettings_tags wagtailimages_tags molo_commenting_tags %}
 {% get_settings %}
 
-{% load molo_pwa %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -31,7 +30,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <link href="{{ request.build_absolute_uri }}" rel="canonical" />
-    <meta name="viewport" content="width=device-width, initial-scale=1{% if is_via_bbm %}, user-scalable=0{% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ STATIC_URL }}img/appicons/tanzania/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -79,7 +78,6 @@
     {% if settings.core.SiteSettings.google_search_console %}
       <meta name="google-site-verification" content="{{settings.core.SiteSettings.google_search_console}}" />
     {% endif %}
-    {% molo_pwa_meta %}
     {% compress css inline %}
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{{ ENV }}/tanzania.css" media="all">
     {% endcompress %}
@@ -256,9 +254,7 @@
 
         {% block footer %}
           <div id="footer-bar" class="footer-bar-wrapper">
-            {% if not is_via_bbm %}
               {% social_media_footer %}
-            {% endif %}
             <a class="footer-logo" href="/">
               <img class="footer-logo__thumbnail" alt="{% trans "Tujibebe Logo - Footer" %}" src="{% static 'img/logos/tujibebe.png' %}"/>
             </a>

@@ -2,7 +2,6 @@ import re
 import mimetypes
 from copy import copy
 
-from django.urls import reverse
 from django.utils.timezone import timedelta
 from django.template import Library
 from django.conf import settings
@@ -16,16 +15,6 @@ from molo.forms.models import FormsIndexPage, MoloFormPage
 from molo.core.models import MoloMedia
 from molo.core.templatetags.core_tags import get_pages
 register = Library()
-
-
-@register.simple_tag(takes_context=True)
-def bbm_share_url(context):
-    req = context['request']
-    uri = reverse(
-        'bbm_redirect',
-        kwargs={'redirect_path': req.get_full_path().lstrip('/')},
-    )
-    return req.build_absolute_uri(uri)
 
 
 @register.simple_tag()
@@ -81,8 +70,9 @@ def gembannerpages(context):
     request = context['request']
     locale = context.get('locale_code')
     pages = []
-    if request.site:
-        pages = request.site.root_page.specific.bannerpages().exact_type(
+    site = request._wagtail_site
+    if site:
+        pages = site.root_page.specific.bannerpages().exact_type(
             GemTextBanner)
     return {
         'bannerpages': get_pages(context, pages, locale),
@@ -95,10 +85,10 @@ def gembannerpages(context):
 def smart_truncate_chars(value, max_length):
     is_str = isinstance(value, str) and len(value) > max_length
     is_rt = isinstance(
-        value, RichText) and len(value.__str__()) > max_length
+        value, RichText) and len(str(value)) > max_length
 
     if is_rt:
-        value = value.__str__()
+        value = str(value)
 
     if is_str or is_rt:
         truncd_val = value[:max_length]
@@ -150,7 +140,7 @@ def mimetype(file):
 def contact_forms_list(context):
     context = copy(context)
     locale_code = context.get('locale_code')
-    main = context['request'].site.root_page
+    main = context['request']._wagtail_site.root_page
     page = FormsIndexPage.objects.child_of(main).live().first()
     if page:
         forms = (

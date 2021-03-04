@@ -33,10 +33,10 @@ class StaffUserMixin(object):
 
         if sociallogin:
             email = sociallogin.user.email or None
-
+        site = request._wagtail_site
         return Invite.objects.filter(
             email=email, email__isnull=False,
-            site=request.site, is_accepted=False
+            site=site, is_accepted=False
         ).exists()
 
     def add_perms(self, user, commit=True):

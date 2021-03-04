@@ -1,31 +1,23 @@
 import re
-import time
 import uuid
 import urllib
 import structlog
 
-from django.urls import reverse
 from django.conf import settings
-from django.utils.http import urlencode
 from django.http.response import Http404
 from django.contrib.messages import warning
-from django.utils.crypto import get_random_string
 from django.utils.deprecation import MiddlewareMixin
 from django.middleware.locale import LocaleMiddleware
-from django.utils.translation import ugettext_lazy as _
-from django.http import JsonResponse, HttpResponseRedirect
-from django.utils.translation import (
-    get_language_from_request, LANGUAGE_SESSION_KEY)
-
-from mozilla_django_oidc.middleware import SessionRefresh
-from mozilla_django_oidc.utils import import_from_settings, absolutify
+from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponseRedirect
+from django.utils.translation import get_language_from_request
 
 from molo.core.utils import get_locale_code
 from molo.core.middleware import MoloGoogleAnalyticsMiddleware
 from molo.core.models import SiteSettings, ArticlePage, Languages, MoloPage
 from molo.core.templatetags.core_tags import load_tags_for_article
 
-from gem.models import GemSettings
+from wagtail.core.models import Site
 
 
 class ForceDefaultLanguageMiddleware(MiddlewareMixin):
@@ -46,14 +38,13 @@ class ForceDefaultLanguageMiddleware(MiddlewareMixin):
 
 
 class GemLocaleMiddleware(LocaleMiddleware):
-    def process_request(self, request):
+    def process_response(self, request, response):
         has_slug = len(request.path.split('/')) > 1
         slug = request.path.split('/')[-1]
 
         if has_slug and request.path[-1] == '/':
             slug = request.path.split('/')[-2]
-
-        session_exists = request.session.get(LANGUAGE_SESSION_KEY)
+        session_exists = request.COOKIES.get('django_language')
         if not session_exists and (has_slug and slug):
             page = MoloPage.objects.filter(slug=slug).first()
             if page:
@@ -62,13 +53,13 @@ class GemLocaleMiddleware(LocaleMiddleware):
                     page.specific, 'language', None)
 
                 if specific_language:
-                    request.session[LANGUAGE_SESSION_KEY]\
-                        = page.specific.language.locale
+                    response.set_cookie(
+                        'django_language', page.specific.language.locale)
 
                 elif hasattr(page, 'language'):
-                    request.session[LANGUAGE_SESSION_KEY] \
-                        = page.language.locale
-        return super().process_request(request)
+                    response.set_cookie(
+                        'django_language', page.language.locale)
+        return response
 
 
 class LogHeaderInformationMiddleware(MiddlewareMixin):
@@ -81,7 +72,7 @@ class LogHeaderInformationMiddleware(MiddlewareMixin):
 class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
     '''
     Submits GA tracking data to a local account or the additional account
-    depending on the subdomain in the request or the bbm cookie.
+    depending on the subdomain in the request
 
     TODO: Pull the submit_to_local_account and submit_to_global_account
     into the MoloGoogleAnalyticsMiddleware class and override
@@ -93,14 +84,15 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         path = request.get_full_path()
         path_components = [component for component in path.split('/')
                            if component]
+        site = Site.find_for_request(request)
         article_info = {}
         try:
-            page, args, kwargs = request.site.root_page.specific.route(
+            page, args, kwargs = site.root_page.route(
                 request,
                 path_components)
             if issubclass(type(page.specific), ArticlePage):
                 tags_str = ""
-                main_lang = Languages.for_site(request.site).languages.filter(
+                main_lang = Languages.for_site(site).languages.filter(
                     is_main_language=True).first()
                 locale_code = get_locale_code(
                     get_language_from_request(request))
@@ -118,7 +110,6 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                     return article_info
         except Http404:
             return article_info
-
         return article_info
 
     def get_visitor_id(self, request):
@@ -139,18 +130,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         return cid
 
     def submit_to_local_account(self, request, response, site_settings):
-        gem_site_settings = GemSettings.for_site(request.site)
-        bbm_ga_code = gem_site_settings.bbm_ga_tracking_code
-        bbm_subdomain = gem_site_settings.bbm_ga_account_subdomain
-        current_subdomain = request.get_host().split(".")[0]
-        should_submit_to_bbm_account = False
         custom_params = {}
-
-        if current_subdomain == bbm_subdomain:
-            should_submit_to_bbm_account = True
-
-        if request.COOKIES.get('bbm', 'false') == 'true':
-            should_submit_to_bbm_account = True
 
         cd1 = self.get_visitor_id(request)
         custom_params.update({'cd1': cd1})
@@ -166,20 +146,14 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
         article_info = self.load_article_info(request)
         custom_params.update(article_info)
 
-        if bbm_ga_code and should_submit_to_bbm_account:
+        local_ga_account = site_settings.local_ga_tracking_code or \
+            settings.GOOGLE_ANALYTICS.get('google_analytics_id')
+        if local_ga_account:
             return self.submit_tracking(
-                bbm_ga_code,
+                local_ga_account,
                 request,
-                response, custom_params)
-        else:
-            local_ga_account = site_settings.local_ga_tracking_code or \
-                settings.GOOGLE_ANALYTICS.get('google_analytics_id')
-            if local_ga_account:
-                return self.submit_tracking(
-                    local_ga_account,
-                    request,
-                    response,
-                    custom_params)
+                response,
+                custom_params)
         return response
 
     def submit_to_global_account(self, request, response, site_settings):
@@ -211,8 +185,7 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
                        if request.path.startswith(p)]
             if any(exclude):
                 return response
-
-        # Only track 200 and 302 responses for request.site
+        # Only track 200 and 302 responses for current_site
         if not (response.status_code == 200 or response.status_code == 302):
             return response
 
@@ -228,80 +201,16 @@ class GemMoloGoogleAnalyticsMiddleware(MoloGoogleAnalyticsMiddleware):
             if re.match(r'[^@]+@[^@]+\.[^@]+', search_string):
                 return response
 
-        site_settings = SiteSettings.for_site(request.site)
-        response = self.submit_to_local_account(
-            request, response, site_settings)
-        response = self.submit_to_global_account(
-            request, response, site_settings)
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        if site_settings.local_ga_tracking_code or \
+                settings.GOOGLE_ANALYTICS.get('google_analytics_id'):
+            response = self.submit_to_local_account(
+                request, response, site_settings)
+        if site_settings.global_ga_tracking_code:
+            response = self.submit_to_global_account(
+                request, response, site_settings)
         return response
-
-
-class CustomSessionRefresh(SessionRefresh):
-    """
-    Customised version of mozilla_django_oidc.middleware.SessionRefresh
-    Allows for reading site-specific configuration based on the request.
-    """
-
-    def process_request(self, request):
-        site = request.site
-        if not hasattr(site, "oidcsettings"):
-            raise RuntimeError(
-                "Site {} has no settings configured.".format(site))
-
-        if not self.is_refreshable_url(request):
-            return
-
-        expiration = request.session.get('oidc_id_token_expiration', 0)
-        now = time.time()
-        if expiration > now:
-            # The id_token is still valid, so we don't have to do anything.
-            return
-
-        # The id_token has expired, so we have to re-authenticate silently.
-        auth_url = import_from_settings('OIDC_OP_AUTHORIZATION_ENDPOINT')
-        client_id = site.oidcsettings.oidc_rp_client_id
-        state = get_random_string(import_from_settings('OIDC_STATE_SIZE', 32))
-
-        # Build the parameters as if we were doing a real auth handoff, except
-        # we also include prompt=none.
-        params = {
-            'response_type': 'code',
-            'client_id': client_id,
-            'redirect_uri': absolutify(
-                request,
-                reverse('oidc_authentication_callback')
-            ),
-            'state': state,
-            'scope': site.oidcsettings.oidc_rp_scopes,
-            'prompt': 'none',
-        }
-
-        if import_from_settings('OIDC_USE_NONCE', True):
-            nonce = get_random_string(import_from_settings(
-                'OIDC_NONCE_SIZE', 32))
-            params.update({
-                'nonce': nonce
-            })
-            request.session['oidc_nonce'] = nonce
-
-        request.session['oidc_state'] = state
-        request.session['oidc_login_next'] = request.get_full_path()
-
-        query = urlencode(params)
-        redirect_url = '{url}?{query}'.format(url=auth_url, query=query)
-        if request.is_ajax():
-            # Almost all XHR request handling in client-side code struggles
-            # with redirects since redirecting to a page where the user
-            # is supposed to do something is extremely unlikely to work
-            # in an XHR request. Make a special response for these kinds
-            # of requests.
-            # The use of 403 Forbidden is to match the fact that this
-            # middleware doesn't really want the user in if they don't
-            # refresh their session.
-            response = JsonResponse({'refresh_url': redirect_url}, status=403)
-            response['refresh_url'] = redirect_url
-            return response
-        return HttpResponseRedirect(redirect_url)
 
 
 class AdminSiteAdminMiddleware(MiddlewareMixin):
@@ -313,7 +222,7 @@ class AdminSiteAdminMiddleware(MiddlewareMixin):
                 # determine user user.profile.admin_sites
                 # perm denied if user is not related to admin_sites
                 # redirect to default admin site (first) or home
-                site = request.site
+                site = request._wagtail_site
                 if site not in request.user.profile.admin_sites.all():
                     warning(
                         request,

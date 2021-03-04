@@ -58,7 +58,7 @@ class TestCommentReportingModelAdmin(TestCase, GemTestCaseMixin):
 
     def test_admin_api(self):
         response = self.client.get(
-            '/admin/api/v2beta/pages/?child_of=1&for_explorer=1')
+            '/admin/api/v2beta/pages/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.data)
 

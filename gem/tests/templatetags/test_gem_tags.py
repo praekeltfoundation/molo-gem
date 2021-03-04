@@ -1,8 +1,7 @@
 import mock
 
 from django.core.files import File
-from django.template import Context
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 
 from wagtail.core.rich_text import RichText
 
@@ -12,19 +11,10 @@ from gem.templatetags.gem_tags import (
     mimetype,
     is_content,
     idfromlabel,
-    bbm_share_url,
     seconds_to_time,
     parent_section_depth,
     smart_truncate_chars,
 )
-
-
-class TestBbmShareUrl(TestCase):
-    def test_returns_url_prefixed_with_bbm(self):
-        request = RequestFactory().get('/section/one/')
-        context = Context({'request': request})
-        result = bbm_share_url(context)
-        self.assertEqual(result, 'http://testserver/bbm/section/one/')
 
 
 class TestSmartTruncateChars(TestCase):
@@ -39,9 +29,10 @@ class TestSmartTruncateChars(TestCase):
 
     def test_truncates_richtext(self):
         max_length = 15
-        string = RichText('This is a test string which is long')
+        string = RichText('This is a test string which is long very very long')
         result = smart_truncate_chars(string, max_length)
-        self.assertTrue(len(result) <= max_length)
+        # + 3 because it adds three elypses once the text has been truncated
+        self.assertTrue(len(result) <= (max_length + 3))
 
     def test_strips_to_defined_length_when_no_spaces(self):
         string = 'Thisisateststringwhichislong'

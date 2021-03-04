@@ -1,4 +1,5 @@
 {% load wagtailcore_tags core_tags gem_tags %}
+{% wagtail_site as current_site %}
 {% if form %}
   <form class="{{formtypeClass}}__form" action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" novalidate>
   {% csrf_token %}
@@ -86,7 +87,7 @@
 {% else %}
   <p class="error error--{{formtypeClass}}">{% trans 'You have already completed this' %} {{formtype}}.</p>
   <div class="call-to-action call-to-action--{{formtypeClass}}">
-    <a href="{{request.site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
+    <a href="{{current_site.root_page.specific.url}}" class="button call-to-action__nav-item call-to-action__nav-item--back-home">
     {% trans "Back to Home page" %}</a>
   </div>
 {% endif %}

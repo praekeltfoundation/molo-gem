@@ -1,4 +1,5 @@
 {% load wagtailcore_tags gem_tags %}
+{% wagtail_site as current_site %}
 {% if form %}
   <form action="{% if form_page.display_form_directly %}{% pageurl form_page %}{% else %}{% pageurl self.specific %}{% endif %}{% if self.multi_step or self.has_page_breaks %}?p={{ self.number|add:'1' }}{% endif %}" method="post" class="{% if form_page.your_words_competition %}yourwords__form yourwords__form--{{form_page.get_effective_extra_style_hints}} {% elif form_page.display_form_directly %}polls__form polls__form--{{form_page.get_effective_extra_style_hints}}{% else %}surveys__form surveys__form--{{form_page.get_effective_extra_style_hints}}{% endif %}" novalidate>
     {% csrf_token %}
@@ -145,7 +146,7 @@
         {% trans "Show Results" %}
       </a>
     {% else %}
-      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
+      <a href="{{current_site.root_page.specific.url}}" class="call-to-action__button call-to-action__button--previous">
         {% trans "Back home" %}
       </a>
     {% endif %}

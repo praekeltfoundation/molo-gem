@@ -5,8 +5,7 @@ from django.test.client import Client
 from django.test import RequestFactory, TestCase
 from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import (
-    get_language_from_request, LANGUAGE_SESSION_KEY)
+from django.utils.translation import get_language_from_request
 
 from molo.core.models import SiteSettings
 from molo.core.models import (
@@ -14,13 +13,11 @@ from molo.core.models import (
     SectionIndexPage, TagIndexPage, FooterIndexPage,
     FooterPage, SiteLanguageRelation, Site, Languages)
 
-from gem.models import GemSettings
 from gem.tests.base import GemTestCaseMixin
 from gem.middleware import GemMoloGoogleAnalyticsMiddleware
 
 
 class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
-
     submit_tracking_method = (
         "gem.middleware.GemMoloGoogleAnalyticsMiddleware.submit_tracking"
     )
@@ -29,18 +26,18 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
         self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-
+        self.response = self.client.get('/')
         self.site_settings = SiteSettings.for_site(self.main.get_site())
         self.site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
         self.site_settings.save()
+        site = Site.objects.first()
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(site),
+            locale='en',
+            is_active=True)
 
-        GemSettings.objects.create(
-            site_id=self.main.get_site().id,
-            bbm_ga_account_subdomain='bbm',
-            bbm_ga_tracking_code='bbm_tracking_code',
-        )
         self.yourmind = self.mk_section(
-            SectionIndexPage.objects.child_of(self.main).first(),
+            SectionIndexPage.objects.get(slug='sections'),
             title='Your mind')
 
         self.article = self.mk_article(
@@ -54,7 +51,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             slug='article2')
         self.article2.save_revision().publish()
 
-        self.tag_index = TagIndexPage.objects.child_of(self.main).first()
+        self.tag_index = TagIndexPage.objects.get(slug='tags')
         self.tag = Tag(title='Tag1')
         self.tag2 = Tag(title='Tag2')
         self.tag_index.add_child(instance=self.tag)
@@ -67,75 +64,18 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         self.article.nav_tags.create(tag=self.tag2)
         self.article.save_revision().publish()
         # get footerpage
-        self.footer_index = FooterIndexPage.objects.child_of(self.main).first()
+        self.footer_index = FooterIndexPage.objects.get(slug='footer-pages')
         self.footer = FooterPage(title='Test Footer Page')
         self.footer_index.add_child(instance=self.footer)
         self.footer.save_revision().publish()
-        self.response = self.client.get('/')
-
-    @patch(submit_tracking_method)
-    def test_submit_to_additional_ga_account(self, mock_submit_tracking):
-        '''
-        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
-        are set in Gem Settings, and the URL contains the
-        bbm_ga_account_subdomain, info should be sent to
-        the additional GA account.
-        '''
-
-        request = RequestFactory().get(
-            '/',
-            HTTP_HOST='bbm.localhost',
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-        request.site = self.main.get_site()
-
-        middleware = GemMoloGoogleAnalyticsMiddleware()
-        middleware.submit_to_local_account(
-            request, self.response, self.site_settings)
-
-        mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code',
-            request, self.response, {"cd3": 'Visitor', 'cd1': "0000-000-01"})
-
-    @patch(submit_tracking_method)
-    def test_submit_to_bbm_analytics_if_cookie_set(self, mock_submit_tracking):
-        '''
-        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
-        are set in Gem Settings, and the BBM cookie is set, info
-        should be sent to the additional GA account.
-        '''
-
-        request = RequestFactory().get(
-            '/',
-            HTTP_HOST='localhost',
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-        request.COOKIES['bbm'] = 'true'
-        request.site = self.main.get_site()
-
-        middleware = GemMoloGoogleAnalyticsMiddleware()
-        middleware.submit_to_local_account(
-            request, self.response, self.site_settings)
-
-        mock_submit_tracking.assert_called_once_with(
-            'bbm_tracking_code',
-            request, self.response, {"cd3": 'Visitor', 'cd1': "0000-000-01"})
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account(self, mock_submit_tracking):
-        '''
-        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
-        are set in Gem Settings, and the URL does not contain the
-        bbm_ga_account_subdomain, info should be sent to
-        the local GA account, not the additional GA account.
-        '''
-
         request = RequestFactory().get(
             '/',
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01",)
-        request.site = self.main.get_site()
-
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
             request, self.response, self.site_settings)
@@ -150,12 +90,6 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_account__custom_params(self,
                                                        mock_submit_tracking):
-        '''
-        Given that bbm_ga_account_subdomain and bbm_ga_tracking_code
-        are set in Gem Settings, and the URL does not contain the
-        bbm_ga_account_subdomain, info should be sent to
-        the local GA account, not the additional GA account.
-        '''
         # create a user with a profile
         self.user = User.objects.create_user(
             username='tester',
@@ -171,8 +105,8 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01",
         )
-        request.site = self.main.get_site()
         request.user = self.user
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.submit_to_local_account(
             request, self.response, self.site_settings)
@@ -194,7 +128,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/password-reset/',
             HTTP_HOST='localhost',
         )
-        request.site = self.main.get_site()
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -205,6 +139,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/reset-success/',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware.process_response(
             request, self.response)
         mock_submit_tracking.assert_not_called()
@@ -213,6 +148,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/profiles/reset-password/',
             HTTP_HOST='localhost',
         )
+        request._wagtail_site = self.main.get_site()
         middleware.process_response(
             request, self.response)
         mock_submit_tracking.assert_not_called()
@@ -228,7 +164,7 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
             '/search/?q=user%40user.com',
             HTTP_HOST='localhost',
         )
-        request.site = self.main.get_site()
+        request._wagtail_site = self.main.get_site()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -236,13 +172,15 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
     @patch(submit_tracking_method)
     def test_submit_to_local_ga_valid_info(self, mock_submit_tracking):
-
         request = RequestFactory().get(
             '/search/?q=whatislife',
             HTTP_HOST='localhost',
-            HTTP_X_DCMGUID="0000-000-01"
-        )
-        request.site = self.main.get_site()
+            HTTP_X_DCMGUID="0000-000-01")
+        request._wagtail_site = self.main.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
@@ -261,14 +199,17 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         custom params containing all the article tags"""
 
         request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
+            '/sections/{}/{}/'.format(
                 self.yourmind.slug,
                 self.article2.slug),
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request.site = self.main.get_site()
-
+        request._wagtail_site = self.article2.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -296,14 +237,18 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         french_article.title = "french translation of article"
         french_article.save_revision().publish()
         request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
+            '/sections/{}/{}/'.format(
                 self.yourmind.slug,
                 french_article.slug),
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
+        request._wagtail_site = self.article2.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
         request.COOKIES[settings.LANGUAGE_COOKIE_NAME] = french.locale
-        request.site = self.main.get_site()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
@@ -325,14 +270,17 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         custom params containing all the article tags"""
 
         request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
+            '/sections/{}/{}/'.format(
                 self.yourmind.slug,
                 self.article.slug),
             HTTP_HOST='localhost',
             HTTP_X_DCMGUID="0000-000-01"
         )
-        request.site = self.main.get_site()
-
+        request._wagtail_site = self.article.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -355,13 +303,16 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         the custom params'''
 
         request = RequestFactory().get(
-            '/sections-main1-1/{}/{}/'.format(
+            '/sections/{}/{}/'.format(
                 self.yourmind.slug,
                 self.article2.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-
-        request.site = self.main.get_site()
+        request._wagtail_site = self.article2.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
 
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
@@ -380,15 +331,16 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
         '''request for articles with not tags
         should not have a cd6 value in
         the custom params'''
-
         request = RequestFactory().get(
-            '/footers-main1-1/{}/'.format(
+            '/footer-pages/{}/'.format(
                 self.footer.slug),
             HTTP_X_DCMGUID="0000-000-01"
         )
-
-        request.site = self.main.get_site()
-
+        request._wagtail_site = self.footer.get_site()
+        site = request._wagtail_site
+        site_settings = SiteSettings.for_site(site)
+        site_settings.local_ga_tracking_code = 'local_ga_tracking_code'
+        site_settings.save()
         middleware = GemMoloGoogleAnalyticsMiddleware()
         middleware.process_response(
             request, self.response)
@@ -401,7 +353,6 @@ class TestCustomGemMiddleware(TestCase, GemTestCaseMixin):
 
 
 class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
-
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')
@@ -432,16 +383,19 @@ class TestGemLocaleMiddleware(TestCase, GemTestCaseMixin):
 
     def test_non_default_language_existing_session(self):
         request = RequestFactory().get('/locale/en/')
+        request._wagtail_site = self.main.get_site()
         self.assertEqual(get_language_from_request(request), 'en')
 
         request = RequestFactory()
-        request.session = {LANGUAGE_SESSION_KEY: 'en'}
+        request.session = {'django_langauge': 'en'}
 
         fr_url = self.fr_article.url
-        request.get(fr_url)
+        request = request.get(fr_url)
+        request._wagtail_site = self.main.get_site()
         self.assertEqual(get_language_from_request(request), 'en')
 
     def test_non_default_language_new_session(self):
+        self.client.get("/locale/fr/")
         fr_url = self.fr_article.url
         res = self.client.get(fr_url)
         self.assertTrue('lang="fr"' in str(res.content))

@@ -4,7 +4,6 @@ from gem.tests.base import GemTestCaseMixin
 
 
 class TestLanguageCodeSetting(TestCase, GemTestCaseMixin):
-
     def setUp(self):
         self.main = self.mk_main(
             title='main1', slug='main1', path='00010002', url_path='/main1/')

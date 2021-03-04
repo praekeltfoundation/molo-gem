@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags wagtailimages_tags molo_forms_tags %}
-
+{% wagtail_site as current_site %}
 {% block content %}
   <!-- {# HEADING #} -->
   {% if self.your_words_competition and not self.personalisableform %}
@@ -132,13 +132,13 @@
   <!-- AMMEND: RETURN TO PAGE IF NOT FROM HOMEPAGE --->
   {% if not self.article_form_only %}
     <div class="call-to-action call-to-action--wide-back">
-      <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+      <a href="{{current_site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
         {% trans "Back home" %}
       </a>
     </div>
   {% else %}
   <div class="call-to-action call-to-action--wide-back">
-    <a href="{{request.site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
+    <a href="{{current_site.root_page.specific.url}}" class="call-to-action__nav-item-text call-to-action__nav-item-text--left">
       {% trans "Back to Article" %}
     </a>
   </div>
@@ -148,7 +148,7 @@
   <div class="breadcrumbs">
     <ul class="breadcrumbs-list breadcrumbs-list--pipe">
       <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
-        <a href="{{request.site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
+        <a href="{{current_site.root_page.specific.url}}" class="breadcrumbs-list__anchor ">{% trans "Home" %}</a>
       </li>
       <li class="breadcrumbs-list__item breadcrumbs-list__item--pipe">
         <span class="breadcrumbs-list__anchor breadcrumbs-list__anchor--is-active">{{ self }}</span>

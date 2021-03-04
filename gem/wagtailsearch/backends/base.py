@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
-from django.utils.six import text_type
+from six import text_type
 
 from wagtail.search.index import class_is_indexed
 

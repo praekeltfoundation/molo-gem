@@ -1,4 +1,3 @@
-from mock import patch
 from os.path import join
 from copy import deepcopy
 
@@ -9,7 +8,7 @@ from django.contrib.auth.models import User, Permission, Group
 from django.contrib.sites.models import Site
 from django.test.utils import override_settings
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase, Client, RequestFactory
+from django.test import TestCase, Client
 
 from molo.core.models import (
     Main, SectionIndexPage)
@@ -30,9 +29,8 @@ from molo.forms.models import (
    MoloFormSubmission, MoloFormField)
 
 from gem.forms import GemRegistrationForm, GemEditProfileForm
-from gem.models import GemSettings, GemCommentReport, OIDCSettings
+from gem.models import GemSettings, GemCommentReport
 from gem.tests.base import GemTestCaseMixin
-from gem.views import CustomAuthenticationRequestView
 
 
 @override_settings(
@@ -124,7 +122,7 @@ class GemRegistrationViewTest(TestCase, GemTestCaseMixin):
         })
 
         expected_validation_message = "Sorry, but that is an invalid" \
-                                      " username. Please don&#39;t use your" \
+                                      " username. Please don&#x27;t use your" \
                                       " email address or phone number in" \
                                       " your username."
 
@@ -280,7 +278,7 @@ class GemEditProfileViewTest(TestCase, GemTestCaseMixin):
             'alias': 'tester@test.com'
         })
         expected_validation_message = "Sorry, but that is an invalid display" \
-                                      " name. Please don&#39;t use your" \
+                                      " name. Please don&#x27;t use your" \
                                       " email address or phone number in" \
                                       " your display name."
         self.assertContains(response, expected_validation_message)
@@ -406,11 +404,11 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
     def test_moderator_user_contact_information_comment(self):
         self.client.login(username='admin', password='admin')
 
-        comment = self.create_comment(
+        self.create_comment(
             self.article, 'test comment1 text', self.superuser)
 
         email = 'someone1@test.com'
-        url = '/admin/comment/1/reply/'.format(comment.pk)
+        url = '/admin/comment/1/reply/'
         content_type = '{}.{}'.format(
             *self.article.specific.content_type.natural_key())
         response = self.client.get(url)
@@ -451,11 +449,11 @@ class CommentingTestCase(TestCase, GemTestCaseMixin):
         self.assertTrue(user.has_perm('wagtailadmin.access_admin'))
         self.client.force_login(user)
 
-        comment = self.create_comment(
+        self.create_comment(
             self.article, 'test comment1 text', self.superuser)
 
         email = 'someone1@test.com'
-        url = '/admin/comment/1/reply/'.format(comment.pk)
+        url = '/admin/comment/1/reply/'
         content_type = '{}.{}'.format(
             *self.article.specific.content_type.natural_key())
         response = self.client.get(url)
@@ -632,87 +630,6 @@ class TestServiceRedirectView(TestCase, GemTestCaseMixin):
         res = self.client.get(reverse('services_redirect'))
         self.assertEqual(res.status_code, 302)
         self.assertEqual(res.url, '/sections/service-finder/')
-
-
-class TestBbmRedirectView(TestCase, GemTestCaseMixin):
-    def setUp(self):
-        self.main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
-        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-
-    def test_it_sets_cookie_for_bbm(self):
-        response = self.client.get('/bbm/')
-        self.assertEqual(response.cookies['bbm'].value, 'true')
-
-    def test_it_redirects_to_homepage(self):
-        response = self.client.get('/bbm/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'], 'http://main1-1.localhost/')
-
-    def test_it_redirects_to_specified_location(self):
-        response = self.client.get('/bbm/section/one/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            'http://main1-1.localhost/section/one/',
-        )
-
-    def test_it_returns_bad_request_if_url_unsafe(self):
-        response = self.client.get('/bbm//http://evil.com/')
-        self.assertEqual(response.status_code, 400)
-
-
-class TestCustomAuthenticationRequestView(TestCase, GemTestCaseMixin):
-    def setUp(self):
-        self.main = self.mk_main(
-            title='main1', slug='main1', path='00010002', url_path='/main1/')
-        self.client = Client(HTTP_HOST=self.main.get_site().hostname)
-
-    @patch('mozilla_django_oidc.views.OIDCAuthenticationRequestView.get')
-    def test_settings_added_to_login_request(self, mock_super):
-        """ Test the custom auth view adds the neccessary settings to the
-        request
-        """
-        view = CustomAuthenticationRequestView()
-        request = RequestFactory().get('/')
-        site = self.main.get_site()
-        request.site = site
-
-        # Check an error is raised if settings don't exist
-        self.assertRaises(RuntimeError, view.get, request)
-
-        # Add settings
-        site.oidcsettings = OIDCSettings.objects.create(
-            oidc_rp_client_id='client_id',
-            oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
-            wagtail_redirect_url='http://example.url', site_id=site.id)
-
-        view.get(request)
-        self.assertEqual(view.OIDC_RP_CLIENT_ID, 'client_id')
-        self.assertEqual(view.OIDC_RP_SCOPES, 'scopes')
-        self.assertEqual(view.wagtail_redirect_url, 'http://example.url')
-        mock_super.assert_called_with(request)
-
-    def test_extra_params_set(self):
-        """ Test the custom auth view sets the correct extra_params"""
-        view = CustomAuthenticationRequestView()
-        request = RequestFactory().get('/')
-        site = self.main.get_site()
-        request.site = site
-
-        # Check an error is raised if settings don't exist
-        self.assertRaises(RuntimeError, view.get_extra_params, request)
-
-        # Add settings
-        site.oidcsettings = OIDCSettings.objects.create(
-            oidc_rp_client_id='client_id',
-            oidc_rp_client_secret='client_secret', oidc_rp_scopes='scopes',
-            wagtail_redirect_url='http://example.url', site_id=site.id)
-
-        self.assertEqual(view.get_extra_params(request), {
-            'theme': 'springster', 'language': 'en'
-        })
 
 
 # THE REACTION QUESTIONS ON FORMS IS NOW

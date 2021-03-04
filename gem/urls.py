@@ -1,5 +1,4 @@
 import os
-
 from django.conf.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
@@ -21,17 +20,12 @@ from gem.views import (
     GemRssFeed, GemAtomFeed,
     ReportCommentView, GemEditProfileView,
     AlreadyReportedCommentView, GemRegistrationDoneView,
-    BbmRedirect, MaintenanceView, RedirectWithQueryStringView,
+    MaintenanceView,
     KaiOSManifestView, AdminLogin
 )
 
 urlpatterns = []
-if settings.USE_OIDC_AUTHENTICATION:
-    urlpatterns += [
-        re_path(r'^admin/login/', RedirectWithQueryStringView.as_view(
-            pattern_name="oidc_authentication_init")),
-    ]
-elif settings.ENABLE_SSO:
+if settings.ENABLE_SSO:
     urlpatterns += [
         re_path(
             r'^admin/login/',
@@ -58,7 +52,6 @@ urlpatterns += [
         RedirectView.as_view(url='/sections/service-finder/'),
         name='services_redirect'),
 
-    re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
     re_path(r'^django-admin/', admin.site.urls),
     re_path(r'^admin/api/', include(admin_pages_api_urls)),
     re_path(r'^admin/', include(wagtailadmin_urls)),
@@ -69,11 +62,6 @@ urlpatterns += [
     re_path(
         r'^manifest\.webapp$',
         KaiOSManifestView.as_view(), name='kaios_manifest'),
-
-    re_path(
-        r'^bbm/(?P<redirect_path>.*)$',
-        BbmRedirect.as_view(), name='bbm_redirect'),
-
     re_path('', include('pwa.urls')),
     re_path(
         r'^profiles/register/$',
@@ -159,13 +147,10 @@ urlpatterns += [
     ),
 
     re_path(r'', include(wagtail_urls)),
-    re_path(r'', include('django_prometheus.urls')),
+    re_path(r'', include('django_prometheus.urls'))
 ]
 
 if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-    urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(
         settings.MEDIA_URL + 'images/',
         document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
