@@ -56,11 +56,11 @@ ENV = 'dev'
 
 MAINTENANCE_MODE = environ.get('MAINTENANCE_MODE', '') == 'true'
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '*').split(",")
-INTERNAL_IPS = ("*", "codie")
-RENDER_PANELS = True
-
-def return_true(soemthing):
-    return True
+INTERNAL_IPS = [
+    'localhost',
+    '.localhost',
+    '127.0.0.1'
+]
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don't include '/admin' or

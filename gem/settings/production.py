@@ -3,7 +3,7 @@ from .base import *  # noqa
 
 # Disable debug mode
 
-DEBUG = True
+DEBUG = False
 ENV = 'prd'
 
 # Compress static files offline
