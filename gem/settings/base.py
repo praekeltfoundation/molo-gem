@@ -219,8 +219,8 @@ SESSION_COOKIE_AGE = 60 * 120  # 2Hours
 SESSION_SAVE_EVERY_REQUEST = True
 
 # https://docs.djangoproject.com/en/2.1/topics/security/
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
