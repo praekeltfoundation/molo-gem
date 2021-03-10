@@ -23,7 +23,7 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
       - name: Check Versions
-          run: |
+        run: |
             molo_version="$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)"
             docker pull "$IMAGE_NAME" || true
             docker build --pull --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
