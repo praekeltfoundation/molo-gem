@@ -1,0 +1,39 @@
+name: CI to Docker Hub
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: praekeltorgdeploy
+          password: "Lx0g9Q76VnZNAjhIKSAb5WFuvVEkwkWJZTkdEihglBvei0weHj/VGGLkjAouuxFRok/BTpO9aUSoBXR2keF0K0kcYA96P1ASLriPjMpesrdKJ6tDDO5Ko+6qsZIX8Movu4WmuZKglZ2Znpv1GtHEZZCR3rwKBEuWZFBk+sW56zIcK53FUuziq/yhr85+2UJokZ2/dKlwwmIxXrf+ktr6L0AoF6+A268fntkJUHdU8Xs0K96F+Gg7k04TgJrsKjsddbRsFmz+hDQyDCy/z7uZ8W8KUUyjwDTdsfsggpE3B3am+pAVu74u+6sduCFWJoybXe7V+jeVQ+qsQKtzV0LAUvKNGvnGmLYpwODcoxcJ7/KulZP1yif7Bljb46QrEHRQV8yAvchLTkRu8isxFlIf4vGF1nq9dWGGrFZjjNA46OwiQMZ3cYM7hDqCS6fv+AR6p9JPsuOr6ozPRMwgT+T5/uF7JSHK6T2sTL+/Y7MsbKR8J3jVSnDlqwc5KwRgZxgBt/l+IRZokholCKuIoC4PX81SXhHt4gV7eiajq5FvErSNIzXmLChchd32p9xF9022+hu8tB/2yss0MWb5EHiMJbp5OrEDD7xUlAuO24fAh00vPvuQm1l9zkTLZUIaXmmBT4mWrs144oJbzHjREotbUL/K9ni092XHb2DZT7JN9j0="
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Check Versions
+          run: |
+            molo_version="$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)"
+            docker pull "$IMAGE_NAME" || true
+            docker build --pull --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: true
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
