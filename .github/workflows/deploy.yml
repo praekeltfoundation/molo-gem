@@ -21,11 +21,11 @@ jobs:
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-      - name: Check Versions
+      - name: Get molo version
+        id: get_molo_version
         run: |
             molo_version="$(sed -nE 's/^molo\.core==(.*)$/\1/p' requirements.txt)"
-            docker pull "$IMAGE_NAME" || true
-            docker build --pull --tag "$IMAGE_NAME" --build-arg MOLO_VERSION="$molo_version" .
+            echo "::set-output name=MOLO_VERSION::${molo_version}"
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
