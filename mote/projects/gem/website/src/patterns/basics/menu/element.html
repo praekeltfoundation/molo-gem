@@ -1,6 +1,6 @@
 
 {% load mote_tags i18n %}
-{% mask element.json.data.Menu as "menu" %}
+{% with element.json.data.Menu as "menu" %}
 <ul class="menu-list menu-list--{{menu.modifiers}}">
   {% for item in menu.menu_list %}
     <li id="{{item.id}}" class="menu-list__item menu-list__item--{{menu.modifiers}}">
@@ -15,3 +15,4 @@
     </li>
 {% endfor %}
 </ul>
+{% endwith %}

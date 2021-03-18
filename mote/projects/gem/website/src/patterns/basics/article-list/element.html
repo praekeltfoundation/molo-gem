@@ -1,6 +1,6 @@
 
 {% load mote_tags i18n %}
-{% mask element.json.data.ArticleList as "article" %}
+{% with element.json.data.ArticleList as "article" %}
   <div class="related-articles">
       {% for list in  article.list%}
         <a href="/" class="call-to-action__item--text">
@@ -8,4 +8,4 @@
         </a>
       {% endfor %}
   </div>
-
+{% endwith %}

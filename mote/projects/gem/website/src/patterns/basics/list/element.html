@@ -1,6 +1,6 @@
 
 {% load mote_tags %}
-{% mask element.json.data.ListType as "list" %}
+{% with element.json.data.ListType as "list" %}
   {% for item in list %}
   <h2>{{ item.text }}</h2>
   <ol class="ordered-list">
@@ -9,4 +9,4 @@
     {% endfor %}
   </ol>
   {% endfor %}
-
+{% endwith %}

@@ -1,7 +1,7 @@
 
 {% load mote_tags %}
 
-{% mask element.json.data.FormInputs as "inputs" %}
+{% with element.json.data.FormInputs as "inputs" %}
 
 {% for field in inputs.standard_inputs %}
   <fieldset>
@@ -104,4 +104,4 @@
     </label>
   {% endfor %}
 </fieldset>
-
+{% endwith %}

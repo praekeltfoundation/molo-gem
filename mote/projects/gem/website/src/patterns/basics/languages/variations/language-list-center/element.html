@@ -1,6 +1,6 @@
 
 {% load mote_tags %}
-{% mask element.json.data.Language_list_centered as "language_centered" %}
+{% with element.json.data.Language_list_centered as "language_centered" %}
 <div class="languages">
   <ul class="language-list language-list--pipe-center language-list--standard-center">
     {% for item in language_centered.languages %}
@@ -8,3 +8,4 @@
     {% endfor %}
   </ul>
 </div>
+{% endwith %}
