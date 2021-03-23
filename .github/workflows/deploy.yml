@@ -30,11 +30,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v1
         with:
-          context: .
-          pull: true
           push: true
           repository: praekeltfoundation/molo-gem
-          tag_ref: ${{ github.ref }}
+          tag_with_ref: true
           build-args: |
             ${{ steps.get_molo_version.outputs.MOLO_VERSION }}
       - name: Image digest
