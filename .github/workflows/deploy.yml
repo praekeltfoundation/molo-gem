@@ -33,7 +33,7 @@ jobs:
           push: true
           repository: praekeltfoundation/molo-gem
           tag_with_ref: true
-          build-args: |
+          build_args: |
             ${{ steps.get_molo_version.outputs.MOLO_VERSION }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
