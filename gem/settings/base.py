@@ -80,7 +80,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_prometheus',
     'rest_framework',
-
+    'rangefilter',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
