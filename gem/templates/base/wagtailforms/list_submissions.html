@@ -11,6 +11,8 @@
             {% endfor %}
             <th>{% trans "Actions" %}</th>
             <th>{% trans "Article" %}</th>
+            <th>{% trans "Shortlisted" %}</th>
+            <th>{% trans "Winner" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +36,28 @@
                       {% trans 'Article' %}</a>
                     {% else %}
                       {% trans 'Convert to Article' %}</a>
+                    {% endif %}
+
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:shortlist' form_page.id row.model_id %}">
+                    {% submission_is_shortlisted form_page.id row.model_id as is_shortlisted %}
+                    {% if is_shortlisted %}
+                      {% trans 'Remove From Shortlist' %}</a>
+                    {% else %}
+                      {% trans 'Shortlist' %}</a>
+                    {% endif %}
+
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:winner' form_page.id row.model_id %}">
+                    {% submission_is_winner form_page.id row.model_id as is_winner %}
+                    {% if is_winner %}
+                      {% trans 'Remove as Winner' %}</a>
+                    {% else %}
+                      {% trans 'Make Winner' %}</a>
                     {% endif %}
 
                 </td>

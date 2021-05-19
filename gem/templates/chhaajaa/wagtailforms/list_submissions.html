@@ -1,44 +1,68 @@
 {% load i18n molo_forms_tags %}
 <div class="overflow">
 <table class="listing">
-  <col />
-  <col />
-  <col />
-  <thead>
-    <tr>
-      {% for heading in data_headings %}
-          <th>{{ heading.name }}</th>
-      {% endfor %}
-      <th>{% trans "Actions" %}</th>
-      <th>{% trans "Article" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for row in data_rows %}
-    <tr>
-      {% for cell in row.fields %}
-        <td>
-            {{ cell }}
-        </td>
-      {% endfor %}
-      <td>
-        <a class="button button-small button-secondary" href="
-          {% url 'wagtailforms:delete_submissions' form_page.id %}?selected-submissions={{ row.model_id }}">
-          {% trans 'delete' %}
-        </a>
-      </td>
-      <td>
-      <a class="button button-small button-secondary" href="
-        {% url 'molo.forms:article' form_page.id row.model_id %}">
-        {% submission_has_article form_page.id row.model_id as has_article %}
-        {% if has_article %}
-          {% trans 'Article' %}</a>
-        {% else %}
-          {% trans 'Convert to Article' %}</a>
-        {% endif %}
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
+    <col />
+    <col />
+    <col />
+    <thead>
+        <tr>
+            {% for heading in data_headings %}
+                <th>{{ heading.name }}</th>
+            {% endfor %}
+            <th>{% trans "Actions" %}</th>
+            <th>{% trans "Article" %}</th>
+            <th>{% trans "Shortlisted" %}</th>
+            <th>{% trans "Winner" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data_rows %}
+            <tr>
+                {% for cell in row.fields %}
+                    <td>
+                        {{ cell }}
+                    </td>
+                {% endfor %}
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'wagtailforms:delete_submissions' form_page.id %}?selected-submissions={{ row.model_id }}">
+                    {% trans 'delete' %}</a>
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:article' form_page.id row.model_id %}">
+                    {% submission_has_article form_page.id row.model_id as has_article %}
+                    {% if has_article %}
+                      {% trans 'Article' %}</a>
+                    {% else %}
+                      {% trans 'Convert to Article' %}</a>
+                    {% endif %}
+
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:shortlist' form_page.id row.model_id %}">
+                    {% submission_is_shortlisted form_page.id row.model_id as is_shortlisted %}
+                    {% if is_shortlisted %}
+                      {% trans 'Remove From Shortlist' %}</a>
+                    {% else %}
+                      {% trans 'Shortlist' %}</a>
+                    {% endif %}
+
+                </td>
+                <td>
+                <a class="button button-small button-secondary" href="
+                    {% url 'molo.forms:winner' form_page.id row.model_id %}">
+                    {% submission_is_winner form_page.id row.model_id as is_winner %}
+                    {% if is_winner %}
+                      {% trans 'Remove as Winner' %}</a>
+                    {% else %}
+                      {% trans 'Make Winner' %}</a>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 </div>
