@@ -8,8 +8,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         data = {}
-        articles = ArticlePage.objects.all()
-
+        articles = ArticlePage.objects.all().order_by('-last_published_at')
+        self.stdout.write(self.style.WARNING(
+            "Articles Found: " + str(articles.count())))
         for article in articles:
             article_data = {}
             article_data["title"] = article.title
@@ -21,6 +22,7 @@ class Command(BaseCommand):
             article_data["subtitle"] = article.subtitle
             if article.image:
                 article_data["image_name"] = article.image.title
+                article_data["image_url"] = article.image.url
             body_string = ''
             for block in article.body:
                 rendered = block.render_as_block()
@@ -38,3 +40,5 @@ class Command(BaseCommand):
 
         with open('articles.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
+
+        self.stdout.write(self.style.SUCCESS("Download Completed"))
