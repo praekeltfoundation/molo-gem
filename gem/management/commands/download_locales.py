@@ -8,7 +8,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = {}
         langs = SiteLanguage.objects.all()
-        print(langs)
 
         for lang in langs:
             lang_data = {}
