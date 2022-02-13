@@ -62,7 +62,6 @@ urlpatterns += [
     re_path(
         r'^manifest\.webapp$',
         KaiOSManifestView.as_view(), name='kaios_manifest'),
-    re_path('', include('pwa.urls')),
     re_path(
         r'^profiles/register/$',
         GemRegistrationView.as_view(), name='user_register'),
