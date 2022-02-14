@@ -22,7 +22,7 @@ class Command(BaseCommand):
             article_data["subtitle"] = article.subtitle
             if article.image:
                 article_data["image_name"] = article.image.title
-                article_data["image_url"] = article.image.url
+                article_data["image_url"] = article.image.usage_url
             body_string = ''
             for block in article.body:
                 rendered = block.render_as_block()
