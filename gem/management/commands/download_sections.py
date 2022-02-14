@@ -20,6 +20,7 @@ class Command(BaseCommand):
             section_data["description"] = section.description
             if section.image:
                 section_data["image_name"] = section.image.title
+                section_data["image_url"] = section.image.usage_url
             if section.get_parent_section():
                 section_data["section_parent_slug"] = section.get_parent_section().slug
             data[section.pk] = section_data
