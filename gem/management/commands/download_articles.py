@@ -18,6 +18,7 @@ class Command(BaseCommand):
             article_data["locale"] = article.language.locale
             article_data["live"] = article.live
             article_data["uuid"] = article.uuid
+            article_data["main_title"] = article.get_site().root_page.title
             article_data["translation_pks"] = [page.pk for page in article.translated_pages.all()]
             article_data["subtitle"] = article.subtitle
             if article.image:

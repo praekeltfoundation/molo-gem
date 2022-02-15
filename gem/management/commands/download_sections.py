@@ -16,6 +16,7 @@ class Command(BaseCommand):
             section_data["locale"] = section.language.locale
             section_data["live"] = section.live
             section_data["uuid"] = section.uuid
+            section_data["main_title"] = section.get_site().root_page.title
             section_data["translation_pks"] = [page.pk for page in section.translated_pages.all()]
             section_data["description"] = section.description
             if section.image:
