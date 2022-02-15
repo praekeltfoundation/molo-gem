@@ -23,6 +23,7 @@ class Command(BaseCommand):
             if article.image:
                 article_data["image_name"] = article.image.title
                 article_data["image_url"] = article.image.usage_url
+                article_data["image_filename"] = article.image.filename
             body_string = ''
             for block in article.body:
                 rendered = block.render_as_block()
