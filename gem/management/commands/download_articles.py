@@ -8,9 +8,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         data = {}
-        articles = ArticlePage.objects.all().order_by('-last_published_at').iterator()
+        articles = ArticlePage.objects.all()
+        count = articles.count()
+        articles = articles.order_by('-last_published_at').iterator()
         self.stdout.write(self.style.WARNING(
-            "Articles Found: " + str(articles.count())))
+            "Articles Found: " + str(count)))
         for article in articles:
             if not article.language:
                 self.stdout.write(self.style.WARNING(
@@ -22,6 +24,7 @@ class Command(BaseCommand):
             article_data["type"] = article.specific.exact_type()
             article_data["locale"] = article.language.locale
             article_data["live"] = article.live
+            article_data["featured_in_homepage"] = article.featured_in_homepage
             article_data["uuid"] = article.uuid
             article_data["main_title"] = article.get_site().root_page.title
             article_data["translation_pks"] = [page.pk for page in article.translated_pages.all()]
