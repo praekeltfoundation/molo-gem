@@ -13,7 +13,9 @@ class Command(BaseCommand):
         articles = articles.order_by('-last_published_at').iterator()
         self.stdout.write(self.style.WARNING(
             "Articles Found: " + str(count)))
-        for article in articles:
+        for val, article in enumerate(articles):
+            self.stdout.write(self.style.WARNING(
+                "Busy With: " + str(val + 1)))
             if not article.language:
                 self.stdout.write(self.style.WARNING(
                     "Articles has no language: " + str(article.pk)))
