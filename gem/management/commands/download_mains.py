@@ -12,7 +12,12 @@ class Command(BaseCommand):
         for main in mains:
             main_data = {}
             main_data["title"] = main.title
-            main_data["locale"] = main.language.locale
+            try:
+                main_data["locales"] = [lang.locale for lang in main.get_site().languages.languages.all()]
+            except:
+                self.stdout.write(self.style.WARNING(
+                    "Main has no languages: " + str(main.pk)))
+                continue
             main_data["hostname"] = main.get_site().hostname
             main_data["port"] = main.get_site().port
             data[main.pk] = main_data
