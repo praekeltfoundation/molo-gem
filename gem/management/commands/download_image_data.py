@@ -15,7 +15,8 @@ class Command(BaseCommand):
             image_data["filename"] = image.filename
             image_data["usage_url"] = image.usage_url
             image_data["url"] = image.file.url
-            image_data["path"] = image.file.path
+            image_data["width"] = image.file.width
+            image_data["height"] = image.file.height
             data[image.pk] = image_data
 
         with open('images.json', 'w', encoding='utf-8') as f:
