@@ -13,8 +13,12 @@ class Command(BaseCommand):
             section_data = {}
             section_data["title"] = section.title
             section_data["slug"] = section.slug
-            section_data["locale"] = section.language.locale
+            if not section.language:
+                self.stdout.write(self.style.WARNING(
+                    "Section has no language: " + str(section.pk)))
+                continue
             section_data["live"] = section.live
+            section_data["locale"] = section.language.locale
             section_data["uuid"] = section.uuid
             section_data["main_title"] = section.get_site().root_page.title
             section_data["translation_pks"] = [page.pk for page in section.translated_pages.all()]
