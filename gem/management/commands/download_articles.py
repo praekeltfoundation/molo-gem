@@ -15,6 +15,7 @@ class Command(BaseCommand):
             article_data = {}
             article_data["title"] = article.title
             article_data["slug"] = article.slug
+            article_data["type"] = article.specific.exact_type()
             article_data["locale"] = article.language.locale
             article_data["live"] = article.live
             article_data["uuid"] = article.uuid
@@ -35,9 +36,12 @@ class Command(BaseCommand):
                 body_string += (rendered + "\n")
             article_data["body"] = body_string
             article_data["featured_in_homepage"] = article.featured_in_homepage
-            if article.get_parent_section():
-                article_data["parent_section_slug"] = article.get_parent_section(locale=article_data["locale"]).specific.slug
-                article_data["parent_section_locale"] = article.get_parent_section(locale=article_data["locale"]).specific.language.locale
+            try:
+                if article.get_parent_section():
+                    article_data["parent_section_slug"] = article.get_parent_section(locale=article_data["locale"]).specific.slug
+                    article_data["parent_section_locale"] = article.get_parent_section(locale=article_data["locale"]).specific.language.locale
+            except:
+                pass
             data[article.pk] = article_data
 
         with open('articles.json', 'w', encoding='utf-8') as f:
