@@ -15,6 +15,7 @@ class Command(BaseCommand):
             if not article.language:
                 self.stdout.write(self.style.WARNING(
                     "Articles has no language: " + str(article.pk)))
+                pass
             article_data = {}
             article_data["title"] = article.title
             article_data["slug"] = article.slug
