@@ -11,12 +11,15 @@ class Command(BaseCommand):
 
         for comment in comments:
             comment_data = {}
-            comment_data["parent"] = comment.parent.pk
-            comment_data["wagtail_site"] = comment.wagtail_site
-            comment_data["flag_count"] = comment.flag_count
+            if comment.parent:
+                comment_data["parent_pk"] = comment.parent.pk
+                comment_data["parent_pk"] = comment.parent.slug
+                comment_data["parent_locale"] = comment.language.locales
+            comment_data["wagtail_site"] = comment.wagtail_site.pk
+            comment_data["flag_count"] = comment.flags.all().count()
             comment_data["is_removed"] = comment.is_removed
             comment_data["comment"] = comment.comment
-            comment_data["submit_date"] = comment.submit_date
+            comment_data["submit_date"] = str(comment.submit_date)
             comment_data["is_public"] = comment.is_public
             data[comment.pk] = comment_data
 
